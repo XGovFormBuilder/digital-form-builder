@@ -1,0 +1,39 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "title": "Intro page",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Test content",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/full-name"
+        }
+      ]
+    },
+    {
+      "path": "/full-name",
+      "components": [
+        {
+          "schema": {
+            "max": 70
+          },
+          "type": "TextField",
+          "name": "fullName",
+          "title": "Full name",
+          "hint": "Some help please...",
+          "options": {}
+        }
+      ],
+      "section": "checkBeforeStart"
+    }
+  ],
+  "sections": [],
+  "lists": []
+}

@@ -1,0 +1,36 @@
+{% from "./components/date-input/macro.njk" import govukDateInput %}
+{% extends 'layout.njk' %}
+
+{% block content %}
+  <div class="govuk-body">
+    <h1>{{title}}</h1>
+    <p>{{message}}</p>
+    
+
+    {{ govukDateInput({
+      id: "dob",
+      name: "dob",
+      fieldset: {
+        legend: {
+          text: "What is your date of birth?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--xl"
+        }
+      },
+      hint: {
+        text: "For example, 31 3 1980"
+      },
+      items: [
+        {
+          name: "day"
+        },
+        {
+          name: "month"
+        },
+        {
+          name: "year"
+        }
+      ]
+    }) }}
+  </div>
+{% endblock %}

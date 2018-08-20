@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "path": "/text-field",
+      "title": "TextField",
+      "components": [
+        {
+          "schema": {
+            "max": 70
+          },
+          "type": "TextField",
+          "name": "fullName",
+          "title": "Full name",
+          "hint": "Some help please...",
+          "options": {}
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "lists": []
+}

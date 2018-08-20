@@ -1,0 +1,190 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "title": "MMO Exemption checker",
+      "components": [
+        {
+          "type": "Para",
+          "content": "On this page describe the service, why they would need to use the service and the questions/tasks they'll be asked.<br/>Also include any documentation or information they could need to hand.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-proposal-in-sea"
+        }
+      ]
+    },
+    {
+      "path": "/is-proposal-in-english-or-ni-offshore-areas",
+      "components": [
+        {
+          "options": {
+            "list": "yesNoUnsure"
+          },
+          "type": "RadiosField",
+          "name": "isProposalInEngOrNIOffshore",
+          "title": "Will the proposed activity be carried out within the English inshore, offshore areas, or Northern Ireland offshore areas?",
+          "schema": {}
+        }
+      ],
+      "section": "checkBeforeStart",
+      "next": [
+        {
+          "path": "/service-not-suitable"
+        },
+        {
+          "path": "/is-proposal-in-ni-welsh-scot",
+          "if": "isProposalInEngOrNIOffshore == 'no'"
+        }
+      ]
+    },
+    {
+      "path": "/is-proposal-in-sea",
+      "components": [
+        {
+          "options": {
+            "list": "yesNoUnsure"
+          },
+          "type": "RadiosField",
+          "name": "proposalIsInSea",
+          "title": "Will the proposed activity be carried either in or over the sea or on or under the sea bed?",
+          "hint": "'Sea' includes any area submerged at mean.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-proposal-in-english-or-ni-offshore-areas",
+          "if": "proposalIsInSea == 'yes'"
+        },
+        {
+          "path": "/service-not-suitable"
+        }
+      ],
+      "section": "checkBeforeStart"
+    },
+    {
+      "path": "/service-not-suitable",
+      "title": "You're not eligible for a licence",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Redirect to GOV.UK / Open an ENQ/ open map",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/is-proposal-in-ni-welsh-scot",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "isProposalInNIWelshScot",
+          "title": "Will the activity take place in either Northern Irish inshore area, Scottish inshore or offshore area or Welsh inshore or offshore area?",
+          "options": {
+            "list": "__yesNo",
+            "classes": "govuk-radios--inline"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/proposal-is-in-ni-welsh-scot",
+          "if": "isProposalInNIWelshScot == true"
+        },
+        {
+          "path": "/choose-activity-type-1",
+          "if": "isProposalInNIWelshScot == false"
+        }
+      ]
+    },
+    {
+      "path": "/proposal-is-in-ni-welsh-scot",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Based on the information provided the activity does not require a marine licence from the MMO. If your activity is proposed to be undertaken within the Northern Irish inshore area or the Scottish or Welsh inshore or offshore area you may require a marine licence from the relevant devolved administration.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "title": "The activity will take place in either Northern Irish inshore area, Scottish inshore or offshore area or Welsh inshore or offshore area"
+    },
+    {
+      "path": "/choose-activity-type-1",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "options": {
+            "list": "activityType"
+          },
+          "type": "RadiosField",
+          "name": "activityType1",
+          "title": "Please select your activity",
+          "schema": {}
+        }
+      ],
+      "next": []
+    }
+  ],
+  "sections": [
+    {
+      "name": "checkBeforeStart",
+      "title": "Check before you start"
+    }
+  ],
+  "lists": [
+    {
+      "name": "yesNoUnsure",
+      "title": "Yes/No/Not sure",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes"
+        },
+        {
+          "text": "No",
+          "value": "no"
+        },
+        {
+          "text": "Not sure",
+          "value": "unsure"
+        }
+      ]
+    },
+    {
+      "name": "activityType",
+      "title": "Activity type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Deposit of a substance or object",
+          "value": "deposit"
+        },
+        {
+          "text": "Scuttling of a vessel or floating container",
+          "value": "scuttling"
+        },
+        {
+          "text": "Incineration of a substance or object",
+          "value": "incineration"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    }
+  ]
+}

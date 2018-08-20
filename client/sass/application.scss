@@ -1,0 +1,35 @@
+@import "node_modules/govuk-frontend/all";
+@import "../govuk-site-designer/client/index";
+
+.nojs-hidden {
+  display: none;
+}
+
+.js-enabled .nojs-hidden {
+  display: block;
+}
+
+// .uk-address-lookup {
+//   .postcode-query-display {
+//     font-weight: normal;
+//   }
+
+//   .uk-address-selector {
+//     display: none;
+//   }
+// }
+
+.check-your-answers {
+  td {
+    vertical-align: top;
+
+    &.required {
+      color: $govuk-error-colour;
+    }
+  }
+
+  .change-answer {
+    text-align: right;
+    padding-right: 0;
+  }
+}
