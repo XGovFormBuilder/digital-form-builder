@@ -27,7 +27,7 @@ module.exports = [{
   path: '/assets/ukaddressfield.js',
   options: {
     handler: {
-      file: 'node_modules/govuk-site-engine/client/ukaddressfield.js'
+      file: 'node_modules/digital-form-builder-engine/client/ukaddressfield.js'
     }
   }
 }, {
