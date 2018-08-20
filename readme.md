@@ -1,6 +1,6 @@
 # digital-form-builder
 
-DEFRA's digital form builder is a metadata-driven framework that builds on our robust, enterprise backend technical stack and the new gov.uk frontend Design System and allows form based gov.uk sites to be easily built with a graphical design tool.
+DEFRA's digital form builder is a metadata-driven framework that builds on our robust, enterprise backend tech stack and the new gov.uk frontend Design System and allows form based gov.uk sites to be easily built using a graphical design tool.
 
 The framework is flexible. It is capable of handling a number of different scenarios where form based page are required. E.g. Collecting data in a transactional service or checking if a service is suitable for an end user.
 
@@ -20,6 +20,7 @@ Additionally it reloads the browser page is useful during development.
 Clone this repo
 
 `$ git clone https://github.com/DEFRA/digital-form-builder`
+
 `$ cd digital-form-builder/`
 
 
