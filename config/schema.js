@@ -11,5 +11,5 @@ module.exports = {
   views: Joi.object({
     cache: Joi.boolean().required()
   }).required(),
-  osKey: Joi.string().required()
+  ordnanceSurveyKey: Joi.string().required()
 }

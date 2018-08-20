@@ -31,5 +31,5 @@
   "views": {
     "cache": false
   },
-  "osKey": "enter-ordnance-survey-postcode-key-here"
+  "ordnanceSurveyKey": "enter-ordnance-survey-postcode-key-here"
 }

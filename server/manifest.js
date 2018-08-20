@@ -83,7 +83,7 @@ const manifest = {
       },
       {
         plugin: 'digital-form-builder-engine',
-        options: { data: data, getState, mergeState, ordnanceSurveyKey: config }
+        options: { data: data, getState, mergeState, ordnanceSurveyKey: config.ordnanceSurveyKey }
       },
       {
         plugin: 'digital-form-builder-designer',
