@@ -2,534 +2,269 @@
   "pages": [
     {
       "path": "/",
-      "title": "MMO Exemptions Check Service",
+      "title": "digital-form-builder",
       "components": [
         {
           "type": "Para",
-          "content": "On this page describe the service, why they would need to use the service and the questions/tasks they'll be asked.<br/>Also include any documentation or information they could need to hand.",
+          "content": "`digital-form-builder` is a metadata-driven framework that builds top of a\r\nrobust, enterprise technical stack and the new gov.uk frontend Design System.",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
+        },
         {
-          "path": "/activity-location"
-        }
-      ]
-    },
-    {
-      "path": "/activity-location",
-      "components": [
+          "type": "Para",
+          "content": "It allows form based gov.uk sites to be easily built with a graphical design tool.",
+          "options": {},
+          "schema": {}
+        },
         {
-          "options": {
-            "list": "inOverOnUnderSea"
-          },
-          "type": "RadiosField",
-          "name": "activityLocation",
-          "title": "Where will your activity take place?",
+          "type": "Para",
+          "content": "A designer and developer from DDTS can use the tool alongside subject matter experts and service owners to quickly map efficient user journeys, ready to be tested in production ready code.",
+          "options": {},
           "schema": {}
         },
         {
           "type": "InsetText",
-          "content": "‘Sea’ includes:<br>\r\n<ul>\r\n<li>any area submerged at mean high water spring tide</li>\r\n<li>the tidal range of any estuary, river or channel</li>\r\n<li>any areas which are closed permanently or intermittently by a lock or other artificial means against the regular action of the tide, where seawater flows into or out from the area, either continuously or from time to time.</li>\r\n</ul>",
+          "content": "Using the graphical design tool, users can build sites from a toolkit of common GDS patterns that includes Pages, Sections and Navigation elements along with Components like Text Fields, Radios Buttons, Checkboxes and Date Fields.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "The framework is <a href=\"/split\">flexible<a/>. It is capable of handling a number of different scenarios where form based page are required. E.g. collecting data in a transactional service or checking if a service is suitable for an end user.",
           "options": {},
           "schema": {}
         }
       ],
-      "section": "checkBeforeStart",
       "next": [
         {
-          "path": "/licence-not-required",
-          "if": "activityLocation == 'other'"
-        },
-        {
-          "path": "/jurisdiction"
+          "path": "/benefits"
         }
-      ]
+      ],
+      "section": "demo"
     },
     {
-      "path": "/licence-not-required",
-      "title": "Licence is not required",
-      "section": "checkBeforeStart",
+      "path": "/benefits",
       "components": [
         {
           "type": "Para",
-          "content": "Based on the information provided a licence is not required for the activity.",
+          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Data quality is assured though data processing and validation rules.</li>\r\n  <li>Designers and subject matter experts can <b>collaborate</b> during the design process, creating\r\noptimised user journeys and intuitive content with clear visuals that are easy to work with\r\nand understand.</li>\r\n  <li>Reduces the amount of bespoke development required in both low volume and short\r\nprocess services.</li>\r\n<li>The framework works as a plugin to an established and proven tech stack. This not only gives\r\na robustness but also means that bespoke code can be run, <b>side by side</b> within the same site.</li>\r\n<li>The code produced is GDS compliant and production ready, eliminating the duplication of\r\neffort from prototypes to build.</li>\r\n</ul>",
           "options": {},
           "schema": {}
         }
       ],
-      "next": []
+      "section": "demo",
+      "title": "Benefits",
+      "next": [
+        {
+          "path": "/data-centric"
+        }
+      ]
     },
     {
-      "path": "/licence-not-required-devolved",
-      "title": "Licence not required",
-      "section": "checkBeforeStart",
+      "path": "/data-centric",
+      "title": "Data centric",
+      "section": "demo",
+      "components": [],
+      "next": [
+        {
+          "path": "/toolkit"
+        }
+      ]
+    },
+    {
+      "path": "/toolkit",
+      "title": "Toolkit",
+      "section": "demo",
+      "components": [],
+      "next": [
+        {
+          "path": "/background"
+        }
+      ]
+    },
+    {
+      "path": "/resources",
+      "title": "Resources",
+      "section": "demo",
       "components": [
         {
           "type": "Para",
-          "content": "Based on the information provided the activity does not require a marine licence from the MMO but you may require a marine licence from the relevant devolved administration.",
+          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"https://github.com/DEFRA/digital-form-builder\">https://github.com/DEFRA/digital-form-builder</a></li>\r\n  <li><a href=\"https://defra-mmo.herokuapp.com\">https://defra-mmo.herokuapp.com</a></li>\r\n  <li><a href=\"https://github.com/davidjamesstone/glupe\">https://github.com/davidjamesstone/glupe</a></li>\r\n  <li></li>\r\n<li></li>\r\n</ul>",
           "options": {},
           "schema": {}
         }
       ],
-      "next": []
-    },
-    {
-      "path": "/jurisdiction",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "options": {
-            "list": "jurisdiction"
-          },
-          "type": "RadiosField",
-          "name": "jurisdiction",
-          "title": "Will your activity take place?",
-          "hint": "Not sure? Use the MMO’s <a href=\"http://defra.maps.arcgis.com/apps/webappviewer/ index.html?id=6d5a7b3a1f07440f947d1e31bfaa7d38\">interactive map</a> to find out",
-          "schema": {}
-        }
-      ],
       "next": [
         {
-          "path": "/activity-type-mmo-jurisdiction",
-          "if": "jurisdiction == 'englishWaters' || jurisdiction == 'northernIrishOffshoreWaters'"
-        },
-        {
-          "path": "/activity-type-elsewhere-in-world",
-          "if": "jurisdiction == 'elsewhereInWorld'"
-        },
-        {
-          "path": "/licence-not-required-devolved"
+          "path": "/end"
         }
       ]
     },
     {
-      "path": "/activity-type-mmo-jurisdiction",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "options": {
-            "list": "activityTypeMMOJurisdiction"
-          },
-          "type": "RadiosField",
-          "name": "activityTypeMMOJurisdiction",
-          "title": "What type of activity will be undertaken?",
-          "schema": {}
-        }
-      ],
-      "next": []
-    },
-    {
-      "path": "/activity-type-elsewhere-in-world",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "options": {
-            "list": "activityTypeElsewhereInTheWorld"
-          },
-          "type": "RadiosField",
-          "name": "activityTypeElsewhereInTheWorld",
-          "title": "What type of activity will be undertaken?",
-          "schema": {}
-        }
-      ],
+      "path": "/mmo",
+      "title": "Marine Management Organisation",
+      "section": "demo",
+      "components": [],
       "next": [
         {
-          "path": "/deposit-elsewhere-in-world",
-          "if": "activityTypeElsewhereInTheWorld == 'deposit'"
-        },
-        {
-          "path": "/incineration-elsewhere-in-world",
-          "if": "activityTypeElsewhereInTheWorld == 'incineration'"
-        },
-        {
-          "path": "/scuttling-elsewhere-in-world",
-          "if": "activityTypeElsewhereInTheWorld == 'scuttling'"
+          "path": "/resources"
         }
       ]
     },
     {
-      "path": "/deposit-elsewhere-in-world",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "options": {
-            "list": "depositElsewhereInWorld"
-          },
-          "type": "RadiosField",
-          "name": "depositElsewhere",
-          "title": "How will the deposit be made?",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/deposit-elsewhere-in-world-loaded-in-uk",
-          "if": "depositElsewhere == 'other'"
-        },
-        {
-          "path": "/licence-required-no-exemption"
-        }
-      ]
-    },
-    {
-      "path": "/deposit-elsewhere-in-world-loaded-in-uk",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "options": {
-            "list": "depositElsewhereInWorldOtherLoaded"
-          },
-          "type": "RadiosField",
-          "name": "depositElsewhereInWorldOtherLoaded",
-          "title": "Where was the substance or object to be deposited loaded?",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/licence-not-required",
-          "if": "depositElsewhereInWorldOtherLoaded == 'none'"
-        },
-        {
-          "path": "/licence-required-no-exemption",
-          "if": "depositElsewhereInWorldOtherLoaded != 'none'"
-        }
-      ]
-    },
-    {
-      "path": "/licence-required-no-exemption",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Based on the information provided the activity requires a\r\nlicence. No exemption is available and the activity is not suitable for self-service licensing.\r\n<br>\r\n<br>\r\n<a href=\"#\">Apply for a marine licence</a>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [],
-      "title": "Licence is required"
-    },
-    {
-      "path": "/incineration-elsewhere-in-world",
-      "section": "checkBeforeStart",
-      "components": [
-        {
-          "options": {
-            "list": "incinerationElsewhereInWorld"
-          },
-          "type": "RadiosField",
-          "name": "incinerationElsewhere",
-          "title": "Where will the incineration take place?",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/incineration-elsewhere-in-world-loaded-in-uk",
-          "if": "incinerationElsewhere == 'other'"
-        },
-        {
-          "path": "/licence-required-no-exemption"
-        }
-      ]
-    },
-    {
-      "path": "/incineration-elsewhere-in-world-loaded-in-uk",
-      "section": "checkBeforeStart",
+      "path": "/would-you-like-to-see-some-mmo",
+      "section": "demo",
       "components": [
         {
           "type": "YesNoField",
-          "name": "incinerationElsewhereInWorldOtherLoadedInUk",
-          "title": "Will the substance or object for incineration be loaded in any part of the United Kingdom (except Scotland)?",
+          "name": "seeMMO",
+          "title": "We're currently working with the MMO - would you like to see some more?",
+          "hint": "Say yes!",
           "options": {},
           "schema": {}
         }
       ],
       "next": [
         {
-          "path": "/licence-not-required",
-          "if": "incinerationElsewhereInWorldOtherLoadedInUk == false"
+          "path": "/mmo",
+          "if": "seeMMO == true"
         },
         {
-          "path": "/licence-required-no-exemption"
+          "path": "/no-mmo"
         }
       ]
     },
     {
-      "path": "/scuttling-elsewhere-in-world",
-      "section": "checkBeforeStart",
+      "path": "/no-mmo",
+      "title": "Waaaaahhhhh",
+      "section": "demo",
+      "components": [],
+      "next": [
+        {
+          "path": "/resources"
+        }
+      ]
+    },
+    {
+      "path": "/background",
+      "title": "Background",
       "components": [
         {
-          "options": {
-            "list": "scuttlingElsewhereInWorld"
-          },
-          "type": "RadiosField",
-          "name": "scuttlingElsewhere",
-          "title": "How will the sinking be controlled?",
+          "type": "Para",
+          "content": "Based on the challenges overcame with fish/EU Exit\r\n\r\n- Piecemeal Validation\r\n- Summary Pages/Task List/Check your answers\r\n- Session Management\r\n- Question Page / 1 question per page",
+          "options": {},
           "schema": {}
         }
       ],
       "next": [
         {
-          "path": "/licence-required-no-exemption"
-        },
-        {
-          "path": "/scuttling-elsewhere-in-world-towed-propelled-from-uk",
-          "if": "scuttlingElsewhere == 'other'"
+          "path": "/dealing-with-the-hard-parts"
         }
       ]
     },
     {
-      "path": "/scuttling-elsewhere-in-world-towed-propelled-from-uk",
-      "section": "checkBeforeStart",
+      "path": "/dealing-with-the-hard-parts",
+      "section": "demo",
       "components": [
         {
-          "options": {
-            "list": "scuttlingElsewhereInWorldOtherTowedPropelled"
-          },
-          "type": "RadiosField",
-          "name": "scuttlingElsewhereInWorldOtherTowedPropelled",
-          "title": "Where will the vessel or container be towed or propelled from, for the purpose its sinking",
+          "type": "Details",
+          "title": "Dealing with the hard parts of development",
+          "content": "Validation and routing are a chore. Using a meta-data framework helps...",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dob",
+          "title": "Date of birth",
+          "hint": "Date validation is hard!",
+          "options": {},
           "schema": {}
         }
       ],
       "next": [
         {
-          "path": "/licence-not-required",
-          "if": "scuttlingElsewhereInWorldOtherTowedPropelled == 'none'"
+          "path": "/patterns"
+        }
+      ],
+      "title": "Dealing with the hard parts"
+    },
+    {
+      "path": "/patterns",
+      "title": "Patterns",
+      "section": "demo",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "hint": "Enter",
+          "options": {},
+          "schema": {}
         },
         {
-          "path": "/licence-required-no-exemption"
+          "type": "Details",
+          "title": "Design System Patterns",
+          "content": "Patterns are best practice design solutions for specific user-focused tasks and page types.\r\nUse an address lookup when you're asking users for a UK address.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/would-you-like-to-see-some-mmo"
         }
       ]
+    },
+    {
+      "path": "/end",
+      "title": "This is the end of the demo",
+      "section": "demo",
+      "components": [],
+      "next": []
+    },
+    {
+      "path": "/lists",
+      "title": "Lists",
+      "components": [],
+      "next": []
     }
   ],
   "sections": [
     {
-      "name": "checkBeforeStart",
-      "title": "Check before you start"
+      "name": "demo",
+      "title": "X-Gov Forms Workshop"
     }
   ],
   "lists": [
     {
-      "name": "inOverOnUnderSea",
-      "title": "Activity location (In, over, on or under Sea)",
+      "name": "companyType",
+      "title": "Company type",
       "type": "string",
       "items": [
         {
-          "text": "In the sea",
-          "value": "inSea"
+          "text": "Sole trader",
+          "value": "soleTrader"
         },
         {
-          "text": "Over the sea",
-          "value": "overSea"
+          "text": "Private Limited Company",
+          "value": "privateLimitedCompany"
         },
         {
-          "text": "On or under the sea bed",
-          "value": "onOrUnderSea"
+          "text": "Public Limited Company",
+          "value": "publicLimitedCompany"
+        },
+        {
+          "text": "Limited Liability Partnership",
+          "value": "limitedLiabilityPartnership"
+        },
+        {
+          "text": "Charity",
+          "value": "charity"
         },
         {
           "text": "Other",
           "value": "other"
-        }
-      ]
-    },
-    {
-      "name": "jurisdiction",
-      "title": "Jurisdiction",
-      "type": "string",
-      "items": [
-        {
-          "text": "In English waters",
-          "value": "englishWaters"
-        },
-        {
-          "text": "In Northern Irish offshore waters",
-          "value": "northernIrishOffshoreWaters"
-        },
-        {
-          "text": "In Northern Irish inshore waters",
-          "value": "northernIrishInshoreWaters"
-        },
-        {
-          "text": "In Welsh waters",
-          "value": "welshWaters"
-        },
-        {
-          "text": "In Scottish waters",
-          "value": "scottishWaters"
-        },
-        {
-          "text": "Somewhere else in the world",
-          "value": "elsewhereInWorld"
-        }
-      ]
-    },
-    {
-      "name": "activityTypeMMOJurisdiction",
-      "title": "Activity Type (MMO Jurisdiction)",
-      "type": "string",
-      "items": [
-        {
-          "text": "Construction (including alteration and improvement of existing works)",
-          "value": "construction"
-        },
-        {
-          "text": "Deposit of a substance or object",
-          "value": "deposit"
-        },
-        {
-          "text": "Removal of a substance or object",
-          "value": "removal"
-        },
-        {
-          "text": "Dredging",
-          "value": "dredging"
-        },
-        {
-          "text": "Deposit or use of an explosive substance or obje",
-          "value": "depositExplosive"
-        },
-        {
-          "text": "Sinking of a vessel or floating container",
-          "value": "sinkingVesselOrContainer"
-        }
-      ]
-    },
-    {
-      "name": "activityTypeElsewhereInTheWorld",
-      "title": "ActivityType (Elsewhere in the world)",
-      "type": "string",
-      "items": [
-        {
-          "text": "Deposit a substance or object",
-          "value": "deposit"
-        },
-        {
-          "text": "Sinking of a vessel or floating container",
-          "value": "scuttling"
-        },
-        {
-          "text": "Incinerate a substance or object",
-          "value": "incineration"
-        },
-        {
-          "text": "Something else",
-          "value": "other"
-        }
-      ]
-    },
-    {
-      "name": "depositElsewhereInWorld",
-      "title": "Desposit (Elsewhere in the world)",
-      "type": "string",
-      "items": [
-        {
-          "text": "From a British Vessel",
-          "value": "britishVessel"
-        },
-        {
-          "text": "From a British Marine structure",
-          "value": "britishMarineStructure"
-        },
-        {
-          "text": "From a British aircraft",
-          "value": "britishAircraft"
-        },
-        {
-          "text": "From a Floating container",
-          "value": "floatingContainer"
-        },
-        {
-          "text": "Other",
-          "value": "other"
-        }
-      ]
-    },
-    {
-      "name": "depositElsewhereInWorldOtherLoaded",
-      "title": "Desposit Loaded (Elsewhere in the world)",
-      "type": "string",
-      "items": [
-        {
-          "text": "United Kingdom (except Scotland)",
-          "value": "inUk"
-        },
-        {
-          "text": "UK marine licensing area",
-          "value": "inUkMLA"
-        },
-        {
-          "text": "None of the above",
-          "value": "none"
-        }
-      ]
-    },
-    {
-      "name": "incinerationElsewhereInWorld",
-      "title": "Incineration (Elsewhere in the world)",
-      "type": "string",
-      "items": [
-        {
-          "text": "On a British Vessel",
-          "value": "britishVessel"
-        },
-        {
-          "text": "On a British Marine Structure",
-          "value": "britishMarineStructure"
-        },
-        {
-          "text": "On a Floating container controlled from a British vessel, British aircraft, or British marine structure.",
-          "value": "controlledFloatingContainer"
-        },
-        {
-          "text": "Other",
-          "value": "other"
-        }
-      ]
-    },
-    {
-      "name": "scuttlingElsewhereInWorld",
-      "title": "Scuttling (Elsewhere in the world)",
-      "type": "string",
-      "items": [
-        {
-          "text": "From a British vessel",
-          "value": "britishVessel"
-        },
-        {
-          "text": "From a British aircraft",
-          "value": "britishAircraft"
-        },
-        {
-          "text": "From a British marine structure",
-          "value": "britishMarineStructure"
-        },
-        {
-          "text": "Other",
-          "value": "other"
-        }
-      ]
-    },
-    {
-      "name": "scuttlingElsewhereInWorldOtherTowedPropelled",
-      "title": "Scuttling Towed/Propelled (Elsewhere in the world)",
-      "type": "string",
-      "items": [
-        {
-          "text": "United Kingdom (except Scotland)",
-          "value": "inUk"
-        },
-        {
-          "text": "UK marine licensing area (unless towing or propelling began outside of that area)",
-          "value": "inUkMLA"
-        },
-        {
-          "text": "None of the above",
-          "value": "none"
         }
       ]
     }
