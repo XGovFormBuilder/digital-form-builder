@@ -19,8 +19,8 @@ const viewsContext = {
 
 const manifest = {
   server: {
-    port: config.server.port,
-    host: config.server.host,
+    port: process.env.PORT || config.server.port,
+    host: process.env.HOST || config.server.host,
     routes: {
       validate: {
         options: {
@@ -35,6 +35,16 @@ const manifest = {
       {
         plugin: 'good',
         options: config.logging
+      },
+      {
+        plugin: 'yar',
+        options: {
+          cookieOptions: {
+            password: Array(32).fill(0).map(x => Math.random().toString(36).charAt(2)).join(''),
+            isSecure: false,
+            isHttpOnly: true
+          }
+        }
       },
       {
         plugin: 'vision',
