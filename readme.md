@@ -29,11 +29,6 @@ Install dependencies
 `$ npm i`
 
 
-Run the build to build govuk-frontend css
-
-`$ npm run build`
-
-
 Finally, config files [don't get stored](https://github.com/davidjamesstone/glupe/blob/master/docs/readme.md#config) in the repo so we need to create one.
 A copy of the example config will do for now.
 
