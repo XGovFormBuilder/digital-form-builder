@@ -5,7 +5,7 @@ const pkg = require('../package.json')
 const { getState, mergeState } = require('./db')
 
 const analyticsAccount = config.analyticsAccount
-const dataFilePath = path.join(__dirname, './govsite.demo.json')
+const dataFilePath = path.join(__dirname, './govsite.json')
 const data = require(dataFilePath)
 
 const viewsContext = {
