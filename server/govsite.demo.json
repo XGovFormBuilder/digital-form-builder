@@ -12,19 +12,19 @@
         },
         {
           "type": "Para",
-          "content": "It allows form based gov.uk sites to be easily built with a graphical design tool.",
+          "content": "It allows form-based gov.uk sites to be easily built with a graphical design tool.",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "A designer and developer from DDTS can use the tool alongside subject matter experts and service owners to quickly map efficient user journeys, ready to be tested in production ready code.",
+          "content": "A <b>designer</b> and <b>developer</b> can use the tool alongside <b>subject matter experts</b> and service owners to quickly map efficient user journeys, ready to be tested in production ready code.",
           "options": {},
           "schema": {}
         },
         {
           "type": "InsetText",
-          "content": "Using the graphical design tool, users can build sites from a toolkit of common GDS patterns that includes Pages, Sections and Navigation elements along with Components like Text Fields, Radios Buttons, Checkboxes and Date Fields.",
+          "content": "Using the graphical design tool, users can build sites from a toolkit of <b>common GDS patterns</b> that includes Pages, Sections and Navigation elements along with Components like Text Fields, Radios Buttons, Checkboxes and Date Fields.",
           "options": {},
           "schema": {}
         },
@@ -56,7 +56,7 @@
       "title": "Benefits",
       "next": [
         {
-          "path": "/data-centric"
+          "path": "/background"
         }
       ]
     },
@@ -64,21 +64,47 @@
       "path": "/data-centric",
       "title": "Data centric",
       "section": "demo",
-      "components": [],
+      "components": [
+        {
+          "type": "Para",
+          "content": "It's as much about the <b>data</b> as it is about the pages.\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Piecemeal schema - component - page - section - site </li>\r\n  <li>Coercion - dates / list values</li>\r\n  <li>Check your answers</li>\r\n  <li>API vs Forms</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
       "next": [
         {
-          "path": "/toolkit"
+          "path": "/lists"
         }
       ]
     },
     {
       "path": "/toolkit",
-      "title": "Toolkit",
+      "title": "Design & Toolkit",
       "section": "demo",
-      "components": [],
+      "components": [
+        {
+          "type": "Para",
+          "content": "Take a look around the available tools:\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Pages</li>\r\n  <li>Links</li>\r\n  <li>Sections</li>\r\n  <li>Components</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "InsetText",
+          "content": "Let's go ahead and add a Number Field to this page....",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "There are two piece of software that are available.\r\n\r\n<br>\r\n<br>\r\n<b>Designer</b>\r\nThis is the graphical tool we're using now.\r\n\r\n<br>\r\n<br>\r\n<b>Engine</b>\r\nThis is the runtime component that runs as a plugin to the hapi.js stack. It is responsible for interpreting the JSON file, registering the routes (pages), rendering the pages/preparing the Nunjucks config for each component on the page. It is also responsible for handling the POSTed data and validation.",
+          "options": {},
+          "schema": {}
+        }
+      ],
       "next": [
         {
-          "path": "/background"
+          "path": "/data-centric"
         }
       ]
     },
@@ -89,7 +115,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"https://github.com/DEFRA/digital-form-builder\">https://github.com/DEFRA/digital-form-builder</a></li>\r\n  <li><a href=\"https://defra-mmo.herokuapp.com\">https://defra-mmo.herokuapp.com</a></li>\r\n  <li><a href=\"https://github.com/davidjamesstone/glupe\">https://github.com/davidjamesstone/glupe</a></li>\r\n  <li></li>\r\n<li></li>\r\n</ul>",
+          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"https://github.com/DEFRA/digital-form-builder\">https://github.com/DEFRA/digital-form-builder</a></li>\r\n  <li><a href=\"https://defra-mmo.herokuapp.com\">https://defra-mmo.herokuapp.com</a></li>\r\n  <li><a href=\"https://github.com/davidjamesstone/glupe\">https://github.com/davidjamesstone/glupe</a></li>\r\n</ul>",
           "options": {},
           "schema": {}
         }
@@ -104,7 +130,14 @@
       "path": "/mmo",
       "title": "Marine Management Organisation",
       "section": "demo",
-      "components": [],
+      "components": [
+        {
+          "type": "Para",
+          "content": "<a href=\"https://defra-mmo.herokuapp.com/designer\">https://defra-mmo.herokuapp.com/designer</a>\r\n\r\n<br>\r\n\r\n<a href=\"https://defra-mmo.herokuapp.com\">https://defra-mmo.herokuapp.com</a>",
+          "options": {},
+          "schema": {}
+        }
+      ],
       "next": [
         {
           "path": "/resources"
@@ -158,7 +191,7 @@
       ],
       "next": [
         {
-          "path": "/dealing-with-the-hard-parts"
+          "path": "/toolkit"
         }
       ]
     },
@@ -212,7 +245,7 @@
       ],
       "next": [
         {
-          "path": "/would-you-like-to-see-some-mmo"
+          "path": "/check-service-is-suitable"
         }
       ]
     },
@@ -220,14 +253,49 @@
       "path": "/end",
       "title": "This is the end of the demo",
       "section": "demo",
-      "components": [],
+      "components": [
+        {
+          "type": "InsetText",
+          "content": "Thanks for listening!",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<span class=\"govuk-heading-m\">Future?</span>\r\nBuild a common core infrastructure of shared digital systems, technology and processes on which it’s easy to build brilliant, user-centric government services.",
+          "options": {},
+          "schema": {}
+        }
+      ],
       "next": []
     },
     {
       "path": "/lists",
       "title": "Lists",
       "components": [],
-      "next": []
+      "next": [
+        {
+          "path": "/dealing-with-the-hard-parts"
+        }
+      ]
+    },
+    {
+      "path": "/check-service-is-suitable",
+      "title": "Check service is suitable",
+      "section": "demo",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<a href=\"https://design-system.service.gov.uk/patterns/check-a-service-is-suitable/\" target=_blank\">https://design-system.service.gov.uk/patterns/check-a-service-is-suitable/</a>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/would-you-like-to-see-some-mmo"
+        }
+      ]
     }
   ],
   "sections": [
