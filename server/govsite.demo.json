@@ -100,6 +100,18 @@
           "content": "There are two piece of software that are available.\r\n\r\n<br>\r\n<br>\r\n<b>Designer</b>\r\nThis is the graphical tool we're using now.\r\n\r\n<br>\r\n<br>\r\n<b>Engine</b>\r\nThis is the runtime component that runs as a plugin to the hapi.js stack. It is responsible for interpreting the JSON file, registering the routes (pages), rendering the pages/preparing the Nunjucks config for each component on the page. It is also responsible for handling the POSTed data and validation.",
           "options": {},
           "schema": {}
+        },
+        {
+          "schema": {
+            "min": 0,
+            "max": 150,
+            "integer": true
+          },
+          "type": "NumberField",
+          "name": "age",
+          "title": "Age",
+          "hint": "Tell us your age",
+          "options": {}
         }
       ],
       "next": [
@@ -184,7 +196,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Based on the challenges overcame with fish/EU Exit\r\n\r\n- Piecemeal Validation\r\n- Summary Pages/Task List/Check your answers\r\n- Session Management\r\n- Question Page / 1 question per page",
+          "content": "Based on the challenges overcame with fish/EU Exit\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Piecemeal Validation</li>\r\n  <li>Summary Pages/Task List/Check your answers</li>\r\n  <li>Reduces the amount of bespoke development required in both low volume and short\r\nprocess services.</li>\r\n<li>Session Management</li>\r\n<li>Question Page / 1 question per page</li>\r\n</ul>",
           "options": {},
           "schema": {}
         }
@@ -271,13 +283,27 @@
     },
     {
       "path": "/lists",
-      "title": "Lists",
-      "components": [],
+      "title": "Lists & Sections",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Lists are typed key-value pairs that are used for Select (drop down) Lists, Radio Lists and Checkboxes)",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Sections serve two purposes. They help break up a site into smaller areas and organise the submitted data.",
+          "options": {},
+          "schema": {}
+        }
+      ],
       "next": [
         {
           "path": "/dealing-with-the-hard-parts"
         }
-      ]
+      ],
+      "section": "demo"
     },
     {
       "path": "/check-service-is-suitable",
