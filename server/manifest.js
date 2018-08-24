@@ -7,6 +7,7 @@ const { getState, mergeState } = require('./db')
 const analyticsAccount = config.analyticsAccount
 const dataFilePath = path.join(__dirname, './govsite.json')
 const data = require(dataFilePath)
+const playgroundModel = require('./govsite.playground.json')
 
 const viewsContext = {
   appVersion: pkg.version,
@@ -93,11 +94,11 @@ const manifest = {
       },
       {
         plugin: 'digital-form-builder-engine',
-        options: { data: data, getState, mergeState, ordnanceSurveyKey: config.ordnanceSurveyKey }
+        options: { data: data, getState, mergeState, ordnanceSurveyKey: config.ordnanceSurveyKey, playgroundModel }
       },
       {
         plugin: 'digital-form-builder-designer',
-        options: { path: dataFilePath }
+        options: { path: dataFilePath, playgroundModel }
       },
       './plugins/router',
       './plugins/error-pages'
