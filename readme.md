@@ -7,11 +7,11 @@ The framework is flexible. It is capable of handling a number of different scena
 Using the graphical design tool, users can build sites from a toolkit of common GDS patterns that includes Pages, Sections and Navigation elements along with Components like Text Fields, Radios Buttons, Checkboxes and Date Fields.
 
 ## Live Playground
-You can use `digital-form-builder` in your browser without having to install anything with the online playground.
+You can use `digital-form-builder` in your browser without having to install anything by using the online playground.
 
 Click [here](https://digital-form-builder.herokuapp.com/designer) for the designer, [here](https://digital-form-builder.herokuapp.com) for the running application or for a split screen view of both, click [here](https://digital-form-builder.herokuapp.com/split).
 
-The default application is an extended version of the [Check a service is suitable](https://design-system.service.gov.uk/patterns/check-a-service-is-suitable/) example pattern from the [GOV.UK Design System](https://design-system.service.gov.uk/). Feel free to change it and explore the features of the form builder. You can even download and upload your json files so you don't lose your changes.
+The default playground application is an extended version of the [Check a service is suitable](https://design-system.service.gov.uk/patterns/check-a-service-is-suitable/) example pattern from the [GOV.UK Design System](https://design-system.service.gov.uk/). Feel free to change it though and explore the features of the form builder. You can even download and upload your json files so you don't lose your changes.
 
 ## Getting started
 
