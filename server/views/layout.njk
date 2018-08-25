@@ -1,4 +1,5 @@
 {% extends "template.njk" %}
+{% from "phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -24,10 +25,23 @@
     serviceName: serviceName,
     serviceUrl: "#"
   }) }}
-{% endblock %}
 
+{% endblock %}
 {% block pageTitle %}
   {{ pageTitle }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "alpha"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+  {{ govukBackLink({
+    href: "javascript:window.history.go(-1)",
+    text: "Back"
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -44,3 +58,4 @@
     <script src="{{ BROWSER_REFRESH_URL }}"></script>
   {% endif %}
 {% endblock %}
+
