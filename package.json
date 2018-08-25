@@ -21,7 +21,7 @@
   "dependencies": {
     "boom": "7.2.0",
     "digital-form-builder-designer": "0.0.5",
-    "digital-form-builder-engine": "0.0.5",
+    "digital-form-builder-engine": "0.0.6",
     "glupe": "1.0.3",
     "good": "8.1.1",
     "good-console": "7.1.0",
