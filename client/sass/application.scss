@@ -9,16 +9,6 @@
   display: block;
 }
 
-// .uk-address-lookup {
-//   .postcode-query-display {
-//     font-weight: normal;
-//   }
-
-//   .uk-address-selector {
-//     display: none;
-//   }
-// }
-
 .check-your-answers {
   td {
     vertical-align: top;
@@ -31,5 +21,61 @@
   .change-answer {
     text-align: right;
     padding-right: 0;
+  }
+}
+
+.govuk-prose-scope {
+
+  // @extend inheritance
+
+  // Contextual heading and paragraph combinations are inherited
+  // through the use of @extend
+
+  h1 {
+    @extend %govuk-heading-xl;
+  }
+
+  h2 {
+    @extend %govuk-heading-l;
+  }
+
+  h3 {
+    @extend %govuk-heading-m;
+  }
+
+  h4 {
+    @extend %govuk-heading-s;
+  }
+
+  p {
+    @extend %govuk-body-m;
+  }
+
+  strong,
+  b {
+    @include govuk-typography-weight-bold;
+  }
+
+  ul,
+  ol {
+    @extend %govuk-list;
+  }
+
+  ol {
+    @extend %govuk-list--number;
+  }
+
+  ul {
+    @extend %govuk-list--bullet;
+  }
+
+  a {
+    @extend %govuk-link;
+  }
+
+  hr {
+    @extend %govuk-section-break;
+    @extend %govuk-section-break--visible;
+    @extend %govuk-section-break--xl;
   }
 }
