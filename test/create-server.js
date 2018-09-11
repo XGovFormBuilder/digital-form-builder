@@ -48,8 +48,8 @@ module.exports = (data) => {
               'server/views',
               'node_modules/govuk-frontend/',
               'node_modules/govuk-frontend/components/',
-              '../govuk-site-engine/views',
-              '../govuk-site-designer/views'
+              'node_modules/digital-form-builder-engine/views',
+              'node_modules/digital-form-builder-designer/views'
             ],
             context: {
               appVersion: pkg.version,
@@ -60,8 +60,18 @@ module.exports = (data) => {
           }
         },
         {
-          plugin: '../../govuk-site-engine',
-          options: { data, getState, mergeState, ordnanceSurveyKey: 'pCRbAe9e7osiGRzgT6Xf270CIrLNyDvS' }
+          plugin: 'yar',
+          options: {
+            cookieOptions: {
+              password: Array(32).fill(0).map(x => Math.random().toString(36).charAt(2)).join(''),
+              isSecure: false,
+              isHttpOnly: true
+            }
+          }
+        },
+        {
+          plugin: 'digital-form-builder-engine',
+          options: { data, getState, mergeState, ordnanceSurveyKey: '' }
         },
         './plugins/error-pages'
       ]

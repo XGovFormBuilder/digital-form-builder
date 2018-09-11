@@ -62,7 +62,6 @@ const manifest = {
                   return html
                 }
               },
-
               prepare: (options, next) => {
                 const env = nunjucks.configure(options.path, {
                   autoescape: true,
