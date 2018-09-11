@@ -51,7 +51,6 @@
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="{{ assetPath }}/all.js"></script>
   <script src="{{ assetPath }}/ukaddressfield.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
