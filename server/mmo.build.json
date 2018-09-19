@@ -1,0 +1,4507 @@
+{
+  "sections": [
+    {
+      "name": "checkBeforeStart",
+      "title": "Check before you start"
+    },
+    {
+      "name": "elsewhereDeposit",
+      "title": "Deposit elsewhere in the world"
+    },
+    {
+      "name": "elsewhereScuttling",
+      "title": "Scuttling elsewhere in the world"
+    },
+    {
+      "name": "elsewhereIncineration",
+      "title": "Incineration elsewhere in the world"
+    },
+    {
+      "name": "construction",
+      "title": "Construction"
+    },
+    {
+      "name": "deposit",
+      "title": "Deposit"
+    },
+    {
+      "name": "removal",
+      "title": "Removal"
+    },
+    {
+      "name": "dredging",
+      "title": "Dredging"
+    },
+    {
+      "name": "incineration",
+      "title": "Incineration"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "location",
+          "title": "Where will your activity take place?",
+          "options": {
+            "list": "_1"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/jurisdiction",
+          "if": "location == 'inSea'"
+        },
+        {
+          "path": "/jurisdiction",
+          "if": "location == 'overSea'"
+        },
+        {
+          "path": "/jurisdiction",
+          "if": "location == 'onOrUnderSea'"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "location == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/licence-not-required",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided a licence is not required for the activity.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-policy",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>You indicated your intent to place a marker which will be in place less than 24 hours.Based on the information provided your activity is one that meets the terms of an marine licence exemption and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-7",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 7 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-8",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 8 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-9",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 9 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-10",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 10 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-11",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 11 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-12",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 12 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-13",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 13 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that notification of the intention to carry on the activity is given to the MMO prior to the commencement of the activity.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-14",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 14 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-15",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 15 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-16",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 16 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-17",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 17 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that notification of the intention to carry on the activity is given to the MMO prior to the commencement of the activity.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-18",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 18 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-19",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 19 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-20",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 20 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that the activity is carried on in accordance with an approval granted by the MMO.Please submit notification of your intention to carry on the activity and await approval before proceeding.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-22",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 22 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-23",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 23 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-25",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 25 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that notification of the intention to carry on the activity is given to the MMO prior to the commencement of the activity.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-25a",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 25A of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that notification of the intention to carry on the activity is given to the MMO prior to the commencement of the activity.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-25a-mmo-approval",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 25A of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that the activity is carried on in accordance with an approval granted by the MMO.Please submit notification of your intention to carry on the activity and await approval before proceeding.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-26",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 26 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that the activity is carried on in accordance with an approval granted by the MMO.Please submit notification of your intention to carry on the activity and await approval before proceeding.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-26a",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 26A of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that notification of the intention to carry on the activity is given to the MMO prior to the commencement of the activity.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-27",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 27 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-29",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 30 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-30",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 30 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-31",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 31 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-32",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 32 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-33",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 33 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-34",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 34 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption is subject to the requirement that the activity is carried on in accordance with an approval granted by the MMO.Please submit notification of your intention to carry on the activity and await approval before proceeding.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-36",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 36 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-article-37",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in Article 37 of the Marine licence (exempted Activities) Order and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-exemption-available-Section-75",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided your activity is one that meets the terms of an marine licence exemption set out in S75 of the Marine and Coastal Access Act and a marine licence is therefore not required. This exemption does not require any action from you before it is undertaken. Note: This exemption does not permit the disposal of dredged material at sea. Disposal of dredged material at sea by means other than plough or agitation dredging requires a marine licence.<p></div>"
+        }
+      ],
+      "title": "Licence is not required"
+    },
+    {
+      "path": "/licence-not-required-devolved",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided the activity does not require a marine licence from the MMO but you may require a marine licence from the relevant devolved administration.<p></div>"
+        }
+      ],
+      "title": "Licence not required"
+    },
+    {
+      "path": "/licence-required-no-exemption",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\"><p>Based on the information provided the activity requires a\r\nlicence. No exemption is available and the activity is not suitable for self-service licensing.\r\n<br>\r\n<br>\r\n<a href=\"#\">Apply for a marine licence</a><p></div>"
+        }
+      ],
+      "title": "Licence is required"
+    },
+    {
+      "path": "/jurisdiction",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "jurisdiction",
+          "title": "Will your activity take place?",
+          "hint": "Not sure? Use the MMO’s <a href=\"http://defra.maps.arcgis.com/apps/webappviewer/ index.html?id=6d5a7b3a1f07440f947d1e31bfaa7d38\">interactive map</a> to find out",
+          "options": {
+            "list": "_2"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/activity-type",
+          "if": "jurisdiction == 'englishWaters'"
+        },
+        {
+          "path": "/activity-type",
+          "if": "jurisdiction == 'northernIrishOffshoreWaters'"
+        },
+        {
+          "path": "/licence-not-required-devolved",
+          "if": "jurisdiction == 'northernIrishInshoreWaters'"
+        },
+        {
+          "path": "/licence-not-required-devolved",
+          "if": "jurisdiction == 'welshWaters'"
+        },
+        {
+          "path": "/licence-not-required-devolved",
+          "if": "jurisdiction == 'scottishWaters'"
+        },
+        {
+          "path": "/elsewhere-in-the-world/activity-type",
+          "if": "jurisdiction == 'elsewhere'"
+        }
+      ]
+    },
+    {
+      "path": "/activity-type",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "activityType",
+          "title": "What type of activity will be undertaken?",
+          "options": {
+            "list": "_3"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/construction",
+          "if": "activityType == 'construction'"
+        },
+        {
+          "path": "/deposit/method",
+          "if": "activityType == 'deposit'"
+        },
+        {
+          "path": "/removal",
+          "if": "activityType == 'removal'"
+        },
+        {
+          "path": "/dredging",
+          "if": "activityType == 'dredging'"
+        },
+        {
+          "path": "/incineration/method",
+          "if": "activityType == 'incineration'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "activityType == 'depositExplosive'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "activityType == 'scuttling'"
+        }
+      ]
+    },
+    {
+      "path": "/construction",
+      "section": "construction",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "activityType",
+          "title": "What is the purpose of your activity?",
+          "options": {
+            "list": "_4"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/construction/maintenance",
+          "if": "activityType == 'maintenance'"
+        },
+        {
+          "path": "/construction/new",
+          "if": "activityType == 'new'"
+        }
+      ]
+    },
+    {
+      "path": "/construction/maintenance",
+      "section": "construction",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "maintenanceActivityType",
+          "title": "What does your activity relate to?",
+          "options": {
+            "list": "_5"
+          }
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/construction/new",
+      "section": "construction",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "newActivityType",
+          "title": "What does your activity relate to?",
+          "options": {
+            "list": "_6"
+          }
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/deposit/method",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "method",
+          "title": "How will the substance or object be deposited?",
+          "options": {
+            "list": "_7"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/activity-type",
+          "if": "method == 'vehicleOrVessel'"
+        },
+        {
+          "path": "/deposit/activity-type",
+          "if": "method == 'aircraft'"
+        },
+        {
+          "path": "/deposit/activity-type",
+          "if": "method == 'marineStructure'"
+        },
+        {
+          "path": "/deposit/activity-type",
+          "if": "method == 'floatingContainer'"
+        },
+        {
+          "path": "/deposit/activity-type",
+          "if": "method == 'landStructure'"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "method == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/activity-type",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "activityType",
+          "title": "What is the purpose of your activity?",
+          "options": {
+            "list": "_8"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation",
+          "if": "activityType == 'markersMooringsOrPontoons'"
+        },
+        {
+          "path": "/deposit/scientific-research",
+          "if": "activityType == 'scientificResearch'"
+        },
+        {
+          "path": "/deposit/maintenance",
+          "if": "activityType == 'maintenance'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation",
+          "if": "activityType == 'emergency'"
+        },
+        {
+          "path": "/deposit/fishing",
+          "if": "activityType == 'fishing'"
+        },
+        {
+          "path": "/deposit/vessels",
+          "if": "activityType == 'vessels'"
+        },
+        {
+          "path": "/deposit/miscellaneous",
+          "if": "activityType == 'defenceMiningCrossrail'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "maintenanceActivityType",
+          "title": "Maintenance activity",
+          "options": {
+            "list": "_9"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/coastal-drainage-flood",
+          "if": "maintenanceActivityType == 'coastalProtectionDrainageFloodDefence'"
+        },
+        {
+          "path": "/deposit/maintenance/emergency-flood",
+          "if": "maintenanceActivityType == 'floodEmergency'"
+        },
+        {
+          "path": "/deposit/maintenance/harbour-works",
+          "if": "maintenanceActivityType == 'harbourWorkMaintenance'"
+        },
+        {
+          "path": "/deposit/maintenance/cables-pipelines",
+          "if": "maintenanceActivityType == 'cablesPipelines'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/coastal-drainage-flood",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "maintenanceCoastalProtectionUndertaker",
+          "title": "Who will carry on the activity",
+          "options": {
+            "list": "_10"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/coastal-drainage-flood/EA",
+          "if": "maintenanceCoastalProtectionUndertaker == 'environmentAgency'"
+        },
+        {
+          "path": "/deposit/maintenance/coastal-drainage-flood/CPA",
+          "if": "maintenanceCoastalProtectionUndertaker == 'coastProtectionAuthority'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCoastalProtectionUndertaker == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/coastal-drainage-flood/EA",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCoastalProtectionEA",
+          "title": "Will the activity be carried on within the existing boundaries of the works being maintained?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/coastal-drainage-flood/EA/beach-replenishment"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCoastalProtectionEA == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/coastal-drainage-flood/EA/beach-replenishment",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCoastalProtectionEABeachReplenishment",
+          "title": "Does the activity consist of beach replenishment?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-19",
+          "if": "maintenanceCoastalProtectionEABeachReplenishment == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/coastal-drainage-flood/CPA",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCoastalProtectionCPA",
+          "title": "Is the activity for the purpose of maintaining coast protection works?",
+          "hint": "Carried on within the existing boundaries of the works being maintained."
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/coastal-drainage-flood/CPA/beach-replenishment"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCoastalProtectionCPA == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/coastal-drainage-flood/CPA/beach-replenishment",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCoastalProtectionCPABeachReplenishment",
+          "title": "Does the activity consist of beach replenishment?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-19"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCoastalProtectionCPABeachReplenishment == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/emergency-flood",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceEmergencyFloodUndertaker",
+          "title": "Will the activity be carried on by or on behalf on the Environment Agency?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/emergency-flood/validation"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceEmergencyFloodUndertaker == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/emergency-flood/validation",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceEmergencyFloodValidation",
+          "title": "Are the circumstances serious, unexpected, and potentially dangerous requiring immediate action in response to either flooding or imminent risk of flooding?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-20"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceEmergencyFloodValidation == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/harbour-works",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceHarbourWorks",
+          "title": "Is the activity for the purpose of maintaining harbour works?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/harbour-works/boundaries"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceHarbourWorks == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/harbour-works/boundaries",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceHarbourWorksBoundaries",
+          "title": "Will the activity be carried out within the boundaries of the works being maintained?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/harbour-works/undertaker"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceHarbourWorksBoundaries == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/harbour-works/undertaker",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceHarbourWorksUndertaker",
+          "title": "Will the activity be carried on by or on behalf of the harbour authority?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-23"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceHarbourWorksUndertaker == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/cables-pipelines",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCablesPipelines",
+          "title": "Does the activity relate to the inspection or repair of an exisiting cable or pipeline?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/cables-pipelines/emergency"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCablesPipelines == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/cables-pipelines/emergency",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCablesPipelinesEmergency",
+          "title": "Are the circumstances serious, unexpected, and potentially dangerous requiring immediate action?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/cables-pipelines/protection"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCablesPipelinesEmergency == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/cables-pipelines/protection",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCablesPipelinesProtection",
+          "title": "Will the activity proposed under the exemption include the deposit of rock or other materials for the purpose of providing cable or pipeline protection?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/maintenance/cables-pipelines/explosives"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "maintenanceCablesPipelinesProtection == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/maintenance/cables-pipelines/explosives",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maintenanceCablesPipelinesExplosives",
+          "title": "Does the activity involve the deposit or use of explosives?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-34",
+          "if": "maintenanceCablesPipelinesExplosives == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/fishing",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "fishingActivityType",
+          "title": "Fishing activity",
+          "options": {
+            "list": "_11"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/fishing/shellfish-propagation-cultivation",
+          "if": "fishingActivityType == 'shellfishPropogationCultivation'"
+        },
+        {
+          "path": "/deposit/fishing/fishing-operations",
+          "if": "fishingActivityType == 'fishingOperations'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "fishingActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/fishing/shellfish-propagation-cultivation",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "fishingShellfishPropogationCultivationPurpose",
+          "title": "Will the activity involve the deposit of a shellfish, trestle, raft, cage, pole, rope, marker or line in the course of propagation or cultivation of shellfish?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/fishing/shellfish-propagation-cultivation/obstruction"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "fishingShellfishPropogationCultivationPurpose == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/fishing/shellfish-propagation-cultivation/obstruction",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "fishingShellfishPropogationCultivationObstruction",
+          "title": "Will the deposit cause or be likely to cause an obstruction or danger to navigation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/deposit/fishing/shellfish-propagation-cultivation/disposal-artificial-reef",
+          "if": "fishingShellfishPropogationCultivationObstruction == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/fishing/shellfish-propagation-cultivation/disposal-artificial-reef",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "fishingShellfishPropogationCultivationDisposalArtificialReef",
+          "title": "Is the deposit for the purpose of",
+          "options": {
+            "list": "_12"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "fishingShellfishPropogationCultivationDisposalArtificialReef == 'disposal'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "fishingShellfishPropogationCultivationDisposalArtificialReef == 'creatingAlertingMaintainingArtificaialReef'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-13",
+          "if": "fishingShellfishPropogationCultivationDisposalArtificialReef == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/fishing/fishing-operations",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "fishingOperationsPurpose",
+          "title": "What will be deposited",
+          "options": {
+            "list": "_13"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/fishing/fishing-operations/fishing-gear",
+          "if": "fishingOperationsPurpose == 'depositFishingGear'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-12",
+          "if": "fishingOperationsPurpose == 'depositReturns'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "fishingOperationsPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/fishing/fishing-operations/fishing-gear",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "fishingOperationDisposal",
+          "title": "Is the purpose of the deposit to dispose of the gear?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-12",
+          "if": "fishingOperationDisposal == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestigationActivityType",
+          "title": "Emergency, safety, pollution response, and accident investigation activity",
+          "options": {
+            "list": "_14"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flood",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'floodFloodRisk'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'cablesPipelines'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/coastguard",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'coastguardActivites'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flares",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'flares'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/salvage",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'salvageOperation'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/safety-directions",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'safetyDirections'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/pollution-response-equipment",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'equipmentContainControlRecoverOilsEtc'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'marineChemicalMarineOilTreatment'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/offshore-chemical-oil",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'dischargeOffshoreChemicalsOil'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/pollution-prevention",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'pollutionPreventionPart6MerchanntShippingAct1995'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/fire-fighting",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'firefighting'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/air-accident-investigation",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'airAccidentInvestigation'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flood",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionFloodUndertaker",
+          "title": "Will the activity be carried out by or on behalf of the Environment Agency"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flood/emergency"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionFloodUndertaker == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flood/emergency",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionFloodEmergency",
+          "title": "Are the circumstances serious, unexpected and potentially dangerous requiring immediate action in response to flood or immient risk of flood?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-20"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionFloodEmergency == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelines",
+          "title": "Does the activity relate to the inspection or repair of an exisiting cable or pipeline"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines/emergency"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelines == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines/emergency",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelinesEmergency",
+          "title": "Are the circumstances serious, unexpected and potentially dangerous requiring immediate action?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines/protection"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelinesEmergency == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines/protection",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelinesProtection",
+          "title": "Will the activity proposed under the exemption include the deposit of rock or other materials for the purpose of providing cable or pipeline protection?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines/explosives",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelinesProtection == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/cables-pipelines/explosives",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelinesExplosives",
+          "title": "Does the activity involve the deposit or use of explosives?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-34",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionCablesPipelinesExplosives == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/coastguard",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionCoastguardUndertaker",
+          "title": "Will the activity be carried out by or on behalf the Secretary of State for Transport, acting through the Maritime and Coastguard Agency?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/coastguard/purpose"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionCoastguardUndertaker == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/coastguard/purpose",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestigationPurpose",
+          "title": "What is the purpose of the activity?",
+          "options": {
+            "list": "_15"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-32",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'securingVesselAircraftMarineStructureSafety'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-32",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'savingLife'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-32",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'training'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flares",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionObject",
+          "title": "Will the activity involve the deposit or use of a distress flare, smoke float or similar pyrotechnic substance or object"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flares/purpose"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionObject == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/flares/purpose",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestigationPurpose",
+          "title": "What is the purpose of the activity?",
+          "options": {
+            "list": "_16"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-33",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'securingVesselAircraftMarineStructureSafety'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-33",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'savingLife'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-33",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'training'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/salvage",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionSalvage",
+          "title": "Will the deposit be made in the course of a salvage operation for the purpose of ensuring the safety of a vessel or preventing pollution?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-9"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionSalvage == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/safety-directions",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestigationSafetyDirectionsPurpose",
+          "title": "What is the purpose of the deposit",
+          "options": {
+            "list": "_17"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-8",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationSafetyDirectionsPurpose == 'secretaryOfStateSchedule3A'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-8",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationSafetyDirectionsPurpose == 'schedule3ACompliance'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-8",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationSafetyDirectionsPurpose == 'avoidingInterference'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationSafetyDirectionsPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/pollution-response-equipment",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionPollutionResponseEquipmentPurpose",
+          "title": "Is the equipment to be deposited for the purpose of controlling, containing or recovering oil, a mixture containing oil, chemicals, flotsam or algae blooms?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/pollution-response-equipment/explosives"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionPollutionResponseEquipmentPurpose == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/pollution-response-equipment/explosives",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionPollutionResponseEquipmentExplosives",
+          "title": "Will the activity involve the deposit or use of an explosive substance or object?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-16"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionPollutionResponseEquipmentExplosives == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestigationChemicalOilTreatmentPurpose",
+          "title": "What is the purpose of the deposit",
+          "options": {
+            "list": "_18"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment/approved",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationChemicalOilTreatmentPurpose == 'oilSpills'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment/approved",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationChemicalOilTreatmentPurpose == 'chemicalPollution'"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment/approved",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationChemicalOilTreatmentPurpose == 'seabedFouling'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestigationChemicalOilTreatmentPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment/approved",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionChemicalOilTreatmentApproved",
+          "title": "Is the substance to be deposited one which is approved for the purposes by the MMO?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment/conditions"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionChemicalOilTreatmentApproved == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment/conditions",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionChemicalOilTreatmentConditions",
+          "title": "Will the substance be used in accordance with conditions to which the approval is subject?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-15"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionChemicalOilTreatmentConditions == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/offshore-chemical-oil",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionDischargeOffshoreChemicalOilPermit1",
+          "title": "Is a permit required to carry out the activity under the Offshore Chemical Regulations 2002?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-14"
+        },
+        {
+          "path": "/deposit/emergency-safety-pollution-response-accident-investigation/offshore-chemical-oil/Permit2",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionDischargeOffshoreChemicalOilPermit1 == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/offshore-chemical-oil/Permit2",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionDischargeOffshoreChemicalOilPermit2",
+          "title": "Is a permit required to carry out the activity under the Offshore Petroleum Activities (Oil and Pollution Prevention and Control) Regulations 2005?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-14"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionDischargeOffshoreChemicalOilPermit2 == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/pollution-prevention",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionPollutionPrevention",
+          "title": "Does the activity proposed to be carried out fall within the subject matter of Part 6 of the Merchant Shipping Act 1995 (prevention of pollution)"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-7"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionPollutionPrevention == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/fire-fighting",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionFireFighting",
+          "title": "Will the activity be carried on for the purpose of fighting or preventing the spread of fire?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-10"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionFireFighting == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/emergency-safety-pollution-response-accident-investigation/air-accident-investigation",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "emergencySafetyPollutionResponseAccidentInvestiagtionAirAccidentInvestigation",
+          "title": "Will the activity be carried on for the purpose of recovering a substance or object as part of an official investigation into an accident involving aricraft?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-11"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "emergencySafetyPollutionResponseAccidentInvestiagtionAirAccidentInvestigation == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationActivityType",
+          "title": "Markers, moorings, pontoons and aids to navigation activity",
+          "options": {
+            "list": "_19"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers",
+          "if": "markerMooringPontoonAidToNavigationActivityType == 'temporaryMarkers'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers",
+          "if": "markerMooringPontoonAidToNavigationActivityType == 'marineSiteMarkers'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings",
+          "if": "markerMooringPontoonAidToNavigationActivityType == 'mooringsAidsToNavigation'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoons",
+          "if": "markerMooringPontoonAidToNavigationActivityType == 'pontoons'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/dive-trails",
+          "if": "markerMooringPontoonAidToNavigationActivityType == 'diverTrails'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationTemporaryMarkerPurpose",
+          "title": "What is the purpose of your activity?",
+          "options": {
+            "list": "_20"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-policy",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerPurpose == 'markerLess24Hours'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/obstruction",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerPurpose == 'markerLess28Days'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerPurpose == 'markerGreater28Days'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/obstruction",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationTemporaryMarkerObstruction",
+          "title": "Will the activity cause or be likely to cause an obstruction or danger to navigation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/mpa",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerObstruction == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/mpa",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationTemporaryMarkerMpa",
+          "title": "Will the activity take place in or within 200m of a Marine Protected Area?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/mpa-management"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-26a",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerMpa == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/mpa-management",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationTemporaryMarkerMpa",
+          "title": "Is the activity directly connected with or necessary to the management of the Marine Protected Area?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-26a"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/lse",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerMpa == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/lse",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationTemporaryMarkerLse",
+          "title": "Is the activity",
+          "options": {
+            "list": "_21"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerLse == 'europeanSiteTemporaryMarkers'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerLse == 'ramsarSiteTemporaryMarkers'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerLse == 'mczTemporaryMarkers'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-26a",
+          "if": "markerMooringPontoonAidToNavigationTemporaryMarkerLse == 'otherTemporaryMarkers'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationMarineSiteMarkerUndertaker",
+          "title": "Who will carry out the activity?",
+          "options": {
+            "list": "_22"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers/ne-purpose",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerUndertaker == 'naturalEngland'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers/pa-purpose",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerUndertaker == 'publicAuthority'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerUndertaker == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers/ne-purpose",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationMarineSiteMarkerNePurpose",
+          "title": "What is the purpose of the activity?",
+          "options": {
+            "list": "_23"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-26",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerNePurpose == 'marineSiteExistance'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerNePurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers/pa-purpose",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationMarineSiteMarkerPaPurpose",
+          "title": "What is the purpose of the activity?",
+          "options": {
+            "list": "_24"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-26",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerPaPurpose == 'marineSiteExistance'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationMarineSiteMarkerPaPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationMoorings",
+          "title": "What will be deposited?",
+          "options": {
+            "list": "_25"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/undertaker",
+          "if": "markerMooringPontoonAidToNavigationMoorings == 'pileMooring'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/undertaker",
+          "if": "markerMooringPontoonAidToNavigationMoorings == 'swingingMooring'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/undertaker",
+          "if": "markerMooringPontoonAidToNavigationMoorings == 'trotMooring'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/undertaker",
+          "if": "markerMooringPontoonAidToNavigationMoorings == 'aidToNavigation'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationMoorings == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/undertaker",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationMooringsUndertaker",
+          "title": "Who will carry out the activity?",
+          "options": {
+            "list": "_26"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-25",
+          "if": "markerMooringPontoonAidToNavigationMooringsUndertaker == 'harbourAuthority'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-25",
+          "if": "markerMooringPontoonAidToNavigationMooringsUndertaker == 'lighthouseAuthority'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/consent",
+          "if": "markerMooringPontoonAidToNavigationMooringsUndertaker == 'someoneElse'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/consent",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationMooringConsent",
+          "title": "Does the activity require consent from a harbour authority under local legislation"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/approval"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationMooringConsent == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/moorings/approval",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationMooringApproval",
+          "title": "Has consent been granted"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-25"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationMooringApproval == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoons",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationPontoonPurpose",
+          "title": "Is the purpose of the activity to provide a pontoon?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoons/undertaker"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationPontoonPurpose == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoons/undertaker",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "markerMooringPontoonAidToNavigationPontoonUndertaker",
+          "title": "Who will carry out the activity?",
+          "options": {
+            "list": "_27"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/deck",
+          "if": "markerMooringPontoonAidToNavigationPontoonUndertaker == 'harbourAuthority'"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/consent",
+          "if": "markerMooringPontoonAidToNavigationPontoonUndertaker == 'someoneElse'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/consent",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationPontoonConsent",
+          "title": "Does the activity require consent from a harbour authority under local legislation"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/approval"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationPontoonConsent == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/approval",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationPontoonApproval",
+          "title": "Has consent been granted"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/deck"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationPontoonApproval == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/deck",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationPontoonDeck",
+          "title": "When complete will the deck of the pontoon concerned comprise of an area which exceeds 30m2"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/quantity",
+          "if": "markerMooringPontoonAidToNavigationPontoonDeck == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/pontoon/quantity",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationPontoonDeck",
+          "title": "will more than 10 pontoons be constructed or deposited in the 6 months prior to the commencement of this activity, either by or on behalf of the habour authority or with the consent required from and granted by the harbour authority?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-25a-mmo-approval"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-25a",
+          "if": "markerMooringPontoonAidToNavigationPontoonDeck == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/dive-trails",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationDiveTrails",
+          "title": "Is the purpose of the activity to place or secure signage or other identifying markers to a wreck?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/dive-trails/restricted-area"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationDiveTrails == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/markers-moorings-pontoons-aids-to-navigation/dive-trails/restricted-area",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "markerMooringPontoonAidToNavigationDiveTrailsRestrictedArea",
+          "title": "Is the wreck within an area designated as a restricted area under the Protection of Wrecks Act 1973?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-31"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "markerMooringPontoonAidToNavigationDiveTrailsRestrictedArea == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "scientificResearchActivityType",
+          "title": "Scientific research",
+          "options": {
+            "list": "_28"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/scientific-equipment",
+          "if": "scientificResearchActivityType == 'scientificInstruments'"
+        },
+        {
+          "path": "/deposit/scientific-research/tracers-reagents",
+          "if": "scientificResearchActivityType == 'tracersReagents'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificInstrumentsDefinition",
+          "title": "Is the object to be deposited a scientific instrument or equipment associated with such an instrument?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/survey"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificInstrumentsDefinition == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment/survey",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificInstrumentsSurvey",
+          "title": "Is the instrument or equipment to be deposited as part of a scientific experiment or survey?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/obstruction"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificInstrumentsSurvey == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment/obstruction",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchScientificEquipmentObstruction",
+          "title": "Will the activity cause or be likely to cause an obstruction or danger to navigation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/mpa",
+          "if": "scientificResearchScientificEquipmentObstruction == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment/mpa",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchScientificEquipmentMpa",
+          "title": "Will the activity take place in or within 200m of a Marine Protected Area?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/mpa-management"
+        },
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/disposal",
+          "if": "scientificResearchScientificEquipmentMpa == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment/mpa-management",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchScientificEquipmentMpa",
+          "title": "Is the activity directly connected with or necessary to the management of the Marine Protected Area?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/disposal"
+        },
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/lse",
+          "if": "scientificResearchScientificEquipmentMpa == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment/lse",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "scientificResearchScientificEquipmentLse",
+          "title": "Is the activity",
+          "options": {
+            "list": "_29"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchScientificEquipmentLse == 'europeanSiteScientificEquipment'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchScientificEquipmentLse == 'ramsarSiteScientificEquipment'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchScientificEquipmentLse == 'mczScientificEquipment'"
+        },
+        {
+          "path": "/deposit/scientific-research/scientific-equipment/disposal",
+          "if": "scientificResearchScientificEquipmentLse == 'otherScientificEquipment'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/scientific-equipment/disposal",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchScientificEquipmentDisposal",
+          "title": "Is the deposit made for the purpose of disposal?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-17",
+          "if": "scientificResearchScientificEquipmentDisposal == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/tracers-reagents",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchTracersReagents",
+          "title": "Is the reagent or tracer approved for use by the MMO?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/tracers-reagents/obstruction"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchTracersReagents == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/tracers-reagents/obstruction",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchTracersReagentsObstruction",
+          "title": "Will the activity cause or be likely to cause an obstruction or danger to navigation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/deposit/scientific-research/tracers-reagents/mpa",
+          "if": "scientificResearchTracersReagentsObstruction == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/tracers-reagents/mpa",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchTracersReagentsMpa",
+          "title": "Will the activity take place in or within 200m of a Marine Protected Area?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/scientific-research/tracers-reagents/mpa-management"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-17",
+          "if": "scientificResearchTracersReagentsMpa == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/tracers-reagents/mpa-management",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "scientificResearchTracersReagentsMpa",
+          "title": "Is the activity directly connected with or necessary to the management of the Marine Protected Area?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-17"
+        },
+        {
+          "path": "/deposit/scientific-research/tracers-reagents/lse",
+          "if": "scientificResearchTracersReagentsMpa == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/scientific-research/tracers-reagents/lse",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "scientificResearchTracersReagentsLse",
+          "title": "Is the activity",
+          "options": {
+            "list": "_30"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchTracersReagentsLse == 'europeanSiteTracers'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchTracersReagentsLse == 'ramsarSiteTracers'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "scientificResearchTracersReagentsLse == 'mczTracers'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-17",
+          "if": "scientificResearchTracersReagentsLse == 'otherTracers'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "vesselsActivityType",
+          "title": "What is the purpose of your activity?",
+          "options": {
+            "list": "_31"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/launch",
+          "if": "vesselsActivityType == 'lanchingVessels'"
+        },
+        {
+          "path": "/deposit/vessels/navigation",
+          "if": "vesselsActivityType == 'normalNavigation'"
+        },
+        {
+          "path": "/deposit/vessels/aggregate-dredging",
+          "if": "vesselsActivityType == 'aggregateDredging'"
+        },
+        {
+          "path": "/deposit/vessels/dismantling-ships",
+          "if": "vesselsActivityType == 'dismantlingShips'"
+        },
+        {
+          "path": "/deposit/vessels/foreign-vessels",
+          "if": "vesselsActivityType == 'foreignVessels'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/launch",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsLaunchPurpose",
+          "title": "Is the purpose of the deposit to facilitate the launching of a vehicle, vessel, aircraft, marine structure or floating container?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/launch/construction"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsLaunchPurpose == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/launch/construction",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsLaunchConstruction",
+          "title": "Will the activity involve construction of any kind?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-27",
+          "if": "vesselsLaunchConstruction == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/navigation",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsNavigation",
+          "title": "Will the deposit be made from a vehicle, vessel, aircraft or marine strucutre in the normal course of its maintenance or navigation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/navigation/disposal"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsNavigation == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/navigation/disposal",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsNavigationDisposal",
+          "title": "Will the substance or object deposited be recovered at any point?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/navigation/explosives"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsNavigationDisposal == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/navigation/explosives",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsNavigationExplosive",
+          "title": "Will the activity involve the deposit or use of any explosive substance or article?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-22",
+          "if": "vesselsNavigationExplosive == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/aggregate-dredging",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsAggregateDredging",
+          "title": "Was the substance or object to be deposited taken from the sea in the course of dredging for aggregates?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/aggregate-dredging/object-type"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsAggregateDredging == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/aggregate-dredging/object-type",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "vesselsAggregateDredgingObjectType",
+          "title": "What will be deposited?",
+          "options": {
+            "list": "_32"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsAggregateDredgingObjectType == 'aggregateMinerals'"
+        },
+        {
+          "path": "/deposit/vessels/aggregate-dredging/water-location",
+          "if": "vesselsAggregateDredgingObjectType == 'water'"
+        },
+        {
+          "path": "/deposit/vessels/aggregate-dredging/something-else-location",
+          "if": "vesselsAggregateDredgingObjectType == 'somethingElse'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/aggregate-dredging/water-location",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsAggregateDredgingWaterlocation",
+          "title": "Will the water be deposited by overflow or pumped discharge from the hold of the vessel at the site of dredging, either during or following its completion, and or on the return journey of the vessel?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-18"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsAggregateDredgingWaterlocation == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/aggregate-dredging/something-else-location",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsAggregateDredgingSomethingElselocation",
+          "title": "Will the substance or object be deposited at the site where the dredging took place?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-18"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsAggregateDredgingSomethingElselocation == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/dismantling-ships",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsDismantlingShips",
+          "title": "Will the deposit be made as part of the dismantling of a ship that is waste?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/dismantling-ships/explosives"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsDismantlingShips == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/dismantling-ships/explosives",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsDismantlingShipsExplosives",
+          "title": "Will the activity involve the deposit or use of any explosive substance or article?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-18",
+          "if": "vesselsDismantlingShipsExplosives == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/foreign-vessels",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "vesselsForeignVessels",
+          "title": "Will the activity be carried out in exercise of a right under rules of international law?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/vessels/foreign-vessels/undertaker"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsForeignVessels == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/vessels/foreign-vessels/undertaker",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "vesselsForeignVesselsUndertaker",
+          "title": "Will the activity be carried out by or in relation to",
+          "options": {
+            "list": "_33"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-37",
+          "if": "vesselsForeignVesselsUndertaker == 'thirdCountry'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-37",
+          "if": "vesselsForeignVesselsUndertaker == 'warship'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "vesselsForeignVesselsUndertaker == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/miscellaneous",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "miscellaneousActivityType",
+          "title": "Whats is the purpose of your activity?",
+          "options": {
+            "list": "_34"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/miscellaneous/defence-activities",
+          "if": "miscellaneousActivityType == 'defenceActivities'"
+        },
+        {
+          "path": "/deposit/miscellaneous/deepsea-mining",
+          "if": "miscellaneousActivityType == 'deepseaMining'"
+        },
+        {
+          "path": "/deposit/miscellaneous/crossrail-act",
+          "if": "miscellaneousActivityType == 'crossrailAct'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "miscellaneousActivityType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/miscellaneous/defence-activities",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "miscellaneousDefenceActivitiesUndertaker",
+          "title": "Who will carryout the activity?",
+          "options": {
+            "list": "_35"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/deposit/miscellaneous/defence-activities/restriction",
+          "if": "miscellaneousDefenceActivitiesUndertaker == 'ukForces'"
+        },
+        {
+          "path": "/deposit/miscellaneous/defence-activities/restriction",
+          "if": "miscellaneousDefenceActivitiesUndertaker == 'visiting forces'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "miscellaneousDefenceActivitiesUndertaker == 'someoneElse'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/miscellaneous/defence-activities/restriction",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "defenceActivityRestriction",
+          "title": "Will the activity involve construction or dredging of any kind?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-36",
+          "if": "defenceActivityRestriction == false"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/miscellaneous/deepsea-mining",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "miscellaneousDeepseaMiningPurpose",
+          "title": "Is the activity carried out?",
+          "options": {
+            "list": "_36"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-30",
+          "if": "miscellaneousDeepseaMiningPurpose == 'explorationExploitationLicence'"
+        },
+        {
+          "path": "/licence-not-required-exemption-available-article-30",
+          "if": "miscellaneousDeepseaMiningPurpose == 'reciprocalAuthoriation'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "miscellaneousDeepseaMiningPurpose == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/deposit/miscellaneous/crossrail-act",
+      "section": "deposit",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "defenceActivityRestriction",
+          "title": "Will the activity be carried out within the limits of deviation for scheduled works in exercise of powers conferred by the Crossrail Act 2008 in relation to those works or any work connected with them?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-article-29"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "defenceActivityRestriction == false"
+        }
+      ]
+    },
+    {
+      "path": "/removal",
+      "section": "removal",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "isFromSeaBed",
+          "title": "Is the substance or object to be removed on the seabed?",
+          "hint": "‘Seabed’ comprises the ground under the sea including anything laying on it such as a wreck"
+        }
+      ],
+      "next": [
+        {
+          "path": "/removal/method"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "isFromSeaBed == false"
+        }
+      ]
+    },
+    {
+      "path": "/removal/method",
+      "section": "removal",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "method",
+          "title": "How will the removal be made?",
+          "options": {
+            "list": "_37"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/removal/activity-type",
+          "if": "method == 'vehicleOrVessel'"
+        },
+        {
+          "path": "/removal/activity-type",
+          "if": "method == 'aircraft'"
+        },
+        {
+          "path": "/removal/activity-type",
+          "if": "method == 'marineStructure'"
+        },
+        {
+          "path": "/removal/activity-type",
+          "if": "method == 'floatingContainer'"
+        },
+        {
+          "path": "/removal/activity-type",
+          "if": "method == 'landStructure'"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "method == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/removal/activity-type",
+      "section": "removal",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "activityType",
+          "title": "What is the purpose of your activity?",
+          "options": {
+            "list": "_38"
+          }
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/dredging",
+      "section": "dredging",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "activityType",
+          "title": "What is the purpose of your activity?",
+          "options": {
+            "list": "_39"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/dredging/navigational-dredging/undertaker",
+          "if": "activityType == 'navigationalDredging'"
+        }
+      ]
+    },
+    {
+      "path": "/dredging/navigational-dredging/undertaker",
+      "section": "dredging",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "navigationalDredgingUndertaker",
+          "title": "Will the activity be carried on by or on behalf of the harbour authority?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/dredging/navigational-dredging/authorisation"
+        },
+        {
+          "path": "/dredging/navigational-dredging/purpose",
+          "if": "navigationalDredgingUndertaker == false"
+        }
+      ]
+    },
+    {
+      "path": "/dredging/navigational-dredging/authorisation",
+      "section": "dredging",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "authorisationType",
+          "title": "The activity is authorised by",
+          "options": {
+            "list": "_40"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/dredging/navigational-dredging/method",
+          "if": "authorisationType == 'localAct'"
+        },
+        {
+          "path": "/dredging/navigational-dredging/method",
+          "if": "authorisationType == 'harboursAct'"
+        },
+        {
+          "path": "/dredging/navigational-dredging/method",
+          "if": "authorisationType == 'section1HaNorthernIreland'"
+        },
+        {
+          "path": "/dredging/navigational-dredging/method",
+          "if": "authorisationType == 'section10HaNorthernIreland'"
+        },
+        {
+          "path": "/dredging/navigational-dredging/purpose",
+          "if": "authorisationType == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/dredging/navigational-dredging/method",
+      "section": "dredging",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "activityMethod",
+          "title": "Will the activity be carried out in accordance with the authorisation?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-not-required-exemption-available-Section-75"
+        },
+        {
+          "path": "/dredging/navigational-dredging/purpose",
+          "if": "activityMethod == false"
+        }
+      ]
+    },
+    {
+      "path": "/dredging/navigational-dredging/purpose",
+      "section": "dredging",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "activityPurpose",
+          "title": "Is the purpose of the activity to enable the continued use of a navigational channel or area of seas by vessels?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "activityPurpose == false"
+        }
+      ]
+    },
+    {
+      "path": "/incineration/method",
+      "section": "incineration",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "method",
+          "title": "Where will the substance or object be incinerated?",
+          "options": {
+            "list": "_41"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'vehicle'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'vessel'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'marineStructure'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'controlledFloatingContainer'"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "method == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/activity-type",
+      "section": "checkBeforeStart",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "activityTypeElsewhere",
+          "title": "What type of activity will be undertaken?",
+          "options": {
+            "list": "_42"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/elsewhere-in-the-world/deposit",
+          "if": "activityTypeElsewhere == 'deposit'"
+        },
+        {
+          "path": "/elsewhere-in-the-world/scuttling",
+          "if": "activityTypeElsewhere == 'scuttling'"
+        },
+        {
+          "path": "/elsewhere-in-the-world/incineration",
+          "if": "activityTypeElsewhere == 'incineration'"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/deposit",
+      "section": "elsewhereDeposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "method",
+          "title": "How will the deposit be made?",
+          "options": {
+            "list": "_43"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishVessel'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishMarineStructure'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishAircraft'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'floatingContainer'"
+        },
+        {
+          "path": "/elsewhere-in-the-world/deposit/where-loaded",
+          "if": "method == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/deposit/where-loaded",
+      "section": "elsewhereDeposit",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "loaded",
+          "title": "Where was the substance or object to be deposited loaded?",
+          "options": {
+            "list": "_44"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "loaded == 'inUk'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "loaded == 'inUkMLA'"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "loaded == 'none'"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/incineration",
+      "section": "elsewhereIncineration",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "method",
+          "title": "Where will the incineration take place?",
+          "options": {
+            "list": "_45"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishVessel'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishMarineStructure'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'controlledFloatingContainer'"
+        },
+        {
+          "path": "/elsewhere-in-the-world/incineration/where-loaded",
+          "if": "method == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/incineration/where-loaded",
+      "section": "elsewhereIncineration",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "loadedInUk",
+          "title": "Will the substance or object for incineration be loaded in any part of the United Kingdom (except Scotland)?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "loadedInUk == false"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/scuttling",
+      "section": "elsewhereScuttling",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "method",
+          "title": "How will the sinking be controlled?",
+          "options": {
+            "list": "_46"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishVessel'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishAircraft'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "method == 'britishMarineStructure'"
+        },
+        {
+          "path": "/elsewhere-in-the-world/scuttling/towed-or-propelled-from-uk",
+          "if": "method == 'other'"
+        }
+      ]
+    },
+    {
+      "path": "/elsewhere-in-the-world/scuttling/towed-or-propelled-from-uk",
+      "section": "elsewhereScuttling",
+      "components": [
+        {
+          "type": "RadiosField",
+          "name": "towedOrPropelled",
+          "title": "Where will the vessel or container be towed or propelled from, for the purpose its sinking",
+          "options": {
+            "list": "_47"
+          }
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "towedOrPropelled == 'inUk'"
+        },
+        {
+          "path": "/licence-required-no-exemption",
+          "if": "towedOrPropelled == 'inUkMLA'"
+        },
+        {
+          "path": "/licence-not-required",
+          "if": "towedOrPropelled == 'none'"
+        }
+      ]
+    }
+  ],
+  "lists": [
+    {
+      "name": "_1",
+      "title": "List for page /",
+      "type": "string",
+      "items": [
+        {
+          "text": "In the sea",
+          "value": "inSea"
+        },
+        {
+          "text": "Over the sea",
+          "value": "overSea"
+        },
+        {
+          "text": "On or under the sea bed",
+          "value": "onOrUnderSea"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_2",
+      "title": "List for page /jurisdiction",
+      "type": "string",
+      "items": [
+        {
+          "text": "In English waters",
+          "value": "englishWaters"
+        },
+        {
+          "text": "In Northern Irish offshore waters",
+          "value": "northernIrishOffshoreWaters"
+        },
+        {
+          "text": "In Northern Irish inshore waters",
+          "value": "northernIrishInshoreWaters"
+        },
+        {
+          "text": "In Welsh waters",
+          "value": "welshWaters"
+        },
+        {
+          "text": "In Scottish waters",
+          "value": "scottishWaters"
+        },
+        {
+          "text": "Somewhere else in the world",
+          "value": "elsewhere"
+        }
+      ]
+    },
+    {
+      "name": "_3",
+      "title": "List for page /activity-type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Construction (including alteration and improvement of existing works)",
+          "value": "construction"
+        },
+        {
+          "text": "Deposit of a substance or object",
+          "value": "deposit"
+        },
+        {
+          "text": "Removal of a substance or object",
+          "value": "removal"
+        },
+        {
+          "text": "Dredging",
+          "value": "dredging"
+        },
+        {
+          "text": "Incinerate a substance or object",
+          "value": "incineration"
+        },
+        {
+          "text": "Deposit or use of an explosive substance or object",
+          "value": "depositExplosive"
+        },
+        {
+          "text": "Sinking of a vessel or floating container",
+          "value": "scuttling"
+        }
+      ]
+    },
+    {
+      "name": "_4",
+      "title": "List for page /construction",
+      "type": "string",
+      "items": [
+        {
+          "text": "Maintenance of existing structures and assets",
+          "value": "maintenance"
+        },
+        {
+          "text": "Construction of something new",
+          "value": "new"
+        }
+      ]
+    },
+    {
+      "name": "_5",
+      "title": "List for page /construction/maintenance",
+      "type": "string",
+      "items": [
+        {
+          "text": "Mooring or aid to navigation",
+          "value": "mooringOrNavigation"
+        },
+        {
+          "text": "Harbour works",
+          "value": "harbourWorks"
+        },
+        {
+          "text": "Coastal Protection, drainage or flood defence",
+          "value": "coastalProtectionDrainageOrFloodDefence"
+        },
+        {
+          "text": "Cables and pipelines",
+          "value": "cablesAndPipelines"
+        },
+        {
+          "text": "An activity carried on wholly under the sea in connection with the construction or operation of a bored tunnel",
+          "value": "boredTunnel"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_6",
+      "title": "List for page /construction/new",
+      "type": "string",
+      "items": [
+        {
+          "text": "Mooring or aid to navigation",
+          "value": "mooringOrNavigation"
+        },
+        {
+          "text": "A pontoon",
+          "value": "pontoon"
+        },
+        {
+          "text": "An emergency activity in response to flood or flood risk",
+          "value": "floodEmergency"
+        },
+        {
+          "text": "An activity carried on wholly under the sea in connection with the construction or operation of a bored tunnel",
+          "value": "boredTunnel"
+        },
+        {
+          "text": "Deep sea mining or scheduled works under the Crossrail Act",
+          "value": "deepSeaOrCrossrail"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_7",
+      "title": "List for page /deposit/method",
+      "type": "string",
+      "items": [
+        {
+          "text": "From a vehicle or vessel",
+          "value": "vehicleOrVessel"
+        },
+        {
+          "text": "From an aircraft",
+          "value": "aircraft"
+        },
+        {
+          "text": "From a marine structure",
+          "value": "marineStructure"
+        },
+        {
+          "text": "From a floating container in the sea",
+          "value": "floatingContainer"
+        },
+        {
+          "text": "From a structure on land constructed or adapted wholly or mainly for the purposes of depositing solids in the sea",
+          "value": "landStructure"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_8",
+      "title": "List for page /deposit/activity-type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Markers, moorings, pontoons and aids to navigations",
+          "value": "markersMooringsOrPontoons"
+        },
+        {
+          "text": "Scientific research - instruments, associated equipment and tracers",
+          "value": "scientificResearch"
+        },
+        {
+          "text": "Maintenance - existing structures or assets",
+          "value": "maintenance"
+        },
+        {
+          "text": "Emergency – safety, pollution response and accident investigation",
+          "value": "emergency"
+        },
+        {
+          "text": "Fishing (including shellfish)",
+          "value": "fishing"
+        },
+        {
+          "text": "Vessels – Launching of vessels, rights of foreign vessels, deposits in the course of normal navigation, deposits in the course of aggregate or mineral dredging and dismantling of ships",
+          "value": "vessels"
+        },
+        {
+          "text": "Miscellaneous - Defence activities, licensed deepsea mining and works authorised under the Crossrail Act 2008",
+          "value": "defenceMiningCrossrail"
+        }
+      ]
+    },
+    {
+      "name": "_9",
+      "title": "List for page /deposit/maintenance",
+      "type": "string",
+      "items": [
+        {
+          "text": "Maintenance of coast protection, drainage or flood defence works",
+          "value": "coastalProtectionDrainageFloodDefence"
+        },
+        {
+          "text": "Emergency works in response to flood or flood risk",
+          "value": "floodEmergency"
+        },
+        {
+          "text": "Maintenance of harbour works",
+          "value": "harbourWorkMaintenance"
+        },
+        {
+          "text": "Cables and pipelines",
+          "value": "cablesPipelines"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_10",
+      "title": "List for page /deposit/maintenance/coastal-drainage-flood",
+      "type": "string",
+      "items": [
+        {
+          "text": "The Environment Agency or someone on behalf of the Environment Agency",
+          "value": "environmentAgency"
+        },
+        {
+          "text": "The Coast Protection Authority or someone on behalf of the Coast Protection Authority",
+          "value": "coastProtectionAuthority"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_11",
+      "title": "List for page /deposit/fishing",
+      "type": "string",
+      "items": [
+        {
+          "text": "Shellfish Propogation and Cultivation",
+          "value": "shellfishPropogationCultivation"
+        },
+        {
+          "text": "Fishing Operations",
+          "value": "fishingOperations"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_12",
+      "title": "List for page /deposit/fishing/shellfish-propagation-cultivation/disposal-artificial-reef",
+      "type": "string",
+      "items": [
+        {
+          "text": "Disposal",
+          "value": "disposal"
+        },
+        {
+          "text": "Creating, altering or maintaining an artificial reef",
+          "value": "creatingAlertingMaintainingArtificaialReef"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_13",
+      "title": "List for page /deposit/fishing/fishing-operations",
+      "type": "string",
+      "items": [
+        {
+          "text": "Fishing Gear",
+          "value": "depositFishingGear"
+        },
+        {
+          "text": "Fish or other objects caught and returned in the course of a fishing operation",
+          "value": "depositReturns"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_14",
+      "title": "List for page /deposit/emergency-safety-pollution-response-accident-investigation",
+      "type": "string",
+      "items": [
+        {
+          "text": "Flood or Flood Risk",
+          "value": "floodFloodRisk"
+        },
+        {
+          "text": "Cables and pipelines",
+          "value": "cablesPipelines"
+        },
+        {
+          "text": "Coastguard activities - safety purposes and training",
+          "value": "coastguardActivites"
+        },
+        {
+          "text": "Flares - Safety purposes and training",
+          "value": "flares"
+        },
+        {
+          "text": "Salvage Operation",
+          "value": "salvageOperation"
+        },
+        {
+          "text": "Safety directions under the Merchant Shipping Act 1995",
+          "value": "safetyDirections"
+        },
+        {
+          "text": "Equipment to contain, control or recover oils etc",
+          "value": "equipmentContainControlRecoverOilsEtc"
+        },
+        {
+          "text": "Marine chemical and marine oil treamtment substances",
+          "value": "marineChemicalMarineOilTreatment"
+        },
+        {
+          "text": "Discharge of offshore chemicals and oil",
+          "value": "dischargeOffshoreChemicalsOil"
+        },
+        {
+          "text": "Pollution prevention - Activities within Part 6 of the Merchant Shipping Act 1995",
+          "value": "pollutionPreventionPart6MerchanntShippingAct1995"
+        },
+        {
+          "text": "Fire Fighting",
+          "value": "firefighting"
+        },
+        {
+          "text": "Air Accident Investigation",
+          "value": "airAccidentInvestigation"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_15",
+      "title": "List for page /deposit/emergency-safety-pollution-response-accident-investigation/coastguard/purpose",
+      "type": "string",
+      "items": [
+        {
+          "text": "Securing the safety of a vessel, aircraft or marine structure ",
+          "value": "securingVesselAircraftMarineStructureSafety"
+        },
+        {
+          "text": "Saving life",
+          "value": "savingLife"
+        },
+        {
+          "text": "Training for either of the above two purposes",
+          "value": "training"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_16",
+      "title": "List for page /deposit/emergency-safety-pollution-response-accident-investigation/flares/purpose",
+      "type": "string",
+      "items": [
+        {
+          "text": "Securing the safety of a vessel, aircraft or marine structure ",
+          "value": "securingVesselAircraftMarineStructureSafety"
+        },
+        {
+          "text": "Saving life",
+          "value": "savingLife"
+        },
+        {
+          "text": "Training for either of the above two purposes",
+          "value": "training"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_17",
+      "title": "List for page /deposit/emergency-safety-pollution-response-accident-investigation/safety-directions",
+      "type": "string",
+      "items": [
+        {
+          "text": "In exercise of a power under Schedule 3A to the Merchant Shipping Act 1995 (safety directions) by or behalf of the Secretary of State",
+          "value": "secretaryOfStateSchedule3A"
+        },
+        {
+          "text": "Compliance with a direction under Schedule 3A to the Merchant Shipping Act 1995 (safety directions)",
+          "value": "schedule3ACompliance"
+        },
+        {
+          "text": "Avoiding interference with action taken under Schedule 3A to the Merchant Shipping Act 1995 (safety directions)",
+          "value": "avoidingInterference"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_18",
+      "title": "List for page /deposit/emergency-safety-pollution-response-accident-investigation/chemical-oil-treatment",
+      "type": "string",
+      "items": [
+        {
+          "text": "Dispersing or treating oil spills",
+          "value": "oilSpills"
+        },
+        {
+          "text": "Treat chemical pollution",
+          "value": "chemicalPollution"
+        },
+        {
+          "text": "Remove fouling matter from the surface of the sea or seabed",
+          "value": "seabedFouling"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_19",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation",
+      "type": "string",
+      "items": [
+        {
+          "text": "Temporary markers",
+          "value": "temporaryMarkers"
+        },
+        {
+          "text": "Markers for European marine sites and conservation zones",
+          "value": "marineSiteMarkers"
+        },
+        {
+          "text": "Moorings and aids to navigation",
+          "value": "mooringsAidsToNavigation"
+        },
+        {
+          "text": "Pontoons",
+          "value": "pontoons"
+        },
+        {
+          "text": "Diver trails",
+          "value": "diverTrails"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_20",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers",
+      "type": "string",
+      "items": [
+        {
+          "text": "Placing a marker that will be in place for less than 24 hours",
+          "value": "markerLess24Hours"
+        },
+        {
+          "text": "Placing a marker that will be in place for longer than 24 hours but less than 28 days",
+          "value": "markerLess28Days"
+        },
+        {
+          "text": "Placing a marker that will be in place for longer than than 28 days",
+          "value": "markerGreater28Days"
+        }
+      ]
+    },
+    {
+      "name": "_21",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/temporary-markers/lse",
+      "type": "string",
+      "items": [
+        {
+          "text": "Likely (either alone or in combination withother plans and projects) to have a significant effect on a European site",
+          "value": "europeanSiteTemporaryMarkers"
+        },
+        {
+          "text": "2Likely (either alone or in combination withother plans and projects) to have a significant effect on a European site",
+          "value": "ramsarSiteTemporaryMarkers"
+        },
+        {
+          "text": "Capable of affecting (other than insignificantly), the protected features of a Marine Conservation Zone or any ecological or geomorphological process on which the conservation of any protected feature of an MCZ is (wholly or in Part) dependant?",
+          "value": "mczTemporaryMarkers"
+        },
+        {
+          "text": "Unlikely to have any relevant effect  on any sites specified above",
+          "value": "otherTemporaryMarkers"
+        }
+      ]
+    },
+    {
+      "name": "_22",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers",
+      "type": "string",
+      "items": [
+        {
+          "text": "Natural England",
+          "value": "naturalEngland"
+        },
+        {
+          "text": "A public authority",
+          "value": "publicAuthority"
+        },
+        {
+          "text": "Someone else",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_23",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers/ne-purpose",
+      "type": "string",
+      "items": [
+        {
+          "text": "Installing a marker to indicate the existance and extent of a European Marine Site",
+          "value": "marineSiteExistance"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_24",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/marine-site-markers/pa-purpose",
+      "type": "string",
+      "items": [
+        {
+          "text": "Installing a marker to indicate the existance and extent of a Marine Conservation Zone",
+          "value": "marineSiteExistance"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_25",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/moorings",
+      "type": "string",
+      "items": [
+        {
+          "text": "Pile mooring",
+          "value": "pileMooring"
+        },
+        {
+          "text": "Swinging mooring",
+          "value": "swingingMooring"
+        },
+        {
+          "text": "Trot Mooring",
+          "value": "trotMooring"
+        },
+        {
+          "text": "Aid to Navigation",
+          "value": "aidToNavigation"
+        },
+        {
+          "text": "Something else",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_26",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/moorings/undertaker",
+      "type": "string",
+      "items": [
+        {
+          "text": "A harbour authority or someone on behalf of a harbour authority",
+          "value": "harbourAuthority"
+        },
+        {
+          "text": "A lighthouse authority or someone on behalf of a harbour authority",
+          "value": "lighthouseAuthority"
+        },
+        {
+          "text": "Someone else",
+          "value": "someoneElse"
+        }
+      ]
+    },
+    {
+      "name": "_27",
+      "title": "List for page /deposit/markers-moorings-pontoons-aids-to-navigation/pontoons/undertaker",
+      "type": "string",
+      "items": [
+        {
+          "text": "A harbour authority or someone on behalf of a harbour authority",
+          "value": "harbourAuthority"
+        },
+        {
+          "text": "Someone else",
+          "value": "someoneElse"
+        }
+      ]
+    },
+    {
+      "name": "_28",
+      "title": "List for page /deposit/scientific-research",
+      "type": "string",
+      "items": [
+        {
+          "text": "Scientific instruments and associated equipment",
+          "value": "scientificInstruments"
+        },
+        {
+          "text": "Tracers and reagents",
+          "value": "tracersReagents"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_29",
+      "title": "List for page /deposit/scientific-research/scientific-equipment/lse",
+      "type": "string",
+      "items": [
+        {
+          "text": "Likely (either alone or in combination withother plans and projects) to have a significant effect on a European site",
+          "value": "europeanSiteScientificEquipment"
+        },
+        {
+          "text": "2Likely (either alone or in combination withother plans and projects) to have a significant effect on a European site",
+          "value": "ramsarSiteScientificEquipment"
+        },
+        {
+          "text": "Capable of affecting (other than insignificantly), the protected features of a Marine Conservation Zone or any ecological or geomorphological process on which the conservation of any protected feature of an MCZ is (wholly or in Part) dependant?",
+          "value": "mczScientificEquipment"
+        },
+        {
+          "text": "Unlikely to have any relevant effect on any sites specified above",
+          "value": "otherScientificEquipment"
+        }
+      ]
+    },
+    {
+      "name": "_30",
+      "title": "List for page /deposit/scientific-research/tracers-reagents/lse",
+      "type": "string",
+      "items": [
+        {
+          "text": "Likely (either alone or in combination withother plans and projects) to have a significant effect on a European site",
+          "value": "europeanSiteTracers"
+        },
+        {
+          "text": "2Likely (either alone or in combination withother plans and projects) to have a significant effect on a European site",
+          "value": "ramsarSiteTracers"
+        },
+        {
+          "text": "Capable of affecting (other than insignificantly), the protected features of a Marine Conservation Zone or any ecological or geomorphological process on which the conservation of any protected feature of an MCZ is (wholly or in Part) dependant?",
+          "value": "mczTracers"
+        },
+        {
+          "text": "Unlikely to have any relevant effect on any sites specified above",
+          "value": "otherTracers"
+        }
+      ]
+    },
+    {
+      "name": "_31",
+      "title": "List for page /deposit/vessels",
+      "type": "string",
+      "items": [
+        {
+          "text": "Lanching of vessels etc",
+          "value": "lanchingVessels"
+        },
+        {
+          "text": "Deposits in the normal course of navigation",
+          "value": "normalNavigation"
+        },
+        {
+          "text": "Deposits in the course of aggregate dredging",
+          "value": "aggregateDredging"
+        },
+        {
+          "text": "Dismantlign of ships",
+          "value": "dismantlingShips"
+        },
+        {
+          "text": "Rights of foreign vessels",
+          "value": "foreignVessels"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_32",
+      "title": "List for page /deposit/vessels/aggregate-dredging/object-type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Aggregate or minerals",
+          "value": "aggregateMinerals"
+        },
+        {
+          "text": "Water",
+          "value": "water"
+        },
+        {
+          "text": "Something else",
+          "value": "somethingElse"
+        }
+      ]
+    },
+    {
+      "name": "_33",
+      "title": "List for page /deposit/vessels/foreign-vessels/undertaker",
+      "type": "string",
+      "items": [
+        {
+          "text": "A third country vessel",
+          "value": "thirdCountry"
+        },
+        {
+          "text": "A warship, naval auxiliary, other vessel or aircraft owned or operated by a state and used, for the time being, only on government non-commercial service (whether or not the warship, naval auxiliary, other vessel is a third country vessel)",
+          "value": "warship"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_34",
+      "title": "List for page /deposit/miscellaneous",
+      "type": "string",
+      "items": [
+        {
+          "text": "Defence activities",
+          "value": "defenceActivities"
+        },
+        {
+          "text": "Licensed deepsea mining",
+          "value": "deepseaMining"
+        },
+        {
+          "text": "Scheduled works authorised under the Crossrail Act",
+          "value": "crossrailAct"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_35",
+      "title": "List for page /deposit/miscellaneous/defence-activities",
+      "type": "string",
+      "items": [
+        {
+          "text": "The naval, military or air forces of the crown (including reserve forces and the Royal Fleet Auxiliary)",
+          "value": "ukForces"
+        },
+        {
+          "text": "A visiting force within the meaning given by Section 12 of the Visiting Forces Act 1952",
+          "value": "visiting forces"
+        },
+        {
+          "text": "Someone else",
+          "value": "someoneElse"
+        }
+      ]
+    },
+    {
+      "name": "_36",
+      "title": "List for page /deposit/miscellaneous/deepsea-mining",
+      "type": "string",
+      "items": [
+        {
+          "text": "In pursuance of an exploration or exploitation licence issued under the Deep Sea Mining (Temporary Provision) Act 1981",
+          "value": "explorationExploitationLicence"
+        },
+        {
+          "text": "In pursuance of a reciprocal authoriation within the meaning given by section 3(3) of the Deep Sea Mining (Temporary Provision) Act 1981",
+          "value": "reciprocalAuthoriation"
+        },
+        {
+          "text": "for another reason",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_37",
+      "title": "List for page /removal/method",
+      "type": "string",
+      "items": [
+        {
+          "text": "A vehicle or vessel",
+          "value": "vehicleOrVessel"
+        },
+        {
+          "text": "An aircraft",
+          "value": "aircraft"
+        },
+        {
+          "text": "A marine structure",
+          "value": "marineStructure"
+        },
+        {
+          "text": "A floating container in the sea",
+          "value": "floatingContainer"
+        },
+        {
+          "text": "A structure on land constructed or adapted wholly or mainly for the purposes of depositing solids in the sea",
+          "value": "landStructure"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_38",
+      "title": "List for page /removal/activity-type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Markers, moorings, pontoons and aids to navigation",
+          "value": "markersMooringsOrPontoons"
+        },
+        {
+          "text": "Scientific research - instruments, associated equipment, samples and testing and analysis",
+          "value": "scientificResearch"
+        },
+        {
+          "text": "Maintenance - existing structures or assets",
+          "value": "maintenance"
+        },
+        {
+          "text": "Dead animals, litter, obstructions or accidental deposits",
+          "value": "waste"
+        },
+        {
+          "text": "Emergency – safety, prevention of pollution and accident investigation",
+          "value": "emergency"
+        },
+        {
+          "text": "Fishing (including shellfish)",
+          "value": "fishing"
+        },
+        {
+          "text": "Vessels – Rights of foreign vessels and dismantling of ships",
+          "value": "vessels"
+        },
+        {
+          "text": "Defence activities, deep sea mining or scheduled works under the Crossrail act",
+          "value": "defenceOrCrossrail"
+        }
+      ]
+    },
+    {
+      "name": "_39",
+      "title": "List for page /dredging",
+      "type": "string",
+      "items": [
+        {
+          "text": "Navigational dredging",
+          "value": "navigationalDredging"
+        },
+        {
+          "text": "Shellfish propagation and cultivation",
+          "value": "shellfish"
+        },
+        {
+          "text": "Coastal Protection, drainage or flood defence",
+          "value": "coastalProtectionDrainageOrFloodDefence"
+        },
+        {
+          "text": "Emergency",
+          "value": "emergency"
+        },
+        {
+          "text": "Safety/training",
+          "value": "safetyOrTraining"
+        },
+        {
+          "text": "Prevention of pollution",
+          "value": "pollutionPrevention"
+        },
+        {
+          "text": "Vessels – Rights of foreign vessels and dismantling of ships",
+          "value": "vessels"
+        },
+        {
+          "text": "Deep sea mining or scheduled works under the Crossrail act",
+          "value": "deepSeaOrCrossrail"
+        }
+      ]
+    },
+    {
+      "name": "_40",
+      "title": "List for page /dredging/navigational-dredging/authorisation",
+      "type": "string",
+      "items": [
+        {
+          "text": "A local Act",
+          "value": "localAct"
+        },
+        {
+          "text": "An order under Section 14 or 16 of the Harbours Act 1964",
+          "value": "harboursAct"
+        },
+        {
+          "text": "An order under Section 1 of the Habrours Act (Northern ireland) 1970",
+          "value": "section1HaNorthernIreland"
+        },
+        {
+          "text": "An order under Section 10(3) of the Habrours Act (Northern ireland) 1970",
+          "value": "section10HaNorthernIreland"
+        },
+        {
+          "text": "None of the above",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_41",
+      "title": "List for page /incineration/method",
+      "type": "string",
+      "items": [
+        {
+          "text": "On a vehicle",
+          "value": "vehicle"
+        },
+        {
+          "text": "On a vessel",
+          "value": "vessel"
+        },
+        {
+          "text": "On a marine structure",
+          "value": "marineStructure"
+        },
+        {
+          "text": "On a floating container",
+          "value": "controlledFloatingContainer"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_42",
+      "title": "List for page /elsewhere-in-the-world/activity-type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Deposit a substance or object",
+          "value": "deposit"
+        },
+        {
+          "text": "Sinking of a vessel or floating container",
+          "value": "scuttling"
+        },
+        {
+          "text": "Incinerate a substance or object",
+          "value": "incineration"
+        },
+        {
+          "text": "Something else",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_43",
+      "title": "List for page /elsewhere-in-the-world/deposit",
+      "type": "string",
+      "items": [
+        {
+          "text": "From a British Vessel",
+          "value": "britishVessel"
+        },
+        {
+          "text": "From a British Marine structure",
+          "value": "britishMarineStructure"
+        },
+        {
+          "text": "From a British aircraft",
+          "value": "britishAircraft"
+        },
+        {
+          "text": "From a Floating container",
+          "value": "floatingContainer"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_44",
+      "title": "List for page /elsewhere-in-the-world/deposit/where-loaded",
+      "type": "string",
+      "items": [
+        {
+          "text": "United Kingdom (except Scotland)",
+          "value": "inUk"
+        },
+        {
+          "text": "UK marine licensing area",
+          "value": "inUkMLA"
+        },
+        {
+          "text": "None of the above",
+          "value": "none"
+        }
+      ]
+    },
+    {
+      "name": "_45",
+      "title": "List for page /elsewhere-in-the-world/incineration",
+      "type": "string",
+      "items": [
+        {
+          "text": "On a British Vessel",
+          "value": "britishVessel"
+        },
+        {
+          "text": "On a British Marine Structure",
+          "value": "britishMarineStructure"
+        },
+        {
+          "text": "On a floating container controlled from a British vessel, British aircraft, or British marine structure.",
+          "value": "controlledFloatingContainer"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_46",
+      "title": "List for page /elsewhere-in-the-world/scuttling",
+      "type": "string",
+      "items": [
+        {
+          "text": "From a British vessel",
+          "value": "britishVessel"
+        },
+        {
+          "text": "From a British aircraft",
+          "value": "britishAircraft"
+        },
+        {
+          "text": "From a British marine structure",
+          "value": "britishMarineStructure"
+        },
+        {
+          "text": "Other",
+          "value": "other"
+        }
+      ]
+    },
+    {
+      "name": "_47",
+      "title": "List for page /elsewhere-in-the-world/scuttling/towed-or-propelled-from-uk",
+      "type": "string",
+      "items": [
+        {
+          "text": "United Kingdom (except Scotland)",
+          "value": "inUk"
+        },
+        {
+          "text": "UK marine licensing area (unless towing or propelling began outside of that area)",
+          "value": "inUkMLA"
+        },
+        {
+          "text": "None of the above",
+          "value": "none"
+        }
+      ]
+    }
+  ]
+}
