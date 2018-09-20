@@ -1,7 +1,7 @@
 const Lab = require('lab')
 const { expect } = require('code')
 const cheerio = require('cheerio')
-const HtmlHelper = require('../html-helper')
+// const HtmlHelper = require('../html-helper')
 const createServer = require('../create-server')
 const lab = exports.lab = Lab.script()
 const data = require('./basic.json')

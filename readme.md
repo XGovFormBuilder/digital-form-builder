@@ -35,12 +35,6 @@ Install dependencies
 
 `$ npm i`
 
-
-Finally, config files [don't get stored](https://github.com/davidjamesstone/glupe/blob/master/docs/readme.md#config) in the repo so we need to create one.
-A copy of the example config will do for now.
-
-`$ cp config/server.example.json config/server.json`
-
 You are now ready to start.
 
 `$ browser-refresh`
@@ -49,3 +43,13 @@ You are now ready to start.
 Open your browser at
 
 `http://localhost:3009/split`
+
+
+# Environment variables
+
+| name     | description      | required | default |            valid            |             notes             |
+|----------|------------------|:--------:|---------|:---------------------------:|:-----------------------------:|
+| NODE_ENV | Node environment |    no    |         | development,test,production |                               |
+| PORT     | Port number      |    no    | 3009    |                             |                               |
+| OS_KEY   | Ordnance Survey  |    no    |         |                             | For address lookup by postcode|
+

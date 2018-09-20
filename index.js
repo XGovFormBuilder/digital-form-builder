@@ -1,13 +1,8 @@
-const glupe = require('glupe')
-const { manifest, options } = require('./server')
+const createServer = require('./server')
 
-;(async () => {
-  try {
-    await glupe(manifest, options)
-    if (process.send) {
-      process.send('online')
-    }
-  } catch (err) {
-    console.error(err)
-  }
-})()
+createServer()
+  .then(server => server.start())
+  .catch(err => {
+    console.log(err)
+    process.exit(1)
+  })
