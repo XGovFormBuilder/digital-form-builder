@@ -42,7 +42,7 @@ module.exports = {
       serviceName: 'Service name',
       pageTitle: 'Service name - GOV.UK',
       analyticsAccount: analyticsAccount,
-      BROWSER_REFRESH_URL: process.env.BROWSER_REFRESH_URL
+      BROWSER_REFRESH_URL: config.browserRefreshUrl
     }
   }
 }

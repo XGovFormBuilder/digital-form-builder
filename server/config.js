@@ -4,14 +4,16 @@ const joi = require('joi')
 const schema = {
   port: joi.number().default(3009),
   env: joi.string().valid('development', 'test', 'production').default('development'),
-  ordnanceSurveyKey: joi.string().optional()
+  ordnanceSurveyKey: joi.string().optional(),
+  browserRefreshUrl: joi.string().optional()
 }
 
 // Build config
 const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
-  ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY
+  ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
+  browserRefreshUrl: process.env.BROWSER_REFRESH_URL
 }
 
 // Validate config
