@@ -110,7 +110,7 @@
       "path": "/start-date",
       "components": [
         {
-          "type": "DateTimeField",
+          "type": "DatePartsField",
           "name": "startDateTime",
           "title": "When would you like your licence to start?",
           "options": {},
@@ -119,10 +119,16 @@
       ],
       "next": [
         {
-          "path": "/benefits-check"
+          "path": "/benefits-check",
+          "if": "licenceLength == 365 && age > 65"
         },
         {
-          "path": "/licence-type"
+          "path": "/licence-type",
+          "if": "licenceLength == 365 && age < 65"
+        },
+        {
+          "path": "/start-time",
+          "if": "licenceLength == 1 || licenceLength == 8"
         }
       ],
       "section": "licenceDetails"
@@ -311,6 +317,27 @@
           "path": "/licence-type"
         }
       ]
+    },
+    {
+      "path": "/start-time",
+      "section": "licenceDetails",
+      "components": [
+        {
+          "type": "TimeField",
+          "name": "startTime",
+          "title": "What time would you like the licence to start?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/benefits-check"
+        },
+        {
+          "path": "/licence-type"
+        }
+      ]
     }
   ],
   "sections": [
@@ -336,12 +363,12 @@
         {
           "text": "1 day",
           "value": 1,
-          "description": "1-day licences are valid for a full 24 hours from the start time that you select"
+          "description": "Valid for 24 hours from the start time that you select"
         },
         {
           "text": "8 day",
           "value": 8,
-          "description": "8-day licences are valid for 8 consecutive days from the start time that you select"
+          "description": "Valid for 8 consecutive days from the start time that you select"
         },
         {
           "text": "12 months",
