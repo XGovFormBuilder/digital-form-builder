@@ -58,7 +58,7 @@
       ],
       "next": [
         {
-          "path": "/contact"
+          "path": "/licence-length"
         }
       ],
       "section": "personalDetails"
@@ -106,6 +106,9 @@
         {
           "path": "/number-of-rods",
           "if": "licenceType == 'troutAndCourse'"
+        },
+        {
+          "path": "/contact"
         }
       ],
       "section": "licenceDetails"
@@ -123,7 +126,11 @@
           "schema": {}
         }
       ],
-      "next": [],
+      "next": [
+        {
+          "path": "/contact"
+        }
+      ],
       "section": "licenceDetails"
     },
     {
@@ -154,11 +161,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/licence-length"
-        }
-      ],
+      "next": [],
       "title": "How can we send you your licence details?",
       "section": "personalDetails"
     },
