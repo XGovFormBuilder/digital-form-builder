@@ -1,7 +1,7 @@
 const path = require('path')
 const { getState, mergeState } = require('../db')
 const config = require('../config')
-const dataFilePath = path.join(__dirname, '../govsite.peace.fish.json')
+const dataFilePath = path.join(__dirname, '../govsite.json')
 const data = require(dataFilePath)
 const playgroundModel = require('../govsite.playground.json')
 
