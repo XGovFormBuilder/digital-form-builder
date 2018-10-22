@@ -1,4 +1,5 @@
 {
+  "conditions": [],
   "pages": [
     {
       "path": "/",
@@ -172,7 +173,7 @@
       "next": [
         {
           "path": "/mmo",
-          "if": "seeMMO == true"
+          "if": "seeMMO: true"
         },
         {
           "path": "/no-mmo"
