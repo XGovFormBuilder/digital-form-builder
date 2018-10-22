@@ -3,6 +3,7 @@
     {
       "path": "/",
       "title": "Check eligibility, cost and time",
+      "controller": "./pages/home.js",
       "components": [
         {
           "type": "Para",
