@@ -300,8 +300,7 @@
           "path": "/contact"
         }
       ],
-      "section": "licenceDetails",
-      "controller": "./pages/number-of-rods.js"
+      "section": "licenceDetails"
     },
     {
       "path": "/contact",
@@ -331,7 +330,11 @@
           "schema": {}
         }
       ],
-      "next": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
       "title": "How can we send you your licence details?",
       "section": "personalDetails"
     },
@@ -388,6 +391,13 @@
           "path": "/licence-type"
         }
       ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "title": "Summary"
     }
   ],
   "sections": [

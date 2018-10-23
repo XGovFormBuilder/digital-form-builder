@@ -1,11 +1,11 @@
 const path = require('path')
-const Model = require('digital-form-builder-engine/model')
-const config = require('../config')
-const { getState, mergeState } = require('../db')
-const dataFilePath = path.join(__dirname, '../govsite.fish.json')
+const config = require('../../config')
+const { getState, mergeState } = require('../../db')
+const dataFilePath = path.join(__dirname, '../../govsite.fish.json')
 const data = require(dataFilePath)
 const relativeTo = __dirname
 const defaultPageController = './pages'
+const Model = require('./model')
 
 const model = new Model(data, {
   getState,
