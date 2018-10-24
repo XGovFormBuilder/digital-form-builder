@@ -11,6 +11,7 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
+        <pre>{{ state | dump(2) | safe }}</pre>
         <pre>{{ value | dump(2) | safe }}</pre>
         <pre>{{ errors | dump(2) | safe }}</pre>
         

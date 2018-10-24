@@ -26,7 +26,7 @@
     },
     {
       "name": "isShortTerm",
-      "value": "[\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 1\r\n  }\r\n},\r\n{\r\n  licenceLength: {\r\n    licenceLength: 8\r\n  }\r\n}\r\n]"
+      "value": "[\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 1\r\n  }\r\n},\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 8\r\n  }\r\n}\r\n]"
     },
     {
       "name": "isSalmon",

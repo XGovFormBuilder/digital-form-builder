@@ -32,7 +32,7 @@ class SummaryViewModel {
       })
     })
 
-    const schema = model.schema
+    const schema = model.makeSchema(state)
     const result = joi.validate(state, schema, { abortEarly: false })
 
     if (result.error) {
@@ -66,7 +66,8 @@ class SummaryViewModel {
 
     this.result = result
     this.details = details
-    this.value = state
+    this.state = state
+    this.value = result.value
   }
 }
 
