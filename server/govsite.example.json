@@ -1,8 +1,10 @@
 {
+  "conditions": [],
   "pages": [
     {
       "path": "/",
       "title": "Check eligibility, cost and time",
+      "controller": "./pages/home.js",
       "components": [
         {
           "type": "Para",
@@ -373,7 +375,7 @@
         },
         {
           "path": "/over-18-only",
-          "if": "over18 == false"
+          "if": "over18: false"
         }
       ],
       "section": "checkBeforeStart"
@@ -395,7 +397,7 @@
         },
         {
           "path": "/no-need-to-apply/passengers-only",
-          "if": "passengersOnly == true"
+          "if": "passengersOnly: true"
         }
       ],
       "section": "checkBeforeStart"
@@ -417,7 +419,7 @@
         },
         {
           "path": "/check-before-start/weight-loaded",
-          "if": "weightEmpty == false"
+          "if": "weightEmpty: false"
         }
       ],
       "section": "checkBeforeStart"
@@ -439,7 +441,7 @@
         },
         {
           "path": "/no-need-to-apply/weight",
-          "if": "weightLoaded == false"
+          "if": "weightLoaded: false"
         }
       ],
       "section": "checkBeforeStart"

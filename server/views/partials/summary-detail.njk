@@ -1,0 +1,21 @@
+{% macro summaryDetail(data) %}
+  <h2 class="govuk-heading-m">{{data.title}}</h2>
+  <table class="govuk-table check-your-answers">
+    <caption class="govuk-table__caption"></caption>
+    <tbody class="govuk-table__body">
+      {% for item in data.items %}
+        {% if not hide %}
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header" style="width:60%;">{{item.label}}</th>
+            <td class={% if item.inError %}"govuk-table__cell required"{% else %}"govuk-table__cell"{% endif %}>
+              {% if item.value %}{{item.value}}{% else %}Not supplied{% endif %}
+            </td>
+            <td class="govuk-table__cell change-answer">
+              <a href="{{item.url}}">Change</a>
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+{% endmacro %}

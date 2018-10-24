@@ -1,4 +1,50 @@
 {
+  "conditions": [
+    {
+      "name": "isAsap",
+      "value": "licenceDetails: {\r\n  startKind: 'asap'\r\n}"
+    },
+    {
+      "name": "isAbsolute",
+      "value": "licenceDetails: {\r\n  startKind: 'absolute'\r\n}"
+    },
+    {
+      "name": "isFull",
+      "value": "personalDetails: {\r\n  ageGroup: 'full'\r\n}"
+    },
+    {
+      "name": "isAsapAndFull",
+      "value": "licenceDetails: {\r\n  startKind: 'asap'\r\n},\r\npersonalDetails: {\r\n  ageGroup: 'full'\r\n}"
+    },
+    {
+      "name": "isAnnualAndFull",
+      "value": "licenceDetails: {\r\n  licenceLength: 365\r\n},\r\npersonalDetails: {\r\n  ageGroup: 'full'\r\n}"
+    },
+    {
+      "name": "isAnnual",
+      "value": "licenceDetails: {\r\n  licenceLength: 365 \r\n}"
+    },
+    {
+      "name": "isShortTerm",
+      "value": "[\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 1\r\n  }\r\n},\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 8\r\n  }\r\n}\r\n]"
+    },
+    {
+      "name": "isSalmon",
+      "value": "licenceDetails: {\r\n  licenceType: 'salmonAndSeaTrout'\r\n}"
+    },
+    {
+      "name": "isTroutAndCourse",
+      "value": "licenceDetails: {\r\n  licenceType: 'troutAndCourse'\r\n}"
+    },
+    {
+      "name": "hasPIPorDLA",
+      "value": "concessions: {\r\n  hasPIPorDLA: true\r\n}"
+    },
+    {
+      "name": "hasBlueBadge",
+      "value": "concessions: {\r\n  hasBlueBadge: true\r\n}"
+    }
+  ],
   "pages": [
     {
       "path": "/",
@@ -43,6 +89,7 @@
     },
     {
       "path": "/date-of-birth",
+      "controller": "./pages/dob.js",
       "components": [
         {
           "type": "DatePartsField",
@@ -94,24 +141,26 @@
       "next": [
         {
           "path": "/start-date",
-          "if": "startKind == 'absolute'"
+          "if": "isAbsolute"
         },
         {
           "path": "/benefits-check",
-          "if": "age < 65"
+          "if": "isAsapAndFull"
         },
         {
-          "path": "/licence-type"
+          "path": "/licence-type",
+          "if": "startKind: 'asap'"
         }
       ],
       "section": "licenceDetails"
     },
     {
       "path": "/start-date",
+      "controller": "./pages/start-date.js",
       "components": [
         {
           "type": "DatePartsField",
-          "name": "startDateTime",
+          "name": "startDate",
           "title": "When would you like your licence to start?",
           "options": {},
           "schema": {}
@@ -120,15 +169,14 @@
       "next": [
         {
           "path": "/benefits-check",
-          "if": "licenceLength == 365 && age > 65"
+          "if": "isAnnualAndFull"
         },
         {
-          "path": "/licence-type",
-          "if": "licenceLength == 365 && age < 65"
+          "path": "/licence-type"
         },
         {
           "path": "/start-time",
-          "if": "licenceLength == 1 || licenceLength == 8"
+          "if": "isShortTerm"
         }
       ],
       "section": "licenceDetails"
@@ -138,7 +186,7 @@
       "components": [
         {
           "type": "YesNoField",
-          "name": "benefits",
+          "name": "hasPIPorDLA",
           "title": "Do you receive any of the following benefits?",
           "hint": "<ul class=\"govuk-list  govuk-list--bullet\">\r\n          <li>Personal Independence Payment (PIP)</li>\r\n          <li>Disability Living Allowance (DLA)</li>\r\n        </ul>\r\n\r\n<p>\r\nWe use this information to find out if you are eligible for a disabled concession.</p>",
           "options": {},
@@ -147,11 +195,11 @@
       ],
       "next": [
         {
-          "path": "/blue-badge-check",
-          "if": "benefits == false"
+          "path": "/blue-badge-check"
         },
         {
-          "path": "/national-insurance-number"
+          "path": "/national-insurance-number",
+          "if": "hasPIPorDLA"
         }
       ],
       "section": "concessions"
@@ -161,7 +209,7 @@
       "components": [
         {
           "type": "YesNoField",
-          "name": "blueBadgeHolder",
+          "name": "hasBlueBadge",
           "title": "Do you have a Blue Badge?",
           "hint": "We use this information to find out if you are eligible for a disabled concession.",
           "options": {},
@@ -174,7 +222,7 @@
         },
         {
           "path": "/blue-badge-number",
-          "if": "blueBadgeHolder == true"
+          "if": "hasBlueBadge"
         }
       ],
       "section": "concessions"
@@ -203,7 +251,7 @@
       "next": [
         {
           "path": "/number-of-rods",
-          "if": "licenceType == 'troutAndCourse'"
+          "if": "isTroutAndCourse"
         },
         {
           "path": "/contact"
@@ -282,7 +330,11 @@
           "schema": {}
         }
       ],
-      "next": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
       "title": "How can we send you your licence details?",
       "section": "personalDetails"
     },
@@ -332,12 +384,20 @@
       ],
       "next": [
         {
-          "path": "/benefits-check"
+          "path": "/benefits-check",
+          "if": "isAnnualAndFull"
         },
         {
           "path": "/licence-type"
         }
       ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "next": [],
+      "title": "Summary"
     }
   ],
   "sections": [
