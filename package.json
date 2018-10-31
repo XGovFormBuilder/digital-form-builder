@@ -1,6 +1,6 @@
 {
   "name": "digital-form-builder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Starter project for digital form builder applications",
   "main": "index.js",
   "scripts": {

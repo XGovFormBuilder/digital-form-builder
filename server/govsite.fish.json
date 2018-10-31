@@ -2,47 +2,67 @@
   "conditions": [
     {
       "name": "isAsap",
-      "value": "licenceDetails: {\r\n  startKind: 'asap'\r\n}"
+      "value": "licenceDetails.startKind == 'asap'"
     },
     {
       "name": "isAbsolute",
-      "value": "licenceDetails: {\r\n  startKind: 'absolute'\r\n}"
+      "value": "licenceDetails.startKind == 'absolute'"
+    },
+    {
+      "name": "isJunior",
+      "value": "personalDetails.ageGroup == 'junior'"
     },
     {
       "name": "isFull",
-      "value": "personalDetails: {\r\n  ageGroup: 'full'\r\n}"
-    },
-    {
-      "name": "isAsapAndFull",
-      "value": "licenceDetails: {\r\n  startKind: 'asap'\r\n},\r\npersonalDetails: {\r\n  ageGroup: 'full'\r\n}"
-    },
-    {
-      "name": "isAnnualAndFull",
-      "value": "licenceDetails: {\r\n  licenceLength: 365\r\n},\r\npersonalDetails: {\r\n  ageGroup: 'full'\r\n}"
+      "value": "personalDetails.ageGroup == 'full'"
     },
     {
       "name": "isAnnual",
-      "value": "licenceDetails: {\r\n  licenceLength: 365 \r\n}"
+      "value": "licenceDetails.licenceLength == 365"
     },
     {
       "name": "isShortTerm",
-      "value": "[\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 1\r\n  }\r\n},\r\n{\r\n  licenceDetails: {\r\n    licenceLength: 8\r\n  }\r\n}\r\n]"
+      "value": "licenceDetails.licenceLength == 1 or licenceDetails.licenceLength == 8"
     },
     {
       "name": "isSalmon",
-      "value": "licenceDetails: {\r\n  licenceType: 'salmonAndSeaTrout'\r\n}"
+      "value": "licenceDetails.licenceType == 'salmonAndSeaTrout'"
     },
     {
       "name": "isTroutAndCourse",
-      "value": "licenceDetails: {\r\n  licenceType: 'troutAndCourse'\r\n}"
+      "value": "licenceDetails.licenceType == 'troutAndCourse'"
     },
     {
       "name": "hasPIPorDLA",
-      "value": "concessions: {\r\n  hasPIPorDLA: true\r\n}"
+      "value": "concessions.hasPIPorDLA == true"
     },
     {
       "name": "hasBlueBadge",
-      "value": "concessions: {\r\n  hasBlueBadge: true\r\n}"
+      "value": "concessions.hasBlueBadge == true"
+    },
+    {
+      "name": "isAsapAndFull",
+      "value": "isAsap and isFull"
+    },
+    {
+      "name": "isAnnualAndFull",
+      "value": "isAnnual and isFull"
+    },
+    {
+      "name": "isAbsoluteAndShortTerm",
+      "value": "isAbsolute and isShortTerm"
+    },
+    {
+      "name": "requiresNI",
+      "value": "isAnnualAndFull and hasPIPorDLA"
+    },
+    {
+      "name": "requiresBBCheck",
+      "value": "isAnnualAndFull and hasPIPorDLA == false"
+    },
+    {
+      "name": "requiresBB",
+      "value": "requiresBBCheck and hasBlueBadge"
     }
   ],
   "pages": [
@@ -60,11 +80,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/full-name"
-        }
-      ],
       "section": "licenceDetails"
     },
     {
@@ -80,12 +95,7 @@
           "options": {}
         }
       ],
-      "section": "personalDetails",
-      "next": [
-        {
-          "path": "/date-of-birth"
-        }
-      ]
+      "section": "personalDetails"
     },
     {
       "path": "/date-of-birth",
@@ -100,12 +110,21 @@
           "schema": {}
         }
       ],
-      "next": [
+      "section": "personalDetails"
+    },
+    {
+      "path": "/under-13",
+      "components": [
         {
-          "path": "/address"
+          "type": "Html",
+          "content": "No licence required",
+          "options": {},
+          "schema": {}
         }
       ],
-      "section": "personalDetails"
+      "section": "personalDetails",
+      "condition": "isJunior",
+      "title": "Under 13"
     },
     {
       "path": "/address",
@@ -116,11 +135,6 @@
           "title": "Your address",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/start-kind"
         }
       ],
       "section": "personalDetails"
@@ -138,20 +152,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/start-date",
-          "if": "isAbsolute"
-        },
-        {
-          "path": "/benefits-check",
-          "if": "isAsapAndFull"
-        },
-        {
-          "path": "/licence-type",
-          "if": "startKind: 'asap'"
-        }
-      ],
       "section": "licenceDetails"
     },
     {
@@ -166,20 +166,22 @@
           "schema": {}
         }
       ],
-      "next": [
+      "section": "licenceDetails",
+      "condition": "isAbsolute"
+    },
+    {
+      "path": "/start-time",
+      "section": "licenceDetails",
+      "components": [
         {
-          "path": "/benefits-check",
-          "if": "isAnnualAndFull"
-        },
-        {
-          "path": "/licence-type"
-        },
-        {
-          "path": "/start-time",
-          "if": "isShortTerm"
+          "type": "TimeField",
+          "name": "startTime",
+          "title": "What time would you like the licence to start?",
+          "options": {},
+          "schema": {}
         }
       ],
-      "section": "licenceDetails"
+      "condition": "isAbsoluteAndShortTerm"
     },
     {
       "path": "/benefits-check",
@@ -193,16 +195,27 @@
           "schema": {}
         }
       ],
-      "next": [
+      "section": "concessions",
+      "condition": "isAnnualAndFull"
+    },
+    {
+      "path": "/national-insurance-number",
+      "components": [
         {
-          "path": "/blue-badge-check"
-        },
-        {
-          "path": "/national-insurance-number",
-          "if": "hasPIPorDLA"
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
+          "schema": {
+            "max": 20
+          },
+          "type": "TextField",
+          "name": "nationalInsuranceNumber",
+          "title": "What is your National Insurance number?",
+          "hint": "We use your National Insurance number to find your benefit details, so that you can get a disabled concession.\r\n\r\n\r\n<br>\r\n\r\nIt’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
         }
       ],
-      "section": "concessions"
+      "section": "concessions",
+      "condition": "requiresNI"
     },
     {
       "path": "/blue-badge-check",
@@ -216,16 +229,23 @@
           "schema": {}
         }
       ],
-      "next": [
+      "section": "concessions",
+      "condition": "requiresBBCheck"
+    },
+    {
+      "path": "/blue-badge-number",
+      "section": "concessions",
+      "components": [
         {
-          "path": "/licence-type"
-        },
-        {
-          "path": "/blue-badge-number",
-          "if": "hasBlueBadge"
+          "type": "TextField",
+          "name": "blueBadgeNumber",
+          "title": "What is your Blue Badge number?",
+          "hint": "We use this information to find your Blue Badge details, so that you can get a disabled concession.",
+          "options": {},
+          "schema": {}
         }
       ],
-      "section": "concessions"
+      "condition": "requiresBB"
     },
     {
       "path": "/licence-type",
@@ -248,39 +268,7 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/number-of-rods",
-          "if": "isTroutAndCourse"
-        },
-        {
-          "path": "/contact"
-        }
-      ],
       "section": "licenceDetails"
-    },
-    {
-      "path": "/national-insurance-number",
-      "components": [
-        {
-          "options": {
-            "classes": "govuk-input--width-10"
-          },
-          "schema": {
-            "max": 20
-          },
-          "type": "TextField",
-          "name": "nationalInsuranceNumber",
-          "title": "What is your National Insurance number?",
-          "hint": "We use your National Insurance number to find your benefit details, so that you can get a disabled concession.\r\n\r\n\r\n<br>\r\n\r\nIt’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
-        }
-      ],
-      "next": [
-        {
-          "path": "/licence-type"
-        }
-      ],
-      "section": "concessions"
     },
     {
       "path": "/number-of-rods",
@@ -295,12 +283,8 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/contact"
-        }
-      ],
-      "section": "licenceDetails"
+      "section": "licenceDetails",
+      "condition": "isTroutAndCourse"
     },
     {
       "path": "/contact",
@@ -330,13 +314,14 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ],
       "title": "How can we send you your licence details?",
       "section": "personalDetails"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "title": "Summary"
     },
     {
       "path": "/data-protection",
@@ -348,56 +333,7 @@
           "options": {},
           "schema": {}
         }
-      ],
-      "next": []
-    },
-    {
-      "path": "/blue-badge-number",
-      "section": "concessions",
-      "components": [
-        {
-          "type": "TextField",
-          "name": "blueBadgeNumber",
-          "title": "What is your Blue Badge number?",
-          "hint": "We use this information to find your Blue Badge details, so that you can get a disabled concession.",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/licence-type"
-        }
       ]
-    },
-    {
-      "path": "/start-time",
-      "section": "licenceDetails",
-      "components": [
-        {
-          "type": "TimeField",
-          "name": "startTime",
-          "title": "What time would you like the licence to start?",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/benefits-check",
-          "if": "isAnnualAndFull"
-        },
-        {
-          "path": "/licence-type"
-        }
-      ]
-    },
-    {
-      "path": "/summary",
-      "controller": "./pages/summary.js",
-      "components": [],
-      "next": [],
-      "title": "Summary"
     }
   ],
   "sections": [

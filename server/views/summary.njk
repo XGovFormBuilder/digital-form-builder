@@ -11,10 +11,11 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
-        <pre>{{ state | dump(2) | safe }}</pre>
-        <pre>{{ value | dump(2) | safe }}</pre>
-        <pre>{{ errors | dump(2) | safe }}</pre>
-        
+        {% if next %}
+          <a href="{{next}}?returnUrl=/summary">{{ next }}</a>
+        {% endif %}
+
+        <pre>{{ result.error | dump(2) | safe }}</pre>
       </div>
     </div>
   </div>

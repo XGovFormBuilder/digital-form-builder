@@ -64,11 +64,53 @@ class SummaryViewModel {
       })
     }
 
+    //
+    const result1 = getNext(model, result.value)
+    console.log(result1)
+    this.next = result1 && result1.path
+    //
     this.result = result
     this.details = details
     this.state = state
     this.value = result.value
   }
+}
+
+function getNext (model, state) {
+  // Build the entire model schema
+  // from the individual pages/sections
+  // let schema = joi.object().required()
+  // ;[undefined].concat(model.sections).forEach(section => {
+  //   const sectionPages = model.pages.filter(page => page.section === section)
+
+  //   if (section) {
+  //     let sectionSchema = joi.object().required().meta(section)
+
+  //     sectionPages.forEach(sectionPage => {
+  //       sectionSchema = sectionSchema.concat(sectionPage.stateSchema.meta(sectionPage))
+  //     })
+
+  //     schema = schema.append({
+  //       [section.name]: sectionSchema
+  //     })
+  //   } else {
+  //     sectionPages.forEach(sectionPage => {
+  //       schema = schema.concat(sectionPage.stateSchema.meta(sectionPage))
+  //     })
+  //   }
+  // })
+  // const result = joi.validate(state, schema, { abortEarly: false })
+
+  const page = model.pages.find(page => {
+    const value = page.section ? state[page.section.name] : state
+    const isRequired = true
+    const error = joi.validate(value || {}, page.stateSchema.required(), model.conditionOptions).error
+    const isValid = !error
+
+    return isRequired && !isValid
+  })
+
+  return page
 }
 
 class SummaryPage extends Page {

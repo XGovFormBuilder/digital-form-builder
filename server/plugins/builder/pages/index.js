@@ -1,3 +1,4 @@
+const joi = require('joi')
 const EngineBasePage = require('digital-form-builder-engine/page')
 
 class Page extends EngineBasePage {
