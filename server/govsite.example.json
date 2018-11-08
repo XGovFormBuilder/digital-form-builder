@@ -12,11 +12,6 @@
           "options": {},
           "schema": {}
         }
-      ],
-      "next": [
-        {
-          "path": "/check-before-start/over-18"
-        }
       ]
     },
     {
@@ -350,11 +345,6 @@
           "options": {},
           "schema": {}
         }
-      ],
-      "next": [
-        {
-          "path": "/personal-details/full-name"
-        }
       ]
     },
     {
@@ -367,15 +357,6 @@
           "hint": "You must be 18 or over to transport goods in lorries and vans.",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/check-before-start/passengers"
-        },
-        {
-          "path": "/over-18-only",
-          "if": "over18: false"
         }
       ],
       "section": "checkBeforeStart"
@@ -391,15 +372,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/check-before-start/weight-empty"
-        },
-        {
-          "path": "/no-need-to-apply/passengers-only",
-          "if": "passengersOnly: true"
-        }
-      ],
       "section": "checkBeforeStart"
     },
     {
@@ -413,15 +385,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/check-before-start/how-many-vehicles"
-        },
-        {
-          "path": "/check-before-start/weight-loaded",
-          "if": "weightEmpty: false"
-        }
-      ],
       "section": "checkBeforeStart"
     },
     {
@@ -433,15 +396,6 @@
           "title": "Do your vehicles weigh 3,500 kg or more when loaded?",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/check-before-start/how-many-vehicles"
-        },
-        {
-          "path": "/no-need-to-apply/weight",
-          "if": "weightLoaded: false"
         }
       ],
       "section": "checkBeforeStart"
@@ -459,11 +413,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/check-before-start/just-own-goods"
-        }
-      ],
       "section": "checkBeforeStart"
     },
     {
@@ -477,11 +426,6 @@
             "list": "yesNoUnsure"
           },
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/eligible"
         }
       ],
       "section": "checkBeforeStart"
@@ -501,11 +445,6 @@
           }
         }
       ],
-      "next": [
-        {
-          "path": "/personal-details/date-of-birth"
-        }
-      ],
       "section": "personalDetails"
     },
     {
@@ -517,11 +456,6 @@
           "title": "Date of birth",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/personal-details/national-insurance-number"
         }
       ],
       "section": "personalDetails"
@@ -539,11 +473,6 @@
             "classes": "govuk-input--width-10"
           },
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/personal-details/telephone-numbers"
         }
       ],
       "section": "personalDetails"
@@ -570,11 +499,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/personal-details/email-address"
-        }
-      ],
       "section": "personalDetails"
     },
     {
@@ -586,11 +510,6 @@
           "title": "Email address",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/company-details"
         }
       ],
       "section": "personalDetails"
@@ -616,11 +535,6 @@
           "options": {}
         }
       ],
-      "next": [
-        {
-          "path": "/company-details/type"
-        }
-      ],
       "section": "companyDetails"
     },
     {
@@ -643,11 +557,6 @@
           "schema": {}
         }
       ],
-      "next": [
-        {
-          "path": "/company-details/address"
-        }
-      ],
       "section": "companyDetails"
     },
     {
@@ -659,11 +568,6 @@
           "title": "Address",
           "options": {},
           "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/company-details/country-of-origin"
         }
       ],
       "section": "companyDetails"

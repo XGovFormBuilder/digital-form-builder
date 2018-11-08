@@ -7,7 +7,7 @@ module.exports = {
   plugin: require('vision'),
   options: {
     engines: {
-      njk: {
+      html: {
         compile: (src, options) => {
           const template = nunjucks.compile(src, options.environment)
 

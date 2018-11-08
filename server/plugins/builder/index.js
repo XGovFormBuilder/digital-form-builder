@@ -1,7 +1,7 @@
 const path = require('path')
 const config = require('../../config')
 const { getState, mergeState } = require('../../db')
-const dataFilePath = path.join(__dirname, '../../govsite.fish.json')
+const dataFilePath = path.join(__dirname, '../../govsite.example.json')
 const data = require(dataFilePath)
 const relativeTo = __dirname
 const defaultPageController = './pages'
