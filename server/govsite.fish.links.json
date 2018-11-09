@@ -1,0 +1,498 @@
+{
+  "conditions": [
+    {
+      "name": "isAsap",
+      "value": "licenceDetails.startKind == 'asap'"
+    },
+    {
+      "name": "isAbsolute",
+      "value": "licenceDetails.startKind == 'absolute'"
+    },
+    {
+      "name": "isJunior",
+      "value": "personalDetails.ageGroup == 'junior'"
+    },
+    {
+      "name": "isFull",
+      "value": "personalDetails.ageGroup == 'full'"
+    },
+    {
+      "name": "isAnnual",
+      "value": "licenceDetails.licenceLength == 365"
+    },
+    {
+      "name": "isShortTerm",
+      "value": "licenceDetails.licenceLength == 1 or licenceDetails.licenceLength == 8"
+    },
+    {
+      "name": "isSalmon",
+      "value": "licenceDetails.licenceType == 'salmonAndSeaTrout'"
+    },
+    {
+      "name": "isTroutAndCourse",
+      "value": "licenceDetails.licenceType == 'troutAndCourse'"
+    },
+    {
+      "name": "hasPIPorDLA",
+      "value": "concessions.hasPIPorDLA == true"
+    },
+    {
+      "name": "hasBlueBadge",
+      "value": "concessions.hasBlueBadge == true"
+    },
+    {
+      "name": "isAsapAndFull",
+      "value": "isAsap and isFull"
+    },
+    {
+      "name": "isAnnualAndFull",
+      "value": "isAnnual and isFull"
+    },
+    {
+      "name": "isAbsoluteAndShortTerm",
+      "value": "isAbsolute and isShortTerm"
+    },
+    {
+      "name": "requiresNI",
+      "value": "isAnnualAndFull and hasPIPorDLA"
+    },
+    {
+      "name": "requiresBBCheck",
+      "value": "isAnnualAndFull and hasPIPorDLA == false"
+    },
+    {
+      "name": "requiresBB",
+      "value": "requiresBBCheck and hasBlueBadge"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "components": [
+        {
+          "options": {
+            "list": "licenceLengthDays",
+            "bold": true
+          },
+          "type": "RadiosField",
+          "name": "licenceLength",
+          "title": "Which fishing licence do you want to get?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/full-name"
+        }
+      ],
+      "section": "licenceDetails"
+    },
+    {
+      "path": "/full-name",
+      "components": [
+        {
+          "schema": {
+            "max": 70
+          },
+          "type": "TextField",
+          "name": "fullName",
+          "title": "What's your name?",
+          "options": {}
+        }
+      ],
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/date-of-birth"
+        }
+      ]
+    },
+    {
+      "path": "/date-of-birth",
+      "components": [
+        {
+          "type": "DatePartsField",
+          "name": "dob",
+          "title": "What's your date of birth?",
+          "hint": "We use this information to find out if you're eligible for a senior or junior concession",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/address"
+        }
+      ],
+      "section": "personalDetails"
+    },
+    {
+      "path": "/address",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Your address",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/start-kind"
+        }
+      ],
+      "section": "personalDetails"
+    },
+    {
+      "path": "/start-kind",
+      "components": [
+        {
+          "options": {
+            "list": "licenceStartKind"
+          },
+          "type": "RadiosField",
+          "name": "startKind",
+          "title": "When would you like your licence to start?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/start-date",
+          "if": "startKind == 'absolute'"
+        },
+        {
+          "path": "/benefits-check",
+          "if": "age < 65"
+        },
+        {
+          "path": "/licence-type"
+        }
+      ],
+      "section": "licenceDetails"
+    },
+    {
+      "path": "/start-date",
+      "components": [
+        {
+          "type": "DatePartsField",
+          "name": "startDateTime",
+          "title": "When would you like your licence to start?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/benefits-check",
+          "if": "licenceLength == 365 && age > 65"
+        },
+        {
+          "path": "/licence-type",
+          "if": "licenceLength == 365 && age < 65"
+        },
+        {
+          "path": "/start-time",
+          "if": "licenceLength == 1 || licenceLength == 8"
+        }
+      ],
+      "section": "licenceDetails"
+    },
+    {
+      "path": "/benefits-check",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "benefits",
+          "title": "Do you receive any of the following benefits?",
+          "hint": "<ul class=\"govuk-list  govuk-list--bullet\">\r\n          <li>Personal Independence Payment (PIP)</li>\r\n          <li>Disability Living Allowance (DLA)</li>\r\n        </ul>\r\n\r\n<p>\r\nWe use this information to find out if you are eligible for a disabled concession.</p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/blue-badge-check",
+          "if": "benefits == false"
+        },
+        {
+          "path": "/national-insurance-number"
+        }
+      ],
+      "section": "concessions"
+    },
+    {
+      "path": "/blue-badge-check",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "blueBadgeHolder",
+          "title": "Do you have a Blue Badge?",
+          "hint": "We use this information to find out if you are eligible for a disabled concession.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-type"
+        },
+        {
+          "path": "/blue-badge-number",
+          "if": "blueBadgeHolder == true"
+        }
+      ],
+      "section": "concessions"
+    },
+    {
+      "path": "/licence-type",
+      "components": [
+        {
+          "options": {
+            "list": "licenceType",
+            "bold": true
+          },
+          "type": "RadiosField",
+          "name": "licenceType",
+          "title": "What type of fishing licence do you want?",
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which fishing licence do I need?",
+          "content": "<p>A trout and coarse licence allows you to fish for all freshwater fish, but not for salmon or sea trout.\r\n</p>\r\n<p>A salmon and sea trout licence allows you to fish for salmon and sea trout as well as all freshwater fish included in the trout and coarse licence.\r\n</p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/number-of-rods",
+          "if": "licenceType == 'troutAndCourse'"
+        },
+        {
+          "path": "/contact"
+        }
+      ],
+      "section": "licenceDetails"
+    },
+    {
+      "path": "/national-insurance-number",
+      "components": [
+        {
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
+          "schema": {
+            "max": 20
+          },
+          "type": "TextField",
+          "name": "nationalInsuranceNumber",
+          "title": "What is your National Insurance number?",
+          "hint": "We use your National Insurance number to find your benefit details, so that you can get a disabled concession.\r\n\r\n\r\n<br>\r\n\r\nIt’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-type"
+        }
+      ],
+      "section": "concessions"
+    },
+    {
+      "path": "/number-of-rods",
+      "components": [
+        {
+          "options": {
+            "list": "numberOfRods"
+          },
+          "type": "RadiosField",
+          "name": "numberOfRods",
+          "title": "How many rods would you like to licence?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact"
+        }
+      ],
+      "section": "licenceDetails"
+    },
+    {
+      "path": "/contact",
+      "components": [
+        {
+          "options": {
+            "required": false
+          },
+          "type": "EmailAddressField",
+          "name": "email",
+          "title": "Email address",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TelephoneNumberField",
+          "name": "mobile",
+          "title": "Mobile phone number",
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Read about <a href=\"/data-protection\">how we use your personal information</a>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "title": "How can we send you your licence details?",
+      "section": "personalDetails"
+    },
+    {
+      "path": "/data-protection",
+      "title": "Data protection notice",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-prose-scope\">\r\n      <p>\r\n        The Environment Agency will use the information you have provided to deal with your licence application, to monitor compliance with the licence conditions, to provide you with further information about our fishing licence services and activities (including\r\n        expiry or administration notices), and to provide you with our national and local fisheries information:</p>\r\n      <ul>\r\n        <li>byelaws, if necessary</li>\r\n        <li>disease outbreak and control measures</li>\r\n        <li>e-newsletters</li>\r\n      </ul>\r\n\r\n      <p>We may also use your information to help us:</p>\r\n\r\n      <ul>\r\n        <li>carry out statistical analysis, research and development on environmental issues</li>\r\n        <li>contact you to assess customer satisfaction and improve our service</li>\r\n        <li>investigate when people might be breaking the law and take any resulting action</li>\r\n        <li>prevent people from breaking the law, and</li>\r\n        <li>respond to requests for information under the Freedom of Information Act 2000 and the Environmental Information Regulations 2004, where the Data Protection Act 1998 allows</li>\r\n      </ul>\r\n\r\n      <p>We may pass your information on to our partners or suppliers to do these things on our behalf.</p>\r\n\r\n        <a class=\"govuk--button\" href=\"/contact\">Continue</a>\r\n    </div>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/blue-badge-number",
+      "section": "concessions",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "blueBadgeNumber",
+          "title": "What is your Blue Badge number?",
+          "hint": "We use this information to find your Blue Badge details, so that you can get a disabled concession.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/licence-type"
+        }
+      ]
+    },
+    {
+      "path": "/start-time",
+      "section": "licenceDetails",
+      "components": [
+        {
+          "type": "TimeField",
+          "name": "startTime",
+          "title": "What time would you like the licence to start?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/benefits-check"
+        },
+        {
+          "path": "/licence-type"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "personalDetails",
+      "title": "Personal details"
+    },
+    {
+      "name": "licenceDetails",
+      "title": "Licence details"
+    },
+    {
+      "name": "concessions",
+      "title": "Concessions"
+    }
+  ],
+  "lists": [
+    {
+      "name": "licenceLengthDays",
+      "title": "Licence length (days)",
+      "type": "number",
+      "items": [
+        {
+          "text": "1 day",
+          "value": 1,
+          "description": "Valid for 24 hours from the start time that you select"
+        },
+        {
+          "text": "8 day",
+          "value": 8,
+          "description": "Valid for 8 consecutive days from the start time that you select"
+        },
+        {
+          "text": "12 months",
+          "value": 365,
+          "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
+        }
+      ]
+    },
+    {
+      "name": "licenceStartKind",
+      "title": "Licence start",
+      "type": "string",
+      "items": [
+        {
+          "text": "30 minutes after payment",
+          "value": "asap",
+          "description": ""
+        },
+        {
+          "text": "Another time or date",
+          "value": "absolute",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "licenceType",
+      "title": "Licence type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Trout and Course",
+          "value": "troutAndCourse",
+          "description": ""
+        },
+        {
+          "text": "Salmon and sea trout",
+          "value": "salmonAndSeaTrout",
+          "description": "includes trout and coarse fish"
+        }
+      ]
+    },
+    {
+      "name": "numberOfRods",
+      "title": "Number of Rods",
+      "type": "number",
+      "items": [
+        {
+          "text": "Up to 2 rods",
+          "value": 2,
+          "description": ""
+        },
+        {
+          "text": "Up to 3 rods",
+          "value": 3,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

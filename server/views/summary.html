@@ -1,6 +1,6 @@
-{% from "partials/summary-detail.njk" import summaryDetail %}
+{% from "partials/summary-detail.html" import summaryDetail %}
 
-{% extends 'layout.njk' %}
+{% extends 'layout.html' %}
 
 {% block content %}
   <div class="govuk-main-wrapper">
@@ -10,10 +10,6 @@
         {% for detail in details %}
           {{ summaryDetail(detail) }}
         {% endfor %}
-
-        {% if next %}
-          <a href="{{next}}?returnUrl=/summary">{{ next }}</a>
-        {% endif %}
 
         <pre>{{ result.error | dump(2) | safe }}</pre>
       </div>
