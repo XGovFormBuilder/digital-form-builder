@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "boom": "7.2.0",
-    "digital-form-builder-designer": "0.1.5",
+    "digital-form-builder-designer": "0.1.6",
     "digital-form-builder-engine": "0.1.4",
     "govuk-frontend": "2.2.0",
     "hapi": "17.6.0",
