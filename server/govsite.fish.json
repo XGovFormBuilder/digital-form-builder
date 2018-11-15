@@ -80,7 +80,12 @@
           "schema": {}
         }
       ],
-      "section": "licenceDetails"
+      "section": "licenceDetails",
+      "next": [
+        {
+          "path": "/full-name"
+        }
+      ]
     },
     {
       "path": "/full-name",
@@ -95,7 +100,12 @@
           "options": {}
         }
       ],
-      "section": "personalDetails"
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/date-of-birth"
+        }
+      ]
     },
     {
       "path": "/date-of-birth",
@@ -110,14 +120,22 @@
           "schema": {}
         }
       ],
-      "section": "personalDetails"
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/under-13"
+        },
+        {
+          "path": "/address"
+        }
+      ]
     },
     {
       "path": "/under-13",
       "components": [
         {
           "type": "Html",
-          "content": "No licence required",
+          "content": "<div class=\"govuk-prose-scope\">No licence required</div>",
           "options": {},
           "schema": {}
         }
@@ -137,7 +155,12 @@
           "schema": {}
         }
       ],
-      "section": "personalDetails"
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/start-kind"
+        }
+      ]
     },
     {
       "path": "/start-kind",
@@ -152,7 +175,12 @@
           "schema": {}
         }
       ],
-      "section": "licenceDetails"
+      "section": "licenceDetails",
+      "next": [
+        {
+          "path": "/start-date"
+        }
+      ]
     },
     {
       "path": "/start-date",
@@ -167,7 +195,12 @@
         }
       ],
       "section": "licenceDetails",
-      "condition": "isAbsolute"
+      "condition": "isAbsolute",
+      "next": [
+        {
+          "path": "/start-time"
+        }
+      ]
     },
     {
       "path": "/start-time",
@@ -181,7 +214,12 @@
           "schema": {}
         }
       ],
-      "condition": "isAbsoluteAndShortTerm"
+      "condition": "isAbsoluteAndShortTerm",
+      "next": [
+        {
+          "path": "/benefits-check"
+        }
+      ]
     },
     {
       "path": "/benefits-check",
@@ -196,7 +234,12 @@
         }
       ],
       "section": "concessions",
-      "condition": "isAnnualAndFull"
+      "condition": "isAnnualAndFull",
+      "next": [
+        {
+          "path": "/national-insurance-number"
+        }
+      ]
     },
     {
       "path": "/national-insurance-number",
@@ -215,7 +258,12 @@
         }
       ],
       "section": "concessions",
-      "condition": "requiresNI"
+      "condition": "requiresNI",
+      "next": [
+        {
+          "path": "/blue-badge-check"
+        }
+      ]
     },
     {
       "path": "/blue-badge-check",
@@ -230,7 +278,12 @@
         }
       ],
       "section": "concessions",
-      "condition": "requiresBBCheck"
+      "condition": "requiresBBCheck",
+      "next": [
+        {
+          "path": "/blue-badge-number"
+        }
+      ]
     },
     {
       "path": "/blue-badge-number",
@@ -245,7 +298,12 @@
           "schema": {}
         }
       ],
-      "condition": "requiresBB"
+      "condition": "requiresBB",
+      "next": [
+        {
+          "path": "/licence-type"
+        }
+      ]
     },
     {
       "path": "/licence-type",
@@ -268,7 +326,15 @@
           "schema": {}
         }
       ],
-      "section": "licenceDetails"
+      "section": "licenceDetails",
+      "next": [
+        {
+          "path": "/number-of-rods"
+        },
+        {
+          "path": "/contact"
+        }
+      ]
     },
     {
       "path": "/number-of-rods",
@@ -284,7 +350,12 @@
         }
       ],
       "section": "licenceDetails",
-      "condition": "isTroutAndCourse"
+      "condition": "isTroutAndCourse",
+      "next": [
+        {
+          "path": "/contact"
+        }
+      ]
     },
     {
       "path": "/contact",
@@ -315,7 +386,15 @@
         }
       ],
       "title": "How can we send you your licence details?",
-      "section": "personalDetails"
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/summary"
+        },
+        {
+          "path": "/data-protection"
+        }
+      ]
     },
     {
       "path": "/summary",
