@@ -16,8 +16,8 @@
     "type": "git",
     "url": "https://github.com/DEFRA/digital-form-builder"
   },
-  "author": "defra",
-  "license": "ISC",
+  "author": "Department for Environment, Food and Rural Affairs <https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs>.",
+  "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "boom": "7.2.2",
     "digital-form-builder-designer": "0.1.7",
