@@ -1,0 +1,212 @@
+{
+  "conditions": [
+    {
+      "name": "isAsap",
+      "value": "licenceDetails.startKind == 'asap'"
+    },
+    {
+      "name": "isAbsolute",
+      "value": "licenceDetails.startKind == 'absolute'"
+    },
+    {
+      "name": "isJunior",
+      "value": "personalDetails.ageGroup == 'junior'"
+    },
+    {
+      "name": "isFull",
+      "value": "personalDetails.ageGroup == 'full'"
+    },
+    {
+      "name": "isAnnual",
+      "value": "licenceDetails.licenceLength == 365"
+    },
+    {
+      "name": "isShortTerm",
+      "value": "licenceDetails.licenceLength == 1 or licenceDetails.licenceLength == 8"
+    },
+    {
+      "name": "isSalmon",
+      "value": "licenceDetails.licenceType == 'salmonAndSeaTrout'"
+    },
+    {
+      "name": "isTroutAndCourse",
+      "value": "licenceDetails.licenceType == 'troutAndCourse'"
+    },
+    {
+      "name": "hasPIPorDLA",
+      "value": "concessions.hasPIPorDLA == true"
+    },
+    {
+      "name": "hasBlueBadge",
+      "value": "concessions.hasBlueBadge == true"
+    },
+    {
+      "name": "isAsapAndFull",
+      "value": "isAsap and isFull"
+    },
+    {
+      "name": "isAnnualAndFull",
+      "value": "isAnnual and isFull"
+    },
+    {
+      "name": "isAbsoluteAndShortTerm",
+      "value": "isAbsolute and isShortTerm"
+    },
+    {
+      "name": "requiresNI",
+      "value": "isAnnualAndFull and hasPIPorDLA"
+    },
+    {
+      "name": "requiresBBCheck",
+      "value": "isAnnualAndFull and hasPIPorDLA == false"
+    },
+    {
+      "name": "requiresBB",
+      "value": "requiresBBCheck and hasBlueBadge"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "components": [
+        {
+          "options": {
+            "list": "licenceLengthDays",
+            "bold": true
+          },
+          "type": "RadiosField",
+          "name": "licenceLength",
+          "title": {
+            "en": "Which fishing licence do you want to get?",
+            "es": "some Spanish"
+          },
+          "schema": {}
+        }
+      ],
+      "section": "licenceDetails",
+      "next": [
+        {
+          "path": "/full-name"
+        }
+      ]
+    },
+    {
+      "path": "/full-name",
+      "components": [
+        {
+          "schema": {
+            "max": 70
+          },
+          "type": "TextField",
+          "name": "fullName",
+          "title": {
+            "en": "What's your full name?",
+            "es": "some Spanish"
+          },
+          "options": {}
+        }
+      ],
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/date-of-birth"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "personalDetails",
+      "title": "Personal details"
+    },
+    {
+      "name": "licenceDetails",
+      "title": "Licence details"
+    },
+    {
+      "name": "concessions",
+      "title": "Concessions"
+    }
+  ],
+  "lists": [
+    {
+      "name": "licenceLengthDays",
+      "title": "Licence length (days)",
+      "type": "number",
+      "items": [
+        {
+          "text": "1 day",
+          "value": 1,
+          "description": {
+            "en": "Valid for 24 hours from the start time that you select",
+            "es": "24 Spanish hours"
+
+          }
+        },
+        {
+          "text": "8 day",
+          "value": 8,
+          "description": {
+            "en": "Valid for 8 consecutive days from the start time that you select"
+          }
+        },
+        {
+          "text": "12 months",
+          "value": 365,
+          "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
+        }
+      ]
+    },
+    {
+      "name": "licenceStartKind",
+      "title": "Licence start",
+      "type": "string",
+      "items": [
+        {
+          "text": "30 minutes after payment",
+          "value": "asap",
+          "description": ""
+        },
+        {
+          "text": "Another time or date",
+          "value": "absolute",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "licenceType",
+      "title": "Licence type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Trout and Course",
+          "value": "troutAndCourse",
+          "description": ""
+        },
+        {
+          "text": "Salmon and sea trout",
+          "value": "salmonAndSeaTrout",
+          "description": "includes trout and coarse fish"
+        }
+      ]
+    },
+    {
+      "name": "numberOfRods",
+      "title": "Number of Rods",
+      "type": "number",
+      "items": [
+        {
+          "text": "Up to 2 rods",
+          "value": 2,
+          "description": ""
+        },
+        {
+          "text": "Up to 3 rods",
+          "value": 3,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

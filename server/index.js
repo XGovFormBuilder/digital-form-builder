@@ -14,8 +14,8 @@ async function createServer () {
     }
   })
 
-  // Register the plugins
   await server.register(require('inert'))
+  await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/builder'))
