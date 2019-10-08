@@ -1,4 +1,6 @@
 /**
+ * copied from https://github.com/ozum/hapi-locale
+ * MIT License (MIT)
  * @module 'hapi-locale'
  * @description
  * Configurable plugin for determine request language in hapi.js applications.

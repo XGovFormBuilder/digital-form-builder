@@ -25,7 +25,6 @@
     "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine#feature/multiconfig",
     "govuk-frontend": "2.3.0",
     "hapi": "17.7.0",
-    "hapi-locale": "^2.0.1",
     "inert": "5.1.2",
     "joi": "^14",
     "nunjucks": "3.1.4",
