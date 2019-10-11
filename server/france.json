@@ -1,69 +1,5 @@
 {
   "conditions": [
-    {
-      "name": "isAsap",
-      "value": "licenceDetails.startKind == 'asap'"
-    },
-    {
-      "name": "isAbsolute",
-      "value": "licenceDetails.startKind == 'absolute'"
-    },
-    {
-      "name": "isJunior",
-      "value": "personalDetails.ageGroup == 'junior'"
-    },
-    {
-      "name": "isFull",
-      "value": "personalDetails.ageGroup == 'full'"
-    },
-    {
-      "name": "isAnnual",
-      "value": "licenceDetails.licenceLength == 365"
-    },
-    {
-      "name": "isShortTerm",
-      "value": "licenceDetails.licenceLength == 1 or licenceDetails.licenceLength == 8"
-    },
-    {
-      "name": "isSalmon",
-      "value": "licenceDetails.licenceType == 'salmonAndSeaTrout'"
-    },
-    {
-      "name": "isTroutAndCourse",
-      "value": "licenceDetails.licenceType == 'troutAndCourse'"
-    },
-    {
-      "name": "hasPIPorDLA",
-      "value": "concessions.hasPIPorDLA == true"
-    },
-    {
-      "name": "hasBlueBadge",
-      "value": "concessions.hasBlueBadge == true"
-    },
-    {
-      "name": "isAsapAndFull",
-      "value": "isAsap and isFull"
-    },
-    {
-      "name": "isAnnualAndFull",
-      "value": "isAnnual and isFull"
-    },
-    {
-      "name": "isAbsoluteAndShortTerm",
-      "value": "isAbsolute and isShortTerm"
-    },
-    {
-      "name": "requiresNI",
-      "value": "isAnnualAndFull and hasPIPorDLA"
-    },
-    {
-      "name": "requiresBBCheck",
-      "value": "isAnnualAndFull and hasPIPorDLA == false"
-    },
-    {
-      "name": "requiresBB",
-      "value": "requiresBBCheck and hasBlueBadge"
-    }
   ],
   "pages": [
     {
@@ -109,9 +45,15 @@
       "section": "personalDetails",
       "next": [
         {
-          "path": "/date-of-birth"
+          "path": "/summary"
         }
       ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "title": "Summary"
     }
   ],
   "sections": [
@@ -122,10 +64,6 @@
     {
       "name": "licenceDetails",
       "title": "Licence details"
-    },
-    {
-      "name": "concessions",
-      "title": "Concessions"
     }
   ],
   "lists": [

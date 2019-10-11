@@ -17,9 +17,9 @@ class SummaryViewModel {
             items.push({
               name: component.name,
               path: component.path,
-              label: component.title,
+              label: component.localisedString(component.title),
               value: component.getDisplayStringFromState(sectionState),
-              url: `${page.path}?returnUrl=/summary`
+              url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`
             })
           })
         }
@@ -75,6 +75,7 @@ class SummaryPage extends Page {
   makeGetRouteHandler (getState) {
     return async (request, h) => {
       const model = this.model
+      model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const viewModel = new SummaryViewModel(model, state)
       return h.view('summary', viewModel)
@@ -82,7 +83,7 @@ class SummaryPage extends Page {
   }
 
   // get stateSchema () {
-  //   const keys = this.components.getStateSchemaKeys()
+  //   const keys = this.compontStateSchemaKeys()
   //   const name = this.components.formItems[0].name
   //   const d = new Date()
   //   d.setDate(d.getDate() + 28)

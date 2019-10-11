@@ -8,3 +8,5 @@ server/views/template.njk
 server/views/components
 server/public/build
 .idea
+report.html
+report.json
