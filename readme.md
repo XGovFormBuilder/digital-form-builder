@@ -69,4 +69,5 @@ The Open Government Licence (OGL) was developed by the Controller of Her Majesty
 
 It is designed to encourage use and re-use of information freely and flexibly, with only a few conditions.
 
-After a successful build, the project is deployed on https://fco-forms.herokuapp.com
+After a successful build, the project is deployed on [https://fco-forms.herokuapp.com](https://fco-forms.herokuapp.com)
+
