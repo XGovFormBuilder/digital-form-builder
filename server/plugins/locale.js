@@ -13,9 +13,6 @@ const headerParser = require('accept-language-parser')
 const Joi = require('joi')
 const pkg = require('../../package')
 
-var rootDir = path.join(__dirname, '../..')
-var locales = []
-
 /**
  * @typedef {Object}                    PluginOptions                   - Plugin configuration options.
  * @property {Array.<string>}           [locales=[]]                    - List of locales to use in application.

@@ -8,7 +8,7 @@
     "build:css": "bin/build-css",
     "build": "bin/build",
     "lint": "standard",
-    "unit-test": "lab -v -P *.js test/cases",
+    "unit-test": "lab -v -P 'test' test/cases",
     "test": "npm run lint && npm run unit-test",
     "postinstall": "npm run build",
     "a11y": "node test/audit/components && node lighthouse"
