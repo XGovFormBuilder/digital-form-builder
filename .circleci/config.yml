@@ -64,14 +64,11 @@ workflows:
   version: 2.1
   build-deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          executor: heroku/default
-            steps:
-                - checkout
-                - heroku/install
-                - heroku/deploy-via-git:
-                  only-branch: master
+      deploy:
+        executor: heroku/default
+        steps:
+          - checkout
+          - heroku/install
+          - heroku/deploy-via-git:
+              only-branch: master
 
