@@ -71,7 +71,7 @@ workflows:
           executor: heroku/default
             steps:
                 - checkout
-                  - heroku/install
-                  - heroku/deploy-via-git:
+                - heroku/install
+                - heroku/deploy-via-git:
                   only-branch: master
 
