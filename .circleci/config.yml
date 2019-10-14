@@ -62,13 +62,8 @@ jobs:
 
 workflows:
   version: 2.1
-  build-deploy:
+  heroku_deploy:
     jobs:
-      deploy:
-        executor: heroku/default
-        steps:
-          - checkout
-          - heroku/install
-          - heroku/deploy-via-git:
-              only-branch: master
+      - heroku/deploy-via-git
+
 
