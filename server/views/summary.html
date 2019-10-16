@@ -11,6 +11,15 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
+        {% if applicableFees|length %}
+            <ul class="govuk-list govuk-list--bullet">
+                {% for fee in applicableFees.fees %}
+                    <li>{{ fee.description }}: £{{fee.amount}}</li>
+                {% endfor %}
+            </ul>
+            <p class="govuk-body">Total cost: {{applicableFees.total}}</p>
+        {% endif %}
+
         <pre>{{ result.error | dump(2) | safe }}</pre>
       </div>
     </div>

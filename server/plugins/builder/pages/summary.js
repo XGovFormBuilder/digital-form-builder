@@ -31,6 +31,13 @@ class SummaryViewModel {
         items
       })
     })
+    let applicableFees = []
+
+    if (model.def.fee) {
+      applicableFees = model.def.fee.filter(fee => {
+        return model.conditions[fee.condition].fn(state)
+      })
+    }
 
     const schema = model.makeSchema(state)
     const result = joi.validate(state, schema, { abortEarly: false })
@@ -63,7 +70,7 @@ class SummaryViewModel {
         })
       })
     }
-
+    this.applicableFees = { fees: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
     this.result = result
     this.details = details
     this.state = state

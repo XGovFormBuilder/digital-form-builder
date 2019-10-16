@@ -25,7 +25,7 @@
     "acorn": "^6.3.0",
     "boom": "7.2.2",
     "chrome-launcher": "^0.11.2",
-    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine",
+    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine#feature/pay",
     "govuk-frontend": "2.3.0",
     "hapi": "17.7.0",
     "inert": "5.1.2",
