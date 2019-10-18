@@ -1,5 +1,4 @@
 {% from "partials/summary-detail.html" import summaryDetail %}
-
 {% extends 'layout.html' %}
 
 {% block content %}
@@ -11,13 +10,18 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
-        {% if applicableFees|length %}
+        {% if applicableFees and applicableFees.fees|length %}
             <ul class="govuk-list govuk-list--bullet">
                 {% for fee in applicableFees.fees %}
                     <li>{{ fee.description }}: £{{fee.amount}}</li>
                 {% endfor %}
             </ul>
             <p class="govuk-body">Total cost: {{applicableFees.total}}</p>
+            <form method="post">
+                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                  Confirm and send
+                </button>
+            </form>
         {% endif %}
 
         <pre>{{ result.error | dump(2) | safe }}</pre>

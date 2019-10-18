@@ -66,10 +66,6 @@
       "controller": "./pages/summary.js",
       "components": [],
       "title": "Summary"
-    },
-    {
-      "path": "/pay",
-      "controller": "./pages/pay.js"
     }
   ],
   "sections": [

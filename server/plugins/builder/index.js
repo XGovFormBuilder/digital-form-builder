@@ -10,7 +10,6 @@ const defaultPageController = './pages'
 
 const configFiles = fs.readdirSync(configPath).filter(filename => {
   if (filename.indexOf(`.json`) >= 0) {
-    console.log(filename)
     return filename
   }
 })
@@ -30,6 +29,9 @@ const configurePlugins = (configFile) => {
   return [{
     plugin: require('digital-form-builder-engine'),
     options: { model, ordnanceSurveyKey, basePath }
+  }, {
+    plugin: require('digital-form-builder-designer'),
+    options: { path: dataFilePath, basePath, playgroundMode: true }
   }]
 }
 module.exports = [].concat(...configFiles.map(configFile => configurePlugins(configFile)))

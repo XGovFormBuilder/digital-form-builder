@@ -1,11 +1,13 @@
 const joi = require('joi')
 const Page = require('.')
+const shortid = require('shortid')
+const { payRequest } = require('../../pay')
 
 class SummaryViewModel {
   constructor (model, state) {
     const details = []
 
-    ;[undefined].concat(model.sections).forEach((section, index) => {
+      ;[undefined].concat(model.sections).forEach((section, index) => {
       const items = []
       const sectionState = section
         ? (state[section.name] || {})
@@ -70,7 +72,9 @@ class SummaryViewModel {
         })
       })
     }
-    this.applicableFees = { fees: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
+    if (applicableFees.length) {
+      this.applicableFees = { fees: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
+    }
     this.result = result
     this.details = details
     this.state = state
@@ -88,20 +92,24 @@ class SummaryPage extends Page {
       return h.view('summary', viewModel)
     }
   }
-
-  // get stateSchema () {
-  //   const keys = this.compontStateSchemaKeys()
-  //   const name = this.components.formItems[0].name
-  //   const d = new Date()
-  //   d.setDate(d.getDate() + 28)
-  //   const max = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`
-
-  //   // Extend the key to validate that the date is
-  //   // greater than today and less than today+28 days
-  //   keys[name] = keys[name].min('now').max(max)
-
-  //   return joi.object().keys(keys)
-  // }
+  makePostRouteHandler (getState) {
+    return async (request, h) => {
+      const model = this.model
+      model.basePath = h.realm.pluginOptions.basePath || ''
+      const state = await model.getState(request)
+      const { applicableFees } = new SummaryViewModel(model, state)
+      const reference = `FCO-${shortid.generate()}`
+      try {
+        let res = await payRequest(applicableFees.total, reference, 'pay for your form')
+        // res.payment_id + internal ref
+        request.yar.set('pay', { payId: res.payment_id, reference })
+        h.redirect(res._links.next_url)
+      } catch (ex) {
+        // error with payRequest
+        console.log(ex)
+      }
+    }
+  }
 }
 
 module.exports = SummaryPage

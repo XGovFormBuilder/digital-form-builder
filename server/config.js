@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '/keybase/team/cautionyourblast/fco' })
 const joi = require('joi')
 
 // Define config schema
@@ -6,7 +7,10 @@ const schema = {
   env: joi.string().valid('development', 'test', 'production').default('development'),
   ordnanceSurveyKey: joi.string().optional(),
   browserRefreshUrl: joi.string().optional(),
-  matomoId: joi.string().optional()
+  matomoId: joi.string().optional(),
+  payApiUrl: joi.string(),
+  payApiKey: joi.string(),
+  serviceUrl: joi.string().optional()
 }
 
 // Build config
@@ -15,7 +19,10 @@ const config = {
   env: process.env.NODE_ENV,
   ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
   browserRefreshUrl: process.env.BROWSER_REFRESH_URL,
-  matomoId: process.env.MATOMO_ID || '0'
+  matomoId: process.env.MATOMO_ID || '0',
+  payApiKey: process.env.PAY_API_KEY,
+  payApiUrl: process.env.PAY_API_URL,
+  serviceUrl: process.env.SERVICE_URL
 }
 
 // Validate config
