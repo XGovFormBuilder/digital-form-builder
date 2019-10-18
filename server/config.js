@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/keybase/team/cautionyourblast/fco' })
+require('dotenv').config({ path: '/keybase/team/cautionyourblast/fco/.env' })
 const joi = require('joi')
 
 // Define config schema
@@ -22,7 +22,7 @@ const config = {
   matomoId: process.env.MATOMO_ID || '0',
   payApiKey: process.env.PAY_API_KEY,
   payApiUrl: process.env.PAY_API_URL,
-  serviceUrl: process.env.SERVICE_URL
+  serviceUrl: process.env.SERVICE_URL || 'http://localhost:3009'
 }
 
 // Validate config

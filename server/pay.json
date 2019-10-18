@@ -57,7 +57,7 @@
       "section": "personalDetails",
       "next": [
         {
-          "path": "/summary"
+          "path": "/confirmation"
         }
       ]
     },
@@ -66,6 +66,19 @@
       "controller": "./pages/summary.js",
       "components": [],
       "title": "Summary"
+    },
+    {
+      "path": "/confirmation",
+      "controller": "./pages/confirmation.js",
+      "components": [],
+      "title": "Confirmation"
+    },
+    {
+      "path": "test",
+      "title": "test",
+      "condition": "true",
+      "components": [],
+      "next": []
     }
   ],
   "sections": [
@@ -100,23 +113,6 @@
           "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
         }
       ]
-    }
-  ],
-  "fee": [
-    {
-      "description": "1 day license",
-      "amount": 10.00,
-      "condition": "isOneDay"
-    },
-    {
-      "description": "8 day license",
-      "amount": 20.00,
-      "condition": "isEightDay"
-    },
-    {
-      "description": "expensive name",
-      "amount": 7357,
-      "condition": "nameIsName"
     }
   ]
 }

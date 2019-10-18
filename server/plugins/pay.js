@@ -1,8 +1,7 @@
-const { payApiKey, payApiUrl, serviceUrl } = require('../config')
+const { payApiKey, payApiUrl } = require('../config')
 const Wreck = require('@hapi/wreck')
 
 const options = {
-  baseUrl: payApiUrl,
   headers: {
     Authorization: `Bearer ${payApiKey}`,
     'content-type': 'application/json'
@@ -14,8 +13,7 @@ const payRequestData = (amount, reference, description) => {
     amount,
     reference,
     description,
-    'return_url': `https://fco-forms.herokuapp.com/france`,
-    parse: true
+    'return_url': `https://fco-forms.herokuapp.com/confirmation`
   }
 }
 
@@ -29,6 +27,15 @@ const payRequest = async (amount, reference, description) => {
   }
 }
 
+const payStatus = async (url) => {
+  try {
+    const { payload } = await Wreck.get(url, options)
+    return JSON.parse(payload.toString())
+  } catch (e) {
+    throw e
+  }
+}
+
 module.exports = {
-  payRequest
+  payRequest, payStatus
 }
