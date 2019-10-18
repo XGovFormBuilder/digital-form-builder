@@ -70,3 +70,4 @@ workflows:
             branches:
               only:
                 - master
+                - feature/pay

@@ -1,368 +1,24 @@
-{
-  "conditions": [
+{ "conditions": [],
+  "pages": [
     {
-      "name": "isOver18",
-      "value": "checkBeforeStart.over18 == true"
-    },
-    {
-      "name": "isPassengersOnly",
-      "value": "checkBeforeStart.passengersOnly == true"
-    },
-    {
-      "name": "weightEmpty",
-      "value": "checkBeforeStart.weightEmpty == false"
-    },
-    {
-      "name": "weightLoaded",
-      "value": "checkBeforeStart.weightLoaded == false"
-    },
-    {
-      "name": "isUnder18",
-      "value": "isOver18 == false"
-    }
-
-  ],
-  "pages": [{
-    "path": "/check-before-start/over-18",
-    "components": [{
-      "type": "YesNoField",
-      "name": "over18",
-      "title": "Are you 18 or over?",
-      "hint": "You must be 18 or over to transport goods in lorries and vans.",
-      "options": {},
-      "schema": {}
-    }],
-    "next": [{
-      "path": "/check-before-start/passengers"
-    },
-      {
-        "path": "/over-18-only"
-      }
-    ],
-    "section": "checkBeforeStart"
-  },
-    {
-      "path": "/over-18-only",
-      "title": "You're not eligible for a licence",
-      "components": [{
-        "type": "Para",
-        "content": "You must be 18 or over to transport goods.",
-        "options": {},
-        "schema": {}
-      }],
-      "condition": "isUnder18"
-    },
-    {
-      "path": "/check-before-start/passengers",
-      "components": [{
-        "type": "YesNoField",
-        "name": "passengersOnly",
-        "title": "Will your vehicles just be transporting passengers?",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/check-before-start/weight-empty"
-      },
+      "path": "/start",
+      "title": "Getting married abroad",
+      "components": [
         {
-          "path": "/no-need-to-apply/passengers-only"
-        }
-      ],
-      "section": "checkBeforeStart"
-    },
-    {
-      "path": "/no-need-to-apply/passengers-only",
-      "title": "You don't need to apply for this licence.",
-      "components": [{
-        "type": "Para",
-        "content": "You don't need this licence if you're only carrying passengers. Apply for a <a href='https://www.gov.uk/psv-operator-licences'>public service vehicle</a> licence instead.",
-        "options": {},
-        "schema": {}
-      }],
-      "condition": "isPassengersOnly"
-    },
-    {
-      "path": "/check-before-start/weight-empty",
-      "components": [{
-        "type": "YesNoField",
-        "name": "weightEmpty",
-        "title": "Do your vehicles weigh 1,525 kg or more when empty?",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/check-before-start/how-many-vehicles"
-      },
-        {
-          "path": "/check-before-start/weight-loaded"
-        }
-      ],
-      "section": "checkBeforeStart"
-    },
-    {
-      "path": "/check-before-start/weight-loaded",
-      "components": [{
-        "type": "YesNoField",
-        "name": "weightLoaded",
-        "title": "Do your vehicles weigh 3,500 kg or more when loaded?",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/check-before-start/how-many-vehicles"
-      },
-        {
-          "path": "/no-need-to-apply/weight"
-        }
-      ],
-      "section": "checkBeforeStart",
-      "condition": "weightEmpty"
-    },
-    {
-      "path": "/no-need-to-apply/weight",
-      "title": "You don't need to apply for a licence.",
-      "components": [{
-        "type": "Para",
-        "content": "You don't need to apply for a licence if your vehicles weigh less than:<br>1,525 kg when empty<br>3,500 kg when loaded",
-        "options": {},
-        "schema": {}
-      }],
-      "condition": "weightLoaded"
-    },
-    {
-      "path": "/check-before-start/how-many-vehicles",
-      "components": [{
-        "type": "NumberField",
-        "name": "howManyVehicles",
-        "title": "How many vehicles will you operate?",
-        "options": {
-          "classes": "govuk-input--width-4"
-        },
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/check-before-start/just-own-goods"
-      }],
-      "section": "checkBeforeStart"
-    },
-    {
-      "path": "/check-before-start/just-own-goods",
-      "components": [{
-        "type": "RadiosField",
-        "name": "justOwnGoods",
-        "title": "Will you be transporting just your own goods?",
-        "options": {
-          "list": "yesNoUnsure"
-        },
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/eligible"
-      }],
-      "section": "checkBeforeStart"
-    },
-    {
-      "path": "/eligible",
-      "title": "You're eligible to transport goods",
-      "components": [{
-        "type": "Para",
-        "content": "Based on your answers, you are eligible to transport goods.",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/personal-details/full-name"
-      }]
-    },
-    {
-      "path": "/personal-details/full-name",
-      "components": [{
-        "type": "TextField",
-        "name": "fullName",
-        "title": "Full name",
-        "options": {
-          "classes": "govuk-input--width-20"
-        },
-        "schema": {
-          "max": 70
-        }
-      }],
-      "next": [{
-        "path": "/personal-details/date-of-birth"
-      }],
-      "section": "personalDetails"
-    },
-    {
-      "path": "/personal-details/date-of-birth",
-      "components": [{
-        "type": "DatePartsField",
-        "name": "dob",
-        "title": "Date of birth",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/personal-details/national-insurance-number"
-      }],
-      "section": "personalDetails"
-    },
-    {
-      "path": "/personal-details/national-insurance-number",
-      "components": [{
-        "type": "TextField",
-        "name": "nationalInsuranceNumber",
-        "title": "National insurance number",
-        "hint": "It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.",
-        "options": {
-          "max": 13,
-          "classes": "govuk-input--width-10"
-        },
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/personal-details/telephone-numbers"
-      }],
-      "section": "personalDetails"
-    },
-    {
-      "path": "/personal-details/telephone-numbers",
-      "title": "Telephone numbers",
-      "components": [{
-        "type": "TelephoneNumberField",
-        "name": "phoneNumber",
-        "title": "UK telephone number",
-        "options": {},
-        "schema": {}
-      },
-        {
-          "type": "TelephoneNumberField",
-          "name": "mobileNumber",
-          "title": "UK mobile number",
-          "options": {
-            "required": false,
-            "classes": "govuk-input--width-10"
-          },
-          "schema": {}
-        }
-      ],
-      "next": [{
-        "path": "/personal-details/email-address"
-      }],
-      "section": "personalDetails"
-    },
-    {
-      "path": "/personal-details/email-address",
-      "components": [{
-        "type": "EmailAddressField",
-        "name": "emailAddress",
-        "title": "Email address",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/company-details"
-      }],
-      "section": "personalDetails"
-    },
-    {
-      "path": "/company-details",
-      "title": "Company details",
-      "components": [{
-        "type": "TextField",
-        "name": "name",
-        "title": "Name",
-        "options": {},
-        "schema": {}
-      },
-        {
-          "type": "MultilineTextField",
-          "name": "description",
-          "title": "Description",
-          "schema": {
-            "max": 200
-          },
-          "options": {}
-        }
-      ],
-      "next": [{
-        "path": "/company-details/type"
-      }],
-      "section": "companyDetails"
-    },
-    {
-      "path": "/company-details/type",
-      "components": [{
-        "type": "RadiosField",
-        "name": "type",
-        "title": "Type",
-        "options": {
-          "list": "companyType"
-        },
-        "schema": {}
-      },
-        {
-          "type": "Details",
-          "title": "Types of company in the UK",
-          "content": "Companies in the UK do not all operate in the same way. A company’s classification depends, among other things, on who owns the company and the extent to which those people are responsible for the company’s liabilities.",
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">If you’re a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).</p>",
           "options": {},
           "schema": {}
         }
       ],
-      "next": [{
-        "path": "/company-details/address"
-      }],
-      "section": "companyDetails"
-    },
-    {
-      "path": "/company-details/address",
-      "components": [{
-        "type": "UkAddressField",
-        "name": "address",
-        "title": "Address",
-        "options": {},
-        "schema": {}
-      }],
-      "next": [{
-        "path": "/company-details/country-of-origin"
-      }],
-      "section": "companyDetails"
-    },
-    {
-      "path": "/company-details/country-of-origin",
-      "components": [{
-        "type": "SelectField",
-        "name": "originCountry",
-        "title": "Country of origin",
-        "options": {
-          "list": "country",
-          "classes": "govuk-input--width-10"
-        },
-        "schema": {}
-      },
-        {
-          "type": "InsetText",
-          "content": "Country of origin (COO), is the country of manufacture, production, or growth where an article or product comes from.",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "section": "companyDetails",
-      "next": [{
-        "path": "/summary"
-      }]
-    },
-    {
-      "path": "/summary",
-      "title": "Summary",
-      "controller": "./pages/summary.js",
-      "components": [],
       "next": []
     }
   ],
-  "sections": [{
-    "name": "checkBeforeStart",
-    "title": "Check before you start"
-  },
+  "sections": [
+    {
+      "name": "checkBeforeStart",
+      "title": "Check before you start"
+    },
     {
       "name": "personalDetails",
       "title": "Personal details"
@@ -370,53 +26,72 @@
     {
       "name": "companyDetails",
       "title": "Company details"
+    },
+    {
+      "name": "yourDetails",
+      "title": "Your details"
+    },
+    {
+      "name": "yourMaritalOrCivilStatus",
+      "title": "Your marital or civil status"
+    },
+    {
+      "name": "yourPassport",
+      "title": "Your passport"
+    },
+    {
+      "name": "yourAddress",
+      "title": "Your address"
+    },
+    {
+      "name": "yourContactDetails",
+      "title": "Your contact details"
+    },
+    {
+      "name": "aboutYourCeremony",
+      "title": "About your ceremony"
+    },
+    {
+      "name": "addSupportingDocuments",
+      "title": "Add supporting documents"
+    },
+    {
+      "name": "yourPartnersDetails",
+      "title": "Your partner's details"
+    },
+    {
+      "name": "checkApplication",
+      "title": "Check this application"
+    },
+    {
+      "name": "/declaration",
+      "title": "Declaration"
+    },
+    {
+      "name": "sendAddress",
+      "title": "Send address"
     }
   ],
-  "lists": [{
-    "name": "yesNoUnsure",
-    "title": "Yes/No/Not sure",
-    "type": "string",
-    "items": [{
-      "text": "Yes",
-      "value": "yes"
-    },
-      {
-        "text": "No",
-        "value": "no"
-      },
-      {
-        "text": "Not sure",
-        "value": "unsure"
-      }
-    ]
-  },
+  "lists": [
     {
-      "name": "companyType",
-      "title": "Company type",
+      "name": "yesNoUnsure",
+      "title": "Yes/No/Not sure",
       "type": "string",
-      "items": [{
-        "text": "Sole trader",
-        "value": "soleTrader"
-      },
+      "items": [
         {
-          "text": "Private Limited Company",
-          "value": "privateLimitedCompany"
+          "text": "Yes",
+          "value": "yes",
+          "description": ""
         },
         {
-          "text": "Public Limited Company",
-          "value": "publicLimitedCompany"
+          "text": "No",
+          "value": "no",
+          "description": ""
         },
         {
-          "text": "Limited Liability Partnership",
-          "value": "limitedLiabilityPartnership"
-        },
-        {
-          "text": "Charity",
-          "value": "charity"
-        },
-        {
-          "text": "Other",
-          "value": "other"
+          "text": "Not sure",
+          "value": "unsure",
+          "description": ""
         }
       ]
     },
@@ -424,10 +99,11 @@
       "name": "country",
       "title": "Country",
       "type": "number",
-      "items": [{
-        "text": "Afghanistan",
-        "value": 910400000
-      },
+      "items": [
+        {
+          "text": "Afghanistan",
+          "value": 910400000
+        },
         {
           "text": "Albania",
           "value": 910400001
@@ -1223,28 +899,216 @@
       ]
     },
     {
-      "name": "horseBreed",
-      "title": "Horse breed",
+      "name": "title",
+      "title": "Title",
       "type": "string",
-      "items": [{
-        "text": "Arabian",
-        "value": "Arabian"
-      },
+      "items": [
         {
-          "text": "Patomine",
-          "value": "Patomine"
+          "text": "Mr",
+          "value": "Mr",
+          "description": ""
         },
         {
-          "text": "Shire",
-          "value": "Shire"
+          "text": "Mrs",
+          "value": "Mrs",
+          "description": ""
         },
         {
-          "text": "Shetland",
-          "value": "Shetland"
+          "text": "Miss",
+          "value": "Miss",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "maritalStatus",
+      "title": "Marital status",
+      "type": "string",
+      "items": [
+        {
+          "text": "Divorced",
+          "value": "divorced",
+          "description": ""
         },
         {
-          "text": "Race",
-          "value": "Race"
+          "text": "Widowed",
+          "value": "widowed",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "confirm",
+      "title": "Confirm",
+      "type": "string",
+      "items": [
+        {
+          "text": "Confirm",
+          "value": "confirm",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "yesNo",
+      "title": "Yes/No",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes",
+          "description": ""
+        },
+        {
+          "text": "No",
+          "value": "no",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "sendAddress",
+      "title": "send address",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "addressYes",
+          "description": ""
+        },
+        {
+          "text": "No",
+          "value": "addressNo",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "servicesRequested",
+      "title": "Services requested",
+      "type": "string",
+      "items": [
+        {
+          "text": "Fee 10 – Notice of Marriage(£50)",
+          "value": "fee10",
+          "description": ""
+        },
+        {
+          "text": "Fee 11 – Certificate of No Impediment (£50)",
+          "value": "fee11",
+          "description": ""
+        },
+        {
+          "text": "Courier fee (£8)",
+          "value": "courier",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "contactOptions",
+      "title": "Contact options",
+      "type": "string",
+      "items": [
+        {
+          "text": "Email",
+          "value": "email",
+          "description": ""
+        },
+        {
+          "text": "Phone",
+          "value": "phone",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Country",
+      "title": "Where do you want to get married",
+      "type": "string",
+      "items": [
+        {
+          "text": "France",
+          "value": "France",
+          "description": "France"
+        },
+        {
+          "text": "Spain",
+          "value": "Spain",
+          "description": "Spain"
+        },
+        {
+          "text": "Thailand",
+          "value": "Thailand",
+          "description": "Thailand"
+        }
+      ]
+    },
+    {
+      "name": "ceremony",
+      "title": "What ceremony do you want?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Civil partnership",
+          "value": "Civil partnership",
+          "description": ""
+        },
+        {
+          "text": "Marriage",
+          "value": "Marriage",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "UploadOptions",
+      "title": "How would you like to provide the documents?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Add photo from your mobile",
+          "value": "Add photo from your mobile",
+          "description": ""
+        },
+        {
+          "text": "Send by post",
+          "value": "Send by post",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "courier",
+      "title": "How do you want to receive your certifate?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Courier",
+          "value": "Courier",
+          "description": ""
+        },
+        {
+          "text": "Pick up from embassy",
+          "value": "Pick up from embassy",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "deliveryAddress",
+      "title": "Where would you like your certificate delivered to?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Home address",
+          "value": "Home address",
+          "description": ""
+        },
+        {
+          "text": "A different address",
+          "value": "A different address",
+          "description": ""
         }
       ]
     }

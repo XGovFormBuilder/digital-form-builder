@@ -5,7 +5,8 @@ class ConfirmationPage extends Page {
   makeGetRouteHandler (getState) {
     return async (request, h) => {
       const model = this.model
-      //const { self } = request.yar.get('pay')
+      console.log(payStatus())
+      // const { self } = request.yar.get('pay')
       // try {
       //   let res = await payStatus(self)
       //   console.log(res)
