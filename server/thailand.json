@@ -1,4 +1,5 @@
-{ "conditions": [],
+{
+  "conditions": [],
   "pages": [
     {
       "path": "/start",
@@ -11,6 +12,26 @@
           "schema": {}
         }
       ],
+      "next": [
+        {
+          "path": "/test"
+        }
+      ]
+    },
+    {
+      "path": "/test",
+      "title": "testing",
+      "components": [],
+      "next": [
+        {
+          "path": "/another-test"
+        }
+      ]
+    },
+    {
+      "path": "/another-test",
+      "title": "test",
+      "components": [],
       "next": []
     }
   ],

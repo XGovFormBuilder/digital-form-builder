@@ -101,9 +101,8 @@ class SummaryPage extends Page {
       const reference = `FCO-${shortid.generate()}`
       try {
         let res = await payRequest(applicableFees.total, reference, 'pay for your form')
-        // res.payment_id + internal ref
-        request.yar.set('pay', { payId: res.payment_id, reference })
-        h.redirect(res._links.next_url)
+        request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
+        return h.redirect(res._links.next_url.href)
       } catch (ex) {
         // error with payRequest
         console.log(ex)

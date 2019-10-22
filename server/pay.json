@@ -57,7 +57,7 @@
       "section": "personalDetails",
       "next": [
         {
-          "path": "/confirmation"
+          "path": "/summary"
         }
       ]
     },
@@ -65,13 +65,12 @@
       "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
-      "title": "Summary"
-    },
-    {
-      "path": "/confirmation",
-      "controller": "./pages/confirmation.js",
-      "components": [],
-      "title": "Confirmation"
+      "title": "Summary",
+      "next": [
+        {
+          "path": "/confirmation"
+        }
+      ]
     },
     {
       "path": "test",
@@ -114,5 +113,21 @@
         }
       ]
     }
-  ]
+  ],
+  "fee": [
+    {
+      "description": "1 day license",
+      "amount": 10.00,
+      "condition": "isOneDay"
+    },
+    {
+      "description": "8 day license",
+      "amount": 20.00,
+      "condition": "isEightDay"
+    },
+    {
+      "description": "expensive name",
+      "amount": 7357,
+      "condition": "nameIsName"
+    }]
 }

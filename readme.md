@@ -1,32 +1,31 @@
 # digital-form-builder
 
-DEFRA's digital form builder is a metadata-driven framework that builds on our robust, enterprise backend tech stack and the new gov.uk frontend Design System and allows form based gov.uk sites to be easily built using a graphical design tool.
+This repository is forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
+The supplementary [designer](https://github.com/CautionYourBlast/digital-form-designer) and [engine](https://github.com/CautionYourBlast/digital-form-engine) repositories have also been forked.
+These projects has been adapted to run several configurations on a single instance.
 
-The framework is flexible. It is capable of handling a number of different scenarios where form based page are required. E.g. Collecting data in a transactional service or checking if a service is suitable for an end user.
 
-Using the graphical design tool, users can build sites from a toolkit of common GDS patterns that includes Pages, Sections and Navigation elements along with Components like Text Fields, Radios Buttons, Checkboxes and Date Fields.
+> DEFRA's digital form builder is a metadata-driven framework that builds on our robust,
+enterprise backend tech stack and the new gov.uk frontend Design System and allows form based gov.uk sites to be easily
+built using a graphical design tool.
 
-## Live Playground
-You can use `digital-form-builder` in your browser without having to install anything by using the online playground.
 
-Click [here](https://digital-form-builder.herokuapp.com/designer) for the designer, [here](https://digital-form-builder.herokuapp.com) for the running application or for a split screen view of both, click [here](https://digital-form-builder.herokuapp.com/split).
-
-The default playground application is an extended version of the [Check a service is suitable](https://design-system.service.gov.uk/patterns/check-a-service-is-suitable/) example pattern from the [GOV.UK Design System](https://design-system.service.gov.uk/). Feel free to change it though and explore the features of the form builder. You can even download and upload your json files so you don't lose your changes.
 
 ## Getting started
 
 ### Prerequisites
-Install Node.js v8.x.x
-
-Install `npm i -g browser-refresh` (optional). 
-This is like `nodemon` and restarts the server when files change.
-Additionally it reloads the browser page is useful during development.
+- Install Node.js v10.x.x
+- Secrets are stored in the team Keybase. You must have access for the dev environment
+  - Once you have access, Install [mkcert](https://github.com/FiloSottile/mkcert) which allows us to use locally-trusted certificates ([GOV.UK Pay](https://www.payments.service.gov.uk) will only allow redirects to `https://`)
+  - Set `$CAROOT` to `KEYBASE_TEAM_DIR/rootCA.pem` 
+  - run `mkcert -install`
+  
 
 ### Clone and build
 
 Clone this repo
 
-`$ git clone https://github.com/DEFRA/digital-form-builder`
+`$ git clone https://github.com/CautionYourBlast/digital-form-builder`
 
 `$ cd digital-form-builder/`
 
@@ -37,21 +36,38 @@ Install dependencies
 
 You are now ready to start.
 
-`$ browser-refresh`
+`$ npm run dev`
 
 
 Open your browser at
 
-`http://localhost:3009/split`
+`https://localhost:3009`
+
 
 
 # Environment variables
+These are loaded from the .env file inside of the keybase team folder.
 
-| name     | description      | required | default |            valid            |             notes             |
-|----------|------------------|:--------:|---------|:---------------------------:|:-----------------------------:|
-| NODE_ENV | Node environment |    no    |         | development,test,production |                               |
-| PORT     | Port number      |    no    | 3009    |                             |                               |
-| OS_KEY   | Ordnance Survey  |    no    |         |                             | For address lookup by postcode|
+
+| name           | description      | required | default |            valid            |             notes             |
+|----------------|------------------|:--------:|---------|:---------------------------:|:-----------------------------:|
+| NODE_ENV       | Node environment |    no    |         | development,test,production |                               |
+| PORT           | Port number      |    no    | 3009    |                             |                               |
+| OS_KEY         | Ordnance Survey  |    no    |         |                             | For address lookup by postcode|
+| PAY_API_KEY    | Pay api key      |    yes   |         |                             |                               |
+| PAY_RETURN_URL | Pay return url   |    yes   |         |                             | For GOV.UK Pay to redirect back to our service |
+| PAY_API_URL    | Pay api url      |    yes   |         |                             |                               |
+
+# Testing
+Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`. 
+
+# Deployment
+Currently CI and deployment is done with [circleCI](https://circleci.com) and [Heroku](https://heroku.com). Pushes to master
+will trigger a build phase which includes running tests and [lighthouse](https://developers.google.com/web/tools/lighthouse)
+accessibility audits. Builds will fail if the accessibility score is less than 90%. 
+
+After a successful build, the project is deployed on [https://fco-forms.herokuapp.com](https://fco-forms.herokuapp.com)
+
 
 ## License
 
@@ -68,6 +84,4 @@ The following attribution statement MUST be cited in your products and applicati
 The Open Government Licence (OGL) was developed by the Controller of Her Majesty's Stationery Office (HMSO) to enable information providers in the public sector to license the use and re-use of their information under a common open licence.
 
 It is designed to encourage use and re-use of information freely and flexibly, with only a few conditions.
-
-After a successful build, the project is deployed on [https://fco-forms.herokuapp.com](https://fco-forms.herokuapp.com)
 

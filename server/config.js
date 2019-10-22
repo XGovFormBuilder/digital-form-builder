@@ -10,6 +10,7 @@ const schema = {
   matomoId: joi.string().optional(),
   payApiUrl: joi.string(),
   payApiKey: joi.string(),
+  payReturnUrl: joi.string(),
   serviceUrl: joi.string().optional()
 }
 
@@ -22,6 +23,7 @@ const config = {
   matomoId: process.env.MATOMO_ID || '0',
   payApiKey: process.env.PAY_API_KEY,
   payApiUrl: process.env.PAY_API_URL,
+  payReturnUrl: process.env.PAY_RETURN_URL,
   serviceUrl: process.env.SERVICE_URL || 'http://localhost:3009'
 }
 

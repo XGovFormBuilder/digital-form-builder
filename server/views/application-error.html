@@ -1,0 +1,26 @@
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+
+{% extends 'layout.html' %}
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    {% set tmpl = 'There was a problem with your application ' + reference  %}
+
+      {{ govukErrorSummary({
+        titleText: tmpl,
+        errorList: [
+          {
+            text: "The payment failed"
+          }
+        ]
+      }) }}
+
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">Try the payment again</a>
+      </p>
+      <p class="govuk-body">
+        <a href="#" class="govuk-link">What did you think of this service?</a> (takes 30 seconds)
+      </p>
+    </div>
+  </div>
+{% endblock %}

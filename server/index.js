@@ -1,9 +1,15 @@
 const hapi = require('hapi')
 const config = require('./config')
+const fs = require('fs')
+const { pay } = require('./plugins/pay')
 
-async function createServer () {
-  // Create the hapi server
-  const server = hapi.server({
+const tls = {
+  key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
+  cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
+}
+
+const serverOptions = (isDev) => {
+  const defaultOptions = {
     port: config.port,
     routes: {
       validate: {
@@ -12,13 +18,19 @@ async function createServer () {
         }
       }
     }
-  })
+  }
+  return isDev ? { ...defaultOptions, tls } : defaultOptions
+}
+
+async function createServer () {
+  const server = hapi.server(serverOptions(config.isDev))
 
   await server.register(require('inert'))
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))
   await server.register(require('./plugins/builder'))
+  await server.register(pay)
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
 

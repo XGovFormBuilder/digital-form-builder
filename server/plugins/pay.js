@@ -1,4 +1,4 @@
-const { payApiKey, payApiUrl } = require('../config')
+const { payApiKey, payApiUrl, payReturnUrl } = require('../config')
 const Wreck = require('@hapi/wreck')
 
 const options = {
@@ -13,7 +13,7 @@ const payRequestData = (amount, reference, description) => {
     amount,
     reference,
     description,
-    'return_url': `https://fco-forms.herokuapp.com/confirmation`
+    'return_url': payReturnUrl
   }
 }
 
@@ -36,6 +36,58 @@ const payStatus = async (url) => {
   }
 }
 
+const pay = {
+  plugin: {
+    name: 'pay',
+    dependencies: 'vision',
+    multiple: true,
+    register: (server) => {
+      server.route({
+        method: 'get',
+        path: '/status',
+        handler: async (request, h) => {
+          const { self, reference } = request.yar.get('pay')
+          try {
+            let { state } = await payStatus(self)
+            if (state.finished) {
+              switch (state.status) {
+                case 'success':
+                  return h.redirect(`/confirmation/${reference}`)
+                case 'failed':
+                case 'error':
+                  return h.redirect(`/status/error/${reference}`)
+              }
+            } else {
+              // TODO:- unfinished payment flow?
+            }
+          } catch (ex) {
+            console.log(ex)
+          }
+        }
+      })
+
+      server.route({
+        method: 'get',
+        path: '/confirmation/{reference}',
+        handler: async (request, h) => {
+          let { reference } = request.params
+          return h.view('confirmation', { reference })
+        }
+      })
+
+      server.route({
+        method: 'get',
+        path: '/status/error/{reference}',
+        handler: async (request, h) => {
+          // TODO:- flash error from pay api
+          let { reference } = request.params
+          return h.view('application-error', { reference })
+        }
+      })
+    }
+  }
+}
+
 module.exports = {
-  payRequest, payStatus
+  payRequest, payStatus, pay
 }
