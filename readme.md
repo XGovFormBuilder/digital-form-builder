@@ -1,7 +1,7 @@
 # digital-form-builder
 
 This repository is forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
-The supplementary [designer](https://github.com/CautionYourBlast/digital-form-designer) and [engine](https://github.com/CautionYourBlast/digital-form-engine) repositories have also been forked.
+The supplementary [designer](https://github.com/CautionYourBlast/digital-form-builder-designer) and [engine](https://github.com/CautionYourBlast/digital-form-builder-engine) repositories have also been forked.
 These projects has been adapted to run several configurations on a single instance.
 
 
