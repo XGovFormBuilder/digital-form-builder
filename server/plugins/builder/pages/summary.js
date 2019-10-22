@@ -35,8 +35,8 @@ class SummaryViewModel {
     })
     let applicableFees = []
 
-    if (model.def.fee) {
-      applicableFees = model.def.fee.filter(fee => {
+    if (model.def.fees) {
+      applicableFees = model.def.fees.filter(fee => {
         return model.conditions[fee.condition].fn(state)
       })
     }

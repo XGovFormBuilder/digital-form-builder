@@ -27,7 +27,7 @@
     "acorn": "^6.3.0",
     "boom": "7.2.2",
     "chrome-launcher": "^0.11.2",
-    "digital-form-builder-designer": "CautionYourBlast/digital-form-builder-designer",
+    "digital-form-builder-designer": "CautionYourBlast/digital-form-builder-designer#feature/fees",
     "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine#feature/pay",
     "dotenv": "^8.2.0",
     "govuk-frontend": "2.3.0",
