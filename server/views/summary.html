@@ -17,14 +17,18 @@
                 {% endfor %}
             </ul>
             <p class="govuk-body">Total cost: {{applicableFees.total}}</p>
+        {% endif %}
+
+        {% if not result.error  %}
             <form method="post">
                 <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
                   Confirm and send
                 </button>
             </form>
+        {% else %}
+            <pre>{{ result.error | dump(2) | safe }}</pre>
         {% endif %}
 
-        <pre>{{ result.error | dump(2) | safe }}</pre>
       </div>
     </div>
   </div>

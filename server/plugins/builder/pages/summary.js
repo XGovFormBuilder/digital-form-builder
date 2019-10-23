@@ -99,13 +99,17 @@ class SummaryPage extends Page {
       const state = await model.getState(request)
       const { applicableFees } = new SummaryViewModel(model, state)
       const reference = `FCO-${shortid.generate()}`
-      try {
-        let res = await payRequest(applicableFees.total, reference, 'pay for your form')
-        request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
-        return h.redirect(res._links.next_url.href)
-      } catch (ex) {
-        // error with payRequest
-        console.log(ex)
+      if (!applicableFees) {
+        return h.redirect(`/confirmation/${reference}`)
+      } else {
+        try {
+          let res = await payRequest(applicableFees.total, reference, 'pay for your form')
+          request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
+          return h.redirect(res._links.next_url.href)
+        } catch (ex) {
+          // error with payRequest
+          console.log(ex)
+        }
       }
     }
   }
