@@ -91,7 +91,7 @@
       ],
       "next": [
         {
-          "path": "/pay"
+          "path": "/summary"
         }
       ],
       "title": "Declaration"
@@ -460,7 +460,7 @@
           "path": "/upload-page"
         },
         {
-          "path": "/summary"
+          "path": "/declaration"
         }
       ]
     },
@@ -485,7 +485,7 @@
           "path": "/upload-page"
         },
         {
-          "path": "/summary"
+          "path": "/declaration"
         }
       ]
     },
@@ -674,7 +674,7 @@
       "path": "/upload-page",
       "title": "Add your documents",
       "condition": "deathCertificateUpload",
-      "section": "yourMaritalOrCivilStatus",
+      "section": "addYourDocuments",
       "components": [
         {
           "type": "Para",
@@ -693,7 +693,7 @@
       ],
       "next": [
         {
-          "path": "/summary"
+          "path": "/declaration"
         }
       ]
     },
@@ -760,20 +760,6 @@
           "path": "/confirmation"
         }
       ]
-    },
-    {
-      "path": "/confirmation-page",
-      "title": "Confirmation page",
-      "components": [
-        {
-          "type": "Html",
-          "content":
-            "<div class=\"govuk-width-container\">\r\n  <main class=\"govuk-main-wrapper govuk-main-wrapper--l\" id=\"main-content\" role=\"main\">\r\n    <div class=\"govuk-grid-row\">\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n        <div class=\"govuk-panel govuk-panel--confirmation\">\r\n          <h1 class=\"govuk-panel__title\">\r\n            Application complete\r\n          </h1>\r\n          <div class=\"govuk-panel__body\">\r\n            Your reference number<br><strong>HDJ2123F</strong>\r\n          </div>\r\n        </div>\r\n\r\n        <p class=\"govuk-body\">We have sent you a confirmation email.</p>\r\n\r\n        <h2 class=\"govuk-heading-m\">What happens next</h2>\r\n\r\n        <p class=\"govuk-body\">\r\n          We’ve sent your application to the French embassy\r\n        </p>\r\n        <p class=\"govuk-body\">\r\n          They will contact you either to ask for more information or let you know the application was successful\r\n        </p><p class=\"govuk-body\">\r\n          You'll need to take your certificate to the town hall or court to prove to them that you are currently not married\r\n        </p>\r\n <h2 class=\"govuk-heading-m\">What else you may need to do</h2>\r\n <p class=\"govuk-body\">\r\n          Contact the local town hall (‘mairie’) to find out about local laws, including what documents you’ll need.\r\n\r\n\r\n        </p>\r\n        <p class=\"govuk-body\">\r\n         You, your partner or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.\r\n        </p>\r\n\r\n        <p class=\"govuk-body\">\r\n       \r\n        </p>\r\n      </div>\r\n    </div>\r\n  </main>\r\n</div>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": []
     }
   ],
   "sections": [
@@ -790,28 +776,32 @@
       "title": "Your passport"
     },
     {
-      "name": "yourContactDetails",
-      "title": "Your contact details"
+      "name": "deliveryDetails",
+      "title": "Delivery details"
     },
     {
-      "name": "aboutYourCeremony",
-      "title": "About your ceremony"
+      "name": "yourContactDetails",
+      "title": "Your contact details"
     },
     {
       "name": "yourPartnersDetails",
       "title": "Your partner's details"
     },
     {
-      "name": "declaration",
-      "title": "Declaration"
-    },
-    {
-      "name": "deliveryDetails",
-      "title": "Delivery Details"
+      "name": "aboutYourCeremony",
+      "title": "About your ceremony"
     },
     {
       "name": "feedback",
       "title": "Feedback"
+    },
+    {
+      "name": "addYourDocuments",
+      "title": "Add your documents"
+    },
+    {
+      "name": "declaration",
+      "title": "Declaration"
     }
   ],
   "lists": [
