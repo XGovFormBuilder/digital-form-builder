@@ -3,11 +3,6 @@ const config = require('./config')
 const fs = require('fs')
 const { pay } = require('./plugins/pay')
 
-const tls = {
-  key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
-  cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
-}
-
 const serverOptions = (isDev) => {
   const defaultOptions = {
     port: config.port,
@@ -19,7 +14,11 @@ const serverOptions = (isDev) => {
       }
     }
   }
-  return isDev ? { ...defaultOptions, tls } : defaultOptions
+  return isDev ? { ...defaultOptions,
+    tls: {
+      key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
+      cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
+    } } : defaultOptions
 }
 
 async function createServer () {
