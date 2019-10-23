@@ -16,6 +16,11 @@ class SummaryViewModel {
       model.pages.forEach(page => {
         if (page.section === section) {
           page.components.formItems.forEach(component => {
+            if (page.condition && model.conditions[page.condition]) {
+              if (!model.conditions[page.condition].fn(state)) {
+                return
+              }
+            }
             items.push({
               name: component.name,
               path: component.path,
