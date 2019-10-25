@@ -18,6 +18,10 @@
     "type": "git",
     "url": "https://github.com/DEFRA/digital-form-builder"
   },
+  "engines": {
+    "node": "10.16.3",
+    "npm": ">=6.0.0"
+  },
   "author": "Department for Environment, Food and Rural Affairs <https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs>.",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
@@ -28,10 +32,11 @@
     "boom": "7.2.2",
     "chrome-launcher": "^0.11.2",
     "digital-form-builder-designer": "CautionYourBlast/digital-form-builder-designer",
-    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine",
+    "digital-form-builder-engine": "cautionYourBlast/digital-form-builder-engine",
     "dotenv": "^8.2.0",
     "govuk-frontend": "2.3.0",
     "hapi": "17.7.0",
+    "hmpo-components": "^2.1.0",
     "inert": "5.1.2",
     "joi": "^14",
     "lighthouse": "^5.5.0",

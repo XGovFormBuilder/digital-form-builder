@@ -70,4 +70,3 @@ workflows:
             branches:
               only:
                 - master
-

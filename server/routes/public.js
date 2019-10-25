@@ -39,7 +39,8 @@ module.exports = [{
         path: [
           'server/public/static',
           'server/public/build',
-          'node_modules/govuk-frontend/assets'
+          'node_modules/govuk-frontend/assets',
+          'node_modules/hmpo-components/assets'
         ]
       }
     }

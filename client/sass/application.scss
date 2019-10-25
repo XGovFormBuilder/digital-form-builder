@@ -1,5 +1,18 @@
 @import "node_modules/govuk-frontend/all";
+@import "node_modules/hmpo-components/all";
 @import "node_modules/digital-form-builder-designer/client/index";
+
+.flash-card {
+  .govuk-button {
+    background: #fff;
+    color: #1d70b8;
+    padding-right: 3.6em;
+    padding-left: 3.6em;
+    font-weight: 700;
+    box-shadow: 0 2px 0 #0c2d4a;
+    height: 38px;
+  }
+}
 
 .nojs-hidden {
   display: none;
