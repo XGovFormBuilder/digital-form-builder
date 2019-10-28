@@ -13,10 +13,10 @@
         {% if applicableFees and applicableFees.fees|length %}
             <ul class="govuk-list govuk-list--bullet">
                 {% for fee in applicableFees.fees %}
-                    <li>{{ fee.description }}: £{{fee.amount}}</li>
+                    <li>{{ fee.description }}: £{{fee.amount / 100}}</li>
                 {% endfor %}
             </ul>
-            <p class="govuk-body">Total cost: {{applicableFees.total}}</p>
+            <p class="govuk-body">Total cost: {{applicableFees.total / 100 }}</p>
         {% endif %}
 
         {% if not result.error  %}
