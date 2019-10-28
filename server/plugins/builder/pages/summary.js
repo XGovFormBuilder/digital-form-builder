@@ -6,18 +6,19 @@ const { payRequest } = require('../../pay')
 class SummaryViewModel {
   constructor (model, state) {
     const details = []
-
+    let relevantPages = []
       ;[undefined].concat(model.sections).forEach((section, index) => {
       const items = []
       const sectionState = section
         ? (state[section.name] || {})
         : state
-
+      let isRelevantPage = true
       model.pages.forEach(page => {
         if (page.section === section) {
           page.components.formItems.forEach(component => {
             if (page.condition && model.conditions[page.condition]) {
               if (!model.conditions[page.condition].fn(state)) {
+                isRelevantPage = false
                 return
               }
             }
@@ -29,9 +30,11 @@ class SummaryViewModel {
               url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`
             })
           })
+          if (isRelevantPage && page.components.formItems.length > 0) {
+            relevantPages.push(page)
+          }
         }
       })
-
       details.push({
         name: section && section.name,
         title: section && section.title,
@@ -46,7 +49,7 @@ class SummaryViewModel {
       })
     }
 
-    const schema = model.makeSchema(state)
+    const schema = model.makeFilteredSchema(state, relevantPages)
     const result = joi.validate(state, schema, { abortEarly: false })
 
     if (result.error) {
