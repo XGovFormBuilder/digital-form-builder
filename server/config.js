@@ -14,7 +14,8 @@ const schema = {
   serviceUrl: joi.string().optional(),
   redisHost: joi.string().optional(),
   redisPort: joi.number().optional(),
-  redisPassword: joi.string().optional()
+  redisPassword: joi.string().optional(),
+  serviceName: joi.string().optional()
 }
 
 // Build config
@@ -30,7 +31,8 @@ const config = {
   serviceUrl: process.env.SERVICE_URL || 'http://localhost:3009',
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
-  redisPassword: process.env.REDIS_PASSWORD
+  redisPassword: process.env.REDIS_PASSWORD,
+  serviceName: process.env.SERVICE_NAME
 }
 
 // Validate config

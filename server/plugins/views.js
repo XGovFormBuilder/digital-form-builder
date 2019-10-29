@@ -1,7 +1,6 @@
 const nunjucks = require('nunjucks')
 const config = require('../config')
 const pkg = require('../../package.json')
-const analyticsAccount = config.analyticsAccount
 
 module.exports = {
   plugin: require('vision'),
@@ -40,9 +39,9 @@ module.exports = {
     context: {
       appVersion: pkg.version,
       assetPath: '/assets',
-      serviceName: 'Service name',
+      serviceName: config.serviceName,
       pageTitle: 'Service name - GOV.UK',
-      analyticsAccount: analyticsAccount,
+      analyticsAccount: config.analyticsAccount,
       matomoId: config.matomoId,
       BROWSER_REFRESH_URL: config.browserRefreshUrl
     }

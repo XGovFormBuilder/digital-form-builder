@@ -8,7 +8,7 @@ let partition = 'cache'
 
 const adapter = isDev && redisHost ? CatboxMemory : CatboxRedis
 
-const cache = isDev ? { } : new Catbox.Client(adapter, {
+const cache = new Catbox.Client(adapter, {
   host: redisHost,
   port: redisPort,
   password: redisPassword,
@@ -33,14 +33,17 @@ const Key = (id) => {
 }
 
 async function getState (request) {
-  return cache.get(Key(request.yar.id) || {})
+  let cached = await cache.get(Key(request.yar.id))
+  return await cached !== null ? cached.item : {}
 }
 
 async function mergeState (request, value) {
+  const key = Key(request.yar.id)
   const state = await getState(request)
-  const item = state && state.item ? state.item : {}
-  hoek.merge(item, value, true, false)
-  return cache.set(Key(request.yar.id), item, 30 * 60 * 1000)
+  hoek.merge(state, value, true, false)
+  await cache.set(key, state, 30 * 60 * 1000)
+  let newState = await cache.get(key)
+  return newState.item
 }
 
 module.exports = { getState, mergeState }
