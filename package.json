@@ -26,6 +26,9 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "@hapi/boom": "^8.0.1",
+    "@hapi/catbox": "^10.2.3",
+    "@hapi/catbox-memory": "^4.1.1",
+    "@hapi/catbox-redis": "^5.0.5",
     "@hapi/wreck": "^16.0.1",
     "accept-language-parser": "^1.5.0",
     "acorn": "^6.3.0",

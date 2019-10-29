@@ -23,7 +23,6 @@ const serverOptions = (isDev) => {
 
 async function createServer () {
   const server = hapi.server(serverOptions(config.isDev))
-
   await server.register(require('inert'))
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))

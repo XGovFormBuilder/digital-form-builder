@@ -1,21 +1,47 @@
 const hoek = require('hoek')
+const Catbox = require('@hapi/catbox')
+const CatboxRedis = require('@hapi/catbox-redis')
+const CatboxMemory = require('@hapi/catbox-memory')
+const { redisUrl, redisPort, redisPassword } = require('./config')
+let isDev = false
 
-/*
-  Simple in-memory data store used for saving page state.
-  Should be replaced with a real db in production.
-*/
-const cache = {}
+let partition = 'cache'
+
+const adapter = isDev && redisUrl ? CatboxMemory : CatboxRedis
+
+const cache = isDev ? { } : new Catbox.Client(adapter, {
+  host: redisUrl,
+  port: redisPort,
+  password: redisPassword,
+  partition
+})
+
+async function start () {
+  return cache.start()
+}
+
+try {
+  start()
+} catch (e) {
+  console.error(e)
+}
+
+const Key = (id) => {
+  return {
+    segment: partition,
+    id
+  }
+}
 
 async function getState (request) {
-  return Promise.resolve(cache[request.yar.id] || {})
+  return cache.get(Key(request.yar.id) || {})
 }
 
 async function mergeState (request, value) {
-  const state = cache[request.yar.id] || {}
-  hoek.merge(state, value, true, false)
-  cache[request.yar.id] = state
-
-  return Promise.resolve(state)
+  const state = await getState(request)
+  const item = state && state.item ? state.item : {}
+  hoek.merge(item, value, true, false)
+  return cache.set(Key(request.yar.id), item, 30 * 60 * 1000)
 }
 
 module.exports = { getState, mergeState }

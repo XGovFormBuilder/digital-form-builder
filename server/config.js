@@ -11,7 +11,10 @@ const schema = {
   payApiUrl: joi.string(),
   payApiKey: joi.string(),
   payReturnUrl: joi.string(),
-  serviceUrl: joi.string().optional()
+  serviceUrl: joi.string().optional(),
+  redisUrl: joi.string().optional(),
+  redisPort: joi.number().optional(),
+  redisPassword: joi.string().optional()
 }
 
 // Build config
@@ -24,7 +27,10 @@ const config = {
   payApiKey: process.env.PAY_API_KEY,
   payApiUrl: process.env.PAY_API_URL,
   payReturnUrl: process.env.PAY_RETURN_URL,
-  serviceUrl: process.env.SERVICE_URL || 'http://localhost:3009'
+  serviceUrl: process.env.SERVICE_URL || 'http://localhost:3009',
+  redisUrl: process.env.REDIS_URL,
+  redisPort: process.env.REDIS_PORT,
+  redisPassword: process.env.REDIS_PASSWORD
 }
 
 // Validate config
