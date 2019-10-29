@@ -46,8 +46,7 @@ if (result.error) {
 // Use the joi validated value
 const value = result.value
 
-// Add some helper props
-value.isDev = value.env === 'development'
 value.isProd = value.env === 'production'
+value.isDev = !value.isProd
 
 module.exports = value
