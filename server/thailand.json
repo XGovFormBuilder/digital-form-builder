@@ -1,5 +1,26 @@
 {
-  "conditions": [],
+  "conditions": [
+    {
+      "name": "hasPreviousNames",
+      "value": "otherNames=='yes'"
+    },
+    {
+      "name": "noPreviousNames",
+      "value": "otherNames=='no'"
+    },
+    {
+      "name": "currentStatus",
+      "value": "maritalStatus=='yes'"
+    },
+    {
+      "name": "passportDetails",
+      "value": "maritalstatus=='no'"
+    },
+    {
+      "name": "isThaiNational",
+      "value": "thaiNational==true"
+    }
+  ],
   "pages": [
     {
       "path": "/start",
@@ -7,7 +28,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you’re a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).</p>",
+          "content": "<p class=\"govuk-body\">If you're a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).</p>\r\n\r\n<p class=\"govuk-body\">Use this tool to find out how to get the documents you’ll need.</p>\r\n\r\n<p class=\"govuk-body\">You’ll need to contact the local authorities where you want to get married to find out what you need to do.</p>\r\n\r\n\r\n<p class=\"govuk-body\">Your marriage or civil partnership will be recognised in the UK if both of the following apply:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>you followed the correct process in the country where you got married</li>\r\n  <li>it would be allowed under UK law</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "InsetText",
+          "content": "There’s a separate guide if you want to get married or enter into a civil partnership in the UK.",
           "options": {},
           "schema": {}
         }
@@ -15,24 +42,1017 @@
       "next": [
         {
           "path": "/test"
+        },
+        {
+          "path": "/country-picker"
         }
       ]
     },
     {
-      "path": "/test",
-      "title": "testing",
-      "components": [],
+      "path": "/country-picker",
+      "title": "Where do you want to get married?",
+      "components": [
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "countryPicker",
+          "title": "Where do you want to get married?",
+          "schema": {}
+        }
+      ],
       "next": [
         {
-          "path": "/another-test"
+          "path": "/british-passport"
         }
       ]
     },
     {
-      "path": "/another-test",
-      "title": "test",
+      "path": "/affirmation",
+      "title": "Affirmation of marital status",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">If you're getting married in Thailand you need to swear an affirmation that proves that you're free to get married.</p>\r\n\r\n<p class=\"govuk-body\">You'll need to complete this form and swear an oath tha this is true.</p>\r\n\r\n<p class=\"govuk-body\">You'll need to get your affirmation translated and legalised (certified as genuine) by the Ministry of Foreign Affairs in Thailand. </p>\r\n\r\n<p class=\"govuk-body\">After you've had your documents legalisted you will need to them to the district office where you're getting married.</p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/eligibility"
+        }
+      ]
+    },
+    {
+      "path": "/eligibility",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">To get married in Thailand, the following must be true:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Your partner needs to be of the oppostive sex</li>\r\n  <li>Both people need to be over 17</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">In Thailand the only type of ceremony available is marriage. Civil Partnerships are not recgonised. </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/requirements"
+        }
+      ],
+      "title": "Eligibility"
+    },
+    {
+      "path": "/requirements",
+      "title": "To get an affirmation you'll need to",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<ol class=\"govuk-list govuk-list--number\">\r\n <li>\r\n    <span class=\"govuk-body govuk-!-font-weight-bold\">Get you documents ready<br/></span>\r\n    We'll tell you all the documents you need.\r\n </li>\r\n <li>\r\n    <span class=\"govuk-body govuk-!-font-weight-bold\">Apply online<br/></span>\r\n    Complete the form online\r\n </li>\r\n<li>\r\n    <span class=\"govuk-body govuk-!-font-weight-bold\">Add your documents<br/></span>\r\n    We'll show you how to upload your documents\r\n </li>\r\n<li>\r\n    <span class=\"govuk-body govuk-!-font-weight-bold\">Pay for your application<br/></span>\r\n    The affirmation costs £50 \r\n </li>\r\n<li>\r\n    <span class=\"govuk-body govuk-!-font-weight-bold\">Book your appointment<br/></span>\r\n    You'll need to swear the oath in person at the embassy in Thailand\r\n </li>\r\n</ol>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/documents",
+      "title": "What you need to apply",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">To complete the form you'll need:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Your British passport details</li>\r\n  <li>Your partner's details</li>\r\n  <li>Province and date of marriage</li>\r\n   <li>Details of 2 referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You'll also need to add photos of your:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>British passport</li>\r\n  <li>Evidence you changed your name by deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">If you've been married or in a civil partnership you'll need to provide:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>Death certificate</li>\r\n  <li>Divorcer certificate or final order</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/your-details",
+      "title": "Your full name",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have any middle names on your passport make sure you include them here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "surname",
+          "title": "Surname",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/sex"
+        }
+      ],
+      "section": "yourDetails"
+    },
+    {
+      "path": "/sex",
+      "title": "Your sex as shown on your passport?",
+      "components": [
+        {
+          "options": {
+            "list": "sex"
+          },
+          "type": "CheckboxesField",
+          "name": "sex",
+          "title": "Your sex as shown on passport",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/birth"
+        },
+        {
+          "path": "/date-of-birth"
+        }
+      ],
+      "condition": "noPreviousNames",
+      "section": "yourDetails"
+    },
+    {
+      "path": "/date-of-birth",
+      "title": "Your date of birth",
+      "components": [
+        {
+          "type": "DatePartsField",
+          "name": "dateOfBirth",
+          "title": "Date of birth",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfBirth",
+          "title": "Place of birth",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/uk-address"
+        }
+      ],
+      "section": "yourDetails"
+    },
+    {
+      "path": "/your-occupation",
+      "title": "Your occupation",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "occupation",
+          "title": "What is your occupation?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/parents-details"
+        }
+      ]
+    },
+    {
+      "path": "/marital-status",
+      "title": "Have you been married before?",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "maritalSatus",
+          "title": "Have you been married before?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/current-status"
+        },
+        {
+          "path": "/thaiCitizen"
+        },
+        {
+          "path": "/thaiNational"
+        }
+      ]
+    },
+    {
+      "path": "/current-status",
+      "title": "What is your current marital status?",
+      "components": [
+        {
+          "options": {
+            "list": "maritalStatus"
+          },
+          "type": "RadiosField",
+          "name": "currentStatus",
+          "title": "What is your current marital status?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/divorce-details"
+        }
+      ],
+      "condition": "currentStatus"
+    },
+    {
+      "path": "/prove-status",
+      "title": "Prove your marital status",
+      "components": [
+        {
+          "type": "Para",
+          "content": "To get an affirmation of maritial status, you'll need to provide your divorce certificate or final order to prove you're legally free to get married.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "UploadOptions"
+          },
+          "type": "RadiosField",
+          "name": "uploadMethod",
+          "title": "How would you like to provide your divorce certificate or final order?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-documents"
+        }
+      ]
+    },
+    {
+      "path": "/add-documents",
+      "title": "Add your documents",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\" name=\"file-upload-1\" type=\"file\">\r\n</div>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/passport-details",
+      "title": "British passport details",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "passportNumber",
+          "title": "British passport number",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DateField",
+          "name": "dateOfIssue",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfIssue",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-details"
+        }
+      ],
+      "condition": "passportDetails"
+    },
+    {
+      "path": "/uk-address",
+      "title": "Your UK home address",
+      "components": [
+        {
+          "type": "Para",
+          "content": "The Thai authorities prefer a UK address.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "address",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "town",
+          "title": "Town or City",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false
+          },
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "noaddress"
+          },
+          "type": "CheckboxesField",
+          "name": "britishAddress",
+          "title": "I don't have a British address",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/home-address"
+        },
+        {
+          "path": "/your-occupation"
+        }
+      ],
+      "section": "yourAddress"
+    },
+    {
+      "path": "/contact-details",
+      "title": "Your contact details",
+      "components": [
+        {
+          "type": "Para",
+          "content": "We may need to contact your about your application to ask for more information",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "emailAddress",
+          "title": "Email address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/feedback"
+        }
+      ]
+    },
+    {
+      "path": "/partners-details",
+      "title": "Partner's details",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "partnerName",
+          "title": "Full name of partner",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-nationality"
+        }
+      ],
+      "section": "yourPartnersDetails"
+    },
+    {
+      "path": "/provinceOfCeremony",
+      "title": "Province of your ceremony",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "province",
+          "title": "Province of your ceremony",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/parents-details",
+      "title": "Your parents details",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Mother or parent 1",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "FullName",
+          "title": "Full name",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "birthName",
+          "title": "Name as on birth certificate",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Father or parent 2",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "fathersName",
+          "title": "Father's full name",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "birthName",
+          "title": "Name as on birth certificate",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/passport-details"
+        }
+      ]
+    },
+    {
+      "path": "/supporting-docs",
+      "title": "Add your supporting documents",
       "components": [],
       "next": []
+    },
+    {
+      "path": "/feedback",
+      "title": "Feedback",
+      "components": [
+        {
+          "type": "Para",
+          "content": "We welcome your views on the registration service. If you agree to be contacted by answering 'yes'below, you will be consenting to share your personal data - name, email address, telpehone number and service received - with out independant partner research agency, IFF research. You may withdraw your consent at any stage by email consular.research@fco.gov.uk. For more details on how your data will be handled in relation to feedback please see the research privacy policy at www.gov.uk/fco/tell-fco",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
+          "name": "contact",
+          "title": "Can our partner contact you for feedback to help improve the service?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/declaration"
+        },
+        {
+          "path": "/contact-preference"
+        }
+      ]
+    },
+    {
+      "path": "/british-passport",
+      "components": [
+        {
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
+          "name": "britishPassport",
+          "title": "Do you have a British passport?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceremony"
+        },
+        {
+          "path": "needBritishPassport"
+        }
+      ],
+      "title": "Do you have a British passport?"
+    },
+    {
+      "path": "/ceremony",
+      "title": "What type of ceremony are you planning?",
+      "section": "aboutYourCeremony",
+      "components": [
+        {
+          "options": {
+            "list": "ceremony"
+          },
+          "type": "RadiosField",
+          "name": "ceremony",
+          "title": "What type of ceremony are you planning?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/oppositeOrSameSex"
+        }
+      ]
+    },
+    {
+      "path": "/service-start",
+      "title": "Getting married in Thailand",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">If you're getting married in Thailand you need to swear an affirmation that proves that you're free to get married.</p>\r\n\r\n<p class=\"govuk-body\">You'll need to complete this form and swear an oath tha this is true.</p>\r\n\r\n<p class=\"govuk-body\">You'll need to get your affirmation translated and legalised (certified as genuine) by the Ministry of Foreign Affairs in Thailand. </p>\r\n\r\n<p class=\"govuk-body\">After you've had your documents legalisted you will need to them to the district office where you're getting married.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-l\">Apply online for an affirmation of marital status</h2>\r\n\r\n<p class=\"govuk-body\">To get married in Frnace, you'll also need to get a certificate of custom.</p>\r\n\r\n<p class=\"govuk-body\">A certificate of custom costs £50. The embassy will send your certificate 2 to 3 weeks after receiving your application.</p>\r\n\r\n\r\n<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You'll need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll have to provide the documents that show the name chaging\r\n  </strong>\r\n</div>\r\n\r\n\r\n<p class=\"govuk-body\">Some town halls or courts only accept a certificate of cusomt dated less that 6 months before your marriage </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-to-get-a-affirmation"
+        },
+        {
+          "path": "/how-to-get-an-affirmation"
+        }
+      ]
+    },
+    {
+      "path": "/how-to-get-an-affirmation",
+      "title": "How to get your affirmation of marital status",
+      "components": [
+        {
+          "options": {
+            "list": "getAffirmation"
+          },
+          "type": "FlashCard",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/marital-status"
+        }
+      ]
+    },
+    {
+      "path": "/oppositeOrSameSex",
+      "title": "Is your partner of the opposite sex, or the same sex?",
+      "components": [
+        {
+          "options": {
+            "list": "opposite/sameSex"
+          },
+          "type": "RadiosField",
+          "name": "sameOrOppositeMarriage",
+          "title": "Is your partner of the opposite sex, or the same sex?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-start"
+        }
+      ]
+    },
+    {
+      "path": "/whatllYouNeed",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You won’t be able to save this application – take pictures of the following documents before you start:",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "• your UK passport",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-l\">How to take a photos of your documents</h2>\r\n\r\n<p class=\"govuk-body\">You can either take a photo with your mobile phone or scan the document.</p>\r\n\r\n<p class=\"govuk-body\"> We recommend you take a photo with your phone, and add it to the device you're completing the application form on. </p>\r\n\r\n<p class=\"govuk-body\"> Check that the photo you have taken is claer, and that all the details on your documents are visable. </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/thaiNational",
+      "title": "Is your partner a Thai national?",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "thaiNational",
+          "title": "Is your partner a Thai national?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/name-change-by-deed-poll"
+        }
+      ]
+    },
+    {
+      "path": "/name-change-by-deed-poll",
+      "title": "Have you changed your name by deed poll?",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "nameChangeByDeedPoll",
+          "title": "Have you changed your name by deed poll?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/whatllYouNeed"
+        }
+      ]
+    },
+    {
+      "path": "/upload-passport",
+      "title": "Add a photo of your passport",
+      "section": "addSupportingDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of the main page of your British passport - the page with the passport photo. We accept almost all file formats and sizes.</p>\r\n\r\n<p class=\"govuk-body\">In addition</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>If your passport has been damaged, add a photo of the damage too (if it is not apparent on the main photo page).</li>\r\n</ul>\r\n\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\" type=\"file\">\r\n</div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"list-bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-details"
+        }
+      ]
+    },
+    {
+      "path": "/home-address",
+      "title": "What is your home address?",
+      "section": "yourAddress",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you wish to use a Thai address you will need to upload as a supporting documentation a photo of your yellow book or pink ID card.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "country",
+          "title": "Country",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-occupation"
+        }
+      ]
+    },
+    {
+      "path": "needBritishPassport",
+      "title": "You can only apply for this service online if you have a British passport",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you don't have a British passport, but want to get married in France, please contact the British consulate in Paris.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceremony"
+        }
+      ]
+    },
+    {
+      "path": "/divorce-details",
+      "title": "Details about your divorce",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "type": "DatePartsField",
+          "name": "dateOfIssue",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfIssue",
+          "title": "Place of issue",
+          "hint": "as it appears on your decree absolute",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/thaiNational"
+        }
+      ]
+    },
+    {
+      "path": "/partners-nationality",
+      "title": "Your partner's passport details",
+      "section": "yourPartnersDetails",
+      "components": [
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "nationality",
+          "title": "Nationality",
+          "schema": {}
+        },
+        {
+          "type": "NumberField",
+          "name": "passportNumber",
+          "title": "Passport number",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-ceremony"
+        }
+      ]
+    },
+    {
+      "path": "/about-your-ceremony",
+      "title": "Place and date of ceremony",
+      "section": "aboutYourCeremony",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h2 class=\"Place of ceremony\">Place of ceremony</h2>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Enter the name of Thai province, not the town or city",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "popularPlaces"
+          },
+          "type": "RadiosField",
+          "name": "placesPlaces",
+          "title": "Popular places",
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dateField",
+          "title": "Date",
+          "hint": "The date cannot be more than 3 months in advance",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/referees"
+        }
+      ]
+    },
+    {
+      "path": "/referees",
+      "title": "Your referees",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Your referees need to have their home address outside of Thailand.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "fullNameOfReferee1",
+          "title": "Full name of referee 1",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "homeCountry",
+          "title": "Home country",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "address",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "town",
+          "title": "Town or City",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Who can be a referee",
+          "content": "fffff",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-referees"
+        }
+      ]
+    },
+    {
+      "path": "/your-referees",
+      "title": "Your referees",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "nameReferee2",
+          "title": "Full name of referee 2",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "Homecountry",
+          "title": "Home country",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "address",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "town",
+          "title": "Town or City",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/declaration",
+      "title": "Declaration",
+      "section": "/declaration",
+      "components": [
+        {
+          "type": "Para",
+          "content": "I hereby declare that the information given is correct to the best of my knowledge and belief.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "confirm"
+          },
+          "type": "CheckboxesField",
+          "name": "confirm",
+          "title": "Confirm",
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/contact-preference",
+      "title": "How do you prefer to be contacted?",
+      "components": [
+        {
+          "options": {
+            "list": "contactOptions"
+          },
+          "type": "RadiosField",
+          "name": "preferenceOfContact",
+          "title": "How do you prefer to be contacted?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/declaration"
+        }
+      ],
+      "section": "feedback"
     }
   ],
   "sections": [
@@ -91,6 +1111,10 @@
     {
       "name": "sendAddress",
       "title": "Send address"
+    },
+    {
+      "name": "feedback",
+      "title": "Feedback"
     }
   ],
   "lists": [
@@ -1101,7 +2125,7 @@
     },
     {
       "name": "courier",
-      "title": "How do you want to receive your certifate?",
+      "title": "How do you want to receive your certificate?",
       "type": "string",
       "items": [
         {
@@ -1129,6 +2153,111 @@
         {
           "text": "A different address",
           "value": "A different address",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "sex",
+      "title": "Gender as shown on passport",
+      "type": "string",
+      "items": [
+        {
+          "text": "Female",
+          "value": "Female",
+          "description": ""
+        },
+        {
+          "text": "Male",
+          "value": "Male",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "getAffirmation",
+      "title": "How to get your affirmation of marital status",
+      "type": "string",
+      "items": [
+        {
+          "text": "Get your documents ready",
+          "value": "Get your documents ready",
+          "description": "We'll tell you what documents you need"
+        },
+        {
+          "text": "Apply online",
+          "value": "Apply online",
+          "description": "Fill in the form to prove you are unmarried"
+        },
+        {
+          "text": "Add your documents",
+          "value": "Add your documents",
+          "description": "We'll show you how to upload your documents"
+        },
+        {
+          "text": "Pay online",
+          "value": "Pay online",
+          "description": "Certificates cost £?"
+        },
+        {
+          "text": "Book an appointment at the embassy",
+          "value": "Book an appointment at the embassy",
+          "description": "You'll need to swear the oath in person at the embassy in Thailand"
+        }
+      ]
+    },
+    {
+      "name": "opposite/sameSex",
+      "title": "Opposite/same sex marriage",
+      "type": "string",
+      "items": [
+        {
+          "text": "Opposite sex",
+          "value": "Opposite sex",
+          "description": ""
+        },
+        {
+          "text": "Same sex",
+          "value": "Same sex",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "noaddress",
+      "title": "I don't have a British address",
+      "type": "string",
+      "items": [
+        {
+          "text": "I don't have a British address",
+          "value": "I don't have a British address",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "popularPlaces",
+      "title": "Popular places",
+      "type": "string",
+      "items": [
+        {
+          "text": "Suratthani (Koh Samui)",
+          "value": "Suratthani (Koh Samui)",
+          "description": ""
+        },
+        {
+          "text": "Chonburi (Pattaya)",
+          "value": "Chonburi (Pattaya)",
+          "description": ""
+        },
+        {
+          "text": "Prachuap Khiri Khan (Hua Hin)",
+          "value": "Prachuap Khiri Khan (Hua Hin)",
+          "description": ""
+        },
+        {
+          "text": "Other",
+          "value": "Other",
           "description": ""
         }
       ]
