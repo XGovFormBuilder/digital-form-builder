@@ -2,15 +2,15 @@ const hoek = require('hoek')
 const Catbox = require('@hapi/catbox')
 const CatboxRedis = require('@hapi/catbox-redis')
 const CatboxMemory = require('@hapi/catbox-memory')
-const { redisUrl, redisPort, redisPassword } = require('./config')
+const { redisHost, redisPort, redisPassword } = require('./config')
 let isDev = false
 
 let partition = 'cache'
 
-const adapter = isDev && redisUrl ? CatboxMemory : CatboxRedis
+const adapter = isDev && redisHost ? CatboxMemory : CatboxRedis
 
 const cache = isDev ? { } : new Catbox.Client(adapter, {
-  host: redisUrl,
+  host: redisHost,
   port: redisPort,
   password: redisPassword,
   partition
