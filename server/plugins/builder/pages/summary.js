@@ -94,7 +94,7 @@ class SummaryViewModel {
 class SummaryPage extends Page {
   makeGetRouteHandler (getState) {
     return async (request, h) => {
-      this.setLangFromRequest(request)
+      this.langFromRequest(request)
       const model = this.model
 
       model.basePath = h.realm.pluginOptions.basePath || ''
@@ -105,6 +105,7 @@ class SummaryPage extends Page {
   }
   makePostRouteHandler (getState) {
     return async (request, h) => {
+      let lang = this.langFromRequest(request)
       const model = this.model
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
@@ -114,7 +115,7 @@ class SummaryPage extends Page {
         return h.redirect(`/confirmation/${reference}`)
       } else {
         try {
-          let description = model.def.name ? this.localisedString(model.def.name) : `${serviceName} ${this.model.basePath}`
+          let description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
           let res = await payRequest(applicableFees.total, reference, description)
           request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
           return h.redirect(res._links.next_url.href)
