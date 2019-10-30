@@ -2,6 +2,7 @@ const joi = require('joi')
 const Page = require('.')
 const shortid = require('shortid')
 const { payRequest } = require('../../pay')
+const { serviceName } = require('./../../../config')
 
 class SummaryViewModel {
   constructor (model, state) {
@@ -93,7 +94,9 @@ class SummaryViewModel {
 class SummaryPage extends Page {
   makeGetRouteHandler (getState) {
     return async (request, h) => {
+      this.setLangFromRequest(request)
       const model = this.model
+
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const viewModel = new SummaryViewModel(model, state)
@@ -111,7 +114,8 @@ class SummaryPage extends Page {
         return h.redirect(`/confirmation/${reference}`)
       } else {
         try {
-          let res = await payRequest(applicableFees.total, reference, 'pay for your form')
+          let description = model.def.name ? this.localisedString(model.def.name) : `${serviceName} ${this.model.basePath}`
+          let res = await payRequest(applicableFees.total, reference, description)
           request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
           return h.redirect(res._links.next_url.href)
         } catch (ex) {
