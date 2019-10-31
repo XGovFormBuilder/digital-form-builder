@@ -1,47 +1,36 @@
 const joi = require('joi')
 
-const addressSchema = joi.object().required().keys({
-  companyName: joi.string().optional(),
-  flatNumber: joi.string().optional(),
-  premises: joi.string().optional(),
-  houseNumber: joi.string().optional(),
-  street: joi.string().optional(),
-  district: joi.string().optional(),
-  town: joi.string().optional(),
-  region: joi.string().optional(),
-  postcode: joi.string().optional(),
-  country: joi.string().optional()
+const fieldSchema = joi.object({
+  id: joi.string().required(),
+  type: joi.string().required(),
+  title: joi.string().required(),
+  answer: joi.any().required()
 })
 
-const casebookApplicantSchema = joi.object().required().keys({
-  reference: joi.string().optional(),
-  forenames: joi.string().required(),
-  surname: joi.string().required(),
-  primaryTelephone: joi.string().optional(),
-  mobileTelephone: joi.string().optional(),
-  language: joi.string().optional(),
-  ethnicity: joi.string().optional(),
-  nationality: joi.string().optional(),
-  secondNationality: joi.string().optional(),
-  cityOfBirth: joi.string().optional(),
-  countryOfBirth: joi.string().optional(),
-  address: addressSchema.optional()
+const questionSchema = joi.object({
+  id: joi.string().required(),
+  section: joi.string().optional(),
+  question: joi.string().required(),
+  fields: joi.array().items(fieldSchema).unique('id')
 })
 
-const casebookApplicationSchema = joi.object().required().keys({
-  post: joi.string().required(),
-  caseType: joi.string().valid(['Citizenship Ceremony', 'Consular Marriage', 'Local Marriage', 'Notarial or Other Service']).required(),
-  summary: joi.string().required(),
-  description: joi.string().optional(),
-  customerInsightConsent: joi.string().valid(['Yes', 'No']).required(),
-  reasonForBeingOverseas: joi.string().optional(),
-  marriageCategory: joi.string().valid(['Civil Partnership', 'Conversion', 'Marriage']),
-  attachments: joi.array().required()
+const feeDetailSchema = joi.object({
+  description: joi.string().required(),
+  amount: joi.number().required()
+})
+
+const feesSchema = joi.object({
+  detail: joi.array().items(feeDetailSchema),
+  receipt: joi.string().required(),
+  total: joi.number().required()
 })
 
 const casebookNotarialApplicationSchema = joi.object().required().keys({
-  applicant: casebookApplicantSchema,
-  application: casebookApplicationSchema
+  id: joi.string().required(),
+  name: joi.string().required(),
+  preferredLanguage: joi.string().optional(),
+  fees: feesSchema,
+  questions: joi.array().items(questionSchema)
 })
 
 module.exports = {
