@@ -35,7 +35,7 @@
     "boom": "7.2.2",
     "chrome-launcher": "^0.11.2",
     "digital-form-builder-designer": "CautionYourBlast/digital-form-builder-designer",
-    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine#chore/service-name",
+    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine",
     "dotenv": "^8.2.0",
     "govuk-frontend": "2.3.0",
     "hapi": "17.7.0",
