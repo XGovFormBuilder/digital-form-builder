@@ -2,19 +2,19 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/openjdk:8-jdk
+
 jobs:
   build:
+    <<: *defaults
     docker:
       # specify the version you desire here
       - image: circleci/node:10.16-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
 
     steps:
       - checkout
@@ -48,6 +48,43 @@ jobs:
           path: report.json
           destination: report.json
 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  publish:
+    <<: *defaults
+
+    docker:
+      - image: circleci/python:2.7-jessie
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: .
+
+      - setup_remote_docker
+
+      - run:
+          name: Checkout CI Support
+          command: git clone git@github.com:CautionYourBlast/ci-support.git
+
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+
+      - run:
+          name: Publish docker image
+          command: ci-support/docker/publish.sh fco digital-forms
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - tag.txt
+
+
   deploy:
     docker:
       - image: buildpack-deps:trusty
@@ -63,6 +100,9 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - publish:
+          requires:
+            - build
 #      - deploy:
 #          requires:
 #            - build
