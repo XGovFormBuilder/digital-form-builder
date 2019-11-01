@@ -23,9 +23,9 @@ const feesSchema = joi.object({
   detail: joi.array().items(feeDetailSchema),
   receipt: joi.string().required(),
   total: joi.number().required()
-})
+}).optional()
 
-const casebookNotarialApplicationSchema = joi.object().required().keys({
+const caseManagementSchema = joi.object().required().keys({
   id: joi.string().required(),
   name: joi.string().required(),
   preferredLanguage: joi.string().optional(),
@@ -34,5 +34,5 @@ const casebookNotarialApplicationSchema = joi.object().required().keys({
 })
 
 module.exports = {
-  casebookNotarialApplicationSchema
+  caseManagementSchema
 }

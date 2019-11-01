@@ -2,8 +2,9 @@ const joi = require('joi')
 const Page = require('.')
 const shortid = require('shortid')
 const { payRequest } = require('../../pay')
+const { caseManagementPostRequest } = require('../../../lib/caseManagement')
 const { serviceName } = require('./../../../config')
-
+const { casebookSchema } = require('./../../../lib/caseManagementSchema')
 class SummaryViewModel {
   constructor (model, state) {
     const details = []
@@ -28,7 +29,8 @@ class SummaryViewModel {
               path: component.path,
               label: component.localisedString(component.title),
               value: component.getDisplayStringFromState(sectionState),
-              url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`
+              url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
+              pageId: `/${model.basePath}${page.path}`
             })
           })
           if (isRelevantPage && page.components.formItems.length > 0) {
@@ -82,12 +84,60 @@ class SummaryViewModel {
       })
     }
     if (applicableFees.length) {
-      this.applicableFees = { fees: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
+      this.fees = { detail: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
     }
+
+    try {
+      this.parseDataForCasebook(model, relevantPages, details)
+    } catch (e) {
+      console.log(e)
+    }
+
     this.result = result
     this.details = details
     this.state = state
     this.value = result.value
+  }
+
+  parseDataForCasebook (model, relevantPages, details) {
+    let questions = relevantPages.map(page => {
+      let category = page.section.name || ''
+      let fields = []
+      page.components.formItems.forEach(item => {
+        let detail = details.find(d => d.name === category)
+        fields.push({
+          name: detail.name,
+          title: typeof item.title === 'string' ? item.title : item.title.en,
+          type: item.type,
+          answer: detail.items.find(detailItem => detailItem.name === item.name).value
+        })
+      })
+      return {
+        id: `/${model.basePath}${page.path}`,
+        category,
+        question: page.title || page.components.formItems.map(item => item.title).join || ', ',
+        fields
+      }
+    })
+
+    // default name if no name is provided
+    let englishName = `${serviceName} ${model.basePath}`
+    if (model.name) {
+      englishName = typeof model.name === 'string' ? model.name : model.name.en
+    }
+
+    let casebookData = {
+      id: model.basePath,
+      name: englishName,
+      questions: questions,
+      fees: this.fees || {}
+    }
+    try {
+      let result = joi.validate(casebookSchema, casebookData, { abortEarly: false })
+      this.casebookData = result.value
+    } catch (e) {
+      throw e
+    }
   }
 }
 
@@ -109,14 +159,20 @@ class SummaryPage extends Page {
       const model = this.model
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
-      const { applicableFees } = new SummaryViewModel(model, state)
+      const summaryViewModel = new SummaryViewModel(model, state)
       const reference = `FCO-${shortid.generate()}`
-      if (!applicableFees) {
+      let lang = this.langFromRequest(request)
+      if (!summaryViewModel.fees) {
+        try {
+          caseManagementPostRequest(summaryViewModel.casebookData)
+        } catch (e) {
+          console.log(e)
+        }
         return h.redirect(`/confirmation/${reference}`)
       } else {
         try {
           let description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
-          let res = await payRequest(applicableFees.total, reference, description)
+          let res = await payRequest(summaryViewModel.fees.total, reference, description)
           request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
           return h.redirect(res._links.next_url.href)
         } catch (ex) {

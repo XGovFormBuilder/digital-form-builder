@@ -42,16 +42,38 @@
       "path": "/full-name",
       "components": [
         {
-          "schema": {
-            "max": 70
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
-          "name": "fullName",
-          "title": {
-            "en": "What's your name?",
-            "fr": "some french"
+          "name": "firstName",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
           },
-          "options": {}
+          "type": "TextField",
+          "name": "middleNmae",
+          "title": "Middle name",
+          "hint": "If you have any middle names on your passport make sure you include them here",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "surname",
+          "title": "Surname",
+          "schema": {}
         }
       ],
       "section": "personalDetails",
