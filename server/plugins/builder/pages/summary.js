@@ -30,7 +30,8 @@ class SummaryViewModel {
               label: component.localisedString(component.title),
               value: component.getDisplayStringFromState(sectionState),
               url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
-              pageId: `/${model.basePath}${page.path}`
+              pageId: `/${model.basePath}${page.path}`,
+              type: component.type
             })
           })
           if (isRelevantPage && page.components.formItems.length > 0) {
@@ -115,7 +116,7 @@ class SummaryViewModel {
       return {
         id: `/${model.basePath}${page.path}`,
         category,
-        question: page.title || page.components.formItems.map(item => item.title).join || ', ',
+        question: page.title || page.components.formItems.map(item => item.title).join(', ') || '',
         fields
       }
     })

@@ -74,6 +74,13 @@
           "name": "surname",
           "title": "Surname",
           "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "document",
+          "title": "A document",
+          "options": {},
+          "schema": {}
         }
       ],
       "section": "personalDetails",

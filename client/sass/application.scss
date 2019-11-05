@@ -37,6 +37,28 @@
   }
 }
 
+.icon--check {
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 0;
+    width: 18px;
+    height: 7px;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    border: solid;
+    border-width: 0 0 $govuk-border-width $govuk-border-width;
+    border-color: map-get($govuk-colours, "black");
+    border-top-color: transparent;
+    background: transparent;
+  }
+
+}
+
+
 .govuk-prose-scope {
 
   // @extend inheritance

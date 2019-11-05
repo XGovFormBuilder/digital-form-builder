@@ -9,7 +9,7 @@ const fieldSchema = joi.object({
 
 const questionSchema = joi.object({
   id: joi.string().required(),
-  section: joi.string().optional(),
+  category: joi.string().optional(),
   question: joi.string().required(),
   fields: joi.array().items(fieldSchema).unique('id')
 })
@@ -20,7 +20,7 @@ const feeDetailSchema = joi.object({
 })
 
 const feesSchema = joi.object({
-  detail: joi.array().items(feeDetailSchema),
+  details: joi.array().items(feeDetailSchema),
   receipt: joi.string().required(),
   total: joi.number().required()
 }).optional()
@@ -30,7 +30,8 @@ const caseManagementSchema = joi.object().required().keys({
   name: joi.string().required(),
   preferredLanguage: joi.string().optional(),
   fees: feesSchema,
-  questions: joi.array().items(questionSchema)
+  questions: joi.array().items(questionSchema),
+  metadata: joi.object({ a: joi.any() }).optional()
 })
 
 module.exports = {

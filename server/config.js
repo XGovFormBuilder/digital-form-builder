@@ -16,7 +16,8 @@ const schema = {
   redisPort: joi.number().optional(),
   redisPassword: joi.string().optional(),
   redisTls: joi.boolean().optional(),
-  serviceName: joi.string().optional()
+  serviceName: joi.string().optional(),
+  documentUploadApiUrl: joi.string().optional()
 }
 
 // Build config
@@ -34,7 +35,9 @@ const config = {
   redisPort: process.env.REDIS_PORT,
   redisPassword: process.env.REDIS_PASSWORD,
   redisTls: process.env.REDIS_TLS === 'true',
-  serviceName: process.env.SERVICE_NAME
+  serviceName: process.env.SERVICE_NAME,
+  documentUploadApiUrl: process.env.DOCUMENT_UPLOAD_API_URL
+
 }
 
 // Validate config
