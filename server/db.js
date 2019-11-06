@@ -2,18 +2,27 @@ const hoek = require('hoek')
 const Catbox = require('@hapi/catbox')
 const CatboxRedis = require('@hapi/catbox-redis')
 const CatboxMemory = require('@hapi/catbox-memory')
-const { redisHost, redisPort, redisPassword, isDev } = require('./config')
+const { redisHost, redisPort, redisPassword } = require('./config')
 
 let partition = 'cache'
+let cache
 
-const adapter = isDev && redisHost ? CatboxMemory : CatboxRedis
+if (redisHost) {
+  const options = {
+    host: redisHost,
+    port: redisPort,
+    partition
+  }
 
-const cache = new Catbox.Client(adapter, {
-  host: redisHost,
-  port: redisPort,
-  password: redisPassword,
-  partition
-})
+  if (redisPassword) {
+    options.password = redisPassword
+    options.tls = {}
+  }
+
+  cache = new Catbox.Client(CatboxRedis, options)
+} else {
+  cache = new Catbox.Client(CatboxMemory, { partition })
+}
 
 async function start () {
   return cache.start()
