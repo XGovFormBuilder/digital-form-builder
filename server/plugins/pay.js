@@ -1,4 +1,5 @@
 const { payApiKey, payApiUrl, payReturnUrl } = require('../config')
+const { caseManagementPostRequest } = require('./../lib/caseManagement')
 const Wreck = require('@hapi/wreck')
 
 const options = {
@@ -52,10 +53,11 @@ const pay = {
             if (state.finished) {
               switch (state.status) {
                 case 'success':
-                  return h.redirect(`/confirmation/${reference}`)
+                  let response = await caseManagementPostRequest(request.yar.get('caseManagementData'))
+                  return h.redirect(`/confirmation/${response.reference}`)
                 case 'failed':
                 case 'error':
-                  return h.redirect(`/status/error/${reference}`)
+                  return h.redirect(`/status/error/${response.reference || reference}`)
               }
             } else {
               // TODO:- unfinished payment flow?

@@ -1,6 +1,5 @@
 const Wreck = require('@hapi/wreck')
-
-const caseManagementApiUrl = ' '
+const { caseManagementApiUrl } = require('./../config')
 
 const options = {
   headers: {
@@ -9,9 +8,9 @@ const options = {
 }
 
 const caseManagementPostRequest = async (answers) => {
-  const data = { ...options, payload: answers }
+  const data = { ...options, payload: JSON.stringify(answers) }
   try {
-    const { payload } = await Wreck.post(`${caseManagementApiUrl}/payments`, data)
+    const { payload } = await Wreck.post(`${caseManagementApiUrl}/v1/applications`, data)
     return JSON.parse(payload.toString())
   } catch (e) {
     throw e

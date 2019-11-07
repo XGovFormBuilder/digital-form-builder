@@ -7,6 +7,8 @@ const { redisHost, redisPort, redisPassword, redisTls } = require('./config')
 let partition = 'cache'
 let cache
 
+let redisHost = false
+
 if (redisHost) {
   const options = {
     host: redisHost,

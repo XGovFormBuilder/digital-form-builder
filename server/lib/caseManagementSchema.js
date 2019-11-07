@@ -11,12 +11,12 @@ const questionSchema = joi.object({
   id: joi.string().required(),
   category: joi.string().optional(),
   question: joi.string().required(),
-  fields: joi.array().items(fieldSchema).unique('id')
+  fields: joi.array().items(fieldSchema)
 })
 
 const feeDetailSchema = joi.object({
   description: joi.string().required(),
-  amount: joi.number().required()
+  amount: joi.number().required(),
 })
 
 const feesSchema = joi.object({
@@ -25,13 +25,19 @@ const feesSchema = joi.object({
   total: joi.number().required()
 }).optional()
 
-const caseManagementSchema = joi.object().required().keys({
+const metadataSchema = joi.object().keys({
+  post: joi.string(),
+  caseType: joi.string(),
+  summary: joi.string()
+})
+
+const caseManagementSchema = joi.object().keys({
   id: joi.string().required(),
   name: joi.string().required(),
   preferredLanguage: joi.string().optional(),
   fees: feesSchema,
   questions: joi.array().items(questionSchema),
-  metadata: joi.object({ a: joi.any() }).optional()
+  metadata: metadataSchema
 })
 
 module.exports = {

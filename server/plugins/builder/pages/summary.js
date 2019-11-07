@@ -3,8 +3,9 @@ const Page = require('.')
 const shortid = require('shortid')
 const { payRequest } = require('../../pay')
 const { caseManagementPostRequest } = require('../../../lib/caseManagement')
+const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
 const { serviceName } = require('./../../../config')
-const { casebookSchema } = require('./../../../lib/caseManagementSchema')
+
 class SummaryViewModel {
   constructor (model, state) {
     const details = []
@@ -85,7 +86,7 @@ class SummaryViewModel {
       })
     }
     if (applicableFees.length) {
-      this.fees = { detail: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
+      this.fees = { details: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
     }
 
     try {
@@ -100,6 +101,18 @@ class SummaryViewModel {
     this.value = result.value
   }
 
+  toEnglish (localisableString) {
+    let englishString = ''
+    if (localisableString) {
+      if (typeof localisableString === 'string') {
+        englishString = localisableString
+      } else {
+        englishString = localisableString.en
+      }
+    }
+    return englishString
+  }
+
   parseDataForCasebook (model, relevantPages, details) {
     let questions = relevantPages.map(page => {
       let category = page.section.name || ''
@@ -107,16 +120,24 @@ class SummaryViewModel {
       page.components.formItems.forEach(item => {
         let detail = details.find(d => d.name === category)
         fields.push({
-          name: detail.name,
-          title: typeof item.title === 'string' ? item.title : item.title.en,
-          type: item.type,
+          id: item.name,
+          title: this.toEnglish(item.title),
+          type: item.dataType,
           answer: detail.items.find(detailItem => detailItem.name === item.name).value
         })
       })
+
+      let question = ''
+      if (page.title) {
+        question = this.toEnglish(page.title)
+      } else {
+        question = page.components.formItems.map(item => this.toEnglish(item.title)).join(', ')
+      }
+
       return {
         id: `/${model.basePath}${page.path}`,
         category,
-        question: page.title || page.components.formItems.map(item => item.title).join(', ') || '',
+        question,
         fields
       }
     })
@@ -127,18 +148,23 @@ class SummaryViewModel {
       englishName = typeof model.name === 'string' ? model.name : model.name.en
     }
 
-    let casebookData = {
+    this._caseManagementData = {
+      metadata: model.def.metadata,
       id: model.basePath,
       name: englishName,
-      questions: questions,
-      fees: this.fees || {}
+      questions: questions
     }
-    try {
-      let result = joi.validate(casebookSchema, casebookData, { abortEarly: false })
-      this.casebookData = result.value
-    } catch (e) {
-      throw e
+    if (this.fees) {
+      this._caseManagementData.fees = this.fees
     }
+  }
+  get validatedCaseManagementData () {
+    let result = caseManagementSchema.validate(this._caseManagementData, { abortEarly: false, stripUnknown: true })
+    return result.value
+  }
+
+  set caseManagementDataReceipt (receipt) {
+    this._caseManagementData.fees.receipt = receipt
   }
 }
 
@@ -162,12 +188,11 @@ class SummaryPage extends Page {
       const state = await model.getState(request)
       const summaryViewModel = new SummaryViewModel(model, state)
       const reference = `FCO-${shortid.generate()}`
-      let lang = this.langFromRequest(request)
       if (!summaryViewModel.fees) {
         try {
-          caseManagementPostRequest(summaryViewModel.casebookData)
+          caseManagementPostRequest(summaryViewModel._caseManagementData)
         } catch (e) {
-          console.log(e)
+          throw e
         }
         return h.redirect(`/confirmation/${reference}`)
       } else {
@@ -175,10 +200,25 @@ class SummaryPage extends Page {
           let description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
           let res = await payRequest(summaryViewModel.fees.total, reference, description)
           request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
+
+          summaryViewModel.caseManagementDataReceipt = res._links.self.href
+          request.yar.set('caseManagementData', summaryViewModel.validatedCaseManagementData)
+
           return h.redirect(res._links.next_url.href)
         } catch (ex) {
           // error with payRequest
           console.log(ex)
+        }
+      }
+    }
+  }
+  get postRouteOptions () {
+    return {
+      ext: {
+        onPreHandler: {
+          method: async (request, h) => {
+            return h.continue
+          }
         }
       }
     }

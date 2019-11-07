@@ -1,4 +1,9 @@
 {
+  "metadata": {
+  "post": "Paris",
+  "caseType": "Consular Marriage",
+  "summary": "Certificate of Custom/Law for PACS (Fee 11ii)"
+  },
   "conditions": [
     {
       "name": "isOneDay",
