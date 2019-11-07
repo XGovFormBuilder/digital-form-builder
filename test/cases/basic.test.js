@@ -1,6 +1,7 @@
 const Lab = require('lab')
 const { expect } = require('code')
 const cheerio = require('cheerio')
+const FormData = require('form-data')
 // const HtmlHelper = require('../html-helper')
 const createServer = require('../create-server')
 const lab = exports.lab = Lab.script()
@@ -29,15 +30,15 @@ lab.experiment('Basic', () => {
     expect($('.govuk-radios__item').length).to.equal(3)
   })
 
-  lab.test('POST /', async () => {
+  lab.test('POST /', { timeout: 10000 }, async () => {
+    let form = new FormData()
+    form.append('licenceLength', 1)
     const options = {
       method: 'POST',
       url: '/basic',
-      payload: {
-        licenceLength: 1
-      }
+      headers: form.getHeaders(),
+      payload: form.getBuffer()
     }
-
     const response = await server.inject(options)
     expect(response.statusCode).to.equal(302)
     expect(response.headers).to.include('location')

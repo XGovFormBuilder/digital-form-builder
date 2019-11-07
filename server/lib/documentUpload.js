@@ -17,7 +17,7 @@ const saveFileToTmp = (file) => {
 
 const fileStreamsFromPayload = (payload) => {
   return Object.entries(payload).filter(([key, value]) => {
-    return value._data
+    return value && value._data
   })
 }
 
