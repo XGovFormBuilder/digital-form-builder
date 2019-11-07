@@ -15,6 +15,7 @@ const schema = {
   redisHost: joi.string().optional(),
   redisPort: joi.number().optional(),
   redisPassword: joi.string().optional(),
+  redisTls: joi.boolean().optional(),
   serviceName: joi.string().optional()
 }
 
@@ -32,6 +33,7 @@ const config = {
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   redisPassword: process.env.REDIS_PASSWORD,
+  redisTls: process.env.REDIS_TLS === 'true',
   serviceName: process.env.SERVICE_NAME
 }
 
