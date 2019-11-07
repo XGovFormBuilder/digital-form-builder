@@ -16,7 +16,7 @@ const questionSchema = joi.object({
 
 const feeDetailSchema = joi.object({
   description: joi.string().required(),
-  amount: joi.number().required(),
+  amount: joi.number().required()
 })
 
 const feesSchema = joi.object({
