@@ -89,11 +89,7 @@ class SummaryViewModel {
       this.fees = { details: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
     }
 
-    try {
-      this.parseDataForCasebook(model, relevantPages, details)
-    } catch (e) {
-      console.log(e)
-    }
+    this.parseDataForCasebook(model, relevantPages, details)
 
     this.result = result
     this.details = details
@@ -115,7 +111,7 @@ class SummaryViewModel {
 
   parseDataForCasebook (model, relevantPages, details) {
     let questions = relevantPages.map(page => {
-      let category = page.section.name || ''
+      let category = page.section && page.section.name ? page.section.name : ''
       let fields = []
       page.components.formItems.forEach(item => {
         let detail = details.find(d => d.name === category)
@@ -207,7 +203,7 @@ class SummaryPage extends Page {
           return h.redirect(res._links.next_url.href)
         } catch (ex) {
           // error with payRequest
-          console.log(ex)
+          throw ex
         }
       }
     }
