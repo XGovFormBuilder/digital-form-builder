@@ -21,7 +21,7 @@ const feeDetailSchema = joi.object({
 
 const feesSchema = joi.object({
   details: joi.array().items(feeDetailSchema),
-  receipt: joi.string().required(),
+  paymentReference: joi.string().required(),
   total: joi.number().required()
 }).optional()
 

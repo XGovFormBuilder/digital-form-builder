@@ -159,8 +159,8 @@ class SummaryViewModel {
     return result.value
   }
 
-  set caseManagementDataReceipt (receipt) {
-    this._caseManagementData.fees.receipt = receipt
+  set caseManagementDataPaymentReference (paymentReference) {
+    this._caseManagementData.fees.paymentReference = paymentReference
   }
 }
 
@@ -178,33 +178,26 @@ class SummaryPage extends Page {
   }
   makePostRouteHandler (getState) {
     return async (request, h) => {
-      let lang = this.langFromRequest(request)
+      const lang = this.langFromRequest(request)
       const model = this.model
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const summaryViewModel = new SummaryViewModel(model, state)
-      const reference = `FCO-${shortid.generate()}`
+
       if (!summaryViewModel.fees) {
-        try {
-          caseManagementPostRequest(summaryViewModel._caseManagementData)
-        } catch (e) {
-          throw e
-        }
+        const { reference } = caseManagementPostRequest(summaryViewModel._caseManagementData)
         return h.redirect(`/confirmation/${reference}`)
       } else {
-        try {
-          let description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
-          let res = await payRequest(summaryViewModel.fees.total, reference, description)
-          request.yar.set('pay', { payId: res.payment_id, reference, self: res._links.self.href })
+        const paymentReference = `FCO-${shortid.generate()}`
+        const description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
+        const res = await payRequest(summaryViewModel.fees.total, paymentReference, description)
 
-          summaryViewModel.caseManagementDataReceipt = res._links.self.href
-          request.yar.set('caseManagementData', summaryViewModel.validatedCaseManagementData)
+        request.yar.set('pay', { payId: res.payment_id, reference: paymentReference, self: res._links.self.href })
 
-          return h.redirect(res._links.next_url.href)
-        } catch (ex) {
-          // error with payRequest
-          throw ex
-        }
+        summaryViewModel.caseManagementDataPaymentReference = paymentReference
+        request.yar.set('caseManagementData', summaryViewModel.validatedCaseManagementData)
+
+        return h.redirect(res._links.next_url.href)
       }
     }
   }
