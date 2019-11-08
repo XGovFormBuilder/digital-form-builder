@@ -186,7 +186,7 @@ class SummaryPage extends Page {
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
 
       if (!summaryViewModel.fees) {
-        const { reference } = caseManagementPostRequest(summaryViewModel._caseManagementData)
+        const { reference } = await caseManagementPostRequest(summaryViewModel._caseManagementData)
         return h.redirect(`/confirmation/${reference}`)
       } else {
         const paymentReference = `FCO-${shortid.generate()}`
