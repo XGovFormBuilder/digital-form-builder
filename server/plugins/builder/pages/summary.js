@@ -41,8 +41,8 @@ class SummaryViewModel {
         }
       })
       details.push({
-        name: section && section.name,
-        title: section && section.title,
+        name: section && section.name ? section.name : null,
+        title: section && section.title ? section.title : null,
         items
       })
     })
@@ -111,7 +111,7 @@ class SummaryViewModel {
 
   parseDataForCasebook (model, relevantPages, details) {
     let questions = relevantPages.map(page => {
-      let category = page.section && page.section.name ? page.section.name : ''
+      let category = page.section && page.section.name ? page.section.name : null
       let fields = []
       page.components.formItems.forEach(item => {
         let detail = details.find(d => d.name === category)
