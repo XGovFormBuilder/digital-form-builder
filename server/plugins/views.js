@@ -40,7 +40,7 @@ module.exports = {
       appVersion: pkg.version,
       assetPath: '/assets',
       serviceName: config.serviceName,
-      pageTitle: 'Service name - GOV.UK',
+      pageTitle: config.serviceName + ' - GOV.UK',
       analyticsAccount: config.analyticsAccount,
       matomoId: config.matomoId,
       BROWSER_REFRESH_URL: config.browserRefreshUrl

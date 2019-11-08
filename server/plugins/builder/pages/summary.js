@@ -8,6 +8,8 @@ const { serviceName } = require('./../../../config')
 
 class SummaryViewModel {
   constructor (model, state) {
+    this.title = this.pageTitle = 'Check your answers before sending your application'
+
     const details = []
     let relevantPages = []
       ;[undefined].concat(model.sections).forEach((section, index) => {
