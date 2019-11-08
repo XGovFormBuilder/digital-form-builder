@@ -49,13 +49,16 @@
       "name": "localCertificateMatches",
       "value": "localCertificate == true"
     },
-    { "name": "nameChangedByDeedPoll",
+    {
+      "name": "nameChangedByDeedPoll",
       "value": "nameChange == 'Deed poll'"
     },
-    { "name": "nameChangedByMarriage",
+    {
+      "name": "nameChangedByMarriage",
       "value": "nameChange == 'marriage'"
     },
-    { "name": "nameChangedByCivilPartnership",
+    {
+      "name": "nameChangedByCivilPartnership",
       "value": "nameChange == 'Civil partnership'"
     },
     {
@@ -114,7 +117,8 @@
       "name": "longBirthCertificateAndNameChanged",
       "value": "nameChangedByMarriage or nameChangedByDeedPoll"
     },
-    { "name": "nameChanged",
+    {
+      "name": "nameChanged",
       "value": "nameChange == ('Deed poll' or 'marriage' or 'Civil partnership')"
     },
     {
@@ -600,7 +604,14 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of the main page of your British passport - the page with the passport photo. We accept almost all file formats and sizes.</p>\r\n\r\n\r\n\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\" type=\"file\">\r\n</div>",
+          "content": "<p class=\"govuk-body\">Add a photo of the main page of your British passport - the page with the passport photo. We accept almost all file formats and sizes.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "passportPhoto",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -691,7 +702,8 @@
           "type": "YesNoField",
           "name": "bornUK",
           "title": "Were you born in the UK?",
-          "schema": {}
+          "schema": {},
+          "options": {}
         }
       ],
       "next": [
@@ -712,7 +724,8 @@
           "name": "namePassportBirth",
           "title": "Is the name on your passport exactly the same as on your birth certificate?",
           "hint": "First name, middle name and surname must match",
-          "schema": {}
+          "schema": {},
+          "options": {}
         }
       ],
       "next": [
@@ -730,7 +743,14 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your long British birth certificate. The full version of the certificate shows the names of your parents.</p>\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\"  type=\"file\">\r\n</div>",
+          "content": "<p class=\"govuk-body\">Add a photo of your long British birth certificate. The full version of the certificate shows the names of your parents.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "birthCertificatePhoto",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -913,7 +933,14 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your consular birth certificate. </p>\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\"  type=\"file\">\r\n</div>",
+          "content": "<p class=\"govuk-body\">Add a photo of your consular birth certificate. </p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "consularBirthCertificate",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -1187,7 +1214,14 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your deed pool</p>\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\"  type=\"file\">\r\n</div>",
+          "content": "<p class=\"govuk-body\">Add a photo of your deed poll</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "deedPollPhoto",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -1213,7 +1247,14 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">Add a photo of your divorce decree absolute, disolution decree, or death certificate of your late partner.</p>\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\"  type=\"file\">\r\n</div>",
+          "content": "<p class=\"govuk-body\">Add a photo of your divorce decree absolute, disolution decree, or death certificate of your late partner.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "previousMarriageDocument",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -1238,8 +1279,9 @@
       "section": "addYourDocuments",
       "components": [
         {
-          "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your local birth certificate .</p>\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\"  type=\"file\">\r\n</div>",
+          "type": "FileUploadField",
+          "name": "localBirthCertificate",
+          "title": "Add a photo of your local birth certificate",
           "options": {},
           "schema": {}
         },
@@ -1264,7 +1306,14 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your local birth certificate .</p>\r\n\r\n<div class=\"govuk-form-group\">\r\n  <label class=\"govuk-label\" for=\"file-upload-1\">\r\n    Upload a file\r\n  </label>\r\n  <input class=\"govuk-file-upload\" id=\"file-upload-1\"  type=\"file\">\r\n</div>",
+          "content": "<p class=\"govuk-body\">Add a photo of your local birth certificate.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "parentsBritishBirthCertificate",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
