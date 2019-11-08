@@ -151,7 +151,7 @@
             "classes": "govuk-input--width-20"
           },
           "type": "TextField",
-          "name": "middleNmae",
+          "name": "middleName",
           "title": "Middle name",
           "hint": "If you have any middle names on your passport make sure you include them here",
           "schema": {}
@@ -190,7 +190,7 @@
           "path": "/delivery-address"
         },
         {
-          "path": "/whatIsYourCurrentMaritalStatus"
+          "path": "/what-is-your-current-marital-status"
         }
       ],
       "title": "Your marital or civil status"
@@ -278,7 +278,7 @@
       ]
     },
     {
-      "path": "/whatIsYourCurrentMaritalStatus",
+      "path": "/what-is-your-current-marital-status",
       "condition": "previouslyMarriedOrCivilPartnership",
       "section": "yourMaritalOrCivilStatus",
       "components": [
@@ -412,7 +412,7 @@
       ],
       "next": [
         {
-          "path": "/preferrableContact"
+          "path": "/preferrable-contact"
         },
         {
           "path": "/declaration"
@@ -420,7 +420,7 @@
       ]
     },
     {
-      "path": "/preferrableContact",
+      "path": "/preferrable-contact",
       "title": "How do you prefer to be contacted?",
       "condition": "partnerCanContact",
       "section": "feedbackSection",
@@ -607,7 +607,7 @@
         {
           "type": "Details",
           "title": "How to photograph your document",
-          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -737,7 +737,7 @@
         {
           "type": "Details",
           "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -920,7 +920,7 @@
         {
           "type": "Details",
           "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -1194,7 +1194,7 @@
         {
           "type": "Details",
           "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -1220,7 +1220,7 @@
         {
           "type": "Details",
           "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -1246,7 +1246,7 @@
         {
           "type": "Details",
           "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -1271,7 +1271,7 @@
         {
           "type": "Details",
           "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\" data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
