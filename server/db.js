@@ -21,7 +21,10 @@ if (redisHost) {
   const client = new redis.Cluster([{
     host: redisHost,
     port: redisPort
-  }], { redisOptions })
+  }], {
+    dnsLookup: (address, callback) => callback(null, address),
+    redisOptions
+  })
 
   const options = {
     client,
