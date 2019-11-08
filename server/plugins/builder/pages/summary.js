@@ -7,9 +7,8 @@ const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
 const { serviceName } = require('./../../../config')
 
 class SummaryViewModel {
-  constructor (model, state) {
-    this.title = this.pageTitle = 'Check your answers before sending your application'
-
+  constructor (pageTitle, model, state) {
+    this.pageTitle = pageTitle
     const details = []
     let relevantPages = []
       ;[undefined].concat(model.sections).forEach((section, index) => {
@@ -174,7 +173,7 @@ class SummaryPage extends Page {
 
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
-      const viewModel = new SummaryViewModel(model, state)
+      const viewModel = new SummaryViewModel(this.title, model, state)
       return h.view('summary', viewModel)
     }
   }
@@ -184,7 +183,7 @@ class SummaryPage extends Page {
       const model = this.model
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
-      const summaryViewModel = new SummaryViewModel(model, state)
+      const summaryViewModel = new SummaryViewModel(this.title, model, state)
 
       if (!summaryViewModel.fees) {
         const { reference } = caseManagementPostRequest(summaryViewModel._caseManagementData)
@@ -194,6 +193,7 @@ class SummaryPage extends Page {
         const description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
         const res = await payRequest(summaryViewModel.fees.total, paymentReference, description)
 
+        request.yar.set('basePath', model.basePath)
         request.yar.set('pay', { payId: res.payment_id, reference: paymentReference, self: res._links.self.href })
 
         summaryViewModel.caseManagementDataPaymentReference = paymentReference

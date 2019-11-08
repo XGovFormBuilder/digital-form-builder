@@ -47,9 +47,11 @@ const pay = {
         method: 'get',
         path: '/status',
         handler: async (request, h) => {
-          const { self, reference } = request.yar.get('pay')
-          try {
-            let { state } = await payStatus(self)
+          const pay = request.yar.get('pay')
+          const basePath = request.yar.get('basePath')
+          if (pay) {
+            const { self, reference } = pay
+            const { state } = await payStatus(self)
             if (state.finished) {
               switch (state.status) {
                 case 'success':
@@ -57,13 +59,13 @@ const pay = {
                   return h.redirect(`/confirmation/${response.reference}`)
                 case 'failed':
                 case 'error':
-                  return h.redirect(`/status/error/${response.reference || reference}`)
+                  return h.redirect(`/status/error/${reference}`)
               }
             } else {
               // TODO:- unfinished payment flow?
             }
-          } catch (ex) {
-            console.log(ex)
+          } else {
+            return h.redirect(`${basePath}`)
           }
         }
       })

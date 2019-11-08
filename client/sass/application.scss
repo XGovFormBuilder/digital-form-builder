@@ -24,6 +24,7 @@
 
 .check-your-answers {
   td {
+    position: relative;
     vertical-align: top;
 
     &.required {
@@ -38,7 +39,7 @@
 }
 
 .icon--check {
-  position: relative;
+  //position: relative;
   &:before {
     content: "";
     position: absolute;

@@ -5,25 +5,30 @@
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ title }}</h1>
+        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
 
         {% for detail in details %}
           {{ summaryDetail(detail) }}
         {% endfor %}
 
-        {% if applicableFees and applicableFees.fees|length %}
-            <ul class="govuk-list govuk-list--bullet">
-                {% for fee in applicableFees.fees %}
-                    <li>{{ fee.description }}: £{{fee.amount / 100}}</li>
-                {% endfor %}
-            </ul>
-            <p class="govuk-body">Total cost: {{applicableFees.total / 100 }}</p>
+        {% if fees and fees.details|length %}
+          <h2 class="govuk-heading-m">Fees</h2>
+          <ul class="govuk-list govuk-list--bullet">
+            {% for fee in fees.details %}
+              <li>{{ fee.description }}: £{{fee.amount / 100}}</li>
+            {% endfor %}
+          </ul>
+          <p class="govuk-body">Total cost: £{{fees.total / 100 }}</p>
         {% endif %}
 
         {% if not result.error  %}
             <form method="post">
                 <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
-                  Confirm and send
+                    {% if fees and fees.details|length %}
+                        Confirm and pay
+                    {% else %}
+                        Confirm and send
+                    {% endif %}
                 </button>
             </form>
         {% else %}
