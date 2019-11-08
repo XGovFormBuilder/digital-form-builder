@@ -8,18 +8,24 @@ let partition = 'cache'
 let cache
 
 if (redisHost) {
-  const options = {
-    host: redisHost,
-    port: redisPort,
-    partition
-  }
+  const redis = require('ioredis')
 
+  const redisOptions = {}
   if (redisPassword) {
-    options.password = redisPassword
+    redisOptions.password = redisPassword
+  }
+  if (redisTls) {
+    redisOptions.tls = {}
   }
 
-  if (redisTls) {
-    options.tls = {}
+  const client = new redis.Cluster([{
+    host: redisHost,
+    port: redisPort
+  }], { redisOptions })
+
+  const options = {
+    client,
+    partition
   }
 
   cache = new Catbox.Client(CatboxRedis, options)

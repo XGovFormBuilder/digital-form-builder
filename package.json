@@ -42,6 +42,7 @@
     "hapi": "17.7.0",
     "hmpo-components": "^2.1.0",
     "inert": "5.1.2",
+    "ioredis": "^4.14.1",
     "joi": "^14",
     "lighthouse": "^5.5.0",
     "nunjucks": "3.1.4",
