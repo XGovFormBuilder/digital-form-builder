@@ -44,42 +44,6 @@
       "name": "localCertificateMatches",
       "value": "localCertificate == true"
     },
-    {
-      "name": "passportBirthCertificateMatches",
-      "value": "hasConsularBirthCertificate & namePassportBirth == true"
-    },
-    {
-      "name": "consularCertificateAndMrriageNameChange",
-      "value": "hasConsularBirthCertificate & nameChangedByMarriage"
-    },
-    {
-      "name": "consularCertificateAndCivilPartnershipNameChange",
-      "value": "hasConsularBirthCertificate & nameChange == 'Civil partnership'"
-    },
-    {
-      "name": "consularCertificateAndPartneredNameChange",
-      "value": "hasConsularBirthCertificate & nameChangedByAnyPartnership "
-    },
-    {
-      "name": "consularCertificateAndDeedPollNameChange",
-      "value": "hasLocalBirthCertificate & nameChangedByDeedPoll"
-    },
-    {
-      "name": "localCertificateAndMrriageNameChange",
-      "value": "hasLocalBirthCertificate & nameChangedByMarriage"
-    },
-    {
-      "name": "localCertificateAndCivilPartnershipNameChange",
-      "value": "hasLocalBirthCertificate & nameChange == 'Civil partnership'"
-    },
-    {
-      "name": "localCertificateAndDeedPollNameChange",
-      "value": "nameChangedByDeedPoll"
-    },
-    {
-      "name": "localCertificateAndPartneredNameChange",
-      "value": "hasLocalBirthCertificate && nameChangedByAnyPartnership "
-    },
     { "name": "nameChangedByDeedPoll",
       "value": "nameChange == 'Deed poll'"
     },
@@ -90,15 +54,63 @@
       "value": "nameChange == 'Civil partnership'"
     },
     {
+      "name": "isBornUkpassportBirthCertificateMatches",
+      "value": "isBornUk and namePassportBirth == true"
+    },
+    {
+      "name": "isBornUkAndDeedpollNameChange",
+      "value": "isBornUk and nameChangedByDeedPoll"
+    },
+    {
+      "name": "isBornUkAndPartneredNameChange",
+      "value": "isBornUk and nameChangedByAnyPartnership"
+    },
+    {
+      "name": "passportBirthCertificateMatches",
+      "value": "hasConsularBirthCertificate and namePassportBirth == true"
+    },
+    {
+      "name": "consularCertificateAndMrriageNameChange",
+      "value": "hasConsularBirthCertificate and nameChangedByMarriage"
+    },
+    {
+      "name": "consularCertificateAndCivilPartnershipNameChange",
+      "value": "hasConsularBirthCertificate and nameChange == 'Civil partnership'"
+    },
+    {
+      "name": "consularCertificateAndPartneredNameChange",
+      "value": "hasConsularBirthCertificate and nameChangedByAnyPartnership "
+    },
+    {
+      "name": "consularCertificateAndDeedPollNameChange",
+      "value": "hasConsularBirthCertificate and nameChangedByDeedPoll"
+    },
+    {
+      "name": "localCertificateAndMrriageNameChange",
+      "value": "hasLocalBirthCertificate and nameChangedByMarriage"
+    },
+    {
+      "name": "localCertificateAndCivilPartnershipNameChange",
+      "value": "hasLocalBirthCertificate and nameChange == 'Civil partnership'"
+    },
+    {
+      "name": "localCertificateAndDeedPollNameChange",
+      "value": "nameChangedByDeedPoll"
+    },
+    {
+      "name": "localCertificateAndPartneredNameChange",
+      "value": "hasLocalBirthCertificate and nameChangedByAnyPartnership "
+    },
+    {
       "name": "nameChangedByAnyPartnership",
-      "value": "nameChangedByMarriage || nameChangedByCivilPartnership"
+      "value": "nameChangedByMarriage or nameChangedByCivilPartnership"
     },
     {
       "name": "longBirthCertificateAndNameChanged",
-      "value": "nameChangedByMarriage || nameChangedByDeedPoll"
+      "value": "nameChangedByMarriage or nameChangedByDeedPoll"
     },
     { "name": "nameChanged",
-      "value": "nameChange == ('Deed poll' || 'marriage' || 'Civil partnership')"
+      "value": "nameChange == ('Deed poll' or 'marriage' or 'Civil partnership')"
     },
     {
       "name": "previouslyMarriedOrCivilPartnership",
@@ -354,7 +366,7 @@
     {
       "path": "/what-youll-need",
       "title": "What you'll need to apply",
-      "condition": "passportBirthCertificateMatches",
+      "condition": "isBornUkpassportBirthCertificateMatches",
       "components": [
         {
           "type": "Para",
@@ -965,22 +977,19 @@
       ],
       "next": [
         {
-          "path": "/consular-name-change-docs"
-        },
-        {
           "path": "/multipleNameChange"
         },
         {
-          "path": "/deed-pool-british-certf"
+          "path": "/marriage-civil-partnership-british-certf"
         },
         {
           "path": "/consular-name-change"
         },
         {
-          "path": "/cosular-marriage-docs"
+          "path": "/consular-marriage-docs"
         },
         {
-          "path": "/consular-marriage-docs"
+          "path": "/deed-pool-british-certf"
         },
         {
           "path": "/local-deed-docs"
@@ -991,9 +1000,9 @@
       ]
     },
     {
-      "path": "/consular-name-change-docs",
+      "path": "/marriage-civil-partnership-british-certf",
       "title": "What you'll need to apply",
-      "condition": "hasConsularBirthCertificate",
+      "condition": "isBornUkAndPartneredNameChange",
       "components": [
         {
           "type": "Para",
@@ -1037,7 +1046,7 @@
     {
       "path": "/deed-pool-british-certf",
       "title": "What you'll need to apply",
-      "condition": "isBornInUk",
+      "condition": "isBornUk",
       "components": [
         {
           "type": "Html",
