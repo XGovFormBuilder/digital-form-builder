@@ -1,6 +1,6 @@
 {
   "conditions": [],
-  "startPage": "",
+  "startPage": "/",
   "pages": [
     {
       "path": "/all-components",
