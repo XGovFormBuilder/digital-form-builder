@@ -29,7 +29,7 @@ async function createServer (routeConfig) {
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))
   if (routeConfig) {
-    await server.register(configurePlugins(routeConfig.data, routeConfig.basePath))
+    await server.register(configurePlugins(routeConfig.data, routeConfig.customPath))
   } else {
     await server.register(routes())
   }

@@ -11,7 +11,7 @@ lab.experiment('Basic', () => {
 
   // Create server before each test
   lab.before(async () => {
-    server = await createServer({ data: 'basic.json', basePath: __dirname })
+    server = await createServer({ data: 'basic.json', customPath: __dirname })
   })
 
   lab.test('GET /', async () => {
