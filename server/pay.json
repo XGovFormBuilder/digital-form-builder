@@ -18,6 +18,7 @@
       "value": "personalDetails.fullName == 'test'"
     }
   ],
+  "startPage": "/",
   "pages": [
     {
       "path": "/",

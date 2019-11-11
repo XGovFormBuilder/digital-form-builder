@@ -3,7 +3,7 @@ const { expect } = require('code')
 const cheerio = require('cheerio')
 const FormData = require('form-data')
 // const HtmlHelper = require('../html-helper')
-const createServer = require('../create-server')
+const createServer = require('./../../server/index')
 const lab = exports.lab = Lab.script()
 
 lab.experiment('Basic', () => {
@@ -11,7 +11,7 @@ lab.experiment('Basic', () => {
 
   // Create server before each test
   lab.before(async () => {
-    server = await createServer()
+    server = await createServer({ data: 'basic.json', basePath: __dirname })
   })
 
   lab.test('GET /', async () => {

@@ -14,8 +14,8 @@ const configFiles = fs.readdirSync(configPath).filter(filename => {
   }
 })
 
-const configurePlugins = (configFile) => {
-  const dataFilePath = path.join(configPath, configFile)
+const configurePlugins = (configFile, customPath) => {
+  const dataFilePath = path.join(customPath || configPath, configFile)
   const data = require(dataFilePath)
   // probably want to have basePath configurable in json also/instead
   const basePath = configFile.replace(/govsite\.|\.json|/gi, '')
@@ -34,4 +34,7 @@ const configurePlugins = (configFile) => {
     options: { path: dataFilePath, basePath, playgroundMode: true }
   }]
 }
-module.exports = [].concat(...configFiles.map(configFile => configurePlugins(configFile)))
+module.exports = {
+  routes: () => [].concat(...configFiles.map(configFile => configurePlugins(configFile))),
+  configurePlugins
+}

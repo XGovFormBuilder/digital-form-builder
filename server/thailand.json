@@ -21,6 +21,7 @@
       "value": "thaiNational==true"
     }
   ],
+  "startPage": "/",
   "pages": [
     {
       "path": "/start",

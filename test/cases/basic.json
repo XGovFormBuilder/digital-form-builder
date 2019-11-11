@@ -50,7 +50,7 @@
     },
     {
       "path": "/summary",
-      "controller": "./../../server/plugins/builder/pages/summary.js",
+      "controller": "./../../plugins/builder/pages/summary.js",
       "components": [],
       "title": "Summary"
     }

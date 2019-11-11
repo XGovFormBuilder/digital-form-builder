@@ -2,6 +2,7 @@ const hapi = require('hapi')
 const config = require('./config')
 const fs = require('fs')
 const { pay } = require('./plugins/pay')
+const { configurePlugins, routes } = require('./plugins/builder')
 
 const serverOptions = (isDev) => {
   const defaultOptions = {
@@ -21,13 +22,17 @@ const serverOptions = (isDev) => {
     } } : defaultOptions
 }
 
-async function createServer () {
+async function createServer (routeConfig) {
   const server = hapi.server(serverOptions(config.isDev))
   await server.register(require('inert'))
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))
-  await server.register(require('./plugins/builder'))
+  if (routeConfig) {
+    await server.register(configurePlugins(routeConfig.data, routeConfig.basePath))
+  } else {
+    await server.register(routes())
+  }
   await server.register(pay)
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))

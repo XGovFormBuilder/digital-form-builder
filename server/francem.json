@@ -60,6 +60,7 @@
       "value": "deathCertificate=='Send by post'"
     }
   ],
+  "startPage": "/",
   "pages": [
     {
       "path": "/declaration",

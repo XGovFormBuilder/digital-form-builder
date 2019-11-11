@@ -65,6 +65,7 @@
       "value": "requiresBBCheck and hasBlueBadge"
     }
   ],
+  "startPage": "/",
   "pages": [
     {
       "path": "/",
