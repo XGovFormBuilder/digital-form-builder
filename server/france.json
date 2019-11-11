@@ -114,7 +114,7 @@
       "value": "nameOnPassport == false"
     }
   ],
-  "startPage": "/british-passport",
+  "startPage": "https://www.gov.uk/marriage-abroad",
   "pages": [
     {
       "path": "/your-details",

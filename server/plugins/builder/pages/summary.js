@@ -178,8 +178,9 @@ class SummaryPage extends Page {
       if (viewModel.result.error) {
         // default to first defined page
         let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
-        if (model.def.pages.find(page => page.path === model.def.startPage)) {
-          startPageRedirect = h.redirect(`/${model.basePath}${model.def.startPage}`)
+        let startPage = model.def.startPage
+        if (startPage) {
+          startPageRedirect = h.redirect(startPage.startsWith('http') ? startPage : `/${model.basePath}${model.def.startPage}`)
         }
         return startPageRedirect
       }
