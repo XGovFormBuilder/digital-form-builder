@@ -170,13 +170,23 @@ class SummaryPage extends Page {
     return async (request, h) => {
       this.langFromRequest(request)
       const model = this.model
-
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state)
+
+      // redirect user to start page if there are incomplete form errors
+      if (viewModel.result.error) {
+        // default to first defined page
+        let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
+        if (model.def.pages.find(page => page.path === model.def.startPage)) {
+          startPageRedirect = h.redirect(`/${model.basePath}${model.def.startPage}`)
+        }
+        return startPageRedirect
+      }
       return h.view('summary', viewModel)
     }
   }
+
   makePostRouteHandler (getState) {
     return async (request, h) => {
       const lang = this.langFromRequest(request)

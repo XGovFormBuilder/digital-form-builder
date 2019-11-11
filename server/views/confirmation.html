@@ -1,6 +1,16 @@
 {% set mainClasses = "govuk-main-wrapper--l" %}
 {% from "panel/macro.njk" import govukPanel %}
 {% extends 'layout.html' %}
+
+{% block beforeContent %}
+  {{ govukPhaseBanner({
+    tag: {
+      text: "beta"
+    },
+    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+  }) }}
+{% endblock %}
+
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">

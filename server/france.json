@@ -66,24 +66,12 @@
       "value": "isBornUk and namePassportBirth == true"
     },
     {
-      "name": "isBornUkAndDeedpollNameChange",
-      "value": "isBornUk and nameChangedByDeedPoll"
-    },
-    {
       "name": "isBornUkAndPartneredNameChange",
       "value": "isBornUk and nameChangedByAnyPartnership"
     },
     {
       "name": "passportBirthCertificateMatches",
       "value": "hasConsularBirthCertificate and namePassportBirth == true"
-    },
-    {
-      "name": "consularCertificateAndMrriageNameChange",
-      "value": "hasConsularBirthCertificate and nameChangedByMarriage"
-    },
-    {
-      "name": "consularCertificateAndCivilPartnershipNameChange",
-      "value": "hasConsularBirthCertificate and nameChange == 'Civil partnership'"
     },
     {
       "name": "consularCertificateAndPartneredNameChange",
@@ -114,10 +102,6 @@
       "value": "nameChangedByMarriage or nameChangedByCivilPartnership"
     },
     {
-      "name": "longBirthCertificateAndNameChanged",
-      "value": "nameChangedByMarriage or nameChangedByDeedPoll"
-    },
-    {
       "name": "nameChanged",
       "value": "nameChange == ('Deed poll' or 'marriage' or 'Civil partnership')"
     },
@@ -130,6 +114,7 @@
       "value": "nameOnPassport == false"
     }
   ],
+  "startPage": "/british-passport",
   "pages": [
     {
       "path": "/your-details",
