@@ -11,6 +11,11 @@ module.exports = {
           const template = nunjucks.compile(src, options.environment)
 
           return (context) => {
+            if (context.nonce) {
+              delete Object.assign(context, { 'script_nonce': context['script-nonce'] })['script-nonce']
+              delete Object.assign(context, { 'style_nonce': context['style_nonce'] })['style_nonce']
+            }
+
             const html = template.render(context /* , function (err, value) {
               console.error(err)
             } */)

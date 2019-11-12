@@ -1,4 +1,6 @@
 const hapi = require('hapi')
+const Blankie = require('blankie')
+const Scooter = require('@hapi/scooter')
 const config = require('./config')
 const fs = require('fs')
 const { pay } = require('./plugins/pay')
@@ -25,6 +27,17 @@ const serverOptions = (isDev) => {
 async function createServer (routeConfig) {
   const server = hapi.server(serverOptions(config.isDev))
   await server.register(require('inert'))
+  await server.register([Scooter, {
+    plugin: Blankie,
+    options: {
+      fontSrc: 'self',
+      scriptSrc: ['self', 'https://cdn.matomo.cloud', 'unsafe-inline'],
+      styleSrc: ['self'],
+      imgSrc: ['self', 'https://*.matomo.cloud'],
+      generateNonces: false
+    }
+  }])
+  await server.register(require('@hapi/crumb'))
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))
