@@ -37,7 +37,12 @@ async function createServer (routeConfig) {
       generateNonces: false
     }
   }])
-  await server.register(require('@hapi/crumb'))
+  await server.register({
+    plugin: require('@hapi/crumb'),
+    options: {
+      enforce: routeConfig ? routeConfig.enforceCsrf || false : true
+    }
+  })
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))

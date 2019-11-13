@@ -1,4 +1,4 @@
-const createServer = require('../create-server')
+const createServer = require('./../../server/index')
 const data = require('./components.json')
 const lighthouse = require('lighthouse')
 const chromeLauncher = require('chrome-launcher')

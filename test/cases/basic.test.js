@@ -1,20 +1,19 @@
-const Lab = require('lab')
-const { expect } = require('code')
+const Lab = require('@hapi/lab')
+const { expect } = require('@hapi/code')
 const cheerio = require('cheerio')
 const FormData = require('form-data')
-// const HtmlHelper = require('../html-helper')
 const createServer = require('./../../server/index')
-const lab = exports.lab = Lab.script()
+const { before, test, suite } = exports.lab = Lab.script()
 
-lab.experiment('Basic', () => {
+suite('requests', () => {
   let server
 
   // Create server before each test
-  lab.before(async () => {
+  before(async () => {
     server = await createServer({ data: 'basic.json', customPath: __dirname })
   })
 
-  lab.test('GET /', async () => {
+  test('get request returns configured form page', async () => {
     const options = {
       method: 'GET',
       url: '/basic'
@@ -30,7 +29,7 @@ lab.experiment('Basic', () => {
     expect($('.govuk-radios__item').length).to.equal(3)
   })
 
-  lab.test('POST /', { timeout: 10000 }, async () => {
+  test('post requests redirects user to next form page', { timeout: 10000 }, async () => {
     let form = new FormData()
     form.append('licenceLength', 1)
     const options = {

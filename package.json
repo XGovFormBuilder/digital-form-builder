@@ -9,7 +9,7 @@
     "build:css": "bin/build-css",
     "build": "bin/build",
     "lint": "standard",
-    "unit-test": "lab -v -P 'test' test/cases -r html -o unit-report.html",
+    "unit-test": "lab -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html",
     "test": "npm run lint && npm run unit-test",
     "postinstall": "npm run build",
     "a11y": "node test/audit/components && node lighthouse"
@@ -29,7 +29,9 @@
     "@hapi/catbox": "^10.2.3",
     "@hapi/catbox-memory": "^4.1.1",
     "@hapi/catbox-redis": "^5.0.5",
+    "@hapi/code": "^7.0.0",
     "@hapi/crumb": "^7.3.2",
+    "@hapi/lab": "^21.0.0",
     "@hapi/scooter": "^5.1.1",
     "@hapi/wreck": "^16.0.1",
     "accept-language-parser": "^1.5.0",

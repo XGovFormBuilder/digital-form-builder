@@ -35,6 +35,10 @@ jobs:
       # run tests!
       - run: yarn test
 
+      - store_artifacts:
+          path: unit-test.html
+          destination: unit-test.html
+
       - run:
           name: Accesibility audits
           command: |
