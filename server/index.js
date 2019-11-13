@@ -17,7 +17,8 @@ const serverOptions = (isDev) => {
       }
     }
   }
-  return isDev ? { ...defaultOptions,
+
+  return isDev && fs.existsSync('/keybase/team/cautionyourblast/fco/') ? { ...defaultOptions,
     tls: {
       key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
       cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
