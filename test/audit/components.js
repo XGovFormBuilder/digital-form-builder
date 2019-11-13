@@ -1,5 +1,4 @@
 const createServer = require('./../../server/index')
-const data = require('./components.json')
 const lighthouse = require('lighthouse')
 const chromeLauncher = require('chrome-launcher')
 const fs = require('fs')
@@ -9,11 +8,11 @@ const opts = {
   onlyCategories: ['accessibility']
 }
 
-createServer({ data, basePath: 'components' })
+createServer({ data: 'components.json', customPath: __dirname })
   .then(server => server.start())
   .then(() => {
-    launchChromeAndRunLighthouse('http://localhost:3009/components/all-components', { ...opts, output: 'json' }).then(() => {
-      launchChromeAndRunLighthouse('http://localhost:3009/components/all-components', { ...opts, output: 'html' }).then(() => {
+    launchChromeAndRunLighthouse('https://localhost:3009/components/all-components', { ...opts, output: 'json' }).then(() => {
+      launchChromeAndRunLighthouse('https://localhost:3009/components/all-components', { ...opts, output: 'html' }).then(() => {
         process.exit(0)
       })
     })
