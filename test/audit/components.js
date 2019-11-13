@@ -11,8 +11,8 @@ const opts = {
 createServer({ data: 'components.json', customPath: __dirname })
   .then(server => server.start())
   .then(() => {
-    launchChromeAndRunLighthouse('https://localhost:3009/components/all-components', { ...opts, output: 'json' }).then(() => {
-      launchChromeAndRunLighthouse('https://localhost:3009/components/all-components', { ...opts, output: 'html' }).then(() => {
+    launchChromeAndRunLighthouse('http://localhost:3009/components/all-components', { ...opts, output: 'json' }).then(() => {
+      launchChromeAndRunLighthouse('http://localhost:3009/components/all-components', { ...opts, output: 'html' }).then(() => {
         process.exit(0)
       })
     })
