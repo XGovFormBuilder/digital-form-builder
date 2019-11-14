@@ -23,6 +23,7 @@
 
         {% if not result.error  %}
             <form method="post">
+              <input type="hidden" name="crumb" value="{{crumb}}"/>
                 <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
                     {% if fees and fees.details|length %}
                         Confirm and pay

@@ -67,4 +67,8 @@ async function mergeState (request, value) {
   return newState.item
 }
 
-module.exports = { getState, mergeState }
+async function clearState (request) {
+  cache.drop(Key(request.yar.id))
+}
+
+module.exports = { getState, mergeState, clearState }

@@ -2,7 +2,7 @@ const path = require('path')
 const Model = require('./model')
 const fs = require('fs')
 const { ordnanceSurveyKey } = require('../../config')
-const { getState, mergeState } = require('../../db')
+const { getState, mergeState, clearState } = require('../../db')
 const configPath = path.join(__dirname, '..', '..')
 
 const relativeTo = __dirname
@@ -22,6 +22,7 @@ const configurePlugins = (configFile, customPath) => {
   const model = new Model(data, {
     getState,
     mergeState,
+    clearState,
     relativeTo,
     defaultPageController
   })

@@ -1,6 +1,7 @@
 const { payApiKey, payApiUrl, payReturnUrl } = require('../config')
 const { caseManagementPostRequest } = require('./../lib/caseManagement')
 const Wreck = require('@hapi/wreck')
+const Cache = require('./../db')
 
 const options = {
   headers: {
@@ -47,7 +48,7 @@ const pay = {
         method: 'get',
         path: '/status',
         handler: async (request, h) => {
-          const pay = request.yar.get('pay')
+          const { pay } = await Cache.getState(request)
           const basePath = request.yar.get('basePath')
           if (pay) {
             const { self, reference } = pay
@@ -56,6 +57,7 @@ const pay = {
               switch (state.status) {
                 case 'success':
                   let response = await caseManagementPostRequest(request.yar.get('caseManagementData'))
+
                   return h.redirect(`/confirmation/${response.reference}`)
                 case 'failed':
                 case 'error':
