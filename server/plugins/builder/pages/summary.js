@@ -210,7 +210,7 @@ class SummaryPage extends Page {
         request.yar.set('basePath', model.basePath)
         await model.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href } })
         summaryViewModel.caseManagementDataPaymentReference = paymentReference
-        request.yar.set('caseManagementData', summaryViewModel.validatedCaseManagementData)
+        await model.mergeState(request, { caseManagementData: summaryViewModel.validatedCaseManagementData })
 
         return h.redirect(res._links.next_url.href)
       }

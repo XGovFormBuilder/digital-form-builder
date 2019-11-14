@@ -56,8 +56,9 @@ const pay = {
             if (state.finished) {
               switch (state.status) {
                 case 'success':
-                  let response = await caseManagementPostRequest(request.yar.get('caseManagementData'))
-
+                  let { caseManagementData } = await Cache.getState(request)
+                  let response = await caseManagementPostRequest(caseManagementData)
+                  await Cache.clearState(request)
                   return h.redirect(`/confirmation/${response.reference}`)
                 case 'failed':
                 case 'error':
