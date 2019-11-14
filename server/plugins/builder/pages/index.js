@@ -25,33 +25,39 @@ class Page extends EngineBasePage {
         onPreHandler: {
           method: async (request, h) => {
             let files = fileStreamsFromPayload(request.payload)
-            if (!files.length) {
+            files.forEach(file => {
+              if (file[1]._data.length < 1) {
+                delete request.payload[file[0]]
+              }
+            })
+            if (!files.length || files.find(file => file[1]._data.length < 1)) {
+              return h.continue
+            } else {
+              let file = files[0]
+              let key = file[0]
+              let previousUpload = (request.yar.get('originalFilenames') || {})[key]
+              if (previousUpload && file[1].hapi.filename === '') {
+                h.request.payload[key] = previousUpload.location
+                return h.continue
+              }
+              try {
+                // TODO:- should be for each(?) or limit to one upload per request..? 🤔
+                let saved = await saveFileToTmp(file[1])
+                let { error, location } = await uploadDocument(saved)
+                if (location) {
+                  request.yar.set('originalFilenames', { [key]: { originalFilename: file[1].hapi.filename, location } })
+                  h.request.payload[key] = location
+                }
+                if (error) {
+                  h.request.pre.errors = [{
+                    path: key, href: `#${key}`, name: key, text: 'This file contains a virus'
+                  }]
+                }
+              } catch (e) {
+                console.log(e)
+              }
               return h.continue
             }
-            let file = files[0]
-            let key = file[0]
-            let previousUpload = (request.yar.get('originalFilenames') || {})[key]
-            if (previousUpload && file[1].hapi.filename === '') {
-              h.request.payload[key] = previousUpload.location
-              return h.continue
-            }
-            try {
-              // TODO:- should be for each(?) or limit to one upload per request..? 🤔
-              let saved = await saveFileToTmp(file[1])
-              let { error, location } = await uploadDocument(saved)
-              if (location) {
-                request.yar.set('originalFilenames', { [key]: { originalFilename: file[1].hapi.filename, location } })
-                h.request.payload[key] = location
-              }
-              if (error) {
-                h.request.pre.errors = [{
-                  path: key, href: `#${key}`, name: key, text: 'This file contains a virus'
-                }]
-              }
-            } catch (e) {
-              console.log(e)
-            }
-            return h.continue
           }
         },
         onPostHandler: {
