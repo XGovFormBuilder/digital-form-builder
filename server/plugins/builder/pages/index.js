@@ -19,7 +19,8 @@ class Page extends EngineBasePage {
     return {
       payload: {
         output: 'stream',
-        parse: true
+        parse: true,
+        maxBytes: 5e+6 // 5mb
       },
       ext: {
         onPreHandler: {
