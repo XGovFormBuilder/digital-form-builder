@@ -35,7 +35,8 @@ class Page extends EngineBasePage {
             } else {
               let file = files[0]
               let key = file[0]
-              let previousUpload = (request.yar.get('originalFilenames') || {})[key]
+              let { originalFilenames } = await this.getState(request)
+              let previousUpload = originalFilenames[key]
               if (previousUpload && file[1].hapi.filename === '') {
                 h.request.payload[key] = previousUpload.location
                 return h.continue
@@ -45,7 +46,7 @@ class Page extends EngineBasePage {
                 let saved = await saveFileToTmp(file[1])
                 let { error, location } = await uploadDocument(saved)
                 if (location) {
-                  request.yar.set('originalFilenames', { [key]: { originalFilename: file[1].hapi.filename, location } })
+                  await this.mergeState(request, { originalFilenames: { [key]: { originalFilename: file[1].hapi.filename, location } } })
                   h.request.payload[key] = location
                 }
                 if (error) {
@@ -54,7 +55,7 @@ class Page extends EngineBasePage {
                   }]
                 }
               } catch (e) {
-                console.log(e)
+                throw e
               }
               return h.continue
             }
