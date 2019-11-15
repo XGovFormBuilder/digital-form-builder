@@ -26,23 +26,24 @@ class Page extends EngineBasePage {
         onPreHandler: {
           method: async (request, h) => {
             let files = fileStreamsFromPayload(request.payload)
+            let state = await this.model.getState(request)
+            let originalFilenames = state.originalFilenames || {}
+
             files.forEach(file => {
-              if (file[1]._data.length < 1) {
-                delete request.payload[file[0]]
+              let key = file[0]
+              let previousUpload = originalFilenames[key]
+              if (previousUpload && file[1]._data.length) {
+                h.request.payload[key] = previousUpload.location
+              } else {
+                delete request.payload[key]
               }
             })
+
             if (!files.length || files.find(file => file[1]._data.length < 1)) {
               return h.continue
             } else {
               let file = files[0]
               let key = file[0]
-              let state = await this.model.getState(request)
-              let originalFilenames = state.originalFilenames || {}
-              let previousUpload = originalFilenames[key]
-              if (previousUpload && file[1].hapi.filename === '') {
-                h.request.payload[key] = previousUpload.location
-                return h.continue
-              }
               try {
                 // TODO:- should be for each(?) or limit to one upload per request..? 🤔
                 let saved = await saveFileToTmp(file[1])

@@ -56,7 +56,7 @@ class SummaryViewModel {
     }
 
     const schema = model.makeFilteredSchema(state, relevantPages)
-    const result = joi.validate(state, schema, { abortEarly: false })
+    const result = joi.validate(state, schema, { abortEarly: false, stripUnknown: true })
 
     if (result.error) {
       this.errors = result.error.details.map(err => {
