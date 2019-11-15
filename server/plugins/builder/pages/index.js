@@ -1,5 +1,6 @@
 const EngineBasePage = require('digital-form-builder-engine/page')
 const { uploadDocument, fileStreamsFromPayload, saveFileToTmp } = require('./../../../lib/documentUpload')
+const Cache = require('./../../../db')
 
 class Page extends EngineBasePage {
   get getRouteOptions () {
@@ -35,7 +36,7 @@ class Page extends EngineBasePage {
             } else {
               let file = files[0]
               let key = file[0]
-              let { originalFilenames } = await this.getState(request)
+              let { originalFilenames } = await Cache.getState(request)
               let previousUpload = originalFilenames[key]
               if (previousUpload && file[1].hapi.filename === '') {
                 h.request.payload[key] = previousUpload.location
@@ -46,7 +47,7 @@ class Page extends EngineBasePage {
                 let saved = await saveFileToTmp(file[1])
                 let { error, location } = await uploadDocument(saved)
                 if (location) {
-                  await this.mergeState(request, { originalFilenames: { [key]: { originalFilename: file[1].hapi.filename, location } } })
+                  await Cache.mergeState(request, { originalFilenames: { [key]: { originalFilename: file[1].hapi.filename, location } } })
                   h.request.payload[key] = location
                 }
                 if (error) {
