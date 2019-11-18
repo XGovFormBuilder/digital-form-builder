@@ -28,40 +28,35 @@ class Page extends EngineBasePage {
             let files = fileStreamsFromPayload(request.payload)
             let state = await this.model.getState(request)
             let originalFilenames = state.originalFilenames || {}
-
-            files.forEach(file => {
+            for (let file of files) {
               let key = file[0]
               let previousUpload = originalFilenames[key]
-              if (previousUpload && file[1]._data.length) {
+              if (file[1]._data.length > 1) {
+                try {
+                  let saved = await saveFileToTmp(file[1])
+                  let { error, location } = await uploadDocument(saved)
+                  if (location) {
+                    originalFilenames[key] = { originalFilename: file[1].hapi.filename, location }
+                    h.request.payload[key] = location
+                  }
+                  if (error) {
+                    h.request.pre.errors = [...h.request.pre.errors, {
+                      path: key, href: `#${key}`, name: key, text: 'This file contains a virus'
+                    }]
+                  }
+                } catch (e) {
+                  h.request.pre.errors = [...h.request.pre.errors, {
+                    path: key, href: `#${key}`, name: key, text: e
+                  }]
+                }
+              } else if (previousUpload && file[1]._data.length < 1) {
                 h.request.payload[key] = previousUpload.location
               } else {
                 delete request.payload[key]
               }
-            })
-
-            if (!files.length || files.find(file => file[1]._data.length < 1)) {
-              return h.continue
-            } else {
-              let file = files[0]
-              let key = file[0]
-              try {
-                // TODO:- should be for each(?) or limit to one upload per request..? 🤔
-                let saved = await saveFileToTmp(file[1])
-                let { error, location } = await uploadDocument(saved)
-                if (location) {
-                  await this.model.mergeState(request, { originalFilenames: { [key]: { originalFilename: file[1].hapi.filename, location } } })
-                  h.request.payload[key] = location
-                }
-                if (error) {
-                  h.request.pre.errors = [{
-                    path: key, href: `#${key}`, name: key, text: 'This file contains a virus'
-                  }]
-                }
-              } catch (e) {
-                throw e
-              }
-              return h.continue
             }
+            await this.model.mergeState(request, { originalFilenames })
+            return h.continue
           }
         },
         onPostHandler: {

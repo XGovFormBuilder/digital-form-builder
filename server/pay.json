@@ -80,6 +80,20 @@
           "name": "surname",
           "title": "Surname",
           "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "secondf",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "passportPhoto",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
         }
       ],
       "section": "personalDetails",
