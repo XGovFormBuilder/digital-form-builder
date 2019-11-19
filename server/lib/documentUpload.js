@@ -4,59 +4,108 @@ const FormData = require('form-data')
 const Wreck = require('@hapi/wreck')
 const tmp = require('tmp')
 const { documentUploadApiUrl } = require('./../config')
+const Cache = require('./../db')
 
-const saveFileToTmp = (file) => {
-  if (!file) throw new Error('no file')
-  let tmpDir = tmp.dirSync()
-  let location = path.join(tmpDir.name, file.hapi.filename)
-  return new Promise(resolve =>
-    file
-      .pipe(fs.createWriteStream(location))
-      .on('finish', resolve(location)))
-}
-
-const fileStreamsFromPayload = (payload) => {
-  return Object.entries(payload).filter(([key, value]) => {
-    return value && value._data
-  })
-}
-
-const uploadDocument = async (location) => {
-  let form = new FormData()
-  form.append('name', location.split('/').pop())
-  form.append('file', fs.createReadStream(location))
-
-  const data = { headers: form.getHeaders(), payload: form }
-
-  try {
-    const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data)
-    return parsedDocumentUploadResponse(res)
-  } catch (e) {
-    throw e
-  }
-}
-
-const parsedDocumentUploadResponse = (res) => {
-  let error = ''
-  let location = ''
-
-  switch (res.statusCode) {
-    case 201:
-      location = res.headers.location
-      break
-    case 422:
-      error = 'The file you uploaded contained a virus'
-      break
-    case 400:
-    default:
-      error = 'There was an error uploading your file'
-  }
-
+const parsedError = (key, error) => {
   return {
-    location, error
+    path: key, href: `#${key}`, name: key, text: error
   }
 }
 
+class UploadService {
+  get fileSizeLimit () {
+    return 2e+6
+  }
+
+  saveFileToTmp (file) {
+    if (!file) throw new Error('no file')
+    let tmpDir = tmp.dirSync()
+    let location = path.join(tmpDir.name, file.hapi.filename)
+    return new Promise(resolve =>
+      file
+        .pipe(fs.createWriteStream(location))
+        .on('finish', resolve(location)))
+  }
+
+  fileStreamsFromPayload (payload) {
+    return Object.entries(payload).filter(([key, value]) => {
+      return value && value._data
+    })
+  }
+
+  async uploadDocument (location) {
+    let form = new FormData()
+    form.append('name', location.split('/').pop())
+    form.append('file', fs.createReadStream(location))
+
+    const data = { headers: form.getHeaders(), payload: form }
+
+    try {
+      const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data)
+      return this.parsedDocumentUploadResponse(res)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  parsedDocumentUploadResponse (res) {
+    let error
+    let location
+
+    switch (res.statusCode) {
+      case 201:
+        location = res.headers.location
+        break
+      case 422:
+        error = 'The selected file for "%s" contained a virus'
+        break
+      case 400:
+      default:
+        error = 'There was an error uploading your file'
+    }
+
+    return {
+      location, error
+    }
+  }
+
+  async handleUploadRequest (request, h) {
+    let files = this.fileStreamsFromPayload(request.payload)
+    let state = await Cache.getState(request)
+    let originalFilenames = (state || {}).originalFilenames || {}
+
+    for (let file of files) {
+      let key = file[0]
+      let fileValue = file[1]
+      let fileSize = fileValue._data.length
+      let previousUpload = originalFilenames[key]
+      if (fileSize > this.fileSizeLimit) {
+        h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, 'The selected file for "%s" must be smaller than 2MB')]
+        h.request.payload[key] = fileValue.hapi.filename
+      } else if (fileSize > 1 && fileSize <= this.fileSizeLimit) {
+        try {
+          let saved = await this.saveFileToTmp(fileValue)
+          let { error, location } = await this.uploadDocument(saved)
+          if (location) {
+            originalFilenames[key] = { originalFilename: fileValue.hapi.filename, location }
+            h.request.payload[key] = location
+          }
+          if (error) {
+            h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
+          }
+        } catch (e) {
+          h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
+        }
+      } else if (previousUpload && file[1]._data.length < 1) {
+        h.request.payload[key] = previousUpload.location
+      } else {
+        delete request.payload[key]
+      }
+    }
+    await Cache.mergeState(request, { originalFilenames })
+    return h.continue
+  }
+}
 module.exports = {
-  uploadDocument, fileStreamsFromPayload, saveFileToTmp
+  UploadService
 }

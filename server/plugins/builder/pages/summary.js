@@ -26,15 +26,17 @@ class SummaryViewModel {
                 return
               }
             }
-            items.push({
-              name: component.name,
-              path: component.path,
-              label: component.localisedString(component.title),
-              value: component.getDisplayStringFromState(sectionState),
-              url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
-              pageId: `/${model.basePath}${page.path}`,
-              type: component.type
-            })
+            if (isRelevantPage) {
+              items.push({
+                name: component.name,
+                path: component.path,
+                label: component.localisedString(component.title),
+                value: component.getDisplayStringFromState(sectionState),
+                url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
+                pageId: `/${model.basePath}${page.path}`,
+                type: component.type
+              })
+            }
           })
           if (isRelevantPage && page.components.formItems.length > 0) {
             relevantPages.push(page)
