@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production --only $APP_NAME",
-    "dev": "pm2-runtime start ecosystem.config.js --only app_designer",
+    "dev": "pm2-runtime start ecosystem.config.js --only app_runner",
     "build:css": "bin/build-css",
     "build": "bin/build",
     "lint": "standard",
