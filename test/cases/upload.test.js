@@ -79,7 +79,7 @@ suite('uploads', () => {
     const $ = cheerio.load(response.payload)
     expect($(`[href='#file1']`).text().trim()).to.equal(`The selected file for "Passport photo" contained a virus`)
   })
-  test('request with files larger than 2MB', async () => {
+  test('request with files larger than 2MB return an error', async () => {
     restore()
     stub(UploadService.prototype, 'fileStreamsFromPayload').callsFake(() => {
       return [['file1', { hapi: { filename: 'file.jpg' }, _data: fs.readFileSync(path.join(__dirname, 'dummy.pdf')) }]]
@@ -101,5 +101,26 @@ suite('uploads', () => {
 
     const $ = cheerio.load(response.payload)
     expect($(`[href='#file1']`).text().trim()).to.equal(`The selected file for "Passport photo" must be smaller than 2MB`)
+  })
+
+  test('request with file upload field containing invalid file type returns with error message', async () => {
+    restore()
+    stub(UploadService.prototype, 'fileStreamsFromPayload').callsFake(() => {
+      return [['file1', { hapi: { filename: 'file.test' }, _data: fs.readFileSync(path.join(__dirname, 'dummy.pdf')) }]]
+    })
+
+    let form = new FormData()
+    form.append('fullName', 1)
+    form.append('file1', fs.readFileSync(path.join(__dirname, 'dummy.pdf')))
+    const options = {
+      method: 'POST',
+      url: '/upload/upload-file',
+      headers: form.getHeaders(),
+      payload: form.getBuffer()
+    }
+    const response = await server.inject(options)
+
+    const $ = cheerio.load(response.payload)
+    expect($(`[href='#file1']`).text().trim()).to.contain(`The selected file for "Passport photo" must be a jpg, jpeg, png or pdf`)
   })
 })

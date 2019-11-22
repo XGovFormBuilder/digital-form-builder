@@ -17,6 +17,10 @@ class UploadService {
     return 2e+6
   }
 
+  get validFiletypes () {
+    return ['jpg', 'jpeg', 'png', 'pdf']
+  }
+
   saveFileToTmp (file) {
     if (!file) throw new Error('no file')
     let tmpDir = tmp.dirSync()
@@ -79,10 +83,22 @@ class UploadService {
       let fileValue = file[1]
       let fileSize = fileValue._data.length
       let previousUpload = originalFilenames[key]
+      let isValidFiletype = true
+
+      // TODO: Refactor this logic..
+      if (fileSize > 1) {
+        let extension = fileValue.hapi.filename.split('.').pop()
+        if (!this.validFiletypes.includes(extension)) {
+          h.request.payload[key] = fileValue.hapi.filename
+          h.request.pre.errors = [...h.request.pre.errors || [],
+            parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
+          isValidFiletype = false
+        }
+      }
       if (fileSize > this.fileSizeLimit) {
         h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, 'The selected file for "%s" must be smaller than 2MB')]
         h.request.payload[key] = fileValue.hapi.filename
-      } else if (fileSize > 1 && fileSize <= this.fileSizeLimit) {
+      } else if (fileSize > 1 && fileSize <= this.fileSizeLimit && isValidFiletype) {
         try {
           let saved = await this.saveFileToTmp(fileValue)
           let { error, location } = await this.uploadDocument(saved)
