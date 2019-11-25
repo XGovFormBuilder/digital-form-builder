@@ -2,13 +2,13 @@ const hoek = require('hoek')
 const Catbox = require('@hapi/catbox')
 const CatboxRedis = require('@hapi/catbox-redis')
 const CatboxMemory = require('@hapi/catbox-memory')
-const { redisHost, redisPort, redisPassword, redisTls } = require('./config')
+const { redisHost, redisPort, redisPassword, redisTls, isSandbox } = require('./config')
 
 let partition = 'cache'
 let cache
 
 if (redisHost) {
-  const redis = require('ioredis')
+  const Redis = require('ioredis')
 
   const redisOptions = {}
   if (redisPassword) {
@@ -18,7 +18,8 @@ if (redisHost) {
     redisOptions.tls = {}
   }
 
-  const client = new redis.Cluster([{
+  const client = isSandbox ? new Redis({ host: redisHost,
+    port: redisPort }) : new Redis.Cluster([{
     host: redisHost,
     port: redisPort
   }], {
