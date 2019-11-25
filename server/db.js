@@ -18,8 +18,7 @@ if (redisHost) {
     redisOptions.tls = {}
   }
 
-  const client = isSandbox ? new Redis({ host: redisHost,
-    port: redisPort }) : new Redis.Cluster([{
+  const client = isSandbox ? new Redis({ host: redisHost, port: redisPort, password: redisPassword }) : new Redis.Cluster([{
     host: redisHost,
     port: redisPort
   }], {
