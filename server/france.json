@@ -1520,13 +1520,13 @@
         },
         {
           "type": "Para",
-          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>download and print a certificate of celibacy (‘certificate de célibat’) </li>\r\n  <li>apply for a certificate of custom/ law for civil partnership</li>\r\n</ul>",
+          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/436137/1506-certificat-celibat.pdf\" class=\"govuk-link\" target=\"blank\" download>download</a> and print a certificate of celibacy (‘certificate de célibat’) </li>\r\n  <li>apply for a certificate of custom/ law for civil partnership</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "You'll need to give your certificate of custom and official notes to the town hall or court at least 6 weeks before your civil parternship.",
+          "content": "You'll need to give your certificate of custom and official notes to the town hall or court at least 6 weeks before your civil partnership.",
           "options": {},
           "schema": {}
         },
@@ -1549,7 +1549,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p> To enter into a civil parternship in France, you need to get a certificate of custom/ law for civil parternship. </p>\r\n\r\n<p> A certficiate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>",
+          "content": "<p class=\"govuk-body\"> To enter into a civil partnership in France, you need to get a certificate of custom/ law for civil partnership. </p>\r\n\r\n<p> A certificate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>",
           "options": {},
           "schema": {}
         },
@@ -1561,7 +1561,7 @@
         },
         {
           "type": "Para",
-          "content": "Some town halls or courts say you must enter into a civil parternship within 6 months of your certificate being issued.",
+          "content": "Some town halls or courts say you must enter into a civil partnership within 6 months of your certificate being issued.",
           "options": {},
           "schema": {}
         }
