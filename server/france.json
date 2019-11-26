@@ -551,7 +551,7 @@
         },
         {
           "type": "Html",
-          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>download and print a certificate of celibacy (‘certificate de célibat’) </li>\r\n  <li>apply for a certificate of custom (‘certificate de coutume')</li>\r\n</ul>",
+          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/436137/1506-certificat-celibat.pdf\" class=\"govuk-link\" target=\"blank\" download>download</a> and print a certificate of celibacy (‘certificate de célibat’) </li>\r\n  <li>apply for a certificate of custom (‘certificate de coutume')</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
@@ -563,7 +563,7 @@
         },
         {
           "type": "Para",
-          "content": "You, your partner or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.",
+          "content": "You, your partner, or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.",
           "options": {},
           "schema": {}
         }
@@ -715,7 +715,7 @@
     },
     {
       "path": "/passport-birth-certificate",
-      "title": "Is the name on your passport the same as your long birth certificate?",
+      "title": "Is the name on your passport exactly the same as on your long birth certificate?",
       "components": [
         {
           "options": {
@@ -801,7 +801,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you are British citizen but don't have a UK passport, please contact the <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British consulate in Paris to continue your application. </a> </p>",
+          "content": "<p class=\"govuk-body\">If you are British citizen but don't have a UK passport, contact the <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British consulate in Paris to continue your application. </a> </p>",
           "options": {},
           "schema": {}
         }
@@ -812,7 +812,7 @@
     },
     {
       "path": "/not-uk-born-documents",
-      "title": "Which documents do you have that prove you are a British citizen?",
+      "title": "Which documents did you use to get your UK passport?",
       "condition": "notBornUk",
       "components": [
         {
@@ -821,8 +821,8 @@
           },
           "type": "RadiosField",
           "name": "documents",
-          "title": "Which documents do you have that prove you are a British citizen?",
-          "hint": "If you’re a British citizen born outside the UK you need to take a photo of the documents that prove your status, such as:",
+          "title": "Which documents did you use to get your UK passport?",
+          "hint": "The French government need to confirm the history of your name from your birth to your passport",
           "schema": {}
         }
       ],
@@ -840,7 +840,7 @@
     },
     {
       "path": "/passport-consular-certificate",
-      "title": "Is the name on your passport the same as your consular birth certificate?",
+      "title": "Is the name on your passport exactly the same as on your consular birth certificate?",
       "condition": "hasConsularBirthCertificate",
       "components": [
         {
@@ -979,7 +979,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "The French government needs to see the complete history of how your name has changed from your birth certificate to your passport.",
+          "content": "The French government need to confirm how your name has changed from your birth certificate to your passport.",
           "options": {},
           "schema": {}
         },
@@ -1044,7 +1044,7 @@
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you have been previously married or in a civil partnership, you'll also need upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1063,7 +1063,7 @@
       ]
     },
     {
-      "path": "/multiple-name-change",
+      "path": "/multipleNameChange",
       "title": "Contact the British embassy in Paris",
       "condition": "tooManyNameChanges",
       "components": [
@@ -1139,7 +1139,7 @@
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you have been previously married or in a civil partnership, you'll also need upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1164,7 +1164,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You won’t be able to save this application – take photos of the following documents before you start:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n   <li>your local birth certificate</li>\r\n    <li>your parent's UK birth certificate</li>\r\n        <li>your deed poll </li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n   <li>your local birth certificate</li>\r\n    <li>your parent's UK birth certificate</li>\r\n        <li>your deed poll </li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1195,7 +1195,7 @@
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you have been previously married or in a civil partnership, you'll also need upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1362,7 +1362,7 @@
         },
         {
           "type": "Html",
-          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"'yes'\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll need to provide documents that show how your has name changed.\r\n  </strong>\r\n</div>",
+          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll need to provide documents that show how your has name changed.\r\n  </strong>\r\n</div>",
           "options": {},
           "schema": {}
         },
@@ -1408,13 +1408,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You won’t be able to save this application – take photos of the following documents before you start:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your naturlisation certificate or registration </li>\r\n\r\n</ul>",
+          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your naturlisation certificate or registration </li>\r\n\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you have been previously married or in a civil partnership, you'll need to provide evidence of how this ended, for instance:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1528,7 +1528,7 @@
         },
         {
           "type": "Para",
-          "content": "You, your partner or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.",
+          "content": "You, your partner, or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.",
           "options": {},
           "schema": {}
         }
@@ -1542,22 +1542,23 @@
     {
       "path": "/apply-civil-part",
       "title": "Apply for a certificate of custom (‘certificat de coutume’) / law for civil partnership",
+      "title": "Apply for a certificate of custom/ law for civil partnership",
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\"> To enter into a civil parternship in France, you need to get a certificate of custom/ law for civil parternship. </p>\n\n<p class=\"govuk-body\"> A certficiate of custom costs £50. You should receive your certificate withing 3 weeks of applying. </p>",
+          "content": "<p> To enter into a civil parternship in France, you need to get a certificate of custom/ law for civil parternship. </p>\r\n\r\n<p> A certficiate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Html",
-          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"'yes'\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll need to provide documents that show how your name has changed.\r\n  </strong>\r\n</div>",
+          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll need to provide documents that show how your name has changed.\r\n  </strong>\r\n</div>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "Some town halls or courts say you must enter into a civil parternship withing 6 months of your certificate being issued.",
+          "content": "Some town halls or courts say you must enter into a civil parternship within 6 months of your certificate being issued.",
           "options": {},
           "schema": {}
         }
@@ -1570,7 +1571,7 @@
     },
     {
       "path": "/how-to-civil-part",
-      "title": "How to get your certificate of custom (‘certificat de coutume’) / law for civil partnership",
+      "title": "How to get your certificate of custom/ law for civil partnership",
       "components": [
         {
           "options": {
@@ -2592,7 +2593,7 @@
       "items": [
         {
           "text": "Civil partnership (PACS - pacte civil de solidarité)",
-          "value": "Civil partnership",
+          "value": "Civil partnership (PACS - pacte civil de solidarité)",
           "description": ""
         },
         {
@@ -2654,7 +2655,7 @@
         {
           "text": "Apply online",
           "value": 3,
-          "description": "You can take as long as you need to complete the application, but if you're inactive for 20 minutes your application will time out"
+          "description": "Take as long as you need to finish, but if you're inactive for 20 minutes your application will time out"
         },
         {
           "text": "Pay online",
