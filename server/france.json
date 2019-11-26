@@ -6,10 +6,6 @@
   },
   "conditions": [
     {
-      "name": "hadPreviousNames",
-      "value": "yourDetails.previousNames == 'yes'"
-    },
-    {
       "name": "partnerCanContact",
       "value": "feedbackSection.canPartnerContactYou=='yes'"
     },
@@ -224,10 +220,13 @@
           "schema": {}
         },
         {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "DatePartsField",
           "name": "date",
           "title": "Date",
-          "options": {},
           "schema": {}
         }
       ],
@@ -285,7 +284,8 @@
           "type": "TextField",
           "name": "address-line-1",
           "title": "Address",
-          "schema": {}
+          "schema": {},
+          "options": {}
         },
         {
           "type": "TextField",
@@ -302,7 +302,9 @@
           "title": "Town or city",
           "schema": {},
           "options": {
-            "classes": ["govuk-!-width-two-thirds"]
+            "classes": [
+              "govuk-!-width-two-thirds"
+            ]
           }
         },
         {
@@ -311,7 +313,9 @@
           "title": "Postcode",
           "schema": {},
           "options": {
-            "classes": ["govuk-!-width-one-third"]
+            "classes": [
+              "govuk-!-width-one-third"
+            ]
           }
         },
         {
@@ -1063,7 +1067,7 @@
       ]
     },
     {
-      "path": "/multipleNameChange",
+      "path": "/multiple-name-change",
       "title": "Contact the British embassy in Paris",
       "condition": "tooManyNameChanges",
       "components": [
@@ -1541,7 +1545,6 @@
     },
     {
       "path": "/apply-civil-part",
-      "title": "Apply for a certificate of custom (‘certificat de coutume’) / law for civil partnership",
       "title": "Apply for a certificate of custom/ law for civil partnership",
       "components": [
         {
@@ -1598,20 +1601,8 @@
       "title": "Your marital or civil status"
     },
     {
-      "name": "deliveryDetails",
-      "title": "Delivery details"
-    },
-    {
       "name": "yourContactDetails",
       "title": "Your contact details"
-    },
-    {
-      "name": "yourPartnersDetails",
-      "title": "Your partner's details"
-    },
-    {
-      "name": "aboutYourCeremony",
-      "title": "About your ceremony"
     },
     {
       "name": "feedbackSection",
