@@ -14,7 +14,7 @@ const parsedError = (key, error) => {
 
 class UploadService {
   get fileSizeLimit () {
-    return 2e+6
+    return 5e+6
   }
 
   get validFiletypes () {
@@ -96,7 +96,7 @@ class UploadService {
         }
       }
       if (fileSize > this.fileSizeLimit) {
-        h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, 'The selected file for "%s" must be smaller than 2MB')]
+        h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, 'The selected file for "%s" must be smaller than 5MB')]
         h.request.payload[key] = fileValue.hapi.filename
       } else if (fileSize > 1 && fileSize <= this.fileSizeLimit && isValidFiletype) {
         try {
