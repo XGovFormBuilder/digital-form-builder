@@ -1646,6 +1646,14 @@
       "type": "number",
       "items": [
         {
+          "text": "United Kingdom",
+          "value": 910400184
+        },
+        {
+          "text": "France",
+          "value": 910400059
+        },
+        {
           "text": "Afghanistan",
           "value": 910400000
         },
@@ -1880,10 +1888,6 @@
         {
           "text": "Finland",
           "value": 910400058
-        },
-        {
-          "text": "France",
-          "value": 910400059
         },
         {
           "text": "Gabon",
@@ -2380,10 +2384,6 @@
         {
           "text": "United Arab Emirates",
           "value": 910400183
-        },
-        {
-          "text": "United Kingdom",
-          "value": 910400184
         },
         {
           "text": "United States",
