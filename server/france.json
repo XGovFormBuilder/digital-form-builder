@@ -19,7 +19,7 @@
     },
     {
       "name": "noBritishPassport",
-      "value": "britishPassport=='no'"
+      "value": "ukPassport=='no'"
     },
     {
       "name": "notBornUk",
@@ -38,12 +38,20 @@
       "value": "documents=='local-birth-certificate'"
     },
     {
+      "name": "hasHomeOfficeCertificate",
+      "value": "documents=='home-office-certificate'"
+    },
+    {
       "name": "consularNameMatches",
-      "value": "consularName == 'yes'"
+      "value": "consularCertificate == 'yes'"
     },
     {
       "name": "localCertificateMatches",
       "value": "localCertificate == 'yes'"
+    },
+    {
+      "name": "homeOfficeCertificateMatches",
+      "value": "naturalisationName == 'yes'"
     },
     {
       "name": "nameChangedByDeedPoll",
@@ -87,7 +95,7 @@
     },
     {
       "name": "localCertificateAndDeedPollNameChange",
-      "value": "nameChangedByDeedPoll"
+      "value": "hasLocalBirthCertificate and nameChangedByDeedPoll"
     },
     {
       "name": "localCertificateAndPartneredNameChange",
@@ -96,6 +104,14 @@
     {
       "name": "nameChangedByAnyPartnership",
       "value": "nameChangedByMarriage or nameChangedByCivilPartnership"
+    },
+    {
+      "name": "homeOfficeCertificateAndPartneredNameChange",
+      "value": "hasHomeOfficeCertificate and nameChangedByAnyPartnership "
+    },
+    {
+      "name": "homeOfficeCertificateAndDeedPollNameChange",
+      "value": "hasHomeOfficeCertificate and nameChangedByDeedPoll"
     },
     {
       "name": "nameChanged",
@@ -802,6 +818,7 @@
     },
     {
       "path": "/no-british-passport",
+      "condition": "noBritishPassport",
       "components": [
         {
           "type": "Para",
@@ -811,8 +828,7 @@
         }
       ],
       "next": [],
-      "title": "You need a UK passport to apply for this service online",
-      "condition": "noBritishPassport"
+      "title": "You need a UK passport to apply for this service online"
     },
     {
       "path": "/not-uk-born-documents",
@@ -1386,6 +1402,7 @@
     {
       "path": "/naturalisation-names",
       "title": "Is the name on your passport exactly the same as on your certificate of naturalisation or registration?",
+      "condition": "hasHomeOfficeCertificate",
       "components": [
         {
           "options": {
@@ -1409,6 +1426,7 @@
     {
       "path": "/naturalisation-marriage-documents",
       "title": "What you'll need to apply",
+      "condition": "homeOfficeCertificateAndPartneredNameChange",
       "components": [
         {
           "type": "Para",
@@ -1462,6 +1480,7 @@
     {
       "path": "/naturalisation-details",
       "title": "What you'll need to apply",
+      "condition": "homeOfficeCertificateMatches",
       "components": [
         {
           "type": "Para",
@@ -1486,6 +1505,7 @@
     {
       "path": "/naturalisation-deed-poll",
       "title": "What you'll need to apply",
+      "condition": "homeOfficeCertificateAndDeedPollNameChange",
       "components": [
         {
           "type": "Para",
@@ -1509,7 +1529,7 @@
     },
     {
       "path": "/enter-civil-part",
-      "title": "Entering into a civl partnership (PACS in France)",
+      "title": "Entering into a civil partnership (PACS in France)",
       "condition": "isPacs",
       "components": [
         {
@@ -1549,7 +1569,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\"> To enter into a civil partnership in France, you need to get a certificate of custom/ law for civil partnership. </p>\r\n\r\n<p> A certificate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>",
+          "content": "<p class=\"govuk-body\"> To enter into a civil partnership in France, you need to get a certificate of custom/ law for civil partnership. </p>\r\n\r\n<p class=\"govuk-body\"> A certificate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>",
           "options": {},
           "schema": {}
         },
