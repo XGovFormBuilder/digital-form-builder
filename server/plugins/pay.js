@@ -48,6 +48,9 @@ const pay = {
         method: 'get',
         path: '/status',
         handler: async (request, h) => {
+          const { notifyService } = request.services([])
+          let { personalisations } = await Cache.getState(request)
+          notifyService.sendNotification('8c1eb93f-c7db-42f8-a90c-3ae1cfba13be', 'jen@cautionyourblast.com', '123', personalisations || {})
           const { pay } = await Cache.getState(request)
           const basePath = request.yar.get('basePath')
           if (pay) {
@@ -59,10 +62,13 @@ const pay = {
                   let { caseManagementData } = await Cache.getState(request)
                   let response = await caseManagementPostRequest(caseManagementData)
                   await Cache.clearState(request)
-                  return h.redirect(`/confirmation/${response.reference}`)
+                  if (response.reference === 'UNKNOWN') {
+                    return h.view('confirmation', { })
+                  }
+                  return h.view('confirmation', { reference: response.reference })
                 case 'failed':
                 case 'error':
-                  return h.redirect(`/status/error/${reference}`)
+                  return h.view('application-error', { reference, errorList: ['there was a problem with your payment'] })
               }
             } else {
               // TODO:- unfinished payment flow?
@@ -70,25 +76,6 @@ const pay = {
           } else {
             return h.redirect(`${basePath}`)
           }
-        }
-      })
-
-      server.route({
-        method: 'get',
-        path: '/confirmation/{reference}',
-        handler: async (request, h) => {
-          let { reference } = request.params
-          return h.view('confirmation', { reference })
-        }
-      })
-
-      server.route({
-        method: 'get',
-        path: '/status/error/{reference}',
-        handler: async (request, h) => {
-          // TODO:- flash error from pay api
-          let { reference } = request.params
-          return h.view('application-error', { reference })
         }
       })
     }

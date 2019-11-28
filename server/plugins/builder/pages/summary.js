@@ -5,6 +5,7 @@ const { payRequest } = require('../../pay')
 const { caseManagementPostRequest } = require('../../../lib/caseManagement')
 const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
 const { serviceName } = require('./../../../config')
+const { flatten } = require('flat')
 
 class SummaryViewModel {
   constructor (pageTitle, model, state) {
@@ -94,6 +95,16 @@ class SummaryViewModel {
 
     this.parseDataForCasebook(model, relevantPages, details)
 
+    if (model.def.personalisations) {
+      let flatState = flatten(state)
+      let personalisations = {}
+      model.def.personalisations.forEach(p => {
+        let condition = model.conditions[p]
+        personalisations[p.split('.').pop()] = condition ? condition.fn(state) : flatState[p]
+      })
+      this.personalisations = personalisations
+    }
+
     this.result = result
     this.details = details
     this.state = state
@@ -165,6 +176,14 @@ class SummaryViewModel {
   set caseManagementDataPaymentReference (paymentReference) {
     this._caseManagementData.fees.paymentReference = paymentReference
   }
+
+  get personalisations () {
+    return this._personalisations
+  }
+
+  set personalisations (value) {
+    this._personalisations = value
+  }
 }
 
 class SummaryPage extends Page {
@@ -200,11 +219,12 @@ class SummaryPage extends Page {
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
+      await model.mergeState(request, { personalisations: summaryViewModel.personalisations })
 
       if (!summaryViewModel.fees) {
         const { reference } = await caseManagementPostRequest(summaryViewModel._caseManagementData)
-        await model.clearState()
-        return h.redirect(`/confirmation/${reference}`)
+        await model.mergeState(request, { reference })
+        return h.redirect(`/status`)
       } else {
         const paymentReference = `FCO-${shortid.generate()}`
         const description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`

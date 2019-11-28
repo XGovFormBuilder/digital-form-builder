@@ -11,9 +11,12 @@ const options = {
 const caseManagementPostRequest = async (answers) => {
   const data = { ...options, payload: JSON.stringify(answers) }
   try {
-    const { payload } = await Wreck.post(`${caseManagementApiUrl}/v1/applications`, data)
+    const { payload, res } = await Wreck.post(`${caseManagementApiUrl}/v1/applications`, data)
     if (payload && payload.toString()) {
       return JSON.parse(payload.toString())
+    }
+    if (res.statusCode === 202) {
+      // send dead letter queue message
     }
     return { reference: 'unknown' }
   } catch (e) {
