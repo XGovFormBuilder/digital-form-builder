@@ -167,5 +167,9 @@
       "condition": "nameIsName"
     }
   ],
-  "personalisations": ["isPacs", "isMarriage", "personalDetails.name"]
+  "notify": {
+    "templateId": "8c1eb93f-c7db-42f8-a90c-3ae1cfba13be",
+    "personalisation": ["isPacs", "isMarriage", "personalDetails.name"]
+  }
+
 }

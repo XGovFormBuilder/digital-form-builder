@@ -18,7 +18,7 @@ const caseManagementPostRequest = async (answers) => {
     if (res.statusCode === 202) {
       // send dead letter queue message
     }
-    return { reference: 'unknown' }
+    return { reference: 'UNKNOWN' }
   } catch (e) {
     throw e
   }

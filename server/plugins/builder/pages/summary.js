@@ -1,7 +1,6 @@
 const joi = require('joi')
 const Page = require('.')
 const shortid = require('shortid')
-const { payRequest } = require('../../pay')
 const { caseManagementPostRequest } = require('../../../lib/caseManagement')
 const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
 const { serviceName } = require('./../../../config')
@@ -95,14 +94,14 @@ class SummaryViewModel {
 
     this.parseDataForCasebook(model, relevantPages, details)
 
-    if (model.def.personalisations) {
+    if (model.def.notify) {
       let flatState = flatten(state)
-      let personalisations = {}
-      model.def.personalisations.forEach(p => {
+      let personalisations = { }
+      model.def.notify.personalisation.forEach(p => {
         let condition = model.conditions[p]
         personalisations[p.split('.').pop()] = condition ? condition.fn(state) : flatState[p]
       })
-      this.personalisations = personalisations
+      this.notifyOptions = { templateId: model.def.notify.templateId, personalisations }
     }
 
     this.result = result
@@ -177,11 +176,11 @@ class SummaryViewModel {
     this._caseManagementData.fees.paymentReference = paymentReference
   }
 
-  get personalisations () {
+  get notifyOptions () {
     return this._personalisations
   }
 
-  set personalisations (value) {
+  set notifyOptions (value) {
     this._personalisations = value
   }
 }
@@ -214,12 +213,13 @@ class SummaryPage extends Page {
 
   makePostRouteHandler (getState) {
     return async (request, h) => {
+      const { payService } = request.services([])
       const lang = this.langFromRequest(request)
       const model = this.model
       model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
-      await model.mergeState(request, { personalisations: summaryViewModel.personalisations })
+      await model.mergeState(request, { notify: summaryViewModel.notifyOptions })
 
       if (!summaryViewModel.fees) {
         const { reference } = await caseManagementPostRequest(summaryViewModel._caseManagementData)
@@ -228,7 +228,7 @@ class SummaryPage extends Page {
       } else {
         const paymentReference = `FCO-${shortid.generate()}`
         const description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
-        const res = await payRequest(summaryViewModel.fees.total, paymentReference, description)
+        const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description)
 
         request.yar.set('basePath', model.basePath)
         await model.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href } })

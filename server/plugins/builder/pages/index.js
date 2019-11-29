@@ -1,12 +1,6 @@
 const EngineBasePage = require('digital-form-builder-engine/page')
-const { UploadService } = require('./../../../lib/documentUpload')
 
 class Page extends EngineBasePage {
-  constructor (model, pageDef) {
-    super(model, pageDef)
-    this.uploadService = new UploadService()
-  }
-
   get getRouteOptions () {
     return {
       ext: {
@@ -31,7 +25,8 @@ class Page extends EngineBasePage {
       ext: {
         onPreHandler: {
           method: async (request, h) => {
-            return this.uploadService.handleUploadRequest(request, h)
+            let { uploadService } = request.services([])
+            return uploadService.handleUploadRequest(request, h)
           }
         },
         onPostHandler: {

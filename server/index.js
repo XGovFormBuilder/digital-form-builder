@@ -3,10 +3,11 @@ const Blankie = require('blankie')
 const Scooter = require('@hapi/scooter')
 const config = require('./config')
 const fs = require('fs')
-const { pay } = require('./plugins/pay')
 const { configurePlugins, routes } = require('./plugins/builder')
 const Schmervice = require('schmervice')
 const { NotifyService } = require('./lib/notifyService')
+const { PayService } = require('./lib/payService')
+const { UploadService } = require('./lib/documentUpload')
 
 const serverOptions = (isDev) => {
   const defaultOptions = {
@@ -29,13 +30,12 @@ const serverOptions = (isDev) => {
 
 async function createServer (routeConfig) {
   const server = hapi.server(serverOptions(config.isDev))
-  server.register({
-    plugin: require('hapi-graceful-pm2'),
+  await server.register({
+    plugin: require('hapi-pulse'),
     options: {
-      timeout: 4000
+      timeout: 800
     }
-  }).then(() => console.log('restarted'))
-
+  })
   await server.register(require('inert'))
   await server.register([Scooter, {
     plugin: Blankie,
@@ -54,7 +54,7 @@ async function createServer (routeConfig) {
     }
   })
   await server.register(Schmervice)
-  server.registerService(NotifyService)
+  server.registerService([NotifyService, PayService, UploadService])
 
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
@@ -65,7 +65,7 @@ async function createServer (routeConfig) {
   } else {
     await server.register(routes())
   }
-  await server.register(pay)
+  await server.register(require('./plugins/applicationStatus'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
 

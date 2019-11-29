@@ -6,8 +6,14 @@ class NotifyService {
     this.notifyClient = new NotifyClient(notifyApiKey)
   }
 
-  sendNotification (templateId, emailAddress, reference, personalisation) {
-    return this.notifyClient.sendEmail(templateId, emailAddress, { reference, personalisation: { ...personalisation, reference } })
+  sendNotification (templateId, emailAddress, personalisation) {
+    let options = personalisation
+    if (!personalisation.reference) {
+      options['reference'] = ''
+      options['hasReference'] = 'no'
+    }
+
+    return this.notifyClient.sendEmail(templateId, emailAddress, options)
   }
 }
 

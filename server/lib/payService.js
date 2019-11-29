@@ -2,7 +2,6 @@ const { payApiKey, payApiUrl, payReturnUrl } = require('../config')
 const Wreck = require('@hapi/wreck')
 
 class PayService {
-
   get options () {
     return {
       headers: {
@@ -39,4 +38,8 @@ class PayService {
       throw e
     }
   }
+}
+
+module.exports = {
+  PayService
 }
