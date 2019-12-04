@@ -82,20 +82,6 @@
           "name": "surname",
           "title": "Surname",
           "schema": {}
-        },
-        {
-          "type": "FileUploadField",
-          "name": "secondf",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "FileUploadField",
-          "name": "passportPhoto",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
         }
       ],
       "section": "personalDetails",
@@ -146,7 +132,6 @@
           "value": "marriage",
           "description": "Valid for 8 consecutive days from the start time that you select"
         }
-
       ]
     }
   ],
@@ -168,8 +153,11 @@
     }
   ],
   "notify": {
-    "templateId": "8c1eb93f-c7db-42f8-a90c-3ae1cfba13be",
-    "personalisation": ["isPacs", "isMarriage", "personalDetails.name"]
+    "personalisation": [
+      "isPacs",
+      "isMarriage",
+      "personalDetails.name"
+    ],
+    "templateId": "6fe075a4-969c-492d-a2d0-da86f50d53a9"
   }
-
 }

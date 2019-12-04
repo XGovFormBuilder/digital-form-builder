@@ -96,12 +96,13 @@ class SummaryViewModel {
 
     if (model.def.notify) {
       let flatState = flatten(state)
-      let personalisations = { }
+      let personalisation = { }
       model.def.notify.personalisation.forEach(p => {
         let condition = model.conditions[p]
-        personalisations[p.split('.').pop()] = condition ? condition.fn(state) : flatState[p]
+        personalisation[p] = condition ? condition.fn(state) : flatState[p]
       })
-      this.notifyOptions = { templateId: model.def.notify.templateId, personalisations }
+
+      this.notifyOptions = { templateId: model.def.notify.templateId, personalisation }
     }
 
     this.result = result
@@ -177,11 +178,11 @@ class SummaryViewModel {
   }
 
   get notifyOptions () {
-    return this._personalisations
+    return this._notify
   }
 
   set notifyOptions (value) {
-    this._personalisations = value
+    this._notify = value
   }
 }
 

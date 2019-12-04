@@ -6,14 +6,27 @@ class NotifyService {
     this.notifyClient = new NotifyClient(notifyApiKey)
   }
 
-  sendNotification (templateId, emailAddress, personalisation) {
-    let options = personalisation
-    if (!personalisation.reference) {
-      options['reference'] = ''
-      options['hasReference'] = 'no'
+  parsePersonalisations (options) {
+    let parsed = {}
+    Object.assign(parsed, ...Object.keys(options).map(key => {
+      parsed[key] = typeof options[key] === 'boolean' ? (options[key] ? 'yes' : 'no') : options[key]
+    }))
+    return parsed
+  }
+
+  sendNotification (templateId, emailAddress, reference, options) {
+    let parsedOptions = {}
+    parsedOptions.personalisation = this.parsePersonalisations(options)
+    if (!reference) {
+      parsedOptions.personalisation.reference = ''
+      parsedOptions.personalisation.hasReference = 'no'
+    } else {
+      parsedOptions.reference = reference
+      parsedOptions.personalisation.reference = reference
+      parsedOptions.personalisation.hasReference = 'yes'
     }
 
-    return this.notifyClient.sendEmail(templateId, emailAddress, options)
+    return this.notifyClient.sendEmail(templateId, emailAddress, parsedOptions)
   }
 }
 
