@@ -1,5 +1,5 @@
 const { NotifyClient } = require('notifications-node-client')
-const { notifyApiKey } = require('./../config')
+const { notifyApiKey } = require('../config')
 
 class NotifyService {
   constructor () {
