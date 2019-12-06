@@ -78,9 +78,9 @@
           "options": {
             "classes": "govuk-input--width-20"
           },
-          "type": "TextField",
-          "name": "surname",
-          "title": "Surname",
+          "type": "EmailAddressField",
+          "name": "emailAddress",
+          "title": "Email address",
           "schema": {}
         }
       ],
@@ -159,6 +159,6 @@
       "personalDetails.name"
     ],
     "templateId": "6fe075a4-969c-492d-a2d0-da86f50d53a9",
-    "emailField": "personalDetails.surname"
+    "emailField": "personalDetails.emailAddress"
   }
 }
