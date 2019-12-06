@@ -21,10 +21,10 @@ const applicationStatus = {
               switch (state.status) {
                 case 'success':
                   let { notify } = await Cache.getState(request)
-                  let { templateId, personalisation } = notify
+                  let { templateId, personalisation, emailField } = notify
                   let { caseManagementData } = await Cache.getState(request)
                   let response = await caseManagementPostRequest(caseManagementData)
-                  notifyService.sendNotification(templateId, 'jen@cautionyourblast.com', response.reference, personalisation || {})
+                  notifyService.sendNotification(templateId, emailField, response.reference, personalisation || {})
                   await Cache.clearState(request)
                   if (response.reference === 'UNKNOWN') {
                     return h.view('confirmation', { })

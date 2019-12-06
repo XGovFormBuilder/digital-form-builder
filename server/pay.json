@@ -158,6 +158,7 @@
       "isMarriage",
       "personalDetails.name"
     ],
-    "templateId": "6fe075a4-969c-492d-a2d0-da86f50d53a9"
+    "templateId": "6fe075a4-969c-492d-a2d0-da86f50d53a9",
+    "emailField": "personalDetails.surname"
   }
 }

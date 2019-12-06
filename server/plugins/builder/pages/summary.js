@@ -102,7 +102,7 @@ class SummaryViewModel {
         personalisation[p] = condition ? condition.fn(state) : flatState[p]
       })
 
-      this.notifyOptions = { templateId: model.def.notify.templateId, personalisation }
+      this.notifyOptions = { templateId: model.def.notify.templateId, personalisation, emailField: flatState[model.def.notify.emailField] }
     }
 
     this.result = result
