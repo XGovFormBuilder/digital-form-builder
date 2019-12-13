@@ -1548,7 +1548,7 @@
     {
       "path": "/marriage-service-start",
       "title": "Getting married in France",
-      "condition": "isPacs",
+      "condition": "isMarriage",
       "components": [
         {
           "type": "Para",
