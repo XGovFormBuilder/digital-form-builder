@@ -38,12 +38,20 @@
       "value": "documents=='local-birth-certificate'"
     },
     {
+      "name": "hasHomeOfficeCertificate",
+      "value": "documents=='home-office-certificate'"
+    },
+    {
       "name": "consularNameMatches",
       "value": "consularName == 'yes'"
     },
     {
       "name": "localCertificateMatches",
       "value": "localCertificate == 'yes'"
+    },
+    {
+      "name": "homeOfficeCertificateMatches",
+      "value": "naturalisationName == 'yes'"
     },
     {
       "name": "nameChangedByDeedPoll",
@@ -87,7 +95,7 @@
     },
     {
       "name": "localCertificateAndDeedPollNameChange",
-      "value": "nameChangedByDeedPoll"
+      "value": "hasLocalBirthCertificate and nameChangedByDeedPoll"
     },
     {
       "name": "localCertificateAndPartneredNameChange",
@@ -96,6 +104,14 @@
     {
       "name": "nameChangedByAnyPartnership",
       "value": "nameChangedByMarriage or nameChangedByCivilPartnership"
+    },
+    {
+      "name": "homeOfficeCertificateAndPartneredNameChange",
+      "value": "hasHomeOfficeCertificate and nameChangedByAnyPartnership "
+    },
+    {
+      "name": "homeOfficeCertificateAndDeedPollNameChange",
+      "value": "hasHomeOfficeCertificate and nameChangedByDeedPoll"
     },
     {
       "name": "nameChanged",
@@ -1326,6 +1342,7 @@
     {
       "path": "/naturalisation-names",
       "title": "Is the name on your passport exactly the same as on your certificate of naturalisation or registration?",
+      "condition": "hasHomeOfficeCertificate",
       "components": [
         {
           "options": {
@@ -1349,6 +1366,7 @@
     {
       "path": "/naturalisation-marriage-documents",
       "title": "What you'll need to apply",
+      "condition": "homeOfficeCertificateAndPartneredNameChange",
       "components": [
         {
           "type": "Para",
@@ -1402,6 +1420,7 @@
     {
       "path": "/naturalisation-details",
       "title": "What you'll need to apply",
+      "condition": "homeOfficeCertificateMatches",
       "components": [
         {
           "type": "Para",
@@ -1426,6 +1445,7 @@
     {
       "path": "/naturalisation-deed-poll",
       "title": "What you'll need to apply",
+      "condition": "homeOfficeCertificateAndDeedPollNameChange",
       "components": [
         {
           "type": "Para",
