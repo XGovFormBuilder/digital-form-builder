@@ -9,40 +9,44 @@
       "value": "britishPassport=='no'"
     },
     {
-      "name": "ceremonyIsCivilPartnership",
+      "name": "isCivilPartnership",
       "value": "ceremony=='Civil partnership'"
     },
     {
-      "name": "isSameSexMarriage",
+      "name": "notOppositeSex",
       "value": "sameOrOppositeMarriage=='no'"
     },
     {
-      "name": "isPreviouslyMarried",
-      "value": "yourMaritalStatus.marriedBefore=='no'"
-    },
-    {
-      "name": "isDivorced",
-      "value": "yourMaritalStatus.currentStatus=='divorced'"
+      "name": "hasMarriedBefore",
+      "value": "yourMaritalStatus.marriedBefore == 'yes'"
     },
     {
       "name": "isWidowed",
-      "value": "yourMaritalStatus.currentStatus=='widowed'"
+      "value": "yourMaritalStatus.currentStatus == 'widowed'"
     },
     {
-      "name": "isSurvivingCivilPartner",
-      "value": "yourMaritalStatus.currentStatus=='surviving civil partner'"
-    },
-    {
-      "name": "isAnnulled",
-      "value": "yourMaritalStatus.currentStatus=='annulled'"
+      "name": "isSurviving",
+      "value": "yourMaritalStatus.currentStatus == 'surviving civil partner'"
     },
     {
       "name": "isWidowedOrSurviving",
-      "value": "isWidowed or isSurvivingCivilPartner"
+      "value": "isWidowed or isSurviving"
+    },
+    {
+      "name": "isAnnulled",
+      "value": "yourMaritalStatus.currentStatus == 'annulled'"
+    },
+    {
+      "name": "isDivorced",
+      "value": "yourMaritalStatus.currentStatus == 'divorced'"
+    },
+    {
+      "name": "isDissolved",
+      "value": "yourMaritalStatus.currentStatus == 'dissolved'"
     },
     {
       "name": "canContact",
-      "value": "contact=='yes'"
+      "value": "contact == 'yes'"
     }
   ],
   "startPage": "/",
@@ -53,13 +57,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you're a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).</p>\r\n\r\n<p class=\"govuk-body\">Use this tool to find out how to get the documents you’ll need.</p>\r\n\r\n<p class=\"govuk-body\">You’ll need to contact the local authorities where you want to get married to find out what you need to do.</p>\r\n\r\n\r\n<p class=\"govuk-body\">Your marriage or civil partnership will be recognised in the UK if both of the following apply:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>you followed the correct process in the country where you got married</li>\r\n  <li>it would be allowed under UK law</li>\r\n</ul>",
+          "content": "<p class=\"govuk-body\">If you're a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).</p>\r\n\r\n<p class=\"govuk-body\">Use this tool to find out how to get the documents you'll need.</p>\r\n\r\n<p class=\"govuk-body\">You'll need to contact the local authorities where you want to get married to find out what you need to do.</p>\r\n\r\n\r\n<p class=\"govuk-body\">Your marriage or civil partnership will be recognised in the UK if both of the following apply:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>you followed the correct process in the country where you got married</li>\r\n  <li>it would be allowed under UK law</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "InsetText",
-          "content": "There’s a separate guide if you want to get married or enter into a civil partnership in the UK.",
+          "content": "There's a separate guide if you want to get married or enter into a civil partnership in the UK.",
           "options": {},
           "schema": {}
         }
@@ -107,21 +111,31 @@
           "type": "TextField",
           "name": "firstName",
           "title": "First name",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "middleName",
           "title": "Middle name (as it appears on your passport)",
-          "options": {},
+          "hint": "If you have a middle name on your passport you must include it here",
+
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "surname",
           "title": "Surname",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         }
       ],
@@ -134,13 +148,13 @@
     },
     {
       "path": "/your-occupation",
-      "title": "Occupation",
+      "title": "Your occupation",
       "components": [
         {
           "type": "TextField",
           "name": "occupation",
-          "title": "Occupation",
-          "hint": "Retirement and unemployment are both accepted occupations",
+          "title": "Main occupation",
+          "hint": "If you have more than one occupation, please state your main one. Retired and unemployed are both accepted answers",
           "options": {},
           "schema": {}
         }
@@ -155,6 +169,7 @@
     {
       "path": "/current-status",
       "title": "What is your current marital status?",
+      "condition": "isMarriedBefore",
       "components": [
         {
           "options": {
@@ -177,7 +192,7 @@
           "path": "/about-widowhood"
         },
         {
-          "path": "/about-annullment"
+          "path": "/about-annulment"
         }
       ],
       "section": "yourMaritalStatus"
@@ -203,7 +218,10 @@
           "type": "TextField",
           "name": "address2",
           "title": "Address",
-          "options": {},
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "schema": {}
         },
         {
@@ -272,12 +290,13 @@
     {
       "path": "/partners-details",
       "title": "Partner's details",
+      "section": "yourPartnersDetails",
       "components": [
         {
           "type": "TextField",
           "name": "partnerName",
           "title": "Full name",
-          "hint": "As shown on their passport or Thai ID",
+          "hint": "As shown on passport or Thai ID",
           "options": {},
           "schema": {}
         },
@@ -307,7 +326,7 @@
     },
     {
       "path": "/parents-details",
-      "title": "Your parents' details",
+      "title": "Your parent's details",
       "components": [
         {
           "type": "Para",
@@ -317,7 +336,7 @@
         },
         {
           "type": "Para",
-          "content": "<h3 class=\"govuk-heading-m\">Parent 1</h3>",
+          "content": "<h3 class=\"govuk-heading-m\">Father's details</h3>",
           "options": {},
           "schema": {}
         },
@@ -325,24 +344,17 @@
           "type": "TextField",
           "name": "FullName",
           "title": "Full name",
-          "hint": "Name should match the long birth certificate",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "pre-maritalName",
-          "title": "Pre-marital name if different",
+          "hint": "Name should match the UK long birth certificate",
           "options": {},
           "schema": {}
         },
         {
           "options": {
-            "list": "don'tKnow"
+            "list": "unknown"
           },
           "type": "CheckboxesField",
-          "name": "don'tKnow",
-          "title": "I don't know",
+          "name": "unknown",
+          "title": "Unknown",
           "schema": {}
         },
         {
@@ -353,7 +365,7 @@
         },
         {
           "type": "Para",
-          "content": "<h3 class=\"govuk-heading-m\">Parent 2</h3>",
+          "content": "<h3 class=\"govuk-heading-m\">Mother's details</h3>",
           "options": {},
           "schema": {}
         },
@@ -361,24 +373,24 @@
           "type": "TextField",
           "name": "fathersName",
           "title": "Full name",
-          "hint": "Name should match the long birth certificate",
+          "hint": "Name should match the UK long birth certificate",
           "options": {},
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "pre-maritalName",
-          "title": "Pre-marital name if different",
+          "title": "Maiden name",
           "options": {},
           "schema": {}
         },
         {
           "options": {
-            "list": "don'tKnow"
+            "list": "unknown"
           },
           "type": "CheckboxesField",
-          "name": "don'tKnow",
-          "title": "I don't know",
+          "name": "unknown",
+          "title": "Unknown",
           "schema": {}
         }
       ],
@@ -390,33 +402,23 @@
     },
     {
       "path": "/upload-partners-passport",
-      "title": "Upload a photo of your partner's passport or Thai ID",
+      "title": "Partner's passport or Thai ID",
       "components": [
         {
-          "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your partner's passport – the page with the passport photo – or their Thai ID.</p>",
+          "type": "Para",
+          "content": "Add a photo of your partner's passport – the page with the passport photo – or their Thai ID",
           "options": {},
           "schema": {}
         },
         {
           "type": "FileUploadField",
-          "name": "uploadPartnersPassport",
+          "name": "partnerPassport",
           "title": "Upload a file",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
       ],
       "next": [
-        {
-          "path": "/your-details"
-        },
         {
           "path": "/upload-decree-absolute"
         },
@@ -425,6 +427,12 @@
         },
         {
           "path": "/upload-dissolution"
+        },
+        {
+          "path": "/upload-annulment"
+        },
+        {
+          "path": "/your-details"
         }
       ],
       "section": "addSupportingDocuments"
@@ -454,7 +462,7 @@
           "path": "/contact-preference"
         },
         {
-          "path": "/declaration"
+          "path": "/summary"
         }
       ]
     },
@@ -497,7 +505,7 @@
       ],
       "next": [
         {
-          "path": "/oppositeOrSameSex"
+          "path": "/opposite-or-same-sex"
         },
         {
           "path": "/no-civil-partnership"
@@ -506,19 +514,22 @@
     },
     {
       "path": "/complete-affirmation",
-      "title": "Complete your affirmation of marital status",
+      "title": "Getting married in Thailand",
       "components": [
         {
-          "type": "Para",
-          "content": "<p class=\"govuk-body\">To get married in Thailand you need to:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>complete this form online</li>\r\n  <li>swear an affirmation at the embassy in Bangkok</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">An affirmation of marital status costs £50. Your documents will be valid for 3 months from the date they are stamped at the embassy.</p>\r\n\r\n<p class=\"govuk-body\">If your partner is British they will also need to swear an affirmation. If they're not, they might need an equivalent document.</p>",
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">To get married in Thailand you need to:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>complete your affirmation of marital status online</li>\r\n  <li>swear an affirmation at the embassy in Bangkok</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> After you've sworn your affirmation you have until the end of the calendar month plus 3 months to get married or your documents will become invalid. </p>\r\n\r\n\r\n\r\n<p class=\"govuk-body\">If your partner is British they will also need to swear an affirmation. If they're not, they might need an equivalent document.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-l\">Complete your affirmation of marital status</h2>\r\n\r\n<p class=\"govuk-body\">Complete your affirmation of marital status online or download and complete the paper application. This service costs £50. </p>",
           "options": {},
           "schema": {}
         }
       ],
       "next": [
-        {
-          "path": "/how-to-get-a-affirmation"
-        },
         {
           "path": "/how-to-get-an-affirmation"
         }
@@ -543,7 +554,7 @@
       ]
     },
     {
-      "path": "/oppositeOrSameSex",
+      "path": "/opposite-or-same-sex",
       "title": "Is your partner of the opposite sex?",
       "components": [
         {
@@ -570,31 +581,31 @@
     },
     {
       "path": "/what-youll-need-divorce",
-      "title": "What you'll need to apply",
+      "title": "What you'll need to have ready",
       "components": [
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">You'll need to upload the following documents before you start your application:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your decree absolute</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your decree absolute</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of your ceremony</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
           "title": "Who can be a referee",
-          "content": "The Thai authorities require your two referees to be British Nationals residing in the UK. They can be anyone who knows you including family or friends and don’t have to be the same people that witness the wedding registration.",
+          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
           "options": {},
           "schema": {}
         }
@@ -607,26 +618,19 @@
     },
     {
       "path": "/upload-passport",
-      "title": "Upload a photo of your passport",
+      "title": "Passport",
       "section": "addSupportingDocuments",
       "components": [
         {
-          "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of the page with the passport photo.</p>",
+          "type": "Para",
+          "content": "Add a photo of the main page of your British passport - the page with the passport photo.",
           "options": {},
           "schema": {}
         },
         {
           "type": "FileUploadField",
-          "name": "passportPhoto",
+          "name": "passport",
           "title": "Upload a file",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         }
@@ -640,6 +644,7 @@
     {
       "path": "/divorce-details",
       "title": "About your divorce",
+      "condition": "isDivorced",
       "components": [
         {
           "type": "Para",
@@ -658,8 +663,11 @@
           "type": "TextField",
           "name": "placeOfIssue",
           "title": "Place of issue",
+          "hint": "If you were divorced in the UK write the place of issue exactly as it appears on your decree absolute, for example IN THE Derby County Court",
           "options": {},
-          "schema": {}
+          "schema": {
+            "regex": "^IN THE"
+          }
         }
       ],
       "next": [
@@ -674,11 +682,11 @@
     },
     {
       "path": "/about-your-ceremony",
-      "title": "Place and date of your ceremony",
+      "title": "Place and date of your marriage registration",
       "components": [
         {
           "type": "Html",
-          "content": "<h3 class=\"govuk-heading-m\">Province of ceremony </h3>",
+          "content": "<h3>Province of marriage registration</h3>",
           "options": {},
           "schema": {}
         },
@@ -718,7 +726,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\"> Your referees' address must not be in Thailand.</p>\r\n<p class=\"govuk-body\"> They don't have to be the same as the witnesses to your marriage. </p>",
+          "content": "<p class=\"govuk-body\"> Your referees must not live in Thailand.</p>\r\n<p class=\"govuk-body\"> They don't have to be the same as the witnesses to your marriage. </p>",
           "options": {},
           "schema": {}
         },
@@ -732,7 +740,9 @@
           "type": "TextField",
           "name": "fullName",
           "title": "Full name",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         },
         {
@@ -825,7 +835,7 @@
           },
           "type": "SelectField",
           "name": "homeCountry",
-          "title": "Home country",
+          "title": "Country",
           "schema": {}
         }
       ],
@@ -852,13 +862,13 @@
       ],
       "next": [
         {
-          "path": "/declaration"
+          "path": "/summary"
         }
       ]
     },
     {
       "path": "/marital-status",
-      "title": "Have you been married or in a civil partnership before?",
+      "title": "Your marital status",
       "components": [
         {
           "options": {
@@ -872,10 +882,10 @@
       ],
       "next": [
         {
-          "path": "/what-youll-need"
+          "path": "/current-status"
         },
         {
-          "path": "/current-status"
+          "path": "/what-youll-need"
         }
       ],
       "section": "yourMaritalStatus"
@@ -892,6 +902,13 @@
           "schema": {}
         },
         {
+          "type": "DatePartsField",
+          "name": "dateOfBirth",
+          "title": "Date of birth",
+          "options": {},
+          "schema": {}
+        },
+        {
           "options": {
             "list": "sex"
           },
@@ -901,27 +918,20 @@
           "schema": {}
         },
         {
-          "type": "DatePartsField",
-          "name": "dateOfBirth",
-          "title": "Date of birth",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "placeOfBirth",
-          "title": "Place of birth",
-          "hint": "As shown on your birth certificate or naturalisation certificate",
-          "options": {},
-          "schema": {}
-        },
-        {
           "options": {
             "list": "country"
           },
           "type": "SelectField",
           "name": "countryOfBirth",
           "title": "Country of birth",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfBirth",
+          "title": "Place of birth",
+          "hint": "As shown on your passport",
+          "options": {},
           "schema": {}
         },
         {
@@ -946,6 +956,7 @@
           "path": "/uk-address"
         }
       ],
+      "condition": "noPreviousNames",
       "section": "yourDetails"
     },
     {
@@ -955,7 +966,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you are British citizen but don't have a UK passport, please contact the <a href=\"https://www.gov.uk/world/organisations/british-embassy-bangkok\" class=\"govuk-link\">British embassy in Bangkok</a> </p>",
+          "content": "If you are British citizen but don't have a UK passport, please contact the <a href=\"https://www.gov.uk/world/organisations/british-embassy-bangkok\" class=\"govuk-link\">British embassy in Bangkok</a>",
           "options": {},
           "schema": {}
         }
@@ -965,11 +976,11 @@
     {
       "path": "/no-civil-partnership",
       "title": "Civil partnership is not recognised in Thailand",
-      "condition": "ceremonyIsCivilPartnership",
+      "condition": "isCivilPartnership",
       "components": [
         {
           "type": "Para",
-          "content": "You won't be able to plan your civil partnership cermeony in Thailand",
+          "content": "You won't be able to plan your civil partnership ceremony in Thailand",
           "options": {},
           "schema": {}
         }
@@ -979,11 +990,11 @@
     {
       "path": "/no-same-sex-marriage",
       "title": "Same sex marriage is not recognised in Thailand",
-      "condition": "isSameSexMarriage",
+      "condition": "notOppositeSex",
       "components": [
         {
           "type": "Para",
-          "content": "You won't be able to plan your same sex marriage cermeony in Thailand",
+          "content": "You won't be able to plan your same sex marriage ceremony in Thailand",
           "options": {},
           "schema": {}
         }
@@ -1013,16 +1024,12 @@
           "name": "placeOfIssue",
           "title": "Place of issue",
           "options": {},
-          "schema": {}
+          "schema": {
+            "regex": "^IN THE"
+          }
         }
       ],
       "next": [
-        {
-          "path": "/whatYoullNeed"
-        },
-        {
-          "path": "/wha-youll-need"
-        },
         {
           "path": "/what-youll-need-dissolution"
         }
@@ -1032,6 +1039,7 @@
       "path": "/about-widowhood",
       "title": "About your late partner",
       "section": "yourMaritalStatus",
+      "condition": "isWidowedOrSurviving",
       "components": [
         {
           "type": "Para",
@@ -1050,8 +1058,11 @@
           "type": "TextField",
           "name": "placeOfIssue",
           "title": "Place of issue",
+          "hint": "If the certificate was issued in the UK write the place of issue exactly as it appears, for example North Middlesex Hospital, Edmonton",
           "options": {},
-          "schema": {}
+          "schema": {
+            "regex": "^IN THE"
+          }
         }
       ],
       "next": [
@@ -1061,9 +1072,10 @@
       ]
     },
     {
-      "path": "/about-annullment",
-      "title": "About your annullment",
+      "path": "/about-annulment",
+      "title": "About your annulment",
       "section": "yourMaritalStatus",
+      "condition": "isAnnulled",
       "components": [
         {
           "type": "Para",
@@ -1083,42 +1095,44 @@
           "name": "placeOfIssue",
           "title": "Place of issue",
           "options": {},
-          "schema": {}
+          "schema": {
+            "regex": "^IN THE"
+          }
         }
       ],
       "next": [
         {
-          "path": "/what-youll-need-annullment"
+          "path": "/what-youll-need-annulment"
         }
       ]
     },
     {
       "path": "/what-youll-need-widow",
-      "title": "What you'll need to apply",
+      "title": "What you'll need to have ready",
       "components": [
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">You'll need to upload the following documents before you start your application:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your late partner's death certificate</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your late partner's death certificate</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
-          "title": "How to photograph your documents",
+          "title": "How to take a good photograph",
           "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of your ceremony</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
           "title": "Who can be a referee",
-          "content": "The Thai authorities require your two referees to be British Nationals residing in the UK. They can be anyone who knows you including family or friends and don’t have to be the same people that witness the wedding registration.",
+          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
           "options": {},
           "schema": {}
         }
@@ -1131,31 +1145,31 @@
     },
     {
       "path": "/what-youll-need-dissolution",
-      "title": "What you'll need to apply",
+      "title": "What you'll need to have ready",
       "components": [
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">You'll need to upload the following documents before you start your application:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your final order</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your final order</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
-          "title": "How to photograph your documents",
+          "title": "How to take a good photograph",
           "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of your ceremony</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
           "title": "Who can be a referee",
-          "content": "The Thai authorities require your two referees to be British Nationals residing in the UK. They can be anyone who knows you including family or friends and don’t have to be the same people that witness the wedding registration.",
+          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
           "options": {},
           "schema": {}
         }
@@ -1167,32 +1181,32 @@
       ]
     },
     {
-      "path": "/what-youll-need-annullment",
-      "title": "What you'll need to apply",
+      "path": "/what-youll-need-annulment",
+      "title": "What you'll need to have ready",
       "components": [
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">You'll need to upload the following documents before you start your application:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your decree of nullity</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your decree of nullity</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
-          "title": "How to photograph your documents",
+          "title": "How to take a good photograph",
           "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of your ceremony</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Details",
           "title": "Who can be a referee",
-          "content": "The Thai authorities require your two referees to be British Nationals residing in the UK. They can be anyone who knows you including family or friends and don’t have to be the same people that witness the wedding registration.",
+          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
           "options": {},
           "schema": {}
         }
@@ -1205,8 +1219,7 @@
     },
     {
       "path": "/what-youll-need",
-      "title": "What you'll need to apply",
-      "condition": "isPreviouslyMarried",
+      "title": "What you'll need to have ready",
       "components": [
         {
           "type": "Para",
@@ -1216,14 +1229,14 @@
         },
         {
           "type": "Details",
-          "title": "How to photograph your documents",
+          "title": "How to take a good photograph",
           "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of your ceremony</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
@@ -1243,20 +1256,19 @@
     },
     {
       "path": "/upload-decree-absolute",
-      "title": "Upload a photo of your decree absolute",
+      "title": "Decree absolute",
       "condition": "isDivorced",
       "components": [
         {
-          "type": "FileUploadField",
-          "name": "decreeAbsolute",
-          "title": "Upload a photo of your decree absolute",
+          "type": "Para",
+          "content": "Add a photo of your decree absolute",
           "options": {},
           "schema": {}
         },
         {
-          "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "type": "FileUploadField",
+          "name": "decree-absolute",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         }
@@ -1270,21 +1282,20 @@
     },
     {
       "path": "/upload-death-certificate",
-      "title": "Upload a photo of your late partner's death certificate",
+      "title": "Late partner's death certificate",
       "section": "addSupportingDocuments",
       "condition": "isWidowedOrSurviving",
       "components": [
         {
-          "type": "FileUploadField",
-          "name": "deathCertificate",
-          "title": "Upload a photo of your late partner's death certificate",
+          "type": "Para",
+          "content": "Add a photo of your late partner's death certificate",
           "options": {},
           "schema": {}
         },
         {
-          "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "type": "FileUploadField",
+          "name": "death-certificate",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         }
@@ -1297,84 +1308,57 @@
     },
     {
       "path": "/upload-dissolution",
-      "title": "Upload a photo of your final order",
+      "title": "Final order",
+      "section": "addSupportingDocuments",
+      "condition": "isDissolved",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Add a photo of your final order.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "final-order",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [{
+        "path": "/your-details"
+      }]
+    },
+    {
+      "path": "/upload-annulment",
+      "title": "Decree of nullity",
       "section": "addSupportingDocuments",
       "condition": "isAnnulled",
       "components": [
         {
-          "type": "FileUploadField",
-          "name": "finalOrder",
-          "title": "Upload a photo of your final order",
+          "type": "Para",
+          "content": "Add a photo of your decree of nullity.",
           "options": {},
           "schema": {}
         },
         {
-          "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/your-details"
-        }
-      ]
-    },
-    {
-      "path": "/upload-annulment",
-      "title": "Upload a photo of your decree of nullity",
-      "section": "addSupportingDocuments",
-      "components": [
-        {
           "type": "FileUploadField",
-          "name": "uploadFile",
+          "name": "decree-nullity",
           "title": "Upload a file",
           "options": {},
           "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to photograph your documents",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
         }
       ],
-      "next": []
+      "next": [{
+        "path": "/your-details"
+      }]
     },
     {
       "path": "/summary",
       "title": "Summary",
       "components": [],
       "next": []
-    },
-    {
-      "path": "/declaration",
-      "title": "Declaration",
-      "components": [
-        {
-          "type": "Para",
-          "content": "I hereby declare that the information given is correct to the best of my knowledge and belief.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "options": {
-            "list": "confirm"
-          },
-          "type": "CheckboxesField",
-          "name": "confirm",
-          "title": "Confirm",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ]
     }
   ],
   "sections": [
@@ -1387,16 +1371,16 @@
       "title": "Personal details"
     },
     {
-      "name": "companyDetails",
-      "title": "Company details"
-    },
-    {
       "name": "yourDetails",
       "title": "Your details"
     },
     {
+      "name": "yourPartnersDetails",
+      "title": "Your Partner's details"
+    },
+    {
       "name": "yourMaritalStatus",
-      "title": "Your marital or civil status"
+      "title": "Your marital status"
     },
     {
       "name": "yourPassport",
@@ -1419,15 +1403,11 @@
       "title": "Add your documents"
     },
     {
-      "name": "yourPartnersDetails",
-      "title": "Your partner's details"
-    },
-    {
       "name": "checkApplication",
       "title": "Check this application"
     },
     {
-      "name": "/declaration",
+      "name": "declaration",
       "title": "Declaration"
     },
     {
@@ -2298,6 +2278,11 @@
           "description": ""
         },
         {
+          "text": "Legally dissolved civil partner",
+          "value": "dissolved",
+          "description": ""
+        },
+        {
           "text": "Widowed",
           "value": "widowed",
           "description": ""
@@ -2512,19 +2497,24 @@
       "type": "string",
       "items": [
         {
-          "text": "Get your documents ready",
-          "value": "Get your documents ready",
-          "description": "We'll tell you what documents you need"
+          "text": "Find out what documents you need",
+          "value": "Find out what documents you need",
+          "description": "Complete the next few questions so we can tell you what documents you need"
         },
         {
-          "text": "Add your documents",
-          "value": "Add your documents",
-          "description": "We'll show you how to upload your documents"
+          "text": "Get your documents ready",
+          "value": "Get your documents ready",
+          "description": "Answer the next few questions so we can tell you what documents you'll need to apply"
+        },
+        {
+          "text": "Upload your documents",
+          "value": "Upload your documents",
+          "description": "Upload a photo or scan of your documents"
         },
         {
           "text": "Apply online",
           "value": "Apply online",
-          "description": "Take as long as you need to finish, but if you're inactive for 20 minutes your application will time out"
+          "description": "Take as long as you need to finish, but if you're inactive got 30 minutes your application will time out"
         },
         {
           "text": "Pay online",
@@ -2532,8 +2522,8 @@
           "description": "Pay by credit or debit card"
         },
         {
-          "text": "Book an appointment at the Thai embassy",
-          "value": "Book an appointment at the Thai embassy",
+          "text": "Book an appointment at the British Embassy in Bangkok",
+          "value": "Book an appointment at the British Embassy in Bangkok",
           "description": "You'll need to swear the affirmation in person at the embassy in Bangkok"
         }
       ]
@@ -2645,6 +2635,11 @@
           "description": ""
         },
         {
+          "text": "FCO",
+          "value": "FCO",
+          "description": ""
+        },
+        {
           "text": "Other",
           "value": "Other",
           "description": ""
@@ -2652,13 +2647,13 @@
       ]
     },
     {
-      "name": "don'tKnow",
-      "title": "I don't know",
+      "name": "unknown",
+      "title": "Unknown",
       "type": "string",
       "items": [
         {
-          "text": "I don't know",
-          "value": "I don't know",
+          "text": "Unkown",
+          "value": "Unknown",
           "description": ""
         }
       ]
