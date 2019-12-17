@@ -1,213 +1,4954 @@
 {
   "conditions": [
     {
-      "name": "isAsap",
-      "value": "licenceDetails.startKind == 'asap'"
+      "name": "hadPreviousNames",
+      "value": "yourDetails.previousNames == true"
     },
     {
-      "name": "isAbsolute",
-      "value": "licenceDetails.startKind == 'absolute'"
+      "name": "previouslyMarriedOrCivilPartnership",
+      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore==true"
     },
     {
-      "name": "isJunior",
-      "value": "personalDetails.ageGroup == 'junior'"
+      "name": "notPreviouslyMarried",
+      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore==false"
     },
     {
-      "name": "isFull",
-      "value": "personalDetails.ageGroup == 'full'"
+      "name": "isDivorced",
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='divorced'"
     },
     {
-      "name": "isAnnual",
-      "value": "licenceDetails.licenceLength == 365"
+      "name": "isWidowed",
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='widowed'"
     },
     {
-      "name": "isShortTerm",
-      "value": "licenceDetails.licenceLength == 1 or licenceDetails.licenceLength == 8"
+      "name": "isAnnulment",
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='annulment'"
     },
     {
-      "name": "isSalmon",
-      "value": "licenceDetails.licenceType == 'salmonAndSeaTrout'"
+      "name": "isSurviving",
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='surviving civil partner'"
     },
     {
-      "name": "isTroutAndCourse",
-      "value": "licenceDetails.licenceType == 'troutAndCourse'"
+      "name": "isWidowedOrSurviving",
+      "value": "isSurviving or isWidowed"
     },
     {
-      "name": "hasPIPorDLA",
-      "value": "concessions.hasPIPorDLA == true"
+      "name": "isDissolved",
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='dissolved civil partnership'"
     },
     {
-      "name": "hasBlueBadge",
-      "value": "concessions.hasBlueBadge == true"
+      "name": "partnerPreviouslyMarriedOrCivilPartnership",
+      "value": "partnersDetails.partnersCurrentMaritalStatus==true"
     },
     {
-      "name": "isAsapAndFull",
-      "value": "isAsap and isFull"
+      "name": "partnerIsDivorced",
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='divorced'"
     },
     {
-      "name": "isAnnualAndFull",
-      "value": "isAnnual and isFull"
+      "name": "partnerIsWidowed",
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='widowed'"
     },
     {
-      "name": "isAbsoluteAndShortTerm",
-      "value": "isAbsolute and isShortTerm"
+      "name": "partnerIsAnnulment",
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='annulment'"
     },
     {
-      "name": "requiresNI",
-      "value": "isAnnualAndFull and hasPIPorDLA"
+      "name": "partnerIsSurviving",
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='surviving civil partner'"
     },
     {
-      "name": "requiresBBCheck",
-      "value": "isAnnualAndFull and hasPIPorDLA == false"
+      "name": "partnerIsDissolved",
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='dissolved civil partnership'"
     },
     {
-      "name": "requiresBB",
-      "value": "requiresBBCheck and hasBlueBadge"
+      "name": "partnerIsWidowedOrSurviving",
+      "value": "partnerIsSurviving or partnerIsWidowed"
+    },
+    {
+      "name": "partnerCanContact",
+      "value": "feedbackSection.canPartnerContactYou==true"
+    },
+    {
+      "name": "partnerCantContact",
+      "value": "feedbackSection.canPartnerContactYou==false"
+    },
+    {
+      "name": "divorceCertificateUpload",
+      "value": "yourMaritalOrCivilStatus.documentUpload=='Add photo from your mobile'"
+    },
+    {
+      "name": "divorceCertificateByPost",
+      "value": "yourMaritalOrCivilStatus.documentUpload=='Send by post'"
+    },
+    {
+      "name": "deathCertificateUpload",
+      "value": "yourMaritalOrCivilStatus.deathCertificate=='Add photo from your mobile'"
+    },
+    {
+      "name": "deathCertificateByPost",
+      "value": "yourMaritalOrCivilStatus.deathCertificate=='Send by post'"
+    },
+    {
+      "name": "noBritishPassport",
+      "value": "britishPassport==false"
+    },
+    {
+      "name": "livesInSpain",
+      "value": "whereDoYouLive=='Spain'"
+    },
+    {
+      "name": "livesInUK",
+      "value": "whereDoYouLive=='UK'"
+    },
+    {
+      "name": "livesElsewhere",
+      "value": "whereDoYouLive=='Elsewhere'"
+    },
+    {
+      "name": "isCivilPartnership",
+      "value": "aboutYourCeremony.ceremony=='Civil partnership'"
+    },
+    {
+      "name": "partnerSpanishNational",
+      "value": "partnerSpanish==true"
+    },
+    {
+      "name": "partnerNotSpanishNational",
+      "value": "partnerSpanish==false"
+    },
+    {
+      "name": "partnerSpanishResident",
+      "value": "partnerResidentInSpain==true"
+    },
+    {
+      "name": "needsCNI",
+      "value": "spanishCNI=='yes'"
+    },
+    {
+      "name": "doesntNeedCNI",
+      "value": "spanishCNI=='no'"
+    },
+    {
+      "name": "doesntKnowCNI",
+      "value": "spanishCNI=='dont know'"
+    },
+    {
+      "name": "needsMSC",
+      "value": "needMSC=='yes'"
+    },
+    {
+      "name": "needsMSCOnly",
+      "value": "needsMSC and doesntNeedCNI"
+    },
+    {
+      "name": "doesntNeedMSC",
+      "value": "needMSC=='no'"
+    },
+    {
+      "name": "needsCNIOnly",
+      "value": "needsCNI and doesntNeedMSC"
+    },
+    {
+      "name": "needsMSCAndCNI",
+      "value": "needsMSC and needsCNI"
+    },
+    {
+      "name": "doesntKnowMSC",
+      "value": "needMSC=='dont know'"
+    },
+    {
+      "name": "doesntLiveInUK",
+      "value": "whereDoYouLive!='UK'"
+    },
+    {
+      "name": "livesInUKAndCNI",
+      "value": "livesInUK and needsCNI"
+    },
+    {
+      "name": "doesntLiveInUKAndCNI",
+      "value": "doesntLiveInUK and needsCNI"
+    },
+    {
+      "name": "livesInUKAndBoth",
+      "value": "livesInUK and needsCNI and needsMSC"
+    },
+    {
+      "name": "livesElsewhereAndNeedsMSC",
+      "value": "livesElsewhere and needsMSC"
     }
   ],
   "startPage": "/",
   "pages": [
     {
-      "path": "/",
+      "path": "/your-details",
+      "section": "yourDetails",
       "components": [
         {
+          "type": "Para",
+          "content": "Provide the details exactly as they appear on your passport.",
+          "options": {},
+          "schema": {}
+        },
+        {
           "options": {
-            "list": "licenceLengthDays",
-            "bold": true
+            "classes": "govuk-input--width-20"
           },
-          "type": "RadiosField",
-          "name": "licenceLength",
-          "title": {
-            "en": "Which fishing licence do you want to get?",
-            "es": "some Spanish"
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "hint": "If you have any middle names make sure you include them here",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
           },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "surname",
+          "title": "Surname",
           "schema": {}
         }
       ],
-      "section": "licenceDetails",
       "next": [
         {
-          "path": "/full-name"
+          "path": "/sex"
+        }
+      ],
+      "title": "Full name"
+    },
+    {
+      "path": "/have-you-been-married-before",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "options": {},
+          "type": "YesNoField",
+          "name": "marriedOrCivilPartnershipBefore",
+          "title": "Have you been married or in a civil partnership before?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/whatIsYourCurrentMaritalStatus"
+        },
+        {
+          "path": "/partner-married-before"
+        }
+      ],
+      "title": "Have you been married or in a civil partnership before?"
+    },
+    {
+      "path": "/your-contact-details",
+      "title": "Contact details",
+      "section": "yourContactDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "We may need to contact you about your application.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "name": "email",
+          "title": "Email address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TelephoneNumberField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "hint": "Including country code",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-details"
         }
       ]
     },
     {
-      "path": "/full-name",
+      "path": "/about-your-ceremony",
+      "title": "Place and date of your ceremony",
       "components": [
         {
-          "schema": {
-            "max": 70
+          "options": {
+            "required": false
           },
           "type": "TextField",
-          "name": "fullName",
-          "title": {
-            "en": "What's your full name?",
-            "es": "some Spanish"
+          "name": "placeOfMarriage",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
           },
+          "type": "DatePartsField",
+          "name": "dateOfMarriage",
+          "title": "Date",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/feedback"
+        }
+      ]
+    },
+    {
+      "path": "/partners-details",
+      "title": "Partner's details",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your partner's passport.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "partnersFullName",
+          "title": "Full name",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "sex"
+          },
+          "type": "RadiosField",
+          "name": "partnersSex",
+          "title": "Sex",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "nationality",
+          "title": "Nationality",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/name-of-Spanish-authority"
+        }
+      ]
+    },
+    {
+      "path": "/whatIsYourCurrentMaritalStatus",
+      "condition": "previouslyMarriedOrCivilPartnership",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "options": {
+            "list": "maritalStatus"
+          },
+          "type": "RadiosField",
+          "name": "maritalStatusNow",
+          "title": "What is your current marital status?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/divorce-details"
+        },
+        {
+          "path": "/about-widowhood"
+        },
+        {
+          "path": "/dissolution-of-civil-partnership"
+        },
+        {
+          "path": "/about-annulment"
+        }
+      ],
+      "title": "What is your current marital status?"
+    },
+    {
+      "path": "/feedback",
+      "title": "Feedback",
+      "section": "feedbackSection",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">We welcome your views on the registration service.</p>\r\n<p class=\"govuk-body\">If you agree to be contacted by answering 'yes' below, you will be consenting to share your personal data – name, email address, telephone number and service received – with our independent partner research agency, IFF research.</p>\r\n<p class=\"govuk-body\">You may withdraw your consent at any stage by email Consular.research@fco.gov.uk. </p>\r\n<p class=\"govuk-body\">For more details on how your data will be handled in relation to feedback please see the research privacy policy at www.gov.uk/fco/tell-fco.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "canPartnerContactYou",
+          "title": "Can our partner contact you for feedback to help improve this service?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/preferrableContact"
+        },
+        {
+          "path": "/declaration"
+        }
+      ]
+    },
+    {
+      "path": "/preferrableContact",
+      "title": "How do you prefer to be contacted?",
+      "condition": "partnerCanContact",
+      "section": "feedbackSection",
+      "components": [
+        {
+          "options": {
+            "list": "contactOptions"
+          },
+          "type": "RadiosField",
+          "name": "PreferContacted",
+          "title": "How do you prefer to be contacted?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/declaration"
+        }
+      ]
+    },
+    {
+      "path": "/start",
+      "title": "Getting married abroad",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you’re a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Use this tool to find out how to get the documents you’ll need.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "You’ll need to contact the local authorities where you want to get married to find out what you need to do.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Your marriage or civil partnership will be recognised in the UK if both of the following apply:",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\"></p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>you followed the correct process in the country where you got married</li>\r\n  <li> it would be allowed under UK law</li>\r\n\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "InsetText",
+          "content": "There’s a separate guide if you want to get married or enter into a civil partnership in the UK.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/country-picker"
+        }
+      ]
+    },
+    {
+      "path": "/country-picker",
+      "title": "Getting married abroad",
+      "components": [
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "countryPicker",
+          "title": "Where do you want to get married?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/british-passport"
+        },
+        {
+          "path": "/getting-married-in-spain"
+        }
+      ]
+    },
+    {
+      "path": "/ceremony",
+      "title": "What type of ceremony are you planning?",
+      "section": "aboutYourCeremony",
+      "components": [
+        {
+          "options": {
+            "list": "ceremony"
+          },
+          "type": "RadiosField",
+          "name": "ceremony",
+          "title": "What type of ceremony are you planning?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/service-start"
+        },
+        {
+          "path": "/no-civil-partnership"
+        }
+      ]
+    },
+    {
+      "path": "/service-start",
+      "title": "Getting married in Spain",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    Contact the civil registry office where you're planning to get married to find out what documents you need. Apply for all your certificates at least 3 months before you take your documents to the civil registry appointment. \r\n  </strong>\r\n</div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\"> The civil registry office will ask for one or both of the following: </p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/452468/EXAMPLE_CERT_Certificate_of_No_Impediment_CNI__1_.pdf\" class=\"govuk-link govuk-link--no-visited-state\">Certificate of no impediment</a></li>\r\n  <li><a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/452452/Marital_Status_example__1_.pdf\" class=\"govuk-link govuk-link--no-visited-state\">Marital status certificate</a></li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Print out both sample forms and take them with you when you first visit the civil registry office. They will tell you which forms you need.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "If your partner is British they’ll need to make a separate application to the consulate with the same certificates. If they’re not British they’ll need equivalent documents from their local authorities.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/apply-for-a-certificate-of-custom"
+        },
+        {
+          "path": "/spanish-CNI"
+        }
+      ]
+    },
+    {
+      "path": "/upload-passport",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of the  main page of your UK passport – the page with the passport photo.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "uploadAFile",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-partners-passport"
+        },
+        {
+          "path": "/add-birth-certificate"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
+        }
+      ],
+      "title": "Passport"
+    },
+    {
+      "path": "/declaration",
+      "section": "declaration",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">I understand and accept that it is my responsibility to ensure that any document provided as a result of this Consular service is acceptable to the requesting authority and that if the document is to be presented outside of the UK or\r\nSpain, the signature of the Consular officer will be recognised by the requesting authority. Refunds cannot be given where the incorrect service is requested.</p> \r\n<p class=\"govuk-body\">I request the British Consulate in Madrid accept receipt of my Certificate of No Impediment application by post/courier and that my certificate and any original documents will be returned to me by courier.</p> \r\n<p class=\"govuk-body\">I understand and accept that if my application is sent back to me for any reason, I will be charged for postage. In doing so, I fully understand and accept that the Foreign and Commonwealth Office assumes no legal or other responsibility for any loss, damage or misplacement of the said property whilst in transit to or from the British Consulate in Madrid.</p>\r\n<p class=\"govuk-body\"><p class=\"govuk-body govuk-!-font-weight-bold\">I declare that the particulars given above are true to the best of my personal knowledge and belief.</p>\r\n </p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "confirm"
+          },
+          "type": "CheckboxesField",
+          "name": "confirm",
+          "title": "Confirm",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Declaration"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "title": "Summary",
+      "next": [
+        {
+          "path": "/confirmation"
+        }
+      ]
+    },
+    {
+      "path": "/british-passport",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "britishPassport",
+          "title": "Do you have UK passport?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/no-british-passport"
+        },
+        {
+          "path": "/where-do-you-live"
+        }
+      ]
+    },
+    {
+      "path": "/add-proof-of-address-Spain",
+      "title": "Proof of address",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of either:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before</li>\r\n  <li>a Spanish residence certificate (green card with NIE number and address)</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "uploadAFile",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "x",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-divorce-death-picture"
+        },
+        {
+          "path": "/add-birth-certificate"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
+        }
+      ],
+      "section": "addYourDocuments"
+    },
+    {
+      "path": "/sex",
+      "title": "Sex as shown on passport",
+      "section": "yourDetails",
+      "components": [
+        {
+          "options": {
+            "list": "sex"
+          },
+          "type": "RadiosField",
+          "name": "sex",
+          "title": "Sex as shown on your passport",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/uk-address"
+        }
+      ]
+    },
+    {
+      "path": "/no-british-passport",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">If you are British citizen but don't have a UK passport please contact the <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British consulate in Madrid to continue your application. </a> </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "title": "You need to have a UK passport to apply for this service  online",
+      "condition": "noBritishPassport"
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-MSC-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/add-birth-certificate",
+      "title": "Long birth certificate",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">Add a photo of your long UK birth certificate. This is the version that shows the names of your parents.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "UploadAFile",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "c",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/add-decree-absolute"
+        },
+        {
+          "path": "/upload-Spanish-proof-of-address"
+        },
+        {
+          "path": "/upload-proof-of-stay-before-signing"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
+        }
+      ]
+    },
+    {
+      "path": "/deliveryAddress",
+      "title": "Delivery address",
+      "section": "yourDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Your delivery address needs to be in Spain.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "recipientName",
+          "title": "Full name of recipient",
+          "hint": "if different from yours",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "address",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "address",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "town-or-city",
+          "title": "Town or city",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "schema": {
+            "max": 10
+          },
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
           "options": {}
         }
       ],
-      "section": "personalDetails",
       "next": [
         {
-          "path": "/date-of-birth"
+          "path": "/your-contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/name-of-Spanish-authority",
+      "title": "Name of Spanish authority requesting the certificate",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "nameOfSpanishAuthority",
+          "title": "Name of Spanish authority requesting the certificate",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/date-of-appointment"
+        }
+      ]
+    },
+    {
+      "path": "/date-of-appointment",
+      "title": "Date of appointment to submit paperwork to the authority in Spain",
+      "components": [
+        {
+          "type": "DatePartsField",
+          "name": "dateOfAppointment",
+          "title": "Date of appointment to submit paperwork to the authority in Spain",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-your-ceremony"
+        }
+      ]
+    },
+    {
+      "path": "/partner-married-before",
+      "title": "Has your partner been married or in a civil partnership before?",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "hasBeenMarriedBefore",
+          "title": "Has your partner been married or in a civil partnership before?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-current-marital-status"
+        },
+        {
+          "path": "/local-deed-docs"
+        },
+        {
+          "path": "/what-you-need-to-apply-married-before"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-married"
+        }
+      ]
+    },
+    {
+      "path": "/partners-current-marital-status",
+      "title": "What is your partner's current marital status?",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "options": {
+            "list": "maritalStatus"
+          },
+          "type": "RadiosField",
+          "name": "partnersCurrentMaritalStatus",
+          "title": "What is your partner's current marital status?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-divorce-details"
+        },
+        {
+          "path": "/partners-widowhood"
+        },
+        {
+          "path": "/partners-dissolution"
+        },
+        {
+          "path": "/partners-annulment"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI"
+        }
+      ]
+    },
+    {
+      "path": "/partners-divorce-details",
+      "title": "About your partner's divorce",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your partner's decree absolute.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dateOfIssue",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfIssue",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-you-need-to-apply-partner-married-before"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC-both-married"
+        }
+      ]
+    },
+    {
+      "path": "/spanish-CNI",
+      "title": "Do you need a Spanish certificate of no impediment?",
+      "components": [
+        {
+          "options": {
+            "list": "yes-no-don'tknow"
+          },
+          "type": "RadiosField",
+          "name": "spanishCNI",
+          "title": "Do you need a Spanish certificate of no impediment?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/need-MSC"
+        },
+        {
+          "path": "/find-out-cni"
+        }
+      ]
+    },
+    {
+      "path": "/need-MSC",
+      "title": "Do you need a marital status certificate?",
+      "components": [
+        {
+          "options": {
+            "list": "yes-no-don'tknow"
+          },
+          "type": "RadiosField",
+          "name": "needMSC",
+          "title": "Do you need a marital status certificate?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/find-out-msc"
+        },
+        {
+          "path": "/service-process-Living-in-UK-MSConly-255"
+        }
+      ]
+    },
+    {
+      "path": "/application-start",
+      "title": "Apply for a Spanish certificate of no impediment and marital status certificate",
+      "condition": "needsBoth",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a Spanish certificate of no impediment (‘capacidad matrimonial’) and a marital status certificate.</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 28 days to process</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A marital status certificate:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 30 days to process</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for all your certificates at least 3 months before you take your documents to the civil registry appointment. </p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Have the following information ready before you apply:</h3>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>name of authority in Spain (civil registry, court etc.)\r\nrequesting the certificate from the British Consulate</li>\r\n  <li>date of appointment to submit paperwork to the\r\nauthority in Spain. (approximate date)</li>\r\n  <li>date and place of the ceremony</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/application-process-UK-all"
+        }
+      ]
+    },
+    {
+      "path": "/where-do-you-live",
+      "title": "Where do you live?",
+      "components": [
+        {
+          "options": {
+            "list": "whereYouLive"
+          },
+          "type": "RadiosField",
+          "name": "whereDoYouLive",
+          "title": "Where do you live?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceremony"
+        },
+        {
+          "path": "/partner-spanish"
+        }
+      ]
+    },
+    {
+      "path": "/partner-spanish",
+      "title": "Is your partner a Spanish national?",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "partnerSpanish",
+          "title": "Is your partner a Spanish national?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partner-resident-in-Spain"
+        },
+        {
+          "path": "/ceremony"
+        }
+      ]
+    },
+    {
+      "path": "/partner-resident-in-Spain",
+      "title": "Is your partner a Spanish resident?",
+      "condition": "partnerNotSpanishNational",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "partnerResidentInSpain",
+          "title": "Is your partner a Spanish resident?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/ceremony"
+        },
+        {
+          "path": "/cantMarryinSpain"
+        }
+      ]
+    },
+    {
+      "path": "/uk-address",
+      "title": "Address",
+      "section": "yourDetails",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "address1",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "address2",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "cityOrTown",
+          "title": "City or town",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "sendCertificate",
+          "title": "Is this where we should send the certificate?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/deliveryAddress"
+        },
+        {
+          "path": "/your-contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/find-out-cni",
+      "title": "Find out if you need a Spanish certificate of no impediment",
+      "condition": "doesntKnowCNI",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">You need to visit the civil registry office where you're planning to get married to find out which documents you need before you can apply.</p>\r\n\r\n<p class=\"govuk-body\"> If you don't do this you might apply and pay for a certificate you don't need. </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/find-out-msc",
+      "title": "Find out if you need a marital status certificate",
+      "condition": "doesntKnowMSC",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">You need to visit the civil registry office where you're planning to get married to find out which documents you need before you can apply.</p>\r\n\r\n<p class=\"govuk-body\"> Without doing this, you risk applying and paying for a certificate you don't need. </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/no-civil-partnership",
+      "title": "Civil partnership is not recognised in Spain",
+      "condition": "isCivilPartnership",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You won't be able to plan your civil partnership ceremony in Spain.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Same sex marriage is recognised if you would still like to plan a ceremony in Spain.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/application-start-CNI",
+      "title": "Apply for a Spanish certificate of no impediment (‘capacidad matrimonial’)",
+      "condition": "needsCNIOnly",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a Spanish certificate of no impediment (‘capacidad matrimonial’).</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 28 days to process</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for your certificate at least 3 months before you take your document to the civil registry appointment. </p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-m\">Have the following information ready before you apply:</h3>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>name of authority in Spain (civil registry, court etc.)\r\nrequesting the certificate from the British Consulate</li>\r\n  <li>date of appointment to submit paperwork to the\r\nauthority in Spain. (approximate date)</li>\r\n  <li>date and place of the ceremony</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/application-process-Spain-Other-CNI-both"
+        }
+      ]
+    },
+    {
+      "path": "/application-start-MSC",
+      "title": "Apply for the marital status certificate",
+      "condition": "needsMSCOnly",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a marital status certificate.</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A marital status certificate:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 30 days to process</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for your certificate at least 3 months before you take your document to the civil registry appointment. </p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-m\">Have the following information ready before you apply:</h3>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>name of authority in Spain (civil registry, court etc.)\r\nrequesting the certificate from the British Consulate</li>\r\n  <li>date of appointment to submit paperwork to the\r\nauthority in Spain. (approximate date)</li>\r\n  <li>date and place of the ceremony</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/application-process-Spain-Other-MSC"
+        }
+      ]
+    },
+    {
+      "path": "/application-process-UK-all",
+      "title": "How to get your certificate of no impediment and marital status certificate",
+      "components": [
+        {
+          "options": {
+            "list": "applicationProcessUKandOther"
+          },
+          "type": "FlashCard",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "applicationProcessUKandOther"
+          },
+          "type": "List",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-been-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/divorce-details",
+      "title": "About your divorce",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your decree absolute.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dateOfIssue",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfIssue",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partner-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/about-widowhood",
+      "title": "About your late partner",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your late partner's death certificate.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "/divorce-details-153-153",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "/divorce-details-153-153",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partner-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/dissolution-of-civil-partnership",
+      "title": "About the dissolution of your civil partnership",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your final order.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "/about-widowhood-151-151",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "/about-widowhood-151-151",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partner-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/about-annulment",
+      "title": "About your annulment",
+      "section": "yourMaritalOrCivilStatus",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your decree of nullity",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "/dissolution-of-civil-partnership-937-937",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "/dissolution-of-civil-partnership-937-937",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partner-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/partners-widowhood",
+      "title": "About the death of your partner's late partner",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your partner's decree absolute.",
+          "options": {},
+          "schema": {},
+          "name": "/partners-divorce-details-379-379"
+        },
+        {
+          "type": "DatePartsField",
+          "name": "/partners-divorce-details-379-379",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "/partners-divorce-details-379-379",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-you-need-to-apply-partner-married-before"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC-both-married"
+        }
+      ]
+    },
+    {
+      "path": "/partners-dissolution",
+      "title": "About the dissolution of your partner's civil partnership",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your partner's final order.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "/partners-divorce-details-835-835",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "/partners-divorce-details-835-835",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-you-need-to-apply-partner-married-before"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC-both-married"
+        }
+      ]
+    },
+    {
+      "path": "/partners-annulment",
+      "title": "About your partner's annulment",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide details as they appear on your partner's decree of nullity.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "/partners-dissolution-374-374",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "/partners-dissolution-374-374",
+          "title": "Place of issue",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-you-need-to-apply-partner-married-before"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-UK-CNI-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-partner-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-MSC-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-both-married"
+        },
+        {
+          "path": "/need-to-apply-other-country-CNI-partner-married"
+        },
+        {
+          "path": "/need-to-apply-Spain-MSC-both-married"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/local-deed-docs-539-539"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/local-deed-docs-539-539"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-MSC",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/what-you-need-to-apply-married-before-145-145"
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/what-you-need-to-apply-married-before-145-145"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-MSC",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof of address</li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/what-you-need-to-apply-partner-married-before-356-356"
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/what-you-need-to-apply-partner-married-before-356-356"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/add-marital-status-documents",
+      "title": "Your marital status",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">Add one of the following documents that proves your marital status:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>decree absolute</li>\r\n  <li>final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>decree of nullity</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "uploadAFile",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
+        }
+      ]
+    },
+    {
+      "path": "/add-partners-marital-status-documents",
+      "title": "Partner's marital status",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">Add one of the following documents that proves your partner's marital status:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>decree absolute</li>\r\n  <li>final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>decree of nullity</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/add-marital-status-documents-771-771",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/add-marital-status-documents-771-771"
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/your-details"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-850-850"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-MSC",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, a copy of flight information and boarding pass) </li>\r\n  <li>proof of the address where you are staying in Spain </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-MSC-649-649"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, a copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-425-425"
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-425-425"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-MSC",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (e.g. copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-902-902"
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-902-902"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/upload-partners-passport",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of the  main page of your partner's passport – the page with the passport photo.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/upload-passport-755-755",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/upload-passport-755-755"
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-birth-certificate"
+        },
+        {
+          "path": "/upload-Spanish-proof-of-address"
+        },
+        {
+          "path": "/upload-proof-of-stay-before-signing"
+        },
+        {
+          "path": "/add-proof-of-address-Spain"
+        }
+      ],
+      "title": "Partner's passport"
+    },
+    {
+      "path": "/upload-proof-of-stay-before-signing",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo that proves you have been in Spain for at least 3 full days before signing your notice of marriage and/or affirmation(s) at a notary. This could be a copy of a boarding pass or train ticket.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/upload-partners-passport-959-959",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/upload-partners-passport-959-959"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-proof-of-address-where-you-are-staying-in-Spain"
+        }
+      ],
+      "title": "Proof of arrival in Spain"
+    },
+    {
+      "path": "/upload-proof-of-address-where-you-are-staying-in-Spain",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of a proof of address where you are staying in Spain.</p>\r\n\r\n<p class=\"govuk-body\">This could be a:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>hotel bill</li>\r\n  <li>letter from family member with a photo of their passport or ID card</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/upload-proof-of-stay-before-signing-403-403",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.0\">Lay it flat on a table or for better results against a wall.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.1\">Make sure your address is readable.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.2\">No flash if possible.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.3\">Position the phone parallel to the document.</li><li data-reactid=\".e5fgvapfcw.4.1.1.0.1.3.4.1.1:1.5.1.0.4\">Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/upload-proof-of-stay-before-signing-403-403"
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
+        }
+      ],
+      "title": "Proof of address where you're staying in Spain"
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-MSC",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-MSC-627-627"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-MSC-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-MSC-201-201"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-MSC-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-MSC-partner-married-537-537"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-partner-married-118-118"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-partner-married-118-118"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-married-810-810"
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-married-810-810"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-CNI-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-married-287-287"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-CNI-married-287-287"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-MSC-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-562-562"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-562-562"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-Spain-MSC-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento'), issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-partner-married-457-457"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-partner-married-457-457"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-MSC-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof of address</li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-917-917"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-917-917"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-MSC-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof of address</li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-186-186"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-186-186"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-MSC-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof of address</li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-partner-married-247-247"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-MSC-partner-married-247-247"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Ulpoad the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-888-888"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-married-481-481"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-UK-CNI-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's certificate of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-partner-married-516-516"
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-UK-CNI-partner-married-516-516"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-MSC-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n  <li>proof of the address where you are staying in Spain </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-MSC-397-397"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-MSC-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n  <li>proof of the address where you are staying in Spain </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-MSC-married-969-969"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-MSC-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport</li>\r\n  <li>your long birth certificate</li>\r\n  <li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n  <li>proof of the address where you are staying in Spain </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-MSC-married-828-828"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-MSC-both-married2",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "what-you-need"
+          },
+          "type": "List",
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-MSC-married-828-828"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-MSC-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>proof that you have been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-MSC-319-319"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-MSC-319-319"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-MSC-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-MSC-married-494-494"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's certificate of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-MSC-married-494-494"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-MSC-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h3 class=\"govuk-heading-m\">Upload the following documents:</h3>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-MSC-partner-married-953-953"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-MSC-partner-married-953-953"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-656-656"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-656-656"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-partner-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-532-532"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-532-532"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/need-to-apply-other-country-CNI-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n <li>your partner's passport</li>\r\n<li>proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (for example, copy of flight information and boarding pass) </li>\r\n <li>proof of the address where you are staying in Spain </li>\r\n  </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-508-508"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-508-508"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/application-process-Spain-Other-CNI-both",
+      "title": "How to get your certificate of no impediment",
+      "components": [
+        {
+          "options": {
+            "list": "application-process-Spain-Other-MSC"
+          },
+          "type": "FlashCard",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-been-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/application-process-Spain-Other-MSC",
+      "title": "How to get your marital status certificate",
+      "components": [
+        {
+          "options": {
+            "list": "application-process-Spain-Other-MSC"
+          },
+          "type": "FlashCard",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/have-you-been-married-before"
+        }
+      ]
+    },
+    {
+      "path": "/can'tMarryinSpain",
+      "title": "You must be a Spanish national or resident to get married in Spain",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You won't be able to plan your marriage ceremony in Spain.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/need-to-apply-Spain-MSC-both-married",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate</li>\r\n<li>a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before <p class=\"govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0\">or</p> Spanish residence certificate (green card with NIE number and address) </li>\r\n</ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-married-628-628"
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-married-628-628"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your decree absolute</li>\r\n  <li>your final order</li>\r\n  <li>death certificate of your late partner</li>\r\n  <li>your decree of nullity </li>\r\n  </ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-margin-bottom-0\">You'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>partner's decree absolute</li>\r\n  <li>partner's final order</li>\r\n  <li>death certificate of your partner's late partner</li>\r\n  <li>partner's decree of nullity </li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-Spain-MSC-married-628-628"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-page-marital"
+        },
+        {
+          "path": "/upload-passport"
+        }
+      ]
+    },
+    {
+      "path": "/add-proof-of-address-outside-Spain",
+      "title": "Proof of UK address",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of a proof of your current address.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/add-your-documents-742-742"
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/add-your-documents-742-742",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "x",
+          "options": {},
+          "schema": {},
+          "name": "/add-your-documents-742-742"
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-divorce-death-picture"
+        },
+        {
+          "path": "/add-birth-certificate"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
+        }
+      ],
+      "section": "addYourDocuments"
+    },
+    {
+      "path": "/getting-married-in-spain",
+      "title": "Getting married in Spain",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You can get married in Spain if you or your partner are a Spanish national or resident.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "You will also need to get certain documents that prove you are free to get married.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Apply online or download a paper application to get the documents you need.",
+          "options": {},
+          "schema": {}
+        }
+
+      ],
+      "next": []
+    },
+    {
+      "path": "/service-process-Living-in-UK-MSConly-255",
+      "title": "Get your supporting documents",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Before you apply online for a marital status certificate you need to:",
+          "options": {
+            "condition": "needsMSCOnly"
+          },
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Before you apply online for a Spanish certificate of no impediment you need to:",
+          "options": {
+            "condition": "needsCNIOnly"
+          },
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Before you apply online for a Spanish certificate of no impediment and marital status certificate you need to:",
+          "options": {
+            "condition": "needsMSCAndCNI"
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "supporting-documents"
+          },
+          "type": "List",
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to get a notice of marriage",
+          "content": "text to come",
+          "options": {
+            "condition": "livesInUKAndCNI"
+          },
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "You'll need to sign and swear the affirmations and notice of marriage in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
+          "options": {
+            "condition": "doesntLiveInUKAndCNI"
+          },
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "You'll need to sign and swear the affirmations in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
+          "options": {
+            "condition": "needsMSC"
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/application-start-MSC"
+        },
+        {
+          "path": "/application-start"
+        },
+        {
+          "path": "/application-start-CNI"
         }
       ]
     }
   ],
   "sections": [
     {
-      "name": "personalDetails",
-      "title": "Personal details"
+      "name": "yourDetails",
+      "title": "Your details"
     },
     {
-      "name": "licenceDetails",
-      "title": "Licence details"
+      "name": "yourMaritalOrCivilStatus",
+      "title": "Your marital or civil status"
     },
     {
-      "name": "concessions",
-      "title": "Concessions"
+      "name": "deliveryDetails",
+      "title": "Delivery details"
+    },
+    {
+      "name": "yourContactDetails",
+      "title": "Your contact details"
+    },
+    {
+      "name": "partnersDetails",
+      "title": "Partner's details"
+    },
+    {
+      "name": "aboutYourCeremony",
+      "title": "About your ceremony"
+    },
+    {
+      "name": "feedbackSection",
+      "title": "Feedback"
+    },
+    {
+      "name": "addYourDocuments",
+      "title": "Add your documents"
+    },
+    {
+      "name": "declaration",
+      "title": "Declaration"
+    },
+    {
+      "name": "aboutSpanishAuthority",
+      "title": "About the Spanish authority"
     }
   ],
   "lists": [
     {
-      "name": "licenceLengthDays",
-      "title": "Licence length (days)",
+      "name": "yesNoUnsure",
+      "title": "Yes/No/Not sure",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes",
+          "description": ""
+        },
+        {
+          "text": "No",
+          "value": "no",
+          "description": ""
+        },
+        {
+          "text": "Not sure",
+          "value": "unsure",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "country",
+      "title": "Country",
       "type": "number",
       "items": [
         {
-          "text": "1 day",
+          "text": "Afghanistan",
+          "value": 910400000
+        },
+        {
+          "text": "Albania",
+          "value": 910400001
+        },
+        {
+          "text": "Algeria",
+          "value": 910400002
+        },
+        {
+          "text": "Andorra",
+          "value": 910400003
+        },
+        {
+          "text": "Angola",
+          "value": 910400004
+        },
+        {
+          "text": "Antigua and Barbuda",
+          "value": 910400005
+        },
+        {
+          "text": "Argentina",
+          "value": 910400006
+        },
+        {
+          "text": "Armenia",
+          "value": 910400007
+        },
+        {
+          "text": "Australia",
+          "value": 910400008
+        },
+        {
+          "text": "Austria",
+          "value": 910400009
+        },
+        {
+          "text": "Azerbaijan",
+          "value": 910400010
+        },
+        {
+          "text": "Bahrain",
+          "value": 910400011
+        },
+        {
+          "text": "Bangladesh",
+          "value": 910400012
+        },
+        {
+          "text": "Barbados",
+          "value": 910400013
+        },
+        {
+          "text": "Belarus",
+          "value": 910400014
+        },
+        {
+          "text": "Belgium",
+          "value": 910400015
+        },
+        {
+          "text": "Belize",
+          "value": 910400016
+        },
+        {
+          "text": "Benin",
+          "value": 910400017
+        },
+        {
+          "text": "Bhutan",
+          "value": 910400018
+        },
+        {
+          "text": "Bolivia",
+          "value": 910400019
+        },
+        {
+          "text": "Bosnia and Herzegovina",
+          "value": 910400020
+        },
+        {
+          "text": "Botswana",
+          "value": 910400021
+        },
+        {
+          "text": "Brazil",
+          "value": 910400022
+        },
+        {
+          "text": "Brunei",
+          "value": 910400023
+        },
+        {
+          "text": "Bulgaria",
+          "value": 910400024
+        },
+        {
+          "text": "Burkina Faso",
+          "value": 910400025
+        },
+        {
+          "text": "Burma",
+          "value": 910400026
+        },
+        {
+          "text": "Burundi",
+          "value": 910400027
+        },
+        {
+          "text": "Cambodia",
+          "value": 910400028
+        },
+        {
+          "text": "Cameroon",
+          "value": 910400029
+        },
+        {
+          "text": "Canada",
+          "value": 910400030
+        },
+        {
+          "text": "Cape Verde",
+          "value": 910400031
+        },
+        {
+          "text": "Central African Republic",
+          "value": 910400032
+        },
+        {
+          "text": "Chad",
+          "value": 910400033
+        },
+        {
+          "text": "Chile",
+          "value": 910400034
+        },
+        {
+          "text": "China",
+          "value": 910400035
+        },
+        {
+          "text": "Colombia",
+          "value": 910400036
+        },
+        {
+          "text": "Comoros",
+          "value": 910400037
+        },
+        {
+          "text": "Congo",
+          "value": 910400038
+        },
+        {
+          "text": "Congo (Democratic Republic)",
+          "value": 910400039
+        },
+        {
+          "text": "Costa Rica",
+          "value": 910400040
+        },
+        {
+          "text": "Croatia",
+          "value": 910400041
+        },
+        {
+          "text": "Cuba",
+          "value": 910400042
+        },
+        {
+          "text": "Cyprus",
+          "value": 910400043
+        },
+        {
+          "text": "Czech Republic",
+          "value": 910400044
+        },
+        {
+          "text": "Denmark",
+          "value": 910400045
+        },
+        {
+          "text": "Djibouti",
+          "value": 910400046
+        },
+        {
+          "text": "Dominica",
+          "value": 910400047
+        },
+        {
+          "text": "Dominican Republic",
+          "value": 910400048
+        },
+        {
+          "text": "East Timor",
+          "value": 910400049
+        },
+        {
+          "text": "Ecuador",
+          "value": 910400050
+        },
+        {
+          "text": "Egypt",
+          "value": 910400051
+        },
+        {
+          "text": "El Salvador",
+          "value": 910400052
+        },
+        {
+          "text": "Equatorial Guinea",
+          "value": 910400053
+        },
+        {
+          "text": "Eritrea",
+          "value": 910400054
+        },
+        {
+          "text": "Estonia",
+          "value": 910400055
+        },
+        {
+          "text": "Ethiopia",
+          "value": 910400056
+        },
+        {
+          "text": "Fiji",
+          "value": 910400057
+        },
+        {
+          "text": "Finland",
+          "value": 910400058
+        },
+        {
+          "text": "France",
+          "value": 910400059
+        },
+        {
+          "text": "Gabon",
+          "value": 910400060
+        },
+        {
+          "text": "Georgia",
+          "value": 910400061
+        },
+        {
+          "text": "Germany",
+          "value": 910400062
+        },
+        {
+          "text": "Ghana",
+          "value": 910400063
+        },
+        {
+          "text": "Greece",
+          "value": 910400064
+        },
+        {
+          "text": "Grenada",
+          "value": 910400065
+        },
+        {
+          "text": "Guatemala",
+          "value": 910400066
+        },
+        {
+          "text": "Guinea",
+          "value": 910400067
+        },
+        {
+          "text": "Guinea-Bissau",
+          "value": 910400068
+        },
+        {
+          "text": "Guyana",
+          "value": 910400069
+        },
+        {
+          "text": "Haiti",
+          "value": 910400070
+        },
+        {
+          "text": "Honduras",
+          "value": 910400071
+        },
+        {
+          "text": "Hungary",
+          "value": 910400072
+        },
+        {
+          "text": "Iceland",
+          "value": 910400073
+        },
+        {
+          "text": "India",
+          "value": 910400074
+        },
+        {
+          "text": "Indonesia",
+          "value": 910400075
+        },
+        {
+          "text": "Iran",
+          "value": 910400076
+        },
+        {
+          "text": "Iraq",
+          "value": 910400077
+        },
+        {
+          "text": "Ireland",
+          "value": 910400078
+        },
+        {
+          "text": "Israel",
+          "value": 910400079
+        },
+        {
+          "text": "Italy",
+          "value": 910400080
+        },
+        {
+          "text": "Ivory Coast",
+          "value": 910400081
+        },
+        {
+          "text": "Jamaica",
+          "value": 910400082
+        },
+        {
+          "text": "Japan",
+          "value": 910400083
+        },
+        {
+          "text": "Jordan",
+          "value": 910400084
+        },
+        {
+          "text": "Kazakhstan",
+          "value": 910400085
+        },
+        {
+          "text": "Kenya",
+          "value": 910400086
+        },
+        {
+          "text": "Kiribati",
+          "value": 910400087
+        },
+        {
+          "text": "Kosovo",
+          "value": 910400088
+        },
+        {
+          "text": "Kuwait",
+          "value": 910400089
+        },
+        {
+          "text": "Kyrgyzstan",
+          "value": 910400090
+        },
+        {
+          "text": "Laos",
+          "value": 910400091
+        },
+        {
+          "text": "Latvia",
+          "value": 910400092
+        },
+        {
+          "text": "Lebanon",
+          "value": 910400093
+        },
+        {
+          "text": "Lesotho",
+          "value": 910400094
+        },
+        {
+          "text": "Liberia",
+          "value": 910400095
+        },
+        {
+          "text": "Libya",
+          "value": 910400096
+        },
+        {
+          "text": "Liechtenstein",
+          "value": 910400097
+        },
+        {
+          "text": "Lithuania",
+          "value": 910400098
+        },
+        {
+          "text": "Luxembourg",
+          "value": 910400099
+        },
+        {
+          "text": "Macedonia",
+          "value": 910400100
+        },
+        {
+          "text": "Madagascar",
+          "value": 910400101
+        },
+        {
+          "text": "Malawi",
+          "value": 910400102
+        },
+        {
+          "text": "Malaysia",
+          "value": 910400103
+        },
+        {
+          "text": "Maldives",
+          "value": 910400104
+        },
+        {
+          "text": "Mali",
+          "value": 910400105
+        },
+        {
+          "text": "Malta",
+          "value": 910400106
+        },
+        {
+          "text": "Marshall Islands",
+          "value": 910400107
+        },
+        {
+          "text": "Mauritania",
+          "value": 910400108
+        },
+        {
+          "text": "Mauritius",
+          "value": 910400109
+        },
+        {
+          "text": "Mexico",
+          "value": 910400110
+        },
+        {
+          "text": "Micronesia",
+          "value": 910400111
+        },
+        {
+          "text": "Moldova",
+          "value": 910400112
+        },
+        {
+          "text": "Monaco",
+          "value": 910400113
+        },
+        {
+          "text": "Mongolia",
+          "value": 910400114
+        },
+        {
+          "text": "Montenegro",
+          "value": 910400115
+        },
+        {
+          "text": "Morocco",
+          "value": 910400116
+        },
+        {
+          "text": "Mozambique",
+          "value": 910400117
+        },
+        {
+          "text": "Namibia",
+          "value": 910400118
+        },
+        {
+          "text": "Nauru",
+          "value": 910400119
+        },
+        {
+          "text": "Nepal",
+          "value": 910400120
+        },
+        {
+          "text": "Netherlands",
+          "value": 910400121
+        },
+        {
+          "text": "New Zealand",
+          "value": 910400122
+        },
+        {
+          "text": "Nicaragua",
+          "value": 910400123
+        },
+        {
+          "text": "Niger",
+          "value": 910400124
+        },
+        {
+          "text": "Nigeria",
+          "value": 910400125
+        },
+        {
+          "text": "North Korea",
+          "value": 910400126
+        },
+        {
+          "text": "Norway",
+          "value": 910400127
+        },
+        {
+          "text": "Oman",
+          "value": 910400128
+        },
+        {
+          "text": "Pakistan",
+          "value": 910400129
+        },
+        {
+          "text": "Palau",
+          "value": 910400130
+        },
+        {
+          "text": "Panama",
+          "value": 910400131
+        },
+        {
+          "text": "Papua New Guinea",
+          "value": 910400132
+        },
+        {
+          "text": "Paraguay",
+          "value": 910400133
+        },
+        {
+          "text": "Peru",
+          "value": 910400134
+        },
+        {
+          "text": "Philippines",
+          "value": 910400135
+        },
+        {
+          "text": "Poland",
+          "value": 910400136
+        },
+        {
+          "text": "Portugal",
+          "value": 910400137
+        },
+        {
+          "text": "Qatar",
+          "value": 910400138
+        },
+        {
+          "text": "Romania",
+          "value": 910400139
+        },
+        {
+          "text": "Russia",
+          "value": 910400140
+        },
+        {
+          "text": "Rwanda",
+          "value": 910400141
+        },
+        {
+          "text": "Samoa",
+          "value": 910400142
+        },
+        {
+          "text": "San Marino",
+          "value": 910400143
+        },
+        {
+          "text": "Sao Tome and Principe",
+          "value": 910400144
+        },
+        {
+          "text": "Saudi Arabia",
+          "value": 910400145
+        },
+        {
+          "text": "Senegal",
+          "value": 910400146
+        },
+        {
+          "text": "Serbia",
+          "value": 910400147
+        },
+        {
+          "text": "Seychelles",
+          "value": 910400148
+        },
+        {
+          "text": "Sierra Leone",
+          "value": 910400149
+        },
+        {
+          "text": "Singapore",
+          "value": 910400150
+        },
+        {
+          "text": "Slovakia",
+          "value": 910400151
+        },
+        {
+          "text": "Slovenia",
+          "value": 910400152
+        },
+        {
+          "text": "Solomon Islands",
+          "value": 910400153
+        },
+        {
+          "text": "Somalia",
+          "value": 910400154
+        },
+        {
+          "text": "South Africa",
+          "value": 910400155
+        },
+        {
+          "text": "South Korea",
+          "value": 910400156
+        },
+        {
+          "text": "South Sudan",
+          "value": 910400157
+        },
+        {
+          "text": "Spain",
+          "value": 910400158
+        },
+        {
+          "text": "Sri Lanka",
+          "value": 910400159
+        },
+        {
+          "text": "St Kitts and Nevis",
+          "value": 910400160
+        },
+        {
+          "text": "St Lucia",
+          "value": 910400161
+        },
+        {
+          "text": "St Vincent",
+          "value": 910400162
+        },
+        {
+          "text": "Sudan",
+          "value": 910400163
+        },
+        {
+          "text": "Suriname",
+          "value": 910400164
+        },
+        {
+          "text": "Swaziland",
+          "value": 910400165
+        },
+        {
+          "text": "Sweden",
+          "value": 910400166
+        },
+        {
+          "text": "Switzerland",
+          "value": 910400167
+        },
+        {
+          "text": "Syria",
+          "value": 910400168
+        },
+        {
+          "text": "Tajikistan",
+          "value": 910400169
+        },
+        {
+          "text": "Tanzania",
+          "value": 910400170
+        },
+        {
+          "text": "Thailand",
+          "value": 910400171
+        },
+        {
+          "text": "The Bahamas",
+          "value": 910400172
+        },
+        {
+          "text": "The Gambia",
+          "value": 910400173
+        },
+        {
+          "text": "Togo",
+          "value": 910400174
+        },
+        {
+          "text": "Tonga",
+          "value": 910400175
+        },
+        {
+          "text": "Trinidad and Tobago",
+          "value": 910400176
+        },
+        {
+          "text": "Tunisia",
+          "value": 910400177
+        },
+        {
+          "text": "Turkey",
+          "value": 910400178
+        },
+        {
+          "text": "Turkmenistan",
+          "value": 910400179
+        },
+        {
+          "text": "Tuvalu",
+          "value": 910400180
+        },
+        {
+          "text": "Uganda",
+          "value": 910400181
+        },
+        {
+          "text": "Ukraine",
+          "value": 910400182
+        },
+        {
+          "text": "United Arab Emirates",
+          "value": 910400183
+        },
+        {
+          "text": "United Kingdom",
+          "value": 910400184
+        },
+        {
+          "text": "United States",
+          "value": 910400185
+        },
+        {
+          "text": "Uruguay",
+          "value": 910400186
+        },
+        {
+          "text": "Uzbekistan",
+          "value": 910400187
+        },
+        {
+          "text": "Vanuatu",
+          "value": 910400188
+        },
+        {
+          "text": "Vatican City",
+          "value": 910400189
+        },
+        {
+          "text": "Venezuela",
+          "value": 910400190
+        },
+        {
+          "text": "Vietnam",
+          "value": 910400191
+        },
+        {
+          "text": "Yemen",
+          "value": 910400192
+        },
+        {
+          "text": "Zambia",
+          "value": 910400193
+        },
+        {
+          "text": "Zimbabwe",
+          "value": 910400194
+        },
+        {
+          "text": "England",
+          "value": 910400195
+        },
+        {
+          "text": "Wales",
+          "value": 910400196
+        },
+        {
+          "text": "Scotland",
+          "value": 910400197
+        },
+        {
+          "text": "Northern Ireland",
+          "value": 910400198
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "title": "Title",
+      "type": "string",
+      "items": [
+        {
+          "text": "Mr",
+          "value": "Mr",
+          "description": ""
+        },
+        {
+          "text": "Mrs",
+          "value": "Mrs",
+          "description": ""
+        },
+        {
+          "text": "Miss",
+          "value": "Miss",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "maritalStatus",
+      "title": "Marital status",
+      "type": "string",
+      "items": [
+        {
+          "text": "Divorced",
+          "value": "divorced",
+          "description": ""
+        },
+        {
+          "text": "Dissolved civil partnership",
+          "value": "dissolved civil partnership",
+          "description": ""
+        },
+        {
+          "text": "Widowed",
+          "value": "widowed",
+          "description": ""
+        },
+        {
+          "text": "Surviving civil partner",
+          "value": "surviving civil partner",
+          "description": ""
+        },
+        {
+          "text": "Annulment",
+          "value": "annulment",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "confirm",
+      "title": "Confirm",
+      "type": "string",
+      "items": [
+        {
+          "text": "Confirm",
+          "value": "confirm",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "yesNo",
+      "title": "Yes/No",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes",
+          "description": ""
+        },
+        {
+          "text": "No",
+          "value": "no",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "sendAddress",
+      "title": "send address",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "addressYes",
+          "description": ""
+        },
+        {
+          "text": "No",
+          "value": "addressNo",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "contactOptions",
+      "title": "Contact options",
+      "type": "string",
+      "items": [
+        {
+          "text": "Email",
+          "value": "email",
+          "description": ""
+        },
+        {
+          "text": "Phone",
+          "value": "phone",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Country",
+      "title": "Where do you want to get married",
+      "type": "string",
+      "items": [
+        {
+          "text": "France",
+          "value": "France",
+          "description": "France"
+        },
+        {
+          "text": "Spain",
+          "value": "Spain",
+          "description": "Spain"
+        },
+        {
+          "text": "Thailand",
+          "value": "Thailand",
+          "description": "Thailand"
+        }
+      ]
+    },
+    {
+      "name": "ceremony",
+      "title": "What ceremony do you want?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Marriage",
+          "value": "Marriage",
+          "description": ""
+        },
+        {
+          "text": "Civil partnership",
+          "value": "Civil partnership",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "UploadOptions",
+      "title": "How would you like to provide the documents?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Add photo from your mobile",
+          "value": "Add photo from your mobile",
+          "description": ""
+        },
+        {
+          "text": "Send by post",
+          "value": "Send by post",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "deliveryAddress",
+      "title": "Where would you like your certificate delivered to?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Home address",
+          "value": "Home address",
+          "description": ""
+        },
+        {
+          "text": "A different address",
+          "value": "A different address",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "applicationProcessUKandOther",
+      "title": "How the application process works",
+      "type": "string",
+      "items": [
+        {
+          "text": "Give notice of marriage at your local registry office in the UK",
           "value": 1,
-          "description": {
-            "en": "Valid for 24 hours from the start time that you select",
-            "es": "24 Spanish hours"
-
-          }
+          "description": "A notice of marriage takes between 28 and 29 days in the UK. You will need this document for your Spanish certificate of no impediment",
+          "condition": ""
         },
         {
-          "text": "8 day",
-          "value": 8,
-          "description": {
-            "en": "Valid for 8 consecutive days from the start time that you select"
-          }
-        },
-        {
-          "text": "12 months",
-          "value": 365,
-          "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
-        }
-      ]
-    },
-    {
-      "name": "licenceStartKind",
-      "title": "Licence start",
-      "type": "string",
-      "items": [
-        {
-          "text": "30 minutes after payment",
-          "value": "asap",
-          "description": ""
-        },
-        {
-          "text": "Another time or date",
-          "value": "absolute",
-          "description": ""
-        }
-      ]
-    },
-    {
-      "name": "licenceType",
-      "title": "Licence type",
-      "type": "string",
-      "items": [
-        {
-          "text": "Trout and Course",
-          "value": "troutAndCourse",
-          "description": ""
-        },
-        {
-          "text": "Salmon and sea trout",
-          "value": "salmonAndSeaTrout",
-          "description": "includes trout and coarse fish"
-        }
-      ]
-    },
-    {
-      "name": "numberOfRods",
-      "title": "Number of Rods",
-      "type": "number",
-      "items": [
-        {
-          "text": "Up to 2 rods",
+          "text": "Get your affirmation(s) notarised in Spain",
           "value": 2,
+          "description": "You have to swear an affirmation in front of a Spanish notary. You will need this document for your marital status certificate",
+          "condition": ""
+        },
+        {
+          "text": "Upload your documents",
+          "value": 3,
+          "description": "You can either scan your documents or take photos on your mobile phone",
+          "condition": ""
+        },
+        {
+          "text": "Apply online",
+          "value": 4,
+          "description": "Take as long as you need to finish, but if you're inactive for more than 20 minutes your application will time out",
+          "condition": ""
+        },
+        {
+          "text": "Pay online",
+          "value": 5,
+          "description": "By credit or debit card",
+          "condition": ""
+        },
+        {
+          "text": "Send your original documents",
+          "value": 6,
+          "description": "We'll tell you where to send the documents",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "name": "sex",
+      "title": "sex",
+      "type": "string",
+      "items": [
+        {
+          "text": "Female",
+          "value": "female",
           "description": ""
         },
         {
-          "text": "Up to 3 rods",
-          "value": 3,
+          "text": "Male",
+          "value": "male",
           "description": ""
         }
       ]
+    },
+    {
+      "name": "Documents",
+      "title": "What documents do you have that prove you're a British citizen?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Your consular birth certificate",
+          "value": "Consular birth certificate",
+          "description": ""
+        },
+        {
+          "text": "Your local birth certificate, your parent's British birth certificate and your parent's marriage certificate (if applicable)",
+          "value": "Local birth certificate, you're parent's British birth certificate and your parent's marriage certificate (if applicable)",
+          "description": ""
+        },
+        {
+          "text": "Your Home Office Certificate of Naturalisation or Registration",
+          "value": "Home Office Certificate of Naturalisation or Registration",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Name",
+      "title": "How did your name change?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Marriage",
+          "value": "marriage",
+          "description": ""
+        },
+        {
+          "text": "Civil partnership",
+          "value": "Civil partnership",
+          "description": ""
+        },
+        {
+          "text": "Deed poll",
+          "value": "Deed poll",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "whereShouldWeSendCertificate",
+      "title": "Where should we send the certificate",
+      "type": "string",
+      "items": [
+        {
+          "text": "Your address in Spain",
+          "value": "Your address in Spain",
+          "description": ""
+        },
+        {
+          "text": "Another address in Spain",
+          "value": "Another address in Spain",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "yes-no-don'tknow",
+      "title": "Yes/No/I don/t know",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "yes",
+          "description": ""
+        },
+        {
+          "text": "No",
+          "value": "no",
+          "description": ""
+        },
+        {
+          "text": "I don't know",
+          "value": "dont know",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "serviceProcessUKResident",
+      "title": "Service process",
+      "type": "string",
+      "items": [
+        {
+          "text": "Give notice of marriage at your local registry office in the UK",
+          "value": "Give notice of marriage at your local registry office in the UK",
+          "description": "A notice of marriage takes between 28 and 29 days in the UK. You will need this document for your Spanish certificate of no impediment"
+        },
+        {
+          "text": "Get your affirmation notarised by a notary in Spain",
+          "value": "Get your affirmation notarised by a notary in Spain",
+          "description": "You have  to swear an affirmation in front of a notary. You will need this document for your marital status certificate"
+        },
+        {
+          "text": "Apply for the certificate of no impediment and marital status certificate",
+          "value": "Apply for the certificate of no impediment and marital status certificate",
+          "description": "Apply online here"
+        },
+        {
+          "text": "Send your supporting documents",
+          "value": "Send your supporting documents",
+          "description": "This includes the originals of your notice of marriage, your affirmation, and, in case you are divorced or widowed, your decree absolute or death certificate of your late partner"
+        },
+        {
+          "text": "Book appointment at a Spanish registry office",
+          "value": "Book appointment at a Spanish registry office",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "whereYouLive",
+      "title": "Where do you live?",
+      "type": "string",
+      "items": [
+        {
+          "text": "UK",
+          "value": "UK",
+          "description": ""
+        },
+        {
+          "text": "Spain",
+          "value": "Spain",
+          "description": ""
+        },
+        {
+          "text": "Elsewhere",
+          "value": "Elsewhere",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "applicatio-process-Spain-Other-CNI-both",
+      "title": "How the application process works",
+      "type": "string",
+      "items": [
+        {
+          "text": "Get your notice of marriage and affirmation(s) notarised in Spain",
+          "value": 1,
+          "description": "You have to swear an affirmation in front of a Spanish notary."
+        },
+        {
+          "text": "Upload your documents",
+          "value": 2,
+          "description": "You can scan your documents or take photos on your mobile phone"
+        },
+        {
+          "text": "Apply online",
+          "value": 3,
+          "description": "Take as long as you need to finish, but if you're inactive for more than 20 minutes your application will time out"
+        },
+        {
+          "text": "Pay online",
+          "value": 4,
+          "description": "By credit or debit card"
+        },
+        {
+          "text": "Send your original documents",
+          "value": 5,
+          "description": "We'll tell you where to send the documents"
+        }
+      ]
+    },
+    {
+      "name": "application-process-Spain-Other-MSC",
+      "title": "How the application process works",
+      "type": "string",
+      "items": [
+        {
+          "text": "Get your documents ready",
+          "value": 1,
+          "description": "Answer the next few questions so we can tell you what documents you'll need to apply"
+        },
+        {
+          "text": "Upload your documents",
+          "value": 2,
+          "description": "Upload a photo or scan of your documents"
+        },
+        {
+          "text": "Apply online",
+          "value": 3,
+          "description": "Take as long as you need to finish, but if you're inactive got 30 minutes your application will time out"
+        },
+        {
+          "text": "Pay online",
+          "value": 4,
+          "description": "By credit or debit card"
+        },
+        {
+          "text": "Send your original documents",
+          "value": 5,
+          "description": "We'll tell you where to send the documents"
+        }
+      ]
+    },
+    {
+      "name": "supporting-documents",
+      "type": "string",
+      "title": "supporting documents",
+      "items": [
+        {
+          "description": "download and complete a <a href=\"#\" class=\"govuk-link\">notice of marriage ('publicación de edictos')</a> and a <a href=\"#\" class=\"govuk-link\">certificate of no impediment affirmation (‘capacidad matrimonial’)</a>",
+          "value": 1,
+          "text": "",
+          "condition": "doesntLiveInUKAndCNI"
+        },
+        {
+          "description": "get a notice of marriage from a registry office in the UK",
+          "value": 1,
+          "text": "",
+          "condition": "livesInUKAndCNI"
+        },
+        {
+          "description": "download and complete a <a href=\"#\" class=\"govuk-link\">marital status affirmation (‘certificado de estado civil/soltería’)</a>",
+          "value": 1,
+          "text": "",
+          "condition": "needsMSC"
+        }
+      ]
+    },
+    {
+      "name": "what-you-need",
+      "type": "string",
+      "title": "supporting documents",
+      "items": [
+        {
+          "description": "your UK passport",
+          "value": 1,
+          "text": ""
+        },
+        {
+          "description": "your long birth certificate",
+          "value": 1,
+          "text": "",
+          "condition": "needsMSCOnly"
+        },
+        {
+          "description": "your proof of address",
+          "value": 1,
+          "text": "",
+          "condition": "doesntLiveInUKAndCNI"
+        },
+        {
+          "description": "proof you've been in Spain for at least 3 full days immediately before signing your notice of marriage and affirmation in front of a notary (e.g. copy of flight information and boarding pass)  or Spanish residence certificate (green card with NIE number and address)",
+          "value": 1,
+          "text": "",
+          "condition": "livesElsewhere"
+        },
+        {
+          "description": "proof of the address where you are staying in Spain",
+          "value": 1,
+          "text": "",
+          "condition": "livesElsewhereAndNeedsMSC"
+        },
+        {
+          "description": "your decree absolute",
+          "value": 1,
+          "text": "",
+          "condition": "isDivorced"
+        },
+        {
+          "description": "your final order",
+          "value": 1,
+          "text": "",
+          "condition": "isDissolved"
+
+        },
+        {
+          "description": "your decree of nullity",
+          "value": 1,
+          "text": "",
+          "condition": "isAnnulment"
+
+        },
+        {
+          "description": "death certificate of your late partner",
+          "value": 1,
+          "text": "",
+          "condition": "isWidowedOrSurviving"
+        },
+        {
+          "description": "your decree absolute",
+          "value": 1,
+          "text": "",
+          "condition": "partnerIsDivorced"
+        },
+        {
+          "description": "your final order",
+          "value": 1,
+          "text": "",
+          "condition": "partnerIsDissolved"
+
+        },
+        {
+          "description": "your decree of nullity",
+          "value": 1,
+          "text": "",
+          "condition": "partnerIsAnnulment"
+        },
+        {
+          "description": "death certificate of your partner's late partner",
+          "value": 1,
+          "text": "",
+          "condition": "partnerIsWidowedOrSurviving"
+        }
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "description": "Certificate of Custom/Law for marriage",
+      "amount": 5000,
+      "condition": "isMarriage"
+    },
+    {
+      "description": "Certificate of Custom/Law for PACS",
+      "amount": 5000,
+      "condition": "isPacs"
     }
   ]
 }
