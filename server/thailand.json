@@ -1,12 +1,12 @@
 {
   "conditions": [
     {
-      "name": "hasBritishPassport",
-      "value": "britishPassport=='yes'"
+      "name": "hasUKPassport",
+      "value": "hasUKPassport=='yes'"
     },
     {
-      "name": "noBritishPassport",
-      "value": "britishPassport=='no'"
+      "name": "noUKPassport",
+      "value": "hasUKPassport=='no'"
     },
     {
       "name": "isCivilPartnership",
@@ -14,7 +14,7 @@
     },
     {
       "name": "notOppositeSex",
-      "value": "sameOrOppositeMarriage=='no'"
+      "value": "partnerOfOppositeSex=='no'"
     },
     {
       "name": "hasMarriedBefore",
@@ -70,9 +70,6 @@
       ],
       "next": [
         {
-          "path": "/test"
-        },
-        {
           "path": "/country-picker"
         }
       ]
@@ -94,6 +91,9 @@
       "next": [
         {
           "path": "/british-passport"
+        },
+        {
+          "path": "/getting-married-in-thailand"
         }
       ]
     },
@@ -108,34 +108,33 @@
           "schema": {}
         },
         {
-          "type": "TextField",
-          "name": "firstName",
-          "title": "First name",
           "options": {
             "classes": "govuk-input--width-20"
           },
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
           "schema": {}
         },
         {
-          "type": "TextField",
-          "name": "middleName",
-          "title": "Middle name (as it appears on your passport)",
-          "hint": "If you have a middle name on your passport you must include it here",
-
           "options": {
             "required": false,
             "optionalText": false,
             "classes": "govuk-input--width-20"
           },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
           "schema": {}
         },
         {
-          "type": "TextField",
-          "name": "surname",
-          "title": "Surname",
           "options": {
             "classes": "govuk-input--width-20"
           },
+          "type": "TextField",
+          "name": "surname",
+          "title": "Surname",
           "schema": {}
         }
       ],
@@ -148,7 +147,7 @@
     },
     {
       "path": "/your-occupation",
-      "title": "Your occupation",
+      "title": "Main occupation",
       "components": [
         {
           "type": "TextField",
@@ -208,39 +207,36 @@
           "schema": {}
         },
         {
-          "type": "TextField",
-          "name": "address1",
-          "title": "Address",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "address2",
-          "title": "Address",
           "options": {
-            "required": false,
-            "optionalText": false
+            "classes": "govuk-input--width-20"
           },
-          "schema": {}
-        },
-        {
           "type": "TextField",
-          "name": "cityOrTown",
-          "title": "City or town",
-          "options": {},
+          "name": "addressLine1",
+          "title": "Address",
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "townOrCity",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "postcode",
           "title": "Postcode",
-          "options": {},
           "schema": {}
         },
         {
           "options": {
-            "list": "country"
+            "list": "country",
+            "classes": "govuk-input--width-20"
           },
           "type": "SelectField",
           "name": "country",
@@ -261,22 +257,26 @@
       "components": [
         {
           "type": "Para",
-          "content": "We may need to contact your about your application.",
+          "content": "We may need to contact you about your application.",
           "options": {},
           "schema": {}
         },
         {
-          "type": "TextField",
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "EmailAddressField",
           "name": "emailAddress",
           "title": "Email address",
-          "options": {},
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TelephoneNumberField",
           "name": "phoneNumber",
           "title": "Phone number",
-          "options": {},
           "schema": {}
         }
       ],
@@ -305,7 +305,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "nationality",
+          "name": "partnersNationality",
           "title": "Nationality",
           "schema": {}
         },
@@ -342,7 +342,7 @@
         },
         {
           "type": "TextField",
-          "name": "FullName",
+          "name": "fathersName",
           "title": "Full name",
           "hint": "Name should match the UK long birth certificate",
           "options": {},
@@ -353,7 +353,7 @@
             "list": "unknown"
           },
           "type": "CheckboxesField",
-          "name": "unknown",
+          "name": "fathersNameUnknown",
           "title": "Unknown",
           "schema": {}
         },
@@ -371,7 +371,7 @@
         },
         {
           "type": "TextField",
-          "name": "fathersName",
+          "name": "mothersName",
           "title": "Full name",
           "hint": "Name should match the UK long birth certificate",
           "options": {},
@@ -379,7 +379,7 @@
         },
         {
           "type": "TextField",
-          "name": "pre-maritalName",
+          "name": "mothersMaidenName",
           "title": "Maiden name",
           "options": {},
           "schema": {}
@@ -389,7 +389,7 @@
             "list": "unknown"
           },
           "type": "CheckboxesField",
-          "name": "unknown",
+          "name": "mothersNameUnknown",
           "title": "Unknown",
           "schema": {}
         }
@@ -398,7 +398,8 @@
         {
           "path": "/partners-details"
         }
-      ]
+      ],
+      "section": "yourDetails"
     },
     {
       "path": "/upload-partners-passport",
@@ -452,7 +453,7 @@
             "list": "yesNo"
           },
           "type": "RadiosField",
-          "name": "contact",
+          "name": "contactForFeedback",
           "title": "Can our partner contact you for feedback to help improve the service?",
           "schema": {}
         }
@@ -464,7 +465,8 @@
         {
           "path": "/summary"
         }
-      ]
+      ],
+      "section": "feedback"
     },
     {
       "path": "/british-passport",
@@ -474,7 +476,7 @@
             "list": "yesNo"
           },
           "type": "RadiosField",
-          "name": "britishPassport",
+          "name": "hasUKPassport",
           "title": "Do you have a UK passport?",
           "schema": {}
         }
@@ -524,7 +526,7 @@
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-l\">Complete your affirmation of marital status</h2>\r\n\r\n<p class=\"govuk-body\">Complete your affirmation of marital status online or download and complete the paper application. This service costs £50. </p>",
+          "content": "<h2 class=\"govuk-heading-l\">Complete your affirmation of marital status</h2>\r\n\r\n<p class=\"govuk-body\">You can either complete your affirmation of marital status online or download and complete the paper application. </p>\r\n<p class=\"govuk-body\"> This service costs £50. You can pay by card online. If you're completing the paper application, you can pay cash or card at the embassy. </p>",
           "options": {},
           "schema": {}
         }
@@ -562,7 +564,7 @@
             "list": "yesNo"
           },
           "type": "RadiosField",
-          "name": "sameOrOppositeMarriage",
+          "name": "partnerOfOppositeSex",
           "title": "Is your partner of the opposite sex?",
           "schema": {}
         }
@@ -581,7 +583,7 @@
     },
     {
       "path": "/what-youll-need-divorce",
-      "title": "What you'll need to have ready",
+      "title": "What you'll need to apply",
       "components": [
         {
           "type": "Html",
@@ -598,14 +600,7 @@
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "Who can be a referee",
-          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
           "options": {},
           "schema": {}
         }
@@ -623,7 +618,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Add a photo of the main page of your British passport - the page with the passport photo.",
+          "content": "Add a photo of the main page of your UK passport - the page with the passport photo.",
           "options": {},
           "schema": {}
         },
@@ -654,20 +649,18 @@
         },
         {
           "type": "DatePartsField",
-          "name": "dateOfIssue",
+          "name": "decreeAbsoluteDateOfIssue",
           "title": "Date of issue",
           "options": {},
           "schema": {}
         },
         {
           "type": "TextField",
-          "name": "placeOfIssue",
+          "name": "decreeAbsolutePlaceOfIssue",
           "title": "Place of issue",
           "hint": "If you were divorced in the UK write the place of issue exactly as it appears on your decree absolute, for example IN THE Derby County Court",
           "options": {},
-          "schema": {
-            "regex": "^IN THE"
-          }
+          "schema": {}
         }
       ],
       "next": [
@@ -686,12 +679,6 @@
       "components": [
         {
           "type": "Html",
-          "content": "<h3>Province of marriage registration</h3>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Html",
           "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    The Thai authorities require the name of the province you're getting married in, not the city or town.\r\n  </strong>\r\n</div>",
           "options": {},
           "schema": {}
@@ -700,14 +687,14 @@
           "options": {
             "list": "provinces"
           },
-          "type": "SelectField",
-          "name": "provinces",
+          "type": "RadiosField",
+          "name": "marriageProvince",
           "title": "Provinces",
           "schema": {}
         },
         {
           "type": "DatePartsField",
-          "name": "dateField",
+          "name": "marriageDate",
           "title": "Date",
           "hint": "The date cannot be more than 3 months in advance",
           "options": {},
@@ -718,7 +705,8 @@
         {
           "path": "/feedback"
         }
-      ]
+      ],
+      "section": "aboutYourCeremony"
     },
     {
       "path": "/referees",
@@ -738,39 +726,34 @@
         },
         {
           "type": "TextField",
-          "name": "fullName",
+          "name": "referee1FullName",
           "title": "Full name",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "referee1AddressLine1",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
           "options": {
-            "classes": "govuk-input--width-20"
+            "classes": "govuk-!-width-two-thirds"
           },
+          "type": "TextField",
+          "name": "referee1TownOrCity",
+          "title": "Town or city",
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-!-width-one-third"
+          },
           "type": "TextField",
-          "name": "address1",
-          "title": "Address",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "address2",
-          "title": "Address",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "cityOrTown",
-          "title": "City or town",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "postcode",
+          "name": "referee1Postcode",
           "title": "Postcode",
-          "options": {},
           "schema": {}
         },
         {
@@ -778,7 +761,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "country",
+          "name": "referee1Country",
           "title": "Country",
           "schema": {}
         },
@@ -796,37 +779,34 @@
         },
         {
           "type": "TextField",
-          "name": "fullName",
+          "name": "referee2FullName",
           "title": "Full name",
           "options": {},
           "schema": {}
         },
         {
           "type": "TextField",
-          "name": "addressLine1",
+          "name": "referee2AddressLine1",
           "title": "Address",
           "options": {},
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
           "type": "TextField",
-          "name": "addressLine2",
-          "title": "Address",
-          "options": {},
+          "name": "referee2TownOrCity",
+          "title": "Town or city",
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-!-width-one-third"
+          },
           "type": "TextField",
-          "name": "cityOrTown",
-          "title": "City or town",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "postcode",
+          "name": "referee2Postcode",
           "title": "Postcode",
-          "options": {},
           "schema": {}
         },
         {
@@ -834,7 +814,7 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "homeCountry",
+          "name": "referee2Country",
           "title": "Country",
           "schema": {}
         }
@@ -843,7 +823,8 @@
         {
           "path": "/about-your-ceremony"
         }
-      ]
+      ],
+      "section": "referees"
     },
     {
       "path": "/contact-preference",
@@ -855,7 +836,7 @@
             "list": "contactOptions"
           },
           "type": "RadiosField",
-          "name": "preferenceOfContact",
+          "name": "contactPreference",
           "title": "How do you prefer to be contacted?",
           "schema": {}
         }
@@ -962,7 +943,7 @@
     {
       "path": "/no-british-passport",
       "title": "You need a UK passport to apply for this service",
-      "condition": "noBritishPassport",
+      "condition": "noUKPassport",
       "components": [
         {
           "type": "Para",
@@ -1014,19 +995,17 @@
         },
         {
           "type": "DatePartsField",
-          "name": "dateOfIssue",
+          "name": "finalOrderDateOfIssue",
           "title": "Date of issue",
           "options": {},
           "schema": {}
         },
         {
           "type": "TextField",
-          "name": "placeOfIssue",
+          "name": "finalOrderPlaceOfIssue",
           "title": "Place of issue",
           "options": {},
-          "schema": {
-            "regex": "^IN THE"
-          }
+          "schema": {}
         }
       ],
       "next": [
@@ -1049,20 +1028,17 @@
         },
         {
           "type": "DatePartsField",
-          "name": "dateOfDeath",
+          "name": "deathCertificateDateOfIssue",
           "title": "Date of issue",
           "options": {},
           "schema": {}
         },
         {
           "type": "TextField",
-          "name": "placeOfIssue",
+          "name": "deathCertificatePlaceOfIssue",
           "title": "Place of issue",
-          "hint": "If the certificate was issued in the UK write the place of issue exactly as it appears, for example North Middlesex Hospital, Edmonton",
           "options": {},
-          "schema": {
-            "regex": "^IN THE"
-          }
+          "schema": {}
         }
       ],
       "next": [
@@ -1085,19 +1061,17 @@
         },
         {
           "type": "DatePartsField",
-          "name": "dateOfIssue",
+          "name": "decreeOfNullityDateOfIssue",
           "title": "Date of issue",
           "options": {},
           "schema": {}
         },
         {
           "type": "TextField",
-          "name": "placeOfIssue",
+          "name": "decreeOfNullityPlaceOfIssue",
           "title": "Place of issue",
           "options": {},
-          "schema": {
-            "regex": "^IN THE"
-          }
+          "schema": {}
         }
       ],
       "next": [
@@ -1108,7 +1082,7 @@
     },
     {
       "path": "/what-youll-need-widow",
-      "title": "What you'll need to have ready",
+      "title": "What you'll need to apply",
       "components": [
         {
           "type": "Html",
@@ -1125,14 +1099,7 @@
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "Who can be a referee",
-          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
           "options": {},
           "schema": {}
         }
@@ -1145,7 +1112,7 @@
     },
     {
       "path": "/what-youll-need-dissolution",
-      "title": "What you'll need to have ready",
+      "title": "What you'll need to apply",
       "components": [
         {
           "type": "Para",
@@ -1162,14 +1129,7 @@
         },
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "Who can be a referee",
-          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
           "options": {},
           "schema": {}
         }
@@ -1182,7 +1142,7 @@
     },
     {
       "path": "/what-youll-need-annulment",
-      "title": "What you'll need to have ready",
+      "title": "What you'll need to apply",
       "components": [
         {
           "type": "Para",
@@ -1199,14 +1159,7 @@
         },
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "Who can be a referee",
-          "content": "Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
           "options": {},
           "schema": {}
         }
@@ -1219,7 +1172,7 @@
     },
     {
       "path": "/what-youll-need",
-      "title": "What you'll need to have ready",
+      "title": "What you'll need to apply",
       "components": [
         {
           "type": "Para",
@@ -1236,14 +1189,7 @@
         },
         {
           "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "Who can be a referee",
-          "content": "d",
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
           "options": {},
           "schema": {}
         }
@@ -1267,7 +1213,7 @@
         },
         {
           "type": "FileUploadField",
-          "name": "decree-absolute",
+          "name": "decreeAbsolute",
           "title": "Upload a file",
           "options": {},
           "schema": {}
@@ -1294,7 +1240,7 @@
         },
         {
           "type": "FileUploadField",
-          "name": "death-certificate",
+          "name": "deathCertificate",
           "title": "Upload a file",
           "options": {},
           "schema": {}
@@ -1320,15 +1266,17 @@
         },
         {
           "type": "FileUploadField",
-          "name": "final-order",
+          "name": "finalOrder",
           "title": "Upload a file",
           "options": {},
           "schema": {}
         }
       ],
-      "next": [{
-        "path": "/your-details"
-      }]
+      "next": [
+        {
+          "path": "/your-details"
+        }
+      ]
     },
     {
       "path": "/upload-annulment",
@@ -1344,20 +1292,47 @@
         },
         {
           "type": "FileUploadField",
-          "name": "decree-nullity",
+          "name": "decreeNullity",
           "title": "Upload a file",
           "options": {},
           "schema": {}
         }
       ],
-      "next": [{
-        "path": "/your-details"
-      }]
+      "next": [
+        {
+          "path": "/your-details"
+        }
+      ]
     },
     {
       "path": "/summary",
       "title": "Summary",
       "components": [],
+      "next": []
+    },
+    {
+      "path": "/getting-married-in-thailand",
+      "title": "Getting married in Thailand",
+      "components": [
+        {
+          "type": "Para",
+          "content": "To get married in Thailand you need to visit the embassy in Bangkok prior to your marriage registration.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Before you do that you need to get certain documents that prove you are free to get married.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "Apply online or download a paper application to get the documents you need.",
+          "options": {},
+          "schema": {}
+        }
+      ],
       "next": []
     }
   ],
@@ -1380,7 +1355,7 @@
     },
     {
       "name": "yourMaritalStatus",
-      "title": "Your marital status"
+      "title": "Your marital and civil status"
     },
     {
       "name": "yourPassport",
@@ -1417,6 +1392,10 @@
     {
       "name": "feedback",
       "title": "Feedback"
+    },
+    {
+      "name": "referees",
+      "title": "Your referees"
     }
   ],
   "lists": [
@@ -2496,11 +2475,6 @@
       "title": "How to get your affirmation of marital status",
       "type": "string",
       "items": [
-        {
-          "text": "Find out what documents you need",
-          "value": "Find out what documents you need",
-          "description": "Complete the next few questions so we can tell you what documents you need"
-        },
         {
           "text": "Get your documents ready",
           "value": "Get your documents ready",
