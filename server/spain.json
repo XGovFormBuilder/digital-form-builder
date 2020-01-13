@@ -173,6 +173,10 @@
       "value": "whereDoYouLive!='UK'"
     },
     {
+      "name": "doesntLiveElsewhere",
+      "value": "whereDoYouLive!='Elsewhere'"
+    },
+    {
       "name": "livesInUKAndCNI",
       "value": "livesInUK and needsCNI"
     },
@@ -183,6 +187,14 @@
     {
       "name": "doesntLiveInUKAndCNI",
       "value": "doesntLiveInUK and needsCNI"
+    },
+    {
+      "name": "doesntLiveInUKAndCNIOnly",
+      "value": "doesntLiveInUK and needsCNIOnly"
+    },
+    {
+      "name": "doesntLiveInUKAndCNIAndMSC",
+      "value": "doesntLiveInUK and needsMSCAndCNI"
     },
     {
       "name": "livesInUKAndBoth",
@@ -199,6 +211,10 @@
     {
       "name": "livesElsewhereAndNeedsCNIOnly",
       "value": "livesElsewhere and needsCNIOnly"
+    },
+    {
+      "name": "doesntLiveElsewhereAndCNI",
+      "value": "doesntLiveElsewhere and needsCNI"
     },
     {
       "name": "livesInSpainAndNeedsCNI",
@@ -630,7 +646,7 @@
           "path": "/add-town-hall-registration"
         },
         {
-          "path": "/upload-partners-passport"
+          "path": "/add-proof-of-address-elsewhere"
         },
         {
           "path": "/add-birth-certificate"
@@ -786,19 +802,62 @@
       "section": "addYourDocuments"
     },
     {
+      "path": "/add-proof-of-address-elsewhere",
+      "title": "Proof of address",
+      "condition": "livesElsewhere",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of a proof of your current address</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "Which documents can be used as proof of address?",
+          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
+          "options": {},
+          "schema": {},
+          "name": "/add-your-documents-742-742"
+        },
+        {
+          "type": "FileUploadField",
+          "name": "elsewhereProofOfAddress",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>Lay it flat on a table or for better results against a wall</li><li>Make sure your address is readable</li><li>No flash if possible</li><li>Position the phone parallel to the document</li><li>Use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/add-your-documents-742-742"
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-partners-passport"
+        }
+      ],
+      "section": "addYourDocuments"
+    },
+
+    {
       "path": "/upload-partners-passport",
       "section": "addYourDocuments",
       "condition": "doesntLiveInUKAndCNI",
       "components": [
         {
-          "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of the  main page of your partner's passport – the page with the passport photo</p>",
+          "type": "Para",
+          "content": "Add a photo of the  main page of your partner's passport – the page with the passport photo",
           "options": {},
           "schema": {}
         },
         {
           "type": "FileUploadField",
-          "name": "/upload-passport-755-755",
+          "name": "partnersPassport",
           "title": "Upload a file",
           "options": {},
           "schema": {}
@@ -818,53 +877,19 @@
         },
         {
           "path": "/upload-proof-of-arrival"
-        }
-
-      ],
-      "title": "Partner's passport"
-    },
-    {
-      "path": "/add-birth-certificate",
-      "title": "Long birth certificate",
-      "section": "addYourDocuments",
-      "condition": "needsMSC",
-      "components": [
-        {
-          "type": "Para",
-          "content": "<p class=\"govuk-body\">Add a photo of your long UK birth certificate. This is the version that shows the names of your parents.</p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "FileUploadField",
-          "name": "UploadAFile",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to take a good photograph",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {},
-          "name": "/need-to-apply-other-country-CNI-MSC-married-828-828"
-        }
-      ],
-      "next": [
-        {
-          "path": "/your-details"
-        },
-        {
-          "path": "/upload-proof-of-arrival"
         },
         {
           "path": "/add-marital-status-documents"
         },
         {
           "path": "/add-partners-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
         }
-      ]
+
+      ],
+      "title": "Partner's passport"
     },
     {
       "path": "/add-town-hall-registration",
@@ -896,10 +921,53 @@
       ],
       "next": [
         {
-          "path": "/add-divorce-death-picture"
+          "path": "/add-birth-certificate"
         },
         {
-          "path": "/add-birth-certificate"
+          "path": "/upload-partners-passport"
+        }
+      ]
+    },
+    {
+      "path": "/add-birth-certificate",
+      "title": "Long birth certificate",
+      "section": "addYourDocuments",
+      "condition": "needsMSC",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Add a photo of your long UK birth certificate. This is the version that shows the names of your parents.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "UploadAFile",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to take a good photograph",
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
+          "options": {},
+          "schema": {},
+          "name": "/need-to-apply-other-country-CNI-MSC-married-828-828"
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-details"
+        },
+        {
+          "path": "/upload-proof-of-arrival"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
         }
       ]
     },
@@ -1095,7 +1163,7 @@
     },
     {
       "path": "/spanish-CNI",
-      "title": "Do you need a Spanish certificate of no impediment?",
+      "title": "Do you need a certificate of no impediment?",
       "components": [
         {
           "options": {
@@ -1103,7 +1171,7 @@
           },
           "type": "RadiosField",
           "name": "spanishCNI",
-          "title": "Do you need a Spanish certificate of no impediment?",
+          "title": "Do you need a certificate of no impediment?",
           "schema": {}
         }
       ],
@@ -1149,7 +1217,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a Spanish certificate of no impediment (‘capacidad matrimonial’) and a marital status certificate.</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 28 days to process</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A marital status certificate:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 30 days to process</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for all your certificates at least 3 months before you take your documents to the civil registry appointment. </p>",
+          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a certificate of no impediment (‘capacidad matrimonial’) and a marital status certificate.</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 28 days to process</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A marital status certificate:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 30 days to process</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for all your certificates at least 3 months before you take your documents to the civil registry appointment. </p>",
           "options": {},
           "schema": {}
         },
@@ -1288,7 +1356,7 @@
     },
     {
       "path": "/find-out-cni",
-      "title": "Find out if you need a Spanish certificate of no impediment",
+      "title": "Find out if you need a certificate of no impediment",
       "condition": "doesntKnowCNI",
       "components": [
         {
@@ -1355,7 +1423,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a Spanish certificate of no impediment (‘capacidad matrimonial’).</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 28 days to process</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for your certificate at least 3 months before you take your document to the civil registry appointment. </p>",
+          "content": "<p class=\"govuk-body\">To get married in Spain you need to get a certificate of no impediment (‘capacidad matrimonial’).</p>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £50</li>\r\n  <li>takes 28 days to process</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for your certificate at least 3 months before you take your document to the civil registry appointment. </p>",
           "options": {},
           "schema": {}
         },
@@ -1729,7 +1797,7 @@
           "type": "Para",
           "content": "Add a photo of your partner's late partner's death certificate",
           "options": {
-            "condition": "partnerIisWidowedOrSurviving"
+            "condition": "partnerIsWidowedOrSurviving"
           },
           "schema": {}
         },
@@ -1869,7 +1937,7 @@
           "title": "Which documents can be used as proof of address?",
           "content": "<li>electoral roll confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
           "options": {
-            "conditions": "doesntLiveInUKAndCNI"
+            "conditions": "doesntLiveElsewhereAndCNI"
           },
           "schema": {},
           "name": "/need-to-apply-other-country-MSC-partner-married-953-953"
@@ -2018,15 +2086,23 @@
         },
         {
           "type": "Para",
-          "content": "You'll need to sign and swear the affirmations and notice of marriage in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
+          "content": "You'll need to sign and swear the affirmation and notice of marriage in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
           "options": {
-            "condition": "doesntLiveInUKAndCNI"
+            "condition": "doesntLiveInUKAndCNIOnly"
           },
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "You'll need to sign and swear the affirmations in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
+          "content": "You'll need to sign and swear the affirmations and notice of marriage in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
+          "options": {
+            "condition": "doesntLiveInUKAndCNIAndMSC"
+          },
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "You'll need to sign and swear the affirmation in front of a <a href=\"https://notaries-directory.eu/\" class=\"govuk-link\">local notary in Spain</a>",
           "options": {
             "condition": "needsMSCOnly"
           },
@@ -3104,7 +3180,7 @@
         {
           "text": "Give notice of marriage at your local registry office in the UK",
           "value": 1,
-          "description": "A notice of marriage takes between 28 and 29 days in the UK. You will need this document for your Spanish certificate of no impediment",
+          "description": "A notice of marriage takes between 28 and 29 days in the UK. You will need this document for your certificate of no impediment",
           "condition": ""
         },
         {
@@ -3247,7 +3323,7 @@
         {
           "text": "Give notice of marriage at your local registry office in the UK",
           "value": "Give notice of marriage at your local registry office in the UK",
-          "description": "A notice of marriage takes between 28 and 29 days in the UK. You will need this document for your Spanish certificate of no impediment"
+          "description": "A notice of marriage takes between 28 and 29 days in the UK. You will need this document for your certificate of no impediment"
         },
         {
           "text": "Get your affirmation notarised by a notary in Spain",
@@ -3393,7 +3469,7 @@
           "text": ""
         },
         {
-          "description": "Your partner's passport",
+          "description": "your partner's passport",
           "value": 1,
           "text": "",
           "condition": "doesntLiveInUKAndCNI"
@@ -3409,6 +3485,12 @@
           "value": 1,
           "text": "",
           "condition": "livesInUKAndMSC"
+        },
+        {
+          "description": "your proof of address",
+          "value": 1,
+          "text": "",
+          "condition": "livesElsewhere"
         },
         {
           "description": "a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before",
