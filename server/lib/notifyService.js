@@ -3,7 +3,12 @@ const { notifyApiKey } = require('../config')
 
 class NotifyService {
   constructor () {
-    this.notifyClient = new NotifyClient(notifyApiKey)
+    if (notifyApiKey) {
+      this.notifyClient = new NotifyClient(notifyApiKey)
+    } else {
+      // Notify disabled
+      this.notifyClient = { sendEmail () {} }
+    }
   }
 
   parsePersonalisations (options) {
