@@ -1352,10 +1352,6 @@
   ],
   "sections": [
     {
-      "name": "checkBeforeStart",
-      "title": "Check before you start"
-    },
-    {
       "name": "personalDetails",
       "title": "Personal details"
     },
