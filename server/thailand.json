@@ -17,7 +17,7 @@
       "value": "partnerOfOppositeSex=='no'"
     },
     {
-      "name": "hasMarriedBefore",
+      "name": "wasMarriedBefore",
       "value": "yourMaritalStatus.marriedBefore == 'yes'"
     },
     {
@@ -168,7 +168,7 @@
     {
       "path": "/current-status",
       "title": "What is your current marital status?",
-      "condition": "isMarriedBefore",
+      "condition": "wasMarriedBefore",
       "components": [
         {
           "options": {
@@ -849,7 +849,7 @@
     },
     {
       "path": "/marital-status",
-      "title": "Your marital status",
+      "title": "Have you been married or in a civil partnership before?",
       "components": [
         {
           "options": {
@@ -937,7 +937,6 @@
           "path": "/uk-address"
         }
       ],
-      "condition": "noPreviousNames",
       "section": "yourDetails"
     },
     {
@@ -1012,7 +1011,8 @@
         {
           "path": "/what-youll-need-dissolution"
         }
-      ]
+      ],
+      "condition": "isDissolved"
     },
     {
       "path": "/about-widowhood",
