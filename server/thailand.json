@@ -2596,5 +2596,16 @@
         }
       ]
     }
+  ],
+  "metadata": {
+    "post": "Thailand",
+    "caseType": "Consular Marriage",
+    "summary": "Affirmation of Marital Status (Fee 4)"
+  },
+  "fees": [
+    {
+      "description": "Affirmation of Marital Status (Fee 4)",
+      "amount": 5000
+    }
   ]
 }
