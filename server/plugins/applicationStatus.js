@@ -13,9 +13,18 @@ const applicationStatus = {
         path: '/status',
         handler: async (request, h) => {
           const { notifyService, payService } = request.services([])
-          const { pay } = await Cache.getState(request)
+          const { pay, reference } = await Cache.getState(request)
           const params = request.query
           const basePath = request.yar.get('basePath')
+
+          if (reference) {
+            await Cache.clearState(request)
+            if (reference === 'UNKNOWN') {
+              return h.view('confirmation', { })
+            }
+            return h.view('confirmation', { reference })
+          }
+
           // TODO:- if statement hell.. sorry!
           if (pay) {
             const { self, reference, meta } = pay
@@ -24,14 +33,14 @@ const applicationStatus = {
 
             if (state.finished || userCouldntPay) {
               if (state.status === 'success' || userCouldntPay) {
-                let { notify, caseManagementData } = await Cache.getState(request)
+                const { notify, caseManagementData } = await Cache.getState(request)
                 if (userCouldntPay) {
                   delete caseManagementData.fees
                 }
-                let response = await caseManagementPostRequest(caseManagementData)
-                let reference = response.reference !== 'UNKNOWN' ? response.reference : ''
+                const response = await caseManagementPostRequest(caseManagementData)
+                const reference = response.reference !== 'UNKNOWN' ? response.reference : ''
                 if (notify) {
-                  let { templateId, personalisation, emailField } = notify
+                  const { templateId, personalisation, emailField } = notify
                   notifyService.sendNotification(templateId, emailField, reference, personalisation || {})
                 }
                 await Cache.clearState(request)
