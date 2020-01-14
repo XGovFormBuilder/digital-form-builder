@@ -221,6 +221,14 @@
       "value": "livesInSpain and needsCNI"
     },
     {
+      "name": "doesntLiveInSpainAndMSC",
+      "value": "doesntLiveInSpain and needsMSC"
+    },
+    {
+      "name": "doesntLiveInSpainAndMSCOnly",
+      "value": "doesntLiveInSpain and needsMSCOnly"
+    },
+    {
       "name": "addressDifferentToDelivery",
       "value": "sendCertificate == false"
     }
@@ -658,6 +666,9 @@
           "path": "/add-partners-marital-status-documents"
         },
         {
+          "path": "/upload-partners-passport"
+        },
+        {
           "path": "/your-details"
         }
       ],
@@ -768,14 +779,6 @@
           "schema": {}
         },
         {
-          "type": "Details",
-          "title": "Which documents can be used as proof of address?",
-          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
-          "options": {},
-          "schema": {},
-          "name": "/add-your-documents-742-742"
-        },
-        {
           "type": "FileUploadField",
           "name": "/add-your-documents-742-742",
           "title": "Upload a file",
@@ -804,21 +807,13 @@
     {
       "path": "/add-proof-of-address-elsewhere",
       "title": "Proof of address",
-      "condition": "livesElsewhere",
+      "condition": "livesElsewhereAndNeedsMSC",
       "components": [
         {
           "type": "Html",
           "content": "<p class=\"govuk-body\">Add a photo of a proof of your current address</p>",
           "options": {},
           "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "Which documents can be used as proof of address?",
-          "content": "<li>electoral role confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
-          "options": {},
-          "schema": {},
-          "name": "/add-your-documents-742-742"
         },
         {
           "type": "FileUploadField",
@@ -837,6 +832,9 @@
         }
       ],
       "next": [
+        {
+          "path": "/add-birth-certificate"
+        },
         {
           "path": "/upload-partners-passport"
         }
@@ -1937,23 +1935,10 @@
           "title": "Which documents can be used as proof of address?",
           "content": "<li>electoral roll confirmation letter</li>\r\n    <li>utility bills (not printed off the internet) / building society/savings bank passbook</li>\r\n    <li>bank/building society/credit card statement (not ones printed off the internet)</li>\r\n    <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n    <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>",
           "options": {
-            "conditions": "doesntLiveElsewhereAndCNI"
+            "condition": "doesntLiveInSpainAndMSC"
           },
           "schema": {},
           "name": "/need-to-apply-other-country-MSC-partner-married-953-953"
-        },
-        {
-          "type": "Para",
-          "content": "You can return to this point in the application. Leave your email address below and we will send you a link to this page you can use at any time.",
-          "schema": {},
-          "options": {}
-        },
-        {
-          "type": "Html",
-          "content": "<div class=\"govuk-form-group\"><label class=\"govuk-label govuk-label--s\" for=\"email\">Email address</label><input class=\"govuk-input\" id=\"email\" type=\"text\"><p><button class=\"govuk-button\" type=\"button\">Send email</button>\n</p></div>",
-          "schema": {},
-          "name": "/need-to-apply-other-country-MSC-partner-married-953-953",
-          "options": {}
         }
       ],
       "next": [
@@ -3490,10 +3475,10 @@
           "description": "your proof of address",
           "value": 1,
           "text": "",
-          "condition": "livesElsewhere"
+          "condition": "livesElsewhereAndNeedsMSC"
         },
         {
-          "description": "a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before",
+          "description": "a town hall registration certificate ('certificado de empadronamiento') issued at least 3 working days before with current address or spanish residence certificate",
           "value": 1,
           "text": "",
           "condition": "livesInSpain"
@@ -3572,5 +3557,14 @@
       "amount": 5000,
       "condition": "needsMSC"
     }
-  ]
+  ],
+  "notify": {
+    "personalisation": [
+      "needsMSC",
+      "needsCNI",
+      "yourDetails.firstName"
+    ],
+    "emailField": "yourContactDetails.email",
+    "templateId": "998430f6-9298-477a-8294-fa93725fd986"
+  }
 }
