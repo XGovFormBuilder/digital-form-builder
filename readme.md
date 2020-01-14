@@ -57,6 +57,7 @@ These are loaded from the .env file inside of the keybase team folder.
 | PAY_API_KEY    | Pay api key      |    yes   |         |                             |                               |
 | PAY_RETURN_URL | Pay return url   |    yes   |         |                             | For GOV.UK Pay to redirect back to our service |
 | PAY_API_URL    | Pay api url      |    yes   |         |                             |                               |
+| NOTIFY_API_KEY | Notify api key   |    yes   |         |                             |                               |
 
 # Testing
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`. 
