@@ -341,15 +341,20 @@
           "schema": {}
         },
         {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "TextField",
           "name": "fathersName",
           "title": "Full name",
           "hint": "Name should match the UK long birth certificate",
-          "options": {},
           "schema": {}
         },
         {
           "options": {
+            "required": false,
+            "optionalText": false,
             "list": "unknown"
           },
           "type": "CheckboxesField",
@@ -370,22 +375,30 @@
           "schema": {}
         },
         {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
           "type": "TextField",
           "name": "mothersName",
           "title": "Full name",
           "hint": "Name should match the UK long birth certificate",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "TextField",
-          "name": "mothersMaidenName",
-          "title": "Maiden name",
-          "options": {},
           "schema": {}
         },
         {
           "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "mothersMaidenName",
+          "title": "Maiden name",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false,
             "list": "unknown"
           },
           "type": "CheckboxesField",
@@ -1308,7 +1321,8 @@
       "path": "/summary",
       "title": "Summary",
       "components": [],
-      "next": []
+      "next": [],
+      "controller": "./pages/summary.js"
     },
     {
       "path": "/getting-married-in-thailand",
