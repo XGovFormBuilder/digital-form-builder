@@ -43,11 +43,13 @@ class SummaryViewModel {
           }
         }
       })
-      details.push({
-        name: section && section.name ? section.name : null,
-        title: section && section.title ? section.title : null,
-        items
-      })
+      if (items.length > 0) {
+        details.push({
+          name: section && section.name ? section.name : null,
+          title: section && section.title ? section.title : null,
+          items
+        })
+      }
     })
     let applicableFees = []
 
