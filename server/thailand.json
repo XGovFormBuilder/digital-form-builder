@@ -2,11 +2,11 @@
   "conditions": [
     {
       "name": "hasUKPassport",
-      "value": "hasUKPassport=='yes'"
+      "value": "ukPassport=='yes'"
     },
     {
       "name": "noUKPassport",
-      "value": "!hasUKPassport"
+      "value": "not hasUKPassport"
     },
     {
       "name": "isCivilPartnership",
@@ -46,7 +46,7 @@
     },
     {
       "name": "canContact",
-      "value": "contact == 'yes'"
+      "value": "contactForFeedback=='yes'"
     }
   ],
   "startPage": "/british-passport",
@@ -2587,7 +2587,7 @@
   },
   "fees": [
     {
-      "description": "Affirmation of Marital Status (Fee 4)",
+      "description": "Certificate of No Impediment for UK Residents (Fee 11ii)",
       "amount": 5000,
       "condition": "hasUKPassport"
     }
