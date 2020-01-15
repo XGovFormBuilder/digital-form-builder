@@ -6,7 +6,7 @@
     },
     {
       "name": "noUKPassport",
-      "value": "hasUKPassport=='no'"
+      "value": "!hasUKPassport"
     },
     {
       "name": "isCivilPartnership",
@@ -52,14 +52,14 @@
   "startPage": "/british-passport",
   "pages": [
     {
-      "path": "/british-passport",
+      "path": "/uk-passport",
       "components": [
         {
           "options": {
             "list": "yesNo"
           },
           "type": "RadiosField",
-          "name": "hasUKPassport",
+          "name": "ukPassport",
           "title": "Do you have a UK passport?",
           "schema": {}
         }
@@ -70,6 +70,9 @@
         },
         {
           "path": "/no-british-passport"
+        },
+        {
+          "path": "/no-uk-passport"
         }
       ],
       "title": "Do you have a UK passport?"
@@ -812,7 +815,8 @@
         {
           "path": "/summary"
         }
-      ]
+      ],
+      "section": "feedback"
     },
     {
       "path": "/marital-status",
@@ -907,7 +911,7 @@
       "section": "yourDetails"
     },
     {
-      "path": "/no-british-passport",
+      "path": "/no-uk-passport",
       "title": "You need a UK passport to apply for this service",
       "condition": "noUKPassport",
       "components": [
@@ -1277,38 +1281,9 @@
       "components": [],
       "next": [],
       "controller": "./pages/summary.js"
-    },
-    {
-      "path": "/getting-married-in-thailand",
-      "title": "Getting married in Thailand",
-      "components": [
-        {
-          "type": "Para",
-          "content": "To get married in Thailand you need to visit the embassy in Bangkok prior to your marriage registration.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "Before you do that you need to get certain documents that prove you are free to get married.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "Apply online or download a paper application to get the documents you need.",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": []
     }
   ],
   "sections": [
-    {
-      "name": "personalDetails",
-      "title": "Personal details"
-    },
     {
       "name": "yourDetails",
       "title": "Your details"
@@ -1360,6 +1335,14 @@
     {
       "name": "referees",
       "title": "Your referees"
+    },
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    },
+    {
+      "name": "yourParentsDetails",
+      "title": "Your parent's details"
     }
   ],
   "lists": [
