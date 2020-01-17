@@ -1,0 +1,1241 @@
+{
+  "conditions": [
+    {
+      "name": "isAsap",
+      "value": "licenceDetails.startKind == 'asap'"
+    },
+    {
+      "name": "isAbsolute",
+      "value": "licenceDetails.startKind == 'absolute'"
+    },
+    {
+      "name": "isJunior",
+      "value": "personalDetails.ageGroup == 'junior'"
+    },
+    {
+      "name": "isFull",
+      "value": "personalDetails.ageGroup == 'full'"
+    },
+    {
+      "name": "isAnnual",
+      "value": "licenceDetails.licenceLength == 365"
+    },
+    {
+      "name": "isShortTerm",
+      "value": "licenceDetails.licenceLength == 1 or licenceDetails.licenceLength == 8"
+    },
+    {
+      "name": "isSalmon",
+      "value": "licenceDetails.licenceType == 'salmonAndSeaTrout'"
+    },
+    {
+      "name": "isTroutAndCourse",
+      "value": "licenceDetails.licenceType == 'troutAndCourse'"
+    },
+    {
+      "name": "hasPIPorDLA",
+      "value": "concessions.hasPIPorDLA == true"
+    },
+    {
+      "name": "hasBlueBadge",
+      "value": "concessions.hasBlueBadge == true"
+    },
+    {
+      "name": "isAsapAndFull",
+      "value": "isAsap and isFull"
+    },
+    {
+      "name": "isAnnualAndFull",
+      "value": "isAnnual and isFull"
+    },
+    {
+      "name": "isAbsoluteAndShortTerm",
+      "value": "isAbsolute and isShortTerm"
+    },
+    {
+      "name": "requiresNI",
+      "value": "isAnnualAndFull and hasPIPorDLA"
+    },
+    {
+      "name": "requiresBBCheck",
+      "value": "isAnnualAndFull and hasPIPorDLA == false"
+    },
+    {
+      "name": "requiresBB",
+      "value": "requiresBBCheck and hasBlueBadge"
+    }
+  ],
+  "startPage": "/",
+  "pages": [
+    {
+      "path": "/start",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">To get a certificate of foreign marriage recognition you need to:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>apply for a certificate online or by downloading and completing the paper application</li>\r\n  <li>make a declaration at your local consulate</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Both you and your partner will need to attend the appointment at the consulte to make seperate declarations.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-m\">Before you apply</h3>\r\n\r\n<p class=\"govuk-body\"> To get a certificate of foreign marriage recogntiotion, you'll need a legalised marriage certificate.</p> \r\n\r\n<p class=\"govuk-body\">  The Spanish Foreigners’ Office (Extranjería) will usually require your marriage certificate to have been both issued and legalised in the last 3 months. </p>\r\n\r\n<p class=\"govuk-body\"> If you got married in a <a href=\"https://www.hcch.net/en/states/hcch-members\" class=\"govuk-link\">country that is part of the Hague Convention</a>, the legalisation office in that country will place a stamp or vignette on the back of the document.</p>\r\n\r\n<p class=\"govuk-body\">If not you'll need to: </p>\r\n\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>contact the authority where your marriage was registered and get a stamp or signature to validate your marriage certificate</li>\r\n  <li>take your marriage certificate to the Spanish embassy in the country you got married in so they can recognise the stamp/signature of the issuing authority</li>\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<h2 class=\"govuk-heading-l\">Apply for a certificate of foreign marriage recognition certificate</h2>\r\n\r\n<p class=\"govuk-body\">Apply for a certiifcate of foreign marriage recognition online or download and complete the paper application. </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/how-to-get-certifcate"
+        }
+      ],
+      "title": "Certificate of foreign marriage recognition"
+    },
+    {
+      "path": "/UK-passport",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "ukPassport",
+          "title": "Do you have a UK passport?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/date-of-birth"
+        },
+        {
+          "path": "/no-uk-passport"
+        },
+        {
+          "path": "/partner-non-EU-natioanal"
+        }
+      ],
+      "title": "Do you have a UK passport?"
+    },
+    {
+      "path": "/no-uk-passport",
+      "title": "You need a UK passport to apply for this service online",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">If you are British citizen but don't have a UK passport, contact the <a href=\"https://www.gov.uk/world/organisations/british-consulate-general-madrid/office/british-consulate-general-madrid\">British consulate in Madrid to continue your application. </a> </p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/partner-non-EU-natioanal",
+      "title": "Is your partner an EU national?",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "partnerNonEuNational",
+          "title": "Is your partner an EU national?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partner-eu-national"
+        },
+        {
+          "path": "/marriage-cert-in-Spanish"
+        }
+      ]
+    },
+    {
+      "path": "/partner-eu-national",
+      "title": "You do not need a certificate of foreign marriage recognition",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If your partner is an EU national, you do not need a certificate of foreign marriage recognition.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/how-to-get-certifcate",
+      "title": "How to get a certificate of foreign marriage recognition",
+      "components": [
+        {
+          "options": {
+            "list": "howToGetaforeignMarriage"
+          },
+          "type": "FlashCard",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-youll-need-to-apply"
+        }
+      ]
+    },
+    {
+      "path": "/what-youll-need-to-apply",
+      "title": "What you'll need to apply",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n You’ll need to get any documents that are not in English or Spanish translated into Spanish. \r\n  </strong>\r\n</div>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your Certificado de Empadronamiento (Town Hall registration certificate), bearing your\r\ncurrent address </li>\r\n <li>your Spanish residence certificate (green document/card which bears your NIE number and\r\nyour address), bearing your current address</li>\r\n<li>your partner's passport</li>\r\n<li>your original marriage certificate issued and legalised in the last 3 months </li>\r\n<li>an official translation of your marriage certificate into Spanish </li>\r\n\r\n</ul>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "<h3 class=\"govuk-heading-m\">Officially translating your documents into Spanish</h3>\r\n\r\n<p class=\"govuk-body\">Translations in Spanish are usually accepted by the Spanish Foreigners’ Office if they’re issued by one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li><a href=\"http://www.exteriores.gob.es/Portal/en/ServiciosAlCiudadano/Paginas/Traductoresas---Int%C3%A9rpretes-Juradosas.aspx\" class=\"govuk-link\">a sworn translator </a></li>\r\n  <li>the consulate or embassy in Spain of the country where the marriage took place</li>\r\n  <li>a translator in the country where the marriage took place as long as the translation has been certified by the consulate/embassy in Spain of that country</li>\r\n</ul>\r\n\r\n\r\n<p class=\"govuk-body\">British Consulates in Spain cannot translate documents.</p>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-passport"
+        }
+      ]
+    },
+    {
+      "path": "/your-name",
+      "title": "Full name",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false,
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "middleNmae",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "surname",
+          "title": "Surname",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/address"
+        },
+        {
+          "path": "/add-spanish-cert"
+        }
+      ],
+      "section": "yourDetails"
+    },
+    {
+      "path": "/address",
+      "title": "Address",
+      "section": "yourDetails",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "address-line-1",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "address-line-2",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "name": "townOrCity",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-one-third"
+          },
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "numberOfRods"
+          },
+          "type": "SelectField",
+          "name": "country",
+          "title": "Country",
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "addressAtTimeOfMarriage",
+          "title": "Were you living at this address at the time your marriage?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/address-at-time-of-marriage"
+        },
+        {
+          "path": "/partners-details"
+        }
+      ]
+    },
+    {
+      "path": "/office-requesting",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "foreignOfficeName",
+          "title": "Which Foreigners’ Office (Extranjería) is requesting this consular certificate?",
+          "hint": "For example the Foreign Office in Córdoba",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/feedback"
+        }
+      ],
+      "title": "Which Foreigner's Office (Extranjería) is requesting the consular certificate?",
+      "section": "yourCertificate"
+    },
+    {
+      "path": "/partners-details",
+      "title": "Partner's passport details",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on their passport.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "surname",
+          "title": "Surname",
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dateOfBirth",
+          "title": "Date of birth",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "passportNumber",
+          "title": "Passport number",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/address-598"
+        },
+        {
+          "path": "/address-partner"
+        }
+      ]
+    },
+    {
+      "path": "/address-at-time-of-marriage",
+      "title": "What was your address at the time of marriage?",
+      "section": "yourDetails",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "address-line-1",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "addressline2",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "name": "townCity",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-one-third"
+          },
+          "type": "TextField",
+          "name": "postcode",
+          "title": "Postcode",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "numberOfRods"
+          },
+          "type": "SelectField",
+          "name": "country",
+          "title": "Country",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-details"
+        }
+      ]
+    },
+    {
+      "path": "/address-partner",
+      "title": "Partner's address",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "/address-598-598",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "/address",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "name": "/address-598-598",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-one-third"
+          },
+          "type": "TextField",
+          "name": "/address-598-598",
+          "title": "Postcode",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "numberOfRods"
+          },
+          "type": "SelectField",
+          "name": "country",
+          "title": "Country",
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "/address-598-598",
+          "title": "Was your partner living at this address at the time your marriage?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/address-at-time-of-marriage-608"
+        },
+        {
+          "path": "/about-ceremony"
+        }
+      ]
+    },
+    {
+      "path": "/address-at-time-of-marriage-608",
+      "title": "What was your partner's address at the time of marriage?",
+      "section": "partnersDetails",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "/address-at-time-of-marriage-608-608",
+          "title": "Address",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "/address-at-time-of-marriage",
+          "title": "Address",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "name": "/address-at-time-of-marriage-608-608",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-!-width-one-third"
+          },
+          "type": "TextField",
+          "name": "/address-at-time-of-marriage-608-608",
+          "title": "Postcode",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "numberOfRods"
+          },
+          "type": "SelectField",
+          "name": "country",
+          "title": "Country",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/about-ceremony"
+        }
+      ]
+    },
+    {
+      "path": "/about-ceremony",
+      "title": "Place and date of your marriage",
+      "components": [
+        {
+          "options": {
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "name": "city",
+          "title": "Town or city",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "country",
+          "title": "Country",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "date",
+          "title": "Date",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/translation"
+        }
+      ],
+      "section": "aboutYourCeremony"
+    },
+    {
+      "path": "/legalised-marriage-certificate",
+      "title": "Legalised marriage certificate",
+      "section": "aboutYourCeremony",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "hagueApostille",
+          "title": "Does your marriage certificate have a Hague Apostille?",
+          "hint": "If you got married in a country that is part of the Hague Convention, the legalisation office in that country will place a stamp or vignette on the back of the document.",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/legalised-marriage-certificate-370"
+        },
+        {
+          "path": "/start"
+        }
+      ]
+    },
+    {
+      "path": "/add-passport",
+      "title": "Passport",
+      "section": "addDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of the main page of your UK passport - the page with the passport photo.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "passport",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>lay it flat on a table or for better results against a wall</li><li>make sure text is readable</li><li>no flash if possible</li><li>position the phone parallel to the document</li><li>use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-passport-102"
+        },
+        {
+          "path": "/add-town-hall-cert"
+        }
+      ]
+    },
+    {
+      "path": "/add-town-hall-cert",
+      "title": "Town Hall registration certificate",
+      "section": "addDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of your Town Hall registration certificate (Certiacdo de Empadronamiento), bearing your current address.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/add-passport-102-102",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>lay it flat on a table or for better results against a wall</li><li>make sure text is readable</li><li>no flash if possible</li><li>position the phone parallel to the document</li><li>use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-spanish-residence-cert"
+        }
+      ]
+    },
+    {
+      "path": "/add-spanish-residence-cert",
+      "title": "Spanish residence certificate",
+      "section": "addDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of your Spanish residence certificate (green document/card which has your NIE number), bearing your current address</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/add-town-hall-cert-197-197",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>lay it flat on a table or for better results against a wall</li><li>make sure text is readable</li><li>no flash if possible</li><li>position the phone parallel to the document</li><li>use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-sposues-passport"
+        }
+      ]
+    },
+    {
+      "path": "/add-sposues-passport",
+      "title": "Partner's passport",
+      "section": "addDocuments",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">Add a photo of the main page of your spouse's passport - the page with the passport photo.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "FileUploadField",
+          "name": "/add-spanish-residence-cert-931-931",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>lay it flat on a table or for better results against a wall</li><li>make sure text is readable</li><li>no flash if possible</li><li>position the phone parallel to the document</li><li>use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-marriage-cert"
+        }
+      ]
+    },
+    {
+      "path": "/add-marriage-cert",
+      "title": "Marriage certificate",
+      "section": "addDocuments",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "/add-sposues-passport-209-209",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>lay it flat on a table or for better results against a wall</li><li>make sure text is readable</li><li>no flash if possible</li><li>position the phone parallel to the document</li><li>use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-spanish-cert"
+        },
+        {
+          "path": "/your-name"
+        }
+      ]
+    },
+    {
+      "path": "/add-spanish-cert",
+      "title": "Marriage certificate translated into Spanish",
+      "section": "addDocuments",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "/add-sposues-passport-915-915",
+          "title": "Upload a file",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Details",
+          "title": "How to photograph your document",
+          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\"><li>lay it flat on a table or for better results against a wall</li><li>make sure text is readable</li><li>no flash if possible</li><li>position the phone parallel to the document</li><li>use both hands to keep your phone steady</li></ul>",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/legalised-marriage-certificate-370",
+      "title": "Marriage certificate",
+      "section": "aboutYourCeremony",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "/legalised-marriage-certificate2",
+          "title": "Has the authority where your marriage was registered validated your certificate with a stamp or signature?",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "/recognised-by-embassy",
+          "title": "Has the Spanish embassy in the country where you got married recognised the stamp or signature of the issuing authority?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/start"
+        }
+      ]
+    },
+    {
+      "path": "/translation",
+      "title": "Making your declaration",
+      "components": [
+        {
+          "type": "Para",
+          "content": "You and your partner will need to make a declaration in Spanish or English at the British Consulate.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "yourLanguage",
+          "title": "Do you speak either Spanish or English?",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "spouseLanguage",
+          "title": "Does your partner speak either Spanish or English?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/official-translator"
+        },
+        {
+          "path": "/office-requesting"
+        }
+      ],
+      "section": "languageOfDeclaration"
+    },
+    {
+      "path": "/official-translator",
+      "title": "Find an official translator",
+      "section": "languageOfDeclaration",
+      "components": [
+        {
+          "type": "Para",
+          "content": "<p class=\"govuk-body\">In order to carry out your declaration at the British Consulate, you\r\nmust provide an <a href=\"http://www.exteriores.gob.es/Portal/en/ServiciosAlCiudadano/Paginas/Traductoresas---Int%C3%A9rpretes-Juradosas.aspx\" class=\"govuk-link\">official interpreter (Intérprete Jurado)</a>  , who can interpret from your own language into either\r\nEnglish or Spanish.</p>\r\n\r\n<p class=\"govuk-body\"> <a href=\"https://www.gov.uk/government/publications/spain-consular-fees\" class=\"govuk-link\">Fee 4</a> will be charged for the interpreter.</p>\r\n\r\n<p class=\"govuk-body\">  The interpreter must bring their original ID\r\ndocument and original proof of address i.e. up to date “padrón” certificate/NIE etc.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "understand"
+          },
+          "type": "CheckboxesField",
+          "name": "understand",
+          "title": "Confirm",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/office-requesting"
+        }
+      ]
+    },
+    {
+      "path": "/feedback",
+      "title": "Feedback",
+      "components": [
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">We welcome your views on the Foreign Marriage Recognition service.</p>\r\n<p class=\"govuk-body\">If you agree to be contacted by answering 'Yes' below, you will be consenting to share your personal data – name, email address, telephone number and service received – with our independent partner research agency, IFF Research. </p>\r\n<p class=\"govuk-body\">You may withdraw your consent at any stage by emailing Consular.research@fco.gov.uk.</p>\r\n<p class=\"govuk-body\">For more details on how your data will be handled in relation to feedback please see the research privacy policy at www.gov.uk/fco/tell-fco.</p>",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "YesNoField",
+          "name": "contact",
+          "title": "Can out partner contact you for feedback to help improve the service?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/feedback-prefernce"
+        },
+        {
+          "path": "/declaration"
+        }
+      ],
+      "section": "feedback"
+    },
+    {
+      "path": "/feedback-prefernce",
+      "title": "How do you prefer to be contacted?",
+      "section": "feedback",
+      "components": [
+        {
+          "options": {
+            "list": "contact"
+          },
+          "type": "RadiosField",
+          "name": "contact",
+          "title": "How do you prefer to be contacted?",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/declaration"
+        }
+      ]
+    },
+    {
+      "path": "/declaration",
+      "title": "Declaration",
+      "components": [
+        {
+          "type": "Para",
+          "content": "I understand and accept that it is my responsibility to ensure that any document provided as a result of this\r\nConsular service is acceptable to the requesting authority and that if the document is to be presented outside\r\nof the UK or Spain, the signature of the Consular officer will be recognised by the requesting authority.\r\nRefunds cannot be given where the incorrect service is requested.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "I declare that the particulars given above are true to the best of my personal knowledge and belief.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "confirm"
+          },
+          "type": "CheckboxesField",
+          "name": "confirm",
+          "title": "Confirm",
+          "schema": {}
+        }
+      ],
+      "next": [],
+      "section": "declaration"
+    },
+    {
+      "path": "/marriage-cert-in-Spanish",
+      "title": "Is your marriage certificate written in Spanish?",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "spanishMarriageCert",
+          "title": "Is your marriage certificate written in Spanish?",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/legalised-marriage-certificate"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "personalDetails",
+      "title": "Personal details"
+    },
+    {
+      "name": "licenceDetails",
+      "title": "Licence details"
+    },
+    {
+      "name": "concessions",
+      "title": "Concessions"
+    },
+    {
+      "name": "yourDetails",
+      "title": "Your details"
+    },
+    {
+      "name": "yourCertificate",
+      "title": "Your certificate"
+    },
+    {
+      "name": "partnersDetails",
+      "title": "Your partner's details"
+    },
+    {
+      "name": "aboutYourCeremony",
+      "title": "About your ceremony"
+    },
+    {
+      "name": "addDocuments",
+      "title": "Add your documents"
+    },
+    {
+      "name": "languageOfDeclaration",
+      "title": "Language of declaration"
+    },
+    {
+      "name": "feedback",
+      "title": "Feedback"
+    },
+    {
+      "name": "declaration",
+      "title": "Declaration"
+    }
+  ],
+  "lists": [
+    {
+      "name": "licenceLengthDays",
+      "title": "Licence length (days)",
+      "type": "number",
+      "items": [
+        {
+          "text": "1 day",
+          "value": 1,
+          "description": {
+            "en": "Valid for 24 hours from the start time that you select",
+            "es": "24 Spanish hours"
+          }
+        },
+        {
+          "text": "8 day",
+          "value": 8,
+          "description": {
+            "en": "Valid for 8 consecutive days from the start time that you select"
+          }
+        },
+        {
+          "text": "12 months",
+          "value": 365,
+          "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
+        }
+      ]
+    },
+    {
+      "name": "licenceStartKind",
+      "title": "Licence start",
+      "type": "string",
+      "items": [
+        {
+          "text": "30 minutes after payment",
+          "value": "asap",
+          "description": ""
+        },
+        {
+          "text": "Another time or date",
+          "value": "absolute",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "licenceType",
+      "title": "Licence type",
+      "type": "string",
+      "items": [
+        {
+          "text": "Trout and Course",
+          "value": "troutAndCourse",
+          "description": ""
+        },
+        {
+          "text": "Salmon and sea trout",
+          "value": "salmonAndSeaTrout",
+          "description": "includes trout and coarse fish"
+        }
+      ]
+    },
+    {
+      "name": "numberOfRods",
+      "title": "Number of Rods",
+      "type": "number",
+      "items": [
+        {
+          "text": "Up to 2 rods",
+          "value": 2,
+          "description": ""
+        },
+        {
+          "text": "Up to 3 rods",
+          "value": 3,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "howToGetaforeignMarriage",
+      "title": "How to get a certificate of foreign marriage recognition",
+      "type": "string",
+      "items": [
+        {
+          "text": "Get your documents ready",
+          "value": "Get your documents ready",
+          "description": "We'll tell you the documents you'll need to apply",
+          "condition": ""
+        },
+        {
+          "text": "Upload your documents",
+          "value": "Upload your documents",
+          "description": "Upload a photo or scan of your documents",
+          "condition": ""
+        },
+        {
+          "text": "Apply online",
+          "value": "Apply online",
+          "description": "Take as long as you need to finish, but if you're inactive for 20 minutes your application will time out",
+          "condition": ""
+        },
+        {
+          "text": "Pay online",
+          "value": "Pay online",
+          "description": "By credit or debit card",
+          "condition": ""
+        },
+        {
+          "text": "Book an appointment at your local British consulate in Spain",
+          "value": "Book an appointment at your local British consulate",
+          "description": "You and your spouse will need to make declarations at the consulate",
+          "condition": ""
+        }
+      ]
+    },
+    {
+      "name": "marriageCertificate",
+      "title": "Marriage certificate",
+      "type": "string",
+      "items": [
+        {
+          "text": "has a Hague Apostille",
+          "value": 1,
+          "description": ""
+        },
+        {
+          "text": "Has been legalised by local authorities and the Spanish Embassy  in that country",
+          "value": 2,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "understand",
+      "title": "I understand",
+      "type": "string",
+      "items": [
+        {
+          "text": "I understand",
+          "value": 1,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "contact",
+      "title": "How do you prefer to be contacted?",
+      "type": "string",
+      "items": [
+        {
+          "text": "Email",
+          "value": 1,
+          "description": ""
+        },
+        {
+          "text": "Phone",
+          "value": 2,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "confirm",
+      "title": "Confirm",
+      "type": "string",
+      "items": [
+        {
+          "text": "I confirm",
+          "value": 1,
+          "description": ""
+        }
+      ]
+    }
+  ]
+}
