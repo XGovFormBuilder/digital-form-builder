@@ -49,7 +49,7 @@
       "value": "contactForFeedback=='yes'"
     }
   ],
-  "startPage": "/british-passport",
+  "startPage": "/uk-passport",
   "pages": [
     {
       "path": "/uk-passport",
