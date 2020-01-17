@@ -1,5 +1,4 @@
 const path = require('path')
-const Model = require('./model')
 const fs = require('fs')
 const { ordnanceSurveyKey } = require('../../config')
 const { getState, mergeState, clearState } = require('../../db')
@@ -14,25 +13,30 @@ const configFiles = fs.readdirSync(configPath).filter(filename => {
   }
 })
 
-const configurePlugins = (configFile, customPath) => {
-  const dataFilePath = path.join(customPath || configPath, configFile)
-  const data = require(dataFilePath)
-  // probably want to have basePath configurable in json also/instead
-  const basePath = configFile.replace(/govsite\.|\.json|/gi, '')
-  const model = new Model(data, {
+const configurePlugins = () => {
+
+  const configs = configFiles.map(configFile => {
+    const dataFilePath = path.join(configPath, configFile)
+    const configuration = require(dataFilePath)
+    // probably want to have basePath configurable in json also/instead
+    const id = configFile.replace(/govsite\.|\.json|/gi, '')
+    return {configuration, id}
+  })
+
+  let modelOptions = {
     getState,
     mergeState,
     clearState,
     relativeTo,
     defaultPageController
-  })
+  }
 
-  return [{
+  return {
     plugin: require('digital-form-builder-engine'),
-    options: { model, ordnanceSurveyKey, basePath }
-  }]
+    options: { modelOptions, configs }
+  }
 }
 module.exports = {
-  routes: () => [].concat(...configFiles.map(configFile => configurePlugins(configFile))),
+  routes: configurePlugins,
   configurePlugins
 }

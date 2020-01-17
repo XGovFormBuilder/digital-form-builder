@@ -193,7 +193,6 @@ class SummaryPage extends Page {
     return async (request, h) => {
       this.langFromRequest(request)
       const model = this.model
-      model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state)
 
@@ -219,7 +218,6 @@ class SummaryPage extends Page {
       const { payService } = request.services([])
       const lang = this.langFromRequest(request)
       const model = this.model
-      model.basePath = h.realm.pluginOptions.basePath || ''
       const state = await model.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
       await model.mergeState(request, { notify: summaryViewModel.notifyOptions })
