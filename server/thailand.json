@@ -1166,7 +1166,7 @@
         {
           "type": "FileUploadField",
           "name": "decreeAbsolute",
-          "title": "Upload a file",
+          "title": "Decree absolute",
           "options": {},
           "schema": {}
         }
@@ -1193,7 +1193,7 @@
         {
           "type": "FileUploadField",
           "name": "deathCertificate",
-          "title": "Upload a file",
+          "title": "Death certificate",
           "options": {},
           "schema": {}
         }
@@ -1219,7 +1219,7 @@
         {
           "type": "FileUploadField",
           "name": "finalOrder",
-          "title": "Upload a file",
+          "title": "Final order",
           "options": {},
           "schema": {}
         }
@@ -1245,7 +1245,7 @@
         {
           "type": "FileUploadField",
           "name": "decreeNullity",
-          "title": "Upload a file",
+          "title": "Decree of nullity",
           "options": {},
           "schema": {}
         }
@@ -2348,58 +2348,17 @@
       ]
     },
     {
-      "name": "sendAddress",
-      "title": "send address",
-      "type": "string",
-      "items": [
-        {
-          "text": "Yes",
-          "value": "addressYes",
-          "description": ""
-        },
-        {
-          "text": "No",
-          "value": "addressNo",
-          "description": ""
-        }
-      ]
-    },
-    {
-      "name": "servicesRequested",
-      "title": "Services requested",
-      "type": "string",
-      "items": [
-        {
-          "text": "Fee 10 – Notice of Marriage(£50)",
-          "value": "fee10",
-          "description": ""
-        },
-        {
-          "text": "Fee 11 – Certificate of No Impediment (£50)",
-          "value": "fee11",
-          "description": ""
-        },
-        {
-          "text": "Courier fee (£8)",
-          "value": "courier",
-          "description": ""
-        }
-      ]
-    },
-    {
       "name": "contactOptions",
       "title": "Contact options",
       "type": "string",
       "items": [
         {
           "text": "Email",
-          "value": "email",
-          "description": ""
+          "value": "Email"
         },
         {
           "text": "Phone",
-          "value": "phone",
-          "description": ""
+          "value": "Phone"
         }
       ]
     },
