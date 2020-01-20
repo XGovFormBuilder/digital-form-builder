@@ -321,7 +321,7 @@ Internal.prototype.processRequest = function processRequest (request, h) {
 }
 
 module.exports.plugin = {
-  name: pkg.name,
+  name: 'locale',
   version: pkg.version,
   pkg: pkg,
   once: true,
