@@ -25,6 +25,10 @@
       "value": "yourMaritalStatus.currentStatus == 'widowed'"
     },
     {
+      "name": "isSingle",
+      "value": "not wasMarriedBefore"
+    },
+    {
       "name": "isSurviving",
       "value": "yourMaritalStatus.currentStatus == 'surviving civil partner'"
     },
@@ -3590,5 +3594,17 @@
       "amount": 5000,
       "condition": "hasUKPassport"
     }
-  ]
+  ],
+  "notify":  {
+    "templateId": "e1eafe5c-3884-4d8e-9478-830d3e92f722",
+    "personalisation": [
+      "yourDetails.firstName",
+      "isAnnulled",
+      "isSingle",
+      "isDivorced",
+      "isWidowed",
+      "isDissolved"
+    ],
+    "emailField": "yourDetails.emailAddress"
+  }
 }
