@@ -30,9 +30,6 @@ const configurePlugins = (configFile, customPath) => {
   return [{
     plugin: require('digital-form-builder-engine'),
     options: { model, ordnanceSurveyKey, basePath }
-  }, {
-    plugin: require('digital-form-builder-designer'),
-    options: { path: dataFilePath, basePath, playgroundMode: true }
   }]
 }
 module.exports = {
