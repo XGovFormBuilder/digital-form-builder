@@ -3,6 +3,7 @@ const fs = require('fs')
 const { ordnanceSurveyKey } = require('../../config')
 const { getState, mergeState, clearState } = require('../../db')
 const configPath = path.join(__dirname, '..', '..')
+const config = require('./../../config')
 
 const relativeTo = __dirname
 const defaultPageController = './pages'
@@ -33,7 +34,7 @@ const configurePlugins = () => {
 
   return {
     plugin: require('digital-form-builder-engine'),
-    options: { modelOptions, configs }
+    options: { modelOptions, configs, previewMode: config.previewMode }
   }
 }
 module.exports = {
