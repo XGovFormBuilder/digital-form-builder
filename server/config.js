@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env'})
+require('dotenv').config({ path: '.env' })
 const joi = require('joi')
 
 // Define config schema
