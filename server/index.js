@@ -2,34 +2,25 @@ const hapi = require('@hapi/hapi')
 const Blankie = require('blankie')
 const Scooter = require('@hapi/scooter')
 const config = require('./config')
-const fs = require('fs')
 const { configurePlugins, routes } = require('./plugins/builder')
 const Schmervice = require('schmervice')
 const { NotifyService } = require('./lib/notifyService')
 const { PayService } = require('./lib/payService')
 const { UploadService } = require('./lib/documentUpload')
 
-const serverOptions = (isDev) => {
-  const defaultOptions = {
-    port: config.port,
-    routes: {
-      validate: {
-        options: {
-          abortEarly: false
-        }
+const serverOptions = {
+  port: config.port,
+  routes: {
+    validate: {
+      options: {
+        abortEarly: false
       }
     }
   }
-
-  return isDev && fs.existsSync('/keybase/team/cautionyourblast/fco/') ? { ...defaultOptions,
-    tls: {
-      key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
-      cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
-    } } : defaultOptions
 }
 
 async function createServer (routeConfig) {
-  const server = hapi.server(serverOptions(config.isDev))
+  const server = hapi.server(serverOptions)
   await server.register({
     plugin: require('hapi-pulse'),
     options: {
@@ -41,9 +32,9 @@ async function createServer (routeConfig) {
     plugin: Blankie,
     options: {
       fontSrc: 'self',
-      scriptSrc: ['self', 'https://cdn.matomo.cloud', 'unsafe-inline'],
+      scriptSrc: ['self', 'unsafe-inline', config.matomoUrl],
       styleSrc: ['self'],
-      imgSrc: ['self', 'https://*.matomo.cloud'],
+      imgSrc: ['self', config.matomoUrl],
       generateNonces: false
     }
   }])

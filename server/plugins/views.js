@@ -48,6 +48,7 @@ module.exports = {
       pageTitle: config.serviceName + ' - GOV.UK',
       analyticsAccount: config.analyticsAccount,
       matomoId: config.matomoId,
+      matomoUrl: config.matomoUrl,
       BROWSER_REFRESH_URL: config.browserRefreshUrl
     }
   }
