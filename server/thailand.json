@@ -88,7 +88,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Provide the details exactly as they appear on your passport.",
+          "content": "Provide the details as they appear on your passport.",
           "options": {},
           "schema": {}
         },
@@ -197,7 +197,16 @@
           },
           "type": "TextField",
           "name": "addressLine1",
-          "title": "Address",
+          "title": "Address line 1",
+          "schema": {}
+        },
+        {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
+          "type": "TextField",
+          "name": "addressLine2",
+          "title": "Address line 2",
           "schema": {}
         },
         {
@@ -315,7 +324,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "If your parents are deceased you still need to provide their details.",
+          "content": "If your father is deceased you still need to provide his details.",
           "options": {},
           "schema": {}
         },
@@ -344,7 +353,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "If your parents are deceased you still need to provide their details.",
+          "content": "If your mother is deceased you still need to provide her details.",
           "options": {},
           "schema": {}
         },
@@ -683,7 +692,14 @@
         {
           "type": "TextField",
           "name": "referee1AddressLine1",
-          "title": "Address",
+          "title": "Address line 1",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "referee1AddressLine2",
+          "title": "Address line 2",
           "options": {},
           "schema": {}
         },
@@ -742,7 +758,14 @@
         {
           "type": "TextField",
           "name": "referee2AddressLine1",
-          "title": "Address",
+          "title": "Address line 1",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "referee2AddressLine2",
+          "title": "Address line 2",
           "options": {},
           "schema": {}
         },
@@ -2301,7 +2324,7 @@
           "description": ""
         },
         {
-          "text": "Legally dissolved civil partner",
+          "text": "Dissolved civil partner",
           "value": "dissolved",
           "description": ""
         },
@@ -2484,19 +2507,19 @@
           "description": "Answer the next few questions so we can tell you what documents you'll need to apply"
         },
         {
-          "text": "Upload your documents",
-          "value": "Upload your documents",
+          "text": "Add your documents",
+          "value": "Add your documents",
           "description": "Upload a photo or scan of your documents"
         },
         {
           "text": "Apply online",
           "value": "Apply online",
-          "description": "Take as long as you need to finish, but if you're inactive got 30 minutes your application will time out"
+          "description": "Take as long as you need to finish, but if you're inactive for 20 minutes your application will time out"
         },
         {
           "text": "Pay online",
           "value": "Pay online",
-          "description": "Pay by credit or debit card"
+          "description": "By credit or debit card"
         },
         {
           "text": "Book an appointment at the British Embassy in Bangkok",

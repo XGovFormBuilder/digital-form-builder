@@ -32,9 +32,9 @@ async function createServer (routeConfig) {
     plugin: Blankie,
     options: {
       fontSrc: 'self',
-      scriptSrc: ['self', 'unsafe-inline', config.matomoUrl],
+      scriptSrc: (() => ['self', 'unsafe-inline'].concat(config.matomoUrl ? [config.matomoUrl] : []))(),
       styleSrc: ['self'],
-      imgSrc: ['self', config.matomoUrl],
+      imgSrc: (() => ['self'].concat(config.matomoUrl ? [config.matomoUrl] : []))(),
       generateNonces: false
     }
   }])
