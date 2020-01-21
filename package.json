@@ -13,7 +13,8 @@
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "npm run lint && npm run unit-test",
     "postinstall": "npm run build",
-    "a11y": "node test/audit/components && node lighthouse"
+    "a11y": "node test/audit/components && node lighthouse",
+    "symlink-env": "./bin/symlink-config"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '/keybase/team/cautionyourblast/fco/.env' })
+require('dotenv').config({ path: '.env'})
 const joi = require('joi')
 
 // Define config schema
@@ -20,7 +20,8 @@ const schema = {
   serviceName: joi.string().optional(),
   documentUploadApiUrl: joi.string().optional(),
   caseManagementApiUrl: joi.string().optional(),
-  notifyApiKey: joi.string().optional()
+  notifyApiKey: joi.string().optional(),
+  previewMode: joi.boolean().optional()
 }
 
 // Build config
@@ -42,7 +43,8 @@ const config = {
   serviceName: process.env.SERVICE_NAME,
   documentUploadApiUrl: process.env.DOCUMENT_UPLOAD_API_URL,
   caseManagementApiUrl: process.env.CASE_MANAGEMENT_API_URL,
-  notifyApiKey: process.env.NOTIFY_API_KEY
+  notifyApiKey: process.env.NOTIFY_API_KEY,
+  previewMode: process.env.PREVIEW_MODE || true
 }
 
 // Validate config

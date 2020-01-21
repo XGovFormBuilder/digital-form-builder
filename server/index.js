@@ -50,7 +50,7 @@ async function createServer (routeConfig) {
   await server.register({
     plugin: require('@hapi/crumb'),
     options: {
-      enforce: routeConfig ? routeConfig.enforceCsrf || false : true
+      enforce: routeConfig ? routeConfig.enforceCsrf || false : !config.previewMode
     }
   })
   await server.register(Schmervice)
