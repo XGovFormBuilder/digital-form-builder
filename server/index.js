@@ -1,3 +1,4 @@
+const fs = require('fs')
 const hapi = require('@hapi/hapi')
 const Blankie = require('blankie')
 const Scooter = require('@hapi/scooter')
@@ -8,19 +9,27 @@ const { NotifyService } = require('./lib/notifyService')
 const { PayService } = require('./lib/payService')
 const { UploadService } = require('./lib/documentUpload')
 
-const serverOptions = {
-  port: config.port,
-  routes: {
-    validate: {
-      options: {
-        abortEarly: false
+const serverOptions = (isDev) => {
+  const defaultOptions = {
+    port: config.port,
+    routes: {
+      validate: {
+        options: {
+          abortEarly: false
+        }
       }
     }
   }
+
+  return isDev && fs.existsSync('/keybase/team/cautionyourblast/fco/') ? { ...defaultOptions,
+    tls: {
+      key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
+      cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
+    } } : defaultOptions
 }
 
 async function createServer (routeConfig) {
-  const server = hapi.server(serverOptions)
+  const server = hapi.server(serverOptions(config.isDev))
   await server.register({
     plugin: require('hapi-pulse'),
     options: {
