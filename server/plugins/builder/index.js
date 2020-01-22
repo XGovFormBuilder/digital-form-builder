@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const configPath = path.join(__dirname, '..', '..')
+const configPath = path.join(__dirname, '..', '..', 'forms')
 const config = require('./../../config')
 
 const relativeTo = __dirname

@@ -428,10 +428,8 @@
       "title": "Feedback",
       "components": [
         {
-          "type": "Para",
-          "content": "We welcome your views on the registration service. If you agree to be contacted by answering 'yes'below, you will be consenting to share your personal data - name, email address, telpehone number and service received - with out independant partner research agency, IFF research. You may withdraw your consent at any stage by email consular.research@fco.gov.uk. For more details on how your data will be handled in relation to feedback please see the research privacy policy at www.gov.uk/fco/tell-fco",
-          "options": {},
-          "schema": {}
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">We welcome your views on the registration service.</p>\r\n<p class=\"govuk-body\">\r\nIf you agree to be contacted by answering 'yes' below, you will be consenting to share your personal data – name, email address, telephone number and service received – with our independent partner research agency, IFF research.\r\n</p>\r\n<p class=\"govuk-body\">\r\nYou may withdraw your consent at any stage by email <a href=\"mailto:consular.research@fco.gov.uk\">consular.research@fco.gov.uk</a>.\r\n</p>\r\n<p class=\"govuk-body\">\r\nFor more details on how your data will be handled in relation to feedback please see the research privacy policy at <a href=\"http://www.gov.uk/fco/tell-fco\">www.gov.uk/fco/tell-fco</a>.\r\n</p>"
         },
         {
           "options": {
@@ -546,27 +544,31 @@
       "section": "checkBeforeYouStart"
     },
     {
-      "path": "/what-youll-need-divorce",
+      "path": "/what-youll-need-to-apply",
       "title": "What you'll need to apply",
       "components": [
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your decree absolute</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
-          "options": {},
-          "schema": {}
+          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>"
+        },
+        {
+          "options": {
+            "list": "what-youll-need-to-apply"
+          },
+          "type": "List"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>"
         },
         {
           "type": "Details",
           "title": "How to take a good photograph",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
+          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\">\r\n  <li>lay it flat on a table or for better results against a wall</li>\r\n  <li>make sure all information is readable</li>\r\n  <li>no flash if possible</li>\r\n  <li>position the phone parallel to the document</li>\r\n  <li>use both hands to keep your phone steady</li>\r\n</ul>"
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
-          "options": {},
-          "schema": {}
+          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<h2 class=\"govuk-heading-s\">Who can be a referee?</h2>\r\n<p class=\"govuk-body\">Your referees must not live in Thailand.</p>\r\n<p class=\"govuk-body\">They don't have to be the same as the witness to your marriage.</p>"
         }
       ],
       "next": [
@@ -633,6 +635,9 @@
         },
         {
           "path": "/what-youll-need-divorce"
+        },
+        {
+          "path": "/what-youll-need-to-apply"
         }
       ],
       "section": "yourMaritalStatus"
@@ -845,7 +850,7 @@
           "path": "/current-status"
         },
         {
-          "path": "/what-youll-need"
+          "path": "/what-youll-need-to-apply"
         }
       ],
       "section": "yourMaritalStatus"
@@ -988,7 +993,7 @@
       ],
       "next": [
         {
-          "path": "/what-youll-need-dissolution"
+          "path": "/what-youll-need-to-apply"
         }
       ],
       "condition": "isDissolved"
@@ -1022,7 +1027,7 @@
       ],
       "next": [
         {
-          "path": "/what-youll-need-widow"
+          "path": "/what-youll-need-to-apply"
         }
       ]
     },
@@ -1055,127 +1060,7 @@
       ],
       "next": [
         {
-          "path": "/what-youll-need-annulment"
-        }
-      ]
-    },
-    {
-      "path": "/what-youll-need-widow",
-      "title": "What you'll need to apply",
-      "components": [
-        {
-          "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your late partner's death certificate</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to take a good photograph",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Html",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/upload-passport"
-        }
-      ]
-    },
-    {
-      "path": "/what-youll-need-dissolution",
-      "title": "What you'll need to apply",
-      "components": [
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your final order</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to take a good photograph",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/upload-passport"
-        }
-      ]
-    },
-    {
-      "path": "/what-youll-need-annulment",
-      "title": "What you'll need to apply",
-      "components": [
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n  <li>your decree of nullity</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to take a good photograph",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/upload-passport"
-        }
-      ]
-    },
-    {
-      "path": "/what-youll-need",
-      "title": "What you'll need to apply",
-      "components": [
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Upload the following documents:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your partner's passport or Thai ID</li>\r\n</ul>\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n\r\n<p class=\"govuk-body\"> You may find it easier to take photos on your phone and then send them to the device you're using for your application. </p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Details",
-          "title": "How to take a good photograph",
-          "content": "<ul class=\"list-bullet govuk-list govuk-list--bullet\"><li>Lay it flat on a table or for better results against a wall.</li><li>Make sure your address is readable.</li><li>No flash if possible.</li><li>Position the phone parallel to the document.</li><li>Use both hands to keep your phone steady.</li></ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-s\">Have the following information ready:</h2>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n<li>province and date of marriage registration at the district office</li>\r\n<li>name and address of two referees</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Anyone without a Thai address can be your referee. They can be anyone who knows you including family or friends and don't have to be the same people that witness the wedding registration.</p>",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/upload-passport"
+          "path": "/what-youll-need-to-apply"
         }
       ]
     },
@@ -3604,6 +3489,49 @@
           "value": "Zimbabwean"
         }
       ]
+    },
+    {
+      "name": "what-youll-need-to-apply",
+      "title": "What you'll need to apply",
+      "type": "string",
+      "items": [
+        {
+          "text": "your UK passport",
+          "value": "your UK passport",
+          "description": "your UK passport",
+          "condition": ""
+        },
+        {
+          "text": "your partner's passport or Thai ID",
+          "value": "your partner's passport or Thai ID",
+          "description": "your partner's passport or Thai ID",
+          "condition": ""
+        },
+        {
+          "text": "your decree absolute",
+          "value": "your decree absolute",
+          "description": "your decree absolute",
+          "condition": "isDivorced"
+        },
+        {
+          "text": "your final order",
+          "value": "your final order",
+          "description": "your final order",
+          "condition": "isDissolved"
+        },
+        {
+          "text": "your late partner's death certificate",
+          "value": "your late partner's death certificate",
+          "description": "your final order",
+          "condition": "isWidowedOrSurviving"
+        },
+        {
+          "text": "your decree of nullity",
+          "value": "your decree of nullity",
+          "description": "your decree of nullity",
+          "condition": "isAnnulled"
+        }
+      ]
     }
   ],
   "metadata": {
@@ -3618,7 +3546,7 @@
       "condition": "hasUKPassport"
     }
   ],
-  "notify":  {
+  "notify": {
     "templateId": "e1eafe5c-3884-4d8e-9478-830d3e92f722",
     "personalisation": [
       "yourDetails.firstName",
