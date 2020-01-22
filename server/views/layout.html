@@ -3,6 +3,7 @@
 {% from "back-link/macro.njk" import govukBackLink %}
 {% from "footer/macro.njk" import govukFooter -%}
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "skip-link/macro.njk" import govukSkipLink -%}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -44,6 +45,21 @@
   {{ pageTitle }}
 {% endblock %}
 
+{% block skipLink %}
+    {{ govukSkipLink({
+        href: '#main-content',
+        text: 'Skip to main content'
+    }) }}
+    <div id="global-cookie-message">
+        <div class="govuk-width-container">
+            <p class="govuk-body-s govuk-!-margin-0">
+                <span>This service uses cookies, including one which is required to complete an online application. </span>
+                <a href="/help/cookies" target="_blank">Review your cookie settings.</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
 {% block header %}
   {{ govukHeader({
     homepageUrl: "#",
@@ -73,8 +89,8 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="{{ assetPath }}/all.js"></script>
+  <script src="{{ assetPath }}/govuk-template.js"></script>
   <script src="{{ assetPath }}/ukaddressfield.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
   {% if BROWSER_REFRESH_URL %}

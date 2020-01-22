@@ -8,6 +8,14 @@ module.exports = [{
   }
 }, {
   method: 'GET',
+  path: '/assets/govuk-template.js',
+  options: {
+    handler: {
+      file: 'server/public/static/govuk-template.js'
+    }
+  }
+}, {
+  method: 'GET',
   path: '/assets/all.js',
   options: {
     handler: {
