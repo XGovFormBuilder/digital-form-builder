@@ -11,7 +11,6 @@ suite('requests', () => {
   // Create server before each test
   before(async () => {
     server = await createServer({ data: 'basic.json', customPath: __dirname })
-    console.log()
   })
 
   test('get request returns configured form page', async () => {
