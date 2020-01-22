@@ -11,12 +11,13 @@ suite('requests', () => {
   // Create server before each test
   before(async () => {
     server = await createServer({ data: 'basic.json', customPath: __dirname })
+    console.log()
   })
 
   test('get request returns configured form page', async () => {
     const options = {
       method: 'GET',
-      url: '/basic'
+      url: '/basic/start'
     }
 
     const response = await server.inject(options)
@@ -34,7 +35,7 @@ suite('requests', () => {
     form.append('licenceLength', 1)
     const options = {
       method: 'POST',
-      url: '/basic',
+      url: '/basic/start',
       headers: form.getHeaders(),
       payload: form.getBuffer()
     }

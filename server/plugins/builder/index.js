@@ -13,15 +13,23 @@ const configFiles = fs.readdirSync(configPath).filter(filename => {
   }
 })
 
-const configurePlugins = () => {
-  const configs = configFiles.map(configFile => {
-    const dataFilePath = path.join(configPath, configFile)
-    const configuration = require(dataFilePath)
-    // probably want to have basePath configurable in json also/instead
-    const id = configFile.replace(/govsite\.|\.json|/gi, '')
-    return { configuration, id }
-  })
+const idFromFilename = (filename) => {
+  return filename.replace(/govsite\.|\.json|/gi, '')
+}
 
+const configurePlugins = (configFile, customPath) => {
+  let configs
+  if (configFile && customPath) {
+    configs = [{ configuration: require(path.join(customPath, configFile)), id: idFromFilename(configFile) }]
+  } else {
+    configs = configFiles.map(configFile => {
+      const dataFilePath = path.join(configPath, configFile)
+      const configuration = require(dataFilePath)
+      // probably want to have basePath configurable in json also/instead
+      const id = idFromFilename(configFile)
+      return { configuration, id }
+    })
+  }
   let modelOptions = {
     getState,
     mergeState,
@@ -36,6 +44,5 @@ const configurePlugins = () => {
   }
 }
 module.exports = {
-  routes: configurePlugins,
   configurePlugins
 }

@@ -1,9 +1,9 @@
 {
   "conditions": [],
-  "startPage": "/",
+  "startPage": "/start",
   "pages": [
     {
-      "path": "/",
+      "path": "/start",
       "components": [
         {
           "options": {
