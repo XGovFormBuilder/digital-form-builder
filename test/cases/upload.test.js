@@ -95,12 +95,12 @@ suite('uploads', () => {
       method: 'POST',
       url: '/upload/upload-file',
       headers: form.getHeaders(),
-      payload: form.getBuffer()
+      payload: null
     }
     const response = await server.inject(options)
 
     const $ = cheerio.load(response.payload)
-    expect($(`[href='#file1']`).text().trim()).to.equal(`The selected file for "Passport photo" must be smaller than 5MB`)
+    expect($(`[href='#file1']`).text().trim()).to.equal('The file you uploaded was too big')
   })
 
   test('request with file upload field containing invalid file type returns with error message', async () => {
