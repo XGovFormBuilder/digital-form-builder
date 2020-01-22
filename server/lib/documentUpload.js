@@ -102,7 +102,8 @@ class UploadService {
             parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
           isValidFiletype = false
         }
-      } else if (fileSize > 1 && fileSize <= this.fileSizeLimit && isValidFiletype) {
+      }
+      if (fileSize > 1 && isValidFiletype) {
         try {
           let saved = await this.saveFileToTmp(fileValue)
           let { error, location } = await this.uploadDocument(saved)
