@@ -73,8 +73,16 @@ class UploadService {
     }
   }
 
+  async failAction (request, h, err) {
+    h.request.pre.filesizeError = true
+    return h.continue
+  }
+
   async handleUploadRequest (request, h) {
-    let files = this.fileStreamsFromPayload(request.payload)
+    let files = []
+    if (request.payload !== null) {
+      files = this.fileStreamsFromPayload(request.payload)
+    }
     let state = await Cache.getState(request)
     let originalFilenames = (state || {}).originalFilenames || {}
 
@@ -94,10 +102,6 @@ class UploadService {
             parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
           isValidFiletype = false
         }
-      }
-      if (fileSize > this.fileSizeLimit) {
-        h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, 'The selected file for "%s" must be smaller than 5MB')]
-        h.request.payload[key] = fileValue.hapi.filename
       } else if (fileSize > 1 && fileSize <= this.fileSizeLimit && isValidFiletype) {
         try {
           let saved = await this.saveFileToTmp(fileValue)
