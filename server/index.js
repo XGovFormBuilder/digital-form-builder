@@ -63,7 +63,7 @@ async function createServer (routeConfig) {
   if (routeConfig) {
     await server.register(configurePlugins(routeConfig.data, routeConfig.customPath))
   } else {
-    await server.register(routes())
+    await server.register(configurePlugins())
   }
   await server.register(require('./plugins/applicationStatus'))
   await server.register(require('./plugins/router'))
