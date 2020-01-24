@@ -1,4 +1,7 @@
 {% from "partials/summary-detail.html" import summaryDetail %}
+{% from "components/checkboxes/macro.njk" import govukCheckboxes %}
+
+
 {% extends 'layout.html' %}
 
 {% block content %}
@@ -11,6 +14,7 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
+
         {% if fees and fees.details|length %}
           <h2 class="govuk-heading-m">Fees</h2>
           <ul class="govuk-list govuk-list--bullet">
@@ -22,8 +26,30 @@
         {% endif %}
 
         {% if not result.error  %}
-            <form method="post">
+            <form method="POST">
               <input type="hidden" name="crumb" value="{{crumb}}"/>
+
+                {%if declaration %}
+                <h3 class="govuk-heading-s" id="declaration">Declaration</h3>
+                <p class="govuk-body">{{ declaration }}</p>
+                  <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
+
+                    {% if declarationError %}
+                        <span id="nationality-error" class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error:</span> {{declarationError}}
+                        </span>
+                    {% endif %}
+                    <div class="govuk-checkboxes">
+                     <div class="govuk-checkboxes__item">
+                       <input class="govuk-checkboxes__input" id="declaration-1" name="declaration" type="checkbox" value="true">
+                       <label class="govuk-label govuk-checkboxes__label" for="declaration-1">
+                         Confirm
+                       </label>
+                     </div>
+                    </div>
+                  </div>
+                {% endif %}
+
                 <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
                     {% if fees and fees.details|length %}
                         Confirm and pay

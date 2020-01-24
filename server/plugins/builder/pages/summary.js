@@ -51,6 +51,9 @@ class SummaryViewModel {
         })
       }
     })
+
+    this.declaration = model.def.declaration
+
     let applicableFees = []
 
     if (model.def.fees) {
@@ -186,6 +189,22 @@ class SummaryViewModel {
   set notifyOptions (value) {
     this._notify = value
   }
+
+  addDeclarationAsQuestion () {
+    this._caseManagementData.questions.push({
+      'id': '/summary',
+      'category': null,
+      'question': 'Declaration',
+      'fields': [
+        {
+          'id': 'declaration',
+          'title': 'Declaration',
+          'type': 'boolean',
+          'answer': true
+        }
+      ]
+    })
+  }
 }
 
 class SummaryPage extends Page {
@@ -197,20 +216,33 @@ class SummaryPage extends Page {
       const viewModel = new SummaryViewModel(this.title, model, state)
 
       // redirect user to start page if there are incomplete form errors
-      if (viewModel.result.error) {
+      /*      if (viewModel.result.error) {
         // default to first defined page
         let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
         let startPage = model.def.startPage
         if (startPage.startsWith('http')) {
           startPageRedirect = h.redirect(startPage)
         } else if (model.def.pages.find(page => page.path === startPage)) {
-          startPageRedirect = h.redirect(`/${model.basePath}${startPage}`)
+          startPageRedirect = h.redirect(`/${mode4l.basePath}${startPage}`)
         }
 
         return startPageRedirect
+      } */
+      let declarationError = request.yar.flash('declarationError')
+      if (declarationError.length) {
+        viewModel.declarationError = declarationError[0]
       }
       return h.view('summary', viewModel)
     }
+  }
+
+  streamToString (stream) {
+    const chunks = []
+    return new Promise((resolve, reject) => {
+      stream.on('data', chunk => chunks.push(chunk))
+      stream.on('error', reject)
+      stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
+    })
   }
 
   makePostRouteHandler (getState) {
@@ -220,6 +252,16 @@ class SummaryPage extends Page {
       const model = this.model
       const state = await model.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
+      if (summaryViewModel.declaration) {
+        let reqString = await this.streamToString(request.payload)
+        let data = new URLSearchParams(reqString)
+        if (!data.get('declaration')) {
+          request.yar.flash('declarationError', 'You must declare to be able to submit this application')
+          return h.redirect(`${request.headers.referer}#declaration`)
+        } else {
+          summaryViewModel.addDeclarationAsQuestion()
+        }
+      }
       await model.mergeState(request, { notify: summaryViewModel.notifyOptions })
 
       if (!summaryViewModel.fees) {
