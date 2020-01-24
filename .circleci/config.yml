@@ -73,7 +73,7 @@ jobs:
 
       - run:
           name: Checkout CI Support
-          command: git clone git@github.com:CautionYourBlast/ci-support.git
+          command: curl https://gist.githubusercontent.com/superafroman/ca7422b3c925dfeba5854edcc1713d89/raw/77febaa0954dfa8ebc6598b1366b7f1f8e38d610/docker-publish.sh -O && chmod +x docker-publish.sh
 
       - run:
           name: Install awscli
@@ -81,7 +81,7 @@ jobs:
 
       - run:
           name: Publish docker image
-          command: ci-support/docker/publish.sh fco digital-forms
+          command: docker-publish.sh eu-west-2 523508197323.dkr.ecr.eu-west-2.amazonaws.com fco digital-forms
 
       - persist_to_workspace:
           root: .
