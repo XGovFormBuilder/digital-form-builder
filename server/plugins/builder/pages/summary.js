@@ -216,18 +216,18 @@ class SummaryPage extends Page {
       const viewModel = new SummaryViewModel(this.title, model, state)
 
       // redirect user to start page if there are incomplete form errors
-      /*      if (viewModel.result.error) {
+      if (viewModel.result.error) {
         // default to first defined page
         let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
         let startPage = model.def.startPage
         if (startPage.startsWith('http')) {
           startPageRedirect = h.redirect(startPage)
         } else if (model.def.pages.find(page => page.path === startPage)) {
-          startPageRedirect = h.redirect(`/${mode4l.basePath}${startPage}`)
+          startPageRedirect = h.redirect(`/${model.basePath}${startPage}`)
         }
 
         return startPageRedirect
-      } */
+      }
       let declarationError = request.yar.flash('declarationError')
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0]
