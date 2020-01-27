@@ -72,17 +72,21 @@
 
 
 {% block beforeContent %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: "beta"
-    },
-    html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
-  }) }}
-  {{ govukBackLink({
-    href: "javascript:window.history.go(-1)",
-    text: "Back"
-  }) }}
+    {{ govukPhaseBanner({
+        tag: {
+          text: "beta"
+        },
+        html: 'This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.'
+    }) }}
+
+    {% if backLink %}
+        {{ govukBackLink({
+            href: backLink,
+            text: "Back"
+        }) }}
+    {% endif %}
 {% endblock %}
+
 
 {% block content %}
   <h1 class="govuk-heading-xl">Default page template</h1>

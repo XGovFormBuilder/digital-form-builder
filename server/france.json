@@ -126,7 +126,7 @@
       "value": "amountNameChange == 'yes'"
     }
   ],
-  "startPage": "https://www.gov.uk/marriage-abroad",
+  "startPage": "/start",
   "pages": [
     {
       "path": "/your-details",
