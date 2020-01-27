@@ -15,6 +15,13 @@ module.exports = {
           return h.view('help/cookies')
         }
       })
+      server.route({
+        method: 'get',
+        path: '/help/terms-and-conditions',
+        handler: async (request, h) => {
+          return h.view('help/terms-and-conditions')
+        }
+      })
     }
   }
 }
