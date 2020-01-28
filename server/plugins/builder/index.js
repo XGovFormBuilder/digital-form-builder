@@ -35,7 +35,8 @@ const configurePlugins = (configFile, customPath) => {
     mergeState,
     clearState,
     relativeTo,
-    defaultPageController
+    defaultPageController,
+    previewMode: config.previewMode
   }
 
   return {
