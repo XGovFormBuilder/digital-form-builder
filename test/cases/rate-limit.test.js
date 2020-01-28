@@ -34,7 +34,7 @@ suite('Rate limit', () => {
     await server.inject('/start')
     let response = await server.inject('/start')
     expect(response.statusCode).to.equal(429)
-    await new Promise(resolve => setTimeout(resolve, 75000))
+    await new Promise(resolve => setTimeout(resolve, 7500))
     let afterWaitingResponse = await server.inject('/start')
     expect(afterWaitingResponse.statusCode).to.equal(200)
   })
