@@ -44,7 +44,7 @@
     "boom": "7.2.2",
     "chrome-launcher": "^0.11.2",
     "digital-form-builder-designer": "CautionYourBlast/digital-form-builder-designer",
-    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine#chore/backlink",
+    "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine#feature/service-name",
     "dotenv": "^8.2.0",
     "flat": "^5.0.0",
     "form-data": "^2.5.1",

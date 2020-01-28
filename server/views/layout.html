@@ -64,7 +64,7 @@
   {{ govukHeader({
     homepageUrl: "#",
     containerClasses: "govuk-width-container",
-    serviceName: serviceName,
+    serviceName: name if name else serviceName,
     serviceUrl: "#"
   }) }}
 
