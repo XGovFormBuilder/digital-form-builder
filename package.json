@@ -54,6 +54,7 @@
     "good-squeeze": "5.1.0",
     "govuk-frontend": "2.3.0",
     "hapi-pulse": "2.4.0",
+    "hapi-rate-limit": "4.0.2",
     "hmpo-components": "2.3.0",
     "inert": "5.1.2",
     "ioredis": "4.14.1",

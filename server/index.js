@@ -30,6 +30,11 @@ const serverOptions = (isDev) => {
 
 async function createServer (routeConfig) {
   const server = hapi.server(serverOptions(config.isDev))
+
+  await server.register({
+    plugin: require('hapi-rate-limit'),
+    options: routeConfig ? routeConfig.rateOptions || { enabled: false } : { }
+  })
   await server.register({
     plugin: require('hapi-pulse'),
     options: {
