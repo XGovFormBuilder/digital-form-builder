@@ -248,7 +248,6 @@ class SummaryPage extends Page {
   makePostRouteHandler () {
     return async (request, h) => {
       const { payService, cacheService } = request.services([])
-      const lang = this.langFromRequest(request)
       const model = this.model
       const state = await cacheService.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
