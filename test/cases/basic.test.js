@@ -3,7 +3,7 @@ const { expect } = require('@hapi/code')
 const cheerio = require('cheerio')
 const FormData = require('form-data')
 const createServer = require('./../../server/index')
-const { before, test, suite } = exports.lab = Lab.script()
+const { before, test, suite, after } = exports.lab = Lab.script()
 
 suite('requests', () => {
   let server
@@ -11,8 +11,12 @@ suite('requests', () => {
   // Create server before each test
   before(async () => {
     server = await createServer({ data: 'basic.json', customPath: __dirname })
+    await server.start()
   })
 
+  after(async () => {
+    await server.stop()
+  })
   test('get request returns configured form page', async () => {
     const options = {
       method: 'GET',

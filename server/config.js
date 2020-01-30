@@ -63,5 +63,6 @@ const value = result.value
 value.isProd = value.env === 'production'
 value.isDev = !value.isProd
 value.isSandbox = process.env.sandbox || false // for heroku instances
+value.isTest = config.env === 'test'
 
 module.exports = value

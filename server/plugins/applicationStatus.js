@@ -1,5 +1,4 @@
 const { caseManagementPostRequest } = require('./../lib/caseManagement')
-const Cache = require('./../db')
 const shortid = require('shortid')
 
 const applicationStatus = {
@@ -12,13 +11,13 @@ const applicationStatus = {
         method: 'get',
         path: '/status',
         handler: async (request, h) => {
-          const { notifyService, payService } = request.services([])
-          const { pay, reference } = await Cache.getState(request)
+          const { notifyService, payService, cacheService } = request.services([])
+          const { pay, reference } = await cacheService.getState(request)
           const params = request.query
           const basePath = request.yar.get('basePath')
 
           if (reference) {
-            await Cache.clearState(request)
+            await cacheService.clearState(request)
             if (reference === 'UNKNOWN') {
               return h.view('confirmation', { })
             }
@@ -33,7 +32,7 @@ const applicationStatus = {
 
             if (state.finished || userCouldntPay) {
               if (state.status === 'success' || userCouldntPay) {
-                const { notify, caseManagementData } = await Cache.getState(request)
+                const { notify, caseManagementData } = await cacheService.getState(request)
                 if (userCouldntPay) {
                   delete caseManagementData.fees
                 }
@@ -43,7 +42,7 @@ const applicationStatus = {
                   const { templateId, personalisation, emailField } = notify
                   notifyService.sendNotification(templateId, emailField, reference, personalisation || {})
                 }
-                await Cache.clearState(request)
+                await cacheService.clearState(request)
                 return h.view('confirmation', { reference, paySkipped: userCouldntPay })
               } else {
                 return h.view('pay-error', { reference, errorList: ['there was a problem with your payment'] })
@@ -60,14 +59,14 @@ const applicationStatus = {
         method: 'post',
         path: '/status',
         handler: async (request, h) => {
-          const { payService } = request.services([])
-          let { pay } = await Cache.getState(request)
+          const { payService, cacheService } = request.services([])
+          let { pay } = await cacheService.getState(request)
           let { meta } = pay
           meta.attempts++
           // TODO:- let payService handle shortid.generate()
           let reference = `FCO-${shortid.generate()}`
           const res = await payService.payRequest(pay.meta.amount, reference, pay.meta.description)
-          await Cache.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
+          await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
           return h.redirect(res._links.next_url.href)
         }
       })

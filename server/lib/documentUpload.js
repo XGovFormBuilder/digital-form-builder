@@ -4,7 +4,6 @@ const FormData = require('form-data')
 const Wreck = require('@hapi/wreck')
 const tmp = require('tmp')
 const { documentUploadApiUrl } = require('./../config')
-const Cache = require('./../db')
 
 const parsedError = (key, error) => {
   return {
@@ -79,11 +78,12 @@ class UploadService {
   }
 
   async handleUploadRequest (request, h) {
+    const { cacheService } = request.services([])
     let files = []
     if (request.payload !== null) {
       files = this.fileStreamsFromPayload(request.payload)
     }
-    let state = await Cache.getState(request)
+    let state = cacheService.getState(request)
     let originalFilenames = (state || {}).originalFilenames || {}
 
     for (let file of files) {
@@ -123,7 +123,7 @@ class UploadService {
         delete request.payload[key]
       }
     }
-    await Cache.mergeState(request, { originalFilenames })
+    await cacheService.mergeState(request, { originalFilenames })
     return h.continue
   }
 }

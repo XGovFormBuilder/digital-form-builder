@@ -8,6 +8,7 @@ const Schmervice = require('schmervice')
 const { NotifyService } = require('./lib/notifyService')
 const { PayService } = require('./lib/payService')
 const { UploadService } = require('./lib/documentUpload')
+const { CacheService, catboxProvider } = require('./lib/cacheService')
 
 const serverOptions = (isDev) => {
   const defaultOptions = {
@@ -18,9 +19,10 @@ const serverOptions = (isDev) => {
           abortEarly: false
         }
       }
-    }
+    },
+    cache: [{ provider: catboxProvider() }]
   }
-
+  // return defaultOptions
   return isDev && fs.existsSync('/keybase/team/cautionyourblast/fco/') ? { ...defaultOptions,
     tls: {
       key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
@@ -33,8 +35,12 @@ async function createServer (routeConfig) {
 
   await server.register({
     plugin: require('hapi-rate-limit'),
-    options: routeConfig ? routeConfig.rateOptions || { enabled: false } : { }
+    options: routeConfig ? routeConfig.rateOptions || { enabled: false } : {
+      trustProxy: true,
+      pathLimit: false
+    }
   })
+
   await server.register({
     plugin: require('hapi-pulse'),
     options: {
@@ -58,8 +64,9 @@ async function createServer (routeConfig) {
       enforce: routeConfig ? routeConfig.enforceCsrf || false : !config.previewMode
     }
   })
+
   await server.register(Schmervice)
-  server.registerService([NotifyService, PayService, UploadService])
+  server.registerService([CacheService, NotifyService, PayService, UploadService])
 
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
@@ -73,8 +80,9 @@ async function createServer (routeConfig) {
   await server.register(require('./plugins/applicationStatus'))
   await server.register(require('./plugins/router'))
   await server.register(require('./plugins/error-pages'))
-
-  await server.register(require('blipp'))
+  if (!config.isTest) {
+    await server.register(require('blipp'))
+  }
   await server.register(require('./plugins/logging'))
 
   return server

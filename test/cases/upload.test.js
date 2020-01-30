@@ -3,7 +3,7 @@ const { expect } = require('@hapi/code')
 const cheerio = require('cheerio')
 const FormData = require('form-data')
 const createServer = require('./../../server/index')
-const { before, test, suite } = exports.lab = Lab.script()
+const { before, test, suite, after } = exports.lab = Lab.script()
 const { UploadService } = require('./../../server/lib/documentUpload')
 const { stub, restore } = require('sinon')
 const fs = require('fs')
@@ -15,6 +15,11 @@ suite('uploads', () => {
   // Create server before each test
   before(async () => {
     server = await createServer({ data: 'upload.json', customPath: __dirname })
+    await server.start()
+  })
+
+  after(async () => {
+    await server.stop()
   })
 
   test('request with file upload field populated is successful and redirects to next page', async () => {

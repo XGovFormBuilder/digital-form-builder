@@ -1,7 +1,7 @@
 const Lab = require('@hapi/lab')
 const { expect } = require('@hapi/code')
 const createServer = require('./../../server/index')
-const { suite, before, test } = exports.lab = Lab.script()
+const { suite, before, test, after } = exports.lab = Lab.script()
 
 suite('Rate limit', () => {
   let server
@@ -22,6 +22,9 @@ suite('Rate limit', () => {
       }
     })
     await server.start()
+  })
+  after(async () => {
+    await server.stop()
   })
 
   test('throws 429 error when rate limit is exceeded', async () => {

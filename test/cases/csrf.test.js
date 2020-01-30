@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 const FormData = require('form-data')
 const cookie = require('cookie')
 const createServer = require('./../../server/index')
-const { suite, before, test } = exports.lab = Lab.script()
+const { suite, before, test, after } = exports.lab = Lab.script()
 
 suite('CSRF', () => {
   let server
@@ -23,6 +23,11 @@ suite('CSRF', () => {
   // Create server before each test
   before(async () => {
     server = await createServer({ data: 'basic.json', customPath: __dirname, enforceCsrf: true })
+    await server.start()
+  })
+
+  after(async () => {
+    await server.stop()
   })
 
   test('get request returns CSRF header', async () => {

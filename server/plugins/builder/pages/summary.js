@@ -210,11 +210,11 @@ class SummaryViewModel {
 class SummaryPage extends Page {
   makeGetRouteHandler (getState) {
     return async (request, h) => {
+      const { cacheService } = request.services([])
       this.langFromRequest(request)
       const model = this.model
-      const state = await model.getState(request)
+      const state = await cacheService.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state)
-
       // redirect user to start page if there are incomplete form errors
       if (viewModel.result.error) {
         // default to first defined page
@@ -247,10 +247,10 @@ class SummaryPage extends Page {
 
   makePostRouteHandler (getState) {
     return async (request, h) => {
-      const { payService } = request.services([])
+      const { payService, cacheService } = request.services([])
       const lang = this.langFromRequest(request)
       const model = this.model
-      const state = await model.getState(request)
+      const state = await cacheService.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
       if (summaryViewModel.declaration) {
         let reqString = await this.streamToString(request.payload)
@@ -262,11 +262,11 @@ class SummaryPage extends Page {
           summaryViewModel.addDeclarationAsQuestion()
         }
       }
-      await model.mergeState(request, { notify: summaryViewModel.notifyOptions })
+      await cacheService.mergeState(request, { notify: summaryViewModel.notifyOptions })
 
       if (!summaryViewModel.fees) {
         const { reference } = await caseManagementPostRequest(summaryViewModel._caseManagementData)
-        await model.mergeState(request, { reference })
+        await cacheService.mergeState(request, { reference })
         return h.redirect(`/status`)
       } else {
         const paymentReference = `FCO-${shortid.generate()}`
@@ -274,9 +274,9 @@ class SummaryPage extends Page {
         const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description)
 
         request.yar.set('basePath', model.basePath)
-        await model.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href, meta: { amount: summaryViewModel.fees.total, description, attempts: 1 } } })
+        await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href, meta: { amount: summaryViewModel.fees.total, description, attempts: 1 } } })
         summaryViewModel.caseManagementDataPaymentReference = paymentReference
-        await model.mergeState(request, { caseManagementData: summaryViewModel.validatedCaseManagementData })
+        await cacheService.mergeState(request, { caseManagementData: summaryViewModel.validatedCaseManagementData })
 
         return h.redirect(res._links.next_url.href)
       }

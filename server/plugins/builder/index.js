@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-const { getState, mergeState, clearState } = require('../../db')
 const configPath = path.join(__dirname, '..', '..')
 const config = require('./../../config')
 
@@ -31,9 +30,6 @@ const configurePlugins = (configFile, customPath) => {
     })
   }
   let modelOptions = {
-    getState,
-    mergeState,
-    clearState,
     relativeTo,
     defaultPageController,
     previewMode: config.previewMode
