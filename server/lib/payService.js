@@ -38,6 +38,10 @@ class PayService {
       throw e
     }
   }
+
+  descriptionFromFees (fees) {
+    return fees.details.map(detail => `${detail.description}: £${detail.amount / 100}`).join(', ')
+  }
 }
 
 module.exports = {

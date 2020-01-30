@@ -208,7 +208,7 @@ class SummaryViewModel {
 }
 
 class SummaryPage extends Page {
-  makeGetRouteHandler (getState) {
+  makeGetRouteHandler () {
     return async (request, h) => {
       const { cacheService } = request.services([])
       this.langFromRequest(request)
@@ -245,7 +245,7 @@ class SummaryPage extends Page {
     })
   }
 
-  makePostRouteHandler (getState) {
+  makePostRouteHandler () {
     return async (request, h) => {
       const { payService, cacheService } = request.services([])
       const lang = this.langFromRequest(request)
@@ -270,7 +270,7 @@ class SummaryPage extends Page {
         return h.redirect(`/status`)
       } else {
         const paymentReference = `FCO-${shortid.generate()}`
-        const description = model.def.name ? this.localisedString(model.def.name, lang) : `${serviceName} ${this.model.basePath}`
+        const description = payService.descriptionFromFees(summaryViewModel.fees)
         const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description)
 
         request.yar.set('basePath', model.basePath)
