@@ -26,7 +26,7 @@
         {% endif %}
 
         {% if not result.error  %}
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
               <input type="hidden" name="crumb" value="{{crumb}}"/>
 
                 {%if declaration %}
