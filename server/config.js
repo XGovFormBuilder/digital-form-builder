@@ -1,4 +1,5 @@
 require('dotenv').config({ path: '.env' })
+
 const joi = require('joi')
 
 // Define config schema
@@ -21,7 +22,9 @@ const schema = {
   documentUploadApiUrl: joi.string().optional(),
   caseManagementApiUrl: joi.string().optional(),
   notifyApiKey: joi.string().optional(),
-  previewMode: joi.boolean().optional()
+  previewMode: joi.boolean().optional(),
+  sslKey: joi.string().optional(),
+  sslCert: joi.string().optional()
 }
 
 // Build config
@@ -44,7 +47,9 @@ const config = {
   documentUploadApiUrl: process.env.DOCUMENT_UPLOAD_API_URL,
   caseManagementApiUrl: process.env.CASE_MANAGEMENT_API_URL,
   notifyApiKey: process.env.NOTIFY_API_KEY,
-  previewMode: process.env.PREVIEW_MODE || true
+  previewMode: process.env.PREVIEW_MODE || false,
+  sslKey: process.env.SSL_KEY,
+  sslCert: process.env.SSL_CERT
 }
 
 // Validate config

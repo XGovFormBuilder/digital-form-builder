@@ -3536,12 +3536,11 @@
   ],
   "metadata": {
     "post": "Bangkok",
-    "caseType": "Consular Marriage",
-    "summary": "Certificate of No Impediment for UK Residents (Fee 11ii)"
+    "caseType": "Consular Marriage"
   },
   "fees": [
     {
-      "description": "Certificate of No Impediment for UK Residents (Fee 11ii)",
+      "description": "Affirmation of Marriage (Thailand)",
       "amount": 5000,
       "condition": "hasUKPassport"
     }

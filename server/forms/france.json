@@ -1,8 +1,7 @@
 {
   "metadata": {
     "post": "Paris",
-    "caseType": "Consular Marriage",
-    "summary": "Certificate of Custom/Law for PACS (Fee 11ii)"
+    "caseType": "Consular Marriage"
   },
   "conditions": [
     {
@@ -11,63 +10,63 @@
     },
     {
       "name": "isPacs",
-      "value": "ceremony == 'Civil partnership'"
+      "value": "checkBeforeYouStart.ceremony == 'Civil partnership'"
     },
     {
       "name": "isMarriage",
-      "value": "ceremony == 'Marriage'"
+      "value": "checkBeforeYouStart.ceremony == 'Marriage'"
     },
     {
-      "name": "noBritishPassport",
-      "value": "britishPassport=='no'"
+      "name": "noUKPassport",
+      "value": "checkBeforeYouStart.ukPassport=='no'"
     },
     {
       "name": "notBornUk",
-      "value": "ukBorn=='no'"
+      "value": "!isBornUk"
     },
     {
       "name": "isBornUk",
-      "value": "ukBorn=='yes'"
+      "value": "checkBeforeYouStart.ukBorn=='yes'"
     },
     {
       "name": "hasConsularBirthCertificate",
-      "value": "documents=='consular-birth-certificate'"
+      "value": "checkBeforeYouStart.documents=='consular-birth-certificate'"
     },
     {
       "name": "hasLocalBirthCertificate",
-      "value": "documents=='local-birth-certificate'"
+      "value": "checkBeforeYouStart.documents=='local-birth-certificate'"
     },
     {
       "name": "hasHomeOfficeCertificate",
-      "value": "documents=='home-office-certificate'"
+      "value": "checkBeforeYouStart.documents=='home-office-certificate'"
     },
     {
       "name": "consularNameMatches",
-      "value": "consularName == 'yes'"
+      "value": "checkBeforeYouStart.consularName == 'yes'"
     },
     {
       "name": "localCertificateMatches",
-      "value": "localCertificate == 'yes'"
+      "value": "checkBeforeYouStart.localCertificate == 'yes'"
     },
     {
       "name": "homeOfficeCertificateMatches",
-      "value": "naturalisationName == 'yes'"
+      "value": "checkBeforeYouStart.naturalisationName == 'yes'"
     },
     {
       "name": "nameChangedByDeedPoll",
-      "value": "nameChange == 'Deed poll'"
+      "value": "checkBeforeYouStart.nameChange == 'Deed poll'"
     },
     {
       "name": "nameChangedByMarriage",
-      "value": "nameChange == 'marriage'"
+      "value": "checkBeforeYouStart.nameChange == 'marriage'"
     },
     {
       "name": "nameChangedByCivilPartnership",
-      "value": "nameChange == 'Civil partnership'"
+      "value": "checkBeforeYouStart.nameChange == 'Civil partnership'"
     },
     {
       "name": "isBornUkpassportBirthCertificateMatches",
-      "value": "isBornUk and nameBirthPassport == 'yes'"
+      "value": "isBornUk and checkBeforeYouStart.nameBirthPassport == 'yes'"
     },
     {
       "name": "isBornUkAndPartneredNameChange",
@@ -75,7 +74,7 @@
     },
     {
       "name": "passportBirthCertificateMatches",
-      "value": "hasConsularBirthCertificate and nameBirthPassport == 'yes'"
+      "value": "hasConsularBirthCertificate and checkBeforeYouStart.nameBirthPassport == 'yes'"
     },
     {
       "name": "consularCertificateAndPartneredNameChange",
@@ -91,7 +90,7 @@
     },
     {
       "name": "localCertificateAndCivilPartnershipNameChange",
-      "value": "hasLocalBirthCertificate and nameChange == 'Civil partnership'"
+      "value": "hasLocalBirthCertificate and checkBeforeYouStart.nameChange == 'Civil partnership'"
     },
     {
       "name": "localCertificateAndDeedPollNameChange",
@@ -115,7 +114,7 @@
     },
     {
       "name": "nameChanged",
-      "value": "nameChange == ('Deed poll' or 'marriage' or 'Civil partnership')"
+      "value": "checkBeforeYouStart.nameChange == ('Deed poll' or 'marriage' or 'Civil partnership')"
     },
     {
       "name": "previouslyMarriedOrCivilPartnership",
@@ -123,7 +122,7 @@
     },
     {
       "name": "tooManyNameChanges",
-      "value": "amountNameChange == 'yes'"
+      "value": "checkBeforeYouStart.amountNameChange == 'yes'"
     }
   ],
   "startPage": "/start",
@@ -134,7 +133,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Provide the details as they appear on your passport",
+          "content": "Provide the details as they appear on your passport.",
           "options": {},
           "schema": {}
         },
@@ -198,7 +197,7 @@
           "path": "/your-partners-details"
         }
       ],
-      "title": "Your marital or civil status"
+      "title": "Have you been married or in a civil partnership before?"
     },
     {
       "path": "/your-contact-details",
@@ -260,11 +259,12 @@
         {
           "path": "/delivery-address"
         }
-      ]
+      ],
+      "section": "aboutYourCeremony"
     },
     {
       "path": "/your-partners-details",
-      "title": "Your partner's details",
+      "title": "Partner's name",
       "components": [
         {
           "type": "TextField",
@@ -278,7 +278,8 @@
         {
           "path": "/about-your-ceremony"
         }
-      ]
+      ],
+      "section": "partnersDetails"
     },
     {
       "path": "/what-is-your-current-marital-status",
@@ -300,7 +301,7 @@
           "path": "/your-partners-details"
         }
       ],
-      "title": "What is your current marital status?"
+      "title": "What is your current marital or civil status?"
     },
     {
       "path": "/delivery-address",
@@ -358,7 +359,8 @@
         {
           "path": "/feedback"
         }
-      ]
+      ],
+      "section": "address"
     },
     {
       "path": "/date-of-birth",
@@ -367,7 +369,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Provide the details as they appear on your birth certificate or naturalisation certificate",
+          "content": "Provide the details as they appear on your birth certificate or naturalisation certificate.",
           "options": {},
           "schema": {}
         },
@@ -409,7 +411,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long UK birth certificate</li>\r\n</ul>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate (includes your parents' names)</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
@@ -486,73 +488,6 @@
       ]
     },
     {
-      "path": "/start",
-      "title": "Getting married abroad",
-      "components": [
-        {
-          "type": "Para",
-          "content": "If you’re a British national getting a marriage or civil partnership abroad, you might need certain documents from the UK government, for example a certificate of no impediment (CNI).",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "Use this tool to find out how to get the documents you’ll need.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "You’ll need to contact the local authorities where you want to get married to find out what you need to do.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "Your marriage or civil partnership will be recognised in the UK if both of the following apply:",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<p class=\"govuk-body\"></p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>you followed the correct process in the country where you got married</li>\r\n  <li> it would be allowed under UK law</li>\r\n\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "InsetText",
-          "content": "There’s a separate guide if you want to get married or enter into a civil partnership in the UK.",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/country-picker"
-        }
-      ]
-    },
-    {
-      "path": "/country-picker",
-      "title": "Getting married abroad",
-      "components": [
-        {
-          "options": {
-            "list": "country"
-          },
-          "type": "SelectField",
-          "name": "countryPicker",
-          "title": "Where do you want to get married?",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/british-passport"
-        }
-      ]
-    },
-    {
       "path": "/ceremony",
       "title": "What type of ceremony are you planning?",
       "components": [
@@ -568,12 +503,13 @@
       ],
       "next": [
         {
-          "path": "/enter-civil-part"
+          "path": "/how-to-civil-part"
         },
         {
-          "path": "/marriage-service-start"
+          "path": "/how-to-get-a-certificate"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/how-to-get-a-certificate",
@@ -599,7 +535,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of the main page of your British passport - the page with the passport photo.</p>",
+          "content": "<p class=\"govuk-body\">Add a photo of the main page of your UK passport - the page with the passport photo.</p>",
           "options": {},
           "schema": {}
         },
@@ -670,7 +606,7 @@
       ]
     },
     {
-      "path": "/british-passport",
+      "path": "/uk-passport",
       "components": [
         {
           "options": {
@@ -688,8 +624,12 @@
         },
         {
           "path": "/no-british-passport"
+        },
+        {
+          "path": "/no-uk-passport"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/place-of-birth",
@@ -712,7 +652,8 @@
         {
           "path": "/not-uk-born-documents"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/passport-birth-certificate",
@@ -736,15 +677,16 @@
         {
           "path": "/amount-of-name-change"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/add-your-documents",
-      "title": "Long British birth certificate",
+      "title": "Long birth certificate",
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your long British birth certificate. The full version of the certificate shows the names of your parents.</p>",
+          "content": "<p class=\"govuk-body\">Add a photo of your long birth certificate. This is the version that shows the names of your parents.</p>",
           "options": {},
           "schema": {}
         },
@@ -798,7 +740,7 @@
       ]
     },
     {
-      "path": "/no-british-passport",
+      "path": "/no-uk-passport",
       "components": [
         {
           "type": "Para",
@@ -809,7 +751,7 @@
       ],
       "next": [],
       "title": "You need a UK passport to apply for this service online",
-      "condition": "noBritishPassport"
+      "condition": "noUKPassport"
     },
     {
       "path": "/not-uk-born-documents",
@@ -837,7 +779,8 @@
         {
           "path": "/naturalisation-names"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/passport-consular-certificate",
@@ -861,7 +804,8 @@
         {
           "path": "/amount-of-name-change"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/consular-certificate-documents",
@@ -870,7 +814,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your consular birth certificate </li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your consular birth certificate </li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -908,7 +852,8 @@
         {
           "path": "/amount-of-name-change"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/local-certificate-documents",
@@ -917,7 +862,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your local birth certificate</li>\r\n    <li>your parent's UK birth certificate</li>\r\n\r\n\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your local birth certificate</li>\r\n    <li>your parent's birth certificate</li>\r\n\r\n\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1030,7 +975,8 @@
         {
           "path": "/naturalisation-deed-poll"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/marriage-civil-partnership-british-certf",
@@ -1039,13 +985,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long UK birth certificate</li>\r\n</ul>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate (includes your parents' names)</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>final order</li>\r\n  <li>death certificate of your late partner</li>\r\n   <li>certificate of nullity</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1065,12 +1011,12 @@
     },
     {
       "path": "/multiple-name-change",
-      "title": "Contact the British embassy in Paris",
+      "title": "Contact the British Consulate in Paris",
       "condition": "tooManyNameChanges",
       "components": [
         {
           "type": "Para",
-          "content": "If you have changed your name more than once, contact the  <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British consulate in Paris. </a>  They will be able to help you with your application  </p>",
+          "content": "If you have changed your name more than once, contact the  <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British Consulate in Paris </a> to continue your application.  </p>",
           "options": {},
           "schema": {}
         }
@@ -1084,7 +1030,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate </li>\r\n    <li>your deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your long birth certificate (includes your parents' names)</li>\r\n    <li>your deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1109,7 +1055,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your consular birth certificate </li>\r\n    <li>your deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your consular birth certificate </li>\r\n    <li>your deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1134,13 +1080,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your consular birth certificate </li>\r\n</ul>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your consular birth certificate </li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>civil partnership disosolution decree</li>\r\n  <li>death certificate of your late partner</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1165,7 +1111,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n   <li>your local birth certificate</li>\r\n    <li>your parent's UK birth certificate</li>\r\n        <li>your deed poll </li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n   <li>your local birth certificate</li>\r\n    <li>your parent's birth certificate</li>\r\n        <li>your deed poll </li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1190,13 +1136,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your local birth certificate</li>\r\n    <li>your parent's UK birth certificate</li>\r\n</ul>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your local birth certificate</li>\r\n    <li>your parent's birth certificate</li>\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>final order</li>\r\n  <li>death certificate of your late partner</li>\r\n   <li>certificate of nullity</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1222,7 +1168,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of your deed poll</p>",
+          "content": "<p class=\"govuk-body\">Add a photo of your deed poll.</p>",
           "options": {},
           "schema": {}
         },
@@ -1255,7 +1201,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">Add a photo of your divorce decree absolute, disolution decree, or death certificate of your late partner.</p>",
+          "content": "<p class=\"govuk-body\">Add a photo of the document that proves your marital or civil status - for example, your decree absolute</p>",
           "options": {},
           "schema": {}
         },
@@ -1287,9 +1233,15 @@
       "section": "addYourDocuments",
       "components": [
         {
+          "type": "Para",
+          "content": "Add a photo of your local birth certificate.",
+          "options": {},
+          "schema": {}
+        },
+        {
           "type": "FileUploadField",
           "name": "localBirthCertificate",
-          "title": "Local birth certificate",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -1309,13 +1261,19 @@
     },
     {
       "path": "/add-parents-certificate",
-      "title": "Parent's British birth certificate",
+      "title": "Parent's birth certificate",
       "section": "addYourDocuments",
       "components": [
         {
+          "type": "Para",
+          "content": "Add a photo of your parent's birth certificate.",
+          "options": {},
+          "schema": {}
+        },
+        {
           "type": "FileUploadField",
           "name": "parentsBritishBirthCertificate",
-          "title": "Parent's British birth certificate",
+          "title": "Upload a file",
           "options": {},
           "schema": {}
         },
@@ -1361,7 +1319,8 @@
         {
           "path": "/naturalisation-details"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/naturalisation-marriage-documents",
@@ -1370,13 +1329,13 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your naturlisation certificate or registration </li>\r\n\r\n</ul>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your naturlisation certificate or registration </li>\r\n\r\n</ul>",
           "options": {},
           "schema": {}
         },
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you've been married or in a civil partnership before you'll also need to upload one of the following:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>divorce decree absolute</li>\r\n  <li>final order</li>\r\n  <li>death certificate of your late partner</li>\r\n   <li>certificate of nullity</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1415,7 +1374,8 @@
         {
           "path": "/multiple-name-change"
         }
-      ]
+      ],
+      "section": "checkBeforeYouStart"
     },
     {
       "path": "/naturalisation-details",
@@ -1424,7 +1384,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your Home Office naturalisation certificate or registration</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your Home Office naturalisation certificate or registration</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1449,7 +1409,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">You'll need to upload the following documents before you start your application:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your Home Office naturalisation certificate or registration</li>\r\n  <li>your deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
+          "content": "<p class=\"govuk-body\">Upload the following documents:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>your UK passport</li>\r\n  <li>your Home Office naturalisation certificate or registration</li>\r\n  <li>your deed poll</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">You can either scan your documents or take photos on your mobile phone.</p>\r\n\r\n<p class=\"govuk-body\">You may find it easier to take photos on your phone then send them to the device you are using for your application.  </p>",
           "options": {},
           "schema": {}
         },
@@ -1464,66 +1424,6 @@
       "next": [
         {
           "path": "/upload-page-marital"
-        }
-      ]
-    },
-    {
-      "path": "/enter-civil-part",
-      "title": "Entering into a civil partnership (PACS in France)",
-      "condition": "isPacs",
-      "components": [
-        {
-          "type": "Para",
-          "content": "To enter into a civil partnership (PACS) in France you need to get a:",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>official explanatory note </li>\r\n  <li>certificate of custom/ law for civil partnership</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "You'll need to give your certificate of custom and official notes to the town hall or court at least 6 weeks before your civil partnership.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "You, your partner, or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-l\"> Official explanatory note\r\n</h2> \r\n\r\n<p class=\"govuk-body\"> The town hall or court might ask you for a certificate of celibacy to prove you’re legally allowed to enter into a civil partnership.  <p>\r\n\r\n<p class=\"govuk-body\"> British nationals can’t get this, so you’ll need to <a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/436137/1506-certificat-celibat.pdf\" class=\"govuk-link\">download this official explanatory note</a>  instead. <p>\r\n\r\n<p class=\"govuk-body\"> The official note is written in French. You don't need to add or change any of the words in the document, just print exactly as is.<p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-l\">Apply for a certificate of custom/ law for civil partnership</h2>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<p class=\"govuk-body\"> Apply for a certificate of custom online or download and complete a paper application. </p>\r\n\r\n<p class=\"govuk-body\"> A certificate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>\r\n\r\n<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll need to provide documents that show how your name has changed.\r\n  </strong>\r\n</div>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "Some town halls or courts only accept a certificate of custom dated less than 6 months before your civil partnership (PACS).",
-          "options": {},
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/how-to-civil-part"
         }
       ]
     },
@@ -1543,73 +1443,8 @@
         {
           "path": "/place-of-birth"
         }
-      ]
-    },
-    {
-      "path": "/marriage-service-start",
-      "title": "Getting married in France",
-      "condition": "isMarriage",
-      "components": [
-        {
-          "type": "Para",
-          "content": "To enter into a civil partnership (PACS) in France you need to get a:",
-          "options": {},
-          "schema": {},
-          "name": "/enter-civil-part-513-513"
-        },
-        {
-          "type": "Para",
-          "content": "<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>official explanatory note </li>\r\n  <li>certificate of custom (‘certificat de coutume’)</li>\r\n</ul>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "You'll need to give your certificate of custom and official notes to the town hall or court at least 6 weeks before your civil partnership.",
-          "options": {},
-          "schema": {},
-          "name": "/enter-civil-part-513-513"
-        },
-        {
-          "type": "Para",
-          "content": "You, your partner, or one of your parents need to have lived in the town where you want to get married for at least 40 days before the ceremony.",
-          "options": {},
-          "schema": {},
-          "name": "/enter-civil-part-513-513"
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-l\"> Official explanatory note\r\n</h2> \r\n\r\n<p class=\"govuk-body\"> The town hall or court might ask you for a certificate of celibacy to prove you’re legally allowed to enter into a civil partnership.  <p>\r\n\r\n<p class=\"govuk-body\"> British nationals can’t get this, so you’ll need to <a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/436137/1506-certificat-celibat.pdf\" class=\"govuk-link\">download this official explanatory note</a>  instead. <p>\r\n\r\n<p class=\"govuk-body\"> The official note is written in French. You don't need to add or change any of the words in the document, just print exactly as is.<p>",
-          "options": {},
-          "schema": {},
-          "name": "/enter-civil-part-513-513"
-        },
-        {
-          "type": "Para",
-          "content": "<h2 class=\"govuk-heading-l\">Apply for a certificate of custom (‘certificat de coutume’)</h2>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "type": "Para",
-          "content": "<p class=\"govuk-body\"> Apply for a certificate of custom online or download and complete a paper application. </p>\r\n\r\n<p class=\"govuk-body\"> A certificate of custom costs £50. You should receive your certificate within 3 weeks of applying. </p>\r\n\r\n<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    You need to check if the name on your passport is the same as the name on your birth certificate. If the names are different, you'll need to provide documents that show how your name has changed.\r\n  </strong>\r\n</div>",
-          "options": {},
-          "schema": {},
-          "name": "/enter-civil-part-513-513"
-        },
-        {
-          "type": "Para",
-          "content": "Some town halls or courts only accept a certificate of custom dated less than 6 months before your civil partnership (PACS).",
-          "options": {},
-          "schema": {},
-          "name": "/enter-civil-part-513-513"
-        }
       ],
-      "next": [
-        {
-          "path": "/how-to-get-a-certificate"
-        }
-      ]
+      "condition": "isPacs"
     }
   ],
   "sections": [
@@ -1636,6 +1471,22 @@
     {
       "name": "declaration",
       "title": "Declaration"
+    },
+    {
+      "name": "partnersDetails",
+      "title": "Partner's details"
+    },
+    {
+      "name": "aboutYourCeremony",
+      "title": "About your ceremony"
+    },
+    {
+      "name": "address",
+      "title": "Address"
+    },
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
     }
   ],
   "lists": [
@@ -1664,803 +1515,931 @@
     {
       "name": "country",
       "title": "Country",
-      "type": "number",
+      "type": "string",
       "items": [
         {
           "text": "Afghanistan",
-          "value": 910400000
+          "value": "Afghanistan"
         },
         {
           "text": "Albania",
-          "value": 910400001
+          "value": "Albania"
         },
         {
           "text": "Algeria",
-          "value": 910400002
+          "value": "Algeria"
+        },
+        {
+          "text": "American Samoa",
+          "value": "American Samoa"
         },
         {
           "text": "Andorra",
-          "value": 910400003
+          "value": "Andorra"
         },
         {
           "text": "Angola",
-          "value": 910400004
+          "value": "Angola"
+        },
+        {
+          "text": "Anguilla",
+          "value": "Anguilla"
         },
         {
           "text": "Antigua and Barbuda",
-          "value": 910400005
+          "value": "Antigua and Barbuda"
         },
         {
           "text": "Argentina",
-          "value": 910400006
+          "value": "Argentina"
         },
         {
           "text": "Armenia",
-          "value": 910400007
+          "value": "Armenia"
+        },
+        {
+          "text": "Aruba",
+          "value": "Aruba"
         },
         {
           "text": "Australia",
-          "value": 910400008
+          "value": "Australia"
         },
         {
           "text": "Austria",
-          "value": 910400009
+          "value": "Austria"
         },
         {
           "text": "Azerbaijan",
-          "value": 910400010
+          "value": "Azerbaijan"
+        },
+        {
+          "text": "Bahamas",
+          "value": "Bahamas"
         },
         {
           "text": "Bahrain",
-          "value": 910400011
+          "value": "Bahrain"
         },
         {
           "text": "Bangladesh",
-          "value": 910400012
+          "value": "Bangladesh"
         },
         {
           "text": "Barbados",
-          "value": 910400013
+          "value": "Barbados"
         },
         {
           "text": "Belarus",
-          "value": 910400014
+          "value": "Belarus"
         },
         {
           "text": "Belgium",
-          "value": 910400015
+          "value": "Belgium"
         },
         {
           "text": "Belize",
-          "value": 910400016
+          "value": "Belize"
         },
         {
           "text": "Benin",
-          "value": 910400017
+          "value": "Benin"
+        },
+        {
+          "text": "Bermuda",
+          "value": "Bermuda"
         },
         {
           "text": "Bhutan",
-          "value": 910400018
+          "value": "Bhutan"
         },
         {
           "text": "Bolivia",
-          "value": 910400019
+          "value": "Bolivia"
+        },
+        {
+          "text": "Bonaire, Sint Eustatius and Saba",
+          "value": "Bonaire, Sint Eustatius and Saba"
         },
         {
           "text": "Bosnia and Herzegovina",
-          "value": 910400020
+          "value": "Bosnia and Herzegovina"
         },
         {
           "text": "Botswana",
-          "value": 910400021
+          "value": "Botswana"
         },
         {
           "text": "Brazil",
-          "value": 910400022
+          "value": "Brazil"
+        },
+        {
+          "text": "British Indian Ocean Territory",
+          "value": "British Indian Ocean Territory"
+        },
+        {
+          "text": "British Virgin Islands",
+          "value": "British Virgin Islands"
         },
         {
           "text": "Brunei",
-          "value": 910400023
+          "value": "Brunei"
         },
         {
           "text": "Bulgaria",
-          "value": 910400024
+          "value": "Bulgaria"
         },
         {
           "text": "Burkina Faso",
-          "value": 910400025
+          "value": "Burkina Faso"
         },
         {
           "text": "Burma",
-          "value": 910400026
+          "value": "Burma"
         },
         {
           "text": "Burundi",
-          "value": 910400027
+          "value": "Burundi"
         },
         {
           "text": "Cambodia",
-          "value": 910400028
+          "value": "Cambodia"
         },
         {
           "text": "Cameroon",
-          "value": 910400029
+          "value": "Cameroon"
         },
         {
           "text": "Canada",
-          "value": 910400030
+          "value": "Canada"
         },
         {
           "text": "Cape Verde",
-          "value": 910400031
+          "value": "Cape Verde"
+        },
+        {
+          "text": "Cayman Islands",
+          "value": "Cayman Islands"
         },
         {
           "text": "Central African Republic",
-          "value": 910400032
+          "value": "Central African Republic"
         },
         {
           "text": "Chad",
-          "value": 910400033
+          "value": "Chad"
         },
         {
           "text": "Chile",
-          "value": 910400034
+          "value": "Chile"
         },
         {
           "text": "China",
-          "value": 910400035
+          "value": "China"
         },
         {
           "text": "Colombia",
-          "value": 910400036
+          "value": "Colombia"
         },
         {
           "text": "Comoros",
-          "value": 910400037
+          "value": "Comoros"
         },
         {
           "text": "Congo",
-          "value": 910400038
+          "value": "Congo"
         },
         {
-          "text": "Congo (Democratic Republic)",
-          "value": 910400039
+          "text": "Congo, Democratic Republic",
+          "value": "Congo, Democratic Republic"
+        },
+        {
+          "text": "Cook Islands",
+          "value": "Cook Islands"
         },
         {
           "text": "Costa Rica",
-          "value": 910400040
+          "value": "Costa Rica"
         },
         {
           "text": "Croatia",
-          "value": 910400041
+          "value": "Croatia"
         },
         {
           "text": "Cuba",
-          "value": 910400042
+          "value": "Cuba"
+        },
+        {
+          "text": "Curaçao",
+          "value": "Curaçao"
         },
         {
           "text": "Cyprus",
-          "value": 910400043
+          "value": "Cyprus"
         },
         {
           "text": "Czech Republic",
-          "value": 910400044
+          "value": "Czech Republic"
         },
         {
           "text": "Denmark",
-          "value": 910400045
+          "value": "Denmark"
         },
         {
           "text": "Djibouti",
-          "value": 910400046
+          "value": "Djibouti"
         },
         {
           "text": "Dominica",
-          "value": 910400047
+          "value": "Dominica"
         },
         {
           "text": "Dominican Republic",
-          "value": 910400048
-        },
-        {
-          "text": "East Timor",
-          "value": 910400049
+          "value": "Dominican Republic"
         },
         {
           "text": "Ecuador",
-          "value": 910400050
+          "value": "Ecuador"
         },
         {
           "text": "Egypt",
-          "value": 910400051
+          "value": "Egypt"
         },
         {
           "text": "El Salvador",
-          "value": 910400052
+          "value": "El Salvador"
         },
         {
           "text": "Equatorial Guinea",
-          "value": 910400053
+          "value": "Equatorial Guinea"
         },
         {
           "text": "Eritrea",
-          "value": 910400054
+          "value": "Eritrea"
         },
         {
           "text": "Estonia",
-          "value": 910400055
+          "value": "Estonia"
         },
         {
           "text": "Ethiopia",
-          "value": 910400056
+          "value": "Ethiopia"
+        },
+        {
+          "text": "Falkland Islands",
+          "value": "Falkland Islands"
         },
         {
           "text": "Fiji",
-          "value": 910400057
+          "value": "Fiji"
         },
         {
           "text": "Finland",
-          "value": 910400058
+          "value": "Finland"
         },
         {
           "text": "France",
-          "value": 910400059
+          "value": "France"
+        },
+        {
+          "text": "French Guiana",
+          "value": "French Guiana"
+        },
+        {
+          "text": "French Polynesia",
+          "value": "French Polynesia"
         },
         {
           "text": "Gabon",
-          "value": 910400060
+          "value": "Gabon"
+        },
+        {
+          "text": "Gambia",
+          "value": "Gambia"
         },
         {
           "text": "Georgia",
-          "value": 910400061
+          "value": "Georgia"
         },
         {
           "text": "Germany",
-          "value": 910400062
+          "value": "Germany"
         },
         {
           "text": "Ghana",
-          "value": 910400063
+          "value": "Ghana"
+        },
+        {
+          "text": "Gibraltar",
+          "value": "Gibraltar"
         },
         {
           "text": "Greece",
-          "value": 910400064
+          "value": "Greece"
         },
         {
           "text": "Grenada",
-          "value": 910400065
+          "value": "Grenada"
+        },
+        {
+          "text": "Guadeloupe",
+          "value": "Guadeloupe"
         },
         {
           "text": "Guatemala",
-          "value": 910400066
+          "value": "Guatemala"
         },
         {
           "text": "Guinea",
-          "value": 910400067
+          "value": "Guinea"
         },
         {
           "text": "Guinea-Bissau",
-          "value": 910400068
+          "value": "Guinea-Bissau"
         },
         {
           "text": "Guyana",
-          "value": 910400069
+          "value": "Guyana"
         },
         {
           "text": "Haiti",
-          "value": 910400070
+          "value": "Haiti"
         },
         {
           "text": "Honduras",
-          "value": 910400071
+          "value": "Honduras"
+        },
+        {
+          "text": "Hong Kong",
+          "value": "Hong Kong"
         },
         {
           "text": "Hungary",
-          "value": 910400072
+          "value": "Hungary"
         },
         {
           "text": "Iceland",
-          "value": 910400073
+          "value": "Iceland"
         },
         {
           "text": "India",
-          "value": 910400074
+          "value": "India"
         },
         {
           "text": "Indonesia",
-          "value": 910400075
+          "value": "Indonesia"
         },
         {
           "text": "Iran",
-          "value": 910400076
+          "value": "Iran"
         },
         {
           "text": "Iraq",
-          "value": 910400077
+          "value": "Iraq"
         },
         {
           "text": "Ireland",
-          "value": 910400078
+          "value": "Ireland"
         },
         {
           "text": "Israel",
-          "value": 910400079
+          "value": "Israel"
         },
         {
           "text": "Italy",
-          "value": 910400080
-        },
-        {
-          "text": "Ivory Coast",
-          "value": 910400081
+          "value": "Italy"
         },
         {
           "text": "Jamaica",
-          "value": 910400082
+          "value": "Jamaica"
         },
         {
           "text": "Japan",
-          "value": 910400083
+          "value": "Japan"
         },
         {
           "text": "Jordan",
-          "value": 910400084
+          "value": "Jordan"
         },
         {
           "text": "Kazakhstan",
-          "value": 910400085
+          "value": "Kazakhstan"
         },
         {
           "text": "Kenya",
-          "value": 910400086
+          "value": "Kenya"
         },
         {
           "text": "Kiribati",
-          "value": 910400087
+          "value": "Kiribati"
         },
         {
           "text": "Kosovo",
-          "value": 910400088
+          "value": "Kosovo"
         },
         {
           "text": "Kuwait",
-          "value": 910400089
+          "value": "Kuwait"
         },
         {
           "text": "Kyrgyzstan",
-          "value": 910400090
+          "value": "Kyrgyzstan"
         },
         {
           "text": "Laos",
-          "value": 910400091
+          "value": "Laos"
         },
         {
           "text": "Latvia",
-          "value": 910400092
+          "value": "Latvia"
         },
         {
           "text": "Lebanon",
-          "value": 910400093
+          "value": "Lebanon"
         },
         {
           "text": "Lesotho",
-          "value": 910400094
+          "value": "Lesotho"
         },
         {
           "text": "Liberia",
-          "value": 910400095
+          "value": "Liberia"
         },
         {
           "text": "Libya",
-          "value": 910400096
+          "value": "Libya"
         },
         {
           "text": "Liechtenstein",
-          "value": 910400097
+          "value": "Liechtenstein"
         },
         {
           "text": "Lithuania",
-          "value": 910400098
+          "value": "Lithuania"
         },
         {
           "text": "Luxembourg",
-          "value": 910400099
+          "value": "Luxembourg"
+        },
+        {
+          "text": "Macao",
+          "value": "Macao"
         },
         {
           "text": "Macedonia",
-          "value": 910400100
+          "value": "Macedonia"
         },
         {
           "text": "Madagascar",
-          "value": 910400101
+          "value": "Madagascar"
         },
         {
           "text": "Malawi",
-          "value": 910400102
+          "value": "Malawi"
         },
         {
           "text": "Malaysia",
-          "value": 910400103
+          "value": "Malaysia"
         },
         {
           "text": "Maldives",
-          "value": 910400104
+          "value": "Maldives"
         },
         {
           "text": "Mali",
-          "value": 910400105
+          "value": "Mali"
         },
         {
           "text": "Malta",
-          "value": 910400106
+          "value": "Malta"
         },
         {
           "text": "Marshall Islands",
-          "value": 910400107
+          "value": "Marshall Islands"
+        },
+        {
+          "text": "Martinique",
+          "value": "Martinique"
         },
         {
           "text": "Mauritania",
-          "value": 910400108
+          "value": "Mauritania"
         },
         {
           "text": "Mauritius",
-          "value": 910400109
+          "value": "Mauritius"
+        },
+        {
+          "text": "Mayotte",
+          "value": "Mayotte"
         },
         {
           "text": "Mexico",
-          "value": 910400110
+          "value": "Mexico"
         },
         {
           "text": "Micronesia",
-          "value": 910400111
+          "value": "Micronesia"
         },
         {
           "text": "Moldova",
-          "value": 910400112
+          "value": "Moldova"
         },
         {
           "text": "Monaco",
-          "value": 910400113
+          "value": "Monaco"
         },
         {
           "text": "Mongolia",
-          "value": 910400114
+          "value": "Mongolia"
         },
         {
           "text": "Montenegro",
-          "value": 910400115
+          "value": "Montenegro"
+        },
+        {
+          "text": "Montserrat",
+          "value": "Montserrat"
         },
         {
           "text": "Morocco",
-          "value": 910400116
+          "value": "Morocco"
         },
         {
           "text": "Mozambique",
-          "value": 910400117
+          "value": "Mozambique"
         },
         {
           "text": "Namibia",
-          "value": 910400118
+          "value": "Namibia"
         },
         {
           "text": "Nauru",
-          "value": 910400119
+          "value": "Nauru"
         },
         {
           "text": "Nepal",
-          "value": 910400120
+          "value": "Nepal"
         },
         {
           "text": "Netherlands",
-          "value": 910400121
+          "value": "Netherlands"
+        },
+        {
+          "text": "New Caledonia",
+          "value": "New Caledonia"
         },
         {
           "text": "New Zealand",
-          "value": 910400122
+          "value": "New Zealand"
         },
         {
           "text": "Nicaragua",
-          "value": 910400123
+          "value": "Nicaragua"
         },
         {
           "text": "Niger",
-          "value": 910400124
+          "value": "Niger"
         },
         {
           "text": "Nigeria",
-          "value": 910400125
+          "value": "Nigeria"
+        },
+        {
+          "text": "Niue",
+          "value": "Niue"
         },
         {
           "text": "North Korea",
-          "value": 910400126
+          "value": "North Korea"
         },
         {
           "text": "Norway",
-          "value": 910400127
+          "value": "Norway"
+        },
+        {
+          "text": "Not Set",
+          "value": "Not Set"
         },
         {
           "text": "Oman",
-          "value": 910400128
+          "value": "Oman"
         },
         {
           "text": "Pakistan",
-          "value": 910400129
+          "value": "Pakistan"
         },
         {
           "text": "Palau",
-          "value": 910400130
+          "value": "Palau"
         },
         {
           "text": "Panama",
-          "value": 910400131
+          "value": "Panama"
         },
         {
           "text": "Papua New Guinea",
-          "value": 910400132
+          "value": "Papua New Guinea"
         },
         {
           "text": "Paraguay",
-          "value": 910400133
+          "value": "Paraguay"
         },
         {
           "text": "Peru",
-          "value": 910400134
+          "value": "Peru"
         },
         {
           "text": "Philippines",
-          "value": 910400135
+          "value": "Philippines"
+        },
+        {
+          "text": "Pitcairn Island",
+          "value": "Pitcairn Island"
         },
         {
           "text": "Poland",
-          "value": 910400136
+          "value": "Poland"
         },
         {
           "text": "Portugal",
-          "value": 910400137
+          "value": "Portugal"
         },
         {
           "text": "Qatar",
-          "value": 910400138
+          "value": "Qatar"
+        },
+        {
+          "text": "Réunion",
+          "value": "Réunion"
         },
         {
           "text": "Romania",
-          "value": 910400139
+          "value": "Romania"
         },
         {
           "text": "Russia",
-          "value": 910400140
+          "value": "Russia"
         },
         {
           "text": "Rwanda",
-          "value": 910400141
+          "value": "Rwanda"
+        },
+        {
+          "text": "Saint Barthélemy",
+          "value": "Saint Barthélemy"
+        },
+        {
+          "text": "Saint Helena, Ascension and Tristan da Cunha",
+          "value": "Saint Helena, Ascension and Tristan da Cunha"
+        },
+        {
+          "text": "Saint Kitts and Nevis",
+          "value": "Saint Kitts and Nevis"
+        },
+        {
+          "text": "Saint Lucia",
+          "value": "Saint Lucia"
+        },
+        {
+          "text": "Saint Vincent and the Grenadines",
+          "value": "Saint Vincent and the Grenadines"
         },
         {
           "text": "Samoa",
-          "value": 910400142
+          "value": "Samoa"
         },
         {
           "text": "San Marino",
-          "value": 910400143
+          "value": "San Marino"
         },
         {
-          "text": "Sao Tome and Principe",
-          "value": 910400144
+          "text": "São Tomé and Príncipe",
+          "value": "São Tomé and Príncipe"
         },
         {
           "text": "Saudi Arabia",
-          "value": 910400145
+          "value": "Saudi Arabia"
         },
         {
           "text": "Senegal",
-          "value": 910400146
+          "value": "Senegal"
         },
         {
           "text": "Serbia",
-          "value": 910400147
+          "value": "Serbia"
         },
         {
           "text": "Seychelles",
-          "value": 910400148
+          "value": "Seychelles"
         },
         {
           "text": "Sierra Leone",
-          "value": 910400149
+          "value": "Sierra Leone"
         },
         {
           "text": "Singapore",
-          "value": 910400150
+          "value": "Singapore"
         },
         {
           "text": "Slovakia",
-          "value": 910400151
+          "value": "Slovakia"
         },
         {
           "text": "Slovenia",
-          "value": 910400152
+          "value": "Slovenia"
         },
         {
           "text": "Solomon Islands",
-          "value": 910400153
+          "value": "Solomon Islands"
         },
         {
           "text": "Somalia",
-          "value": 910400154
+          "value": "Somalia"
         },
         {
           "text": "South Africa",
-          "value": 910400155
+          "value": "South Africa"
+        },
+        {
+          "text": "South Georgia and South Sandwich Islands",
+          "value": "South Georgia and South Sandwich Islands"
         },
         {
           "text": "South Korea",
-          "value": 910400156
+          "value": "South Korea"
         },
         {
           "text": "South Sudan",
-          "value": 910400157
+          "value": "South Sudan"
         },
         {
           "text": "Spain",
-          "value": 910400158
+          "value": "Spain"
         },
         {
           "text": "Sri Lanka",
-          "value": 910400159
+          "value": "Sri Lanka"
         },
         {
-          "text": "St Kitts and Nevis",
-          "value": 910400160
+          "text": "St Maarten",
+          "value": "St Maarten"
         },
         {
-          "text": "St Lucia",
-          "value": 910400161
+          "text": "St Martin",
+          "value": "St Martin"
         },
         {
-          "text": "St Vincent",
-          "value": 910400162
+          "text": "St. Pierre and Miquelon",
+          "value": "St. Pierre and Miquelon"
         },
         {
           "text": "Sudan",
-          "value": 910400163
+          "value": "Sudan"
         },
         {
           "text": "Suriname",
-          "value": 910400164
+          "value": "Suriname"
         },
         {
           "text": "Swaziland",
-          "value": 910400165
+          "value": "Swaziland"
         },
         {
           "text": "Sweden",
-          "value": 910400166
+          "value": "Sweden"
         },
         {
           "text": "Switzerland",
-          "value": 910400167
+          "value": "Switzerland"
         },
         {
           "text": "Syria",
-          "value": 910400168
+          "value": "Syria"
+        },
+        {
+          "text": "Taiwan",
+          "value": "Taiwan"
         },
         {
           "text": "Tajikistan",
-          "value": 910400169
+          "value": "Tajikistan"
         },
         {
           "text": "Tanzania",
-          "value": 910400170
+          "value": "Tanzania"
         },
         {
           "text": "Thailand",
-          "value": 910400171
+          "value": "Thailand"
         },
         {
-          "text": "The Bahamas",
-          "value": 910400172
+          "text": "The Occupied Palestinian Territories",
+          "value": "The Occupied Palestinian Territories"
         },
         {
-          "text": "The Gambia",
-          "value": 910400173
+          "text": "Timor-Leste",
+          "value": "Timor-Leste"
         },
         {
           "text": "Togo",
-          "value": 910400174
+          "value": "Togo"
+        },
+        {
+          "text": "Tokelau",
+          "value": "Tokelau"
         },
         {
           "text": "Tonga",
-          "value": 910400175
+          "value": "Tonga"
         },
         {
           "text": "Trinidad and Tobago",
-          "value": 910400176
+          "value": "Trinidad and Tobago"
         },
         {
           "text": "Tunisia",
-          "value": 910400177
+          "value": "Tunisia"
         },
         {
           "text": "Turkey",
-          "value": 910400178
+          "value": "Turkey"
         },
         {
           "text": "Turkmenistan",
-          "value": 910400179
+          "value": "Turkmenistan"
+        },
+        {
+          "text": "Turks and Caicos Islands",
+          "value": "Turks and Caicos Islands"
         },
         {
           "text": "Tuvalu",
-          "value": 910400180
+          "value": "Tuvalu"
         },
         {
           "text": "Uganda",
-          "value": 910400181
+          "value": "Uganda"
         },
         {
           "text": "Ukraine",
-          "value": 910400182
+          "value": "Ukraine"
         },
         {
           "text": "United Arab Emirates",
-          "value": 910400183
+          "value": "United Arab Emirates"
         },
         {
           "text": "United Kingdom",
-          "value": 910400184
+          "value": "United Kingdom"
         },
         {
           "text": "United States",
-          "value": 910400185
+          "value": "United States"
         },
         {
           "text": "Uruguay",
-          "value": 910400186
+          "value": "Uruguay"
         },
         {
           "text": "Uzbekistan",
-          "value": 910400187
+          "value": "Uzbekistan"
         },
         {
           "text": "Vanuatu",
-          "value": 910400188
+          "value": "Vanuatu"
         },
         {
           "text": "Vatican City",
-          "value": 910400189
+          "value": "Vatican City"
         },
         {
           "text": "Venezuela",
-          "value": 910400190
+          "value": "Venezuela"
         },
         {
           "text": "Vietnam",
-          "value": 910400191
+          "value": "Vietnam"
+        },
+        {
+          "text": "Wallis and Futuna Islands",
+          "value": "Wallis and Futuna Islands"
+        },
+        {
+          "text": "Western Sahara",
+          "value": "Western Sahara"
         },
         {
           "text": "Yemen",
-          "value": 910400192
+          "value": "Yemen"
         },
         {
           "text": "Zambia",
-          "value": 910400193
+          "value": "Zambia"
         },
         {
           "text": "Zimbabwe",
-          "value": 910400194
-        },
-        {
-          "text": "England",
-          "value": 910400195
-        },
-        {
-          "text": "Wales",
-          "value": 910400196
-        },
-        {
-          "text": "Scotland",
-          "value": 910400197
-        },
-        {
-          "text": "Northern Ireland",
-          "value": 910400198
+          "value": "Zimbabwe"
         }
       ]
     },
@@ -2494,22 +2473,32 @@
         {
           "text": "Divorced",
           "value": "divorced",
-          "description": ""
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "Dissolved civil partnership",
+          "value": "dissolved civil partnership",
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Widowed",
           "value": "widowed",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Surviving civil partner",
           "value": "surviving civil partner",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Annulled",
-          "value": "Annulled",
-          "description": ""
+          "value": "annulled",
+          "description": "",
+          "condition": ""
         }
       ]
     },
@@ -2701,17 +2690,20 @@
         {
           "text": "Your consular birth certificate",
           "value": "consular-birth-certificate",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
-          "text": "Your local birth certificate, your parent's British birth certificate and your parent's marriage certificate (if applicable)",
+          "text": "Your local birth certificate, your parent's birth certificate and your parent's marriage certificate (if applicable)",
           "value": "local-birth-certificate",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Your Home Office Certificate of Naturalisation or Registration",
           "value": "home-office-certificate",
-          "description": ""
+          "description": "",
+          "condition": ""
         }
       ]
     },
@@ -2740,12 +2732,12 @@
   ],
   "fees": [
     {
-      "description": "Certificate of Custom/Law for marriage",
+      "description": "Certificate of Marriage (France)",
       "amount": 5000,
       "condition": "isMarriage"
     },
     {
-      "description": "Certificate of Custom/Law for PACS",
+      "description": "PACS Certificate (France)",
       "amount": 5000,
       "condition": "isPacs"
     }

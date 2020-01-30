@@ -10,7 +10,7 @@ const { PayService } = require('./lib/payService')
 const { UploadService } = require('./lib/documentUpload')
 const { CacheService, catboxProvider } = require('./lib/cacheService')
 
-const serverOptions = (isDev) => {
+const serverOptions = () => {
   const defaultOptions = {
     port: config.port,
     routes: {
@@ -22,16 +22,16 @@ const serverOptions = (isDev) => {
     },
     cache: [{ provider: catboxProvider() }]
   }
-  // return defaultOptions
-  return isDev && fs.existsSync('/keybase/team/cautionyourblast/fco/') ? { ...defaultOptions,
+
+  return config.sslKey && config.sslCert ? { ...defaultOptions,
     tls: {
-      key: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost-key.pem'),
-      cert: fs.readFileSync('/keybase/team/cautionyourblast/fco/localhost.pem')
+      key: fs.readFileSync(config.sslKey),
+      cert: fs.readFileSync(config.sslCert)
     } } : defaultOptions
 }
 
 async function createServer (routeConfig) {
-  const server = hapi.server(serverOptions(config.isDev))
+  const server = hapi.server(serverOptions())
 
   await server.register({
     plugin: require('hapi-rate-limit'),
