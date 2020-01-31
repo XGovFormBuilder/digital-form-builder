@@ -153,10 +153,9 @@
             "classes": "govuk-input--width-20"
           },
           "type": "TextField",
-          "name": "middle",
+          "name": "middleName",
           "title": "Middle name",
-          "hint": "If you have a middle name on your passport you must include it here",
-          "schema": {}
+          "hint": "If you have a middle name on your passport you must include it here"
         },
         {
           "options": {
@@ -309,30 +308,24 @@
       "components": [
         {
           "type": "TextField",
-          "name": "address-line-1",
-          "title": "Address",
-          "schema": {},
-          "options": {}
+          "name": "addressLine1",
+          "title": "Address line 1"
         },
         {
-          "type": "TextField",
-          "name": "address-line-2",
-          "title": "Address line 2",
-          "schema": {},
           "options": {
             "required": false
-          }
+          },
+          "type": "TextField",
+          "name": "addressLine2",
+          "title": "Address line 2"
         },
         {
-          "type": "TextField",
-          "name": "town-city",
-          "title": "Town or city",
-          "schema": {},
           "options": {
-            "classes": [
-              "govuk-!-width-two-thirds"
-            ]
-          }
+            "classes": "govuk-!-width-two-thirds"
+          },
+          "type": "TextField",
+          "name": "townOrCity",
+          "title": "Town or city"
         },
         {
           "type": "TextField",
@@ -393,9 +386,8 @@
             "list": "country"
           },
           "type": "SelectField",
-          "name": "countryBirth",
-          "title": "Country of birth",
-          "schema": {}
+          "name": "countryOfBirth",
+          "title": "Country of birth"
         }
       ],
       "next": [
@@ -451,9 +443,8 @@
             "list": "yesNo"
           },
           "type": "RadiosField",
-          "name": "canPartnerContactYou",
-          "title": "Can our partner contact you for feedback to help improve this service?",
-          "schema": {}
+          "name": "contactForFeedback",
+          "title": "Can our partner contact you for feedback to help improve this service?"
         }
       ],
       "next": [
@@ -461,7 +452,7 @@
           "path": "/preferrable-contact"
         },
         {
-          "path": "/declaration"
+          "path": "/summary"
         }
       ]
     },
@@ -476,14 +467,13 @@
             "list": "contactOptions"
           },
           "type": "RadiosField",
-          "name": "PreferContacted",
-          "title": "How do you prefer to be contacted?",
-          "schema": {}
+          "name": "contactPreference",
+          "title": "How do you prefer to be contacted?"
         }
       ],
       "next": [
         {
-          "path": "/declaration"
+          "path": "/summary"
         }
       ]
     },
@@ -542,9 +532,7 @@
         {
           "type": "FileUploadField",
           "name": "passportPhoto",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Passport"
         },
         {
           "type": "Details",
@@ -566,33 +554,6 @@
         }
       ],
       "title": "Passport"
-    },
-    {
-      "path": "/declaration",
-      "section": "declaration",
-      "components": [
-        {
-          "type": "Para",
-          "content": "I hereby declare that the information given is correct to the best of my knowledge and belief.",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "options": {
-            "list": "confirm"
-          },
-          "type": "CheckboxesField",
-          "name": "confirm",
-          "title": "Confirm",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ],
-      "title": "Declaration"
     },
     {
       "path": "/summary",
@@ -693,9 +654,7 @@
         {
           "type": "FileUploadField",
           "name": "birthCertificatePhoto",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Long birth certificate"
         },
         {
           "type": "Details",
@@ -895,9 +854,7 @@
         {
           "type": "FileUploadField",
           "name": "consularBirthCertificate",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Consular birth certificate"
         },
         {
           "type": "Details",
@@ -1175,9 +1132,7 @@
         {
           "type": "FileUploadField",
           "name": "deedPollPhoto",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Deed poll"
         },
         {
           "type": "Details",
@@ -1208,9 +1163,7 @@
         {
           "type": "FileUploadField",
           "name": "previousMarriageDocument",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Marital status document"
         },
         {
           "type": "Details",
@@ -1241,9 +1194,7 @@
         {
           "type": "FileUploadField",
           "name": "localBirthCertificate",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Local birth certificate"
         },
         {
           "type": "Details",
@@ -1273,9 +1224,7 @@
         {
           "type": "FileUploadField",
           "name": "parentsBritishBirthCertificate",
-          "title": "Upload a file",
-          "options": {},
-          "schema": {}
+          "title": "Parent's birth certificate"
         },
         {
           "type": "Details",
@@ -2594,13 +2543,15 @@
       "items": [
         {
           "text": "Civil partnership (PACS - pacte civil de solidarité)",
-          "value": "Civil partnership",
-          "description": ""
+          "value": "Civil Partnership",
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Marriage",
           "value": "Marriage",
-          "description": ""
+          "description": "",
+          "condition": ""
         }
       ]
     },
@@ -2750,5 +2701,6 @@
     ],
     "emailField": "yourContactDetails.email",
     "templateId": "8c1eb93f-c7db-42f8-a90c-3ae1cfba13be"
-  }
+  },
+  "declaration": "I hereby declare that the information given is correct to the best of my knowledge and belief."
 }
