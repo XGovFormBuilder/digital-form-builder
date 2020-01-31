@@ -30,6 +30,13 @@ const serverOptions = () => {
     } } : defaultOptions
 }
 
+/**
+ * Create a server with the default configurations
+ * @param {Object} [routeConfig] - Alternative configuration. Use ful for testing or running a specific route only.
+ * @param {Object} [routeConfig.rateOptions] - Options object for the plugin 'hapi-rate-limit'.
+ * @param {string} [routeConfig.data] - The filename of a form configuration.
+ * @param {string} [routeConfig.customPath] - The path to routeConfig.data.
+ */
 async function createServer (routeConfig) {
   const server = hapi.server(serverOptions())
 

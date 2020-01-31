@@ -1,7 +1,7 @@
 # digital-form-builder
 
 This repository is forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
-The supplementary [designer](https://github.com/CautionYourBlast/digital-form-builder-designer) and [engine](https://github.com/CautionYourBlast/digital-form-builder-engine) repositories have also been forked.
+The supplementary [designer](https://github.com/UKForeignOffice/digital-form-builder-designer) and [engine](https://github.com/UKForeignOffice/digital-form-engine) repositories have also been forked.
 These projects has been adapted to run several configurations on a single instance.
 
 
@@ -9,16 +9,18 @@ These projects has been adapted to run several configurations on a single instan
 enterprise backend tech stack and the new gov.uk frontend Design System and allows form based gov.uk sites to be easily
 built using a graphical design tool.
 
-
+The designer is no longer a plugin and is responsible for running itself on default port 3000. 
 
 ## Getting started
 
 ### Prerequisites
 - Install Node.js v10.x.x
-- Secrets are stored in the team Keybase. You must have access for the dev environment
-  - Once you have access, Install [mkcert](https://github.com/FiloSottile/mkcert) which allows us to use locally-trusted certificates ([GOV.UK Pay](https://www.payments.service.gov.uk) will only allow redirects to `https://`)
+- For development, secrets have been stored and shared using [Keybase](https://keybase.io). 
+  - Once you have access Install [mkcert](https://github.com/FiloSottile/mkcert) which allows us to use locally-trusted certificates ([GOV.UK Pay](https://www.payments.service.gov.uk) will only allow redirects to `https://`)
   - Set `$CAROOT` to `KEYBASE_TEAM_DIR/rootCA.pem` 
   - run `mkcert -install`
+  
+If you do not have access to the team's Keybase you can create your own certificates following the mkcert documentation.
   
 
 ### Clone and build
@@ -56,17 +58,20 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
 
 
 
-| name           | description      | required | default |            valid            |             notes             |
-|----------------|------------------|:--------:|---------|:---------------------------:|:-----------------------------:|
-| NODE_ENV       | Node environment |    no    |         | development,test,production |                               |
-| PORT           | Port number      |    no    | 3009    |                             |                               |
-| OS_KEY         | Ordnance Survey  |    no    |         |                             | For address lookup by postcode|
-| PAY_API_KEY    | Pay api key      |    yes   |         |                             |                               |
-| PAY_RETURN_URL | Pay return url   |    yes   |         |                             | For GOV.UK Pay to redirect back to our service |
-| PAY_API_URL    | Pay api url      |    yes   |         |                             |                               |
-| NOTIFY_API_KEY | Notify api key   |    yes   |         |                             |                               |
-| MATOMO_URL     | URL of Matomo    |    no    |         |                             |                               |
-| MATOMO_ID      | ID of Matomo site|    no    |         |                             |                               |
+| name           | description       | required | default |            valid            |             notes             |
+|----------------|-------------------|:--------:|---------|:---------------------------:|:-----------------------------:|
+| NODE_ENV       | Node environment  |    no    |         | development,test,production |                               |
+| PORT           | Port number       |    no    | 3009    |                             |                               |
+| OS_KEY         | Ordnance Survey   |    no    |         |                             | For address lookup by postcode|
+| PAY_API_KEY    | Pay api key       |    yes   |         |                             |                               |
+| PAY_RETURN_URL | Pay return url    |    yes   |         |                             | For GOV.UK Pay to redirect back to our service |
+| PAY_API_URL    | Pay api url       |    yes   |         |                             |                               |
+| NOTIFY_API_KEY | Notify api key    |    yes   |         |                             |                               |
+| MATOMO_URL     | URL of Matomo     |    no    |         |                             |                               |
+| MATOMO_ID      | ID of Matomo site |    no    |         |                             |                               |
+| SSL_KEY        | SSL Key           |    no    |         |                             |                               |
+| SSL_CERT       | SSL Certificate   |    no    |         |                             |                               |
+| PREVIEW_MODE   | Preview mode      |    no    | false   |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms. |
 
 # Testing
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`. 
