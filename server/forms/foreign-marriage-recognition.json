@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "post": "Madrid",
+    "caseType": "Consular Marriage"
+  },
   "conditions": [
     {
       "name": "isAsap",

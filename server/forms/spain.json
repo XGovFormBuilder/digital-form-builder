@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "post": "Madrid",
+    "caseType": "Consular Marriage"
+  },
   "conditions": [
     {
       "name": "hadPreviousNames",
@@ -241,9 +245,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Provide the details exactly as they appear on your passport.",
-          "options": {},
-          "schema": {}
+          "content": "Provide the detail as they appear on your passport."
         },
         {
           "options": {
@@ -257,13 +259,12 @@
         {
           "options": {
             "required": false,
-            "optionalText": false
+            "optionalText": false,
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "middleName",
-          "title": "Middle name",
-          "hint": "If you have a middle name on your passport you must include it here",
-          "schema": {}
+          "title": "Middle name"
         },
         {
           "options": {
@@ -463,7 +464,7 @@
           "path": "/preferrableContact"
         },
         {
-          "path": "/declaration"
+          "path": "/summary"
         }
       ]
     },
@@ -485,7 +486,7 @@
       ],
       "next": [
         {
-          "path": "/declaration"
+          "path": "/summary"
         }
       ]
     },
@@ -589,9 +590,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    Contact the civil registry office where you're planning to get married to find out what documents you need. Apply for all your certificates at least 3 months before you take your documents to the civil registry appointment. \r\n  </strong>\r\n</div>",
-          "options": {},
-          "schema": {}
+          "content": "<div class=\"govuk-warning-text\">\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\n  <strong class=\"govuk-warning-text__text\">\n    <span class=\"govuk-warning-text__assistive\">Warning</span> Apply for all your certificates at least 3 months before you take your documents to the civil registry appointment. \n  </strong>\n</div>"
         },
         {
           "type": "Para",
@@ -675,33 +674,6 @@
       "title": "Passport"
     },
     {
-      "path": "/declaration",
-      "section": "declaration",
-      "components": [
-        {
-          "type": "Para",
-          "content": "<p class=\"govuk-body\">I understand and accept that it is my responsibility to ensure that any document provided as a result of this Consular service is acceptable to the requesting authority and that if the document is to be presented outside of the UK or\r\nSpain, the signature of the Consular officer will be recognised by the requesting authority. Refunds cannot be given where the incorrect service is requested.</p> \r\n<p class=\"govuk-body\">I request the British Consulate in Madrid accept receipt of my Certificate of No Impediment application by post/courier and that my certificate and any original documents will be returned to me by courier.</p> \r\n<p class=\"govuk-body\">I understand and accept that if my application is sent back to me for any reason, I will be charged for postage. In doing so, I fully understand and accept that the Foreign and Commonwealth Office assumes no legal or other responsibility for any loss, damage or misplacement of the said property whilst in transit to or from the British Consulate in Madrid.</p>\r\n<p class=\"govuk-body\"><p class=\"govuk-body govuk-!-font-weight-bold\">I declare that the particulars given above are true to the best of my personal knowledge and belief.</p>\r\n </p>",
-          "options": {},
-          "schema": {}
-        },
-        {
-          "options": {
-            "list": "confirm"
-          },
-          "type": "CheckboxesField",
-          "name": "confirm",
-          "title": "Confirm",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/summary"
-        }
-      ],
-      "title": "Declaration"
-    },
-    {
       "path": "/summary",
       "controller": "./pages/summary.js",
       "components": [],
@@ -758,9 +730,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "<p class=\"govuk-body\">If you are a British citizen but don't have a UK passport please contact the <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British consulate in Madrid to continue your application. </a> </p>",
-          "options": {},
-          "schema": {}
+          "content": "<p class=\"govuk-body\">If you are British citizen but don't have a UK passport, contact the <a href=\"https://www.gov.uk/world/organisations/british-consulate-paris/office/british-consulate-paris\" class=\"govuk-link\">British consulate in Paris to continue your application. </a> </p>"
         }
       ],
       "next": [],
@@ -841,7 +811,6 @@
       ],
       "section": "addYourDocuments"
     },
-
     {
       "path": "/upload-partners-passport",
       "section": "addYourDocuments",
@@ -885,7 +854,6 @@
         {
           "path": "/your-details"
         }
-
       ],
       "title": "Partner's passport"
     },
@@ -970,7 +938,7 @@
       ]
     },
     {
-      "path": "/deliveryAddress",
+      "path": "/delivery-address",
       "title": "Delivery address",
       "section": "yourDetails",
       "condition": "addressDifferentToDelivery",
@@ -1010,20 +978,23 @@
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "town-or-city",
-          "title": "Town or city",
-          "options": {},
-          "schema": {}
+          "title": "Town or city"
         },
         {
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
           "schema": {
             "max": 10
           },
           "type": "TextField",
           "name": "postcode",
-          "title": "Postcode",
-          "options": {}
+          "title": "Postcode"
         }
       ],
       "next": [
@@ -1060,6 +1031,10 @@
           "title": "Date of appointment to submit paperwork to the authority in Spain",
           "options": {},
           "schema": {}
+        },
+        {
+          "type": "Para",
+          "content": "If you have not made an appointment, write an approximate date"
         }
       ],
       "next": [
@@ -1324,9 +1299,7 @@
         {
           "type": "TextField",
           "name": "cityOrTown",
-          "title": "City or town",
-          "options": {},
-          "schema": {}
+          "title": "Town or city"
         },
         {
           "type": "TextField",
@@ -1349,6 +1322,9 @@
         },
         {
           "path": "/your-contact-details"
+        },
+        {
+          "path": "/delivery-address"
         }
       ]
     },
@@ -1620,10 +1596,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "Provide details as they appear on your partner's decree absolute.",
-          "options": {},
-          "schema": {},
-          "name": "/partners-divorce-details-379-379"
+          "content": "Provide details as they appear on your partner's late partner's death certificate."
         },
         {
           "type": "DatePartsField",
@@ -1919,9 +1892,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<h4 class=\"govuk-heading-s\">Upload the following documents:</h4>",
-          "options": {},
-          "schema": {}
+          "content": "<h4 class=\"govuk-heading-s\">You'll need to upload the following documents before you start your application:</h4>"
         },
         {
           "options": {
@@ -1939,6 +1910,10 @@
           },
           "schema": {},
           "name": "/need-to-apply-other-country-MSC-partner-married-953-953"
+        },
+        {
+          "type": "Para",
+          "content": "You can either scan your documents or take photos on your mobile phone.\n\nYou may find it easier to take photos on your phone then send them to the device you are using for your application."
         }
       ],
       "next": [
@@ -2997,27 +2972,32 @@
         {
           "text": "Divorced",
           "value": "divorced",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
-          "text": "Dissolved civil partnership",
+          "text": "Legally dissolved civil partnership",
           "value": "dissolved civil partnership",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Widowed",
           "value": "widowed",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
           "text": "Surviving civil partner",
           "value": "surviving civil partner",
-          "description": ""
+          "description": "",
+          "condition": ""
         },
         {
-          "text": "Annulment",
+          "text": "Annulled",
           "value": "annulment",
-          "description": ""
+          "description": "",
+          "condition": ""
         }
       ]
     },
@@ -3393,28 +3373,33 @@
       "items": [
         {
           "text": "Get your documents ready",
-          "value": 1,
-          "description": "Answer the next few questions so we can tell you what documents you'll need to apply"
+          "value": "1",
+          "description": "Complete the next few questions so we can tell you what documents you'll need to apply",
+          "condition": ""
         },
         {
           "text": "Upload your documents",
-          "value": 2,
-          "description": "Upload a photo or scan of your documents"
+          "value": "2",
+          "description": "You can either scan your documents or take photos on your mobile phone",
+          "condition": ""
         },
         {
           "text": "Apply online",
-          "value": 3,
-          "description": "Take as long as you need to finish, but if you're inactive for 20 minutes your application will time out"
+          "value": "3",
+          "description": "Take as long as you need to finish, but if you're inactive for 20 minutes your application will time out",
+          "condition": ""
         },
         {
           "text": "Pay online",
-          "value": 4,
-          "description": "By credit or debit card"
+          "value": "4",
+          "description": "By credit or debit card",
+          "condition": ""
         },
         {
           "text": "Send your original documents",
-          "value": 5,
-          "description": "We'll tell you where to send the documents"
+          "value": "5",
+          "description": "We'll tell you where to send the documents",
+          "condition": ""
         }
       ]
     },
@@ -3548,12 +3533,12 @@
   ],
   "fees": [
     {
-      "description": "Certificate of No Impediment",
+      "description": "Certificate of No Impediment (Spain)",
       "amount": 5000,
       "condition": "needsCNI"
     },
     {
-      "description": "Marital Status Certificate",
+      "description": "MSC Marriage Certificate (Spain)",
       "amount": 5000,
       "condition": "needsMSC"
     }
@@ -3562,9 +3547,22 @@
     "personalisation": [
       "needsMSC",
       "needsCNI",
-      "yourDetails.firstName"
+      "yourDetails.firstName",
+      "doesntLiveInUKAndCNI",
+      "needsMSCAndCNI",
+      "isDivorced",
+      "isWidowedOrSurviving",
+      "isAnnulment",
+      "isSurviving",
+      "partnerIsDivorced",
+      "partnerIsWidowedOrSurviving",
+      "partnerIsAnnulment",
+      "partnerIsDissolved",
+      "livesInUKAndCNI",
+      "doesntLiveInUKAndCNI"
     ],
-    "emailField": "yourContactDetails.email",
-    "templateId": "998430f6-9298-477a-8294-fa93725fd986"
-  }
+    "templateId": "998430f6-9298-477a-8294-fa93725fd986",
+    "emailField": "yourContactDetails.email"
+  },
+  "declaration": "<p class=\"govuk-body\">I understand and accept that it is my responsibility to ensure that any document provided as a result of this Consular service is acceptable to the requesting authority and that if the document is to be presented outside of the UK or\nSpain, the signature of the Consular officer will be recognised by the requesting authority. Refunds cannot be given where the incorrect service is requested.</p> \n<p class=\"govuk-body\">I request the British Consulate in Madrid accept receipt of my Certificate of No Impediment application by post/courier and that my certificate and any original documents will be returned to me by courier.</p> \n<p class=\"govuk-body\">I understand and accept that if my application is sent back to me for any reason, I will be charged for postage. In doing so, I fully understand and accept that the Foreign and Commonwealth Office assumes no legal or other responsibility for any loss, damage or misplacement of the said property whilst in transit to or from the British Consulate in Madrid.</p>\n<p class=\"govuk-body\"><p class=\"govuk-body govuk-!-font-weight-bold\">I declare that the particulars given above are true to the best of my personal knowledge and belief.</p>\n </p>"
 }

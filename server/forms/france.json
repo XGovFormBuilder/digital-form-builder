@@ -125,7 +125,7 @@
       "value": "checkBeforeYouStart.amountNameChange == 'yes'"
     }
   ],
-  "startPage": "/start",
+  "startPage": "/uk-passport",
   "pages": [
     {
       "path": "/your-details",
