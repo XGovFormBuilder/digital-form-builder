@@ -77,12 +77,9 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`. 
 
 # Deployment
-Currently CI and deployment is done with [circleCI](https://circleci.com) and [Heroku](https://heroku.com). Pushes to master
+Currently CI is done with [circleCI](https://circleci.com). Pushes to master
 will trigger a build phase which includes running tests and [lighthouse](https://developers.google.com/web/tools/lighthouse)
 accessibility audits. Builds will fail if the accessibility score is less than 90%. 
-
-After a successful build, the project is deployed on [https://fco-forms.herokuapp.com](https://fco-forms.herokuapp.com)
-
 
 ## License
 
