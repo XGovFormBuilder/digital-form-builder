@@ -6,7 +6,7 @@
   "conditions": [
     {
       "name": "partnerCanContact",
-      "value": "feedbackSection.canPartnerContactYou=='yes'"
+      "value": "feedbackSection.contactForFeedback=='yes'"
     },
     {
       "name": "isPacs",
