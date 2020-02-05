@@ -10,7 +10,7 @@
     },
     {
       "name": "isPacs",
-      "value": "checkBeforeYouStart.ceremony == 'Civil partnership'"
+      "value": "checkBeforeYouStart.ceremony == 'Civil Partnership'"
     },
     {
       "name": "isMarriage",
@@ -22,7 +22,7 @@
     },
     {
       "name": "notBornUk",
-      "value": "!isBornUk"
+      "value": "checkBeforeYouStart.ukBorn=='no'"
     },
     {
       "name": "isBornUk",
@@ -751,9 +751,8 @@
             "list": "yesNo"
           },
           "type": "RadiosField",
-          "name": "consularCertificate",
-          "title": "Is the name on your passport exactly the same as on your consular birth certificate?",
-          "schema": {}
+          "name": "consularName",
+          "title": "Is the name on your passport exactly the same as on your consular birth certificate?"
         }
       ],
       "next": [
