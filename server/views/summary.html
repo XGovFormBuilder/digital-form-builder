@@ -14,7 +14,6 @@
           {{ summaryDetail(detail) }}
         {% endfor %}
 
-
         {% if fees and fees.details|length %}
           <h2 class="govuk-heading-m">Fees</h2>
           <ul class="govuk-list govuk-list--bullet">
@@ -26,7 +25,7 @@
         {% endif %}
 
         {% if not result.error  %}
-            <form method="POST" enctype="multipart/form-data">
+            <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
               <input type="hidden" name="crumb" value="{{crumb}}"/>
 
                 {%if declaration %}

@@ -1397,28 +1397,24 @@
   ],
   "sections": [
     {
-      "name": "yourDetails",
-      "title": "Your details"
-    },
-    {
-      "name": "yourMaritalOrCivilStatus",
-      "title": "Your marital or civil status"
-    },
-    {
-      "name": "yourContactDetails",
-      "title": "Your contact details"
-    },
-    {
-      "name": "feedbackSection",
-      "title": "Feedback"
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
     },
     {
       "name": "addYourDocuments",
       "title": "Add your documents"
     },
     {
-      "name": "declaration",
-      "title": "Declaration"
+      "name": "yourDetails",
+      "title": "Your details"
+    },
+    {
+      "name": "yourContactDetails",
+      "title": "Your contact details"
+    },
+    {
+      "name": "yourMaritalOrCivilStatus",
+      "title": "Your marital or civil status"
     },
     {
       "name": "partnersDetails",
@@ -1433,8 +1429,8 @@
       "title": "Address"
     },
     {
-      "name": "checkBeforeYouStart",
-      "title": "Check before you start"
+      "name": "feedbackSection",
+      "title": "Feedback"
     }
   ],
   "lists": [
@@ -2700,5 +2696,6 @@
     ],
     "emailField": "yourContactDetails.email",
     "templateId": "8c1eb93f-c7db-42f8-a90c-3ae1cfba13be"
-  }
+  },
+  "declaration": "I hereby declare that the information given is correct to the best of my knowledge and belief."
 }

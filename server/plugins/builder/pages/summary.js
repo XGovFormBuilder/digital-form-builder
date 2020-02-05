@@ -210,11 +210,15 @@ class SummaryViewModel {
 class SummaryPage extends Page {
   makeGetRouteHandler () {
     return async (request, h) => {
-      const { cacheService } = request.services([])
       this.langFromRequest(request)
+
+      const { cacheService } = request.services([])
       const model = this.model
       const state = await cacheService.getState(request)
+
       const viewModel = new SummaryViewModel(this.title, model, state)
+      viewModel.currentPath = `/${model.basePath}${this.path}`
+
       // redirect user to start page if there are incomplete form errors
       if (viewModel.result.error) {
         // default to first defined page
@@ -236,51 +240,43 @@ class SummaryPage extends Page {
     }
   }
 
-  streamToString (stream) {
-    const chunks = []
-    return new Promise((resolve, reject) => {
-      stream.on('data', chunk => chunks.push(chunk))
-      stream.on('error', reject)
-      stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')))
-    })
-  }
-
   makePostRouteHandler () {
     return async (request, h) => {
       const { payService, cacheService } = request.services([])
       const model = this.model
       const state = await cacheService.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
+
       if (summaryViewModel.declaration) {
-        let reqString = await this.streamToString(request.payload)
-        let data = new URLSearchParams(reqString)
-        if (!data.get('declaration')) {
+        const { declaration } = request.payload
+        if (!declaration) {
           request.yar.flash('declarationError', 'You must declare to be able to submit this application')
           return h.redirect(`${request.headers.referer}#declaration`)
-        } else {
-          summaryViewModel.addDeclarationAsQuestion()
         }
+        summaryViewModel.addDeclarationAsQuestion()
       }
+
       await cacheService.mergeState(request, { notify: summaryViewModel.notifyOptions })
 
       if (!summaryViewModel.fees) {
         const { reference } = await caseManagementPostRequest(summaryViewModel._caseManagementData)
         await cacheService.mergeState(request, { reference })
         return h.redirect(`/status`)
-      } else {
-        const paymentReference = `FCO-${shortid.generate()}`
-        const description = payService.descriptionFromFees(summaryViewModel.fees)
-        const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description)
-
-        request.yar.set('basePath', model.basePath)
-        await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href, meta: { amount: summaryViewModel.fees.total, description, attempts: 1 } } })
-        summaryViewModel.caseManagementDataPaymentReference = paymentReference
-        await cacheService.mergeState(request, { caseManagementData: summaryViewModel.validatedCaseManagementData })
-
-        return h.redirect(res._links.next_url.href)
       }
+
+      const paymentReference = `FCO-${shortid.generate()}`
+      const description = payService.descriptionFromFees(summaryViewModel.fees)
+      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description)
+
+      request.yar.set('basePath', model.basePath)
+      await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href, meta: { amount: summaryViewModel.fees.total, description, attempts: 1 } } })
+      summaryViewModel.caseManagementDataPaymentReference = paymentReference
+      await cacheService.mergeState(request, { caseManagementData: summaryViewModel.validatedCaseManagementData })
+
+      return h.redirect(res._links.next_url.href)
     }
   }
+
   get postRouteOptions () {
     return {
       ext: {
