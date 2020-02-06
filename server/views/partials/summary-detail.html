@@ -1,29 +1,30 @@
 {% macro summaryDetail(data) %}
   <h2 class="govuk-heading-m">{{data.title}}</h2>
-  <table class="govuk-table check-your-answers">
-    <caption class="govuk-table__caption"></caption>
-    <tbody class="govuk-table__body">
-      {% for item in data.items %}
-        {% if not hide %}
-          <tr class="govuk-table__row">
-            <th class="govuk-table__header" style="width:60%;">{{item.label}}</th>
-            <td class={% if item.inError %}"govuk-table__cell required"{% else %}"govuk-table__cell"{% endif %}>
-              {% if item.value %}
-                {% if item.type == 'FileUploadField' %}
-                 <span class="icon--check"></span>
-                {% else %}
-                    {{item.value}}
-                {% endif %}
+  <dl class="govuk-summary-list govuk-summary-list--no-border">
+    {% for item in data.items %}
+      {% if not hide %}
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            {{item.label}}
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {% if item.value %}
+              {% if item.type == 'FileUploadField' %}
+                <span class="icon--check"></span>
               {% else %}
-                Not supplied
+                {{item.value}}
               {% endif %}
-            </td>
-            <td class="govuk-table__cell change-answer">
-              <a href="{{item.url}}">Change</a>
-            </td>
-          </tr>
-        {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
+            {% else %}
+              Not supplied
+            {% endif %}
+          </dd>
+          <dd class="govuk-summary-list__actions">
+            <a class="govuk-link" href="{{item.url}}">
+              Change<span class="govuk-visually-hidden"> {{item.label}}</span>
+            </a>
+          </dd>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </dl>
 {% endmacro %}

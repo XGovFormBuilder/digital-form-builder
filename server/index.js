@@ -65,7 +65,7 @@ async function createServer (routeConfig) {
     options: {
       fontSrc: 'self',
       scriptSrc: (() => ['self', 'unsafe-inline'].concat(config.matomoUrl ? [config.matomoUrl] : []))(),
-      styleSrc: ['self'],
+      styleSrc: ['self', 'unsafe-inline'],
       imgSrc: (() => ['self'].concat(config.matomoUrl ? [config.matomoUrl] : []))(),
       generateNonces: false
     }
