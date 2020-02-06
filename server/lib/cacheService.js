@@ -32,7 +32,9 @@ class CacheService {
   }
 
   async clearState (request) {
-    this.cache.drop(request.key())
+    if (request.yar && request.yar.id) {
+      this.cache.drop(Key(request.yar.id))
+    }
   }
 }
 
