@@ -32,6 +32,7 @@ class SummaryViewModel {
                 path: component.path,
                 label: component.localisedString(component.title),
                 value: component.getDisplayStringFromState(sectionState),
+                rawValue: sectionState[component.name],
                 url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
                 pageId: `/${model.basePath}${page.path}`,
                 type: component.type
@@ -97,7 +98,7 @@ class SummaryViewModel {
       this.fees = { details: applicableFees, total: Object.values(applicableFees).map(fee => fee.amount).reduce((a, b) => a + b) }
     }
 
-    this.parseDataForCasebook(model, relevantPages, details)
+    this.parseDataForWebhook(model, relevantPages, details)
 
     if (model.def.notify) {
       let flatState = flatten(state)
@@ -128,7 +129,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  parseDataForCasebook (model, relevantPages, details) {
+  parseDataForWebhook (model, relevantPages, details) {
     let questions = relevantPages.map(page => {
       let category = page.section && page.section.name ? page.section.name : null
       let fields = []
@@ -138,7 +139,7 @@ class SummaryViewModel {
           id: item.name,
           title: this.toEnglish(item.title),
           type: item.dataType,
-          answer: detail.items.find(detailItem => detailItem.name === item.name).value
+          answer: detail.items.find(detailItem => detailItem.name === item.name).rawValue
         })
       })
 
