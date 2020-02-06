@@ -1,6 +1,6 @@
 {% macro summaryDetail(data) %}
   <h2 class="govuk-heading-m">{{data.title}}</h2>
-  <dl class="govuk-summary-list govuk-summary-list--no-border">
+  <dl class="govuk-summary-list">
     {% for item in data.items %}
       {% if not hide %}
         <div class="govuk-summary-list__row">
