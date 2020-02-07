@@ -237,7 +237,7 @@
       "value": "sendCertificate == false"
     }
   ],
-  "startPage": "/",
+  "startPage": "/uk-passport",
   "pages": [
     {
       "path": "/your-details",
@@ -620,9 +620,6 @@
         }
       ],
       "next": [
-        {
-          "path": "/no-british-passport"
-        },
         {
           "path": "/where-do-you-live"
         },
