@@ -253,8 +253,7 @@
           },
           "type": "TextField",
           "name": "firstName",
-          "title": "First name",
-          "schema": {}
+          "title": "First name"
         },
         {
           "options": {
@@ -272,8 +271,7 @@
           },
           "type": "TextField",
           "name": "surname",
-          "title": "Surname",
-          "schema": {}
+          "title": "Surname"
         }
       ],
       "next": [
@@ -317,18 +315,20 @@
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "EmailAddressField",
           "name": "email",
-          "title": "Email address",
-          "options": {},
-          "schema": {}
+          "title": "Email address"
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TelephoneNumberField",
           "name": "phoneNumber",
-          "title": "Phone number",
-          "options": {},
-          "schema": {}
+          "title": "Phone number"
         }
       ],
       "next": [
@@ -343,12 +343,12 @@
       "components": [
         {
           "options": {
-            "required": false
+            "required": false,
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "placeOfMarriage",
-          "title": "Town or city",
-          "schema": {}
+          "title": "Town or city"
         },
         {
           "options": {
@@ -378,11 +378,12 @@
           "schema": {}
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "partnersFullName",
-          "title": "Full name",
-          "options": {},
-          "schema": {}
+          "title": "Full name"
         },
         {
           "options": {
@@ -395,12 +396,12 @@
         },
         {
           "options": {
-            "list": "nationality"
+            "list": "nationality",
+            "classes": "govuk-input--width-20"
           },
           "type": "SelectField",
           "name": "nationality",
-          "title": "Nationality",
-          "schema": {}
+          "title": "Nationality"
         }
       ],
       "next": [
@@ -869,15 +870,18 @@
         {
           "options": {
             "required": false,
-            "optionalText": false
+            "optionalText": false,
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "recipientName",
           "title": "Full name of recipient",
-          "hint": "if different from yours",
-          "schema": {}
+          "hint": "if different from yours"
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "recipientAddressLine1",
           "title": "Address"
@@ -885,7 +889,8 @@
         {
           "options": {
             "required": false,
-            "optionalText": false
+            "optionalText": false,
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "recipientAddressLine2",
@@ -922,11 +927,12 @@
       "title": "Name of Spanish authority requesting the certificate",
       "components": [
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "nameOfSpanishAuthority",
-          "title": "Name of Spanish authority requesting the certificate",
-          "options": {},
-          "schema": {}
+          "title": "Name of Spanish authority requesting the certificate"
         }
       ],
       "next": [
@@ -1197,6 +1203,9 @@
       "section": "yourDetails",
       "components": [
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "addressLine1",
           "title": "Address"
@@ -1204,23 +1213,28 @@
         {
           "options": {
             "required": false,
-            "optionalText": false
+            "optionalText": false,
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "addressLine2",
           "title": "Address"
         },
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "townOrCity",
           "title": "Town or city"
         },
         {
+          "options": {
+            "classes": "govuk-input--width-10"
+          },
           "type": "TextField",
           "name": "postcode",
-          "title": "Postcode",
-          "options": {},
-          "schema": {}
+          "title": "Postcode"
         },
         {
           "type": "YesNoField",
@@ -4243,21 +4257,21 @@
       "title": "supporting documents",
       "items": [
         {
-          "description": "download and complete a <a href=\"#\" class=\"govuk-link\">notice of marriage ('publicación de edictos')</a> and a <a href=\"#\" class=\"govuk-link\">certificate of no impediment affirmation (‘capacidad matrimonial’)</a>",
-          "value": 1,
-          "text": "",
+          "text": "spain-cni",
+          "value": "1",
+          "description": "download and complete a <a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/807455/CNI_Pack.pdf\" class=\"govuk-link\">notice of marriage ('publicación de edictos')</a> and a <a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/807455/CNI_Pack.pdf\" class=\"govuk-link\">certificate of no impediment affirmation (‘capacidad matrimonial’)</a>",
           "condition": "doesntLiveInUKAndCNI"
         },
         {
+          "text": "uk-cni",
+          "value": "2",
           "description": "get a notice of marriage from a registry office in the UK",
-          "value": 1,
-          "text": "",
           "condition": "livesInUKAndCNI"
         },
         {
-          "description": "download and complete a <a href=\"#\" class=\"govuk-link\">marital status affirmation (‘certificado de estado civil/soltería’)</a>",
-          "value": 1,
-          "text": "",
+          "text": "msc",
+          "value": "3",
+          "description": "download and complete a <a href=\"https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/807456/MSC_for_Marriage.pdf\" class=\"govuk-link\">marital status affirmation (‘certificado de estado civil/soltería’)</a>",
           "condition": "needsMSC"
         }
       ]

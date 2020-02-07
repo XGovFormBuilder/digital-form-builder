@@ -49,7 +49,8 @@ async function createServer (routeConfig) {
     plugin: require('hapi-rate-limit'),
     options: routeConfig ? routeConfig.rateOptions || { enabled: false } : {
       trustProxy: true,
-      pathLimit: false
+      pathLimit: false,
+      userLimit: false
     }
   })
 

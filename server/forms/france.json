@@ -213,14 +213,18 @@
           "type": "EmailAddressField",
           "name": "email",
           "title": "Email address",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         },
         {
           "type": "TelephoneNumberField",
           "name": "telephone",
           "title": "Phone number",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         }
       ],
@@ -236,6 +240,7 @@
       "components": [
         {
           "options": {
+            "classes": "govuk-input--width-20",
             "required": false
           },
           "type": "TextField",
@@ -269,7 +274,9 @@
           "type": "TextField",
           "name": "fullNameOfPartner",
           "title": "Partner's full name",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         }
       ],
@@ -307,12 +314,16 @@
       "title": "Where should we send the certificate?",
       "components": [
         {
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "type": "TextField",
           "name": "addressLine1",
           "title": "Address line 1"
         },
         {
           "options": {
+            "classes": "govuk-input--width-20",
             "required": false
           },
           "type": "TextField",
@@ -321,7 +332,7 @@
         },
         {
           "options": {
-            "classes": "govuk-!-width-two-thirds"
+            "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "townOrCity",
@@ -333,14 +344,13 @@
           "title": "Postcode",
           "schema": {},
           "options": {
-            "classes": [
-              "govuk-!-width-one-third"
-            ]
+            "classes": "govuk-input--width-20"
           }
         },
         {
           "options": {
-            "list": "country"
+            "list": "country",
+            "classes": "govuk-input--width-20"
           },
           "type": "SelectField",
           "name": "country",
@@ -378,12 +388,15 @@
           "name": "placeOfBirth",
           "title": "Place of birth",
           "hint": "As shown on your birth certificate or naturalisation certificate",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         },
         {
           "options": {
-            "list": "country"
+            "list": "country",
+            "classes": "govuk-input--width-20"
           },
           "type": "SelectField",
           "name": "countryOfBirth",
@@ -890,7 +903,9 @@
           "name": "nameBirthCert",
           "title": "Full name on your birth certificate",
           "hint": "Include middle name(s)",
-          "options": {},
+          "options": {
+            "classes": "govuk-input--width-20"
+          },
           "schema": {}
         },
         {
