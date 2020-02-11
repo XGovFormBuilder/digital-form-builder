@@ -2,7 +2,7 @@
   "conditions": [
     {
       "name": "hasUKPassport",
-      "value": "checkBeforeYouStart.ukPassport=='yes'"
+      "value": "checkBeforeYouStart.ukPassport=='Yes'"
     },
     {
       "name": "noUKPassport",
@@ -14,15 +14,15 @@
     },
     {
       "name": "notOppositeSex",
-      "value": "checkBeforeYouStart.partnerOfOppositeSex=='no'"
+      "value": "checkBeforeYouStart.partnerOfOppositeSex=='No'"
     },
     {
       "name": "wasMarriedBefore",
-      "value": "yourMaritalStatus.marriedBefore == 'yes'"
+      "value": "yourMaritalStatus.marriedBefore == 'Yes'"
     },
     {
       "name": "isWidowed",
-      "value": "yourMaritalStatus.currentStatus == 'widowed'"
+      "value": "yourMaritalStatus.currentStatus == 'Widowed'"
     },
     {
       "name": "isSingle",
@@ -30,7 +30,7 @@
     },
     {
       "name": "isSurviving",
-      "value": "yourMaritalStatus.currentStatus == 'surviving civil partner'"
+      "value": "yourMaritalStatus.currentStatus == 'Surviving civil partner'"
     },
     {
       "name": "isWidowedOrSurviving",
@@ -38,19 +38,19 @@
     },
     {
       "name": "isAnnulled",
-      "value": "yourMaritalStatus.currentStatus == 'annulled'"
+      "value": "yourMaritalStatus.currentStatus == 'Annulled'"
     },
     {
       "name": "isDivorced",
-      "value": "yourMaritalStatus.currentStatus == 'divorced'"
+      "value": "yourMaritalStatus.currentStatus == 'Divorced'"
     },
     {
       "name": "isDissolved",
-      "value": "yourMaritalStatus.currentStatus == 'dissolved'"
+      "value": "yourMaritalStatus.currentStatus == 'Dissolved'"
     },
     {
       "name": "canContact",
-      "value": "feedback.contactForFeedback=='yes'"
+      "value": "feedback.contactForFeedback=='Yes'"
     }
   ],
   "startPage": "/uk-passport",
@@ -1230,17 +1230,17 @@
       "items": [
         {
           "text": "Yes",
-          "value": "yes",
+          "value": "Yes",
           "description": ""
         },
         {
           "text": "No",
-          "value": "no",
+          "value": "No",
           "description": ""
         },
         {
           "text": "Not sure",
-          "value": "unsure",
+          "value": "Unsure",
           "description": ""
         }
       ]
@@ -2205,27 +2205,27 @@
       "items": [
         {
           "text": "Divorced",
-          "value": "divorced",
+          "value": "Divorced",
           "description": ""
         },
         {
           "text": "Dissolved civil partner",
-          "value": "dissolved",
+          "value": "Dissolved",
           "description": ""
         },
         {
           "text": "Widowed",
-          "value": "widowed",
+          "value": "Widowed",
           "description": ""
         },
         {
           "text": "Surviving civil partner",
-          "value": "surviving civil partner",
+          "value": "Surviving civil partner",
           "description": ""
         },
         {
           "text": "Annulled",
-          "value": "annulled",
+          "value": "Annulled",
           "description": ""
         }
       ]
@@ -2249,12 +2249,12 @@
       "items": [
         {
           "text": "Yes",
-          "value": "yes",
+          "value": "Yes",
           "description": ""
         },
         {
           "text": "No",
-          "value": "no",
+          "value": "No",
           "description": ""
         }
       ]

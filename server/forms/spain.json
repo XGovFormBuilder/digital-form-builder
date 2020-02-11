@@ -5,32 +5,28 @@
   },
   "conditions": [
     {
-      "name": "hadPreviousNames",
-      "value": "yourDetails.previousNames == true"
-    },
-    {
       "name": "previouslyMarriedOrCivilPartnership",
-      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore==true"
+      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore=='Yes'"
     },
     {
       "name": "notPreviouslyMarried",
-      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore==false"
+      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore=='No'"
     },
     {
       "name": "isDivorced",
-      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='divorced'"
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='Divorced'"
     },
     {
       "name": "isWidowed",
-      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='widowed'"
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='Widowed'"
     },
     {
       "name": "isAnnulment",
-      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='annulment'"
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='Annulment'"
     },
     {
       "name": "isSurviving",
-      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='surviving civil partner'"
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='Surviving civil partner'"
     },
     {
       "name": "isWidowedOrSurviving",
@@ -38,31 +34,31 @@
     },
     {
       "name": "isDissolved",
-      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='dissolved civil partnership'"
+      "value": "yourMaritalOrCivilStatus.maritalStatusNow=='Dissolved civil partnership'"
     },
     {
       "name": "partnerPreviouslyMarriedOrCivilPartnership",
-      "value": "partnersDetails.partnerHasBeenMarriedBefore=='yes'"
+      "value": "partnersDetails.partnerHasBeenMarriedBefore=='Yes'"
     },
     {
       "name": "partnerIsDivorced",
-      "value": "partnersDetails.partnersCurrentMaritalStatus=='divorced'"
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='Divorced'"
     },
     {
       "name": "partnerIsWidowed",
-      "value": "partnersDetails.partnersCurrentMaritalStatus=='widowed'"
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='Widowed'"
     },
     {
       "name": "partnerIsAnnulment",
-      "value": "partnersDetails.partnersCurrentMaritalStatus=='annulment'"
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='Annulment'"
     },
     {
       "name": "partnerIsSurviving",
-      "value": "partnersDetails.partnersCurrentMaritalStatus=='surviving civil partner'"
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='Surviving civil partner'"
     },
     {
       "name": "partnerIsDissolved",
-      "value": "partnersDetails.partnersCurrentMaritalStatus=='dissolved civil partnership'"
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='Sissolved civil partnership'"
     },
     {
       "name": "partnerIsWidowedOrSurviving",
@@ -70,11 +66,11 @@
     },
     {
       "name": "partnerCanContact",
-      "value": "feedbackSection.contactForFeedback=='yes'"
+      "value": "feedbackSection.contactForFeedback=='Yes'"
     },
     {
       "name": "partnerCantContact",
-      "value": "feedbackSection.contactForFeedback=='no'"
+      "value": "feedbackSection.contactForFeedback=='No'"
     },
     {
       "name": "divorceCertificateUpload",
@@ -94,7 +90,7 @@
     },
     {
       "name": "noUKPassport",
-      "value": "checkBeforeYouStart.ukPassport=='no'"
+      "value": "checkBeforeYouStart.ukPassport=='No'"
     },
     {
       "name": "livesInSpain",
@@ -118,35 +114,35 @@
     },
     {
       "name": "partnerSpanishNational",
-      "value": "checkBeforeYouStart.partnerSpanish=='yes'"
+      "value": "checkBeforeYouStart.partnerSpanish=='Yes'"
     },
     {
       "name": "partnerNotSpanishNational",
-      "value": "checkBeforeYouStart.partnerSpanish=='no'"
+      "value": "checkBeforeYouStart.partnerSpanish=='No'"
     },
     {
       "name": "partnerSpanishResident",
-      "value": "checkBeforeYouStart.partnerResidentInSpain=='yes'"
+      "value": "checkBeforeYouStart.partnerResidentInSpain=='Yes'"
     },
     {
       "name": "partnerNotSpanishResident",
-      "value": "checkBeforeYouStart.partnerResidentInSpain=='no'"
+      "value": "checkBeforeYouStart.partnerResidentInSpain=='No'"
     },
     {
       "name": "needsCNI",
-      "value": "checkBeforeYouStart.spanishCNI=='yes'"
+      "value": "checkBeforeYouStart.spanishCNI=='Yes'"
     },
     {
       "name": "doesntNeedCNI",
-      "value": "checkBeforeYouStart.spanishCNI=='no'"
+      "value": "checkBeforeYouStart.spanishCNI=='No'"
     },
     {
       "name": "doesntKnowCNI",
-      "value": "checkBeforeYouStart.spanishCNI=='dont know'"
+      "value": "checkBeforeYouStart.spanishCNI=='Dont know'"
     },
     {
       "name": "needsMSC",
-      "value": "checkBeforeYouStart.needMSC=='yes'"
+      "value": "checkBeforeYouStart.needMSC=='Yes'"
     },
     {
       "name": "needsMSCOnly",
@@ -154,7 +150,7 @@
     },
     {
       "name": "doesntNeedMSC",
-      "value": "checkBeforeYouStart.needMSC=='no'"
+      "value": "checkBeforeYouStart.needMSC=='No'"
     },
     {
       "name": "needsNeither",
@@ -170,7 +166,7 @@
     },
     {
       "name": "doesntKnowMSC",
-      "value": "checkBeforeYouStart.needMSC=='dont know'"
+      "value": "checkBeforeYouStart.needMSC=='Dont know'"
     },
     {
       "name": "doesntLiveInUK",
@@ -234,7 +230,7 @@
     },
     {
       "name": "addressDifferentToDelivery",
-      "value": "sendCertificate == false"
+      "value": "sendCertificate == 'No'"
     }
   ],
   "startPage": "/uk-passport",
@@ -286,8 +282,10 @@
       "section": "yourMaritalOrCivilStatus",
       "components": [
         {
-          "options": {},
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "marriedOrCivilPartnershipBefore",
           "title": "Have you been married or in a civil partnership before?",
           "schema": {}
@@ -453,7 +451,10 @@
           "schema": {}
         },
         {
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "contactForFeedback",
           "title": "Can our partner contact you for feedback to help improve this service?"
         }
@@ -614,7 +615,10 @@
       "path": "/uk-passport",
       "components": [
         {
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "ukPassport",
           "title": "Do you have UK passport?"
         }
@@ -966,7 +970,10 @@
       "section": "partnersDetails",
       "components": [
         {
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "partnerHasBeenMarriedBefore",
           "title": "Has your partner been married or in a civil partnership before?"
         }
@@ -1154,10 +1161,12 @@
       "condition": "doesntLiveInSpain",
       "components": [
         {
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "partnerSpanish",
           "title": "Is your partner a Spanish national?",
-          "options": {},
           "schema": {}
         }
       ],
@@ -1177,10 +1186,12 @@
       "condition": "partnerNotSpanishNational",
       "components": [
         {
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "partnerResidentInSpain",
           "title": "Is your partner a Spanish resident?",
-          "options": {},
           "schema": {}
         }
       ],
@@ -1234,10 +1245,12 @@
           "title": "Postcode"
         },
         {
-          "type": "YesNoField",
+          "options": {
+            "list": "yesNo"
+          },
+          "type": "RadiosField",
           "name": "sendCertificate",
           "title": "Is this where we should send the certificate?",
-          "options": {},
           "schema": {}
         }
       ],
@@ -3863,12 +3876,12 @@
       "items": [
         {
           "text": "Yes",
-          "value": "yes",
+          "value": "Yes",
           "description": ""
         },
         {
           "text": "No",
-          "value": "no",
+          "value": "No",
           "description": ""
         }
       ]
@@ -4110,17 +4123,17 @@
       "items": [
         {
           "text": "Yes",
-          "value": "yes",
+          "value": "Yes",
           "description": ""
         },
         {
           "text": "No",
-          "value": "no",
+          "value": "No",
           "description": ""
         },
         {
           "text": "I don't know",
-          "value": "dont know",
+          "value": "Dont know",
           "description": ""
         }
       ]

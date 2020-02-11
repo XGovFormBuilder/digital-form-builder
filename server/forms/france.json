@@ -6,7 +6,7 @@
   "conditions": [
     {
       "name": "partnerCanContact",
-      "value": "feedbackSection.contactForFeedback=='yes'"
+      "value": "feedbackSection.contactForFeedback=='Yes'"
     },
     {
       "name": "isPacs",
@@ -18,15 +18,15 @@
     },
     {
       "name": "noUKPassport",
-      "value": "checkBeforeYouStart.ukPassport=='no'"
+      "value": "checkBeforeYouStart.ukPassport=='No'"
     },
     {
       "name": "notBornUk",
-      "value": "checkBeforeYouStart.ukBorn=='no'"
+      "value": "checkBeforeYouStart.ukBorn=='No'"
     },
     {
       "name": "isBornUk",
-      "value": "checkBeforeYouStart.ukBorn=='yes'"
+      "value": "checkBeforeYouStart.ukBorn=='Yes'"
     },
     {
       "name": "hasConsularBirthCertificate",
@@ -42,15 +42,15 @@
     },
     {
       "name": "consularNameMatches",
-      "value": "checkBeforeYouStart.consularName == 'yes'"
+      "value": "checkBeforeYouStart.consularName == 'Yes'"
     },
     {
       "name": "localCertificateMatches",
-      "value": "checkBeforeYouStart.localCertificate == 'yes'"
+      "value": "checkBeforeYouStart.localCertificate == 'Yes'"
     },
     {
       "name": "homeOfficeCertificateMatches",
-      "value": "checkBeforeYouStart.naturalisationName == 'yes'"
+      "value": "checkBeforeYouStart.naturalisationName == 'Yes'"
     },
     {
       "name": "nameChangedByDeedPoll",
@@ -66,7 +66,7 @@
     },
     {
       "name": "isBornUkpassportBirthCertificateMatches",
-      "value": "isBornUk and checkBeforeYouStart.nameBirthPassport == 'yes'"
+      "value": "isBornUk and checkBeforeYouStart.nameBirthPassport == 'Yes'"
     },
     {
       "name": "isBornUkAndPartneredNameChange",
@@ -74,7 +74,7 @@
     },
     {
       "name": "passportBirthCertificateMatches",
-      "value": "hasConsularBirthCertificate and checkBeforeYouStart.nameBirthPassport == 'yes'"
+      "value": "hasConsularBirthCertificate and checkBeforeYouStart.nameBirthPassport == 'Yes'"
     },
     {
       "name": "consularCertificateAndPartneredNameChange",
@@ -118,11 +118,11 @@
     },
     {
       "name": "previouslyMarriedOrCivilPartnership",
-      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore == 'yes'"
+      "value": "yourMaritalOrCivilStatus.marriedOrCivilPartnershipBefore == 'Yes'"
     },
     {
       "name": "tooManyNameChanges",
-      "value": "checkBeforeYouStart.amountNameChange == 'yes'"
+      "value": "checkBeforeYouStart.amountNameChange == 'Yes'"
     }
   ],
   "startPage": "/uk-passport",
@@ -1456,17 +1456,17 @@
       "items": [
         {
           "text": "Yes",
-          "value": "yes",
+          "value": "Yes",
           "description": ""
         },
         {
           "text": "No",
-          "value": "no",
+          "value": "No",
           "description": ""
         },
         {
           "text": "Not sure",
-          "value": "unsure",
+          "value": "Unsure",
           "description": ""
         }
       ]
@@ -2480,12 +2480,12 @@
       "items": [
         {
           "text": "Yes",
-          "value": "yes",
+          "value": "Yes",
           "description": ""
         },
         {
           "text": "No",
-          "value": "no",
+          "value": "No",
           "description": ""
         }
       ]
@@ -2514,12 +2514,12 @@
       "items": [
         {
           "text": "Email",
-          "value": "email",
+          "value": "Email",
           "description": ""
         },
         {
           "text": "Phone",
-          "value": "phone",
+          "value": "Phone",
           "description": ""
         }
       ]
@@ -2633,12 +2633,12 @@
       "items": [
         {
           "text": "Female",
-          "value": "female",
+          "value": "Female",
           "description": ""
         },
         {
           "text": "Male",
-          "value": "male",
+          "value": "Male",
           "description": ""
         }
       ]
