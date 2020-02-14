@@ -4399,6 +4399,11 @@
       "description": "MSC Marriage Certificate (Spain)",
       "amount": 5000,
       "condition": "needsMSC"
+    },
+    {
+      "description": "Postage",
+      "amount": 1350,
+      "condition": "livesInUK"
     }
   ],
   "notify": {
@@ -4422,5 +4427,5 @@
     "templateId": "998430f6-9298-477a-8294-fa93725fd986",
     "emailField": "yourContactDetails.email"
   },
-  "declaration": "<p class=\"govuk-body\">I understand and accept that it is my responsibility to ensure that any document provided as a result of this Consular service is acceptable to the requesting authority and that if the document is to be presented outside of the UK or\nSpain, the signature of the Consular officer will be recognised by the requesting authority. Refunds cannot be given where the incorrect service is requested.</p> \n<p class=\"govuk-body\">I request the British Consulate in Madrid accept receipt of my Certificate of No Impediment application by post/courier and that my certificate and any original documents will be returned to me by courier.</p> \n<p class=\"govuk-body\">I understand and accept that if my application is sent back to me for any reason, I will be charged for postage. In doing so, I fully understand and accept that the Foreign and Commonwealth Office assumes no legal or other responsibility for any loss, damage or misplacement of the said property whilst in transit to or from the British Consulate in Madrid.</p>\n<p class=\"govuk-body\"><p class=\"govuk-body govuk-!-font-weight-bold\">I declare that the particulars given above are true to the best of my personal knowledge and belief.</p>\n </p>"
+  "declaration": "I understand and accept that it is my responsibility to ensure that any document provided as a result of this Consular service is acceptable to the requesting authority and that if the document is to be presented outside of the UK or Spain, the signature of the Consular officer will be recognised by the requesting authority. Refunds cannot be given where the incorrect service is requested. I request the British Consulate in Madrid accept receipt of my Certificate of No Impediment application by post/courier and that my certificate and any original documents will be returned to me by courier. I understand and accept that if my application is sent back to me for any reason, I will be charged for postage. In doing so, I fully understand and accept that the Foreign and Commonwealth Office assumes no legal or other responsibility for any loss, damage or misplacement of the said property whilst in transit to or from the British Consulate in Madrid. I declare that the particulars given above are true to the best of my personal knowledge and belief."
 }
