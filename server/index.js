@@ -40,10 +40,12 @@ const serverOptions = () => {
 async function createServer (routeConfig) {
   const server = hapi.server(serverOptions())
 
-  // await server.register({
-  //   plugin: require('hapi-require-https'),
-  //   options: {}
-  // })
+  if (config.sslKey && config.sslCert) {
+    await server.register({
+      plugin: require('hapi-require-https'),
+      options: {}
+    })
+  }
 
   await server.register({
     plugin: require('hapi-rate-limit'),
