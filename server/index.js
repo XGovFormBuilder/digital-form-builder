@@ -45,7 +45,12 @@ async function createServer (routeConfig) {
     options: routeConfig ? routeConfig.rateOptions || { enabled: false } : {
       trustProxy: true,
       pathLimit: false,
-      userLimit: false
+      userLimit: false,
+      getIpFromProxyHeader: (header) => {
+        // use the last in the list as this will be the 'real' ELB header
+        const ips = header.split(',')
+        return ips[ips.length - 1]
+      }
     }
   })
 
