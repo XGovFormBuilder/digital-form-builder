@@ -4177,12 +4177,12 @@
       "items": [
         {
           "text": "Female",
-          "value": "female",
+          "value": "Female",
           "description": ""
         },
         {
           "text": "Male",
-          "value": "male",
+          "value": "Male",
           "description": ""
         }
       ]
