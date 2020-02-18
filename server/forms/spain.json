@@ -398,7 +398,7 @@
             "classes": "govuk-input--width-20"
           },
           "type": "SelectField",
-          "name": "nationality",
+          "name": "partnersNationality",
           "title": "Nationality"
         }
       ],
@@ -2172,6 +2172,10 @@
         {
           "text": "Brazilian",
           "value": "Brazilian"
+        },
+        {
+          "text": "British",
+          "value": "British"
         },
         {
           "text": "Bruneian",
