@@ -126,6 +126,12 @@ class UploadService {
     await cacheService.mergeState(request, { originalFilenames })
     return h.continue
   }
+
+  async downloadDocuments (paths) {
+    return paths.map(path => {
+      return Wreck.get(`${documentUploadApiUrl}/v1/files/${path}`)
+    })
+  }
 }
 module.exports = {
   UploadService
