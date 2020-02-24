@@ -1989,40 +1989,36 @@
   ],
   "sections": [
     {
-      "name": "yourDetails",
-      "title": "Your details"
-    },
-    {
-      "name": "yourMaritalOrCivilStatus",
-      "title": "Your marital or civil status"
-    },
-    {
-      "name": "yourContactDetails",
-      "title": "Your contact details"
-    },
-    {
-      "name": "partnersDetails",
-      "title": "Partner's details"
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
     },
     {
       "name": "aboutYourCeremony",
       "title": "About your ceremony"
     },
     {
-      "name": "feedbackSection",
-      "title": "Feedback"
+      "name": "yourMaritalOrCivilStatus",
+      "title": "Your marital or civil status"
+    },
+    {
+      "name": "yourDetails",
+      "title": "Your details"
+    },
+    {
+      "name": "partnersDetails",
+      "title": "Partner's details"
     },
     {
       "name": "addYourDocuments",
       "title": "Add your documents"
     },
     {
-      "name": "declaration",
-      "title": "Declaration"
+      "name": "yourContactDetails",
+      "title": "Your contact details"
     },
     {
-      "name": "checkBeforeYouStart",
-      "title": "Check before you start"
+      "name": "feedbackSection",
+      "title": "Feedback"
     }
   ],
   "lists": [
