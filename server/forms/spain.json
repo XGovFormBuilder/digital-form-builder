@@ -58,7 +58,7 @@
     },
     {
       "name": "partnerIsDissolved",
-      "value": "partnersDetails.partnersCurrentMaritalStatus=='Sissolved civil partnership'"
+      "value": "partnersDetails.partnersCurrentMaritalStatus=='Dissolved civil partnership'"
     },
     {
       "name": "partnerIsWidowedOrSurviving",
@@ -3959,31 +3959,31 @@
       "items": [
         {
           "text": "Divorced",
-          "value": "divorced",
+          "value": "Divorced",
           "description": "",
           "condition": ""
         },
         {
           "text": "Legally dissolved civil partnership",
-          "value": "dissolved civil partnership",
+          "value": "Dissolved civil partnership",
           "description": "",
           "condition": ""
         },
         {
           "text": "Widowed",
-          "value": "widowed",
+          "value": "Widowed",
           "description": "",
           "condition": ""
         },
         {
           "text": "Surviving civil partner",
-          "value": "surviving civil partner",
+          "value": "Surviving civil partner",
           "description": "",
           "condition": ""
         },
         {
           "text": "Annulled",
-          "value": "annulment",
+          "value": "Annulment",
           "description": "",
           "condition": ""
         }
