@@ -60,6 +60,8 @@ class SummaryViewModel {
       applicableFees = model.def.fees.filter(fee => {
         return model.conditions[fee.condition].fn(state)
       })
+
+      this._payApiKey = model.def.payApiKey
     }
 
     const schema = model.makeFilteredSchema(state, relevantPages)
@@ -98,16 +100,6 @@ class SummaryViewModel {
     }
 
     this.parseDataForWebhook(model, relevantPages, details)
-
-    if (model.def.notify) {
-      let flatState = flatten(state)
-      let personalisation = { }
-      model.def.notify.personalisation.forEach(p => {
-        let condition = model.conditions[p]
-        personalisation[p] = condition ? condition.fn(state) : flatState[p]
-      })
-      this.notifyOptions = { templateId: model.def.notify.templateId, personalisation, emailField: flatState[model.def.notify.emailField] }
-    }
 
     if (model.def.outputs) {
       this._outputs = model.def.outputs.map(output => {
@@ -220,20 +212,16 @@ class SummaryViewModel {
     this._webhookData.fees.paymentReference = paymentReference
   }
 
-  get notifyOptions () {
-    return this._notify
-  }
-
-  set notifyOptions (value) {
-    this._notify = value
-  }
-
   get outputs () {
     return this._outputs
   }
 
   set outputs (value) {
     this._outputs = value
+  }
+
+  get payApiKey () {
+    return this._payApiKey
   }
 
   addDeclarationAsQuestion () {
@@ -312,10 +300,15 @@ class SummaryPage extends Page {
 
       const paymentReference = `FCO-${shortid.generate()}`
       const description = payService.descriptionFromFees(summaryViewModel.fees)
-      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description)
+      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey)
 
       request.yar.set('basePath', model.basePath)
-      await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href, meta: { amount: summaryViewModel.fees.total, description, attempts: 1 } } })
+      await cacheService.mergeState(request, { pay:
+          { payId: res.payment_id,
+            reference: paymentReference,
+            self: res._links.self.href,
+            meta: { amount: summaryViewModel.fees.total, description, attempts: 1, payApiKey: summaryViewModel.payApiKey }
+          } })
       summaryViewModel.webhookDataPaymentReference = paymentReference
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 

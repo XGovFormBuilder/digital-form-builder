@@ -1,11 +1,11 @@
-const { payApiKey, payApiUrl, payReturnUrl } = require('../config')
+const { payApiUrl, payReturnUrl } = require('../config')
 const Wreck = require('@hapi/wreck')
 
 class PayService {
-  get options () {
+  options (apiKey) {
     return {
       headers: {
-        Authorization: `Bearer ${payApiKey}`,
+        Authorization: `Bearer ${apiKey}`,
         'content-type': 'application/json'
       }
     }
@@ -20,8 +20,8 @@ class PayService {
     }
   }
 
-  async payRequest (amount, reference, description) {
-    const data = { ...this.options, payload: this.payRequestData(amount, reference, description) }
+  async payRequest (amount, reference, description, apiKey) {
+    const data = { ...this.options(apiKey), payload: this.payRequestData(amount, reference, description) }
     try {
       const { payload } = await Wreck.post(`${payApiUrl}/payments`, data)
       return JSON.parse(payload.toString())
@@ -30,9 +30,9 @@ class PayService {
     }
   }
 
-  async payStatus (url) {
+  async payStatus (url, apiKey) {
     try {
-      const { payload } = await Wreck.get(url, this.options)
+      const { payload } = await Wreck.get(url, this.options(apiKey))
       return JSON.parse(payload.toString())
     } catch (e) {
       throw e
