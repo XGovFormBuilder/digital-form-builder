@@ -202,12 +202,12 @@
         },
         {
           "options": {
+            "required": false,
             "classes": "govuk-input--width-20"
           },
           "type": "TextField",
           "name": "addressLine2",
-          "title": "Address line 2",
-          "schema": {}
+          "title": "Address line 2"
         },
         {
           "options": {
@@ -429,7 +429,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">We welcome your views on the registration service.</p>\r\n<p class=\"govuk-body\">\r\nIf you agree to be contacted by answering 'yes' below, you will be consenting to share your personal data – name, email address, telephone number and service received – with our independent partner research agency, IFF research.\r\n</p>\r\n<p class=\"govuk-body\">\r\nYou may withdraw your consent at any stage by email <a href=\"mailto:consular.research@fco.gov.uk\">consular.research@fco.gov.uk</a>.\r\n</p>\r\n<p class=\"govuk-body\">\r\nFor more details on how your data will be handled in relation to feedback please see the research privacy policy at <a href=\"http://www.gov.uk/fco/tell-fco\">www.gov.uk/fco/tell-fco</a>.\r\n</p>"
+          "content": "<p class=\"govuk-body\">We welcome your views on the registration service.</p>\r\n<p class=\"govuk-body\">\r\nIf you agree to be contacted by answering 'yes' below, you will be consenting to share your personal data – name, email address, telephone number and service received – with our independent partner research agency, IFF research.\r\n</p>\r\n<p class=\"govuk-body\">\r\nYou may withdraw your consent at any stage by emailing <a href=\"mailto:consular.research@fco.gov.uk\">consular.research@fco.gov.uk</a>.\r\n</p>\r\n<p class=\"govuk-body\">\r\nFor more details on how your data will be handled in relation to feedback please see the research privacy policy at <a href=\"http://www.gov.uk/fco/tell-fco\">www.gov.uk/fco/tell-fco</a>.\r\n</p>"
         },
         {
           "options": {
@@ -481,15 +481,11 @@
       "components": [
         {
           "type": "Html",
-          "content": "<p class=\"govuk-body\">To get married in Thailand you need to:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>complete your affirmation of marital status online</li>\r\n  <li>swear an affirmation at the embassy in Bangkok</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> After you've sworn your affirmation you have until the end of the calendar month plus 3 months to get married or your documents will become invalid. </p>\r\n\r\n\r\n\r\n<p class=\"govuk-body\">If your partner is British they will also need to swear an affirmation. If they're not, they might need an equivalent document.</p>",
-          "options": {},
-          "schema": {}
+          "content": "<p class=\"govuk-body\">To get married in Thailand you need to:</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>complete your affirmation of marital status online</li>\r\n  <li>swear an affirmation at the embassy in Bangkok</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\">Your affirmation will be valid for 3 months from the date they are stamped at the Embassy.</p>\r\n\r\n<p class=\"govuk-body\">If your partner is British they will also need to swear an affirmation. If they're not, they might need an equivalent document.</p>"
         },
         {
           "type": "Html",
-          "content": "<h2 class=\"govuk-heading-l\">Complete your affirmation of marital status</h2>\r\n\r\n<p class=\"govuk-body\">You can either complete your affirmation of marital status online or download and complete the paper application. </p>\r\n<p class=\"govuk-body\"> This service costs £50. You can pay by card online. If you're completing the paper application, you can pay cash or card at the embassy. </p>",
-          "options": {},
-          "schema": {}
+          "content": "<h2 class=\"govuk-heading-l\">Complete your affirmation of marital status</h2>\r\n\r\n<p class=\"govuk-body\">You can either complete your affirmation of marital status online or download and complete the paper application.</p>\r\n\r\n<p class=\"govuk-body\">This service costs £50. You can pay online as part of your application.</p>"
         }
       ],
       "next": [
@@ -616,17 +612,13 @@
         {
           "type": "DatePartsField",
           "name": "decreeAbsoluteDateOfIssue",
-          "title": "Date of issue",
-          "options": {},
-          "schema": {}
+          "title": "Date of issue of decree absolute"
         },
         {
           "type": "TextField",
           "name": "decreeAbsolutePlaceOfIssue",
-          "title": "Place of issue",
-          "hint": "If you were divorced in the UK write the place of issue exactly as it appears on your decree absolute, for example IN THE Derby County Court",
-          "options": {},
-          "schema": {}
+          "title": "Place of issue of decree absolute",
+          "hint": "If you were divorced in the UK write the place of issue exactly as it appears on your decree absolute, for example IN THE Derby County Court"
         }
       ],
       "next": [
@@ -648,9 +640,7 @@
       "components": [
         {
           "type": "Html",
-          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    The Thai authorities require the name of the province you're getting married in, not the city or town.\r\n  </strong>\r\n</div>",
-          "options": {},
-          "schema": {}
+          "content": "<div class=\"govuk-warning-text\">\r\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\r\n  <strong class=\"govuk-warning-text__text\">\r\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\r\n    The Thai authorities require the name of the province where you will register your marriage.\r\n  </strong>\r\n</div>"
         },
         {
           "options": {
@@ -702,11 +692,12 @@
           "schema": {}
         },
         {
+          "options": {
+            "required": false
+          },
           "type": "TextField",
           "name": "referee1AddressLine2",
-          "title": "Address line 2",
-          "options": {},
-          "schema": {}
+          "title": "Address line 2"
         },
         {
           "options": {
@@ -768,11 +759,12 @@
           "schema": {}
         },
         {
+          "options": {
+            "required": false
+          },
           "type": "TextField",
           "name": "referee2AddressLine2",
-          "title": "Address line 2",
-          "options": {},
-          "schema": {}
+          "title": "Address line 2"
         },
         {
           "options": {
@@ -902,9 +894,7 @@
         {
           "type": "DatePartsField",
           "name": "dateOfIssue",
-          "title": "Date of issue",
-          "options": {},
-          "schema": {}
+          "title": "Date of issue of passport"
         },
         {
           "options": {
@@ -930,9 +920,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "If you are British citizen but don't have a UK passport, please contact the <a href=\"https://www.gov.uk/world/organisations/british-embassy-bangkok\" class=\"govuk-link\">British embassy in Bangkok</a>",
-          "options": {},
-          "schema": {}
+          "content": "If you are British citizen but don't have a UK passport, please contact the <a href=\"https://www.gov.uk/world/organisations/british-embassy-bangkok\" class=\"govuk-link\">British embassy in Bangkok</a>."
         }
       ],
       "next": []
@@ -944,9 +932,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "You won't be able to plan your civil partnership ceremony in Thailand",
-          "options": {},
-          "schema": {}
+          "content": "You won't be able to plan your civil partnership ceremony in Thailand."
         }
       ],
       "next": []
@@ -958,9 +944,7 @@
       "components": [
         {
           "type": "Para",
-          "content": "You won't be able to plan your same sex marriage ceremony in Thailand",
-          "options": {},
-          "schema": {}
+          "content": "You won't be able to plan your same sex marriage ceremony in Thailand."
         }
       ],
       "next": []
@@ -979,16 +963,12 @@
         {
           "type": "DatePartsField",
           "name": "finalOrderDateOfIssue",
-          "title": "Date of issue",
-          "options": {},
-          "schema": {}
+          "title": "Date of issue of final order"
         },
         {
           "type": "TextField",
           "name": "finalOrderPlaceOfIssue",
-          "title": "Place of issue",
-          "options": {},
-          "schema": {}
+          "title": "Place of issue of final order"
         }
       ],
       "next": [
@@ -1013,16 +993,12 @@
         {
           "type": "DatePartsField",
           "name": "deathCertificateDateOfIssue",
-          "title": "Date of issue",
-          "options": {},
-          "schema": {}
+          "title": "Date of death"
         },
         {
           "type": "TextField",
           "name": "deathCertificatePlaceOfIssue",
-          "title": "Place of issue",
-          "options": {},
-          "schema": {}
+          "title": "Place of death"
         }
       ],
       "next": [
@@ -1046,16 +1022,12 @@
         {
           "type": "DatePartsField",
           "name": "decreeOfNullityDateOfIssue",
-          "title": "Date of issue",
-          "options": {},
-          "schema": {}
+          "title": "Date of issue of decree of nullity"
         },
         {
           "type": "TextField",
           "name": "decreeOfNullityPlaceOfIssue",
-          "title": "Place of issue",
-          "options": {},
-          "schema": {}
+          "title": "Place of issue of decree of nullity"
         }
       ],
       "next": [
@@ -3560,5 +3532,6 @@
       "isDissolved"
     ],
     "emailField": "yourDetails.emailAddress"
-  }
+  },
+  "declaration": "<p class=\"govuk-body\">The service provided by the British Embassy should not be taken as to certifying that this document is binding in law (whether under UK law or otherwise). Individuals are advised to seek independent legal advice as to the validity of this document under the relevant law.</p>"
 }

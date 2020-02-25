@@ -2712,5 +2712,5 @@
     "emailField": "yourContactDetails.email",
     "templateId": "8c1eb93f-c7db-42f8-a90c-3ae1cfba13be"
   },
-  "declaration": "I hereby declare that the information given is correct to the best of my knowledge and belief."
+  "declaration": "<p class=\"govuk-body\">I hereby declare that the information given is correct to the best of my knowledge and\r\nbelief, and also that:</p>\r\n<ul>\r\n<li>I am not a ward of court</li>\r\n<li>I am not family-related or married to the person with whom I wish to enter into\r\na \"Pacte Civil de Solidarité\"</li>\r\n<li>I am not otherwise married or engaged in a “Pacte Civil de Solidarité” or any\r\nother Civil Partnership</li>\r\n</ul>"
 }
