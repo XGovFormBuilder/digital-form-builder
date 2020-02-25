@@ -34,7 +34,7 @@ const applicationStatus = {
           if (reference) {
             await cacheService.clearState(request)
             if (reference === 'UNKNOWN') {
-              return h.view('application-error', { reference })
+              return h.view('application-error')
             }
             return h.view('confirmation', { reference })
           }
@@ -84,7 +84,7 @@ const applicationStatus = {
             return h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
           } catch (err) {
             await cacheService.clearState(request)
-            return h.view('application-error', { reference: newReference || reference, paySkipped: userCouldntPay })
+            return h.view('application-error')
           }
 
           // TODO:- unfinished pay flow?
