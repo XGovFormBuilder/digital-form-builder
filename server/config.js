@@ -24,11 +24,7 @@ const schema = {
   notifyApiKey: joi.string().optional(),
   previewMode: joi.boolean().optional(),
   sslKey: joi.string().optional(),
-  sslCert: joi.string().optional(),
-  sesAccessKeyId: joi.string.optional(),
-  sesSecretAccessKey: joi.string.optional(),
-  sesRegion: joi.string.optional(),
-  sesSender: joi.string.optional()
+  sslCert: joi.string().optional()
 }
 
 // Build config
@@ -53,11 +49,7 @@ const config = {
   notifyApiKey: process.env.NOTIFY_API_KEY,
   previewMode: process.env.PREVIEW_MODE || false,
   sslKey: process.env.SSL_KEY,
-  sslCert: process.env.SSL_CERT,
-  sesAccessKeyId: process.env.SES_ACCESS_KEY_ID || '',
-  sesSecretAccessKey: process.env.SES_SECRET_ACCESS_KEY_ID || '',
-  sesRegion: process.env.SES_REGION || '',
-  sesSender: process.env.SES_SENDER || ''
+  sslCert: process.env.SSL_CERT
 }
 
 // Validate config

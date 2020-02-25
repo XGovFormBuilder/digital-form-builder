@@ -1,4 +1,3 @@
-const { caseManagementPostRequest } = require('./../lib/caseManagement')
 const shortid = require('shortid')
 
 const applicationStatus = {
@@ -11,49 +10,86 @@ const applicationStatus = {
         method: 'get',
         path: '/status',
         handler: async (request, h) => {
-          const { notifyService, payService, cacheService } = request.services([])
-          const { pay, reference } = await cacheService.getState(request)
+          // eslint-disable-next-line no-unused-vars
+          const { notifyService, payService, emailService, webhookService, cacheService } = request.services([])
+          const { pay, reference, outputs, webhookData } = await cacheService.getState(request)
           const params = request.query
-          const basePath = request.yar.get('basePath')
+          let newReference
+          let payState
+          let userCouldntPay
+
+          if (pay) {
+            const { self } = pay
+            payState = await payService.payStatus(self)
+            userCouldntPay = params.continue || pay.meta.attempts === 3
+
+            /**
+             * @code allow the user to try again if they haven't skipped or reached their retry limit
+             */
+            if (payState.status !== 'success' || !userCouldntPay) {
+              return h.view('pay-error', { reference, errorList: ['there was a problem with your payment'] })
+            }
+          }
 
           if (reference) {
             await cacheService.clearState(request)
             if (reference === 'UNKNOWN') {
-              return h.view('confirmation', { })
+              return h.view('application-error', { reference })
             }
             return h.view('confirmation', { reference })
           }
 
-          // TODO:- if statement hell.. sorry!
-          if (pay) {
-            const { self, reference, meta } = pay
-            const { state } = await payService.payStatus(self)
-            const userCouldntPay = params.continue || meta.attempts === 3
+          /**
+           * @code if there are webhooks, find one and use that to generate a reference number for other output calls.
+           * TODO:- to be honest, it should really be a 'lazy' var but concurrent aysnc is kinda a pain for this and I don't have time. Probably wont have >1 webhook anyway. ¯\_( ツ )_/¯
+           */
+          let webhookOutputs = outputs.filter(output => output.type === 'webhook')
+          let firstWebhook
 
-            if (state.finished || userCouldntPay) {
-              if (state.status === 'success' || userCouldntPay) {
-                const { notify, caseManagementData } = await cacheService.getState(request)
-                if (userCouldntPay) {
-                  delete caseManagementData.fees
-                }
-                const response = await caseManagementPostRequest(caseManagementData)
-                const reference = response.reference !== 'UNKNOWN' ? response.reference : ''
-                if (notify) {
-                  const { templateId, personalisation, emailField } = notify
-                  notifyService.sendNotification(templateId, emailField, reference, personalisation || {})
-                }
-                await cacheService.clearState(request)
-                return h.view('confirmation', { reference, paySkipped: userCouldntPay })
-              } else {
-                return h.view('pay-error', { reference, errorList: ['there was a problem with your payment'] })
-              }
-            } else {
-              // TODO:- unfinished payment flow?
+          if (webhookOutputs.length) {
+            firstWebhook = webhookOutputs[0]
+            let firstWebhookFormData = firstWebhook.formData
+            if (userCouldntPay) {
+              delete firstWebhookFormData.fees
             }
-          } else {
-            return h.redirect(`${basePath}`)
+            newReference = await webhookService.postRequest(firstWebhook.outputData.url, firstWebhookFormData)
+            await cacheService.mergeState(request, { reference: newReference })
           }
+
+          let outputPromises = outputs.filter(output => output !== firstWebhook).map(output => {
+            switch (output.type) {
+              case 'email':
+                /**
+                 * TODO:- see EmailService.sendEmail
+                 * const { emailAddress, attachments } = output.outputData
+                 * return emailService.sendEmail('', 'subject', [])
+                 */
+                break
+              case 'notify':
+                const { apiKey, templateId, personalisation, emailField } = output.outputData
+                return notifyService.sendNotification(apiKey, templateId, emailField, newReference, personalisation || {})
+              case 'webhook':
+                const { url } = output.outputData
+                let formData = webhookData
+                if (userCouldntPay) {
+                  delete formData.fees
+                }
+                return webhookService.postRequest(url, formData)
+            }
+          })
+
+          try {
+            await Promise.all(outputPromises)
+            await cacheService.clearState(request)
+            return h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
+          } catch (err) {
+            await cacheService.clearState(request)
+            return h.view('application-error', { reference: newReference || reference, paySkipped: userCouldntPay })
+          }
+
+          // TODO:- unfinished pay flow?
         }
+
       })
       server.route({
         method: 'post',

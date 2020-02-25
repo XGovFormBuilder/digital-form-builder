@@ -1,7 +1,6 @@
 const joi = require('joi')
 const Page = require('.')
 const shortid = require('shortid')
-const { caseManagementPostRequest } = require('../../../lib/caseManagement')
 const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
 const { serviceName } = require('./../../../config')
 const { flatten } = require('flat')
@@ -107,14 +106,52 @@ class SummaryViewModel {
         let condition = model.conditions[p]
         personalisation[p] = condition ? condition.fn(state) : flatState[p]
       })
-
       this.notifyOptions = { templateId: model.def.notify.templateId, personalisation, emailField: flatState[model.def.notify.emailField] }
+    }
+
+    if (model.def.outputs) {
+      this._outputs = model.def.outputs.map(output => {
+        switch (output.type) {
+          case 'notify':
+            return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
+          case 'email':
+            return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
+          case 'webhook':
+            return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
+        }
+      })
     }
 
     this.result = result
     this.details = details
     this.state = state
     this.value = result.value
+  }
+
+  notifyModel (model, outputConfiguration, state) {
+    let flatState = flatten(state)
+    let personalisation = { }
+    outputConfiguration.personalisation.forEach(p => {
+      let condition = model.conditions[p]
+      personalisation[p] = condition ? condition.fn(state) : flatState[p]
+    })
+    return { templateId: outputConfiguration.templateId, personalisation, emailField: flatState[outputConfiguration.emailField], apiKey: outputConfiguration.apiKey }
+  }
+
+  emailModel (outputOptions) {
+    let attachments = []
+    this._webhookData.questions.forEach(question => {
+      question.fields.forEach(field => {
+        if (field.type === 'file' && field.answer) {
+          attachments.push({ question: question.question, answer: field.answer })
+        }
+      })
+    })
+    let data = `'question','field','answer'` + '\n' + this._webhookData.questions.map(question => {
+      return question.fields.map(field => `${question.question}, ${field.title}, ${field.answer}`).join('\r\n')
+    })
+
+    return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
   toEnglish (localisableString) {
@@ -164,23 +201,23 @@ class SummaryViewModel {
       englishName = typeof model.name === 'string' ? model.name : model.name.en
     }
 
-    this._caseManagementData = {
+    this._webhookData = {
       metadata: model.def.metadata,
       id: model.basePath,
       name: englishName,
       questions: questions
     }
     if (this.fees) {
-      this._caseManagementData.fees = this.fees
+      this._webhookData.fees = this.fees
     }
   }
-  get validatedCaseManagementData () {
-    let result = caseManagementSchema.validate(this._caseManagementData, { abortEarly: false, stripUnknown: true })
+  get validatedWebhookData () {
+    let result = caseManagementSchema.validate(this._webhookData, { abortEarly: false, stripUnknown: true })
     return result.value
   }
 
-  set caseManagementDataPaymentReference (paymentReference) {
-    this._caseManagementData.fees.paymentReference = paymentReference
+  set webhookDataPaymentReference (paymentReference) {
+    this._webhookData.fees.paymentReference = paymentReference
   }
 
   get notifyOptions () {
@@ -191,8 +228,16 @@ class SummaryViewModel {
     this._notify = value
   }
 
+  get outputs () {
+    return this._outputs
+  }
+
+  set outputs (value) {
+    this._outputs = value
+  }
+
   addDeclarationAsQuestion () {
-    this._caseManagementData.questions.push({
+    this._webhookData.questions.push({
       'id': '/summary',
       'category': null,
       'question': 'Declaration',
@@ -258,11 +303,10 @@ class SummaryPage extends Page {
         summaryViewModel.addDeclarationAsQuestion()
       }
 
-      await cacheService.mergeState(request, { notify: summaryViewModel.notifyOptions })
+      await cacheService.mergeState(request, { outputs: summaryViewModel.outputs })
+      await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
       if (!summaryViewModel.fees) {
-        const { reference } = await caseManagementPostRequest(summaryViewModel._caseManagementData)
-        await cacheService.mergeState(request, { reference })
         return h.redirect(`/status`)
       }
 
@@ -272,8 +316,8 @@ class SummaryPage extends Page {
 
       request.yar.set('basePath', model.basePath)
       await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference: paymentReference, self: res._links.self.href, meta: { amount: summaryViewModel.fees.total, description, attempts: 1 } } })
-      summaryViewModel.caseManagementDataPaymentReference = paymentReference
-      await cacheService.mergeState(request, { caseManagementData: summaryViewModel.validatedCaseManagementData })
+      summaryViewModel.webhookDataPaymentReference = paymentReference
+      await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
       return h.redirect(res._links.next_url.href)
     }

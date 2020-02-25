@@ -1,16 +1,6 @@
 const { NotifyClient } = require('notifications-node-client')
-const { notifyApiKey } = require('../config')
 
 class NotifyService {
-  constructor () {
-    if (notifyApiKey) {
-      this.notifyClient = new NotifyClient(notifyApiKey)
-    } else {
-      // Notify disabled
-      this.notifyClient = { sendEmail () {} }
-    }
-  }
-
   parsePersonalisations (options) {
     let parsed = {}
     Object.assign(parsed, ...Object.keys(options).map(key => {
@@ -19,7 +9,15 @@ class NotifyService {
     return parsed
   }
 
-  sendNotification (templateId, emailAddress, reference, options) {
+  notifyClient (apiKey) {
+    if (apiKey) {
+      return new NotifyClient(apiKey)
+    } else {
+      return { sendEmail () {} }
+    }
+  }
+
+  sendNotification (apiKey, templateId, emailAddress, reference, options) {
     let parsedOptions = {}
     parsedOptions.personalisation = this.parsePersonalisations(options)
     if (!reference) {
@@ -31,7 +29,7 @@ class NotifyService {
       parsedOptions.personalisation.hasReference = 'yes'
     }
 
-    return this.notifyClient.sendEmail(templateId, emailAddress, parsedOptions)
+    return this.notifyClient(apiKey).sendEmail(templateId, emailAddress, parsedOptions)
   }
 }
 

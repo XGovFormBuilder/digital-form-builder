@@ -129,7 +129,7 @@ class UploadService {
 
   async downloadDocuments (paths) {
     return paths.map(path => {
-      return Wreck.get(`${documentUploadApiUrl}/v1/files/${path}`)
+      return Wreck.get(path)
     })
   }
 }

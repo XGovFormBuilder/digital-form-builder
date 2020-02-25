@@ -8,6 +8,9 @@ const options = {
   timeout: 60000
 }
 
+/**
+ * @deprecated use WebhookService.postRequest instead.
+ */
 const caseManagementPostRequest = async (answers) => {
   const data = { ...options, payload: JSON.stringify(answers) }
   try {
