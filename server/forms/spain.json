@@ -272,10 +272,146 @@
       ],
       "next": [
         {
-          "path": "/sex"
+          "path": "/uk-passport-details"
         }
       ],
       "title": "Full name"
+    },
+    {
+      "path": "/uk-passport-details",
+      "title": "UK passport details",
+      "components": [
+        {
+          "type": "TextField",
+          "name": "passportNumber",
+          "title": "Passport number",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dateOfBirth",
+          "title": "Date of birth",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "sex"
+          },
+          "type": "RadiosField",
+          "name": "sex",
+          "title": "Sex",
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "country"
+          },
+          "type": "SelectField",
+          "name": "countryOfBirth",
+          "title": "Country of birth",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "placeOfBirth",
+          "title": "Place of birth",
+          "hint": "As shown on your passport",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "DatePartsField",
+          "name": "dateOfIssue",
+          "title": "Date of issue",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "list": "issuingAuthority"
+          },
+          "type": "RadiosField",
+          "name": "issuingAuthority",
+          "title": "Issuing authority",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/uk-address"
+        }
+      ],
+      "section": "yourDetails"
+    },
+    {
+      "path": "/your-fathers-details",
+      "title": "Your father's details",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If your father is deceased you still need to provide his details.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "fathersName",
+          "title": "Full name",
+          "hint": "Name should match the long birth certificate. If you don't know your father's name, leave it blank.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/your-mothers-details"
+        }
+      ],
+      "section": "yourFathersDetails"
+    },
+    {
+      "path": "/your-mothers-details",
+      "title": "Your mother's details",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If your mother is deceased you still need to provide her details.",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "mothersName",
+          "title": "Full name",
+          "hint": "Name should match the long birth certificate. If you don't know your mother's name, leave it blank.",
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "mothersMaidenName",
+          "title": "Maiden name",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/partners-details"
+        }
+      ],
+      "section": "yourMothersDetails"
     },
     {
       "path": "/have-you-been-married-before",
@@ -331,7 +467,7 @@
       ],
       "next": [
         {
-          "path": "/partners-details"
+          "path": "/your-fathers-details"
         }
       ]
     },
@@ -538,15 +674,10 @@
       "section": "addYourDocuments",
       "components": [
         {
-          "type": "Html",
-          "content": "<p class=\"govuk-body\">Add a photo of the  main page of your UK passport – the page with the passport photo.</p>",
-          "options": {},
-          "schema": {}
-        },
-        {
           "type": "FileUploadField",
           "name": "passport",
-          "title": "Passport"
+          "title": "Passport",
+          "hint": "Add a photo of the  main page of your UK passport – the page with the passport photo."
         }
       ],
       "next": [
@@ -573,6 +704,9 @@
         },
         {
           "path": "/your-details"
+        },
+        {
+          "path": "/add-uk-cni"
         }
       ],
       "title": "Passport"
@@ -611,27 +745,6 @@
       "section": "checkBeforeYouStart"
     },
     {
-      "path": "/sex",
-      "title": "Sex as shown on passport",
-      "section": "yourDetails",
-      "components": [
-        {
-          "options": {
-            "list": "sex"
-          },
-          "type": "RadiosField",
-          "name": "sex",
-          "title": "Sex as shown on your passport",
-          "schema": {}
-        }
-      ],
-      "next": [
-        {
-          "path": "/uk-address"
-        }
-      ]
-    },
-    {
       "path": "/no-uk-passport",
       "components": [
         {
@@ -656,11 +769,6 @@
           "type": "FileUploadField",
           "name": "/add-your-documents-742-742",
           "title": "Proof of UK address"
-        },
-        {
-          "type": "Details",
-          "title": "Which documents can be used as proof of address?",
-          "content": "<ul class=\"govuk-list govuk-list--bullet list-bullet\">\r\n  <li>electoral roll confirmation letter</li>\r\n  <li>utility bills / building society/savings bank passbook</li>\r\n  <li>bank/building society/credit card statement</li>\r\n  <li>mortgage statement /council tax demand / credit reference agency search</li>\r\n  <li>recent evidence of entitlement to state or local authority-funded benefit, tax credit,\r\npension, educational or other grant</li>\r\n</ul>"
         }
       ],
       "next": [
@@ -720,6 +828,9 @@
           "path": "/add-birth-certificate"
         },
         {
+          "path": "/add-notice-of-marriage"
+        },
+        {
           "path": "/upload-proof-of-arrival"
         },
         {
@@ -733,6 +844,55 @@
         }
       ],
       "title": "Partner's passport"
+    },
+    {
+      "path": "/add-notice-of-marriage",
+      "title": "Notice of marriage",
+      "section": "addYourDocuments",
+      "condition": "livesInSpainAndNeedsCNI",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "noticeOfMarriage",
+          "title": "Notice of marriage",
+          "hint": "Add a photo of both sides of your notice of marriage (‘publicación de edictos’) – the front and back of the document."
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-cni-affirmation"
+        }
+      ]
+    },
+    {
+      "path": "/add-cni-affirmation",
+      "title": "Certificate of no impediment affirmation",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "cniAffirmation",
+          "title": "Certificate of no impediment affirmation",
+          "hint": "Add a photo of both sides of your certificate of no impediment affirmation (‘declaración solemne’) – the front and back of the document."
+        }
+      ],
+      "next": [
+        {
+          "path": "/upload-proof-of-arrival"
+        },
+        {
+          "path": "/add-birth-certificate"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/add-partners-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
+        }
+      ]
     },
     {
       "path": "/add-town-hall-registration",
@@ -777,6 +937,24 @@
       ],
       "next": [
         {
+          "path": "/add-marital-status-affirmation"
+        }
+      ]
+    },
+    {
+      "path": "/add-marital-status-affirmation",
+      "title": "Marital status affirmation",
+      "section": "addYourDocuments",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "maritalStatusAffirmation",
+          "title": "Marital status affirmation",
+          "hint": "Add a photo of both sides of your marital status affirmation (‘declaración solemne’) – the front and the back of the document."
+        }
+      ],
+      "next": [
+        {
           "path": "/your-details"
         },
         {
@@ -787,6 +965,31 @@
         },
         {
           "path": "/add-partners-marital-status-documents"
+        }
+      ]
+    },
+    {
+      "path": "/add-uk-cni",
+      "title": "UK-issued certificate of no impediment",
+      "section": "addYourDocuments",
+      "condition": "livesInUKAndCNI",
+      "components": [
+        {
+          "type": "FileUploadField",
+          "name": "ukIssuedCNI",
+          "title": "UK-issued CNI",
+          "hint": "Add a photo of your UK-issued certificate of no impediment."
+        }
+      ],
+      "next": [
+        {
+          "path": "/add-proof-of-address-UK"
+        },
+        {
+          "path": "/add-marital-status-documents"
+        },
+        {
+          "path": "/your-details"
         }
       ]
     },
@@ -1047,8 +1250,22 @@
       "condition": "needsMSCAndCNI",
       "components": [
         {
+          "options": {
+            "condition": "doesntLiveInSpain"
+          },
           "type": "Html",
-          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment (capacidad matrimonial):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £63.50 (includes £13.50 courier)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body govuk-!-font-weight-bold\">A marital status certificate (certificado de estado civil):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £63.50 (includes £13.50 courier)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for all your certificates at least 2 months before you take your documents to the civil registry appointment. </p>"
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment (capacidad matrimonial):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £63.50 (includes £13.50 courier)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>"
+        },
+        {
+          "options": {
+            "condition": "livesInSpain"
+          },
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment (capacidad matrimonial):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £103.50 (includes £13.50 courier and £50 to give notice of marriage)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>"
+        },
+        {
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">A marital status certificate (certificado de estado civil):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £63.50 (includes £13.50 courier)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for all your certificates at least 2 months before you take your documents to the civil registry appointment. </p>"
         }
       ],
       "next": [
@@ -1250,8 +1467,18 @@
       "condition": "needsCNIOnly",
       "components": [
         {
+          "options": {
+            "condition": "doesntLiveInSpain"
+          },
           "type": "Html",
           "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment (capacidad matrimonial):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £63.50 (includes £13.50 courier)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>\r\n\r\n<p class=\"govuk-body\"> Apply for your certificate at least 2 months before you take your document to the civil registry appointment. </p>"
+        },
+        {
+          "options": {
+            "condition": "livesInSpain"
+          },
+          "type": "Html",
+          "content": "<p class=\"govuk-body govuk-!-font-weight-bold\">A certificate of no impediment (capacidad matrimonial):</p>\r\n<ul class=\"govuk-list govuk-list--bullet\">\r\n  <li>costs £103.50 (includes £13.50 courier and £50 to give notice of marriage)</li>\r\n  <li>takes 30 working days to process upon submission of a correct application</li>\r\n  <li>courier within Spain only</li>\r\n  <li>is valid for 6 months</li>\r\n</ul>"
         }
       ],
       "next": [
@@ -1885,6 +2112,14 @@
     {
       "name": "addYourDocuments",
       "title": "Add your documents"
+    },
+    {
+      "name": "yourFathersDetails",
+      "title": "Your father's details"
+    },
+    {
+      "name": "yourMothersDetails",
+      "title": "Your mother's details"
     },
     {
       "name": "yourContactDetails",
@@ -4493,9 +4728,14 @@
       "condition": "needsMSC"
     },
     {
+      "description": "Notice of marriage",
+      "amount": 5000,
+      "condition": "livesInSpainAndNeedsCNI"
+    },
+    {
       "description": "Postage",
       "amount": 1350,
-      "condition": "livesInUK"
+      "condition": "livesInSpain"
     }
   ],
   "notify": {
