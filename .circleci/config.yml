@@ -52,65 +52,8 @@ jobs:
           path: report.json
           destination: report.json
 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  publish:
-    <<: *defaults
-
-    docker:
-      - image: circleci/python:2.7-jessie
-
-    steps:
-      - checkout
-
-      - attach_workspace:
-          at: .
-
-      - setup_remote_docker
-
-      - run:
-          name: Checkout CI Support
-          command: curl https://gist.githubusercontent.com/superafroman/ca7422b3c925dfeba5854edcc1713d89/raw/77febaa0954dfa8ebc6598b1366b7f1f8e38d610/docker-publish.sh -O && chmod +x docker-publish.sh
-
-      - run:
-          name: Install awscli
-          command: sudo pip install awscli
-
-      - run:
-          name: Publish docker image
-          command: ./docker-publish.sh eu-west-2 523508197323.dkr.ecr.eu-west-2.amazonaws.com fco digital-forms-runner
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - tag.txt
-
-
-  deploy:
-    docker:
-      - image: buildpack-deps:trusty
-    steps:
-      - checkout
-      - run:
-          name: Deploy Master to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master -f
-
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
-      - publish:
-          requires:
-            - build
-#      - deploy:
-#          requires:
-#            - build
-#          filters:
-#            branches:
-#              only:
-#                - master
