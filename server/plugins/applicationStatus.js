@@ -26,7 +26,7 @@ const applicationStatus = {
             /**
              * @code allow the user to try again if they haven't skipped or reached their retry limit
              */
-            if (payState.status !== 'success' && !userCouldntPay) {
+            if (payState.state.status !== 'success' && !userCouldntPay) {
               return h.view('pay-error', { reference, errorList: ['there was a problem with your payment'] })
             }
           }
