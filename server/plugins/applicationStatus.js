@@ -48,8 +48,8 @@ const applicationStatus = {
 
           if (webhookOutputs.length) {
             firstWebhook = webhookOutputs[0]
-            let firstWebhookFormData = firstWebhook.formData
-            if (userCouldntPay) {
+            let firstWebhookFormData = webhookData
+            if (userCouldntPay && firstWebhookFormData.fees) {
               delete firstWebhookFormData.fees
             }
             newReference = await webhookService.postRequest(firstWebhook.outputData.url, firstWebhookFormData)
@@ -79,7 +79,9 @@ const applicationStatus = {
           })
 
           try {
-            await Promise.all(outputPromises)
+            if (outputPromises.length) {
+              await Promise.all(outputPromises)
+            }
             await cacheService.clearState(request)
             return h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
           } catch (err) {
