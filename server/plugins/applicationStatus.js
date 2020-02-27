@@ -21,12 +21,12 @@ const applicationStatus = {
           if (pay) {
             const { self, meta } = pay
             payState = await payService.payStatus(self, meta.payApiKey)
-            userCouldntPay = params.continue || pay.meta.attempts === 3
+            userCouldntPay = (params.continue === 'true') || pay.meta.attempts === 3
 
             /**
              * @code allow the user to try again if they haven't skipped or reached their retry limit
              */
-            if (payState.status !== 'success' || !userCouldntPay) {
+            if (payState.status !== 'success' && !userCouldntPay) {
               return h.view('pay-error', { reference, errorList: ['there was a problem with your payment'] })
             }
           }
