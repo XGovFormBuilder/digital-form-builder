@@ -19,8 +19,8 @@ const applicationStatus = {
           let userCouldntPay
 
           if (pay) {
-            const { self } = pay
-            payState = await payService.payStatus(self)
+            const { self, meta } = pay
+            payState = await payService.payStatus(self, meta.payApiKey)
             userCouldntPay = params.continue || pay.meta.attempts === 3
 
             /**
