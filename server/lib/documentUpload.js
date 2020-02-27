@@ -112,6 +112,7 @@ class UploadService {
             h.request.payload[key] = location
           }
           if (error) {
+            delete request.payload[key]
             h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
           }
         } catch (e) {
