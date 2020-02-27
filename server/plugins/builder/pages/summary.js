@@ -58,7 +58,7 @@ class SummaryViewModel {
 
     if (model.def.fees) {
       applicableFees = model.def.fees.filter(fee => {
-        return model.conditions[fee.condition].fn(state)
+        return !fee.condition || model.conditions[fee.condition].fn(state)
       })
 
       this._payApiKey = model.def.payApiKey
