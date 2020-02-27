@@ -30,9 +30,8 @@
 
                 {%if declaration %}
                 <h2 class="govuk-heading-m" id="declaration">Declaration</h2>
-                <p class="govuk-body">{{ declaration }}</p>
+                  {{ declaration | safe  }}
                   <div class="govuk-form-group {{ 'govuk-form-group--error' if declarationError }}">
-
                     {% if declarationError %}
                         <span id="nationality-error" class="govuk-error-message">
                             <span class="govuk-visually-hidden">Error:</span> {{declarationError}}
