@@ -15,6 +15,11 @@ const serverOptions = () => {
         options: {
           abortEarly: false
         }
+      },
+      security: {
+        hsts: true,
+        xss: true,
+        noSniff: true
       }
     },
     cache: [{ provider: catboxProvider() }]
