@@ -53,6 +53,7 @@ class SummaryViewModel {
     })
 
     this.declaration = model.def.declaration
+    this.skipSummary = model.def.skipSummary
 
     let applicableFees = []
 
@@ -245,9 +246,11 @@ class SummaryPage extends Page {
   makeGetRouteHandler () {
     return async (request, h) => {
       this.langFromRequest(request)
-
       const { cacheService } = request.services([])
       const model = this.model
+      if (this.model.def.skipSummary) {
+        return this.makePostRouteHandler()(request, h)
+      }
       const state = await cacheService.getState(request)
 
       const viewModel = new SummaryViewModel(this.title, model, state)
@@ -267,7 +270,6 @@ class SummaryPage extends Page {
       const model = this.model
       const state = await cacheService.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
-
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
@@ -282,7 +284,7 @@ class SummaryPage extends Page {
         return startPageRedirect
       }
 
-      if (summaryViewModel.declaration) {
+      if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
         const { declaration } = request.payload
         if (!declaration) {
           request.yar.flash('declarationError', 'You must declare to be able to submit this application')
@@ -327,6 +329,9 @@ class SummaryPage extends Page {
       }
     }
   }
+
+
+
 }
 
 module.exports = SummaryPage
