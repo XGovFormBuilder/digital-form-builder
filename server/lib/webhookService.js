@@ -16,12 +16,13 @@ class WebhookService {
   async postRequest (url, data) {
     const { payload, res } = await Wreck.post(url, { ...options, payload: JSON.stringify(data) })
     if (payload && payload.toString()) {
-      return JSON.parse(payload.toString())
+      const { reference } = JSON.parse(payload.toString())
+      return reference
     }
     if (res.statusCode === 202) {
       // send dead letter queue message
     }
-    return { reference: 'UNKNOWN' }
+    return 'UNKNOWN'
   }
 }
 
