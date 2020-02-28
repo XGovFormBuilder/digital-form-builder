@@ -40,7 +40,12 @@ class PayService {
   }
 
   descriptionFromFees (fees) {
-    return fees.details.map(detail => `${detail.description}: £${detail.amount / 100}`).join(', ')
+    return fees.details.map(detail => {
+      if (detail.multiplier) {
+        return `${detail.multiplyBy} x ${detail.description}: £${detail.multiplyBy * detail.amount / 100}`
+      }
+      return `${detail.description}: £${detail.amount / 100}`
+    }).join(', ')
   }
 }
 
