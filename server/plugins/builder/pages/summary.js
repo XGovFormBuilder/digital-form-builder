@@ -329,9 +329,6 @@ class SummaryPage extends Page {
       }
     }
   }
-
-
-
 }
 
 module.exports = SummaryPage
