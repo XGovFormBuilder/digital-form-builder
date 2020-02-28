@@ -64,7 +64,7 @@ const applicationStatus = {
                  * const { emailAddress, attachments } = output.outputData
                  * return emailService.sendEmail('', 'subject', [])
                  */
-                break
+                return Promise.resolve()
               case 'notify':
                 const { apiKey, templateId, personalisation, emailField } = output.outputData
                 return notifyService.sendNotification(apiKey, templateId, emailField, newReference, personalisation || {})
@@ -85,6 +85,7 @@ const applicationStatus = {
             await cacheService.clearState(request)
             return h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
           } catch (err) {
+            console.log('error processing output', err)
             await cacheService.clearState(request)
             return h.view('application-error')
           }
