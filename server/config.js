@@ -24,7 +24,8 @@ const schema = {
   notifyApiKey: joi.string().optional(),
   previewMode: joi.boolean().optional(),
   sslKey: joi.string().optional(),
-  sslCert: joi.string().optional()
+  sslCert: joi.string().optional(),
+  sessionCookiePassword: joi.string().optional()
 }
 
 // Build config
@@ -49,7 +50,8 @@ const config = {
   notifyApiKey: process.env.NOTIFY_API_KEY,
   previewMode: process.env.PREVIEW_MODE || false,
   sslKey: process.env.SSL_KEY,
-  sslCert: process.env.SSL_CERT
+  sslCert: process.env.SSL_CERT,
+  sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD
 }
 
 // Validate config
