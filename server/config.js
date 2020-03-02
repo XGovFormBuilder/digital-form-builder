@@ -25,7 +25,8 @@ const schema = {
   previewMode: joi.boolean().optional(),
   sslKey: joi.string().optional(),
   sslCert: joi.string().optional(),
-  sessionCookiePassword: joi.string().optional()
+  sessionCookiePassword: joi.string().optional(),
+  fromEmailAddress: joi.string().optional()
 }
 
 // Build config
@@ -51,7 +52,8 @@ const config = {
   previewMode: process.env.PREVIEW_MODE || false,
   sslKey: process.env.SSL_KEY,
   sslCert: process.env.SSL_CERT,
-  sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD
+  sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
+  fromEmailAddress: process.env.FROM_EMAIL_ADDRESS
 }
 
 // Validate config

@@ -59,12 +59,8 @@ const applicationStatus = {
           let outputPromises = (outputs || []).filter(output => output !== firstWebhook).map(output => {
             switch (output.type) {
               case 'email':
-                /**
-                 * TODO:- see EmailService.sendEmail
-                 * const { emailAddress, attachments } = output.outputData
-                 * return emailService.sendEmail('', 'subject', [])
-                 */
-                return Promise.resolve()
+                const { emailAddress, attachments } = output.outputData
+                return emailService.sendEmail(emailAddress, 'subject', { attachments })
               case 'notify':
                 const { apiKey, templateId, personalisation, emailField } = output.outputData
                 return notifyService.sendNotification(apiKey, templateId, emailField, newReference, personalisation || {})

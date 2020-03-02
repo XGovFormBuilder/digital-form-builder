@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk')
-AWS.config.update({ region: 'eu-west-2' })
 const MailComposer = require('nodemailer/lib/mail-composer')
+const config = require('../config')
 
 class EmailService {
   constructor (server, options) {
@@ -18,7 +18,7 @@ class EmailService {
    */
   async sendEmail (emailAddress, subject, options = {}) {
     let mailOptions = {
-      from: '',
+      from: config.fromEmailAddress,
       to: emailAddress,
       subject,
       text: options.message || ''
@@ -29,7 +29,10 @@ class EmailService {
 
     let mailComposer = new MailComposer(mailOptions)
     let message = await mailComposer.compile().build()
-    return new AWS.SES({ apiVersion: '2010-12-01' }).sendRawEmail({ RawMessage: { Data: message } }).promise()
+    // SES is not available in eu-west-2
+    return new AWS.SES({ apiVersion: '2010-12-01', region: 'eu-west-1' })
+      .sendRawEmail({ RawMessage: { Data: message } })
+      .promise()
   }
 }
 

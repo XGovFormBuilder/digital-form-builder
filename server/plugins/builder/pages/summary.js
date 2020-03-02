@@ -1,12 +1,12 @@
 const joi = require('joi')
 const Page = require('.')
 const shortid = require('shortid')
-const {caseManagementSchema} = require('./../../../lib/caseManagementSchema')
-const {serviceName} = require('./../../../config')
-const {flatten} = require('flat')
+const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
+const { serviceName } = require('./../../../config')
+const { flatten } = require('flat')
 
 class SummaryViewModel {
-  constructor(pageTitle, model, state) {
+  constructor (pageTitle, model, state) {
     this.pageTitle = pageTitle
     const details = []
     let relevantPages = []
@@ -66,7 +66,7 @@ class SummaryViewModel {
     }
 
     const schema = model.makeFilteredSchema(state, relevantPages)
-    const result = joi.validate(state, schema, {abortEarly: false, stripUnknown: true})
+    const result = joi.validate(state, schema, { abortEarly: false, stripUnknown: true })
 
     if (result.error) {
       this.errors = result.error.details.map(err => {
@@ -97,15 +97,12 @@ class SummaryViewModel {
       })
     }
     if (applicableFees.length) {
-      console.log('applicableFees', applicableFees)
       const flatState = flatten(state)
-      console.log('flatState', flatState)
       this.fees = {
         details: applicableFees,
         total: Object.values(applicableFees).map(fee => {
           if (fee.multiplier) {
             const multiplyBy = flatState[fee.multiplier]
-            console.log('multiplyBy', multiplyBy)
             fee.multiplyBy = Number(multiplyBy)
             return fee.multiplyBy * fee.amount
           }
@@ -120,11 +117,11 @@ class SummaryViewModel {
       this._outputs = model.def.outputs.map(output => {
         switch (output.type) {
           case 'notify':
-            return {type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state)}
+            return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
           case 'email':
-            return {type: 'email', outputData: this.emailModel(model, output.outputConfiguration)}
+            return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
           case 'webhook':
-            return {type: 'webhook', outputData: {url: output.outputConfiguration.url}}
+            return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
         }
       })
     }
@@ -135,7 +132,7 @@ class SummaryViewModel {
     this.value = result.value
   }
 
-  notifyModel(model, outputConfiguration, state) {
+  notifyModel (model, outputConfiguration, state) {
     let flatState = flatten(state)
     let personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
@@ -150,12 +147,12 @@ class SummaryViewModel {
     }
   }
 
-  emailModel(outputOptions) {
+  emailModel (outputOptions) {
     let attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
         if (field.type === 'file' && field.answer) {
-          attachments.push({question: question.question, answer: field.answer})
+          attachments.push({ question: question.question, answer: field.answer })
         }
       })
     })
@@ -163,10 +160,10 @@ class SummaryViewModel {
       return question.fields.map(field => `${question.question}, ${field.title}, ${field.answer}`).join('\r\n')
     })
 
-    return {data, emailAddress: outputOptions.emailAddress, attachments}
+    return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
-  toEnglish(localisableString) {
+  toEnglish (localisableString) {
     let englishString = ''
     if (localisableString) {
       if (typeof localisableString === 'string') {
@@ -178,7 +175,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  parseDataForWebhook(model, relevantPages, details) {
+  parseDataForWebhook (model, relevantPages, details) {
     let questions = relevantPages.map(page => {
       let category = page.section && page.section.name ? page.section.name : null
       let fields = []
@@ -224,28 +221,28 @@ class SummaryViewModel {
     }
   }
 
-  get validatedWebhookData() {
-    let result = caseManagementSchema.validate(this._webhookData, {abortEarly: false, stripUnknown: true})
+  get validatedWebhookData () {
+    let result = caseManagementSchema.validate(this._webhookData, { abortEarly: false, stripUnknown: true })
     return result.value
   }
 
-  set webhookDataPaymentReference(paymentReference) {
+  set webhookDataPaymentReference (paymentReference) {
     this._webhookData.fees.paymentReference = paymentReference
   }
 
-  get outputs() {
+  get outputs () {
     return this._outputs
   }
 
-  set outputs(value) {
+  set outputs (value) {
     this._outputs = value
   }
 
-  get payApiKey() {
+  get payApiKey () {
     return this._payApiKey
   }
 
-  addDeclarationAsQuestion() {
+  addDeclarationAsQuestion () {
     this._webhookData.questions.push({
       'id': '/summary',
       'category': null,
@@ -263,10 +260,10 @@ class SummaryViewModel {
 }
 
 class SummaryPage extends Page {
-  makeGetRouteHandler() {
+  makeGetRouteHandler () {
     return async (request, h) => {
       this.langFromRequest(request)
-      const {cacheService} = request.services([])
+      const { cacheService } = request.services([])
       const model = this.model
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h)
@@ -284,9 +281,9 @@ class SummaryPage extends Page {
     }
   }
 
-  makePostRouteHandler() {
+  makePostRouteHandler () {
     return async (request, h) => {
-      const {payService, cacheService} = request.services([])
+      const { payService, cacheService } = request.services([])
       const model = this.model
       const state = await cacheService.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state)
@@ -305,7 +302,7 @@ class SummaryPage extends Page {
       }
 
       if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
-        const {declaration} = request.payload
+        const { declaration } = request.payload
         if (!declaration) {
           request.yar.flash('declarationError', 'You must declare to be able to submit this application')
           return h.redirect(`${request.headers.referer}#declaration`)
@@ -313,8 +310,8 @@ class SummaryPage extends Page {
         summaryViewModel.addDeclarationAsQuestion()
       }
 
-      await cacheService.mergeState(request, {outputs: summaryViewModel.outputs})
-      await cacheService.mergeState(request, {webhookData: summaryViewModel.validatedWebhookData})
+      await cacheService.mergeState(request, { outputs: summaryViewModel.outputs })
+      await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
       if (!summaryViewModel.fees) {
         return h.redirect(`/status`)
@@ -331,17 +328,17 @@ class SummaryPage extends Page {
             payId: res.payment_id,
             reference: paymentReference,
             self: res._links.self.href,
-            meta: {amount: summaryViewModel.fees.total, description, attempts: 1, payApiKey: summaryViewModel.payApiKey}
+            meta: { amount: summaryViewModel.fees.total, description, attempts: 1, payApiKey: summaryViewModel.payApiKey }
           }
       })
       summaryViewModel.webhookDataPaymentReference = paymentReference
-      await cacheService.mergeState(request, {webhookData: summaryViewModel.validatedWebhookData})
+      await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
       return h.redirect(res._links.next_url.href)
     }
   }
 
-  get postRouteOptions() {
+  get postRouteOptions () {
     return {
       ext: {
         onPreHandler: {
