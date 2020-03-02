@@ -33,10 +33,11 @@ const applicationStatus = {
 
           if (reference) {
             await cacheService.clearState(request)
-            if (reference === 'UNKNOWN') {
-              return h.view('application-error')
+            if (reference !== 'UNKNOWN') {
+              return h.view('confirmation', { reference })
+            } else {
+              return h.view('confirmation')
             }
-            return h.view('confirmation', { reference })
           }
 
           /**
@@ -79,7 +80,11 @@ const applicationStatus = {
               await Promise.all(outputPromises)
             }
             await cacheService.clearState(request)
-            return h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
+            if (reference !== 'UNKNOWN' || newReference !== 'UNKNOWN') {
+              h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
+            } else {
+              h.view('confirmation', { paySkipped: userCouldntPay })
+            }
           } catch (err) {
             console.log('error processing output', err)
             await cacheService.clearState(request)
