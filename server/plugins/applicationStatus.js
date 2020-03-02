@@ -80,8 +80,8 @@ const applicationStatus = {
               await Promise.all(outputPromises)
             }
             await cacheService.clearState(request)
-            if (reference !== 'UNKNOWN' || newReference !== 'UNKNOWN') {
-              h.view('confirmation', { reference: newReference || reference, paySkipped: userCouldntPay })
+            if (newReference !== 'UNKNOWN') {
+              h.view('confirmation', { reference: newReference, paySkipped: userCouldntPay })
             } else {
               h.view('confirmation', { paySkipped: userCouldntPay })
             }
