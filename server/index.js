@@ -19,7 +19,8 @@ const serverOptions = () => {
       security: {
         hsts: true,
         xss: true,
-        noSniff: true
+        noSniff: true,
+        xframe: true
       }
     },
     cache: [{ provider: catboxProvider() }]
