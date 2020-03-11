@@ -81,9 +81,9 @@ const applicationStatus = {
             }
             await cacheService.clearState(request)
             if (newReference !== 'UNKNOWN') {
-              h.view('confirmation', { reference: newReference, paySkipped: userCouldntPay })
+              return h.view('confirmation', { reference: newReference, paySkipped: userCouldntPay })
             } else {
-              h.view('confirmation', { paySkipped: userCouldntPay })
+              return h.view('confirmation', { paySkipped: userCouldntPay })
             }
           } catch (err) {
             console.log('error processing output', err)
