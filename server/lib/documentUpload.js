@@ -32,14 +32,36 @@ class UploadService {
 
   fileStreamsFromPayload (payload) {
     return Object.entries(payload).filter(([key, value]) => {
-      return value && value._data
+      if (value) {
+        if (Array.isArray(value)) {
+          return value.every(nv => !!nv._data)
+        }
+        return !!value._data
+      }
+      return false
     })
   }
 
   async uploadDocument (location) {
     let form = new FormData()
     form.append('name', location.split('/').pop())
-    form.append('file', fs.createReadStream(location))
+    form.append('files', fs.createReadStream(location))
+
+    const data = { headers: form.getHeaders(), payload: form }
+
+    try {
+      const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data)
+      return this.parsedDocumentUploadResponse(res)
+    } catch (e) {
+      throw e
+    }
+  }
+
+  async uploadDocuments (locations) {
+    let form = new FormData()
+    for (let location of locations) {
+      form.append('files', fs.createReadStream(location))
+    }
 
     const data = { headers: form.getHeaders(), payload: form }
 
@@ -86,41 +108,55 @@ class UploadService {
     let state = cacheService.getState(request)
     let originalFilenames = (state || {}).originalFilenames || {}
 
+    // files is an array of tuples containing key and value.
+    // value may be an array of file data where multiple files have been uploaded
     for (let file of files) {
       let key = file[0]
-      let fileValue = file[1]
-      let fileSize = fileValue._data.length
-      let previousUpload = originalFilenames[key]
-      let isValidFiletype = true
-
-      // TODO: Refactor this logic..
-      if (fileSize > 1) {
-        let extension = fileValue.hapi.filename.split('.').pop()
-        if (!this.validFiletypes.includes(extension)) {
-          h.request.payload[key] = fileValue.hapi.filename
-          h.request.pre.errors = [...h.request.pre.errors || [],
-            parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
-          isValidFiletype = false
-        }
+      let values
+      if (Array.isArray(file[1])) {
+        values = file[1]
+      } else {
+        values = [file[1]]
       }
-      if (fileSize > 1 && isValidFiletype) {
+
+      let previousUpload = originalFilenames[key]
+
+      const locations = (await Promise.all(values.map(async (fileValue) => {
+        let fileSize = fileValue._data.length
+        if (fileSize > 1) {
+          let extension = fileValue.hapi.filename.split('.').pop()
+          if (!this.validFiletypes.includes(extension)) {
+            request.pre.errors = [...h.request.pre.errors || [],
+              parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
+            return fileValue.hapi.filename
+          }
+          try {
+            return await this.saveFileToTmp(fileValue)
+          } catch (e) {
+            request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
+          }
+        }
+        return null
+      }))).filter(value => !!value)
+
+      if (locations && locations.length) {
         try {
-          let saved = await this.saveFileToTmp(fileValue)
-          let { error, location } = await this.uploadDocument(saved)
+          let { error, location } = await this.uploadDocuments(locations)
           if (location) {
-            originalFilenames[key] = { originalFilename: fileValue.hapi.filename, location }
-            h.request.payload[key] = location
+            originalFilenames[key] = [...originalFilenames[key] || [], { location }]
+            request.payload[key] = location
           }
           if (error) {
-            delete request.payload[key]
-            h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
+            request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
           }
         } catch (e) {
-          h.request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
+          request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
         }
-      } else if (previousUpload && file[1]._data.length < 1) {
-        h.request.payload[key] = previousUpload.location
       } else {
+        request.payload[key] = previousUpload.location
+      }
+
+      if (request.pre.errors && request.pre.errors.length) {
         delete request.payload[key]
       }
     }
