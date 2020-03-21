@@ -42,21 +42,6 @@ class UploadService {
     })
   }
 
-  async uploadDocument (location) {
-    let form = new FormData()
-    form.append('name', location.split('/').pop())
-    form.append('files', fs.createReadStream(location))
-
-    const data = { headers: form.getHeaders(), payload: form }
-
-    try {
-      const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data)
-      return this.parsedDocumentUploadResponse(res)
-    } catch (e) {
-      throw e
-    }
-  }
-
   async uploadDocuments (locations) {
     let form = new FormData()
     for (let location of locations) {
@@ -85,6 +70,8 @@ class UploadService {
         error = 'The selected file for "%s" contained a virus'
         break
       case 400:
+        error = 'Invalid file type. Upload a PNG, JPG or PDF'
+        break
       default:
         error = 'There was an error uploading your file'
     }

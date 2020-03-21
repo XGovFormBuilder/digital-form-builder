@@ -53,7 +53,7 @@ suite('uploads', () => {
     expect(response.statusCode).to.equal(200)
 
     const $ = cheerio.load(response.payload)
-    expect($(`[href='#file1']`).text().trim()).to.equal(`"Passport photo" is not allowed to be empty`)
+    expect($(`[href='#file1']`).text().trim()).to.equal(`Passport photo is required`)
   })
 
   test('request with file upload field containing virus returns with error message', async () => {
@@ -61,7 +61,7 @@ suite('uploads', () => {
     stub(UploadService.prototype, 'fileStreamsFromPayload').callsFake(() => {
       return [['file1', { hapi: { filename: 'file.jpg' }, _data: fs.readFileSync(path.join(__dirname, 'dummy.pdf')) }]]
     })
-    stub(UploadService.prototype, 'uploadDocument').callsFake(async () => {
+    stub(UploadService.prototype, 'uploadDocuments').callsFake(async () => {
       return {
         error: 'The selected file for "%s" contained a virus'
       }
