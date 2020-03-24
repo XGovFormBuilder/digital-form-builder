@@ -176,16 +176,17 @@ class SummaryViewModel {
   }
 
   parseDataForWebhook (model, relevantPages, details) {
-    let questions = relevantPages.map(page => {
-      let category = page.section && page.section.name ? page.section.name : null
-      let fields = []
+    const questions = relevantPages.map(page => {
+      const category = page.section && page.section.name ? page.section.name : null
+      const fields = []
       page.components.formItems.forEach(item => {
-        let detail = details.find(d => d.name === category)
+        const detail = details.find(d => d.name === category)
+        const detailItem = detail.items.find(detailItem => detailItem.name === item.name)
         fields.push({
           id: item.name,
           title: this.toEnglish(item.title),
           type: item.dataType,
-          answer: detail.items.find(detailItem => detailItem.name === item.name).rawValue
+          answer: (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
         })
       })
 
