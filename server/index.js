@@ -43,19 +43,21 @@ const serverOptions = () => {
 async function createServer (routeConfig) {
   const server = hapi.server(serverOptions())
 
-  await server.register({
-    plugin: require('hapi-rate-limit'),
-    options: routeConfig ? routeConfig.rateOptions || { enabled: false } : {
-      trustProxy: true,
-      pathLimit: false,
-      userLimit: false,
-      getIpFromProxyHeader: (header) => {
-        // use the last in the list as this will be the 'real' ELB header
-        const ips = header.split(',')
-        return ips[ips.length - 1]
+  if (config.rateLimit) {
+    await server.register({
+      plugin: require('hapi-rate-limit'),
+      options: routeConfig ? routeConfig.rateOptions || { enabled: false } : {
+        trustProxy: true,
+        pathLimit: false,
+        userLimit: false,
+        getIpFromProxyHeader: (header) => {
+          // use the last in the list as this will be the 'real' ELB header
+          const ips = header.split(',')
+          return ips[ips.length - 1]
+        }
       }
-    }
-  })
+    })
+  }
 
   await server.register({
     plugin: require('hapi-pulse'),

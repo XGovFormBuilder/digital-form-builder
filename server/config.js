@@ -25,7 +25,9 @@ const schema = {
   previewMode: joi.boolean().optional(),
   sslKey: joi.string().optional(),
   sslCert: joi.string().optional(),
+  sessionTimeout: joi.number().optional(),
   sessionCookiePassword: joi.string().optional(),
+  rateLimit: joi.boolean().optional(),
   fromEmailAddress: joi.string().optional()
 }
 
@@ -52,7 +54,9 @@ const config = {
   previewMode: process.env.PREVIEW_MODE || false,
   sslKey: process.env.SSL_KEY,
   sslCert: process.env.SSL_CERT,
+  sessionTimeout: process.env.SESSION_TIMEOUT || (20 * 60 * 1000), // default 20 mins
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
+  rateLimit: process.env.RATE_LIMIT !== 'false',
   fromEmailAddress: process.env.FROM_EMAIL_ADDRESS
 }
 
