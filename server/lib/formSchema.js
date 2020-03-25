@@ -1,14 +1,13 @@
 const joi = require('joi')
 
 const fieldSchema = joi.object({
-  id: joi.string().required(),
+  key: joi.string().required(),
   type: joi.string().required(),
   title: joi.string().required(),
   answer: joi.any().required()
 })
 
 const questionSchema = joi.object({
-  id: joi.string().required(),
   category: joi.string().optional(),
   question: joi.string().required(),
   fields: joi.array().items(fieldSchema)
@@ -31,8 +30,7 @@ const metadataSchema = joi.object().keys({
   summary: joi.string()
 })
 
-const caseManagementSchema = joi.object().keys({
-  id: joi.string().required(),
+const formSchema = joi.object().keys({
   name: joi.string().required(),
   preferredLanguage: joi.string().optional(),
   fees: feesSchema,
@@ -41,5 +39,5 @@ const caseManagementSchema = joi.object().keys({
 })
 
 module.exports = {
-  caseManagementSchema
+  formSchema
 }

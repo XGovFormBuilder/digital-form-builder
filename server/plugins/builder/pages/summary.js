@@ -1,7 +1,7 @@
 const joi = require('joi')
 const Page = require('.')
 const shortid = require('shortid')
-const { caseManagementSchema } = require('./../../../lib/caseManagementSchema')
+const { formSchema } = require('./../../../lib/formSchema')
 const { serviceName } = require('./../../../config')
 const { flatten } = require('flat')
 
@@ -183,7 +183,7 @@ class SummaryViewModel {
         const detail = details.find(d => d.name === category)
         const detailItem = detail.items.find(detailItem => detailItem.name === item.name)
         fields.push({
-          id: item.name,
+          key: item.name,
           title: this.toEnglish(item.title),
           type: item.dataType,
           answer: (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
@@ -198,7 +198,6 @@ class SummaryViewModel {
       }
 
       return {
-        id: `/${model.basePath}${page.path}`,
         category,
         question,
         fields
@@ -213,7 +212,6 @@ class SummaryViewModel {
 
     this._webhookData = {
       metadata: model.def.metadata,
-      id: model.basePath,
       name: englishName,
       questions: questions
     }
@@ -223,7 +221,7 @@ class SummaryViewModel {
   }
 
   get validatedWebhookData () {
-    let result = caseManagementSchema.validate(this._webhookData, { abortEarly: false, stripUnknown: true })
+    let result = formSchema.validate(this._webhookData, { abortEarly: false, stripUnknown: true })
     return result.value
   }
 
