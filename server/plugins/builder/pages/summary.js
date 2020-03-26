@@ -243,12 +243,11 @@ class SummaryViewModel {
 
   addDeclarationAsQuestion () {
     this._webhookData.questions.push({
-      'id': '/summary',
       'category': null,
       'question': 'Declaration',
       'fields': [
         {
-          'id': 'declaration',
+          'key': 'declaration',
           'title': 'Declaration',
           'type': 'boolean',
           'answer': true
