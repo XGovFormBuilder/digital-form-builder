@@ -1,6 +1,6 @@
 {
   "name": "digital-form-builder",
-  "version": "1.2.0-perf",
+  "version": "1.2.1-perf",
   "description": "Digital forms runner",
   "main": "index.js",
   "scripts": {
