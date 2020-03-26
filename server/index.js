@@ -79,7 +79,11 @@ async function createServer (routeConfig) {
   await server.register({
     plugin: require('@hapi/crumb'),
     options: {
-      enforce: routeConfig ? routeConfig.enforceCsrf || false : !config.previewMode
+      enforce: routeConfig ? routeConfig.enforceCsrf || false : !config.previewMode,
+      cookieOptions: {
+        path: '/',
+        isSecure: !!config.sslKey
+      }
     }
   })
 
