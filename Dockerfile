@@ -2,6 +2,9 @@ FROM node:10
 
 WORKDIR /usr/src/app
 
+ENV SSL_KEY /usr/src/app/server.key
+ENV SSL_CERT /usr/src/app/server.crt
+
 EXPOSE 3009
 
 CMD [ "npm", "start" ]
