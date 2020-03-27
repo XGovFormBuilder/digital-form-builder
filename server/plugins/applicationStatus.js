@@ -11,7 +11,7 @@ const applicationStatus = {
         path: '/status',
         handler: async (request, h) => {
           // eslint-disable-next-line no-unused-vars
-          const { notifyService, payService, emailService, webhookService, cacheService } = request.services([])
+          const { notifyService, payService, emailService, webhookService, cacheService, sheetsService } = request.services([])
           const { pay, reference, outputs, webhookData } = await cacheService.getState(request)
           const params = request.query
           let newReference
@@ -72,6 +72,9 @@ const applicationStatus = {
                   delete formData.fees
                 }
                 return webhookService.postRequest(url, formData)
+              case 'sheets':
+                const { spreadsheetId, data, authOptions } = output.outputData
+                return sheetsService.appendTo(spreadsheetId, data, authOptions)
             }
           })
 

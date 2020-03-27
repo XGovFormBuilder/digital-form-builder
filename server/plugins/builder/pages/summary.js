@@ -122,6 +122,8 @@ class SummaryViewModel {
             return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
           case 'webhook':
             return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
+          case 'sheets':
+            return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
         }
       })
     }
@@ -161,6 +163,19 @@ class SummaryViewModel {
     })
 
     return { data, emailAddress: outputOptions.emailAddress, attachments }
+  }
+
+  sheetsModel (model, outputConfiguration, state) {
+    let flatState = flatten(state)
+    // eslint-disable-next-line camelcase
+    const { credentials, project_id, scopes } = outputConfiguration
+    const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField]
+    const spreadsheetId = outputConfiguration.sheets.find(sheet => sheet.name === spreadsheetName).id
+    return {
+      data: [].concat.apply([], this._webhookData.questions.map(question => question.fields.map(field => field.answer))),
+      authOptions: { credentials, project_id, scopes },
+      spreadsheetId
+    }
   }
 
   toEnglish (localisableString) {

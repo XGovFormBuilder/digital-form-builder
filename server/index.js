@@ -5,7 +5,7 @@ const Scooter = require('@hapi/scooter')
 const config = require('./config')
 const { configurePlugins } = require('./plugins/builder')
 const Schmervice = require('schmervice')
-const { NotifyService, PayService, UploadService, CacheService, catboxProvider, EmailService, WebhookService } = require('./lib/services')
+const { NotifyService, PayService, UploadService, CacheService, catboxProvider, EmailService, WebhookService, SheetsService } = require('./lib/services')
 
 const serverOptions = () => {
   const defaultOptions = {
@@ -88,7 +88,7 @@ async function createServer (routeConfig) {
   })
 
   await server.register(Schmervice)
-  server.registerService([CacheService, NotifyService, PayService, UploadService, EmailService, WebhookService])
+  server.registerService([CacheService, NotifyService, PayService, UploadService, EmailService, WebhookService, SheetsService])
 
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
