@@ -79,7 +79,27 @@ Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.j
 # Deployment
 Currently CI is done with [circleCI](https://circleci.com). Pushes to master
 will trigger a build phase which includes running tests and [lighthouse](https://developers.google.com/web/tools/lighthouse)
-accessibility audits. Builds will fail if the accessibility score is less than 90%. 
+accessibility audits. Builds will fail if the accessibility score is less than 90%.
+
+
+# Outputs
+At the end of a form, there are multiple output types. The schemas for the right json format can be found in the engine repo.
+Additional steps are required for the different output types.
+- Notify 
+  - A GOV.UK [notify](https://www.notifications.service.gov.uk) is required
+  - For each notification you wish to send, a template must be set up. If there are 'personalisations' they must match the configuration
+- Sheets
+  - This is currently a [Google Sheets](https://docs.google.com/spreadsheets) integration
+  - For each sheet you wish to add data to, you must have have the spreadsheet id
+  - You must have a Google Cloud Platform (GCP) account 
+  - create a project in GCP and note down the project id.
+  - enable Google Sheets API for this project
+  - Create a [service account](https://developers.google.com/identity/protocols/oauth2/service-account#creatinganaccount) in this project. (You only need to follow the 'Creating a service account' steps on this page) 
+    - Once it is created, download the credentials (this will include the private_key and client_email)
+- Webhook
+  - The webhook must accept a POST request
+  - It should also return with a JSON with the key 'reference' in the body
+  
 
 ## License
 
