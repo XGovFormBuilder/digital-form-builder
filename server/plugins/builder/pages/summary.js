@@ -286,7 +286,7 @@ class SummaryPage extends Page {
       const viewModel = new SummaryViewModel(this.title, model, state)
       viewModel.currentPath = `/${model.basePath}${this.path}`
 
-      let declarationError = request.yar.flash('declarationError')
+      const declarationError = request.yar.flash('declarationError')
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0]
       }
