@@ -1,10 +1,10 @@
 const hoek = require('hoek')
 const CatboxRedis = require('@hapi/catbox-redis')
 const CatboxMemory = require('@hapi/catbox-memory')
-const { redisHost, redisPort, redisPassword, redisTls, isSandbox } = require('./../config')
+const { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } = require('./../config')
 const Redis = require('ioredis')
 
-let partition = 'cache'
+const partition = 'cache'
 
 const Key = (id) => {
   return {
@@ -19,15 +19,15 @@ class CacheService {
   }
 
   async getState (request) {
-    let cached = await this.cache.get(Key(request.yar.id))
-    return await cached !== null ? cached : {}
+    const cached = await this.cache.get(Key(request.yar.id))
+    return cached || {}
   }
 
   async mergeState (request, value) {
     const key = Key(request.yar.id)
     const state = await this.getState(request)
     hoek.merge(state, value, true, false)
-    await this.cache.set(key, state, 30 * 60 * 1000)
+    await this.cache.set(key, state, sessionTimeout)
     return this.cache.get(key)
   }
 
@@ -39,7 +39,7 @@ class CacheService {
 }
 
 const catboxProvider = () => {
-  let provider = {
+  const provider = {
     constructor: redisHost ? CatboxRedis : CatboxMemory,
     options: {}
   }
