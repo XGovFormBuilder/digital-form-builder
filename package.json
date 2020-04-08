@@ -21,8 +21,8 @@
     "url": "https://github.com/UKForeignOffice/digital-form-builder"
   },
   "engines": {
-    "node": "10.16.3",
-    "npm": ">=6.0.0"
+    "node": ">=12",
+    "npm": ">=6"
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
