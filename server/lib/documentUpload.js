@@ -22,8 +22,8 @@ class UploadService {
 
   saveFileToTmp (file) {
     if (!file) throw new Error('no file')
-    let tmpDir = tmp.dirSync()
-    let location = path.join(tmpDir.name, file.hapi.filename)
+    const tmpDir = tmp.dirSync()
+    const location = path.join(tmpDir.name, file.hapi.filename)
     return new Promise(resolve =>
       file
         .pipe(fs.createWriteStream(location))
@@ -34,28 +34,23 @@ class UploadService {
     return Object.entries(payload).filter(([key, value]) => {
       if (value) {
         if (Array.isArray(value)) {
-          return value.every(nv => !!nv._data)
+          return value.every(nv => !!nv._data && nv._data.length > 1)
         }
-        return !!value._data
+        return !!value._data && value._data.length > 1
       }
       return false
     })
   }
 
   async uploadDocuments (locations) {
-    let form = new FormData()
-    for (let location of locations) {
+    const form = new FormData()
+    for (const location of locations) {
       form.append('files', fs.createReadStream(location))
     }
 
     const data = { headers: form.getHeaders(), payload: form }
-
-    try {
-      const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data)
-      return this.parsedDocumentUploadResponse(res)
-    } catch (e) {
-      throw e
-    }
+    const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data)
+    return this.parsedDocumentUploadResponse(res)
   }
 
   parsedDocumentUploadResponse (res) {
@@ -88,17 +83,20 @@ class UploadService {
 
   async handleUploadRequest (request, h) {
     const { cacheService } = request.services([])
+    const state = cacheService.getState(request)
+    const originalFilenames = (state || {}).originalFilenames || {}
+
     let files = []
     if (request.payload !== null) {
       files = this.fileStreamsFromPayload(request.payload)
     }
-    let state = cacheService.getState(request)
-    let originalFilenames = (state || {}).originalFilenames || {}
 
     // files is an array of tuples containing key and value.
     // value may be an array of file data where multiple files have been uploaded
-    for (let file of files) {
-      let key = file[0]
+    for (const file of files) {
+      const key = file[0]
+      const previousUpload = originalFilenames[key] || {}
+
       let values
       if (Array.isArray(file[1])) {
         values = file[1]
@@ -106,29 +104,23 @@ class UploadService {
         values = [file[1]]
       }
 
-      let previousUpload = originalFilenames[key]
-
       const locations = (await Promise.all(values.map(async (fileValue) => {
-        let fileSize = fileValue._data.length
-        if (fileSize > 1) {
-          let extension = fileValue.hapi.filename.split('.').pop()
-          if (!this.validFiletypes.includes(extension)) {
-            request.pre.errors = [...h.request.pre.errors || [],
-              parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
-            return fileValue.hapi.filename
-          }
-          try {
-            return await this.saveFileToTmp(fileValue)
-          } catch (e) {
-            request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
-          }
+        const extension = fileValue.hapi.filename.split('.').pop()
+        if (!this.validFiletypes.includes(extension)) {
+          request.pre.errors = [...h.request.pre.errors || [],
+            parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
+          return fileValue.hapi.filename
         }
-        return null
+        try {
+          return await this.saveFileToTmp(fileValue)
+        } catch (e) {
+          request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
+        }
       }))).filter(value => !!value)
 
-      if (locations && locations.length) {
+      if (locations.length === values.length) {
         try {
-          let { error, location } = await this.uploadDocuments(locations)
+          const { error, location } = await this.uploadDocuments(locations)
           if (location) {
             originalFilenames[key] = [...originalFilenames[key] || [], { location }]
             request.payload[key] = location
@@ -140,7 +132,7 @@ class UploadService {
           request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
         }
       } else {
-        request.payload[key] = previousUpload.location
+        request.payload[key] = previousUpload.location || ''
       }
 
       if (request.pre.errors && request.pre.errors.length) {
