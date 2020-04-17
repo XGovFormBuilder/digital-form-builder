@@ -1,0 +1,21 @@
+{% set mainClasses = "govuk-main-wrapper--l" %}
+{% from "panel/macro.njk" import govukPanel %}
+
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="govuk-width-container">
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Your application has timed out</h1>
+        <p class="govuk-body">
+          We have reset your application because you did not do anything for {{ sessionTimeout / 60000 }} minutes. We did this
+          to keep your information secure.
+        </p>
+        <a href="{{ startPage }}" class="govuk-button">Start application again</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

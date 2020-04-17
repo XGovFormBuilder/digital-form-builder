@@ -41,9 +41,11 @@
   <!-- End Matomo Code -->
 {% endblock %}
 
+
 {% block pageTitle %}
   {{ pageTitle }}
 {% endblock %}
+
 
 {% block skipLink %}
     {{ govukSkipLink({
@@ -59,6 +61,7 @@
         </div>
     </div>
 {% endblock %}
+
 
 {% block header %}
   {{ govukHeader({
@@ -92,14 +95,32 @@
   <h1 class="govuk-heading-xl">Default page template</h1>
 {% endblock %}
 
+
 {% block bodyEnd %}
+  {% include "partials/modal-dialog.html" %}
+
+  <script src="{{ assetPath }}/jquery-1.11.3.js"></script>
   <script src="{{ assetPath }}/all.js"></script>
   <script src="{{ assetPath }}/govuk-template.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script>
+  <script src="{{ assetPath }}/dialog-polyfill.0.4.3.js"></script>
+  <script src="{{ assetPath }}/modal-dialog.js"></script>
+
+  <script>
+    $(document).ready(function () {
+        GOVUKFrontend.initAll()
+
+        GOVUKFrontend.modalDialog.containerSelector = '#main-content'
+        GOVUKFrontend.modalDialog.idleMinutesBeforeTimeOut = Number('{{ (sessionTimeout / 60000) - 1 }}')
+          - GOVUKFrontend.modalDialog.minutesTimeOutModalVisible
+        GOVUKFrontend.modalDialog.init()
+    });
+  </script>
+
   {% if BROWSER_REFRESH_URL %}
     <script src="{{ BROWSER_REFRESH_URL }}"></script>
   {% endif %}
 {% endblock %}
+
 
 {% block footer %}
     {{ govukFooter({

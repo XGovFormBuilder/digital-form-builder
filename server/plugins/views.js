@@ -49,7 +49,8 @@ module.exports = {
       analyticsAccount: config.analyticsAccount,
       matomoId: config.matomoId,
       matomoUrl: config.matomoUrl,
-      BROWSER_REFRESH_URL: config.browserRefreshUrl
+      BROWSER_REFRESH_URL: config.browserRefreshUrl,
+      sessionTimeout: config.sessionTimeout
     }
   }
 }

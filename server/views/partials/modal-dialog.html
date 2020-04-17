@@ -1,0 +1,17 @@
+<dialog id="js-modal-dialog" data-minutes-idle-timeout="{{ data['modalIdleTime'] or '25'}}" data-minutes-modal-visible="{{ data['modalVisibleTime'] or '5'}}"
+        data-url-redirect="/timeout" class="modal-dialog dialog" role="dialog" aria-live="polite" aria-labelledby="dialog-title" aria-describedby="at-timer">
+    <div class="modal-dialog__inner">
+        <h1 id="dialog-title" class="heading-large govuk-heading-l">
+            Your application will time out soon
+        </h1>
+        <div class="modal-dialog__inner__text">
+            <div class="timer" aria-hidden="true" aria-relevant="additions"></div>
+            <div id="at-timer" class="at-timer govuk-visually-hidden" role="status"></div>
+        </div>
+        <div class="modal-dialog__inner__block">
+            <button class="button dialog-button modal-dialog__inner__button js-dialog-close">
+                Continue application
+            </button>
+        </div>
+    </div>
+</dialog>

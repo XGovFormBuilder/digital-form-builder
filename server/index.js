@@ -9,6 +9,7 @@ const { NotifyService, PayService, UploadService, CacheService, catboxProvider, 
 
 const serverOptions = () => {
   const defaultOptions = {
+    debug: { request: `${config.isDev}` },
     port: config.port,
     routes: {
       validate: {
@@ -69,7 +70,7 @@ async function createServer (routeConfig) {
   await server.register([Scooter, {
     plugin: Blankie,
     options: {
-      fontSrc: 'self',
+      fontSrc: ['self', 'data:'],
       scriptSrc: (() => ['self', 'unsafe-inline'].concat(config.matomoUrl ? [config.matomoUrl] : []))(),
       styleSrc: ['self', 'unsafe-inline'],
       imgSrc: (() => ['self'].concat(config.matomoUrl ? [config.matomoUrl] : []))(),

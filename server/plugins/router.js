@@ -22,6 +22,29 @@ module.exports = {
           return h.view('help/terms-and-conditions')
         }
       })
+      server.route({
+        method: 'get',
+        path: '/timeout',
+        handler: async (request, h) => {
+          if (request.yar) {
+            request.yar.reset()
+          }
+
+          let startPage = '/'
+          const { referer } = request.headers
+
+          if (referer) {
+            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/)
+            if (match && match.length > 1) {
+              startPage = `/${match[1]}`
+            }
+          }
+
+          return h.view('timeout', {
+            startPage
+          })
+        }
+      })
     }
   }
 }
