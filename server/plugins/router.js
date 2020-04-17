@@ -15,6 +15,7 @@ module.exports = {
           return h.view('help/cookies')
         }
       })
+
       server.route({
         method: 'get',
         path: '/help/terms-and-conditions',
@@ -22,6 +23,19 @@ module.exports = {
           return h.view('help/terms-and-conditions')
         }
       })
+
+      server.route({
+        method: 'get',
+        path: '/clear-session',
+        handler: async (request, h) => {
+          if (request.yar) {
+            request.yar.reset()
+          }
+          const { redirect } = request.query
+          return h.redirect(redirect || '/')
+        }
+      })
+
       server.route({
         method: 'get',
         path: '/timeout',
