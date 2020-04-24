@@ -14,7 +14,7 @@ The designer is no longer a plugin and is responsible for running itself on defa
 ## Getting started
 
 ### Prerequisites
-- Install Node.js v10.x.x
+- Install Node.js v12.x.x
 - For development, secrets have been stored and shared using [Keybase](https://keybase.io). 
   - Once you have access Install [mkcert](https://github.com/FiloSottile/mkcert) which allows us to use locally-trusted certificates ([GOV.UK Pay](https://www.payments.service.gov.uk) will only allow redirects to `https://`)
   - Set `$CAROOT` to `KEYBASE_TEAM_DIR/rootCA.pem` 
