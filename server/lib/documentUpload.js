@@ -122,7 +122,7 @@ class UploadService {
         try {
           const { error, location } = await this.uploadDocuments(locations)
           if (location) {
-            originalFilenames[key] = [...originalFilenames[key] || [], { location }]
+            originalFilenames[key] = { location }
             request.payload[key] = location
           }
           if (error) {
