@@ -24,11 +24,7 @@ const feesSchema = joi.object({
   total: joi.number().required()
 }).optional()
 
-const metadataSchema = joi.object().keys({
-  post: joi.string(),
-  caseType: joi.string(),
-  summary: joi.string()
-})
+const metadataSchema = joi.object()
 
 const formSchema = joi.object().keys({
   name: joi.string().required(),
