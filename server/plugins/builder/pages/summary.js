@@ -15,17 +15,16 @@ class SummaryViewModel {
       const sectionState = section
         ? (state[section.name] || {})
         : state
-      let isRelevantPage = true
+
       model.pages.forEach(page => {
         if (page.section === section) {
-          page.components.formItems.forEach(component => {
-            if (page.condition && model.conditions[page.condition]) {
-              if (!model.conditions[page.condition].fn(state)) {
-                isRelevantPage = false
-                return
-              }
+          if (page.condition && model.conditions[page.condition]) {
+            if (!model.conditions[page.condition].fn(state)) {
+              return
             }
-            if (isRelevantPage) {
+          }
+          if (page.components.formItems.length > 0) {
+            page.components.formItems.forEach(component => {
               items.push({
                 name: component.name,
                 path: component.path,
@@ -36,9 +35,7 @@ class SummaryViewModel {
                 pageId: `/${model.basePath}${page.path}`,
                 type: component.type
               })
-            }
-          })
-          if (isRelevantPage && page.components.formItems.length > 0) {
+            })
             relevantPages.push(page)
           }
         }
