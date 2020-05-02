@@ -9,8 +9,8 @@ class SummaryViewModel {
   constructor (pageTitle, model, state) {
     this.pageTitle = pageTitle
     const details = []
-    let relevantPages = []
-    ;[undefined].concat(model.sections).forEach((section, index) => {
+    const relevantPages = []
+    ;[undefined].concat(model.sections).forEach((section) => {
       const items = []
       const sectionState = section
         ? (state[section.name] || {})
@@ -35,6 +35,24 @@ class SummaryViewModel {
                 pageId: `/${model.basePath}${page.path}`,
                 type: component.type
               })
+              if (component.items) {
+                const selectedValue = sectionState[component.name]
+                const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
+                if (selectedItem && selectedItem.conditional) {
+                  selectedItem.conditional.componentCollection.formItems.forEach(cc => {
+                    items.push({
+                      name: cc.name,
+                      path: cc.path,
+                      label: cc.localisedString(cc.title),
+                      value: cc.getDisplayStringFromState(sectionState),
+                      rawValue: sectionState[cc.name],
+                      url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
+                      pageId: `/${model.basePath}${page.path}`,
+                      type: cc.type
+                    })
+                  })
+                }
+              }
             })
             relevantPages.push(page)
           }
@@ -194,12 +212,28 @@ class SummaryViewModel {
       page.components.formItems.forEach(item => {
         const detail = details.find(d => d.name === category)
         const detailItem = detail.items.find(detailItem => detailItem.name === item.name)
+        const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
         fields.push({
           key: item.name,
           title: this.toEnglish(item.title),
           type: item.dataType,
-          answer: (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
+          answer
         })
+
+        if (item.items) {
+          const selectedItem = item.items.filter(i => i.value === answer)[0]
+          if (selectedItem && selectedItem.conditional) {
+            selectedItem.conditional.componentCollection.formItems.forEach(cc => {
+              const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
+              fields.push({
+                key: cc.name,
+                title: this.toEnglish(cc.title),
+                type: cc.dataType,
+                answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
+              })
+            })
+          }
+        }
       })
 
       let question = ''
