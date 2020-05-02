@@ -109,10 +109,12 @@
     $(document).ready(function () {
         GOVUKFrontend.initAll()
 
+      {% if not skipTimeoutWarning %}
         GOVUKFrontend.modalDialog.containerSelector = '#main-content'
         GOVUKFrontend.modalDialog.idleMinutesBeforeTimeOut = Number('{{ (sessionTimeout / 60000) - 1 }}')
           - GOVUKFrontend.modalDialog.minutesTimeOutModalVisible
         GOVUKFrontend.modalDialog.init()
+      {% endif %}
     });
   </script>
 
