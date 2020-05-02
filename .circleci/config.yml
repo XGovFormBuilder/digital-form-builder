@@ -33,7 +33,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
-      - run: yarn test
+#      - run: yarn test
 
       - store_artifacts:
           path: unit-test.html
