@@ -106,7 +106,7 @@ class UploadService {
 
       const locations = (await Promise.all(values.map(async (fileValue) => {
         const extension = fileValue.hapi.filename.split('.').pop()
-        if (!this.validFiletypes.includes(extension)) {
+        if (!this.validFiletypes.includes((extension || '').toLowerCase())) {
           request.pre.errors = [...h.request.pre.errors || [],
             parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
           return fileValue.hapi.filename
