@@ -23,7 +23,7 @@ class UploadService {
   saveFileToTmp (file) {
     if (!file) throw new Error('no file')
     const tmpDir = tmp.dirSync()
-    const location = path.join(tmpDir.name, file.hapi.filename)
+    const location = path.join(tmpDir.name, `${new Date().getTime()}${file.hapi.filename}`)
     return new Promise(resolve =>
       file
         .pipe(fs.createWriteStream(location))
@@ -60,6 +60,9 @@ class UploadService {
     switch (res.statusCode) {
       case 201:
         location = res.headers.location
+        break
+      case 413:
+        error = 'The selected file for "%s" is too large'
         break
       case 422:
         error = 'The selected file for "%s" contained a virus'
@@ -129,7 +132,12 @@ class UploadService {
             request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
           }
         } catch (e) {
-          request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
+          if (e.data && e.data.res) {
+            const { error } = this.parsedDocumentUploadResponse(e.data.res)
+            request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
+          } else {
+            request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
+          }
         }
       } else {
         request.payload[key] = previousUpload.location || ''

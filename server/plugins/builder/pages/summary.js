@@ -10,6 +10,7 @@ class SummaryViewModel {
     this.pageTitle = pageTitle
     const details = []
     const relevantPages = []
+    let endPage = null
     ;[undefined].concat(model.sections).forEach((section) => {
       const items = []
       const sectionState = section
@@ -55,6 +56,8 @@ class SummaryViewModel {
               }
             })
             relevantPages.push(page)
+          } else if (!(page instanceof SummaryPage) && (!page.pageDef.next || page.pageDef.next.length === 0)) {
+            endPage = page
           }
         }
       })
@@ -69,6 +72,7 @@ class SummaryViewModel {
 
     this.declaration = model.def.declaration
     this.skipSummary = model.def.skipSummary
+    this.endPage = endPage
 
     let applicableFees = []
 
@@ -150,10 +154,10 @@ class SummaryViewModel {
   }
 
   notifyModel (model, outputConfiguration, state) {
-    let flatState = flatten(state)
-    let personalisation = {}
+    const flatState = flatten(state)
+    const personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
-      let condition = model.conditions[p]
+      const condition = model.conditions[p]
       personalisation[p] = condition ? condition.fn(state) : flatState[p]
     })
     return {
@@ -165,7 +169,7 @@ class SummaryViewModel {
   }
 
   emailModel (outputOptions) {
-    let attachments = []
+    const attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
         if (field.type === 'file' && field.answer) {
@@ -173,7 +177,7 @@ class SummaryViewModel {
         }
       })
     })
-    let data = `'question','field','answer'` + '\n' + this._webhookData.questions.map(question => {
+    const data = '\'question\',\'field\',\'answer\'' + '\n' + this._webhookData.questions.map(question => {
       return question.fields.map(field => `${question.question}, ${field.title}, ${field.answer}`).join('\r\n')
     })
 
@@ -181,7 +185,7 @@ class SummaryViewModel {
   }
 
   sheetsModel (model, outputConfiguration, state) {
-    let flatState = flatten(state)
+    const flatState = flatten(state)
     // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration
     const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField]
@@ -267,7 +271,7 @@ class SummaryViewModel {
   }
 
   get validatedWebhookData () {
-    let result = formSchema.validate(this._webhookData, { abortEarly: false, stripUnknown: true })
+    const result = formSchema.validate(this._webhookData, { abortEarly: false, stripUnknown: true })
     return result.value
   }
 
@@ -289,14 +293,14 @@ class SummaryViewModel {
 
   addDeclarationAsQuestion () {
     this._webhookData.questions.push({
-      'category': null,
-      'question': 'Declaration',
-      'fields': [
+      category: null,
+      question: 'Declaration',
+      fields: [
         {
-          'key': 'declaration',
-          'title': 'Declaration',
-          'type': 'boolean',
-          'answer': true
+          key: 'declaration',
+          title: 'Declaration',
+          type: 'boolean',
+          answer: true
         }
       ]
     })
@@ -316,6 +320,10 @@ class SummaryPage extends Page {
 
       const viewModel = new SummaryViewModel(this.title, model, state)
       viewModel.currentPath = `/${model.basePath}${this.path}`
+
+      if (viewModel.endPage) {
+        return h.redirect(`/${model.basePath}${viewModel.endPage.path}`)
+      }
 
       if (viewModel.errors) {
         const errorToFix = viewModel.errors[0]
@@ -360,7 +368,7 @@ class SummaryPage extends Page {
       if (summaryViewModel.result.error) {
         // default to first defined page
         let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
-        let startPage = model.def.startPage
+        const startPage = model.def.startPage
         if (startPage.startsWith('http')) {
           startPageRedirect = h.redirect(startPage)
         } else if (model.def.pages.find(page => page.path === startPage)) {
@@ -383,7 +391,7 @@ class SummaryPage extends Page {
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
       if (!summaryViewModel.fees) {
-        return h.redirect(`/status`)
+        return h.redirect('/status')
       }
 
       const paymentReference = `FCO-${shortid.generate()}`
