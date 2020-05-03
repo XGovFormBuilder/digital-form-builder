@@ -46,6 +46,7 @@ module.exports = {
       appVersion: pkg.version,
       assetPath: '/assets',
       serviceName: config.serviceName,
+      feedbackLink: config.feedbackLink,
       pageTitle: config.serviceName + ' - GOV.UK',
       analyticsAccount: config.analyticsAccount,
       matomoId: config.matomoId,

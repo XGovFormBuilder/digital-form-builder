@@ -317,6 +317,31 @@ class SummaryPage extends Page {
       const viewModel = new SummaryViewModel(this.title, model, state)
       viewModel.currentPath = `/${model.basePath}${this.path}`
 
+      if (viewModel.errors) {
+        const errorToFix = viewModel.errors[0]
+        const { path } = errorToFix
+        const parts = path.split('.')
+        const section = parts[0]
+        const property = parts[1]
+        const pageWithError = model.pages.filter(page => {
+          if (page.section && page.section.name === section) {
+            let propertyMatches = true
+            let conditionMatches = true
+            if (property) {
+              propertyMatches = page.components.formItems.filter(item => item.name === property).length > 0
+            }
+            if (propertyMatches && page.condition && model.conditions[page.condition]) {
+              conditionMatches = model.conditions[page.condition].fn(state)
+            }
+            return propertyMatches && conditionMatches
+          }
+          return false
+        })[0]
+        if (pageWithError) {
+          return h.redirect(`/${model.basePath}${pageWithError.path}?returnUrl=/${model.basePath}/summary`)
+        }
+      }
+
       const declarationError = request.yar.flash('declarationError')
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0]
