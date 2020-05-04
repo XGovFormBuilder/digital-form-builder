@@ -92,10 +92,12 @@ async function createServer (routeConfig) {
   server.registerService([CacheService, NotifyService, PayService, UploadService, EmailService, WebhookService, SheetsService])
 
   server.ext('onPreResponse', (request, h) => {
-    if (request.responseisBoom) {
+    if (request.response.isBoom) {
       return h.continue
     }
-    request.response.header('X-Robots-Tag', 'noindex, nofollow')
+    if (request.response && request.response.header) {
+      request.response.header('X-Robots-Tag', 'noindex, nofollow')
+    }
     return h.continue
   })
 
