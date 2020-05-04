@@ -53,7 +53,9 @@ module.exports = {
       matomoUrl: config.matomoUrl,
       BROWSER_REFRESH_URL: config.browserRefreshUrl,
       sessionTimeout: config.sessionTimeout,
-      skipTimeoutWarning: false
+      skipTimeoutWarning: false,
+      serviceStartPage: config.serviceStartPage || '#',
+      privacyPolicyUrl: config.privacyPolicyUrl || '#'
     }
   }
 }

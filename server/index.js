@@ -91,6 +91,14 @@ async function createServer (routeConfig) {
   await server.register(Schmervice)
   server.registerService([CacheService, NotifyService, PayService, UploadService, EmailService, WebhookService, SheetsService])
 
+  server.ext('onPreResponse', (request, h) => {
+    if (request.responseisBoom) {
+      return h.continue
+    }
+    request.response.header('X-Robots-Tag', 'noindex, nofollow')
+    return h.continue
+  })
+
   await server.register(require('./plugins/locale'))
   await server.register(require('./plugins/session'))
   await server.register(require('./plugins/views'))

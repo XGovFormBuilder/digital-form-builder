@@ -26,7 +26,9 @@ const schema = {
   sessionTimeout: joi.number().optional(),
   sessionCookiePassword: joi.string().optional(),
   rateLimit: joi.boolean().optional(),
-  fromEmailAddress: joi.string().optional()
+  fromEmailAddress: joi.string().optional(),
+  serviceStartPage: joi.string().optional(),
+  privacyPolicyUrl: joi.string().optional()
 }
 
 // Build config
@@ -53,7 +55,9 @@ const config = {
   sessionTimeout: process.env.SESSION_TIMEOUT || (20 * 60 * 1000), // default 20 mins
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
   rateLimit: process.env.RATE_LIMIT !== 'false',
-  fromEmailAddress: process.env.FROM_EMAIL_ADDRESS
+  fromEmailAddress: process.env.FROM_EMAIL_ADDRESS,
+  serviceStartPage: process.env.SERVICE_START_PAGE,
+  privacyPolicyUrl: process.env.PRIVACY_POLICY_URL
 }
 
 // Validate config
