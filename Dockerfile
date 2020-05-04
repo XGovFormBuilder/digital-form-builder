@@ -2,6 +2,7 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
+ENV NODE_ENV production
 ENV SSL_KEY /usr/src/app/server.key
 ENV SSL_CERT /usr/src/app/server.crt
 
@@ -11,12 +12,7 @@ CMD [ "npm", "start" ]
 
 RUN apt-get update && \
     apt-get install -y openssl && \
-    openssl genrsa -des3 -passout pass:gsahdg -out server.pass.key 2048 && \
-    openssl rsa -passin pass:gsahdg -in server.pass.key -out server.key && \
-    rm server.pass.key && \
-    openssl req -new -key server.key -out server.csr \
-        -subj "/CN=localhost" && \
-    openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+    openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.crt -days 365 -subj "/CN=localhost"
 
 COPY package*.json ./
 
