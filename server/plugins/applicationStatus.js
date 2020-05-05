@@ -44,12 +44,12 @@ const applicationStatus = {
            * @code if there are webhooks, find one and use that to generate a reference number for other output calls.
            * TODO:- to be honest, it should really be a 'lazy' var but concurrent aysnc is kinda a pain for this and I don't have time. Probably wont have >1 webhook anyway. ¯\_( ツ )_/¯
            */
-          let webhookOutputs = (outputs || []).filter(output => output.type === 'webhook')
+          const webhookOutputs = (outputs || []).filter(output => output.type === 'webhook')
           let firstWebhook
 
           if (webhookOutputs.length) {
             firstWebhook = webhookOutputs[0]
-            let firstWebhookFormData = webhookData
+            const firstWebhookFormData = webhookData
             if (userCouldntPay && firstWebhookFormData.fees) {
               delete firstWebhookFormData.fees
             }
@@ -57,7 +57,7 @@ const applicationStatus = {
             await cacheService.mergeState(request, { reference: newReference })
           }
 
-          let outputPromises = (outputs || []).filter(output => output !== firstWebhook).map(output => {
+          const outputPromises = (outputs || []).filter(output => output !== firstWebhook).map(output => {
             switch (output.type) {
               case 'email':
                 const { emailAddress, attachments } = output.outputData
@@ -67,7 +67,7 @@ const applicationStatus = {
                 return notifyService.sendNotification(apiKey, templateId, emailField, newReference, personalisation || {})
               case 'webhook':
                 const { url } = output.outputData
-                let formData = webhookData
+                const formData = webhookData
                 if (userCouldntPay) {
                   delete formData.fees
                 }

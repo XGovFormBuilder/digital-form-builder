@@ -23,20 +23,20 @@
 
   <!-- Matomo -->
   {% if matomoUrl and matomoId %}
-  <script type="text/javascript">
-    var _paq = window._paq || [];
-    _paq.push(['disableCookies']);
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="{{ matomoUrl }}";
-      _paq.push(['setTrackerUrl', u+'matomo.php']);
-      _paq.push(['setSiteId', '{{ matomoId }}']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-    })();
-  </script>
-  <noscript><p><img src="{{ matomoUrl }}/matomo.php?idsite={{ matomoId }}&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+    <script type="text/javascript">
+      var _paq = window._paq || [];
+      _paq.push(['disableCookies']);
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://web-analytics.fco.gov.uk/piwik/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '{{ matomoId }}']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <noscript><p><img src="{{ matomoUrl }}/piwik.php?idsite={{ matomoId }}&amp;rec=1" style="border:0;" alt="" /></p></noscript>
   {% endif %}
   <!-- End Matomo Code -->
 {% endblock %}
