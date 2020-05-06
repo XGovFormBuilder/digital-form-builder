@@ -80,10 +80,15 @@ async function createServer (routeConfig) {
   await server.register({
     plugin: require('@hapi/crumb'),
     options: {
+      logUnauthorized: true,
       enforce: routeConfig ? routeConfig.enforceCsrf || false : !config.previewMode,
       cookieOptions: {
         path: '/',
         isSecure: !!config.sslKey
+      },
+      skip: request => {
+        // skip crumb validation if error parsing payload
+        return request.method === 'post' && request.payload == null
       }
     }
   })

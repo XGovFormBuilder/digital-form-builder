@@ -72,6 +72,7 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
 | SSL_KEY        | SSL Key           |    no    |         |                             |                               |
 | SSL_CERT       | SSL Certificate   |    no    |         |                             |                               |
 | PREVIEW_MODE   | Preview mode      |    no    | false   |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms. |
+| LOG_LEVEL      | Log level         |    no    | debug   | trace,debug,info,error      |  |
 
 # Testing
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`. 
