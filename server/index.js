@@ -9,7 +9,7 @@ const { NotifyService, PayService, UploadService, CacheService, catboxProvider, 
 
 const serverOptions = () => {
   const defaultOptions = {
-    debug: { request: `${config.debug}` },
+    debug: { request: `${config.isDev}` },
     port: config.port,
     routes: {
       validate: {

@@ -1,28 +1,9 @@
+const config = require('../config')
+
 module.exports = {
-  plugin: require('good'),
+  plugin: require('hapi-pino'),
   options: {
-    ops: {
-      interval: 1000
-    },
-    reporters: {
-      console: [
-        {
-          module: 'good-squeeze',
-          name: 'Squeeze',
-          args: [
-            {
-              log: '*',
-              error: '*',
-              response: '*',
-              request: '*'
-            }
-          ]
-        },
-        {
-          module: 'good-console'
-        },
-        'stdout'
-      ]
-    }
+    prettyPrint: config.isDev,
+    level: config.logLevel
   }
 }

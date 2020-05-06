@@ -1,8 +1,5 @@
-const fs = require('fs')
-const path = require('path')
 const FormData = require('form-data')
 const Wreck = require('@hapi/wreck')
-const tmp = require('tmp')
 const { documentUploadApiUrl } = require('./../config')
 
 const parsedError = (key, error) => {
@@ -20,17 +17,6 @@ class UploadService {
     return ['jpg', 'jpeg', 'png', 'pdf']
   }
 
-  saveFileToTmp (file) {
-    if (!file) throw new Error('no file')
-    const tmpDir = tmp.dirSync()
-    const location = path.join(tmpDir.name, `${new Date().getTime()}${file.hapi.filename}`)
-    return new Promise((resolve, reject) =>
-      file
-        .pipe(fs.createWriteStream(location))
-        .on('error', reject)
-        .on('finish', resolve(location)))
-  }
-
   fileStreamsFromPayload (payload) {
     return Object.entries(payload).filter(([key, value]) => {
       if (value) {
@@ -46,7 +32,10 @@ class UploadService {
   async uploadDocuments (locations) {
     const form = new FormData()
     for (const location of locations) {
-      form.append('files', fs.createReadStream(location))
+      form.append('files', location, {
+        filename: location.hapi.filename,
+        contentType: location.hapi.headers['content-type']
+      })
     }
 
     const data = { headers: form.getHeaders(), payload: form }
@@ -108,23 +97,23 @@ class UploadService {
         values = [file[1]]
       }
 
-      const locations = (await Promise.all(values.map(async (fileValue) => {
+      const validFiles = (await Promise.all(values.map(async (fileValue) => {
         const extension = fileValue.hapi.filename.split('.').pop()
         if (!this.validFiletypes.includes((extension || '').toLowerCase())) {
           request.pre.errors = [...h.request.pre.errors || [],
             parsedError(key, `The selected file for "%s" must be a ${this.validFiletypes.slice(0, -1).join(', ')} or ${this.validFiletypes.slice(-1)}`)]
-          return fileValue.hapi.filename
+          return null
         }
         try {
-          return await this.saveFileToTmp(fileValue)
+          return fileValue
         } catch (e) {
           request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
         }
       }))).filter(value => !!value)
 
-      if (locations.length === values.length) {
+      if (validFiles.length === values.length) {
         try {
-          const { error, location } = await this.uploadDocuments(locations)
+          const { error, location } = await this.uploadDocuments(validFiles)
           if (location) {
             originalFilenames[key] = { location }
             request.payload[key] = location

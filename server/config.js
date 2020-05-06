@@ -6,7 +6,7 @@ const joi = require('joi')
 const schema = {
   port: joi.number().default(3009),
   env: joi.string().valid('development', 'test', 'production').default('development'),
-  debug: joi.boolean().optional(),
+  logLevel: joi.string().optional(),
   ordnanceSurveyKey: joi.string().optional(),
   browserRefreshUrl: joi.string().optional(),
   feedbackLink: joi.string().optional(),
@@ -36,7 +36,7 @@ const schema = {
 const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
-  debug: process.env.DEBUG || false,
+  logLevel: process.env.LOG_LEVEL || 'debug',
   ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
   browserRefreshUrl: process.env.BROWSER_REFRESH_URL,
   feedbackLink: process.env.FEEDBACK_LINK || '#',
@@ -50,7 +50,7 @@ const config = {
   redisPassword: process.env.REDIS_PASSWORD,
   redisTls: process.env.REDIS_TLS === 'true',
   serviceName: process.env.SERVICE_NAME,
-  documentUploadApiUrl: process.env.DOCUMENT_UPLOAD_API_URL,
+  documentUploadApiUrl: process.env.DOCUMENT_UPLOAD_API_URL || 'http://localhost:9000',
   previewMode: process.env.PREVIEW_MODE || false,
   sslKey: process.env.SSL_KEY,
   sslCert: process.env.SSL_CERT,
