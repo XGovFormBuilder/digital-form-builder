@@ -24,9 +24,10 @@ class UploadService {
     if (!file) throw new Error('no file')
     const tmpDir = tmp.dirSync()
     const location = path.join(tmpDir.name, `${new Date().getTime()}${file.hapi.filename}`)
-    return new Promise(resolve =>
+    return new Promise((resolve, reject) =>
       file
         .pipe(fs.createWriteStream(location))
+        .on('error', reject)
         .on('finish', resolve(location)))
   }
 

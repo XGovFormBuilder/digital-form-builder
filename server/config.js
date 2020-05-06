@@ -6,6 +6,7 @@ const joi = require('joi')
 const schema = {
   port: joi.number().default(3009),
   env: joi.string().valid('development', 'test', 'production').default('development'),
+  debug: joi.boolean().optional(),
   ordnanceSurveyKey: joi.string().optional(),
   browserRefreshUrl: joi.string().optional(),
   feedbackLink: joi.string().optional(),
@@ -35,6 +36,7 @@ const schema = {
 const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
+  debug: process.env.DEBUG || false,
   ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
   browserRefreshUrl: process.env.BROWSER_REFRESH_URL,
   feedbackLink: process.env.FEEDBACK_LINK || '#',
