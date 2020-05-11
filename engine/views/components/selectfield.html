@@ -1,0 +1,6 @@
+{% from "select/macro.njk" import govukSelect %}
+
+{% macro SelectField(component) %}
+  {{ govukSelect(component.model) }}
+{% endmacro %}
+

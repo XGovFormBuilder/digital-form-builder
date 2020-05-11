@@ -1,0 +1,6 @@
+npm-debug.log
+server/public/build
+report.html
+report.json
+unit-test.html
+.env

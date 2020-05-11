@@ -1,0 +1,74 @@
+{% from "error-message/macro.njk" import govukErrorMessage -%}
+{% from "hint/macro.njk" import govukHint %}
+{% from "label/macro.njk" import govukLabel %}
+
+{% macro AutocompleteField(component) %}
+{% set describedBy = component.model.describedBy if component.model.describedBy else "" %}
+<div class="govuk-form-group {%- if component.model.errorMessage %} govuk-form-group--error{% endif %} {%- if component.model.formGroup.classes %} {{ component.model.formGroup.classes }}{% endif %}">
+  {{ govukLabel({
+    html: component.model.label.html,
+    text: component.model.label.text,
+    classes: component.model.label.classes,
+    isPageHeading: component.model.label.isPageHeading,
+    attributes: component.model.label.attributes,
+    for: component.model.id
+  }) | indent(2) | trim }}
+
+  {% if component.model.hint %}
+    {% set hintId = component.model.id + '-hint' %}
+    {% set describedBy = describedBy + ' ' + hintId if describedBy else hintId %}
+    {{ govukHint({
+      id: hintId,
+      classes: component.model.hint.classes,
+      attributes: component.model.hint.attributes,
+      html: component.model.hint.html,
+      text: component.model.hint.text
+    }) | indent(2) | trim }}
+  {% endif %}
+  {% if component.model.errorMessage %}
+    {% set errorId = component.model.id + '-error' %}
+    {% set describedBy = describedBy + ' ' + errorId if describedBy else errorId %}
+    {{ govukErrorMessage({
+      id: errorId,
+      classes: component.model.errorMessage.classes,
+      attributes: component.model.errorMessage.attributes,
+      html: component.model.errorMessage.html,
+      text: component.model.errorMessage.text,
+      visuallyHiddenText: component.model.errorMessage.visuallyHiddenText
+    }) | indent(2) | trim }}
+  {% endif %}
+  <div class="autocomplete-wrapper">
+    <select class="govuk-select
+      {%- if component.model.classes %} {{ component.model.classes }}{% endif %}{%- if component.model.errorMessage %} govuk-select--error{% endif %}" id="{{ component.model.id }}" name="{{ component.model.name }}" {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %} {%- for attribute, value in component.model.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>
+      {% for item in component.model.items %}
+        {% if item %}
+          <option value="{{ item.value }}"
+                  {{-" selected" if item.selected }}
+          {{-" disabled" if item.disabled }}
+          {%- for attribute, value in item.attributes %} {{ attribute }}="{{ value }}"{% endfor -%}>{{ item.text }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<script type="text/javascript">
+  if (accessibleAutocomplete) {
+    var selectEl = document.querySelector('#{{ component.model.id }}')
+    accessibleAutocomplete.enhanceSelectElement({
+      autoselect: true,
+      confirmOnBlur: true,
+      defaultValue: "",
+      minLength: 2,
+      selectElement: selectEl
+    })
+
+    var previousValue = '{{ component.model.rawValue }}'
+    if (previousValue) {
+      var submittedEl = document.querySelector('.submitted')
+      submittedEl.classList.remove('submitted--hidden')
+      document.querySelector('.submitted__{{ component.model.id }}').innerHTML = previousValue
+    }
+  }
+</script>
+{% endmacro %}

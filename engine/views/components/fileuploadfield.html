@@ -1,0 +1,7 @@
+{% from "file-upload/macro.njk" import govukFileUpload %}
+{% macro FileUploadField(component) %}
+  {{ govukFileUpload(component.model) }}
+  {% if component.model.value %}
+      <p class="govuk-body">You have already provided this file.</p>
+  {% endif %}
+{% endmacro %}

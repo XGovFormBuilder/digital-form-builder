@@ -1,0 +1,5 @@
+{% from "input/macro.njk" import govukInput %}
+
+{% macro TextField(component) %}
+  {{ govukInput(component.model) }}
+{% endmacro %}

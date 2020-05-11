@@ -1,0 +1,32 @@
+{
+  "name": "digital-form-builder-engine",
+  "version": "1.9.0",
+  "description": "A hapi plugin providing the engine for (FCO) digital form builder based applications",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UKForeignOffice/digital-form-builder-engine"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "@hapi/joi": "17.1.1",
+    "boom": "7.3.0",
+    "expr-eval": "2.0.2",
+    "govuk-frontend": "3.6.0",
+    "hmpo-components": "2.6.5",
+    "joi": "14.3.1",
+    "moment": "2.24.0",
+    "nunjucks": "3.2.1",
+    "path": "0.12.7",
+    "wreck": "14.2.0"
+  },
+  "devDependencies": {
+    "standard": "14.3.3"
+  },
+  "peerDependencies": {
+    "joi": "^14"
+  }
+}

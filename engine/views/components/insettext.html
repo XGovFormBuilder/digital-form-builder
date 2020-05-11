@@ -1,0 +1,7 @@
+{% from "inset-text/macro.njk" import govukInsetText %}
+
+{% macro InsetText(component) %}
+  {{ govukInsetText({
+    html: component.model.content
+  }) }}
+{% endmacro %}

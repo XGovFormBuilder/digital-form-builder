@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+ENV_LOC=${1}
+LINK_TO=${2:-./.env}
+
+if [ -z "$ENV_LOC" ]
+then
+      echo Where is .env?
+      read -r ENV_LOC
+fi
+
+ln -s $ENV_LOC $LINK_TO

@@ -1,0 +1,5 @@
+{% from "textarea/macro.njk" import govukTextarea %}
+
+{% macro MultilineTextField(component) %}
+  {{ govukTextarea(component.model) }}
+{% endmacro %}

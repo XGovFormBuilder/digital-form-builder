@@ -1,0 +1,49 @@
+const pkg = require('./../package.json')
+const nunjucks = require('nunjucks')
+
+const viewPlugin = {
+  plugin: require('vision'),
+  options: {
+    engines: {
+      html: {
+        compile: (src, options) => {
+          const template = nunjucks.compile(src, options.environment)
+
+          return (context) => {
+            if (context.nonce) {
+              delete Object.assign(context, { 'script_nonce': context['script-nonce'] })['script-nonce']
+              delete Object.assign(context, { 'style_nonce': context['style_nonce'] })['style_nonce']
+            }
+
+            const html = template.render(context /* , function (err, value) {
+              console.error(err)
+            } */)
+            return html
+          }
+        },
+        prepare: (options, next) => {
+          options.compileOptions.environment = nunjucks.configure(options.path, {
+            autoescape: true,
+            watch: false
+          })
+
+          return next()
+        }
+      }
+    },
+    path: [
+      'views',
+      'node_modules/govuk-frontend/',
+      'node_modules/govuk-frontend/components/',
+      'node_modules/digital-form-builder-engine/views'
+    ],
+    context: {
+      appVersion: pkg.version,
+      assetPath: '/assets'
+    }
+  }
+}
+
+module.exports = {
+  viewPlugin
+}

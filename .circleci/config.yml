@@ -1,59 +1,148 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
 version: 2.1
 
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/openjdk:8-jdk
+parameters:
+  # This parameter is used to trigger the main workflow
+  trigger:
+    type: boolean
+    default: true
+
+  # A parameter per package
+  engine:
+    type: boolean
+    default: false
+  designer:
+    type: boolean
+    default: false
+  runner:
+    type: boolean
+    default: false
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:12
+  node-browsers:
+    docker:
+      - image: circleci/node:12.16-browsers
+  python:
+    docker:
+      - image: circleci/python:2.7-jessie
 
 jobs:
-  build:
-    <<: *defaults
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:12.16-browsers
-
+  trigger-workflows:
+    executor: node
     steps:
       - checkout
+      - run:
+          name: Trigger workflows
+          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
 
-      # Download and cache dependencies
+  build:
+    parameters:
+      package_name:
+        type: string
+
+    executor: node-browsers
+    working_directory: ~/project/<< parameters.package_name >>
+
+    steps:
+      - checkout:
+          path: ~/project
+
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - << parameters.package_name >>-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - << parameters.package_name >>-dependencies-
+
       - run: yarn install
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      # run tests!
-      - run: yarn test
-
-      - store_artifacts:
-          path: unit-test.html
-          destination: unit-test.html
+          key: << parameters.package_name >>-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Accesibility audits
+          name: Build
           command: |
-            yarn a11y
+            yarn build
 
-      - store_artifacts:
-          path: report.html
-          destination: report.html
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - << parameters.package_name >>
 
-      - store_artifacts:
-          path: report.json
-          destination: report.json
+  publish:
+    parameters:
+      package_name:
+        type: string
+
+    executor: python
+    working_directory: ~/project/<< parameters.package_name >>
+
+    steps:
+      - attach_workspace:
+          at: ~/project
+
+      - setup_remote_docker
+
+      - run:
+          name: Checkout CI Support
+          command: curl https://gist.githubusercontent.com/superafroman/ca7422b3c925dfeba5854edcc1713d89/raw/77febaa0954dfa8ebc6598b1366b7f1f8e38d610/docker-publish.sh -O && chmod +x docker-publish.sh
+
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+
+      - run:
+          name: Publish docker image
+          command: ./docker-publish.sh eu-west-2 523508197323.dkr.ecr.eu-west-2.amazonaws.com fco digital-forms-<< parameters.package_name >>
+
+      - persist_to_workspace:
+          root: ~/project/<< parameters.package_name >>
+          paths:
+            - tag.txt
 
 workflows:
   version: 2
-  build-deploy:
+
+  # The main workflow responsible for triggering all other workflows
+  # in which changes are detected.
+  ci:
+    when: << pipeline.parameters.trigger >>
     jobs:
-      - build
+      - trigger-workflows
+
+
+  # Workflows defined for each package.
+
+  engine:
+    when: << pipeline.parameters.engine >>
+    jobs:
+      - build:
+          name: engine-build
+          package_name: engine
+
+  designer:
+    when: << pipeline.parameters.designer >>
+    jobs:
+      - build:
+          name: designer-build
+          package_name: designer
+      - publish:
+          name: designer-publish
+          package_name: designer
+          requires:
+            - designer-build
+
+  runner:
+    when: << pipeline.parameters.runner >>
+    jobs:
+      - build:
+          name: runner-build
+          package_name: runner
+      - publish:
+          name: runner-publish
+          package_name: runner
+          requires:
+            - runner-build
