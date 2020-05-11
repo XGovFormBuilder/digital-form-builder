@@ -462,6 +462,7 @@ const componentTypeEditors = {
   'TelephoneNumberFieldEdit': TextFieldEdit,
   'NumberFieldEdit': NumberFieldEdit,
   'MultilineTextFieldEdit': MultilineTextFieldEdit,
+  'AutocompleteFieldEdit': SelectFieldEdit,
   'SelectFieldEdit': SelectFieldEdit,
   'RadiosFieldEdit': RadiosFieldEdit,
   'CheckboxesFieldEdit': CheckboxesFieldEdit,
