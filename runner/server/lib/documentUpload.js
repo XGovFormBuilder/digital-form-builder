@@ -126,6 +126,7 @@ class UploadService {
             const { error } = this.parsedDocumentUploadResponse(e.data.res)
             request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
           } else {
+            request.server.log(['error', 'documentupload'], `Error uploading document: ${e.message}`)
             request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]
           }
         }

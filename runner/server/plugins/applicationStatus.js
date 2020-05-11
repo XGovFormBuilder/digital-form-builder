@@ -47,38 +47,38 @@ const applicationStatus = {
           const webhookOutputs = (outputs || []).filter(output => output.type === 'webhook')
           let firstWebhook
 
-          if (webhookOutputs.length) {
-            firstWebhook = webhookOutputs[0]
-            const firstWebhookFormData = webhookData
-            if (userCouldntPay && firstWebhookFormData.fees) {
-              delete firstWebhookFormData.fees
-            }
-            newReference = await webhookService.postRequest(firstWebhook.outputData.url, firstWebhookFormData)
-            await cacheService.mergeState(request, { reference: newReference })
-          }
-
-          const outputPromises = (outputs || []).filter(output => output !== firstWebhook).map(output => {
-            switch (output.type) {
-              case 'email':
-                const { emailAddress, attachments } = output.outputData
-                return emailService.sendEmail(emailAddress, 'subject', { attachments })
-              case 'notify':
-                const { apiKey, templateId, personalisation, emailField } = output.outputData
-                return notifyService.sendNotification(apiKey, templateId, emailField, newReference, personalisation || {})
-              case 'webhook':
-                const { url } = output.outputData
-                const formData = webhookData
-                if (userCouldntPay) {
-                  delete formData.fees
-                }
-                return webhookService.postRequest(url, formData)
-              case 'sheets':
-                const { spreadsheetId, data, authOptions } = output.outputData
-                return sheetsService.appendTo(spreadsheetId, data, authOptions)
-            }
-          })
-
           try {
+            if (webhookOutputs.length) {
+              firstWebhook = webhookOutputs[0]
+              const firstWebhookFormData = webhookData
+              if (userCouldntPay && firstWebhookFormData.fees) {
+                delete firstWebhookFormData.fees
+              }
+              newReference = await webhookService.postRequest(firstWebhook.outputData.url, firstWebhookFormData)
+              await cacheService.mergeState(request, { reference: newReference })
+            }
+
+            const outputPromises = (outputs || []).filter(output => output !== firstWebhook).map(output => {
+              switch (output.type) {
+                case 'email':
+                  const { emailAddress, attachments } = output.outputData
+                  return emailService.sendEmail(emailAddress, 'subject', { attachments })
+                case 'notify':
+                  const { apiKey, templateId, personalisation, emailField } = output.outputData
+                  return notifyService.sendNotification(apiKey, templateId, emailField, newReference, personalisation || {})
+                case 'webhook':
+                  const { url } = output.outputData
+                  const formData = webhookData
+                  if (userCouldntPay) {
+                    delete formData.fees
+                  }
+                  return webhookService.postRequest(url, formData)
+                case 'sheets':
+                  const { spreadsheetId, data, authOptions } = output.outputData
+                  return sheetsService.appendTo(spreadsheetId, data, authOptions)
+              }
+            })
+
             if (outputPromises.length) {
               await Promise.all(outputPromises)
             }
@@ -89,7 +89,7 @@ const applicationStatus = {
               return h.view('confirmation', { paySkipped: userCouldntPay })
             }
           } catch (err) {
-            console.log('error processing output', err)
+            request.server.log(['error', 'output'], `Error processing output: ${err.message}`)
             await cacheService.clearState(request)
             return h.view('application-error')
           }
