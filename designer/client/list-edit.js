@@ -35,7 +35,7 @@ class ListEdit extends React.Component {
       // Update any references to the list
       copy.pages.forEach(p => {
         p.components.forEach(c => {
-          if (c.type === 'SelectField' || c.type === 'RadiosField') {
+          if (c.type === 'SelectField' || c.type === 'RadiosField' || c.type === 'AutocompleteField') {
             if (c.options && c.options.list === list.name) {
               c.options.list = newName
             }

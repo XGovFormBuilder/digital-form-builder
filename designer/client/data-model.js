@@ -1,4 +1,4 @@
-const listTypes = ['SelectField', 'RadiosField', 'CheckboxesField']
+const listTypes = ['SelectField', 'RadiosField', 'CheckboxesField', 'AutocompleteField']
 
 function componentToString (component) {
   if (~listTypes.indexOf(component.type)) {
