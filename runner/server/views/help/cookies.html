@@ -8,7 +8,7 @@
         <p class="govuk-body">We use cookies to remember information you've entered when applying to prove your eligibility.</p>
 
         <h2 class="govuk-heading-l">Strictly necessary cookies</h2>
-        <h3 class="govuk-heading-m">Your progress when proving your eligibility</h3>
+        <h3 class="govuk-heading-m">Your progress when using this service</h3>
         <p class="govuk-body">When you use this service, we’ll set a cookie to remember your progress through the forms. These cookies do not store your personal data and are deleted once you’ve completed the transaction.</p>
         <table class="govuk-table">
             <thead>
@@ -21,11 +21,27 @@
             <tbody>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell">session</td>
-                    <td class="govuk-table__cell">Set to remember information you’ve entered into a form when proving your eligibility</td>
+                    <td class="govuk-table__cell">Set to remember information you’ve entered into a form</td>
+                    <td class="govuk-table__cell">When you close your browser</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">seen_cookie</td>
+                    <td class="govuk-table__cell">Tracks whether you have seen the cookie banner and doesn't show it again if you have</td>
+                    <td class="govuk-table__cell">28 days</td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">crumb</td>
+                    <td class="govuk-table__cell">Helps us to prevent cross site scripting attacks</td>
                     <td class="govuk-table__cell">When you close your browser</td>
                 </tr>
             </tbody>
         </table>
+
+        <h2 class="govuk-heading-l">Cookies that measure website use</h2>
+        <h3 class="govuk-heading-m">Measuring website usage (Matomo)</h3>
+        <p class="govuk-body">We use Matomo Analytics software to collect non-personally-identifying information of the sort that web browsers and servers typically make available, such as the browser type, language preference, referring site, and the date and time of each visitor request.</p>
+        <p class="govuk-body">We do this to better understand how applicants for overseas loans use the website. From time to time, the Foreign and Commonwealth Office may release non-personally-identifying information in the aggregate, eg, by publishing a report on trends in the usage of its website.</p>
+        <p class="govuk-body">We use the ‘session’ cookie to do this. You cannot opt out of this cookie as it will stop the service working.</p>
     </div>
 </div>
 {% endblock %}
