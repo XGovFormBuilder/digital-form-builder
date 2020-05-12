@@ -1,0 +1,7 @@
+.circleci
+.idea
+*/node_modules
+.senv
+.gitignore
+*/Dockerfile
+*/xsREADME.md

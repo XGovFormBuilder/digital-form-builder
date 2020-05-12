@@ -1,7 +1,0 @@
-.circleci
-.idea
-node_modules
-.env
-.gitignore
-Dockerfile
-README.md

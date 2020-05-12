@@ -14,8 +14,15 @@ RUN apt-get update && \
     apt-get install -y openssl && \
     openssl req -x509 -newkey rsa:4096 -nodes -keyout server.key -out server.crt -days 365 -subj "/CN=localhost"
 
-COPY package*.json ./
+WORKDIR /usr/src/app/engine
 
+COPY engine/package*.json ./
+RUN npm install --production
+COPY engine/. .
+
+WORKDIR /usr/src/app/runner
+
+COPY runner/package*.json ./
 RUN npm install --production
 
-COPY . .
+COPY runner/. .

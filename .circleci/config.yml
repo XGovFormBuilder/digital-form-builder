@@ -88,7 +88,7 @@ jobs:
 
       - run:
           name: Checkout CI Support
-          command: curl https://gist.githubusercontent.com/superafroman/ca7422b3c925dfeba5854edcc1713d89/raw/77febaa0954dfa8ebc6598b1366b7f1f8e38d610/docker-publish.sh -O && chmod +x docker-publish.sh
+          command: curl https://gist.githubusercontent.com/superafroman/ca7422b3c925dfeba5854edcc1713d89/raw/3ecf9545b2090a9ce25a6ea11ce0d5c480ff1305/docker-publish.sh -O && chmod +x docker-publish.sh
 
       - run:
           name: Install awscli
@@ -96,12 +96,12 @@ jobs:
 
       - run:
           name: Publish docker image
-          command: ./docker-publish.sh eu-west-2 523508197323.dkr.ecr.eu-west-2.amazonaws.com fco digital-forms-<< parameters.package_name >>
+          command: ./docker-publish.sh eu-west-2 523508197323.dkr.ecr.eu-west-2.amazonaws.com fco digital-forms-<< parameters.package_name >> ..
 
       - persist_to_workspace:
-          root: ~/project/<< parameters.package_name >>
+          root: ~/project
           paths:
-            - tag.txt
+            - << parameters.package_name >>
 
 workflows:
   version: 2
