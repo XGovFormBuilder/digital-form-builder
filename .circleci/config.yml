@@ -70,7 +70,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - << parameters.package_name >>
+            - .
 
   publish:
     parameters:
@@ -101,7 +101,7 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - << parameters.package_name >>
+            - .
 
 workflows:
   version: 2
