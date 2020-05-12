@@ -19,7 +19,7 @@
   "dependencies": {
     "@hapi/joi": "17.1.1",
     "@hapi/wreck": "17.0.0",
-    "digital-form-builder-engine": "../engine",
+    "digital-form-builder-engine": "file:../engine",
     "flat": "5.0.0"
   },
   "devDependencies": {
