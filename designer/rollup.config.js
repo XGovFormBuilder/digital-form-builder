@@ -1,7 +1,7 @@
-import resolve from 'rollup-plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve';
 import globals from 'rollup-plugin-node-globals'
-import babel from 'rollup-plugin-babel'
-import commonjs from 'rollup-plugin-commonjs'
 
 export default {
   input: 'client/index.js',
@@ -17,11 +17,13 @@ export default {
   plugins: [
     resolve(),
     commonjs({
-      include: ['node_modules/**', '../digital-form-builder-engine/**']
+      include: ['node_modules/**', '../engine/**']
     }),
     globals(),
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
+      plugins: ["@babel/plugin-proposal-class-properties"],
+      presets: ['@babel/react']
     })
   ],
   external: ['react', 'react-dom']

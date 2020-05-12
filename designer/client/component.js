@@ -17,6 +17,7 @@ export const componentTypes = {
   'MultilineTextField': MultilineTextField,
   'RadiosField': RadiosField,
   'CheckboxesField': CheckboxesField,
+  'AutocompleteField': SelectField,
   'SelectField': SelectField,
   'YesNoField': YesNoField,
   'UkAddressField': UkAddressField,
