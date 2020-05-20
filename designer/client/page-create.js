@@ -24,7 +24,7 @@ class PageCreate extends React.Component {
 
     const title = formData.get('title').trim()
     const section = formData.get('section').trim()
-    const controller = formData.get('controller').trim()
+    const pageType = formData.get('page-type').trim()
 
     if (title) {
       value.title = title
@@ -34,8 +34,8 @@ class PageCreate extends React.Component {
       value.section = section
     }
 
-    if (controller) {
-      value.controller = controller
+    if (pageType) {
+      value.controller = pageType
     }
 
     // Apply
@@ -78,6 +78,15 @@ class PageCreate extends React.Component {
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
+          <select className='govuk-select' id='page-type' name='page-type'>
+            <option value='./pages/start.js'>Start Page</option>
+            <option value=''>Question Page</option>
+            <option value='./pages/summary.js'>Summary Page</option>
+          </select>
+        </div>
+
+        <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
           <span className='govuk-hint'>E.g. /your-occupation or /personal-details/date-of-birth</span>
           <input className='govuk-input' id='page-path' name='path'
@@ -100,15 +109,6 @@ class PageCreate extends React.Component {
             <option />
             {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
           </select>
-        </div>
-
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-controller'>Controller (optional)</label>
-          <span id='page-controller-hint' className='govuk-hint'>
-            JavaScript Page controller class file path
-          </span>
-          <input className='govuk-input' id='page-controller' name='controller'
-            type='text' aria-describedby='page-controller-hint' />
         </div>
 
         <button type='submit' className='govuk-button'>Save</button>

@@ -11,12 +11,13 @@ class PageEdit extends React.Component {
     const newPath = formData.get('path').trim()
     const title = formData.get('title').trim()
     const section = formData.get('section').trim()
-    const controller = formData.get('controller').trim()
+    const pageType = formData.get('page-type').trim()
     const { data, page } = this.props
 
     const copy = clone(data)
     const pathChanged = newPath !== page.path
-    const copyPage = copy.pages[data.pages.indexOf(page)]
+    const pageIndex = data.pages.indexOf(page)
+    const copyPage = copy.pages[pageIndex]
 
     if (pathChanged) {
       // `path` has changed - validate it is unique
@@ -41,12 +42,13 @@ class PageEdit extends React.Component {
       delete copyPage.section
     }
 
-    if (controller) {
-      copyPage.controller = controller
+    if (pageType) {
+      copyPage.controller = pageType
     } else {
       delete copyPage.controller
     }
 
+    copy.pages[pageIndex] = copyPage
     data.save(copy)
       .then(data => {
         console.log(data)
@@ -123,6 +125,15 @@ class PageEdit extends React.Component {
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
         <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
+          <select className='govuk-select' id='page-type' name='page-type' defaultValue={page.controller || ''}>
+            <option value='./pages/start.js'>Start Page</option>
+            <option value=''>Question Page</option>
+            <option value='./pages/summary.js'>Summary Page</option>
+          </select>
+        </div>
+
+        <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
           <input className='govuk-input' id='page-path' name='path'
             type='text' defaultValue={page.path}
@@ -144,15 +155,6 @@ class PageEdit extends React.Component {
             <option />
             {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
           </select>
-        </div>
-
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-controller'>Controller (optional)</label>
-          <span id='page-controller-hint' className='govuk-hint'>
-            JavaScript Page controller class file path
-          </span>
-          <input className='govuk-input' id='page-controller' name='controller'
-            type='text' defaultValue={page.controller} aria-describedby='page-controller-hint' />
         </div>
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
