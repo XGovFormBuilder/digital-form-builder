@@ -8,8 +8,8 @@ class PageEdit extends React.Component {
     e.preventDefault()
     const form = e.target
     const formData = new window.FormData(form)
-    const newPath = formData.get('path').trim()
     const title = formData.get('title').trim()
+    const newPath = '/'.concat(title.replace(/[^a-zA-Z ]/g, '').replace(' ', '-')).toLowerCase()
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
     const { data, page } = this.props
@@ -30,11 +30,7 @@ class PageEdit extends React.Component {
       copyPage.path = newPath
     }
 
-    if (title) {
-      copyPage.title = title
-    } else {
-      delete copyPage.title
-    }
+    copyPage.title = title
 
     if (section) {
       copyPage.section = section
@@ -134,19 +130,13 @@ class PageEdit extends React.Component {
         </div>
 
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
-          <input className='govuk-input' id='page-path' name='path'
-            type='text' defaultValue={page.path}
-            onChange={e => e.target.setCustomValidity('')} />
-        </div>
-
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title (optional)</label>
+          <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
           <span id='page-title-hint' className='govuk-hint'>
             If not supplied, the title of the first question will be used.
           </span>
-          <input className='govuk-input' id='page-title' name='title'
-            type='text' defaultValue={page.title} aria-describedby='page-title-hint' />
+          <input className='govuk-input' id='page-title' name='title' type='text' defaultValue={page.title}
+            aria-describedby='page-title-hint' required
+            onChange={e => e.target.setCustomValidity('')} />
         </div>
 
         <div className='govuk-form-group'>

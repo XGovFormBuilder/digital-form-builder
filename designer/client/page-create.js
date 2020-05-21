@@ -8,8 +8,9 @@ class PageCreate extends React.Component {
     e.preventDefault()
     const form = e.target
     const formData = new window.FormData(form)
-    const path = formData.get('path').trim()
     const { data } = this.props
+    const title = formData.get('title').trim()
+    const path = '/'.concat(title.replace(/[^a-zA-Z ]/g, '').replace(' ', '-')).toLowerCase()
 
     // Validate
     if (data.pages.find(page => page.path === path)) {
@@ -22,13 +23,10 @@ class PageCreate extends React.Component {
       path: path
     }
 
-    const title = formData.get('title').trim()
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
 
-    if (title) {
-      value.title = title
-    }
+    value.title = title
 
     if (section) {
       value.section = section
@@ -87,20 +85,12 @@ class PageCreate extends React.Component {
         </div>
 
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
-          <span className='govuk-hint'>E.g. /your-occupation or /personal-details/date-of-birth</span>
-          <input className='govuk-input' id='page-path' name='path'
-            type='text' required
-            onChange={e => e.target.setCustomValidity('')} />
-        </div>
-
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title (optional)</label>
+          <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
           <span id='page-title-hint' className='govuk-hint'>
             If not supplied, the title of the first question will be used.
           </span>
           <input className='govuk-input' id='page-title' name='title'
-            type='text' aria-describedby='page-title-hint' />
+            type='text' aria-describedby='page-title-hint' required onChange={e => e.target.setCustomValidity('')} />
         </div>
 
         <div className='govuk-form-group'>
