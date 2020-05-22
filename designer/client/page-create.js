@@ -86,11 +86,8 @@ class PageCreate extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
-          <span id='page-title-hint' className='govuk-hint'>
-            If not supplied, the title of the first question will be used.
-          </span>
           <input className='govuk-input' id='page-title' name='title'
-            type='text' aria-describedby='page-title-hint' required onChange={e => e.target.setCustomValidity('')} />
+            type='text' aria-describedby='page-title-hint' required />
         </div>
 
         <div className='govuk-form-group'>

@@ -79,7 +79,7 @@ class LinkEdit extends React.Component {
           <label className='govuk-label govuk-label--s' htmlFor='link-source'>From</label>
           <select defaultValue={edge.source} className='govuk-select' id='link-source' disabled>
             <option />
-            {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
+            {pages.map(page => (<option key={page.path} value={page.path}>{page.title}</option>))}
           </select>
         </div>
 
@@ -87,7 +87,7 @@ class LinkEdit extends React.Component {
           <label className='govuk-label govuk-label--s' htmlFor='link-target'>To</label>
           <select defaultValue={edge.target} className='govuk-select' id='link-target' disabled>
             <option />
-            {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
+            {pages.map(page => (<option key={page.path} value={page.path}>{page.title}</option>))}
           </select>
         </div>
 

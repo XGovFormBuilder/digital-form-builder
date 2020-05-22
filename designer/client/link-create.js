@@ -16,7 +16,7 @@ class LinkCreate extends React.Component {
     const { data } = this.props
     const copy = clone(data)
     const page = copy.pages.find(p => p.path === from)
-
+    console.log('page', from)
     const next = { path: to }
 
     if (condition) {
@@ -45,7 +45,7 @@ class LinkCreate extends React.Component {
           <label className='govuk-label govuk-label--s' htmlFor='link-source'>From</label>
           <select className='govuk-select' id='link-source' name='path' required>
             <option />
-            {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
+            {pages.map(page => (<option key={page.path} value={page.path}>{page.title}</option>))}
           </select>
         </div>
 
@@ -53,7 +53,7 @@ class LinkCreate extends React.Component {
           <label className='govuk-label govuk-label--s' htmlFor='link-target'>To</label>
           <select className='govuk-select' id='link-target' name='page' required>
             <option />
-            {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
+            {pages.map(page => (<option key={page.path} value={page.path}>{page.title}</option>))}
           </select>
         </div>
 
