@@ -54,6 +54,7 @@ class OutputEdit extends React.Component {
     if (outputIndex >= 0) {
       copy.outputs[outputIndex] = output
     } else {
+      copy.outputs = copy.outputs || []
       copy.outputs.push(output)
     }
 

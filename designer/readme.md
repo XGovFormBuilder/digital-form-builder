@@ -2,6 +2,30 @@
 
 A hapi plugin providing a visual designer for [digital form builder](https://github.com/DEFRA/digital-form-builder) based applications.
 
+### Clone and build
+
+Clone this repo
+
+`$ git clone https://github.com/UKForeignOffice/digital-form-builder`
+
+`$ cd digital-form-builder/designer/`
+
+Install dependencies
+
+`$ npm i`
+
+Build designer.js
+
+`$ npm run-script build`
+
+You are now ready to start.
+
+`$ npm start`
+
+Open your browser at
+
+`https://localhost:3000`
+
 # Environment variables
 If there is a .env file present, these will be loaded in first. 
 
