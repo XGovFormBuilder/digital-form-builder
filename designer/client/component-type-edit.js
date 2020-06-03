@@ -144,6 +144,14 @@ function TextFieldEdit (props) {
             defaultValue={schema.length} type='number' />
         </div>
 
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='field-schema.regex'>Regex</label>
+          <span className='govuk-hint'>Specifies a regex against which input will be validated</span>
+          <input className='govuk-input'
+            id='field-schema.regex' name='schema.regex'
+            defaultValue={schema.regex} />
+        </div>
+
         <Classes component={component} />
       </details>
     </FieldEdit>
