@@ -1,5 +1,6 @@
 import React from 'react'
 import { clone } from './helpers'
+import { addLinkToPage, createNext } from './link-create'
 
 class PageCreate extends React.Component {
   state = {}
@@ -23,6 +24,8 @@ class PageCreate extends React.Component {
       path: path
     }
 
+    const title = formData.get('title').trim()
+    const linkFrom = formData.get('from').trim()
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
 
@@ -42,9 +45,13 @@ class PageCreate extends React.Component {
       next: []
     })
 
-    const copy = clone(data)
+    let copy = clone(data)
 
     copy.pages.push(value)
+
+    if (linkFrom) {
+      copy = addLinkToPage(copy, linkFrom, createNext(path))
+    }
 
     data.save(copy)
       .then(data => {
@@ -71,7 +78,7 @@ class PageCreate extends React.Component {
 
   render () {
     const { data } = this.props
-    const { sections } = data
+    const { sections, pages } = data
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -81,6 +88,14 @@ class PageCreate extends React.Component {
             <option value='./pages/start.js'>Start Page</option>
             <option value=''>Question Page</option>
             <option value='./pages/summary.js'>Summary Page</option>
+          </select>
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='link-from'>Link from (optional)</label>
+          <select className='govuk-select' id='link-from' name='from'>
+            <option />
+            {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
           </select>
         </div>
 

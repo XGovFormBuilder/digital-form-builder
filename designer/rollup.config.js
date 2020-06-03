@@ -1,6 +1,6 @@
 import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
-import resolve from '@rollup/plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve'
 import globals from 'rollup-plugin-node-globals'
 
 export default {
@@ -22,7 +22,7 @@ export default {
     globals(),
     babel({
       exclude: 'node_modules/**',
-      plugins: ["@babel/plugin-proposal-class-properties"],
+      plugins: ['@babel/plugin-proposal-class-properties'],
       presets: ['@babel/react']
     })
   ],
