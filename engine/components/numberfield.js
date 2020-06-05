@@ -13,6 +13,9 @@ class NumberField extends FormComponent {
   getViewModel (formData, errors) {
     const viewModel = super.getViewModel(formData, errors)
     viewModel.type = 'number'
+    if(this.schema.precision) {
+      (viewModel.attributes = viewModel.attributes || {}).step='0.'+('1'.padStart(this.schema.precision, '0'))
+    }
     return viewModel
   }
 }

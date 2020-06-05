@@ -225,13 +225,11 @@ function NumberFieldEdit (props) {
             defaultValue={schema.max} type='number' />
         </div>
 
-        <div className='govuk-checkboxes govuk-form-group'>
-          <div className='govuk-checkboxes__item'>
-            <input className='govuk-checkboxes__input' id='field-schema.integer' data-cast='boolean'
-              name='schema.integer' type='checkbox' defaultChecked={schema.integer === true} />
-            <label className='govuk-label govuk-checkboxes__label'
-              htmlFor='field-schema.integer'>Integer</label>
-          </div>
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='field-schema.precision'>Precision</label>
+          <span className='govuk-hint'>How many decimal places can users enter?</span>
+          <input className='govuk-input govuk-input--width-3' data-cast='number' id='field-schema.precision'
+            name='schema.precision' defaultValue={schema.precision || 0} type='number' />
         </div>
 
         <Classes component={component} />
