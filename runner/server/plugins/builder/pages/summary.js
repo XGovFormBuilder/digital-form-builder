@@ -8,23 +8,31 @@ const { flatten } = require('flat')
 class SummaryViewModel {
   constructor (pageTitle, model, state) {
     this.pageTitle = pageTitle
-    const details = []
+
     const relevantPages = []
+    const details = []
     let endPage = null
+
+    let nextPage = model.startPage
+    while (nextPage !== null) {
+      if (nextPage.hasFormComponents) {
+        relevantPages.push(nextPage)
+      }
+      const sectionState = nextPage.section
+        ? (state[nextPage.section.name] || {})
+        : state
+      nextPage = nextPage.getNextPage(sectionState)
+    }
+
     ;[undefined].concat(model.sections).forEach((section) => {
       const items = []
       const sectionState = section
         ? (state[section.name] || {})
         : state
 
-      model.pages.forEach(page => {
+      relevantPages.forEach(page => {
         if (page.section === section) {
-          if (page.condition && model.conditions[page.condition]) {
-            if (!model.conditions[page.condition].fn(state)) {
-              return
-            }
-          }
-          if (page.components.formItems.length > 0) {
+          if (page.hasFormComponents) {
             page.components.formItems.forEach(component => {
               items.push({
                 name: component.name,
@@ -55,8 +63,7 @@ class SummaryViewModel {
                 }
               }
             })
-            relevantPages.push(page)
-          } else if (!(page instanceof SummaryPage) && (!page.pageDef.next || page.pageDef.next.length === 0)) {
+          } else if (!(page instanceof SummaryPage) && !page.hasNext) {
             endPage = page
           }
         }
@@ -311,13 +318,15 @@ class SummaryPage extends Page {
   makeGetRouteHandler () {
     return async (request, h) => {
       this.langFromRequest(request)
+
       const { cacheService } = request.services([])
       const model = this.model
+
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h)
       }
-      const state = await cacheService.getState(request)
 
+      const state = await cacheService.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state)
       viewModel.currentPath = `/${model.basePath}${this.path}`
 

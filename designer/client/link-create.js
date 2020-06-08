@@ -10,7 +10,7 @@ class LinkCreate extends React.Component {
     const formData = new window.FormData(form)
     const from = formData.get('path')
     const to = formData.get('page')
-    const condition = formData.get('if')
+    const condition = formData.get('condition')
 
     // Apply
     const { data } = this.props
@@ -20,7 +20,7 @@ class LinkCreate extends React.Component {
     const next = { path: to }
 
     if (condition) {
-      next.if = condition
+      next.condition = condition
     }
 
     if (!page.next) {
@@ -62,7 +62,7 @@ class LinkCreate extends React.Component {
           <span id='link-condition-hint' className='govuk-hint'>
             The link will only be used if the expression evaluates to truthy.
           </span>
-          <select className='govuk-select' id='link-condition' name='if' aria-describedby='link-condition-hint'>
+          <select className='govuk-select' id='link-condition' name='condition' aria-describedby='link-condition-hint'>
             <option value='' />
             {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
           </select>

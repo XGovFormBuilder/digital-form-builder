@@ -19,20 +19,17 @@ class Page {
     this.condition = pageDef.condition
 
     // Resolve section
-    const section = pageDef.section &&
+    this.section = pageDef.section &&
       model.sections.find(s => s.name === pageDef.section)
-
-    this.section = section
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model)
-    this.components = components
     const conditionalFormComponents = components.formItems.filter(c => c.conditionalComponents)
-    // this.hasFormComponents = !!components.formItems.length
-    this.hasFormComponents = true
+
+    this.components = components
+    this.hasFormComponents = !!components.formItems.length
     this.hasConditionalFormComponents = !!conditionalFormComponents.length
 
-    // Schema
     this[FORM_SCHEMA] = this.components.formSchema
     this[STATE_SCHEMA] = this.components.stateSchema
   }
@@ -74,48 +71,58 @@ class Page {
   }
 
   get next () {
-    if (this.hasNext) {
-      const nextPagePaths = this.pageDef.next.map(next => next.path)
-      return this.def.pages.filter(page => {
-        return nextPagePaths.includes(page.path)
+    return (this.pageDef.next || []).map(next => {
+      const { path } = next
+      const page = this.model.pages.find(page => {
+        return path === page.path
       })
+      if (!page) {
+        return null
+      }
+      return {
+        ...next,
+        page
+      }
+    }).filter(v => !!v)
+  }
+
+  getNextPage (state) {
+    let defaultLink = null
+    const nextLink = this.next.find(link => {
+      const { page, condition } = link
+      const value = page.section ? state[page.section.name] : state
+
+      const isRequired = condition
+        && this.model.conditions[condition]
+        && this.model.conditions[condition].fn(state)
+
+      if (isRequired) {
+        if (!page.hasFormComponents) {
+          return true
+        }
+        const error = joi.validate(value || {}, page.stateSchema.required(), this.model.conditionOptions).error
+        const isValid = !error
+        return !isValid
+      } else {
+        defaultLink = link
+      }
+      return false
+    })
+    if (nextLink) {
+      return nextLink.page
     }
+    if (defaultLink) {
+      return defaultLink.page
+    }
+    return null
   }
 
   getNext (state) {
-    if (this.hasNext) {
-      let nextPageWithoutCondition = this.next.find(page => {
-        return !page.condition
-      }) || this.defaultNextPath
-
-      let nextPage = this.next.find(page => {
-        const value = page.section ? state[page.section.name] : state
-
-        let condition = this.model.conditions[page.condition]
-
-        const isRequired = page.condition
-          ? condition.fn(state)
-          : false
-
-        if (isRequired) {
-          if (!page.hasFormComponents) {
-            return true
-          } else {
-            const error = joi.validate(value || {}, page.stateSchema.required(), this.model.conditionOptions).error
-            const isValid = !error
-
-            return !isValid
-          }
-        }
-      })
-      let path = nextPage ? nextPage.path : nextPageWithoutCondition.path
-      if (this.model.basePath) {
-        path = `/${this.model.basePath}${path}`
-      }
-      return path
-    } else {
-      return this.defaultNextPath
+    const nextPage = this.getNextPage(state)
+    if (nextPage) {
+      return `/${this.model.basePath || ''}${nextPage.path}`
     }
+    return this.defaultNextPath
   }
 
   getFormDataFromState (state) {

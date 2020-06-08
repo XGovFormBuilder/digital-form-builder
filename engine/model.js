@@ -61,6 +61,7 @@ class Model {
     // })
 
     this.pages = def.pages.map(pageDef => this.makePage(pageDef))
+    this.startPage = this.pages.find(page => page.path === def.startPage)
   }
 
   makeSchema (state) {
@@ -102,12 +103,12 @@ class Model {
       const pageControllerPath = path.resolve(this.options.relativeTo, pageDef.controller)
       const PageController = require(pageControllerPath)
       return new PageController(this, pageDef)
-    } else if (this.DefaultPageController) {
+    }
+    if (this.DefaultPageController) {
       const DefaultPageController = this.DefaultPageController
       return new DefaultPageController(this, pageDef)
-    } else {
-      return new Page(this, pageDef)
     }
+    return new Page(this, pageDef)
   }
 
   makeCondition (condition) {
@@ -122,8 +123,7 @@ class Model {
     const fn = (value) => {
       const ctx = new EvaluationContext(this.conditions, value)
       try {
-        const isValid = expr.evaluate(ctx)
-        return isValid
+        return expr.evaluate(ctx)
       } catch (err) {
         return false
       }

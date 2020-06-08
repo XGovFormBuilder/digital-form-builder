@@ -19,7 +19,7 @@ class LinkEdit extends React.Component {
     e.preventDefault()
     const form = e.target
     const formData = new window.FormData(form)
-    const condition = formData.get('if').trim()
+    const condition = formData.get('condition').trim()
     const { data } = this.props
     const { link, page } = this.state
 
@@ -28,9 +28,9 @@ class LinkEdit extends React.Component {
     const copyLink = copyPage.next.find(n => n.path === link.path)
 
     if (condition) {
-      copyLink.if = condition
+      copyLink.condition = condition
     } else {
-      delete copyLink.if
+      delete copyLink.condition
     }
 
     data.save(copy)
@@ -95,7 +95,7 @@ class LinkEdit extends React.Component {
           <span id='link-condition-hint' className='govuk-hint'>
             The link will only be used if the expression evaluates to truthy.
           </span>
-          <select className='govuk-select' id='link-condition' name='if' defaultValue={edge.if} aria-describedby='link-condition-hint'>
+          <select className='govuk-select' id='link-condition' name='condition' defaultValue={edge.condition} aria-describedby='link-condition-hint'>
             <option value='' />
             {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
           </select>

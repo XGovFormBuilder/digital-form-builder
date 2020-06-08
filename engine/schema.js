@@ -24,13 +24,12 @@ const componentSchema = joi.object().keys({
 
 const nextSchema = joi.object().keys({
   path: joi.string().required(),
-  if: joi.string()
+  condition: joi.string().allow('').optional()
 })
 
 const pageSchema = joi.object().keys({
   path: joi.string().required(),
   title: localisedString,
-  condition: joi.string(),
   section: joi.string(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
