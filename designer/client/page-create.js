@@ -25,7 +25,6 @@ class PageCreate extends React.Component {
     const title = formData.get('title').trim()
     const section = formData.get('section').trim()
     const controller = formData.get('controller').trim()
-    const condition = formData.get('condition').trim()
 
     if (title) {
       value.title = title
@@ -37,10 +36,6 @@ class PageCreate extends React.Component {
 
     if (controller) {
       value.controller = controller
-    }
-
-    if (condition) {
-      value.condition = condition
     }
 
     // Apply
@@ -114,15 +109,6 @@ class PageCreate extends React.Component {
           </span>
           <input className='govuk-input' id='page-controller' name='controller'
             type='text' aria-describedby='page-controller-hint' />
-        </div>
-
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-condition'>Condition (optional)</label>
-          <span id='page-condition-hint' className='govuk-hint'>
-            The page will only be used if the expression evaluates to truthy.
-          </span>
-          <input className='govuk-input' id='page-condition' name='condition'
-            type='text' aria-describedby='page-condition-hint' />
         </div>
 
         <button type='submit' className='govuk-button'>Save</button>

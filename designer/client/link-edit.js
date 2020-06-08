@@ -70,7 +70,7 @@ class LinkEdit extends React.Component {
 
   render () {
     const { data, edge } = this.props
-    const { pages } = data
+    const { pages, conditions } = data
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -90,18 +90,18 @@ class LinkEdit extends React.Component {
           </select>
         </div>
 
-        {/* <div className='govuk-form-group'>
+        <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='link-condition'>Condition (optional)</label>
           <span id='link-condition-hint' className='govuk-hint'>
             The link will only be used if the expression evaluates to truthy.
           </span>
+          <select className='govuk-select' id='link-condition' name='if' defaultValue={edge.if} aria-describedby='link-condition-hint'>
+            <option value='' />
+            {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
+          </select>
+        </div>
 
-          <Editor name='if' value={link.if} /> */}
-        {/* <input className='govuk-input' id='link-condition' name='if'
-            type='text' defaultValue={link.if} aria-describedby='link-condition-hint' /> */}
-        {/* </div> */}
-
-        <button className='govuk-button' type='submit'>Save</button>{' '}
+        <button className='govuk-button' type='submit'>Save</button>&nbsp;
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
       </form>
     )

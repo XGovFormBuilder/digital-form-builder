@@ -12,7 +12,6 @@ class PageEdit extends React.Component {
     const title = formData.get('title').trim()
     const section = formData.get('section').trim()
     const controller = formData.get('controller').trim()
-    const condition = formData.get('condition').trim()
     const { data, page } = this.props
 
     const copy = clone(data)
@@ -46,12 +45,6 @@ class PageEdit extends React.Component {
       copyPage.controller = controller
     } else {
       delete copyPage.controller
-    }
-
-    if (condition) {
-      copyPage.condition = condition
-    } else {
-      delete copyPage.condition
     }
 
     data.save(copy)
@@ -160,15 +153,6 @@ class PageEdit extends React.Component {
           </span>
           <input className='govuk-input' id='page-controller' name='controller'
             type='text' defaultValue={page.controller} aria-describedby='page-controller-hint' />
-        </div>
-
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-condition'>Condition (optional)</label>
-          <span id='page-condition-hint' className='govuk-hint'>
-            The page will only be used if the expression evaluates to truthy.
-          </span>
-          <input className='govuk-input' id='page-condition' name='condition'
-            type='text' defaultValue={page.condition} aria-describedby='page-condition-hint' />
         </div>
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
