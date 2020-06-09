@@ -260,6 +260,9 @@ class Menu extends React.Component {
 
       console.log('Converting form format')
       for (const page of content.pages) {
+        if (!page.title && page.components && page.components.length > 0) {
+          page.title = page.components[0].title
+        }
         for (const link of (page.next || [])) {
           const nextPage = content.pages.find(np => np.path === link.path)
           if (nextPage && nextPage.condition) {
