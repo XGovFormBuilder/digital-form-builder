@@ -28,7 +28,9 @@ function getLayout (pages, el) {
   })
 
   // Default to assigning a new object as a label for each new edge.
-  g.setDefaultEdgeLabel(function () { return {} })
+  g.setDefaultEdgeLabel(function () {
+    return {}
+  })
 
   // Add nodes to the graph. The first argument is the node id. The second is
   // metadata about the node. In this case we're going to add labels to each node
@@ -45,7 +47,7 @@ function getLayout (pages, el) {
         // The linked node (next page) may not exist if it's filtered
         const exists = pages.find(page => page.path === next.path)
         if (exists) {
-          g.setEdge(page.path, next.path)
+          g.setEdge(page.path, next.path, next)
         }
       })
     }
@@ -74,6 +76,7 @@ function getLayout (pages, el) {
     pos.edges.push({
       source: e.v,
       target: e.w,
+      label: edge.condition || '',
       points: edge.points.map(p => {
         const pt = {}
         pt.y = p.y
@@ -90,7 +93,6 @@ class Lines extends React.Component {
   state = {}
 
   editLink = (edge) => {
-    console.log('clicked', edge)
     this.setState({
       showEditor: edge
     })
@@ -105,11 +107,23 @@ class Lines extends React.Component {
           {
             layout.edges.map(edge => {
               const points = edge.points.map(points => `${points.x},${points.y}`).join(' ')
+
+              const xs = edge.points.map(p => p.x)
+              const ys = edge.points.map(p => p.y)
+              const minX = Math.min(...xs)
+              const minY = Math.min(...ys)
+              const maxX = Math.max(...xs)
+              const maxY = Math.max(...ys)
+
+              const textX = ((maxX - minX) / 2) + minX
+              const textY = ((maxY - minY) / 2) + minY
+
               return (
                 <g key={points}>
                   <polyline
                     onClick={() => this.editLink(edge)}
                     points={points} />
+                  { edge.label && (<text text-anchor="middle" x={textX} y={textY} fill="black" pointer-events="none">{edge.label}</text>) }
                 </g>
               )
             })
