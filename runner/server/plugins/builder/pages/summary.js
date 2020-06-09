@@ -18,10 +18,7 @@ class SummaryViewModel {
       if (nextPage.hasFormComponents) {
         relevantPages.push(nextPage)
       }
-      const sectionState = nextPage.section
-        ? (state[nextPage.section.name] || {})
-        : state
-      nextPage = nextPage.getNextPage(sectionState)
+      nextPage = nextPage.getNextPage(state)
     }
 
     ;[undefined].concat(model.sections).forEach((section) => {

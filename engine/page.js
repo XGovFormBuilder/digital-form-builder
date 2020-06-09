@@ -92,20 +92,11 @@ class Page {
       const { page, condition } = link
       const value = page.section ? state[page.section.name] : state
 
-      const isRequired = condition
-        && this.model.conditions[condition]
-        && this.model.conditions[condition].fn(state)
-
-      if (isRequired) {
-        if (!page.hasFormComponents) {
-          return true
-        }
-        const error = joi.validate(value || {}, page.stateSchema.required(), this.model.conditionOptions).error
-        const isValid = !error
-        return !isValid
-      } else {
-        defaultLink = link
+      if (condition) {
+        return this.model.conditions[condition]
+          && this.model.conditions[condition].fn(state)
       }
+      defaultLink = link
       return false
     })
     if (nextLink) {
