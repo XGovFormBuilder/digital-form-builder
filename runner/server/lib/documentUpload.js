@@ -76,7 +76,7 @@ class UploadService {
 
   async handleUploadRequest (request, h) {
     const { cacheService } = request.services([])
-    const state = cacheService.getState(request)
+    const state = await cacheService.getState(request)
     const originalFilenames = (state || {}).originalFilenames || {}
 
     let files = []
@@ -88,11 +88,12 @@ class UploadService {
      * @desc If there are no valid file(buffer)s, reassign any empty buffers with empty string
      * allows bypassing of file upload for whatever reason it doesn't work.
      */
-    if(!files.length) {
+    if (!files.length) {
       let fields = Object.entries(request.payload)
-      for(const field of fields) {
-        if(field[1]._data) {
-          request.payload[field[0]] = ""
+      for (const [key, value] of fields) {
+        if (value._data) {
+          let originalFilename = originalFilenames[key]
+          request.payload[key] = (originalFilename && originalFilename.location) || ""
         }
       }
       return h.continue
