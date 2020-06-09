@@ -47,7 +47,7 @@ function getLayout (pages, el) {
         // The linked node (next page) may not exist if it's filtered
         const exists = pages.find(page => page.path === next.path)
         if (exists) {
-          g.setEdge(page.path, next.path, next)
+          g.setEdge(page.path, next.path, { ...next })
         }
       })
     }
