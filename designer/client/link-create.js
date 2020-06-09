@@ -16,7 +16,6 @@ class LinkCreate extends React.Component {
     const { data } = this.props
     const copy = clone(data)
     const page = copy.pages.find(p => p.path === from)
-    console.log('page', from)
     const next = { path: to }
 
     if (condition) {

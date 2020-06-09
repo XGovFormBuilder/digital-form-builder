@@ -20,13 +20,14 @@ class ComponentConditionCreate extends React.Component {
 
   render () {
     const { component } = this.state
+    const { idHelper } = this.props
     const selectedType = component ? component.type : ''
 
     return (
       <div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='type'>Type</label>
-          <select className='govuk-select' id='type' name='cond-type' defaultValue={selectedType}
+          <select className='govuk-select' id={`${idHelper || ''}'type`} name='cond-type' defaultValue={selectedType}
             onChange={e => this.setState({ component: { type: e.target.value } })}>
             <option />
             {conditionalComponentTypes.map(type => {

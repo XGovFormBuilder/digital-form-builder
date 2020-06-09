@@ -1,6 +1,7 @@
 import React from 'react'
 import { clone } from './helpers'
 import ComponentConditionCreate from './component-condition-create'
+import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -12,13 +13,80 @@ function headDuplicate (arr) {
   }
 }
 
+const DragHandle = SortableHandle(() => <span className='drag-handle-list'>&#9776;</span>)
+
+const SortableItem = SortableElement(({ i, item, type, conditions, onBlur, removeItem }) => {
+  const index = i
+  return (<tr className='govuk-table__row' scope='row'>
+    <td className='govuk-table__cell' >
+      <DragHandle />
+    </td>
+    <td className='govuk-table__cell'>
+      <input className='govuk-input' name='text'
+        type='text' defaultValue={item.text} required
+        onBlur={onBlur} />
+    </td>
+    <td className='govuk-table__cell'>
+      {type === 'number'
+        ? (
+          <input className='govuk-input' name='value'
+            type='number' defaultValue={item.value} required
+            onBlur={onBlur} step='any' />
+        )
+        : (
+          <input className='govuk-input' name='value'
+            type='text' defaultValue={item.value} required
+            onBlur={onBlur} />
+        )
+      }
+    </td>
+    <td className='govuk-table__cell'>
+      <input className='govuk-input' name='description'
+        type='text' defaultValue={item.description}
+        onBlur={onBlur} />
+    </td>
+    <td className='govuk-table__cell'>
+      <select className='govuk-select' id={`link-source-${index}`} name='condition' defaultValue={item.condition}>
+        <option />
+        {(conditions || []).map((condition, i) => (<option key={condition.name + i} defaultValue={condition.name}>{condition.name}</option>))}
+      </select>
+    </td>
+    <td className='govuk-table__cell'>
+      <div className='component-item'>
+        <ComponentConditionCreate conditional={item.conditional} idHelper={index} />
+      </div>
+    </td>
+    <td className='govuk-table__cell' width='20px'>
+      <a className='list-item-delete' onClick={() => removeItem(index)}>&#128465;</a>
+    </td>
+  </tr>)
+}
+)
+
+const SortableList = SortableContainer(({ items, conditions, type, removeItem, onBlur }) => {
+  console.log('items', items)
+  return (
+    <tbody className='govuk-table__body'>
+      {items.map((item, index) => (
+        <SortableItem key={`item-${item.value}`} item={item} index={index} i={index} conditions={conditions} type={type} onBlur={onBlur} removeItem={removeItem} />
+      ))}
+    </tbody>
+  )
+})
+
 class ListItems extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      items: props.items ? clone(props.items) : []
+      items: props.items
     }
   }
+
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ items }) => ({
+      items: arrayMove(items, oldIndex, newIndex)
+    }))
+  };
 
   onClickAddItem = e => {
     this.setState({
@@ -109,50 +177,10 @@ class ListItems extends React.Component {
             </th>
           </tr>
         </thead>
-        <tbody className='govuk-table__body'>
-          {items.map((item, index) => (
-            <tr key={item.value + index} className='govuk-table__row' scope='row'>
-              <td className='govuk-table__cell'>
-                <input className='govuk-input' name='text'
-                  type='text' defaultValue={item.text} required
-                  onBlur={this.onBlur} />
-              </td>
-              <td className='govuk-table__cell'>
-                {type === 'number'
-                  ? (
-                    <input className='govuk-input' name='value'
-                      type='number' defaultValue={item.value} required
-                      onBlur={this.onBlur} step='any' />
-                  )
-                  : (
-                    <input className='govuk-input' name='value'
-                      type='text' defaultValue={item.value} required
-                      onBlur={this.onBlur} />
-                  )
-                }
-              </td>
-              <td className='govuk-table__cell'>
-                <input className='govuk-input' name='description'
-                  type='text' defaultValue={item.description}
-                  onBlur={this.onBlur} />
-              </td>
-              <td className='govuk-table__cell'>
-                <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition}>
-                  <option />
-                  {(conditions || []).map((condition, i) => (<option key={condition.name + i} value={condition.name}>{condition.name}</option>))}
-                </select>
-              </td>
-              <td className='govuk-table__cell'>
-                <div className='component-item'>
-                  <ComponentConditionCreate conditional={item.conditional} />
-                </div>
-              </td>
-              <td className='govuk-table__cell' width='20px'>
-                <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <SortableList type={type} items={items || []} conditions={conditions} removeItem={this.removeItem}
+          onBlur={this.onBlur} onSortEnd={this.onSortEnd}
+          helperClass='dragging' lockToContainerEdges useDragHandle />
+        {/* sortable list */}
       </table>
     )
   }

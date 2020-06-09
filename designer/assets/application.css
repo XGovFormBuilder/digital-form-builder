@@ -5722,6 +5722,10 @@ main ul + .govuk-heading-s {
   top: 50%;
   margin-top: -13px;
 }
+.drag-handle-list {
+  cursor: pointer;
+  visibility: hidden;
+}
 
 .component-item {
   position: relative;
@@ -5731,8 +5735,13 @@ main ul + .govuk-heading-s {
   display: inline;
 }
 
+.govuk-table__row:hover .drag-handle-list {
+  visibility: visible;
+}
+
 .dragging {
   background-color: #ffbf47;
+  z-index: 1001;
 }
 
 .govuk-table__row .list-item-delete {

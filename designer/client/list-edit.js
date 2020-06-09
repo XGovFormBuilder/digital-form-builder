@@ -7,7 +7,8 @@ class ListEdit extends React.Component {
     super(props)
 
     this.state = {
-      type: props.list.type
+      type: props.list.type,
+      list: props.list
     }
   }
 
@@ -18,7 +19,8 @@ class ListEdit extends React.Component {
     const newName = formData.get('name').trim()
     const newTitle = formData.get('title').trim()
     const newType = formData.get('type')
-    const { data, list } = this.props
+    const { data } = this.props
+    const { list } = this.state
 
     const copy = clone(data)
     const nameChanged = newName !== list.name
@@ -61,11 +63,6 @@ class ListEdit extends React.Component {
     // remove list name and title
     conditionalNames.shift()
     conditionalTitles.shift()
-
-    console.log('conditionalTypes', conditionalTypes)
-    console.log('conditionalNames', conditionalNames)
-    console.log('conditionalTitles', conditionalTitles)
-    console.log('conditionalHints', conditionalHints)
 
     const conditionals = conditionalTypes.map(type => {
       if (type) {
@@ -151,7 +148,8 @@ class ListEdit extends React.Component {
 
   render () {
     const state = this.state
-    const { list, data } = this.props
+    const { list } = this.state
+    const { data } = this.props
     const { conditions } = data
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
