@@ -6053,3 +6053,12 @@ polyline :after {
   border-top-color: transparent;
   background: transparent;
 }
+
+.govuk-checkboxes__input.disabled,
+.govuk-checkboxes__input.disabled + .govuk-checkboxes__label {
+  pointer-events: none;
+  cursor: default;
+}
+.govuk-checkboxes__input.disabled + .govuk-checkboxes__label {
+  opacity: 0.5;
+}

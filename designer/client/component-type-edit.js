@@ -20,6 +20,7 @@ class FieldEdit extends React.Component {
   constructor (props) {
     super(props)
     const { component } = this.props
+
     const options = component.options || {}
     this.state = {
       hidden: options.required !== false
@@ -32,8 +33,8 @@ class FieldEdit extends React.Component {
 
   render () {
     const { component } = this.props
-    const options = component.options || {}
     const isFileUploadField = component.type === 'FileUploadField'
+    const options = component.options || {}
 
     return (
       <div>
@@ -60,10 +61,10 @@ class FieldEdit extends React.Component {
         </div>
         <div className='govuk-checkboxes govuk-form-group'>
           <div className='govuk-checkboxes__item'>
-            <input className='govuk-checkboxes__input' id='field-options.required'
+            <input className={`govuk-checkboxes__input ${isFileUploadField ? 'disabled' : ''}`} id='field-options.required'
               name='options.required' type='checkbox' defaultChecked={isFileUploadField}
               onChange={(e) => this.checkOptionalBox(e)}
-              disabled={isFileUploadField }/>
+              />
             <label className='govuk-label govuk-checkboxes__label'
               htmlFor='field-options.required'>Optional</label>
             {isFileUploadField && (

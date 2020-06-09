@@ -524,3 +524,15 @@ polyline {
 .token.entity {
   cursor: help;
 }
+
+.govuk-input__input {
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+    & +.govuk-checkboxes__label {
+      opacity: 0.5;
+    }
+  }
+}
+
+
