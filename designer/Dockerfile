@@ -17,6 +17,6 @@ COPY engine/. .
 WORKDIR /usr/src/app/designer
 
 COPY designer/package*.json ./
-RUN npm install --production
+RUN npm install
 
 COPY designer/. .
