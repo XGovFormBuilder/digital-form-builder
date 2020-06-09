@@ -259,6 +259,7 @@ class Menu extends React.Component {
       const content = JSON.parse(evt.target.result)
 
       console.log('Converting form format')
+
       for (const page of content.pages) {
         if (!page.title && page.components && page.components.length > 0) {
           page.title = page.components[0].title
@@ -268,10 +269,14 @@ class Menu extends React.Component {
           if (nextPage && nextPage.condition) {
             console.log(`Moving condition ${nextPage.condition} to link`)
             link.condition = nextPage.condition
-            delete nextPage.condition
           }
         }
       }
+
+      for (const page of content.pages) {
+        delete page.condition
+      }
+
       console.log('Converted', content)
 
       data.save(content)
