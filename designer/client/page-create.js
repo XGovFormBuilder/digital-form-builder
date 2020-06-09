@@ -10,26 +10,32 @@ class PageCreate extends React.Component {
     const form = e.target
     const formData = new window.FormData(form)
     const { data } = this.props
-    const title = formData.get('title').trim()
-    const path = '/'.concat(title.replace(/[^a-zA-Z ]/g, '').replace(' ', '-')).toLowerCase()
-
-    // Validate
-    if (data.pages.find(page => page.path === path)) {
-      form.elements.path.setCustomValidity(`Path '${path}' already exists`)
-      form.reportValidity()
-      return
-    }
-
-    const value = {
-      path: path
-    }
 
     const title = formData.get('title').trim()
     const linkFrom = formData.get('from').trim()
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
 
-    value.title = title
+    let path = '/' + title
+      .replace(/[^a-zA-Z ]/g, '')
+      .replace(/\s/g, '-')
+      .toLowerCase()
+
+    let count = 1
+    while (data.pages.find(page => page.path === path)) {
+      if (count > 1) {
+        path = path.substr(0, path.length - 2)
+      }
+      path = `${path}-${count}`
+      count++
+    }
+
+    const value = {
+      path,
+      title,
+      components: [],
+      next: []
+    }
 
     if (section) {
       value.section = section
@@ -38,12 +44,6 @@ class PageCreate extends React.Component {
     if (pageType) {
       value.controller = pageType
     }
-
-    // Apply
-    Object.assign(value, {
-      components: [],
-      next: []
-    })
 
     let copy = clone(data)
 
@@ -55,7 +55,6 @@ class PageCreate extends React.Component {
 
     data.save(copy)
       .then(data => {
-        console.log(data)
         this.props.onCreate({ value })
       })
       .catch(err => {
