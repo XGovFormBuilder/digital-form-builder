@@ -60,7 +60,7 @@ class LinkCreate extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='link-condition'>Condition (optional)</label>
           <span id='link-condition-hint' className='govuk-hint'>
-            The link will only be used if the expression evaluates to truthy.
+            The link will only be used if the expression evaluates to true.
           </span>
           <select className='govuk-select' id='link-condition' name='condition' aria-describedby='link-condition-hint'>
             <option value='' />

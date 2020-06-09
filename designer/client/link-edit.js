@@ -9,6 +9,8 @@ class LinkEdit extends React.Component {
     const page = data.pages.find(page => page.path === edge.source)
     const link = page.next.find(n => n.path === edge.target)
 
+    console.log(edge, link)
+
     this.state = {
       page: page,
       link: link
@@ -19,7 +21,7 @@ class LinkEdit extends React.Component {
     e.preventDefault()
     const form = e.target
     const formData = new window.FormData(form)
-    const condition = formData.get('condition').trim()
+    const condition = formData.get('condition')
     const { data } = this.props
     const { link, page } = this.state
 
@@ -35,7 +37,6 @@ class LinkEdit extends React.Component {
 
     data.save(copy)
       .then(data => {
-        console.log(data)
         this.props.onEdit({ data })
       })
       .catch(err => {
@@ -60,7 +61,6 @@ class LinkEdit extends React.Component {
 
     data.save(copy)
       .then(data => {
-        console.log(data)
         this.props.onEdit({ data })
       })
       .catch(err => {
@@ -71,6 +71,7 @@ class LinkEdit extends React.Component {
   render () {
     const { data, edge } = this.props
     const { pages, conditions } = data
+    const { link } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -93,9 +94,9 @@ class LinkEdit extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='link-condition'>Condition (optional)</label>
           <span id='link-condition-hint' className='govuk-hint'>
-            The link will only be used if the expression evaluates to truthy.
+            The link will only be used if the expression evaluates to true.
           </span>
-          <select className='govuk-select' id='link-condition' name='condition' defaultValue={edge.condition} aria-describedby='link-condition-hint'>
+          <select className='govuk-select' id='link-condition' name='condition' defaultValue={link.condition} aria-describedby='link-condition-hint'>
             <option value='' />
             {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
           </select>

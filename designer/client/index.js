@@ -247,6 +247,20 @@ class Menu extends React.Component {
     reader.readAsText(file, 'UTF-8')
     reader.onload = function (evt) {
       const content = JSON.parse(evt.target.result)
+
+      console.log('Converting form format')
+      for (const page of content.pages) {
+        for (const link of (page.next || [])) {
+          const nextPage = content.pages.find(np => np.path === link.path)
+          if (nextPage && nextPage.condition) {
+            console.log(`Moving condition ${nextPage.condition} to link`)
+            link.condition = nextPage.condition
+            delete nextPage.condition
+          }
+        }
+      }
+      console.log('Converted', content)
+
       data.save(content)
     }
   }
