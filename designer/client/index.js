@@ -123,7 +123,7 @@ class Lines extends React.Component {
                   <polyline
                     onClick={() => this.editLink(edge)}
                     points={points} />
-                  { edge.label && (<text text-anchor="middle" x={textX} y={textY} fill="black" pointer-events="none">{edge.label}</text>) }
+                  { edge.label && (<text textAnchor="middle" x={textX} y={textY} fill="black" pointerEvents="none">{edge.label}</text>) }
                 </g>
               )
             })
