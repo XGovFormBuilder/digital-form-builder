@@ -84,6 +84,20 @@ class UploadService {
       files = this.fileStreamsFromPayload(request.payload)
     }
 
+    /**
+     * @desc If there are no valid file(buffer)s, reassign any empty buffers with empty string
+     * allows bypassing of file upload for whatever reason it doesn't work.
+     */
+    if(!files.length) {
+      let fields = Object.entries(request.payload)
+      for(const field of fields) {
+        if(field[1]._data) {
+          request.payload[field[0]] = ""
+        }
+      }
+      return h.continue
+    }
+
     // files is an array of tuples containing key and value.
     // value may be an array of file data where multiple files have been uploaded
     for (const file of files) {

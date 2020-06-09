@@ -33,6 +33,7 @@ class FieldEdit extends React.Component {
   render () {
     const { component } = this.props
     const options = component.options || {}
+    const isFileUploadField = component.type === 'FileUploadField'
 
     return (
       <div>
@@ -57,14 +58,21 @@ class FieldEdit extends React.Component {
           <textarea className='govuk-textarea' id='field-hint' name='hint'
             defaultValue={component.hint} rows='2' />
         </div>
-
         <div className='govuk-checkboxes govuk-form-group'>
           <div className='govuk-checkboxes__item'>
             <input className='govuk-checkboxes__input' id='field-options.required'
-              name='options.required' type='checkbox' defaultChecked={options.required === false}
-              onChange={(e) => this.checkOptionalBox(e)} />
+              name='options.required' type='checkbox' defaultChecked={isFileUploadField}
+              onChange={(e) => this.checkOptionalBox(e)}
+              disabled={isFileUploadField }/>
             <label className='govuk-label govuk-checkboxes__label'
               htmlFor='field-options.required'>Optional</label>
+            {isFileUploadField && (
+              <span className='govuk-hint govuk-checkboxes__label'>All file upload fields are optional to mitigate possible upload errors</span>
+            )}
+            {!isFileUploadField && (
+              <span className='govuk-hint'>The hint can include HTML</span>
+            )}
+
           </div>
         </div>
 
