@@ -110,13 +110,9 @@ class Lines extends React.Component {
 
               const xs = edge.points.map(p => p.x)
               const ys = edge.points.map(p => p.y)
-              const minX = Math.min(...xs)
-              const minY = Math.min(...ys)
-              const maxX = Math.max(...xs)
-              const maxY = Math.max(...ys)
 
-              const textX = ((maxX - minX) / 2) + minX
-              const textY = ((maxY - minY) / 2) + minY
+              const textX = xs.reduce((a, b) => a + b, 0) / xs.length
+              const textY = ys.reduce((a, b) => a + b, 0) / ys.length
 
               return (
                 <g key={points}>
