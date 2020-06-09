@@ -38,9 +38,11 @@
           "path": "/how-many-people"
         },
         {
-          "path": "/no-uk-passport"
+          "path": "/no-uk-passport",
+          "condition": "doesntHaveUKPassport"
         }
-      ]
+      ],
+      "title": "Do you have a UK passport?"
     },
     {
       "path": "/no-uk-passport",
@@ -51,8 +53,7 @@
           "content": "If you still think you're eligible please contact the Foreign and Commonwealth Office."
         }
       ],
-      "next": [],
-      "condition": "doesntHaveUKPassport"
+      "next": []
     },
     {
       "path": "/how-many-people",
@@ -72,7 +73,8 @@
         {
           "path": "/applicant-one"
         }
-      ]
+      ],
+      "title": "How many applicants are there?"
     },
     {
       "path": "/applicant-one",
@@ -122,18 +124,19 @@
       ],
       "next": [
         {
-          "path": "/applicant-two"
+          "path": "/applicant-two",
+          "condition": "moreThanOneApplicant"
         },
         {
           "path": "/contact-details"
         }
-      ]
+      ],
+      "title": "Address"
     },
     {
       "path": "/applicant-two",
       "title": "Applicant 2",
       "section": "applicantTwoDetails",
-      "condition": "moreThanOneApplicant",
       "components": [
         {
           "type": "Para",
@@ -178,18 +181,19 @@
       ],
       "next": [
         {
-          "path": "/applicant-three"
+          "path": "/applicant-three",
+          "condition": "moreThanTwoApplicants"
         },
         {
           "path": "/contact-details"
         }
-      ]
+      ],
+      "title": "Address"
     },
     {
       "path": "/applicant-three",
       "title": "Applicant 3",
       "section": "applicantThreeDetails",
-      "condition": "moreThanTwoApplicants",
       "components": [
         {
           "type": "Para",
@@ -234,18 +238,19 @@
       ],
       "next": [
         {
-          "path": "/applicant-four"
+          "path": "/applicant-four",
+          "condition": "moreThanThreeApplicants"
         },
         {
           "path": "/contact-details"
         }
-      ]
+      ],
+      "title": "Address"
     },
     {
       "path": "/applicant-four",
       "title": "Applicant 4",
       "section": "applicantFourDetails",
-      "condition": "moreThanThreeApplicants",
       "components": [
         {
           "type": "Para",
@@ -292,7 +297,8 @@
         {
           "path": "/contact-details"
         }
-      ]
+      ],
+      "title": "Address"
     },
     {
       "path": "/contact-details",
