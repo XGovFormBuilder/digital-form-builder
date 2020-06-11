@@ -4,7 +4,8 @@
   "description": "A hapi plugin providing the engine for (FCO) digital form builder based applications",
   "main": "index.js",
   "scripts": {
-    "lint": "standard"
+    "lint": "standard",
+    "test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,11 @@
     "wreck": "14.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^22.0.4",
+    "@xgovformbuilder/lab-babel": "2.0.0",
     "standard": "14.3.3"
   },
   "peerDependencies": {

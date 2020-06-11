@@ -4,3 +4,4 @@ node_modules
 npm-debug.log
 .idea
 .nyc_output
+/engine/unit-test.html
