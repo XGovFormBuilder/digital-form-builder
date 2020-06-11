@@ -72,6 +72,23 @@ jobs:
           paths:
             - .
 
+  test:
+    parameters:
+      package_name:
+        type: string
+
+    executor: node-browsers
+    working_directory: ~/project/<< parameters.package_name >>
+
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: test
+          command: yarn test
+
+
   publish:
     parameters:
       package_name:
@@ -122,12 +139,18 @@ workflows:
       - build:
           name: engine-build
           package_name: engine
+      - test:
+          name: engine-test
+          package_name: engine
 
   designer:
     when: << pipeline.parameters.designer >>
     jobs:
       - build:
           name: designer-build
+          package_name: designer
+      - test:
+          name: designer-test
           package_name: designer
       - publish:
           name: designer-publish
@@ -140,6 +163,9 @@ workflows:
     jobs:
       - build:
           name: runner-build
+          package_name: runner
+      - test:
+          name: runner-test
           package_name: runner
       - publish:
           name: runner-publish

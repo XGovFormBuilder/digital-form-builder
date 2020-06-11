@@ -9,7 +9,7 @@
     "build:css": "bin/build-css",
     "build": "bin/build",
     "lint": "standard",
-    "unit-test": "lab -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
+    "unit-test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "NODE_ENV=test npm run lint && npm run unit-test",
     "postinstall": "npm run build",
@@ -73,6 +73,8 @@
     "yar": "9.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@xgovformbuilder/lab-babel": "2.0.0",
     "cheerio": "1.0.0-rc.3",
     "code": "5.2.4",
     "lab": "18.0.2",
