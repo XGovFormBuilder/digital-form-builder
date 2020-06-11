@@ -47,7 +47,6 @@
     "govuk-frontend": "3.6.0",
     "inert": "5.1.2",
     "jsdom": "^16.2.2",
-    "lab-babel": "^1.1.1",
     "nunjucks": "3.2.1",
     "prismjs": "1.15.0",
     "react": "16.13.1",

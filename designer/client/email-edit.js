@@ -8,7 +8,7 @@ class EmailEdit extends React.Component {
     }
 
     return (
-      <div className='govuk-body'>
+      <div className='govuk-body email-edit'>
         <div className='govuk-form-group'>
           <label className='govuk-label' htmlFor='email-address'>Email Address</label>
           <input className='govuk-input' name='email-address'
