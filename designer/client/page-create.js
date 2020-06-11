@@ -1,5 +1,6 @@
 import React from 'react'
 import { clone } from './helpers'
+import InlineConditions from './inline-conditions.js'
 import { addLinkToPage, createNext } from './link-create'
 
 class PageCreate extends React.Component {
@@ -96,6 +97,9 @@ class PageCreate extends React.Component {
             <option />
             {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
           </select>
+
+          <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
+          <InlineConditions data={data} />
         </div>
 
         <div className='govuk-form-group'>
