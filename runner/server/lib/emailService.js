@@ -17,7 +17,7 @@ class EmailService {
    * @param [options.message] {string} - Message to be sent in email body
    */
   async sendEmail (emailAddress, subject, options = {}) {
-    let mailOptions = {
+    const mailOptions = {
       from: config.fromEmailAddress,
       to: emailAddress,
       subject,
@@ -27,8 +27,8 @@ class EmailService {
       mailOptions.attachments = await Promise.all(this.documentService.downloadDocuments(options.attachments))
     }
 
-    let mailComposer = new MailComposer(mailOptions)
-    let message = await mailComposer.compile().build()
+    const mailComposer = new MailComposer(mailOptions)
+    const message = await mailComposer.compile().build()
     // SES is not available in eu-west-2
     return new AWS.SES({ apiVersion: '2010-12-01', region: 'eu-west-1' })
       .sendRawEmail({ RawMessage: { Data: message } })

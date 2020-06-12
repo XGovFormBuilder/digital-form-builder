@@ -16,27 +16,19 @@ class PayService {
       amount,
       reference,
       description,
-      'return_url': payReturnUrl
+      return_url: payReturnUrl
     }
   }
 
   async payRequest (amount, reference, description, apiKey) {
     const data = { ...this.options(apiKey), payload: this.payRequestData(amount, reference, description) }
-    try {
-      const { payload } = await Wreck.post(`${payApiUrl}/payments`, data)
-      return JSON.parse(payload.toString())
-    } catch (e) {
-      throw e
-    }
+    const { payload } = await Wreck.post(`${payApiUrl}/payments`, data)
+    return JSON.parse(payload.toString())
   }
 
   async payStatus (url, apiKey) {
-    try {
-      const { payload } = await Wreck.get(url, this.options(apiKey))
-      return JSON.parse(payload.toString())
-    } catch (e) {
-      throw e
-    }
+    const { payload } = await Wreck.get(url, this.options(apiKey))
+    return JSON.parse(payload.toString())
   }
 
   descriptionFromFees (fees) {

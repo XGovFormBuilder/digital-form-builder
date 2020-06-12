@@ -84,5 +84,11 @@
     "requiredScores": {
       "accessibility": 90
     }
+  },
+  "standard": {
+    "ignore": [
+      "server/public/",
+      "server/plugins/locale.js"
+    ]
   }
 }

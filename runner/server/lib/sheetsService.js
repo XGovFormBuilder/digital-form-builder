@@ -47,8 +47,8 @@ class SheetsService {
       valueInputOption: 'RAW',
       insertDataOption: 'INSERT_ROWS',
       resource: {
-        'majorDimension': 'ROWS',
-        'values': [data]
+        majorDimension: 'ROWS',
+        values: [data]
       }
     })
   }

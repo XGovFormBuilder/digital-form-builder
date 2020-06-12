@@ -89,11 +89,11 @@ class UploadService {
      * allows bypassing of file upload for whatever reason it doesn't work.
      */
     if (!files.length) {
-      let fields = Object.entries(request.payload)
+      const fields = Object.entries(request.payload)
       for (const [key, value] of fields) {
         if (value._data) {
-          let originalFilename = originalFilenames[key]
-          request.payload[key] = (originalFilename && originalFilename.location) || ""
+          const originalFilename = originalFilenames[key]
+          request.payload[key] = (originalFilename && originalFilename.location) || ''
         }
       }
       return h.continue

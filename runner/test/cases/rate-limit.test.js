@@ -29,16 +29,16 @@ suite('Rate limit', () => {
 
   test('throws 429 error when rate limit is exceeded', async () => {
     await server.inject('/start')
-    let response = await server.inject('/start')
+    const response = await server.inject('/start')
     expect(response.statusCode).to.equal(429)
   })
 
   test('after expiry period, requests return OK response', { timeout: 30000 }, async () => {
     await server.inject('/start')
-    let response = await server.inject('/start')
+    const response = await server.inject('/start')
     expect(response.statusCode).to.equal(429)
     await new Promise(resolve => setTimeout(resolve, 7500))
-    let afterWaitingResponse = await server.inject('/start')
+    const afterWaitingResponse = await server.inject('/start')
     expect(afterWaitingResponse.statusCode).to.equal(200)
   })
 })

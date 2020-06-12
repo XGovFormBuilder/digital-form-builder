@@ -9,7 +9,7 @@ const { suite, before, test, after } = exports.lab = Lab.script()
 suite('CSRF', () => {
   let server
   let csrfToken = ''
-  let form = new FormData()
+  const form = new FormData()
   form.append('licenceLength', 1)
   const options = () => {
     return {
@@ -38,7 +38,7 @@ suite('CSRF', () => {
 
     const response = await server.inject(options)
     expect(response.statusCode).to.equal(200)
-    let setCookieHeader = cookie.parse(response.headers['set-cookie'].find(header => header.includes('crumb')))
+    const setCookieHeader = cookie.parse(response.headers['set-cookie'].find(header => header.includes('crumb')))
     expect(setCookieHeader).to.exist()
     csrfToken = setCookieHeader.crumb
     expect(csrfToken).to.not.be.empty()
@@ -53,7 +53,7 @@ suite('CSRF', () => {
 
   test('post request with CSRF token returns 302 redirect', { timeout: 10000 }, async () => {
     form.append('crumb', csrfToken)
-    let csrfOptions = options()
+    const csrfOptions = options()
     csrfOptions.headers = { ...options.headers, ...{ cookie: `crumb=${csrfToken}`, 'x-CSRF-token': csrfToken, ...form.getHeaders() } }
     const response = await server.inject(csrfOptions)
     expect(response.statusCode).to.equal(302)

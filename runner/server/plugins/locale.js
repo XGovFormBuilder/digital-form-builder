@@ -194,7 +194,7 @@ Internal.prototype.bestMatch = function bestMatch (requested) {
   if (!requested) return
   if (!Array.isArray(requested)) requested = [requested]
 
-  for (let one of requested) {
+  for (const one of requested) {
     if (this.locales.indexOf(one) > -1) return one
   }
 }
@@ -234,14 +234,14 @@ Internal.prototype.scan = function scan () {
     throw new Error('Locales directory "' + this.options.scan.path + '"cannot be found.')
   }
 
-  let dir = this.options.scan.path
+  const dir = this.options.scan.path
 
-  let files = fs.readdirSync(dir)
+  const files = fs.readdirSync(dir)
 
-  let locales = []
+  const locales = []
 
-  for (let file of files) {
-    let fullPath = path.join(dir, file)
+  for (const file of files) {
+    const fullPath = path.join(dir, file)
 
     // Skip if it is in exclude list or it is directory and scan.directories is false
     if (this.options.scan.exclude.indexOf(file) > -1 || (fs.statSync(fullPath).isDirectory() && !this.options.scan.directories)) {
@@ -272,7 +272,7 @@ Internal.prototype.scan = function scan () {
 Internal.prototype.determineLocale = function determineLocale (request) {
   let requestedLocale
 
-  for (let method of this.options.order) {
+  for (const method of this.options.order) {
     requestedLocale = this[orderParameters[method]](request) // this.parseParam | this.parseCookie ... etc.
     if (requestedLocale) break
   }
@@ -294,11 +294,11 @@ Internal.prototype.processRequest = function processRequest (request, h) {
     // throw boom.notFound(err);
   }
 
-  let getter = this.options.getter
+  const getter = this.options.getter
 
-  let setter = this.options.setter
+  const setter = this.options.setter
 
-  let attribute = this.options.attribute
+  const attribute = this.options.attribute
 
   // Create accessors if necessary
   if (this.options.createAccessors) {
