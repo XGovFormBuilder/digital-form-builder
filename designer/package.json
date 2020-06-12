@@ -10,7 +10,7 @@
     "dev": "rollup -c -w & node index.js",
     "start": "node index.js",
     "symlink-env": "./bin/symlink-config",
-    "test": "lab -T node_modules/@xgovformbuilder/lab-babel test/.setup.js test/*.test.js  -v -r console -o stdout -r html -o unit-test.html -I version"
+    "test": "lab -T node_modules/@xgovformbuilder/lab-babel test/.setup.js test/*.test.js  -v -r console -o stdout -r html -o unit-test.html -I version -l"
   },
   "repository": {
     "type": "git",
