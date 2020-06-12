@@ -133,4 +133,4 @@ workflows:
           name: runner-test
           package_name: runner
           requires:
-            - designer-build
+            - runner-build
