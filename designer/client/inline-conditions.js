@@ -24,7 +24,7 @@ class InlineConditions extends React.Component {
 
     this.fields = [].concat.apply([],
       data.pages.map(page => page.components.filter(component => component.name)
-        .map(component => ({ label: component.title, name: component.name, type: component.type, values: component.options.list ? data.lists.find(it => it.name === component.options.list).items : [] })))
+        .map(component => ({ label: component.title, name: component.name, type: component.type, values: component.options && component.options.list ? data.lists.find(it => it.name === component.options.list).items : [] })))
     ).reduce((obj, item) => {
       obj[item.name] = item
       return obj
