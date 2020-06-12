@@ -151,6 +151,10 @@ describe('inline condition model', () => {
       it('should throw an error on field creation if no display value provided', () => {
         expect(() => new Field('badger', null)).to.throw(Error)
       })
+
+      it('should throw errors from factory method', () => {
+        expect(() => Field.from({ name: 'badger' })).to.throw(Error)
+      })
     })
 
     describe('invalid value', () => {
@@ -168,6 +172,10 @@ describe('inline condition model', () => {
 
       it('should throw an error on value creation if display value is provided and is not a string', () => {
         expect(() => new Value('badger', {})).to.throw(Error)
+      })
+
+      it('should throw errors from factory method', () => {
+        expect(() => Value.from({})).to.throw(Error)
       })
     })
 

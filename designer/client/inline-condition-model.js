@@ -6,6 +6,7 @@ const coordinators = {
 export class ConditionsModel {
   constructor () {
     this.conditions = []
+    this.groups = []
   }
 
   add (condition) {
@@ -28,19 +29,89 @@ export class ConditionsModel {
   }
 
   toPresentationString () {
-    const hasOr = this.conditions.find(condition => condition.coordinator === coordinators.OR)
-    return this.conditions.map((condition, index, conditions) => {
-      const nextCoordinator = conditions.length > index + 1 ? conditions[index + 1].coordinator : undefined
+    return this._applyGroups().map(condition => condition.toPresentationString()).join(' ')
+  }
 
-      if (hasOr) {
-        if (nextCoordinator === coordinators.AND && condition.coordinator !== coordinators.AND) {
-          return `${condition.coordinatorString()}(${condition.conditionString()}`
-        } else if (condition.coordinator === coordinators.AND && nextCoordinator !== coordinators.AND) {
-          return `${condition.coordinatorString()}${condition.conditionString()})`
+  _applyGroups () {
+    const groupDefs = this.groups.length > 0 ? this.groups : this._autoGroupDefs()
+    return this.conditions.reduce((groups, condition, index, conditions) => {
+      const groupDef = groupDefs.find(groupDef => groupDef.contains(index))
+      if (groupDef) {
+        if (groupDef.startsWith(index)) {
+          const groupConditions = groupDef.applyTo(conditions)
+          groups.push(new ConditionGroup(groupConditions))
         }
+      } else {
+        groups.push(condition)
       }
-      return `${condition.coordinatorString()}${condition.conditionString()}`
-    }).join(' ')
+      return groups
+    }, [])
+  }
+
+  _autoGroupDefs () {
+    const orPositions = []
+    this.conditions.forEach((condition, index) => {
+      if (condition.coordinator === 'or') {
+        orPositions.push(index)
+      }
+    })
+    const hasAnd = this.conditions.find(condition => condition.coordinator === coordinators.AND)
+    const hasOr = orPositions.length > 0
+    if (hasAnd && hasOr) {
+      let start = 0
+      const groupDefs = []
+      orPositions.forEach((position, index) => {
+        if (start < position - 1) {
+          groupDefs.push(new GroupDef(start, position - 1))
+        } else {
+          const thisIsTheLastOr = orPositions.length === index + 1
+          const thereAreMoreConditions = this.conditions.length - 1 > position
+          if (thisIsTheLastOr && thereAreMoreConditions) {
+            groupDefs.push(new GroupDef(position, this.conditions.length - 1))
+          }
+        }
+        start = position
+      })
+      return groupDefs
+    }
+    return []
+  }
+}
+
+class GroupDef {
+  constructor (first, last) {
+    if (typeof first !== 'number' || typeof last !== 'number') {
+      throw Error(`Cannot construct a group from ${first} and ${last}`)
+    }
+    this.first = first
+    this.last = last
+  }
+
+  contains (index) {
+    return this.first <= index && this.last >= index
+  }
+
+  startsWith (index) {
+    return this.first === index
+  }
+
+  applyTo (conditions) {
+    return [...conditions].splice(this.first, (this.last - this.first) + 1)
+  }
+}
+
+class ConditionGroup {
+  constructor (conditions) {
+    if (!Array.isArray(conditions) || conditions.length < 2) {
+      throw Error(`Cannot construct a condition group from ${conditions}`)
+    }
+    this.conditions = conditions
+  }
+
+  toPresentationString () {
+    const copy = [...this.conditions]
+    copy.splice(0, 1)
+    return `${this.conditions[0].coordinatorString()}(${this.conditions[0].conditionString()} ${copy.map(condition => condition.toPresentationString()).join(' ')})`
   }
 }
 
@@ -62,6 +133,10 @@ export class Condition {
     this.operator = operator
     this.value = value
     this.coordinator = coordinator
+  }
+
+  toPresentationString () {
+    return `${this.coordinatorString()}${this.conditionString()}`
   }
 
   conditionString () {
