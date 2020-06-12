@@ -124,6 +124,44 @@ describe('inline condition model', () => {
     })
   })
 
+  describe('adding user generated groups', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+    })
+
+    it('should apply defined group and auto-group the remaining conditions', () => {
+      underTest.addGroup(0, 1)
+      expect(underTest.toPresentationString())
+        .to.equal('((Badger is Zebras or Monkeys is Giraffes) and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    it('should correctly auto-group multiple user groups together', () => {
+      underTest.addGroup(0, 1)
+      underTest.addGroup(2, 3)
+      expect(underTest.toPresentationString())
+        .to.equal('((Badger is Zebras or Monkeys is Giraffes) and (Squiffy is Donkeys or Duration is at least 10)) or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    it('should correctly handle trailing and condition with or inside existing group', () => {
+      underTest.addGroup(0, 1)
+      underTest.addGroup(2, 4)
+      expect(underTest.toPresentationString())
+        .to.equal('(Badger is Zebras or Monkeys is Giraffes) and (Squiffy is Donkeys or Duration is at least 10 or Birthday is 10/10/2019) and Squiffy is not Donkeys')
+    })
+
+    it('should correctly clarify conditions inside user generated groups', () => {
+      underTest.addGroup(0, 2)
+      underTest.addGroup(3, 5)
+      expect(underTest.toPresentationString())
+        .to.equal('(Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys)) or (Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys))')
+    })
+  })
+
   describe('invalid configuration', () => {
     describe('invalid operator', () => {
       it('should throw an error on condition creation if no operator provided', () => {
