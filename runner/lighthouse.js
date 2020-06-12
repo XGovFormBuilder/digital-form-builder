@@ -22,7 +22,7 @@ Object.keys(requiredScores).forEach(category => {
 
   if (score < requiredScores[category]) {
     ciStdout.push(`❌ ${category} score: ${score}% - Minimum required score ${requiredOutOf100}%`)
-    ciStdout.push(`📝 Failed audits: `)
+    ciStdout.push('📝 Failed audits: ')
     failedAudits()
     success = false
   } else {

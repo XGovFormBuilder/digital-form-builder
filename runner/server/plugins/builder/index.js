@@ -7,7 +7,7 @@ const relativeTo = __dirname
 const defaultPageController = './pages'
 
 const configFiles = fs.readdirSync(configPath).filter(filename => {
-  if (filename.indexOf(`.json`) >= 0) {
+  if (filename.indexOf('.json') >= 0) {
     return filename
   }
 })
@@ -29,7 +29,7 @@ const configurePlugins = (configFile, customPath) => {
       return { configuration, id }
     })
   }
-  let modelOptions = {
+  const modelOptions = {
     relativeTo,
     defaultPageController,
     previewMode: config.previewMode

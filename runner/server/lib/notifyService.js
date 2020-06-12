@@ -2,7 +2,7 @@ const { NotifyClient } = require('notifications-node-client')
 
 class NotifyService {
   parsePersonalisations (options) {
-    let parsed = {}
+    const parsed = {}
     Object.assign(parsed, ...Object.keys(options).map(key => {
       parsed[key] = typeof options[key] === 'boolean' ? (options[key] ? 'yes' : 'no') : options[key]
     }))
@@ -18,7 +18,7 @@ class NotifyService {
   }
 
   sendNotification (apiKey, templateId, emailAddress, reference, options) {
-    let parsedOptions = {}
+    const parsedOptions = {}
     parsedOptions.personalisation = this.parsePersonalisations(options)
     if (!reference) {
       parsedOptions.personalisation.reference = ''

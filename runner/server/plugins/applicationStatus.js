@@ -57,7 +57,7 @@ const applicationStatus = {
               newReference = await webhookService.postRequest(firstWebhook.outputData.url, firstWebhookFormData)
               await cacheService.mergeState(request, { reference: newReference })
             }
-
+            /* eslint-disable no-case-declarations */
             const outputPromises = (outputs || []).filter(output => output !== firstWebhook).map(output => {
               switch (output.type) {
                 case 'email':
@@ -78,6 +78,7 @@ const applicationStatus = {
                   return sheetsService.appendTo(spreadsheetId, data, authOptions)
               }
             })
+            /* eslint-enable no-case-declarations */
 
             if (outputPromises.length) {
               await Promise.all(outputPromises)
@@ -103,11 +104,11 @@ const applicationStatus = {
         path: '/status',
         handler: async (request, h) => {
           const { payService, cacheService } = request.services([])
-          let { pay } = await cacheService.getState(request)
-          let { meta } = pay
+          const { pay } = await cacheService.getState(request)
+          const { meta } = pay
           meta.attempts++
           // TODO:- let payService handle shortid.generate()
-          let reference = `FCO-${shortid.generate()}`
+          const reference = `FCO-${shortid.generate()}`
           const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey)
           await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
           return h.redirect(res._links.next_url.href)

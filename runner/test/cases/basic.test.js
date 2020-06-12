@@ -34,7 +34,7 @@ suite('requests', () => {
   })
 
   test('post requests redirects user to next form page', { timeout: 10000 }, async () => {
-    let form = new FormData()
+    const form = new FormData()
     form.append('licenceLength', 1)
     const options = {
       method: 'POST',

@@ -27,11 +27,13 @@ const serverOptions = () => {
     cache: [{ provider: catboxProvider() }]
   }
 
-  return config.sslKey && config.sslCert ? { ...defaultOptions,
+  return config.sslKey && config.sslCert ? {
+    ...defaultOptions,
     tls: {
       key: fs.readFileSync(config.sslKey),
       cert: fs.readFileSync(config.sslCert)
-    } } : defaultOptions
+    }
+  } : defaultOptions
 }
 
 /**
