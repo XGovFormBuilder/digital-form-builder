@@ -25,7 +25,7 @@ class Page extends EngineBasePage {
       ext: {
         onPreHandler: {
           method: async (request, h) => {
-            let { uploadService } = request.services([])
+            const { uploadService } = request.services([])
             return uploadService.handleUploadRequest(request, h)
           }
         },
