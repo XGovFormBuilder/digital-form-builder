@@ -3,7 +3,7 @@ const coordinators = {
   OR: 'or'
 }
 
-class ConditionsModel {
+export class ConditionsModel {
   constructor () {
     this.conditions = []
   }
@@ -44,7 +44,7 @@ class ConditionsModel {
   }
 }
 
-class Condition {
+export class Condition {
   constructor (field, operator, value, coordinator) {
     if (!field || !(field instanceof Field)) {
       throw Error(`field ${field} is not a valid Field object`)
@@ -73,7 +73,7 @@ class Condition {
   }
 }
 
-class Field {
+export class Field {
   constructor (name, display) {
     if (!name || typeof name !== 'string') {
       throw Error(`name ${name} is not valid`)
@@ -90,7 +90,7 @@ class Field {
   }
 }
 
-class Value {
+export class Value {
   constructor (value, display) {
     if (!value || typeof value !== 'string') {
       throw Error(`value ${value} is not valid`)
@@ -106,5 +106,3 @@ class Value {
     return new Value(obj.value, obj.display)
   }
 }
-
-export { Condition, ConditionsModel, Field, Value }

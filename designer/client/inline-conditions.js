@@ -57,7 +57,7 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onClickSave = e => {
+  onClickFinalize = e => {
     const { conditions, condition } = this.state
 
     this.setState({
@@ -125,7 +125,7 @@ class InlineConditions extends React.Component {
   render () {
     const { conditions, condition } = this.state
 
-    const fieldDef = condition && condition.field ? this.fields[condition.field.name] : undefined
+    const fieldDef = condition && condition.field && this.fields[condition.field.name]
 
     const hasConditions = conditions.hasConditions()
 
@@ -151,18 +151,18 @@ class InlineConditions extends React.Component {
           </select>
 
           { fieldDef &&
-          <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator || undefined}
+          <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
             onChange={this.onChangeOperator}>
             <option />
             {
               Object.keys(conditionalOperators.getConditionals(fieldDef.type)).map(conditional => {
-                return <option key={condition.field + '-' + conditional} value={conditional}>{conditional}</option>
+                return <option key={`${condition.field}-${conditional}`} value={conditional}>{conditional}</option>
               })
             }
           </select>
           }
 
-          { condition.operator && fieldDef.values && fieldDef.values.length > 0 &&
+          { condition.operator && fieldDef && fieldDef.values && fieldDef.values.length > 0 &&
           <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value ? condition.value.value : undefined}
             onChange={this.onChangeValue}>
             <option />
@@ -172,7 +172,7 @@ class InlineConditions extends React.Component {
           </select>
           }
 
-          { condition.operator && (!fieldDef.values || fieldDef.values.length === 0) &&
+          { condition.operator && fieldDef && (!fieldDef.values || fieldDef.values.length === 0) &&
           <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
             type='text' defaultValue={condition.value} required
             onChange={this.onChangeValue} />
@@ -181,7 +181,7 @@ class InlineConditions extends React.Component {
         }
         { condition && condition.value &&
           <div className='govuk-form-group'>
-            <a href='#' onClick={this.onClickSave}>Save condition</a>
+            <a href='#' onClick={this.onClickFinalize}>Save condition</a>
           </div>
         }
         {!condition && !hasConditions &&
