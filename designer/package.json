@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UKForeignOffice/digital-form-builder-designer"
+    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/master/designer"
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {

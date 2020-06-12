@@ -1,7 +1,7 @@
 {
   "name": "digital-form-builder-engine",
   "version": "1.9.0",
-  "description": "A hapi plugin providing the engine for (FCO) digital form builder based applications",
+  "description": "A hapi plugin providing the engine for XGov digital form builder based applications",
   "main": "index.js",
   "scripts": {
     "lint": "standard",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/UKForeignOffice/digital-form-builder-engine"
+    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/master/engine"
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
