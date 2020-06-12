@@ -83,7 +83,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: .
+          at: ~/project
       - run:
           name: test
           command: yarn test
