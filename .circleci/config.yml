@@ -120,6 +120,8 @@ workflows:
       - test:
           name: designer-test
           package_name: designer
+          requires:
+            - designer-build
 
   runner:
     when: << pipeline.parameters.runner >>
@@ -130,3 +132,5 @@ workflows:
       - test:
           name: runner-test
           package_name: runner
+          requires:
+            - designer-build
