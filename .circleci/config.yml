@@ -110,6 +110,8 @@ workflows:
       - test:
           name: engine-test
           package_name: engine
+          requires:
+            - engine-build
 
   designer:
     when: << pipeline.parameters.designer >>
