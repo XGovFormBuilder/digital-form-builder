@@ -1,4 +1,4 @@
-import { serializeAndDeserialize, clone } from '../helpers'
+import { newCondition, clone } from '../helpers'
 
 export class Data {
   constructor (rawData) {
@@ -14,7 +14,7 @@ export class Data {
   }
 
   clone () {
-    return new Data(serializeAndDeserialize(this))
+    return new Data(newCondition(this))
   }
 }
 
