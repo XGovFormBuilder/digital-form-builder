@@ -210,10 +210,10 @@ class Page {
 
       const lastVisited = progress[progress.length - 1]
       if (!lastVisited || !lastVisited.startsWith(currentPath)) {
-        if ('back' in request.query) {
+        if (progress[progress.length - 2] === currentPath) {
           progress.pop()
         } else {
-          progress.push(`${currentPath}?back`)
+          progress.push(currentPath)
         }
       }
 
