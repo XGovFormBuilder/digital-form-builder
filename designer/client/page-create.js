@@ -22,7 +22,7 @@ class PageCreate extends React.Component {
       .toLowerCase()
 
     let count = 1
-    while (data.pages.find(page => page.path === path)) {
+    while (data.findPage(path)) {
       if (count > 1) {
         path = path.substr(0, path.length - 2)
       }

@@ -12,7 +12,7 @@ class ComponentCreate extends React.Component {
     const { page, data } = this.props
     const formData = getFormData(form)
     const copy = clone(data)
-    const copyPage = copy.pages.find(p => p.path === page.path)
+    const copyPage = copy.findPage(page.path)
 
     // Apply
     copyPage.components.push(formData)
