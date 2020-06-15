@@ -195,6 +195,57 @@ describe('inline condition model', () => {
     })
   })
 
+  describe('removing conditions and groups', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+    })
+
+    it('should remove the specified condition indexes', () => {
+      underTest.remove([1, 4])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
+
+      expect(underTest.toPresentationString())
+        .to.equal('(Badger is Zebras and Squiffy is Donkeys) or (Duration is at least 10 and Squiffy is not Donkeys)')
+    })
+
+    it('should remove all elements from a user-defined group', () => {
+      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      underTest.addGroups([new GroupDef(0, 1)])
+      expect(underTest.asPerUserGroupings().length).to.equal(5)
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Squiffy is Donkeys or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    it('should remove all elements from a nested group', () => {
+      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.addGroups([new GroupDef(0, 1)])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(3)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    it('should do nothing if provided invalid index to remove', () => {
+      expect(underTest.asPerUserGroupings().length).to.equal(6)
+
+      underTest.remove([6])
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+  })
+
   describe('invalid configuration', () => {
     describe('invalid operator', () => {
       it('should throw an error on condition creation if no operator provided', () => {

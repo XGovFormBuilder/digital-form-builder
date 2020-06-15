@@ -21,6 +21,13 @@ export class ConditionsModel {
     return this
   }
 
+  remove (indexes) {
+    this.userGroupedConditions = this.userGroupedConditions.filter((condition, index) => !indexes.includes(index))
+    delete this.userGroupedConditions[0].coordinator
+    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    return this
+  }
+
   addGroups (groupDefs) {
     this.userGroupedConditions = this._group(this.userGroupedConditions, groupDefs)
     this.groupedConditions = this._applyGroups(this.userGroupedConditions)

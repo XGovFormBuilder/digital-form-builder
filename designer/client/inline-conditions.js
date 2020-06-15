@@ -223,10 +223,10 @@ class InlineConditions extends React.Component {
         <div>
           <fieldset className='govuk-fieldset'>
             <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
-               Edit conditions
+               Select conditions to group / remove
             </legend>
             <div className='govuk-form-group'>
-              <a href='#' onClick={this.onClickCancelEditing}>Back</a>
+              <a href='#' onClick={this.onClickCancelEditing}>Exit</a>
             </div>
             {this.state.editingError &&
               <span id='conditions-error' className='govuk-error-message'>
@@ -248,7 +248,8 @@ class InlineConditions extends React.Component {
             </div>
           </fieldset>
           <div className='govuk-form-group'>
-            {this.state.selectedConditions.length > 1 && <a href='#' onClick={this.onClickGroup}>Group</a> }
+            {this.state.selectedConditions.length > 1 && <span><a href='#' onClick={this.onClickGroup}>Group</a> /</span>}
+            {this.state.selectedConditions.length > 0 && <a href='#' onClick={this.onClickRemove}>Remove</a> }
           </div>
         </div>
       )
@@ -292,6 +293,20 @@ class InlineConditions extends React.Component {
           )
         })
       }
+    }
+  }
+
+  onClickRemove = e => {
+    if (!this.state.selectedConditions || this.state.selectedConditions.length < 1) {
+      this.setState({
+        editingError: 'Please select at least 1 item to remove'
+      })
+    } else {
+      this.setState({
+        editingError: undefined,
+        selectedConditions: [],
+        conditions: this.state.conditions.remove(this.state.selectedConditions)
+      })
     }
   }
 
