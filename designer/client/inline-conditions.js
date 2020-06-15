@@ -41,20 +41,20 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onClickAnd = e => {
-    this.setState({
-      condition: {
-        coordinator: 'and'
-      }
-    })
-  }
+  onChangeCoordinator = e => {
+    const input = e.target
 
-  onClickOr = e => {
-    this.setState({
-      condition: {
-        coordinator: 'or'
-      }
-    })
+    if (input.value && input.value.trim() !== '') {
+      const copy = clone(this.state.condition || {})
+      copy.coordinator = input.value
+      this.setState({
+        condition: copy
+      })
+    } else {
+      this.setState({
+        condition: undefined
+      })
+    }
   }
 
   onClickFinalize = e => {
@@ -151,18 +151,33 @@ class InlineConditions extends React.Component {
     return (
       <div>
         { hasConditions &&
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='condition-string'>When</label>
-            <div key='condition-string' >
-              {conditions.toPresentationString()}
+          <div>
+            <div className='govuk-form-group'>
+              <label className='govuk-label govuk-label--s' htmlFor='condition-string'>When</label>
+              <div key='condition-string' >
+                {conditions.toPresentationString()}
+              </div>
+              <div>
+                { !editing && <a href='#' onClick={this.onClickEdit}>Not what you meant?</a> }
+              </div>
             </div>
-            { !editing && <a href='#' onClick={this.onClickEdit}>Not what you meant?</a> }
+
+            {!editing &&
+              <div className='govuk-form-group'>
+                <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition && condition.coordinator ? condition.coordinator : ''}
+                  onChange={this.onChangeCoordinator}>
+                  <option />
+                  <option key='and' value='and'>And</option>
+                  <option key='or' value='or'>Or</option>
+                </select>
+              </div>
+            }
           </div>
         }
         { condition && !editing &&
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field'>{hasConditions ? condition.coordinator : 'When'}</label>
-          <select className='govuk-select' id='cond-field' name='cond-field' value={condition && condition.field ? condition.field.name : undefined}
+          {!hasConditions && <label className='govuk-label govuk-label--s' htmlFor='field'>When</label>}
+          <select className='govuk-select' id='cond-field' name='cond-field' value={condition && condition.field ? condition.field.name : ''}
             onChange={this.onChangeField}>
             <option />
             {Object.values(this.fields).map(field => {
@@ -206,11 +221,6 @@ class InlineConditions extends React.Component {
         }
         {!condition && !hasConditions &&
           <a href='#' onClick={this.onClickAddItem}>Add</a>
-        }
-        {!condition && hasConditions && !editing &&
-          <div className='govuk-form-group'>
-            <a href='#' onClick={this.onClickAnd}>And</a> / <a href='#' onClick={this.onClickOr}>Or</a>
-          </div>
         }
         {this.renderEditingView()}
       </div>
