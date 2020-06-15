@@ -150,6 +150,7 @@ class InlineConditions extends React.Component {
 
     return (
       <div>
+        <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
         { hasConditions &&
           <div>
             <div className='govuk-form-group'>
