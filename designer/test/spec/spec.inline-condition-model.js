@@ -3,7 +3,7 @@
 
 'use strict'
 
-import { ConditionsModel, Condition, Field, Value } from '../../client/inline-condition-model'
+import { ConditionsModel, Condition, Field, Value, GroupDef } from '../../client/inline-condition-model'
 
 describe('inline condition model', () => {
   let underTest
@@ -14,7 +14,7 @@ describe('inline condition model', () => {
 
   describe('before adding the first condition', () => {
     it('should return an empty array', () => {
-      expect(underTest.asArray()).to.deep.equal([])
+      expect(underTest.asPerUserGroupings()).to.deep.equal([])
     })
 
     it('should return an empty presentation string', () => {
@@ -32,7 +32,7 @@ describe('inline condition model', () => {
     })
 
     it('should have one item in the model', () => {
-      expect(underTest.asArray()).to.deep.equal([
+      expect(underTest.asPerUserGroupings()).to.deep.equal([
         { coordinator: undefined, field: { name: 'badger', display: 'Badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } }
       ])
     })
@@ -54,7 +54,7 @@ describe('inline condition model', () => {
     })
 
     it('should have three items in the model', () => {
-      expect(underTest.asArray()).to.deep.equal([
+      expect(underTest.asPerUserGroupings()).to.deep.equal([
         { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
         { coordinator: 'and', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
         { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
@@ -78,7 +78,7 @@ describe('inline condition model', () => {
     })
 
     it('should have three items in the model', () => {
-      expect(underTest.asArray()).to.deep.equal([
+      expect(underTest.asPerUserGroupings()).to.deep.equal([
         { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
         { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
         { coordinator: 'or', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
@@ -135,30 +135,63 @@ describe('inline condition model', () => {
     })
 
     it('should apply defined group and auto-group the remaining conditions', () => {
-      underTest.addGroup(0, 1)
+      underTest.addGroups([new GroupDef(0, 1)])
       expect(underTest.toPresentationString())
         .to.equal('((Badger is Zebras or Monkeys is Giraffes) and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
     })
 
     it('should correctly auto-group multiple user groups together', () => {
-      underTest.addGroup(0, 1)
-      underTest.addGroup(2, 3)
+      underTest.addGroups([new GroupDef(0, 1), new GroupDef(2, 3)])
       expect(underTest.toPresentationString())
         .to.equal('((Badger is Zebras or Monkeys is Giraffes) and (Squiffy is Donkeys or Duration is at least 10)) or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
     })
 
-    it('should correctly handle trailing and condition with or inside existing group', () => {
-      underTest.addGroup(0, 1)
-      underTest.addGroup(2, 4)
+    it('should correctly handle trailing and condition with existing groups', () => {
+      underTest.addGroups([new GroupDef(0, 1), new GroupDef(2, 4)])
       expect(underTest.toPresentationString())
         .to.equal('(Badger is Zebras or Monkeys is Giraffes) and (Squiffy is Donkeys or Duration is at least 10 or Birthday is 10/10/2019) and Squiffy is not Donkeys')
     })
 
     it('should correctly clarify conditions inside user generated groups', () => {
-      underTest.addGroup(0, 2)
-      underTest.addGroup(3, 5)
+      underTest.addGroups([new GroupDef(0, 2), new GroupDef(3, 5)])
       expect(underTest.toPresentationString())
         .to.equal('(Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys)) or (Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys))')
+    })
+
+    it('subsequent calls to addGroups should operate on the previously grouped entries', () => {
+      underTest.addGroups([new GroupDef(0, 2)])
+      underTest.addGroups([new GroupDef(1, 2)])
+      expect(underTest.toPresentationString())
+        .to.equal('(Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys)) or (Duration is at least 10 or Birthday is 10/10/2019) and Squiffy is not Donkeys')
+    })
+
+    it('subsequent calls to addGroups can create nested groups', () => {
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.addGroups([new GroupDef(0, 1)])
+      expect(underTest.toPresentationString())
+        .to.equal('((Badger is Zebras or Monkeys is Giraffes) and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    it('user groupings, but not automatic groupings, should be returned from asPerUserGroupings', () => {
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.addGroups([new GroupDef(0, 1)])
+      const returned = underTest.asPerUserGroupings()
+      expect(returned).to.deep.equal([
+        {
+          conditions: [
+            {
+              conditions: [
+                { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Zebras', display: 'Zebras' } },
+                { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is', value: { value: 'Giraffes', display: 'Giraffes' } }
+              ]
+            },
+            { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is', value: { value: 'Donkeys', display: 'Donkeys' } }
+          ]
+        },
+        { coordinator: 'or', field: { display: 'Duration', name: 'duration' }, operator: 'is at least', value: { value: '10', display: '10' } },
+        { coordinator: 'or', field: { display: 'Birthday', name: 'birthday' }, operator: 'is', value: { value: '10/10/2019', display: '10/10/2019' } },
+        { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+      ])
     })
   })
 
@@ -229,6 +262,24 @@ describe('inline condition model', () => {
       it('should throw an error on adding subsequent condition if no coordinator is provided', () => {
         underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
         expect(() => underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))).to.throw(Error)
+      })
+    })
+
+    describe('invalid group def', () => {
+      it('should throw error if there is no last value', () => {
+        expect(() => new GroupDef(3)).to.throw(Error)
+      })
+
+      it('should throw error if there is no first value', () => {
+        expect(() => new GroupDef(null, 3)).to.throw(Error)
+      })
+
+      it('should throw error if first > last', () => {
+        expect(() => new GroupDef(4, 3)).to.throw(Error)
+      })
+
+      it('should throw error if first == last', () => {
+        expect(() => new GroupDef(4, 4)).to.throw(Error)
       })
     })
   })

@@ -5,43 +5,42 @@ const coordinators = {
 
 export class ConditionsModel {
   constructor () {
-    this.conditions = []
-    this.groups = []
     this.groupedConditions = []
+    this.userGroupedConditions = []
   }
 
   add (condition) {
-    const coordinatorExpected = this.conditions.length !== 0
+    const coordinatorExpected = this.userGroupedConditions.length !== 0
     if (condition.coordinator && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
     } else if (!condition.coordinator && coordinatorExpected) {
       throw Error('Coordinator must be present on subsequent conditions')
     }
-    this.conditions.push(condition)
-    this.groupedConditions = this._applyGroups()
+    this.userGroupedConditions.push(condition)
+    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
     return this
   }
 
-  addGroup (first, last) {
-    this.groups.push(new GroupDef(first, last))
-    this.groupedConditions = this._applyGroups()
+  addGroups (groupDefs) {
+    this.userGroupedConditions = this._group(this.userGroupedConditions, groupDefs)
+    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    return this
   }
 
-  asArray () {
-    return [...this.conditions]
+  asPerUserGroupings () {
+    return [...this.userGroupedConditions]
   }
 
   hasConditions () {
-    return this.conditions.length > 0
+    return this.userGroupedConditions.length > 0
   }
 
   toPresentationString () {
     return this.groupedConditions.map(condition => condition.toPresentationString()).join(' ')
   }
 
-  _applyGroups () {
-    const groupedByUser = this._group(this.conditions, this.groups)
-    const correctedUserGroups = groupedByUser
+  _applyGroups (userGroupedConditions) {
+    const correctedUserGroups = userGroupedConditions
       .map(condition =>
         condition instanceof ConditionGroup
           ? new ConditionGroup(this._group(condition.conditions, this._autoGroupDefs(condition.conditions)))
@@ -95,10 +94,12 @@ export class ConditionsModel {
   }
 }
 
-class GroupDef {
+export class GroupDef {
   constructor (first, last) {
     if (typeof first !== 'number' || typeof last !== 'number') {
       throw Error(`Cannot construct a group from ${first} and ${last}`)
+    } else if (first >= last) {
+      throw Error(`Last (${last}) must be greater than first (${first})`)
     }
     this.first = first
     this.last = last
