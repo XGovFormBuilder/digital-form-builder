@@ -14,6 +14,7 @@ import FeeEdit from './fee-edit'
 import NotifyEdit from './notify-edit'
 import DeclarationEdit from './declaration-edit'
 import OutputsEdit from './outputs-edit'
+import { Data } from './model/data-model'
 
 function getLayout (pages, el) {
   // Create a new directed graph
@@ -119,7 +120,7 @@ class Lines extends React.Component {
                   <polyline
                     onClick={() => this.editLink(edge)}
                     points={points} />
-                  { edge.label && (<text textAnchor="middle" x={textX} y={textY} fill="black" pointerEvents="none">{edge.label}</text>) }
+                  { edge.label && (<text textAnchor='middle' x={textX} y={textY} fill='black' pointerEvents='none'>{edge.label}</text>) }
                 </g>
               )
             })
@@ -501,12 +502,13 @@ class App extends React.Component {
   }
 
   render () {
-    let { previewUrl, id } = this.state
+    const { previewUrl, id } = this.state
     if (this.state.loaded) {
+      const data = new Data(this.state.data)
       return (
         <div id='app'>
-          <Menu data={this.state.data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} />
-          <Visualisation data={this.state.data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={id} previewUrl={previewUrl} />
+          <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} />
+          <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={id} previewUrl={previewUrl} />
         </div>
       )
     } else {
