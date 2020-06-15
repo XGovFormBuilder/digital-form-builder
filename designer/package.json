@@ -12,7 +12,8 @@
     "start": "node index.js",
     "symlink-env": "./bin/symlink-config",
     "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel test/.setup.js test/*.test.js  -v -r console -o stdout -r html -o unit-test.html -I version -l",
-    "test": "npm run lint && npm run test-lab && npm audit --audit-level=high"
+    "test": "yarn lint && yarn test-lab",
+    "audit": "npm audit --audit-level=high"
   },
   "repository": {
     "type": "git",

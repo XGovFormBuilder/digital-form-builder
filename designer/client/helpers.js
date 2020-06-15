@@ -56,9 +56,9 @@ export function clone (obj) {
   if (typeof obj.clone === 'function') {
     return obj.clone()
   }
-  return serializeAndDeserialize(obj)
+  return serialiseAndDeserialise(obj)
 }
 
-export function serializeAndDeserialize (obj) {
+export function serialiseAndDeserialise (obj) {
   return JSON.parse(JSON.stringify(obj))
 }
