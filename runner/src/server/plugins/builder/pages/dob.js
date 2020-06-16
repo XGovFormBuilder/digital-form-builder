@@ -1,5 +1,5 @@
 const joi = require('joi')
-const Page = require('.')
+const Page = require('./index')
 
 class DobPage extends Page {
   constructor (defs, pageDef) {

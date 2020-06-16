@@ -7,7 +7,6 @@ export default {
   input: 'client/index.js',
   output: {
     file: 'dist/designer.js',
-    sourcemap: 'inline',
     format: 'iife',
     globals: {
       'react': 'React',

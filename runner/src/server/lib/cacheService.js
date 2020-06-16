@@ -1,7 +1,7 @@
 const hoek = require('hoek')
 const CatboxRedis = require('@hapi/catbox-redis')
 const CatboxMemory = require('@hapi/catbox-memory')
-const { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } = require('./../config')
+const { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } = require('../config')
 const Redis = require('ioredis')
 
 const partition = 'cache'

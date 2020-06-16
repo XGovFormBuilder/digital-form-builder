@@ -1,4 +1,4 @@
-const createServer = require('./../../server/index')
+const createServer = require('../../src/server/index')
 const lighthouse = require('lighthouse')
 const chromeLauncher = require('chrome-launcher')
 const fs = require('fs')

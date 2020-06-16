@@ -1,5 +1,5 @@
 const joi = require('joi')
-const Page = require('.')
+const Page = require('./index')
 
 class StartDatePage extends Page {
   get stateSchema () {

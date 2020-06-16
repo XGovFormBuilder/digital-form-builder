@@ -2,19 +2,21 @@
   "name": "digital-form-builder",
   "version": "1.4.0",
   "description": "Digital forms runner",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",
-    "dev": "NODE_ENV=development node index.js",
+    "start": "NODE_ENV=production node dist/index.js",
+    "dev": "yarn babel-build:dev & NODE_ENV=development node dist/index.js",
     "build:css": "bin/build-css",
-    "build": "bin/build",
+    "build": "npm run build:css && npm run babel-build",
     "lint": "standard",
     "unit-test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "NODE_ENV=test npm run lint && npm run unit-test",
     "postinstall": "npm run build",
     "a11y": "node test/audit/components && node lighthouse",
-    "symlink-env": "./bin/symlink-config"
+    "symlink-env": "./bin/symlink-config",
+    "babel-build": "babel src -d dist --copy-files --minified",
+    "babel-build:dev": "babel src -d dist --copy-files --watch"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@babel/plugin-transform-classes": "^7.10.1",
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",
     "@hapi/catbox-memory": "5.0.0",
@@ -59,10 +62,12 @@
     "ioredis": "4.16.1",
     "joi": "14.3.1",
     "lighthouse": "5.6.0",
+    "lodash-es": "^4.17.15",
     "nodemailer": "6.4.6",
     "notifications-node-client": "4.7.3",
     "nunjucks": "3.2.1",
     "pdfmake": "0.1.65",
+    "rollup-plugin-includepaths": "^0.2.3",
     "schmervice": "1.5.0",
     "shortid": "2.2.15",
     "sinon": "9.0.2",
@@ -73,12 +78,18 @@
     "yar": "9.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
     "@xgovformbuilder/lab-babel": "2.0.0",
     "cheerio": "1.0.0-rc.3",
     "code": "5.2.4",
     "lab": "18.0.2",
-    "node-sass": "4.13.1"
+    "node-sass": "4.13.1",
+    "rollup": "^2.16.1"
   },
   "lighthouse": {
     "requiredScores": {
