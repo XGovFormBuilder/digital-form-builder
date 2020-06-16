@@ -79,6 +79,199 @@ suite('data model', () => {
     })
   })
 
+  describe('all inputs accessible by', () => {
+    test('should return all inputs from the page model when a single route leads to this page', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: ['/2'],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: ['/3'],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            path: '/3',
+            components: [{ name: 'name5' }, { name: 'name6' }]
+          }
+        ]
+      })
+      expect(data.inputsAccessibleAt('/3')).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/1', next: ['/2'], section: 'section1' } },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: ['/2'], section: 'section1' } },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: ['/3'], section: 'section1' } },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: ['/3'], section: 'section1' } },
+        { name: 'name5', page: { name: 'page3', path: '/3' } },
+        { name: 'name6', page: { name: 'page3', path: '/3' } }
+      ])
+    })
+
+    test('should include inputs from multiple branches leading to the requested page', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: ['/3'],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: ['/3'],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            path: '/3',
+            components: [{ name: 'name5' }, { name: 'name6' }]
+          }
+        ]
+      })
+
+      expect(data.inputsAccessibleAt('/3')).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/1', next: ['/3'], section: 'section1' } },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: ['/3'], section: 'section1' } },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: ['/3'], section: 'section1' } },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: ['/3'], section: 'section1' } },
+        { name: 'name5', page: { name: 'page3', path: '/3' } },
+        { name: 'name6', page: { name: 'page3', path: '/3' } }
+      ])
+    })
+
+    test('should ignore inputs from routes that don\'t lead to the requested page', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: ['/2', '/3'],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: ['/4'],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            path: '/3',
+            components: [{ name: 'name5' }, { name: 'name6' }]
+          }
+        ]
+      })
+
+      expect(data.inputsAccessibleAt('/3')).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/1', next: ['/2', '/3'], section: 'section1' } },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: ['/2', '/3'], section: 'section1' } },
+        { name: 'name5', page: { name: 'page3', path: '/3' } },
+        { name: 'name6', page: { name: 'page3', path: '/3' } }
+      ])
+    })
+
+    test('should ignore unnamed components', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: ['/2', '/3'],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            components: [{ badger: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+
+      expect(data.inputsAccessibleAt('/2')).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/1', next: ['/2', '/3'], section: 'section1' } },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: ['/2', '/3'], section: 'section1' } },
+        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' } }
+      ])
+    })
+
+    test('should handle no pages', () => {
+      const data = new Data({ pages: [] })
+      expect(data.inputsAccessibleAt('/1')).to.equal([])
+    })
+
+    test('should handle undefined pages', () => {
+      const data = new Data({ })
+      expect(data.inputsAccessibleAt('/1')).to.equal([])
+    })
+
+    test('should handle pages with undefined components', () => {
+      const data = new Data({
+        pages: [{ path: '/1' }]
+      })
+      expect(data.inputsAccessibleAt('/1')).to.equal([])
+    })
+
+    test('should handle pages with no components', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [] }]
+      })
+      expect(data.inputsAccessibleAt('/1')).to.equal([])
+    })
+  })
+
+  describe('list for', () => {
+    test('should return the list specified in the provided input if it exists', () => {
+      const data = new Data({
+        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
+      })
+      expect(data.listFor({ options: { list: 'list2' } })).to.equal({ name: 'list2', badger: 'monkeys' })
+    })
+
+    test('should return undefined if no lists exist', () => {
+      const data = new Data({})
+
+      expect(data.listFor({ options: { list: 'list2' } })).to.equal(undefined)
+    })
+
+    test('should return undefined if the requested list does not exist', () => {
+      const data = new Data({
+        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
+      })
+
+      expect(data.listFor({ options: { list: 'list3' } })).to.equal(undefined)
+    })
+
+    test('should return undefined if the provided input has no list data', () => {
+      const data = new Data({
+        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
+      })
+
+      expect(data.listFor({ options: {} })).to.equal(undefined)
+    })
+
+    test('should return undefined if the provided input has no options defined', () => {
+      const data = new Data({
+        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
+      })
+
+      expect(data.listFor({})).to.equal(undefined)
+    })
+  })
+
   describe('find page', () => {
     test('should return the page with the requested path if it exists', () => {
       const data = new Data({
@@ -129,30 +322,57 @@ suite('data model', () => {
     })
   })
 
-  test('save function property should be copied to data instance', () => {
-    const sourceData = {
-      pages: [
-        {
-          name: 'page1',
-          section: 'section1',
-          path: '/1',
-          next: ['/2'],
-          components: [{ name: 'name1' }, { name: 'name2' }]
-        },
-        {
-          name: 'page2',
-          section: 'section1',
-          path: '/2',
-          next: ['/3'],
-          components: [{ name: 'name3' }, { name: 'name4' }]
-        }
-      ]
-    }
-    const save = () => 'badgers'
-    sourceData.save = save
-    const data = new Data(sourceData)
+  describe('clone', () => {
+    test('should deep clone the data class', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: ['/2'],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: ['/3'],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      const returned = data.clone()
+      expect(returned).to.equal(data)
+      expect(returned instanceof Data).to.equal(true)
+      expect(data === returned).to.equal(false)
+    })
 
-    expect(data.save).to.equal(save)
-    expect(data.save('something')).to.equal('badgers')
+    test('save function property should be copied to data instance', () => {
+      const sourceData = {
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: ['/2'],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: ['/3'],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      }
+      const save = (updatedData) => 'badgers'
+      sourceData.save = save
+      const data = new Data(sourceData)
+
+      expect(data.save).to.equal(save)
+      expect(data.save('something')).to.equal('badgers')
+    })
   })
 })

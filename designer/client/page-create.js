@@ -79,7 +79,7 @@ class PageCreate extends React.Component {
   onChangeLinkFrom = e => {
     const input = e.target
     this.setState({
-      linkFromSet: input.value && input.value.trim() !== ''
+      linkFrom: input.value
     })
   }
 
@@ -105,8 +105,9 @@ class PageCreate extends React.Component {
             {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
           </select>
 
-          {this.state.linkFromSet && <InlineConditions data={data} />}
         </div>
+
+        {this.state.linkFrom && this.state.linkFrom.trim() !== '' && <InlineConditions data={data} path={this.state.linkFrom} />}
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>

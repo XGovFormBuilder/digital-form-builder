@@ -23,7 +23,8 @@ export class ConditionsModel {
 
   remove (indexes) {
     this.userGroupedConditions = this.userGroupedConditions.filter((condition, index) => !indexes.includes(index))
-    delete this.userGroupedConditions[0].coordinator
+      .map((condition, index) => index === 0 ? condition.asFirstCondition() : condition)
+
     this.groupedConditions = this._applyGroups(this.userGroupedConditions)
     return this
   }
@@ -72,17 +73,16 @@ export class ConditionsModel {
   }
 
   _autoGroupDefs (conditions) {
-    const startIndex = 0
     const orPositions = []
     conditions.forEach((condition, index) => {
-      if (index >= startIndex && condition.coordinator === coordinators.OR) {
+      if (condition.coordinator === coordinators.OR) {
         orPositions.push(index)
       }
     })
     const hasAnd = !!conditions.find(condition => condition.coordinator === coordinators.AND)
     const hasOr = orPositions.length > 0
     if (hasAnd && hasOr) {
-      let start = startIndex
+      let start = 0
       const groupDefs = []
       orPositions.forEach((position, index) => {
         if (start < position - 1) {
@@ -152,13 +152,13 @@ class ConditionGroup {
 
 export class Condition {
   constructor (field, operator, value, coordinator) {
-    if (!field || !(field instanceof Field)) {
+    if (!(field instanceof Field)) {
       throw Error(`field ${field} is not a valid Field object`)
     }
-    if (!operator || typeof operator !== 'string') {
+    if (typeof operator !== 'string') {
       throw Error(`operator ${operator} is not a valid operator`)
     }
-    if (!value || !(value instanceof Value)) {
+    if (!(value instanceof Value)) {
       throw Error(`field ${field} is not a valid Field object`)
     }
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
@@ -180,6 +180,11 @@ export class Condition {
 
   coordinatorString () {
     return this.coordinator ? `${this.coordinator} ` : ''
+  }
+
+  asFirstCondition () {
+    delete this.coordinator
+    return this
   }
 }
 
