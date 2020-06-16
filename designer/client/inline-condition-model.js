@@ -21,6 +21,20 @@ export class ConditionsModel {
     return this
   }
 
+  replace (index, condition) {
+    const coordinatorExpected = index !== 0
+    if (condition.getCoordinator() && !coordinatorExpected) {
+      throw Error('No coordinator allowed on the first condition')
+    } else if (!condition.getCoordinator() && coordinatorExpected) {
+      throw Error('Coordinator must be present on subsequent conditions')
+    } else if (index >= this.userGroupedConditions.length) {
+      throw Error(`Cannot replace condition ${index} as no such condition exists`)
+    }
+    this.userGroupedConditions.splice(index, 1, condition)
+    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    return this
+  }
+
   remove (indexes) {
     this.userGroupedConditions = this.userGroupedConditions.filter((condition, index) => !indexes.includes(index))
       .map((condition, index) => index === 0 ? condition.asFirstCondition() : condition)

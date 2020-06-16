@@ -128,6 +128,40 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('replacing conditions', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is not', new Value('Giraffes'), 'and'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+    })
+
+    test('should replace first condition without coordinator', () => {
+      underTest.replace(0, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes')))
+      expect(underTest.toPresentationString()).to.equal('Badger is Giraffes and Monkeys is not Giraffes and Squiffy is not Donkeys')
+    })
+
+    test('should replace subsequent condition with coordinator', () => {
+      underTest.replace(2, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))
+      expect(underTest.toPresentationString()).to.equal('Badger is Monkeys and Monkeys is not Giraffes and Badger is Giraffes')
+    })
+
+    test('should not replace first condition with coordinator', () => {
+      expect(() => underTest.replace(0, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
+    })
+
+    test('should not replace condition for index equal to conditions length', () => {
+      expect(() => underTest.replace(3, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
+    })
+
+    test('should not replace condition for index greater than conditions length', () => {
+      expect(() => underTest.replace(4, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
+    })
+
+    test('should not replace subsequent condition without coordinator', () => {
+      expect(() => underTest.replace(2, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes')))).to.throw(Error)
+    })
+  })
+
   describe('adding user generated groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
