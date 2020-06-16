@@ -11,7 +11,7 @@ const path = require('path')
 const lodash = require('lodash')
 const headerParser = require('accept-language-parser')
 const Joi = require('joi')
-const pkg = require('../../package')
+const pkg = require('../../../package.json')
 
 /**
  * @typedef {Object}                    PluginOptions                   - Plugin configuration options.

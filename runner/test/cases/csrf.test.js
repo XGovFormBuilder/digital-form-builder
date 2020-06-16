@@ -3,7 +3,7 @@ const { expect } = require('@hapi/code')
 const cheerio = require('cheerio')
 const FormData = require('form-data')
 const cookie = require('cookie')
-const createServer = require('./../../server/index')
+const createServer = require('../../src/server/index')
 const { suite, before, test, after } = exports.lab = Lab.script()
 
 suite('CSRF', () => {

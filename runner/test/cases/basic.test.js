@@ -2,7 +2,7 @@ const Lab = require('@hapi/lab')
 const { expect } = require('@hapi/code')
 const cheerio = require('cheerio')
 const FormData = require('form-data')
-const createServer = require('./../../server/index')
+const createServer = require('../../src/server/index')
 const { before, test, suite, after } = exports.lab = Lab.script()
 
 suite('requests', () => {
