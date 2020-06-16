@@ -78,7 +78,7 @@ class PageCreate extends React.Component {
   render () {
     const { data } = this.props
     const { sections, pages } = data
-
+    console.log('pages',pages)
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
@@ -93,8 +93,10 @@ class PageCreate extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='link-from'>Link from (optional)</label>
           <select className='govuk-select' id='link-from' name='from'>
-            <option />
-            {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
+            <option id='link-from-opt' />
+            {pages.map(page => (<option key={page.path} value={page.path}>{page.title}</option>)).sort(function (a, b) {
+              return a.props.children > b.props.children ? 1 : -1
+            })}
           </select>
         </div>
 
