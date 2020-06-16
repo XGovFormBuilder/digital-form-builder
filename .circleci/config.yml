@@ -81,9 +81,9 @@ jobs:
     working_directory: ~/project/<< parameters.package_name >>
 
     steps:
-      - checkout
       - attach_workspace:
           at: ~/project
+
       - run:
           name: test
           command: yarn test
