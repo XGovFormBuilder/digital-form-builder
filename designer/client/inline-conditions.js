@@ -167,6 +167,12 @@ class InlineConditions extends React.Component {
     })
   }
 
+  onClickSplit(index) {
+    this.setState({
+      conditions: this.state.conditions.splitGroup(index)
+    })
+  }
+
   render () {
     const { conditions, condition, editing } = this.state
 
@@ -278,7 +284,7 @@ class InlineConditions extends React.Component {
                     <input type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`} name={`condition-${index}`}
                       value={index} onChange={this.onChangeCheckbox} checked={(this.state.selectedConditions??[]).includes(index) || ''} />
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
-                      {condition.toPresentationString()}
+                      {condition.toPresentationString()} {condition.isGroup() && <a href='#' onClick={e => this.onClickSplit(index)}>Split</a>}
                     </label>
                   </div>
                 })

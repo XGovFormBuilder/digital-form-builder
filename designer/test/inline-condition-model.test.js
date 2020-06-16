@@ -205,6 +205,38 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('splitting user generated groups', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+    })
+
+    test('should split defined group and auto-group the remaining conditions', () => {
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.splitGroup(0)
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should split composite group and auto-group the remaining conditions', () => {
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.splitGroup(0)
+      expect(underTest.toPresentationString())
+        .to.equal('((Badger is Zebras or Monkeys is Giraffes) and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should do nothing if trying to split a group that is not grouped', () => {
+      underTest.splitGroup(0)
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+  })
+
   describe('removing conditions and groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))

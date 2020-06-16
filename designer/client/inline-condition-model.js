@@ -35,6 +35,12 @@ export class ConditionsModel {
     return this
   }
 
+  splitGroup (index) {
+    this.userGroupedConditions = this._ungroup(this.userGroupedConditions, index)
+    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    return this
+  }
+
   asPerUserGroupings () {
     return [...this.userGroupedConditions]
   }
@@ -70,6 +76,15 @@ export class ConditionsModel {
       }
       return groups
     }, [])
+  }
+
+  _ungroup (conditions, splitIndex) {
+    if (conditions[splitIndex].isGroup()) {
+      const copy = [...conditions]
+      copy.splice(splitIndex, 1, ...(conditions[splitIndex].conditions))
+      return copy
+    }
+    return conditions
   }
 
   _autoGroupDefs (conditions) {
@@ -157,6 +172,10 @@ class ConditionGroup {
   getCoordinator () {
     return this.conditions[0].getCoordinator()
   }
+
+  isGroup () {
+    return true
+  }
 }
 
 export class Condition {
@@ -198,6 +217,10 @@ export class Condition {
   asFirstCondition () {
     delete this.coordinator
     return this
+  }
+
+  isGroup () {
+    return false
   }
 }
 
