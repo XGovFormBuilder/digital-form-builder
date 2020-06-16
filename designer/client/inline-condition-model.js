@@ -11,9 +11,9 @@ export class ConditionsModel {
 
   add (condition) {
     const coordinatorExpected = this.userGroupedConditions.length !== 0
-    if (condition.coordinator && !coordinatorExpected) {
+    if (condition.getCoordinator() && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
-    } else if (!condition.coordinator && coordinatorExpected) {
+    } else if (!condition.getCoordinator() && coordinatorExpected) {
       throw Error('Coordinator must be present on subsequent conditions')
     }
     this.userGroupedConditions.push(condition)
@@ -50,7 +50,7 @@ export class ConditionsModel {
   _applyGroups (userGroupedConditions) {
     const correctedUserGroups = userGroupedConditions
       .map(condition =>
-        condition instanceof ConditionGroup
+        condition instanceof ConditionGroup && condition.conditions.length > 2
           ? new ConditionGroup(this._group(condition.conditions, this._autoGroupDefs(condition.conditions)))
           : condition
       )
@@ -75,11 +75,11 @@ export class ConditionsModel {
   _autoGroupDefs (conditions) {
     const orPositions = []
     conditions.forEach((condition, index) => {
-      if (condition.coordinator === coordinators.OR) {
+      if (condition.getCoordinator() === coordinators.OR) {
         orPositions.push(index)
       }
     })
-    const hasAnd = !!conditions.find(condition => condition.coordinator === coordinators.AND)
+    const hasAnd = !!conditions.find(condition => condition.getCoordinator() === coordinators.AND)
     const hasOr = orPositions.length > 0
     if (hasAnd && hasOr) {
       let start = 0
@@ -148,6 +148,15 @@ class ConditionGroup {
     copy.splice(0, 1)
     return `(${this.conditions[0].conditionString()} ${copy.map(condition => condition.toPresentationString()).join(' ')})`
   }
+
+  asFirstCondition () {
+    this.conditions[0].asFirstCondition()
+    return this
+  }
+
+  getCoordinator () {
+    return this.conditions[0].getCoordinator()
+  }
 }
 
 export class Condition {
@@ -180,6 +189,10 @@ export class Condition {
 
   coordinatorString () {
     return this.coordinator ? `${this.coordinator} ` : ''
+  }
+
+  getCoordinator () {
+    return this.coordinator
   }
 
   asFirstCondition () {

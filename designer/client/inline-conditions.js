@@ -34,7 +34,7 @@ class InlineConditions extends React.Component {
 
       const { condition } = this.state
 
-      const newCondition = condition && fields[condition.field] ? this.state.condition : {}
+      const newCondition = fields[condition?.field] ? this.state.condition : {}
       this.setState({
         conditions: new ConditionsModel(),
         condition: newCondition,
@@ -50,8 +50,8 @@ class InlineConditions extends React.Component {
         label: input.title,
         name: input.name,
         type: input.type,
-        values: input.options && input.options.list ? data.listFor(input).items : [] }
-      ))
+        values: (data.listFor(input)??{}).items
+      }))
       .reduce((obj, item) => {
         obj[item.name] = item
         return obj
@@ -68,7 +68,7 @@ class InlineConditions extends React.Component {
     const input = e.target
 
     if (input.value && input.value.trim() !== '') {
-      const copy = clone(this.state.condition || {})
+      const copy = clone(this.state.condition??{})
       copy.coordinator = input.value
       this.setState({
         condition: copy
@@ -103,7 +103,7 @@ class InlineConditions extends React.Component {
 
     const { condition } = this.state
 
-    const currentField = condition.field ? condition.field.name : undefined
+    const currentField = condition.field?.name
     const currentOperator = condition.operator
 
     this._updateCondition(condition, c => {
@@ -142,11 +142,11 @@ class InlineConditions extends React.Component {
     const input = e.target
     const { condition } = this.state
 
-    const fieldDef = condition && condition.field && this.state.fields[condition.field.name]
+    const fieldDef = this.state.fields[condition?.field?.name]
 
     let value
     if (input.value && input.value.trim !== '') {
-      const option = fieldDef.values ? fieldDef.values.find(value => value.value === input.value) : undefined
+      const option = fieldDef.values?.find(value => value.value === input.value)
       value = option ? new Value(option.value, option.text) : new Value(input.value)
     }
 
@@ -170,7 +170,7 @@ class InlineConditions extends React.Component {
   render () {
     const { conditions, condition, editing } = this.state
 
-    const fieldDef = condition && condition.field && this.state.fields[condition.field.name]
+    const fieldDef = this.state.fields[condition?.field?.name]
 
     const hasConditions = conditions.hasConditions()
 
@@ -198,7 +198,7 @@ class InlineConditions extends React.Component {
 
         {hasConditions && !editing &&
           <div className='govuk-form-group'>
-            <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition && condition.coordinator ? condition.coordinator : ''}
+            <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
               onChange={this.onChangeCoordinator}>
               <option />
               <option key='and' value='and'>And</option>
@@ -208,7 +208,7 @@ class InlineConditions extends React.Component {
         }
         { condition && !editing &&
           <div className='govuk-form-group'>
-            <select className='govuk-select' id='cond-field' name='cond-field' value={condition && condition.field ? condition.field.name : ''}
+            <select className='govuk-select' id='cond-field' name='cond-field' value={condition?.field?.name??''}
               onChange={this.onChangeField}>
               <option />
               {Object.values(this.state.fields).map(field => {
@@ -229,7 +229,7 @@ class InlineConditions extends React.Component {
             }
 
             { condition.operator && fieldDef && fieldDef.values && fieldDef.values.length > 0 &&
-            <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value ? condition.value.value : undefined}
+            <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
               onChange={this.onChangeValue}>
               <option />
               {fieldDef.values.map(option => {
@@ -276,7 +276,7 @@ class InlineConditions extends React.Component {
                 this.state.conditions.asPerUserGroupings().map((condition, index) => {
                   return <div key={`condition-checkbox-${index}`} className='govuk-checkboxes__item'>
                     <input type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`} name={`condition-${index}`}
-                      value={index} onChange={this.onChangeCheckbox} checked={(this.state.selectedConditions && this.state.selectedConditions.includes(index)) || ''} />
+                      value={index} onChange={this.onChangeCheckbox} checked={(this.state.selectedConditions??[]).includes(index) || ''} />
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
                       {condition.toPresentationString()}
                     </label>
@@ -286,8 +286,8 @@ class InlineConditions extends React.Component {
             </div>
           </fieldset>
           <div className='govuk-form-group'>
-            {this.state.selectedConditions.length > 1 && <span><a href='#' onClick={this.onClickGroup}>Group</a> /</span>}
-            {this.state.selectedConditions.length > 0 && <a href='#' onClick={this.onClickRemove}>Remove</a> }
+            {(this.state.selectedConditions?.length??0) > 1 && <span><a href='#' onClick={this.onClickGroup}>Group</a> /</span>}
+            {(this.state.selectedConditions?.length??0) > 0 && <a href='#' onClick={this.onClickRemove}>Remove</a> }
           </div>
         </div>
       )
@@ -296,7 +296,7 @@ class InlineConditions extends React.Component {
   }
 
   onChangeCheckbox = e => {
-    let copy = this.state.selectedConditions ? clone(this.state.selectedConditions) : []
+    let copy = clone(this.state.selectedConditions??[])
     const index = Number(e.target.value)
     if (e.target.checked) {
       copy.push(index)
@@ -309,7 +309,7 @@ class InlineConditions extends React.Component {
   }
 
   onClickGroup = e => {
-    if (!this.state.selectedConditions || this.state.selectedConditions.length < 2) {
+    if ((this.state.selectedConditions?.length??0) < 2) {
       this.setState({
         editingError: 'Please select at least 2 items for grouping'
       })
@@ -335,7 +335,7 @@ class InlineConditions extends React.Component {
   }
 
   onClickRemove = e => {
-    if (!this.state.selectedConditions || this.state.selectedConditions.length < 1) {
+    if ((this.state.selectedConditions?.length??0) < 1) {
       this.setState({
         editingError: 'Please select at least 1 item to remove'
       })

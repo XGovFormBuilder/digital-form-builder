@@ -131,7 +131,7 @@ suite('inline condition model', () => {
   describe('adding user generated groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
       underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
@@ -142,6 +142,12 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 1)])
       expect(underTest.toPresentationString())
         .to.equal('((Badger is Zebras or Monkeys is Giraffes) and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should be able to apply group with single and condition and not need to clarify', () => {
+      underTest.addGroups([new GroupDef(1, 2)])
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
     })
 
     test('should correctly auto-group multiple user groups together', () => {
@@ -166,7 +172,7 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 2)])
       underTest.addGroups([new GroupDef(1, 2)])
       expect(underTest.toPresentationString())
-        .to.equal('(Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys)) or (Duration is at least 10 or Birthday is 10/10/2019) and Squiffy is not Donkeys')
+        .to.equal('(Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys)) or ((Duration is at least 10 or Birthday is 10/10/2019) and Squiffy is not Donkeys)')
     })
 
     test('subsequent calls to addGroups can create nested groups', () => {
@@ -186,7 +192,7 @@ suite('inline condition model', () => {
             {
               conditions: [
                 { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Zebras', display: 'Zebras' } },
-                { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is', value: { value: 'Giraffes', display: 'Giraffes' } }
+                { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is', value: { value: 'giraffes', display: 'Giraffes' } }
               ]
             },
             { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is', value: { value: 'Donkeys', display: 'Donkeys' } }
@@ -221,6 +227,12 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 5)])
       underTest.remove([0])
       expect(underTest.asPerUserGroupings().length).to.equal(0)
+    })
+
+    test('should allow removal of condition before group condition', () => {
+      underTest.addGroups([new GroupDef(1, 2)])
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
     })
 
     test('should remove all elements from a user-defined group', () => {
