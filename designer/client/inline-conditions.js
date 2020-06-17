@@ -75,7 +75,7 @@ class InlineConditions extends React.Component {
       })
     } else {
       this.setState({
-        condition: undefined
+        condition: null
       })
     }
   }
@@ -85,23 +85,16 @@ class InlineConditions extends React.Component {
     if (this.state.editing || this.state.editing === 0) {
       this.setState({
         conditions: conditions.replace(this.state.editing, new Condition(Field.from(condition.field), condition.operator, Value.from(condition.value), condition.coordinator)),
-        condition: undefined,
-        editView: true
+        condition: null,
+        editView: true,
+        editing: null
       })
     } else {
       this.setState({
         conditions: conditions.add(new Condition(Field.from(condition.field), condition.operator, Value.from(condition.value), condition.coordinator)),
-        condition: undefined
+        condition: null
       })
     }
-  }
-
-  conditionFieldId (id, fieldName) {
-    return `conditions.${id}.${fieldName}`
-  }
-
-  parseConditionId (fieldId) {
-    return fieldId.split('.')[1]
   }
 
   onChangeField = e => {
@@ -152,7 +145,7 @@ class InlineConditions extends React.Component {
     const fieldDef = this.state.fields[condition?.field?.name]
 
     let value
-    if (input.value && input.value.trim !== '') {
+    if (input.value && input.value?.trim() !== '') {
       const option = fieldDef.values?.find(value => value.value === input.value)
       value = option ? new Value(option.value, option.text) : new Value(input.value)
     }
@@ -170,7 +163,8 @@ class InlineConditions extends React.Component {
   onClickCancelEditView = e => {
     this.setState({
       editView: false,
-      selectedConditions: null
+      selectedConditions: null,
+      editing: null
     })
   }
 
@@ -192,36 +186,38 @@ class InlineConditions extends React.Component {
   }
 
   render () {
-    const { conditions, condition, editView } = this.state
+    const { conditions, condition, editView, editing } = this.state
 
     const fieldDef = this.state.fields[condition?.field?.name]
 
     const hasConditions = conditions.hasConditions()
 
     return (
-      this.state.fields && Object.keys(this.state.fields).length > 0 && <div>
-        <div className='govuk-form-group'>
+      this.state.fields && Object.keys(this.state.fields).length > 0 && <div className='inline-conditions'>
+        <div className='govuk-form-group' id='conditions-header-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
           {!condition && !hasConditions &&
-            <a href='#' onClick={this.onClickAddItem}>Add</a>
+            <a href='#' id='add-item' onClick={this.onClickAddItem}>Add</a>
           }
           { (condition || hasConditions) &&
-            <label className='govuk-label govuk-label--s' htmlFor='condition-string'>When</label>
+            <label className='govuk-label' htmlFor='condition-string'>When</label>
           }
 
-          { hasConditions && <div>
-            <div key='condition-string' >
+          { hasConditions && <div id='conditions-display'>
+            <div key='condition-string' id='condition-string'>
               {conditions.toPresentationString()}
             </div>
-            <div>
-              { !editView && <a href='#' onClick={this.onClickEditView}>Not what you meant?</a> }
-            </div>
+            {!editView && !editing && editing !== 0 &&
+              <div>
+                <a href='#' id='edit-conditions-link' onClick={this.onClickEditView}>Not what you meant?</a>
+              </div>
+            }
           </div>
           }
         </div>
 
-        {hasConditions && !editView &&
-          <div className='govuk-form-group'>
+        {hasConditions && !editView && editing !== 0 &&
+          <div className='govuk-form-group' id='cond-coordinator-group'>
             <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
               onChange={this.onChangeCoordinator}>
               <option />
@@ -231,7 +227,7 @@ class InlineConditions extends React.Component {
           </div>
         }
         { condition && !editView &&
-          <div className='govuk-form-group'>
+          <div className='govuk-form-group' id='condition-definition-inputs'>
             <select className='govuk-select' id='cond-field' name='cond-field' value={condition?.field?.name??''}
               onChange={this.onChangeField}>
               <option />
@@ -240,19 +236,19 @@ class InlineConditions extends React.Component {
               })}
             </select>
 
-            { fieldDef &&
+            { condition && fieldDef &&
             <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
               onChange={this.onChangeOperator}>
               <option />
               {
-                Object.keys(conditionalOperators.getConditionals(fieldDef.type)).map(conditional => {
+                Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
                   return <option key={`${condition.field}-${conditional}`} value={conditional}>{conditional}</option>
                 })
               }
             </select>
             }
 
-            { condition.operator && fieldDef && fieldDef.values && fieldDef.values.length > 0 &&
+            { condition?.operator && (fieldDef?.values?.length??0) > 0 &&
             <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
               onChange={this.onChangeValue}>
               <option />
@@ -262,16 +258,16 @@ class InlineConditions extends React.Component {
             </select>
             }
 
-            { condition.operator && fieldDef && (!fieldDef.values || fieldDef.values.length === 0) &&
+            { condition?.operator && (fieldDef?.values?.length??0) === 0 &&
             <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
               type='text' defaultValue={condition.value?.display} required
               onChange={this.onChangeValue} />
             }
-          </div>
-        }
-        { condition && condition.value &&
-          <div className='govuk-form-group'>
-            <a href='#' onClick={this.onClickFinalize}>Save condition</a>
+            { condition?.value &&
+              <div className='govuk-form-group'>
+                <a href='#' id='save-condition' onClick={this.onClickFinalize}>Save condition</a>
+              </div>
+            }
           </div>
         }
         {this.renderEditingView()}
@@ -282,13 +278,13 @@ class InlineConditions extends React.Component {
   renderEditingView () {
     if (this.state.editView) {
       return (
-        <div>
+        <div id='edit-conditions'>
           <fieldset className='govuk-fieldset'>
             <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
                Select conditions to group / remove
             </legend>
             <div className='govuk-form-group'>
-              <a href='#' onClick={this.onClickCancelEditView}>Exit</a>
+              <a href='#' id='exit-edit-link' onClick={this.onClickCancelEditView}>Exit</a>
             </div>
             {this.state.editingError &&
               <span id='conditions-error' className='govuk-error-message'>
@@ -303,22 +299,21 @@ class InlineConditions extends React.Component {
                       value={index} onChange={this.onChangeCheckbox} checked={(this.state.selectedConditions??[]).includes(index) || ''} />
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
                       {condition.toPresentationString()}
-                      {condition.isGroup() && <span> <a href='#' onClick={e => this.onClickSplit(index)}>Split</a></span>}
-                      {!condition.isGroup() && <span> <a href='#' onClick={e => this.onClickEdit(index)}>Edit</a></span>}
                     </label>
+                    {condition.isGroup() && <span> <a href='#' id={`condition-${index}-split`} onClick={e => this.onClickSplit(index)}>Split</a></span>}
+                    {!condition.isGroup() && <span> <a href='#' id={`condition-${index}-edit`} onClick={e => this.onClickEdit(index)}>Edit</a></span>}
                   </div>
                 })
               }
             </div>
           </fieldset>
-          <div className='govuk-form-group'>
-            {(this.state.selectedConditions?.length??0) > 1 && <span><a href='#' onClick={this.onClickGroup}>Group</a> /</span>}
-            {(this.state.selectedConditions?.length??0) > 0 && <a href='#' onClick={this.onClickRemove}>Remove</a> }
+          <div className='govuk-form-group' id='group-and-remove'>
+            {(this.state.selectedConditions?.length??0) > 1 && <span><a href='#' id='group-conditions' onClick={this.onClickGroup}>Group</a> /</span>}
+            {(this.state.selectedConditions?.length??0) > 0 && <a href='#' id='remove-conditions' onClick={this.onClickRemove}>Remove</a> }
           </div>
         </div>
       )
     }
-    return <div />
   }
 
   onChangeCheckbox = e => {
@@ -369,7 +364,8 @@ class InlineConditions extends React.Component {
       this.setState({
         editingError: undefined,
         selectedConditions: [],
-        conditions: this.state.conditions.remove(this.state.selectedConditions)
+        conditions: this.state.conditions.remove(this.state.selectedConditions),
+        editView: this.state.conditions.hasConditions()
       })
     }
   }
