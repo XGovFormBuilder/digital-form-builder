@@ -11,7 +11,7 @@ class ComponentEdit extends React.Component {
     const { data, page, component } = this.props
     const formData = getFormData(form)
     const copy = clone(data)
-    const copyPage = copy.pages.find(p => p.path === page.path)
+    const copyPage = copy.findPage(page.path)
 
     // Apply
     const componentIndex = page.components.indexOf(component)
@@ -37,7 +37,7 @@ class ComponentEdit extends React.Component {
     const componentIdx = page.components.findIndex(c => c === component)
     const copy = clone(data)
 
-    const copyPage = copy.pages.find(p => p.path === page.path)
+    const copyPage = copy.findPage(page.path)
     const isLast = componentIdx === page.components.length - 1
 
     // Remove the component

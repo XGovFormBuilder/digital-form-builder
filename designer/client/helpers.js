@@ -53,5 +53,12 @@ export function getFormData (form) {
 }
 
 export function clone (obj) {
+  if (typeof obj.clone === 'function') {
+    return obj.clone()
+  }
+  return serialiseAndDeserialise(obj)
+}
+
+export function serialiseAndDeserialise (obj) {
   return JSON.parse(JSON.stringify(obj))
 }

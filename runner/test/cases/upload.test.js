@@ -58,16 +58,15 @@ suite('uploads', () => {
 
   test('request with file upload field containing virus returns with error message', async () => {
     restore()
+
     stub(UploadService.prototype, 'fileStreamsFromPayload').callsFake(() => {
       return [['file1', { hapi: { filename: 'file.jpg' }, _data: fs.readFileSync(path.join(__dirname, 'dummy.pdf')) }]]
     })
+
     stub(UploadService.prototype, 'uploadDocuments').callsFake(async () => {
       return {
         error: 'The selected file for "%s" contained a virus'
       }
-    })
-    stub(UploadService.prototype, 'saveFileToTmp').callsFake(async () => {
-      return '/tmp/dir/file'
     })
 
     const form = new FormData()
@@ -84,18 +83,17 @@ suite('uploads', () => {
     const $ = cheerio.load(response.payload)
     expect($('[href=\'#file1\']').text().trim()).to.equal('The selected file for "Passport photo" contained a virus')
   })
+
   test('request with files larger than 2MB return an error', async () => {
     restore()
-    stub(UploadService.prototype, 'fileStreamsFromPayload').callsFake(() => {
-      return [['file1', { hapi: { filename: 'file.jpg' }, _data: fs.readFileSync(path.join(__dirname, 'dummy.pdf')) }]]
-    })
-    stub(UploadService.prototype, 'fileSizeLimit').get(() => {
-      return 500
-    })
+
+    fs.writeFileSync('tmp.pdf', Buffer.alloc(6 * 1024 * 1024, 'a'))
+
+    const data = fs.readFileSync('tmp.pdf')
 
     const form = new FormData()
     form.append('fullName', 1)
-    form.append('file1', fs.readFileSync(path.join(__dirname, 'dummy.pdf')))
+    form.append('file1', data)
     const options = {
       method: 'POST',
       url: '/upload/upload-file',

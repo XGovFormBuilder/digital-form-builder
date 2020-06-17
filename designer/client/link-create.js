@@ -66,7 +66,7 @@ export default LinkCreate
 
 export function addLinkToPage (data, from, next) {
   const copy = clone(data)
-  const page = copy.pages.find(p => p.path === from)
+  const page = copy.findPage(from)
 
   if (!page.next) {
     page.next = []

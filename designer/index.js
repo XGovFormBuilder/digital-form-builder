@@ -17,7 +17,7 @@ const serverOptions = () => {
 
 async function createServer () {
   const server = hapi.server(serverOptions())
-  await server.register(require('inert'))
+  await server.register(require('@hapi/inert'))
   await server.register(viewPlugin)
   await server.register(require('./plugins/router'))
   await server.register(designerPlugin)
