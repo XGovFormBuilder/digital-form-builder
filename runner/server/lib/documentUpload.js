@@ -10,7 +10,7 @@ const parsedError = (key, error) => {
 
 class UploadService {
   get fileSizeLimit () {
-    return 5e+6
+    return 5 * 1024 * 1024 // 5mb
   }
 
   get validFiletypes () {
@@ -88,7 +88,7 @@ class UploadService {
      * @desc If there are no valid file(buffer)s, reassign any empty buffers with empty string
      * allows bypassing of file upload for whatever reason it doesn't work.
      */
-    if (!files.length) {
+    if (!files.length && request.payload) {
       const fields = Object.entries(request.payload)
       for (const [key, value] of fields) {
         if (value._data) {
