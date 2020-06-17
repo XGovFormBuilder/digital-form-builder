@@ -61,13 +61,6 @@
           "path": "/confirmation"
         }
       ]
-    },
-    {
-      "path": "test",
-      "title": "test",
-      "condition": "true",
-      "components": [],
-      "next": []
     }
   ],
   "sections": [

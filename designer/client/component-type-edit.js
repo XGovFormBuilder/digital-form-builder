@@ -64,7 +64,7 @@ class FieldEdit extends React.Component {
             <input className={`govuk-checkboxes__input ${isFileUploadField ? 'disabled' : ''}`} id='field-options.required'
               name='options.required' type='checkbox' defaultChecked={isFileUploadField}
               onChange={(e) => this.checkOptionalBox(e)}
-              />
+            />
             <label className='govuk-label govuk-checkboxes__label'
               htmlFor='field-options.required'>Optional</label>
             {isFileUploadField && (

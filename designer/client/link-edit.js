@@ -6,7 +6,7 @@ class LinkEdit extends React.Component {
     super(props)
 
     const { data, edge } = this.props
-    const page = data.pages.find(page => page.path === edge.source)
+    const page = data.findPage(edge.source)
     const link = page.next.find(n => n.path === edge.target)
 
     console.log(edge, link)
@@ -26,7 +26,7 @@ class LinkEdit extends React.Component {
     const { link, page } = this.state
 
     const copy = clone(data)
-    const copyPage = copy.pages.find(p => p.path === page.path)
+    const copyPage = copy.findPage(page.path)
     const copyLink = copyPage.next.find(n => n.path === link.path)
 
     if (condition) {
@@ -55,7 +55,7 @@ class LinkEdit extends React.Component {
     const { link, page } = this.state
 
     const copy = clone(data)
-    const copyPage = copy.pages.find(p => p.path === page.path)
+    const copyPage = copy.findPage(page.path)
     const copyLinkIdx = copyPage.next.findIndex(n => n.path === link.path)
     copyPage.next.splice(copyLinkIdx, 1)
 

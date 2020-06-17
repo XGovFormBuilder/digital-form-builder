@@ -115,8 +115,9 @@ module.exports = {
         }
       })
 
+      const { uploadService } = server.services([])
+
       const handleFiles = (request, h) => {
-        const { uploadService } = request.services([])
         return uploadService.handleUploadRequest(request, h)
       }
 
@@ -145,7 +146,7 @@ module.exports = {
             output: 'stream',
             parse: true,
             multipart: true,
-            maxBytes: UPLOAD_LIMIT,
+            maxBytes: uploadService.fileSizeLimit,
             failAction: async (request, h) => {
               if (request.server.plugins.crumb && request.server.plugins.crumb.generate) {
                 request.server.plugins.crumb.generate(request, h)
