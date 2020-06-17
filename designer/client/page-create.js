@@ -78,7 +78,6 @@ class PageCreate extends React.Component {
   render () {
     const { data } = this.props
     const { sections, pages } = data
-    console.log('pages',pages)
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
