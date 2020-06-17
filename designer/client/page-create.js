@@ -83,8 +83,8 @@ class PageCreate extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
           <select className='govuk-select' id='page-type' name='page-type'>
-            <option value='./pages/start.js'>Start Page</option>
             <option value=''>Question Page</option>
+            <option value='./pages/start.js'>Start Page</option>
             <option value='./pages/summary.js'>Summary Page</option>
           </select>
         </div>

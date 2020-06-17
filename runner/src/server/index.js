@@ -104,6 +104,9 @@ async function createServer (routeConfig) {
     }
     if (request.response && request.response.header) {
       request.response.header('X-Robots-Tag', 'noindex, nofollow')
+      request.response.header('cache-control', 'private, no-cache, no-store, must-revalidate, max-age=0')
+      request.response.header('pragma', 'no-cache')
+      request.response.header('expires', '0')
     }
     return h.continue
   })

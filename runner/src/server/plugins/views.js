@@ -1,6 +1,6 @@
 const nunjucks = require('nunjucks')
 const config = require('../config')
-const pkg = require('../../package.json')
+const pkg = require('../../../package.json')
 
 module.exports = {
   plugin: require('vision'),
@@ -33,7 +33,7 @@ module.exports = {
       }
     },
     path: [
-      'server/views',
+      'views',
       'node_modules/govuk-frontend/govuk/',
       'node_modules/govuk-frontend/govuk/components/',
       'node_modules/digital-form-builder-engine/views',

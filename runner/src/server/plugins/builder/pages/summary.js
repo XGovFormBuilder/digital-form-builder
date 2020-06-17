@@ -1,8 +1,8 @@
 const joi = require('joi')
-const Page = require('.')
+const Page = require('./index')
 const shortid = require('shortid')
-const { formSchema } = require('./../../../lib/formSchema')
-const { serviceName } = require('./../../../config')
+const { formSchema } = require('../../../lib/formSchema')
+const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
 
 class SummaryViewModel {
