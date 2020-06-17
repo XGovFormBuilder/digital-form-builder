@@ -102,33 +102,6 @@ suite('data model', () => {
       expect(data.findPage('/2')).to.equal(data.pages[1])
     })
 
-    test('save function property should be copied to data instance', () => {
-      const sourceData = {
-        pages: [
-          {
-            name: 'page1',
-            section: 'section1',
-            path: '/1',
-            next: ['/2'],
-            components: [{ name: 'name1' }, { name: 'name2' }]
-          },
-          {
-            name: 'page2',
-            section: 'section1',
-            path: '/2',
-            next: ['/3'],
-            components: [{ name: 'name3' }, { name: 'name4' }]
-          }
-        ]
-      }
-      const save = (updatedData) => 'badgers'
-      sourceData.save = save
-      const data = new Data(sourceData)
-
-      expect(data.save).to.equal(save)
-      expect(data.save('something')).to.equal('badgers')
-    })
-
     test('should return undefined if the requested page does not exist', () => {
       const data = new Data({
         pages: [
@@ -154,5 +127,32 @@ suite('data model', () => {
       const data = new Data({ })
       expect(data.findPage('/1')).to.equal(undefined)
     })
+  })
+
+  test('save function property should be copied to data instance', () => {
+    const sourceData = {
+      pages: [
+        {
+          name: 'page1',
+          section: 'section1',
+          path: '/1',
+          next: ['/2'],
+          components: [{ name: 'name1' }, { name: 'name2' }]
+        },
+        {
+          name: 'page2',
+          section: 'section1',
+          path: '/2',
+          next: ['/3'],
+          components: [{ name: 'name3' }, { name: 'name4' }]
+        }
+      ]
+    }
+    const save = () => 'badgers'
+    sourceData.save = save
+    const data = new Data(sourceData)
+
+    expect(data.save).to.equal(save)
+    expect(data.save('something')).to.equal('badgers')
   })
 })
