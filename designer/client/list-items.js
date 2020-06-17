@@ -166,7 +166,7 @@ class ListItems extends React.Component {
         <caption className='govuk-table__caption'>Items</caption>
         <thead className='govuk-table__head'>
           <tr className='govuk-table__row'>
-            <th className='govuk-table__header' scope='col'></th>
+            <th className='govuk-table__header' scope='col' />
             <th className='govuk-table__header' scope='col'>Text</th>
             <th className='govuk-table__header' scope='col'>Value</th>
             <th className='govuk-table__header' scope='col'>Description</th>
