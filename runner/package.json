@@ -98,8 +98,8 @@
   },
   "standard": {
     "ignore": [
-      "server/public/",
-      "server/plugins/locale.js"
+      "public/",
+      "**/plugins/locale.js"
     ]
   }
 }
