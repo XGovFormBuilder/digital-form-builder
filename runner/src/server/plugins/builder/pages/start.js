@@ -1,4 +1,4 @@
-const Page = require('.')
+const Page = require('./index')
 
 class StartPage extends Page {
   getViewModel (formData, errors) {

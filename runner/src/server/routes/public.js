@@ -29,8 +29,8 @@ module.exports = [{
     handler: {
       directory: {
         path: [
-          'server/public/static',
-          'server/public/build',
+          'public/static',
+          'public/build',
           'node_modules/govuk-frontend/govuk/assets',
           'node_modules/hmpo-components/assets'
         ]

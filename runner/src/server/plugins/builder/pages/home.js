@@ -1,4 +1,4 @@
-const Page = require('.')
+const Page = require('./index')
 
 class HomePage extends Page {
   constructor (defs, pageDef) {

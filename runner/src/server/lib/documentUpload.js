@@ -1,6 +1,6 @@
 const FormData = require('form-data')
 const Wreck = require('@hapi/wreck')
-const { documentUploadApiUrl } = require('./../config')
+const { documentUploadApiUrl } = require('../config')
 
 const parsedError = (key, error) => {
   return {
