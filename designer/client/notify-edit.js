@@ -4,8 +4,8 @@ import React from 'react'
 class NotifyEdit extends React.Component {
   constructor (props) {
     super(props)
-    let { data } = this.props
-    this.usableKeys = [].concat.apply([], data.pages.map(page => page.components.filter(component => component.name).map(component => `${page.section ? page.section + '.' : ''}${component.name}`)))
+    const { data } = this.props
+    this.usableKeys = data.allInputs().map(input => `${input.page.section ? input.page.section + '.' : ''}${input.name}`)
   }
 
   render () {

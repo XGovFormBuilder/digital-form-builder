@@ -21,7 +21,7 @@ class PageEdit extends React.Component {
 
     if (pathChanged) {
       // `path` has changed - validate it is unique
-      if (data.pages.find(p => p.path === newPath)) {
+      if (data.findPage(newPath)) {
         form.elements.path.setCustomValidity(`Path '${newPath}' already exists`)
         form.reportValidity()
         return

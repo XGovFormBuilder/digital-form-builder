@@ -233,6 +233,7 @@ class Page {
       const state = await cacheService.getState(request)
       let originalFilenames = (state || {}).originalFilenames || {}
       let fileFields = this.getViewModel(formResult).components.filter(component => component.type === 'FileUploadField').map(component => component.model)
+      const progress = state.progress || []
 
       // TODO:- Refactor this into a validation method
       if (hasFilesizeError) {
@@ -274,13 +275,17 @@ class Page {
       })
 
       if (formResult.errors) {
-        return h.view(this.viewName, this.getViewModel(payload, formResult.errors))
+        const viewModel = this.getViewModel(payload, formResult.errors)
+        viewModel.backLink = progress[progress.length - 2]
+        return h.view(this.viewName, viewModel)
       } else {
         const newState = this.getStateFromValidForm(formResult.value)
         const stateResult = this.validateState(newState)
 
         if (stateResult.errors) {
-          return h.view(this.viewName, this.getViewModel(payload, stateResult.errors))
+          const viewModel = this.getViewModel(payload, stateResult.errors)
+          viewModel.backLink = progress[progress.length - 2]
+          return h.view(this.viewName, viewModel)
         } else {
           const update = this.getPartialMergeState(stateResult.value)
           const state = await cacheService.mergeState(request, update)
