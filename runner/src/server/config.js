@@ -1,36 +1,36 @@
 require('dotenv').config({ path: '.env' })
 
-const joi = require('joi')
+const Joi = require('@hapi/joi')
 
 // Define config schema
-const schema = {
-  port: joi.number().default(3009),
-  env: joi.string().valid('development', 'test', 'production').default('development'),
-  logLevel: joi.string().optional(),
-  ordnanceSurveyKey: joi.string().optional(),
-  browserRefreshUrl: joi.string().optional(),
-  feedbackLink: joi.string().optional(),
-  matomoId: joi.string().optional(),
-  matomoUrl: joi.string().optional(),
-  payApiUrl: joi.string(),
-  payReturnUrl: joi.string(),
-  serviceUrl: joi.string().optional(),
-  redisHost: joi.string().optional(),
-  redisPort: joi.number().optional(),
-  redisPassword: joi.string().optional(),
-  redisTls: joi.boolean().optional(),
-  serviceName: joi.string().optional(),
-  documentUploadApiUrl: joi.string().optional(),
-  previewMode: joi.boolean().optional(),
-  sslKey: joi.string().optional(),
-  sslCert: joi.string().optional(),
-  sessionTimeout: joi.number().optional(),
-  sessionCookiePassword: joi.string().optional(),
-  rateLimit: joi.boolean().optional(),
-  fromEmailAddress: joi.string().optional(),
-  serviceStartPage: joi.string().optional(),
-  privacyPolicyUrl: joi.string().optional()
-}
+const schema = Joi.object({
+  port: Joi.number().default(3009),
+  env: Joi.string().valid('development', 'test', 'production').default('development'),
+  logLevel: Joi.string().optional(),
+  ordnanceSurveyKey: Joi.string().optional(),
+  browserRefreshUrl: Joi.string().optional(),
+  feedbackLink: Joi.string().optional(),
+  matomoId: Joi.string().optional(),
+  matomoUrl: Joi.string().optional(),
+  payApiUrl: Joi.string(),
+  payReturnUrl: Joi.string(),
+  serviceUrl: Joi.string().optional(),
+  redisHost: Joi.string().optional(),
+  redisPort: Joi.number().optional(),
+  redisPassword: Joi.string().optional(),
+  redisTls: Joi.boolean().optional(),
+  serviceName: Joi.string().optional(),
+  documentUploadApiUrl: Joi.string().optional(),
+  previewMode: Joi.boolean().optional(),
+  sslKey: Joi.string().optional(),
+  sslCert: Joi.string().optional(),
+  sessionTimeout: Joi.number().optional(),
+  sessionCookiePassword: Joi.string().optional(),
+  rateLimit: Joi.boolean().optional(),
+  fromEmailAddress: Joi.string().optional(),
+  serviceStartPage: Joi.string().optional(),
+  privacyPolicyUrl: Joi.string().optional()
+})
 
 // Build config
 const config = {
@@ -63,7 +63,7 @@ const config = {
 }
 
 // Validate config
-const result = joi.validate(config, schema, {
+const result = schema.validate(config, {
   abortEarly: false
 })
 
@@ -72,7 +72,7 @@ if (result.error) {
   throw new Error(`The server config is invalid. ${result.error.message}`)
 }
 
-// Use the joi validated value
+// Use the Joi validated value
 const value = result.value
 
 value.isProd = value.env === 'production'

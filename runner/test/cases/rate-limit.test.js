@@ -1,6 +1,6 @@
 const Lab = require('@hapi/lab')
 const { expect } = require('@hapi/code')
-const createServer = require('./../../server/index')
+const createServer = require('../../src/server/index')
 const { suite, before, test, after } = exports.lab = Lab.script()
 
 suite('Rate limit', () => {
