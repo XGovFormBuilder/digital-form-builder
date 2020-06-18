@@ -334,6 +334,161 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('moving conditions and groups', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+    })
+
+    test('should move a condition earlier when not becoming the first item', () => {
+      underTest.moveEarlier(3)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or Monkeys is Giraffes or (Duration is at least 10 and Squiffy is Donkeys) or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should move the last condition earlier', () => {
+      underTest.moveEarlier(5)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or (Duration is at least 10 and Squiffy is not Donkeys) or Birthday is 10/10/2019')
+    })
+
+    test('should move a condition earlier and switch co-ordinators when becoming the first item', () => {
+      underTest.moveEarlier(1)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Monkeys is Giraffes or (Badger is Zebras and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should move a condition group earlier and switch co-ordinators when becoming the first item', () => {
+      underTest.addGroups([new GroupDef(1, 2)])
+      underTest.moveEarlier(1)
+
+      expect(underTest.toPresentationString())
+        .to.equal('(Monkeys is Giraffes and Squiffy is Donkeys) or Badger is Zebras or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('move earlier does nothing when already the first item', () => {
+      underTest.moveEarlier(0)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('move earlier does nothing when before the first item', () => {
+      underTest.moveEarlier(-1)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('move earlier does nothing when after the last item', () => {
+      underTest.moveEarlier(-1)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('move later does nothing when already the last item', () => {
+      underTest.moveLater(5)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('move later does nothing when after the last item', () => {
+      underTest.moveLater(6)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('move later does nothing when before the first item', () => {
+      underTest.moveLater(-1)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should move a condition later when not the first or last item', () => {
+      underTest.moveLater(3)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Birthday is 10/10/2019 or (Duration is at least 10 and Squiffy is not Donkeys)')
+    })
+
+    test('should move penultimate condition later', () => {
+      underTest.moveLater(4)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or (Duration is at least 10 and Squiffy is not Donkeys) or Birthday is 10/10/2019')
+    })
+
+    test('should move a condition later and switch co-ordinators when moving the first item', () => {
+      underTest.moveLater(0)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Monkeys is Giraffes or (Badger is Zebras and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should move a condition group later and switch co-ordinators when moving the first item', () => {
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.moveLater(0)
+
+      expect(underTest.toPresentationString())
+        .to.equal('(Squiffy is Donkeys and (Badger is Zebras or Monkeys is Giraffes)) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should remove the only condition', () => {
+      underTest.addGroups([new GroupDef(0, 5)])
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(0)
+    })
+
+    test('should allow removal of condition before group condition', () => {
+      underTest.addGroups([new GroupDef(1, 2)])
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
+    })
+
+    test('should remove all elements from a user-defined group', () => {
+      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      underTest.addGroups([new GroupDef(0, 1)])
+      expect(underTest.asPerUserGroupings().length).to.equal(5)
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Squiffy is Donkeys or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should remove all elements from a nested group', () => {
+      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      underTest.addGroups([new GroupDef(0, 1)])
+      underTest.addGroups([new GroupDef(0, 1)])
+      expect(underTest.asPerUserGroupings().length).to.equal(4)
+      underTest.remove([0])
+      expect(underTest.asPerUserGroupings().length).to.equal(3)
+
+      expect(underTest.toPresentationString())
+        .to.equal('Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+
+    test('should do nothing if provided invalid index to remove', () => {
+      expect(underTest.asPerUserGroupings().length).to.equal(6)
+
+      underTest.remove([6])
+
+      expect(underTest.toPresentationString())
+        .to.equal('Badger is Zebras or (Monkeys is Giraffes and Squiffy is Donkeys) or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
+    })
+  })
+
   describe('invalid configuration', () => {
     describe('invalid operator', () => {
       test('should throw an error on condition creation if no operator provided', () => {

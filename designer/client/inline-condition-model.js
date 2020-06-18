@@ -55,12 +55,43 @@ export class ConditionsModel {
     return this
   }
 
+  moveEarlier (index) {
+    if (index > 0 && index < (this.userGroupedConditions.length)) {
+      this.userGroupedConditions.splice(index - 1, 0, this.userGroupedConditions.splice(index, 1)[0])
+      if (index === 1) {
+        this.switchCoordinators()
+      }
+      this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    }
+    return this
+  }
+
+  moveLater (index) {
+    if (index >= 0 && index < (this.userGroupedConditions.length - 1)) {
+      this.userGroupedConditions.splice(index + 1, 0, this.userGroupedConditions.splice(index, 1)[0])
+      if (index === 0) {
+        this.switchCoordinators()
+      }
+      this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    }
+    return this
+  }
+
+  switchCoordinators () {
+    this.userGroupedConditions[1].setCoordinator(this.userGroupedConditions[0].getCoordinator())
+    this.userGroupedConditions[0].setCoordinator(undefined)
+  }
+
   asPerUserGroupings () {
     return [...this.userGroupedConditions]
   }
 
   hasConditions () {
     return this.userGroupedConditions.length > 0
+  }
+
+  lastIndex () {
+    return this.userGroupedConditions.length - 1
   }
 
   toPresentationString () {
@@ -187,6 +218,10 @@ class ConditionGroup {
     return this.conditions[0].getCoordinator()
   }
 
+  setCoordinator (coordinator) {
+    this.conditions[0].setCoordinator(coordinator)
+  }
+
   isGroup () {
     return true
   }
@@ -226,6 +261,10 @@ export class Condition {
 
   getCoordinator () {
     return this.coordinator
+  }
+
+  setCoordinator (coordinator) {
+    this.coordinator = coordinator
   }
 
   asFirstCondition () {

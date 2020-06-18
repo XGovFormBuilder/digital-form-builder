@@ -58,7 +58,7 @@ class InlineConditions extends React.Component {
       }, {})
   }
 
-  onClickAddItem = e => {
+  onClickAddItem = () => {
     this.setState({
       condition: {}
     })
@@ -80,7 +80,7 @@ class InlineConditions extends React.Component {
     }
   }
 
-  onClickFinalize = e => {
+  onClickFinalize = () => {
     const { conditions, condition } = this.state
     if (this.state.editing || this.state.editing === 0) {
       this.setState({
@@ -153,14 +153,14 @@ class InlineConditions extends React.Component {
     this._updateCondition(condition, c => { c.value = value })
   }
 
-  onClickEditView = e => {
+  onClickEditView = () => {
     this.setState({
       editView: true,
       selectedConditions: []
     })
   }
 
-  onClickCancelEditView = e => {
+  onClickCancelEditView = () => {
     this.setState({
       editView: false,
       selectedConditions: null,
@@ -183,6 +183,20 @@ class InlineConditions extends React.Component {
         condition: conditions[index]
       })
     }
+  }
+
+  onClickMoveEarlier (index) {
+    this.setState({
+      conditions: this.state.conditions.moveEarlier(index),
+      selectedConditions: []
+    })
+  }
+
+  onClickMoveLater (index) {
+    this.setState({
+      conditions: this.state.conditions.moveLater(index),
+      selectedConditions: []
+    })
   }
 
   render () {
@@ -300,8 +314,22 @@ class InlineConditions extends React.Component {
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
                       {condition.toPresentationString()}
                     </label>
-                    {condition.isGroup() && <span> <a href='#' id={`condition-${index}-split`} onClick={e => this.onClickSplit(index)}>Split</a></span>}
-                    {!condition.isGroup() && <span> <a href='#' id={`condition-${index}-edit`} onClick={e => this.onClickEdit(index)}>Edit</a></span>}
+                    <span id={`condition-${index}-actions`}>
+                      {condition.isGroup() && <span>  <a href='#' id={`condition-${index}-split`} onClick={() => this.onClickSplit(index)}>Split</a></span>}
+                      {!condition.isGroup() && <span>  <a href='#' id={`condition-${index}-edit`} onClick={() => this.onClickEdit(index)}>Edit</a></span>}
+                      {index > 0 && <span>  <a href='#' id={`condition-${index}-move-earlier`} onClick={() => this.onClickMoveEarlier(index)}>
+                        <svg height='10' width='20'>
+                          <polyline points='1,9 10,2 19,9' style={{ fill: 'none', stroke: 'grey', strokeWidth: 4, strokeLinecap: 'round', strokeLinejoin: 'round' }} />
+                          Move up
+                        </svg>
+                      </a></span>}
+                      {index < this.state.conditions.lastIndex() && <span>  <a href='#' id={`condition-${index}-move-later`} onClick={() => this.onClickMoveLater(index)}>
+                        <svg height='10' width='20'>
+                          <polyline points='1,1 10,9 19,1' style={{ fill: 'none', stroke: 'grey', strokeWidth: 4, strokeLinecap: 'round', strokeLinejoin: 'round' }} />
+                            Move down
+                        </svg>
+                      </a></span>}
+                    </span>
                   </div>
                 })
               }
@@ -329,7 +357,7 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onClickGroup = e => {
+  onClickGroup = () => {
     if ((this.state.selectedConditions?.length??0) < 2) {
       this.setState({
         editingError: 'Please select at least 2 items for grouping'
@@ -355,7 +383,7 @@ class InlineConditions extends React.Component {
     }
   }
 
-  onClickRemove = e => {
+  onClickRemove = () => {
     if ((this.state.selectedConditions?.length??0) < 1) {
       this.setState({
         editingError: 'Please select at least 1 item to remove'

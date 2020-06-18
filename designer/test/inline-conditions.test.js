@@ -783,6 +783,14 @@ function assertEditingHeaderGroupWithConditionString (headerGroup, conditionStri
   expect(conditionDisplayChildren.at(0).text()).to.equal(conditionString)
 }
 
+function assertCheckboxActionLink (span, id, text) {
+  assertSpan(span)
+  expect(span.children().length).to.equal(2)
+  expect(span.children().at(0).name()).to.equal(null)
+  expect(span.children().at(0).text()).to.equal('  ')
+  assertLink(span.children().at(1), id, text)
+}
+
 function assertEditPanel (wrapper, conditions, editingError) {
   expect(wrapper.prop('id')).to.equal('edit-conditions')
   const editPanelChildren = wrapper.children()
@@ -811,7 +819,33 @@ function assertEditPanel (wrapper, conditions, editingError) {
   assertDiv(checkboxesDiv, ['govuk-checkboxes'])
   expect(checkboxesDiv.children().length).to.equal(conditions.length)
   conditions.forEach((condition, index) => {
-    assertEditConditionCheckbox(checkboxesDiv, index, condition)
+    const checkboxDiv = checkboxesDiv.children().at(index)
+    assertDiv(checkboxDiv, ['govuk-checkboxes__item'])
+    expect(checkboxDiv.children().length).to.equal(3)
+    assertCheckboxInput(checkboxDiv.children().at(0), `condition-${index}`, index, condition.selected)
+    assertLabel(checkboxDiv.children().at(1), condition.condition)
+    let actions = checkboxDiv.children().at(2)
+    assertSpan(actions)
+    let expectedActions = 3
+    if (index === 0) {
+      expectedActions--
+    }
+    if (index === conditions.length - 1) {
+      expectedActions--
+    }
+    expect(actions.children().length).to.equal(expectedActions)
+    if (condition.grouped) {
+      assertCheckboxActionLink(actions.children().at(0), `condition-${index}-split`, 'Split')
+    } else {
+      assertCheckboxActionLink(actions.children().at(0), `condition-${index}-edit`, 'Edit')
+    }
+    if (index !== 0) {
+      assertCheckboxActionLink(actions.children().at(1), `condition-${index}-move-earlier`, 'Move up')
+    }
+    if (index !== conditions.length - 1) {
+      const actionIndex = index === 0 ? 1 : 2
+      assertCheckboxActionLink(actions.children().at(actionIndex), `condition-${index}-move-later`, 'Move down')
+    }
   })
 
   const groupAndRemove = editPanelChildren.at(1)
@@ -827,24 +861,6 @@ function assertEditPanel (wrapper, conditions, editingError) {
   } else if (selectedConditions.length === 1) {
     assertLink(groupAndRemove.children().at(0), 'remove-conditions', 'Remove')
   } else {}
-}
-
-function assertEditConditionCheckbox (checkboxesDiv, index, condition) {
-  const checkboxDiv = checkboxesDiv.children().at(index)
-  assertDiv(checkboxDiv, ['govuk-checkboxes__item'])
-  expect(checkboxDiv.children().length).to.equal(3)
-  assertCheckboxInput(checkboxDiv.children().at(0), `condition-${index}`, index, condition.selected)
-  assertLabel(checkboxDiv.children().at(1), condition.condition)
-  const span = checkboxDiv.children().at(2)
-  assertSpan(span)
-  expect(span.children().length).to.equal(2)
-  expect(span.children().at(0).name()).to.equal(null)
-  expect(span.children().at(0).text()).to.equal(' ')
-  if (condition.grouped) {
-    assertLink(span.children().at(1), `condition-${index}-split`, 'Split')
-  } else {
-    assertLink(span.children().at(1), `condition-${index}-edit`, 'Edit')
-  }
 }
 
 function assertConditionCoordinatorInput (conditionCoordinatorGroup, expectedValue) {
