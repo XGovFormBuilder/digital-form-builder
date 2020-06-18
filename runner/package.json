@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=production node dist/index.js",
-    "dev": "yarn babel-build:dev & NODE_ENV=development node dist/index.js",
+    "dev": "yarn babel-build:dev & PREVIEW_MODE=true NODE_ENV=development node dist/index.js",
     "build:css": "bin/build-css",
     "build": "npm run build:css && npm run babel-build",
     "lint": "standard",
