@@ -1,9 +1,12 @@
+import * as querystring from 'querystring'
+
 const joi = require('joi')
 const Page = require('./index')
 const shortid = require('shortid')
 const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
+const { clone, reach } = require('hoek')
 
 class SummaryViewModel {
   constructor (pageTitle, model, state) {
@@ -11,66 +14,81 @@ class SummaryViewModel {
 
     const relevantPages = []
     const details = []
-    let endPage = null
 
     let nextPage = model.startPage
-    while (nextPage) {
+    let endPage = null
+
+    while (nextPage != null) {
       if (nextPage.hasFormComponents) {
         relevantPages.push(nextPage)
+      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
+        endPage = nextPage
       }
-      nextPage = nextPage.getNextPage(state)
+      nextPage = nextPage.getNextPage(state, true)
     }
 
-    ;[undefined].concat(model.sections).forEach((section) => {
+    [undefined, ...model.sections].forEach(section => {
       const items = []
-      const sectionState = section
+      let sectionState = section
         ? (state[section.name] || {})
         : state
 
-      relevantPages.forEach(page => {
-        if (page.section === section) {
-          if (page.hasFormComponents) {
-            page.components.formItems.forEach(component => {
-              items.push({
-                name: component.name,
-                path: component.path,
-                label: component.localisedString(component.title),
-                value: component.getDisplayStringFromState(sectionState),
-                rawValue: sectionState[component.name],
-                url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
-                pageId: `/${model.basePath}${page.path}`,
-                type: component.type
-              })
-              if (component.items) {
-                const selectedValue = sectionState[component.name]
-                const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
-                if (selectedItem && selectedItem.conditional) {
-                  selectedItem.conditional.componentCollection.formItems.forEach(cc => {
-                    items.push({
-                      name: cc.name,
-                      path: cc.path,
-                      label: cc.localisedString(cc.title),
-                      value: cc.getDisplayStringFromState(sectionState),
-                      rawValue: sectionState[cc.name],
-                      url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
-                      pageId: `/${model.basePath}${page.path}`,
-                      type: cc.type
-                    })
-                  })
-                }
-              }
-            })
-          } else if (!(page instanceof SummaryPage) && !page.hasNext) {
-            endPage = page
+      const sectionPages = relevantPages
+        .filter(page => page.section === section)
+
+      const repeatablePage = sectionPages.find(page => !!page.repeatField)
+      // Currently can't handle repeatable page outside a section.
+      // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
+      // repeatable
+      if (section && repeatablePage) {
+        if (!state[section.name]) {
+          state[section.name] = sectionState = []
+        }
+        // Make sure the right number of items
+        const requiredIterations = reach(state, repeatablePage.repeatField)
+        if (requiredIterations < sectionState.length) {
+          state[section.name] = sectionState.slice(0, requiredIterations)
+        } else {
+          for (let i = sectionState.length; i < requiredIterations; i++) {
+            sectionState.push({})
           }
         }
-      })
-      if (items.length > 0) {
-        details.push({
-          name: section && section.name ? section.name : null,
-          title: section && section.title ? section.title : null,
-          items
+      }
+
+      sectionPages
+        .forEach(page => {
+          for (const component of page.components.formItems) {
+            const item = this.Item(component, sectionState, page, model)
+            items.push(item)
+            if (component.items) {
+              const selectedValue = sectionState[component.name]
+              const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
+              if (selectedItem && selectedItem.conditional) {
+                for (const cc of selectedItem.conditional.componentCollection.formItems) {
+                  const cItem = this.Item(cc, sectionState, page, model)
+                  items.push(cItem)
+                }
+              }
+            }
+          }
         })
+
+      if (items.length > 0) {
+        if (Array.isArray(sectionState)) {
+          details.push({
+            name: section?.name,
+            title: section?.title,
+            items: [...Array(reach(state, repeatablePage.repeatField))].map((x, i) => {
+              return items.map(item => item[i])
+            })
+          })
+        } else {
+          details.push({
+            name: section?.name,
+            title: section?.title,
+            items
+          })
+        }
       }
     })
 
@@ -87,9 +105,17 @@ class SummaryViewModel {
 
       this._payApiKey = model.def.payApiKey
     }
-
     const schema = model.makeFilteredSchema(state, relevantPages)
-    const result = joi.validate(state, schema, { abortEarly: false, stripUnknown: true })
+
+    const collatedRepeatPagesState = clone(state)
+    delete collatedRepeatPagesState.progress
+    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+      if (Array.isArray(section)) {
+        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
+      }
+    })
+
+    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
 
     if (result.error) {
       this.errors = result.error.details.map(err => {
@@ -118,37 +144,38 @@ class SummaryViewModel {
           }
         })
       })
-    }
-    if (applicableFees.length) {
-      const flatState = flatten(state)
-      this.fees = {
-        details: applicableFees,
-        total: Object.values(applicableFees).map(fee => {
-          if (fee.multiplier) {
-            const multiplyBy = flatState[fee.multiplier]
-            fee.multiplyBy = Number(multiplyBy)
-            return fee.multiplyBy * fee.amount
-          }
-          return fee.amount
-        }).reduce((a, b) => a + b)
-      }
-    }
-
-    this.parseDataForWebhook(model, relevantPages, details)
-
-    if (model.def.outputs) {
-      this._outputs = model.def.outputs.map(output => {
-        switch (output.type) {
-          case 'notify':
-            return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
-          case 'email':
-            return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
-          case 'webhook':
-            return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
-          case 'sheets':
-            return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
+    } else {
+      if (applicableFees.length) {
+        const flatState = flatten(state)
+        this.fees = {
+          details: applicableFees,
+          total: Object.values(applicableFees).map(fee => {
+            if (fee.multiplier) {
+              const multiplyBy = flatState[fee.multiplier]
+              fee.multiplyBy = Number(multiplyBy)
+              return fee.multiplyBy * fee.amount
+            }
+            return fee.amount
+          }).reduce((a, b) => a + b)
         }
-      })
+      }
+
+      this.parseDataForWebhook(model, relevantPages, details)
+
+      if (model.def.outputs) {
+        this._outputs = model.def.outputs.map(output => {
+          switch (output.type) {
+            case 'notify':
+              return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
+            case 'email':
+              return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
+            case 'webhook':
+              return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
+            case 'sheets':
+              return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
+          }
+        })
+      }
     }
 
     this.result = result
@@ -214,49 +241,64 @@ class SummaryViewModel {
   }
 
   parseDataForWebhook (model, relevantPages, details) {
-    const questions = relevantPages.map(page => {
-      const category = page.section && page.section.name ? page.section.name : null
-      const fields = []
-      page.components.formItems.forEach(item => {
-        const detail = details.find(d => d.name === category)
-        const detailItem = detail.items.find(detailItem => detailItem.name === item.name)
-        const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
-        fields.push({
-          key: item.name,
-          title: this.toEnglish(item.title),
-          type: item.dataType,
-          answer
-        })
+    const questions = []
 
-        if (item.items) {
-          const selectedItem = item.items.filter(i => i.value === answer)[0]
-          if (selectedItem && selectedItem.conditional) {
-            selectedItem.conditional.componentCollection.formItems.forEach(cc => {
-              const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
-              fields.push({
-                key: cc.name,
-                title: this.toEnglish(cc.title),
-                type: cc.dataType,
-                answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
-              })
-            })
-          }
-        }
-      })
+    for (const page of relevantPages) {
+      const category = page.section?.name ?? null
+      const isRepeatable = !!page.repeatField
+      const detail = details.find(d => d.name === category)
 
-      let question = ''
+      let question
       if (page.title) {
         question = this.toEnglish(page.title)
       } else {
         question = page.components.formItems.map(item => this.toEnglish(item.title)).join(', ')
       }
 
-      return {
-        category,
-        question,
-        fields
+      let items
+      if (isRepeatable) {
+        items = detail.items
+      } else {
+        items = [detail.items]
       }
-    })
+
+      for (let index = 0; index < items.length; index++) {
+        const item = items[index].filter(detailItem => detailItem.pageId === `/${model.basePath}${page.path}`)
+        const fields = []
+
+        for (const detailItem of item) {
+          const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
+          fields.push({
+            key: detailItem.name,
+            title: this.toEnglish(detailItem.title),
+            type: detailItem.dataType,
+            answer
+          })
+
+          if (detailItem.items) {
+            const selectedItem = detailItem.items.filter(i => i.value === answer)[0]
+            if (selectedItem && selectedItem.conditional) {
+              selectedItem.conditional.componentCollection.formItems.forEach(cc => {
+                const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
+                fields.push({
+                  key: cc.name,
+                  title: this.toEnglish(cc.title),
+                  type: cc.dataType,
+                  answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
+                })
+              })
+            }
+          }
+        }
+
+        questions.push({
+          category,
+          question,
+          fields,
+          index
+        })
+      }
+    }
 
     // default name if no name is provided
     let englishName = `${serviceName} ${model.basePath}`
@@ -309,6 +351,33 @@ class SummaryViewModel {
       ]
     })
   }
+
+  Item (component, sectionState, page, model, queryString = '') {
+    const isRepeatable = !!page.repeatField
+    const query = {
+      returnUrl: `/${model.basePath}/summary`
+    }
+
+    if (isRepeatable && Array.isArray(sectionState)) {
+      return sectionState.map((state, i) => {
+        const collated = Object.values(state).reduce((acc, p) => ({ ...acc, ...p }), {})
+        const qs = `${querystring.encode({ ...query, num: i + 1 })}`
+        return this.Item(component, collated, page, model, qs)
+      })
+    }
+
+    return {
+      name: component.name,
+      path: component.path,
+      label: component.localisedString(component.title),
+      value: component.getDisplayStringFromState(sectionState),
+      rawValue: sectionState[component.name],
+      url: `/${model.basePath}${page.path}?${queryString || querystring.encode(query)}`,
+      pageId: `/${model.basePath}${page.path}`,
+      type: component.type,
+      dataType: component.dataType
+    }
+  }
 }
 
 class SummaryPage extends Page {
@@ -336,7 +405,8 @@ class SummaryPage extends Page {
         const { path } = errorToFix
         const parts = path.split('.')
         const section = parts[0]
-        const property = parts[1]
+        const property = parts.length > 1 ? parts[parts.length - 1] : null
+        const iteration = parts.length === 3 ? Number(parts[1]) + 1 : null
         const pageWithError = model.pages.filter(page => {
           if (page.section && page.section.name === section) {
             let propertyMatches = true
@@ -352,7 +422,11 @@ class SummaryPage extends Page {
           return false
         })[0]
         if (pageWithError) {
-          return h.redirect(`/${model.basePath}${pageWithError.path}?returnUrl=/${model.basePath}/summary`)
+          const query = {
+            returnUrl: `/${model.basePath}/summary`,
+            num: iteration && pageWithError.repeatField ? iteration : null
+          }
+          return h.redirect(`/${model.basePath}${pageWithError.path}?${querystring.encode(query)}`)
         }
       }
 

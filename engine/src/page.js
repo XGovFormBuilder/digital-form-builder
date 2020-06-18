@@ -1,8 +1,8 @@
 const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
-const { merge, reach } = require('@hapi/hoek')
-const querystring = require('querystring')
+import { merge, reach } from '@hapi/hoek'
+import * as querystring from 'querystring'
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -37,10 +37,13 @@ class Page {
     this[STATE_SCHEMA] = this.components.stateSchema
   }
 
-  getViewModel (formData, errors) {
+  getViewModel (formData, iteration, errors) {
     let showTitle = true
     let pageTitle = this.title
-    const sectionTitle = this.section && this.section.title
+    let sectionTitle = this.section && this.section.title
+    if (sectionTitle && iteration !== undefined) {
+      sectionTitle = `${sectionTitle} ${iteration}`
+    }
     const components = this.components.getViewModel(formData, errors)
 
     const formComponents = components.filter(c => c.isFormComponent)
@@ -57,7 +60,7 @@ class Page {
 
       if (this.section) {
         label.html =
-          `<span class="govuk-caption-xl">${this.section.title}</span> ${label.text}`
+          `<span class="govuk-caption-xl">${sectionTitle}</span> ${label.text}`
       }
 
       label.isPageHeading = true
@@ -89,11 +92,24 @@ class Page {
     }).filter(v => !!v)
   }
 
-  getNextPage (state) {
+  getNextPage (state, suppressRepetition = false) {
+    if (this.repeatField && !suppressRepetition) {
+      const requiredCount = reach(state, this.repeatField)
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+      const sectionState = state[this.section.name] || {}
+      if (Object.keys(sectionState[sectionState.length -1]).length === otherRepeatPagesInSection.length) { //iterated all pages at least once
+        const lastIteration = sectionState[sectionState.length - 1]
+        if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { //this iteration is 'complete'
+          if (sectionState.length < requiredCount) {
+            return this.findPageByPath(Object.keys(lastIteration)[0])
+          }
+        }
+      }
+    }
+
     let defaultLink
     const nextLink = this.next.find(link => {
       const { condition } = link
-
       if (condition) {
         return this.model.conditions[condition] &&
           this.model.conditions[condition].fn(state)
@@ -101,39 +117,22 @@ class Page {
       defaultLink = link
       return false
     })
-
-    if (this.repeatField) {
-      const requiredCount = reach(state, this.repeatField)
-      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
-      const sectionState = state[this.section.name]
-      if (Object.keys(sectionState?.[0]).length === otherRepeatPagesInSection.length) { // iterated all pages at least once
-        const lastIteration = sectionState[sectionState.length - 1]
-        if (otherRepeatPagesInSection.length ===
-          Object.keys(lastIteration).length) { // this iteration is 'complete'
-          if (Object.keys(lastIteration).length === requiredCount) {
-            return this.findPageByPath(Object.keys(lastIteration)[0])
-          }
-        }
-      }
-    }
-
     return nextLink?.page ?? defaultLink?.page
   }
 
   getNext (state) {
     const nextPage = this.getNextPage(state)
-    const query = {}
+    let query = { num: 0 }
     let queryString = ''
-    if (nextPage.repeatField) {
-      query.num = 0
+    if(nextPage.repeatField) {
       const requiredCount = reach(state, nextPage.repeatField)
       const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
       const sectionState = state[nextPage.section.name]
-      const lastInSection = sectionState?.[sectionState.length - 1] ?? {}
-      const isLastComplete = Object.keys(lastInSection).length === otherRepeatPagesInSection.length
-      query.num = sectionState ? isLastComplete ? this.objLength(sectionState) + 1 : this.objLength(sectionState) : 1
+      const lastInSection = sectionState?.[sectionState.length -1] ?? {}
+      const isLastComplete =  Object.keys(lastInSection).length === otherRepeatPagesInSection.length
+      query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState): 1
 
-      if (query.num < requiredCount) {
+      if(query.num <= requiredCount) {
         queryString = `?${querystring.encode(query)}`
       }
     }
@@ -147,14 +146,11 @@ class Page {
   getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
     if (this.repeatField) {
-      const repeatedPageState = pageState?.[atIndex ?? (pageState.length || 1) - 1] ?? {}
-      const values = Object.values(repeatedPageState)
-
-      return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({ ...acc, ...page })) : {})
+      let repeatedPageState = pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {}
+      let values = Object.values(repeatedPageState)
+      return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({...acc, ...page})) : {})
     }
-    // {
-    //   "ukPassport": true
-    // }
+
     return this.components.getFormDataFromState(pageState || {})
   }
 
@@ -204,7 +200,7 @@ class Page {
     return request.yar.get('lang')
   }
 
-  objLength (object) {
+  #objLength (object) {
     return Object.keys(object).length ?? 0
   }
 
@@ -214,10 +210,10 @@ class Page {
       const lang = this.langFromRequest(request)
       const state = await cacheService.getState(request)
       const progress = state.progress || []
-      const currentPath = `/${this.model.basePath}${this.path}`
-      const startPage = this.model.def.startPage
       const { num } = request.query
-      const formData = this.getFormDataFromState(state, num)
+      const currentPath = `/${this.model.basePath}${this.path}${num ? '?num=' + num : ''}`
+      const startPage = this.model.def.startPage
+      const formData =  this.getFormDataFromState(state, num - 1)
 
       if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
         return startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
@@ -232,7 +228,8 @@ class Page {
           }
         })
       }
-      const viewModel = this.getViewModel(formData)
+
+      const viewModel = this.getViewModel(formData, num)
       viewModel.startPage = startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
       viewModel.currentPath = `${currentPath}${request.query.returnUrl ? '?returnUrl=' + request.query.returnUrl : ''}`
       viewModel.components = viewModel.components.filter(component => {
@@ -324,7 +321,7 @@ class Page {
       })
 
       if (formResult.errors) {
-        const viewModel = this.getViewModel(payload, formResult.errors)
+        const viewModel = this.getViewModel(payload, num, formResult.errors)
         viewModel.backLink = progress[progress.length - 2]
         return h.view(this.viewName, viewModel)
       }
@@ -333,22 +330,24 @@ class Page {
       const stateResult = this.validateState(newState)
 
       if (stateResult.errors) {
-        const viewModel = this.getViewModel(payload, stateResult.errors)
+        const viewModel = this.getViewModel(payload, num, stateResult.errors)
         viewModel.backLink = progress[progress.length - 2]
         return h.view(this.viewName, viewModel)
       }
 
+
       let update = this.getPartialMergeState(stateResult.value)
       if (this.repeatField) {
-        const updateValue = { [this.path]: update[this.section.name] }
-        const sectionState = state[this.section.name]
+        let updateValue = {[this.path]: update[this.section.name]}
+        let sectionState = state[this.section.name]
         if (!sectionState) {
           update = { [this.section.name]: [updateValue] }
-        } else if (!sectionState[num - 1]) {
+        } else if(!sectionState[num-1]) {
           sectionState.push(updateValue)
           update = { [this.section.name]: sectionState }
+
         } else {
-          sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue)
+          sectionState[num-1] = merge(sectionState[num-1] ?? {}, updateValue)
           update = { [this.section.name]: sectionState }
         }
       }

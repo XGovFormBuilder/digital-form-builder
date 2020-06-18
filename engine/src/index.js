@@ -2,6 +2,9 @@ const Boom = require('boom')
 const pkg = require('../package.json')
 const Model = require('./model')
 
+// 5mb
+const UPLOAD_LIMIT = 5 * 1024 * 1024
+
 function normalisePath (path) {
   return path
     .replace(/^\//, '')
@@ -65,7 +68,7 @@ module.exports = {
 
       server.route({
         method: 'get',
-        path: '/',
+        path: `/`,
         handler: (request, h) => {
           const keys = Object.keys(forms)
           let id = ''
@@ -82,7 +85,7 @@ module.exports = {
 
       server.route({
         method: 'get',
-        path: '/{id}',
+        path: `/{id}`,
         handler: (request, h) => {
           const { id } = request.params
           const model = forms[id]
@@ -95,7 +98,7 @@ module.exports = {
 
       server.route({
         method: 'get',
-        path: '/{id}/{path*}',
+        path: `/{id}/{path*}`,
         handler: (request, h) => {
           const { path, id } = request.params
           const model = forms[id]
@@ -132,7 +135,7 @@ module.exports = {
 
       server.route({
         method: 'post',
-        path: '/{id}/{path*}',
+        path: `/{id}/{path*}`,
         options: {
           plugins: {
             'hapi-rate-limit': {

@@ -23,10 +23,12 @@ module.exports = {
           }
         },
         prepare: (options, next) => {
-          options.compileOptions.environment = nunjucks.configure(options.path, {
+          const environment = nunjucks.configure(options.path, {
             autoescape: true,
             watch: false
           })
+          environment.addFilter('isArray', x => Array.isArray(x))
+          options.compileOptions.environment = environment
 
           return next()
         }

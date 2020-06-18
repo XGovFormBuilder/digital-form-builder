@@ -1,29 +1,21 @@
+{% from "./summary-row.html" import summaryRow %}
+
 {% macro summaryDetail(data) %}
-  <h2 class="govuk-heading-m">{{data.title}}</h2>
+    {%  set isRepeatableSection = (data.items[0] | isArray) %}
+    {% if not isRepeatableSection %}
+        <h2 class="govuk-heading-m">{{data.title}}</h2>
+    {% endif %}
   <dl class="govuk-summary-list">
     {% for item in data.items %}
-      {% if not hide %}
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            {{item.label}}
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {% if item.value %}
-              {% if item.type == 'FileUploadField' %}
-                Uploaded
-              {% else %}
-                {{item.value}}
-              {% endif %}
-            {% else %}
-              Not supplied
-            {% endif %}
-          </dd>
-          <dd class="govuk-summary-list__actions">
-            <a class="govuk-link" href="{{item.url}}">
-              Change<span class="govuk-visually-hidden"> {{item.label}}</span>
-            </a>
-          </dd>
-        </div>
+        {% if not hide %}
+        {%- if item | isArray %}
+            <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">{{data.title}} {{ loop.index }}</h2>
+            {% for repeated in item %}
+                {{ summaryRow(repeated) }}
+            {% endfor %}
+        {% else %}
+          {{ summaryRow(item) }}
+        {% endif %}
       {% endif %}
     {% endfor %}
   </dl>

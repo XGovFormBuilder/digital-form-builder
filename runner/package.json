@@ -1,22 +1,22 @@
 {
   "name": "digital-form-builder",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Digital forms runner",
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=development node dist/index.js",
     "dev": "yarn babel-build:dev & NODE_ENV=development node dist/index.js",
     "build:css": "bin/build-css",
-    "build": "npm run build:css && npm run babel-build",
+    "build": "yarn build:css && yarn babel-build",
     "lint": "standard",
     "unit-test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
-    "test": "NODE_ENV=test npm run lint && npm run unit-test",
-    "postinstall": "npm run build",
+    "test": "NODE_ENV=test yarn run lint && yarn run unit-test",
+    "postinstall": "yarn build",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
-    "babel-build": "babel src -d dist --copy-files --minified",
-    "babel-build:dev": "babel src -d dist --copy-files --watch"
+    "babel-build": "babel src -d dist --copy-files --minified -s inline",
+    "babel-build:dev": "babel src -d dist --copy-files --watch -s inline"
   },
   "repository": {
     "type": "git",
