@@ -1,4 +1,4 @@
-const EngineBasePage = require('digital-form-builder-engine/page')
+import { Page as EngineBasePage } from 'digital-form-builder-engine'
 
 class Page extends EngineBasePage {
   get getRouteOptions () {

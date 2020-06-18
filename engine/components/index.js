@@ -1,5 +1,5 @@
 const joi = require('joi')
-const componentTypes = require('../component-types')
+const componentTypes = require('../src/component-types')
 const nunjucks = require('nunjucks')
 const path = require('path')
 const createConditionalComponents = Symbol('createConditionalComponents')
