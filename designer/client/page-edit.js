@@ -9,17 +9,16 @@ class PageEdit extends React.Component {
     const form = e.target
     const formData = new window.FormData(form)
     const title = formData.get('title').trim()
-    const newPath = '/'.concat(title.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '-')).toLowerCase()
+    const newPath = `/${title.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '-')}`.toLowerCase()
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
     const { data, page } = this.props
 
     const copy = clone(data)
-    const titleChanged = title !== page.title
     const pageIndex = data.pages.indexOf(page)
     const copyPage = copy.pages[pageIndex]
 
-    if (titleChanged) {
+    if (title !== page.title) {
       // `path` has changed - validate it is unique
       if (data.findPage(title)) {
         form.elements.path.setCustomValidity(`Title '${title}' already exists`)
@@ -27,7 +26,7 @@ class PageEdit extends React.Component {
         return
       }
       // we want to also update the `next:` references for this page with the new path to preserve the link
-      copy.pages.filter(page => page.next.map(next => {
+      copy.pages.forEach(page => page.next.forEach(next => {
         if (next.path === copyPage.path) {
           next.path = newPath
         }
