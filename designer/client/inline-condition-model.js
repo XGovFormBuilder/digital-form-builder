@@ -159,6 +159,13 @@ export class ConditionsModel {
     }
     return []
   }
+
+  clone () {
+    const toReturn = new ConditionsModel()
+    toReturn.groupedConditions = this.groupedConditions.map(it => it.clone())
+    toReturn.userGroupedConditions = this.userGroupedConditions.map(it => it.clone())
+    return toReturn
+  }
 }
 
 export class GroupDef {
@@ -225,6 +232,10 @@ class ConditionGroup {
   isGroup () {
     return true
   }
+
+  clone () {
+    return new ConditionGroup(this.conditions.map(condition => condition.clone()))
+  }
 }
 
 export class Condition {
@@ -274,6 +285,10 @@ export class Condition {
 
   isGroup () {
     return false
+  }
+
+  clone () {
+    return new Condition(Field.from(this.field), this.operator, Value.from(this.value), this.coordinator)
   }
 }
 

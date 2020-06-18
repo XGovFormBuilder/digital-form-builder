@@ -83,6 +83,12 @@ class PageCreate extends React.Component {
     })
   }
 
+  saveConditions = conditions => {
+    this.setState({
+      conditions: conditions
+    })
+  }
+
   render () {
     const { data } = this.props
     const { sections, pages } = data
@@ -107,7 +113,7 @@ class PageCreate extends React.Component {
 
         </div>
 
-        {this.state.linkFrom && this.state.linkFrom.trim() !== '' && <InlineConditions data={data} path={this.state.linkFrom} />}
+        {this.state.linkFrom && this.state.linkFrom.trim() !== '' && <InlineConditions data={data} path={this.state.linkFrom} conditionsChange={this.saveConditions} />}
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>

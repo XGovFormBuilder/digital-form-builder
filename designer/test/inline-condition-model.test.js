@@ -334,6 +334,35 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('clone', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+    })
+
+    test('should be cloned', () => {
+      const returned = underTest.clone()
+      expect(returned === underTest).to.equal(false)
+      expect(returned).to.equal(underTest)
+
+      underTest.userGroupedConditions[0].setCoordinator('or')
+      expect(returned).to.not.equal(underTest)
+
+      underTest.userGroupedConditions[0].setCoordinator(undefined)
+      expect(returned).to.equal(underTest)
+
+      underTest.groupedConditions[0].setCoordinator('or')
+      expect(returned).to.not.equal(underTest)
+
+      underTest.groupedConditions[0].setCoordinator(undefined)
+      expect(returned).to.equal(underTest)
+    })
+  })
+
   describe('moving conditions and groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))

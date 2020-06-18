@@ -19,7 +19,7 @@ import InlineConditions from '../client/inline-conditions'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { before, describe, suite, test } = lab
+const { before, beforeEach, describe, suite, test } = lab
 
 suite('Inline conditions', () => {
   const data = {
@@ -27,11 +27,17 @@ suite('Inline conditions', () => {
     listFor: sinon.stub()
   }
   const path = '/'
+  let conditionsChange
+
+  beforeEach(() => {
+    conditionsChange = sinon.spy()
+  })
 
   test('render returns nothing when there is an empty fields list', () => {
     data.inputsAccessibleAt.withArgs(path).returns([])
     data.listFor.returns(undefined)
-    expect(shallow(<InlineConditions data={data} path={path} />).exists('.inline-conditions')).to.equal(false)
+    expect(shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />).exists('.inline-conditions')).to.equal(false)
+    expect(conditionsChange.called).to.equal(false)
   })
 
   describe('when fields are present', () => {
@@ -55,7 +61,7 @@ suite('Inline conditions', () => {
       let path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
-      const wrapper = shallow(<InlineConditions data={data} path={path} />)
+      const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
       expect(wrapper.exists('.inline-conditions')).to.equal(true)
       wrapper.setProps({ path: path2 })
       expect(wrapper.exists('.inline-conditions')).to.equal(false)
@@ -65,20 +71,36 @@ suite('Inline conditions', () => {
       let path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
-      const wrapper = shallow(<InlineConditions data={data} path={path2} />)
+      const wrapper = shallow(<InlineConditions data={data} path={path2} conditionsChange={conditionsChange} />)
       expect(wrapper.exists('.inline-conditions')).to.equal(false)
       wrapper.setProps({ path: path })
       expect(wrapper.exists('.inline-conditions')).to.equal(true)
     })
 
+    test('Conditions change is called with the updated conditions any time saveState is called with updated conditions', () => {
+      const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
+      const updatedConditions = sinon.stub()
+      wrapper.instance().render = sinon.stub()
+      wrapper.instance().setState({ conditions: updatedConditions })
+
+      expect(conditionsChange.calledOnceWith(updatedConditions)).to.equal(true)
+    })
+
+    test('Conditions change is not called if saveState is called without updated conditions', () => {
+      const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
+      wrapper.instance().setState({ something: 'badgers' })
+
+      expect(conditionsChange.called).to.equal(false)
+    })
+
     describe('adding conditions', () => {
       test('Only the header and add item link are present initially', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         assertHeaderAndAddItemDisplayed(wrapper)
       })
 
       test('Clicking the add item link presents the field drop down and removes the add item link', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
 
         const fieldsGroup = assertAddingFirstCondition(wrapper)
@@ -89,7 +111,7 @@ suite('Inline conditions', () => {
       })
 
       test('Selecting a field displays the relevant operators', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
 
@@ -102,7 +124,7 @@ suite('Inline conditions', () => {
       })
 
       test('Change field erases operator and value if neither is relevant anymore', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[2] } })
@@ -131,7 +153,7 @@ suite('Inline conditions', () => {
       })
 
       test('Change field erases value but keeps operator if operator is still relevant', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
@@ -155,7 +177,7 @@ suite('Inline conditions', () => {
       })
 
       test('Clearing field erases all values', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
@@ -179,7 +201,7 @@ suite('Inline conditions', () => {
       describe('for a field which does not have an options list', () => {
         textFieldOperators.forEach(operator => {
           test('selecting an operator creates a text value input for ' + operator, () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} />)
+            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
             wrapper.find('#add-item').simulate('click')
             wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
             wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
@@ -194,7 +216,7 @@ suite('Inline conditions', () => {
         })
 
         test('populating a value makes the \'save condition\' link appear', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
 
@@ -208,7 +230,7 @@ suite('Inline conditions', () => {
         })
 
         test('changing to a blank value makes the \'save condition\' link disappear', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
           wrapper.find('#cond-value').simulate('change', { target: { value: '' } })
@@ -222,7 +244,7 @@ suite('Inline conditions', () => {
         })
 
         test('removing a value makes the \'save condition\' link disappear', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
           wrapper.find('#cond-value').simulate('change', { target: { value: undefined } })
@@ -236,7 +258,7 @@ suite('Inline conditions', () => {
         })
 
         test('Clicking the \'save condition\' link stores the condition and presents And / Or co-ordinator options', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
 
@@ -256,7 +278,7 @@ suite('Inline conditions', () => {
 
         selectFieldOperators.forEach(operator => {
           test(`selecting an operator creates a select input for ${operator}`, () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} />)
+            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
             wrapper.find('#add-item').simulate('click')
             wrapper.find('#cond-field').simulate('change', { target: { value: field.name } })
             wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
@@ -276,7 +298,7 @@ suite('Inline conditions', () => {
 
         values.forEach(value => {
           test(`selecting value '${value.text}' makes the 'save condition' link appear`, () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} />)
+            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
             wrapper.find('#add-item').simulate('click')
             fillConditionInputs(wrapper, field.name, textFieldOperators[0], value.value)
 
@@ -292,7 +314,7 @@ suite('Inline conditions', () => {
         })
 
         test('changing a value leaves the \'save condition\' link in place', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           fillConditionInputs(wrapper, field.name, textFieldOperators[0], values[0].value)
           wrapper.find('#cond-value').simulate('change', { target: { value: values[1].value } })
@@ -308,7 +330,7 @@ suite('Inline conditions', () => {
         })
 
         test('Removing a value removes the \'save condition\' link', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           fillConditionInputs(wrapper, field.name, textFieldOperators[0], values[0].value)
           wrapper.find('#cond-value').simulate('change', { target: { value: undefined } })
@@ -323,7 +345,7 @@ suite('Inline conditions', () => {
         })
 
         test('Selecting a blank value removes the \'save condition\' link', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           fillConditionInputs(wrapper, field.name, textFieldOperators[0], values[0].value)
           wrapper.find('#cond-value').simulate('change', { target: { value: '' } })
@@ -338,7 +360,7 @@ suite('Inline conditions', () => {
         })
 
         test('Clicking the \'save condition\' link stores the condition and presents And / Or co-ordinator options', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} />)
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           saveCondition(wrapper, field.name, selectFieldOperators[0], values[0].value)
 
@@ -350,7 +372,7 @@ suite('Inline conditions', () => {
       })
 
       test('Adding multiple conditions', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -365,7 +387,7 @@ suite('Inline conditions', () => {
       })
 
       test('Changing to a blank coordinator', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -378,7 +400,7 @@ suite('Inline conditions', () => {
       })
 
       test('Changing to an undefined coordinator', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -393,7 +415,7 @@ suite('Inline conditions', () => {
 
     describe('editing conditions', () => {
       test('Clicking the edit link causes editing view to be rendered', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#edit-conditions-link').simulate('click')
@@ -405,7 +427,7 @@ suite('Inline conditions', () => {
       })
 
       test('Clicking the edit link for a single condition causes the field definition inputs to be pre-populated', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#edit-conditions-link').simulate('click')
@@ -424,7 +446,7 @@ suite('Inline conditions', () => {
       })
 
       test('Co-ordinator is not present when editing the first condition of many', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -445,7 +467,7 @@ suite('Inline conditions', () => {
       })
 
       test('Co-ordinator is present when editing any subsequent condition', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -467,7 +489,7 @@ suite('Inline conditions', () => {
       })
 
       test('Saving edits to condition results in an updated condition string and returns the users to an updated edit panel', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -485,7 +507,7 @@ suite('Inline conditions', () => {
       })
 
       test('Grouping conditions combines them into a single condition which can be split but not edited', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -510,7 +532,7 @@ suite('Inline conditions', () => {
       })
 
       test('should not group non-consecutive conditions', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -539,7 +561,7 @@ suite('Inline conditions', () => {
       })
 
       test('should group multiple consecutive condition groups', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
@@ -574,7 +596,7 @@ suite('Inline conditions', () => {
       })
 
       test('splitting grouped conditions returns them to their original components', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -601,7 +623,7 @@ suite('Inline conditions', () => {
       })
 
       test('removing selected conditions', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -622,7 +644,7 @@ suite('Inline conditions', () => {
       })
 
       test('Should deselect conditions', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -638,7 +660,7 @@ suite('Inline conditions', () => {
       })
 
       test('removing grouped conditions removes everything in the group', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -663,7 +685,7 @@ suite('Inline conditions', () => {
       })
 
       test('removing last condition returns the user to the original add display', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
@@ -683,7 +705,7 @@ suite('Inline conditions', () => {
       })
 
       test('exiting edit view returns user to the add condition view', () => {
-        const wrapper = shallow(<InlineConditions data={data} path={path} />)
+        const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#add-item').simulate('click')
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#edit-conditions-link').simulate('click')

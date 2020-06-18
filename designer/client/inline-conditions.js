@@ -180,7 +180,7 @@ class InlineConditions extends React.Component {
       this.setState({
         editing: index,
         editView: false,
-        condition: conditions[index]
+        condition: Object.assign({}, conditions[index])
       })
     }
   }
@@ -197,6 +197,13 @@ class InlineConditions extends React.Component {
       conditions: this.state.conditions.moveLater(index),
       selectedConditions: []
     })
+  }
+
+  setState (state, callback) {
+    if (state.conditions) {
+      this.props.conditionsChange(state.conditions)
+    }
+    super.setState(state, callback)
   }
 
   render () {
