@@ -1,0 +1,221 @@
+{
+  "conditions": [
+    {
+      "name": "hasUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==true"
+    },
+    {
+      "name": "doesntHaveUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==false"
+    }
+  ],
+  "startPage": "/uk-passport",
+  "pages": [
+    {
+      "path": "/uk-passport",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "ukPassport",
+          "title": "Do you have a UK passport?"
+        }
+      ],
+      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/how-many-people"
+        },
+        {
+          "path": "/no-uk-passport",
+          "condition": "doesntHaveUKPassport"
+        }
+      ],
+      "title": "Do you have a UK passport?"
+    },
+    {
+      "path": "/no-uk-passport",
+      "title": "You're not eligible for this service",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you still think you're eligible please contact the Foreign and Commonwealth Office."
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/how-many-people",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "options": {
+            "list": "numberOfApplicants",
+            "classes": "govuk-input--width-10"
+          },
+          "type": "SelectField",
+          "name": "numberOfApplicants",
+          "title": "How many applicants are there?"
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-repeatable"
+        }
+      ],
+      "title": "How many applicants are there?"
+    },
+    {
+      "path": "/applicant-repeatable",
+      "title": "Applicant",
+      "section": "applicant",
+      "repeatField": "applicantDetails.numberOfApplicants",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport."
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name"
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here"
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname"
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ]
+    },
+    {
+      "path": "/contact-details",
+      "section": "applicant",
+      "repeatField": "applicantDetails.numberOfApplicants",
+      "components": [
+        {
+          "type": "TelephoneNumberField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "hint": "If you haven't got a UK phone number, include country code"
+        },
+        {
+          "type": "EmailAddressField",
+          "name": "emailAddress",
+          "title": "Your email address"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Applicant contact details"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "sections": [
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    },
+    {
+      "name": "applicantDetails",
+      "title": "How many"
+    },
+    {
+      "name": "applicant",
+      "title": "Applicant"
+    }
+  ],
+  "lists": [
+    {
+      "name": "numberOfApplicants",
+      "title": "Number of people",
+      "type": "number",
+      "items": [
+        {
+          "text": "1",
+          "value": "1",
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "2",
+          "value": "2",
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "3",
+          "value": "3",
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "4",
+          "value": "4",
+          "description": "",
+          "condition": ""
+        }
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "description": "Application fee",
+      "amount": 5000,
+      "condition": "hasUKPassport",
+      "multiplier": "applicantDetails.numberOfApplicants"
+    },
+    {
+      "description": "Postage",
+      "amount": 1000,
+      "condition": "hasUKPassport"
+    }
+  ],
+  "payApiKey": "<GOV.UK Pay API key>",
+  "outputs": [
+    {
+      "name": "formsapi",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "http://forms-api:9000/v1/forms"
+      }
+    },
+    {
+      "name": "confirmationemail",
+      "type": "notify",
+      "outputConfiguration": {
+        "templateId": "<GOV.UK Notify template ID>",
+        "personalisation": [
+          "applicantOneDetails.firstName",
+          "applicantOneDetails.lastName"
+        ],
+        "emailField": "applicantDetails.emailAddress",
+        "apiKey": "<GOV.UK Notify API key>"
+      }
+    }
+  ],
+  "skipSummary": false,
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>"
+}
