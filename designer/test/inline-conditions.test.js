@@ -5,6 +5,8 @@ import * as Lab from '@hapi/lab'
 import {
   assertCheckboxInput,
   assertDiv,
+  assertText,
+  assertClasses,
   assertHeaderLabel,
   assertLabel,
   assertLink,
@@ -24,19 +26,21 @@ const { before, beforeEach, describe, suite, test } = lab
 suite('Inline conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
-    listFor: sinon.stub()
+    listFor: sinon.stub(),
+    hasConditions: sinon.stub()
   }
   const path = '/'
   let conditionsChange
 
   beforeEach(() => {
     conditionsChange = sinon.spy()
+    data.hasConditions.returns(false)
   })
 
   test('render returns nothing when there is an empty fields list', () => {
     data.inputsAccessibleAt.withArgs(path).returns([])
     data.listFor.returns(undefined)
-    expect(shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />).exists('.inline-conditions')).to.equal(false)
+    expect(shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />).exists('.conditions')).to.equal(false)
     expect(conditionsChange.called).to.equal(false)
   })
 
@@ -62,9 +66,9 @@ suite('Inline conditions', () => {
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-      expect(wrapper.exists('.inline-conditions')).to.equal(true)
+      expect(wrapper.exists('.conditions')).to.equal(true)
       wrapper.setProps({ path: path2 })
-      expect(wrapper.exists('.inline-conditions')).to.equal(false)
+      expect(wrapper.exists('.conditions')).to.equal(false)
     })
 
     test('if the path property changes from a route with fields then the condition section appears', () => {
@@ -72,9 +76,9 @@ suite('Inline conditions', () => {
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
       const wrapper = shallow(<InlineConditions data={data} path={path2} conditionsChange={conditionsChange} />)
-      expect(wrapper.exists('.inline-conditions')).to.equal(false)
+      expect(wrapper.exists('.conditions')).to.equal(false)
       wrapper.setProps({ path: path })
-      expect(wrapper.exists('.inline-conditions')).to.equal(true)
+      expect(wrapper.exists('.conditions')).to.equal(true)
     })
 
     test('Conditions change is called with the updated conditions any time saveState is called with updated conditions', () => {
@@ -97,6 +101,10 @@ suite('Inline conditions', () => {
       test('Only the header and add item link are present initially', () => {
         const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         assertHeaderAndAddItemDisplayed(wrapper)
+        expect(wrapper.find('#condition-string').exists()).to.equal(false)
+        expect(wrapper.find('#conditions-display').exists()).to.equal(false)
+        expect(wrapper.find('#select-condition').exists()).to.equal(false)
+        expect(wrapper.find('#inline-conditions').exists()).to.equal(false)
       })
 
       test('Clicking the add item link presents the field drop down and removes the add item link', () => {
@@ -262,7 +270,7 @@ suite('Inline conditions', () => {
           wrapper.find('#add-item').simulate('click')
           saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
 
-          const children = wrapper.find('.inline-conditions').children()
+          const children = wrapper.find('.conditions').children()
           expect(children.length).to.equal(2)
           assertHeaderGroupWithConditionString(children.at(0), 'Something is M')
           assertConditionCoordinatorInput(children.at(1))
@@ -364,7 +372,7 @@ suite('Inline conditions', () => {
           wrapper.find('#add-item').simulate('click')
           saveCondition(wrapper, field.name, selectFieldOperators[0], values[0].value)
 
-          const children = wrapper.find('.inline-conditions').children()
+          const children = wrapper.find('.conditions').children()
           expect(children.length).to.equal(2)
           assertHeaderGroupWithConditionString(children.at(0), 'Another thing is Value 1')
           assertConditionCoordinatorInput(children.at(1))
@@ -380,7 +388,7 @@ suite('Inline conditions', () => {
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
         saveCondition(wrapper, fields[2].name, selectFieldOperators[0], 'value1')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertHeaderGroupWithConditionString(children.at(0), '(Something is M and Something else is not N) or Another thing is Value 1')
         assertConditionCoordinatorInput(children.at(1))
@@ -393,7 +401,7 @@ suite('Inline conditions', () => {
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: '' } })
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertHeaderGroupWithConditionString(children.at(0), 'Something is M')
         assertConditionCoordinatorInput(children.at(1))
@@ -406,7 +414,7 @@ suite('Inline conditions', () => {
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: undefined } })
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertHeaderGroupWithConditionString(children.at(0), 'Something is M')
         assertConditionCoordinatorInput(children.at(1))
@@ -420,7 +428,7 @@ suite('Inline conditions', () => {
         saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#edit-conditions-link').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), 'Something is M')
         assertEditPanel(children.at(1), [{ condition: 'Something is M' }])
@@ -433,7 +441,7 @@ suite('Inline conditions', () => {
         wrapper.find('#edit-conditions-link').simulate('click')
         wrapper.find('#condition-0-edit').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), 'Something is M')
         const fieldsGroup = assertFieldsGroup(children.at(1))
@@ -454,7 +462,7 @@ suite('Inline conditions', () => {
         wrapper.find('#edit-conditions-link').simulate('click')
         wrapper.find('#condition-0-edit').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), 'Something is M and Something else is N')
         const fieldsGroup = assertFieldsGroup(children.at(1))
@@ -475,11 +483,11 @@ suite('Inline conditions', () => {
         wrapper.find('#edit-conditions-link').simulate('click')
         wrapper.find('#condition-1-edit').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
-        expect(children.length).to.equal(3)
+        const children = wrapper.find('.conditions').children()
+        expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), 'Something is M and Something else is N')
         assertConditionCoordinatorInput(children.at(1), 'and')
-        const fieldsGroup = assertFieldsGroup(children.at(2))
+        const fieldsGroup = assertFieldsGroup(children.at(1))
         const fieldsChildren = fieldsGroup.children()
         expect(fieldsChildren.length).to.equal(4)
         assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({ value: field.name, text: field.title })), fields[1].name)
@@ -500,7 +508,7 @@ suite('Inline conditions', () => {
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
         saveCondition(wrapper, fields[2].name, selectFieldOperators[1], values[0].value)
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), 'Something is M or Another thing is not Value 1')
         assertEditPanel(children.at(1), [{ condition: 'Something is M' }, { condition: 'or Another thing is not Value 1' }])
@@ -518,14 +526,14 @@ suite('Inline conditions', () => {
         wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
         wrapper.find('#condition-1').simulate('change', { target: { value: '1', checked: true } })
 
-        const preGroupingChildren = wrapper.find('.inline-conditions').children()
+        const preGroupingChildren = wrapper.find('.conditions').children()
         expect(preGroupingChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(preGroupingChildren.at(0), 'Something is M and Something else is N')
         assertEditPanel(preGroupingChildren.at(1), [{ condition: 'Something is M', selected: true }, { condition: 'and Something else is N', selected: true }])
 
         wrapper.find('#group-conditions').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), '(Something is M and Something else is N)')
         assertEditPanel(children.at(1), [{ condition: '(Something is M and Something else is N)', grouped: true }])
@@ -545,7 +553,7 @@ suite('Inline conditions', () => {
         wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
         wrapper.find('#condition-2').simulate('change', { target: { value: '2', checked: true } })
 
-        const preGroupingChildren = wrapper.find('.inline-conditions').children()
+        const preGroupingChildren = wrapper.find('.conditions').children()
         expect(preGroupingChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(preGroupingChildren.at(0), 'Something is M and Something else is N and Another thing is Value 1')
         assertEditPanel(preGroupingChildren.at(1), [{ condition: 'Something is M', selected: true }, { condition: 'and Something else is N' },
@@ -553,7 +561,7 @@ suite('Inline conditions', () => {
 
         wrapper.find('#group-conditions').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), 'Something is M and Something else is N and Another thing is Value 1')
         assertEditPanel(children.at(1), [{ condition: 'Something is M', selected: true }, { condition: 'and Something else is N' },
@@ -580,7 +588,7 @@ suite('Inline conditions', () => {
         wrapper.find('#condition-3').simulate('change', { target: { value: '3', checked: true } })
         wrapper.find('#condition-4').simulate('change', { target: { value: '4', checked: true } })
 
-        const preGroupingChildren = wrapper.find('.inline-conditions').children()
+        const preGroupingChildren = wrapper.find('.conditions').children()
         expect(preGroupingChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(preGroupingChildren.at(0), 'Something is M or (Something else is N and Another thing is Value 1) or (Another thing is Value 1 and Something else is Y)')
         assertEditPanel(preGroupingChildren.at(1), [{ condition: 'Something is M', selected: true }, { condition: 'or Something else is N', selected: true },
@@ -588,7 +596,7 @@ suite('Inline conditions', () => {
 
         wrapper.find('#group-conditions').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(children.at(0), '((Something is M or Something else is N) and Another thing is Value 1) or (Another thing is Value 1 and Something else is Y)')
         assertEditPanel(children.at(1), [{ condition: '(Something is M or Something else is N)', grouped: true },
@@ -609,14 +617,14 @@ suite('Inline conditions', () => {
 
         wrapper.find('#group-conditions').simulate('click')
 
-        const groupedChildren = wrapper.find('.inline-conditions').children()
+        const groupedChildren = wrapper.find('.conditions').children()
         expect(groupedChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(groupedChildren.at(0), '(Something is M and Something else is N)')
         assertEditPanel(groupedChildren.at(1), [{ condition: '(Something is M and Something else is N)', grouped: true }])
 
         wrapper.find('#condition-0-split').simulate('click')
 
-        const splitChildren = wrapper.find('.inline-conditions').children()
+        const splitChildren = wrapper.find('.conditions').children()
         expect(splitChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(splitChildren.at(0), 'Something is M and Something else is N')
         assertEditPanel(splitChildren.at(1), [{ condition: 'Something is M' }, { condition: 'and Something else is N' }])
@@ -637,7 +645,7 @@ suite('Inline conditions', () => {
 
         wrapper.find('#remove-conditions').simulate('click')
 
-        const splitChildren = wrapper.find('.inline-conditions').children()
+        const splitChildren = wrapper.find('.conditions').children()
         expect(splitChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(splitChildren.at(0), 'Something else is N')
         assertEditPanel(splitChildren.at(1), [{ condition: 'Something else is N' }])
@@ -678,7 +686,7 @@ suite('Inline conditions', () => {
         wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
         wrapper.find('#remove-conditions').simulate('click')
 
-        const splitChildren = wrapper.find('.inline-conditions').children()
+        const splitChildren = wrapper.find('.conditions').children()
         expect(splitChildren.length).to.equal(2)
         assertEditingHeaderGroupWithConditionString(splitChildren.at(0), 'Another thing is Value 1')
         assertEditPanel(splitChildren.at(1), [{ condition: 'Another thing is Value 1' }])
@@ -711,7 +719,7 @@ suite('Inline conditions', () => {
         wrapper.find('#edit-conditions-link').simulate('click')
         wrapper.find('#exit-edit-link').simulate('click')
 
-        const children = wrapper.find('.inline-conditions').children()
+        const children = wrapper.find('.conditions').children()
         expect(children.length).to.equal(2)
         assertHeaderGroupWithConditionString(children.at(0), 'Something is M')
         assertConditionCoordinatorInput(children.at(1))
@@ -721,7 +729,7 @@ suite('Inline conditions', () => {
 })
 
 function assertHeaderAndAddItemDisplayed (wrapper) {
-  const children = wrapper.find('.inline-conditions').children()
+  const children = wrapper.find('.conditions').children()
   expect(children.length).to.equal(1)
   const headerGroup = children.at(0)
   assertDiv(headerGroup, ['govuk-form-group'])
@@ -730,11 +738,11 @@ function assertHeaderAndAddItemDisplayed (wrapper) {
   const headerChildren = headerGroup.children()
   expect(headerChildren.length).to.equal(2)
   assertHeaderLabel(headerChildren.at(0))
-  assertLink(headerChildren.at(1), 'add-item', 'Add')
+  assertLink(headerChildren.find('#add-item'), 'add-item', 'Add')
 }
 
 function assertAddingFirstCondition (wrapper) {
-  const children = wrapper.find('.inline-conditions').children()
+  const children = wrapper.find('.conditions').children()
   expect(children.length).to.equal(2)
   const headerGroup = children.at(0)
   expect(headerGroup.prop('id')).to.equal('conditions-header-group')
@@ -742,13 +750,17 @@ function assertAddingFirstCondition (wrapper) {
   const headerChildren = headerGroup.children()
   expect(headerChildren.length).to.equal(2)
   assertHeaderLabel(headerChildren.at(0))
-  assertLabel(headerChildren.at(1), 'When')
+  assertLabel(headerChildren.at(1).find('label'), 'When')
 
-  return assertFieldsGroup(children.at(1))
+  const inlineConditionsGroup = children.at(1)
+  expect(inlineConditionsGroup.prop('id')).to.equal('inline-conditions')
+  expect(inlineConditionsGroup.find('#cond-coordinator-group').exists()).to.equal(false)
+  expect(inlineConditionsGroup.find('#condition-definition-inputs').exists()).to.equal(true)
+  return assertFieldsGroup(inlineConditionsGroup)
 }
 
-function assertFieldsGroup (fieldsGroup) {
-  expect(fieldsGroup.prop('id')).to.equal('condition-definition-inputs')
+function assertFieldsGroup (wrapper) {
+  const fieldsGroup = wrapper.find('#condition-definition-inputs')
   expect(fieldsGroup.hasClass('govuk-form-group')).to.equal(true)
   return fieldsGroup
 }
@@ -763,46 +775,31 @@ function assertHeaderGroupWithConditionString (headerGroup, conditionString) {
   expect(headerGroup.prop('id')).to.equal('conditions-header-group')
 
   const headerChildren = headerGroup.children()
-  expect(headerChildren.length).to.equal(3)
+  expect(headerChildren.length).to.equal(2)
   assertHeaderLabel(headerChildren.at(0))
-  assertLabel(headerChildren.at(1), 'When')
-  const conditionDisplayDiv = headerChildren.at(2)
-  assertDiv(conditionDisplayDiv)
-  expect(conditionDisplayDiv.prop('id')).to.equal('conditions-display')
+  const inlineConditionsHeader = headerChildren.at(1)
+  assertLabel(inlineConditionsHeader.find('label'), 'When')
+  const conditionDisplayDiv = inlineConditionsHeader.find('#conditions-display')
 
   const conditionDisplayChildren = conditionDisplayDiv.children()
   expect(conditionDisplayChildren.length).to.equal(2)
 
-  assertDiv(conditionDisplayChildren.at(0))
-  expect(conditionDisplayChildren.at(0).prop('id')).to.equal('condition-string')
-  expect(conditionDisplayChildren.at(0).text()).to.equal(conditionString)
+  assertText(conditionDisplayDiv.find('#condition-string'), conditionString)
 
-  assertDiv(conditionDisplayChildren.at(1))
-  expect(conditionDisplayChildren.at(1).children().length).to.equal(1)
-  const editConditionsLink = conditionDisplayChildren.at(1).children().at(0)
-  expect(editConditionsLink.prop('id')).to.equal('edit-conditions-link')
-  expect(editConditionsLink.name()).to.equal('a')
-  expect(editConditionsLink.text()).to.equal('Not what you meant?')
+  assertLink(conditionDisplayDiv.find('#edit-conditions-link'), 'edit-conditions-link', 'Not what you meant?')
 }
 
 function assertEditingHeaderGroupWithConditionString (headerGroup, conditionString) {
   expect(headerGroup.prop('id')).to.equal('conditions-header-group')
 
   const headerChildren = headerGroup.children()
-  expect(headerChildren.length).to.equal(3)
+  expect(headerChildren.length).to.equal(2)
   assertHeaderLabel(headerChildren.at(0))
-  assertLabel(headerChildren.at(1), 'When')
+  assertLabel(headerChildren.at(1).find('label'), 'When')
 
-  const conditionDisplayDiv = headerChildren.at(2)
-  assertDiv(conditionDisplayDiv)
-  expect(conditionDisplayDiv.prop('id')).to.equal('conditions-display')
-
-  const conditionDisplayChildren = conditionDisplayDiv.children()
-  expect(conditionDisplayChildren.length).to.equal(1)
-
-  assertDiv(conditionDisplayChildren.at(0))
-  expect(conditionDisplayChildren.at(0).prop('id')).to.equal('condition-string')
-  expect(conditionDisplayChildren.at(0).text()).to.equal(conditionString)
+  const conditionDisplayDiv = headerChildren.at(1).find('#conditions-display')
+  assertText(conditionDisplayDiv.find('#condition-string'), conditionString)
+  expect(conditionDisplayDiv.find('#edit-conditions-link').exists()).to.equal(false)
 }
 
 function assertCheckboxActionLink (span, id, text) {
@@ -814,31 +811,27 @@ function assertCheckboxActionLink (span, id, text) {
 }
 
 function assertEditPanel (wrapper, conditions, editingError) {
-  expect(wrapper.prop('id')).to.equal('edit-conditions')
-  const editPanelChildren = wrapper.children()
+  let editConditionsPanel = wrapper.find('#edit-conditions')
+  expect(editConditionsPanel.exists()).to.equal(true)
+
+  const editPanelChildren = editConditionsPanel.children()
   expect(editPanelChildren.length).to.equal(2)
 
-  const fieldSet = editPanelChildren.at(0)
-  expect(fieldSet.name()).to.equal('fieldset')
-  expect(fieldSet.children().length).to.equal(editingError ? 4 : 3)
+  const fieldSet = editConditionsPanel.find('fieldset')
 
-  const legend = fieldSet.children().at(0)
-  expect(legend.name()).to.equal('legend')
+  const legend = fieldSet.find('legend')
   expect(legend.text()).to.equal('Select conditions to group / remove')
 
-  const exitDiv = fieldSet.children().at(1)
-  assertDiv(exitDiv, ['govuk-form-group'])
-  expect(exitDiv.children().length).to.equal(1)
-  assertLink(exitDiv.children().at(0), 'exit-edit-link', 'Exit')
+  assertLink(fieldSet.find('#exit-edit-link'), 'exit-edit-link', 'Exit')
 
   if (editingError) {
-    const editingErrorSpan = fieldSet.children().at(2)
-    assertSpan(editingErrorSpan, ['govuk-error-message'])
-    expect(editingErrorSpan.text()).to.equal(editingError)
+    const editingErrorSection = fieldSet.find('#conditions-error')
+    assertText(editingErrorSection, editingError)
+    assertClasses(editingErrorSection, ['govuk-error-message'])
   }
 
-  const checkboxesDiv = fieldSet.children().at(editingError ? 3 : 2)
-  assertDiv(checkboxesDiv, ['govuk-checkboxes'])
+  const checkboxesDiv = fieldSet.find('#editing-checkboxes')
+  assertClasses(checkboxesDiv, ['govuk-checkboxes'])
   expect(checkboxesDiv.children().length).to.equal(conditions.length)
   conditions.forEach((condition, index) => {
     const checkboxDiv = checkboxesDiv.children().at(index)
@@ -885,13 +878,11 @@ function assertEditPanel (wrapper, conditions, editingError) {
   } else {}
 }
 
-function assertConditionCoordinatorInput (conditionCoordinatorGroup, expectedValue) {
-  expect(conditionCoordinatorGroup.prop('id')).to.equal('cond-coordinator-group')
+function assertConditionCoordinatorInput (wrapper, expectedValue) {
+  const conditionCoordinatorGroup = wrapper.find('#cond-coordinator-group')
   expect(conditionCoordinatorGroup.hasClass('govuk-form-group')).to.equal(true)
 
-  const fieldsChildren = conditionCoordinatorGroup.children()
-  expect(fieldsChildren.length).to.equal(1)
-  assertSelectInput(fieldsChildren.at(0), 'cond-coordinator', [{ value: 'and', text: 'And' }, { value: 'or', text: 'Or' }], expectedValue || '')
+  assertSelectInput(conditionCoordinatorGroup.find('select'), 'cond-coordinator', [{ value: 'and', text: 'And' }, { value: 'or', text: 'Or' }], expectedValue || '')
 }
 
 function saveCondition (wrapper, fieldName, operator, value) {

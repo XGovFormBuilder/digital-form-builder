@@ -10,6 +10,17 @@ export function assertDiv (wrapper, classes) {
   assertElement(wrapper, 'div', classes)
 }
 
+export function assertText (wrapper, text) {
+  expect(wrapper.text()).to.equal(text)
+}
+
+export function assertClasses (wrapper, classes) {
+  const certainClasses = classes??[]
+  certainClasses.forEach(className => {
+    expect(wrapper.hasClass(className), `${wrapper.name()} ${wrapper.prop('id') || ''} to have class ${className}`).to.equal(true)
+  })
+}
+
 export function assertSpan (wrapper, classes) {
   assertElement(wrapper, 'span', classes)
 }
@@ -66,8 +77,5 @@ export function assertOption (wrapper, expectedValue, expectedText) {
 
 function assertElement (wrapper, elementName, classes) {
   expect(wrapper.name()).to.equal(elementName)
-  const certainClasses = classes??[]
-  certainClasses.forEach(className => {
-    expect(wrapper.hasClass(className), `${elementName} ${wrapper.prop('id') || ''} to have class ${className}`).to.equal(true)
-  })
+  assertClasses(wrapper, classes)
 }

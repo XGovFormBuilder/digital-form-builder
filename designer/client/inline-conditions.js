@@ -214,86 +214,98 @@ class InlineConditions extends React.Component {
 
     const hasConditions = conditions.hasConditions()
 
-    return (
-      this.state.fields && Object.keys(this.state.fields).length > 0 && <div className='inline-conditions'>
-        <div className='govuk-form-group' id='conditions-header-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
-          {!condition && !hasConditions &&
-            <a href='#' id='add-item' onClick={this.onClickAddItem}>Add</a>
-          }
-          { (condition || hasConditions) &&
-            <label className='govuk-label' htmlFor='condition-string'>When</label>
-          }
+    const inline = this.state.inline || !this.props.data.hasConditions()
 
-          { hasConditions && <div id='conditions-display'>
-            <div key='condition-string' id='condition-string'>
-              {conditions.toPresentationString()}
-            </div>
-            {!editView && !editing && editing !== 0 &&
-              <div>
-                <a href='#' id='edit-conditions-link' onClick={this.onClickEditView}>Not what you meant?</a>
+    return (
+      this.state.fields && Object.keys(this.state.fields).length > 0 &&
+        <div className='conditions'>
+          <div className='govuk-form-group' id='conditions-header-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
+            {inline &&
+              <div id='inline-condition-header'>
+                {!condition && !hasConditions &&
+                  <a href='#' id='add-item' onClick={this.onClickAddItem}>Add</a>
+                }
+                { (condition || hasConditions) &&
+                  <label className='govuk-label' htmlFor='condition-string'>When</label>
+                }
+
+                { hasConditions && <div id='conditions-display'>
+                  <div key='condition-string' id='condition-string'>
+                    {conditions.toPresentationString()}
+                  </div>
+                  {!editView && !editing && editing !== 0 &&
+                    <div>
+                      <a href='#' id='edit-conditions-link' onClick={this.onClickEditView}>Not what you meant?</a>
+                    </div>
+                  }
+                </div>
+                }
               </div>
             }
           </div>
+          {!inline &&
+            <div id='select-condition' />
           }
-        </div>
+          {inline && (condition || hasConditions) && <div id='inline-conditions'>
+            {hasConditions && !editView && editing !== 0 &&
+            <div className='govuk-form-group' id='cond-coordinator-group'>
+              <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
+                onChange={this.onChangeCoordinator}>
+                <option />
+                <option key='and' value='and'>And</option>
+                <option key='or' value='or'>Or</option>
+              </select>
+            </div>
+            }
+            { condition && !editView &&
+            <div className='govuk-form-group' id='condition-definition-inputs'>
+              <select className='govuk-select' id='cond-field' name='cond-field' value={condition?.field?.name??''}
+                onChange={this.onChangeField}>
+                <option />
+                {Object.values(this.state.fields).map(field => {
+                  return <option key={field.name} value={field.name}>{field.label}</option>
+                })}
+              </select>
 
-        {hasConditions && !editView && editing !== 0 &&
-          <div className='govuk-form-group' id='cond-coordinator-group'>
-            <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
-              onChange={this.onChangeCoordinator}>
-              <option />
-              <option key='and' value='and'>And</option>
-              <option key='or' value='or'>Or</option>
-            </select>
-          </div>
-        }
-        { condition && !editView &&
-          <div className='govuk-form-group' id='condition-definition-inputs'>
-            <select className='govuk-select' id='cond-field' name='cond-field' value={condition?.field?.name??''}
-              onChange={this.onChangeField}>
-              <option />
-              {Object.values(this.state.fields).map(field => {
-                return <option key={field.name} value={field.name}>{field.label}</option>
-              })}
-            </select>
-
-            { condition && fieldDef &&
-            <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
-              onChange={this.onChangeOperator}>
-              <option />
-              {
-                Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
-                  return <option key={`${condition.field}-${conditional}`} value={conditional}>{conditional}</option>
-                })
+              { condition && fieldDef &&
+              <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
+                onChange={this.onChangeOperator}>
+                <option />
+                {
+                  Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
+                    return <option key={`${condition.field}-${conditional}`} value={conditional}>{conditional}</option>
+                  })
+                }
+              </select>
               }
-            </select>
-            }
 
-            { condition?.operator && (fieldDef?.values?.length??0) > 0 &&
-            <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
-              onChange={this.onChangeValue}>
-              <option />
-              {fieldDef.values.map(option => {
-                return <option key={option.value} value={option.value}>{option.text}</option>
-              })}
-            </select>
-            }
+              { condition?.operator && (fieldDef?.values?.length??0) > 0 &&
+              <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
+                onChange={this.onChangeValue}>
+                <option />
+                {fieldDef.values.map(option => {
+                  return <option key={option.value} value={option.value}>{option.text}</option>
+                })}
+              </select>
+              }
 
-            { condition?.operator && (fieldDef?.values?.length??0) === 0 &&
-            <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
-              type='text' defaultValue={condition.value?.display} required
-              onChange={this.onChangeValue} />
-            }
-            { condition?.value &&
+              { condition?.operator && (fieldDef?.values?.length??0) === 0 &&
+              <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
+                type='text' defaultValue={condition.value?.display} required
+                onChange={this.onChangeValue} />
+              }
+              { condition?.value &&
               <div className='govuk-form-group'>
                 <a href='#' id='save-condition' onClick={this.onClickFinalize}>Save condition</a>
               </div>
+              }
+            </div>
             }
+            {this.renderEditingView()}
           </div>
-        }
-        {this.renderEditingView()}
-      </div>
+          }
+        </div>
     )
   }
 
@@ -313,7 +325,7 @@ class InlineConditions extends React.Component {
                 <span className='govuk-visually-hidden'>Error:</span> {this.state.editingError}
               </span>
             }
-            <div className='govuk-checkboxes'>
+            <div id='editing-checkboxes' className='govuk-checkboxes'>
               {
                 this.state.conditions.asPerUserGroupings().map((condition, index) => {
                   return <div key={`condition-checkbox-${index}`} className='govuk-checkboxes__item' style={{ display: 'flex' }}>
