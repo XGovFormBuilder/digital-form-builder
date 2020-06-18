@@ -27,6 +27,20 @@ export class Data {
       .flatMap(page => [page.path].concat(this._allPathsLeadingTo(page.path)))
   }
 
+  addCondition (name, value) {
+    if (!this.conditions) {
+      this.conditions = []
+    }
+    if (this.conditions?.find(it => it.name === name)) {
+      throw Error(`A condition already exists with name ${name}`)
+    }
+    this.conditions.push({ name, value })
+  }
+
+  hasConditions () {
+    return (this.conditions??[]).length > 0
+  }
+
   clone () {
     return new Data(serialiseAndDeserialise(this))
   }

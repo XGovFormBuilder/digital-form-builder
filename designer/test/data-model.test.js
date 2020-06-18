@@ -375,4 +375,53 @@ suite('data model', () => {
       expect(data.save('something')).to.equal('badgers')
     })
   })
+
+  describe('add condition', () => {
+    test('should add a condition if none exists with the name', () => {
+      const data = new Data({
+        conditions: []
+      })
+      data.addCondition('some name', 'a condition')
+      expect(data.conditions).to.equal([{ name: 'some name', value: 'a condition' }])
+    })
+
+    test('should create conditions in data model if they don\'t exist', () => {
+      const data = new Data({
+
+      })
+      data.addCondition('some name', 'a condition')
+      expect(data.conditions).to.equal([{ name: 'some name', value: 'a condition' }])
+    })
+
+    test('should throw error if a condition with the specified name exists', () => {
+      const data = new Data({
+        conditions: []
+      })
+      data.addCondition('some name', 'a condition')
+      expect(() => data.addCondition('some name', 'awe shucks')).to.throw(Error)
+    })
+  })
+
+  describe('has conditions', () => {
+    test('should return true if there is at least one condition', () => {
+      const data = new Data({
+      })
+      data.addCondition('some name', 'a condition')
+      expect(data.hasConditions()).to.equal(true)
+    })
+
+    test('should return false if no conditions array exists', () => {
+      const data = new Data({
+
+      })
+      expect(data.hasConditions()).to.equal(false)
+    })
+
+    test('should return false if there are no conditions', () => {
+      const data = new Data({
+        conditions: []
+      })
+      expect(data.hasConditions()).to.equal(false)
+    })
+  })
 })

@@ -12,8 +12,7 @@ class ConditionCreate extends React.Component {
     const { data } = this.props
     const copy = clone(data)
 
-    const condition = { name, value }
-    copy.conditions.push(condition)
+    copy.addCondition(name, value)
 
     data.save(copy)
       .then(data => {
