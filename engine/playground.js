@@ -1,10 +1,10 @@
 const joi = require('joi')
 const boom = require('boom')
 const pkg = require('./package.json')
-const addressService = require('./address-service')
+const addressService = require('./src/address-service')
 const Model = require('./components')
 const { SummaryViewModel } = require('./models')
-const { proceed } = require('./helpers')
+const { proceed } = require('./src/helpers')
 
 module.exports = {
   plugin: {

@@ -33,7 +33,8 @@ const pageSchema = joi.object().keys({
   section: joi.string(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
-  next: joi.array().items(nextSchema)
+  next: joi.array().items(nextSchema),
+  repeatField: joi.string().optional()
 })
 
 const listItemSchema = joi.object().keys({
