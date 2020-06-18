@@ -72,6 +72,7 @@ class LinkEdit extends React.Component {
     const { data, edge } = this.props
     const { pages, conditions } = data
     const { link } = this.state
+    pages.sort((a, b) => a.title > b.title ? 1 : -1)
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>

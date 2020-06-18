@@ -26,6 +26,7 @@ class LinkCreate extends React.Component {
   render () {
     const { data } = this.props
     const { pages, conditions } = data
+    pages.sort((a, b) => a.title > b.title ? 1 : -1)
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
