@@ -334,8 +334,26 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('name', () => {
+    test('should set and return name', () => {
+      underTest.name('some condition name')
+      expect(underTest.name()).to.equal('some condition name')
+    })
+
+    test('should overwrite name', () => {
+      underTest.name('some condition name')
+      underTest.name('some condition name 2')
+      expect(underTest.name()).to.equal('some condition name 2')
+    })
+
+    test('should return undefined if no name set', () => {
+      expect(underTest.name()).to.equal(undefined)
+    })
+  })
+
   describe('clone', () => {
     beforeEach(() => {
+      underTest.name('some condition name')
       underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
       underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
       underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))

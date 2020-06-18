@@ -9,6 +9,11 @@ export class ConditionsModel {
     this.userGroupedConditions = []
   }
 
+  name (name) {
+    this.conditionName = name || this.conditionName
+    return this.conditionName
+  }
+
   add (condition) {
     const coordinatorExpected = this.userGroupedConditions.length !== 0
     if (condition.getCoordinator() && !coordinatorExpected) {
@@ -98,6 +103,10 @@ export class ConditionsModel {
     return this.groupedConditions.map(condition => condition.toPresentationString()).join(' ')
   }
 
+  toConditionString () {
+    return ''
+  }
+
   _applyGroups (userGroupedConditions) {
     const correctedUserGroups = userGroupedConditions
       .map(condition =>
@@ -162,6 +171,7 @@ export class ConditionsModel {
 
   clone () {
     const toReturn = new ConditionsModel()
+    toReturn.conditionName = this.conditionName
     toReturn.groupedConditions = this.groupedConditions.map(it => it.clone())
     toReturn.userGroupedConditions = this.userGroupedConditions.map(it => it.clone())
     return toReturn
