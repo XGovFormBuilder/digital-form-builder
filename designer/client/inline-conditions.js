@@ -81,7 +81,7 @@ class InlineConditions extends React.Component {
     }
   }
 
-  onClickFinalize = () => {
+  onClickFinalise = () => {
     const { conditions, condition } = this.state
     if (this.state.editing || this.state.editing === 0) {
       this.setState({
@@ -224,19 +224,19 @@ class InlineConditions extends React.Component {
             {inline &&
               <div id='inline-condition-header'>
                 {!condition && !hasConditions &&
-                  <a href='#' id='add-item' onClick={this.onClickAddItem}>Add</a>
+                  <a href='#' id='add-item' className='govuk-link' onClick={this.onClickAddItem}>Add</a>
                 }
                 { (condition || hasConditions) &&
                   <label className='govuk-label' htmlFor='condition-string'>When</label>
                 }
 
-                { hasConditions && <div id='conditions-display'>
+                { hasConditions && <div id='conditions-display' className='govuk-body'>
                   <div key='condition-string' id='condition-string'>
                     {conditions.toPresentationString()}
                   </div>
                   {!editView && !editing && editing !== 0 &&
                     <div>
-                      <a href='#' id='edit-conditions-link' onClick={this.onClickEditView}>Not what you meant?</a>
+                      <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.onClickEditView}>Not what you meant?</a>
                     </div>
                   }
                 </div>
@@ -297,7 +297,7 @@ class InlineConditions extends React.Component {
               }
               { condition?.value &&
               <div className='govuk-form-group'>
-                <a href='#' id='save-condition' onClick={this.onClickFinalize}>Save condition</a>
+                <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
               </div>
               }
             </div>
@@ -318,7 +318,7 @@ class InlineConditions extends React.Component {
                Select conditions to group / remove
             </legend>
             <div className='govuk-form-group'>
-              <a href='#' id='exit-edit-link' onClick={this.onClickCancelEditView}>Exit</a>
+              <a href='#' id='exit-edit-link' className='govuk-link' onClick={this.onClickCancelEditView}>Exit</a>
             </div>
             {this.state.editingError &&
               <span id='conditions-error' className='govuk-error-message'>
@@ -335,8 +335,8 @@ class InlineConditions extends React.Component {
                       {condition.toPresentationString()}
                     </label>
                     <span id={`condition-${index}-actions`} style={{ display: 'inline-flex', flexGrow: 1 }}>
-                      {condition.isGroup() && <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-split`} onClick={() => this.onClickSplit(index)}>Split</a></span>}
-                      {!condition.isGroup() && <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-edit`} onClick={() => this.onClickEdit(index)}>
+                      {condition.isGroup() && <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-split`} className='govuk-link' onClick={() => this.onClickSplit(index)}>Split</a></span>}
+                      {!condition.isGroup() && <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-edit`} className='govuk-link' onClick={() => this.onClickEdit(index)}>
                         {icons.edit}
                       </a>
                       </span>
@@ -344,7 +344,7 @@ class InlineConditions extends React.Component {
                       {index > 0 && <span>  <a href='#' id={`condition-${index}-move-earlier`} onClick={() => this.onClickMoveEarlier(index)}>
                         {icons.moveUp}
                       </a></span>}
-                      {index < this.state.conditions.lastIndex() && <span>  <a href='#' id={`condition-${index}-move-later`} onClick={() => this.onClickMoveLater(index)}>
+                      {index < this.state.conditions.lastIndex() && <span>  <a href='#' id={`condition-${index}-move-later`} className='govuk-link' onClick={() => this.onClickMoveLater(index)}>
                         {icons.moveDown}
                       </a></span>}
                     </span>
@@ -354,8 +354,8 @@ class InlineConditions extends React.Component {
             </div>
           </fieldset>
           <div className='govuk-form-group' id='group-and-remove'>
-            {(this.state.selectedConditions?.length??0) > 1 && <span><a href='#' id='group-conditions' onClick={this.onClickGroup}>Group</a> /</span>}
-            {(this.state.selectedConditions?.length??0) > 0 && <a href='#' id='remove-conditions' onClick={this.onClickRemove}>Remove</a> }
+            {(this.state.selectedConditions?.length??0) > 1 && <span><a href='#' id='group-conditions' className='govuk-link' onClick={this.onClickGroup}>Group</a> /</span>}
+            {(this.state.selectedConditions?.length??0) > 0 && <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a> }
           </div>
         </div>
       )
