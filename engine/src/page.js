@@ -1,6 +1,6 @@
 const joi = require('joi')
 const { proceed } = require('./helpers')
-const { ComponentCollection } = require('./components')
+const { ComponentCollection } = require('../components')
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -17,6 +17,7 @@ class Page {
     this.path = pageDef.path
     this.title = pageDef.title
     this.condition = pageDef.condition
+    this.repeatField = pageDef.repeatField
 
     // Resolve section
     this.section = pageDef.section &&
@@ -86,10 +87,19 @@ class Page {
     }).filter(v => !!v)
   }
 
+
   getNextPage (state) {
     let defaultLink = null
+    if (this.repeatField) {
+      const requiredCount = state.repeats[this.repeatField][this.section.name]
+      const nextRepeatablePagePath = Object.entries(state.repeats[this.repeatField][this.section.name]).find((key, value) => value < requiredCount)
+      if(nextRepeatablePagePath) {
+        return this.pageDef.find(page => page.path === nextRepeatablePagePath)
+      }
+    }
     const nextLink = this.next.find(link => {
       const { page, condition } = link
+
       const value = page.section ? state[page.section.name] : state
 
       if (condition) {
@@ -234,6 +244,8 @@ class Page {
       let originalFilenames = (state || {}).originalFilenames || {}
       let fileFields = this.getViewModel(formResult).components.filter(component => component.type === 'FileUploadField').map(component => component.model)
       const progress = state.progress || []
+      const repeats = state.repeats || {}
+      const { num } = request.query
 
       // TODO:- Refactor this into a validation method
       if (hasFilesizeError) {
@@ -278,20 +290,28 @@ class Page {
         const viewModel = this.getViewModel(payload, formResult.errors)
         viewModel.backLink = progress[progress.length - 2]
         return h.view(this.viewName, viewModel)
-      } else {
-        const newState = this.getStateFromValidForm(formResult.value)
-        const stateResult = this.validateState(newState)
-
-        if (stateResult.errors) {
-          const viewModel = this.getViewModel(payload, stateResult.errors)
-          viewModel.backLink = progress[progress.length - 2]
-          return h.view(this.viewName, viewModel)
-        } else {
-          const update = this.getPartialMergeState(stateResult.value)
-          const state = await cacheService.mergeState(request, update)
-          return this.proceed(request, h, state)
-        }
       }
+
+      const newState = this.getStateFromValidForm(formResult.value)
+      const stateResult = this.validateState(newState)
+
+      if (stateResult.errors) {
+        const viewModel = this.getViewModel(payload, stateResult.errors)
+        viewModel.backLink = progress[progress.length - 2]
+        return h.view(this.viewName, viewModel)
+      }
+
+      let update = this.getPartialMergeState(stateResult.value)
+      if (this.repeatField) {
+
+        let count = repeats[this.repeatField]?.[this.section.name]?.[this.path] ?? 0
+        count++
+        update = { [this.section.name]: [update[this.section.name]] }
+        update.repeats = { [this.repeatField]: { [this.section.name]: {[this.path]: count } } }
+
+      }
+      const savedState = await cacheService.mergeState(request, update, !!this.repeatField,  !!this.repeatField)
+      return this.proceed(request, h, savedState)
     }
   }
 
