@@ -234,11 +234,13 @@ suite('data model', () => {
   })
 
   describe('list for', () => {
-    test('should return the list specified in the provided input if it exists', () => {
+    test('should return a clone of the list specified in the provided input if it exists', () => {
       const data = new Data({
         lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
       })
-      expect(data.listFor({ options: { list: 'list2' } })).to.equal({ name: 'list2', badger: 'monkeys' })
+      let returned = data.listFor({ options: { list: 'list2' } })
+      expect(returned).to.equal(data.lists[1])
+      expect(returned === data.lists[1]).to.equal(false)
     })
 
     test('should return undefined if no lists exist', () => {
@@ -295,7 +297,7 @@ suite('data model', () => {
   })
 
   describe('find page', () => {
-    test('should return the page with the requested path if it exists', () => {
+    test('should return a clone of the page with the requested path if it exists', () => {
       const data = new Data({
         pages: [
           {
@@ -314,7 +316,9 @@ suite('data model', () => {
           }
         ]
       })
-      expect(data.findPage('/2')).to.equal(data.pages[1])
+      let returned = data.findPage('/2')
+      expect(returned).to.equal(data.pages[1])
+      expect(returned === data.pages[1]).to.equal(false)
     })
 
     test('should return undefined if the requested page does not exist', () => {
@@ -444,6 +448,33 @@ suite('data model', () => {
         conditions: []
       })
       expect(data.hasConditions).to.equal(false)
+    })
+  })
+
+  describe('get conditions', () => {
+    test('should return a clone of the conditions list', () => {
+      const data = new Data({
+        conditions: [{ name: 'some name', value: 'a condition' }]
+      })
+      let returned = data.getConditions()
+      expect(returned === data.conditions).to.equal(false)
+      expect(returned).to.equal(data.conditions)
+      returned[0].name = 'badger'
+      expect(data.conditions[0].name).to.equal('some name')
+    })
+
+    test('should return empty if no conditions array exists', () => {
+      const data = new Data({
+
+      })
+      expect(data.getConditions()).to.equal([])
+    })
+
+    test('should return empty if there are no conditions', () => {
+      const data = new Data({
+        conditions: []
+      })
+      expect(data.getConditions()).to.equal([])
     })
   })
 })

@@ -31,11 +31,11 @@ export class Data {
   }
 
   findPage (path) {
-    return (this.pages || []).find(p => p.path === path)
+    return clone((this.pages || []).find(p => p.path === path))
   }
 
   listFor (input) {
-    return (this.lists || []).find(it => it.name === (input.options || {}).list) || (input.type === 'YesNoField' ? yesNoList : undefined)
+    return clone((this.lists || []).find(it => it.name === (input.options || {}).list) || (input.type === 'YesNoField' ? yesNoList : undefined))
   }
 
   _allPathsLeadingTo (path) {
@@ -55,6 +55,10 @@ export class Data {
 
   get hasConditions () {
     return (this.conditions??[]).length > 0
+  }
+
+  getConditions () {
+    return (this.conditions??[]).map(it => clone(it))
   }
 
   clone () {
