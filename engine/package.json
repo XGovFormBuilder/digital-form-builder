@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "standard",
-    "build": "babel src -d lib",
-    "build:watch": "babel src -d lib --watch",
+    "build": "babel src -d lib --source-maps inline",
+    "build:watch": "babel src -d lib --source-maps inline --watch",
     "test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version"
   },
   "repository": {
@@ -15,6 +15,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@hapi/hoek": "^9.0.4",
     "@hapi/joi": "17.1.1",
     "boom": "7.3.0",
     "expr-eval": "2.0.2",
