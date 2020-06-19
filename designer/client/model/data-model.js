@@ -1,5 +1,21 @@
 import { serialiseAndDeserialise, clone } from '../helpers'
 
+const yesNoList = {
+  name: '__yesNo',
+  title: 'Yes/No',
+  type: 'boolean',
+  items: [
+    {
+      text: 'Yes',
+      value: true
+    },
+    {
+      text: 'No',
+      value: false
+    }
+  ]
+}
+
 export class Data {
   constructor (rawData) {
     Object.assign(this, rawData)
@@ -19,7 +35,7 @@ export class Data {
   }
 
   listFor (input) {
-    return (this.lists || []).find(it => it.name === (input.options || {}).list)
+    return (this.lists || []).find(it => it.name === (input.options || {}).list) || (input.type === 'YesNoField' ? yesNoList : undefined)
   }
 
   _allPathsLeadingTo (path) {

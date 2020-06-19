@@ -270,6 +270,28 @@ suite('data model', () => {
 
       expect(data.listFor({})).to.equal(undefined)
     })
+
+    test('should return yes/no list if the provided input has no options defined but is a YesNoField', () => {
+      const data = new Data({
+        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
+      })
+
+      expect(data.listFor({ type: 'YesNoField' })).to.equal({
+        name: '__yesNo',
+        title: 'Yes/No',
+        type: 'boolean',
+        items: [
+          {
+            text: 'Yes',
+            value: true
+          },
+          {
+            text: 'No',
+            value: false
+          }
+        ]
+      })
+    })
   })
 
   describe('find page', () => {
