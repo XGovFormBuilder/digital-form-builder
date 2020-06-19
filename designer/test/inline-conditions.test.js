@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import {
@@ -971,9 +971,9 @@ function assertAddingFirstCondition (wrapper) {
 }
 
 function assertFieldsGroup (wrapper) {
-  const fieldsGroup = wrapper.find('#condition-definition-inputs')
-  expect(fieldsGroup.hasClass('govuk-form-group')).to.equal(true)
-  return fieldsGroup
+  const fieldsDefGroup = wrapper.find('#condition-definition-group')
+  expect(fieldsDefGroup.hasClass('govuk-form-group')).to.equal(true)
+  return fieldsDefGroup.find('#condition-definition-inputs')
 }
 
 function assertNoFieldsGroup (wrapper) {
