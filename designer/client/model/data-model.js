@@ -23,7 +23,7 @@ export class Data {
   }
 
   _allPathsLeadingTo (path) {
-    return (this.pages || []).filter(page => page.next && page.next.includes(path))
+    return (this.pages || []).filter(page => page.next && page.next.find(next => next.path === path))
       .flatMap(page => [page.path].concat(this._allPathsLeadingTo(page.path)))
   }
 
