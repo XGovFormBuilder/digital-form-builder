@@ -376,6 +376,28 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('clear', () => {
+    beforeEach(() => {
+      underTest.name('some condition name')
+      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.addGroups([new GroupDef(0, 2)])
+    })
+
+    test('should clear state', () => {
+      let returned = underTest.clear()
+      expect(returned === underTest).to.equal(true)
+      expect(returned.hasConditions).to.equal(false)
+      expect(returned.asPerUserGroupings).to.equal([])
+      expect(returned.name()).to.equal(undefined)
+      expect(returned.toPresentationString()).to.equal('')
+    })
+  })
+
   describe('moving conditions and groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))

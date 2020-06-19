@@ -408,7 +408,7 @@ suite('data model', () => {
         conditions: []
       })
       data.addCondition('some name', 'a condition')
-      expect(data.conditions).to.equal([{ name: 'some name', value: 'a condition' }])
+      expect(data.getConditions()).to.equal([{ name: 'some name', value: 'a condition' }])
     })
 
     test('should create conditions in data model if they don\'t exist', () => {
@@ -416,7 +416,7 @@ suite('data model', () => {
 
       })
       data.addCondition('some name', 'a condition')
-      expect(data.conditions).to.equal([{ name: 'some name', value: 'a condition' }])
+      expect(data.getConditions()).to.equal([{ name: 'some name', value: 'a condition' }])
     })
 
     test('should throw error if a condition with the specified name exists', () => {
@@ -457,10 +457,10 @@ suite('data model', () => {
         conditions: [{ name: 'some name', value: 'a condition' }]
       })
       let returned = data.getConditions()
-      expect(returned === data.conditions).to.equal(false)
-      expect(returned).to.equal(data.conditions)
+      expect(returned === data.getConditions()).to.equal(false)
+      expect(returned).to.equal(data.getConditions())
       returned[0].name = 'badger'
-      expect(data.conditions[0].name).to.equal('some name')
+      expect(data.getConditions()[0].name).to.equal('some name')
     })
 
     test('should return empty if no conditions array exists', () => {

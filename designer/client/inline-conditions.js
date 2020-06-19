@@ -65,6 +65,14 @@ class InlineConditions extends React.Component {
     })
   }
 
+  onClickDefineCondition = () => {
+    this.setState({
+      inline: true,
+      condition: {},
+      selectedCondition: null
+    })
+  }
+
   onChangeCoordinator = e => {
     const input = e.target
 
@@ -201,14 +209,29 @@ class InlineConditions extends React.Component {
   }
 
   setState (state, callback) {
-    if (state.conditions) {
-      this.props.conditionsChange(state.conditions)
+    if (state.conditions || state.selectedCondition !== undefined) {
+      this.props.conditionsChange(state.conditions, state.selectedCondition)
     }
     super.setState(state, callback)
   }
 
+  onChangeConditionSelection = e => {
+    const input = e.target
+    this.setState({
+      selectedCondition: input.value
+    })
+  }
+
+  onClickCancel = () => {
+    this.setState({
+      inline: false,
+      condition: null,
+      conditions: this.state.conditions.clear()
+    })
+  }
+
   render () {
-    const { conditions, condition, editView, editing } = this.state
+    const { conditions, condition, editView, editing, selectedCondition } = this.state
 
     const fieldDef = this.state.fields[condition?.field?.name]
 
@@ -221,89 +244,111 @@ class InlineConditions extends React.Component {
         <div className='conditions'>
           <div className='govuk-form-group' id='conditions-header-group'>
             <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
-            {inline &&
+          </div>
+          {!inline &&
+            <div id='select-condition'>
+              <div className='govuk-form-group' id='cond-selection-group'>
+                <label className='govuk-label' htmlFor='cond-select'>
+                  Select a condition
+                </label>
+                <select className='govuk-select' id='cond-select' name='cond-select' value={selectedCondition??''}
+                  onChange={this.onChangeConditionSelection}>
+                  <option />
+                  {
+                    this.props.data.getConditions().map((it, index) =>
+                      <option key={`select-condition-${index}`} value={it.name}>{it.name}</option>)
+                  }
+                </select>
+              </div>
+              <div className='govuk-form-group'>
+                <a href='#' id='inline-conditions-link' className='govuk-link' onClick={this.onClickDefineCondition}>Define a new condition</a>
+              </div>
+            </div>
+          }
+          {inline &&
+            <div id='inline-conditions'>
               <div id='inline-condition-header'>
                 {!condition && !hasConditions &&
                   <a href='#' id='add-item' className='govuk-link' onClick={this.onClickAddItem}>Add</a>
                 }
-                { (condition || hasConditions) &&
-                  <label className='govuk-label' htmlFor='condition-string'>When</label>
+                {(condition || hasConditions) &&
+                  <div className='govuk-form-group'>
+                    <label className='govuk-label' htmlFor='condition-string'>When</label>
+                  </div>
+                }
+                {hasConditions &&
+                  <div id='conditions-display' className='govuk-body'>
+                    <div key='condition-string' id='condition-string'>
+                      {conditions.toPresentationString()}
+                    </div>
+                    {!editView && !editing && editing !== 0 &&
+                      <div>
+                        <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.onClickEditView}>Not what
+                          you meant?</a>
+                      </div>
+                    }
+                  </div>
+                }
+              </div>
+              {hasConditions && !editView && editing !== 0 &&
+              <div className='govuk-form-group' id='cond-coordinator-group'>
+                <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
+                  onChange={this.onChangeCoordinator}>
+                  <option />
+                  <option key='and' value='and'>And</option>
+                  <option key='or' value='or'>Or</option>
+                </select>
+              </div>
+              }
+              { condition && !editView &&
+              <div className='govuk-form-group' id='condition-definition-inputs'>
+                <select className='govuk-select' id='cond-field' name='cond-field' value={condition?.field?.name??''}
+                  onChange={this.onChangeField}>
+                  <option />
+                  {Object.values(this.state.fields).map(field =>
+                    <option key={field.name} value={field.name}>{field.label}</option>)
+                  }
+                </select>
+
+                { condition && fieldDef &&
+                <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
+                  onChange={this.onChangeOperator}>
+                  <option />
+                  {
+                    Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
+                      return <option key={`${condition.field}-${conditional}`} value={conditional}>{conditional}</option>
+                    })
+                  }
+                </select>
                 }
 
-                { hasConditions && <div id='conditions-display' className='govuk-body'>
-                  <div key='condition-string' id='condition-string'>
-                    {conditions.toPresentationString()}
-                  </div>
-                  {!editView && !editing && editing !== 0 &&
-                    <div>
-                      <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.onClickEditView}>Not what you meant?</a>
-                    </div>
-                  }
+                { condition?.operator && (fieldDef?.values?.length??0) > 0 &&
+                <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
+                  onChange={this.onChangeValue}>
+                  <option />
+                  {fieldDef.values.map(option => {
+                    return <option key={option.value} value={option.value}>{option.text}</option>
+                  })}
+                </select>
+                }
+
+                { condition?.operator && (fieldDef?.values?.length??0) === 0 &&
+                <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
+                  type='text' defaultValue={condition.value?.display} required
+                  onChange={this.onChangeValue} />
+                }
+                { condition?.value &&
+                <div className='govuk-form-group'>
+                  <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
                 </div>
                 }
               </div>
-            }
-          </div>
-          {!inline &&
-            <div id='select-condition' />
-          }
-          {inline && (condition || hasConditions) && <div id='inline-conditions'>
-            {hasConditions && !editView && editing !== 0 &&
-            <div className='govuk-form-group' id='cond-coordinator-group'>
-              <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
-                onChange={this.onChangeCoordinator}>
-                <option />
-                <option key='and' value='and'>And</option>
-                <option key='or' value='or'>Or</option>
-              </select>
-            </div>
-            }
-            { condition && !editView &&
-            <div className='govuk-form-group' id='condition-definition-inputs'>
-              <select className='govuk-select' id='cond-field' name='cond-field' value={condition?.field?.name??''}
-                onChange={this.onChangeField}>
-                <option />
-                {Object.values(this.state.fields).map(field => {
-                  return <option key={field.name} value={field.name}>{field.label}</option>
-                })}
-              </select>
-
-              { condition && fieldDef &&
-              <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
-                onChange={this.onChangeOperator}>
-                <option />
-                {
-                  Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
-                    return <option key={`${condition.field}-${conditional}`} value={conditional}>{conditional}</option>
-                  })
-                }
-              </select>
               }
-
-              { condition?.operator && (fieldDef?.values?.length??0) > 0 &&
-              <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
-                onChange={this.onChangeValue}>
-                <option />
-                {fieldDef.values.map(option => {
-                  return <option key={option.value} value={option.value}>{option.text}</option>
-                })}
-              </select>
-              }
-
-              { condition?.operator && (fieldDef?.values?.length??0) === 0 &&
-              <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
-                type='text' defaultValue={condition.value?.display} required
-                onChange={this.onChangeValue} />
-              }
-              { condition?.value &&
+              {this.renderEditingView()}
               <div className='govuk-form-group'>
-                <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
+                <a href='#' id='cancel-inline-conditions-link' className='govuk-link' onClick={this.onClickCancel}>Cancel</a>
               </div>
-              }
             </div>
-            }
-            {this.renderEditingView()}
-          </div>
           }
         </div>
     )

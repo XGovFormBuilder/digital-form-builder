@@ -21,6 +21,13 @@ export class ConditionsModel {
     return toReturn
   }
 
+  clear () {
+    this.#userGroupedConditions = []
+    this.#groupedConditions = []
+    this.#conditionName = undefined
+    return this
+  }
+
   name (name) {
     this.#conditionName = name || this.#conditionName
     return this.#conditionName

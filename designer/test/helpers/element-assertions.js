@@ -1,11 +1,6 @@
 import * as Code from '@hapi/code'
 const { expect } = Code
 
-export function assertHeaderLabel (wrapper) {
-  assertLabel(wrapper, 'Conditions (optional)')
-  expect(wrapper.hasClass('govuk-label--s')).to.equal(true)
-}
-
 export function assertDiv (wrapper, classes) {
   assertElement(wrapper, 'div', classes)
 }

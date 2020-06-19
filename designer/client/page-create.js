@@ -83,9 +83,10 @@ class PageCreate extends React.Component {
     })
   }
 
-  saveConditions = conditions => {
+  saveConditions = (conditions, selectedCondition) => {
     this.setState({
-      conditions: conditions
+      conditions: conditions,
+      selectedCondition: selectedCondition
     })
   }
 

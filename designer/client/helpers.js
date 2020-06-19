@@ -53,10 +53,13 @@ export function getFormData (form) {
 }
 
 export function clone (obj) {
-  if (typeof obj.clone === 'function') {
-    return obj.clone()
+  if (obj) {
+    if (typeof obj.clone === 'function') {
+      return obj.clone()
+    }
+    return serialiseAndDeserialise(obj)
   }
-  return serialiseAndDeserialise(obj)
+  return obj
 }
 
 export function serialiseAndDeserialise (obj) {
