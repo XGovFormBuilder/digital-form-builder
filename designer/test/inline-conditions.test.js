@@ -27,14 +27,13 @@ suite('Inline conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
     listFor: sinon.stub(),
-    hasConditions: sinon.stub()
+    hasConditions: false
   }
   const path = '/'
   let conditionsChange
 
   beforeEach(() => {
     conditionsChange = sinon.spy()
-    data.hasConditions.returns(false)
   })
 
   test('render returns nothing when there is an empty fields list', () => {

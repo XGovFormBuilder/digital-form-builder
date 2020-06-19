@@ -4,33 +4,37 @@ const coordinators = {
 }
 
 export class ConditionsModel {
+  #groupedConditions
+  #userGroupedConditions
+  #conditionName
+
   constructor () {
-    this.groupedConditions = []
-    this.userGroupedConditions = []
+    this.#groupedConditions = []
+    this.#userGroupedConditions = []
   }
 
   clone () {
     const toReturn = new ConditionsModel()
-    toReturn.groupedConditions = this.groupedConditions.map(it => it.clone())
-    toReturn.userGroupedConditions = this.userGroupedConditions.map(it => it.clone())
-    toReturn.conditionName = this.conditionName
+    toReturn.#groupedConditions = this.#groupedConditions.map(it => it.clone())
+    toReturn.#userGroupedConditions = this.#userGroupedConditions.map(it => it.clone())
+    toReturn.#conditionName = this.#conditionName
     return toReturn
   }
 
   name (name) {
-    this.conditionName = name || this.conditionName
-    return this.conditionName
+    this.#conditionName = name || this.#conditionName
+    return this.#conditionName
   }
 
   add (condition) {
-    const coordinatorExpected = this.userGroupedConditions.length !== 0
+    const coordinatorExpected = this.#userGroupedConditions.length !== 0
     if (condition.getCoordinator() && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
     } else if (!condition.getCoordinator() && coordinatorExpected) {
       throw Error('Coordinator must be present on subsequent conditions')
     }
-    this.userGroupedConditions.push(condition)
-    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    this.#userGroupedConditions.push(condition)
+    this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
@@ -40,75 +44,75 @@ export class ConditionsModel {
       throw Error('No coordinator allowed on the first condition')
     } else if (!condition.getCoordinator() && coordinatorExpected) {
       throw Error('Coordinator must be present on subsequent conditions')
-    } else if (index >= this.userGroupedConditions.length) {
+    } else if (index >= this.#userGroupedConditions.length) {
       throw Error(`Cannot replace condition ${index} as no such condition exists`)
     }
-    this.userGroupedConditions.splice(index, 1, condition)
-    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    this.#userGroupedConditions.splice(index, 1, condition)
+    this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
   remove (indexes) {
-    this.userGroupedConditions = this.userGroupedConditions.filter((condition, index) => !indexes.includes(index))
+    this.#userGroupedConditions = this.#userGroupedConditions.filter((condition, index) => !indexes.includes(index))
       .map((condition, index) => index === 0 ? condition.asFirstCondition() : condition)
 
-    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
   addGroups (groupDefs) {
-    this.userGroupedConditions = this._group(this.userGroupedConditions, groupDefs)
-    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    this.#userGroupedConditions = this._group(this.#userGroupedConditions, groupDefs)
+    this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
   splitGroup (index) {
-    this.userGroupedConditions = this._ungroup(this.userGroupedConditions, index)
-    this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+    this.#userGroupedConditions = this._ungroup(this.#userGroupedConditions, index)
+    this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
   moveEarlier (index) {
-    if (index > 0 && index < (this.userGroupedConditions.length)) {
-      this.userGroupedConditions.splice(index - 1, 0, this.userGroupedConditions.splice(index, 1)[0])
+    if (index > 0 && index < (this.#userGroupedConditions.length)) {
+      this.#userGroupedConditions.splice(index - 1, 0, this.#userGroupedConditions.splice(index, 1)[0])
       if (index === 1) {
         this.switchCoordinators()
       }
-      this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+      this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     }
     return this
   }
 
   moveLater (index) {
-    if (index >= 0 && index < (this.userGroupedConditions.length - 1)) {
-      this.userGroupedConditions.splice(index + 1, 0, this.userGroupedConditions.splice(index, 1)[0])
+    if (index >= 0 && index < (this.#userGroupedConditions.length - 1)) {
+      this.#userGroupedConditions.splice(index + 1, 0, this.#userGroupedConditions.splice(index, 1)[0])
       if (index === 0) {
         this.switchCoordinators()
       }
-      this.groupedConditions = this._applyGroups(this.userGroupedConditions)
+      this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     }
     return this
   }
 
   switchCoordinators () {
-    this.userGroupedConditions[1].setCoordinator(this.userGroupedConditions[0].getCoordinator())
-    this.userGroupedConditions[0].setCoordinator(undefined)
+    this.#userGroupedConditions[1].setCoordinator(this.#userGroupedConditions[0].getCoordinator())
+    this.#userGroupedConditions[0].setCoordinator(undefined)
   }
 
-  asPerUserGroupings () {
-    return [...this.userGroupedConditions]
+  get asPerUserGroupings () {
+    return [...this.#userGroupedConditions]
   }
 
-  hasConditions () {
-    return this.userGroupedConditions.length > 0
+  get hasConditions () {
+    return this.#userGroupedConditions.length > 0
   }
 
-  lastIndex () {
-    return this.userGroupedConditions.length - 1
+  get lastIndex () {
+    return this.#userGroupedConditions.length - 1
   }
 
   toPresentationString () {
-    return this.groupedConditions.map(condition => condition.toPresentationString()).join(' ')
+    return this.#groupedConditions.map(condition => condition.toPresentationString()).join(' ')
   }
 
   _applyGroups (userGroupedConditions) {

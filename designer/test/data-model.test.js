@@ -429,21 +429,21 @@ suite('data model', () => {
       const data = new Data({
       })
       data.addCondition('some name', 'a condition')
-      expect(data.hasConditions()).to.equal(true)
+      expect(data.hasConditions).to.equal(true)
     })
 
     test('should return false if no conditions array exists', () => {
       const data = new Data({
 
       })
-      expect(data.hasConditions()).to.equal(false)
+      expect(data.hasConditions).to.equal(false)
     })
 
     test('should return false if there are no conditions', () => {
       const data = new Data({
         conditions: []
       })
-      expect(data.hasConditions()).to.equal(false)
+      expect(data.hasConditions).to.equal(false)
     })
   })
 })

@@ -176,7 +176,7 @@ class InlineConditions extends React.Component {
   }
 
   onClickEdit (index) {
-    const conditions = this.state.conditions.asPerUserGroupings()
+    const conditions = this.state.conditions.asPerUserGroupings
     if (conditions.length > index) {
       this.setState({
         editing: index,
@@ -212,9 +212,9 @@ class InlineConditions extends React.Component {
 
     const fieldDef = this.state.fields[condition?.field?.name]
 
-    const hasConditions = conditions.hasConditions()
+    const hasConditions = conditions.hasConditions
 
-    const inline = this.state.inline || !this.props.data.hasConditions()
+    const inline = this.state.inline || !this.props.data.hasConditions
 
     return (
       this.state.fields && Object.keys(this.state.fields).length > 0 &&
@@ -327,10 +327,10 @@ class InlineConditions extends React.Component {
             }
             <div id='editing-checkboxes' className='govuk-checkboxes'>
               {
-                this.state.conditions.asPerUserGroupings().map((condition, index) => {
+                this.state.conditions.asPerUserGroupings.map((condition, index) => {
                   return <div key={`condition-checkbox-${index}`} className='govuk-checkboxes__item' style={{ display: 'flex' }}>
                     <input type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`} name={`condition-${index}`}
-                      value={index} onChange={this.onChangeCheckbox} checked={(this.state.selectedConditions??[]).includes(index) || ''} />
+                      value={index} onChange={this.onChangeCheckbox} checked={this.state.selectedConditions?.includes(index) || ''} />
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
                       {condition.toPresentationString()}
                     </label>
@@ -344,7 +344,7 @@ class InlineConditions extends React.Component {
                       {index > 0 && <span>  <a href='#' id={`condition-${index}-move-earlier`} onClick={() => this.onClickMoveEarlier(index)}>
                         {icons.moveUp}
                       </a></span>}
-                      {index < this.state.conditions.lastIndex() && <span>  <a href='#' id={`condition-${index}-move-later`} className='govuk-link' onClick={() => this.onClickMoveLater(index)}>
+                      {index < this.state.conditions.lastIndex && <span>  <a href='#' id={`condition-${index}-move-later`} className='govuk-link' onClick={() => this.onClickMoveLater(index)}>
                         {icons.moveDown}
                       </a></span>}
                     </span>
@@ -354,8 +354,8 @@ class InlineConditions extends React.Component {
             </div>
           </fieldset>
           <div className='govuk-form-group' id='group-and-remove'>
-            {(this.state.selectedConditions?.length??0) > 1 && <span><a href='#' id='group-conditions' className='govuk-link' onClick={this.onClickGroup}>Group</a> /</span>}
-            {(this.state.selectedConditions?.length??0) > 0 && <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a> }
+            {this.state.selectedConditions?.length > 1 && <span><a href='#' id='group-conditions' className='govuk-link' onClick={this.onClickGroup}>Group</a> /</span>}
+            {this.state.selectedConditions?.length > 0 && <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a> }
           </div>
         </div>
       )
@@ -376,7 +376,7 @@ class InlineConditions extends React.Component {
   }
 
   onClickGroup = () => {
-    if ((this.state.selectedConditions?.length??0) < 2) {
+    if (this.state.selectedConditions?.length < 2) {
       this.setState({
         editingError: 'Please select at least 2 items for grouping'
       })
@@ -402,7 +402,7 @@ class InlineConditions extends React.Component {
   }
 
   onClickRemove = () => {
-    if ((this.state.selectedConditions?.length??0) < 1) {
+    if (this.state.selectedConditions?.length < 1) {
       this.setState({
         editingError: 'Please select at least 1 item to remove'
       })
@@ -411,7 +411,7 @@ class InlineConditions extends React.Component {
         editingError: undefined,
         selectedConditions: [],
         conditions: this.state.conditions.remove(this.state.selectedConditions),
-        editView: this.state.conditions.hasConditions()
+        editView: this.state.conditions.hasConditions
       })
     }
   }

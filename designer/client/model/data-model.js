@@ -53,7 +53,7 @@ export class Data {
     this.conditions.push({ name, value })
   }
 
-  hasConditions () {
+  get hasConditions () {
     return (this.conditions??[]).length > 0
   }
 

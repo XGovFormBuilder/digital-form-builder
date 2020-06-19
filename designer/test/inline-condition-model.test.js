@@ -18,7 +18,7 @@ suite('inline condition model', () => {
 
   describe('before adding the first condition', () => {
     test('should return an empty array', () => {
-      expect(underTest.asPerUserGroupings()).to.equal([])
+      expect(underTest.asPerUserGroupings).to.equal([])
     })
 
     test('should return an empty presentation string', () => {
@@ -26,7 +26,7 @@ suite('inline condition model', () => {
     })
 
     test('should not have conditions', () => {
-      expect(underTest.hasConditions()).to.equal(false)
+      expect(underTest.hasConditions).to.equal(false)
     })
   })
 
@@ -36,7 +36,7 @@ suite('inline condition model', () => {
     })
 
     test('should have one item in the model', () => {
-      expect(underTest.asPerUserGroupings()).to.equal([
+      expect(underTest.asPerUserGroupings).to.equal([
         { coordinator: undefined, field: { name: 'badger', display: 'Badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } }
       ])
     })
@@ -46,7 +46,7 @@ suite('inline condition model', () => {
     })
 
     test('should have conditions', () => {
-      expect(underTest.hasConditions()).to.equal(true)
+      expect(underTest.hasConditions).to.equal(true)
     })
   })
 
@@ -58,7 +58,7 @@ suite('inline condition model', () => {
     })
 
     test('should have three items in the model', () => {
-      expect(underTest.asPerUserGroupings()).to.equal([
+      expect(underTest.asPerUserGroupings).to.equal([
         { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
         { coordinator: 'and', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
         { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
@@ -70,7 +70,7 @@ suite('inline condition model', () => {
     })
 
     test('should have conditions', () => {
-      expect(underTest.hasConditions()).to.equal(true)
+      expect(underTest.hasConditions).to.equal(true)
     })
   })
 
@@ -82,7 +82,7 @@ suite('inline condition model', () => {
     })
 
     test('should have three items in the model', () => {
-      expect(underTest.asPerUserGroupings()).to.equal([
+      expect(underTest.asPerUserGroupings).to.equal([
         { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
         { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
         { coordinator: 'or', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
@@ -219,7 +219,7 @@ suite('inline condition model', () => {
     test('user groupings, but not automatic groupings, should be returned from asPerUserGroupings', () => {
       underTest.addGroups([new GroupDef(0, 1)])
       underTest.addGroups([new GroupDef(0, 1)])
-      const returned = underTest.asPerUserGroupings()
+      const returned = underTest.asPerUserGroupings
       expect(returned).to.equal([
         {
           conditions: [
@@ -283,7 +283,7 @@ suite('inline condition model', () => {
 
     test('should remove the specified condition indexes', () => {
       underTest.remove([1, 4])
-      expect(underTest.asPerUserGroupings().length).to.equal(4)
+      expect(underTest.asPerUserGroupings.length).to.equal(4)
 
       expect(underTest.toPresentationString())
         .to.equal('(Badger is Zebras and Squiffy is Donkeys) or (Duration is at least 10 and Squiffy is not Donkeys)')
@@ -292,40 +292,40 @@ suite('inline condition model', () => {
     test('should remove the only condition', () => {
       underTest.addGroups([new GroupDef(0, 5)])
       underTest.remove([0])
-      expect(underTest.asPerUserGroupings().length).to.equal(0)
+      expect(underTest.asPerUserGroupings.length).to.equal(0)
     })
 
     test('should allow removal of condition before group condition', () => {
       underTest.addGroups([new GroupDef(1, 2)])
       underTest.remove([0])
-      expect(underTest.asPerUserGroupings().length).to.equal(4)
+      expect(underTest.asPerUserGroupings.length).to.equal(4)
     })
 
     test('should remove all elements from a user-defined group', () => {
-      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      expect(underTest.asPerUserGroupings.length).to.equal(6)
       underTest.addGroups([new GroupDef(0, 1)])
-      expect(underTest.asPerUserGroupings().length).to.equal(5)
+      expect(underTest.asPerUserGroupings.length).to.equal(5)
       underTest.remove([0])
-      expect(underTest.asPerUserGroupings().length).to.equal(4)
+      expect(underTest.asPerUserGroupings.length).to.equal(4)
 
       expect(underTest.toPresentationString())
         .to.equal('Squiffy is Donkeys or Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
     })
 
     test('should remove all elements from a nested group', () => {
-      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      expect(underTest.asPerUserGroupings.length).to.equal(6)
       underTest.addGroups([new GroupDef(0, 1)])
       underTest.addGroups([new GroupDef(0, 1)])
-      expect(underTest.asPerUserGroupings().length).to.equal(4)
+      expect(underTest.asPerUserGroupings.length).to.equal(4)
       underTest.remove([0])
-      expect(underTest.asPerUserGroupings().length).to.equal(3)
+      expect(underTest.asPerUserGroupings.length).to.equal(3)
 
       expect(underTest.toPresentationString())
         .to.equal('Duration is at least 10 or (Birthday is 10/10/2019 and Squiffy is not Donkeys)')
     })
 
     test('should do nothing if provided invalid index to remove', () => {
-      expect(underTest.asPerUserGroupings().length).to.equal(6)
+      expect(underTest.asPerUserGroupings.length).to.equal(6)
 
       underTest.remove([6])
 
@@ -367,16 +367,11 @@ suite('inline condition model', () => {
       expect(returned === underTest).to.equal(false)
       expect(returned).to.equal(underTest)
 
-      underTest.userGroupedConditions[0].coordinator = 'or'
-      expect(returned).to.not.equal(underTest)
-
-      underTest.userGroupedConditions[0].coordinator = undefined
-      expect(returned).to.equal(underTest)
-
-      underTest.groupedConditions[0].coordinator = 'or'
-      expect(returned).to.not.equal(underTest)
-
-      underTest.groupedConditions[0].coordinator = undefined
+      let returnedCondition1 = returned.asPerUserGroupings[0]
+      let underTestCondition1 = underTest.asPerUserGroupings[0]
+      returnedCondition1.coordinator = 'or'
+      underTestCondition1.coordinator = undefined
+      expect(returnedCondition1).to.not.equal(underTestCondition1)
       expect(returned).to.equal(underTest)
     })
   })
