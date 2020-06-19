@@ -1,6 +1,7 @@
 const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
+import { merge, reach } from '@hapi/hoek'
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -87,21 +88,11 @@ class Page {
     }).filter(v => !!v)
   }
 
-
   getNextPage (state) {
-    let defaultLink = null
-    if (this.repeatField) {
-      const requiredCount = state.repeats[this.repeatField][this.section.name]
-      const nextRepeatablePagePath = Object.entries(state.repeats[this.repeatField][this.section.name]).find((key, value) => value < requiredCount)
-      if(nextRepeatablePagePath) {
-        return this.pageDef.find(page => page.path === nextRepeatablePagePath)
-      }
-    }
+    let defaultLink
     const nextLink = this.next.find(link => {
       const { page, condition } = link
-
       const value = page.section ? state[page.section.name] : state
-
       if (condition) {
         return this.model.conditions[condition]
           && this.model.conditions[condition].fn(state)
@@ -109,13 +100,22 @@ class Page {
       defaultLink = link
       return false
     })
-    if (nextLink) {
-      return nextLink.page
+
+    if (this.repeatField) {
+      const requiredCount = reach(state, this.repeatField)
+      const sectionStateCount = state.repeats[this.repeatField][this.section.name]
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+
+      const counts = sectionStateCount.map(page => Object.values(page)[0])
+      if(counts.length === otherRepeatPagesInSection.length) { //iterated at least once
+        const lastInSection = sectionStateCount[sectionStateCount.length -1]
+        if(Object.value(lastInSection[0]) < requiredCount) {
+          return this.model.pages.find(page => page.path === Object.entries(sectionStateCount[0]))
+        }
+      }
     }
-    if (defaultLink) {
-      return defaultLink.page
-    }
-    return null
+
+    return nextLink?.page ?? defaultLink?.page
   }
 
   getNext (state) {
@@ -303,14 +303,19 @@ class Page {
 
       let update = this.getPartialMergeState(stateResult.value)
       if (this.repeatField) {
-
+        let updateValue = update[this.section.name]
         let count = repeats[this.repeatField]?.[this.section.name]?.[this.path] ?? 0
+        let sectionState = state[this.section.name]
+        if (!sectionState) {
+          update = { [this.section.name]: [updateValue]}
+        } else {
+          sectionState[count] = merge(sectionState[count], updateValue)
+          update = { [this.section.name]: sectionState }
+        }
         count++
-        update = { [this.section.name]: [update[this.section.name]] }
         update.repeats = { [this.repeatField]: { [this.section.name]: {[this.path]: count } } }
-
       }
-      const savedState = await cacheService.mergeState(request, update, !!this.repeatField,  !!this.repeatField)
+      const savedState = await cacheService.mergeState(request, update, !!this.repeatField)
       return this.proceed(request, h, savedState)
     }
   }
