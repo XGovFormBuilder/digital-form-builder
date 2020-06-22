@@ -4,7 +4,7 @@
   "description": "Digital forms runner",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=development node dist/index.js",
     "dev": "yarn babel-build:dev & NODE_ENV=development node dist/index.js",
     "build:css": "bin/build-css",
     "build": "npm run build:css && npm run babel-build",
