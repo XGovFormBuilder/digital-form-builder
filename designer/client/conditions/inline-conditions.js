@@ -1,7 +1,8 @@
 import React from 'react'
-import { ConditionsModel, Condition, Field, Value, GroupDef } from './inline-condition-model'
-import { clone } from './helpers'
-import { icons } from './icons'
+import { ConditionsModel, GroupDef } from './inline-condition-model'
+import { clone } from '../helpers'
+import { icons } from '../icons'
+import InlineConditionsDefinition from './inline-conditions-definition'
 
 const conditionalOperators = {
   'default': {
@@ -73,95 +74,6 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onChangeCoordinator = e => {
-    const input = e.target
-
-    if (input.value && input.value.trim() !== '') {
-      const copy = clone(this.state.condition??{})
-      copy.coordinator = input.value
-      this.setState({
-        condition: copy
-      })
-    } else {
-      this.setState({
-        condition: null
-      })
-    }
-  }
-
-  onClickFinalise = () => {
-    const { conditions, condition } = this.state
-    if (this.state.editing || this.state.editing === 0) {
-      this.setState({
-        conditions: conditions.replace(this.state.editing, new Condition(Field.from(condition.field), condition.operator, Value.from(condition.value), condition.coordinator)),
-        condition: null,
-        editView: true,
-        editing: null
-      })
-    } else {
-      this.setState({
-        conditions: conditions.add(new Condition(Field.from(condition.field), condition.operator, Value.from(condition.value), condition.coordinator)),
-        condition: null
-      })
-    }
-  }
-
-  onChangeField = e => {
-    const input = e.target
-    const fieldName = input.value
-
-    const { condition } = this.state
-
-    const currentField = condition.field?.name
-    const currentOperator = condition.operator
-
-    this._updateCondition(condition, c => {
-      if (fieldName) {
-        if (currentField && this.state.fields[currentField].values !== this.state.fields[fieldName].values) {
-          delete c.value
-        }
-        if (currentOperator && !conditionalOperators.getConditionals(fieldName)[currentOperator]) {
-          delete c.operator
-        }
-        c.field = new Field(fieldName, this.state.fields[fieldName].label)
-      } else {
-        delete c.field
-        delete c.operator
-        delete c.value
-      }
-    })
-  }
-
-  _updateCondition (condition, updates) {
-    const copy = clone(condition)
-    updates(copy)
-    this.setState({
-      condition: copy
-    })
-  }
-
-  onChangeOperator = e => {
-    const input = e.target
-    const { condition } = this.state
-
-    this._updateCondition(condition, c => { c.operator = input.value })
-  }
-
-  onChangeValue = e => {
-    const input = e.target
-    const { condition } = this.state
-
-    const fieldDef = this.state.fields[condition?.field?.name]
-
-    let value
-    if (input.value && input.value?.trim() !== '') {
-      const option = fieldDef.values?.find(value => value.value === input.value)
-      value = option ? new Value(option.value, option.text) : new Value(input.value)
-    }
-
-    this._updateCondition(condition, c => { c.value = value })
-  }
-
   onClickEditView = () => {
     this.setState({
       editView: true,
@@ -173,7 +85,7 @@ class InlineConditions extends React.Component {
     this.setState({
       editView: false,
       selectedConditions: null,
-      editing: null
+      editing: undefined
     })
   }
 
@@ -225,15 +137,29 @@ class InlineConditions extends React.Component {
   onClickCancel = () => {
     this.setState({
       inline: false,
-      condition: null,
+      condition: undefined,
       conditions: this.state.conditions.clear()
     })
   }
 
+  saveCondition = (condition) => {
+    if (this.state.editing || this.state.editing === 0) {
+      this.setState({
+        conditions: this.state.conditions.replace(this.state.editing, condition),
+        condition: undefined,
+        editView: true,
+        editing: undefined
+      })
+    } else {
+      this.setState({
+        conditions: this.state.conditions.add(condition),
+        condition: undefined
+      })
+    }
+  }
+
   render () {
     const { conditions, condition, editView, editing, selectedCondition } = this.state
-
-    const fieldDef = this.state.fields[condition?.field?.name]
 
     const hasConditions = conditions.hasConditions
 
@@ -290,67 +216,7 @@ class InlineConditions extends React.Component {
                   </div>
                 }
               </div>
-              { !editView &&
-                <div className='govuk-form-group' id='condition-definition-group'>
-                  {hasConditions && !editView && editing !== 0 &&
-                    <div className='govuk-form-group' id='cond-coordinator-group'>
-                      <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
-                        onChange={this.onChangeCoordinator}>
-                        <option />
-                        <option key='and' value='and'>And</option>
-                        <option key='or' value='or'>Or</option>
-                      </select>
-                    </div>
-                  }
-                  {condition &&
-                    <div id='condition-definition-inputs'>
-                      <select className='govuk-select' id='cond-field' name='cond-field'
-                        value={condition?.field?.name ?? ''}
-                        onChange={this.onChangeField}>
-                        <option />
-                        {
-                          Object.values(this.state.fields).map(field =>
-                            <option key={field.name} value={field.name}>{field.label}</option>)
-                        }
-                      </select>
-
-                      {fieldDef &&
-                        <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator}
-                          onChange={this.onChangeOperator}>
-                          <option />
-                          {
-                            Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
-                              return <option key={`${condition.field}-${conditional}`}
-                                value={conditional}>{conditional}</option>
-                            })
-                          }
-                        </select>
-                      }
-
-                      {condition.operator && (fieldDef?.values?.length??0) > 0 &&
-                        <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value}
-                          onChange={this.onChangeValue}>
-                          <option />
-                          {fieldDef.values.map(option => {
-                            return <option key={option.value} value={option.value}>{option.text}</option>
-                          })}
-                        </select>
-                      }
-
-                      {condition.operator && (fieldDef?.values?.length??0) === 0 &&
-                        <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
-                          type='text' defaultValue={condition.value?.display} required
-                          onChange={this.onChangeValue} />
-                      }
-                      {condition.value &&
-                        <div className='govuk-form-group'>
-                          <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
-                        </div>
-                      }
-                    </div>
-                  }
-                </div>
-              }
+              { !editView && <InlineConditionsDefinition hasConditions={hasConditions} editingIndex={editing} fields={this.state.fields} condition={condition} saveCallback={this.saveCondition} /> }
               {this.renderEditingView()}
               <div className='govuk-form-group'>
                 <a href='#' id='cancel-inline-conditions-link' className='govuk-link' onClick={this.onClickCancel}>Cancel</a>

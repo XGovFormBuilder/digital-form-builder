@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import {
@@ -8,14 +8,13 @@ import {
   assertDiv,
   assertLabel,
   assertLink,
-  assertRequiredTextInput,
   assertSelectInput,
   assertSpan,
-  assertText,
-  assertTextInput
+  assertText
 } from './helpers/element-assertions'
 import sinon from 'sinon'
-import InlineConditions from '../client/inline-conditions'
+import InlineConditions from '../client/conditions/inline-conditions'
+import { Condition, Field, Value } from '../client/conditions/inline-condition-model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -54,6 +53,7 @@ suite('Inline conditions', () => {
 
     describe('when fields are present', () => {
       let fields
+      let expectedFields
 
       beforeEach(() => {
         fields = [
@@ -61,6 +61,27 @@ suite('Inline conditions', () => {
           { name: 'field2', title: 'Something else', type: 'TextField' },
           { name: 'field3', title: 'Another thing', type: 'SelectField' }
         ]
+        expectedFields = {
+          field1: {
+            label: 'Something',
+            name: 'field1',
+            type: 'TextField',
+            values: undefined
+          },
+          field2: {
+            label: 'Something else',
+            name: 'field2',
+            type: 'TextField',
+            values: undefined
+          },
+          field3: {
+            label: 'Another thing',
+            name: 'field3',
+            type: 'SelectField',
+            values: undefined
+          }
+        }
+
         data.inputsAccessibleAt.withArgs(path).returns(fields)
       })
 
@@ -91,9 +112,7 @@ suite('Inline conditions', () => {
         expect(inlineConditions.find('#inline-condition-header').exists()).to.equal(true)
         expect(inlineConditions.exists()).to.equal(true)
         expect(conditionsSection.find('#add-item').exists()).to.equal(false)
-        expect(conditionsSection.find('#condition-definition-inputs').exists()).to.equal(true)
-        expect(conditionsSection.find('#select-condition').exists()).to.equal(false)
-        assertLink(inlineConditions.find('#cancel-inline-conditions-link'), 'cancel-inline-conditions-link', 'Cancel')
+        assertFieldDefinitionSection(wrapper, expectedFields, false, {})
         expect(conditionsChange.calledOnceWith(undefined, null)).to.equal(true)
       })
 
@@ -112,21 +131,13 @@ suite('Inline conditions', () => {
       test('Clicking the cancel link should cancel any added conditions and partially completed inputs', () => {
         const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#inline-conditions-link').simulate('click')
-        saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'N')
+        let instance = wrapper.instance()
+        instance.saveCondition(new Condition(Field.from({ name: fields[0].name, display: fields[0].title }), textFieldOperators[0], new Value('N')))
         expect(wrapper.find('#conditions-display').exists()).to.equal(true)
-        wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
-        fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
         wrapper.find('#cancel-inline-conditions-link').simulate('click')
 
-        wrapper.find('#inline-conditions-link').simulate('click')
-
         expect(wrapper.find('#conditions-display').exists()).to.equal(false)
-        expect(wrapper.find('#condition-definition-inputs').exists()).to.equal(true)
-        assertSelectInput(wrapper.find('#cond-field'), 'cond-field', fields.map(field => ({
-          value: field.name,
-          text: field.title
-        })), '')
-        expect(wrapper.find('#cond-operator').exists()).to.equal(false)
+        expect(wrapper.find('InlineConditionsDefinition').exists()).to.equal(false)
       })
     })
   })
@@ -148,6 +159,7 @@ suite('Inline conditions', () => {
     describe('when fields are present', () => {
       const selectFieldOperators = ['is', 'is not']
       let fields
+      let expectedFields
       const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
 
       before(() => {
@@ -156,6 +168,26 @@ suite('Inline conditions', () => {
           { name: 'field2', title: 'Something else', type: 'TextField' },
           { name: 'field3', title: 'Another thing', type: 'SelectField' }
         ]
+        expectedFields = {
+          field1: {
+            label: 'Something',
+            name: 'field1',
+            type: 'TextField',
+            values: undefined
+          },
+          field2: {
+            label: 'Something else',
+            name: 'field2',
+            type: 'TextField',
+            values: undefined
+          },
+          field3: {
+            label: 'Another thing',
+            name: 'field3',
+            type: 'SelectField',
+            values: values
+          }
+        }
         data.inputsAccessibleAt.withArgs(path).returns(fields)
         data.listFor.returns(undefined)
         data.listFor.withArgs(fields[2]).returns({ items: values })
@@ -228,404 +260,23 @@ suite('Inline conditions', () => {
           expect(wrapper.find('#condition-definition-inputs').exists()).to.equal(false)
         })
 
-        test('Clicking the add item link presents the field drop down and removes the add item link', () => {
+        test('Clicking the add item link presents the field definition section and removes the add item link', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
 
-          const fieldsGroup = assertAddingFirstCondition(wrapper)
-
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(1)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), '')
+          assertAddingFirstCondition(wrapper, expectedFields)
         })
 
-        test('Selecting a field displays the relevant operators', () => {
+        test('A condition being added causes the view to update and the conditionsChange callback to be called', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
+          const condition = new Condition(new Field('something', 'Something'), 'is', new Value('M'))
+          wrapper.instance().saveCondition(condition)
 
-          const fieldsGroup = assertAddingFirstCondition(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(2)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[0].name)
+          assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
 
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })))
-        })
-
-        test('Change field erases operator and value if neither is relevant anymore', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
-          wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[2] } })
-          wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
-
-          const fieldsGroup = assertAddingFirstCondition(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(4)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[0].name)
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), textFieldOperators[2])
-          assertRequiredTextInput(fieldsChildren.at(2), 'cond-value', 'M')
-
-          wrapper.find('#cond-field').simulate('change', { target: { value: fields[2].name } })
-
-          const updatedFieldsGroup = assertAddingFirstCondition(wrapper)
-          const updatedChildren = updatedFieldsGroup.children()
-          expect(updatedChildren.length).to.equal(2)
-          assertSelectInput(updatedChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[2].name)
-          assertSelectInput(updatedChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })))
-
-          wrapper.find('#cond-operator').simulate('change', { target: { value: selectFieldOperators[0] } })
-
-          const withValue = assertAddingFirstCondition(wrapper)
-          expect(withValue.children().length).to.equal(3)
-          assertSelectInput(withValue.children().at(2), 'cond-value', values)
-        })
-
-        test('Change field erases value but keeps operator if operator is still relevant', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
-          wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
-          wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
-
-          const fieldsGroup = assertAddingFirstCondition(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(4)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[0].name)
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), textFieldOperators[0])
-          assertRequiredTextInput(fieldsChildren.at(2), 'cond-value', 'M')
-
-          wrapper.find('#cond-field').simulate('change', { target: { value: fields[2].name } })
-
-          const updatedFieldsGroup = assertAddingFirstCondition(wrapper)
-          const updatedChildren = updatedFieldsGroup.children()
-          expect(updatedChildren.length).to.equal(3)
-          assertSelectInput(updatedChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[2].name)
-          assertSelectInput(updatedChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), selectFieldOperators[0])
-          assertSelectInput(updatedChildren.at(2), 'cond-value', values)
-        })
-
-        test('Clearing field erases all values', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
-          wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
-          wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
-
-          const fieldsGroup = assertAddingFirstCondition(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(4)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[0].name)
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), textFieldOperators[0])
-          assertRequiredTextInput(fieldsChildren.at(2), 'cond-value', 'M')
-
-          wrapper.find('#cond-field').simulate('change', { target: { value: undefined } })
-
-          const updatedFieldsGroup = assertAddingFirstCondition(wrapper)
-          const updatedChildren = updatedFieldsGroup.children()
-          expect(updatedChildren.length).to.equal(1)
-          assertSelectInput(updatedChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), '')
-        })
-
-        describe('for a field which does not have an options list', () => {
-          textFieldOperators.forEach(operator => {
-            test('selecting an operator creates a text value input for ' + operator, () => {
-              const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-              wrapper.find('#add-item').simulate('click')
-              wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
-              wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
-
-              const fieldsGroup = assertAddingFirstCondition(wrapper)
-              const fieldsChildren = fieldsGroup.children()
-              expect(fieldsChildren.length).to.equal(3)
-              assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-                value: field.name,
-                text: field.title
-              })), fields[0].name)
-              assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-                value: operator,
-                text: operator
-              })), operator)
-              assertRequiredTextInput(fieldsChildren.at(2), 'cond-value', undefined)
-            })
-          })
-
-          test('populating a value makes the \'save condition\' link appear', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
-
-            const fieldsGroup = assertAddingFirstCondition(wrapper)
-            const fieldsChildren = fieldsGroup.children()
-            expect(fieldsChildren.length).to.equal(4)
-            assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-              value: field.name,
-              text: field.title
-            })), fields[0].name)
-            assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-              value: operator,
-              text: operator
-            })), textFieldOperators[0])
-            assertRequiredTextInput(fieldsChildren.at(2), 'cond-value', 'M')
-            assertSaveConditionLink(fieldsChildren.at(3))
-          })
-
-          test('changing to a blank value makes the \'save condition\' link disappear', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
-            wrapper.find('#cond-value').simulate('change', { target: { value: '' } })
-
-            const fieldsGroup = assertAddingFirstCondition(wrapper)
-            const fieldsChildren = fieldsGroup.children()
-            expect(fieldsChildren.length).to.equal(3)
-            assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-              value: field.name,
-              text: field.title
-            })), fields[0].name)
-            assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-              value: operator,
-              text: operator
-            })), textFieldOperators[0])
-            assertRequiredTextInput(fieldsChildren.at(2), 'cond-value')
-          })
-
-          test('removing a value makes the \'save condition\' link disappear', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
-            wrapper.find('#cond-value').simulate('change', { target: { value: undefined } })
-
-            const fieldsGroup = assertAddingFirstCondition(wrapper)
-            const fieldsChildren = fieldsGroup.children()
-            expect(fieldsChildren.length).to.equal(3)
-            assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-              value: field.name,
-              text: field.title
-            })), fields[0].name)
-            assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-              value: operator,
-              text: operator
-            })), textFieldOperators[0])
-            assertRequiredTextInput(fieldsChildren.at(2), 'cond-value')
-          })
-
-          test('Clicking the \'save condition\' link stores the condition and presents And / Or co-ordinator options', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-
-            assertHeaderGroupWithConditionString(wrapper, 'Something is M')
-            assertConditionCoordinatorInput(wrapper)
-          })
-        })
-
-        describe('for a field which has an options list', () => {
-          let field
-
-          before(() => {
-            field = fields[2]
-          })
-
-          selectFieldOperators.forEach(operator => {
-            test(`selecting an operator creates a select input for ${operator}`, () => {
-              const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-              wrapper.find('#add-item').simulate('click')
-              wrapper.find('#cond-field').simulate('change', { target: { value: field.name } })
-              wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
-
-              const fieldsGroup = assertAddingFirstCondition(wrapper)
-              expect(fieldsGroup.prop('id')).to.equal('condition-definition-inputs')
-              const fieldsChildren = fieldsGroup.children()
-              expect(fieldsChildren.length).to.equal(3)
-              assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(it => ({
-                value: it.name,
-                text: it.title
-              })), field.name)
-              assertSelectInput(fieldsChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-                value: operator,
-                text: operator
-              })), operator)
-              assertSelectInput(fieldsChildren.at(2), 'cond-value', values)
-            })
-          })
-
-          values.forEach(value => {
-            test(`selecting value '${value.text}' makes the 'save condition' link appear`, () => {
-              const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-              wrapper.find('#add-item').simulate('click')
-              fillConditionInputs(wrapper, field.name, textFieldOperators[0], value.value)
-
-              const fieldsGroup = assertAddingFirstCondition(wrapper)
-              expect(fieldsGroup.prop('id')).to.equal('condition-definition-inputs')
-              const fieldsChildren = fieldsGroup.children()
-              expect(fieldsChildren.length).to.equal(4)
-              assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-                value: field.name,
-                text: field.title
-              })), field.name)
-              assertSelectInput(fieldsChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-                value: operator,
-                text: operator
-              })), textFieldOperators[0])
-              assertSelectInput(fieldsChildren.at(2), 'cond-value', values, value.value)
-              assertSaveConditionLink(fieldsChildren.at(3))
-            })
-          })
-
-          test('changing a value leaves the \'save condition\' link in place', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            fillConditionInputs(wrapper, field.name, textFieldOperators[0], values[0].value)
-            wrapper.find('#cond-value').simulate('change', { target: { value: values[1].value } })
-
-            const fieldsGroup = assertAddingFirstCondition(wrapper)
-            expect(fieldsGroup.prop('id')).to.equal('condition-definition-inputs')
-            const fieldsChildren = fieldsGroup.children()
-            expect(fieldsChildren.length).to.equal(4)
-            assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-              value: field.name,
-              text: field.title
-            })), field.name)
-            assertSelectInput(fieldsChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-              value: operator,
-              text: operator
-            })), textFieldOperators[0])
-            assertSelectInput(fieldsChildren.at(2), 'cond-value', values, values[1].value)
-            assertSaveConditionLink(fieldsChildren.at(3))
-          })
-
-          test('Removing a value removes the \'save condition\' link', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            fillConditionInputs(wrapper, field.name, textFieldOperators[0], values[0].value)
-            wrapper.find('#cond-value').simulate('change', { target: { value: undefined } })
-
-            const fieldsGroup = assertAddingFirstCondition(wrapper)
-            expect(fieldsGroup.prop('id')).to.equal('condition-definition-inputs')
-            const fieldsChildren = fieldsGroup.children()
-            expect(fieldsChildren.length).to.equal(3)
-            assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-              value: field.name,
-              text: field.title
-            })), field.name)
-            assertSelectInput(fieldsChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-              value: operator,
-              text: operator
-            })), textFieldOperators[0])
-            assertSelectInput(fieldsChildren.at(2), 'cond-value', values)
-          })
-
-          test('Selecting a blank value removes the \'save condition\' link', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            fillConditionInputs(wrapper, field.name, textFieldOperators[0], values[0].value)
-            wrapper.find('#cond-value').simulate('change', { target: { value: '' } })
-
-            const fieldsGroup = assertAddingFirstCondition(wrapper)
-            expect(fieldsGroup.prop('id')).to.equal('condition-definition-inputs')
-            const fieldsChildren = fieldsGroup.children()
-            expect(fieldsChildren.length).to.equal(3)
-            assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-              value: field.name,
-              text: field.title
-            })), field.name)
-            assertSelectInput(fieldsChildren.at(1), 'cond-operator', selectFieldOperators.map(operator => ({
-              value: operator,
-              text: operator
-            })), textFieldOperators[0])
-            assertSelectInput(fieldsChildren.at(2), 'cond-value', values)
-          })
-
-          test('Clicking the \'save condition\' link stores the condition and presents And / Or co-ordinator options', () => {
-            const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-            wrapper.find('#add-item').simulate('click')
-            saveCondition(wrapper, field.name, selectFieldOperators[0], values[0].value)
-
-            assertHeaderGroupWithConditionString(wrapper, 'Another thing is Value 1')
-            assertConditionCoordinatorInput(wrapper)
-            assertNoFieldsGroup(wrapper)
-          })
-        })
-
-        test('Adding multiple conditions', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[1], 'N')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], 'value1')
-
-          assertHeaderGroupWithConditionString(wrapper, '(Something is M and Something else is not N) or Another thing is Value 1')
-          assertConditionCoordinatorInput(wrapper)
-          assertNoFieldsGroup(wrapper)
-        })
-
-        test('Changing to a blank coordinator', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: '' } })
-
-          assertHeaderGroupWithConditionString(wrapper, 'Something is M')
-          assertConditionCoordinatorInput(wrapper)
-          assertNoFieldsGroup(wrapper)
-        })
-
-        test('Changing to an undefined coordinator', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: undefined } })
-
-          assertHeaderGroupWithConditionString(wrapper, 'Something is M')
-          assertConditionCoordinatorInput(wrapper)
-          assertNoFieldsGroup(wrapper)
+          expect(conditionsChange.calledOnce).to.equal(true)
+          expect(conditionsChange.firstCall.args[0].asPerUserGroupings).to.equal([condition])
+          expect(conditionsChange.firstCall.args[1]).to.equal(undefined)
         })
       })
 
@@ -633,98 +284,49 @@ suite('Inline conditions', () => {
         test('Clicking the edit link causes editing view to be rendered', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M')
           assertEditPanel(wrapper, [{ condition: 'Something is M' }])
         })
 
-        test('Clicking the edit link for a single condition causes the field definition inputs to be pre-populated', () => {
+        test('Clicking the edit link for a single condition causes the field definition inputs to be pre-populated correctly', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
+          let condition = new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M'))
+          wrapper.instance().saveCondition(condition)
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#condition-0-edit').simulate('click')
 
           assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M')
-          const fieldsGroup = assertFieldsGroup(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(4)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[0].name)
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), textFieldOperators[0])
-          assertTextInput(fieldsChildren.at(2), 'cond-value', 'M')
-          assertSaveConditionLink(fieldsChildren.at(3))
+
+          assertEditingCondition(wrapper, expectedFields, condition, 0)
         })
 
-        test('Co-ordinator is not present when editing the first condition of many', () => {
+        test('Clicking the edit link for a subsequent condition causes the field definition inputs to be pre-populated correctly', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
-          wrapper.find('#edit-conditions-link').simulate('click')
-          wrapper.find('#condition-0-edit').simulate('click')
-
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N')
-          const fieldsGroup = assertFieldsGroup(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(4)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[0].name)
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), textFieldOperators[0])
-          assertTextInput(fieldsChildren.at(2), 'cond-value', 'M')
-          assertSaveConditionLink(fieldsChildren.at(3))
-        })
-
-        test('Co-ordinator is present when editing any subsequent condition', () => {
-          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-          wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          let condition = new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and')
+          wrapper.instance().saveCondition(condition)
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#condition-1-edit').simulate('click')
 
           assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N')
-          assertConditionCoordinatorInput(wrapper, 'and')
-          const fieldsGroup = assertFieldsGroup(wrapper)
-          const fieldsChildren = fieldsGroup.children()
-          expect(fieldsChildren.length).to.equal(4)
-          assertSelectInput(fieldsChildren.at(0), 'cond-field', fields.map(field => ({
-            value: field.name,
-            text: field.title
-          })), fields[1].name)
-          assertSelectInput(fieldsChildren.at(1), 'cond-operator', textFieldOperators.map(operator => ({
-            value: operator,
-            text: operator
-          })), textFieldOperators[0])
-          assertTextInput(fieldsChildren.at(2), 'cond-value', 'N')
-          assertSaveConditionLink(fieldsChildren.at(3))
+
+          assertEditingCondition(wrapper, expectedFields, condition, 1)
         })
 
         test('Saving edits to condition results in an updated condition string and returns the users to an updated edit panel', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#condition-1-edit').simulate('click')
 
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[1], values[0].value)
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[1], new Value(values[0].value, values[0].text), 'or'))
 
           assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M or Another thing is not Value 1')
           assertEditPanel(wrapper, [{ condition: 'Something is M' }, { condition: 'or Another thing is not Value 1' }])
@@ -733,9 +335,8 @@ suite('Inline conditions', () => {
         test('Grouping conditions combines them into a single condition which can be split but not edited', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -757,11 +358,9 @@ suite('Inline conditions', () => {
         test('should not group non-consecutive conditions', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], values[0].value)
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -791,15 +390,11 @@ suite('Inline conditions', () => {
         test('should group multiple consecutive condition groups', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], values[0].value)
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], values[0].value)
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'Y')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'or'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'or'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('Y'), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -831,9 +426,8 @@ suite('Inline conditions', () => {
         test('splitting grouped conditions returns them to their original components', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -857,11 +451,9 @@ suite('Inline conditions', () => {
         test('removing selected conditions', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], values[0].value)
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
@@ -876,11 +468,9 @@ suite('Inline conditions', () => {
         test('Should deselect conditions', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], values[0].value)
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
@@ -892,11 +482,9 @@ suite('Inline conditions', () => {
         test('removing grouped conditions removes everything in the group', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[2].name, selectFieldOperators[0], values[0].value)
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -915,9 +503,8 @@ suite('Inline conditions', () => {
         test('removing last condition returns the user to the original add display', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
-          wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
-          saveCondition(wrapper, fields[1].name, textFieldOperators[0], 'N')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N'), 'and'))
           wrapper.find('#edit-conditions-link').simulate('click')
 
           expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -935,18 +522,26 @@ suite('Inline conditions', () => {
         test('exiting edit view returns user to the add condition view', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#exit-edit-link').simulate('click')
 
-          assertHeaderGroupWithConditionString(wrapper, 'Something is M')
-          assertConditionCoordinatorInput(wrapper)
-          assertNoFieldsGroup(wrapper)
+          assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
         })
       })
     })
   })
 })
+
+function assertFieldDefinitionSection (wrapper, expectedFields, hasConditions, condition, editingIndex) {
+  let inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
+  expect(inlineConditionsDefinition.exists()).to.equal(true)
+  expect(inlineConditionsDefinition.prop('hasConditions')).to.equal(hasConditions)
+  expect(inlineConditionsDefinition.prop('editingIndex')).to.equal(editingIndex)
+  expect(inlineConditionsDefinition.prop('fields')).to.equal(expectedFields)
+  expect(inlineConditionsDefinition.prop('condition')).to.equal(condition)
+  expect(inlineConditionsDefinition.prop('saveCallback')).to.equal(wrapper.instance().saveCondition)
+}
 
 function assertHeaderLabel (wrapper) {
   expect(wrapper.find('#conditions-header-group').exists()).to.equal(true)
@@ -960,30 +555,25 @@ function assertHeaderAndAddItemDisplayed (wrapper) {
   assertLink(wrapper.find('#add-item'), 'add-item', 'Add')
 }
 
-function assertAddingFirstCondition (wrapper) {
+function assertAddingFirstCondition (wrapper, expectedFields) {
   assertHeaderLabel(wrapper)
   assertLabel(wrapper.find('#inline-condition-header').find('label'), 'When')
 
-  const inlineConditionsGroup = wrapper.find('#inline-conditions')
-  expect(inlineConditionsGroup.find('#cond-coordinator-group').exists()).to.equal(false)
-  expect(inlineConditionsGroup.find('#condition-definition-inputs').exists()).to.equal(true)
-  return assertFieldsGroup(inlineConditionsGroup)
+  assertFieldDefinitionSection(wrapper, expectedFields, false, {})
 }
 
-function assertFieldsGroup (wrapper) {
-  const fieldsDefGroup = wrapper.find('#condition-definition-group')
-  expect(fieldsDefGroup.hasClass('govuk-form-group')).to.equal(true)
-  return fieldsDefGroup.find('#condition-definition-inputs')
+function assertEditingCondition (wrapper, expectedFields, condition, editingIndex) {
+  assertHeaderLabel(wrapper)
+  assertLabel(wrapper.find('#inline-condition-header').find('label'), 'When')
+
+  assertFieldDefinitionSection(wrapper, expectedFields, true, condition, editingIndex)
 }
 
-function assertNoFieldsGroup (wrapper) {
-  expect(wrapper.find('#condition-definition-inputs').exists()).to.equal(false)
-}
+function assertAddingSubsequentCondition (wrapper, expectedConditionString, expectedFields) {
+  assertHeaderGroupWithConditionString(wrapper, expectedConditionString)
+  assertLabel(wrapper.find('#inline-condition-header').find('label'), 'When')
 
-function assertSaveConditionLink (wrapper) {
-  assertDiv(wrapper, ['govuk-form-group'])
-  expect(wrapper.children().length).to.equal(1)
-  assertLink(wrapper.children().at(0), 'save-condition', 'Save condition')
+  assertFieldDefinitionSection(wrapper, expectedFields, true)
 }
 
 function assertHeaderGroupWithConditionString (wrapper, conditionString) {
@@ -1083,22 +673,4 @@ function assertEditPanel (wrapper, conditions, editingError) {
   } else if (selectedConditions.length === 1) {
     assertLink(groupAndRemove.children().at(0), 'remove-conditions', 'Remove')
   } else {}
-}
-
-function assertConditionCoordinatorInput (wrapper, expectedValue) {
-  const conditionCoordinatorGroup = wrapper.find('#cond-coordinator-group')
-  expect(conditionCoordinatorGroup.hasClass('govuk-form-group')).to.equal(true)
-
-  assertSelectInput(conditionCoordinatorGroup.find('select'), 'cond-coordinator', [{ value: 'and', text: 'And' }, { value: 'or', text: 'Or' }], expectedValue || '')
-}
-
-function saveCondition (wrapper, fieldName, operator, value) {
-  fillConditionInputs(wrapper, fieldName, operator, value)
-  wrapper.find('#save-condition').simulate('click')
-}
-
-function fillConditionInputs (wrapper, fieldName, operator, value) {
-  wrapper.find('#cond-field').simulate('change', { target: { value: fieldName } })
-  wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
-  wrapper.find('#cond-value').simulate('change', { target: { value: value } })
 }

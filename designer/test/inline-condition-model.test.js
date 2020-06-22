@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { ConditionsModel, Condition, Field, Value, GroupDef } from '../client/inline-condition-model'
+import { ConditionsModel, Condition, Field, Value, GroupDef } from '../client/conditions/inline-condition-model'
 
 const { expect } = Code
 const lab = Lab.script()

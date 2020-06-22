@@ -1,6 +1,6 @@
 import React from 'react'
 import { clone } from './helpers'
-import InlineConditions from './inline-conditions.js'
+import InlineConditions from './conditions/inline-conditions.js'
 import { addLinkToPage, createNext } from './link-create'
 
 class PageCreate extends React.Component {
