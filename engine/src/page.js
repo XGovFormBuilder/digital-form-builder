@@ -106,11 +106,14 @@ class Page {
       const sectionStateCount = state.repeats[this.repeatField][this.section.name]
       const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
 
-      const counts = sectionStateCount.map(page => Object.values(page)[0])
-      if(counts.length === otherRepeatPagesInSection.length) { //iterated at least once
+      const counts = Object.values(sectionStateCount)
+      if(counts.length === otherRepeatPagesInSection.length) { //iterated all pages at least once
         const lastInSection = sectionStateCount[sectionStateCount.length -1]
         if(Object.value(lastInSection[0]) < requiredCount) {
-          return this.model.pages.find(page => page.path === Object.entries(sectionStateCount[0]))
+          let min = Math.min(...counts)
+          let nextMinPage = Object.entries(sectionStateCount).find((path, count) => count === min )
+          return nextMinPage[0]
+          // return this.model.pages.find(page => page.path === Object.entries(sectionStateCount[0]))
         }
       }
     }
@@ -305,11 +308,13 @@ class Page {
       if (this.repeatField) {
         let updateValue = update[this.section.name]
         let count = repeats[this.repeatField]?.[this.section.name]?.[this.path] ?? 0
+        let index = count || count - 1
         let sectionState = state[this.section.name]
         if (!sectionState) {
           update = { [this.section.name]: [updateValue]}
         } else {
-          sectionState[count] = merge(sectionState[count], updateValue)
+          let merged =  merge(sectionState[index], updateValue)
+          sectionState[index] = merge(sectionState[index], updateValue)
           update = { [this.section.name]: sectionState }
         }
         count++

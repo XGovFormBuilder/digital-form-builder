@@ -80,7 +80,7 @@
       "path": "/applicant-repeatable",
       "title": "Applicant",
       "section": "applicant",
-      "repeatField": "numberOfApplicants",
+      "repeatField": "applicantDetails.numberOfApplicants",
       "components": [
         {
           "type": "Para",
@@ -116,7 +116,7 @@
     {
       "path": "/applicant-address",
       "section": "applicant",
-      "repeatField": "numberOfApplicants",
+      "repeatField": "applicantDetails.numberOfApplicants",
       "components": [
         {
           "type": "UkAddressField",
@@ -134,6 +134,7 @@
     {
       "path": "/contact-details",
       "section": "applicant",
+      "repeatField": "applicantDetails.numberOfApplicants",
       "components": [
         {
           "type": "TelephoneNumberField",
