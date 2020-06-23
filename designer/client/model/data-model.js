@@ -72,5 +72,6 @@ class Input {
     const myPage = clone(page)
     delete myPage.components
     this.page = myPage
+    this.propertyPath = page.section ? `${page.section}.${this.name}` : this.name
   }
 }

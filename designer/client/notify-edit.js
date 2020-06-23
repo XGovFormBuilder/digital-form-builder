@@ -5,7 +5,7 @@ class NotifyEdit extends React.Component {
   constructor (props) {
     super(props)
     const { data } = this.props
-    this.usableKeys = data.allInputs().map(input => `${input.page.section ? input.page.section + '.' : ''}${input.name}`)
+    this.usableKeys = data.allInputs().map(input => input.propertyPath)
   }
 
   render () {

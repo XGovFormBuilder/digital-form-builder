@@ -48,9 +48,9 @@ suite('Inline conditions', () => {
 
       beforeEach(() => {
         fields = [
-          { name: 'field1', title: 'Something', type: 'TextField' },
-          { name: 'field2', title: 'Something else', type: 'TextField' },
-          { name: 'field3', title: 'Another thing', type: 'SelectField' }
+          { propertyPath: 'field1', title: 'Something', type: 'TextField' },
+          { propertyPath: 'field2', title: 'Something else', type: 'TextField' },
+          { propertyPath: 'field3', title: 'Another thing', type: 'SelectField' }
         ]
         expectedFields = {
           field1: {
@@ -120,7 +120,7 @@ suite('Inline conditions', () => {
         const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#inline-conditions-link').simulate('click')
         let instance = wrapper.instance()
-        instance.saveCondition(new Condition(Field.from({ name: fields[0].name, display: fields[0].title }), textFieldOperators[0], new Value('N')))
+        instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, display: fields[0].title }), textFieldOperators[0], new Value('N')))
         expect(wrapper.find('#conditions-display').exists()).to.equal(true)
         wrapper.find('#cancel-inline-conditions-link').simulate('click')
 
@@ -151,9 +151,9 @@ suite('Inline conditions', () => {
 
       before(() => {
         fields = [
-          { name: 'field1', title: 'Something', type: 'TextField' },
-          { name: 'field2', title: 'Something else', type: 'TextField' },
-          { name: 'field3', title: 'Another thing', type: 'SelectField' }
+          { propertyPath: 'field1', title: 'Something', type: 'TextField' },
+          { propertyPath: 'field2', title: 'Something else', type: 'TextField' },
+          { propertyPath: 'field3', title: 'Another thing', type: 'SelectField' }
         ]
         expectedFields = {
           field1: {
@@ -273,7 +273,7 @@ suite('Inline conditions', () => {
 
         beforeEach(() => {
           conditions = new ConditionsModel()
-          conditions.add(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          conditions.add(new Condition(new Field(fields[0].propertyPath, fields[0].title), textFieldOperators[0], new Value('M')))
         })
 
         test('Clicking the edit link causes editing view to be rendered', () => {
@@ -288,7 +288,7 @@ suite('Inline conditions', () => {
         test('edit callback should replace the conditions and leave in edit mode', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
-          wrapper.instance().saveCondition(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[0], new Value('N')))
+          wrapper.instance().saveCondition(new Condition(new Field(fields[1].propertyPath, fields[1].title), textFieldOperators[0], new Value('N')))
           wrapper.find('#edit-conditions-link').simulate('click')
           assertEditingHeaderGroupWithConditionString(wrapper, '\'Something else\' is \'N\'')
 

@@ -33,7 +33,7 @@ class InlineConditions extends React.Component {
     return data.inputsAccessibleAt(path)
       .map(input => ({
         label: input.title,
-        name: input.name,
+        name: input.propertyPath,
         type: input.type,
         values: (data.listFor(input)??{}).items
       }))

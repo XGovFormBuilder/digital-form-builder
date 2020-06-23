@@ -25,10 +25,10 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', section: 'section1' } },
-        { name: 'name3', page: { name: 'page2', section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', section: 'section1' } }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
       ])
     })
 
@@ -48,9 +48,9 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', section: 'section1' } }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
       ])
     })
 
@@ -105,12 +105,12 @@ suite('data model', () => {
         ]
       })
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' } },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name5', page: { name: 'page3', path: '/3' } },
-        { name: 'name6', page: { name: 'page3', path: '/3' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
       ])
     })
 
@@ -140,12 +140,12 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name5', page: { name: 'page3', path: '/3' } },
-        { name: 'name6', page: { name: 'page3', path: '/3' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
       ])
     })
 
@@ -175,10 +175,10 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name5', page: { name: 'page3', path: '/3' } },
-        { name: 'name6', page: { name: 'page3', path: '/3' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
       ])
     })
 
@@ -202,9 +202,9 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/2')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' }, propertyPath: 'section1.name4' }
       ])
     })
 
