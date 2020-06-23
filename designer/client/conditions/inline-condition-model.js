@@ -280,7 +280,7 @@ export class Condition {
   }
 
   conditionString () {
-    return `${this.field.display} ${this.operator} ${this.value.display}`
+    return `'${this.field.display}' ${this.operator} '${this.value.display}'`
   }
 
   coordinatorString () {

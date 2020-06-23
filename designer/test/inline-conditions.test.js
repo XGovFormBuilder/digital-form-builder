@@ -273,7 +273,7 @@ suite('Inline conditions', () => {
           const condition = new Condition(new Field('something', 'Something'), 'is', new Value('M'))
           wrapper.instance().saveCondition(condition)
 
-          assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
+          assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
 
           expect(conditionsChange.calledOnce).to.equal(true)
           expect(conditionsChange.firstCall.args[0].asPerUserGroupings).to.equal([condition])
@@ -288,8 +288,8 @@ suite('Inline conditions', () => {
           wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
           wrapper.find('#edit-conditions-link').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M')
-          assertEditPanel(wrapper, [{ condition: 'Something is M' }])
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\'')
+          assertEditPanel(wrapper, [{ condition: '\'Something\' is \'M\'' }])
         })
 
         test('Clicking the edit link for a single condition causes the field definition inputs to be pre-populated correctly', () => {
@@ -300,7 +300,7 @@ suite('Inline conditions', () => {
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#condition-0-edit').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M')
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\'')
 
           assertEditingCondition(wrapper, expectedFields, condition, 0)
         })
@@ -314,7 +314,7 @@ suite('Inline conditions', () => {
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#condition-1-edit').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N')
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' and \'Something else\' is \'N\'')
 
           assertEditingCondition(wrapper, expectedFields, condition, 1)
         })
@@ -329,8 +329,8 @@ suite('Inline conditions', () => {
 
           wrapper.instance().saveCondition(new Condition(new Field(fields[2].name, fields[2].title), selectFieldOperators[1], new Value(values[0].value, values[0].text), 'or'))
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M or Another thing is not Value 1')
-          assertEditPanel(wrapper, [{ condition: 'Something is M' }, { condition: 'or Another thing is not Value 1' }])
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' or \'Another thing\' is not \'Value 1\'')
+          assertEditPanel(wrapper, [{ condition: '\'Something\' is \'M\'' }, { condition: 'or \'Another thing\' is not \'Value 1\'' }])
         })
 
         test('Grouping conditions combines them into a single condition which can be split but not edited', () => {
@@ -344,16 +344,16 @@ suite('Inline conditions', () => {
           wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
           wrapper.find('#condition-1').simulate('change', { target: { value: '1', checked: true } })
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N')
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' and \'Something else\' is \'N\'')
           assertEditPanel(wrapper, [{
-            condition: 'Something is M',
+            condition: '\'Something\' is \'M\'',
             selected: true
-          }, { condition: 'and Something else is N', selected: true }])
+          }, { condition: 'and \'Something else\' is \'N\'', selected: true }])
 
           wrapper.find('#group-conditions').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, '(Something is M and Something else is N)')
-          assertEditPanel(wrapper, [{ condition: '(Something is M and Something else is N)', grouped: true }])
+          assertEditingHeaderGroupWithConditionString(wrapper, '(\'Something\' is \'M\' and \'Something else\' is \'N\')')
+          assertEditPanel(wrapper, [{ condition: '(\'Something\' is \'M\' and \'Something else\' is \'N\')', grouped: true }])
         })
 
         test('should not group non-consecutive conditions', () => {
@@ -368,22 +368,22 @@ suite('Inline conditions', () => {
           wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
           wrapper.find('#condition-2').simulate('change', { target: { value: '2', checked: true } })
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N and Another thing is Value 1')
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' and \'Something else\' is \'N\' and \'Another thing\' is \'Value 1\'')
           assertEditPanel(wrapper, [{
-            condition: 'Something is M',
+            condition: '\'Something\' is \'M\'',
             selected: true
-          }, { condition: 'and Something else is N' },
-          { condition: 'and Another thing is Value 1', selected: true }])
+          }, { condition: 'and \'Something else\' is \'N\'' },
+          { condition: 'and \'Another thing\' is \'Value 1\'', selected: true }])
 
           wrapper.find('#group-conditions').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N and Another thing is Value 1')
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' and \'Something else\' is \'N\' and \'Another thing\' is \'Value 1\'')
           assertEditPanel(wrapper, [{
-            condition: 'Something is M',
+            condition: '\'Something\' is \'M\'',
             selected: true
-          }, { condition: 'and Something else is N' },
+          }, { condition: 'and \'Something else\' is \'N\'' },
           {
-            condition: 'and Another thing is Value 1',
+            condition: 'and \'Another thing\' is \'Value 1\'',
             selected: true
           }], 'Error: Please select consecutive items to group')
         })
@@ -404,22 +404,22 @@ suite('Inline conditions', () => {
           wrapper.find('#condition-3').simulate('change', { target: { value: '3', checked: true } })
           wrapper.find('#condition-4').simulate('change', { target: { value: '4', checked: true } })
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M or (Something else is N and Another thing is Value 1) or (Another thing is Value 1 and Something else is Y)')
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' or (\'Something else\' is \'N\' and \'Another thing\' is \'Value 1\') or (\'Another thing\' is \'Value 1\' and \'Something else\' is \'Y\')')
           assertEditPanel(wrapper, [{
-            condition: 'Something is M',
+            condition: '\'Something\' is \'M\'',
             selected: true
-          }, { condition: 'or Something else is N', selected: true },
-          { condition: 'and Another thing is Value 1' }, {
-            condition: 'or Another thing is Value 1',
+          }, { condition: 'or \'Something else\' is \'N\'', selected: true },
+          { condition: 'and \'Another thing\' is \'Value 1\'' }, {
+            condition: 'or \'Another thing\' is \'Value 1\'',
             selected: true
-          }, { condition: 'and Something else is Y', selected: true }])
+          }, { condition: 'and \'Something else\' is \'Y\'', selected: true }])
 
           wrapper.find('#group-conditions').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, '((Something is M or Something else is N) and Another thing is Value 1) or (Another thing is Value 1 and Something else is Y)')
-          assertEditPanel(wrapper, [{ condition: '(Something is M or Something else is N)', grouped: true },
-            { condition: 'and Another thing is Value 1' }, {
-              condition: 'or (Another thing is Value 1 and Something else is Y)',
+          assertEditingHeaderGroupWithConditionString(wrapper, '((\'Something\' is \'M\' or \'Something else\' is \'N\') and \'Another thing\' is \'Value 1\') or (\'Another thing\' is \'Value 1\' and \'Something else\' is \'Y\')')
+          assertEditPanel(wrapper, [{ condition: '(\'Something\' is \'M\' or \'Something else\' is \'N\')', grouped: true },
+            { condition: 'and \'Another thing\' is \'Value 1\'' }, {
+              condition: 'or (\'Another thing\' is \'Value 1\' and \'Something else\' is \'Y\')',
               grouped: true
             }])
         })
@@ -437,16 +437,16 @@ suite('Inline conditions', () => {
 
           wrapper.find('#group-conditions').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, '(Something is M and Something else is N)')
+          assertEditingHeaderGroupWithConditionString(wrapper, '(\'Something\' is \'M\' and \'Something else\' is \'N\')')
           assertEditPanel(wrapper, [{
-            condition: '(Something is M and Something else is N)',
+            condition: '(\'Something\' is \'M\' and \'Something else\' is \'N\')',
             grouped: true
           }])
 
           wrapper.find('#condition-0-split').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something is M and Something else is N')
-          assertEditPanel(wrapper, [{ condition: 'Something is M' }, { condition: 'and Something else is N' }])
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something\' is \'M\' and \'Something else\' is \'N\'')
+          assertEditPanel(wrapper, [{ condition: '\'Something\' is \'M\'' }, { condition: 'and \'Something else\' is \'N\'' }])
         })
 
         test('removing selected conditions', () => {
@@ -462,8 +462,8 @@ suite('Inline conditions', () => {
 
           wrapper.find('#remove-conditions').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Something else is N')
-          assertEditPanel(wrapper, [{ condition: 'Something else is N' }])
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Something else\' is \'N\'')
+          assertEditPanel(wrapper, [{ condition: '\'Something else\' is \'N\'' }])
         })
 
         test('Should deselect conditions', () => {
@@ -497,8 +497,8 @@ suite('Inline conditions', () => {
           wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
           wrapper.find('#remove-conditions').simulate('click')
 
-          assertEditingHeaderGroupWithConditionString(wrapper, 'Another thing is Value 1')
-          assertEditPanel(wrapper, [{ condition: 'Another thing is Value 1' }])
+          assertEditingHeaderGroupWithConditionString(wrapper, '\'Another thing\' is \'Value 1\'')
+          assertEditPanel(wrapper, [{ condition: '\'Another thing\' is \'Value 1\'' }])
         })
 
         test('removing last condition returns the user to the original add display', () => {
@@ -528,7 +528,7 @@ suite('Inline conditions', () => {
           wrapper.find('#condition-0-edit').simulate('click')
           wrapper.find('#cancel-edit-inline-conditions-link').simulate('click')
 
-          assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
+          assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
         })
 
         test('Cancelling from edit view returns user to the add condition view', () => {
@@ -538,7 +538,7 @@ suite('Inline conditions', () => {
           wrapper.find('#edit-conditions-link').simulate('click')
           wrapper.find('#cancel-edit-inline-conditions-link').simulate('click')
 
-          assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
+          assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
         })
       })
     })
