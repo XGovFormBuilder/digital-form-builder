@@ -28,7 +28,7 @@ class InlineConditionsDefinition extends React.Component {
     if (this.props.expectsCoordinator !== prevProps.expectsCoordinator ||
         this.props.fields !== prevProps.fields) {
       const { condition } = this.state
-      const newCondition = this.props.fields[condition?.field] ? this.state.condition : {}
+      const newCondition = this.props.fields[condition?.field?.name] ? this.state.condition : {}
       this.setState({
         condition: newCondition
       })
