@@ -25,8 +25,7 @@ class InlineConditionsDefinition extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState, snapshot) {
-    if (this.props.hasConditions !== prevProps.hasConditions ||
-        this.props.editingIndex !== prevProps.editingIndex ||
+    if (this.props.expectsCoordinator !== prevProps.expectsCoordinator ||
         this.props.fields !== prevProps.fields) {
       const { condition } = this.state
       const newCondition = this.props.fields[condition?.field] ? this.state.condition : {}
@@ -124,12 +123,12 @@ class InlineConditionsDefinition extends React.Component {
   }
 
   render () {
-    const { hasConditions, editingIndex, fields } = this.props
+    const { expectsCoordinator, fields } = this.props
     const { condition } = this.state
     const fieldDef = fields[condition.field?.name]
 
     return (<div className='govuk-form-group' id='condition-definition-group'>
-      {hasConditions && editingIndex !== 0 &&
+      {expectsCoordinator &&
         <div className='govuk-form-group' id='cond-coordinator-group'>
           <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
             onChange={this.onChangeCoordinator}>
@@ -139,7 +138,7 @@ class InlineConditionsDefinition extends React.Component {
           </select>
         </div>
       }
-      {(condition.coordinator || !hasConditions || editingIndex === 0) &&
+      {(condition.coordinator || !expectsCoordinator) &&
         <div id='condition-definition-inputs'>
           <select className='govuk-select' id='cond-field' name='cond-field'
             value={(condition?.field?.name)??''}

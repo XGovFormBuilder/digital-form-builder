@@ -258,6 +258,7 @@ suite('Inline conditions', () => {
           expect(wrapper.find('#cond-coordinator-group').exists()).to.equal(false)
           expect(wrapper.find('#cond-coordinator-group').exists()).to.equal(false)
           expect(wrapper.find('#condition-definition-inputs').exists()).to.equal(false)
+          expect(wrapper.find('#cancel-inline-conditions-link').exists()).to.equal(false)
         })
 
         test('Clicking the add item link presents the field definition section and removes the add item link', () => {
@@ -519,12 +520,23 @@ suite('Inline conditions', () => {
           assertHeaderAndAddItemDisplayed(wrapper)
         })
 
-        test('exiting edit view returns user to the add condition view', () => {
+        test('Cancelling from editing an individual condition returns user to the add conditions view', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.find('#add-item').simulate('click')
           wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
           wrapper.find('#edit-conditions-link').simulate('click')
-          wrapper.find('#exit-edit-link').simulate('click')
+          wrapper.find('#condition-0-edit').simulate('click')
+          wrapper.find('#cancel-edit-inline-conditions-link').simulate('click')
+
+          assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
+        })
+
+        test('Cancelling from edit view returns user to the add condition view', () => {
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
+          wrapper.find('#add-item').simulate('click')
+          wrapper.instance().saveCondition(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          wrapper.find('#edit-conditions-link').simulate('click')
+          wrapper.find('#cancel-edit-inline-conditions-link').simulate('click')
 
           assertAddingSubsequentCondition(wrapper, 'Something is M', expectedFields)
         })
@@ -536,8 +548,7 @@ suite('Inline conditions', () => {
 function assertFieldDefinitionSection (wrapper, expectedFields, hasConditions, condition, editingIndex) {
   let inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
   expect(inlineConditionsDefinition.exists()).to.equal(true)
-  expect(inlineConditionsDefinition.prop('hasConditions')).to.equal(hasConditions)
-  expect(inlineConditionsDefinition.prop('editingIndex')).to.equal(editingIndex)
+  expect(inlineConditionsDefinition.prop('expectsCoordinator')).to.equal(hasConditions && editingIndex !== 0)
   expect(inlineConditionsDefinition.prop('fields')).to.equal(expectedFields)
   expect(inlineConditionsDefinition.prop('condition')).to.equal(condition)
   expect(inlineConditionsDefinition.prop('saveCallback')).to.equal(wrapper.instance().saveCondition)
@@ -611,15 +622,13 @@ function assertEditPanel (wrapper, conditions, editingError) {
   let editConditionsPanel = wrapper.find('#edit-conditions')
   expect(editConditionsPanel.exists()).to.equal(true)
 
-  const editPanelChildren = editConditionsPanel.children()
-  expect(editPanelChildren.length).to.equal(2)
-
   const fieldSet = editConditionsPanel.find('fieldset')
 
   const legend = fieldSet.find('legend')
   expect(legend.text()).to.equal('Select conditions to group / remove')
 
-  assertLink(fieldSet.find('#exit-edit-link'), 'exit-edit-link', 'Exit')
+  assertLink(wrapper.find('#cancel-edit-inline-conditions-link'), 'cancel-edit-inline-conditions-link', 'Cancel')
+  expect(wrapper.find('#cancel-inline-conditions-link').exists()).to.equal(false)
 
   if (editingError) {
     const editingErrorSection = fieldSet.find('#conditions-error')
@@ -660,10 +669,8 @@ function assertEditPanel (wrapper, conditions, editingError) {
     }
   })
 
-  const groupAndRemove = editPanelChildren.at(1)
-  assertDiv(groupAndRemove)
-  expect(groupAndRemove.prop('id')).to.equal('group-and-remove')
-
+  const groupAndRemove = wrapper.find('#group-and-remove')
+  expect(groupAndRemove.exists()).to.equal(true)
   const selectedConditions = conditions.filter(condition => condition.selected).length
   // If one child is selected then only the remove link is displayed, if 2 are selected then both group and remove are displayed.
   expect(groupAndRemove.children().length).to.equal(Math.min(selectedConditions, 2))
@@ -672,5 +679,5 @@ function assertEditPanel (wrapper, conditions, editingError) {
     assertLink(groupAndRemove.children().at(1), 'remove-conditions', 'Remove')
   } else if (selectedConditions.length === 1) {
     assertLink(groupAndRemove.children().at(0), 'remove-conditions', 'Remove')
-  } else {}
+  }
 }

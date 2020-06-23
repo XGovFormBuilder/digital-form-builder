@@ -26,7 +26,8 @@ class InlineConditions extends React.Component {
 
     this.state = {
       conditions: new ConditionsModel(),
-      fields: this.fieldsForPath(path)
+      fields: this.fieldsForPath(path),
+      inline: !props.data.hasConditions
     }
   }
 
@@ -85,7 +86,8 @@ class InlineConditions extends React.Component {
     this.setState({
       editView: false,
       selectedConditions: null,
-      editing: undefined
+      editing: undefined,
+      condition: undefined
     })
   }
 
@@ -100,7 +102,6 @@ class InlineConditions extends React.Component {
     if (conditions.length > index) {
       this.setState({
         editing: index,
-        editView: false,
         condition: Object.assign({}, conditions[index])
       })
     }
@@ -136,18 +137,19 @@ class InlineConditions extends React.Component {
 
   onClickCancel = () => {
     this.setState({
-      inline: false,
+      inline: !this.props.data.hasConditions,
       condition: undefined,
-      conditions: this.state.conditions.clear()
+      conditions: this.state.conditions.clear(),
+      editView: false,
+      editing: undefined
     })
   }
 
   saveCondition = (condition) => {
-    if (this.state.editing || this.state.editing === 0) {
+    if (this.state.editView) {
       this.setState({
         conditions: this.state.conditions.replace(this.state.editing, condition),
         condition: undefined,
-        editView: true,
         editing: undefined
       })
     } else {
@@ -159,11 +161,9 @@ class InlineConditions extends React.Component {
   }
 
   render () {
-    const { conditions, condition, editView, editing, selectedCondition } = this.state
-
+    const { conditions, condition, editView, editing, selectedCondition, inline } = this.state
     const hasConditions = conditions.hasConditions
-
-    const inline = this.state.inline || !this.props.data.hasConditions
+    const definingCondition = condition || hasConditions
 
     return (
       this.state.fields && Object.keys(this.state.fields).length > 0 &&
@@ -194,10 +194,10 @@ class InlineConditions extends React.Component {
           {inline &&
             <div id='inline-conditions'>
               <div id='inline-condition-header'>
-                {!condition && !hasConditions &&
+                {!definingCondition &&
                   <a href='#' id='add-item' className='govuk-link' onClick={this.onClickAddItem}>Add</a>
                 }
-                {(condition || hasConditions) &&
+                {definingCondition &&
                   <div className='govuk-form-group'>
                     <label className='govuk-label' htmlFor='condition-string'>When</label>
                   </div>
@@ -216,11 +216,13 @@ class InlineConditions extends React.Component {
                   </div>
                 }
               </div>
-              { !editView && <InlineConditionsDefinition hasConditions={hasConditions} editingIndex={editing} fields={this.state.fields} condition={condition} saveCallback={this.saveCondition} /> }
+              { (!editView || editing >= 0) && definingCondition && <InlineConditionsDefinition expectsCoordinator={hasConditions && editing !== 0} fields={this.state.fields} condition={condition} saveCallback={this.saveCondition} /> }
+              { !editView && definingCondition &&
+                <div className='govuk-form-group'>
+                  <a href='#' id='cancel-inline-conditions-link' className='govuk-link' onClick={this.onClickCancel}>Cancel</a>
+                </div>
+              }
               {this.renderEditingView()}
-              <div className='govuk-form-group'>
-                <a href='#' id='cancel-inline-conditions-link' className='govuk-link' onClick={this.onClickCancel}>Cancel</a>
-              </div>
             </div>
           }
         </div>
@@ -231,49 +233,64 @@ class InlineConditions extends React.Component {
     if (this.state.editView) {
       return (
         <div id='edit-conditions'>
-          <fieldset className='govuk-fieldset'>
-            <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
-               Select conditions to group / remove
-            </legend>
-            <div className='govuk-form-group'>
-              <a href='#' id='exit-edit-link' className='govuk-link' onClick={this.onClickCancelEditView}>Exit</a>
-            </div>
-            {this.state.editingError &&
+          {(!this.state.editing && this.state.editing !== 0) &&
+            <fieldset className='govuk-fieldset'>
+              <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
+                Select conditions to group / remove
+              </legend>
+              {this.state.editingError &&
               <span id='conditions-error' className='govuk-error-message'>
                 <span className='govuk-visually-hidden'>Error:</span> {this.state.editingError}
               </span>
-            }
-            <div id='editing-checkboxes' className='govuk-checkboxes'>
-              {
-                this.state.conditions.asPerUserGroupings.map((condition, index) => {
-                  return <div key={`condition-checkbox-${index}`} className='govuk-checkboxes__item' style={{ display: 'flex' }}>
-                    <input type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`} name={`condition-${index}`}
-                      value={index} onChange={this.onChangeCheckbox} checked={this.state.selectedConditions?.includes(index) || ''} />
-                    <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
-                      {condition.toPresentationString()}
-                    </label>
-                    <span id={`condition-${index}-actions`} style={{ display: 'inline-flex', flexGrow: 1 }}>
-                      {condition.isGroup() && <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-split`} className='govuk-link' onClick={() => this.onClickSplit(index)}>Split</a></span>}
-                      {!condition.isGroup() && <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-edit`} className='govuk-link' onClick={() => this.onClickEdit(index)}>
-                        {icons.edit}
-                      </a>
-                      </span>
-                      }
-                      {index > 0 && <span>  <a href='#' id={`condition-${index}-move-earlier`} onClick={() => this.onClickMoveEarlier(index)}>
-                        {icons.moveUp}
-                      </a></span>}
-                      {index < this.state.conditions.lastIndex && <span>  <a href='#' id={`condition-${index}-move-later`} className='govuk-link' onClick={() => this.onClickMoveLater(index)}>
-                        {icons.moveDown}
-                      </a></span>}
-                    </span>
-                  </div>
-                })
               }
-            </div>
-          </fieldset>
-          <div className='govuk-form-group' id='group-and-remove'>
-            {this.state.selectedConditions?.length > 1 && <span><a href='#' id='group-conditions' className='govuk-link' onClick={this.onClickGroup}>Group</a> /</span>}
-            {this.state.selectedConditions?.length > 0 && <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a> }
+              <div id='editing-checkboxes' className='govuk-checkboxes'>
+                {
+                  this.state.conditions.asPerUserGroupings.map((condition, index) => {
+                    return <div key={`condition-checkbox-${index}`} className='govuk-checkboxes__item'
+                      style={{ display: 'flex' }}>
+                      <input type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`}
+                        name={`condition-${index}`}
+                        value={index} onChange={this.onChangeCheckbox}
+                        checked={this.state.selectedConditions?.includes(index) || ''} />
+                      <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
+                        {condition.toPresentationString()}
+                      </label>
+                      <span id={`condition-${index}-actions`} style={{ display: 'inline-flex', flexGrow: 1 }}>
+                        {condition.isGroup() &&
+                          <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-split`} className='govuk-link'
+                            onClick={() => this.onClickSplit(index)}>Split</a></span>}
+                        {!condition.isGroup() &&
+                        <span style={{ flexGrow: 1 }}>  <a href='#' id={`condition-${index}-edit`} className='govuk-link'
+                          onClick={() => this.onClickEdit(index)}>
+                          {icons.edit}
+                        </a>
+                        </span>
+                        }
+                        {index > 0 && <span>  <a href='#' id={`condition-${index}-move-earlier`}
+                          onClick={() => this.onClickMoveEarlier(index)}>
+                          {icons.moveUp}
+                        </a></span>}
+                        {index < this.state.conditions.lastIndex &&
+                        <span>  <a href='#' id={`condition-${index}-move-later`} className='govuk-link'
+                          onClick={() => this.onClickMoveLater(index)}>
+                          {icons.moveDown}
+                        </a></span>}
+                      </span>
+                    </div>
+                  })
+                }
+              </div>
+              <div className='govuk-form-group' id='group-and-remove'>
+                {this.state.selectedConditions?.length > 1 &&
+                <span><a href='#' id='group-conditions' className='govuk-link'
+                  onClick={this.onClickGroup}>Group</a> /</span>}
+                {this.state.selectedConditions?.length > 0 &&
+                <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a>}
+              </div>
+            </fieldset>
+          }
+          <div className='govuk-form-group'>
+            <a href='#' id='cancel-edit-inline-conditions-link' className='govuk-link' onClick={this.onClickCancelEditView}>Cancel</a>
           </div>
         </div>
       )
@@ -329,7 +346,8 @@ class InlineConditions extends React.Component {
         editingError: undefined,
         selectedConditions: [],
         conditions: this.state.conditions.remove(this.state.selectedConditions),
-        editView: this.state.conditions.hasConditions
+        editView: this.state.conditions.hasConditions,
+        condition: undefined
       })
     }
   }

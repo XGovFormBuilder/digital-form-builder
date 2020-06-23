@@ -70,7 +70,7 @@ suite('Inline conditions definition section', () => {
 
     describe('adding conditions', () => {
       test('Only the field input is displayed initially for the first condition', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         expect(wrapper.find('#cond-coordinator-group').exists()).to.equal(false)
         expect(wrapper.find('#condition-definition-inputs').exists()).to.equal(true)
         expect(wrapper.find('#cond-field').exists()).to.equal(true)
@@ -81,7 +81,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Only the coordinator input is displayed initially for later conditions', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} />)
         expect(wrapper.find('#cond-coordinator-group').exists()).to.equal(true)
         expect(wrapper.find('#condition-definition-inputs').exists()).to.equal(false)
         assertFieldInputNotPresent(wrapper)
@@ -91,7 +91,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Selecting a field displays the relevant operators', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
 
         assertFieldInputPresent(wrapper, fields, fields[0].name)
@@ -105,7 +105,7 @@ suite('Inline conditions definition section', () => {
       describe('for a field which does not have an options list', () => {
         textFieldOperators.forEach(operator => {
           test('selecting an operator creates a text value input for ' + operator, () => {
-            const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+            const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
             wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
             wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
 
@@ -117,7 +117,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('populating a value makes the \'save condition\' link appear', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
           assertFieldInputPresent(wrapper, fields, fields[0].name)
           assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[0])
@@ -126,7 +126,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('changing to a blank value makes the \'save condition\' link disappear', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
           wrapper.find('#cond-value').simulate('change', { target: { value: '' } })
 
@@ -137,7 +137,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('removing a value makes the \'save condition\' link disappear', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], 'M')
           wrapper.find('#cond-value').simulate('change', { target: { value: undefined } })
 
@@ -148,7 +148,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('Clicking the \'save condition\' link stores the condition', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
 
           expect(saveCallback.calledOnce).to.equal(true)
@@ -165,7 +165,7 @@ suite('Inline conditions definition section', () => {
 
         selectFieldOperators.forEach(operator => {
           test(`selecting an operator creates a select input for ${operator}`, () => {
-            const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+            const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
             wrapper.find('#cond-field').simulate('change', { target: { value: field.name } })
             wrapper.find('#cond-operator').simulate('change', { target: { value: operator } })
 
@@ -177,7 +177,7 @@ suite('Inline conditions definition section', () => {
 
         values.forEach(value => {
           test(`selecting value '${value.text}' makes the 'save condition' link appear`, () => {
-            const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+            const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
             fillConditionInputs(wrapper, field.name, selectFieldOperators[0], value.value)
 
             assertFieldInputPresent(wrapper, fields, field.name)
@@ -188,7 +188,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('changing a value leaves the \'save condition\' link in place', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, field.name, selectFieldOperators[0], values[0].value)
           wrapper.find('#cond-value').simulate('change', { target: { value: values[1].value } })
 
@@ -199,7 +199,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('Removing a value removes the \'save condition\' link', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, field.name, selectFieldOperators[0], values[0].value)
           wrapper.find('#cond-value').simulate('change', { target: { value: undefined } })
 
@@ -210,7 +210,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('Selecting a blank value removes the \'save condition\' link', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, field.name, selectFieldOperators[0], values[0].value)
           wrapper.find('#cond-value').simulate('change', { target: { value: '' } })
 
@@ -221,7 +221,7 @@ suite('Inline conditions definition section', () => {
         })
 
         test('Clicking the \'save condition\' link stores the condition', () => {
-          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+          const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           saveCondition(wrapper, field.name, selectFieldOperators[0], values[0].value)
 
           expect(saveCallback.calledOnce).to.equal(true)
@@ -230,7 +230,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Change field erases operator and value if neither is relevant anymore', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[2] } })
         wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
@@ -253,7 +253,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Change field erases value but keeps operator if operator is still relevant', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
         wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
@@ -271,7 +271,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Clearing field erases all values', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions={false} fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
         wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
@@ -286,7 +286,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Adding subsequent conditions', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} />)
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
         saveCondition(wrapper, fields[1].name, textFieldOperators[1], 'N')
 
@@ -295,7 +295,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Changing to a blank coordinator', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} />)
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: '' } })
 
@@ -304,7 +304,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Changing to an undefined coordinator', () => {
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions fields={expectedFields} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} />)
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'and' } })
         wrapper.find('#cond-coordinator').simulate('change', { target: { value: undefined } })
 
@@ -314,7 +314,7 @@ suite('Inline conditions definition section', () => {
 
       test('Amending the first condition ', () => {
         const condition = new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[1], new Value('N'))
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions fields={expectedFields} editingIndex={0} condition={condition} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} condition={condition} />)
         assertNoConditionCoordinatorInput(wrapper)
 
         assertFieldInputPresent(wrapper, fields, fields[1].name)
@@ -325,7 +325,7 @@ suite('Inline conditions definition section', () => {
 
       test('Amending a later condition ', () => {
         const condition = new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[1], new Value('N'), 'and')
-        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} hasConditions fields={expectedFields} editingIndex={1} condition={condition} />)
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} condition={condition} />)
 
         assertConditionCoordinatorInput(wrapper, 'and')
         assertFieldInputPresent(wrapper, fields, fields[1].name)
