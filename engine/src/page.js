@@ -100,31 +100,42 @@ class Page {
       defaultLink = link
       return false
     })
-
+/*
     if (this.repeatField) {
       const requiredCount = reach(state, this.repeatField)
       const sectionStateCount = state.repeats[this.repeatField][this.section.name]
       const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
 
+      const pages = Object.keys(sectionStateCount)
       const counts = Object.values(sectionStateCount)
       if(counts.length === otherRepeatPagesInSection.length) { //iterated all pages at least once
-        const lastInSection = sectionStateCount[sectionStateCount.length -1]
-        if(Object.value(lastInSection[0]) < requiredCount) {
+        const lastInSection = Object.entries(sectionStateCount)[counts.length -1]
+        if(Object.value(lastInSection[1]) < requiredCount) {
           let min = Math.min(...counts)
           let nextMinPage = Object.entries(sectionStateCount).find((path, count) => count === min )
           return nextMinPage[0]
           // return this.model.pages.find(page => page.path === Object.entries(sectionStateCount[0]))
         }
       }
-    }
+    }*/
 
     return nextLink?.page ?? defaultLink?.page
   }
 
   getNext (state) {
     const nextPage = this.getNextPage(state)
+    let query = ''
+    if(nextPage.repeatField) {
+      const { repeats } = state
+      const requiredCount = reach(state, nextPage.repeatField)
+      let count = repeats?.[this.repeatField]?.[this.section.name] ?? 0
+      if(count < requiredCount) {
+        query = `?num=${++count}`
+      }
+    }
+
     if (nextPage) {
-      return `/${this.model.basePath || ''}${nextPage.path}`
+      return `/${this.model.basePath || ''}${nextPage.path}${query}`
     }
     return this.defaultNextPath
   }
@@ -305,10 +316,10 @@ class Page {
       }
 
       let update = this.getPartialMergeState(stateResult.value)
-      if (this.repeatField) {
+/*      if (this.repeatField) {
         let updateValue = update[this.section.name]
         let count = repeats[this.repeatField]?.[this.section.name]?.[this.path] ?? 0
-        let index = count || count - 1
+        let index = num ?? count < 1 ? 0 : count - 1
         let sectionState = state[this.section.name]
         if (!sectionState) {
           update = { [this.section.name]: [updateValue]}
@@ -319,7 +330,7 @@ class Page {
         }
         count++
         update.repeats = { [this.repeatField]: { [this.section.name]: {[this.path]: count } } }
-      }
+      }*/
       const savedState = await cacheService.mergeState(request, update, !!this.repeatField)
       return this.proceed(request, h, savedState)
     }
