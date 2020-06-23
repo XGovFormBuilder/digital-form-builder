@@ -1,6 +1,5 @@
 import React from 'react'
 import { clone } from './helpers'
-import InlineConditions from './conditions/inline-conditions.js'
 import { addLinkToPage, createNext } from './link-create'
 
 class PageCreate extends React.Component {
@@ -76,20 +75,6 @@ class PageCreate extends React.Component {
   //   }
   // }
 
-  onChangeLinkFrom = e => {
-    const input = e.target
-    this.setState({
-      linkFrom: input.value
-    })
-  }
-
-  saveConditions = (conditions, selectedCondition) => {
-    this.setState({
-      conditions: conditions,
-      selectedCondition: selectedCondition
-    })
-  }
-
   render () {
     const { data } = this.props
     const { sections, pages } = data
@@ -107,14 +92,11 @@ class PageCreate extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='link-from'>Link from (optional)</label>
-          <select className='govuk-select' id='link-from' name='from' onChange={this.onChangeLinkFrom}>
+          <select className='govuk-select' id='link-from' name='from'>
             <option />
             {pages.map(page => (<option key={page.path} value={page.path}>{page.path}</option>))}
           </select>
-
         </div>
-
-        {this.state.linkFrom && this.state.linkFrom.trim() !== '' && <InlineConditions data={data} path={this.state.linkFrom} conditionsChange={this.saveConditions} />}
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
