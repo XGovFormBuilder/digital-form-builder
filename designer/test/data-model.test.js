@@ -234,13 +234,12 @@ suite('data model', () => {
   })
 
   describe('list for', () => {
-    test('should return a clone of the list specified in the provided input if it exists', () => {
+    test('should return the list specified in the provided input if it exists', () => {
       const data = new Data({
         lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
       })
       let returned = data.listFor({ options: { list: 'list2' } })
-      expect(returned).to.equal(data.lists[1])
-      expect(returned === data.lists[1]).to.equal(false)
+      expect(returned === data.lists[1]).to.equal(true)
     })
 
     test('should return undefined if no lists exist', () => {
@@ -297,7 +296,7 @@ suite('data model', () => {
   })
 
   describe('find page', () => {
-    test('should return a clone of the page with the requested path if it exists', () => {
+    test('should return the page with the requested path if it exists', () => {
       const data = new Data({
         pages: [
           {
@@ -317,8 +316,7 @@ suite('data model', () => {
         ]
       })
       let returned = data.findPage('/2')
-      expect(returned).to.equal(data.pages[1])
-      expect(returned === data.pages[1]).to.equal(false)
+      expect(returned === data.pages[1]).to.equal(true)
     })
 
     test('should return undefined if the requested page does not exist', () => {

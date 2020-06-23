@@ -31,11 +31,11 @@ export class Data {
   }
 
   findPage (path) {
-    return clone((this.pages || []).find(p => p.path === path))
+    return (this.pages || []).find(p => p.path === path)
   }
 
   listFor (input) {
-    return clone((this.lists || []).find(it => it.name === (input.options || {}).list) || (input.type === 'YesNoField' ? yesNoList : undefined))
+    return (this.lists || []).find(it => it.name === (input.options || {}).list) || (input.type === 'YesNoField' ? yesNoList : undefined)
   }
 
   _allPathsLeadingTo (path) {
