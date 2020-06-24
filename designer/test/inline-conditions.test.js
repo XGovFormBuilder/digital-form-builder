@@ -301,7 +301,7 @@ suite('Inline conditions', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           wrapper.instance().setState({ conditions: conditions })
           wrapper.find('#edit-conditions-link').simulate('click')
-          wrapper.instance().exitEdit()
+          wrapper.instance().toggleEdit()
 
           assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
           assertEditPanelDoesNotExist(wrapper)
@@ -375,7 +375,7 @@ function assertEditPanel (wrapper, expectedConditions, expectedFields) {
   expect(editConditionsPanel.prop('conditions')).to.equal(expectedConditions)
   expect(editConditionsPanel.prop('fields')).to.equal(expectedFields)
   expect(editConditionsPanel.prop('saveCallback')).to.equal(wrapper.instance().editCallback)
-  expect(editConditionsPanel.prop('exitCallback')).to.equal(wrapper.instance().exitEdit)
+  expect(editConditionsPanel.prop('exitCallback')).to.equal(wrapper.instance().toggleEdit)
 }
 
 function assertEditPanelDoesNotExist (wrapper) {

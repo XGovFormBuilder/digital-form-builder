@@ -37,18 +37,15 @@ class InlineConditionsDefinition extends React.Component {
 
   onChangeCoordinator = e => {
     const input = e.target
+    let newCondition = {}
 
     if (input.value && input.value.trim() !== '') {
-      const copy = clone(this.state.condition??{})
-      copy.coordinator = input.value
-      this.setState({
-        condition: copy
-      })
-    } else {
-      this.setState({
-        condition: {}
-      })
+      newCondition = clone(this.state.condition ?? {})
+      newCondition.coordinator = input.value
     }
+    this.setState({
+      condition: newCondition
+    })
   }
 
   onClickFinalise = () => {

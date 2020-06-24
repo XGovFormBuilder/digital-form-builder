@@ -59,14 +59,14 @@ class InlineConditionsEdit extends React.Component {
                       {index > 0 &&
                         <span>
                           <a href='#' id={`condition-${index}-move-earlier`}
-                            onClick={() => this.onClickMoveEarlier(index)}>
+                            onClick={() => this.onClickMove(index, this.state.conditions.moveEarlier)}>
                             {icons.moveUp}
                           </a>
                         </span>}
                       {index < conditions.lastIndex &&
                       <span>
                         <a href='#' id={`condition-${index}-move-later`} className='govuk-link'
-                          onClick={() => this.onClickMoveLater(index)}>
+                          onClick={() => this.onClickMove(index, this.state.conditions.moveLater)}>
                           {icons.moveDown}
                         </a>
                       </span>}
@@ -198,16 +198,9 @@ class InlineConditionsEdit extends React.Component {
     }
   }
 
-  onClickMoveEarlier (index) {
+  onClickMove (index, moveFunction) {
     this.setState({
-      conditions: this.state.conditions.moveEarlier(index),
-      selectedConditions: []
-    })
-  }
-
-  onClickMoveLater (index) {
-    this.setState({
-      conditions: this.state.conditions.moveLater(index),
+      conditions: moveFunction(index),
       selectedConditions: []
     })
   }

@@ -57,10 +57,9 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onClickEditView = () => {
+  toggleEdit = () => {
     this.setState({
-      editView: true,
-      selectedConditions: []
+      editView: !this.state.editView
     })
   }
 
@@ -96,12 +95,6 @@ class InlineConditions extends React.Component {
   editCallback = (conditions) => {
     this.setState({
       conditions: conditions
-    })
-  }
-
-  exitEdit = () => {
-    this.setState({
-      editView: false
     })
   }
 
@@ -154,7 +147,7 @@ class InlineConditions extends React.Component {
                     </div>
                     {!editView &&
                       <div>
-                        <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.onClickEditView}>
+                        <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.toggleEdit}>
                           Not what you meant?
                         </a>
                       </div>
@@ -170,7 +163,7 @@ class InlineConditions extends React.Component {
                   </div>
                 </div>
               }
-              {editView && <InlineConditionsEdit conditions={conditions} fields={this.state.fields} saveCallback={this.editCallback} exitCallback={this.exitEdit} />}
+              {editView && <InlineConditionsEdit conditions={conditions} fields={this.state.fields} saveCallback={this.editCallback} exitCallback={this.toggleEdit} />}
             </div>
           }
         </div>

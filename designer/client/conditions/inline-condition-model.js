@@ -28,8 +28,11 @@ export class ConditionsModel {
     return this
   }
 
-  name (name) {
-    this.#conditionName = name || this.#conditionName
+  set name (name) {
+    this.#conditionName = name
+  }
+
+  get name () {
     return this.#conditionName
   }
 
