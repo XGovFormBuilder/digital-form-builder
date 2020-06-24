@@ -143,8 +143,12 @@ class Page {
     return this.defaultNextPath
   }
 
-  getFormDataFromState (state) {
+  getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
+    if(this.repeatField) {
+      let repeatedPageState = pageState[atIndex ?? this.#objLength(pageState)]
+      return this.components.getFormDataFromState({...Object.values(repeatedPageState)})
+    }
     return this.components.getFormDataFromState(pageState || {})
   }
 
@@ -194,15 +198,22 @@ class Page {
     return request.yar.get('lang')
   }
 
+  #objLength (object) {
+    return Object.keys(object).length ?? 0
+  }
+
   makeGetRouteHandler () {
     return async (request, h) => {
       const { cacheService } = request.services([])
       const lang = this.langFromRequest(request)
       const state = await cacheService.getState(request)
-      const formData = this.getFormDataFromState(state)
       const progress = state.progress || []
       const currentPath = `/${this.model.basePath}${this.path}`
       const startPage = this.model.def.startPage
+      const { num } = request.query
+      const fromState =  this.getFormDataFromState(state, num)
+      const formData = this.repeatField ? fromState[num ?? this.#objLength(fromState) - 1] : fromState
+
       if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
         return startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
       }
