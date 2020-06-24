@@ -28,7 +28,10 @@ suite('Inline conditions', () => {
   })
 
   describe('when there are already conditions defined', () => {
-    const conditions = [{ name: 'badger', value: 'field1 is a thing' }, { name: 'badger2', value: 'field4 is another thing' }]
+    const conditions = [
+      { name: 'badger', displayName: 'Monkeys love badgers', value: 'field1 is a thing' },
+      { name: 'badger2', displayName: 'another thing', value: 'field4 is another thing' }
+    ]
 
     beforeEach(() => {
       data.hasConditions = true
@@ -88,7 +91,7 @@ suite('Inline conditions', () => {
         expect(selectConditions.exists()).to.equal(true)
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
         assertSelectInput(selectConditions.find('select'), 'cond-select',
-          conditions.map(condition => ({ text: condition.name, value: condition.name })), '')
+          conditions.map(condition => ({ text: condition.displayName, value: condition.name })), '')
         assertLink(selectConditions.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -239,6 +242,7 @@ suite('Inline conditions', () => {
           const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
           assertHeaderAndAddItemDisplayed(wrapper)
           expect(wrapper.find('#inline-condition-header').find('label').exists()).to.equal(false)
+          expect(wrapper.find('#cond-name').exists()).to.equal(false)
           expect(wrapper.find('#condition-string').exists()).to.equal(false)
           expect(wrapper.find('#conditions-display').exists()).to.equal(false)
           expect(wrapper.find('#select-condition').exists()).to.equal(false)
@@ -253,6 +257,15 @@ suite('Inline conditions', () => {
           wrapper.find('#add-item').simulate('click')
 
           assertAddingFirstCondition(wrapper, expectedFields)
+        })
+
+        test('Defining the name updates the state', () => {
+          const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
+          wrapper.find('#add-item').simulate('click')
+          wrapper.find('#cond-name').simulate('change', { target: { value: 'Badgers' } })
+
+          assertAddingFirstCondition(wrapper, expectedFields)
+          expect(wrapper.instance().state.conditions.name).to.equal('Badgers')
         })
 
         test('A condition being added causes the view to update and the conditionsChange callback to be called', () => {
@@ -334,14 +347,16 @@ function assertHeaderAndAddItemDisplayed (wrapper) {
 
 function assertAddingFirstCondition (wrapper, expectedFields) {
   assertHeaderLabel(wrapper)
-  assertLabel(wrapper.find('#inline-condition-header').find('label'), 'When')
+  expect(wrapper.find('#cond-name').exists()).to.equal(true)
+  assertLabel(wrapper.find('#inline-condition-header').find('#condition-string-label'), 'When')
 
   assertFieldDefinitionSection(wrapper, expectedFields, false)
 }
 
 function assertAddingSubsequentCondition (wrapper, expectedConditionString, expectedFields) {
   assertHeaderGroupWithConditionString(wrapper, expectedConditionString)
-  assertLabel(wrapper.find('#inline-condition-header').find('label'), 'When')
+  expect(wrapper.find('#cond-name').exists()).to.equal(true)
+  assertLabel(wrapper.find('#inline-condition-header').find('#condition-string-label'), 'When')
 
   assertFieldDefinitionSection(wrapper, expectedFields, true)
 }
@@ -349,7 +364,7 @@ function assertAddingSubsequentCondition (wrapper, expectedConditionString, expe
 function assertHeaderGroupWithConditionString (wrapper, conditionString) {
   assertHeaderLabel(wrapper)
   const inlineConditionsHeader = wrapper.find('#inline-condition-header')
-  assertLabel(inlineConditionsHeader.find('label'), 'When')
+  assertLabel(inlineConditionsHeader.find('#condition-string-label'), 'When')
   const conditionDisplayDiv = inlineConditionsHeader.find('#conditions-display')
 
   const conditionDisplayChildren = conditionDisplayDiv.children()
@@ -362,7 +377,7 @@ function assertHeaderGroupWithConditionString (wrapper, conditionString) {
 
 function assertEditingHeaderGroupWithConditionString (wrapper, conditionString) {
   assertHeaderLabel(wrapper)
-  assertLabel(wrapper.find('#inline-condition-header').find('label'), 'When')
+  assertLabel(wrapper.find('#inline-condition-header').find('#condition-string-label'), 'When')
 
   const conditionDisplay = wrapper.find('#conditions-display')
   assertText(conditionDisplay.find('#condition-string'), conditionString)

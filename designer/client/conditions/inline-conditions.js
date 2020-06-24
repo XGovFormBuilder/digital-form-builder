@@ -1,4 +1,5 @@
 import React from 'react'
+import { clone } from '../helpers'
 import { ConditionsModel } from './inline-condition-model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
@@ -98,6 +99,15 @@ class InlineConditions extends React.Component {
     })
   }
 
+  onChangeDisplayName = (e) => {
+    const input = e.target
+    const copy = clone(this.state.conditions)
+    copy.name = input.value
+    this.setState({
+      conditions: copy
+    })
+  }
+
   render () {
     const { conditions, adding, editView, selectedCondition, inline } = this.state
     const hasConditions = conditions.hasConditions
@@ -120,7 +130,7 @@ class InlineConditions extends React.Component {
                   <option />
                   {
                     this.props.data.conditions.map((it, index) =>
-                      <option key={`select-condition-${index}`} value={it.name}>{it.name}</option>)
+                      <option key={`select-condition-${index}`} value={it.name}>{it.displayName}</option>)
                   }
                 </select>
               </div>
@@ -136,8 +146,15 @@ class InlineConditions extends React.Component {
                   <a href='#' id='add-item' className='govuk-link' onClick={this.onClickAddItem}>Add</a>
                 }
                 {definingCondition &&
-                  <div className='govuk-form-group'>
-                    <label className='govuk-label' htmlFor='condition-string'>When</label>
+                  <div>
+                    <div className='govuk-form-group'>
+                      <label className='govuk-label' htmlFor='cond-name'>Display name</label>
+                      <input className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
+                        type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName} />
+                    </div>
+                    <div className='govuk-form-group'>
+                      <label className='govuk-label' id='condition-string-label' htmlFor='condition-string'>When</label>
+                    </div>
                   </div>
                 }
                 {hasConditions &&
