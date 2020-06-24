@@ -17,7 +17,7 @@ suite('Inline conditions', () => {
     inputsAccessibleAt: sinon.stub(),
     listFor: sinon.stub(),
     hasConditions: false,
-    getConditions: sinon.stub()
+    conditions: []
   }
   const textFieldOperators = ['is', 'is not', 'matches']
   const path = '/'
@@ -32,7 +32,7 @@ suite('Inline conditions', () => {
 
     beforeEach(() => {
       data.hasConditions = true
-      data.getConditions.returns(conditions)
+      data.conditions = conditions
     })
 
     test('render returns nothing when there is an empty fields list', () => {
@@ -133,7 +133,7 @@ suite('Inline conditions', () => {
   describe('when there are no conditions defined', () => {
     beforeEach(() => {
       data.hasConditions = false
-      data.getConditions.returns([])
+      data.conditions = []
     })
 
     test('render returns nothing when there is an empty fields list', () => {

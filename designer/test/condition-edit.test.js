@@ -1,0 +1,91 @@
+import React from 'react'
+import { shallow } from 'enzyme'
+import * as Code from '@hapi/code'
+import * as Lab from '@hapi/lab'
+import ConditionEdit from '../client/condition-edit'
+import { Data } from '../client/model/data-model'
+import sinon from 'sinon'
+
+const { expect } = Code
+const lab = Lab.script()
+exports.lab = lab
+const { suite, test } = lab
+
+suite('Condition edit', () => {
+  const condition = { name: 'abdefg', displayName: 'My condition', value: 'badgers' }
+
+  const data = new Data({ conditions: [condition] })
+
+  test('Renders a form with display name and condition editor inputs', () => {
+    const wrapper = shallow(<ConditionEdit condition={condition} data={data} />)
+    const form = wrapper.find('form')
+    const displayNameInput = form.find('input')
+    expect(displayNameInput.exists()).to.equal(true)
+    expect(displayNameInput.prop('id')).to.equal('condition-name')
+    expect(displayNameInput.prop('name')).to.equal('displayName')
+    expect(displayNameInput.prop('type')).to.equal('text')
+    expect(displayNameInput.prop('defaultValue')).to.equal('My condition')
+
+    const editor = form.find('Editor')
+    expect(editor.prop('name')).to.equal('value')
+    expect(editor.prop('value')).to.equal('badgers')
+    expect(Object.keys(editor.props()).includes('required')).to.equal(true)
+    expect(editor.prop('valueCallback')).to.equal(wrapper.instance().onValueChange)
+  })
+
+  test('Should set error message when setting display name to one that already exists', () => {
+    const wrapper = shallow(<ConditionEdit condition={condition} data={data} />)
+    const form = wrapper.find('form')
+    const displayNameInput = form.find('input')
+    const setCustomValidity = sinon.spy()
+    data.addCondition('something', 'My condition', 'badger == monkeys')
+    displayNameInput.simulate('blur', { target: { value: 'My condition', setCustomValidity: setCustomValidity } })
+
+    expect(setCustomValidity.calledOnce).to.equal(true)
+    expect(setCustomValidity.firstCall.args[0]).to.equal('Display name \'My condition\' already exists')
+  })
+
+  test('Submitting the form updates the condition and calls back', async flags => {
+    const clonedData = {
+      updateCondition: sinon.stub()
+    }
+    const onEdit = data => {
+      expect(data.data).to.equal(clonedData)
+    }
+    const wrappedOnEdit = flags.mustCall(onEdit, 1)
+    const wrapper = shallow(<ConditionEdit condition={condition} data={data} onEdit={wrappedOnEdit} />)
+    const form = wrapper.find('form')
+    const displayNameInput = form.find('input')
+    const preventDefault = sinon.spy()
+    const setCustomValidity = sinon.spy()
+    displayNameInput.simulate('blur', { target: { value: 'My condition 2', setCustomValidity: setCustomValidity } })
+    wrapper.instance().onValueChange('badger == monkeys')
+
+    data.save = sinon.stub()
+    data.clone = sinon.stub()
+    data.clone.returns(clonedData)
+    data.save.resolves(clonedData)
+
+    await wrapper.simulate('submit', { preventDefault: preventDefault })
+
+    expect(preventDefault.calledOnce).to.equal(true)
+    expect(clonedData.updateCondition.calledOnce).to.equal(true)
+    expect(clonedData.updateCondition.firstCall.args[0]).to.equal(condition.name)
+    expect(clonedData.updateCondition.firstCall.args[1]).to.equal('My condition 2')
+    expect(clonedData.updateCondition.firstCall.args[2]).to.equal('badger == monkeys')
+    expect(data.save.calledOnce).to.equal(true)
+    expect(data.save.firstCall.args[0]).to.equal(clonedData)
+  })
+
+  test('Cancelling the form calls the onCancel callback', async flags => {
+    const event = { target: {} }
+    const onCancel = e => {
+      expect(e).to.equal(event)
+    }
+    const wrappedOnCancel = flags.mustCall(onCancel, 1)
+    const wrapper = shallow(<ConditionEdit condition={condition} data={data} onCancel={wrappedOnCancel} />)
+    const form = wrapper.find('form')
+    const backLink = form.find('a.govuk-back-link')
+    await backLink.simulate('click', event)
+  })
+})

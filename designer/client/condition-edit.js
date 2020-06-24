@@ -7,30 +7,12 @@ class ConditionEdit extends React.Component {
 
   onSubmit = e => {
     e.preventDefault()
-    const form = e.target
-    const formData = new window.FormData(form)
-    const newName = formData.get('name').trim()
-    const newValue = formData.get('value').trim()
+    const displayName = this.state.displayName
+    const newValue = this.state.value
     const { data, condition } = this.props
 
     const copy = clone(data)
-    const nameChanged = newName !== condition.name
-    const copyCondition = copy.conditions[data.conditions.indexOf(condition)]
-
-    if (nameChanged) {
-      copyCondition.name = newName
-
-      // Update any references to the condition
-      copy.pages.forEach(p => {
-        Array.isArray(p.next) && p.next.forEach(n => {
-          if (n.if === condition.name) {
-            n.if = newName
-          }
-        })
-      })
-    }
-
-    copyCondition.value = newValue
+    copy.updateCondition(condition.name, displayName, newValue)
 
     data.save(copy)
       .then(data => {
@@ -53,16 +35,7 @@ class ConditionEdit extends React.Component {
     const copy = clone(data)
 
     // Remove the condition
-    copy.conditions.splice(data.conditions.indexOf(condition), 1)
-
-    // Update any references to the condition
-    copy.pages.forEach(p => {
-      Array.isArray(p.next) && p.next.forEach(n => {
-        if (n.if === condition.name) {
-          delete n.if
-        }
-      })
-    })
+    copy.removeCondition(condition.name)
 
     data.save(copy)
       .then(data => {
@@ -80,11 +53,21 @@ class ConditionEdit extends React.Component {
     const newName = input.value.trim()
 
     // Validate it is unique
-    if (data.conditions.find(s => s !== condition && s.name === newName)) {
-      input.setCustomValidity(`Name '${newName}' already exists`)
+    if (data.conditions.find(s => s.name !== condition.name && s.displayName === newName)) {
+      input.setCustomValidity(`Display name '${newName}' already exists`)
     } else {
       input.setCustomValidity('')
     }
+
+    this.setState({
+      displayName: newName
+    })
+  }
+
+  onValueChange = value => {
+    this.setState({
+      value: value
+    })
   }
 
   render () {
@@ -95,14 +78,14 @@ class ConditionEdit extends React.Component {
         <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Name</label>
-          <input className='govuk-input' id='condition-name' name='name'
-            type='text' defaultValue={condition.name} required pattern='^\S+'
+          <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Display name</label>
+          <input className='govuk-input' id='condition-name' name='displayName'
+            type='text' defaultValue={condition.displayName} required
             onBlur={this.onBlurName} />
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-value'>Value</label>
-          <Editor name='value' required value={condition.value} />
+          <Editor name='value' required value={condition.value} valueCallback={this.onValueChange} />
         </div>
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>

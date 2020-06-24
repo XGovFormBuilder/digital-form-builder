@@ -17,8 +17,13 @@ const yesNoList = {
 }
 
 export class Data {
+  #conditions
+
   constructor (rawData) {
-    Object.assign(this, rawData)
+    const rawDataClone = Object.assign({}, rawData)
+    delete rawDataClone.conditions
+    Object.assign(this, rawDataClone)
+    this.#conditions = (rawData.conditions || []).map(it => new Condition(it))
   }
 
   allInputs () {
@@ -31,7 +36,11 @@ export class Data {
   }
 
   findPage (path) {
-    return (this.pages || []).find(p => p.path === path)
+    return this.getPages().find(p => p.path === path)
+  }
+
+  getPages () {
+    return this.pages || []
   }
 
   listFor (input) {
@@ -43,26 +52,57 @@ export class Data {
       .flatMap(page => [page.path].concat(this._allPathsLeadingTo(page.path)))
   }
 
-  addCondition (name, value) {
-    if (!this.conditions) {
-      this.conditions = []
-    }
-    if (this.conditions?.find(it => it.name === name)) {
+  addCondition (name, displayName, value) {
+    this.#conditions = this.#conditions || []
+    if (this.#conditions.find(it => it.name === name)) {
       throw Error(`A condition already exists with name ${name}`)
     }
-    this.conditions.push({ name, value })
+    this.#conditions.push({ name, displayName, value })
+  }
+
+  updateCondition (name, displayName, value) {
+    const condition = this.#conditions.find(condition => condition.name === name)
+    if (condition) {
+      condition.displayName = displayName
+      condition.value = value
+    }
+  }
+
+  removeCondition (name) {
+    const condition = this.findCondition(name)
+    if (condition) {
+      this.#conditions.splice(this.#conditions.findIndex(condition => condition.name === name), 1)
+      // Update any references to the condition
+      this.getPages().forEach(p => {
+        Array.isArray(p.next) && p.next.forEach(n => {
+          if (n.if === name) {
+            delete n.if
+          }
+        })
+      })
+    }
+  }
+
+  findCondition (name) {
+    return this.conditions.find(condition => condition.name === name)
   }
 
   get hasConditions () {
-    return (this.conditions??[]).length > 0
+    return this.conditions.length > 0
   }
 
-  getConditions () {
-    return (this.conditions??[]).map(it => clone(it))
+  get conditions () {
+    return this.#conditions.map(it => clone(it))
   }
 
   clone () {
-    return new Data(serialiseAndDeserialise(this))
+    return new Data(JSON.parse(this.toJson()))
+  }
+
+  toJson () {
+    const toSerialize = serialiseAndDeserialise(this)
+    toSerialize.conditions = this.conditions
+    return JSON.stringify(toSerialize)
   }
 }
 
@@ -73,5 +113,12 @@ class Input {
     delete myPage.components
     this.page = myPage
     this.propertyPath = page.section ? `${page.section}.${this.name}` : this.name
+  }
+}
+
+class Condition {
+  constructor (rawData) {
+    Object.assign(this, rawData)
+    this.displayName = rawData.displayName || rawData.name
   }
 }

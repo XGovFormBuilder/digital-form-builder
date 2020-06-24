@@ -7,6 +7,7 @@ const sectionsSchema = joi.object().keys({
 
 const conditionsSchema = joi.object().keys({
   name: joi.string().required(),
+  displayName: joi.string(),
   value: joi.string().required()
 })
 

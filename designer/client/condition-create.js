@@ -1,25 +1,30 @@
 import React from 'react'
 import { clone } from './helpers'
+
 import Editor from './editor'
 
 class ConditionCreate extends React.Component {
   onSubmit = e => {
     e.preventDefault()
-    const form = e.target
-    const formData = new window.FormData(form)
-    const name = formData.get('name').trim()
-    const value = formData.get('value').trim()
+    const displayName = this.state.displayName.trim()
+    const value = this.state.value.trim()
     const { data } = this.props
     const copy = clone(data)
 
-    copy.addCondition(name, value)
-
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onCreate({ data })
+    data.getId()
+      .then(id => {
+        copy.addCondition(id, displayName, value)
+        return copy
       })
-      .catch(err => {
+      .then(copy => data.save(copy)
+        .then(data => {
+          console.log(data)
+          this.props.onCreate({ data })
+        })
+        .catch(err => {
+          console.error(err)
+        })
+      ).catch(err => {
         console.error(err)
       })
   }
@@ -30,11 +35,20 @@ class ConditionCreate extends React.Component {
     const newName = input.value.trim()
 
     // Validate it is unique
-    if (data.conditions.find(s => s.name === newName)) {
-      input.setCustomValidity(`Name '${newName}' already exists`)
+    if (data.conditions.find(s => s.displayName === newName)) {
+      input.setCustomValidity(`Display name '${newName}' already exists`)
     } else {
       input.setCustomValidity('')
     }
+    this.setState({
+      displayName: newName
+    })
+  }
+
+  onValueChange = value => {
+    this.setState({
+      value: value
+    })
   }
 
   render () {
@@ -43,16 +57,15 @@ class ConditionCreate extends React.Component {
         <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Name</label>
-          <span className='govuk-hint'>Use `camelCasing` e.g. isSenior or hasClaims</span>
-          <input className='govuk-input govuk-!-width-three-quarters' id='condition-name' name='name'
-            type='text' required pattern='^\S+'
-            onBlur={this.onBlurName} />
+          <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Display Name</label>
+          <input className='govuk-input govuk-!-width-three-quarters' id='condition-name' name='displayName'
+            type='text'
+            onBlur={this.onBlurName} required />
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-value'>Value</label>
           <span className='govuk-hint'>This can be any <a href='https://www.npmjs.com/package/expr-eval' target='_blank'>matching expression</a></span>
-          <Editor name='value' required />
+          <Editor name='value' required valueCallback={this.onValueChange} />
         </div>
         <button className='govuk-button' type='submit'>Save</button>
       </form>

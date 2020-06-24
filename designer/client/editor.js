@@ -13,6 +13,13 @@ class Editor extends React.Component {
     }
   }
 
+  setState (state, callback) {
+    super.setState(state, callback)
+    if (state.value && this.props.valueCallback) {
+      this.props.valueCallback(state.value)
+    }
+  }
+
   render () {
     return (
       <SimpleEditor

@@ -387,7 +387,7 @@ function ParaEdit (props) {
         <span className='govuk-hint'>Only show this content if the condition is truthy. </span>
         <select className='govuk-select' id='condition' name='options.condition' defaultValue={componentCondition}>
           <option value='' />
-          {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
+          {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.displayName}</option>))}
         </select>
       </div>
     </div>

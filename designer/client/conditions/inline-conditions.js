@@ -119,7 +119,7 @@ class InlineConditions extends React.Component {
                   onChange={this.onChangeConditionSelection}>
                   <option />
                   {
-                    this.props.data.getConditions().map((it, index) =>
+                    this.props.data.conditions.map((it, index) =>
                       <option key={`select-condition-${index}`} value={it.name}>{it.name}</option>)
                   }
                 </select>

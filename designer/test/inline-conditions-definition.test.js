@@ -19,9 +19,7 @@ const { before, beforeEach, describe, suite, test } = lab
 suite('Inline conditions definition section', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
-    listFor: sinon.stub(),
-    hasConditions: false,
-    getConditions: sinon.stub()
+    listFor: sinon.stub()
   }
   const textFieldOperators = ['is', 'is not', 'matches']
   const path = '/'

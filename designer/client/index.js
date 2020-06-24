@@ -16,7 +16,7 @@ import DeclarationEdit from './declaration-edit'
 import OutputsEdit from './outputs-edit'
 import { Data } from './model/data-model'
 
-function getLayout (pages, el) {
+function getLayout (data, el) {
   // Create a new directed graph
   var g = new dagre.graphlib.Graph()
 
@@ -35,20 +35,20 @@ function getLayout (pages, el) {
 
   // Add nodes to the graph. The first argument is the node id. The second is
   // metadata about the node. In this case we're going to add labels to each node
-  pages.forEach((page, index) => {
+  data.pages.forEach((page, index) => {
     const pageEl = el.children[index]
 
     g.setNode(page.path, { label: page.path, width: pageEl.offsetWidth, height: pageEl.offsetHeight })
   })
 
   // Add edges to the graph.
-  pages.forEach(page => {
+  data.pages.forEach(page => {
     if (Array.isArray(page.next)) {
       page.next.forEach(next => {
         // The linked node (next page) may not exist if it's filtered
-        const exists = pages.find(page => page.path === next.path)
+        const exists = data.pages.find(page => page.path === next.path)
         if (exists) {
-          g.setEdge(page.path, next.path, { ...next })
+          g.setEdge(page.path, next.path, { condition: data.findCondition(next.condition).displayName })
         }
       })
     }
@@ -200,8 +200,7 @@ class Visualisation extends React.Component {
   scheduleLayout () {
     setTimeout(() => {
       const { data } = this.props
-      const { pages } = data
-      const layout = getLayout(pages, this.ref.current)
+      const layout = getLayout(data, this.ref.current)
 
       this.setState({
         layout: layout.pos
@@ -468,10 +467,12 @@ class App extends React.Component {
   componentWillMount () {
     if (!this.state.loaded) {
       this.setState({ id: window.id, previewUrl: window.previewUrl }, () => {
-        window.fetch(`${this.state.id}/api/data`).then(res => res.json()).then(data => {
-          data.save = this.save
-          this.setState({ loaded: true, data })
-        })
+        window.fetch(`${this.state.id}/api/data`)
+          .then(res => res.json())
+          .then(data => {
+            this.setFunctions(data)
+            this.setState({ loaded: true, data })
+          })
       })
     }
   }
@@ -479,7 +480,8 @@ class App extends React.Component {
   save = (updatedData) => {
     return window.fetch(`${this.state.id}/api/data`, {
       method: 'put',
-      body: JSON.stringify(updatedData),
+      // dodgy hack to ensure get methods are called
+      body: updatedData.toJson(),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -491,10 +493,29 @@ class App extends React.Component {
     }).catch(() => {
       // Not connected to preview environment
     }).finally(() => {
-      updatedData.save = this.save
+      this.setFunctions(updatedData)
       this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
       return updatedData
     })
+  }
+
+  getId = () => {
+    return window.fetch(`${this.state.id}/api/id`, {
+      method: 'get',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(res => {
+      return res.text()
+    }).catch(() => {
+      // Not connected to preview environment
+    })
+  }
+
+  setFunctions (data) {
+    data.save = this.save
+    data.getId = this.getId
   }
 
   updateDownloadedAt = (time) => {

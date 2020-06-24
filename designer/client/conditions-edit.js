@@ -39,8 +39,11 @@ class ConditionsEdit extends React.Component {
                 {conditions.map((condition, index) => (
                   <li key={condition.name}>
                     <a href='#' onClick={e => this.onClickCondition(e, condition)}>
-                      {condition.name}
-                    </a>{' '}
+                      {condition.displayName}
+                    </a>
+                    {' '}
+                    <small>{condition.name}</small>
+                    {' '}
                     <small>{condition.value}</small>
                   </li>
                 ))}

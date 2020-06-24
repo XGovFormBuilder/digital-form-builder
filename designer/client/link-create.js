@@ -52,7 +52,7 @@ class LinkCreate extends React.Component {
           </span>
           <select className='govuk-select' id='link-condition' name='condition' aria-describedby='link-condition-hint'>
             <option value='' />
-            {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
+            {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.displayName}</option>))}
           </select>
         </div>
 

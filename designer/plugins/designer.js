@@ -44,6 +44,15 @@ const designerPlugin = {
           }
         }
       })
+      server.route({
+        method: 'get',
+        path: `/{id}/api/id`,
+        options: {
+          handler: (request, h) => {
+            return h.response(shortid.generate()).code(200)
+          }
+        }
+      })
 
       // GET DATA
       server.route({

@@ -346,8 +346,8 @@ suite('data model', () => {
     })
   })
 
-  describe('clone', () => {
-    test('should deep clone the data class', () => {
+  describe('get pages', () => {
+    test('should return the pages if they exist', () => {
       const data = new Data({
         pages: [
           {
@@ -366,8 +366,41 @@ suite('data model', () => {
           }
         ]
       })
+      let returned = data.getPages()
+      expect(returned === data.pages).to.equal(true)
+    })
+
+    test('should return empty array if undefined', () => {
+      const data = new Data({})
+
+      expect(data.getPages()).to.equal([])
+    })
+  })
+
+  describe('clone', () => {
+    test('should deep clone the data class', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ],
+        conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }]
+      })
       const returned = data.clone()
       expect(returned).to.equal(data)
+      expect(returned.conditions).to.equal(data.conditions)
       expect(returned instanceof Data).to.equal(true)
       expect(data === returned).to.equal(false)
     })
@@ -405,24 +438,24 @@ suite('data model', () => {
       const data = new Data({
         conditions: []
       })
-      data.addCondition('some name', 'a condition')
-      expect(data.getConditions()).to.equal([{ name: 'some name', value: 'a condition' }])
+      data.addCondition('someName', 'My name', 'a condition')
+      expect(data.conditions).to.equal([{ name: 'someName', displayName: 'My name', value: 'a condition' }])
     })
 
     test('should create conditions in data model if they don\'t exist', () => {
       const data = new Data({
 
       })
-      data.addCondition('some name', 'a condition')
-      expect(data.getConditions()).to.equal([{ name: 'some name', value: 'a condition' }])
+      data.addCondition('someName', 'My name', 'a condition')
+      expect(data.conditions).to.equal([{ name: 'someName', displayName: 'My name', value: 'a condition' }])
     })
 
     test('should throw error if a condition with the specified name exists', () => {
       const data = new Data({
         conditions: []
       })
-      data.addCondition('some name', 'a condition')
-      expect(() => data.addCondition('some name', 'awe shucks')).to.throw(Error)
+      data.addCondition('someName', 'My name', 'a condition')
+      expect(() => data.addCondition('someName', 'another name', 'awe shucks')).to.throw(Error)
     })
   })
 
@@ -430,7 +463,7 @@ suite('data model', () => {
     test('should return true if there is at least one condition', () => {
       const data = new Data({
       })
-      data.addCondition('some name', 'a condition')
+      data.addCondition('someName', 'My name', 'a condition')
       expect(data.hasConditions).to.equal(true)
     })
 
@@ -452,27 +485,110 @@ suite('data model', () => {
   describe('get conditions', () => {
     test('should return a clone of the conditions list', () => {
       const data = new Data({
-        conditions: [{ name: 'some name', value: 'a condition' }]
+        conditions: [{ name: 'some name', displayName: 'My name', value: 'a condition' }]
       })
-      let returned = data.getConditions()
-      expect(returned === data.getConditions()).to.equal(false)
-      expect(returned).to.equal(data.getConditions())
+      let returned = data.conditions
+      expect(returned === data.conditions).to.equal(false)
+      expect(returned).to.equal(data.conditions)
       returned[0].name = 'badger'
-      expect(data.getConditions()[0].name).to.equal('some name')
+      expect(data.conditions[0].name).to.equal('some name')
+      expect(data.conditions[0].displayName).to.equal('My name')
     })
 
     test('should return empty if no conditions array exists', () => {
       const data = new Data({
 
       })
-      expect(data.getConditions()).to.equal([])
+      expect(data.conditions).to.equal([])
     })
 
     test('should return empty if there are no conditions', () => {
       const data = new Data({
         conditions: []
       })
-      expect(data.getConditions()).to.equal([])
+      expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('find condition', () => {
+    test('should find a condition if oone exists with the provided name', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName' }]
+      })
+      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'someName' })
+    })
+
+    test('should return undefined if there is no condition with the specified name', () => {
+      const data = new Data({
+        conditions: [{ name: 'anotherName' }]
+      })
+      expect(data.findCondition('someName')).to.equal(undefined)
+    })
+
+    test('should return undefined if conditions is undefined', () => {
+      const data = new Data({
+      })
+      expect(data.findCondition('someName')).to.equal(undefined)
+    })
+  })
+
+  describe('update condition', () => {
+    test('should update a condition if one exists with the provided name', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName' }]
+      })
+      data.updateCondition('someName', 'My condition', 'badgers == monkeys')
+      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'My condition', value: 'badgers == monkeys' })
+    })
+
+    test('should do nothing if there is no condition with the specified name', () => {
+      const data = new Data({
+        conditions: [{ name: 'anotherName' }]
+      })
+      data.updateCondition('someName', 'My condition', 'Some value')
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+    })
+
+    test('should do nothing if conditions is undefined', () => {
+      const data = new Data({
+      })
+      data.updateCondition('someName', 'My condition', 'Some value')
+      expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('remove condition', () => {
+    test('should remove a condition if one exists with the provided name', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName' }]
+      })
+      data.removeCondition('someName')
+      expect(data.conditions).to.equal([])
+    })
+
+    test('should remove references to the removed condition if used in page links', () => {
+      const data = new Data({
+        pages: [{ path: '/' }, { path: '/badgers', next: [{ path: '/summary' }, { path: '/disaster', if: 'someName' }] }],
+        conditions: [{ name: 'someName' }]
+      })
+      data.removeCondition('someName')
+      expect(data.findPage('/')).to.equal({ path: '/' })
+      expect(data.findPage('/badgers')).to.equal({ path: '/badgers', next: [{ path: '/summary' }, { path: '/disaster' }] })
+    })
+
+    test('should do nothing if there is no condition with the specified name', () => {
+      const data = new Data({
+        conditions: [{ name: 'anotherName' }]
+      })
+      data.removeCondition('someName')
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+    })
+
+    test('should do nothing if conditions is undefined', () => {
+      const data = new Data({
+      })
+      data.removeCondition('someName')
+      expect(data.conditions).to.equal([])
     })
   })
 })
