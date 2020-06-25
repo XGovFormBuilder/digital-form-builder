@@ -2,6 +2,7 @@ const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
 import { merge, reach } from '@hapi/hoek'
+import * as querystring from 'querystring'
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -123,22 +124,24 @@ class Page {
 
   getNext (state) {
     const nextPage = this.getNextPage(state)
-    let query = ''
+    let query = {}
+    let queryString = ''
     if(nextPage.repeatField) {
+      query.num = 0
       const requiredCount = reach(state, nextPage.repeatField)
       const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
-      const sectionState = state[this.section.name]
-      const lastInSection = sectionState[sectionState.length -1] ?? {}
+      const sectionState = state[nextPage.section.name]
+      const lastInSection = sectionState?.[sectionState.length -1] ?? {}
       const isLastComplete =  Object.keys(lastInSection).length === otherRepeatPagesInSection.length
-      const currentIteration = sectionState ? isLastComplete ? sectionState.length + 1 : sectionState.length : 1
+      query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState): 1
 
-      if(currentIteration < requiredCount) {
-        query = `?num=${currentIteration}`
+      if(query.num < requiredCount) {
+        queryString = `?${querystring.encode(query)}`
       }
     }
 
     if (nextPage) {
-      return `/${this.model.basePath || ''}${nextPage.path}${query}`
+      return `/${this.model.basePath || ''}${nextPage.path}${queryString}`
     }
     return this.defaultNextPath
   }
@@ -146,9 +149,15 @@ class Page {
   getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
     if(this.repeatField) {
-      let repeatedPageState = pageState[atIndex ?? this.#objLength(pageState)]
-      return this.components.getFormDataFromState({...Object.values(repeatedPageState)})
+
+      let repeatedPageState = pageState?.[atIndex ?? (pageState.length || 1) -1] ?? {}
+      let values = Object.values(repeatedPageState)
+
+      return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({...acc, ...page})) : {})
     }
+    //{
+    //   "ukPassport": true
+    // }
     return this.components.getFormDataFromState(pageState || {})
   }
 
@@ -211,8 +220,7 @@ class Page {
       const currentPath = `/${this.model.basePath}${this.path}`
       const startPage = this.model.def.startPage
       const { num } = request.query
-      const fromState =  this.getFormDataFromState(state, num)
-      const formData = this.repeatField ? fromState[num ?? this.#objLength(fromState) - 1] : fromState
+      const formData =  this.getFormDataFromState(state, num)
 
       if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
         return startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
