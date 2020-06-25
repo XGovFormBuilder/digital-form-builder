@@ -153,7 +153,7 @@ suite('Page create', () => {
       expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage)
     })
 
-    test('with a created inline condition creates a page and calls back', async () => {
+    test('with a created inline condition creates a page and calls back', async flags => {
       const expectedPage = {
         path: '/new-page',
         title: 'New Page',
@@ -174,9 +174,9 @@ suite('Page create', () => {
       data.save = sinon.stub()
       data.save.resolves(clonedData)
       storeConditionStub.resolves({ data: clonedData, condition: conditionId })
-      // const wrappedOnCreate = flags.mustCall(onCreate, 1)
+      const wrappedOnCreate = flags.mustCall(onCreate, 1)
 
-      const wrapper = shallow(<PageCreate data={data} onCreate={onCreate} />)
+      const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
       const preventDefault = sinon.spy()
       wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
       wrapper.find('#page-title').simulate('blur', { target: { value: 'New Page' } })
