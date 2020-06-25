@@ -5,6 +5,7 @@ import * as Lab from '@hapi/lab'
 import ConditionEdit from '../client/condition-edit'
 import { Data } from '../client/model/data-model'
 import sinon from 'sinon'
+import { assertTextInput } from './helpers/element-assertions'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -20,11 +21,7 @@ suite('Condition edit', () => {
     const wrapper = shallow(<ConditionEdit condition={condition} data={data} />)
     const form = wrapper.find('form')
     const displayNameInput = form.find('input')
-    expect(displayNameInput.exists()).to.equal(true)
-    expect(displayNameInput.prop('id')).to.equal('condition-name')
-    expect(displayNameInput.prop('name')).to.equal('displayName')
-    expect(displayNameInput.prop('type')).to.equal('text')
-    expect(displayNameInput.prop('defaultValue')).to.equal('My condition')
+    assertTextInput(displayNameInput, 'condition-name', 'My condition')
 
     const editor = form.find('Editor')
     expect(editor.prop('name')).to.equal('value')

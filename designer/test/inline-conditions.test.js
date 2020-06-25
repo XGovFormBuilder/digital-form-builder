@@ -90,8 +90,10 @@ suite('Inline conditions', () => {
         let selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(true)
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
+        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
+        expectedFieldOptions.unshift({ text: '' })
         assertSelectInput(selectConditions.find('select'), 'cond-select',
-          conditions.map(condition => ({ text: condition.displayName, value: condition.name })), '')
+          expectedFieldOptions, '')
         assertLink(selectConditions.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 

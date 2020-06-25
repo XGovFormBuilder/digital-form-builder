@@ -48,10 +48,9 @@ export function assertSelectInput (wrapper, id, expectedFieldOptions, expectedVa
   expect(wrapper.name()).to.equal('select')
   expect(wrapper.prop('id')).to.equal(id)
   const options = wrapper.children()
-  expect(options.length).to.equal(expectedFieldOptions.length + 1)
-  assertOption(options.at(0), undefined, '')
+  expect(options.length).to.equal(expectedFieldOptions.length)
   expectedFieldOptions.forEach((expectedOption, index) => {
-    assertOption(options.at(index + 1), expectedOption.value, expectedOption.text)
+    assertOption(options.at(index), expectedOption.value, expectedOption.text)
   })
   expect(wrapper.prop('value')).to.equal(expectedValue)
 }
