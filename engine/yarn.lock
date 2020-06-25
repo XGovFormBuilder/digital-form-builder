@@ -363,6 +363,14 @@
     "@babel/helper-create-class-features-plugin" "^7.10.1"
     "@babel/helper-plugin-utils" "^7.10.1"
 
+"@babel/plugin-proposal-private-property-in-object@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-private-property-in-object/-/plugin-proposal-private-property-in-object-7.10.1.tgz#1ae6b19dc971fc38cf5adb76330becc5bfe6f729"
+  integrity sha512-c4SfqvkXWB9Aw0+S/V6qxO0RF85/UTAiwVC6LYM5an+3GJDGyMqvGKQyzpdXGmjyImizRqkQs3vg6Fe0gtXcNg==
+  dependencies:
+    "@babel/helper-create-class-features-plugin" "^7.10.1"
+    "@babel/helper-plugin-utils" "^7.10.1"
+
 "@babel/plugin-proposal-unicode-property-regex@^7.10.1", "@babel/plugin-proposal-unicode-property-regex@^7.4.4":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-unicode-property-regex/-/plugin-proposal-unicode-property-regex-7.10.1.tgz#dc04feb25e2dd70c12b05d680190e138fa2c0c6f"
