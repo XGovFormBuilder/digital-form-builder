@@ -39,6 +39,30 @@ export class Data {
     return this.getPages().find(p => p.path === path)
   }
 
+  addLink (from, to, condition) {
+    const fromPage = this.pages.find(p => p.path === from)
+    const toPage = this.pages.find(p => p.path === to)
+    if (fromPage && toPage) {
+      const existingLink = fromPage.next?.find(it => it.path === to)
+      if (!existingLink) {
+        const link = { path: to }
+        if (condition) {
+          link.condition = condition
+        }
+
+        fromPage.next = fromPage.next || []
+        fromPage.next.push(link)
+      }
+    }
+    return this
+  }
+
+  addPage (page) {
+    this.pages = this.pages || []
+    this.pages.push(page)
+    return this
+  }
+
   getPages () {
     return this.pages || []
   }
@@ -58,6 +82,7 @@ export class Data {
       throw Error(`A condition already exists with name ${name}`)
     }
     this.#conditions.push({ name, displayName, value })
+    return this
   }
 
   updateCondition (name, displayName, value) {
@@ -66,6 +91,7 @@ export class Data {
       condition.displayName = displayName
       condition.value = value
     }
+    return this
   }
 
   removeCondition (name) {
@@ -81,6 +107,7 @@ export class Data {
         })
       })
     }
+    return this
   }
 
   findCondition (name) {

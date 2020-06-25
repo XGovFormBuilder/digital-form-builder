@@ -295,6 +295,79 @@ suite('data model', () => {
     })
   })
 
+  describe('add link', () => {
+    test('should add a link to the next page with no condition', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      const returned = data.addLink('/1', '/2')
+      expect(returned.findPage(('/1'))).to.equal({
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/2' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/2'))).to.equal({
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      })
+    })
+
+    test('should add a link to the next page with a condition', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ],
+        conditions: [
+          { name: 'condition1' }
+        ]
+      })
+
+      const returned = data.addLink('/1', '/2', 'condition1')
+
+      expect(returned.findPage(('/1'))).to.equal({
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/2', condition: 'condition1' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/2'))).to.equal({
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      })
+    })
+  })
+
   describe('find page', () => {
     test('should return the page with the requested path if it exists', () => {
       const data = new Data({
@@ -343,6 +416,37 @@ suite('data model', () => {
     test('should handle undefined pages', () => {
       const data = new Data({ })
       expect(data.findPage('/1')).to.equal(undefined)
+    })
+  })
+
+  describe('add page', () => {
+    test('should add the page', () => {
+      const data = new Data({
+        pages: []
+      })
+      const page = {
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      }
+      data.addPage(page)
+      expect(data.findPage('/2')).to.equal(page)
+    })
+
+    test('should add the page if no pages collection is defined', () => {
+      const data = new Data({
+      })
+      const page = {
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      }
+      data.addPage(page)
+      expect(data.findPage('/2')).to.equal(page)
     })
   })
 
