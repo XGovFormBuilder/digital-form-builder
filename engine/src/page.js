@@ -104,14 +104,14 @@ class Page {
 
     if (this.repeatField) {
       const requiredCount = reach(state, this.repeatField)
-      let section = this.section
+      const section = this.section
       const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
       const sectionState = state[this.section.name]
-      if(Object.keys(sectionState?.[0]).length === otherRepeatPagesInSection.length) { //iterated all pages at least once
+      // if(sectionState.length)
+      if(Object.keys(sectionState[sectionState.length -1]).length === otherRepeatPagesInSection.length) { //iterated all pages at least once
         const lastIteration = sectionState[sectionState.length - 1]
-        if (otherRepeatPagesInSection.length ===
-          Object.keys(lastIteration).length) { //this iteration is 'complete'
-          if (Object.keys(lastIteration).length === requiredCount) {
+        if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { //this iteration is 'complete'
+          if (sectionState.length !== requiredCount) {
             return this.findPageByPath(Object.keys(lastIteration)[0])
           }
         }
@@ -124,10 +124,9 @@ class Page {
 
   getNext (state) {
     const nextPage = this.getNextPage(state)
-    let query = {}
+    let query = { num: 0 }
     let queryString = ''
     if(nextPage.repeatField) {
-      query.num = 0
       const requiredCount = reach(state, nextPage.repeatField)
       const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
       const sectionState = state[nextPage.section.name]
@@ -135,7 +134,7 @@ class Page {
       const isLastComplete =  Object.keys(lastInSection).length === otherRepeatPagesInSection.length
       query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState): 1
 
-      if(query.num < requiredCount) {
+      if(query.num <= requiredCount) {
         queryString = `?${querystring.encode(query)}`
       }
     }
@@ -149,15 +148,11 @@ class Page {
   getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
     if(this.repeatField) {
-
       let repeatedPageState = pageState?.[atIndex ?? (pageState.length || 1) -1] ?? {}
       let values = Object.values(repeatedPageState)
-
       return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({...acc, ...page})) : {})
     }
-    //{
-    //   "ukPassport": true
-    // }
+
     return this.components.getFormDataFromState(pageState || {})
   }
 
