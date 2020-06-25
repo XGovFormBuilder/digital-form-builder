@@ -32,17 +32,21 @@ suite('inline condition model', () => {
 
   describe('adding the first condition', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))
     })
 
     test('should have one item in the model', () => {
       expect(underTest.asPerUserGroupings).to.equal([
-        { coordinator: undefined, field: { name: 'badger', display: 'Badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } }
+        { coordinator: undefined, field: { name: 'badger', type: 'TextField', display: 'Badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } }
       ])
     })
 
     test('should return a human readable presentation string', () => {
       expect(underTest.toPresentationString()).to.equal('\'Badger\' is \'Monkeys\'')
+    })
+
+    test('should return a valid expression string', () => {
+      expect(underTest.toExpression()).to.equal('badger == \'Monkeys\'')
     })
 
     test('should have conditions', () => {
@@ -52,21 +56,25 @@ suite('inline condition model', () => {
 
   describe('multiple conditions with a simple and', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is not', new Value('Giraffes'), 'and'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is not', new Value('Giraffes'), 'and'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should have three items in the model', () => {
       expect(underTest.asPerUserGroupings).to.equal([
-        { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
-        { coordinator: 'and', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
-        { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+        { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
+        { coordinator: 'and', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
+        { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
       ])
     })
 
     test('should return a human readable presentation string with all properties', () => {
       expect(underTest.toPresentationString()).to.equal('\'Badger\' is \'Monkeys\' and \'Monkeys\' is not \'Giraffes\' and \'Squiffy\' is not \'Donkeys\'')
+    })
+
+    test('should return a valid expression', () => {
+      expect(underTest.toExpression()).to.equal('badger == \'Monkeys\' and monkeys != \'Giraffes\' and squiffy != \'Donkeys\'')
     })
 
     test('should have conditions', () => {
@@ -76,100 +84,111 @@ suite('inline condition model', () => {
 
   describe('multiple conditions with a simple or', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is not', new Value('Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'or'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is not', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'or'))
     })
 
     test('should have three items in the model', () => {
       expect(underTest.asPerUserGroupings).to.equal([
-        { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
-        { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
-        { coordinator: 'or', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+        { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
+        { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
+        { coordinator: 'or', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
       ])
     })
 
     test('should return a human readable presentation string with all properties', () => {
       expect(underTest.toPresentationString()).to.equal('\'Badger\' is \'Monkeys\' or \'Monkeys\' is not \'Giraffes\' or \'Squiffy\' is not \'Donkeys\'')
     })
+
+    test('should return a valid expression', () => {
+      expect(underTest.toExpression()).to.equal('badger == \'Monkeys\' or monkeys != \'Giraffes\' or squiffy != \'Donkeys\'')
+    })
   })
 
   describe('or followed by and', () => {
     test('should return a human readable presentation string with all properties', () => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
       expect(underTest.toPresentationString()).to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is not \'Donkeys\')')
+      expect(underTest.toExpression()).to.equal('badger == \'Zebras\' or (monkeys == \'Giraffes\' and squiffy != \'Donkeys\')')
     })
   })
 
   describe('and followed by or', () => {
     test('should return a human readable presentation string with all properties', () => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
       expect(underTest.toPresentationString()).to.equal('(\'Badger\' is \'Zebras\' and \'Squiffy\' is not \'Donkeys\') or \'Monkeys\' is \'Giraffes\'')
+      expect(underTest.toExpression()).to.equal('(badger == \'Zebras\' and squiffy != \'Donkeys\') or monkeys == \'Giraffes\'')
     })
   })
 
   describe('complicated conditions', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should return a human readable presentation string with all properties', () => {
       expect(underTest.toPresentationString())
         .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
+
+    test('should return a valid expression', () => {
+      expect(underTest.toExpression())
+        .to.equal('badger == \'Zebras\' or (monkeys == \'Giraffes\' and squiffy == \'Donkeys\') or duration >= 10 or (birthday == \'10/10/2019\' and squiffy != \'Donkeys\')')
+    })
   })
 
   describe('replacing conditions', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is not', new Value('Giraffes'), 'and'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is not', new Value('Giraffes'), 'and'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should replace first condition without coordinator', () => {
-      underTest.replace(0, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes')))
+      underTest.replace(0, new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Giraffes')))
       expect(underTest.toPresentationString()).to.equal('\'Badger\' is \'Giraffes\' and \'Monkeys\' is not \'Giraffes\' and \'Squiffy\' is not \'Donkeys\'')
     })
 
     test('should replace subsequent condition with coordinator', () => {
-      underTest.replace(2, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))
+      underTest.replace(2, new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Giraffes'), 'and'))
       expect(underTest.toPresentationString()).to.equal('\'Badger\' is \'Monkeys\' and \'Monkeys\' is not \'Giraffes\' and \'Badger\' is \'Giraffes\'')
     })
 
     test('should not replace first condition with coordinator', () => {
-      expect(() => underTest.replace(0, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
+      expect(() => underTest.replace(0, new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
     })
 
     test('should not replace condition for index equal to conditions length', () => {
-      expect(() => underTest.replace(3, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
+      expect(() => underTest.replace(3, new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
     })
 
     test('should not replace condition for index greater than conditions length', () => {
-      expect(() => underTest.replace(4, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
+      expect(() => underTest.replace(4, new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Giraffes'), 'and'))).to.throw(Error)
     })
 
     test('should not replace subsequent condition without coordinator', () => {
-      expect(() => underTest.replace(2, new Condition(new Field('badger', 'Badger'), 'is', new Value('Giraffes')))).to.throw(Error)
+      expect(() => underTest.replace(2, new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Giraffes')))).to.throw(Error)
     })
   })
 
   describe('adding user generated groups', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should apply defined group and auto-group the remaining conditions', () => {
@@ -225,28 +244,28 @@ suite('inline condition model', () => {
           conditions: [
             {
               conditions: [
-                { coordinator: undefined, field: { display: 'Badger', name: 'badger' }, operator: 'is', value: { value: 'Zebras', display: 'Zebras' } },
-                { coordinator: 'or', field: { display: 'Monkeys', name: 'monkeys' }, operator: 'is', value: { value: 'giraffes', display: 'Giraffes' } }
+                { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { value: 'Zebras', display: 'Zebras' } },
+                { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is', value: { value: 'giraffes', display: 'Giraffes' } }
               ]
             },
-            { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is', value: { value: 'Donkeys', display: 'Donkeys' } }
+            { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is', value: { value: 'Donkeys', display: 'Donkeys' } }
           ]
         },
-        { coordinator: 'or', field: { display: 'Duration', name: 'duration' }, operator: 'is at least', value: { value: '10', display: '10' } },
-        { coordinator: 'or', field: { display: 'Birthday', name: 'birthday' }, operator: 'is', value: { value: '10/10/2019', display: '10/10/2019' } },
-        { coordinator: 'and', field: { display: 'Squiffy', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+        { coordinator: 'or', field: { display: 'Duration', type: 'NumberField', name: 'duration' }, operator: 'is at least', value: { value: '10', display: '10' } },
+        { coordinator: 'or', field: { display: 'Birthday', type: 'DateField', name: 'birthday' }, operator: 'is', value: { value: '10/10/2019', display: '10/10/2019' } },
+        { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
       ])
     })
   })
 
   describe('splitting user generated groups', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should split defined group and auto-group the remaining conditions', () => {
@@ -273,12 +292,12 @@ suite('inline condition model', () => {
 
   describe('removing conditions and groups', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should remove the specified condition indexes', () => {
@@ -354,12 +373,12 @@ suite('inline condition model', () => {
   describe('clone', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should be cloned', () => {
@@ -379,12 +398,12 @@ suite('inline condition model', () => {
   describe('clear', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
       underTest.addGroups([new GroupDef(0, 2)])
     })
 
@@ -400,12 +419,12 @@ suite('inline condition model', () => {
 
   describe('moving conditions and groups', () => {
     beforeEach(() => {
-      underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should move a condition earlier when not becoming the first item', () => {
@@ -512,11 +531,11 @@ suite('inline condition model', () => {
   describe('invalid configuration', () => {
     describe('invalid operator', () => {
       test('should throw an error on condition creation if no operator provided', () => {
-        expect(() => new Condition(new Field('badger', 'Badger'), null, new Value('Monkeys'))).to.throw(Error)
+        expect(() => new Condition(new Field('badger', 'TextField', 'Badger'), null, new Value('Monkeys'))).to.throw(Error)
       })
 
       test('should throw an error on condition creation if non-string operator provided', () => {
-        expect(() => new Condition(new Field('badger', 'Badger'), {}, new Value('Monkeys'))).to.throw(Error)
+        expect(() => new Condition(new Field('badger', 'TextField', 'Badger'), {}, new Value('Monkeys'))).to.throw(Error)
       })
     })
 
@@ -530,19 +549,27 @@ suite('inline condition model', () => {
       })
 
       test('should throw an error on field creation if no value provided', () => {
-        expect(() => new Field(null, 'Badger')).to.throw(Error)
+        expect(() => new Field(null, 'TextField', 'Badger')).to.throw(Error)
+      })
+
+      test('should throw an error on field creation if no type provided', () => {
+        expect(() => new Field('badger', undefined, 'Badger')).to.throw(Error)
+      })
+
+      test('should throw an error on field creation if invalid type provided', () => {
+        expect(() => new Field('badger', 'MadeUpType', 'Badger')).to.throw(Error)
       })
 
       test('should throw an error on field creation if invalid name value type provided', () => {
-        expect(() => new Field({}, 'Badger')).to.throw(Error)
+        expect(() => new Field({}, 'TextField', 'Badger')).to.throw(Error)
       })
 
       test('should throw an error on field creation if invalid display value type provided', () => {
-        expect(() => new Field('Badger', {})).to.throw(Error)
+        expect(() => new Field('Badger', 'TextField', {})).to.throw(Error)
       })
 
       test('should throw an error on field creation if no display value provided', () => {
-        expect(() => new Field('badger', null)).to.throw(Error)
+        expect(() => new Field('badger', 'TextField', null)).to.throw(Error)
       })
 
       test('should throw errors from factory method', () => {
@@ -552,7 +579,7 @@ suite('inline condition model', () => {
 
     describe('invalid value', () => {
       test('should throw an error on condition creation if no value provided', () => {
-        expect(() => new Condition(new Field('badger', 'Badger'), 'is')).to.throw(Error)
+        expect(() => new Condition(new Field('badger', 'TextField', 'Badger'), 'is')).to.throw(Error)
       })
 
       test('should throw an error on condition creation if value is not a Value type', () => {
@@ -578,16 +605,16 @@ suite('inline condition model', () => {
 
     describe('invalid coordinator', () => {
       test('should throw an error on condition creation if invalid coordinator provided', () => {
-        expect(() => new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys'), 'is')).to.throw(Error)
+        expect(() => new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys'), 'is')).to.throw(Error)
       })
 
       test('should throw an error on adding first condition if a coordinator is provided', () => {
-        expect(() => underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys'), 'or'))).to.throw(Error)
+        expect(() => underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys'), 'or'))).to.throw(Error)
       })
 
       test('should throw an error on adding subsequent condition if no coordinator is provided', () => {
-        underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))
-        expect(() => underTest.add(new Condition(new Field('badger', 'Badger'), 'is', new Value('Monkeys')))).to.throw(Error)
+        underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))
+        expect(() => underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))).to.throw(Error)
       })
     })
 

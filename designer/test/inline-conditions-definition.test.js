@@ -9,7 +9,7 @@ import {
 } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinition from '../client/conditions/inline-conditions-definition'
-import { Condition, Field, Value } from '../client/conditions/inline-condition-model'
+import { Condition, Field, Value, getOperatorNames } from '../client/conditions/inline-condition-model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -21,11 +21,12 @@ suite('Inline conditions definition section', () => {
     inputsAccessibleAt: sinon.stub(),
     listFor: sinon.stub()
   }
-  const textFieldOperators = ['is', 'is not', 'matches']
+  const textFieldOperators = getOperatorNames('TextField')
+  const numberFieldOperators = getOperatorNames('NumberField')
   const path = '/'
 
   describe('when fields are present', () => {
-    const selectFieldOperators = ['is', 'is not']
+    const selectFieldOperators = getOperatorNames('SelectField')
     let fields
     let expectedFields
     const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
@@ -35,7 +36,8 @@ suite('Inline conditions definition section', () => {
       fields = [
         { name: 'field1', title: 'Something', type: 'TextField' },
         { name: 'field2', title: 'Something else', type: 'TextField' },
-        { name: 'field3', title: 'Another thing', type: 'SelectField' }
+        { name: 'field3', title: 'Another thing', type: 'SelectField' },
+        { name: 'field4', title: 'A number', type: 'NumberField' }
       ]
       expectedFields = {
         field1: {
@@ -55,6 +57,12 @@ suite('Inline conditions definition section', () => {
           name: 'field3',
           type: 'SelectField',
           values: values
+        },
+        field4: {
+          label: 'A number',
+          name: 'field4',
+          type: 'NumberField',
+          values: undefined
         }
       }
       data.inputsAccessibleAt.withArgs(path).returns(fields)
@@ -150,7 +158,7 @@ suite('Inline conditions definition section', () => {
           saveCondition(wrapper, fields[0].name, textFieldOperators[0], 'M')
 
           expect(saveCallback.calledOnce).to.equal(true)
-          expect(saveCallback.firstCall.args[0]).to.equal(new Condition(new Field(fields[0].name, fields[0].title), textFieldOperators[0], new Value('M')))
+          expect(saveCallback.firstCall.args[0]).to.equal(new Condition(new Field(fields[0].name, fields[0].type, fields[0].title), textFieldOperators[0], new Value('M')))
         })
       })
 
@@ -223,19 +231,19 @@ suite('Inline conditions definition section', () => {
           saveCondition(wrapper, field.name, selectFieldOperators[0], values[0].value)
 
           expect(saveCallback.calledOnce).to.equal(true)
-          expect(saveCallback.firstCall.args[0]).to.equal(new Condition(new Field(field.name, field.title), selectFieldOperators[0], new Value(values[0].value, values[0].text)))
+          expect(saveCallback.firstCall.args[0]).to.equal(new Condition(new Field(field.name, field.type, field.title), selectFieldOperators[0], new Value(values[0].value, values[0].text)))
         })
       })
 
       test('Change field erases operator and value if neither is relevant anymore', () => {
         const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
-        wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
-        wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[2] } })
-        wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
+        wrapper.find('#cond-field').simulate('change', { target: { value: fields[3].name } })
+        wrapper.find('#cond-operator').simulate('change', { target: { value: 'is at least' } })
+        wrapper.find('#cond-value').simulate('change', { target: { value: '10' } })
 
-        assertFieldInputPresent(wrapper, fields, fields[0].name)
-        assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[2])
-        assertTextValueInputPresent(wrapper, 'M')
+        assertFieldInputPresent(wrapper, fields, fields[3].name)
+        assertOperatorInputPresent(wrapper, numberFieldOperators, 'is at least')
+        assertTextValueInputPresent(wrapper, '10')
 
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[2].name } })
 
@@ -289,7 +297,7 @@ suite('Inline conditions definition section', () => {
         saveCondition(wrapper, fields[1].name, textFieldOperators[1], 'N')
 
         expect(saveCallback.calledOnce).to.equal(true)
-        expect(saveCallback.firstCall.args[0]).to.equal(new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[1], new Value('N'), 'and'))
+        expect(saveCallback.firstCall.args[0]).to.equal(new Condition(new Field(fields[1].name, fields[1].type, fields[1].title), textFieldOperators[1], new Value('N'), 'and'))
       })
 
       test('Changing to a blank coordinator', () => {
@@ -311,7 +319,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Amending the first condition ', () => {
-        const condition = new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[1], new Value('N'))
+        const condition = new Condition(new Field(fields[1].name, fields[1].type, fields[1].title), textFieldOperators[1], new Value('N'))
         const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} condition={condition} />)
         assertNoConditionCoordinatorInput(wrapper)
 
@@ -322,7 +330,7 @@ suite('Inline conditions definition section', () => {
       })
 
       test('Amending a later condition ', () => {
-        const condition = new Condition(new Field(fields[1].name, fields[1].title), textFieldOperators[1], new Value('N'), 'and')
+        const condition = new Condition(new Field(fields[1].name, fields[1].type, fields[1].title), textFieldOperators[1], new Value('N'), 'and')
         const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} condition={condition} />)
 
         assertConditionCoordinatorInput(wrapper, 'and')

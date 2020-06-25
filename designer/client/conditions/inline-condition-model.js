@@ -1,6 +1,51 @@
-const coordinators = {
+import componentTypes from 'digital-form-builder-engine/component-types'
+
+export const coordinators = {
   AND: 'and',
   OR: 'or'
+}
+const conditionalOperators = {
+  'default': {
+    is: {
+      expression: (field, value) => `${field.name} == ${formatValue(field.type, value)}`
+    },
+    'is not': {
+      expression: (field, value) => `${field.name} != ${formatValue(field.type, value)}`
+    }
+  },
+  'NumberField': {
+    'is at least': {
+      expression: (field, value) => `${field.name} >= ${formatValue(field.type, value)}`
+    },
+    'is at most': {
+      expression: (field, value) => `${field.name} <= ${formatValue(field.type, value)}`
+    },
+    'is less than': {
+      expression: (field, value) => `${field.name} < ${formatValue(field.type, value)}`
+    },
+    'is greater than': {
+      expression: (field, value) => `${field.name} < ${formatValue(field.type, value)}`
+    }
+  }
+}
+
+function formatValue (fieldType, value) {
+  if (fieldType === 'NumberField' || fieldType === 'YesNoField') {
+    return value
+  }
+  return `'${value}'`
+}
+
+function getConditionals (fieldType) {
+  return Object.assign(conditionalOperators[fieldType] || {}, conditionalOperators['default'])
+}
+
+export function getOperatorNames (fieldType) {
+  return Object.keys(getConditionals(fieldType)).sort()
+}
+
+function getExpression (field, operator, value) {
+  return getConditionals(field.type)[operator].expression(field, value)
 }
 
 export class ConditionsModel {
@@ -125,6 +170,10 @@ export class ConditionsModel {
     return this.#groupedConditions.map(condition => condition.toPresentationString()).join(' ')
   }
 
+  toExpression () {
+    return this.#groupedConditions.map(condition => condition.toExpression()).join(' ')
+  }
+
   _applyGroups (userGroupedConditions) {
     const correctedUserGroups = userGroupedConditions
       .map(condition =>
@@ -226,6 +275,12 @@ class ConditionGroup {
     return `${this.coordinatorString()}${this.conditionString()}`
   }
 
+  toExpression () {
+    const copy = [...this.conditions]
+    copy.splice(0, 1)
+    return `${this.coordinatorString()}${this.conditionExpression()}`
+  }
+
   coordinatorString () {
     return this.conditions[0].coordinatorString()
   }
@@ -234,6 +289,12 @@ class ConditionGroup {
     const copy = [...this.conditions]
     copy.splice(0, 1)
     return `(${this.conditions[0].conditionString()} ${copy.map(condition => condition.toPresentationString()).join(' ')})`
+  }
+
+  conditionExpression () {
+    const copy = [...this.conditions]
+    copy.splice(0, 1)
+    return `(${this.conditions[0].conditionExpression()} ${copy.map(condition => condition.toExpression()).join(' ')})`
   }
 
   asFirstCondition () {
@@ -282,8 +343,16 @@ export class Condition {
     return `${this.coordinatorString()}${this.conditionString()}`
   }
 
+  toExpression () {
+    return `${this.coordinatorString()}${this.conditionExpression()}`
+  }
+
   conditionString () {
     return `'${this.field.display}' ${this.operator} '${this.value.display}'`
+  }
+
+  conditionExpression () {
+    return getExpression(this.field, this.operator, this.value.value)
   }
 
   coordinatorString () {
@@ -313,19 +382,23 @@ export class Condition {
 }
 
 export class Field {
-  constructor (name, display) {
+  constructor (name, type, display) {
     if (!name || typeof name !== 'string') {
       throw Error(`name ${name} is not valid`)
+    }
+    if (!componentTypes.find(componentType => componentType.name === type)) {
+      throw Error(`type ${type} is not valid`)
     }
     if (!display || typeof display !== 'string') {
       throw Error(`display ${display} is not valid`)
     }
     this.name = name
+    this.type = type
     this.display = display
   }
 
   static from (obj) {
-    return new Field(obj.name, obj.display)
+    return new Field(obj.name, obj.type, obj.display)
   }
 }
 

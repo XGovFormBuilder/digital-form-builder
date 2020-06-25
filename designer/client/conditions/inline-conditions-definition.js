@@ -1,20 +1,6 @@
 import React from 'react'
-import { Condition, Field, Value } from './inline-condition-model'
+import { Condition, Field, Value, getOperatorNames } from './inline-condition-model'
 import { clone } from '../helpers'
-
-const conditionalOperators = {
-  'default': {
-    is: {},
-    'is not': {}
-  },
-  'TextField': {
-    matches: {}
-  },
-
-  getConditionals: (fieldType) => {
-    return Object.assign(conditionalOperators[fieldType] || {}, conditionalOperators['default'])
-  }
-}
 
 class InlineConditionsDefinition extends React.Component {
   constructor (props) {
@@ -65,15 +51,17 @@ class InlineConditionsDefinition extends React.Component {
     const currentField = condition.field?.name
     const currentOperator = condition.operator
 
+    const fieldDef = this.props.fields[fieldName]
+
     this._updateCondition(condition, c => {
       if (fieldName) {
-        if (currentField && this.props.fields[currentField].values !== this.props.fields[fieldName].values) {
+        if (currentField && this.props.fields[currentField].values !== fieldDef.values) {
           delete c.value
         }
-        if (currentOperator && !conditionalOperators.getConditionals(fieldName)[currentOperator]) {
+        if (currentOperator && !getOperatorNames(fieldName).includes(currentOperator)) {
           delete c.operator
         }
-        c.field = new Field(fieldName, this.props.fields[fieldName].label)
+        c.field = new Field(fieldName, fieldDef.type, fieldDef.label)
       } else {
         delete c.field
         delete c.operator
@@ -152,7 +140,7 @@ class InlineConditionsDefinition extends React.Component {
             onChange={this.onChangeOperator}>
             <option />
             {
-              Object.keys(conditionalOperators.getConditionals(fieldDef.type)).sort().map(conditional => {
+              getOperatorNames(fieldDef.type).map(conditional => {
                 return <option key={`${condition.field}-${conditional}`}
                   value={conditional}>{conditional}</option>
               })

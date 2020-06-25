@@ -13,7 +13,7 @@ import {
 } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsEdit from '../client/conditions/inline-conditions-edit'
-import { Condition, ConditionsModel, Field, Value } from '../client/conditions/inline-condition-model'
+import { Condition, ConditionsModel, Field, Value, getOperatorNames } from '../client/conditions/inline-condition-model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -21,8 +21,8 @@ exports.lab = lab
 const { beforeEach, describe, suite, test } = lab
 
 suite('Editing inline conditions', () => {
-  const textFieldOperators = ['is', 'is not', 'matches']
-  const selectFieldOperators = ['is', 'is not']
+  const textFieldOperators = getOperatorNames('TextField')
+  const selectFieldOperators = getOperatorNames('SelectField')
   let exitCallback
   let saveCallback
   const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
@@ -46,7 +46,7 @@ suite('Editing inline conditions', () => {
       values: values
     }
   }
-  const firstCondition = new Condition(new Field(fields.field1.name, fields.field1.label), 'is', new Value('M'))
+  const firstCondition = new Condition(new Field(fields.field1.name, fields.field1.type, fields.field1.label), 'is', new Value('M'))
   let conditions
 
   beforeEach(() => {
@@ -73,7 +73,7 @@ suite('Editing inline conditions', () => {
     })
 
     test('Clicking the edit link for a subsequent condition causes the field definition inputs to be pre-populated correctly', () => {
-      let condition = new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and')
+      let condition = new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and')
       conditions.add(condition)
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
       wrapper.find('#condition-1-edit').simulate('click')
@@ -83,12 +83,12 @@ suite('Editing inline conditions', () => {
     })
 
     test('Save condition callback results in an updated condition string and returns the users to an updated edit panel', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
       assertEditPanel(wrapper, [{ condition: '\'Something\' is \'M\'' }, { condition: 'and \'Something else\' is \'N\'' }])
       wrapper.find('#condition-1-edit').simulate('click')
 
-      wrapper.instance().saveCondition(new Condition(new Field(fields.field1.name, fields.field1.label), textFieldOperators[1], new Value('Badger'), 'or'))
+      wrapper.instance().saveCondition(new Condition(new Field(fields.field1.name, fields.field1.type, fields.field1.label), textFieldOperators[1], new Value('Badger'), 'or'))
 
       assertEditPanel(wrapper, [{ condition: '\'Something\' is \'M\'' }, { condition: 'or \'Something\' is not \'Badger\'' }])
       expect(saveCallback.calledOnce).to.equal(true)
@@ -96,7 +96,7 @@ suite('Editing inline conditions', () => {
     })
 
     test('Grouping conditions combines them into a single condition which can be split but not edited', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -116,8 +116,8 @@ suite('Editing inline conditions', () => {
     })
 
     test('should not group non-consecutive conditions', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
-      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.type, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -137,10 +137,10 @@ suite('Editing inline conditions', () => {
     })
 
     test('should group multiple consecutive condition groups', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'or'))
-      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
-      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'or'))
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('Y'), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'or'))
+      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.type, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
+      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.type, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'or'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('Y'), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -169,7 +169,7 @@ suite('Editing inline conditions', () => {
     })
 
     test('splitting grouped conditions returns them to their original components', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -193,8 +193,8 @@ suite('Editing inline conditions', () => {
     })
 
     test('removing selected conditions', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
-      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.type, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
@@ -208,8 +208,8 @@ suite('Editing inline conditions', () => {
     })
 
     test('Should deselect conditions', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
-      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.type, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       wrapper.find('#condition-0').simulate('change', { target: { value: '0', checked: true } })
@@ -220,8 +220,8 @@ suite('Editing inline conditions', () => {
     })
 
     test('removing grouped conditions removes everything in the group', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
-      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field3.name, fields.field3.type, fields.field3.label), selectFieldOperators[0], new Value(values[0].value, values[0].text), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       expect(wrapper.find('#condition-0').exists()).to.equal(true)
@@ -239,7 +239,7 @@ suite('Editing inline conditions', () => {
     })
 
     test('removing last condition triggers exitCallback', () => {
-      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
+      conditions.add(new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), textFieldOperators[0], new Value('N'), 'and'))
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
 
       expect(wrapper.find('#condition-0').exists()).to.equal(true)
