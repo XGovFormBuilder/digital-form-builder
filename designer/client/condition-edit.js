@@ -5,23 +5,21 @@ import { clone } from './helpers'
 class ConditionEdit extends React.Component {
   state = {}
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault()
     const displayName = this.state.displayName
     const newValue = this.state.value
     const { data, condition } = this.props
 
     const copy = clone(data)
-    copy.updateCondition(condition.name, displayName, newValue)
+    const updated = copy.updateCondition(condition.name, displayName, newValue)
 
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    try {
+      const saved = await data.save(updated)
+      this.props.onEdit({ data: saved })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   onClickDelete = e => {

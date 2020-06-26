@@ -4,29 +4,21 @@ import { clone } from './helpers'
 import Editor from './editor'
 
 class ConditionCreate extends React.Component {
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault()
     const displayName = this.state.displayName.trim()
     const value = this.state.value.trim()
     const { data } = this.props
     const copy = clone(data)
 
-    data.getId()
-      .then(id => {
-        copy.addCondition(id, displayName, value)
-        return copy
-      })
-      .then(copy => data.save(copy)
-        .then(data => {
-          console.log(data)
-          this.props.onCreate({ data })
-        })
-        .catch(err => {
-          console.error(err)
-        })
-      ).catch(err => {
-        console.error(err)
-      })
+    try {
+      const id = await data.getId()
+      const withCondition = copy.addCondition(id, displayName, value)
+      const saved = data.save(withCondition)
+      this.props.onCreate({ data: saved })
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   onBlurName = e => {

@@ -47,15 +47,18 @@ suite('Condition create', () => {
     const clonedData = {
       addCondition: sinon.stub()
     }
+    const updatedData = sinon.spy()
+    const savedData = sinon.spy()
     const onCreate = data => {
-      expect(data.data).to.equal(clonedData)
+      expect(data.data).to.equal(savedData)
     }
     const save = data => {
-      expect(data).to.equal(clonedData)
-      return Promise.resolve(clonedData)
+      expect(data).to.equal(updatedData)
+      return Promise.resolve(savedData)
     }
+    const wrappedOnCreate = flags.mustCall(onCreate, 1)
 
-    const wrapper = shallow(<ConditionCreate data={data} onCreate={onCreate} />)
+    const wrapper = shallow(<ConditionCreate data={data} onCreate={wrappedOnCreate} />)
     const form = wrapper.find('form')
     const displayNameInput = form.find('input')
     const preventDefault = sinon.spy()
@@ -66,6 +69,7 @@ suite('Condition create', () => {
     data.clone = sinon.stub()
     data.clone.returns(clonedData)
     data.save = flags.mustCall(save, 1)
+    clonedData.addCondition.returns(updatedData)
 
     await wrapper.simulate('submit', { preventDefault: preventDefault })
 
