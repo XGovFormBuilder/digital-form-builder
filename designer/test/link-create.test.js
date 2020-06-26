@@ -1,0 +1,89 @@
+import React from 'react'
+import { shallow } from 'enzyme'
+import * as Code from '@hapi/code'
+import * as Lab from '@hapi/lab'
+import LinkCreate from '../client/link-create'
+import { Data } from '../client/model/data-model'
+import sinon from 'sinon'
+import { assertSelectInput } from './helpers/element-assertions'
+
+const { expect } = Code
+const lab = Lab.script()
+exports.lab = lab
+const { suite, test } = lab
+
+suite('Link create', () => {
+  const data = new Data({
+    pages: [
+      { path: '/1', title: 'Page 1' },
+      { path: '/2', title: 'Page 2' }
+    ],
+    conditions: [
+      { name: 'someCondition', displayName: 'My condition' },
+      { name: 'anotherCondition', displayName: 'Another condition' }
+    ]
+  })
+  const nextId = 'abcdef'
+  data.getId = sinon.stub()
+  data.getId.resolves(nextId)
+
+  test('Renders a form with from, to, and condition inputs', () => {
+    const wrapper = shallow(<LinkCreate data={data} />)
+    const form = wrapper.find('form')
+
+    assertSelectInput(form.find('#link-source'), 'link-source', [
+      { text: '' },
+      { value: '/1', text: 'Page 1' },
+      { value: '/2', text: 'Page 2' }
+    ])
+
+    assertSelectInput(form.find('#link-target'), 'link-target', [
+      { text: '' },
+      { value: '/1', text: 'Page 1' },
+      { value: '/2', text: 'Page 2' }
+    ])
+
+    assertSelectInput(form.find('#link-condition'), 'link-condition', [
+      { text: '', value: '' },
+      { value: 'someCondition', text: 'My condition' },
+      { value: 'anotherCondition', text: 'Another condition' }
+    ])
+  })
+
+  test('Submitting the form creates a link and calls back', async flags => {
+    const clonedData = {
+      addLink: sinon.stub()
+    }
+    const updatedData = sinon.spy()
+    const savedData = sinon.spy()
+    const onCreate = data => {
+      expect(data.data).to.equal(savedData)
+    }
+    const save = data => {
+      expect(data).to.equal(updatedData)
+      return Promise.resolve(savedData)
+    }
+    const wrappedOnCreate = flags.mustCall(onCreate, 1)
+
+    const wrapper = shallow(<LinkCreate data={data} onCreate={wrappedOnCreate} />)
+    const form = wrapper.find('form')
+    await form.find('#link-source').simulate('change', { target: { value: '/1' } })
+    await form.find('#link-target').simulate('change', { target: { value: '/2' } })
+    await form.find('#link-condition').simulate('change', { target: { value: 'anotherCondition' } })
+
+    const preventDefault = sinon.spy()
+
+    data.clone = sinon.stub()
+    data.clone.returns(clonedData)
+    data.save = flags.mustCall(save, 1)
+    clonedData.addLink.returns(updatedData)
+
+    await wrapper.simulate('submit', { preventDefault: preventDefault })
+
+    expect(preventDefault.calledOnce).to.equal(true)
+    expect(clonedData.addLink.calledOnce).to.equal(true)
+    expect(clonedData.addLink.firstCall.args[0]).to.equal('/1')
+    expect(clonedData.addLink.firstCall.args[1]).to.equal('/2')
+    expect(clonedData.addLink.firstCall.args[2]).to.equal('anotherCondition')
+  })
+})
