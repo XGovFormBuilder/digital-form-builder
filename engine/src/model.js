@@ -79,14 +79,22 @@ class Model {
 
       if (sectionPages.length > 0) {
         if (section) {
-          let sectionSchema = joi.object().required()
+          const isRepeatable = sectionPages.find(page => page.pageDef.repeatField)
+          let sectionSchema
+
+          sectionSchema = joi.object().required()
           sectionPages.forEach(sectionPage => {
             sectionSchema = sectionSchema.concat(sectionPage.stateSchema)
           })
+          if(isRepeatable) {
+            sectionSchema = joi.array().items(sectionSchema)
+          }
 
-          schema = schema.append({
-            [section.name]: sectionSchema
-          })
+          if(!isRepeatable ||( isRepeatable && !schema[section.name])) {
+            schema = schema.append({
+              [section.name]: sectionSchema
+            })
+          }
         } else {
           sectionPages.forEach(sectionPage => {
             schema = schema.concat(sectionPage.stateSchema)
