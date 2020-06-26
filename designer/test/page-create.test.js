@@ -50,7 +50,7 @@ suite('Page create', () => {
       { value: 'badger', text: 'Badger' },
       { value: 'personalDetails', text: 'Personal Details' }
     ])
-    expect(wrapper.find('InlineConditions').exists()).to.equal(false)
+    expect(wrapper.find('SelectConditions').exists()).to.equal(false)
   })
 
   test('Inputs remain populated when amending other fields', () => {
@@ -76,18 +76,18 @@ suite('Page create', () => {
       { value: './pages/start.js', text: 'Start Page' },
       { value: './pages/summary.js', text: 'Summary Page' }
     ], './pages/start.js')
-    expect(wrapper.find('InlineConditions').exists()).to.equal(true)
+    expect(wrapper.find('SelectConditions').exists()).to.equal(true)
   })
 
   test('Selecting a link from displays the conditions section', () => {
     const wrapper = shallow(<PageCreate data={data} />)
     wrapper.find('#link-from').simulate('change', { target: { value: '/2' } })
 
-    const inlineConditions = wrapper.find('InlineConditions')
-    expect(inlineConditions.exists()).to.equal(true)
-    expect(inlineConditions.prop('data')).to.equal(data)
-    expect(inlineConditions.prop('path')).to.equal('/2')
-    expect(inlineConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
+    const SelectConditions = wrapper.find('SelectConditions')
+    expect(SelectConditions.exists()).to.equal(true)
+    expect(SelectConditions.prop('data')).to.equal(data)
+    expect(SelectConditions.prop('path')).to.equal('/2')
+    expect(SelectConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
   })
 
   describe('Submitting the form', () => {

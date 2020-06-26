@@ -1,5 +1,5 @@
 import React from 'react'
-import InlineConditions from './conditions/inline-conditions'
+import SelectConditions from './conditions/select-conditions'
 import InlineConditionHelpers from './conditions/inline-condition-helpers'
 
 class LinkCreate extends React.Component {
@@ -41,7 +41,7 @@ class LinkCreate extends React.Component {
           </select>
         </div>
 
-        {from && from.trim() !== '' && <InlineConditions data={data} path={from} conditionsChange={this.saveConditions} />}
+        {from && from.trim() !== '' && <SelectConditions data={data} path={from} conditionsChange={this.saveConditions} />}
 
         <button className='govuk-button' type='submit'>Save</button>
       </form>

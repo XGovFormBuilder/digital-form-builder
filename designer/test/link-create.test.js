@@ -44,19 +44,19 @@ suite('Link create', () => {
       { value: '/2', text: 'Page 2' }
     ])
 
-    expect(wrapper.find('InlineConditions').exists()).to.equal(false)
+    expect(wrapper.find('SelectConditions').exists()).to.equal(false)
   })
 
-  test('Selecting a from value causes the InlineConditions component to be displayed', async () => {
+  test('Selecting a from value causes the SelectConditions component to be displayed', async () => {
     const wrapper = shallow(<LinkCreate data={data} />)
     const form = wrapper.find('form')
 
     await form.find('#link-source').simulate('change', { target: { value: '/1' } })
-    const inlineConditions = wrapper.find('InlineConditions')
-    expect(inlineConditions.exists()).to.equal(true)
-    expect(inlineConditions.prop('data')).to.equal(data)
-    expect(inlineConditions.prop('path')).to.equal('/1')
-    expect(inlineConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
+    const SelectConditions = wrapper.find('SelectConditions')
+    expect(SelectConditions.exists()).to.equal(true)
+    expect(SelectConditions.prop('data')).to.equal(data)
+    expect(SelectConditions.prop('path')).to.equal('/1')
+    expect(SelectConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
   })
 
   describe('submitting the form', () => {

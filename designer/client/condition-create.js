@@ -14,7 +14,7 @@ class ConditionCreate extends React.Component {
     try {
       const id = await data.getId()
       const withCondition = copy.addCondition(id, displayName, value)
-      const saved = data.save(withCondition)
+      const saved = await data.save(withCondition)
       this.props.onCreate({ data: saved })
     } catch (e) {
       console.error(e)

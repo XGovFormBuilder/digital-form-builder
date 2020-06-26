@@ -1,5 +1,5 @@
 import React from 'react'
-import InlineConditions from './conditions/inline-conditions.js'
+import SelectConditions from './conditions/select-conditions'
 import InlineConditionHelpers from './conditions/inline-condition-helpers'
 
 class PageCreate extends React.Component {
@@ -87,7 +87,7 @@ class PageCreate extends React.Component {
           </select>
         </div>
 
-        {linkFrom && linkFrom.trim() !== '' && <InlineConditions data={data} path={linkFrom} conditionsChange={this.saveConditions} />}
+        {linkFrom && linkFrom.trim() !== '' && <SelectConditions data={data} path={linkFrom} conditionsChange={this.saveConditions} />}
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
