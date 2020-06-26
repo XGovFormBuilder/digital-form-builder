@@ -1,13 +1,18 @@
 import React from 'react'
+import InlineConditions from './conditions/inline-conditions'
+import InlineConditionHelpers from './conditions/inline-condition-helpers'
 
 class LinkCreate extends React.Component {
+  state = {}
+
   onSubmit = async e => {
     e.preventDefault()
-    const { from, to, condition } = this.state
+    const { from, to, selectedCondition, conditions } = this.state
     // Apply
     const { data } = this.props
     const copy = data.clone()
-    const updatedData = copy.addLink(from, to, condition)
+    const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, selectedCondition, conditions)
+    const updatedData = conditionResult.data.addLink(from, to, conditionResult.condition)
 
     const savedData = await data.save(updatedData)
     this.props.onCreate({ data: savedData })
@@ -15,7 +20,8 @@ class LinkCreate extends React.Component {
 
   render () {
     const { data } = this.props
-    const { pages, conditions } = data
+    const { pages } = data
+    const { from } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -35,20 +41,18 @@ class LinkCreate extends React.Component {
           </select>
         </div>
 
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='link-condition'>Condition (optional)</label>
-          <span id='link-condition-hint' className='govuk-hint'>
-            The link will only be used if the expression evaluates to true.
-          </span>
-          <select className='govuk-select' id='link-condition' name='condition' onChange={e => this.storeValue(e, 'condition')} aria-describedby='link-condition-hint'>
-            <option value='' />
-            {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.displayName}</option>))}
-          </select>
-        </div>
+        {from && from.trim() !== '' && <InlineConditions data={data} path={from} conditionsChange={this.saveConditions} />}
 
         <button className='govuk-button' type='submit'>Save</button>
       </form>
     )
+  }
+
+  saveConditions = (conditions, selectedCondition) => {
+    this.setState({
+      conditions: conditions,
+      selectedCondition: selectedCondition
+    })
   }
 
   storeValue = (e, key) => {
