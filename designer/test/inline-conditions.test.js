@@ -15,6 +15,7 @@ const { before, beforeEach, describe, suite, test } = lab
 suite('Inline conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
+    allInputs: sinon.stub(),
     listFor: sinon.stub()
   }
   const textFieldOperators = getOperatorNames('TextField')
@@ -71,6 +72,13 @@ suite('Inline conditions', () => {
       data.listFor.withArgs(fields[2]).returns({ items: values })
     })
 
+    test('fields are retrieved from allInputs if no path is provided', () => {
+      data.inputsAccessibleAt.returns([])
+      data.allInputs.returns(fields)
+      const wrapper = shallow(<InlineConditions data={data} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
+      expect(wrapper.exists('#inline-conditions')).to.equal(true)
+    })
+
     test('if the path property changes to a route without fields then the condition section disappears', () => {
       let path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
@@ -118,6 +126,18 @@ suite('Inline conditions', () => {
       expect(wrapper.find('#conditions-display').exists()).to.equal(false)
       expect(wrapper.find('InlineConditionsDefinition').exists()).to.equal(false)
       expect(cancelCallback.calledOnceWith(e)).to.equal(true)
+    })
+
+    test('Clicking the cancel link should succeed if there is no cancel callback', () => {
+      const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
+      let instance = wrapper.instance()
+      instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].title }), textFieldOperators[0], new Value('N')))
+      expect(wrapper.find('#conditions-display').exists()).to.equal(true)
+      const e = {}
+      wrapper.find('#cancel-inline-conditions-link').simulate('click', e)
+
+      expect(wrapper.find('#conditions-display').exists()).to.equal(false)
+      expect(wrapper.find('InlineConditionsDefinition').exists()).to.equal(false)
     })
 
     describe('adding conditions', () => {

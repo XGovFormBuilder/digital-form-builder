@@ -1,19 +1,18 @@
 import React from 'react'
 import { clone } from './helpers'
 
-import Editor from './editor'
+import InlineConditions from './conditions/inline-conditions'
+import InlineConditionHelpers from './conditions/inline-condition-helpers'
 
 class ConditionCreate extends React.Component {
   onSubmit = async e => {
     e.preventDefault()
-    const displayName = this.state.displayName.trim()
-    const value = this.state.value.trim()
+    const { conditions } = this.state
     const { data } = this.props
     const copy = clone(data)
 
     try {
-      const id = await data.getId()
-      const withCondition = copy.addCondition(id, displayName, value)
+      const withCondition = await InlineConditionHelpers.storeConditionIfNecessary(copy, undefined, conditions)
       const saved = await data.save(withCondition)
       this.props.onCreate({ data: saved })
     } catch (e) {
@@ -21,25 +20,9 @@ class ConditionCreate extends React.Component {
     }
   }
 
-  onBlurName = e => {
-    const input = e.target
-    const { data } = this.props
-    const newName = input.value.trim()
-
-    // Validate it is unique
-    if (data.conditions.find(s => s.displayName === newName)) {
-      input.setCustomValidity(`Display name '${newName}' already exists`)
-    } else {
-      input.setCustomValidity('')
-    }
+  saveConditions = (conditions) => {
     this.setState({
-      displayName: newName
-    })
-  }
-
-  onValueChange = value => {
-    this.setState({
-      value: value
+      conditions: conditions
     })
   }
 
@@ -48,17 +31,7 @@ class ConditionCreate extends React.Component {
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Display Name</label>
-          <input className='govuk-input govuk-!-width-three-quarters' id='condition-name' name='displayName'
-            type='text'
-            onBlur={this.onBlurName} required />
-        </div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='condition-value'>Value</label>
-          <span className='govuk-hint'>This can be any <a href='https://www.npmjs.com/package/expr-eval' target='_blank'>matching expression</a></span>
-          <Editor name='value' required valueCallback={this.onValueChange} />
-        </div>
+        <InlineConditions data={this.props.data} conditionsChange={this.saveConditions} />
         <button className='govuk-button' type='submit'>Save</button>
       </form>
     )

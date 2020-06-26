@@ -32,7 +32,8 @@ class InlineConditions extends React.Component {
 
   fieldsForPath (path) {
     const { data } = this.props
-    return data.inputsAccessibleAt(path)
+    const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs()
+    return inputs
       .map(input => ({
         label: input.title,
         name: input.propertyPath,
@@ -71,7 +72,9 @@ class InlineConditions extends React.Component {
       conditions: this.state.conditions.clear(),
       editView: false
     })
-    this.props.cancelCallback(e)
+    if (this.props.cancelCallback) {
+      this.props.cancelCallback(e)
+    }
   }
 
   saveCondition = (condition) => {

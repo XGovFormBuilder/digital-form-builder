@@ -5,12 +5,12 @@ import * as Lab from '@hapi/lab'
 import ConditionCreate from '../client/condition-create'
 import { Data } from '../client/model/data-model'
 import sinon from 'sinon'
-import { assertTextInput } from './helpers/element-assertions'
+import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { suite, test } = lab
+const { suite, test, describe, afterEach, beforeEach } = lab
 
 suite('Condition create', () => {
   const data = new Data({})
@@ -18,66 +18,57 @@ suite('Condition create', () => {
   data.getId = sinon.stub()
   data.getId.resolves(nextId)
 
-  test('Renders a form with display name and condition editor inputs', () => {
+  test('Renders a form with inline conditions node', () => {
     const wrapper = shallow(<ConditionCreate data={data} />)
     const form = wrapper.find('form')
-    const displayNameInput = form.find('input')
 
-    assertTextInput(displayNameInput, 'condition-name')
-
-    const editor = form.find('Editor')
-    expect(editor.prop('name')).to.equal('value')
-    expect(Object.keys(editor.props()).includes('required')).to.equal(true)
-    expect(editor.prop('valueCallback')).to.equal(wrapper.instance().onValueChange)
+    const inlineConditions = form.find('InlineConditions')
+    expect(inlineConditions.prop('data')).to.equal(data)
+    expect(inlineConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
+    expect(Object.keys(inlineConditions.props()).length).to.equal(2)
   })
+  describe('submitting the form', () => {
+    let storeConditionStub
 
-  test('Should set error message when setting display name to one that already exists', () => {
-    const wrapper = shallow(<ConditionCreate data={data} />)
-    const form = wrapper.find('form')
-    const displayNameInput = form.find('input')
-    const setCustomValidity = sinon.spy()
-    data.addCondition('something', 'My condition', 'badger == monkeys')
-    displayNameInput.simulate('blur', { target: { value: 'My condition', setCustomValidity: setCustomValidity } })
+    beforeEach(function () {
+      storeConditionStub = sinon.stub(InlineConditionHelpers, 'storeConditionIfNecessary')
+    })
 
-    expect(setCustomValidity.calledOnce).to.equal(true)
-    expect(setCustomValidity.firstCall.args[0]).to.equal('Display name \'My condition\' already exists')
-  })
+    afterEach(function () {
+      storeConditionStub.restore()
+    })
 
-  test('Submitting the form creates a condition and calls back', async flags => {
-    const clonedData = {
-      addCondition: sinon.stub()
-    }
-    const updatedData = sinon.spy()
-    const savedData = sinon.spy()
-    const onCreate = data => {
-      expect(data.data).to.equal(savedData)
-    }
-    const save = data => {
-      expect(data).to.equal(updatedData)
-      return Promise.resolve(savedData)
-    }
-    const wrappedOnCreate = flags.mustCall(onCreate, 1)
+    test('creates a condition and calls back', async flags => {
+      const clonedData = sinon.spy()
+      const updatedData = sinon.spy()
+      const savedData = sinon.spy()
+      const onCreate = data => {
+        expect(data.data).to.equal(savedData)
+      }
+      const save = data => {
+        expect(data).to.equal(updatedData)
+        return Promise.resolve(savedData)
+      }
+      // const wrappedOnCreate = flags.mustCall(onCreate, 1)
 
-    const wrapper = shallow(<ConditionCreate data={data} onCreate={wrappedOnCreate} />)
-    const form = wrapper.find('form')
-    const displayNameInput = form.find('input')
-    const preventDefault = sinon.spy()
-    const setCustomValidity = sinon.spy()
-    displayNameInput.simulate('blur', { target: { value: 'My condition', setCustomValidity: setCustomValidity } })
-    wrapper.instance().onValueChange('badger == monkeys')
+      const wrapper = shallow(<ConditionCreate data={data} onCreate={onCreate} />)
+      const preventDefault = sinon.spy()
+      const conditions = {}
+      wrapper.instance().saveConditions(conditions)
+      storeConditionStub.resolves({ data: updatedData, condition: 'myBadger' })
 
-    data.clone = sinon.stub()
-    data.clone.returns(clonedData)
-    data.save = flags.mustCall(save, 1)
-    clonedData.addCondition.returns(updatedData)
+      data.clone = sinon.stub()
+      data.clone.returns(clonedData)
+      data.save = flags.mustCall(save, 1)
 
-    await wrapper.simulate('submit', { preventDefault: preventDefault })
+      await wrapper.simulate('submit', { preventDefault: preventDefault })
 
-    expect(preventDefault.calledOnce).to.equal(true)
-    expect(clonedData.addCondition.calledOnce).to.equal(true)
-    expect(clonedData.addCondition.firstCall.args[0]).to.equal(nextId)
-    expect(clonedData.addCondition.firstCall.args[1]).to.equal('My condition')
-    expect(clonedData.addCondition.firstCall.args[2]).to.equal('badger == monkeys')
+      expect(preventDefault.calledOnce).to.equal(true)
+      expect(storeConditionStub.calledOnce).to.equal(true)
+      expect(storeConditionStub.firstCall.args[0]).to.equal(clonedData)
+      expect(storeConditionStub.firstCall.args[1]).to.equal(undefined)
+      expect(storeConditionStub.firstCall.args[2]).to.equal(conditions)
+    })
   })
 
   test('Cancelling the form calls the onCancel callback', async flags => {
