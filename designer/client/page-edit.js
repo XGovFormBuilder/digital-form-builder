@@ -3,31 +3,54 @@ import { clone } from './helpers'
 
 class PageEdit extends React.Component {
   state = {}
+  constructor (props) {
+    super(props)
+    this.state = {
+      pageType: '',
+      title: null,
+      section: null
+    }
+  }
+
+  handleInputChange = event => {
+    const target = event.target
+    const value = target.value
+    const name = target.name
+
+    this.setState({
+      [name]: value ? value.trim() : null
+    })
+  }
 
   onSubmit = e => {
     e.preventDefault()
-    const form = e.target
-    const formData = new window.FormData(form)
-    const title = formData.get('title').trim()
-    const newPath = `/${title.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '-')}`.toLowerCase()
-    const section = formData.get('section').trim()
-    const pageType = formData.get('page-type').trim()
+
+    const {
+      pageType,
+      title,
+      section
+    } = this.state
+
+    let newPath = `/${title.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '-')}`.toLowerCase()
     const { data, page } = this.props
+    const oldPath = page.path
 
     const copy = clone(data)
     const pageIndex = data.pages.indexOf(page)
     const copyPage = copy.pages[pageIndex]
 
-    if (title !== page.title) {
-      // `path` has changed - validate it is unique
-      if (data.findPage(title)) {
-        form.elements.path.setCustomValidity(`Title '${title}' already exists`)
-        form.reportValidity()
-        return
+    if (newPath !== oldPath) {
+
+      const pathPrefix = newPath
+      let count = 1
+
+      while (data.findPage(newPath) != null) {
+        newPath = `${pathPrefix}-${count++}`
       }
+
       // we want to also update the `next:` references for this page with the new path to preserve the link
       copy.pages.forEach(page => page.next.forEach(next => {
-        if (next.path === copyPage.path) {
+        if (next.path === oldPath) {
           next.path = newPath
         }
       }))
@@ -126,7 +149,7 @@ class PageEdit extends React.Component {
       <form onSubmit={this.onSubmit} autoComplete='off'>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
-          <select className='govuk-select' id='page-type' name='page-type' defaultValue={page.controller || ''}>
+          <select className='govuk-select' id='page-type' name='pageType' defaultValue={page.controller || ''} onChange={this.handleInputChange}>
             <option value=''>Question Page</option>
             <option value='./pages/start.js'>Start Page</option>
             <option value='./pages/summary.js'>Summary Page</option>
@@ -136,14 +159,15 @@ class PageEdit extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
           <input className='govuk-input' id='page-title' name='title' type='text' defaultValue={page.title}
+            onChange={this.handleInputChange}
             aria-describedby='page-title-hint' required />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
-          <select className='govuk-select' id='page-section' name='section' defaultValue={page.section}>
+          <select className='govuk-select' id='page-section' name='section' defaultValue={page.section} onChange={this.handleInputChange}>
             <option />
-            {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
+            {(sections || []).map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
           </select>
         </div>
 
