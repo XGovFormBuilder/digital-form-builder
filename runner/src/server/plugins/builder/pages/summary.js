@@ -4,6 +4,8 @@ const shortid = require('shortid')
 const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
+import * as querystring from 'querystring'
+const { merge } = require('hoek')
 
 class SummaryViewModel {
   constructor (pageTitle, model, state) {
@@ -19,56 +21,65 @@ class SummaryViewModel {
       nextPage = nextPage.getNextPage(state)
     }
 
-    ;[undefined].concat(model.sections).forEach((section) => {
+    [undefined, ...model.sections].forEach((section) => {
       const items = []
       const sectionState = section
         ? (state[section.name] || {})
         : state
 
       relevantPages.forEach(page => {
-        if (page.section === section) {
-          if (page.hasFormComponents) {
+        if (page.section === section) { //should this be a filter THEN for each..?
+          if (page.hasFormComponents) { //hm.. this is already handled in while(nextPage?.hasFormComponents)..?
+            const isRepeatable = page.repeatField
+            let repeatItems = []
             page.components.formItems.forEach(component => {
-              items.push({
-                name: component.name,
-                path: component.path,
-                label: component.localisedString(component.title),
-                value: component.getDisplayStringFromState(sectionState),
-                rawValue: sectionState[component.name],
-                url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
-                pageId: `/${model.basePath}${page.path}`,
-                type: component.type
-              })
+
+              let item = this.Item(component, sectionState, page, model)
+// items.push(item)
+              isRepeatable ? repeatItems.push(item) : items.push(item)
               if (component.items) {
                 const selectedValue = sectionState[component.name]
                 const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
                 if (selectedItem && selectedItem.conditional) {
                   selectedItem.conditional.componentCollection.formItems.forEach(cc => {
-                    items.push({
-                      name: cc.name,
-                      path: cc.path,
-                      label: cc.localisedString(cc.title),
-                      value: cc.getDisplayStringFromState(sectionState),
-                      rawValue: sectionState[cc.name],
-                      url: `/${model.basePath}${page.path}?returnUrl=/${model.basePath}/summary`,
-                      pageId: `/${model.basePath}${page.path}`,
-                      type: cc.type
-                    })
+                    let cItem = this.Item(cc, sectionState, page, model)
+                    isRepeatable ? repeatItems.push(cItem) : items.push(cItem)
                   })
                 }
               }
             })
+            if(repeatItems.length) {
+              // const collatePages = repeatItems.map((item, i) => {
+              //   return item.map((field, j) => {
+              //     return field[j]
+              //   })
+              // })
+              items.push(repeatItems)
+            }
           } else if (!(page instanceof SummaryPage) && !page.hasNext) {
             endPage = page
           }
         }
       })
       if (items.length > 0) {
-        details.push({
-          name: section && section.name ? section.name : null,
-          title: section && section.title ? section.title : null,
-          items
-        })
+        if(Array.isArray(sectionState)) {
+          details.push({
+            name: section?.name,
+            title: section?.title,
+            items: items.map((item, i) => {
+              return item.map((field, j) => {
+                return field[j]
+              })
+            })
+          })
+        } else {
+          details.push({
+            name: section?.name,
+            title: section?.title,
+            items
+          })
+        }
+
       }
     })
 
@@ -306,6 +317,37 @@ class SummaryViewModel {
         }
       ]
     })
+  }
+
+  Item (component, sectionState, page, model, queryString = '') {
+    const isRepeatable = page.repeatField
+    let returnUrl = `/${model.basePath}/summary`
+
+    let query = {
+      returnUrl
+    }
+    if(isRepeatable && Array.isArray(sectionState)) {
+      return sectionState.map((state, i) => {
+        const query = {
+          returnUrl:`/${model.basePath}/summary`,
+          num: i + 1
+        }
+        let collated = Object.values(state).reduce((acc, p) => ({...acc, p}))
+        const qs = `?${querystring.encode(query)}`
+        return this.Item(component, collated, page, model, qs)
+      })
+    }
+
+    return {
+      name: component.name,
+      path: component.path,
+      label: component.localisedString(component.title),
+      value: component.getDisplayStringFromState(sectionState),
+      rawValue: sectionState[component.name],
+      url: `/${model.basePath}${page.path}${queryString}`,
+      pageId: `/${model.basePath}${page.path}`,
+      type: component.type
+    }
   }
 }
 

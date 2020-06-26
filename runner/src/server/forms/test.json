@@ -175,22 +175,6 @@
     {
       "name": "applicant",
       "title": "Applicant"
-    },
-    {
-      "name": "applicantOneDetails",
-      "title": "Applicant 1"
-    },
-    {
-      "name": "applicantTwoDetails",
-      "title": "Applicant 2"
-    },
-    {
-      "name": "applicantThreeDetails",
-      "title": "Applicant 3"
-    },
-    {
-      "name": "applicantFourDetails",
-      "title": "Applicant 4"
     }
   ],
   "lists": [

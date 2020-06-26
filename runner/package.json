@@ -15,8 +15,8 @@
     "postinstall": "npm run build",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
-    "babel-build": "babel src -d dist --copy-files --minified",
-    "babel-build:dev": "babel src -d dist --copy-files --watch"
+    "babel-build": "babel src -d dist --copy-files --minified -s inline",
+    "babel-build:dev": "babel src -d dist --copy-files --watch -s inline"
   },
   "repository": {
     "type": "git",
