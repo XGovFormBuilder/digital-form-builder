@@ -1,7 +1,7 @@
 import React from 'react'
 import { clone, getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
-import componentTypes from 'digital-form-builder-engine/component-types'
+import { ComponentTypes } from 'digital-form-builder-engine'
 
 class ComponentCreate extends React.Component {
   state = {}
@@ -38,7 +38,7 @@ class ComponentCreate extends React.Component {
             <select className='govuk-select' id='type' name='type' required
               onChange={e => this.setState({ component: { type: e.target.value } })}>
               <option />
-              {componentTypes.map(type => {
+              {ComponentTypes.map(type => {
                 return <option key={type.name} value={type.name}>{type.title}</option>
               })}
             </select>

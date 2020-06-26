@@ -1,11 +1,11 @@
 import React from 'react'
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
-import componentTypes from 'digital-form-builder-engine/component-types'
 import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
 import { clone } from './helpers'
+import { ComponentTypes } from 'digital-form-builder-engine'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
@@ -50,7 +50,7 @@ class Page extends React.Component {
   render () {
     const { page, data, id, previewUrl } = this.props
     const { sections } = data
-    const formComponents = page.components.filter(comp => componentTypes.find(type => type.name === comp.type).subType === 'field')
+    const formComponents = page.components.filter(comp => ComponentTypes.find(type => type.name === comp.type).subType === 'field')
     const section = page.section && sections.find(section => section.name === page.section)
     const conditional = !!page.condition
     let pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)

@@ -1,4 +1,4 @@
-import componentTypes from 'digital-form-builder-engine/component-types'
+import { ComponentTypes } from 'digital-form-builder-engine'
 
 export const coordinators = {
   AND: 'and',
@@ -386,7 +386,7 @@ export class Field {
     if (!name || typeof name !== 'string') {
       throw Error(`name ${name} is not valid`)
     }
-    if (!componentTypes.find(componentType => componentType.name === type)) {
+    if (!ComponentTypes.find(componentType => componentType.name === type)) {
       throw Error(`type ${type} is not valid`)
     }
     if (!display || typeof display !== 'string') {

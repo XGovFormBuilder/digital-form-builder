@@ -1,5 +1,5 @@
 const shortid = require('shortid')
-const schema = require('digital-form-builder-engine/schema')
+const { schema } = require('digital-form-builder-engine')
 const Wreck = require('@hapi/wreck')
 const pkg = require('./../package.json')
 const config = require('./../config')

@@ -1,6 +1,6 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import conditionalComponentTypes from 'digital-form-builder-engine/conditional-component-types'
+import { ConditionalComponentTypes } from 'digital-form-builder-engine'
 //
 // conditional-component-types is a cut down version of /component-types containing only one component i.e. TextField
 //
@@ -30,7 +30,7 @@ class ComponentConditionCreate extends React.Component {
           <select className='govuk-select' id={`${idHelper || ''}'type`} name='cond-type' defaultValue={selectedType}
             onChange={e => this.setState({ component: { type: e.target.value } })}>
             <option />
-            {conditionalComponentTypes.map(type => {
+            {ConditionalComponentTypes.map(type => {
               return <option key={type.name} value={type.name}>{type.title}</option>
             })}
           </select>

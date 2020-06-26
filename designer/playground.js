@@ -1,5 +1,5 @@
 const joi = require('joi')
-const schema = require('digital-form-builder-engine/schema')
+const { schema } = require('digital-form-builder-engine')
 const pkg = require('./package.json')
 
 module.exports = {

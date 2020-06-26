@@ -1,6 +1,6 @@
 import React from 'react'
-import componentTypes from 'digital-form-builder-engine/component-types'
 import Editor from './editor'
+import { ComponentTypes } from 'digital-form-builder-engine'
 
 function Classes (props) {
   const { component } = props
@@ -496,7 +496,7 @@ class ComponentTypeEdit extends React.Component {
   render () {
     const { component, data } = this.props
 
-    const type = componentTypes.find(t => t.name === component.type)
+    const type = ComponentTypes.find(t => t.name === component.type)
     if (!type) {
       return ''
     } else {
