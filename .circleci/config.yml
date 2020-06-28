@@ -91,7 +91,13 @@ jobs:
           at: ~/project
 
       - run:
-          name: test
+          name: Re-link engine
+          command: |
+            rm -fr node_modules/digital-form-builder-engine
+            yarn --check-files
+
+      - run:
+          name: Test
           command: yarn test
 
 workflows:
