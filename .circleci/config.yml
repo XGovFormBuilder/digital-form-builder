@@ -57,6 +57,12 @@ jobs:
 
       - run: yarn install
 
+      - run:
+          name: Re-link engine
+          command: |
+            rm -fr node_modules/digital-form-builder-engine
+            yarn --check-files
+
       - save_cache:
           paths:
             - node_modules
