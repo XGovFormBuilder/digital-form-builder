@@ -129,8 +129,13 @@ workflows:
     when: << pipeline.parameters.runner >>
     jobs:
       - build:
+          name: engine-build
+          package_name: engine
+      - build:
           name: runner-build
           package_name: runner
+          requires:
+            - engine-build
       - test:
           name: runner-test
           package_name: runner
