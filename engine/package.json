@@ -3,6 +3,8 @@
   "version": "1.9.0",
   "description": "A hapi plugin providing the engine for XGov digital form builder based applications",
   "main": "index.js",
+  "module": "src/lib.js",
+  "type": "module",
   "scripts": {
     "lint": "standard",
     "build": "babel src -d lib --source-maps inline",

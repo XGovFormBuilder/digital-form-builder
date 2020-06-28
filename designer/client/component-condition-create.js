@@ -1,10 +1,6 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import { ConditionalComponentTypes } from 'digital-form-builder-engine'
-//
-// conditional-component-types is a cut down version of /component-types containing only one component i.e. TextField
-//
-// import componentTypes from 'digital-form-builder-engine/component-types'
+import ConditionalComponentTypes from 'digital-form-builder-engine/src/conditional-component-types'
 
 class ComponentConditionCreate extends React.Component {
   constructor (props) {

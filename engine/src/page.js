@@ -1,8 +1,8 @@
 const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
-import { merge, reach } from '@hapi/hoek'
-import * as querystring from 'querystring'
+const { merge, reach } = require('@hapi/hoek')
+const querystring = require('querystring')
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -133,7 +133,7 @@ class Page {
       const sectionState = state[nextPage.section.name]
       const lastInSection = sectionState?.[sectionState.length -1] ?? {}
       const isLastComplete =  Object.keys(lastInSection).length === otherRepeatPagesInSection.length
-      query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState): 1
+      query.num = sectionState ? isLastComplete ? this.objLength(sectionState) + 1 : this.objLength(sectionState): 1
 
       if(query.num < requiredCount) {
         queryString = `?${querystring.encode(query)}`
@@ -207,7 +207,7 @@ class Page {
     return request.yar.get('lang')
   }
 
-  #objLength (object) {
+  objLength (object) {
     return Object.keys(object).length ?? 0
   }
 

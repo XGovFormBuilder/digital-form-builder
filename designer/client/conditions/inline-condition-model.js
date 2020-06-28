@@ -1,4 +1,4 @@
-import { ComponentTypes } from 'digital-form-builder-engine'
+import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 
 export const coordinators = {
   AND: 'and',

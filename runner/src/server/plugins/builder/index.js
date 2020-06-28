@@ -1,3 +1,5 @@
+import plugin from 'digital-form-builder-engine'
+
 const path = require('path')
 const fs = require('fs')
 const configPath = path.join(__dirname, '..', '..', 'forms')
@@ -5,7 +7,6 @@ const config = require('../../config')
 
 const relativeTo = __dirname
 const defaultPageController = './pages'
-import plugin from 'digital-form-builder-engine'
 
 const configFiles = fs.readdirSync(configPath).filter(filename => {
   if (filename.indexOf('.json') >= 0) {

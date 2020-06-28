@@ -1,5 +1,5 @@
+const Schema = require('digital-form-builder-engine/src/schema')
 const shortid = require('shortid')
-const { schema } = require('digital-form-builder-engine')
 const Wreck = require('@hapi/wreck')
 const pkg = require('./../package.json')
 const config = require('./../config')
@@ -83,7 +83,7 @@ const designerPlugin = {
           handler: async (request, h) => {
             let { id } = request.params
             try {
-              const result = joi.validate(request.payload, schema, { abortEarly: false })
+              const result = joi.validate(request.payload, Schema, { abortEarly: false })
 
               if (result.error) {
                 console.log(result.error)

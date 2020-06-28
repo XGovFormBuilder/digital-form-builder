@@ -5,7 +5,7 @@ import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
 import { clone } from './helpers'
-import { ComponentTypes } from 'digital-form-builder-engine'
+import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
