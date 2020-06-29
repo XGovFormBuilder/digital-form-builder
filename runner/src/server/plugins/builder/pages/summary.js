@@ -1,10 +1,11 @@
+import * as querystring from 'querystring'
+
 const joi = require('joi')
 const Page = require('./index')
 const shortid = require('shortid')
 const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
-import * as querystring from 'querystring'
 const { clone, reach } = require('hoek')
 
 class SummaryViewModel {
@@ -13,66 +14,65 @@ class SummaryViewModel {
 
     const relevantPages = []
     const details = []
-    let endPage = null
 
     let nextPage = model.startPage
-    let repeatCounter = 0
-    let otherRepeatPagesInSection = []
+    let endPage = null
 
-    while (nextPage?.hasFormComponents) {
-      relevantPages.push(nextPage)
-      nextPage = nextPage.getNextPage(state)
-      if(nextPage.repeatField) {
-        const required = reach(state, nextPage.repeatField)
-        if(!otherRepeatPagesInSection.length) {
-          otherRepeatPagesInSection = model.pages.filter(page => page.section === nextPage.section && page.repeatField)
-        }
-        const isEndPage = otherRepeatPagesInSection[otherRepeatPagesInSection.length - 1].path === nextPage.path
-
-        if(isEndPage) {
-          repeatCounter++
-          if(repeatCounter !== required) {
-            relevantPages.push(nextPage)
-            nextPage = relevantPages[relevantPages.length - otherRepeatPagesInSection.length]
-            // repeatCounter = 0
-          } else {
-            repeatCounter = 0
-            otherRepeatPagesInSection = []
-          }
-        }
+    while (nextPage != null) {
+      if (nextPage.hasFormComponents) {
+        relevantPages.push(nextPage)
+      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
+        endPage = nextPage
       }
+      nextPage = nextPage.getNextPage(state, true)
     }
 
-    [undefined, ...model.sections].forEach((section) => {
+    [undefined, ...model.sections].forEach(section => {
       const items = []
-      const sectionState = section
+      let sectionState = section
         ? (state[section.name] || {})
         : state
 
-      relevantPages.forEach(page => {
-        if (page.section === section) { //should this be a filter THEN for each..?
-          if (page.hasFormComponents) { //hm.. this is already handled in while(nextPage?.hasFormComponents)..?
-            page.components.formItems.forEach(component => {
-              let item = this.Item(component, sectionState, page, model)
-              items.push(item)
-              if (component.items) {
-                const selectedValue = sectionState[component.name]
-                const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
-                if (selectedItem && selectedItem.conditional) {
-                  selectedItem.conditional.componentCollection.formItems.forEach(cc => {
-                    let cItem = this.Item(cc, sectionState, page, model)
-                    items.push(cItem)
-                  })
-                }
-              }
-            })
-          } else if (!(page instanceof SummaryPage) && !page.hasNext) {
-            endPage = page
+      const sectionPages = relevantPages
+        .filter(page => page.section === section)
+
+      const repeatablePage = sectionPages.find(page => !!page.repeatField)
+      // Currently can't handle repeatable page outside a section. In fact a section should be repeatablee.
+      if (section && repeatablePage) {
+        if (!state[section.name]) {
+          state[section.name] = sectionState = []
+        }
+        // Make sure the right number of items
+        const requiredIterations = reach(state, repeatablePage.repeatField)
+        if (requiredIterations < sectionState.length) {
+          state[section.name] = sectionState.slice(0, requiredIterations)
+        } else {
+          for (let i = sectionState.length; i < requiredIterations; i++) {
+            sectionState.push({})
           }
         }
-      })
+      }
+
+      sectionPages
+        .forEach(page => {
+          for (const component of page.components.formItems) {
+            const item = this.Item(component, sectionState, page, model)
+            items.push(item)
+            if (component.items) {
+              const selectedValue = sectionState[component.name]
+              const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
+              if (selectedItem && selectedItem.conditional) {
+                for (const cc of selectedItem.conditional.componentCollection.formItems) {
+                  const cItem = this.Item(cc, sectionState, page, model)
+                  items.push(cItem)
+                }
+              }
+            }
+          }
+        })
+
       if (items.length > 0) {
-        if(Array.isArray(sectionState)) {
+        if (Array.isArray(sectionState)) {
           details.push({
             name: section?.name,
             title: section?.title,
@@ -87,7 +87,6 @@ class SummaryViewModel {
             items
           })
         }
-
       }
     })
 
@@ -110,11 +109,9 @@ class SummaryViewModel {
     delete collatedRepeatPagesState.progress
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
       if(Array.isArray(section)) {
-        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({...acc, ...p})))
+        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({...acc, ...p}), {}))
       }
     })
-
-
 
     const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
 
@@ -145,37 +142,38 @@ class SummaryViewModel {
           }
         })
       })
-    }
-    if (applicableFees.length) {
-      const flatState = flatten(state)
-      this.fees = {
-        details: applicableFees,
-        total: Object.values(applicableFees).map(fee => {
-          if (fee.multiplier) {
-            const multiplyBy = flatState[fee.multiplier]
-            fee.multiplyBy = Number(multiplyBy)
-            return fee.multiplyBy * fee.amount
-          }
-          return fee.amount
-        }).reduce((a, b) => a + b)
-      }
-    }
-
-    this.parseDataForWebhook(model, relevantPages, details)
-
-    if (model.def.outputs) {
-      this._outputs = model.def.outputs.map(output => {
-        switch (output.type) {
-          case 'notify':
-            return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
-          case 'email':
-            return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
-          case 'webhook':
-            return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
-          case 'sheets':
-            return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
+    } else {
+      if (applicableFees.length) {
+        const flatState = flatten(state)
+        this.fees = {
+          details: applicableFees,
+          total: Object.values(applicableFees).map(fee => {
+            if (fee.multiplier) {
+              const multiplyBy = flatState[fee.multiplier]
+              fee.multiplyBy = Number(multiplyBy)
+              return fee.multiplyBy * fee.amount
+            }
+            return fee.amount
+          }).reduce((a, b) => a + b)
         }
-      })
+      }
+
+      this.parseDataForWebhook(model, relevantPages, details)
+
+      if (model.def.outputs) {
+        this._outputs = model.def.outputs.map(output => {
+          switch (output.type) {
+            case 'notify':
+              return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
+            case 'email':
+              return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
+            case 'webhook':
+              return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
+            case 'sheets':
+              return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
+          }
+        })
+      }
     }
 
     this.result = result
@@ -242,13 +240,12 @@ class SummaryViewModel {
 
   parseDataForWebhook (model, relevantPages, details) {
     let counter = {}
-    const questions = relevantPages.map((page, i) => {
+    const questions = relevantPages.map(page => {
       const category = page.section?.name ?? null
       const fields = []
-      const isRepeatable = page.repeatField
-      if(isRepeatable) {
-        const pageCount = counter[page.path]
-        if(pageCount || pageCount === 0) {
+      const isRepeatable = !!page.repeatField
+      if (isRepeatable) {
+        if (page.path in counter) {
           counter[page.path]++
         } else {
           counter[page.path] = 0
@@ -281,7 +278,7 @@ class SummaryViewModel {
         }
       }))
 
-      let question = ''
+      let question
       if (page.title) {
         question = this.toEnglish(page.title)
       } else {
@@ -294,7 +291,7 @@ class SummaryViewModel {
         fields
       }
 
-      if(isRepeatable) {
+      if (isRepeatable) {
         webhookObject.index = counter[page.path]
       }
 
@@ -354,20 +351,15 @@ class SummaryViewModel {
   }
 
   Item (component, sectionState, page, model, queryString = '') {
-    const isRepeatable = page.repeatField
-    let returnUrl = `/${model.basePath}/summary`
-
-    let query = {
-      returnUrl
+    const isRepeatable = !!page.repeatField
+    const query = {
+      returnUrl: `/${model.basePath}/summary`
     }
-    if(isRepeatable && Array.isArray(sectionState)) {
+
+    if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
-        const query = {
-          returnUrl:`/${model.basePath}/summary`,
-          num: i + 1
-        }
-        let collated = Object.values(state).reduce((acc, p) => ({...acc, ...p}))
-        const qs = `?${querystring.encode(query)}`
+        let collated = Object.values(state).reduce((acc, p) => ({...acc, ...p}), {})
+        const qs = `${querystring.encode({ ...query, num: i + 1 })}`
         return this.Item(component, collated, page, model, qs)
       })
     }
@@ -378,7 +370,7 @@ class SummaryViewModel {
       label: component.localisedString(component.title),
       value: component.getDisplayStringFromState(sectionState),
       rawValue: sectionState[component.name],
-      url: `/${model.basePath}${page.path}${queryString}`,
+      url: `/${model.basePath}${page.path}?${queryString || querystring.encode(query)}`,
       pageId: `/${model.basePath}${page.path}`,
       type: component.type
     }
@@ -410,7 +402,8 @@ class SummaryPage extends Page {
         const { path } = errorToFix
         const parts = path.split('.')
         const section = parts[0]
-        const property = parts[1]
+        const property = parts.length > 1 ? parts[parts.length - 1] : null
+        const iteration = parts.length === 3 ? Number(parts[1]) + 1 : null
         const pageWithError = model.pages.filter(page => {
           if (page.section && page.section.name === section) {
             let propertyMatches = true
@@ -426,7 +419,11 @@ class SummaryPage extends Page {
           return false
         })[0]
         if (pageWithError) {
-          return h.redirect(`/${model.basePath}${pageWithError.path}?returnUrl=/${model.basePath}/summary`)
+          const query = {
+            returnUrl: `/${model.basePath}/summary`,
+            num: iteration && pageWithError.repeatField ? iteration : null
+          }
+          return h.redirect(`/${model.basePath}${pageWithError.path}?${querystring.encode(query)}`)
         }
       }
 
