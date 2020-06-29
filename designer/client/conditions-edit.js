@@ -43,8 +43,9 @@ class ConditionsEdit extends React.Component {
                     </a>
                     {' '}
                     <small>{condition.name}</small>
-                    {' '}
+                    {'   ('}
                     <small>{condition.value}</small>
+                    {')'}
                   </li>
                 ))}
                 <li>

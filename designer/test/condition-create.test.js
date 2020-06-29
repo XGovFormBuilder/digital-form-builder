@@ -25,7 +25,8 @@ suite('Condition create', () => {
     const inlineConditions = form.find('InlineConditions')
     expect(inlineConditions.prop('data')).to.equal(data)
     expect(inlineConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
-    expect(Object.keys(inlineConditions.props()).length).to.equal(2)
+    expect(Object.keys(inlineConditions.props()).includes('hideAddLink')).to.equal(true)
+    expect(Object.keys(inlineConditions.props()).length).to.equal(3)
   })
   describe('submitting the form', () => {
     let storeConditionStub

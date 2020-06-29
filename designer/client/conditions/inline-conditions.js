@@ -68,7 +68,7 @@ class InlineConditions extends React.Component {
   onClickCancel = e => {
     this.setState({
       inline: !this.props.data.hasConditions,
-      adding: false,
+      adding: this.props.adding,
       conditions: this.state.conditions.clear(),
       editView: false
     })

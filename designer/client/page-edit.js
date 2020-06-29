@@ -28,6 +28,10 @@ class PageEdit extends React.Component {
       }
 
       copyPage.path = newPath
+
+      if (pageIndex === 0) {
+        copy.startPage = newPath
+      }
     }
 
     copyPage.title = title

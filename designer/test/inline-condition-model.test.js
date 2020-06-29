@@ -147,6 +147,17 @@ suite('inline condition model', () => {
     })
   })
 
+  describe('YesNoField', () => {
+    beforeEach(() => {
+      underTest.add(new Condition(new Field('badger', 'YesNoField', 'Badger'), 'is', new Value('true')))
+    })
+
+    test('should return a valid expression with unquoted value', () => {
+      expect(underTest.toExpression())
+        .to.equal('badger == true')
+    })
+  })
+
   describe('replacing conditions', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Monkeys')))

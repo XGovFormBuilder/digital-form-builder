@@ -13,7 +13,7 @@ class ConditionCreate extends React.Component {
 
     try {
       const withCondition = await InlineConditionHelpers.storeConditionIfNecessary(copy, undefined, conditions)
-      const saved = await data.save(withCondition)
+      const saved = await data.save(withCondition.data)
       this.props.onCreate({ data: saved })
     } catch (e) {
       console.error(e)
@@ -31,7 +31,7 @@ class ConditionCreate extends React.Component {
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
-        <InlineConditions data={this.props.data} conditionsChange={this.saveConditions} />
+        <InlineConditions data={this.props.data} conditionsChange={this.saveConditions} hideAddLink />
         <button className='govuk-button' type='submit'>Save</button>
       </form>
     )
