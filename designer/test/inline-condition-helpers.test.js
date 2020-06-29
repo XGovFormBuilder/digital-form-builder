@@ -24,7 +24,8 @@ suite('Inline condition helpers', () => {
     data.addCondition.returns(amendedData)
     const conditions = {
       name: 'My condition',
-      toExpression: () => 'my expression'
+      toExpression: () => 'my expression',
+      hasConditions: true
     }
     const returned = await InlineConditionHelpers.storeConditionIfNecessary(data, 'my-monkey', conditions)
 
@@ -34,6 +35,19 @@ suite('Inline condition helpers', () => {
     expect(data.addCondition.firstCall.args[1]).to.equal('My condition')
     expect(data.addCondition.firstCall.args[2]).to.equal('my expression')
     expect(returned).to.equal({ data: amendedData, condition: 'abcdef' })
+  })
+
+  test('should not save conditions if provided with no conditions added', async () => {
+    data.getId.resolves('abcdef')
+    const conditions = {
+      name: 'My condition',
+      hasConditions: false
+    }
+    const returned = await InlineConditionHelpers.storeConditionIfNecessary(data, undefined, conditions)
+
+    expect(data.getId.called).to.equal(false)
+    expect(data.addCondition.called).to.equal(false)
+    expect(returned).to.equal({ data: data, condition: undefined })
   })
 
   test('should return selected condition if provided and no conditions provided', async () => {

@@ -1,4 +1,4 @@
-import { serialiseAndDeserialise, clone } from '../helpers'
+import { clone } from '../helpers'
 
 const yesNoList = {
   name: '__yesNo',
@@ -123,14 +123,30 @@ export class Data {
   }
 
   clone () {
-    return new Data(JSON.parse(this.toJson()))
+    return new Data(this._exposePrivateFields())
   }
 
-  toJson () {
-    const toSerialize = serialiseAndDeserialise(this)
-    toSerialize.conditions = this.conditions
-    return JSON.stringify(toSerialize)
+  toJSON () {
+    const withoutFunctions = Object.filter(this._exposePrivateFields(), field => typeof field !== 'function')
+    return Object.assign({}, withoutFunctions)
   }
+
+  _exposePrivateFields () {
+    const toSerialize = Object.assign({}, this)
+    toSerialize.conditions = this.conditions.map(it => clone(it))
+    return toSerialize
+  }
+}
+
+Object.filter = function (obj, predicate) {
+  const result = {}
+  let key
+  for (key in obj) {
+    if (obj.hasOwnProperty(key) && predicate(obj[key])) {
+      result[key] = obj[key]
+    }
+  }
+  return result
 }
 
 class Input {

@@ -1,6 +1,6 @@
 async function storeConditionIfNecessary (data, selectedCondition, conditions) {
   let condition
-  if (conditions) {
+  if (conditions && conditions.hasConditions) {
     condition = await data.getId()
     data = data.addCondition(condition, conditions.name, conditions.toExpression())
   } else {

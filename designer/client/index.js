@@ -481,7 +481,7 @@ class App extends React.Component {
     return window.fetch(`${this.state.id}/api/data`, {
       method: 'put',
       // dodgy hack to ensure get methods are called
-      body: updatedData.toJson(),
+      body: JSON.stringify(updatedData),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

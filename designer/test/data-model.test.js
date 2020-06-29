@@ -509,7 +509,7 @@ suite('data model', () => {
       expect(data === returned).to.equal(false)
     })
 
-    test('save function property should be copied to data instance', () => {
+    test('random function property should be copied to data instance', () => {
       const sourceData = {
         pages: [
           {
@@ -531,6 +531,33 @@ suite('data model', () => {
       const save = () => 'badgers'
       sourceData.save = save
       const data = new Data(sourceData)
+
+      expect(data.save).to.equal(save)
+      expect(data.save('something')).to.equal('badgers')
+    })
+
+    test('random function property should be copied on clone', () => {
+      const sourceData = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      const save = () => 'badgers'
+      sourceData.save = save
+      const data = sourceData.clone()
 
       expect(data.save).to.equal(save)
       expect(data.save('something')).to.equal('badgers')
@@ -693,6 +720,37 @@ suite('data model', () => {
       })
       data.removeCondition('someName')
       expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('toJSON', () => {
+    test('should expose the conditions field', () => {
+      const rawData = {
+        conditions: [{ displayName: 'a Monkey', name: 'someName' }]
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal(rawData)
+    })
+
+    test('should expose the pages field', () => {
+      const rawData = {
+        pages: [{ name: 'someName' }]
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal({
+        pages: [{ name: 'someName' }],
+        conditions: []
+      })
+    })
+
+    test('should not expose a random function', () => {
+      const rawData = {
+        save: () => 'Badgers'
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal({
+        conditions: []
+      })
     })
   })
 })
