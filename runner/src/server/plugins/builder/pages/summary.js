@@ -31,10 +31,13 @@ class SummaryViewModel {
 
         if(isEndPage) {
           repeatCounter++
-          if(!repeatCounter === required) {
+          if(repeatCounter !== required) {
             relevantPages.push(nextPage)
             nextPage = relevantPages[relevantPages.length - otherRepeatPagesInSection.length + 1]
+            // repeatCounter = 0
+          } else {
             repeatCounter = 0
+            otherRepeatPagesInSection = []
           }
         }
       }
@@ -158,7 +161,7 @@ class SummaryViewModel {
       }
     }
 
-    // this.parseDataForWebhook(model, relevantPages, details)
+    this.parseDataForWebhook(model, relevantPages, details)
 
     if (model.def.outputs) {
       this._outputs = model.def.outputs.map(output => {
