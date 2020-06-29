@@ -239,44 +239,13 @@ class SummaryViewModel {
   }
 
   parseDataForWebhook (model, relevantPages, details) {
-    let counter = {}
-    const questions = relevantPages.map(page => {
-      const category = page.section?.name ?? null
-      const fields = []
-      const isRepeatable = !!page.repeatField
-      if (isRepeatable) {
-        if (page.path in counter) {
-          counter[page.path]++
-        } else {
-          counter[page.path] = 0
-        }
-      }
-      page.components.formItems.forEach((item => {
-        const detail = details.find(d => d.name === category)
-        const detailItem = (isRepeatable ? detail.items[counter[page.path]] : detail.items).find(detailItem => detailItem.name === item.name)
-        const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
-        fields.push({
-          key: item.name,
-          title: this.toEnglish(item.title),
-          type: item.dataType,
-          answer
-        })
 
-        if (item.items) {
-          const selectedItem = item.items.filter(i => i.value === answer)[0]
-          if (selectedItem && selectedItem.conditional) {
-            selectedItem.conditional.componentCollection.formItems.forEach(cc => {
-              const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
-              fields.push({
-                key: cc.name,
-                title: this.toEnglish(cc.title),
-                type: cc.dataType,
-                answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
-              })
-            })
-          }
-        }
-      }))
+    const questions = []
+
+    for (const page of relevantPages) {
+      const category = page.section?.name ?? null
+      const isRepeatable = !!page.repeatField
+      const detail = details.find(d => d.name === category)
 
       let question
       if (page.title) {
@@ -285,18 +254,50 @@ class SummaryViewModel {
         question = page.components.formItems.map(item => this.toEnglish(item.title)).join(', ')
       }
 
-      let webhookObject = {
-        category,
-        question,
-        fields
-      }
-
+      let items
       if (isRepeatable) {
-        webhookObject.index = counter[page.path]
+        items = detail.items
+      } else {
+        items = [detail.items]
       }
 
-      return webhookObject
-    })
+      for (let index = 0; index < items.length; index++) {
+        const item = items[index]
+        const fields = []
+
+        for (const detailItem of item) {
+          const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
+          fields.push({
+            key: detailItem.name,
+            title: this.toEnglish(detailItem.title),
+            type: detailItem.dataType,
+            answer
+          })
+
+          if (detailItem.items) {
+            const selectedItem = detailItem.items.filter(i => i.value === answer)[0]
+            if (selectedItem && selectedItem.conditional) {
+              selectedItem.conditional.componentCollection.formItems.forEach(cc => {
+                const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
+                fields.push({
+                  key: cc.name,
+                  title: this.toEnglish(cc.title),
+                  type: cc.dataType,
+                  answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
+                })
+              })
+            }
+          }
+        }
+
+        questions.push({
+          category,
+          question,
+          fields,
+          index
+        })
+      }
+    }
 
     // default name if no name is provided
     let englishName = `${serviceName} ${model.basePath}`
