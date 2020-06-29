@@ -37,10 +37,13 @@ class Page {
     this[STATE_SCHEMA] = this.components.stateSchema
   }
 
-  getViewModel (formData, errors) {
+  getViewModel (formData, iteration, errors) {
     let showTitle = true
     let pageTitle = this.title
-    const sectionTitle = this.section && this.section.title
+    let sectionTitle = this.section && this.section.title
+    if (sectionTitle && iteration !== undefined) {
+      sectionTitle = `${sectionTitle} ${iteration}`
+    }
     const components = this.components.getViewModel(formData, errors)
 
     const formComponents = components.filter(c => c.isFormComponent)
@@ -57,7 +60,7 @@ class Page {
 
       if (this.section) {
         label.html =
-          `<span class="govuk-caption-xl">${this.section.title}</span> ${label.text}`
+          `<span class="govuk-caption-xl">${sectionTitle}</span> ${label.text}`
       }
 
       label.isPageHeading = true
@@ -89,10 +92,24 @@ class Page {
     }).filter(v => !!v)
   }
 
+  getNextPage (state, suppressRepetition = false) {
+    if (this.repeatField && !suppressRepetition) {
+      const requiredCount = reach(state, this.repeatField)
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+      const sectionState = state[this.section.name] || {}
+      if (Object.keys(sectionState[sectionState.length -1]).length === otherRepeatPagesInSection.length) { //iterated all pages at least once
+        const lastIteration = sectionState[sectionState.length - 1]
+        if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { //this iteration is 'complete'
+          if (sectionState.length < requiredCount) {
+            return this.findPageByPath(Object.keys(lastIteration)[0])
+          }
+        }
+      }
+    }
+
     let defaultLink
     const nextLink = this.next.find(link => {
-      const { page, condition } = link
-      const value = page.section ? state[page.section.name] : state
+      const { condition } = link
       if (condition) {
         return this.model.conditions[condition]
           && this.model.conditions[condition].fn(state)
@@ -100,24 +117,6 @@ class Page {
       defaultLink = link
       return false
     })
-
-    if (this.repeatField) {
-      const requiredCount = reach(state, this.repeatField)
-      const section = this.section
-      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
-      const sectionState = state[this.section.name]
-      // if(sectionState.length)
-      if(Object.keys(sectionState[sectionState.length -1]).length === otherRepeatPagesInSection.length) { //iterated all pages at least once
-        const lastIteration = sectionState[sectionState.length - 1]
-        if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { //this iteration is 'complete'
-          if (sectionState.length !== requiredCount) {
-            return this.findPageByPath(Object.keys(lastIteration)[0])
-          }
-        }
-      }
-
-    }
-
     return nextLink?.page ?? defaultLink?.page
   }
 
@@ -146,7 +145,7 @@ class Page {
 
   getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
-    if(this.repeatField) {
+    if (this.repeatField) {
       let repeatedPageState = pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {}
       let values = Object.values(repeatedPageState)
       return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({...acc, ...page})) : {})
@@ -211,9 +210,9 @@ class Page {
       const lang = this.langFromRequest(request)
       const state = await cacheService.getState(request)
       const progress = state.progress || []
-      const currentPath = `/${this.model.basePath}${this.path}`
-      const startPage = this.model.def.startPage
       const { num } = request.query
+      const currentPath = `/${this.model.basePath}${this.path}${num ? '?num=' + num : ''}`
+      const startPage = this.model.def.startPage
       const formData =  this.getFormDataFromState(state, num - 1)
 
       if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
@@ -229,7 +228,8 @@ class Page {
           }
         })
       }
-      const viewModel = this.getViewModel(formData)
+
+      const viewModel = this.getViewModel(formData, num)
       viewModel.startPage = startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
       viewModel.currentPath = `${currentPath}${request.query.returnUrl ? '?returnUrl=' + request.query.returnUrl : ''}`
       viewModel.components = viewModel.components.filter(component => {
@@ -317,7 +317,7 @@ class Page {
       })
 
       if (formResult.errors) {
-        const viewModel = this.getViewModel(payload, formResult.errors)
+        const viewModel = this.getViewModel(payload, num, formResult.errors)
         viewModel.backLink = progress[progress.length - 2]
         return h.view(this.viewName, viewModel)
       }
@@ -326,7 +326,7 @@ class Page {
       const stateResult = this.validateState(newState)
 
       if (stateResult.errors) {
-        const viewModel = this.getViewModel(payload, stateResult.errors)
+        const viewModel = this.getViewModel(payload, num, stateResult.errors)
         viewModel.backLink = progress[progress.length - 2]
         return h.view(this.viewName, viewModel)
       }

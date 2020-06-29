@@ -86,13 +86,12 @@ class Model {
           sectionPages.forEach(sectionPage => {
             sectionSchema = sectionSchema.concat(sectionPage.stateSchema)
           })
-          if(isRepeatable) {
+          if (isRepeatable) {
             sectionSchema = joi.array().items(sectionSchema)
           }
           schema = schema.append({
             [section.name]: sectionSchema
           })
-
         } else {
           sectionPages.forEach(sectionPage => {
             schema = schema.concat(sectionPage.stateSchema)
