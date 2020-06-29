@@ -33,7 +33,7 @@ class SummaryViewModel {
           repeatCounter++
           if(repeatCounter !== required) {
             relevantPages.push(nextPage)
-            nextPage = relevantPages[relevantPages.length - otherRepeatPagesInSection.length + 1]
+            nextPage = relevantPages[relevantPages.length - otherRepeatPagesInSection.length]
             // repeatCounter = 0
           } else {
             repeatCounter = 0
@@ -241,12 +241,22 @@ class SummaryViewModel {
   }
 
   parseDataForWebhook (model, relevantPages, details) {
-    const questions = relevantPages.map(page => {
+    let counter = {}
+    const questions = relevantPages.map((page, i) => {
       const category = page.section?.name ?? null
       const fields = []
-      page.components.formItems.forEach(item => {
+      const isRepeatable = page.repeatField
+      if(isRepeatable) {
+        const pageCount = counter[page.path]
+        if(pageCount || pageCount === 0) {
+          counter[page.path]++
+        } else {
+          counter[page.path] = 0
+        }
+      }
+      page.components.formItems.forEach((item => {
         const detail = details.find(d => d.name === category)
-        const detailItem = detail.items.find(detailItem => detailItem.name === item.name)
+        const detailItem = (isRepeatable ? detail.items[counter[page.path]] : detail.items).find(detailItem => detailItem.name === item.name)
         const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
         fields.push({
           key: item.name,
@@ -269,7 +279,7 @@ class SummaryViewModel {
             })
           }
         }
-      })
+      }))
 
       let question = ''
       if (page.title) {
@@ -278,11 +288,17 @@ class SummaryViewModel {
         question = page.components.formItems.map(item => this.toEnglish(item.title)).join(', ')
       }
 
-      return {
+      let webhookObject = {
         category,
         question,
         fields
       }
+
+      if(isRepeatable) {
+        webhookObject.index = counter[page.path]
+      }
+
+      return webhookObject
     })
 
     // default name if no name is provided

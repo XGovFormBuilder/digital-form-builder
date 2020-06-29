@@ -7,8 +7,6 @@
     {% endif %}
   <dl class="govuk-summary-list">
     {% for item in data.items %}
-        {{ summaryRow(item) }}
-
         {% if not hide %}
         {%- if item | isArray %}
             <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">{{data.title}} {{ loop.index }}</h2>
