@@ -8,6 +8,7 @@ class Model {
   constructor (def, options) {
     const result = schema.validate(def, { abortEarly: false })
 
+    //TODO:- throw/catch this properly 🤦🏻‍
     if (result.error) {
       throw result.error
     }
@@ -80,21 +81,18 @@ class Model {
       if (sectionPages.length > 0) {
         if (section) {
           const isRepeatable = sectionPages.find(page => page.pageDef.repeatField)
-          let sectionSchema
 
-          sectionSchema = joi.object().required()
+          let sectionSchema = joi.object().required()
           sectionPages.forEach(sectionPage => {
             sectionSchema = sectionSchema.concat(sectionPage.stateSchema)
           })
           if(isRepeatable) {
             sectionSchema = joi.array().items(sectionSchema)
           }
+          schema = schema.append({
+            [section.name]: sectionSchema
+          })
 
-          if(!isRepeatable ||( isRepeatable && !schema[section.name])) {
-            schema = schema.append({
-              [section.name]: sectionSchema
-            })
-          }
         } else {
           sectionPages.forEach(sectionPage => {
             schema = schema.concat(sectionPage.stateSchema)

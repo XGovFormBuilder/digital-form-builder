@@ -89,7 +89,6 @@ class Page {
     }).filter(v => !!v)
   }
 
-  getNextPage (state) {
     let defaultLink
     const nextLink = this.next.find(link => {
       const { page, condition } = link
@@ -148,7 +147,7 @@ class Page {
   getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
     if(this.repeatField) {
-      let repeatedPageState = pageState?.[atIndex ?? (pageState.length || 1) -1] ?? {}
+      let repeatedPageState = pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {}
       let values = Object.values(repeatedPageState)
       return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({...acc, ...page})) : {})
     }
@@ -215,7 +214,7 @@ class Page {
       const currentPath = `/${this.model.basePath}${this.path}`
       const startPage = this.model.def.startPage
       const { num } = request.query
-      const formData =  this.getFormDataFromState(state, num)
+      const formData =  this.getFormDataFromState(state, num - 1)
 
       if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
         return startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
@@ -338,7 +337,7 @@ class Page {
         let updateValue = {[this.path]: update[this.section.name]}
         let sectionState = state[this.section.name]
         if (!sectionState) {
-          update = { [this.section.name]: [updateValue]}
+          update = { [this.section.name]: [updateValue] }
         } else if(!sectionState[num-1]) {
           sectionState.push(updateValue)
           update = { [this.section.name]: sectionState }
