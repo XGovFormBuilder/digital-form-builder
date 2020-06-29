@@ -5,7 +5,7 @@ const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
 import * as querystring from 'querystring'
-const { merge } = require('hoek')
+const { clone, reach } = require('hoek')
 
 class SummaryViewModel {
   constructor (pageTitle, model, state) {
@@ -16,9 +16,28 @@ class SummaryViewModel {
     let endPage = null
 
     let nextPage = model.startPage
+    let repeatCounter = 0
+    let otherRepeatPagesInSection = []
+
     while (nextPage?.hasFormComponents) {
       relevantPages.push(nextPage)
       nextPage = nextPage.getNextPage(state)
+      if(nextPage.repeatField) {
+        const required = reach(state, nextPage.repeatField)
+        if(!otherRepeatPagesInSection.length) {
+          otherRepeatPagesInSection = model.pages.filter(page => page.section === nextPage.section && page.repeatField)
+        }
+        const isEndPage = otherRepeatPagesInSection[otherRepeatPagesInSection.length - 1].path === nextPage.path
+
+        if(isEndPage) {
+          repeatCounter++
+          if(!repeatCounter === required) {
+            relevantPages.push(nextPage)
+            nextPage = relevantPages[relevantPages.length - otherRepeatPagesInSection.length + 1]
+            repeatCounter = 0
+          }
+        }
+      }
     }
 
     [undefined, ...model.sections].forEach((section) => {
@@ -30,32 +49,20 @@ class SummaryViewModel {
       relevantPages.forEach(page => {
         if (page.section === section) { //should this be a filter THEN for each..?
           if (page.hasFormComponents) { //hm.. this is already handled in while(nextPage?.hasFormComponents)..?
-            const isRepeatable = page.repeatField
-            let repeatItems = []
             page.components.formItems.forEach(component => {
-
               let item = this.Item(component, sectionState, page, model)
-// items.push(item)
-              isRepeatable ? repeatItems.push(item) : items.push(item)
+              items.push(item)
               if (component.items) {
                 const selectedValue = sectionState[component.name]
                 const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
                 if (selectedItem && selectedItem.conditional) {
                   selectedItem.conditional.componentCollection.formItems.forEach(cc => {
                     let cItem = this.Item(cc, sectionState, page, model)
-                    isRepeatable ? repeatItems.push(cItem) : items.push(cItem)
+                    items.push(cItem)
                   })
                 }
               }
             })
-            if(repeatItems.length) {
-              // const collatePages = repeatItems.map((item, i) => {
-              //   return item.map((field, j) => {
-              //     return field[j]
-              //   })
-              // })
-              items.push(repeatItems)
-            }
           } else if (!(page instanceof SummaryPage) && !page.hasNext) {
             endPage = page
           }
@@ -66,10 +73,8 @@ class SummaryViewModel {
           details.push({
             name: section?.name,
             title: section?.title,
-            items: items.map((item, i) => {
-              return item.map((field, j) => {
-                return field[j]
-              })
+            items:[...Array(sectionState.length)].map((x, i) => {
+              return items.map(item => item[i])
             })
           })
         } else {
@@ -96,9 +101,19 @@ class SummaryViewModel {
 
       this._payApiKey = model.def.payApiKey
     }
-
     const schema = model.makeFilteredSchema(state, relevantPages)
-    const result = joi.validate(state, schema, { abortEarly: false, stripUnknown: true })
+
+    let collatedRepeatPagesState = clone(state)
+    delete collatedRepeatPagesState.progress
+    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+      if(Array.isArray(section)) {
+        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({...acc, ...p})))
+      }
+    })
+
+
+
+    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
 
     if (result.error) {
       this.errors = result.error.details.map(err => {
@@ -143,7 +158,7 @@ class SummaryViewModel {
       }
     }
 
-    this.parseDataForWebhook(model, relevantPages, details)
+    // this.parseDataForWebhook(model, relevantPages, details)
 
     if (model.def.outputs) {
       this._outputs = model.def.outputs.map(output => {
@@ -224,7 +239,7 @@ class SummaryViewModel {
 
   parseDataForWebhook (model, relevantPages, details) {
     const questions = relevantPages.map(page => {
-      const category = page.section && page.section.name ? page.section.name : null
+      const category = page.section?.name ?? null
       const fields = []
       page.components.formItems.forEach(item => {
         const detail = details.find(d => d.name === category)
@@ -332,7 +347,7 @@ class SummaryViewModel {
           returnUrl:`/${model.basePath}/summary`,
           num: i + 1
         }
-        let collated = Object.values(state).reduce((acc, p) => ({...acc, p}))
+        let collated = Object.values(state).reduce((acc, p) => ({...acc, ...p}))
         const qs = `?${querystring.encode(query)}`
         return this.Item(component, collated, page, model, qs)
       })
