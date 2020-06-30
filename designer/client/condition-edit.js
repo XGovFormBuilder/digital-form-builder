@@ -3,7 +3,13 @@ import Editor from './editor'
 import { clone } from './helpers'
 
 class ConditionEdit extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
+    this.state = {
+      displayName: props.condition.displayName,
+      value: props.condition.value
+    }
+  }
 
   onSubmit = async e => {
     e.preventDefault()

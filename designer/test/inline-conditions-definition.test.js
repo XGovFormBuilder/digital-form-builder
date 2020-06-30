@@ -9,7 +9,8 @@ import {
 } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinition from '../client/conditions/inline-conditions-definition'
-import { Condition, Field, Value, getOperatorNames } from '../client/conditions/inline-condition-model'
+import { Condition, Field, Value } from '../client/conditions/inline-condition-model'
+import { getOperatorNames } from '../client/conditions/inline-condition-operators'
 
 const { expect } = Code
 const lab = Lab.script()

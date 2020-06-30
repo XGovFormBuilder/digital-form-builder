@@ -1,51 +1,9 @@
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
+import { getExpression } from './inline-condition-operators'
 
 export const coordinators = {
   AND: 'and',
   OR: 'or'
-}
-const conditionalOperators = {
-  'default': {
-    is: {
-      expression: (field, value) => `${field.name} == ${formatValue(field.type, value)}`
-    },
-    'is not': {
-      expression: (field, value) => `${field.name} != ${formatValue(field.type, value)}`
-    }
-  },
-  'NumberField': {
-    'is at least': {
-      expression: (field, value) => `${field.name} >= ${formatValue(field.type, value)}`
-    },
-    'is at most': {
-      expression: (field, value) => `${field.name} <= ${formatValue(field.type, value)}`
-    },
-    'is less than': {
-      expression: (field, value) => `${field.name} < ${formatValue(field.type, value)}`
-    },
-    'is greater than': {
-      expression: (field, value) => `${field.name} < ${formatValue(field.type, value)}`
-    }
-  }
-}
-
-function formatValue (fieldType, value) {
-  if (fieldType === 'NumberField' || fieldType === 'YesNoField') {
-    return value
-  }
-  return `'${value}'`
-}
-
-function getConditionals (fieldType) {
-  return Object.assign(conditionalOperators[fieldType] || {}, conditionalOperators['default'])
-}
-
-export function getOperatorNames (fieldType) {
-  return Object.keys(getConditionals(fieldType)).sort()
-}
-
-function getExpression (field, operator, value) {
-  return getConditionals(field.type)[operator].expression(field, value)
 }
 
 export class ConditionsModel {
@@ -352,7 +310,7 @@ export class Condition {
   }
 
   conditionExpression () {
-    return getExpression(this.field, this.operator, this.value.value)
+    return getExpression(this.field.type, this.field.name, this.operator, this.value.value)
   }
 
   coordinatorString () {

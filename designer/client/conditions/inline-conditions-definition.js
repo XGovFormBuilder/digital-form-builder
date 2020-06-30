@@ -1,5 +1,6 @@
 import React from 'react'
-import { Condition, Field, Value, getOperatorNames } from './inline-condition-model'
+import { Condition, Field, Value } from './inline-condition-model'
+import { getOperatorNames } from './inline-condition-operators'
 import { clone } from '../helpers'
 
 class InlineConditionsDefinition extends React.Component {

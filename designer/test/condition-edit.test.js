@@ -77,6 +77,36 @@ suite('Condition edit', () => {
     expect(data.save.firstCall.args[0]).to.equal(updatedData)
   })
 
+  test('Submitting the form with no changes updates the condition and calls back', async flags => {
+    const clonedData = {
+      updateCondition: sinon.stub()
+    }
+    const updatedData = sinon.spy()
+    const savedData = sinon.spy()
+    const onEdit = data => {
+      expect(data.data).to.equal(savedData)
+    }
+    const wrappedOnEdit = flags.mustCall(onEdit, 1)
+    const wrapper = shallow(<ConditionEdit condition={condition} data={data} onEdit={wrappedOnEdit} />)
+    const preventDefault = sinon.spy()
+
+    data.save = sinon.stub()
+    data.clone = sinon.stub()
+    data.clone.returns(clonedData)
+    clonedData.updateCondition.returns(updatedData)
+    data.save.resolves(savedData)
+
+    await wrapper.simulate('submit', { preventDefault: preventDefault })
+
+    expect(preventDefault.calledOnce).to.equal(true)
+    expect(clonedData.updateCondition.calledOnce).to.equal(true)
+    expect(clonedData.updateCondition.firstCall.args[0]).to.equal(condition.name)
+    expect(clonedData.updateCondition.firstCall.args[1]).to.equal('My condition')
+    expect(clonedData.updateCondition.firstCall.args[2]).to.equal('badgers')
+    expect(data.save.calledOnce).to.equal(true)
+    expect(data.save.firstCall.args[0]).to.equal(updatedData)
+  })
+
   test('Cancelling the form calls the onCancel callback', async flags => {
     const event = { target: {} }
     const onCancel = e => {
