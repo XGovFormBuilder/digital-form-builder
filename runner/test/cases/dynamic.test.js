@@ -101,12 +101,12 @@ suite('Dynamic pages', () => {
     }))
   })
 
-  test('Start of repeatable section appends num parameter', { timeout: 1000000 }, async () => {
+  test('Start of repeatable section appends num parameter', async () => {
     const response = await server.inject(postOptions('/dynamic/how-many-people', { numberOfApplicants: 2 }))
     expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=1')
   })
 
-  test('Asks questions in section correct number of times', { timeout: 1000000 }, async () => {
+  test('Asks questions in section correct number of times', async () => {
     let nextPath = '/dynamic/uk-passport'
     let response
 
