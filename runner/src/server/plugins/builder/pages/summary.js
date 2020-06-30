@@ -37,7 +37,9 @@ class SummaryViewModel {
         .filter(page => page.section === section)
 
       const repeatablePage = sectionPages.find(page => !!page.repeatField)
-      // Currently can't handle repeatable page outside a section. In fact a section should be repeatablee.
+      // Currently can't handle repeatable page outside a section.
+      // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
+      // repeatable
       if (section && repeatablePage) {
         if (!state[section.name]) {
           state[section.name] = sectionState = []
@@ -372,7 +374,8 @@ class SummaryViewModel {
       rawValue: sectionState[component.name],
       url: `/${model.basePath}${page.path}?${queryString || querystring.encode(query)}`,
       pageId: `/${model.basePath}${page.path}`,
-      type: component.type
+      type: component.type,
+      dataType: component.dataType
     }
   }
 }
