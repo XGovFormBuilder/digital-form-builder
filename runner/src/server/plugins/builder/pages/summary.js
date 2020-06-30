@@ -263,7 +263,7 @@ class SummaryViewModel {
       }
 
       for (let index = 0; index < items.length; index++) {
-        const item = items[index]
+        const item = items[index].filter(detailItem => detailItem.pageId === page.path)
         const fields = []
 
         for (const detailItem of item) {
