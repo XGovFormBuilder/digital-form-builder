@@ -76,7 +76,7 @@ class SummaryViewModel {
           details.push({
             name: section?.name,
             title: section?.title,
-            items:[...Array(sectionState.length)].map((x, i) => {
+            items: [...Array(reach(state, repeatablePage.repeatField))].map((x, i) => {
               return items.map(item => item[i])
             })
           })
@@ -105,11 +105,11 @@ class SummaryViewModel {
     }
     const schema = model.makeFilteredSchema(state, relevantPages)
 
-    let collatedRepeatPagesState = clone(state)
+    const collatedRepeatPagesState = clone(state)
     delete collatedRepeatPagesState.progress
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
-      if(Array.isArray(section)) {
-        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({...acc, ...p}), {}))
+      if (Array.isArray(section)) {
+        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
       }
     })
 
@@ -239,7 +239,6 @@ class SummaryViewModel {
   }
 
   parseDataForWebhook (model, relevantPages, details) {
-
     const questions = []
 
     for (const page of relevantPages) {
@@ -359,7 +358,7 @@ class SummaryViewModel {
 
     if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
-        let collated = Object.values(state).reduce((acc, p) => ({...acc, ...p}), {})
+        const collated = Object.values(state).reduce((acc, p) => ({ ...acc, ...p }), {})
         const qs = `${querystring.encode({ ...query, num: i + 1 })}`
         return this.Item(component, collated, page, model, qs)
       })
