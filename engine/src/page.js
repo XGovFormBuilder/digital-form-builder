@@ -248,6 +248,11 @@ class Page {
         if (content instanceof Array) {
           evaluatedComponent.model.content = content.filter(item => item.condition ? this.model.conditions[item.condition].fn(state) : true)
         }
+        // apply condition to items for radios, checkboxes etc
+        const items = evaluatedComponent.model.items
+        if (items instanceof Array) {
+          evaluatedComponent.model.items = items.filter(item => item.condition ? this.model.conditions[item.condition].fn(state) : true)
+        }
         return evaluatedComponent
       })
 

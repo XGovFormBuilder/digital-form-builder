@@ -44,7 +44,8 @@ class SelectField extends FormComponent {
           value: item.value,
           // Do a loose check as state may or
           // may not match the item value types
-          selected: '' + item.value === '' + formData[name]
+          selected: '' + item.value === '' + formData[name],
+          condition: item.condition
         }
       }))
     })
