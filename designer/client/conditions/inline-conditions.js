@@ -128,24 +128,27 @@ class InlineConditions extends React.Component {
                   {conditions.toPresentationString()}
                 </div>
                 {!editView &&
-                  <div>
-                    <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.toggleEdit}>
-                      Not what you meant?
-                    </a>
-                  </div>
+                <div>
+                  <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.toggleEdit}>
+                    Not what you meant?
+                  </a>
+                </div>
                 }
               </div>
             }
           </div>
-          { !editView && definingCondition &&
+          {!editView && definingCondition &&
             <div>
-              <InlineConditionsDefinition expectsCoordinator={hasConditions} fields={this.state.fields} saveCallback={this.saveCondition} />
+              <InlineConditionsDefinition expectsCoordinator={hasConditions} fields={this.state.fields}
+                saveCallback={this.saveCondition} />
               <div className='govuk-form-group'>
-                <a href='#' id='cancel-inline-conditions-link' className='govuk-link' onClick={this.onClickCancel}>Cancel</a>
+                <a href='#' id='cancel-inline-conditions-link' className='govuk-link'
+                  onClick={this.onClickCancel}>Cancel</a>
               </div>
             </div>
           }
-          {editView && <InlineConditionsEdit conditions={conditions} fields={this.state.fields} saveCallback={this.editCallback} exitCallback={this.toggleEdit} />}
+          {editView && <InlineConditionsEdit conditions={conditions} fields={this.state.fields}
+            saveCallback={this.editCallback} exitCallback={this.toggleEdit} />}
         </div>
     )
   }

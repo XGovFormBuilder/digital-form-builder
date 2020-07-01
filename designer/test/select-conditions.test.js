@@ -11,6 +11,13 @@ const lab = Lab.script()
 exports.lab = lab
 const { before, beforeEach, describe, suite, test } = lab
 
+function assertNoFieldsText (wrapper) {
+  expect(wrapper.exists('.conditions')).to.equal(true)
+  expect(wrapper.find('.conditions').find('.govuk-body').text().trim()).to.equal('You cannot add any conditions as there are no available fields')
+  expect(wrapper.exists('InlineConditions')).to.equal(false)
+  expect(wrapper.exists('#select-condition')).to.equal(false)
+}
+
 suite('Select conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
@@ -36,10 +43,10 @@ suite('Select conditions', () => {
       data.conditions = conditions
     })
 
-    test('render returns nothing when there is an empty fields list', () => {
+    test('render returns placeholder message when there is an empty fields list', () => {
       data.inputsAccessibleAt.withArgs(path).returns([])
       data.listFor.returns(undefined)
-      expect(shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />).exists('.conditions')).to.equal(false)
+      assertNoFieldsText(shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />))
       expect(conditionsChange.called).to.equal(false)
     })
 
@@ -117,11 +124,10 @@ suite('Select conditions', () => {
       data.conditions = []
     })
 
-    test('render returns nothing when there is an empty fields list', () => {
+    test('render returns placeholder message is an empty fields list', () => {
       data.inputsAccessibleAt.withArgs(path).returns([])
       data.listFor.returns(undefined)
-      expect(shallow(<SelectConditions data={data} path={path}
-        conditionsChange={conditionsChange} />).exists('.conditions')).to.equal(false)
+      assertNoFieldsText(shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />))
       expect(conditionsChange.called).to.equal(false)
     })
 
@@ -160,14 +166,14 @@ suite('Select conditions', () => {
         assertInlineConditionsComponent(wrapper, data, path, conditionsChange, false)
       })
 
-      test('if the path property changes to a route without fields then the condition section disappears', () => {
+      test('if the path property changes to a route without fields then the condition section is replaced by no fields text', () => {
         let path2 = '/2'
         data.inputsAccessibleAt.withArgs(path2).returns([])
         data.listFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
-        expect(wrapper.exists('.conditions')).to.equal(true)
+        expect(wrapper.find('InlineConditions').exists()).to.equal(true)
         wrapper.setProps({ path: path2 })
-        expect(wrapper.exists('.conditions')).to.equal(false)
+        assertNoFieldsText(wrapper)
       })
 
       test('if the path property changes from a route with fields then the condition section appears', () => {
@@ -175,9 +181,9 @@ suite('Select conditions', () => {
         data.inputsAccessibleAt.withArgs(path2).returns([])
         data.listFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path2} conditionsChange={conditionsChange} />)
-        expect(wrapper.exists('.conditions')).to.equal(false)
+        expect(wrapper.exists('InlineConditions')).to.equal(false)
         wrapper.setProps({ path: path })
-        expect(wrapper.exists('.conditions')).to.equal(true)
+        expect(wrapper.exists('InlineConditions')).to.equal(true)
       })
     })
   })

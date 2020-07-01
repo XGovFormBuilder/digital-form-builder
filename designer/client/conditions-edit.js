@@ -50,7 +50,12 @@ class ConditionsEdit extends React.Component {
                 ))}
                 <li>
                   <hr />
-                  <a href='#' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
+                  { data.allInputs().length > 0
+                    ? <a href='#' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
+                    : <div className='govuk-body'>
+                      You cannot add any conditions as there are no available fields
+                    </div>
+                  }
                 </li>
               </ul>
             )}
