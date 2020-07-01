@@ -105,7 +105,7 @@ class DatePartsField extends FormComponent {
     return viewModel
   }
 
-  get dataType() {
+  get dataType () {
     return 'date'
   }
 }

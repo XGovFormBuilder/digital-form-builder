@@ -2,7 +2,7 @@ const { Component } = require('.')
 
 class Para extends Component {
   getViewModel () {
-    let model = {
+    const model = {
       content: this.content
     }
 

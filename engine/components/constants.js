@@ -1,3 +1,3 @@
 module.exports = {
-    optionalText: ' (Optional)'
+  optionalText: ' (Optional)'
 }

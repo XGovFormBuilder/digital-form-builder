@@ -16,7 +16,6 @@ class Model {
     // by joi so as not to change the source data.
     def = JSON.parse(JSON.stringify(result.value))
 
-
     // Add default lists
     def.lists.push({
       name: '__yesNo',
@@ -144,7 +143,7 @@ class EvaluationContext {
   constructor (conditions, value) {
     Object.assign(this, value)
 
-    for (let key in conditions) {
+    for (const key in conditions) {
       Object.defineProperty(this, key, {
         get () {
           return conditions[key].fn(value)

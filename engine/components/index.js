@@ -120,7 +120,7 @@ class FormComponent extends Component {
     } else {
       string = description[this.lang]
         ? description[this.lang]
-        : description['en']
+        : description.en
     }
     return string
   }
@@ -128,9 +128,9 @@ class FormComponent extends Component {
   getViewModel (formData, errors) {
     const options = this.options
     const isOptional = options.required === false
-    let optionalPostfix = isOptional && options.optionalText !== false ? optionalText : ''
+    const optionalPostfix = isOptional && options.optionalText !== false ? optionalText : ''
     this.lang = formData.lang
-    let label = `${this.localisedString(this.title)}${optionalPostfix}`
+    const label = `${this.localisedString(this.title)}${optionalPostfix}`
 
     const name = this.name
     const model = {
@@ -173,9 +173,11 @@ class FormComponent extends Component {
   getFormSchemaKeys () {
     return { [this.name]: joi.any() }
   }
+
   getStateSchemaKeys () {
     return { [this.name]: joi.any() }
   }
+
   getDisplayStringFromState (state) {
     return state[this.name]
   }

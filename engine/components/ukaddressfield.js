@@ -9,10 +9,10 @@ class UkAddressField extends FormComponent {
     const stateSchema = helpers.buildStateSchema('date', this)
 
     const childrenList = [
-      { type: 'TextField', name: `addressLine1`, title: 'Address line 1', schema: { max: 100 }, options: { required: options.required } },
-      { type: 'TextField', name: `addressLine2`, title: 'Address line 2', schema: { max: 100, allow: '' }, options: { required: false } },
-      { type: 'TextField', name: `town`, title: 'Town or city', schema: { max: 100 }, options: { required: options.required } },
-      { type: 'TextField', name: `postcode`, title: 'Postcode', schema: { max: 10 }, options: { required: options.required } }
+      { type: 'TextField', name: 'addressLine1', title: 'Address line 1', schema: { max: 100 }, options: { required: options.required } },
+      { type: 'TextField', name: 'addressLine2', title: 'Address line 2', schema: { max: 100, allow: '' }, options: { required: false } },
+      { type: 'TextField', name: 'town', title: 'Town or city', schema: { max: 100 }, options: { required: options.required } },
+      { type: 'TextField', name: 'postcode', title: 'Postcode', schema: { max: 10 }, options: { required: options.required } }
     ]
 
     const stateChildren = new ComponentCollection(childrenList, model)

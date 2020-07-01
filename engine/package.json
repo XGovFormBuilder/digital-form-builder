@@ -6,10 +6,12 @@
   "module": "src/lib.js",
   "type": "module",
   "scripts": {
+    "fix-lint": "standard --fix",
     "lint": "standard",
     "build": "babel src -d lib --source-maps inline",
     "build:watch": "babel src -d lib --source-maps inline --watch",
-    "test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version"
+    "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
+    "test": "npm run-script lint && npm run-script test-lab"
   },
   "repository": {
     "type": "git",
@@ -44,5 +46,9 @@
   },
   "peerDependencies": {
     "joi": "^14"
+  },
+  "standard": {
+    "ignore": ["lib"],
+    "parser": "babel-eslint"
   }
 }
