@@ -1,6 +1,7 @@
 const moment = require('moment')
 const { FormComponent, ComponentCollection } = require('.')
 const helpers = require('./helpers')
+const constants = require('./constants')
 
 class DatePartsField extends FormComponent {
   constructor (def, model) {
@@ -88,7 +89,7 @@ class DatePartsField extends FormComponent {
 
     // Remove the labels and apply error classes to the items
     componentViewModels.forEach(componentViewModel => {
-      componentViewModel.label = componentViewModel.label.text.replace(' (optional)', '')
+      componentViewModel.label = componentViewModel.label.text.replace(constants.optionalText, '')
       if (componentViewModel.errorMessage) {
         componentViewModel.classes += ' govuk-input--error'
       }
