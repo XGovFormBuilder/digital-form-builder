@@ -5,3 +5,4 @@ npm-debug.log
 .idea
 .nyc_output
 /engine/unit-test.html
+/engine/lib

@@ -1,9 +1,9 @@
 const joi = require('joi')
 const componentTypes = require('../component-types')
 const nunjucks = require('nunjucks')
-const path = require('path')
 const createConditionalComponents = Symbol('createConditionalComponents')
 const getSchemaKeys = Symbol('getSchemaKeys')
+const { optionalText } = require('./constants')
 
 class Component {
   constructor (def, model) {
@@ -128,12 +128,9 @@ class FormComponent extends Component {
   getViewModel (formData, errors) {
     const options = this.options
     const isOptional = options.required === false
-    let optionalText = isOptional ? ' (Optional)' : ''
-    if (isOptional && options.optionalText === false) {
-      optionalText = ''
-    }
+    let optionalPostfix = isOptional && options.optionalText !== false ? optionalText : ''
     this.lang = formData.lang
-    let label = `${this.localisedString(this.title)}${optionalText}`
+    let label = `${this.localisedString(this.title)}${optionalPostfix}`
 
     const name = this.name
     const model = {
