@@ -23,10 +23,10 @@ class CacheService {
     return cached || {}
   }
 
-  async mergeState (request, value) {
+  async mergeState (request, value, nullOverride = true, arrayMerge = false) {
     const key = Key(request.yar.id)
     const state = await this.getState(request)
-    hoek.merge(state, value, true, false)
+    hoek.merge(state, value, nullOverride, arrayMerge)
     await this.cache.set(key, state, sessionTimeout)
     return this.cache.get(key)
   }

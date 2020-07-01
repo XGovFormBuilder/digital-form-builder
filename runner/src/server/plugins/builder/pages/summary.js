@@ -14,7 +14,7 @@ class SummaryViewModel {
     let endPage = null
 
     let nextPage = model.startPage
-    while (nextPage !== null) {
+    while (nextPage) {
       if (nextPage.hasFormComponents) {
         relevantPages.push(nextPage)
       }

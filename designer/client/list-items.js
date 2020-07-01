@@ -15,8 +15,7 @@ function headDuplicate (arr) {
 
 const DragHandle = SortableHandle(() => <span className='drag-handle-list'>&#9776;</span>)
 
-const SortableItem = SortableElement(({ i, item, type, conditions, onBlur, removeItem }) => {
-  const index = i
+const SortableItem = SortableElement(({ index, item, type, conditions, onBlur, onBlurValue, removeItem }) => {
   return (<tr className='govuk-table__row' scope='row'>
     <td className='govuk-table__cell' >
       <DragHandle />
@@ -48,7 +47,7 @@ const SortableItem = SortableElement(({ i, item, type, conditions, onBlur, remov
     <td className='govuk-table__cell'>
       <select className='govuk-select' id={`link-source-${index}`} name='condition' defaultValue={item.condition}>
         <option />
-        {(conditions || []).map((condition, i) => (<option key={condition.name + i} defaultValue={condition.name}>{condition.name}</option>))}
+        {(conditions || []).map((condition, i) => (<option key={condition.name + index} value={condition.name}>{condition.displayName}</option>))}
       </select>
     </td>
     <td className='govuk-table__cell'>
@@ -68,7 +67,7 @@ const SortableList = SortableContainer(({ items, conditions, type, removeItem, o
   return (
     <tbody className='govuk-table__body'>
       {items.map((item, index) => (
-        <SortableItem key={`item-${item.value}`} item={item} index={index} i={index} conditions={conditions} type={type} onBlur={onBlur} removeItem={removeItem} />
+        <SortableItem key={`item-${index}`} item={item} index={index} conditions={conditions} type={type} onBlur={onBlur} removeItem={removeItem} />
       ))}
     </tbody>
   )
@@ -78,7 +77,7 @@ class ListItems extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      items: props.items
+      items: clone(props.items) || []
     }
   }
 

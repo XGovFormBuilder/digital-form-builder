@@ -57,6 +57,12 @@ jobs:
 
       - run: yarn install
 
+      - run:
+          name: Re-link engine
+          command: |
+            rm -fr node_modules/digital-form-builder-engine
+            yarn --check-files
+
       - save_cache:
           paths:
             - node_modules
@@ -85,7 +91,13 @@ jobs:
           at: ~/project
 
       - run:
-          name: test
+          name: Re-link engine
+          command: |
+            rm -fr node_modules/digital-form-builder-engine
+            yarn --check-files
+
+      - run:
+          name: Test
           command: yarn test
 
 workflows:
@@ -129,8 +141,13 @@ workflows:
     when: << pipeline.parameters.runner >>
     jobs:
       - build:
+          name: engine-build
+          package_name: engine
+      - build:
           name: runner-build
           package_name: runner
+          requires:
+            - engine-build
       - test:
           name: runner-test
           package_name: runner

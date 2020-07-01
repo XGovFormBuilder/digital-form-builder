@@ -25,10 +25,10 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', section: 'section1' } },
-        { name: 'name3', page: { name: 'page2', section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', section: 'section1' } }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
       ])
     })
 
@@ -48,9 +48,9 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', section: 'section1' } }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
       ])
     })
 
@@ -105,12 +105,12 @@ suite('data model', () => {
         ]
       })
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' } },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name5', page: { name: 'page3', path: '/3' } },
-        { name: 'name6', page: { name: 'page3', path: '/3' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
       ])
     })
 
@@ -140,12 +140,12 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' } },
-        { name: 'name5', page: { name: 'page3', path: '/3' } },
-        { name: 'name6', page: { name: 'page3', path: '/3' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
       ])
     })
 
@@ -175,10 +175,10 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name5', page: { name: 'page3', path: '/3' } },
-        { name: 'name6', page: { name: 'page3', path: '/3' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
       ])
     })
 
@@ -202,9 +202,9 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/2')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' } },
-        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' } }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' }, propertyPath: 'section1.name4' }
       ])
     })
 
@@ -238,7 +238,8 @@ suite('data model', () => {
       const data = new Data({
         lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
       })
-      expect(data.listFor({ options: { list: 'list2' } })).to.equal({ name: 'list2', badger: 'monkeys' })
+      let returned = data.listFor({ options: { list: 'list2' } })
+      expect(returned === data.lists[1]).to.equal(true)
     })
 
     test('should return undefined if no lists exist', () => {
@@ -294,6 +295,79 @@ suite('data model', () => {
     })
   })
 
+  describe('add link', () => {
+    test('should add a link to the next page with no condition', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      const returned = data.addLink('/1', '/2')
+      expect(returned.findPage(('/1'))).to.equal({
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/2' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/2'))).to.equal({
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      })
+    })
+
+    test('should add a link to the next page with a condition', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ],
+        conditions: [
+          { name: 'condition1' }
+        ]
+      })
+
+      const returned = data.addLink('/1', '/2', 'condition1')
+
+      expect(returned.findPage(('/1'))).to.equal({
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/2', condition: 'condition1' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/2'))).to.equal({
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      })
+    })
+  })
+
   describe('find page', () => {
     test('should return the page with the requested path if it exists', () => {
       const data = new Data({
@@ -314,7 +388,8 @@ suite('data model', () => {
           }
         ]
       })
-      expect(data.findPage('/2')).to.equal(data.pages[1])
+      let returned = data.findPage('/2')
+      expect(returned === data.pages[1]).to.equal(true)
     })
 
     test('should return undefined if the requested page does not exist', () => {
@@ -344,8 +419,39 @@ suite('data model', () => {
     })
   })
 
-  describe('clone', () => {
-    test('should deep clone the data class', () => {
+  describe('add page', () => {
+    test('should add the page', () => {
+      const data = new Data({
+        pages: []
+      })
+      const page = {
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      }
+      data.addPage(page)
+      expect(data.findPage('/2')).to.equal(page)
+    })
+
+    test('should add the page if no pages collection is defined', () => {
+      const data = new Data({
+      })
+      const page = {
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      }
+      data.addPage(page)
+      expect(data.findPage('/2')).to.equal(page)
+    })
+  })
+
+  describe('get pages', () => {
+    test('should return the pages if they exist', () => {
       const data = new Data({
         pages: [
           {
@@ -364,13 +470,46 @@ suite('data model', () => {
           }
         ]
       })
+      let returned = data.getPages()
+      expect(returned === data.pages).to.equal(true)
+    })
+
+    test('should return empty array if undefined', () => {
+      const data = new Data({})
+
+      expect(data.getPages()).to.equal([])
+    })
+  })
+
+  describe('clone', () => {
+    test('should deep clone the data class', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ],
+        conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }]
+      })
       const returned = data.clone()
       expect(returned).to.equal(data)
+      expect(returned.conditions).to.equal(data.conditions)
       expect(returned instanceof Data).to.equal(true)
       expect(data === returned).to.equal(false)
     })
 
-    test('save function property should be copied to data instance', () => {
+    test('random function property should be copied to data instance', () => {
       const sourceData = {
         pages: [
           {
@@ -396,6 +535,33 @@ suite('data model', () => {
       expect(data.save).to.equal(save)
       expect(data.save('something')).to.equal('badgers')
     })
+
+    test('random function property should be copied on clone', () => {
+      const sourceData = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      const save = () => 'badgers'
+      sourceData.save = save
+      const data = sourceData.clone()
+
+      expect(data.save).to.equal(save)
+      expect(data.save('something')).to.equal('badgers')
+    })
   })
 
   describe('add condition', () => {
@@ -403,24 +569,24 @@ suite('data model', () => {
       const data = new Data({
         conditions: []
       })
-      data.addCondition('some name', 'a condition')
-      expect(data.conditions).to.equal([{ name: 'some name', value: 'a condition' }])
+      data.addCondition('someName', 'My name', 'a condition')
+      expect(data.conditions).to.equal([{ name: 'someName', displayName: 'My name', value: 'a condition' }])
     })
 
     test('should create conditions in data model if they don\'t exist', () => {
       const data = new Data({
 
       })
-      data.addCondition('some name', 'a condition')
-      expect(data.conditions).to.equal([{ name: 'some name', value: 'a condition' }])
+      data.addCondition('someName', 'My name', 'a condition')
+      expect(data.conditions).to.equal([{ name: 'someName', displayName: 'My name', value: 'a condition' }])
     })
 
     test('should throw error if a condition with the specified name exists', () => {
       const data = new Data({
         conditions: []
       })
-      data.addCondition('some name', 'a condition')
-      expect(() => data.addCondition('some name', 'awe shucks')).to.throw(Error)
+      data.addCondition('someName', 'My name', 'a condition')
+      expect(() => data.addCondition('someName', 'another name', 'awe shucks')).to.throw(Error)
     })
   })
 
@@ -428,7 +594,7 @@ suite('data model', () => {
     test('should return true if there is at least one condition', () => {
       const data = new Data({
       })
-      data.addCondition('some name', 'a condition')
+      data.addCondition('someName', 'My name', 'a condition')
       expect(data.hasConditions).to.equal(true)
     })
 
@@ -444,6 +610,147 @@ suite('data model', () => {
         conditions: []
       })
       expect(data.hasConditions).to.equal(false)
+    })
+  })
+
+  describe('get conditions', () => {
+    test('should return a clone of the conditions list', () => {
+      const data = new Data({
+        conditions: [{ name: 'some name', displayName: 'My name', value: 'a condition' }]
+      })
+      let returned = data.conditions
+      expect(returned === data.conditions).to.equal(false)
+      expect(returned).to.equal(data.conditions)
+      returned[0].name = 'badger'
+      expect(data.conditions[0].name).to.equal('some name')
+      expect(data.conditions[0].displayName).to.equal('My name')
+    })
+
+    test('should return empty if no conditions array exists', () => {
+      const data = new Data({
+
+      })
+      expect(data.conditions).to.equal([])
+    })
+
+    test('should return empty if there are no conditions', () => {
+      const data = new Data({
+        conditions: []
+      })
+      expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('find condition', () => {
+    test('should find a condition if oone exists with the provided name', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName' }]
+      })
+      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'someName' })
+    })
+
+    test('should return undefined if there is no condition with the specified name', () => {
+      const data = new Data({
+        conditions: [{ name: 'anotherName' }]
+      })
+      expect(data.findCondition('someName')).to.equal(undefined)
+    })
+
+    test('should return undefined if conditions is undefined', () => {
+      const data = new Data({
+      })
+      expect(data.findCondition('someName')).to.equal(undefined)
+    })
+  })
+
+  describe('update condition', () => {
+    test('should update a condition if one exists with the provided name', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName' }]
+      })
+      data.updateCondition('someName', 'My condition', 'badgers == monkeys')
+      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'My condition', value: 'badgers == monkeys' })
+    })
+
+    test('should do nothing if there is no condition with the specified name', () => {
+      const data = new Data({
+        conditions: [{ name: 'anotherName' }]
+      })
+      data.updateCondition('someName', 'My condition', 'Some value')
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+    })
+
+    test('should do nothing if conditions is undefined', () => {
+      const data = new Data({
+      })
+      data.updateCondition('someName', 'My condition', 'Some value')
+      expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('remove condition', () => {
+    test('should remove a condition if one exists with the provided name', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName' }]
+      })
+      data.removeCondition('someName')
+      expect(data.conditions).to.equal([])
+    })
+
+    test('should remove references to the removed condition if used in page links', () => {
+      const data = new Data({
+        pages: [{ path: '/' }, { path: '/badgers', next: [{ path: '/summary' }, { path: '/disaster', if: 'someName' }] }],
+        conditions: [{ name: 'someName' }]
+      })
+      data.removeCondition('someName')
+      expect(data.findPage('/')).to.equal({ path: '/' })
+      expect(data.findPage('/badgers')).to.equal({ path: '/badgers', next: [{ path: '/summary' }, { path: '/disaster' }] })
+    })
+
+    test('should do nothing if there is no condition with the specified name', () => {
+      const data = new Data({
+        conditions: [{ name: 'anotherName' }]
+      })
+      data.removeCondition('someName')
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+    })
+
+    test('should do nothing if conditions is undefined', () => {
+      const data = new Data({
+      })
+      data.removeCondition('someName')
+      expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('toJSON', () => {
+    test('should expose the conditions field', () => {
+      const rawData = {
+        conditions: [{ displayName: 'a Monkey', name: 'someName' }]
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal(rawData)
+    })
+
+    test('should expose the pages field', () => {
+      const rawData = {
+        pages: [{ name: 'someName' }]
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal({
+        pages: [{ name: 'someName' }],
+        conditions: []
+      })
+    })
+
+    test('should not expose a random function', () => {
+      const rawData = {
+        save: () => 'Badgers'
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal({
+        conditions: []
+      })
     })
   })
 })

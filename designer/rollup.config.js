@@ -20,9 +20,16 @@ export default {
     }),
     globals(),
     babel({
-      exclude: 'node_modules/**',
-      plugins: ['@babel/plugin-proposal-class-properties'],
-      presets: ['@babel/react']
+      babelHelpers: 'runtime',
+      exclude: ['node_modules/**'],
+      presets: [
+        '@babel/react'
+      ],
+      plugins: [
+        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-transform-runtime'
+      ]
     })
   ],
   external: ['react', 'react-dom']

@@ -1,6 +1,8 @@
 const joi = require('joi')
 const { proceed } = require('./helpers')
-const { ComponentCollection } = require('./components')
+const { ComponentCollection } = require('../components')
+const { merge, reach } = require('@hapi/hoek')
+const querystring = require('querystring')
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -17,6 +19,7 @@ class Page {
     this.path = pageDef.path
     this.title = pageDef.title
     this.condition = pageDef.condition
+    this.repeatField = pageDef.repeatField
 
     // Resolve section
     this.section = pageDef.section &&
@@ -87,11 +90,10 @@ class Page {
   }
 
   getNextPage (state) {
-    let defaultLink = null
+    let defaultLink
     const nextLink = this.next.find(link => {
       const { page, condition } = link
       const value = page.section ? state[page.section.name] : state
-
       if (condition) {
         return this.model.conditions[condition]
           && this.model.conditions[condition].fn(state)
@@ -99,25 +101,63 @@ class Page {
       defaultLink = link
       return false
     })
-    if (nextLink) {
-      return nextLink.page
+
+    if (this.repeatField) {
+      const requiredCount = reach(state, this.repeatField)
+      let section = this.section
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+      const sectionState = state[this.section.name]
+      if(Object.keys(sectionState?.[0]).length === otherRepeatPagesInSection.length) { //iterated all pages at least once
+        const lastIteration = sectionState[sectionState.length - 1]
+        if (otherRepeatPagesInSection.length ===
+          Object.keys(lastIteration).length) { //this iteration is 'complete'
+          if (Object.keys(lastIteration).length === requiredCount) {
+            return this.findPageByPath(Object.keys(lastIteration)[0])
+          }
+        }
+      }
+
     }
-    if (defaultLink) {
-      return defaultLink.page
-    }
-    return null
+
+    return nextLink?.page ?? defaultLink?.page
   }
 
   getNext (state) {
     const nextPage = this.getNextPage(state)
+    let query = {}
+    let queryString = ''
+    if(nextPage.repeatField) {
+      query.num = 0
+      const requiredCount = reach(state, nextPage.repeatField)
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+      const sectionState = state[nextPage.section.name]
+      const lastInSection = sectionState?.[sectionState.length -1] ?? {}
+      const isLastComplete =  Object.keys(lastInSection).length === otherRepeatPagesInSection.length
+      query.num = sectionState ? isLastComplete ? this.objLength(sectionState) + 1 : this.objLength(sectionState): 1
+
+      if(query.num < requiredCount) {
+        queryString = `?${querystring.encode(query)}`
+      }
+    }
+
     if (nextPage) {
-      return `/${this.model.basePath || ''}${nextPage.path}`
+      return `/${this.model.basePath || ''}${nextPage.path}${queryString}`
     }
     return this.defaultNextPath
   }
 
-  getFormDataFromState (state) {
+  getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
+    if(this.repeatField) {
+
+      let repeatedPageState = pageState?.[atIndex ?? (pageState.length || 1) -1] ?? {}
+      let values = Object.values(repeatedPageState)
+
+      return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({...acc, ...page})) : {})
+    }
+    //{
+    //   "ukPassport": true
+    // }
     return this.components.getFormDataFromState(pageState || {})
   }
 
@@ -167,15 +207,21 @@ class Page {
     return request.yar.get('lang')
   }
 
+  objLength (object) {
+    return Object.keys(object).length ?? 0
+  }
+
   makeGetRouteHandler () {
     return async (request, h) => {
       const { cacheService } = request.services([])
       const lang = this.langFromRequest(request)
       const state = await cacheService.getState(request)
-      const formData = this.getFormDataFromState(state)
       const progress = state.progress || []
       const currentPath = `/${this.model.basePath}${this.path}`
       const startPage = this.model.def.startPage
+      const { num } = request.query
+      const formData =  this.getFormDataFromState(state, num)
+
       if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
         return startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
       }
@@ -234,6 +280,8 @@ class Page {
       let originalFilenames = (state || {}).originalFilenames || {}
       let fileFields = this.getViewModel(formResult).components.filter(component => component.type === 'FileUploadField').map(component => component.model)
       const progress = state.progress || []
+      const { num } = request.query
+      const { counts } = state || {}
 
       // TODO:- Refactor this into a validation method
       if (hasFilesizeError) {
@@ -278,20 +326,35 @@ class Page {
         const viewModel = this.getViewModel(payload, formResult.errors)
         viewModel.backLink = progress[progress.length - 2]
         return h.view(this.viewName, viewModel)
-      } else {
-        const newState = this.getStateFromValidForm(formResult.value)
-        const stateResult = this.validateState(newState)
+      }
 
-        if (stateResult.errors) {
-          const viewModel = this.getViewModel(payload, stateResult.errors)
-          viewModel.backLink = progress[progress.length - 2]
-          return h.view(this.viewName, viewModel)
+      const newState = this.getStateFromValidForm(formResult.value)
+      const stateResult = this.validateState(newState)
+
+      if (stateResult.errors) {
+        const viewModel = this.getViewModel(payload, stateResult.errors)
+        viewModel.backLink = progress[progress.length - 2]
+        return h.view(this.viewName, viewModel)
+      }
+
+
+      let update = this.getPartialMergeState(stateResult.value)
+      if (this.repeatField) {
+        let updateValue = {[this.path]: update[this.section.name]}
+        let sectionState = state[this.section.name]
+        if (!sectionState) {
+          update = { [this.section.name]: [updateValue]}
+        } else if(!sectionState[num-1]) {
+          sectionState.push(updateValue)
+          update = { [this.section.name]: sectionState }
+
         } else {
-          const update = this.getPartialMergeState(stateResult.value)
-          const state = await cacheService.mergeState(request, update)
-          return this.proceed(request, h, state)
+          sectionState[num-1] = merge(sectionState[num-1] ?? {}, updateValue)
+          update = { [this.section.name]: sectionState }
         }
       }
+      const savedState = await cacheService.mergeState(request, update, !!this.repeatField)
+      return this.proceed(request, h, savedState)
     }
   }
 
@@ -311,6 +374,10 @@ class Page {
       options: this.postRouteOptions,
       handler: this.makePostRouteHandler(mergeState)
     }
+  }
+
+  findPageByPath (path) {
+    return this.model.pages.find(page => page.path === path)
   }
 
   proceed (request, h, state) {

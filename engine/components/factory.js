@@ -1,6 +1,6 @@
 const joi = require('joi')
 const moment = require('moment')
-const componentTypes = require('../component-types')
+const componentTypes = require('../src/component-types')
 const formComponents = componentTypes.filter(t => t.subType === 'field').map(t => t.name)
 const { buildFormSchema, buildStateSchema } = require('./helpers')
 const makeComponentCollection = require('./collection')

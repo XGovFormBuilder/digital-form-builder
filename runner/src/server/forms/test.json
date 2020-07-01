@@ -71,15 +71,16 @@
       ],
       "next": [
         {
-          "path": "/applicant-one"
+          "path": "/applicant-repeatable"
         }
       ],
       "title": "How many applicants are there?"
     },
     {
-      "path": "/applicant-one",
-      "title": "Applicant 1",
-      "section": "applicantOneDetails",
+      "path": "/applicant-repeatable",
+      "title": "Applicant",
+      "section": "applicant",
+      "repeatField": "applicantDetails.numberOfApplicants",
       "components": [
         {
           "type": "Para",
@@ -108,184 +109,14 @@
       ],
       "next": [
         {
-          "path": "/applicant-one-address"
+          "path": "/applicant-address"
         }
       ]
     },
     {
-      "path": "/applicant-one-address",
-      "section": "applicantOneDetails",
-      "components": [
-        {
-          "type": "UkAddressField",
-          "name": "address",
-          "title": "Address"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-two",
-          "condition": "moreThanOneApplicant"
-        },
-        {
-          "path": "/contact-details"
-        }
-      ],
-      "title": "Address"
-    },
-    {
-      "path": "/applicant-two",
-      "title": "Applicant 2",
-      "section": "applicantTwoDetails",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Provide the details as they appear on your passport."
-        },
-        {
-          "type": "TextField",
-          "name": "firstName",
-          "title": "First name"
-        },
-        {
-          "options": {
-            "required": false,
-            "optionalText": false
-          },
-          "type": "TextField",
-          "name": "middleName",
-          "title": "Middle name",
-          "hint": "If you have a middle name on your passport you must include it here"
-        },
-        {
-          "type": "TextField",
-          "name": "lastName",
-          "title": "Surname"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-two-address"
-        }
-      ]
-    },
-    {
-      "path": "/applicant-two-address",
-      "section": "applicantTwoDetails",
-      "components": [
-        {
-          "type": "UkAddressField",
-          "name": "address",
-          "title": "Address"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-three",
-          "condition": "moreThanTwoApplicants"
-        },
-        {
-          "path": "/contact-details"
-        }
-      ],
-      "title": "Address"
-    },
-    {
-      "path": "/applicant-three",
-      "title": "Applicant 3",
-      "section": "applicantThreeDetails",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Provide the details as they appear on your passport."
-        },
-        {
-          "type": "TextField",
-          "name": "firstName",
-          "title": "First name"
-        },
-        {
-          "options": {
-            "required": false,
-            "optionalText": false
-          },
-          "type": "TextField",
-          "name": "middleName",
-          "title": "Middle name",
-          "hint": "If you have a middle name on your passport you must include it here"
-        },
-        {
-          "type": "TextField",
-          "name": "lastName",
-          "title": "Surname"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-three-address"
-        }
-      ]
-    },
-    {
-      "path": "/applicant-three-address",
-      "section": "applicantThreeDetails",
-      "components": [
-        {
-          "type": "UkAddressField",
-          "name": "address",
-          "title": "Address"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-four",
-          "condition": "moreThanThreeApplicants"
-        },
-        {
-          "path": "/contact-details"
-        }
-      ],
-      "title": "Address"
-    },
-    {
-      "path": "/applicant-four",
-      "title": "Applicant 4",
-      "section": "applicantFourDetails",
-      "components": [
-        {
-          "type": "Para",
-          "content": "Provide the details as they appear on your passport."
-        },
-        {
-          "type": "TextField",
-          "name": "firstName",
-          "title": "First name"
-        },
-        {
-          "options": {
-            "required": false,
-            "optionalText": false
-          },
-          "type": "TextField",
-          "name": "middleName",
-          "title": "Middle name",
-          "hint": "If you have a middle name on your passport you must include it here"
-        },
-        {
-          "type": "TextField",
-          "name": "lastName",
-          "title": "Surname"
-        }
-      ],
-      "next": [
-        {
-          "path": "/applicant-four-address"
-        }
-      ]
-    },
-    {
-      "path": "/applicant-four-address",
-      "section": "applicantFourDetails",
+      "path": "/applicant-address",
+      "section": "applicant",
+      "repeatField": "applicantDetails.numberOfApplicants",
       "components": [
         {
           "type": "UkAddressField",
@@ -302,7 +133,8 @@
     },
     {
       "path": "/contact-details",
-      "section": "applicantDetails",
+      "section": "applicant",
+      "repeatField": "applicantDetails.numberOfApplicants",
       "components": [
         {
           "type": "TelephoneNumberField",
@@ -339,6 +171,10 @@
     {
       "name": "applicantDetails",
       "title": "Applicant details"
+    },
+    {
+      "name": "applicant",
+      "title": "Applicant"
     },
     {
       "name": "applicantOneDetails",

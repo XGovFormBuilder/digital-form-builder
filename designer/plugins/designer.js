@@ -1,5 +1,5 @@
+const Schema = require('digital-form-builder-engine/src/schema')
 const shortid = require('shortid')
-const schema = require('digital-form-builder-engine/schema')
 const Wreck = require('@hapi/wreck')
 const pkg = require('./../package.json')
 const config = require('./../config')
@@ -44,6 +44,15 @@ const designerPlugin = {
           }
         }
       })
+      server.route({
+        method: 'get',
+        path: `/{id}/api/id`,
+        options: {
+          handler: (request, h) => {
+            return h.response(shortid.generate()).code(200)
+          }
+        }
+      })
 
       // GET DATA
       server.route({
@@ -74,7 +83,7 @@ const designerPlugin = {
           handler: async (request, h) => {
             let { id } = request.params
             try {
-              const result = joi.validate(request.payload, schema, { abortEarly: false })
+              const result = joi.validate(request.payload, Schema, { abortEarly: false })
 
               if (result.error) {
                 console.log(result.error)

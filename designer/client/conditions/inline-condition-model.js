@@ -1,4 +1,7 @@
-const coordinators = {
+import ComponentTypes from 'digital-form-builder-engine/src/component-types'
+import { getExpression } from './inline-condition-operators'
+
+export const coordinators = {
   AND: 'and',
   OR: 'or'
 }
@@ -21,8 +24,18 @@ export class ConditionsModel {
     return toReturn
   }
 
-  name (name) {
-    this.#conditionName = name || this.#conditionName
+  clear () {
+    this.#userGroupedConditions = []
+    this.#groupedConditions = []
+    this.#conditionName = undefined
+    return this
+  }
+
+  set name (name) {
+    this.#conditionName = name
+  }
+
+  get name () {
     return this.#conditionName
   }
 
@@ -113,6 +126,10 @@ export class ConditionsModel {
 
   toPresentationString () {
     return this.#groupedConditions.map(condition => condition.toPresentationString()).join(' ')
+  }
+
+  toExpression () {
+    return this.#groupedConditions.map(condition => condition.toExpression()).join(' ')
   }
 
   _applyGroups (userGroupedConditions) {
@@ -216,6 +233,12 @@ class ConditionGroup {
     return `${this.coordinatorString()}${this.conditionString()}`
   }
 
+  toExpression () {
+    const copy = [...this.conditions]
+    copy.splice(0, 1)
+    return `${this.coordinatorString()}${this.conditionExpression()}`
+  }
+
   coordinatorString () {
     return this.conditions[0].coordinatorString()
   }
@@ -224,6 +247,12 @@ class ConditionGroup {
     const copy = [...this.conditions]
     copy.splice(0, 1)
     return `(${this.conditions[0].conditionString()} ${copy.map(condition => condition.toPresentationString()).join(' ')})`
+  }
+
+  conditionExpression () {
+    const copy = [...this.conditions]
+    copy.splice(0, 1)
+    return `(${this.conditions[0].conditionExpression()} ${copy.map(condition => condition.toExpression()).join(' ')})`
   }
 
   asFirstCondition () {
@@ -272,8 +301,16 @@ export class Condition {
     return `${this.coordinatorString()}${this.conditionString()}`
   }
 
+  toExpression () {
+    return `${this.coordinatorString()}${this.conditionExpression()}`
+  }
+
   conditionString () {
-    return `${this.field.display} ${this.operator} ${this.value.display}`
+    return `'${this.field.display}' ${this.operator} '${this.value.display}'`
+  }
+
+  conditionExpression () {
+    return getExpression(this.field.type, this.field.name, this.operator, this.value.value)
   }
 
   coordinatorString () {
@@ -303,19 +340,23 @@ export class Condition {
 }
 
 export class Field {
-  constructor (name, display) {
+  constructor (name, type, display) {
     if (!name || typeof name !== 'string') {
       throw Error(`name ${name} is not valid`)
+    }
+    if (!ComponentTypes.find(componentType => componentType.name === type)) {
+      throw Error(`type ${type} is not valid`)
     }
     if (!display || typeof display !== 'string') {
       throw Error(`display ${display} is not valid`)
     }
     this.name = name
+    this.type = type
     this.display = display
   }
 
   static from (obj) {
-    return new Field(obj.name, obj.display)
+    return new Field(obj.name, obj.type, obj.display)
   }
 }
 

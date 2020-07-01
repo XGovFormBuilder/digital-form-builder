@@ -1,3 +1,5 @@
+import plugin from 'digital-form-builder-engine'
+
 const path = require('path')
 const fs = require('fs')
 const configPath = path.join(__dirname, '..', '..', 'forms')
@@ -36,7 +38,7 @@ const configurePlugins = (configFile, customPath) => {
   }
 
   return {
-    plugin: require('digital-form-builder-engine'),
+    plugin,
     options: { modelOptions, configs, previewMode: config.previewMode }
   }
 }

@@ -18,6 +18,10 @@ class NumberField extends FormComponent {
     }
     return viewModel
   }
+
+  getDisplayStringFromState (state) {
+    return state[this.name] || state[this.name] === 0 ? state[this.name].toString() : undefined
+  }
 }
 
 module.exports = NumberField

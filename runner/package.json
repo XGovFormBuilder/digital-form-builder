@@ -4,7 +4,7 @@
   "description": "Digital forms runner",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=development node dist/index.js",
     "dev": "yarn babel-build:dev & NODE_ENV=development node dist/index.js",
     "build:css": "bin/build-css",
     "build": "npm run build:css && npm run babel-build",
@@ -78,18 +78,18 @@
     "yar": "9.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
-    "@babel/plugin-transform-runtime": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "@babel/register": "^7.10.1",
-    "@xgovformbuilder/lab-babel": "2.0.0",
+    "@babel/cli": "7.10.3",
+    "@babel/core": "7.10.3",
+    "@babel/plugin-transform-modules-commonjs": "7.10.1",
+    "@babel/plugin-transform-runtime": "7.10.3",
+    "@babel/preset-env": "7.10.3",
+    "@babel/register": "7.10.3",
+    "@xgovformbuilder/lab-babel": "2.1.0",
     "cheerio": "1.0.0-rc.3",
     "code": "5.2.4",
     "lab": "18.0.2",
     "node-sass": "4.13.1",
-    "rollup": "^2.16.1"
+    "rollup": "2.18.1"
   },
   "lighthouse": {
     "requiredScores": {

@@ -1,6 +1,6 @@
 import React from 'react'
-import componentTypes from 'digital-form-builder-engine/component-types'
 import Editor from './editor'
+import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 
 function Classes (props) {
   const { component } = props
@@ -387,7 +387,7 @@ function ParaEdit (props) {
         <span className='govuk-hint'>Only show this content if the condition is truthy. </span>
         <select className='govuk-select' id='condition' name='options.condition' defaultValue={componentCondition}>
           <option value='' />
-          {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
+          {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.displayName}</option>))}
         </select>
       </div>
     </div>
@@ -496,7 +496,7 @@ class ComponentTypeEdit extends React.Component {
   render () {
     const { component, data } = this.props
 
-    const type = componentTypes.find(t => t.name === component.type)
+    const type = ComponentTypes.find(t => t.name === component.type)
     if (!type) {
       return ''
     } else {

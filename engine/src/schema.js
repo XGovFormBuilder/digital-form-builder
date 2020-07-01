@@ -7,6 +7,7 @@ const sectionsSchema = joi.object().keys({
 
 const conditionsSchema = joi.object().keys({
   name: joi.string().required(),
+  displayName: joi.string(),
   value: joi.string().required()
 })
 
@@ -33,7 +34,8 @@ const pageSchema = joi.object().keys({
   section: joi.string(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
-  next: joi.array().items(nextSchema)
+  next: joi.array().items(nextSchema),
+  repeatField: joi.string().optional()
 })
 
 const listItemSchema = joi.object().keys({
