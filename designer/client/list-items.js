@@ -47,7 +47,7 @@ const SortableItem = SortableElement(({ index, item, type, conditions, onBlur, o
     <td className='govuk-table__cell'>
       <select className='govuk-select' id={`link-source-${index}`} name='condition' defaultValue={item.condition}>
         <option />
-        {(conditions || []).map((condition, i) => (<option key={condition.name + index} defaultValue={condition.name}>{condition.name}</option>))}
+        {(conditions || []).map((condition, i) => (<option key={condition.name + index} defaultValue={condition.name}>{condition.displayName}</option>))}
       </select>
     </td>
     <td className='govuk-table__cell'>
