@@ -23,7 +23,7 @@ module.exports = {
           }
         },
         prepare: (options, next) => {
-          let environment = nunjucks.configure(options.path, {
+          const environment = nunjucks.configure(options.path, {
             autoescape: true,
             watch: false
           })
