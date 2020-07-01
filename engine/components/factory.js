@@ -4,6 +4,7 @@ const componentTypes = require('../component-types')
 const formComponents = componentTypes.filter(t => t.subType === 'field').map(t => t.name)
 const { buildFormSchema, buildStateSchema } = require('./helpers')
 const makeComponentCollection = require('./collection')
+const { optionalText } = require('./constants')
 
 function getFormSchemaKeys (name, schemaType, component) {
   const schema = buildFormSchema(schemaType, component)
@@ -24,7 +25,7 @@ function getStateSchemaKeys (name, schemaType, component) {
 function getBaseFormFieldViewModel (component, formData, errors) {
   const options = component.options
   const isOptional = options.required === false
-  const label = component.title + (isOptional ? ' (optional)' : '')
+  const label = component.title + (isOptional ? optionalText : '')
 
   const name = component.name
   const model = {
@@ -265,7 +266,7 @@ const makeComponentTypes = {
 
         // Remove the labels and apply error classes to the items
         componentViewModels.forEach(componentViewModel => {
-          componentViewModel.label = componentViewModel.label.text.replace(' (optional)', '')
+          componentViewModel.label = componentViewModel.label.text.replace(optionalText, '')
           if (componentViewModel.errorMessage) {
             componentViewModel.classes += ' govuk-input--error'
           }
@@ -347,7 +348,7 @@ const makeComponentTypes = {
 
         // Remove the labels and apply error classes to the items
         componentViewModels.forEach(componentViewModel => {
-          componentViewModel.label = componentViewModel.label.text.replace(' (optional)', '')
+          componentViewModel.label = componentViewModel.label.text.replace(optionalText, '')
           if (componentViewModel.errorMessage) {
             componentViewModel.classes += ' govuk-input--error'
           }
