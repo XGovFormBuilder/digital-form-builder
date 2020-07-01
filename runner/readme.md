@@ -46,6 +46,10 @@ Open your browser at
 `https://localhost:3009`
 
 
+Working on a Windows Machine? npm by default will use the cmd.exe shell to invoke any scripts. This will cause your install and run to fail. npm must be configured to use the bash shell to invoke scripts. Update your npm configuration to set the shell. 
+     
+`$ npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"`
+
 # Environment variables
 If there is a .env file present, these will be loaded in first. 
 
