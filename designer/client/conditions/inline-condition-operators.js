@@ -7,6 +7,12 @@ function withDefaults (param) {
   return Object.assign(param, defaultOperators)
 }
 
+const textBasedFieldCustomisations = {
+  'is longer than': lengthIs('>'),
+  'is shorter than': lengthIs('<'),
+  'has length': lengthIs('==')
+}
+
 export const customOperators = {
   'CheckboxesField': {
     contains: reverseInline('in'),
@@ -17,7 +23,10 @@ export const customOperators = {
     'is at most': inline('<='),
     'is less than': inline('<'),
     'is greater than': inline('>')
-  })
+  }),
+  TextField: withDefaults(textBasedFieldCustomisations),
+  MultilineTextField: withDefaults(textBasedFieldCustomisations),
+  EmailAddressField: withDefaults(textBasedFieldCustomisations)
 }
 
 export function getOperatorNames (fieldType) {
@@ -35,6 +44,12 @@ function getConditionals (fieldType) {
 function inline (operator) {
   return {
     expression: (field, value) => `${field.name} ${operator} ${formatValue(field.type, value)}`
+  }
+}
+
+function lengthIs (operator) {
+  return {
+    expression: (field, value) => `length(${field.name}) ${operator} ${value}`
   }
 }
 
