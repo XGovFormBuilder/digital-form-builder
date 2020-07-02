@@ -24,6 +24,7 @@ suite('Inline conditions definition section', () => {
   }
   const textFieldOperators = getOperatorNames('TextField')
   const numberFieldOperators = getOperatorNames('NumberField')
+  const isEqualToOperator = 'is'
   const path = '/'
 
   describe('when fields are present', () => {
@@ -262,11 +263,11 @@ suite('Inline conditions definition section', () => {
       test('Change field erases value but keeps operator if operator is still relevant', () => {
         const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[0].name } })
-        wrapper.find('#cond-operator').simulate('change', { target: { value: textFieldOperators[0] } })
+        wrapper.find('#cond-operator').simulate('change', { target: { value: isEqualToOperator } })
         wrapper.find('#cond-value').simulate('change', { target: { value: 'M' } })
 
         assertFieldInputPresent(wrapper, fields, fields[0].name)
-        assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[0])
+        assertOperatorInputPresent(wrapper, textFieldOperators, isEqualToOperator)
         assertTextValueInputPresent(wrapper, 'M')
         assertSaveConditionLink(wrapper)
 
