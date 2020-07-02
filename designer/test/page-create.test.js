@@ -293,5 +293,39 @@ suite('Page create', () => {
       expect(clonedData.addPage.calledOnce).to.equal(true)
       expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage)
     })
+
+    test('translated title to path automatically if no path provided', async flags => {
+      const expectedPage = {
+        path: '/my-new-page',
+        title: 'My New    Page 23?!¢#',
+        controller: './pages/start.js',
+        next: [],
+        components: []
+      }
+      const onCreate = data => {
+        expect(data.value).to.equal(expectedPage)
+      }
+      const clonedData = {
+        addPage: sinon.stub(),
+        addLink: sinon.stub()
+      }
+      data.save = sinon.stub()
+      data.save.resolves(clonedData)
+      const wrappedOnCreate = flags.mustCall(onCreate, 1)
+
+      const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
+      const preventDefault = sinon.spy()
+      wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
+      wrapper.find('#page-title').simulate('blur', { target: { value: 'My New    Page 23?!¢#' } })
+
+      data.clone = sinon.stub()
+      data.clone.returns(clonedData)
+      clonedData.addLink.returns(clonedData)
+      clonedData.addPage.returns(clonedData)
+
+      await wrapper.instance().onSubmit({ preventDefault: preventDefault })
+      expect(clonedData.addPage.calledOnce).to.equal(true)
+      expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage)
+    })
   })
 })
