@@ -40,7 +40,7 @@ class DateField extends FormComponent {
     return viewModel
   }
 
-  get dataType() {
+  get dataType () {
     return 'date'
   }
 }

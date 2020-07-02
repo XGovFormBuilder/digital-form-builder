@@ -11,7 +11,7 @@ async function findByPostcode (key, postcode) {
 
   const results = payload.results.map(item => item.DPA)
 
-  let addresses = results
+  const addresses = results
 
   return addresses
     .map(item => {

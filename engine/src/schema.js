@@ -62,12 +62,6 @@ const feeSchema = joi.object().keys({
   condition: joi.string().optional()
 })
 
-const metadataSchema = joi.object().keys({
-  post: joi.string(),
-  caseType: joi.string(),
-  summary: joi.string()
-})
-
 const notifySchema = joi.object().keys({
   apiKey: joi.string().allow('').optional(),
   templateId: joi.string(),

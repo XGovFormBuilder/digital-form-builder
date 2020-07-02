@@ -632,11 +632,11 @@ const makeComponentTypes = {
 
     // Component collection
     const childFormComponentList = [
-      { type: 'TextField', name: `premises`, title: 'Premises', schema: { max: 100 }, options: { required: options.required } },
-      { type: 'TextField', name: `street`, title: 'Street', schema: { max: 100, allow: '' }, options: { required: false } },
-      { type: 'TextField', name: `locality`, title: 'Locality', schema: { max: 100, allow: '' }, options: { required: false } },
-      { type: 'TextField', name: `town`, title: 'Town', schema: { max: 100 }, options: { required: options.required } },
-      { type: 'TextField', name: `postcode`, title: 'Postcode', schema: { max: 10 }, options: { required: options.required } }
+      { type: 'TextField', name: 'premises', title: 'Premises', schema: { max: 100 }, options: { required: options.required } },
+      { type: 'TextField', name: 'street', title: 'Street', schema: { max: 100, allow: '' }, options: { required: false } },
+      { type: 'TextField', name: 'locality', title: 'Locality', schema: { max: 100, allow: '' }, options: { required: false } },
+      { type: 'TextField', name: 'town', title: 'Town', schema: { max: 100 }, options: { required: options.required } },
+      { type: 'TextField', name: 'postcode', title: 'Postcode', schema: { max: 10 }, options: { required: options.required } }
     ]
     const stateComponents = makeComponentCollection(childFormComponentList, def)
 

@@ -2,7 +2,7 @@ const { Component } = require('.')
 
 class Details extends Component {
   getViewModel () {
-    let model = {
+    const model = {
       summaryHtml: this.title,
       html: this.content
     }

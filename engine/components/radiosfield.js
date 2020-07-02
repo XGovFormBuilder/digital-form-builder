@@ -33,14 +33,16 @@ class RadiosField extends ConditionalFormComponent {
       fieldset: {
         legend: viewModel.label
       },
-      items: items.map((item) => {
-        const itemModel = {
-          html: this.localisedString(item.text),
-          value: item.value,
-          // Do a loose string based check as state may or
-          // may not match the item value types.
-          checked: '' + item.value === '' + formData[name]
-        }
+      items: items
+        .map((item) => {
+          const itemModel = {
+            html: this.localisedString(item.text),
+            value: item.value,
+            // Do a loose string based check as state may or
+            // may not match the item value types.
+            checked: '' + item.value === '' + formData[name],
+            condition: item.condition
+          }
 
         if (options.bold) {
           itemModel.label = {

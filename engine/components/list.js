@@ -2,13 +2,13 @@ const { Component } = require('.')
 
 class List extends Component {
   getViewModel () {
-    let list = this.model.lists.find(list => list.name === this.options.list)
-    let viewModel = {}
+    const list = this.model.lists.find(list => list.name === this.options.list)
+    const viewModel = {}
     if (this.options.type) {
       viewModel.type = this.options.type
     }
-    let content = list.items.map(item => {
-      let contentItem = {
+    const content = list.items.map(item => {
+      const contentItem = {
         text: item.description
       }
       if (item.condition) {
@@ -17,9 +17,7 @@ class List extends Component {
       return contentItem
     })
 
-
-
-    return {...viewModel, content}
+    return { ...viewModel, content }
   }
 }
 
