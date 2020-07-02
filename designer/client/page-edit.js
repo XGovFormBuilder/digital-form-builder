@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from './helpers'
+import { clone, toUrl } from './helpers'
 
 class PageEdit extends React.Component {
   state = {}
@@ -9,7 +9,7 @@ class PageEdit extends React.Component {
     const form = e.target
     const formData = new window.FormData(form)
     const title = formData.get('title').trim()
-    const newPath = '/'.concat(title.replace(/[^a-zA-Z ]/g, '').replace(' ', '-')).toLowerCase()
+    const newPath = toUrl(title)
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
     const { data, page } = this.props

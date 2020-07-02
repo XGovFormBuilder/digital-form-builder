@@ -1,6 +1,7 @@
 import React from 'react'
 import SelectConditions from './conditions/select-conditions'
 import InlineConditionHelpers from './conditions/inline-condition-helpers'
+import { toUrl } from './helpers'
 
 class PageCreate extends React.Component {
   state = {}
@@ -47,10 +48,7 @@ class PageCreate extends React.Component {
   }
 
   generatePath (title, data) {
-    let path = '/' + title
-      .replace(/[^a-zA-Z ]/g, '')
-      .replace(/\s/g, '-')
-      .toLowerCase()
+    let path = toUrl(title)
 
     let count = 1
     while (data.findPage(path)) {
