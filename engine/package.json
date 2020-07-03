@@ -11,7 +11,7 @@
     "build": "babel src -d lib --source-maps inline",
     "build:watch": "babel src -d lib --source-maps inline --watch",
     "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
-    "test": "npm run-script lint && npm run-script test-lab"
+    "test": "yarn lint && yarn test-lab"
   },
   "repository": {
     "type": "git",
@@ -42,13 +42,17 @@
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
     "@xgovformbuilder/lab-babel": "2.0.0",
+    "babel-eslint": "11.0.0-beta.2",
+    "eslint-plugin-babel": "^5.3.1",
     "standard": "14.3.3"
   },
   "peerDependencies": {
     "joi": "^14"
   },
   "standard": {
-    "ignore": ["lib"],
+    "ignore": [
+      "lib"
+    ],
     "parser": "babel-eslint"
   }
 }
