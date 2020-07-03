@@ -375,6 +375,7 @@ class SummaryViewModel {
       url: `/${model.basePath}${page.path}?${queryString || querystring.encode(query)}`,
       pageId: `/${model.basePath}${page.path}`,
       type: component.type,
+      title: component.title,
       dataType: component.dataType
     }
   }
