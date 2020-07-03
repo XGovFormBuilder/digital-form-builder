@@ -131,8 +131,8 @@ class InlineConditionsDefinition extends React.Component {
             onChange={this.onChangeField}>
             <option />
             {
-              Object.values(this.props.fields).map(field =>
-                <option key={field.name} value={field.name}>{field.label}</option>)
+              Object.values(this.props.fields).map((field, index) =>
+                <option key={`${field.propertyPath}-${index}`} value={field.name}>{field.label}</option>)
             }
           </select>
 
