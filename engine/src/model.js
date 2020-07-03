@@ -8,7 +8,7 @@ class Model {
   constructor (def, options) {
     const result = schema.validate(def, { abortEarly: false })
 
-    //TODO:- throw/catch this properly 🤦🏻‍
+    // TODO:- throw/catch this properly 🤦🏻‍
     if (result.error) {
       throw result.error
     }
