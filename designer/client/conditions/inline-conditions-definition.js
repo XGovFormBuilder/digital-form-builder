@@ -89,14 +89,6 @@ class InlineConditionsDefinition extends React.Component {
 
   updateValue = newValue => {
     const { condition } = this.state
-
-    const fieldDef = this.props.fields[condition?.field?.name]
-
-    if (newValue && newValue?.trim() !== '') {
-      const option = fieldDef.values?.find(value => value.value === newValue)
-      newValue = option ? new Value(option.value, option.text) : new Value(newValue)
-    }
-
     this._updateCondition(condition, c => { c.value = newValue })
   }
 
