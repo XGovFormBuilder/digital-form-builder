@@ -2,6 +2,7 @@ import React from 'react'
 import { Condition, Field, Value } from './inline-condition-model'
 import { getOperatorNames } from './inline-condition-operators'
 import { clone } from '../helpers'
+import InlineConditionsDefinitionValue from './inline-conditions-definition-value'
 
 class InlineConditionsDefinition extends React.Component {
   constructor (props) {
@@ -86,19 +87,17 @@ class InlineConditionsDefinition extends React.Component {
     this._updateCondition(condition, c => { c.operator = input.value })
   }
 
-  onChangeValue = e => {
-    const input = e.target
+  updateValue = newValue => {
     const { condition } = this.state
 
     const fieldDef = this.props.fields[condition?.field?.name]
 
-    let value
-    if (input.value && input.value?.trim() !== '') {
-      const option = fieldDef.values?.find(value => value.value === input.value)
-      value = option ? new Value(option.value, option.text) : new Value(input.value)
+    if (newValue && newValue?.trim() !== '') {
+      const option = fieldDef.values?.find(value => value.value === newValue)
+      newValue = option ? new Value(option.value, option.text) : new Value(newValue)
     }
 
-    this._updateCondition(condition, c => { c.value = value })
+    this._updateCondition(condition, c => { c.value = newValue })
   }
 
   setState (state, callback) {
@@ -149,21 +148,7 @@ class InlineConditionsDefinition extends React.Component {
           </select>
           }
 
-          {condition.operator && (fieldDef?.values?.length??0) > 0 &&
-          <select className='govuk-select' id='cond-value' name='cond-value' value={condition.value?.value??''}
-            onChange={this.onChangeValue}>
-            <option />
-            {fieldDef.values.map(option => {
-              return <option key={option.value} value={option.value}>{option.text}</option>
-            })}
-          </select>
-          }
-
-          {condition.operator && (fieldDef?.values?.length??0) === 0 &&
-          <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
-            type='text' defaultValue={condition.value?.display} required
-            onChange={this.onChangeValue} />
-          }
+          {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value?.value} updateValue={this.updateValue} />}
           {condition.value &&
           <div className='govuk-form-group'>
             <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
