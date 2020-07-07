@@ -14,6 +14,7 @@ const { beforeEach, suite, test } = lab
 
 suite('Inline conditions definition value inputs', () => {
   const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
+  const selectedValues = values.map(it => new Value(it.value, it.text))
   let updateValue
 
   beforeEach(() => {
@@ -25,7 +26,7 @@ suite('Inline conditions definition value inputs', () => {
       label: 'Something',
       name: 'field1'
     }
-    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValue} value='my-value' fieldDef={fieldDef} />)
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValue} value={new Value('my-value')} fieldDef={fieldDef} />)
 
     assertRequiredTextInput(wrapper.find('input'), 'cond-value', 'my-value')
   })
@@ -60,7 +61,7 @@ suite('Inline conditions definition value inputs', () => {
       name: 'field1',
       values: values
     }
-    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValue} value={values[0].value} fieldDef={fieldDef} />)
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValue} value={selectedValues[0]} fieldDef={fieldDef} />)
 
     const expectedFieldOptions = [...values]
     expectedFieldOptions.unshift({ text: '' })
@@ -77,7 +78,7 @@ suite('Inline conditions definition value inputs', () => {
 
     wrapper.find('#cond-value').simulate('change', { target: { value: values[0].value } })
     expect(updateValue.calledOnce).to.equal(true)
-    expect(updateValue.firstCall.args[0]).to.equal(new Value(values[0].value, values[0].text))
+    expect(updateValue.firstCall.args[0]).to.equal(selectedValues[0])
   })
 
   test('selecting a blank value from the select list should call update value with undefined', () => {

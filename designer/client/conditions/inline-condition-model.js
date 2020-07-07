@@ -285,7 +285,7 @@ export class Condition {
     if (typeof operator !== 'string') {
       throw Error(`operator ${operator} is not a valid operator`)
     }
-    if (!(value instanceof Value)) {
+    if (!(value instanceof Value || value instanceof TimeShiftValue)) {
       throw Error(`field ${field} is not a valid Field object`)
     }
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
@@ -306,11 +306,11 @@ export class Condition {
   }
 
   conditionString () {
-    return `'${this.field.display}' ${this.operator} '${this.value.display}'`
+    return `'${this.field.display}' ${this.operator} '${this.value.toPresentationString()}'`
   }
 
   conditionExpression () {
-    return getExpression(this.field.type, this.field.name, this.operator, this.value.value)
+    return getExpression(this.field.type, this.field.name, this.operator, this.value.toExpression())
   }
 
   coordinatorString () {
@@ -335,7 +335,7 @@ export class Condition {
   }
 
   clone () {
-    return new Condition(Field.from(this.field), this.operator, Value.from(this.value), this.coordinator)
+    return new Condition(Field.from(this.field), this.operator, this.value.clone(), this.coordinator)
   }
 }
 
@@ -372,7 +372,67 @@ export class Value {
     this.display = display || value
   }
 
+  toPresentationString () {
+    return this.display
+  }
+
+  toExpression () {
+    return this.value
+  }
+
   static from (obj) {
     return new Value(obj.value, obj.display)
+  }
+
+  clone () {
+    return Value.from(this)
+  }
+}
+
+export const dateDirections = {
+  FUTURE: 'in the future',
+  PAST: 'in the past'
+}
+
+export const dateUnits = {
+  YEARS: 'year(s)',
+  MONTHS: 'month(s)',
+  DAYS: 'day(s)'
+}
+
+export const timeUnits = {
+  HOURS: 'hour(s)',
+  MINUTES: 'minute(s)',
+  SECONDS: 'second(s)'
+}
+
+export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
+
+export class TimeShiftValue {
+  constructor (timePeriod, timeUnit, direction) {
+    if (typeof timePeriod !== 'number') {
+      throw Error(`time period ${timePeriod} is not valid`)
+    }
+    if (!Object.values(timeUnits).includes(timeUnit)) {
+      throw Error(`time unit ${timeUnit} is not valid`)
+    }
+    if (!Object.values(dateDirections).includes(direction)) {
+      throw Error(`direction ${direction} is not valid`)
+    }
+    this.timePeriod = timePeriod
+    this.timeUnit = timeUnit
+    this.direction = timeUnit
+  }
+
+  toPresentationString () {
+    return `${this.timePeriod} ${this.timeUnit} ${this.direction}`
+  }
+
+  toExpression () {
+    return `dateForComparison(${this.timePeriod}, ${this.timeUnit})`
+  }
+
+  clone () {
+    return new TimeShiftValue(this.timePeriod, this.timeUnit, this.direction)
   }
 }

@@ -140,7 +140,7 @@ class InlineConditionsDefinition extends React.Component {
           </select>
           }
 
-          {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value?.value} updateValue={this.updateValue} />}
+          {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value} updateValue={this.updateValue} />}
           {condition.value &&
           <div className='govuk-form-group'>
             <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
