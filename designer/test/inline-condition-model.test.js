@@ -1,7 +1,15 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { ConditionsModel, Condition, Field, Value, GroupDef } from '../client/conditions/inline-condition-model'
+import {
+  ConditionsModel,
+  Condition,
+  Field,
+  Value,
+  GroupDef
+} from '../client/conditions/inline-condition-model'
+
+import { TimeShiftValue, dateDirections } from '../client/conditions/inline-condition-date-model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -132,18 +140,18 @@ suite('inline condition model', () => {
       underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is at least', new TimeShiftValue('10', 'days', dateDirections.PAST), 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
     test('should return a human readable presentation string with all properties', () => {
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is at least \'10 days in the past\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should return a valid expression', () => {
       expect(underTest.toExpression())
-        .to.equal('badger == \'Zebras\' or (monkeys == \'Giraffes\' and squiffy == \'Donkeys\') or duration >= 10 or (birthday == \'10/10/2019\' and squiffy != \'Donkeys\')')
+        .to.equal('badger == \'Zebras\' or (monkeys == \'Giraffes\' and squiffy == \'Donkeys\') or duration >= 10 or (birthday <= dateForComparison(-10, \'days\') and squiffy != \'Donkeys\')')
     })
   })
 

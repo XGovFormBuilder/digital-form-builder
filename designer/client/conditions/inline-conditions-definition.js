@@ -1,8 +1,8 @@
 import React from 'react'
-import { Condition, Field, Value } from './inline-condition-model'
+import { Condition, Field, valueFrom } from './inline-condition-model'
 import { getOperatorNames } from './inline-condition-operators'
 import { clone } from '../helpers'
-import InlineConditionsDefinitionValue from './inline-conditions-definition-value'
+import InlineConditionsDefinitionValue from './inline-conditions-definition-values'
 
 class InlineConditionsDefinition extends React.Component {
   constructor (props) {
@@ -41,7 +41,7 @@ class InlineConditionsDefinition extends React.Component {
     this.setState({
       condition: {}
     })
-    this.props.saveCallback(new Condition(Field.from(condition.field), condition.operator, Value.from(condition.value), condition.coordinator))
+    this.props.saveCallback(new Condition(Field.from(condition.field), condition.operator, valueFrom(condition.value), condition.coordinator))
   }
 
   onChangeField = e => {

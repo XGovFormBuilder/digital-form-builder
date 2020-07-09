@@ -3,6 +3,7 @@ const path = require('path')
 const schema = require('./schema')
 const Page = require('./page')
 const Parser = require('expr-eval').Parser
+const moment = require('moment')
 
 class Model {
   constructor (def, options) {
@@ -121,6 +122,9 @@ class Model {
         logical: true
       }
     })
+    parser.functions.dateForComparison = function(timePeriod, timeUnit) {
+      return moment().add(Number(timePeriod), timeUnit).toISOString()
+    }
     const { name, value } = condition
     const expr = parser.parse(value)
 

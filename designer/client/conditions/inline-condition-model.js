@@ -1,5 +1,6 @@
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 import { getExpression } from './inline-condition-operators'
+import { TimeShiftValue } from './inline-condition-date-model'
 
 export const coordinators = {
   AND: 'and',
@@ -286,7 +287,7 @@ export class Condition {
       throw Error(`operator ${operator} is not a valid operator`)
     }
     if (!(value instanceof Value || value instanceof TimeShiftValue)) {
-      throw Error(`field ${field} is not a valid Field object`)
+      throw Error(`value ${value} is not a valid value type`)
     }
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
       throw Error(`coordinator ${coordinator} is not a valid coordinator`)
@@ -310,7 +311,7 @@ export class Condition {
   }
 
   conditionExpression () {
-    return getExpression(this.field.type, this.field.name, this.operator, this.value.toExpression())
+    return getExpression(this.field.type, this.field.name, this.operator, this.value)
   }
 
   coordinatorString () {
@@ -389,50 +390,9 @@ export class Value {
   }
 }
 
-export const dateDirections = {
-  FUTURE: 'in the future',
-  PAST: 'in the past'
-}
-
-export const dateUnits = {
-  YEARS: 'year(s)',
-  MONTHS: 'month(s)',
-  DAYS: 'day(s)'
-}
-
-export const timeUnits = {
-  HOURS: 'hour(s)',
-  MINUTES: 'minute(s)',
-  SECONDS: 'second(s)'
-}
-
-export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
-
-export class TimeShiftValue {
-  constructor (timePeriod, timeUnit, direction) {
-    if (typeof timePeriod !== 'number') {
-      throw Error(`time period ${timePeriod} is not valid`)
-    }
-    if (!Object.values(timeUnits).includes(timeUnit)) {
-      throw Error(`time unit ${timeUnit} is not valid`)
-    }
-    if (!Object.values(dateDirections).includes(direction)) {
-      throw Error(`direction ${direction} is not valid`)
-    }
-    this.timePeriod = timePeriod
-    this.timeUnit = timeUnit
-    this.direction = timeUnit
+export function valueFrom (obj) {
+  if (obj.timeUnit) {
+    return TimeShiftValue.from(obj)
   }
-
-  toPresentationString () {
-    return `${this.timePeriod} ${this.timeUnit} ${this.direction}`
-  }
-
-  toExpression () {
-    return `dateForComparison(${this.timePeriod}, ${this.timeUnit})`
-  }
-
-  clone () {
-    return new TimeShiftValue(this.timePeriod, this.timeUnit, this.direction)
-  }
+  return Value.from(obj)
 }

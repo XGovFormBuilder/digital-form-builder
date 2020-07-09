@@ -1,3 +1,5 @@
+import { timeShift } from './inline-condition-date-model'
+
 const defaultOperators = {
   is: inline('=='),
   'is not': inline('!=')
@@ -13,6 +15,13 @@ const textBasedFieldCustomisations = {
   'has length': lengthIs('==')
 }
 
+const dateTimeOperators = {
+  'is at least': timeShift('<=', '>='),
+  'is at most': timeShift('>=', '<='),
+  'is less than': timeShift('>', '<'),
+  'is more than': timeShift('<', '>')
+}
+
 export const customOperators = {
   'CheckboxesField': {
     contains: reverseInline('in'),
@@ -22,8 +31,13 @@ export const customOperators = {
     'is at least': inline('>='),
     'is at most': inline('<='),
     'is less than': inline('<'),
-    'is greater than': inline('>')
+    'is more than': inline('>')
   }),
+  DateField: dateTimeOperators,
+  TimeField: dateTimeOperators,
+  DatePartsField: dateTimeOperators,
+  DateTimeField: dateTimeOperators,
+  DateTimePartsField: dateTimeOperators,
   TextField: withDefaults(textBasedFieldCustomisations),
   MultilineTextField: withDefaults(textBasedFieldCustomisations),
   EmailAddressField: withDefaults(textBasedFieldCustomisations)
@@ -43,19 +57,19 @@ function getConditionals (fieldType) {
 
 function inline (operator) {
   return {
-    expression: (field, value) => `${field.name} ${operator} ${formatValue(field.type, value)}`
+    expression: (field, value) => `${field.name} ${operator} ${formatValue(field.type, value.value)}`
   }
 }
 
 function lengthIs (operator) {
   return {
-    expression: (field, value) => `length(${field.name}) ${operator} ${value}`
+    expression: (field, value) => `length(${field.name}) ${operator} ${value.value}`
   }
 }
 
 function reverseInline (operator) {
   return {
-    expression: (field, value) => `${formatValue(field.type, value)} ${operator} ${field.name}`
+    expression: (field, value) => `${formatValue(field.type, value.value)} ${operator} ${field.name}`
   }
 }
 
