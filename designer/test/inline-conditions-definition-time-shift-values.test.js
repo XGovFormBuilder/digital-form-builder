@@ -27,7 +27,7 @@ suite('Inline conditions time shift value inputs', () => {
   const dateAndTimeMappings = [
     { type: 'DateField', units: dateUnits },
     { type: 'DatePartsField', units: dateUnits },
-    { type: 'TimeField', units: timeUnits },
+    { type: 'TimeField', units: timeUnits, timeOnly: true },
     { type: 'DateTimeField', units: dateTimeUnits },
     { type: 'DateTimePartsField', units: dateTimeUnits }
   ]
@@ -42,7 +42,7 @@ suite('Inline conditions time shift value inputs', () => {
     test(`should display the expected inputs for ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
       const existingValue = new TimeShiftValue('18', unit, dateDirections.FUTURE)
-      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} />)
+      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       assertRequiredTextInput(wrapper.find('#cond-value-period'), 'cond-value-period', '18')
       assertSelectInput(wrapper.find('#cond-value-units'), 'cond-value-units',
@@ -55,7 +55,7 @@ suite('Inline conditions time shift value inputs', () => {
 
     test(`specifying all inputs in order should save the expected value for adding ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
-      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} units={mapping.units} />)
+      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-period').simulate('change', { target: { value: '18' } })
       wrapper.find('#cond-value-units').simulate('change', { target: { value: unit } })
@@ -63,12 +63,12 @@ suite('Inline conditions time shift value inputs', () => {
 
       expect(updateValueCallback.callCount).to.equal(1)
       expect(updateValueCallback.firstCall.args.length).to.equal(1)
-      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.FUTURE))
+      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.FUTURE, mapping.timeOnly || false))
     })
 
     test(`specifying all inputs out of order should save the expected value for adding ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
-      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} units={mapping.units} />)
+      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-direction').simulate('change', { target: { value: dateDirections.FUTURE } })
       wrapper.find('#cond-value-units').simulate('change', { target: { value: unit } })
@@ -76,43 +76,43 @@ suite('Inline conditions time shift value inputs', () => {
 
       expect(updateValueCallback.callCount).to.equal(1)
       expect(updateValueCallback.firstCall.args.length).to.equal(1)
-      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.FUTURE))
+      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.FUTURE, mapping.timeOnly || false))
     })
 
     test(`updating period should save the expected value for editing ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
-      const existingValue = new TimeShiftValue('18', unit, dateDirections.FUTURE)
-      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} />)
+      const existingValue = new TimeShiftValue('18', unit, dateDirections.FUTURE, mapping.timeOnly || false)
+      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-period').simulate('change', { target: { value: '12' } })
 
       expect(updateValueCallback.callCount).to.equal(1)
       expect(updateValueCallback.firstCall.args.length).to.equal(1)
-      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('12', unit, dateDirections.FUTURE))
+      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('12', unit, dateDirections.FUTURE, mapping.timeOnly || false))
     })
 
     test(`updating units should save the expected value for editing ${mapping.type} component type`, () => {
-      const existingValue = new TimeShiftValue('18', Object.values(mapping.units)[1].value, dateDirections.FUTURE)
-      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} />)
+      const existingValue = new TimeShiftValue('18', Object.values(mapping.units)[1].value, dateDirections.FUTURE, mapping.timeOnly || false)
+      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       const unit = aRandomItemFrom(mapping.units).value
       wrapper.find('#cond-value-units').simulate('change', { target: { value: unit } })
 
       expect(updateValueCallback.callCount).to.equal(1)
       expect(updateValueCallback.firstCall.args.length).to.equal(1)
-      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.FUTURE))
+      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.FUTURE, mapping.timeOnly || false))
     })
 
     test(`updating period should save the expected value for editing ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
       const existingValue = new TimeShiftValue('18', unit, dateDirections.FUTURE)
-      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} />)
+      const wrapper = shallow(<TimeShiftValues updateValue={updateValueCallback} value={existingValue} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-direction').simulate('change', { target: { value: dateDirections.PAST } })
 
       expect(updateValueCallback.callCount).to.equal(1)
       expect(updateValueCallback.firstCall.args.length).to.equal(1)
-      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.PAST))
+      expect(updateValueCallback.firstCall.args[0]).to.equal(new TimeShiftValue('18', unit, dateDirections.PAST, mapping.timeOnly || false))
     })
   })
 })

@@ -20,7 +20,7 @@ class TimeShiftValues extends React.Component {
   passValueToParentComponentIfComplete () {
     const { timePeriod, timeUnits, direction } = this.state
     if (timePeriod && timeUnits && direction) {
-      this.props.updateValue(new TimeShiftValue(timePeriod, timeUnits, direction))
+      this.props.updateValue(new TimeShiftValue(timePeriod, timeUnits, direction, this.props.timeOnly || false))
     }
   }
 

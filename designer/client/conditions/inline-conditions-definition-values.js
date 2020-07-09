@@ -20,7 +20,7 @@ export function DateFieldValues (props) {
 }
 
 export function TimeFieldValues (props) {
-  return <TimeShiftValues value={props.value} updateValue={props.updateValue} units={timeUnits} />
+  return <TimeShiftValues value={props.value} updateValue={props.updateValue} units={timeUnits} timeOnly />
 }
 
 function TextValues (props) {

@@ -98,7 +98,7 @@ suite('Inline conditions definition value inputs', () => {
   const dateAndTimeMappings = [
     { type: 'DateField', units: dateUnits },
     { type: 'DatePartsField', units: dateUnits },
-    { type: 'TimeField', units: timeUnits },
+    { type: 'TimeField', units: timeUnits, timeOnly: true },
     { type: 'DateTimeField', units: dateTimeUnits },
     { type: 'DateTimePartsField', units: dateTimeUnits }
   ]
@@ -118,7 +118,12 @@ suite('Inline conditions definition value inputs', () => {
       expect(timeShiftValues.prop('value')).to.equal(expectedValue)
       expect(timeShiftValues.prop('updateValue')).to.equal(updateValueCallback)
       expect(timeShiftValues.prop('units')).to.equal(mapping.units)
-      expect(Object.keys(timeShiftValues.props()).length).to.equal(3)
+      if (mapping.timeOnly) {
+        expect(Object.keys(timeShiftValues.props()).includes('timeOnly')).to.equal(true)
+        expect(Object.keys(timeShiftValues.props()).length).to.equal(4)
+      } else {
+        expect(Object.keys(timeShiftValues.props()).length).to.equal(3)
+      }
     })
   })
 })

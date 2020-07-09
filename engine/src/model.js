@@ -125,6 +125,12 @@ class Model {
     parser.functions.dateForComparison = function(timePeriod, timeUnit) {
       return moment().add(Number(timePeriod), timeUnit).toISOString()
     }
+
+    parser.functions.timeForComparison = function (timePeriod, timeUnit) {
+      const offsetTime = moment().add(Number(timePeriod), timeUnit);
+      return `${offsetTime.hour()}:${offsetTime.minutes()}`;
+    };
+
     const { name, value } = condition
     const expr = parser.parse(value)
 

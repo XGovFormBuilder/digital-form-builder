@@ -18,7 +18,7 @@ export const timeUnits = {
 export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
 
 export class TimeShiftValue {
-  constructor (timePeriod, timeUnit, direction) {
+  constructor (timePeriod, timeUnit, direction, timeOnly = false) {
     if (typeof timePeriod !== 'string') {
       throw Error(`time period ${timePeriod} is not valid`)
     }
@@ -31,6 +31,7 @@ export class TimeShiftValue {
     this.timePeriod = timePeriod
     this.timeUnit = timeUnit
     this.direction = direction
+    this.timeOnly = timeOnly
   }
 
   toPresentationString () {
@@ -38,11 +39,12 @@ export class TimeShiftValue {
   }
 
   toExpression () {
-    return `dateForComparison(${this.timePeriod}, ${this.timeUnit})`
+    const timePeriod = this.direction === dateDirections.PAST ? 0 - Number(this.timePeriod) : this.timePeriod
+    return this.timeOnly ? `timeForComparison(${timePeriod}, '${this.timeUnit}')` : `dateForComparison(${timePeriod}, '${this.timeUnit}')`
   }
 
   static from (obj) {
-    return new TimeShiftValue(obj.timePeriod, obj.timeUnit, obj.direction)
+    return new TimeShiftValue(obj.timePeriod, obj.timeUnit, obj.direction, obj.timeOnly)
   }
 
   clone () {
@@ -55,8 +57,7 @@ export function timeShift (pastOperator, futureOperator) {
     expression: (field, value) => {
       if (value instanceof TimeShiftValue) {
         const operator = value.direction === dateDirections.PAST ? pastOperator : futureOperator
-        const timePeriod = value.direction === dateDirections.PAST ? 0 - Number(value.timePeriod) : value.timePeriod
-        return `${field.name} ${operator} dateForComparison(${timePeriod}, '${value.timeUnit}')`
+        return `${field.name} ${operator} ${value.toExpression()}`
       }
       throw Error('time shift requires a TimeShiftValue')
     }

@@ -15,23 +15,32 @@ suite('Inline condition operators', () => {
   const inputFieldComponents = ComponentTypes.filter(it => it.subType === 'field')
 
   function dateTimeOperatorExpectations (futureUnit, pastUnit) {
+    return timeShiftOperatorExpectations(futureUnit, pastUnit, 'dateForComparison')
+  }
+
+  function timeOperatorExpectations (futureUnit, pastUnit) {
+    return timeShiftOperatorExpectations(futureUnit, pastUnit, 'timeForComparison', true)
+  }
+
+  function timeShiftOperatorExpectations (futureUnit, pastUnit, functionName, timeOnly) {
+    const timePeriod = `${Math.floor(Math.random() * 100)}`
     return [
       {
-        testValue: new TimeShiftValue('17', futureUnit, dateDirections.FUTURE),
+        testValue: new TimeShiftValue(timePeriod, futureUnit, dateDirections.FUTURE, timeOnly),
         operators: {
-          'is at least': (field) => `${field} >= dateForComparison(17, '${futureUnit}')`,
-          'is at most': (field) => `${field} <= dateForComparison(17, '${futureUnit}')`,
-          'is less than': (field) => `${field} < dateForComparison(17, '${futureUnit}')`,
-          'is more than': (field) => `${field} > dateForComparison(17, '${futureUnit}')`
+          'is at least': (field) => `${field} >= ${functionName}(${timePeriod}, '${futureUnit}')`,
+          'is at most': (field) => `${field} <= ${functionName}(${timePeriod}, '${futureUnit}')`,
+          'is less than': (field) => `${field} < ${functionName}(${timePeriod}, '${futureUnit}')`,
+          'is more than': (field) => `${field} > ${functionName}(${timePeriod}, '${futureUnit}')`
         }
       },
       {
-        testValue: new TimeShiftValue('17', pastUnit, dateDirections.PAST),
+        testValue: new TimeShiftValue(timePeriod, pastUnit, dateDirections.PAST, timeOnly),
         operators: {
-          'is at least': (field) => `${field} <= dateForComparison(-17, '${pastUnit}')`,
-          'is at most': (field) => `${field} >= dateForComparison(-17, '${pastUnit}')`,
-          'is less than': (field) => `${field} > dateForComparison(-17, '${pastUnit}')`,
-          'is more than': (field) => `${field} < dateForComparison(-17, '${pastUnit}')`
+          'is at least': (field) => `${field} <= ${functionName}(-${timePeriod}, '${pastUnit}')`,
+          'is at most': (field) => `${field} >= ${functionName}(-${timePeriod}, '${pastUnit}')`,
+          'is less than': (field) => `${field} > ${functionName}(-${timePeriod}, '${pastUnit}')`,
+          'is more than': (field) => `${field} < ${functionName}(-${timePeriod}, '${pastUnit}')`
         }
       }
     ]
@@ -61,7 +70,7 @@ suite('Inline condition operators', () => {
       cases: dateTimeOperatorExpectations(dateUnits.YEARS.value, dateUnits.DAYS.value)
     },
     'TimeField': {
-      cases: dateTimeOperatorExpectations(timeUnits.HOURS.value, timeUnits.SECONDS.value)
+      cases: timeOperatorExpectations(timeUnits.HOURS.value, timeUnits.SECONDS.value)
     },
     'DateTimeField': {
       cases: dateTimeOperatorExpectations(dateUnits.YEARS.value, timeUnits.SECONDS.value)
