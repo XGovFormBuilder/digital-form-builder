@@ -30,6 +30,27 @@ suite('Inline condition operators', () => {
     'CheckboxesField': {
       'contains': (field, value) => `'${value}' in ${field}`,
       'does not contain': (field, value) => `not ('${value}' in ${field})`
+    },
+    'TextField': {
+      'has length': (field, value) => `length(${field}) == ${value}`,
+      'is': (field, value) => `${field} == '${value}'`,
+      'is longer than': (field, value) => `length(${field}) > ${value}`,
+      'is not': (field, value) => `${field} != '${value}'`,
+      'is shorter than': (field, value) => `length(${field}) < ${value}`
+    },
+    'MultilineTextField': {
+      'has length': (field, value) => `length(${field}) == ${value}`,
+      'is': (field, value) => `${field} == '${value}'`,
+      'is longer than': (field, value) => `length(${field}) > ${value}`,
+      'is not': (field, value) => `${field} != '${value}'`,
+      'is shorter than': (field, value) => `length(${field}) < ${value}`
+    },
+    'EmailAddressField': {
+      'has length': (field, value) => `length(${field}) == ${value}`,
+      'is': (field, value) => `${field} == '${value}'`,
+      'is longer than': (field, value) => `length(${field}) > ${value}`,
+      'is not': (field, value) => `${field} != '${value}'`,
+      'is shorter than': (field, value) => `length(${field}) < ${value}`
     }
   }
 

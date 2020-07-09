@@ -32,6 +32,271 @@ suite('data model', () => {
       ])
     })
 
+    test('should include hidden inputs from appropriate lists', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ],
+        lists: [
+          {
+            name: 'anotherList',
+            title: 'Address Yes/No',
+            type: 'string',
+            items: [{
+              text: 'Yes',
+              value: 'true',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'type': 'TextField',
+                    'name': 'buildingNameOrNumber',
+                    'title': 'Building name or number',
+                    'hint': '',
+                    'schema': {}
+                  }
+                ]
+              }
+            }]
+          },
+          {
+            name: 'badgerList',
+            title: 'Badgers are epic',
+            type: 'string',
+            items: [{
+              text: 'Something',
+              value: 'something',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'name': 'myField'
+                  }
+                ]
+              }
+            }]
+          }
+        ]
+      })
+      expect(data.allInputs()).to.equal([
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+      ])
+    })
+
+    test('should not duplicate hidden inputs from lists if more than one component in the same page uses the same list', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2', options: { list: 'badgerList' } }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ],
+        lists: [
+          {
+            name: 'anotherList',
+            title: 'Address Yes/No',
+            type: 'string',
+            items: [{
+              text: 'Yes',
+              value: 'true',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'type': 'TextField',
+                    'name': 'buildingNameOrNumber',
+                    'title': 'Building name or number',
+                    'hint': '',
+                    'schema': {}
+                  }
+                ]
+              }
+            }]
+          },
+          {
+            name: 'badgerList',
+            title: 'Badgers are epic',
+            type: 'string',
+            items: [{
+              text: 'Something',
+              value: 'something',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'name': 'myField'
+                  }
+                ]
+              }
+            }]
+          }
+        ]
+      })
+      expect(data.allInputs()).to.equal([
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+      ])
+    })
+
+    test('should not duplicate hidden inputs from lists if components in different pages with the same section use the same list', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            components: [{ name: 'name3', options: { list: 'badgerList' } }, { name: 'name4' }]
+          }
+        ],
+        lists: [
+          {
+            name: 'anotherList',
+            title: 'Address Yes/No',
+            type: 'string',
+            items: [{
+              text: 'Yes',
+              value: 'true',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'type': 'TextField',
+                    'name': 'buildingNameOrNumber',
+                    'title': 'Building name or number',
+                    'hint': '',
+                    'schema': {}
+                  }
+                ]
+              }
+            }]
+          },
+          {
+            name: 'badgerList',
+            title: 'Badgers are epic',
+            type: 'string',
+            items: [{
+              text: 'Something',
+              value: 'something',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'name': 'myField'
+                  }
+                ]
+              }
+            }]
+          }
+        ]
+      })
+      expect(data.allInputs()).to.equal([
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+      ])
+    })
+
+    test('should return multiple of the same hidden input from lists if components in different pages with different sections use the same list', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section2',
+            components: [{ name: 'name3', options: { list: 'badgerList' } }, { name: 'name4' }]
+          }
+        ],
+        lists: [
+          {
+            name: 'anotherList',
+            title: 'Address Yes/No',
+            type: 'string',
+            items: [{
+              text: 'Yes',
+              value: 'true',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'type': 'TextField',
+                    'name': 'buildingNameOrNumber',
+                    'title': 'Building name or number',
+                    'hint': '',
+                    'schema': {}
+                  }
+                ]
+              }
+            }]
+          },
+          {
+            name: 'badgerList',
+            title: 'Badgers are epic',
+            type: 'string',
+            items: [{
+              text: 'Something',
+              value: 'something',
+              description: '',
+              condition: '',
+              conditional: {
+                components: [
+                  {
+                    'name': 'myField'
+                  }
+                ]
+              }
+            }]
+          }
+        ]
+      })
+      expect(data.allInputs()).to.equal([
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', section: 'section2' }, options: { list: 'badgerList' }, propertyPath: 'section2.name3' },
+        { name: 'myField', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.myField' },
+        { name: 'name4', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.name4' }
+      ])
+    })
+
     test('should ignore unnamed components', () => {
       const data = new Data({
         pages: [

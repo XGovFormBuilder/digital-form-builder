@@ -25,9 +25,26 @@ export class Data {
     Object.assign(this, rawDataClone)
     this.#conditions = (rawData.conditions || []).map(it => new Condition(it))
   }
+  /* eslint-disable-next-line */
+  #listInputsFor(page, input) {
+    const list = this.listFor(input);
+    return list ? list.items.flatMap(listItem =>listItem.conditional?.components
+        ?.filter(it => it.name)
+        ?.map(it => new Input(it, page, listItem.text))??[]) : []
+  }
 
   allInputs () {
-    return (this.pages || []).flatMap(page => (page.components || []).filter(component => component.name).map(it => new Input(it, page)))
+    const inputs = (this.pages || [])
+      .flatMap(page => (page.components || [])
+        .filter(component => component.name)
+        .flatMap(it => [new Input(it, page)].concat(this.#listInputsFor(page, it)))
+      )
+    const names = new Set()
+    return inputs.filter(input => {
+      const isPresent = !names.has(input.propertyPath)
+      names.add(input.propertyPath)
+      return isPresent
+    })
   }
 
   inputsAccessibleAt (path) {
@@ -150,12 +167,20 @@ Object.filter = function (obj, predicate) {
 }
 
 class Input {
-  constructor (rawData, page) {
+  #parentItemName
+
+  constructor (rawData, page, parentItemName) {
     Object.assign(this, rawData)
     const myPage = clone(page)
     delete myPage.components
     this.page = myPage
     this.propertyPath = page.section ? `${page.section}.${this.name}` : this.name
+    this.#parentItemName = parentItemName
+  }
+
+  get displayName () {
+    const titleWithContext = this.#parentItemName ? `${this.title} under ${this.#parentItemName}` : this.title
+    return this.page.section ? `${titleWithContext} in ${this.page.section}` : titleWithContext
   }
 }
 
