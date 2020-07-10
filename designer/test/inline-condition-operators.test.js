@@ -3,7 +3,12 @@ import * as Lab from '@hapi/lab'
 
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 import { getExpression, getOperatorNames } from '../client/conditions/inline-condition-operators'
-import { dateDirections, dateUnits, TimeShiftValue, timeUnits } from '../client/conditions/inline-condition-date-model'
+import {
+  dateDirections,
+  dateUnits,
+  RelativeTimeValue,
+  timeUnits
+} from '../client/conditions/inline-conditions-relative-dates'
 import { Value } from '../client/conditions/inline-condition-model'
 
 const { expect } = Code
@@ -23,10 +28,10 @@ suite('Inline condition operators', () => {
   }
 
   function timeShiftOperatorExpectations (futureUnit, pastUnit, functionName, timeOnly) {
-    const timePeriod = `${Math.floor(Math.random() * 100)}`
+    const timePeriod = `${Math.max(Math.floor(Math.random() * 100), 1)}`
     return [
       {
-        testValue: new TimeShiftValue(timePeriod, futureUnit, dateDirections.FUTURE, timeOnly),
+        testValue: new RelativeTimeValue(timePeriod, futureUnit, dateDirections.FUTURE, timeOnly),
         operators: {
           'is at least': (field) => `${field} >= ${functionName}(${timePeriod}, '${futureUnit}')`,
           'is at most': (field) => `${field} <= ${functionName}(${timePeriod}, '${futureUnit}')`,
@@ -35,12 +40,20 @@ suite('Inline condition operators', () => {
         }
       },
       {
-        testValue: new TimeShiftValue(timePeriod, pastUnit, dateDirections.PAST, timeOnly),
+        testValue: new RelativeTimeValue(timePeriod, pastUnit, dateDirections.PAST, timeOnly),
         operators: {
           'is at least': (field) => `${field} <= ${functionName}(-${timePeriod}, '${pastUnit}')`,
           'is at most': (field) => `${field} >= ${functionName}(-${timePeriod}, '${pastUnit}')`,
           'is less than': (field) => `${field} > ${functionName}(-${timePeriod}, '${pastUnit}')`,
           'is more than': (field) => `${field} < ${functionName}(-${timePeriod}, '${pastUnit}')`
+        }
+      },
+      {
+        operators: {
+          'is': (field, value) => `${field} == '${value.value}'`,
+          'is after': (field, value) => `${field} > '${value.value}'`,
+          'is before': (field, value) => `${field} < '${value.value}'`,
+          'is not': (field, value) => `${field} != '${value.value}'`
         }
       }
     ]
@@ -158,7 +171,11 @@ suite('Inline condition operators', () => {
     Object.keys(componentTypesWithCustomValidators).forEach(type => {
       test(`should apply expected operators for ${type}`, () => {
         const operatorNames = getOperatorNames(type)
-        expect(operatorNames).to.equal(Object.keys(componentTypesWithCustomValidators[type].cases[0].operators))
+        const expectedOperatorNames = Object.keys(componentTypesWithCustomValidators[type].cases
+          .reduce((previousValue, testCase) => {
+            return Object.assign(previousValue, testCase.operators)
+          }, {})).sort()
+        expect(operatorNames).to.equal(expectedOperatorNames)
       })
     })
   })

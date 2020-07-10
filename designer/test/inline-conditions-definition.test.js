@@ -118,7 +118,7 @@ suite('Inline conditions definition section', () => {
 
             assertFieldInputPresent(wrapper, fields, fields[0].name)
             assertOperatorInputPresent(wrapper, textFieldOperators, operator)
-            assertInlineConditionsDefinitionValueComponent(wrapper)
+            assertInlineConditionsDefinitionValueComponent(wrapper, operator)
             assertNoSaveConditionLink(wrapper)
           })
         })
@@ -128,7 +128,7 @@ suite('Inline conditions definition section', () => {
           fillConditionInputs(wrapper, fields[0].name, textFieldOperators[0], value)
           assertFieldInputPresent(wrapper, fields, fields[0].name)
           assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[0])
-          assertInlineConditionsDefinitionValueComponent(wrapper, value)
+          assertInlineConditionsDefinitionValueComponent(wrapper, textFieldOperators[0], value)
           assertSaveConditionLink(wrapper)
         })
 
@@ -139,7 +139,7 @@ suite('Inline conditions definition section', () => {
 
           assertFieldInputPresent(wrapper, fields, fields[0].name)
           assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[0])
-          assertInlineConditionsDefinitionValueComponent(wrapper)
+          assertInlineConditionsDefinitionValueComponent(wrapper, textFieldOperators[0])
           assertNoSaveConditionLink(wrapper)
         })
 
@@ -167,7 +167,7 @@ suite('Inline conditions definition section', () => {
 
             assertFieldInputPresent(wrapper, fields, field.name)
             assertOperatorInputPresent(wrapper, selectFieldOperators, operator)
-            assertInlineConditionsDefinitionValueComponent(wrapper, undefined)
+            assertInlineConditionsDefinitionValueComponent(wrapper, operator)
           })
         })
 
@@ -178,7 +178,7 @@ suite('Inline conditions definition section', () => {
 
             assertFieldInputPresent(wrapper, fields, field.name)
             assertOperatorInputPresent(wrapper, selectFieldOperators, selectFieldOperators[0])
-            assertInlineConditionsDefinitionValueComponent(wrapper, value)
+            assertInlineConditionsDefinitionValueComponent(wrapper, selectFieldOperators[0], value)
             assertSaveConditionLink(wrapper)
           })
         })
@@ -191,7 +191,7 @@ suite('Inline conditions definition section', () => {
 
           assertFieldInputPresent(wrapper, fields, field.name)
           assertOperatorInputPresent(wrapper, selectFieldOperators, selectFieldOperators[0])
-          assertInlineConditionsDefinitionValueComponent(wrapper, value)
+          assertInlineConditionsDefinitionValueComponent(wrapper, selectFieldOperators[0], value)
           assertSaveConditionLink(wrapper)
         })
 
@@ -202,7 +202,7 @@ suite('Inline conditions definition section', () => {
 
           assertFieldInputPresent(wrapper, fields, field.name)
           assertOperatorInputPresent(wrapper, selectFieldOperators, selectFieldOperators[0])
-          assertInlineConditionsDefinitionValueComponent(wrapper, undefined)
+          assertInlineConditionsDefinitionValueComponent(wrapper, selectFieldOperators[0])
           assertNoSaveConditionLink(wrapper)
         })
 
@@ -225,7 +225,7 @@ suite('Inline conditions definition section', () => {
 
         assertFieldInputPresent(wrapper, fields, fields[3].name)
         assertOperatorInputPresent(wrapper, numberFieldOperators, 'is at least')
-        assertInlineConditionsDefinitionValueComponent(wrapper, value)
+        assertInlineConditionsDefinitionValueComponent(wrapper, 'is at least', value)
 
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[2].name } })
 
@@ -236,7 +236,7 @@ suite('Inline conditions definition section', () => {
 
         wrapper.find('#cond-operator').simulate('change', { target: { value: selectFieldOperators[0] } })
 
-        assertInlineConditionsDefinitionValueComponent(wrapper, undefined)
+        assertInlineConditionsDefinitionValueComponent(wrapper, selectFieldOperators[0])
         assertNoSaveConditionLink(wrapper)
       })
 
@@ -248,14 +248,14 @@ suite('Inline conditions definition section', () => {
 
         assertFieldInputPresent(wrapper, fields, fields[0].name)
         assertOperatorInputPresent(wrapper, textFieldOperators, isEqualToOperator)
-        assertInlineConditionsDefinitionValueComponent(wrapper, value)
+        assertInlineConditionsDefinitionValueComponent(wrapper, isEqualToOperator, value)
         assertSaveConditionLink(wrapper)
 
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[2].name } })
 
         assertFieldInputPresent(wrapper, fields, fields[2].name)
         assertOperatorInputPresent(wrapper, selectFieldOperators, selectFieldOperators[0])
-        assertInlineConditionsDefinitionValueComponent(wrapper, undefined)
+        assertInlineConditionsDefinitionValueComponent(wrapper, selectFieldOperators[0])
       })
 
       test('Clearing field erases all values', () => {
@@ -266,7 +266,7 @@ suite('Inline conditions definition section', () => {
 
         assertFieldInputPresent(wrapper, fields, fields[0].name)
         assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[0])
-        assertInlineConditionsDefinitionValueComponent(wrapper, value)
+        assertInlineConditionsDefinitionValueComponent(wrapper, textFieldOperators[0], value)
 
         wrapper.find('#cond-field').simulate('change', { target: { value: undefined } })
 
@@ -307,7 +307,7 @@ suite('Inline conditions definition section', () => {
 
         assertFieldInputPresent(wrapper, fields, fields[1].name)
         assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[1])
-        assertInlineConditionsDefinitionValueComponent(wrapper, value2)
+        assertInlineConditionsDefinitionValueComponent(wrapper, textFieldOperators[1], value2)
         assertSaveConditionLink(wrapper)
       })
 
@@ -318,7 +318,7 @@ suite('Inline conditions definition section', () => {
         assertConditionCoordinatorInput(wrapper, 'and')
         assertFieldInputPresent(wrapper, fields, fields[1].name)
         assertOperatorInputPresent(wrapper, textFieldOperators, textFieldOperators[1])
-        assertInlineConditionsDefinitionValueComponent(wrapper, value2)
+        assertInlineConditionsDefinitionValueComponent(wrapper, textFieldOperators[1], value2)
         assertSaveConditionLink(wrapper)
       })
     })
@@ -338,10 +338,11 @@ function assertOperatorInputNotPresent (wrapper) {
   expect(wrapper.find('#cond-operator').exists()).to.equal(false)
 }
 
-function assertInlineConditionsDefinitionValueComponent (wrapper, expected) {
+function assertInlineConditionsDefinitionValueComponent (wrapper, operator, expected) {
   const definitionValueNode = wrapper.find('InlineConditionsDefinitionValue')
   expect(definitionValueNode.exists()).to.equal(true)
   expect(definitionValueNode.prop('value')).to.equal(expected)
+  expect(definitionValueNode.prop('operator')).to.equal(operator)
   expect(definitionValueNode.prop('updateValue')).to.equal(wrapper.instance().updateValue)
 }
 

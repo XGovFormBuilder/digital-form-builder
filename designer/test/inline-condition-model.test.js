@@ -9,7 +9,7 @@ import {
   GroupDef
 } from '../client/conditions/inline-condition-model'
 
-import { TimeShiftValue, dateDirections } from '../client/conditions/inline-condition-date-model'
+import { RelativeTimeValue, dateDirections } from '../client/conditions/inline-conditions-relative-dates'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -45,7 +45,7 @@ suite('inline condition model', () => {
 
     test('should have one item in the model', () => {
       expect(underTest.asPerUserGroupings).to.equal([
-        { coordinator: undefined, field: { name: 'badger', type: 'TextField', display: 'Badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } }
+        { coordinator: undefined, field: { name: 'badger', type: 'TextField', display: 'Badger' }, operator: 'is', value: { type: 'Value', value: 'Monkeys', display: 'Monkeys' } }
       ])
     })
 
@@ -71,9 +71,9 @@ suite('inline condition model', () => {
 
     test('should have three items in the model', () => {
       expect(underTest.asPerUserGroupings).to.equal([
-        { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
-        { coordinator: 'and', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
-        { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+        { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { type: 'Value', value: 'Monkeys', display: 'Monkeys' } },
+        { coordinator: 'and', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is not', value: { type: 'Value', value: 'Giraffes', display: 'Giraffes' } },
+        { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' } }
       ])
     })
 
@@ -99,9 +99,9 @@ suite('inline condition model', () => {
 
     test('should have three items in the model', () => {
       expect(underTest.asPerUserGroupings).to.equal([
-        { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { value: 'Monkeys', display: 'Monkeys' } },
-        { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is not', value: { value: 'Giraffes', display: 'Giraffes' } },
-        { coordinator: 'or', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+        { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { type: 'Value', value: 'Monkeys', display: 'Monkeys' } },
+        { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is not', value: { type: 'Value', value: 'Giraffes', display: 'Giraffes' } },
+        { coordinator: 'or', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' } }
       ])
     })
 
@@ -140,7 +140,7 @@ suite('inline condition model', () => {
       underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('Giraffes'), 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is at least', new TimeShiftValue('10', 'days', dateDirections.PAST), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is at least', new RelativeTimeValue('10', 'days', dateDirections.PAST), 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
     })
 
@@ -263,16 +263,16 @@ suite('inline condition model', () => {
           conditions: [
             {
               conditions: [
-                { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { value: 'Zebras', display: 'Zebras' } },
-                { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is', value: { value: 'giraffes', display: 'Giraffes' } }
+                { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { type: 'Value', value: 'Zebras', display: 'Zebras' } },
+                { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is', value: { type: 'Value', value: 'giraffes', display: 'Giraffes' } }
               ]
             },
-            { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is', value: { value: 'Donkeys', display: 'Donkeys' } }
+            { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is', value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' } }
           ]
         },
-        { coordinator: 'or', field: { display: 'Duration', type: 'NumberField', name: 'duration' }, operator: 'is at least', value: { value: '10', display: '10' } },
-        { coordinator: 'or', field: { display: 'Birthday', type: 'DateField', name: 'birthday' }, operator: 'is', value: { value: '10/10/2019', display: '10/10/2019' } },
-        { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { value: 'Donkeys', display: 'Donkeys' } }
+        { coordinator: 'or', field: { display: 'Duration', type: 'NumberField', name: 'duration' }, operator: 'is at least', value: { type: 'Value', value: '10', display: '10' } },
+        { coordinator: 'or', field: { display: 'Birthday', type: 'DateField', name: 'birthday' }, operator: 'is', value: { type: 'Value', value: '10/10/2019', display: '10/10/2019' } },
+        { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is not', value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' } }
       ])
     })
   })

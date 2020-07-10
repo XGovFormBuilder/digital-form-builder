@@ -1,4 +1,4 @@
-import { timeShift } from './inline-condition-date-model'
+import { dateTimeUnits, dateUnits, timeUnits, relativeTime } from './inline-conditions-relative-dates'
 
 const defaultOperators = {
   is: inline('=='),
@@ -15,11 +15,25 @@ const textBasedFieldCustomisations = {
   'has length': lengthIs('==')
 }
 
-const dateTimeOperators = {
-  'is at least': timeShift('<=', '>='),
-  'is at most': timeShift('>=', '<='),
-  'is less than': timeShift('>', '<'),
-  'is more than': timeShift('<', '>')
+const relativeTimeOperators = (units) => ({
+  'is at least': relativeTime('<=', '>=', units),
+  'is at most': relativeTime('>=', '<=', units),
+  'is less than': relativeTime('>', '<', units),
+  'is more than': relativeTime('<', '>', units)
+})
+
+const absoluteTimeOperators = {
+  is: inline('==', 'e.g 13:46'),
+  'is not': inline('!=', 'e.g 13:46'),
+  'is before': inline('<', 'e.g 13:46'),
+  'is after': inline('>', 'e.g 13:46')
+}
+
+const absoluteDateOperators = {
+  is: inline('==', 'e.g 2020-02-13'),
+  'is not': inline('!=', 'e.g 2020-02-13'),
+  'is before': inline('<', 'e.g 2020-02-13'),
+  'is after': inline('>', 'e.g 2020-02-13')
 }
 
 export const customOperators = {
@@ -33,15 +47,17 @@ export const customOperators = {
     'is less than': inline('<'),
     'is more than': inline('>')
   }),
-  DateField: dateTimeOperators,
-  TimeField: dateTimeOperators,
-  DatePartsField: dateTimeOperators,
-  DateTimeField: dateTimeOperators,
-  DateTimePartsField: dateTimeOperators,
+  DateField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  TimeField: Object.assign(absoluteTimeOperators, relativeTimeOperators(timeUnits)),
+  DatePartsField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  DateTimeField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateTimeUnits)),
+  DateTimePartsField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateTimeUnits)),
   TextField: withDefaults(textBasedFieldCustomisations),
   MultilineTextField: withDefaults(textBasedFieldCustomisations),
   EmailAddressField: withDefaults(textBasedFieldCustomisations)
 }
+
+export const relativeTimeOperatorNames = Object.keys(relativeTimeOperators)
 
 export function getOperatorNames (fieldType) {
   return Object.keys(getConditionals(fieldType)).sort()
@@ -49,6 +65,10 @@ export function getOperatorNames (fieldType) {
 
 export function getExpression (fieldType, fieldName, operator, value) {
   return getConditionals(fieldType)[operator].expression({ type: fieldType, name: fieldName }, value)
+}
+
+export function getOperatorConfig (fieldType, operator) {
+  return !!getConditionals(fieldType)[operator]
 }
 
 function getConditionals (fieldType) {

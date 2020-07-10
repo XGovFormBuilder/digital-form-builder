@@ -1,6 +1,6 @@
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 import { getExpression } from './inline-condition-operators'
-import { TimeShiftValue } from './inline-condition-date-model'
+import { ConditionValue } from './inline-condition-values'
 
 export const coordinators = {
   AND: 'and',
@@ -286,7 +286,7 @@ export class Condition {
     if (typeof operator !== 'string') {
       throw Error(`operator ${operator} is not a valid operator`)
     }
-    if (!(value instanceof Value || value instanceof TimeShiftValue)) {
+    if (!(value instanceof ConditionValue)) {
       throw Error(`value ${value} is not a valid value type`)
     }
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
@@ -361,8 +361,9 @@ export class Field {
   }
 }
 
-export class Value {
+export class Value extends ConditionValue {
   constructor (value, display) {
+    super('Value', obj => Value.from(obj))
     if (!value || typeof value !== 'string') {
       throw Error(`value ${value} is not valid`)
     }
@@ -388,11 +389,4 @@ export class Value {
   clone () {
     return Value.from(this)
   }
-}
-
-export function valueFrom (obj) {
-  if (obj.timeUnit) {
-    return TimeShiftValue.from(obj)
-  }
-  return Value.from(obj)
 }

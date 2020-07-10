@@ -1,27 +1,6 @@
 import React from 'react'
-import { dateTimeUnits, dateUnits, timeUnits } from './inline-condition-date-model'
 import { Value } from './inline-condition-model'
-import TimeShiftValues from './inline-conditions-definition-time-shift-values'
-
-const componentTypeValueDefinitions = {
-  'DateField': DateFieldValues,
-  'TimeField': TimeFieldValues,
-  'DateTimeField': DateTimeFieldValues,
-  'DatePartsField': DateFieldValues,
-  'DateTimePartsField': DateTimeFieldValues
-}
-
-export function DateTimeFieldValues (props) {
-  return <TimeShiftValues value={props.value} updateValue={props.updateValue} units={dateTimeUnits} />
-}
-
-export function DateFieldValues (props) {
-  return <TimeShiftValues value={props.value} updateValue={props.updateValue} units={dateUnits} />
-}
-
-export function TimeFieldValues (props) {
-  return <TimeShiftValues value={props.value} updateValue={props.updateValue} units={timeUnits} timeOnly />
-}
+import { getOperatorConfig } from './inline-condition-operators'
 
 function TextValues (props) {
   const { updateValue, value } = props
@@ -38,9 +17,9 @@ function TextValues (props) {
   }
 
   return (
-    <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
-      type='text' defaultValue={value?.value} required
-      onChange={onChangeTextInput} />
+      <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
+        type='text' defaultValue={value?.value} required
+        onChange={onChangeTextInput} />
   )
 }
 
@@ -72,11 +51,12 @@ function SelectValues (props) {
 
 class InlineConditionsDefinitionValue extends React.Component {
   render () {
-    const { fieldDef } = this.props
+    const { fieldDef, operator, value, updateValue } = this.props
 
-    const customConfig = componentTypeValueDefinitions[fieldDef.type]
-    if (customConfig) {
-      return customConfig(this.props)
+    const operatorConfig = getOperatorConfig(fieldDef.type, operator)
+    const customRendering = operatorConfig.renderComponent
+    if (customRendering) {
+      return customRendering(value, updateValue)
     }
     return (fieldDef?.values?.length??0) > 0 ? SelectValues(this.props) : TextValues(this.props)
   }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Condition, Field, valueFrom } from './inline-condition-model'
+import { Condition, Field } from './inline-condition-model'
+import { valueFrom } from './inline-condition-values'
 import { getOperatorNames } from './inline-condition-operators'
 import { clone } from '../helpers'
 import InlineConditionsDefinitionValue from './inline-conditions-definition-values'
@@ -140,7 +141,7 @@ class InlineConditionsDefinition extends React.Component {
           </select>
           }
 
-          {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value} updateValue={this.updateValue} />}
+          {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value} operator={condition.operator} updateValue={this.updateValue} />}
           {condition.value &&
           <div className='govuk-form-group'>
             <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Save condition</a>
