@@ -58,7 +58,7 @@ PACKAGES=$(ls ${ROOT} -l | grep ^d | awk '{print $9}')
 echo "Searching for changes since commit [${LAST_COMPLETED_BUILD_SHA:0:7}] ..."
 
 ## The CircleCI API parameters object
-PARAMETERS='"trigger":false, "designer":true, "runner":true'
+PARAMETERS='"trigger":false, "designer":true, "runner":true, "engine":true'
 COUNT=2
 
 ## Get the list of workflows in current branch for which the CI is currently in failed state
