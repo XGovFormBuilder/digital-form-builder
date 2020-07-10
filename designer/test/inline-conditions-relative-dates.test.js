@@ -22,7 +22,7 @@ function aRandomItemFrom (units) {
   return values[Math.floor(Math.random() * values.length)]
 }
 
-suite('Inline conditions time shift value inputs', () => {
+suite('Inline conditions relative time value inputs', () => {
   const dateAndTimeMappings = [
     { type: 'DateField', units: dateUnits },
     { type: 'DatePartsField', units: dateUnits },

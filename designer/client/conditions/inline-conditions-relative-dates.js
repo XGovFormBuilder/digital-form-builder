@@ -1,6 +1,13 @@
 import React from 'react'
 import { ConditionValue } from './inline-condition-values'
 
+export const relativeTimeOperators = (units) => ({
+  'is at least': relativeTime('<=', '>=', units),
+  'is at most': relativeTime('>=', '<=', units),
+  'is less than': relativeTime('>', '<', units),
+  'is more than': relativeTime('<', '>', units)
+})
+
 export function relativeTime (pastOperator, futureOperator, units) {
   return {
     expression: (field, value) => {

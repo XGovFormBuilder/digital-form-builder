@@ -5,7 +5,7 @@ export class ConditionValue {
     if (new.target === ConditionValue) {
       throw new TypeError('Cannot construct ConditionValue instances directly')
     }
-    if(!conditionValueFactories[type]) {
+    if (!conditionValueFactories[type]) {
       conditionValueFactories[type] = factory
     }
     this.type = type

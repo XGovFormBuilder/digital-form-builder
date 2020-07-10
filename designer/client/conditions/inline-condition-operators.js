@@ -1,4 +1,14 @@
-import { dateTimeUnits, dateUnits, timeUnits, relativeTime } from './inline-conditions-relative-dates'
+import {
+  dateTimeUnits,
+  dateUnits,
+  timeUnits,
+  relativeTimeOperators
+} from './inline-conditions-relative-dates'
+import {
+  absoluteDateOperators,
+  absoluteDateTimeOperators,
+  absoluteTimeOperators
+} from './inline-conditions-absolute-dates'
 
 const defaultOperators = {
   is: inline('=='),
@@ -6,34 +16,13 @@ const defaultOperators = {
 }
 
 function withDefaults (param) {
-  return Object.assign(param, defaultOperators)
+  return Object.assign({}, param, defaultOperators)
 }
 
 const textBasedFieldCustomisations = {
   'is longer than': lengthIs('>'),
   'is shorter than': lengthIs('<'),
   'has length': lengthIs('==')
-}
-
-const relativeTimeOperators = (units) => ({
-  'is at least': relativeTime('<=', '>=', units),
-  'is at most': relativeTime('>=', '<=', units),
-  'is less than': relativeTime('>', '<', units),
-  'is more than': relativeTime('<', '>', units)
-})
-
-const absoluteTimeOperators = {
-  is: inline('==', 'e.g 13:46'),
-  'is not': inline('!=', 'e.g 13:46'),
-  'is before': inline('<', 'e.g 13:46'),
-  'is after': inline('>', 'e.g 13:46')
-}
-
-const absoluteDateOperators = {
-  is: inline('==', 'e.g 2020-02-13'),
-  'is not': inline('!=', 'e.g 2020-02-13'),
-  'is before': inline('<', 'e.g 2020-02-13'),
-  'is after': inline('>', 'e.g 2020-02-13')
 }
 
 export const customOperators = {
@@ -47,17 +36,15 @@ export const customOperators = {
     'is less than': inline('<'),
     'is more than': inline('>')
   }),
-  DateField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateUnits)),
-  TimeField: Object.assign(absoluteTimeOperators, relativeTimeOperators(timeUnits)),
-  DatePartsField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateUnits)),
-  DateTimeField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateTimeUnits)),
-  DateTimePartsField: Object.assign(absoluteDateOperators, relativeTimeOperators(dateTimeUnits)),
+  DateField: Object.assign({}, absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  TimeField: Object.assign({}, absoluteTimeOperators, relativeTimeOperators(timeUnits)),
+  DatePartsField: Object.assign({}, absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  DateTimeField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateTimeUnits)),
+  DateTimePartsField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateTimeUnits)),
   TextField: withDefaults(textBasedFieldCustomisations),
   MultilineTextField: withDefaults(textBasedFieldCustomisations),
   EmailAddressField: withDefaults(textBasedFieldCustomisations)
 }
-
-export const relativeTimeOperatorNames = Object.keys(relativeTimeOperators)
 
 export function getOperatorNames (fieldType) {
   return Object.keys(getConditionals(fieldType)).sort()
@@ -68,7 +55,7 @@ export function getExpression (fieldType, fieldName, operator, value) {
 }
 
 export function getOperatorConfig (fieldType, operator) {
-  return !!getConditionals(fieldType)[operator]
+  return getConditionals(fieldType)[operator]
 }
 
 function getConditionals (fieldType) {

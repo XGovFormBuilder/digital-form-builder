@@ -17,9 +17,9 @@ function TextValues (props) {
   }
 
   return (
-      <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
-        type='text' defaultValue={value?.value} required
-        onChange={onChangeTextInput} />
+    <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
+      type='text' defaultValue={value?.value} required
+      onChange={onChangeTextInput} />
   )
 }
 
