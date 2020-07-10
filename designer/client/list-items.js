@@ -67,7 +67,7 @@ const SortableList = SortableContainer(({ items, conditions, type, removeItem, o
   return (
     <tbody className='govuk-table__body'>
       {items.map((item, index) => (
-        <SortableItem key={`item-${index}`} item={item} index={index} conditions={conditions} type={type} onBlur={onBlur} removeItem={removeItem} />
+        <SortableItem key={`item-${item.value}`} item={item} index={index} conditions={conditions} type={type} onBlur={onBlur} removeItem={removeItem} />
       ))}
     </tbody>
   )
