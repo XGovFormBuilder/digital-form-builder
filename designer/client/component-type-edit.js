@@ -16,6 +16,7 @@ function Classes (props) {
     </div>
   )
 }
+
 class FieldEdit extends React.Component {
   constructor (props) {
     super(props)
@@ -59,6 +60,18 @@ class FieldEdit extends React.Component {
           <textarea className='govuk-textarea' id='field-hint' name='hint'
             defaultValue={component.hint} rows='2' />
         </div>
+
+        <div className='govuk-checkboxes govuk-form-group'>
+          <div className='govuk-checkboxes__item'>
+            <input className='govuk-checkboxes__input' id='field-options.hideTitle'
+              name='options.hideTitle' type='checkbox' value defaultChecked={options.hideTitle}
+            />
+            <label className='govuk-label govuk-checkboxes__label'
+              htmlFor='field-options.hideTitle'>Hide title</label>
+            <span className='govuk-hint'>Hide the title of the component</span>
+          </div>
+        </div>
+
         <div className='govuk-checkboxes govuk-form-group'>
           <div className='govuk-checkboxes__item'>
             <input className={`govuk-checkboxes__input ${isFileUploadField ? 'disabled' : ''}`} id='field-options.required'
@@ -73,7 +86,6 @@ class FieldEdit extends React.Component {
             {!isFileUploadField && (
               <span className='govuk-hint'>The hint can include HTML</span>
             )}
-
           </div>
         </div>
 

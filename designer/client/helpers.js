@@ -18,7 +18,9 @@ export function getFormData (form) {
     } else if (cast === 'boolean') {
       return val === 'on'
     }
-
+    if (val === 'true' || val === 'false') {
+      return Boolean(val)
+    }
     return val
   }
 
