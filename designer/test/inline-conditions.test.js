@@ -5,7 +5,8 @@ import * as Lab from '@hapi/lab'
 import { assertLabel, assertLink, assertText } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
-import { Condition, ConditionsModel, Field, Value } from '../client/conditions/inline-condition-model'
+import { Condition, ConditionsModel, Field } from '../client/conditions/inline-condition-model'
+import { Value } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

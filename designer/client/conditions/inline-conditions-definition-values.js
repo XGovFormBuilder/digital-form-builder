@@ -1,5 +1,5 @@
 import React from 'react'
-import { Value } from './inline-condition-model'
+import { Value } from './inline-condition-values'
 import { getOperatorConfig } from './inline-condition-operators'
 
 function TextValues (props) {

@@ -9,7 +9,7 @@ import {
   RelativeTimeValue,
   timeUnits
 } from '../client/conditions/inline-conditions-relative-dates'
-import { Value } from '../client/conditions/inline-condition-model'
+import { Value } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

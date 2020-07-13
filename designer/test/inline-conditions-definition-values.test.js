@@ -5,7 +5,7 @@ import * as Code from '@hapi/code'
 import { assertRequiredTextInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinitionValue from '../client/conditions/inline-conditions-definition-values'
-import { Value } from '../client/conditions/inline-condition-model'
+import { Value } from '../client/conditions/inline-condition-values'
 import {
   dateTimeUnits,
   dateUnits,

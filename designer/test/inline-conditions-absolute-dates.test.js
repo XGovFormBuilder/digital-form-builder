@@ -1,14 +1,15 @@
 import { shallow } from 'enzyme'
 import * as Lab from '@hapi/lab'
 import * as Code from '@hapi/code'
-import { assertRequiredNumberInput } from './helpers/element-assertions'
+import { assertRequiredNumberInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
+import momentTz from 'moment-timezone'
 import {
   absoluteDateOperators,
   absoluteDateTimeOperators,
   absoluteTimeOperators
 } from '../client/conditions/inline-conditions-absolute-dates'
-import { Value } from '../client/conditions/inline-condition-model'
+import { Value } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -226,9 +227,13 @@ suite('Inline conditions absolute date and time value inputs', () => {
         const absoluteTimeValues = wrapper.find('AbsoluteTimeValues')
         expect(absoluteTimeValues.exists()).to.equal(true)
         expect(absoluteTimeValues.prop('value')).to.equal(new Value('13:46'))
+
+        assertSelectInput(wrapper.find('#cond-value-tz'), 'cond-value-tz',
+          momentTz.tz.names().map(tz => ({ value: tz, text: tz })),
+          'Europe/London')
       })
 
-      test(`specifying all inputs in order should save the expected value for adding with '${operator}' operator`, () => {
+      test(`specifying date and time inputs in order should save the expected value for adding with '${operator}' operator`, () => {
         const operatorConfig = absoluteDateTimeOperators[operator]
         const wrapper = shallow(operatorConfig.renderComponent(undefined, updateValueCallback))
 
@@ -238,6 +243,31 @@ suite('Inline conditions absolute date and time value inputs', () => {
         expect(updateValueCallback.callCount).to.equal(1)
         expect(updateValueCallback.firstCall.args.length).to.equal(1)
         expect(updateValueCallback.firstCall.args[0]).to.equal(new Value('2020-03-13T02:17:00.000Z'))
+      })
+
+      test(`Value should apply daylight savings in the default time zone for adding with '${operator}' operator`, () => {
+        const operatorConfig = absoluteDateTimeOperators[operator]
+        const wrapper = shallow(operatorConfig.renderComponent(undefined, updateValueCallback))
+
+        wrapper.find('AbsoluteDateValues').prop('updateValue')(new Value('2020-07-13'))
+        wrapper.find('AbsoluteTimeValues').prop('updateValue')(new Value('02:17'))
+
+        expect(updateValueCallback.callCount).to.equal(1)
+        expect(updateValueCallback.firstCall.args.length).to.equal(1)
+        expect(updateValueCallback.firstCall.args[0]).to.equal(new Value('2020-07-13T01:17:00.000Z'))
+      })
+
+      test(`Value should have the specified time zone when specified for adding with '${operator}' operator`, () => {
+        const operatorConfig = absoluteDateTimeOperators[operator]
+        const wrapper = shallow(operatorConfig.renderComponent(undefined, updateValueCallback))
+
+        wrapper.find('#cond-value-tz').simulate('change', { target: { value: 'America/New_York' } })
+        wrapper.find('AbsoluteDateValues').prop('updateValue')(new Value('2020-07-13'))
+        wrapper.find('AbsoluteTimeValues').prop('updateValue')(new Value('02:17'))
+
+        expect(updateValueCallback.callCount).to.equal(1)
+        expect(updateValueCallback.firstCall.args.length).to.equal(1)
+        expect(updateValueCallback.firstCall.args[0]).to.equal(new Value('2020-07-13T06:17:00.000Z'))
       })
 
       test(`specifying all inputs out of order should save the expected value for adding with '${operator}' operator`, () => {

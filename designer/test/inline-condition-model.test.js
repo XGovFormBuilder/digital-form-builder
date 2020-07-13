@@ -5,9 +5,12 @@ import {
   ConditionsModel,
   Condition,
   Field,
-  Value,
   GroupDef
 } from '../client/conditions/inline-condition-model'
+
+import {
+  Value
+} from '../client/conditions/inline-condition-values'
 
 import { RelativeTimeValue, dateDirections } from '../client/conditions/inline-conditions-relative-dates'
 

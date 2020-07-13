@@ -1,5 +1,6 @@
 import React from 'react'
-import { Value } from './inline-condition-model'
+import { Value } from './inline-condition-values'
+import momentTz from 'moment-timezone'
 
 export const absoluteTimeOperators = {
   is: absoluteTime('=='),
@@ -173,10 +174,13 @@ class AbsoluteDateTimeValues extends React.Component {
       this.state = {
         date: new Value(dateTimeComponents[0]),
         // throw away any second / millis values
-        time: new Value(`${timeComponents[0]}:${timeComponents[1]}`)
+        time: new Value(`${timeComponents[0]}:${timeComponents[1]}`),
+        timeZone: 'Europe/London'
       }
     } else {
-      this.state = {}
+      this.state = {
+        timeZone: 'Europe/London'
+      }
     }
   }
 
@@ -187,18 +191,24 @@ class AbsoluteDateTimeValues extends React.Component {
   }
 
   passValueToParentComponentIfComplete () {
-    const { date, time } = this.state
+    const { date, time, timeZone } = this.state
     if (date && time) {
-      this.props.updateValue(new Value(`${date.value}T${time.value}:00.000Z`))
+      this.props.updateValue(new Value(momentTz.tz(`${date.value} ${time.value}`, timeZone).toISOString()))
     }
   }
 
   render () {
-    const { date, time } = this.state
+    const { date, time, timeZone } = this.state
     return (
       <div>
         <AbsoluteDateValues value={date} updateValue={dateValue => this.updateState({ date: dateValue })} />
         <AbsoluteTimeValues value={time} updateValue={timeValue => this.updateState({ time: timeValue })} />
+        <select className='govuk-select' id='cond-value-tz' name='cond-value-tz' value={timeZone}
+          onChange={e => this.updateState({ timeZone: e.target.value })}>
+          {momentTz.tz.names().map(tz => {
+            return <option key={tz} value={tz}>{tz}</option>
+          })}
+        </select>
       </div>
     )
   }

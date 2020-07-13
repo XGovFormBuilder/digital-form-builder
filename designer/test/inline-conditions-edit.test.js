@@ -13,7 +13,8 @@ import {
 } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsEdit from '../client/conditions/inline-conditions-edit'
-import { Condition, ConditionsModel, Field, Value } from '../client/conditions/inline-condition-model'
+import { Condition, ConditionsModel, Field } from '../client/conditions/inline-condition-model'
+import { Value } from '../client/conditions/inline-condition-values'
 import { getOperatorNames } from '../client/conditions/inline-condition-operators'
 
 const { expect } = Code
