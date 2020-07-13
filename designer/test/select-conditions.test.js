@@ -80,6 +80,23 @@ suite('Select conditions', () => {
         assertLink(selectConditions.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
+      test('should default the selected condition when one is provided', () => {
+        const wrapper = shallow(<SelectConditions data={data} path={path} selectedCondition={conditions[1].name} conditionsChange={conditionsChange} />)
+        let conditionsSection = wrapper.find('.conditions')
+        expect(conditionsSection.exists()).to.equal(true)
+        let conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
+        expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
+        expect(conditionsSection.find('InlineConditions').exists()).to.equal(false)
+        let selectConditions = conditionsSection.find('#select-condition')
+        expect(selectConditions.exists()).to.equal(true)
+        expect(selectConditions.find('label').text()).to.equal('Select a condition')
+        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
+        expectedFieldOptions.unshift({ text: '' })
+        assertSelectInput(selectConditions.find('select'), 'cond-select',
+          expectedFieldOptions, conditions[1].name)
+        assertLink(selectConditions.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
+      })
+
       test('Clicking the define condition link should trigger the inline view to define a condition', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
         expect(wrapper.find('#select-condition').exists()).to.equal(true)
@@ -90,13 +107,27 @@ suite('Select conditions', () => {
         assertInlineConditionsComponent(wrapper, data, path, conditionsChange, true)
       })
 
-      test('cancel inline condition should re-display the select conditions section', () => {
+      test('cancel inline condition should re-display the select conditions section with blank condition', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#inline-conditions-link').simulate('click')
         assertInlineConditionsComponent(wrapper, data, path, conditionsChange, true)
         wrapper.instance().onCancelInlineCondition()
 
-        expect(wrapper.find('#select-condition').exists()).to.equal(true)
+        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
+        expectedFieldOptions.unshift({ text: '' })
+        assertSelectInput(wrapper.find('select'), 'cond-select', expectedFieldOptions, '')
+        expect(wrapper.find('InlineConditions').exists()).to.equal(false)
+      })
+
+      test('cancel inline condition should re-display the select conditions section with specified condition selected', () => {
+        const wrapper = shallow(<SelectConditions data={data} path={path} selectedCondition={conditions[1].name} conditionsChange={conditionsChange} />)
+        wrapper.find('#inline-conditions-link').simulate('click')
+        assertInlineConditionsComponent(wrapper, data, path, conditionsChange, true)
+        wrapper.instance().onCancelInlineCondition()
+
+        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
+        expectedFieldOptions.unshift({ text: '' })
+        assertSelectInput(wrapper.find('select'), 'cond-select', expectedFieldOptions, conditions[1].name)
         expect(wrapper.find('InlineConditions').exists()).to.equal(false)
       })
 

@@ -8,7 +8,8 @@ class SelectConditions extends React.Component {
 
     this.state = {
       fields: this.fieldsForPath(props.path),
-      inline: !props.data.hasConditions
+      inline: !props.data.hasConditions,
+      selectedCondition: props.selectedCondition
     }
   }
 
@@ -63,7 +64,7 @@ class SelectConditions extends React.Component {
   onCancelInlineCondition = () => {
     this.setState({
       inline: !this.props.data.hasConditions,
-      selectedCondition: null
+      selectedCondition: this.props.selectedCondition
     })
   }
 
