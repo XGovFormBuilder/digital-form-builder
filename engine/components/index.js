@@ -130,9 +130,10 @@ class FormComponent extends Component {
     const isOptional = options.required === false
     const optionalPostfix = isOptional && options.optionalText !== false ? optionalText : ''
     this.lang = formData.lang
-    const label = `${this.localisedString(this.title)}${optionalPostfix}`
+    const label = options.hideTitle ? '' : `${this.localisedString(this.title)}${optionalPostfix}`
 
     const name = this.name
+
     const model = {
       label: {
         text: label,
