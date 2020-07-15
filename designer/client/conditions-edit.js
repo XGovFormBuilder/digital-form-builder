@@ -1,6 +1,7 @@
 import React from 'react'
 import ConditionEdit from './condition-edit'
-import ConditionCreate from './condition-create'
+import InlineConditions from './conditions/inline-conditions'
+import Flyout from './flyout'
 
 class ConditionsEdit extends React.Component {
   state = {}
@@ -13,7 +14,7 @@ class ConditionsEdit extends React.Component {
     })
   }
 
-  onClickAddCondition = (e, condition) => {
+  onClickAddCondition = (e) => {
     e.preventDefault()
 
     this.setState({
@@ -30,44 +31,49 @@ class ConditionsEdit extends React.Component {
       <div className='govuk-body'>
         {!condition ? (
           <div>
-            {this.state.showAddCondition ? (
-              <ConditionCreate data={data}
-                onCreate={e => this.setState({ showAddCondition: false })}
-                onCancel={e => this.setState({ showAddCondition: false })} />
-            ) : (
-              <ul className='govuk-list'>
-                {conditions.map((condition, index) => (
-                  <li key={condition.name}>
-                    <a href='#' onClick={e => this.onClickCondition(e, condition)}>
-                      {condition.displayName}
-                    </a>
-                    {' '}
-                    <small>{condition.name}</small>
-                    {'   ('}
-                    <small>{condition.value}</small>
-                    {')'}
-                  </li>
-                ))}
-                <li>
-                  <hr />
-                  { data.allInputs().length > 0
-                    ? <a href='#' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
-                    : <div className='govuk-body'>
-                      You cannot add any conditions as there are no available fields
-                    </div>
-                  }
+            <Flyout title='Edit Conditions' show={!!this.state.showAddCondition}
+              onHide={this.cancelInlineCondition}>
+              <InlineConditions data={data}
+                conditionsChange={this.cancelInlineCondition}
+                cancelCallback={this.cancelInlineCondition}
+                hideAddLink />
+            </Flyout>
+            <ul className='govuk-list'>
+              {conditions.map((condition) => (
+                <li key={condition.name}>
+                  <a href='#' onClick={e => this.onClickCondition(e, condition)}>
+                    {condition.displayName}
+                  </a>
+                  {' '}
+                  <small>{condition.name}</small>
+                  {'   ('}
+                  <small>{condition.value}</small>
+                  {')'}
                 </li>
-              </ul>
-            )}
+              ))}
+              <li>
+                <hr />
+                { data.allInputs().length > 0
+                  ? <a href='#' id='add-condition-link' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
+                  : <div className='govuk-body'>
+                      You cannot add any conditions as there are no available fields
+                  </div>
+                }
+              </li>
+            </ul>
           </div>
         ) : (
           <ConditionEdit condition={condition} data={data}
-            onEdit={e => this.setState({ condition: null })}
-            onCancel={e => this.setState({ condition: null })} />
+            onEdit={this.editFinished}
+            onCancel={this.editFinished} />
         )}
       </div>
     )
   }
+
+  editFinished = () => this.setState({ condition: null })
+
+  cancelInlineCondition = () => this.setState({ showAddCondition: false })
 }
 
 export default ConditionsEdit

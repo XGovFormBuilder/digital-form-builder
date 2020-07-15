@@ -1,6 +1,5 @@
 import React from 'react'
 import SelectConditions from './conditions/select-conditions'
-import InlineConditionHelpers from './conditions/inline-condition-helpers'
 import { toUrl } from './helpers'
 
 class PageCreate extends React.Component {
@@ -15,7 +14,6 @@ class PageCreate extends React.Component {
     const section = this.state.section?.trim()
     const pageType = this.state.pageType?.trim()
     const selectedCondition = this.state.selectedCondition?.trim()
-    const conditions = this.state.conditions
     const path = this.generatePath(title, data)
 
     const value = {
@@ -36,8 +34,7 @@ class PageCreate extends React.Component {
     copy = copy.addPage(value)
 
     if (linkFrom) {
-      const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, selectedCondition, conditions)
-      copy = conditionResult.data.addLink(linkFrom, path, conditionResult.condition)
+      copy = copy.addLink(linkFrom, path, selectedCondition)
     }
     try {
       await data.save(copy)
@@ -85,7 +82,7 @@ class PageCreate extends React.Component {
           </select>
         </div>
 
-        {linkFrom && linkFrom.trim() !== '' && <SelectConditions data={data} path={linkFrom} conditionsChange={this.saveConditions} />}
+        {linkFrom && linkFrom.trim() !== '' && <SelectConditions data={data} path={linkFrom} conditionsChange={this.conditionSelected} />}
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
@@ -135,9 +132,8 @@ class PageCreate extends React.Component {
     })
   }
 
-  saveConditions = (conditions, selectedCondition) => {
+  conditionSelected = (selectedCondition) => {
     this.setState({
-      conditions: conditions,
       selectedCondition: selectedCondition
     })
   }

@@ -1,6 +1,7 @@
 import React from 'react'
 import InlineConditions from './inline-conditions'
 import { ConditionsModel } from './inline-condition-model'
+import Flyout from '../flyout'
 
 class SelectConditions extends React.Component {
   constructor (props) {
@@ -42,14 +43,13 @@ class SelectConditions extends React.Component {
 
   onClickDefineCondition = () => {
     this.setState({
-      inline: true,
-      selectedCondition: null
+      inline: true
     })
   }
 
   setState (state, callback) {
     if (state.selectedCondition !== undefined) {
-      this.props.conditionsChange(undefined, state.selectedCondition)
+      this.props.conditionsChange(state.selectedCondition)
     }
     super.setState(state, callback)
   }
@@ -63,8 +63,14 @@ class SelectConditions extends React.Component {
 
   onCancelInlineCondition = () => {
     this.setState({
-      inline: !this.props.data.hasConditions,
-      selectedCondition: this.props.selectedCondition
+      inline: !this.props.data.hasConditions
+    })
+  }
+
+  onSaveInlineCondition = (createdCondition) => {
+    this.setState({
+      inline: false,
+      selectedCondition: createdCondition
     })
   }
 
@@ -78,33 +84,35 @@ class SelectConditions extends React.Component {
         </div>
         {this.state.fields && Object.keys(this.state.fields).length > 0
           ? <div>
-            {!inline
-              ? <div id='select-condition'>
-                <div className='govuk-form-group' id='cond-selection-group'>
-                  <label className='govuk-label' htmlFor='cond-select'>
-                          Select a condition
-                  </label>
-                  <select className='govuk-select' id='cond-select' name='cond-select'
-                    value={selectedCondition ?? ''}
-                    onChange={this.onChangeConditionSelection}>
-                    <option />
-                    {
-                      this.props.data.conditions.map((it, index) =>
-                        <option key={`select-condition-${index}`} value={it.name}>{it.displayName}</option>)
-                    }
-                  </select>
-                </div>
-                <div className='govuk-form-group'>
-                  <a href='#' id='inline-conditions-link' className='govuk-link'
-                    onClick={this.onClickDefineCondition}>Define
-                          a new condition</a>
-                </div>
+            {!inline && <div id='select-condition'>
+              <div className='govuk-form-group' id='cond-selection-group'>
+                <label className='govuk-label' htmlFor='cond-select'>
+                    Select a condition
+                </label>
+                <select className='govuk-select' id='cond-select' name='cond-select'
+                  value={selectedCondition ?? ''}
+                  onChange={this.onChangeConditionSelection}>
+                  <option />
+                  {
+                    this.props.data.conditions.map((it, index) =>
+                      <option key={`select-condition-${index}`} value={it.name}>{it.displayName}</option>)
+                  }
+                </select>
               </div>
-              : <InlineConditions data={this.props.data} path={this.props.path}
-                conditionsChange={this.props.conditionsChange}
+              <div className='govuk-form-group'>
+                <a href='#' id='inline-conditions-link' className='govuk-link'
+                  onClick={this.onClickDefineCondition}>Define
+                    a new condition</a>
+              </div>
+            </div>
+            }
+            <Flyout title='Define condition' show={inline}
+              onHide={this.onCancelInlineCondition}>
+              <InlineConditions data={this.props.data} path={this.props.path}
+                conditionsChange={this.onSaveInlineCondition}
                 cancelCallback={this.onCancelInlineCondition}
                 hideAddLink={this.props.data.hasConditions} />
-            }
+            </Flyout>
           </div>
           : <div className='govuk-body'>
                 You cannot add any conditions as there are no available fields

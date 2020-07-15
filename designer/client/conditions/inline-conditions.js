@@ -3,6 +3,7 @@ import { clone } from '../helpers'
 import { ConditionsModel } from './inline-condition-model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
+import InlineConditionHelpers from './inline-condition-helpers'
 
 class InlineConditions extends React.Component {
   constructor (props) {
@@ -13,7 +14,6 @@ class InlineConditions extends React.Component {
     this.state = {
       conditions: new ConditionsModel(),
       fields: this.fieldsForPath(path),
-      inline: !props.data.hasConditions,
       adding: props.hideAddLink
     }
   }
@@ -59,21 +59,26 @@ class InlineConditions extends React.Component {
   }
 
   setState (state, callback) {
-    if (state.conditions) {
-      this.props.conditionsChange(state.conditions, undefined)
-    }
     super.setState(state, callback)
   }
 
   onClickCancel = e => {
     this.setState({
-      inline: !this.props.data.hasConditions,
       adding: this.props.adding,
       conditions: this.state.conditions.clear(),
       editView: false
     })
     if (this.props.cancelCallback) {
       this.props.cancelCallback(e)
+    }
+  }
+
+  onClickSave = async () => {
+    const copy = this.props.data.clone()
+    const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, this.state.conditions)
+    await this.props.data.save(conditionResult.data)
+    if (this.props.conditionsChange) {
+      this.props.conditionsChange(conditionResult.condition)
     }
   }
 
@@ -142,6 +147,9 @@ class InlineConditions extends React.Component {
               <InlineConditionsDefinition expectsCoordinator={hasConditions} fields={this.state.fields}
                 saveCallback={this.saveCondition} />
               <div className='govuk-form-group'>
+                {hasConditions &&
+                  <a href='#' id='save-inline-conditions' className='govuk-button' onClick={this.onClickSave}>Save</a>
+                }
                 <a href='#' id='cancel-inline-conditions-link' className='govuk-link'
                   onClick={this.onClickCancel}>Cancel</a>
               </div>
