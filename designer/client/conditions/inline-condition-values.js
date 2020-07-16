@@ -58,14 +58,14 @@ export const dateDirections = {
 }
 
 export const dateUnits = {
-  YEARS: {display: 'year(s)', value: 'years'},
-  MONTHS: {display: 'month(s)', value: 'months'},
-  DAYS: {display: 'day(s)', value: 'days'}
+  YEARS: { display: 'year(s)', value: 'years' },
+  MONTHS: { display: 'month(s)', value: 'months' },
+  DAYS: { display: 'day(s)', value: 'days' }
 }
 export const timeUnits = {
-  HOURS: {display: 'hour(s)', value: 'hours'},
-  MINUTES: {display: 'minute(s)', value: 'minutes'},
-  SECONDS: {display: 'second(s)', value: 'seconds'}
+  HOURS: { display: 'hour(s)', value: 'hours' },
+  MINUTES: { display: 'minute(s)', value: 'minutes' },
+  SECONDS: { display: 'second(s)', value: 'seconds' }
 }
 export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
 

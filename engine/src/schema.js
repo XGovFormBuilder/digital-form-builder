@@ -5,13 +5,49 @@ const sectionsSchema = joi.object().keys({
   title: joi.string().required()
 })
 
+const conditionFieldSchema = joi.object().keys({
+  name: joi.string().required(),
+  type: joi.string().required(),
+  display: joi.string().required()
+})
+
+const conditionValueSchema = joi.object().keys({
+  type: joi.string().required(),
+  value: joi.string().required(),
+  display: joi.string().required()
+})
+
+const relativeTimeValueSchema = joi.object().keys({
+  type: joi.string().required(),
+  timePeriod: joi.string().required(),
+  timeUnit: joi.string().required(),
+  direction: joi.string().required(),
+  timeOnly: joi.boolean().required()
+})
+
+const conditionSchema = joi.object().keys({
+  field: conditionFieldSchema,
+  operator: joi.string().required(),
+  value: joi.alternatives().try(conditionValueSchema, relativeTimeValueSchema),
+  coordinator: joi.string().optional()
+})
+
+const conditionGroupSchema = joi.object().keys({
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, /**Should be a link to conditionGroupSchema **/joi.any()))
+})
+
+const conditionsModelSchema = joi.object().keys({
+  name: joi.string().required(),
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionGroupSchema))
+})
+
 const conditionsSchema = joi.object().keys({
   name: joi.string().required(),
   displayName: joi.string(),
-  value: joi.string().required()
+  value: joi.alternatives().try(joi.string(), conditionsModelSchema).required()
 })
 
-const localisedString = joi.alternatives().try([joi.object({ a: joi.any() }).unknown(), joi.string().allow('')])
+const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(''))
 
 const componentSchema = joi.object().keys({
   type: joi.string().required(),

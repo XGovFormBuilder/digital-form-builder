@@ -1,5 +1,5 @@
 import React from 'react'
-import {dateDirections, RelativeTimeValue, timeUnits} from './inline-condition-values'
+import { dateDirections, RelativeTimeValue, timeUnits } from './inline-condition-values'
 
 export const relativeTimeOperators = (units) => ({
   'is at least': relativeTime('<=', '>=', units),
@@ -72,4 +72,3 @@ class RelativeTimeValues extends React.Component {
     )
   }
 }
-

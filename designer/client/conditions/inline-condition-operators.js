@@ -6,7 +6,7 @@ import {
   absoluteDateTimeOperators,
   absoluteTimeOperators
 } from './inline-conditions-absolute-dates'
-import {dateTimeUnits, dateUnits, timeUnits} from "./inline-condition-values";
+import { dateTimeUnits, dateUnits, timeUnits } from './inline-condition-values'
 
 const defaultOperators = {
   is: inline('=='),
