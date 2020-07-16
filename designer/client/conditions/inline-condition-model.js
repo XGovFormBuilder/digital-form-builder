@@ -194,6 +194,15 @@ export class ConditionsModel {
     }
     return []
   }
+
+  toJSON() {
+    const name = this.#conditionName
+    const conditions = this.#userGroupedConditions
+    return {
+      name: name,
+      conditions: conditions.map(it => it.clone())
+    }
+  }
 }
 
 export class GroupDef {
