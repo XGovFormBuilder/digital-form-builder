@@ -1,7 +1,4 @@
 import {
-  dateTimeUnits,
-  dateUnits,
-  timeUnits,
   relativeTimeOperators
 } from './inline-conditions-relative-dates'
 import {
@@ -9,6 +6,7 @@ import {
   absoluteDateTimeOperators,
   absoluteTimeOperators
 } from './inline-conditions-absolute-dates'
+import {dateTimeUnits, dateUnits, timeUnits} from "./inline-condition-values";
 
 const defaultOperators = {
   is: inline('=='),

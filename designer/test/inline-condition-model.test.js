@@ -9,10 +9,10 @@ import {
 } from '../client/conditions/inline-condition-model'
 
 import {
+  dateDirections, dateUnits,
+  RelativeTimeValue,
   ConditionValue
 } from '../client/conditions/inline-condition-values'
-
-import {RelativeTimeValue, dateDirections, dateUnits} from '../client/conditions/inline-conditions-relative-dates'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -660,7 +660,6 @@ suite('inline condition model', () => {
   })
 
   describe('serialization and deserialization', () => {
-
     beforeEach(() => {
       underTest.name = 'some condition name'
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
@@ -673,53 +672,53 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 2)])
     })
 
-    test('serializing to json returns the expected result', () =>{
+    test('serializing to json returns the expected result', () => {
       const expected = {
-        name: "some condition name",
+        name: 'some condition name',
         conditions: [
           {
             conditions: [
               {
-                field: {name: 'badger', type: 'TextField', display: 'Badger'},
+                field: { name: 'badger', type: 'TextField', display: 'Badger' },
                 operator: 'is',
-                value: {type: 'Value', value: 'Zebras', display: 'Zebras'},
+                value: { type: 'Value', value: 'Zebras', display: 'Zebras' }
               },
               {
-                field: {name: 'monkeys', type: 'TextField', display: 'Monkeys'},
+                field: { name: 'monkeys', type: 'TextField', display: 'Monkeys' },
                 operator: 'is',
-                value: {type: 'Value', value: 'giraffes', display: 'Giraffes'},
+                value: { type: 'Value', value: 'giraffes', display: 'Giraffes' },
                 coordinator: 'or'
               },
               {
-                field: {name: 'squiffy', type: 'TextField', display: 'Squiffy'},
+                field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
                 operator: 'is',
-                value: {type: 'Value', value: 'Donkeys', display: 'Donkeys'},
+                value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' },
                 coordinator: 'and'
               }
             ]
           },
           {
-            field: {name: 'duration', type: 'NumberField', display: 'Duration'},
+            field: { name: 'duration', type: 'NumberField', display: 'Duration' },
             operator: 'is at least',
-            value: {type: 'Value', value: '10', display: '10'},
+            value: { type: 'Value', value: '10', display: '10' },
             coordinator: 'or'
           },
           {
-            field: {name: 'birthday', type: 'DateField', display: 'Birthday'},
+            field: { name: 'birthday', type: 'DateField', display: 'Birthday' },
             operator: 'is',
-            value: {type: 'Value', value: '10/10/2019', display: '10/10/2019'},
+            value: { type: 'Value', value: '10/10/2019', display: '10/10/2019' },
             coordinator: 'or'
           },
           {
-            field: {name: 'reported', type: 'DateField', display: 'Reported'},
+            field: { name: 'reported', type: 'DateField', display: 'Reported' },
             operator: 'is more than',
-            value: {type: 'RelativeTime', timePeriod: '10', timeUnit: dateUnits.DAYS.value, direction: dateDirections.PAST, timeOnly: false},
+            value: { type: 'RelativeTime', timePeriod: '10', timeUnit: dateUnits.DAYS.value, direction: dateDirections.PAST, timeOnly: false },
             coordinator: 'and'
           },
           {
-            field: {name: 'squiffy', type: 'TextField', display: 'Squiffy'},
+            field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
             operator: 'is not',
-            value: {type: 'Value', value: 'Donkeys', display: 'Donkeys'},
+            value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' },
             coordinator: 'and'
           }
         ]
@@ -727,7 +726,13 @@ suite('inline condition model', () => {
       expect(JSON.stringify(underTest)).to.equal(JSON.stringify(expected))
     })
 
+    test('deserializing the serialized json returns a new ConditionsModel equal to the original', () => {
+      const returned = ConditionsModel.from(JSON.parse(JSON.stringify(underTest)))
+      expect(returned).to.equal(underTest)
+      expect(returned.asPerUserGroupings).to.equal(underTest.asPerUserGroupings)
+      expect(returned.toExpression()).to.equal(underTest.toExpression())
+      expect(returned.toPresentationString()).to.equal(underTest.toPresentationString())
+      expect(returned === underTest).to.equal(false)
+    })
   })
-
-
 })

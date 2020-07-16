@@ -4,13 +4,15 @@ import * as Code from '@hapi/code'
 import { assertRequiredTextInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import {
-  relativeTime,
+  relativeTime
+} from '../client/conditions/inline-conditions-relative-dates'
+import {
   dateDirections,
   dateTimeUnits,
   dateUnits,
   RelativeTimeValue,
   timeUnits
-} from '../client/conditions/inline-conditions-relative-dates'
+} from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

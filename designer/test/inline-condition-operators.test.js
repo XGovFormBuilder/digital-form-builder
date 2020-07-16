@@ -3,13 +3,10 @@ import * as Lab from '@hapi/lab'
 
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 import { getExpression, getOperatorNames } from '../client/conditions/inline-condition-operators'
-import {
-  dateDirections,
+
+import { dateDirections,
   dateUnits,
-  RelativeTimeValue,
-  timeUnits
-} from '../client/conditions/inline-conditions-relative-dates'
-import { ConditionValue } from '../client/conditions/inline-condition-values'
+  timeUnits, ConditionValue, RelativeTimeValue } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

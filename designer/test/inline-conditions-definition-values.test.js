@@ -5,13 +5,15 @@ import * as Code from '@hapi/code'
 import { assertRequiredTextInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinitionValue from '../client/conditions/inline-conditions-definition-values'
-import { ConditionValue } from '../client/conditions/inline-condition-values'
 import {
   dateTimeUnits,
   dateUnits,
-  relativeTimeOperators,
   RelativeTimeValue,
-  timeUnits
+  timeUnits,
+  ConditionValue
+} from '../client/conditions/inline-condition-values'
+import {
+  relativeTimeOperators
 } from '../client/conditions/inline-conditions-relative-dates'
 
 const { expect } = Code
