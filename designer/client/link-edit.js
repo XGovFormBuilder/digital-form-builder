@@ -14,7 +14,8 @@ class LinkEdit extends React.Component {
 
     this.state = {
       page: page,
-      link: link
+      link: link,
+      selectedCondition: link.condition
     }
   }
 
@@ -62,7 +63,7 @@ class LinkEdit extends React.Component {
   render () {
     const { data, edge } = this.props
     const { pages } = data
-    const { link } = this.state
+    const { selectedCondition } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -82,7 +83,7 @@ class LinkEdit extends React.Component {
           </select>
         </div>
 
-        <SelectConditions data={data} path={edge.source} selectedCondition={link.condition} conditionsChange={this.conditionSelected} />
+        <SelectConditions data={data} path={edge.source} selectedCondition={selectedCondition} conditionsChange={this.conditionSelected} />
 
         <button className='govuk-button' type='submit'>Save</button>&nbsp;
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
