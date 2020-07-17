@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import ComponentTypes from 'digital-form-builder-engine/src/component-types'
+import ComponentTypes from 'digital-form-builder-model/src/component-types'
 import { getExpression, getOperatorNames } from '../client/conditions/inline-condition-operators'
 
 import { dateDirections,

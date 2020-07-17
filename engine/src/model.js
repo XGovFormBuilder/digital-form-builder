@@ -1,6 +1,6 @@
 const joi = require('joi')
 const path = require('path')
-const schema = require('./schema')
+const schema = require('digital-form-builder-model/src/schema')
 const Page = require('./page')
 const Parser = require('expr-eval').Parser
 const moment = require('moment')
