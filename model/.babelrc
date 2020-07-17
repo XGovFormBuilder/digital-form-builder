@@ -1,17 +1,9 @@
 {
-  "presets": [
-    ["@babel/preset-env",
-    {
-      "loose": true,
-      "targets": {
-        "node": "12"
-      }
-    }]
-  ],
+  "presets": ["@babel/preset-env"],
   "exclude": ["node_modules/**"],
   "plugins": [
     "@babel/plugin-proposal-export-default-from",
-    "@babel/plugin-proposal-private-property-in-object",
+    "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-private-methods",
     "@babel/plugin-transform-runtime"
   ]

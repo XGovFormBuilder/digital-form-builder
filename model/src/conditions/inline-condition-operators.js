@@ -1,12 +1,11 @@
 import {
-  relativeTimeOperators
-} from './inline-conditions-relative-dates'
-import {
-  absoluteDateOperators,
-  absoluteDateTimeOperators,
-  absoluteTimeOperators
-} from './inline-conditions-absolute-dates'
-import { dateTimeUnits, dateUnits, timeUnits } from './inline-condition-values'
+  ConditionValue,
+  dateDirections,
+  dateTimeUnits,
+  dateUnits,
+  RelativeTimeValue,
+  timeUnits
+} from './inline-condition-values'
 
 const defaultOperators = {
   is: inline('=='),
@@ -23,8 +22,22 @@ const textBasedFieldCustomisations = {
   'has length': lengthIs('==')
 }
 
+const absoluteDateTimeOperators = {
+  is: absoluteDateTime('=='),
+  'is not': absoluteDateTime('!='),
+  'is before': absoluteDateTime('<'),
+  'is after': absoluteDateTime('>')
+}
+
+const relativeTimeOperators = (units) => ({
+  'is at least': relativeTime('<=', '>=', units),
+  'is at most': relativeTime('>=', '<=', units),
+  'is less than': relativeTime('>', '<', units),
+  'is more than': relativeTime('<', '>', units)
+})
+
 export const customOperators = {
-  'CheckboxesField': {
+  CheckboxesField: {
     contains: reverseInline('in'),
     'does not contain': not(reverseInline('in'))
   },
@@ -34,9 +47,9 @@ export const customOperators = {
     'is less than': inline('<'),
     'is more than': inline('>')
   }),
-  DateField: Object.assign({}, absoluteDateOperators, relativeTimeOperators(dateUnits)),
-  TimeField: Object.assign({}, absoluteTimeOperators, relativeTimeOperators(timeUnits)),
-  DatePartsField: Object.assign({}, absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  DateField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateUnits)),
+  TimeField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(timeUnits)),
+  DatePartsField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateUnits)),
   DateTimeField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateTimeUnits)),
   DateTimePartsField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateTimeUnits)),
   TextField: withDefaults(textBasedFieldCustomisations),
@@ -89,4 +102,31 @@ function formatValue (fieldType, value) {
     return value
   }
   return `'${value}'`
+}
+
+export const absoluteDateOrTimeOperatorNames = Object.keys(absoluteDateTimeOperators)
+export const relativeDateOrTimeOperatorNames = Object.keys(relativeTimeOperators(dateTimeUnits))
+
+function absoluteDateTime (operator) {
+  return {
+    expression: (field, value) => {
+      if (value instanceof ConditionValue) {
+        return `${field.name} ${operator} '${value.toExpression()}'`
+      }
+      throw Error('only Value types are supported')
+    }
+  }
+}
+
+function relativeTime (pastOperator, futureOperator, units) {
+  return {
+    units: units,
+    expression: (field, value) => {
+      if (value instanceof RelativeTimeValue) {
+        const operator = value.direction === dateDirections.PAST ? pastOperator : futureOperator
+        return `${field.name} ${operator} ${value.toExpression()}`
+      }
+      throw Error('time shift requires a TimeShiftValue')
+    }
+  }
 }

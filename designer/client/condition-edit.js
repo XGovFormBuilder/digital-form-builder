@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from './editor'
-import { clone } from './helpers'
+import { clone } from 'digital-form-builder-model/src/helpers'
 
 class ConditionEdit extends React.Component {
   constructor (props) {

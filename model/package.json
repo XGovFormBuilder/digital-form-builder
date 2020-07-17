@@ -9,7 +9,7 @@
     "lint": "standard",
     "build": "babel src -d lib --source-maps inline",
     "build:watch": "babel src -d lib --source-maps inline --watch",
-    "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
+    "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test -r console -o stdout -r html -o unit-test.html -I version",
     "test": "npm run-script lint && npm run-script test-lab"
   },
   "repository": {
@@ -36,9 +36,10 @@
     "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
-    "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "babel-eslint": "11.0.0-beta.2",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
     "@xgovformbuilder/lab-babel": "2.0.0",

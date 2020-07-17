@@ -9,7 +9,7 @@ import {
   absoluteDateTimeOperators,
   absoluteTimeOperators
 } from '../client/conditions/inline-conditions-absolute-dates'
-import { ConditionValue } from '../client/conditions/inline-condition-values'
+import { ConditionValue } from 'digital-form-builder-model/src/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

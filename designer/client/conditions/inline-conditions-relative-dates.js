@@ -1,25 +1,5 @@
 import React from 'react'
-import { dateDirections, RelativeTimeValue, timeUnits } from './inline-condition-values'
-
-export const relativeTimeOperators = (units) => ({
-  'is at least': relativeTime('<=', '>=', units),
-  'is at most': relativeTime('>=', '<=', units),
-  'is less than': relativeTime('>', '<', units),
-  'is more than': relativeTime('<', '>', units)
-})
-
-export function relativeTime (pastOperator, futureOperator, units) {
-  return {
-    expression: (field, value) => {
-      if (value instanceof RelativeTimeValue) {
-        const operator = value.direction === dateDirections.PAST ? pastOperator : futureOperator
-        return `${field.name} ${operator} ${value.toExpression()}`
-      }
-      throw Error('time shift requires a TimeShiftValue')
-    },
-    renderComponent: (value, updateValue) => <RelativeTimeValues value={value} updateValue={updateValue} units={units} timeOnly={units === timeUnits} />
-  }
-}
+import { dateDirections, RelativeTimeValue } from 'digital-form-builder-model/src/conditions/inline-condition-values'
 
 class RelativeTimeValues extends React.Component {
   constructor (props) {
@@ -72,3 +52,4 @@ class RelativeTimeValues extends React.Component {
     )
   }
 }
+export default RelativeTimeValues

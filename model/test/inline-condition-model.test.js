@@ -6,13 +6,13 @@ import {
   Condition,
   Field,
   GroupDef
-} from '../client/conditions/inline-condition-model'
+} from '../src/conditions/inline-condition-model'
 
 import {
   dateDirections, dateUnits,
   RelativeTimeValue,
   ConditionValue
-} from '../client/conditions/inline-condition-values'
+} from '../src/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -408,8 +408,8 @@ suite('inline condition model', () => {
       expect(returned === underTest).to.equal(false)
       expect(returned).to.equal(underTest)
 
-      let returnedCondition1 = returned.asPerUserGroupings[0]
-      let underTestCondition1 = underTest.asPerUserGroupings[0]
+      const returnedCondition1 = returned.asPerUserGroupings[0]
+      const underTestCondition1 = underTest.asPerUserGroupings[0]
       returnedCondition1.coordinator = 'or'
       underTestCondition1.coordinator = undefined
       expect(returnedCondition1).to.not.equal(underTestCondition1)
@@ -430,7 +430,7 @@ suite('inline condition model', () => {
     })
 
     test('should clear state', () => {
-      let returned = underTest.clear()
+      const returned = underTest.clear()
       expect(returned === underTest).to.equal(true)
       expect(returned.hasConditions).to.equal(false)
       expect(returned.asPerUserGroupings).to.equal([])

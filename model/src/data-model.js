@@ -1,4 +1,4 @@
-import { clone } from '../helpers'
+const { clone } = require('./helpers')
 
 const yesNoList = {
   name: '__yesNo',
@@ -16,7 +16,7 @@ const yesNoList = {
   ]
 }
 
-export class Data {
+class Data {
   #conditions
 
   constructor (rawData) {
@@ -175,7 +175,7 @@ Object.filter = function (obj, predicate) {
   const result = {}
   let key
   for (key in obj) {
-    if (obj.hasOwnProperty(key) && predicate(obj[key])) {
+    if (obj[key] && predicate(obj[key])) {
       result[key] = obj[key]
     }
   }
@@ -206,3 +206,5 @@ class Condition {
     this.displayName = rawData.displayName || rawData.name
   }
 }
+
+module.exports.Data = Data

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentCreate from '../client/component-create'
-import { Data } from '../client/model/data-model'
+import { Data } from 'digital-form-builder-model/src/data-model'
 
 const { expect } = Code
 const lab = Lab.script()

@@ -12,7 +12,7 @@ import {
   dateUnits,
   RelativeTimeValue,
   timeUnits
-} from '../client/conditions/inline-condition-values'
+} from 'digital-form-builder-model/src/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

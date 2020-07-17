@@ -1,7 +1,7 @@
 import React from 'react'
-import { clone } from './helpers'
 import ComponentConditionCreate from './component-condition-create'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
+import { clone } from 'digital-form-builder-model/src/helpers'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {

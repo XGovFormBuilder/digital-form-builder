@@ -1,4 +1,4 @@
-import ComponentTypes from 'digital-form-builder-model/src/component-types'
+import ComponentTypes from '../component-types'
 import { getExpression } from './inline-condition-operators'
 import { AbstractConditionValue, valueFrom } from './inline-condition-values'
 

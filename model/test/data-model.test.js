@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { Data } from '../client/model/data-model'
+import { Data } from '../src/data-model'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
@@ -59,11 +59,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -81,7 +81,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -125,11 +125,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -147,7 +147,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -191,11 +191,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -213,7 +213,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -257,11 +257,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -279,7 +279,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -503,7 +503,7 @@ suite('data model', () => {
       const data = new Data({
         lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
       })
-      let returned = data.listFor({ options: { list: 'list2' } })
+      const returned = data.listFor({ options: { list: 'list2' } })
       expect(returned === data.lists[1]).to.equal(true)
     })
 
@@ -818,7 +818,7 @@ suite('data model', () => {
           }
         ]
       })
-      let returned = data.findPage('/2')
+      const returned = data.findPage('/2')
       expect(returned === data.pages[1]).to.equal(true)
     })
 
@@ -900,7 +900,7 @@ suite('data model', () => {
           }
         ]
       })
-      let returned = data.getPages()
+      const returned = data.getPages()
       expect(returned === data.pages).to.equal(true)
     })
 
@@ -1048,7 +1048,7 @@ suite('data model', () => {
       const data = new Data({
         conditions: [{ name: 'some name', displayName: 'My name', value: 'a condition' }]
       })
-      let returned = data.conditions
+      const returned = data.conditions
       expect(returned === data.conditions).to.equal(false)
       expect(returned).to.equal(data.conditions)
       returned[0].name = 'badger'

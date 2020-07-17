@@ -1,59 +1,8 @@
 import React from 'react'
-import { ConditionValue } from './inline-condition-values'
+import { ConditionValue } from 'digital-form-builder-model/src/conditions/inline-condition-values'
 import momentTz from 'moment-timezone'
 
-export const absoluteTimeOperators = {
-  is: absoluteTime('=='),
-  'is not': absoluteTime('!='),
-  'is before': absoluteTime('<'),
-  'is after': absoluteTime('>')
-}
-
-export const absoluteDateTimeOperators = {
-  is: absoluteDateTime('=='),
-  'is not': absoluteDateTime('!='),
-  'is before': absoluteDateTime('<'),
-  'is after': absoluteDateTime('>')
-}
-
-export const absoluteDateOperators = {
-  is: absoluteDate('=='),
-  'is not': absoluteDate('!='),
-  'is before': absoluteDate('<'),
-  'is after': absoluteDate('>')
-}
-
-function applyOperator (operator) {
-  return (field, value) => {
-    if (value instanceof ConditionValue) {
-      return `${field.name} ${operator} '${value.toExpression()}'`
-    }
-    throw Error('only Value types are supported')
-  }
-}
-
-function absoluteTime (operator) {
-  return {
-    expression: applyOperator(operator),
-    renderComponent: (value, updateValue) => <AbsoluteTimeValues value={value} updateValue={updateValue} />
-  }
-}
-
-function absoluteDate (operator) {
-  return {
-    expression: applyOperator(operator),
-    renderComponent: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />
-  }
-}
-
-function absoluteDateTime (operator) {
-  return {
-    expression: applyOperator(operator),
-    renderComponent: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />
-  }
-}
-
-class AbsoluteTimeValues extends React.Component {
+export class AbsoluteTimeValues extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -98,7 +47,7 @@ class AbsoluteTimeValues extends React.Component {
   }
 }
 
-class AbsoluteDateValues extends React.Component {
+export class AbsoluteDateValues extends React.Component {
   constructor (props) {
     super(props)
     if (props.value) {
@@ -157,7 +106,7 @@ class AbsoluteDateValues extends React.Component {
   }
 }
 
-class AbsoluteDateTimeValues extends React.Component {
+export class AbsoluteDateTimeValues extends React.Component {
   constructor (props) {
     super(props)
     const defaultTimeZone = 'Europe/London'

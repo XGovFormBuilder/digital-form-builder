@@ -11,7 +11,7 @@ import {
   RelativeTimeValue,
   timeUnits,
   ConditionValue
-} from '../client/conditions/inline-condition-values'
+} from 'digital-form-builder-model/src/conditions/inline-condition-values'
 import {
   relativeTimeOperators
 } from '../client/conditions/inline-conditions-relative-dates'

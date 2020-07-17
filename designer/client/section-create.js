@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from './helpers'
+import { clone } from 'digital-form-builder-model/src/helpers'
 
 class SectionCreate extends React.Component {
   state = {}

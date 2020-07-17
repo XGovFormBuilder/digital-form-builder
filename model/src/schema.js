@@ -33,7 +33,7 @@ const conditionSchema = joi.object().keys({
 })
 
 const conditionGroupSchema = joi.object().keys({
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, /**Should be a link to conditionGroupSchema **/joi.any()))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
 })
 
 const conditionsModelSchema = joi.object().keys({

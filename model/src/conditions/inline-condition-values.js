@@ -17,6 +17,7 @@ export class AbstractConditionValue {
     }
     this.type = registration.type
   }
+
   toPresentationString () {}
   toExpression () {}
 }

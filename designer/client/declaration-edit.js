@@ -1,6 +1,6 @@
-import { clone } from './helpers'
 import React from 'react'
 import Editor from './editor'
+import { clone } from 'digital-form-builder-model/src/helpers'
 
 class DeclarationEdit extends React.Component {
   constructor (props) {

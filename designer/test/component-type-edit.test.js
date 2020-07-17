@@ -4,7 +4,7 @@ import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentTypes from 'digital-form-builder-model/src/component-types'
 import ComponentTypeEdit from '../client/component-type-edit'
-import { Data } from '../client/model/data-model'
+import { Data } from 'digital-form-builder-model/src/data-model'
 import sinon from 'sinon'
 import { assertCheckboxInput, assertRequiredTextInput, assertTextArea } from './helpers/element-assertions'
 
