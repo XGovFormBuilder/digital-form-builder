@@ -6,7 +6,7 @@ import { assertLink, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinition from '../client/conditions/inline-conditions-definition'
 import { Condition, Field } from '../client/conditions/inline-condition-model'
-import { Value } from '../client/conditions/inline-condition-values'
+import { ConditionValue } from '../client/conditions/inline-condition-values'
 import { getOperatorNames } from '../client/conditions/inline-condition-operators'
 
 const { expect } = Code
@@ -74,8 +74,8 @@ suite('Inline conditions definition section', () => {
     })
 
     describe('adding conditions', () => {
-      const value = new Value('M')
-      const value2 = new Value('N')
+      const value = new ConditionValue('M')
+      const value2 = new ConditionValue('N')
 
       test('Only the field input is displayed initially for the first condition', () => {
         const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
@@ -187,7 +187,7 @@ suite('Inline conditions definition section', () => {
         test('changing a value leaves the \'save condition\' link in place', () => {
           const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
           fillConditionInputs(wrapper, field.name, selectFieldOperators[0], values[0])
-          const value = new Value(values[1].value, values[1].text)
+          const value = new ConditionValue(values[1].value, values[1].text)
           wrapper.instance().updateValue(value)
 
           assertFieldInputPresent(wrapper, fields, field.name)
@@ -198,7 +198,7 @@ suite('Inline conditions definition section', () => {
 
         test('Removing a value removes the \'save condition\' link', () => {
           const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
-          fillConditionInputs(wrapper, field.name, selectFieldOperators[0], new Value(values[0].value, values[0].text))
+          fillConditionInputs(wrapper, field.name, selectFieldOperators[0], new ConditionValue(values[0].value, values[0].text))
           wrapper.instance().updateValue(undefined)
 
           assertFieldInputPresent(wrapper, fields, field.name)
@@ -209,7 +209,7 @@ suite('Inline conditions definition section', () => {
 
         test('Clicking the \'save condition\' link stores the condition', () => {
           const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
-          const expectedValue = new Value(values[0].value, values[0].text)
+          const expectedValue = new ConditionValue(values[0].value, values[0].text)
           saveCondition(wrapper, field.name, selectFieldOperators[0], expectedValue)
 
           expect(saveCallback.calledOnce).to.equal(true)
@@ -221,7 +221,7 @@ suite('Inline conditions definition section', () => {
         const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
         wrapper.find('#cond-field').simulate('change', { target: { value: fields[3].name } })
         wrapper.find('#cond-operator').simulate('change', { target: { value: 'is at least' } })
-        const value = new Value('10')
+        const value = new ConditionValue('10')
         wrapper.instance().updateValue(value)
 
         assertFieldInputPresent(wrapper, fields, fields[3].name)

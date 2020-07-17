@@ -1,5 +1,5 @@
 import React from 'react'
-import { Value } from './inline-condition-values'
+import { ConditionValue } from './inline-condition-values'
 import momentTz from 'moment-timezone'
 
 export const absoluteTimeOperators = {
@@ -25,7 +25,7 @@ export const absoluteDateOperators = {
 
 function applyOperator (operator) {
   return (field, value) => {
-    if (value instanceof Value) {
+    if (value instanceof ConditionValue) {
       return `${field.name} ${operator} '${value.toExpression()}'`
     }
     throw Error('only Value types are supported')
@@ -71,7 +71,7 @@ class AbsoluteTimeValues extends React.Component {
   passValueToParentComponentIfComplete () {
     const { hours, minutes } = this.state
     if (hours && minutes) {
-      this.props.updateValue(new Value(`${hours}:${minutes}`))
+      this.props.updateValue(new ConditionValue(`${hours}:${minutes}`))
     }
   }
 
@@ -126,7 +126,7 @@ class AbsoluteDateValues extends React.Component {
   passValueToParentComponentIfComplete () {
     const { year, month, day } = this.state
     if (year && month && day) {
-      this.props.updateValue(new Value(`${year}-${month}-${day}`))
+      this.props.updateValue(new ConditionValue(`${year}-${month}-${day}`))
     }
   }
 
@@ -173,9 +173,9 @@ class AbsoluteDateTimeValues extends React.Component {
       const parsed = momentTz.tz(props.value.value, defaultTimeZone)
 
       this.state = {
-        date: new Value(parsed.format('YYYY-MM-DD')),
+        date: new ConditionValue(parsed.format('YYYY-MM-DD')),
         // throw away any second / millis values
-        time: new Value(parsed.format('HH:mm')),
+        time: new ConditionValue(parsed.format('HH:mm')),
         timeZone: defaultTimeZone
       }
     } else {
@@ -194,7 +194,7 @@ class AbsoluteDateTimeValues extends React.Component {
   passValueToParentComponentIfComplete () {
     const { date, time, timeZone } = this.state
     if (date && time) {
-      this.props.updateValue(new Value(momentTz.tz(`${date.value} ${time.value}`, timeZone).toISOString()))
+      this.props.updateValue(new ConditionValue(momentTz.tz(`${date.value} ${time.value}`, timeZone).toISOString()))
     }
   }
 

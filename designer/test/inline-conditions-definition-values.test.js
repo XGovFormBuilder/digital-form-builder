@@ -5,7 +5,7 @@ import * as Code from '@hapi/code'
 import { assertRequiredTextInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinitionValue from '../client/conditions/inline-conditions-definition-values'
-import { Value } from '../client/conditions/inline-condition-values'
+import { ConditionValue } from '../client/conditions/inline-condition-values'
 import {
   dateTimeUnits,
   dateUnits,
@@ -21,7 +21,7 @@ const { beforeEach, suite, test } = lab
 
 suite('Inline conditions definition value inputs', () => {
   const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
-  const selectedValues = values.map(it => new Value(it.value, it.text))
+  const selectedValues = values.map(it => new ConditionValue(it.value, it.text))
   let updateValueCallback
 
   beforeEach(() => {
@@ -34,7 +34,7 @@ suite('Inline conditions definition value inputs', () => {
       name: 'field1',
       type: 'TextField'
     }
-    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} value={new Value('my-value')} fieldDef={fieldDef} operator='is' />)
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} value={new ConditionValue('my-value')} fieldDef={fieldDef} operator='is' />)
 
     assertRequiredTextInput(wrapper.find('input'), 'cond-value', 'my-value')
   })
@@ -49,7 +49,7 @@ suite('Inline conditions definition value inputs', () => {
 
     wrapper.find('#cond-value').simulate('change', { target: { value: 'My thing' } })
     expect(updateValueCallback.calledOnce).to.equal(true)
-    expect(updateValueCallback.firstCall.args[0]).to.equal(new Value('My thing'))
+    expect(updateValueCallback.firstCall.args[0]).to.equal(new ConditionValue('My thing'))
   })
 
   test('Inputting a blank text value should call update value with undefined', () => {

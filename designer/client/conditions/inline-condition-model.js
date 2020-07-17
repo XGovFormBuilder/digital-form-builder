@@ -1,6 +1,6 @@
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 import { getExpression } from './inline-condition-operators'
-import { ConditionValue } from './inline-condition-values'
+import { AbstractConditionValue } from './inline-condition-values'
 
 export const coordinators = {
   AND: 'and',
@@ -286,7 +286,7 @@ export class Condition {
     if (typeof operator !== 'string') {
       throw Error(`operator ${operator} is not a valid operator`)
     }
-    if (!(value instanceof ConditionValue)) {
+    if (!(value instanceof AbstractConditionValue)) {
       throw Error(`value ${value} is not a valid value type`)
     }
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {

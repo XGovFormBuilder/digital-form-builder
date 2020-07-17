@@ -9,7 +9,7 @@ import {
   RelativeTimeValue,
   timeUnits
 } from '../client/conditions/inline-conditions-relative-dates'
-import { Value } from '../client/conditions/inline-condition-values'
+import { ConditionValue } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -186,7 +186,7 @@ suite('Inline condition operators', () => {
       .forEach(type => {
         Object.keys(defaultValidators).forEach(operator => {
           test(`'${operator}' is correct for ${type.name}`, () => {
-            const value = new Value('monkey')
+            const value = new ConditionValue('monkey')
             const expression = getExpression(type.name, 'badger', operator, value)
             expect(expression).to.equal(defaultValidators[operator]('badger', value))
           })
@@ -195,7 +195,7 @@ suite('Inline condition operators', () => {
 
     Object.entries(componentTypesWithCustomValidators).forEach(([type, config]) => {
       config.cases.forEach(testConfig => {
-        const value = testConfig.testValue || new Value('monkey')
+        const value = testConfig.testValue || new ConditionValue('monkey')
         Object.keys(testConfig.operators).forEach(operator => {
           const fieldName = 'someField'
           test(`'${operator}' is correct for ${type} with value ${value.toPresentationString()}`, () => {

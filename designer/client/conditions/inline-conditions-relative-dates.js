@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConditionValue } from './inline-condition-values'
+import { AbstractConditionValue } from './inline-condition-values'
 
 export const relativeTimeOperators = (units) => ({
   'is at least': relativeTime('<=', '>=', units),
@@ -92,7 +92,7 @@ export const timeUnits = {
 
 export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
 
-export class RelativeTimeValue extends ConditionValue {
+export class RelativeTimeValue extends AbstractConditionValue {
   constructor (timePeriod, timeUnit, direction, timeOnly = false) {
     super('RelativeTime', obj => RelativeTimeValue.from(obj))
     if (typeof timePeriod !== 'string') {

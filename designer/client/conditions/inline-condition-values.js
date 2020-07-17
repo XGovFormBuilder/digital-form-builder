@@ -1,8 +1,8 @@
 const conditionValueFactories = {}
 
-export class ConditionValue {
+export class AbstractConditionValue {
   constructor (type, factory) {
-    if (new.target === ConditionValue) {
+    if (new.target === AbstractConditionValue) {
       throw new TypeError('Cannot construct ConditionValue instances directly')
     }
     if (!conditionValueFactories[type]) {
@@ -14,9 +14,9 @@ export class ConditionValue {
   toExpression () {}
 }
 
-export class Value extends ConditionValue {
+export class ConditionValue extends AbstractConditionValue {
   constructor (value, display) {
-    super('Value', obj => Value.from(obj))
+    super('Value', obj => ConditionValue.from(obj))
     if (!value || typeof value !== 'string') {
       throw Error(`value ${value} is not valid`)
     }
@@ -36,11 +36,11 @@ export class Value extends ConditionValue {
   }
 
   static from (obj) {
-    return new Value(obj.value, obj.display)
+    return new ConditionValue(obj.value, obj.display)
   }
 
   clone () {
-    return Value.from(this)
+    return ConditionValue.from(this)
   }
 }
 

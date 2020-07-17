@@ -1,5 +1,5 @@
 import React from 'react'
-import { Value } from './inline-condition-values'
+import { ConditionValue } from './inline-condition-values'
 import { getOperatorConfig } from './inline-condition-operators'
 
 function TextValues (props) {
@@ -11,7 +11,7 @@ function TextValues (props) {
 
     let value
     if (newValue && newValue?.trim() !== '') {
-      value = new Value(newValue)
+      value = new ConditionValue(newValue)
     }
     updateValue(value)
   }
@@ -33,7 +33,7 @@ function SelectValues (props) {
     let value
     if (newValue && newValue?.trim() !== '') {
       const option = fieldDef.values?.find(value => value.value === newValue)
-      value = new Value(option.value, option.text)
+      value = new ConditionValue(option.value, option.text)
     }
     updateValue(value)
   }
