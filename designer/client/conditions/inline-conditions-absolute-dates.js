@@ -62,11 +62,11 @@ class AbsoluteTimeValues extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate (prevProps, prevState, snapshot) {
     const { hours, minutes } = this.state
-    const everythingComplete = hours && minutes;
-    const hasChanged = hours !== prevState.hours || minutes !== prevState.minutes;
-    if(everythingComplete && hasChanged) {
+    const everythingComplete = hours && minutes
+    const hasChanged = hours !== prevState.hours || minutes !== prevState.minutes
+    if (everythingComplete && hasChanged) {
       this.props.updateValue(new ConditionValue(`${hours}:${minutes}`))
     }
   }
@@ -113,10 +113,10 @@ class AbsoluteDateValues extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const {year, month, day} = this.state
-    const everythingComplete = year && month && day;
-    const hasChanged = year !== prevState.year || month !== prevState.month || day !== prevState.day;
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    const { year, month, day } = this.state
+    const everythingComplete = year && month && day
+    const hasChanged = year !== prevState.year || month !== prevState.month || day !== prevState.day
     if (everythingComplete && hasChanged) {
       this.props.updateValue(new ConditionValue(`${year}-${month}-${day}`))
     }
@@ -160,7 +160,7 @@ class AbsoluteDateValues extends React.Component {
 class AbsoluteDateTimeValues extends React.Component {
   constructor (props) {
     super(props)
-    const defaultTimeZone = "Europe/London";
+    const defaultTimeZone = 'Europe/London'
     if (props.value) {
       const parsed = momentTz.tz(props.value.value, defaultTimeZone)
 
@@ -177,10 +177,10 @@ class AbsoluteDateTimeValues extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const {date, time, timeZone} = this.state
-    const everythingComplete = date && time && timeZone;
-    const hasChanged = date !== prevState.date || time !== prevState.time || timeZone !== prevState.timeZone;
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    const { date, time, timeZone } = this.state
+    const everythingComplete = date && time && timeZone
+    const hasChanged = date !== prevState.date || time !== prevState.time || timeZone !== prevState.timeZone
     if (everythingComplete && hasChanged) {
       this.props.updateValue(new ConditionValue(momentTz.tz(`${date.value} ${time.value}`, timeZone).toISOString()))
     }
