@@ -62,15 +62,11 @@ class AbsoluteTimeValues extends React.Component {
     }
   }
 
-  updateState (state) {
-    this.setState(state, () => {
-      this.passValueToParentComponentIfComplete()
-    })
-  }
-
-  passValueToParentComponentIfComplete () {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const { hours, minutes } = this.state
-    if (hours && minutes) {
+    const everythingComplete = hours && minutes;
+    const hasChanged = hours !== prevState.hours || minutes !== prevState.minutes;
+    if(everythingComplete && hasChanged) {
       this.props.updateValue(new ConditionValue(`${hours}:${minutes}`))
     }
   }
@@ -85,7 +81,7 @@ class AbsoluteTimeValues extends React.Component {
             <label htmlFor='cond-value-hours' className='govuk-label govuk-label--s'>HH</label>
             <input className='govuk-input govuk-input--width-2' id='cond-value-hours' name='cond-value-hours'
               type='number' maxLength={2} defaultValue={hours} required
-              onChange={e => this.updateState({ hours: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ hours: e.target.value.padStart(2, '0') })} />
           </div>
         </div>
 
@@ -94,7 +90,7 @@ class AbsoluteTimeValues extends React.Component {
             <label htmlFor='cond-value-minutes' className='govuk-label govuk-label--s'>mm</label>
             <input className='govuk-input govuk-input--width-2' id='cond-value-minutes' name='cond-value-minutes'
               type='number' maxLength={2} defaultValue={minutes} required
-              onChange={e => this.updateState({ minutes: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ minutes: e.target.value.padStart(2, '0') })} />
           </div>
         </div>
       </div>
@@ -117,15 +113,11 @@ class AbsoluteDateValues extends React.Component {
     }
   }
 
-  updateState (state) {
-    this.setState(state, () => {
-      this.passValueToParentComponentIfComplete()
-    })
-  }
-
-  passValueToParentComponentIfComplete () {
-    const { year, month, day } = this.state
-    if (year && month && day) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {year, month, day} = this.state
+    const everythingComplete = year && month && day;
+    const hasChanged = year !== prevState.year || month !== prevState.month || day !== prevState.day;
+    if (everythingComplete && hasChanged) {
       this.props.updateValue(new ConditionValue(`${year}-${month}-${day}`))
     }
   }
@@ -140,7 +132,7 @@ class AbsoluteDateValues extends React.Component {
             <label htmlFor='cond-value-year' className='govuk-label govuk-label--s'>yyyy</label>
             <input className='govuk-input govuk-input--width-4' id='cond-value-year' name='cond-value-year'
               type='number' maxLength={4} minLength={4} defaultValue={year} required
-              onChange={e => this.updateState({ year: e.target.value })} />
+              onChange={e => this.setState({ year: e.target.value })} />
           </div>
         </div>
 
@@ -149,7 +141,7 @@ class AbsoluteDateValues extends React.Component {
             <label htmlFor='cond-value-month' className='govuk-label govuk-label--s'>MM</label>
             <input className='govuk-input govuk-input--width-2' id='cond-value-month' name='cond-value-month'
               type='number' maxLength={2} defaultValue={month} required
-              onChange={e => this.updateState({ month: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ month: e.target.value.padStart(2, '0') })} />
           </div>
         </div>
         <div className='govuk-date-input__item'>
@@ -157,7 +149,7 @@ class AbsoluteDateValues extends React.Component {
             <label htmlFor='cond-value-day' className='govuk-label govuk-label--s'>dd</label>
             <input className='govuk-input govuk-input--width-2' id='cond-value-day' name='cond-value-day'
               type='number' maxLength={2} defaultValue={day} required
-              onChange={e => this.updateState({ day: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ day: e.target.value.padStart(2, '0') })} />
           </div>
         </div>
       </div>
@@ -185,15 +177,11 @@ class AbsoluteDateTimeValues extends React.Component {
     }
   }
 
-  updateState (state) {
-    this.setState(state, () => {
-      this.passValueToParentComponentIfComplete()
-    })
-  }
-
-  passValueToParentComponentIfComplete () {
-    const { date, time, timeZone } = this.state
-    if (date && time) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {date, time, timeZone} = this.state
+    const everythingComplete = date && time && timeZone;
+    const hasChanged = date !== prevState.date || time !== prevState.time || timeZone !== prevState.timeZone;
+    if (everythingComplete && hasChanged) {
       this.props.updateValue(new ConditionValue(momentTz.tz(`${date.value} ${time.value}`, timeZone).toISOString()))
     }
   }
@@ -202,10 +190,10 @@ class AbsoluteDateTimeValues extends React.Component {
     const { date, time, timeZone } = this.state
     return (
       <div>
-        <AbsoluteDateValues value={date} updateValue={dateValue => this.updateState({ date: dateValue })} />
-        <AbsoluteTimeValues value={time} updateValue={timeValue => this.updateState({ time: timeValue })} />
+        <AbsoluteDateValues value={date} updateValue={dateValue => this.setState({ date: dateValue })} />
+        <AbsoluteTimeValues value={time} updateValue={timeValue => this.setState({ time: timeValue })} />
         <select className='govuk-select' id='cond-value-tz' name='cond-value-tz' value={timeZone}
-          onChange={e => this.updateState({ timeZone: e.target.value })}>
+          onChange={e => this.setState({ timeZone: e.target.value })}>
           {momentTz.tz.names().map(tz => {
             return <option key={tz} value={tz}>{tz}</option>
           })}
