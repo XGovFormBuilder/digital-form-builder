@@ -21,7 +21,7 @@ export class AbstractConditionValue {
   toExpression () {}
 }
 
-const valueType = registerValueType('Value', obj => Value.from(obj))
+const valueType = registerValueType('Value', obj => ConditionValue.from(obj))
 export class ConditionValue extends AbstractConditionValue {
   constructor (value, display) {
     super(valueType)

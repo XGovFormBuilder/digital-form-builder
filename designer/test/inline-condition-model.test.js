@@ -662,13 +662,13 @@ suite('inline condition model', () => {
   describe('serialization and deserialization', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
-      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new Value('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new Value('giraffes', 'Giraffes'), 'or'))
-      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new Value('Donkeys'), 'and'))
-      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new Value('10'), 'or'))
-      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new Value('10/10/2019'), 'or'))
+      underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
+      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
+      underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
       underTest.add(new Condition(new Field('reported', 'DateField', 'Reported'), 'is more than', new RelativeTimeValue('10', dateUnits.DAYS.value, dateDirections.PAST), 'and'))
-      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new Value('Donkeys'), 'and'))
+      underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new ConditionValue('Donkeys'), 'and'))
       underTest.addGroups([new GroupDef(0, 2)])
     })
 

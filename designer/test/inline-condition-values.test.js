@@ -2,7 +2,8 @@ import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
 import {
-  Value, valueFrom
+  ConditionValue,
+  valueFrom
 } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
@@ -20,8 +21,8 @@ suite('inline condition values', () => {
     }
     const returned = valueFrom(value)
 
-    expect(returned instanceof Value).to.equal(true)
-    expect(returned).to.equal(new Value('badgers', 'Badgers'))
+    expect(returned instanceof ConditionValue).to.equal(true)
+    expect(returned).to.equal(new ConditionValue('badgers', 'Badgers'))
   })
 
   test('can deserialize a RelativeTimeValue object from plain old JSON', () => {
@@ -32,7 +33,7 @@ suite('inline condition values', () => {
     }
     const returned = valueFrom(value)
 
-    expect(returned instanceof Value).to.equal(true)
-    expect(returned).to.equal(new Value('badgers', 'Badgers'))
+    expect(returned instanceof ConditionValue).to.equal(true)
+    expect(returned).to.equal(new ConditionValue('badgers', 'Badgers'))
   })
 })
