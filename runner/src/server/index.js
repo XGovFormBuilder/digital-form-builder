@@ -102,11 +102,18 @@ async function createServer (routeConfig) {
     if (request.response.isBoom) {
       return h.continue
     }
+
     if (request.response && request.response.header) {
       request.response.header('X-Robots-Tag', 'noindex, nofollow')
-      request.response.header('cache-control', 'private, no-cache, no-store, must-revalidate, max-age=0')
-      request.response.header('pragma', 'no-cache')
-      request.response.header('expires', '0')
+
+      const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i
+      if (!WEBFONT_EXTENSIONS.test(request.url)) {
+        request.response.header('cache-control', 'private, no-cache, no-store, must-revalidate, max-age=0')
+        request.response.header('pragma', 'no-cache')
+        request.response.header('expires', '0')
+      } else {
+        request.response.header('cache-control', 'public, max-age=604800, immutable')
+      }
     }
     return h.continue
   })

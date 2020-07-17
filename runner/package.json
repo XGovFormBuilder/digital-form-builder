@@ -28,7 +28,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "@babel/plugin-transform-classes": "^7.10.1",
+    "@babel/runtime": "7.10.4",
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",
     "@hapi/catbox-memory": "5.0.0",
@@ -80,6 +80,7 @@
   "devDependencies": {
     "@babel/cli": "7.10.3",
     "@babel/core": "7.10.3",
+    "@babel/plugin-transform-classes": "^7.10.1",
     "@babel/plugin-transform-modules-commonjs": "7.10.1",
     "@babel/plugin-transform-runtime": "7.10.3",
     "@babel/preset-env": "7.10.3",

@@ -309,7 +309,7 @@ function assertEditPanel (wrapper, conditions, editingError) {
     const checkboxDiv = checkboxesDiv.children().at(index)
     assertDiv(checkboxDiv, ['govuk-checkboxes__item'])
     expect(checkboxDiv.children().length).to.equal(3)
-    assertCheckboxInput(checkboxDiv.children().at(0), `condition-${index}`, index, condition.selected)
+    assertCheckboxInput(checkboxDiv.children().at(0), `condition-${index}`, index, condition.selected || '')
     assertLabel(checkboxDiv.children().at(1), condition.condition)
     let actions = checkboxDiv.children().at(2)
     assertSpan(actions)

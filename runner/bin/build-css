@@ -1,5 +1,5 @@
 #!/bin/bash
 
-node-sass --output-style=expanded \
+node-sass --output-style=compressed \
   --output=public/build/stylesheets \
   client/sass

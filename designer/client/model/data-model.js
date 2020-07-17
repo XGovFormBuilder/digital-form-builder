@@ -74,6 +74,22 @@ export class Data {
     return this
   }
 
+  updateLink (from, to, condition) {
+    const fromPage = this.findPage(from)
+    const toPage = this.pages.find(p => p.path === to)
+    if (fromPage && toPage) {
+      const existingLink = fromPage.next?.find(it => it.path === to)
+      if (existingLink) {
+        if (condition) {
+          existingLink.condition = condition
+        } else {
+          delete existingLink.condition
+        }
+      }
+    }
+    return this
+  }
+
   addPage (page) {
     this.pages = this.pages || []
     this.pages.push(page)

@@ -4,7 +4,6 @@
   "description": "A hapi plugin providing the engine for XGov digital form builder based applications",
   "main": "index.js",
   "module": "src/lib.js",
-  "type": "module",
   "scripts": {
     "fix-lint": "standard --fix",
     "lint": "standard",
@@ -19,6 +18,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@babel/runtime": "7.10.4",
     "@hapi/hoek": "^9.0.4",
     "@hapi/joi": "17.1.1",
     "boom": "7.3.0",
