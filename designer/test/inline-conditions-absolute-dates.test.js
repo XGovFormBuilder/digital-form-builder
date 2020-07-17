@@ -216,7 +216,7 @@ suite('Inline conditions absolute date and time value inputs', () => {
   describe('absolute date time operators', () => {
     Object.keys(absoluteDateTimeOperators).forEach(operator => {
       test(`should display the expected inputs for '${operator}' operator`, () => {
-        const existingValue = new Value('2020-01-03T13:46:23.463')
+        const existingValue = new Value('2020-01-03T13:46:23.463Z')
         const operatorConfig = absoluteDateTimeOperators[operator]
         const wrapper = shallow(operatorConfig.renderComponent(existingValue, updateValueCallback))
 
@@ -227,6 +227,24 @@ suite('Inline conditions absolute date and time value inputs', () => {
         const absoluteTimeValues = wrapper.find('AbsoluteTimeValues')
         expect(absoluteTimeValues.exists()).to.equal(true)
         expect(absoluteTimeValues.prop('value')).to.equal(new Value('13:46'))
+
+        assertSelectInput(wrapper.find('#cond-value-tz'), 'cond-value-tz',
+          momentTz.tz.names().map(tz => ({ value: tz, text: tz })),
+          'Europe/London')
+      })
+
+      test(`should convert date and time back to default time zone when displaying '${operator}' operator`, () => {
+        const existingValue = new Value('2020-01-03T21:46:23.463-05:00')
+        const operatorConfig = absoluteDateTimeOperators[operator]
+        const wrapper = shallow(operatorConfig.renderComponent(existingValue, updateValueCallback))
+
+        const absoluteDateValues = wrapper.find('AbsoluteDateValues')
+        expect(absoluteDateValues.exists()).to.equal(true)
+        expect(absoluteDateValues.prop('value')).to.equal(new Value('2020-01-04'))
+
+        const absoluteTimeValues = wrapper.find('AbsoluteTimeValues')
+        expect(absoluteTimeValues.exists()).to.equal(true)
+        expect(absoluteTimeValues.prop('value')).to.equal(new Value('02:46'))
 
         assertSelectInput(wrapper.find('#cond-value-tz'), 'cond-value-tz',
           momentTz.tz.names().map(tz => ({ value: tz, text: tz })),

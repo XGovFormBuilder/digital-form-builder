@@ -168,18 +168,19 @@ class AbsoluteDateValues extends React.Component {
 class AbsoluteDateTimeValues extends React.Component {
   constructor (props) {
     super(props)
+    const defaultTimeZone = "Europe/London";
     if (props.value) {
-      const dateTimeComponents = props.value.value.split('T')
-      const timeComponents = dateTimeComponents[1].split(':')
+      const parsed = momentTz.tz(props.value.value, defaultTimeZone)
+
       this.state = {
-        date: new Value(dateTimeComponents[0]),
+        date: new Value(parsed.format('YYYY-MM-DD')),
         // throw away any second / millis values
-        time: new Value(`${timeComponents[0]}:${timeComponents[1]}`),
-        timeZone: 'Europe/London'
+        time: new Value(parsed.format('HH:mm')),
+        timeZone: defaultTimeZone
       }
     } else {
       this.state = {
-        timeZone: 'Europe/London'
+        timeZone: defaultTimeZone
       }
     }
   }
