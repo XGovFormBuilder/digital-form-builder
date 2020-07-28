@@ -115,7 +115,7 @@ class FormComponent extends Component {
 
   localisedString (description) {
     let string
-    if(!description) {
+    if (!description) {
       string = ''
     } else if (typeof description === 'string') {
       string = description
