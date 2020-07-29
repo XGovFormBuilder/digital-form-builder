@@ -10,7 +10,8 @@
     "build": "babel src -d lib --source-maps inline",
     "build:watch": "babel src -d lib --source-maps inline --watch",
     "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
-    "test": "yarn lint && yarn test-lab"
+    "test": "yarn flow && yarn lint && yarn test-lab",
+    "postpack": "flow-typed install --ignoreDeps dev"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
     "@hapi/joi": "17.1.1",
     "boom": "7.3.0",
     "expr-eval": "2.0.2",
+    "flow-typed": "^3.2.1",
     "govuk-frontend": "3.6.0",
     "hmpo-components": "2.6.5",
     "joi": "14.3.1",
@@ -39,10 +41,13 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "@babel/preset-flow": "^7.10.4",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
     "@xgovformbuilder/lab-babel": "2.0.0",
     "babel-eslint": "11.0.0-beta.2",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "flow-bin": "^0.130.0",
     "standard": "14.3.3"
   },
   "peerDependencies": {
@@ -50,8 +55,12 @@
   },
   "standard": {
     "ignore": [
-      "lib"
+      "lib",
+      "flow-typed"
     ],
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ]
   }
 }

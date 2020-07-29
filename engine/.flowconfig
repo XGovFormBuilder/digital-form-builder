@@ -1,12 +1,11 @@
 [ignore]
 .*/test/.*
-.*/dist/.*
+.*/lib/.*
 .*\.ignore\.js
 .*/*/*.json
 
 [include]
-lib/
-client/
+src/
 
 [libs]
 

@@ -5,8 +5,6 @@
 .*/*/*.json
 
 [include]
-lib/
-client/
 
 [libs]
 
