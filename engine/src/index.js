@@ -28,7 +28,7 @@ module.exports = {
     register: (server, options) => {
       const { modelOptions, configs, previewMode } = options
       /*
-      * This plugin cannot be run outside of the context of the https://github.com/UKForeignOffice/digital-form-builder project.
+      * This plugin cannot be run outside of the context of the https://github.com/XGovFormBuilder/digital-form-builder project.
       * Ideally the engine encapsulates all the functionality required to run a form so work needs to be done to merge functionality
       * from the builder project.
       **/
