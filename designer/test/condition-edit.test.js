@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ConditionEdit from '../client/condition-edit'
-import { Data } from 'digital-form-builder-model/src/data-model'
+import { Data } from 'digital-form-builder-model/lib/data-model'
 import sinon from 'sinon'
 import { assertTextInput } from './helpers/element-assertions'
 

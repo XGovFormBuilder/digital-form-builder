@@ -1,12 +1,12 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import ComponentTypes from 'digital-form-builder-model/src/component-types'
-import { getExpression, getOperatorNames } from 'digital-form-builder-model/src/conditions/inline-condition-operators'
+import ComponentTypes from 'digital-form-builder-model/lib/component-types'
+import { getExpression, getOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
 
 import { dateDirections,
   dateUnits,
-  timeUnits, ConditionValue, RelativeTimeValue } from 'digital-form-builder-model/src/conditions/inline-condition-values'
+  timeUnits, ConditionValue, RelativeTimeValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()

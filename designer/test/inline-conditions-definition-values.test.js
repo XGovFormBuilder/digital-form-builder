@@ -6,15 +6,13 @@ import { assertRequiredTextInput, assertSelectInput } from './helpers/element-as
 import sinon from 'sinon'
 import InlineConditionsDefinitionValue from '../client/conditions/inline-conditions-definition-values'
 import {
+  ConditionValue,
   dateTimeUnits,
   dateUnits,
   RelativeTimeValue,
-  timeUnits,
-  ConditionValue
-} from 'digital-form-builder-model/src/conditions/inline-condition-values'
-import {
-  relativeTimeOperators
-} from '../client/conditions/inline-conditions-relative-dates'
+  timeUnits
+} from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { relativeDateOrTimeOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -109,17 +107,16 @@ suite('Inline conditions definition value inputs', () => {
     expect(updateValueCallback.firstCall.args[0]).to.equal(undefined)
   })
 
-  const relativeTimeOperatorNames = Object.keys(relativeTimeOperators(dateUnits))
   const dateAndTimeMappings = [
-    { type: 'DateField', units: dateUnits, relativeOperators: relativeTimeOperatorNames },
-    { type: 'DatePartsField', units: dateUnits, relativeOperators: relativeTimeOperatorNames },
-    { type: 'TimeField', units: timeUnits, timeOnly: true, relativeOperators: relativeTimeOperatorNames },
-    { type: 'DateTimeField', units: dateTimeUnits, relativeOperators: relativeTimeOperatorNames },
-    { type: 'DateTimePartsField', units: dateTimeUnits, relativeOperators: relativeTimeOperatorNames }
+    { type: 'DateField', units: dateUnits },
+    { type: 'DatePartsField', units: dateUnits },
+    { type: 'TimeField', units: timeUnits, timeOnly: true },
+    { type: 'DateTimeField', units: dateTimeUnits },
+    { type: 'DateTimePartsField', units: dateTimeUnits }
   ]
 
   dateAndTimeMappings.forEach(mapping => {
-    mapping.relativeOperators.forEach(operator => {
+    relativeDateOrTimeOperatorNames.forEach(operator => {
       test(`Should display custom component for ${mapping.type} component type and '${operator}' operator`, () => {
         const fieldDef = {
           label: 'Something',

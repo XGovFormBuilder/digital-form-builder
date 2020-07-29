@@ -1,8 +1,8 @@
-module.exports.serialiseAndDeserialise = (obj) => {
+const serialiseAndDeserialise = (obj) => {
   return JSON.parse(JSON.stringify(obj))
 }
 
-module.exports.clone = (obj) => {
+const clone = (obj) => {
   if (obj) {
     if (typeof obj.clone === 'function') {
       return obj.clone()
@@ -11,3 +11,6 @@ module.exports.clone = (obj) => {
   }
   return obj
 }
+
+module.exports.serialiseAndDeserialise = serialiseAndDeserialise
+module.exports.clone = clone

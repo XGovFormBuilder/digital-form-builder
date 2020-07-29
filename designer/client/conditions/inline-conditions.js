@@ -1,8 +1,8 @@
 import React from 'react'
-import { ConditionsModel } from 'digital-form-builder-model/src/conditions/inline-condition-model'
+import { ConditionsModel } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
-import { clone } from 'digital-form-builder-model/src/helpers'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 import InlineConditionHelpers from './inline-condition-helpers'
 
 class InlineConditions extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from './editor'
-import ComponentTypes from 'digital-form-builder-model/src/component-types'
+import ComponentTypes from 'digital-form-builder-model/lib/component-types'
 
 function Classes (props) {
   const { component } = props

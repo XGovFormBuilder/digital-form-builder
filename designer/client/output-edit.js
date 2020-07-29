@@ -1,7 +1,7 @@
 import React from 'react'
 import NotifyEdit from './notify-edit'
 import EmailEdit from './email-edit'
-import { clone } from 'digital-form-builder-model/src/helpers'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class OutputEdit extends React.Component {
   constructor (props) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import InlineConditions from './inline-conditions'
-import { ConditionsModel } from 'digital-form-builder-model/src/conditions/inline-condition-model'
+import { ConditionsModel } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
 import Flyout from '../flyout'
 
 class SelectConditions extends React.Component {

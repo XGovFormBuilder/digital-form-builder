@@ -1,6 +1,6 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import ConditionalComponentTypes from 'digital-form-builder-model/src/conditional-component-types'
+import ConditionalComponentTypes from 'digital-form-builder-model/lib/conditional-component-types'
 
 class ComponentConditionCreate extends React.Component {
   constructor (props) {

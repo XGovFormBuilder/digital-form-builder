@@ -1,5 +1,5 @@
 const joi = require('joi')
-const componentTypes = require('digital-form-builder-model/src/component-types')
+const componentTypes = require('digital-form-builder-model/lib/component-types')
 const nunjucks = require('nunjucks')
 const createConditionalComponents = Symbol('createConditionalComponents')
 const getSchemaKeys = Symbol('getSchemaKeys')
