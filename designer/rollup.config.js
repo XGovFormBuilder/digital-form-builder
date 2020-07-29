@@ -10,7 +10,7 @@ export default {
     file: 'dist/designer.js',
     format: 'iife',
     globals: {
-      'react': 'React',
+      react: 'React',
       'react-dom': 'ReactDOM'
     }
   },
@@ -24,7 +24,8 @@ export default {
       babelHelpers: 'runtime',
       exclude: ['node_modules/**'],
       presets: [
-        '@babel/react'
+        '@babel/react',
+        '@babel/preset-flow'
       ],
       plugins: [
         '@babel/plugin-proposal-class-properties',
