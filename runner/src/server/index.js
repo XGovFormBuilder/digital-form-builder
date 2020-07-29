@@ -1,5 +1,3 @@
-// @flow
-
 const fs = require('fs')
 const hapi = require('@hapi/hapi')
 const Blankie = require('blankie')
