@@ -145,8 +145,13 @@ workflows:
     when: << pipeline.parameters.engine >>
     jobs:
       - build:
+          name: model-build
+          package_name: model
+      - build:
           name: engine-build
           package_name: engine
+          requires:
+            - model-build
       - test:
           name: engine-test
           package_name: engine
@@ -157,8 +162,13 @@ workflows:
     when: << pipeline.parameters.designer >>
     jobs:
       - build:
+          name: model-build
+          package_name: model
+      - build:
           name: designer-build
           package_name: designer
+          requires:
+            - model-build
       - test:
           name: designer-test
           package_name: designer
@@ -169,8 +179,13 @@ workflows:
     when: << pipeline.parameters.runner >>
     jobs:
       - build:
+          name: model-build
+          package_name: model
+      - build:
           name: engine-build
           package_name: engine
+          requires:
+            - model-build
       - build:
           name: runner-build
           package_name: runner
