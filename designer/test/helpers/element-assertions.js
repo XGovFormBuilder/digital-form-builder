@@ -33,15 +33,28 @@ export function assertLink (wrapper, id, expectedText) {
   expect(getProperty(wrapper, 'href')).to.equal('#')
 }
 
-export function assertRequiredTextInput (wrapper, id, expectedValue, attrs) {
+export function assertRequiredNumberInput (wrapper, id, expectedValue) {
+  assertNumberInput(wrapper, id, expectedValue)
+  expect(getPropertyNames(wrapper).includes('required')).to.equal(true)
+}
+
+export function assertNumberInput (wrapper, id, expectedValue) {
+  assertTextBasedInput(wrapper, id, expectedValue, 'number')
+}
+
+export function assertRequiredTextInput (wrapper, id, expectedValue) {
   assertTextInput(wrapper, id, expectedValue)
   expect(getPropertyNames(wrapper).includes('required')).to.equal(true)
 }
 
 export function assertTextInput (wrapper, id, expectedValue, attrs) {
+  assertTextBasedInput(wrapper, id, expectedValue, 'text', attrs)
+}
+
+export function assertTextBasedInput (wrapper, id, expectedValue, type, attrs) {
   expect(getTagName(wrapper)).to.equal('input')
   expect(getProperty(wrapper, 'id')).to.equal(id)
-  expect(getProperty(wrapper, 'type')).to.equal('text')
+  expect(getProperty(wrapper, 'type')).to.equal(type)
   expect(getProperty(wrapper, 'defaultValue')).to.equal(expectedValue)
   assertAdditionalAttributes(attrs, wrapper)
 }
