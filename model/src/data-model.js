@@ -1,4 +1,5 @@
 const { clone } = require('./helpers')
+const { ConditionsModel } = require('./conditions/inline-condition-model')
 
 const yesNoList = {
   name: '__yesNo',
@@ -205,6 +206,20 @@ class Condition {
     Object.assign(this, rawData)
     this.displayName = rawData.displayName || rawData.name
   }
+
+  get expression () {
+    if (typeof this.value === 'string') {
+      return this.value
+    } else {
+      const conditions = ConditionsModel.from(this.value)
+      return conditions.toExpression()
+    }
+  }
+
+  clone () {
+    return new Condition(this)
+  }
 }
 
 module.exports.Data = Data
+module.exports.Condition = Condition

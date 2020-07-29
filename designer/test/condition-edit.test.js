@@ -13,12 +13,10 @@ exports.lab = lab
 const { suite, test } = lab
 
 suite('Condition edit', () => {
-  const condition = { name: 'abdefg', displayName: 'My condition', value: 'badgers' }
-
-  const data = new Data({ conditions: [condition] })
+  const data = new Data({ conditions: [{ name: 'abdefg', displayName: 'My condition', value: 'badgers' }] })
 
   test('Renders a form with display name and condition editor inputs', () => {
-    const wrapper = shallow(<ConditionEdit condition={condition} data={data} />)
+    const wrapper = shallow(<ConditionEdit condition={data.findCondition('abdefg')} data={data} />)
     const form = wrapper.find('form')
     const displayNameInput = form.find('input')
     assertTextInput(displayNameInput, 'condition-name', 'My condition')
@@ -31,7 +29,7 @@ suite('Condition edit', () => {
   })
 
   test('Should set error message when setting display name to one that already exists', () => {
-    const wrapper = shallow(<ConditionEdit condition={condition} data={data} />)
+    const wrapper = shallow(<ConditionEdit condition={data.findCondition('abdefg')} data={data} />)
     const form = wrapper.find('form')
     const displayNameInput = form.find('input')
     const setCustomValidity = sinon.spy()
@@ -52,7 +50,7 @@ suite('Condition edit', () => {
       expect(data.data).to.equal(savedData)
     }
     const wrappedOnEdit = flags.mustCall(onEdit, 1)
-    const wrapper = shallow(<ConditionEdit condition={condition} data={data} onEdit={wrappedOnEdit} />)
+    const wrapper = shallow(<ConditionEdit condition={data.findCondition('abdefg')} data={data} onEdit={wrappedOnEdit} />)
     const form = wrapper.find('form')
     const displayNameInput = form.find('input')
     const preventDefault = sinon.spy()
@@ -70,7 +68,11 @@ suite('Condition edit', () => {
 
     expect(preventDefault.calledOnce).to.equal(true)
     expect(clonedData.updateCondition.calledOnce).to.equal(true)
-    expect(clonedData.updateCondition.firstCall.args[0]).to.equal(condition.name)
+    expect(clonedData.updateCondition.firstCall.args[0]).to.equal({
+      name: 'abdefg',
+      displayName: 'My condition',
+      value: 'badgers'
+    }.name)
     expect(clonedData.updateCondition.firstCall.args[1]).to.equal('My condition 2')
     expect(clonedData.updateCondition.firstCall.args[2]).to.equal('badger == monkeys')
     expect(data.save.calledOnce).to.equal(true)
@@ -87,7 +89,7 @@ suite('Condition edit', () => {
       expect(data.data).to.equal(savedData)
     }
     const wrappedOnEdit = flags.mustCall(onEdit, 1)
-    const wrapper = shallow(<ConditionEdit condition={condition} data={data} onEdit={wrappedOnEdit} />)
+    const wrapper = shallow(<ConditionEdit condition={data.findCondition('abdefg')} data={data} onEdit={wrappedOnEdit} />)
     const preventDefault = sinon.spy()
 
     data.save = sinon.stub()
@@ -100,7 +102,11 @@ suite('Condition edit', () => {
 
     expect(preventDefault.calledOnce).to.equal(true)
     expect(clonedData.updateCondition.calledOnce).to.equal(true)
-    expect(clonedData.updateCondition.firstCall.args[0]).to.equal(condition.name)
+    expect(clonedData.updateCondition.firstCall.args[0]).to.equal({
+      name: 'abdefg',
+      displayName: 'My condition',
+      value: 'badgers'
+    }.name)
     expect(clonedData.updateCondition.firstCall.args[1]).to.equal('My condition')
     expect(clonedData.updateCondition.firstCall.args[2]).to.equal('badgers')
     expect(data.save.calledOnce).to.equal(true)
@@ -113,7 +119,7 @@ suite('Condition edit', () => {
       expect(e).to.equal(event)
     }
     const wrappedOnCancel = flags.mustCall(onCancel, 1)
-    const wrapper = shallow(<ConditionEdit condition={condition} data={data} onCancel={wrappedOnCancel} />)
+    const wrapper = shallow(<ConditionEdit condition={data.findCondition('abdefg')} data={data} onCancel={wrappedOnCancel} />)
     const form = wrapper.find('form')
     const backLink = form.find('a.govuk-back-link')
     await backLink.simulate('click', event)

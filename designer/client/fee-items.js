@@ -106,7 +106,7 @@ class FeeItems extends React.Component {
               </td>
               <td className='govuk-table__cell'>
                 <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition} required>
-                  {conditions.map((condition, i) => (<option key={condition.name + i} value={condition.name} onBlur={this.onBlur}>{condition.name}</option>))}
+                  {conditions.map((condition, i) => (<option key={condition.name + i} value={condition.name} onBlur={this.onBlur}>{condition.displayName}</option>))}
                 </select>
               </td>
               <td className='govuk-table__cell' width='20px'>

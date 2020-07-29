@@ -1153,6 +1153,22 @@ suite('data model', () => {
     })
   })
 
+  describe('Condition model', () => {
+    test('Get expression should return string if value is a string', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName', value: 'badgers == monkeys' }]
+      })
+      expect(data.findCondition('someName').expression).to.equal('badgers == monkeys')
+    })
+
+    test('Get expression should return parsed string from conditions model if value is a condition', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName', value: { name: 'someName', conditions: [{ field: { name: 'badger', type: 'TextField', display: 'Badger' }, operator: 'is', value: { type: 'Value', value: 'Monkeys', display: 'Monkeys' } }] } }]
+      })
+      expect(data.findCondition('someName').expression).to.equal('badger == \'Monkeys\'')
+    })
+  })
+
   describe('toJSON', () => {
     test('should expose the conditions field', () => {
       const rawData = {
