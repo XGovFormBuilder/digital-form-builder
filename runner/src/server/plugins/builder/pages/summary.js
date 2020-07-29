@@ -244,7 +244,7 @@ class SummaryViewModel {
     const questions = []
 
     for (const page of relevantPages) {
-      const category = page.section?.name ?? null
+      const category = page.section?.name
       const isRepeatable = !!page.repeatField
       const detail = details.find(d => d.name === category)
 
