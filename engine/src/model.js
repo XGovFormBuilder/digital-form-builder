@@ -136,7 +136,7 @@ class Model {
     }
 
     const { name, value } = condition
-    const expr = this.toConditionExpression(value, parser);
+    const expr = this.toConditionExpression(value, parser)
 
     const fn = (value) => {
       const ctx = new EvaluationContext(this.conditions, value)
@@ -156,8 +156,8 @@ class Model {
   }
 
   // TODO - remove the on-the-fly condition migration condition once all forms are converted to the new condition structure
-  toConditionExpression(value, parser) {
-    if(typeof value == 'string') {
+  toConditionExpression (value, parser) {
+    if (typeof value === 'string') {
       return parser.parse(value)
     } else {
       const conditions = ConditionsModel.from(value)
