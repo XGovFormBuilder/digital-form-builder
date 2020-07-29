@@ -14,7 +14,7 @@
     "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "test": "yarn flow && yarn lint && yarn test-lab",
     "audit": "npm audit --audit-level=high",
-    "postinstall": "flow-typed install -o"
+    "postinstall": "flow-typed install -o --ignoreDeps dev"
   },
   "repository": {
     "type": "git",
