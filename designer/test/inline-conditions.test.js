@@ -7,7 +7,7 @@ import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
 import { Condition, ConditionsModel, Field } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
 import { ConditionValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
-import InlineConditionHelpers from 'digital-form-builder-model/lib/conditions/inline-condition-helpers'
+import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
 const lab = Lab.script()

@@ -68,11 +68,7 @@ suite('Condition edit', () => {
 
     expect(preventDefault.calledOnce).to.equal(true)
     expect(clonedData.updateCondition.calledOnce).to.equal(true)
-    expect(clonedData.updateCondition.firstCall.args[0]).to.equal({
-      name: 'abdefg',
-      displayName: 'My condition',
-      value: 'badgers'
-    }.name)
+    expect(clonedData.updateCondition.firstCall.args[0]).to.equal('abdefg')
     expect(clonedData.updateCondition.firstCall.args[1]).to.equal('My condition 2')
     expect(clonedData.updateCondition.firstCall.args[2]).to.equal('badger == monkeys')
     expect(data.save.calledOnce).to.equal(true)
@@ -102,11 +98,7 @@ suite('Condition edit', () => {
 
     expect(preventDefault.calledOnce).to.equal(true)
     expect(clonedData.updateCondition.calledOnce).to.equal(true)
-    expect(clonedData.updateCondition.firstCall.args[0]).to.equal({
-      name: 'abdefg',
-      displayName: 'My condition',
-      value: 'badgers'
-    }.name)
+    expect(clonedData.updateCondition.firstCall.args[0]).to.equal('abdefg')
     expect(clonedData.updateCondition.firstCall.args[1]).to.equal('My condition')
     expect(clonedData.updateCondition.firstCall.args[2]).to.equal('badgers')
     expect(data.save.calledOnce).to.equal(true)
