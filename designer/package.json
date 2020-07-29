@@ -52,6 +52,8 @@
     "dotenv": "8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "flow-bin": "^0.130.0",
     "govuk-frontend": "3.6.0",
     "jsdom": "^16.2.2",
     "nunjucks": "3.2.1",
@@ -71,6 +73,8 @@
     "ignore": [
       "dist/"
     ],
-    "parser": "babel-eslint"
-  }
+    "parser": "babel-eslint",
+    "plugins":["flowtype"]
+  },
+  "eslint": "babel-eslint"
 }
