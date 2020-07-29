@@ -114,7 +114,7 @@ suite('Inline conditions', () => {
 
     test('Conditions change is called with the updated conditions when the save button is clicked', async () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
-      wrapper.instance().saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new Value('N')))
+      wrapper.instance().saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(conditionsChange.called).to.equal(false)
 
       const clonedData = sinon.spy()
