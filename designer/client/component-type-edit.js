@@ -48,7 +48,7 @@ class FieldEdit extends React.Component {
           </div>
 
           <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name (optional)</label>
+            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
             <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or fullName.</span>
             <input className='govuk-input govuk-input--width-20' id='field-name'
               name='name' type='text' defaultValue={component.name} required pattern='^\S+' />
