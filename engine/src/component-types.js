@@ -80,6 +80,11 @@ module.exports = [
     subType: 'field'
   },
   {
+    name: 'NationalInsuranceNumberField',
+    title: 'National insurance number field',
+    subType: 'field'
+  },  
+  {
     name: 'FileUploadField',
     title: 'File upload field',
     subType: 'field'

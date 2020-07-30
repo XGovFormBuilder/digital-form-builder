@@ -7,6 +7,7 @@ const DragHandle = SortableHandle(() => <span className='drag-handle'>&#9776;</s
 export const componentTypes = {
   'TextField': TextField,
   'TelephoneNumberField': TelephoneNumberField,
+  'NationalInsuranceNumberField': NationalInsuranceNumberField,
   'NumberField': NumberField,
   'EmailAddressField': EmailAddressField,
   'TimeField': TimeField,
@@ -62,6 +63,15 @@ function TelephoneNumberField () {
     </ComponentField>
   )
 }
+
+function NationalInsuranceNumberField () {
+  return (
+    <ComponentField>
+      <div>National Insurance Nunber</div>
+    </ComponentField>
+  )
+}
+
 
 function EmailAddressField () {
   return (

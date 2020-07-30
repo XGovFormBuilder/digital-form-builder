@@ -129,6 +129,17 @@ function FileUploadFieldEdit (props) {
   )
 }
 
+function NationalInsuranceNumberFieldEdit (props) {
+  const { component } = props
+  const schema = component.schema || {}
+
+  return (
+    <FieldEdit component={component}>
+      
+    </FieldEdit>
+  )
+}
+
 function TextFieldEdit (props) {
   const { component } = props
   const schema = component.schema || {}
@@ -486,6 +497,7 @@ const componentTypeEditors = {
   'TextFieldEdit': TextFieldEdit,
   'EmailAddressFieldEdit': TextFieldEdit,
   'TelephoneNumberFieldEdit': TextFieldEdit,
+  'NationalInsuranceNumberFieldEdit': NationalInsuranceNumberFieldEdit,
   'NumberFieldEdit': NumberFieldEdit,
   'MultilineTextFieldEdit': MultilineTextFieldEdit,
   'AutocompleteFieldEdit': SelectFieldEdit,
