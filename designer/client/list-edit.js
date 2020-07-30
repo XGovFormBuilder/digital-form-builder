@@ -155,17 +155,19 @@ class ListEdit extends React.Component {
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name</label>
-          <input className='govuk-input govuk-input--width-20' id='list-name' name='name'
-            type='text' defaultValue={list.name} required pattern='^\S+'
-            onBlur={this.onBlurName} />
-        </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-title'>Title</label>
           <input className='govuk-input govuk-input--width-20' id='list-title' name='title'
             type='text' defaultValue={list.title} required />
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name (optional)</label>
+          <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. animalTypes or countryNames</span>
+          <input className='govuk-input govuk-input--width-20' id='list-name' name='name'
+            type='text' defaultValue={list.name} required pattern='^\S+'
+            onBlur={this.onBlurName} />
         </div>
 
         <div className='govuk-form-group'>

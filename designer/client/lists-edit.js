@@ -12,10 +12,12 @@ class ListsEdit extends React.Component {
     })
   }
 
-  onClickAddList = (e, list) => {
+  onClickAddList = async e => {
     e.preventDefault()
-
+    const { data } = this.props
+    const id = await data.getId()
     this.setState({
+      id: id,
       showAddList: true
     })
   }
@@ -23,16 +25,16 @@ class ListsEdit extends React.Component {
   render () {
     const { data } = this.props
     const { lists } = data
-    const list = this.state.list
+    const { list, id } = this.state
 
     return (
       <div className='govuk-body'>
         {!list ? (
           <div>
             {this.state.showAddList ? (
-              <ListEdit list={{}} data={data}
-                onEdit={e => this.setState({ showAddList: false })}
-                onCancel={e => this.setState({ showAddList: false })} />
+              <ListEdit list={{ name: id }} data={data}
+                onEdit={() => this.setState({ showAddList: false })}
+                onCancel={() => this.setState({ showAddList: false })} />
             ) : (
               <ul className='govuk-list'>
                 {lists.map((list, index) => (
@@ -44,15 +46,15 @@ class ListsEdit extends React.Component {
                 ))}
                 <li>
                   <hr />
-                  <a href='#' onClick={e => this.onClickAddList(e)}>Add list</a>
+                  <a href='#' onClick={this.onClickAddList}>Add list</a>
                 </li>
               </ul>
             )}
           </div>
         ) : (
           <ListEdit list={list} data={data}
-            onEdit={e => this.setState({ list: null })}
-            onCancel={e => this.setState({ list: null })} />
+            onEdit={() => this.setState({ list: null })}
+            onCancel={() => this.setState({ list: null })} />
         )}
       </div>
     )
