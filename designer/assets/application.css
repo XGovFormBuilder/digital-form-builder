@@ -5919,6 +5919,10 @@ polyline {
   stroke: #4781ff;
 }
 
+polyline.highlight {
+  stroke: red;
+}
+
 polyline:hover {
   stroke: #ffbf47;
   opacity: 1;
@@ -6061,4 +6065,15 @@ polyline :after {
 }
 .govuk-checkboxes__input.disabled + .govuk-checkboxes__label {
   opacity: 0.5;
+}
+
+.menu-dropdown {
+  position: relative;
+  border: 1px solid black;
+  width: 300px;
+  padding: 15px;
+}
+
+#app .visualisation .page.highlight {
+  border: 2px solid red;
 }

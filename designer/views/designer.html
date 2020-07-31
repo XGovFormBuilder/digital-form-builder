@@ -27,6 +27,9 @@
           window.id = '{{ id }}'
           window.playgroundMode = true
       {% endif %}
+      {% if (newConfig) %}
+          window.newConfig = {{ newConfig }}
+      {% endif %}
     </script>
     <div id="root"></div>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
