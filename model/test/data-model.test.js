@@ -798,6 +798,70 @@ suite('data model', () => {
     })
   })
 
+  describe('update links to', () => {
+    test('should update all links pointing to the specified path to the new path', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page0',
+            path: '/0',
+            next: [{ path: '/2', condition: 'badgers' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            section: 'section1',
+            path: '/3',
+            components: []
+          }
+        ]
+      })
+
+      const returned = data.updateLinksTo('/2', '/7')
+
+      expect(returned.findPage(('/0'))).to.equal({
+        name: 'page0',
+        path: '/0',
+        next: [{ path: '/7', condition: 'badgers' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/1'))).to.equal({
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/7' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/2'))).to.equal({
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      })
+      expect(returned.findPage(('/3'))).to.equal({
+        name: 'page3',
+        section: 'section1',
+        path: '/3',
+        components: []
+      })
+    })
+  })
+
   describe('find page', () => {
     test('should return the page with the requested path if it exists', () => {
       const data = new Data({

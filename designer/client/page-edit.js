@@ -31,6 +31,8 @@ class PageEdit extends React.Component {
         return
       }
 
+      data.updateLinksTo(page.path, newPath)
+
       copyPage.path = newPath
 
       if (pageIndex === 0) {
