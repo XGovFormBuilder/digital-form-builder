@@ -32,7 +32,7 @@ class ListsEdit extends React.Component {
         {!list ? (
           <div>
             {this.state.showAddList ? (
-              <ListEdit list={{ name: id }} data={data}
+              <ListEdit list={{}} data={data} id={id}
                 onEdit={() => this.setState({ showAddList: false })}
                 onCancel={() => this.setState({ showAddList: false })} />
             ) : (
