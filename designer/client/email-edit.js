@@ -3,7 +3,7 @@ import React from 'react'
 class EmailEdit extends React.Component {
   render () {
     const { output } = this.props
-    const outputConfiguration = output ? output.outputConfiguration : {
+    const outputConfiguration = output && output.outputConfiguration ? output.outputConfiguration : {
       emailAddress: ''
     }
 

@@ -78,7 +78,7 @@ class Data {
   addSection (name, title) {
     this.sections = this.sections || []
     if (!this.sections.find(s => s.name === name)) {
-      this.sections.push({name, title})
+      this.sections.push({ name, title })
     }
     return this
   }

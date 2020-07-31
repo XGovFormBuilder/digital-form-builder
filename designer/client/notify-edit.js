@@ -11,9 +11,9 @@ class NotifyEdit extends React.Component {
   render () {
     const { data, output } = this.props
     const { conditions } = data
-    const outputConfiguration = output ? output.outputConfiguration : { templateId: '', apiKey: '', emailField: '' }
+    const outputConfiguration = output && output.outputConfiguration ? output.outputConfiguration : { templateId: '', apiKey: '', emailField: '', personalisation: [] }
     const { templateId, apiKey, emailField } = outputConfiguration
-    const personalisation = output ? output.outputConfiguration.personalisation : []
+    const personalisation = outputConfiguration.personalisation
     const values = [...conditions.map(condition => condition.name), ...this.usableKeys]
 
     return (

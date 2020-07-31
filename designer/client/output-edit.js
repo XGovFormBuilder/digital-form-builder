@@ -6,7 +6,7 @@ import { clone } from 'digital-form-builder-model/lib/helpers'
 class OutputEdit extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { outputType: props.output ? props.output.type : 'confirmationEmail' }
+    this.state = { outputType: props.output?.type??'confirmationEmail' }
   }
 
   onSubmit = e => {
@@ -18,6 +18,7 @@ class OutputEdit extends React.Component {
     let copy = clone(data)
     const outputType = formData.get('output-type') || output.type
     const outputName = formData.get('output-name')
+    const outputTitle = formData.get('output-title')
     let outputIndex
     if (output.name) {
       outputIndex = data.outputs.indexOf(output)
@@ -47,6 +48,7 @@ class OutputEdit extends React.Component {
 
     output = {
       name: outputName,
+      title: outputTitle,
       type: outputType,
       outputConfiguration
     }
@@ -103,7 +105,7 @@ class OutputEdit extends React.Component {
     } else if (state.outputType === 'webhook') {
       outputEdit = (<div className='govuk-form-group'>
         <label className='govuk-label govuk-label--s' htmlFor='webhook-url'>Webhook url</label>
-        <input className='govuk-input' id='webhook-url' name='webhook-url' defaultValue={output ? output.outputConfiguration.url : ''}
+        <input className='govuk-input' id='webhook-url' name='webhook-url' defaultValue={output && output.outputConfiguration ? output.outputConfiguration.url : ''}
           type='text' required pattern='^\S+' />
       </div>)
     }
@@ -115,6 +117,13 @@ class OutputEdit extends React.Component {
             onClick={e => this.props.onCancel(e)}>Back</a>
         }
         <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='output-title'>Title</label>
+          <input className='govuk-input' id='output-name' name='output-title'
+            type='text' required defaultValue={output ? output.title : ''}
+            onBlur={this.onBlurName} />
+        </div>
+
+        <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='output-name'>Name</label>
           <input className='govuk-input' id='output-name' name='output-name'
             type='text' required pattern='^\S+' defaultValue={output ? output.name : ''}
@@ -123,7 +132,7 @@ class OutputEdit extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='output-type'>Output type</label>
-          <select className='govuk-select' id='output-type' name='output-type' disabled={output}
+          <select className='govuk-select' id='output-type' name='output-type' disabled={output && output.type}
             value={state.outputType}
             onChange={this.onChangeOutputType}>
             <option value='confirmationEmail'>Confirmation email</option>
