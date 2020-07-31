@@ -3,7 +3,10 @@ import { toUrl } from './helpers'
 import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class PageEdit extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
+    this.state = props.page.path !== this.generatePath(props.page.title) ? { path: props.page.path } : {}
+  }
 
   onSubmit = e => {
     e.preventDefault()
