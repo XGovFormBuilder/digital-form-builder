@@ -10,7 +10,7 @@ class PageEdit extends React.Component {
     const form = e.target
     const formData = new window.FormData(form)
     const title = formData.get('title').trim()
-    const newPath = toUrl(title)
+    const newPath = formData.get('path').trim()
     const section = formData.get('section').trim()
     const pageType = formData.get('page-type').trim()
     const { data, page } = this.props
@@ -119,9 +119,43 @@ class PageEdit extends React.Component {
       })
   }
 
+  onChangeTitle = e => {
+    const input = e.target
+    const title = input.value
+    this.setState({
+      title: title,
+      generatedPath: this.generatePath(title)
+    })
+  }
+
+  onChangePath = e => {
+    const input = e.target
+    const path = input.value.startsWith('/') ? input.value : `/${input.value}`
+    const sanitizedPath = path.replace(/\s/g, '-')
+    this.setState({
+      path: sanitizedPath
+    })
+  }
+
+  generatePath (title) {
+    let path = toUrl(title)
+    const { data, page } = this.props
+
+    let count = 1
+    while (data.findPage(path) && page.title !== title) {
+      if (count > 1) {
+        path = path.substr(0, path.length - 2)
+      }
+      path = `${path}-${count}`
+      count++
+    }
+    return path
+  }
+
   render () {
     const { data, page } = this.props
     const { sections } = data
+    const { title, path, generatedPath } = this.state
 
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
@@ -136,8 +170,16 @@ class PageEdit extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
-          <input className='govuk-input' id='page-title' name='title' type='text' defaultValue={page.title}
-            aria-describedby='page-title-hint' required />
+          <input className='govuk-input' id='page-title' name='title' type='text' value={title || page.title}
+            aria-describedby='page-title-hint' required onChange={this.onChangeTitle} />
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
+          <span className='govuk-hint'>The path of this page e.g. '/personal-details'.</span>
+          <input className='govuk-input' id='page-path' name='path'
+            type='text' aria-describedby='page-path-hint' required
+            value={path || generatedPath || page.path} onChange={this.onChangePath} />
         </div>
 
         <div className='govuk-form-group'>

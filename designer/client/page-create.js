@@ -14,7 +14,7 @@ class PageCreate extends React.Component {
     const section = this.state.section?.trim()
     const pageType = this.state.pageType?.trim()
     const selectedCondition = this.state.selectedCondition?.trim()
-    const path = this.generatePath(title, data)
+    const path = this.state.path || this.state.generatedPath
 
     const value = {
       path,
@@ -61,7 +61,7 @@ class PageCreate extends React.Component {
   render () {
     const { data } = this.props
     const { sections, pages } = data
-    const { pageType, linkFrom, title, section } = this.state
+    const { pageType, linkFrom, title, section, path, generatedPath } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -87,8 +87,16 @@ class PageCreate extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
           <input className='govuk-input' id='page-title' name='title'
-            type='text' aria-describedby='page-title-hint' required onBlur={this.onBlurTitle}
-            defaultValue={title} />
+            type='text' aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
+            value={title || ''} />
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
+          <span className='govuk-hint'>The path of this page e.g. '/personal-details'.</span>
+          <input className='govuk-input' id='page-path' name='path'
+            type='text' aria-describedby='page-path-hint' required
+            value={path || generatedPath || ''} onChange={this.onChangePath} />
         </div>
 
         <div className='govuk-form-group'>
@@ -118,10 +126,22 @@ class PageCreate extends React.Component {
     })
   }
 
-  onBlurTitle = e => {
+  onChangeTitle = e => {
+    const { data } = this.props
     const input = e.target
+    const title = input.value
     this.setState({
-      title: input.value
+      title: title,
+      generatedPath: this.generatePath(title, data)
+    })
+  }
+
+  onChangePath = e => {
+    const input = e.target
+    const path = input.value.startsWith('/') ? input.value : `/${input.value}`
+    const sanitizedPath = path.replace(/\s/g, '-')
+    this.setState({
+      path: sanitizedPath
     })
   }
 

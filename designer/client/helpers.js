@@ -55,5 +55,5 @@ export function getFormData (form) {
 }
 
 export function toUrl (title) {
-  return '/'.concat(title.replace(/[^a-zA-Z ]/g, '').trim().replace(/ +/g, '-')).toLowerCase()
+  return '/'.concat(title.replace(/[^a-zA-Z0-9- ]/g, '').trim().replace(/ +/g, '-')).toLowerCase()
 }
