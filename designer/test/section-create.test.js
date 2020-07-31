@@ -64,10 +64,13 @@ suite('Section create', () => {
 
   test('Submitting without changing the name should generate the appropriate section', flags => {
     const clonedData = {
-      sections: []
+      addSection: sinon.stub()
     }
     data.clone = sinon.stub()
     data.clone.returns(clonedData)
+
+    const updatedData = sinon.stub()
+    clonedData.addSection.returns(updatedData)
 
     const savedData = sinon.stub()
     data.save = sinon.stub()
@@ -80,25 +83,27 @@ suite('Section create', () => {
 
     const wrapper = shallow(<SectionCreate data={data} onCreate={wrappedOnCreate} />)
 
-    wrapper.find('#section-title').simulate('change', { target: { value: 'My badgers' } })
+    wrapper.find('#section-title').simulate('change', { target: { value: ' My badgers ' } })
     const preventDefault = sinon.spy()
     wrapper.instance().onSubmit({ preventDefault })
 
-    const expectedSection = {
-      name: 'myBadgers',
-      title: 'My badgers'
-    }
     expect(data.save.callCount).to.equal(1)
-    expect(data.save.firstCall.args[0]).to.equal(clonedData)
-    expect(clonedData.sections).to.equal([expectedSection])
+    expect(data.save.firstCall.args[0]).to.equal(updatedData)
+
+    expect(clonedData.addSection.callCount).to.equal(1)
+    expect(clonedData.addSection.firstCall.args[0]).to.equal('myBadgers')
+    expect(clonedData.addSection.firstCall.args[1]).to.equal('My badgers')
   })
 
   test('Submitting without changing the name should use generated name with integer if needed', flags => {
     const clonedData = {
-      sections: []
+      addSection: sinon.stub()
     }
     data.clone = sinon.stub()
     data.clone.returns(clonedData)
+
+    const updatedData = sinon.stub()
+    clonedData.addSection.returns(updatedData)
 
     const savedData = sinon.stub()
     data.save = sinon.stub()
@@ -111,25 +116,27 @@ suite('Section create', () => {
 
     const wrapper = shallow(<SectionCreate data={data} onCreate={wrappedOnCreate} />)
 
-    wrapper.find('#section-title').simulate('change', { target: { value: 'Awesome Badgers' } })
+    wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
     const preventDefault = sinon.spy()
     wrapper.instance().onSubmit({ preventDefault })
 
-    const expectedSection = {
-      name: 'awesomeBadgers3',
-      title: 'Awesome Badgers'
-    }
     expect(data.save.callCount).to.equal(1)
-    expect(data.save.firstCall.args[0]).to.equal(clonedData)
-    expect(clonedData.sections).to.equal([expectedSection])
+    expect(data.save.firstCall.args[0]).to.equal(updatedData)
+
+    expect(clonedData.addSection.callCount).to.equal(1)
+    expect(clonedData.addSection.firstCall.args[0]).to.equal('awesomeBadgers3')
+    expect(clonedData.addSection.firstCall.args[1]).to.equal('Awesome Badgers')
   })
 
   test('Submitting with a specified name should use the specified name', flags => {
     const clonedData = {
-      sections: []
+      addSection: sinon.stub()
     }
     data.clone = sinon.stub()
     data.clone.returns(clonedData)
+
+    const updatedData = sinon.stub()
+    clonedData.addSection.returns(updatedData)
 
     const savedData = sinon.stub()
     data.save = sinon.stub()
@@ -142,17 +149,16 @@ suite('Section create', () => {
 
     const wrapper = shallow(<SectionCreate data={data} onCreate={wrappedOnCreate} />)
 
-    wrapper.find('#section-title').simulate('change', { target: { value: 'Awesome Badgers' } })
+    wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
     wrapper.find('#section-name').simulate('blur', { target: { value: 'myName', setCustomValidity: sinon.spy() } })
     const preventDefault = sinon.spy()
     wrapper.instance().onSubmit({ preventDefault })
 
-    const expectedSection = {
-      name: 'myName',
-      title: 'Awesome Badgers'
-    }
     expect(data.save.callCount).to.equal(1)
-    expect(data.save.firstCall.args[0]).to.equal(clonedData)
-    expect(clonedData.sections).to.equal([expectedSection])
+    expect(data.save.firstCall.args[0]).to.equal(updatedData)
+
+    expect(clonedData.addSection.callCount).to.equal(1)
+    expect(clonedData.addSection.firstCall.args[0]).to.equal('myName')
+    expect(clonedData.addSection.firstCall.args[1]).to.equal('Awesome Badgers')
   })
 })

@@ -58,9 +58,8 @@ export function toUrl (title) {
   return '/'.concat(title.replace(/[^a-zA-Z ]/g, '').trim().replace(/ +/g, '-')).toLowerCase()
 }
 
-
 export function camelCase (str) {
-  return str.toLowerCase()
+  return str.trim().toLowerCase()
       .replace(/[\s-_]+(.)/g, (m, chr) => chr.toUpperCase())
       .replace(/[^a-zA-Z0-9]/g, '')
 }

@@ -11,10 +11,9 @@ class SectionCreate extends React.Component {
     const { data } = this.props
     const copy = clone(data)
 
-    const section = { name: name || generatedName, title: title.trim() }
-    copy.sections.push(section)
+    const updated = copy.addSection(name || generatedName, title.trim())
 
-    data.save(copy)
+    data.save(updated)
       .then(data => {
         console.log(data)
         this.props.onCreate({ data })

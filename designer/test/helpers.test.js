@@ -13,6 +13,10 @@ suite('helpers', () => {
       expect(camelCase('My page')).to.equal('myPage')
     })
 
+    test('should camel case string with leading space', () => {
+      expect(camelCase(' My page')).to.equal('myPage')
+    })
+
     test('should camel case hyphenated string', () => {
       expect(camelCase('My-page')).to.equal('myPage')
     })

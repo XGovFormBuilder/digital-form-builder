@@ -798,6 +798,27 @@ suite('data model', () => {
     })
   })
 
+  describe('add section', () => {
+    test('should add a section when no section exists with the same name', () => {
+      const data = new Data({
+        sections : [{name: 'a', title: 'B'}]
+      })
+      const returned = data.addSection('badger', 'Badger')
+      expect(returned.sections.length).to.equal(2)
+      expect(returned.sections.find(it => it.name === 'a')).to.equal({name: 'a', title: 'B'})
+      expect(returned.sections.find(it => it.name === 'badger')).to.equal({name: 'badger', title: 'Badger'})
+    })
+
+    test('should not add a section when a section exists with the same name', () => {
+      const data = new Data({
+        sections : [{name: 'a', title: 'B'}]
+      })
+      const returned = data.addSection('a', 'Badger')
+      expect(returned.sections.length).to.equal(1)
+      expect(returned.sections.find(it => it.name === 'a')).to.equal({name: 'a', title: 'B'})
+    })
+  })
+
   describe('find page', () => {
     test('should return the page with the requested path if it exists', () => {
       const data = new Data({
