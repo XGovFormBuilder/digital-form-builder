@@ -24,7 +24,6 @@ class UrlField extends FormComponent {
   }
 
   getViewModel (formData, errors) {
-    const { schema } = this
     const viewModel = super.getViewModel(formData, errors)
 
     viewModel.type = 'url'

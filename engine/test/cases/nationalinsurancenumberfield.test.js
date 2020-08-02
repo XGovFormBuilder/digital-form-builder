@@ -1,7 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import NationalInsuranceNumberField from '../../components/nationalinsurancenumberfield'
-import { join } from 'path'
 const lab = Lab.script()
 exports.lab = lab
 const { expect } = Code
@@ -48,15 +47,11 @@ suite('national insurance number field', () => {
     const testSchema = joi.object({
       value: joi.string()
         .regex(new RegExp(underTest.schema.regex))
-    });
-
-    nationalInsuranceNumbers.forEach((ni) => {
-      let result = testSchema.validate({value : ni})
-      expect(result.error).to.equal(null)
     })
 
-
-
-
+    nationalInsuranceNumbers.forEach((ni) => {
+      const result = testSchema.validate({ value: ni })
+      expect(result.error).to.equal(null)
+    })
   })
 })

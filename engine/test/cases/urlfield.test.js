@@ -1,6 +1,5 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { join } from 'path'
 import UrlField from '../../components/urlfield'
 const lab = Lab.script()
 exports.lab = lab
@@ -8,8 +7,7 @@ const { expect } = Code
 const { suite, test } = lab
 const joi = require('joi')
 
-
-//https://raw.githubusercontent.com/citizenlab/test-lists/master/lists/ae.csv
+// https://raw.githubusercontent.com/citizenlab/test-lists/master/lists/ae.csv
 const urls = [
   'https://www.galilcol.ac.il/',
   'http://www.isa.gov.il/',
@@ -729,7 +727,7 @@ const urls = [
   'https://rasoulallah.net/ar/',
   'https://ar.islamway.net/',
   'http://www.alwaei.com/shabab/site/',
-  'https://www.sahafah24.net/index.php/',
+  'https://www.sahafah24.net/index.php/'
 
 ]
 
@@ -766,10 +764,10 @@ suite('url field', () => {
     const testSchema = joi.object({
       value: joi.string()
         .regex(new RegExp(underTest.schema.regex))
-    });
+    })
 
     urls.forEach((url) => {
-      let result = testSchema.validate({ value: url })
+      const result = testSchema.validate({ value: url })
       expect(result.error).to.equal(null)
     })
   })

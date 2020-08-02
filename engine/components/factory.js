@@ -615,7 +615,7 @@ const makeComponentTypes = {
       component.options.classes = 'govuk-input--width-10'
     }
 
-    const { name, schema } = component
+    const { name } = component
 
     return {
       getFormSchemaKeys: getFormSchemaKeys(name, 'string', component),
@@ -635,7 +635,7 @@ const makeComponentTypes = {
       component.options.classes = 'govuk-input--width-20'
     }
 
-    const { name, schema } = component
+    const { name } = component
 
     return {
       getFormSchemaKeys: getFormSchemaKeys(name, 'string', component),
