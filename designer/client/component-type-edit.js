@@ -133,7 +133,7 @@ function NationalInsuranceNumberFieldEdit (props) {
   const { component } = props
 
   return (
-    <FieldEdit component={component}/>
+    <FieldEdit component={component} />
   )
 }
 
@@ -141,7 +141,7 @@ function UrlFieldEdit (props) {
   const { component } = props
 
   return (
-    <FieldEdit component={component}/>
+    <FieldEdit component={component} />
   )
 }
 
