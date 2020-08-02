@@ -609,6 +609,26 @@ const makeComponentTypes = {
       }
     }
   },
+  NationalInsuranceNumberField (component) {
+    // Defaults
+    if (!component.options.classes) {
+      component.options.classes = 'govuk-input--width-10'
+    }
+
+    const { name, schema } = component
+
+    return {
+      getFormSchemaKeys: getFormSchemaKeys(name, 'string', component),
+      getStateSchemaKeys: getStateSchemaKeys(name, 'string', component),
+      getViewModel (formData, errors) {
+        const viewModel = getBaseFormFieldViewModel(component, formData, errors)
+
+        viewModel.type = 'ni'
+
+        return viewModel
+      }
+    }
+  },
   TimeField (component) {
     // Defaults
     if (!component.options.classes) {

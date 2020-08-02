@@ -27,13 +27,7 @@ class NationalInsuranceNumberField extends FormComponent {
     const { schema } = this
     const viewModel = super.getViewModel(formData, errors)
 
-    if (typeof schema.max === 'number') {
-      viewModel.attributes = {
-        maxlength: schema.max
-      }
-    }
-
-    viewModel.type = 'tel'
+    viewModel.type = 'ni'
 
     return viewModel
   }
