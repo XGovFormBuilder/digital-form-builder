@@ -8,7 +8,7 @@ export const componentTypes = {
   'TextField': TextField,
   'TelephoneNumberField': TelephoneNumberField,
   'NationalInsuranceNumberField': NationalInsuranceNumberField,
-  'UrlField' : UrlField,
+  'UrlField': UrlField,
   'NumberField': NumberField,
   'EmailAddressField': EmailAddressField,
   'TimeField': TimeField,
