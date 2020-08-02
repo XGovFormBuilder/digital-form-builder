@@ -131,22 +131,18 @@ function FileUploadFieldEdit (props) {
 
 function NationalInsuranceNumberFieldEdit (props) {
   const { component } = props
-  const schema = component.schema || {}
 
   return (
     <FieldEdit component={component}>
-      
     </FieldEdit>
   )
 }
 
 function UrlFieldEdit (props) {
   const { component } = props
-  const schema = component.schema || {}
 
   return (
     <FieldEdit component={component}>
-      
     </FieldEdit>
   )
 }
