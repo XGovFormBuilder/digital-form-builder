@@ -8,6 +8,7 @@ export const componentTypes = {
   'TextField': TextField,
   'TelephoneNumberField': TelephoneNumberField,
   'NationalInsuranceNumberField': NationalInsuranceNumberField,
+  'UrlField' : UrlField,
   'NumberField': NumberField,
   'EmailAddressField': EmailAddressField,
   'TimeField': TimeField,
@@ -68,6 +69,14 @@ function NationalInsuranceNumberField () {
   return (
     <ComponentField>
       <div>National Insurance Nunber</div>
+    </ComponentField>
+  )
+}
+
+function UrlField () {
+  return (
+    <ComponentField>
+      <div>URL</div>
     </ComponentField>
   )
 }

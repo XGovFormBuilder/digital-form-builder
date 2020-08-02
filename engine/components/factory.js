@@ -629,6 +629,26 @@ const makeComponentTypes = {
       }
     }
   },
+  UrlField (component) {
+    // Defaults
+    if (!component.options.classes) {
+      component.options.classes = 'govuk-input--width-20'
+    }
+
+    const { name, schema } = component
+
+    return {
+      getFormSchemaKeys: getFormSchemaKeys(name, 'string', component),
+      getStateSchemaKeys: getStateSchemaKeys(name, 'string', component),
+      getViewModel (formData, errors) {
+        const viewModel = getBaseFormFieldViewModel(component, formData, errors)
+
+        viewModel.type = 'url'
+
+        return viewModel
+      }
+    }
+  },
   TimeField (component) {
     // Defaults
     if (!component.options.classes) {

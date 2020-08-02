@@ -85,6 +85,11 @@ module.exports = [
     subType: 'field'
   },  
   {
+    name: 'UrlField',
+    title: 'Url field',
+    subType: 'field'
+  },  
+  {
     name: 'FileUploadField',
     title: 'File upload field',
     subType: 'field'

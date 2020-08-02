@@ -32,7 +32,7 @@ suite('national insurance number field', () => {
           text: 'My Component'
         },
         name: 'myComponent',
-        type: 'tel',
+        type: 'ni',
         value: undefined
       }
 
