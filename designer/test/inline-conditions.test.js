@@ -5,7 +5,8 @@ import * as Lab from '@hapi/lab'
 import { assertLabel, assertLink, assertText } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
-import { Condition, ConditionsModel, Field, Value } from '../client/conditions/inline-condition-model'
+import { Condition, ConditionsModel, Field } from '../client/conditions/inline-condition-model'
+import { ConditionValue } from '../client/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -118,7 +119,7 @@ suite('Inline conditions', () => {
     test('Clicking the cancel link should cancel any added conditions and partially completed inputs and trigger the cancel callback', () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
       let instance = wrapper.instance()
-      instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new Value('N')))
+      instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(wrapper.find('#conditions-display').exists()).to.equal(true)
       const e = {}
       wrapper.find('#cancel-inline-conditions-link').simulate('click', e)
@@ -131,7 +132,7 @@ suite('Inline conditions', () => {
     test('Clicking the cancel link should succeed if there is no cancel callback', () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
       let instance = wrapper.instance()
-      instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new Value('N')))
+      instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(wrapper.find('#conditions-display').exists()).to.equal(true)
       const e = {}
       wrapper.find('#cancel-inline-conditions-link').simulate('click', e)
@@ -179,7 +180,7 @@ suite('Inline conditions', () => {
 
       test('A condition being added causes the view to update and the conditionsChange callback to be called', () => {
         const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
-        const condition = new Condition(new Field('something', 'TextField', 'Something'), 'is', new Value('M'))
+        const condition = new Condition(new Field('something', 'TextField', 'Something'), 'is', new ConditionValue('M'))
         wrapper.instance().saveCondition(condition)
 
         assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
@@ -195,7 +196,7 @@ suite('Inline conditions', () => {
 
       beforeEach(() => {
         conditions = new ConditionsModel()
-        conditions.add(new Condition(new Field(fields[0].propertyPath, fields[0].type, fields[0].displayName), isEqualToOperator, new Value('M')))
+        conditions.add(new Condition(new Field(fields[0].propertyPath, fields[0].type, fields[0].displayName), isEqualToOperator, new ConditionValue('M')))
       })
 
       test('Clicking the edit link causes editing view to be rendered', () => {
@@ -210,7 +211,7 @@ suite('Inline conditions', () => {
       test('edit callback should replace the conditions and leave in edit mode', () => {
         const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
         wrapper.find('#add-item').simulate('click')
-        wrapper.instance().saveCondition(new Condition(new Field(fields[1].propertyPath, fields[1].type, fields[1].displayName), isEqualToOperator, new Value('N')))
+        wrapper.instance().saveCondition(new Condition(new Field(fields[1].propertyPath, fields[1].type, fields[1].displayName), isEqualToOperator, new ConditionValue('N')))
         wrapper.find('#edit-conditions-link').simulate('click')
         assertEditingHeaderGroupWithConditionString(wrapper, '\'Something else\' is \'N\'')
 

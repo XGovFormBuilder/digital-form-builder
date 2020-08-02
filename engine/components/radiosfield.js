@@ -44,20 +44,20 @@ class RadiosField extends ConditionalFormComponent {
             condition: item.condition
           }
 
-        if (options.bold) {
-          itemModel.label = {
-            classes: 'govuk-label--s'
+          if (options.bold) {
+            itemModel.label = {
+              classes: 'govuk-label--s'
+            }
           }
-        }
 
-        if (item.description) {
-          itemModel.hint = {
-            html: this.localisedString(item.description)
+          if (item.description) {
+            itemModel.hint = {
+              html: this.localisedString(item.description)
+            }
           }
-        }
 
-        return super.addConditionalComponents(item, itemModel, formData, errors)
-      })
+          return super.addConditionalComponents(item, itemModel, formData, errors)
+        })
     })
 
     return viewModel

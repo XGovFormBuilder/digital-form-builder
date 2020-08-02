@@ -6,21 +6,21 @@ A hapi plugin providing a visual designer for [digital form builder](https://git
 
 Clone this repo
 
-`$ git clone https://github.com/UKForeignOffice/digital-form-builder`
+`$ git clone https://github.com/XGovFormBuilder/digital-form-builder`
 
 `$ cd digital-form-builder/designer/`
 
 Install dependencies
 
-`$ npm i`
+`$ yarn`
 
 Build designer.js
 
-`$ npm run-script build`
+`$ yarn build`
 
 You are now ready to start.
 
-`$ npm start`
+`$ yarn start`
 
 Open your browser at
 
@@ -31,7 +31,7 @@ If there is a .env file present, these will be loaded in first.
 
 To symlink an external .env file, for example inside a [Keybase](https://keybase.io) folder:
 
-`npm run symlink-env /location/of/.env`.
+`yarn run symlink-env /location/of/.env`.
  
 `symlink-config` accepts two variables, ENV_LOC and LINK_TO. If the file location is not passed in, you will be prompted for a location.
  LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
