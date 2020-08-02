@@ -140,6 +140,10 @@ class UploadService {
           if (e.data && e.data.res) {
             const { error } = this.parsedDocumentUploadResponse(e.data.res)
             request.pre.errors = [...h.request.pre.errors || [], parsedError(key, error)]
+          } else if (e.code === 'EPIPE') {
+            // ignore this error, it happens when the request is responded to by the doc upload service before the
+            // body has finished being sent. A valid response is still received.
+            request.server.log(['info', 'documentupload'], `Ignoring EPIPE response: ${e.message}`)
           } else {
             request.server.log(['error', 'documentupload'], `Error uploading document: ${e.message}`)
             request.pre.errors = [...h.request.pre.errors || [], parsedError(key, e)]

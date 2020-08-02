@@ -1,5 +1,6 @@
 import ComponentTypes from 'digital-form-builder-engine/src/component-types'
 import { getExpression } from './inline-condition-operators'
+import { AbstractConditionValue } from './inline-condition-values'
 
 export const coordinators = {
   AND: 'and',
@@ -285,8 +286,8 @@ export class Condition {
     if (typeof operator !== 'string') {
       throw Error(`operator ${operator} is not a valid operator`)
     }
-    if (!(value instanceof Value)) {
-      throw Error(`field ${field} is not a valid Field object`)
+    if (!(value instanceof AbstractConditionValue)) {
+      throw Error(`value ${value} is not a valid value type`)
     }
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
       throw Error(`coordinator ${coordinator} is not a valid coordinator`)
@@ -306,11 +307,11 @@ export class Condition {
   }
 
   conditionString () {
-    return `'${this.field.display}' ${this.operator} '${this.value.display}'`
+    return `'${this.field.display}' ${this.operator} '${this.value.toPresentationString()}'`
   }
 
   conditionExpression () {
-    return getExpression(this.field.type, this.field.name, this.operator, this.value.value)
+    return getExpression(this.field.type, this.field.name, this.operator, this.value)
   }
 
   coordinatorString () {
@@ -335,7 +336,7 @@ export class Condition {
   }
 
   clone () {
-    return new Condition(Field.from(this.field), this.operator, Value.from(this.value), this.coordinator)
+    return new Condition(Field.from(this.field), this.operator, this.value.clone(), this.coordinator)
   }
 }
 
@@ -357,22 +358,5 @@ export class Field {
 
   static from (obj) {
     return new Field(obj.name, obj.type, obj.display)
-  }
-}
-
-export class Value {
-  constructor (value, display) {
-    if (!value || typeof value !== 'string') {
-      throw Error(`value ${value} is not valid`)
-    }
-    if (display && typeof display !== 'string') {
-      throw Error(`display ${display} is not valid`)
-    }
-    this.value = value
-    this.display = display || value
-  }
-
-  static from (obj) {
-    return new Value(obj.value, obj.display)
   }
 }

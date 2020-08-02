@@ -31,7 +31,7 @@ class DateTimePartsField extends FormComponent {
 
   getFormDataFromState (state) {
     const name = this.name
-    const value = state[name]
+    const value = typeof state[name] === 'string' ? new Date(state[name]) : state[name]
     return {
       [`${name}__day`]: value && value.getDate(),
       [`${name}__month`]: value && value.getMonth() + 1,

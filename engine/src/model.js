@@ -3,11 +3,13 @@ const path = require('path')
 const schema = require('./schema')
 const Page = require('./page')
 const Parser = require('expr-eval').Parser
+const moment = require('moment')
 
 class Model {
   constructor (def, options) {
     const result = schema.validate(def, { abortEarly: false })
 
+    // TODO:- throw/catch this properly 🤦🏻‍
     if (result.error) {
       throw result.error
     }
@@ -78,11 +80,15 @@ class Model {
 
       if (sectionPages.length > 0) {
         if (section) {
+          const isRepeatable = sectionPages.find(page => page.pageDef.repeatField)
+
           let sectionSchema = joi.object().required()
           sectionPages.forEach(sectionPage => {
             sectionSchema = sectionSchema.concat(sectionPage.stateSchema)
           })
-
+          if (isRepeatable) {
+            sectionSchema = joi.array().items(sectionSchema)
+          }
           schema = schema.append({
             [section.name]: sectionSchema
           })
@@ -116,6 +122,15 @@ class Model {
         logical: true
       }
     })
+    parser.functions.dateForComparison = function (timePeriod, timeUnit) {
+      return moment().add(Number(timePeriod), timeUnit).toISOString()
+    }
+
+    parser.functions.timeForComparison = function (timePeriod, timeUnit) {
+      const offsetTime = moment().add(Number(timePeriod), timeUnit)
+      return `${offsetTime.hour()}:${offsetTime.minutes()}`
+    }
+
     const { name, value } = condition
     const expr = parser.parse(value)
 

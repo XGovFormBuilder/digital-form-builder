@@ -1,10 +1,22 @@
+import {
+  dateTimeUnits,
+  dateUnits,
+  timeUnits,
+  relativeTimeOperators
+} from './inline-conditions-relative-dates'
+import {
+  absoluteDateOperators,
+  absoluteDateTimeOperators,
+  absoluteTimeOperators
+} from './inline-conditions-absolute-dates'
+
 const defaultOperators = {
   is: inline('=='),
   'is not': inline('!=')
 }
 
 function withDefaults (param) {
-  return Object.assign(param, defaultOperators)
+  return Object.assign({}, param, defaultOperators)
 }
 
 const textBasedFieldCustomisations = {
@@ -22,8 +34,13 @@ export const customOperators = {
     'is at least': inline('>='),
     'is at most': inline('<='),
     'is less than': inline('<'),
-    'is greater than': inline('>')
+    'is more than': inline('>')
   }),
+  DateField: Object.assign({}, absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  TimeField: Object.assign({}, absoluteTimeOperators, relativeTimeOperators(timeUnits)),
+  DatePartsField: Object.assign({}, absoluteDateOperators, relativeTimeOperators(dateUnits)),
+  DateTimeField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateTimeUnits)),
+  DateTimePartsField: Object.assign({}, absoluteDateTimeOperators, relativeTimeOperators(dateTimeUnits)),
   TextField: withDefaults(textBasedFieldCustomisations),
   MultilineTextField: withDefaults(textBasedFieldCustomisations),
   EmailAddressField: withDefaults(textBasedFieldCustomisations)
@@ -37,25 +54,29 @@ export function getExpression (fieldType, fieldName, operator, value) {
   return getConditionals(fieldType)[operator].expression({ type: fieldType, name: fieldName }, value)
 }
 
+export function getOperatorConfig (fieldType, operator) {
+  return getConditionals(fieldType)[operator]
+}
+
 function getConditionals (fieldType) {
   return customOperators[fieldType] || defaultOperators
 }
 
 function inline (operator) {
   return {
-    expression: (field, value) => `${field.name} ${operator} ${formatValue(field.type, value)}`
+    expression: (field, value) => `${field.name} ${operator} ${formatValue(field.type, value.value)}`
   }
 }
 
 function lengthIs (operator) {
   return {
-    expression: (field, value) => `length(${field.name}) ${operator} ${value}`
+    expression: (field, value) => `length(${field.name}) ${operator} ${value.value}`
   }
 }
 
 function reverseInline (operator) {
   return {
-    expression: (field, value) => `${formatValue(field.type, value)} ${operator} ${field.name}`
+    expression: (field, value) => `${formatValue(field.type, value.value)} ${operator} ${field.name}`
   }
 }
 

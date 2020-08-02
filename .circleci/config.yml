@@ -66,6 +66,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - flow-typed
           key: << parameters.package_name >>-dependencies-{{ checksum "package.json" }}
 
       - run:
