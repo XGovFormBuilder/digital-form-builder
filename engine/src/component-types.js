@@ -83,12 +83,12 @@ module.exports = [
     name: 'NationalInsuranceNumberField',
     title: 'National insurance number field',
     subType: 'field'
-  },  
+  },
   {
     name: 'UrlField',
     title: 'Url field',
     subType: 'field'
-  },  
+  },
   {
     name: 'FileUploadField',
     title: 'File upload field',
