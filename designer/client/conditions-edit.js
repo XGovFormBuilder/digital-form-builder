@@ -29,7 +29,7 @@ class ConditionsEdit extends React.Component {
 
     return (
       <div className='govuk-body'>
-        {!condition ? (
+        {!condition &&
           <div>
             <Flyout title='Edit Conditions' show={!!this.state.showAddCondition}
               onHide={this.cancelInlineCondition}>
@@ -53,7 +53,7 @@ class ConditionsEdit extends React.Component {
               ))}
               <li>
                 <hr />
-                { data.allInputs().length > 0
+                {data.allInputs().length > 0
                   ? <a href='#' id='add-condition-link' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
                   : <div className='govuk-body'>
                       You cannot add any conditions as there are no available fields
@@ -62,11 +62,12 @@ class ConditionsEdit extends React.Component {
               </li>
             </ul>
           </div>
-        ) : (
+        }
+        {condition &&
           <ConditionEdit condition={condition} data={data}
             onEdit={this.editFinished}
             onCancel={this.editFinished} />
-        )}
+        }
       </div>
     )
   }

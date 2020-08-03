@@ -1,4 +1,4 @@
-async function storeConditionIfNecessary (data, conditions) {
+export async function storeConditionIfNecessary (data, conditions) {
   let condition
   if (conditions && conditions.hasConditions) {
     condition = await data.getId()

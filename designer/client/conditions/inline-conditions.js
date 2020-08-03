@@ -58,27 +58,25 @@ class InlineConditions extends React.Component {
     })
   }
 
-  setState (state, callback) {
-    super.setState(state, callback)
-  }
-
   onClickCancel = e => {
+    const { adding, cancelCallback } = this.props
     this.setState({
-      adding: this.props.adding,
+      adding: adding,
       conditions: this.state.conditions.clear(),
       editView: false
     })
-    if (this.props.cancelCallback) {
-      this.props.cancelCallback(e)
+    if (cancelCallback) {
+      cancelCallback(e)
     }
   }
 
   onClickSave = async () => {
-    const copy = this.props.data.clone()
+    const { data, conditionsChange } = this.props
+    const copy = data.clone()
     const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, this.state.conditions)
-    await this.props.data.save(conditionResult.data)
-    if (this.props.conditionsChange) {
-      this.props.conditionsChange(conditionResult.condition)
+    await data.save(conditionResult.data)
+    if (conditionsChange) {
+      conditionsChange(conditionResult.condition)
     }
   }
 
