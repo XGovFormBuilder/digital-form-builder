@@ -5,13 +5,12 @@ import * as Lab from '@hapi/lab'
 import { Data } from '../client/model/data-model'
 import sinon from 'sinon'
 import { assertSelectInput } from './helpers/element-assertions'
-import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 import LinkEdit from '../client/link-edit'
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { suite, test, describe, beforeEach, afterEach } = lab
+const { suite, test, describe } = lab
 
 suite('Link edit', () => {
   describe('Editing a link which does not have a condition', () => {
@@ -55,7 +54,7 @@ suite('Link edit', () => {
       expect(selectConditions.prop('data')).to.equal(data)
       expect(selectConditions.prop('path')).to.equal('/1')
       expect(selectConditions.prop('selectedCondition')).to.equal(undefined)
-      expect(selectConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
+      expect(selectConditions.prop('conditionsChange')).to.equal(wrapper.instance().conditionSelected)
     })
   })
 
@@ -100,7 +99,7 @@ suite('Link edit', () => {
       expect(selectConditions.prop('data')).to.equal(data)
       expect(selectConditions.prop('path')).to.equal('/1')
       expect(selectConditions.prop('selectedCondition')).to.equal('anotherCondition')
-      expect(selectConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
+      expect(selectConditions.prop('conditionsChange')).to.equal(wrapper.instance().conditionSelected)
     })
   })
 
@@ -119,19 +118,9 @@ suite('Link edit', () => {
       source: '/1',
       target: '/2'
     }
-    let storeConditionStub
-
-    beforeEach(function () {
-      storeConditionStub = sinon.stub(InlineConditionHelpers, 'storeConditionIfNecessary')
-    })
-
-    afterEach(function () {
-      storeConditionStub.restore()
-    })
 
     test('with a condition updates the link and calls back', async flags => {
-      const clonedData = {}
-      const withCondition = {
+      const clonedData = {
         updateLink: sinon.stub()
       }
       const updatedData = sinon.spy()
@@ -143,16 +132,13 @@ suite('Link edit', () => {
         expect(data).to.equal(updatedData)
         return Promise.resolve(savedData)
       }
-      // const wrappedOnEdit = flags.mustCall(onEdit, 1)
+      const wrappedOnEdit = flags.mustCall(onEdit, 1)
 
-      const wrapper = shallow(<LinkEdit data={data} edge={edge} onEdit={onEdit} />)
-      const conditions = {}
-      const selectedCondition = {}
-      wrapper.instance().saveConditions(conditions, selectedCondition)
+      const wrapper = shallow(<LinkEdit data={data} edge={edge} onEdit={wrappedOnEdit} />)
+      const selectedCondition = 'aCondition'
+      wrapper.instance().conditionSelected(selectedCondition)
 
-      storeConditionStub.resolves({ data: withCondition, condition: 'aCondition' })
-
-      withCondition.updateLink.returns(updatedData)
+      clonedData.updateLink.returns(updatedData)
 
       const preventDefault = sinon.spy()
 
@@ -163,15 +149,10 @@ suite('Link edit', () => {
       await wrapper.simulate('submit', { preventDefault: preventDefault })
 
       expect(preventDefault.calledOnce).to.equal(true)
-      expect(storeConditionStub.calledOnce).to.equal(true)
-      expect(storeConditionStub.firstCall.args[0]).to.equal(clonedData)
-      expect(storeConditionStub.firstCall.args[1]).to.equal(selectedCondition)
-      expect(storeConditionStub.firstCall.args[2]).to.equal(conditions)
-
-      expect(withCondition.updateLink.calledOnce).to.equal(true)
-      expect(withCondition.updateLink.firstCall.args[0]).to.equal('/1')
-      expect(withCondition.updateLink.firstCall.args[1]).to.equal('/2')
-      expect(withCondition.updateLink.firstCall.args[2]).to.equal('aCondition')
+      expect(clonedData.updateLink.calledOnce).to.equal(true)
+      expect(clonedData.updateLink.firstCall.args[0]).to.equal('/1')
+      expect(clonedData.updateLink.firstCall.args[1]).to.equal('/2')
+      expect(clonedData.updateLink.firstCall.args[2]).to.equal('aCondition')
     })
   })
 })

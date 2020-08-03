@@ -7,17 +7,20 @@ import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
 import { Condition, ConditionsModel, Field } from '../client/conditions/inline-condition-model'
 import { ConditionValue } from '../client/conditions/inline-condition-values'
+import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { before, beforeEach, describe, suite, test } = lab
+const { afterEach, before, beforeEach, describe, suite, test } = lab
 
 suite('Inline conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
     allInputs: sinon.stub(),
-    listFor: sinon.stub()
+    listFor: sinon.stub(),
+    clone: sinon.stub(),
+    save: sinon.stub()
   }
   const isEqualToOperator = 'is'
   const path = '/'
@@ -41,6 +44,7 @@ suite('Inline conditions', () => {
     let fields
     let expectedFields
     const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
+    let storeConditionStub
 
     before(() => {
       fields = [
@@ -73,6 +77,14 @@ suite('Inline conditions', () => {
       data.listFor.withArgs(fields[2]).returns({ items: values })
     })
 
+    beforeEach(function () {
+      storeConditionStub = sinon.stub(InlineConditionHelpers, 'storeConditionIfNecessary')
+    })
+
+    afterEach(function () {
+      storeConditionStub.restore()
+    })
+
     test('fields are retrieved from allInputs if no path is provided', () => {
       data.inputsAccessibleAt.returns([])
       data.allInputs.returns(fields)
@@ -100,20 +112,24 @@ suite('Inline conditions', () => {
       expect(wrapper.exists('#inline-conditions')).to.equal(true)
     })
 
-    test('Conditions change is called with the updated conditions any time saveState is called with updated conditions', () => {
+    test('Conditions change is called with the updated conditions when the save button is clicked', async () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
-      const updatedConditions = sinon.stub()
-      wrapper.instance().render = sinon.stub()
-      wrapper.instance().setState({ conditions: updatedConditions })
-
-      expect(conditionsChange.calledOnceWith(updatedConditions)).to.equal(true)
-    })
-
-    test('Conditions change is not called if saveState is called without updated conditions', () => {
-      const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
-      wrapper.instance().setState({ something: 'badgers' })
-
+      wrapper.instance().saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(conditionsChange.called).to.equal(false)
+
+      const clonedData = sinon.spy()
+      const updatedData = sinon.spy()
+      const savedData = sinon.spy()
+      data.save.resolves(savedData)
+      data.clone.returns(clonedData)
+      const selectedCondition = 'Nj2344qdw'
+      storeConditionStub.resolves({ data: updatedData, condition: selectedCondition })
+
+      expect(wrapper.find('#save-inline-conditions').prop('onClick')).to.equal(wrapper.instance().onClickSave)
+      await wrapper.instance().onClickSave()
+      expect(data.save.calledOnce).to.equal(true)
+      expect(data.save.firstCall.args[0]).to.equal(updatedData)
+      expect(conditionsChange.calledOnceWith(selectedCondition)).to.equal(true)
     })
 
     test('Clicking the cancel link should cancel any added conditions and partially completed inputs and trigger the cancel callback', () => {
@@ -178,16 +194,14 @@ suite('Inline conditions', () => {
         expect(wrapper.instance().state.conditions.name).to.equal('Badgers')
       })
 
-      test('A condition being added causes the view to update and the conditionsChange callback to be called', () => {
+      test('A condition being added causes the view to update', () => {
         const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
         const condition = new Condition(new Field('something', 'TextField', 'Something'), 'is', new ConditionValue('M'))
         wrapper.instance().saveCondition(condition)
 
         assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
 
-        expect(conditionsChange.calledOnce).to.equal(true)
-        expect(conditionsChange.firstCall.args[0].asPerUserGroupings).to.equal([condition])
-        expect(conditionsChange.firstCall.args[1]).to.equal(undefined)
+        expect(conditionsChange.called).to.equal(false)
       })
     })
 

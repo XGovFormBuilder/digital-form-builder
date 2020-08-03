@@ -369,7 +369,7 @@ function assertNoFieldsGroup (wrapper) {
 }
 
 function assertSaveConditionLink (wrapper) {
-  assertLink(wrapper.find('#save-condition'), 'save-condition', 'Save condition')
+  assertLink(wrapper.find('#save-condition'), 'save-condition', 'Add')
 }
 
 function assertNoSaveConditionLink (wrapper) {
