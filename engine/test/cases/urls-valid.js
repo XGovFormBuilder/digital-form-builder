@@ -719,5 +719,4 @@ module.exports = [
   'https://ar.islamway.net/',
   'http://www.alwaei.com/shabab/site/',
   'https://www.sahafah24.net/index.php/'
-
 ]
