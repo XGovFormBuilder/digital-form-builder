@@ -39,6 +39,7 @@ suite('Page create', () => {
       { value: './pages/summary.js', text: 'Summary Page' }
     ])
     assertTextInput(wrapper.find('#page-title'), 'page-title')
+    assertTextInput(wrapper.find('#page-path'), 'page-path')
     assertSelectInput(wrapper.find('#link-from'), 'link-from', [
       { text: '' },
       { value: '/1', text: '/1' },

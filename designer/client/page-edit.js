@@ -160,13 +160,14 @@ class PageEdit extends React.Component {
   render () {
     const { data, page } = this.props
     const { sections } = data
-    const { title, path, generatedPath } = this.state
+    const { title, path, generatedPath, controller, section } = this.state
 
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
-          <select className='govuk-select' id='page-type' name='page-type' defaultValue={page.controller || ''}>
+          <select className='govuk-select' id='page-type' name='page-type' value={controller || page.controller || ''}
+            onChange={e => this.setState({ controller: e.target.value })}>
             <option value=''>Question Page</option>
             <option value='./pages/start.js'>Start Page</option>
             <option value='./pages/summary.js'>Summary Page</option>
@@ -189,7 +190,8 @@ class PageEdit extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
-          <select className='govuk-select' id='page-section' name='section' defaultValue={page.section}>
+          <select className='govuk-select' id='page-section' name='section' value={section || page.section || ''}
+            onChange={e => this.setState({ section: e.target.value })}>
             <option />
             {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
           </select>
