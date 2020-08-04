@@ -105,7 +105,7 @@ class OutputEdit extends React.Component {
     } else if (state.outputType === 'webhook') {
       outputEdit = (<div className='govuk-form-group'>
         <label className='govuk-label govuk-label--s' htmlFor='webhook-url'>Webhook url</label>
-        <input className='govuk-input' id='webhook-url' name='webhook-url' defaultValue={output && output.outputConfiguration ? output.outputConfiguration.url : ''}
+        <input className='govuk-input' id='webhook-url' name='webhook-url' defaultValue={output?.outputConfiguration?.url??''}
           type='text' required pattern='^\S+' />
       </div>)
     }
@@ -119,20 +119,20 @@ class OutputEdit extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='output-title'>Title</label>
           <input className='govuk-input' id='output-name' name='output-title'
-            type='text' required defaultValue={output ? output.title : ''}
+            type='text' required defaultValue={output?.title??''}
             onBlur={this.onBlurName} />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='output-name'>Name</label>
           <input className='govuk-input' id='output-name' name='output-name'
-            type='text' required pattern='^\S+' defaultValue={output ? output.name : ''}
+            type='text' required pattern='^\S+' defaultValue={output?.name??''}
             onBlur={this.onBlurName} />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='output-type'>Output type</label>
-          <select className='govuk-select' id='output-type' name='output-type' disabled={output && output.type}
+          <select className='govuk-select' id='output-type' name='output-type' disabled={output?.type}
             value={state.outputType}
             onChange={this.onChangeOutputType}>
             <option value='confirmationEmail'>Confirmation email</option>

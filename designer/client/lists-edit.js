@@ -8,7 +8,7 @@ class ListsEdit extends React.Component {
     e.preventDefault()
 
     this.setState({
-      list: list
+      list
     })
   }
 
@@ -17,7 +17,7 @@ class ListsEdit extends React.Component {
     const { data } = this.props
     const id = await data.getId()
     this.setState({
-      id: id,
+      id,
       showAddList: true
     })
   }
@@ -32,7 +32,7 @@ class ListsEdit extends React.Component {
         {!list ? (
           <div>
             {this.state.showAddList ? (
-              <ListEdit list={{}} data={data} id={id}
+              <ListEdit data={data} id={id}
                 onEdit={() => this.setState({ showAddList: false })}
                 onCancel={() => this.setState({ showAddList: false })} />
             ) : (

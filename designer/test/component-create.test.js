@@ -9,14 +9,14 @@ import sinon from 'sinon'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { beforeEach, suite, test } = lab
+const { before, suite, test } = lab
 
 suite('Component create', () => {
   const data = new Data({})
   const page = { path: '/1' }
   const generatedId = 'DMaslknf'
 
-  beforeEach(() => {
+  before(() => {
     data.getId = sinon.stub()
     data.getId.resolves(generatedId)
   })

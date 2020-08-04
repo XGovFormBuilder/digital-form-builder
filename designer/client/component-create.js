@@ -10,10 +10,7 @@ class ComponentCreate extends React.Component {
   componentDidMount () {
     const { data, onInit } = this.props
     data.getId().then(id => {
-      this.setState({ id: id })
-      if (onInit) {
-        onInit()
-      }
+      this.setState({ id }, () => { onInit && onInit() })
     })
   }
 
