@@ -139,9 +139,9 @@ class PageCreate extends React.Component {
   onChangePath = e => {
     const input = e.target
     const path = input.value.startsWith('/') ? input.value : `/${input.value}`
-    const sanitizedPath = path.replace(/\s/g, '-')
+    const sanitisedPath = path.replace(/\s/g, '-')
     this.setState({
-      path: sanitizedPath
+      path: sanitisedPath
     })
   }
 
