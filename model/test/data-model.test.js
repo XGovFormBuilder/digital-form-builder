@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { Data } from '../src/data-model'
+import { Data } from '..'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab

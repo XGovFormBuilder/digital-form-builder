@@ -5,14 +5,12 @@ import {
   ConditionsModel,
   Condition,
   Field,
-  GroupDef
-} from '../src/conditions/inline-condition-model'
-
-import {
-  dateDirections, dateUnits,
+  GroupDef,
+  dateDirections,
+  dateUnits,
   RelativeTimeValue,
   ConditionValue
-} from '../src/conditions/inline-condition-values'
+} from '..'
 
 const { expect } = Code
 const lab = Lab.script()

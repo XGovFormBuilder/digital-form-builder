@@ -1,0 +1,16 @@
+[ignore]
+.*/test/.*
+.*/lib/.*
+.*\.ignore\.js
+.*/*/*.json
+
+[include]
+src/
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

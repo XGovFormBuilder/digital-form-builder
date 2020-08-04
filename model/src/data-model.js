@@ -211,8 +211,7 @@ class Condition {
     if (typeof this.value === 'string') {
       return this.value
     } else {
-      const conditions = ConditionsModel.from(this.value)
-      return conditions.toExpression()
+      return ConditionsModel.from(this.value).toExpression()
     }
   }
 

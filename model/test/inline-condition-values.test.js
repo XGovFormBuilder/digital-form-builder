@@ -4,7 +4,7 @@ import * as Lab from '@hapi/lab'
 import {
   ConditionValue,
   valueFrom
-} from '../src/conditions/inline-condition-values'
+} from '..'
 
 const { expect } = Code
 const lab = Lab.script()
