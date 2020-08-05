@@ -32,8 +32,8 @@ function SelectValues (props) {
 
     let value
     if (newValue && newValue?.trim() !== '') {
-      const option = fieldDef.values?.find(value => value.value === newValue)
-      value = new ConditionValue(option.value, option.text)
+      const option = fieldDef.values?.find(value => String(value.value) === newValue)
+      value = new ConditionValue(String(option.value), option.text)
     }
     updateValue(value)
   }
