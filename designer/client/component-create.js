@@ -45,7 +45,7 @@ class ComponentCreate extends React.Component {
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='type'>Type</label>
             <select className='govuk-select' id='type' name='type' required
-              onChange={async e => this.setState({ component: { type: e.target.value, name: id } })}>
+              onChange={e => this.setState({ component: { type: e.target.value, name: id } })}>
               <option />
               {ComponentTypes.sort((a, b) => (a.title??'').localeCompare(b.title)).map(type => {
                 return <option key={type.name} value={type.name}>{type.title}</option>
