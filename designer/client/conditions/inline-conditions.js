@@ -13,8 +13,7 @@ class InlineConditions extends React.Component {
 
     this.state = {
       conditions: new ConditionsModel(),
-      fields: this.fieldsForPath(path),
-      adding: props.hideAddLink
+      fields: this.fieldsForPath(path)
     }
   }
 
@@ -46,12 +45,6 @@ class InlineConditions extends React.Component {
       }, {})
   }
 
-  onClickAddItem = () => {
-    this.setState({
-      adding: true
-    })
-  }
-
   toggleEdit = () => {
     this.setState({
       editView: !this.state.editView
@@ -59,9 +52,8 @@ class InlineConditions extends React.Component {
   }
 
   onClickCancel = e => {
-    const { adding, cancelCallback } = this.props
+    const { cancelCallback } = this.props
     this.setState({
-      adding: adding,
       conditions: this.state.conditions.clear(),
       editView: false
     })
@@ -102,29 +94,23 @@ class InlineConditions extends React.Component {
   }
 
   render () {
-    const { conditions, adding, editView } = this.state
+    const { conditions, editView } = this.state
     const hasConditions = conditions.hasConditions
-    const definingCondition = adding || hasConditions
 
     return (
       this.state.fields && Object.keys(this.state.fields).length > 0 &&
         <div id='inline-conditions'>
           <div id='inline-condition-header'>
-            {!definingCondition &&
-              <a href='#' id='add-item' className='govuk-link' onClick={this.onClickAddItem}>Add</a>
-            }
-            {definingCondition &&
-              <div>
-                <div className='govuk-form-group'>
-                  <label className='govuk-label' htmlFor='cond-name'>Display name</label>
-                  <input className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
-                    type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName} />
-                </div>
-                <div className='govuk-form-group'>
-                  <label className='govuk-label' id='condition-string-label' htmlFor='condition-string'>When</label>
-                </div>
+            <div>
+              <div className='govuk-form-group'>
+                <label className='govuk-label' htmlFor='cond-name'>Display name</label>
+                <input className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
+                  type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName} />
               </div>
-            }
+              <div className='govuk-form-group'>
+                <label className='govuk-label' id='condition-string-label' htmlFor='condition-string'>When</label>
+              </div>
+            </div>
             {hasConditions &&
               <div id='conditions-display' className='govuk-body'>
                 <div key='condition-string' id='condition-string'>
@@ -140,7 +126,7 @@ class InlineConditions extends React.Component {
               </div>
             }
           </div>
-          {!editView && definingCondition &&
+          {!editView &&
             <div>
               <InlineConditionsDefinition expectsCoordinator={hasConditions} fields={this.state.fields}
                 saveCallback={this.saveCondition} />
