@@ -93,6 +93,40 @@ suite('Inline conditions definition value inputs', () => {
     expect(updateValueCallback.firstCall.args[0]).to.equal(selectedValues[0])
   })
 
+  test('Should correctly compare boolean string to boolean value', () => {
+    const values = [{ value: true, text: 'Value 1' }, { value: false, text: 'Value 2' }]
+    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.text))
+
+    const fieldDef = {
+      label: 'Something',
+      name: 'field1',
+      values: values,
+      type: 'SelectField'
+    }
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} fieldDef={fieldDef} operator='is' />)
+
+    wrapper.find('#cond-value').simulate('change', { target: { value: 'true' } })
+    expect(updateValueCallback.calledOnce).to.equal(true)
+    expect(updateValueCallback.firstCall.args[0]).to.equal(selectedValues[0])
+  })
+
+  test('Should correctly compare number string to number value', () => {
+    const values = [{ value: 42, text: 'Value 1' }, { value: 43, text: 'Value 2' }]
+    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.text))
+
+    const fieldDef = {
+      label: 'Something',
+      name: 'field1',
+      values: values,
+      type: 'SelectField'
+    }
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} fieldDef={fieldDef} operator='is' />)
+
+    wrapper.find('#cond-value').simulate('change', { target: { value: '42' } })
+    expect(updateValueCallback.calledOnce).to.equal(true)
+    expect(updateValueCallback.firstCall.args[0]).to.equal(selectedValues[0])
+  })
+
   test('selecting a blank value from the select list should call update value with undefined', () => {
     const fieldDef = {
       label: 'Something',

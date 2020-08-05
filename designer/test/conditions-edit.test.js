@@ -191,7 +191,6 @@ function assertInlineConditionsFlyout (wrapper, data, shown) {
   expect(inlineConditions.prop('data')).to.equal(data)
   expect(inlineConditions.prop('conditionsChange')).to.equal(wrapper.instance().cancelInlineCondition)
   expect(inlineConditions.prop('cancelCallback')).to.equal(wrapper.instance().cancelInlineCondition)
-  expect(inlineConditions.prop('hideAddLink')).to.equal(true)
 
   const flyout = inlineConditions.parent('Flyout')
   expect(flyout.exists()).to.equal(true)
