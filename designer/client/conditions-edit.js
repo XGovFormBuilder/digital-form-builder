@@ -35,8 +35,7 @@ class ConditionsEdit extends React.Component {
               onHide={this.cancelInlineCondition}>
               <InlineConditions data={data}
                 conditionsChange={this.cancelInlineCondition}
-                cancelCallback={this.cancelInlineCondition}
-                hideAddLink />
+                cancelCallback={this.cancelInlineCondition} />
             </Flyout>
             <ul className='govuk-list'>
               {conditions.map((condition) => (

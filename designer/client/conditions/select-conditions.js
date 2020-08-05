@@ -114,7 +114,7 @@ class SelectConditions extends React.Component {
               <InlineConditions data={this.props.data} path={this.props.path}
                 conditionsChange={this.onSaveInlineCondition}
                 cancelCallback={this.onCancelInlineCondition}
-                hideAddLink />
+              />
             </Flyout>
           </div>
           : <div className='govuk-body'>
