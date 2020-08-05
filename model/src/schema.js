@@ -77,7 +77,8 @@ const pageSchema = joi.object().keys({
   controller: joi.string(),
   components: joi.array().items(componentSchema),
   next: joi.array().items(nextSchema),
-  repeatField: joi.string().optional()
+  repeatField: joi.string().optional(),
+  isRepeatable: joi.boolean().optional()
 })
 
 const listItemSchema = joi.object().keys({

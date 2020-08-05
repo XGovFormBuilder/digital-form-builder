@@ -23,6 +23,7 @@ class Page {
     this.title = pageDef.title
     this.condition = pageDef.condition
     this.repeatField = pageDef.repeatField
+    this.isRepeatable = pageDef.isRepeatable
 
     // Resolve section
     this.section = pageDef.section &&
@@ -94,19 +95,46 @@ class Page {
     }).filter(v => !!v)
   }
 
-  getNextPage (state, suppressRepetition = false) {
-    if (this.repeatField && !suppressRepetition) {
-      const requiredCount = reach(state, this.repeatField)
-      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+  getPseudoSection (state) {
+
+  }
+
+  getNextRepeatable (state, suppressRepetition = false) {
+    if (!suppressRepetition) {
+      const miniSummary = this.model.pages.filter(page => page.section === this.section && !(page instanceof Page))
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page.isRepeatable || page.repeatField) && (page instanceof Page))
       const sectionState = state[this.section.name] || {}
-      if (Object.keys(sectionState[sectionState.length - 1]).length === otherRepeatPagesInSection.length) { // iterated all pages at least once
-        const lastIteration = sectionState[sectionState.length - 1]
-        if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { // this iteration is 'complete'
-          if (sectionState.length < requiredCount) {
-            return this.findPageByPath(Object.keys(lastIteration)[0])
+      if (this.repeatField) {
+        const requiredCount = reach(state, this.repeatField)
+        // const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
+        if (Object.keys(sectionState[sectionState.length - 1]).length === otherRepeatPagesInSection.length) { // iterated all pages at least once
+          const lastIteration = sectionState[sectionState.length - 1]
+          if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { // this iteration is 'complete'
+            if (sectionState.length < requiredCount) {
+              return this.findPageByPath(Object.keys(lastIteration)[0])
+            }
           }
         }
       }
+      if (this.isRepeatable) {
+        // if next page is repeatable
+        // go to it
+        // const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.isRepeatable)
+        if (Object.keys(sectionState[sectionState.length - 1]).length === otherRepeatPagesInSection.length) { // iterated all pages at least once
+          const lastIteration = sectionState[sectionState.length - 1]
+          if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { // this iteration is 'complete'
+            return miniSummary
+          }
+        }
+      }
+    }
+  }
+
+  getNextPage (state, suppressRepetition = false) {
+    let nextRepeat
+    if (this.repeatField || this.isRepeatable) {
+      nextRepeat = this.getNextRepeatable(state, suppressRepetition)
+      if (nextRepeat) return nextRepeat
     }
 
     let defaultLink
@@ -122,22 +150,34 @@ class Page {
     return nextLink?.page ?? defaultLink?.page
   }
 
-  getNext (state) {
-    const nextPage = this.getNextPage(state)
+  repeatableQueryString (nextPage, state) {
     const query = { num: 0 }
     let queryString = ''
+
+    if(!nextPage.isRepeatable || !nextPage.repeatField) {
+      return queryString
+    }
+
+    const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page.isRepeatable || page.repeatField) && (page instanceof Page))
+    const sectionState = state[nextPage.section.name]
+    const lastInSection = sectionState?.[sectionState.length - 1] ?? {}
+    const isLastComplete = this.#objLength(lastInSection) === otherRepeatPagesInSection.length
+    query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState) : 1
+
     if (nextPage.repeatField) {
       const requiredCount = reach(state, nextPage.repeatField)
-      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
-      const sectionState = state[nextPage.section.name]
-      const lastInSection = sectionState?.[sectionState.length - 1] ?? {}
-      const isLastComplete = Object.keys(lastInSection).length === otherRepeatPagesInSection.length
-      query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState) : 1
-
       if (query.num <= requiredCount) {
         queryString = `?${querystring.encode(query)}`
       }
+    } else {
+      queryString = `?${querystring.encode(query)}`
     }
+    return queryString
+  }
+
+  getNext (state) {
+    const nextPage = this.getNextPage(state)
+    let queryString = this.repeatableQueryString(nextPage, state)
 
     if (nextPage) {
       return `/${this.model.basePath || ''}${nextPage.path}${queryString}`
@@ -340,7 +380,7 @@ class Page {
         }
 
         let update = this.getPartialMergeState(stateResult.value)
-        if (this.repeatField) {
+        if (this.repeatField || this.isRepeatable) {
           const updateValue = { [this.path]: update[this.section.name] }
           const sectionState = state[this.section.name]
           if (!sectionState) {

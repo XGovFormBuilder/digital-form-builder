@@ -1,0 +1,36 @@
+{% from "partials/summary-detail.html" import summaryDetail %}
+{% from "components/checkboxes/macro.njk" import govukCheckboxes %}
+
+
+{% extends 'layout.html' %}
+
+{% block content %}
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+        {% for detail in details %}
+          {{ summaryDetail(detail) }}
+        {% endfor %}
+
+
+        {% if not result.error  %}
+            <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
+              <input type="hidden" name="crumb" value="{{crumb}}"/>
+              <input type="hidden" name="repeat" value="true"/>
+                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                   Add another
+                </button>
+            </form>
+            <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
+              <input type="hidden" name="crumb" value="{{crumb}}"/>
+              <input type="hidden" name="repeat" value="false"/>
+                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+                  Continue
+                </button>
+            </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
