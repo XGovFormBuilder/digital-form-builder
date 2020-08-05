@@ -9,7 +9,7 @@ class SelectConditions extends React.Component {
 
     this.state = {
       fields: this.fieldsForPath(props.path),
-      inline: !props.data.hasConditions,
+      inline: false,
       selectedCondition: props.selectedCondition
     }
   }
@@ -63,7 +63,7 @@ class SelectConditions extends React.Component {
 
   onCancelInlineCondition = () => {
     this.setState({
-      inline: !this.props.data.hasConditions
+      inline: false
     })
   }
 
@@ -76,6 +76,8 @@ class SelectConditions extends React.Component {
 
   render () {
     const { selectedCondition, inline } = this.state
+    const { data } = this.props
+    const hasConditions = data.hasConditions || selectedCondition
 
     return (
       <div className='conditions'>
@@ -84,8 +86,8 @@ class SelectConditions extends React.Component {
         </div>
         {this.state.fields && Object.keys(this.state.fields).length > 0
           ? <div>
-            {!inline && <div id='select-condition'>
-              <div className='govuk-form-group' id='cond-selection-group'>
+            {hasConditions &&
+              <div className='govuk-form-group' id='select-condition'>
                 <label className='govuk-label' htmlFor='cond-select'>
                     Select a condition
                 </label>
@@ -99,19 +101,20 @@ class SelectConditions extends React.Component {
                   }
                 </select>
               </div>
+            }
+            {!inline &&
               <div className='govuk-form-group'>
                 <a href='#' id='inline-conditions-link' className='govuk-link'
                   onClick={this.onClickDefineCondition}>Define
-                    a new condition</a>
+                  a new condition</a>
               </div>
-            </div>
             }
             <Flyout title='Define condition' show={inline}
               onHide={this.onCancelInlineCondition}>
               <InlineConditions data={this.props.data} path={this.props.path}
                 conditionsChange={this.onSaveInlineCondition}
                 cancelCallback={this.onCancelInlineCondition}
-                hideAddLink={this.props.data.hasConditions} />
+                hideAddLink />
             </Flyout>
           </div>
           : <div className='govuk-body'>
