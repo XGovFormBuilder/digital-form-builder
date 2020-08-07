@@ -1,6 +1,7 @@
 import SummaryPage from './summary'
 import querystring from 'querystring'
 import joi from 'joi'
+import { merge } from '@hapi/hoek'
 const { clone, reach } = require('hoek')
 
 class SummaryViewModel {
@@ -233,12 +234,22 @@ export default class MiniSummary extends SummaryPage {
           return h.redirect(`/${model.basePath}${pageWithError.path}?${querystring.encode(query)}`)
         }
       }
-
-      const declarationError = request.yar.flash('declarationError')
-      if (declarationError.length) {
-        viewModel.declarationError = declarationError[0]
-      }
       return h.view('mini-summary', viewModel)
+    }
+  }
+
+  makePostRouteHandler () {
+    return async (request, h) => {
+      const { payload } = request
+      const { cacheService } = request.services([])
+      const state = await cacheService.getState(request)
+      if (payload.repeat) {
+        let sectionState = state[this.section.name] ?? [] // how did you get here without state[section]..!
+        const firstPage = Object.keys(sectionState[0])[0]
+        return h.redirect(`/${this.model.basePath}${firstPage}?${querystring.encode({ num: sectionState.length + 1 })}`)
+      } else {
+        return this.proceed(request, h, state)
+      }
     }
   }
 }

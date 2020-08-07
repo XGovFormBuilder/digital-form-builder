@@ -155,7 +155,7 @@ class Page {
     let queryString = ''
     let isRepeatable = nextPage.isRepeatable ?? nextPage.repeatField
 
-    if(!isRepeatable) return queryString
+    if (!isRepeatable) return queryString
 
     const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page.isRepeatable || page.repeatField) && (page instanceof Page))
     const sectionState = state[nextPage.section.name]
@@ -382,19 +382,22 @@ class Page {
         if (this.repeatField || this.isRepeatable) {
           const updateValue = { [this.path]: update[this.section.name] }
           const sectionState = state[this.section.name]
-          const numAsIndex = num - (sectionState?.length ?? 0)
+          const numAsIndex = num - 1
+
           if (!sectionState) { // add to new section as an array
             update = { [this.section.name]: [updateValue] }
-          } else if (!sectionState[numAsIndex]) { // add to current section
-            // sectionState[(merge(sectionState[num - 1] ?? {}, updateValue))
-            sectionState.push(updateValue)
-            update = { [this.section.name]: sectionState }
+            /* } else if (!sectionState[numAsIndex]) { // add to current section
+              // sectionState[(merge(sectionState[num - 1] ?? {}, updateValue))
+              sectionState.push(updateValue)
+              update = { [this.section.name]: sectionState } */
           } else {
-            sectionState[numAsIndex] = merge(sectionState[numAsIndex] ?? {}, updateValue)
+            sectionState.splice(numAsIndex, 0, merge(sectionState[numAsIndex] ?? {}, updateValue,
+              { mergeArrays: true }))
+            // sectionState[numAsIndex] = merge(sectionState[numAsIndex] ?? {}, updateValue)
             update = { [this.section.name]: sectionState }
           }
         }
-        const savedState = await cacheService.mergeState(request, update, (!!this.repeatField || !! this.isRepeatable))
+        const savedState = await cacheService.mergeState(request, update, (!!this.repeatField || !!this.isRepeatable))
         return this.proceed(request, h, savedState)
       }
     }
