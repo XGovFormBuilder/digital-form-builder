@@ -5,7 +5,7 @@ import { camelCase } from './helpers'
 class SectionCreate extends React.Component {
   state = {}
 
-  onSubmit = e => {
+  async onSubmit (e) {
     e.preventDefault()
     const { name, title, generatedName } = this.state
     const { data } = this.props
@@ -13,14 +13,12 @@ class SectionCreate extends React.Component {
 
     const updated = copy.addSection(name || generatedName, title.trim())
 
-    data.save(updated)
-      .then(data => {
-        console.log(data)
-        this.props.onCreate({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    try {
+      const savedData = await data.save(updated)
+      this.props.onCreate(savedData)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   onBlurName = e => {
