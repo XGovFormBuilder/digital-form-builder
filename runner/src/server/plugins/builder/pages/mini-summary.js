@@ -23,9 +23,6 @@ class SummaryViewModel {
     // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
     // repeatable
     if (section) {
-      if (!state[section.name]) {
-        state[section.name] = sectionState = []
-      }
       // Make sure the right number of items
       if (repeatablePage) {
         const requiredIterations = reach(state, repeatablePage.repeatField)
@@ -57,35 +54,28 @@ class SummaryViewModel {
     })
 
     if (items.length > 0) {
-      if (Array.isArray(sectionState)) {
-        let repeatItems = []
-        if (repeatablePage) {
-          repeatItems = [...Array(reach(state, repeatablePage.repeatField))].map((x, i) => {
-            return items.map(item => item[i])
-          })
-        } else if (isUnspecifiedRepeatable) {
-          repeatItems = [...Array(sectionState.length)].map((x, i) => {
-            return items.map(item => item[i])
-          })
-        }
-        details.push({
-          name: section?.name,
-          title: section?.title,
-          items: repeatItems
+      let repeatItems = []
+      if (repeatablePage) {
+        repeatItems = [...Array(reach(state, repeatablePage.repeatField))].map((x, i) => {
+          return items.map(item => item[i])
         })
-      } else {
-        details.push({
-          name: section?.name,
-          title: section?.title,
-          items
+      } else if (isUnspecifiedRepeatable) {
+        repeatItems = [...Array(sectionState.length)].map((x, i) => {
+          return items.map(item => item[i])
         })
       }
+      details.push({
+        name: section?.name,
+        title: section?.title,
+        items: repeatItems
+      })
     }
 
     const schema = model.makeFilteredSchema(sectionState, sectionPages)
 
-    const collatedRepeatPagesState = clone(state)
-    delete collatedRepeatPagesState.progress
+    // const collatedRepeatPagesState = clone(sectionState)
+    let collatedRepeatPagesState = clone(sectionState)
+
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
       if (Array.isArray(section)) {
         collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
@@ -248,7 +238,7 @@ export default class MiniSummary extends SummaryPage {
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0]
       }
-      return h.view('summary', viewModel)
+      return h.view('mini-summary', viewModel)
     }
   }
 }

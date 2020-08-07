@@ -1,7 +1,7 @@
 {% from "./summary-row.html" import summaryRow %}
 
 {% macro summaryDetail(data) %}
-    {%  set isRepeatableSection = (data.items[0] | isArray) %}
+    {%  set isRepeatableSection = data.items[0] | isArray %}
     {% if not isRepeatableSection %}
         <h2 class="govuk-heading-m">{{data.title}}</h2>
     {% endif %}

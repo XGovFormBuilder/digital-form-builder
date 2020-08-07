@@ -153,10 +153,9 @@ class Page {
   repeatableQueryString (nextPage, state) {
     const query = { num: 0 }
     let queryString = ''
+    let isRepeatable = nextPage.isRepeatable ?? nextPage.repeatField
 
-    if(!nextPage.isRepeatable || !nextPage.repeatField) {
-      return queryString
-    }
+    if(!isRepeatable) return queryString
 
     const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page.isRepeatable || page.repeatField) && (page instanceof Page))
     const sectionState = state[nextPage.section.name]
@@ -383,17 +382,19 @@ class Page {
         if (this.repeatField || this.isRepeatable) {
           const updateValue = { [this.path]: update[this.section.name] }
           const sectionState = state[this.section.name]
-          if (!sectionState) {
+          const numAsIndex = num - (sectionState?.length ?? 0)
+          if (!sectionState) { // add to new section as an array
             update = { [this.section.name]: [updateValue] }
-          } else if (!sectionState[num - 1]) {
+          } else if (!sectionState[numAsIndex]) { // add to current section
+            // sectionState[(merge(sectionState[num - 1] ?? {}, updateValue))
             sectionState.push(updateValue)
             update = { [this.section.name]: sectionState }
           } else {
-            sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue)
+            sectionState[numAsIndex] = merge(sectionState[numAsIndex] ?? {}, updateValue)
             update = { [this.section.name]: sectionState }
           }
         }
-        const savedState = await cacheService.mergeState(request, update, !!this.repeatField)
+        const savedState = await cacheService.mergeState(request, update, (!!this.repeatField || !! this.isRepeatable))
         return this.proceed(request, h, savedState)
       }
     }

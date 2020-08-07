@@ -9,27 +9,22 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
-        {% for detail in details %}
-          {{ summaryDetail(detail) }}
+
+          {% for detail in details %}
+            {{ summaryDetail(detail, true) }}
         {% endfor %}
 
 
-        {% if not result.error  %}
-            <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
+          <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
               <input type="hidden" name="crumb" value="{{crumb}}"/>
               <input type="hidden" name="repeat" value="true"/>
-                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
-                   Add another
-                </button>
-            </form>
-            <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
-              <input type="hidden" name="crumb" value="{{crumb}}"/>
-              <input type="hidden" name="repeat" value="false"/>
-                <button data-prevent-double-click="true" class="govuk-button" data-module="govuk-button">
+              <button data-prevent-double-click="true" value="add" class="govuk-button" data-module="govuk-button">
+                  Add another
+              </button>
+              <button data-prevent-double-click="true" value="continue" class="govuk-button" data-module="govuk-button">
                   Continue
-                </button>
-            </form>
-        {% endif %}
+              </button>
+          </form>
       </div>
     </div>
   </div>
