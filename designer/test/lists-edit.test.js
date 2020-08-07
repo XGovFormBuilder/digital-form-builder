@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { Data } from '../client/model/data-model'
+import { Data } from 'digital-form-builder-model'
 import ListsEdit from '../client/lists-edit'
 
 import sinon from 'sinon'

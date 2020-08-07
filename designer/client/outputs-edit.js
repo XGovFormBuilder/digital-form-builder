@@ -8,7 +8,7 @@ class OutputsEdit extends React.Component {
     e.preventDefault()
 
     this.setState({
-      output: output
+      output
     })
   }
 
@@ -18,7 +18,7 @@ class OutputsEdit extends React.Component {
     const id = await data.getId()
     this.setState({
       showAddOutput: true,
-      id: id
+      id
     })
   }
 

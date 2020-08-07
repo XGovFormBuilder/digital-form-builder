@@ -17,8 +17,7 @@ suite('Component create', () => {
   const generatedId = 'DMaslknf'
 
   before(() => {
-    data.getId = sinon.stub()
-    data.getId.resolves(generatedId)
+    data.getId = sinon.stub().resolves(generatedId)
   })
 
   test('Should display form with component types in alphabetical order', () => {
