@@ -57,17 +57,3 @@ export function getFormData (form) {
 export function toUrl (title) {
   return '/'.concat(title.replace(/[^a-zA-Z ]/g, '').trim().replace(/ +/g, '-')).toLowerCase()
 }
-
-export function clone (obj) {
-  if (obj) {
-    if (typeof obj.clone === 'function') {
-      return obj.clone()
-    }
-    return serialiseAndDeserialise(obj)
-  }
-  return obj
-}
-
-export function serialiseAndDeserialise (obj) {
-  return JSON.parse(JSON.stringify(obj))
-}

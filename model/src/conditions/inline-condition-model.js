@@ -1,6 +1,6 @@
-import ComponentTypes from 'digital-form-builder-engine/src/component-types'
+import ComponentTypes from '../component-types'
 import { getExpression } from './inline-condition-operators'
-import { AbstractConditionValue } from './inline-condition-values'
+import { AbstractConditionValue, valueFrom } from './inline-condition-values'
 
 export const coordinators = {
   AND: 'and',
@@ -194,6 +194,29 @@ export class ConditionsModel {
     }
     return []
   }
+
+  toJSON () {
+    const name = this.#conditionName
+    const conditions = this.#userGroupedConditions
+    return {
+      name: name,
+      conditions: conditions.map(it => it.clone())
+    }
+  }
+
+  static from (obj) {
+    const toReturn = new ConditionsModel()
+    toReturn.#conditionName = obj.name
+    toReturn.#userGroupedConditions = obj.conditions.map(it => conditionFrom(it))
+    toReturn.#groupedConditions = toReturn._applyGroups(toReturn.#userGroupedConditions)
+    return toReturn
+  }
+}
+
+function conditionFrom (it) {
+  return it.conditions
+    ? new ConditionGroup(it.conditions.map(condition => conditionFrom(condition)))
+    : new Condition(Field.from(it.field), it.operator, valueFrom(it.value), it.coordinator)
 }
 
 export class GroupDef {

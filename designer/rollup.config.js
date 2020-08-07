@@ -17,7 +17,7 @@ export default {
   plugins: [
     resolve(),
     commonjs({
-      include: ['node_modules/**', '../engine/**']
+      include: ['node_modules/**', '../engine/**', '../model/**']
     }),
     globals(),
     babel({

@@ -1,13 +1,13 @@
 import React from 'react'
 import Editor from './editor'
-import { clone } from './helpers'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class ConditionEdit extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       displayName: props.condition.displayName,
-      value: props.condition.value
+      value: props.condition.expression
     }
   }
 
@@ -89,7 +89,7 @@ class ConditionEdit extends React.Component {
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-value'>Value</label>
-          <Editor name='value' required value={condition.value} valueCallback={this.onValueChange} />
+          <Editor name='value' required value={condition.expression} valueCallback={this.onValueChange} />
         </div>
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>

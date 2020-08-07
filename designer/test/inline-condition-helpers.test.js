@@ -24,7 +24,6 @@ suite('Inline condition helpers', () => {
     data.addCondition.returns(amendedData)
     const conditions = {
       name: 'My condition',
-      toExpression: () => 'my expression',
       hasConditions: true
     }
     const returned = await InlineConditionHelpers.storeConditionIfNecessary(data, conditions)
@@ -33,7 +32,7 @@ suite('Inline condition helpers', () => {
     expect(data.addCondition.calledOnce).to.equal(true)
     expect(data.addCondition.firstCall.args[0]).to.equal('abcdef')
     expect(data.addCondition.firstCall.args[1]).to.equal('My condition')
-    expect(data.addCondition.firstCall.args[2]).to.equal('my expression')
+    expect(data.addCondition.firstCall.args[2]).to.equal(conditions)
     expect(returned).to.equal({ data: amendedData, condition: 'abcdef' })
   })
 

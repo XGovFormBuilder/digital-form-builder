@@ -1,4 +1,4 @@
-const Schema = require('digital-form-builder-engine/src/schema')
+const Schema = require('digital-form-builder-model/lib/schema')
 const shortid = require('shortid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('./../package.json')

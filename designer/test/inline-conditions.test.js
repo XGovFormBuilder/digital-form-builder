@@ -5,8 +5,8 @@ import * as Lab from '@hapi/lab'
 import { assertLabel, assertLink, assertText } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
-import { Condition, ConditionsModel, Field } from '../client/conditions/inline-condition-model'
-import { ConditionValue } from '../client/conditions/inline-condition-values'
+import { Condition, ConditionsModel, Field } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
+import { ConditionValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
 import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code

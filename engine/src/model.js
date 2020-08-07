@@ -1,10 +1,14 @@
 const joi = require('joi')
 const path = require('path')
-const schema = require('./schema')
+const schema = require('digital-form-builder-model/lib/schema')
 const Page = require('./page')
 const Parser = require('expr-eval').Parser
 const moment = require('moment')
+const { ConditionsModel } = require('digital-form-builder-model/lib/conditions/inline-condition-model')
 
+/**
+ * TODO - convert references to this to using the shared Data class from the model library?
+ */
 class Model {
   constructor (def, options) {
     const result = schema.validate(def, { abortEarly: false })
@@ -132,7 +136,7 @@ class Model {
     }
 
     const { name, value } = condition
-    const expr = parser.parse(value)
+    const expr = this.toConditionExpression(value, parser)
 
     const fn = (value) => {
       const ctx = new EvaluationContext(this.conditions, value)
@@ -148,6 +152,16 @@ class Model {
       value,
       expr,
       fn
+    }
+  }
+
+  // TODO - remove the on-the-fly condition migration condition once all forms are converted to the new condition structure
+  toConditionExpression (value, parser) {
+    if (typeof value === 'string') {
+      return parser.parse(value)
+    } else {
+      const conditions = ConditionsModel.from(value)
+      return parser.parse(conditions.toExpression())
     }
   }
 

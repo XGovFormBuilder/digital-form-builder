@@ -1,6 +1,6 @@
-import { clone } from './helpers'
 import FeeItems from './fee-items'
 import React from 'react'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class FeeEdit extends React.Component {
   onSubmit = e => {

@@ -1,4 +1,5 @@
-import { clone } from '../helpers'
+const { clone } = require('./helpers')
+const { ConditionsModel } = require('./conditions/inline-condition-model')
 
 const yesNoList = {
   name: '__yesNo',
@@ -16,7 +17,7 @@ const yesNoList = {
   ]
 }
 
-export class Data {
+class Data {
   #conditions
 
   constructor (rawData) {
@@ -175,7 +176,7 @@ Object.filter = function (obj, predicate) {
   const result = {}
   let key
   for (key in obj) {
-    if (obj.hasOwnProperty(key) && predicate(obj[key])) {
+    if (obj[key] && predicate(obj[key])) {
       result[key] = obj[key]
     }
   }
@@ -205,4 +206,19 @@ class Condition {
     Object.assign(this, rawData)
     this.displayName = rawData.displayName || rawData.name
   }
+
+  get expression () {
+    if (typeof this.value === 'string') {
+      return this.value
+    } else {
+      return ConditionsModel.from(this.value).toExpression()
+    }
+  }
+
+  clone () {
+    return new Condition(this)
+  }
 }
+
+module.exports.Data = Data
+module.exports.Condition = Condition

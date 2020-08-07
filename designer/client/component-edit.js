@@ -1,6 +1,7 @@
 import React from 'react'
-import { clone, getFormData } from './helpers'
+import { getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class ComponentEdit extends React.Component {
   state = {}

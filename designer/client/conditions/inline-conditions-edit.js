@@ -1,8 +1,8 @@
 import React from 'react'
-import { GroupDef } from './inline-condition-model'
-import { clone } from '../helpers'
+import { GroupDef } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
 import { icons } from '../icons'
 import InlineConditionsDefinition from './inline-conditions-definition'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class InlineConditionsEdit extends React.Component {
   constructor (props) {

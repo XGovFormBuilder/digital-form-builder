@@ -7,6 +7,9 @@ parameters:
     default: true
 
   # A parameter per package
+  model:
+    type: boolean
+    default: false
   engine:
     type: boolean
     default: false
@@ -58,6 +61,12 @@ jobs:
       - run: yarn install
 
       - run:
+          name: Re-link model
+          command: |
+            rm -fr node_modules/digital-form-builder-model
+            yarn --check-files
+
+      - run:
           name: Re-link engine
           command: |
             rm -fr node_modules/digital-form-builder-engine
@@ -92,6 +101,12 @@ jobs:
           at: ~/project
 
       - run:
+          name: Re-link model
+          command: |
+            rm -fr node_modules/digital-form-builder-model
+            yarn --check-files
+
+      - run:
           name: Re-link engine
           command: |
             rm -fr node_modules/digital-form-builder-engine
@@ -114,12 +129,29 @@ workflows:
 
   # Workflows defined for each package.
 
+  model:
+    when: << pipeline.parameters.model >>
+    jobs:
+      - build:
+          name: model-build
+          package_name: model
+      - test:
+          name: model-test
+          package_name: model
+          requires:
+            - model-build
+
   engine:
     when: << pipeline.parameters.engine >>
     jobs:
       - build:
+          name: model-build
+          package_name: model
+      - build:
           name: engine-build
           package_name: engine
+          requires:
+            - model-build
       - test:
           name: engine-test
           package_name: engine
@@ -130,8 +162,13 @@ workflows:
     when: << pipeline.parameters.designer >>
     jobs:
       - build:
+          name: model-build
+          package_name: model
+      - build:
           name: designer-build
           package_name: designer
+          requires:
+            - model-build
       - test:
           name: designer-test
           package_name: designer
@@ -142,8 +179,13 @@ workflows:
     when: << pipeline.parameters.runner >>
     jobs:
       - build:
+          name: model-build
+          package_name: model
+      - build:
           name: engine-build
           package_name: engine
+          requires:
+            - model-build
       - build:
           name: runner-build
           package_name: runner

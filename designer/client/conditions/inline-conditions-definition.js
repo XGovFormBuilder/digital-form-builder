@@ -1,9 +1,9 @@
 import React from 'react'
-import { Condition, Field } from './inline-condition-model'
-import { valueFrom } from './inline-condition-values'
-import { getOperatorNames } from './inline-condition-operators'
-import { clone } from '../helpers'
+import { Condition, Field } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
+import { valueFrom } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { getOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
 import InlineConditionsDefinitionValue from './inline-conditions-definition-values'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class InlineConditionsDefinition extends React.Component {
   constructor (props) {
