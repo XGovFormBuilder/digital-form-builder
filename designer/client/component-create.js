@@ -7,11 +7,10 @@ import { clone } from 'digital-form-builder-model/lib/helpers'
 class ComponentCreate extends React.Component {
   state = {}
 
-  componentDidMount () {
-    const { data, onInit } = this.props
-    data.getId().then(id => {
-      this.setState({ id }, () => { onInit && onInit() })
-    })
+  async componentDidMount () {
+    const { data } = this.props
+    const id = await data.getId()
+    this.setState({ id })
   }
 
   onSubmit = e => {

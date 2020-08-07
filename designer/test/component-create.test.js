@@ -35,19 +35,18 @@ suite('Component create', () => {
   })
 
   test('Selecting a component type should display the ComponentTypeEdit component', async flags => {
-    const onInit = () => {
-      const form = wrapper.find('form')
+    const wrapper = shallow(<ComponentCreate data={data} page={page} />)
+    await wrapper.instance().componentDidMount()
 
-      form.find('select').simulate('change', { target: { value: 'TextField' } })
+    const form = wrapper.find('form')
 
-      const componentTypeEdit = wrapper.find('ComponentTypeEdit')
-      expect(componentTypeEdit.exists()).to.equal(true)
-      expect(componentTypeEdit.prop('page')).to.equal(page)
-      expect(componentTypeEdit.prop('component')).to.equal({ type: 'TextField', name: generatedId })
-      expect(componentTypeEdit.prop('data')).to.equal(data)
-      expect(Object.keys(componentTypeEdit.props()).length).to.equal(3)
-    }
-    const wrappedOnInit = flags.mustCall(onInit, 1)
-    const wrapper = shallow(<ComponentCreate data={data} page={page} onInit={wrappedOnInit} />)
+    form.find('select').simulate('change', { target: { value: 'TextField' } })
+
+    const componentTypeEdit = wrapper.find('ComponentTypeEdit')
+    expect(componentTypeEdit.exists()).to.equal(true)
+    expect(componentTypeEdit.prop('page')).to.equal(page)
+    expect(componentTypeEdit.prop('component')).to.equal({ type: 'TextField', name: generatedId })
+    expect(componentTypeEdit.prop('data')).to.equal(data)
+    expect(Object.keys(componentTypeEdit.props()).length).to.equal(3)
   })
 })

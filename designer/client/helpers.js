@@ -60,6 +60,6 @@ export function toUrl (title) {
 
 export function camelCase (str) {
   return str.trim().toLowerCase()
-      .replace(/[\s-_]+(.)/g, (m, chr) => chr.toUpperCase())
-      .replace(/[^a-zA-Z0-9]/g, '')
+    .replace(/[\s-_]+(.)/g, (m, chr) => chr.toUpperCase())
+    .replace(/[^a-zA-Z0-9]/g, '')
 }
