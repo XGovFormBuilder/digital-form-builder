@@ -44,35 +44,35 @@ suite('national insurance number field', () => {
     )
   })
 
-  test('should validate a correct NI number', () => {
-    const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
-    const model = {}
+  nationalInsuranceNumbersValid.forEach((ni) => {
+    test('should validate ' + ni + ' as a correct NI number', () => {
+      const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
+      const model = {}
 
-    const underTest = new NationalInsuranceNumberField(def, model)
+      const underTest = new NationalInsuranceNumberField(def, model)
 
-    const testSchema = joi.object({
-      value: joi.string()
-        .regex(new RegExp(underTest.schema.regex))
-    })
+      const testSchema = joi.object({
+        value: joi.string()
+          .regex(new RegExp(underTest.schema.regex))
+      })
 
-    nationalInsuranceNumbersValid.forEach((ni) => {
       const result = testSchema.validate({ value: ni })
       expect(result.error).to.equal(null)
     })
   })
 
-  test('incorrect NI number should fail validation', () => {
-    const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
-    const model = {}
+  nationalInsuranceNumbersInvalid.forEach((ni) => {
+    test('incorrect NI number ' + ni + ' should fail validation', () => {
+      const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
+      const model = {}
 
-    const underTest = new NationalInsuranceNumberField(def, model)
+      const underTest = new NationalInsuranceNumberField(def, model)
 
-    const testSchema = joi.object({
-      value: joi.string()
-        .regex(new RegExp(underTest.schema.regex))
-    })
+      const testSchema = joi.object({
+        value: joi.string()
+          .regex(new RegExp(underTest.schema.regex))
+      })
 
-    nationalInsuranceNumbersInvalid.forEach((ni) => {
       const result = testSchema.validate({ value: ni })
       expect(result.error).to.not.equal(null)
     })
