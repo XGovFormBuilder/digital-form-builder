@@ -28,22 +28,21 @@ suite('url field', () => {
         type: 'url',
         value: undefined
       }
-
     )
   })
 
-  test('should validate a correct url', () => {
-    const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
-    const model = {}
+  validUrls.forEach((url) => {
+    test(url + ' should be validated as a correct url', () => {
+      const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
+      const model = {}
 
-    const underTest = new UrlField(def, model)
+      const underTest = new UrlField(def, model)
 
-    const testSchema = joi.object({
-      value: joi.string()
-        .regex(new RegExp(underTest.schema.regex))
-    })
+      const testSchema = joi.object({
+        value: joi.string()
+          .regex(new RegExp(underTest.schema.regex))
+      })
 
-    validUrls.forEach((url) => {
       const result = testSchema.validate({ value: url })
       expect(result.error).to.equal(null)
     })
