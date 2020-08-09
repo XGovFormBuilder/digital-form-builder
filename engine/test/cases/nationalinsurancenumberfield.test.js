@@ -7,11 +7,17 @@ const { expect } = Code
 const { suite, test } = lab
 const joi = require('joi')
 
-const nationalInsuranceNumbers = [
+const nationalInsuranceNumbersValid = [
   'AA123456C',
   'AA 12 34 56 C',
   'AA 123456C',
   'AA 123456 C'
+]
+
+const nationalInsuranceNumbersInvalid = [
+  'A',
+  '1',
+  'AA123456CC'
 ]
 
 suite('national insurance number field', () => {
@@ -49,9 +55,26 @@ suite('national insurance number field', () => {
         .regex(new RegExp(underTest.schema.regex))
     })
 
-    nationalInsuranceNumbers.forEach((ni) => {
+    nationalInsuranceNumbersValid.forEach((ni) => {
       const result = testSchema.validate({ value: ni })
       expect(result.error).to.equal(null)
+    })
+  })
+
+  test('incorrect NI number should fail validation', () => {
+    const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
+    const model = {}
+
+    const underTest = new NationalInsuranceNumberField(def, model)
+
+    const testSchema = joi.object({
+      value: joi.string()
+        .regex(new RegExp(underTest.schema.regex))
+    })
+
+    nationalInsuranceNumbersInvalid.forEach((ni) => {
+      const result = testSchema.validate({ value: ni })
+      expect(result.error).to.not.equal(null)
     })
   })
 })
