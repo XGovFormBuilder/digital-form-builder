@@ -7,6 +7,7 @@ const { expect } = Code
 const { suite, test } = lab
 const joi = require('joi')
 const validUrls = require('./urls-valid')
+const invalidUrls = require('./urls-invalid')
 
 suite('url field', () => {
   test('Should construct appropriate view model', () => {
@@ -45,6 +46,23 @@ suite('url field', () => {
 
       const result = testSchema.validate({ value: url })
       expect(result.error).to.equal(null)
+    })
+  })
+
+  invalidUrls.forEach((url) => {
+    test(url + ' should be validated as an incorrect url', () => {
+      const def = { name: 'myComponent', title: 'My Component', schema: {}, options: {} }
+      const model = {}
+
+      const underTest = new UrlField(def, model)
+
+      const testSchema = joi.object({
+        value: joi.string()
+          .regex(new RegExp(underTest.schema.regex))
+      })
+
+      const result = testSchema.validate({ value: url })
+      expect(result.error).to.not.equal(null)
     })
   })
 })
