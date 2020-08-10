@@ -996,7 +996,6 @@ suite('data model', () => {
     })
   })
 
-
   describe('name', () => {
     test('should get the provided name', () => {
       const data = new Data({
@@ -1006,9 +1005,57 @@ suite('data model', () => {
     })
 
     test('should set the provided name', () => {
-      const data = new Data()
+      const data = new Data({})
       data.name = 'My form'
       expect(data.name).to.equal('My form')
+    })
+
+    test('should error if setting the name to a non-string value', () => {
+      const data = new Data({})
+      expect(() => { data.name = 2 }).to.throw(Error)
+    })
+  })
+
+  describe('feedbackForm', () => {
+    test('should return true if set to true', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        }
+      })
+      expect(data.feedbackForm).to.equal(true)
+    })
+
+    test('should return false if set to false', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: false
+        }
+      })
+      expect(data.feedbackForm).to.equal(false)
+    })
+
+    test('should return false if no value', () => {
+      const data = new Data({
+        feedback: {}
+      })
+      expect(data.feedbackForm).to.equal(false)
+    })
+
+    test('should return false if no feedback config', () => {
+      const data = new Data({})
+      expect(data.feedbackForm).to.equal(false)
+    })
+
+    test('should set the provided boolean', () => {
+      const data = new Data({})
+      data.feedbackForm = true
+      expect(data.feedbackForm).to.equal(true)
+    })
+
+    test('should error if setting to a non-boolean value', () => {
+      const data = new Data({})
+      expect(() => { data.feedbackForm(2) }).to.throw(Error)
     })
   })
 
@@ -1281,7 +1328,19 @@ suite('data model', () => {
 
     test('should expose the name field', () => {
       const rawData = {
+        conditions: [],
         name: 'My form'
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal(rawData)
+    })
+
+    test('should expose the feedback field', () => {
+      const rawData = {
+        conditions: [],
+        feedback: {
+          feedbackForm: true
+        }
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1294,7 +1353,7 @@ suite('data model', () => {
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal({
         pages: [{ name: 'someName' }],
-        conditions: [],
+        conditions: []
       })
     })
 

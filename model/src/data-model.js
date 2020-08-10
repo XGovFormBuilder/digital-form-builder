@@ -20,15 +20,19 @@ const yesNoList = {
 class Data {
   #conditions
   #name
+  #feedback
 
   constructor (rawData) {
     const rawDataClone = Object.assign({}, rawData)
     delete rawDataClone.conditions
+    delete rawDataClone.name
+    delete rawDataClone.feedback
     Object.assign(this, rawDataClone)
     this.#conditions = (rawData.conditions || []).map(it => new Condition(it))
     this.#name = rawData.name
-    delete this.name
+    this.#feedback = rawData.feedback
   }
+
   /* eslint-disable-next-line */
   #listInputsFor(page, input) {
     const list = this.listFor(input);
@@ -180,7 +184,24 @@ class Data {
   }
 
   set name (name) {
-    this.#name = name
+    if (typeof name === 'string') {
+      this.#name = name
+    } else {
+      throw Error('name must be a string')
+    }
+  }
+
+  get feedbackForm () {
+    return this.#feedback?.feedbackForm ?? false
+  }
+
+  set feedbackForm (feedbackForm) {
+    if (typeof feedbackForm === 'boolean') {
+      this.#feedback = this.#feedback || {}
+      this.#feedback.feedbackForm = feedbackForm
+    } else {
+      throw Error('feedbackForm must be a boolean')
+    }
   }
 
   clone () {
@@ -196,6 +217,7 @@ class Data {
     const toSerialize = Object.assign({}, this)
     toSerialize.conditions = this.conditions.map(it => clone(it))
     toSerialize.name = this.name
+    toSerialize.feedback = this.#feedback
     return toSerialize
   }
 }

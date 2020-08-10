@@ -1,12 +1,13 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { Data } from 'digital-form-builder-model/lib/data-model'
-import { assertTextInput } from './helpers/element-assertions'
+import {Data} from 'digital-form-builder-model/lib/data-model'
+import {assertRadioButton, assertTextInput} from './helpers/element-assertions'
 import FormDetails from '../client/form-details'
 
 import sinon from 'sinon'
+
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
@@ -16,15 +17,34 @@ suite('Form details', () => {
   describe('rendering', () => {
     const data = new Data({})
 
+    afterEach(() => {
+      data.feedbackForm = false
+    })
+
     test('Renders a form with the appropriate initial inputs', () => {
       const wrapper = shallow(<FormDetails data={data} />)
       assertTextInput(wrapper.find('#form-title'), 'form-title')
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes')
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No')
     })
 
     test('Renders pre-populated name input when form already has a name', () => {
       data.name = 'My form'
       const wrapper = shallow(<FormDetails data={data} />)
       assertTextInput(wrapper.find('#form-title'), 'form-title', 'My form')
+    })
+
+    test('Renders Feedback yes checked when form is a feedback form', () => {
+      data.feedbackForm = true
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', {'defaultChecked': true})
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', {'defaultChecked': false})
+    })
+
+    test('Renders Feedback no checked when form is a feedback form', () => {
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', {'defaultChecked': false})
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', {'defaultChecked': true})
     })
 
     test('Entered form name is displayed', () => {
