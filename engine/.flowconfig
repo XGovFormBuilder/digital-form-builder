@@ -12,5 +12,6 @@ src/
 [lints]
 
 [options]
+server.max_workers=4
 
 [strict]
