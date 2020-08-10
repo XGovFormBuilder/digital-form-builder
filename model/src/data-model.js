@@ -75,6 +75,14 @@ class Data {
     return this
   }
 
+  addSection (name, title) {
+    this.sections = this.sections || []
+    if (!this.sections.find(s => s.name === name)) {
+      this.sections.push({ name, title })
+    }
+    return this
+  }
+
   updateLink (from, to, condition) {
     const fromPage = this.findPage(from)
     const toPage = this.pages.find(p => p.path === to)
@@ -88,6 +96,14 @@ class Data {
         }
       }
     }
+    return this
+  }
+
+  updateLinksTo = function (oldPath, newPath) {
+    this.pages.filter(p => p.next && p.next.find(link => link.path === oldPath))
+      .forEach(page => {
+        page.next.find(link => link.path === oldPath).path = newPath
+      })
     return this
   }
 

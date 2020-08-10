@@ -39,6 +39,7 @@ suite('Page create', () => {
       { value: './pages/summary.js', text: 'Summary Page' }
     ])
     assertTextInput(wrapper.find('#page-title'), 'page-title')
+    assertTextInput(wrapper.find('#page-path'), 'page-path')
     assertSelectInput(wrapper.find('#link-from'), 'link-from', [
       { text: '' },
       { value: '/1', text: '/1' },
@@ -55,11 +56,11 @@ suite('Page create', () => {
   test('Inputs remain populated when amending other fields', () => {
     const wrapper = shallow(<PageCreate data={data} />)
     wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
-    wrapper.find('#page-title').simulate('blur', { target: { value: 'New Page' } })
+    wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
     wrapper.find('#link-from').simulate('change', { target: { value: '/2' } })
     wrapper.find('#page-section').simulate('change', { target: { value: 'personalDetails' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', 'New Page')
+    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
     assertSelectInput(wrapper.find('#link-from'), 'link-from', [
       { text: '' },
       { value: '/1', text: '/1' },
@@ -113,7 +114,7 @@ suite('Page create', () => {
       const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
       const preventDefault = sinon.spy()
       wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
-      wrapper.find('#page-title').simulate('blur', { target: { value: 'New Page' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
       wrapper.find('#link-from').simulate('change', { target: { value: '/2' } })
       wrapper.find('#page-section').simulate('change', { target: { value: 'personalDetails' } })
 
@@ -161,7 +162,7 @@ suite('Page create', () => {
       const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
       const preventDefault = sinon.spy()
       wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
-      wrapper.find('#page-title').simulate('blur', { target: { value: 'New Page' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
       wrapper.find('#link-from').simulate('change', { target: { value: '/2' } })
       wrapper.find('#page-section').simulate('change', { target: { value: 'personalDetails' } })
 
@@ -204,7 +205,7 @@ suite('Page create', () => {
       const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
       const preventDefault = sinon.spy()
       wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
-      wrapper.find('#page-title').simulate('blur', { target: { value: 'New Page' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
       data.clone = sinon.stub()
       data.clone.returns(clonedData)
@@ -219,7 +220,7 @@ suite('Page create', () => {
 
     test('translated title to path automatically if no path provided', async flags => {
       const expectedPage = {
-        path: '/my-new-page',
+        path: '/my-new-page-23',
         title: 'My New    Page 23?!¢#',
         controller: './pages/start.js',
         next: [],
@@ -239,7 +240,112 @@ suite('Page create', () => {
       const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
       const preventDefault = sinon.spy()
       wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
-      wrapper.find('#page-title').simulate('blur', { target: { value: 'My New    Page 23?!¢#' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'My New    Page 23?!¢#' } })
+
+      data.clone = sinon.stub()
+      data.clone.returns(clonedData)
+      clonedData.addLink.returns(clonedData)
+      clonedData.addPage.returns(clonedData)
+
+      await wrapper.instance().onSubmit({ preventDefault: preventDefault })
+      expect(clonedData.addPage.calledOnce).to.equal(true)
+      expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage)
+    })
+
+    test('Generated path ignored when a path is provided', async flags => {
+      const expectedPage = {
+        path: '/dancing-badgers',
+        title: 'My New    Page 23?!¢#',
+        controller: './pages/start.js',
+        next: [],
+        components: []
+      }
+      const onCreate = data => {
+        expect(data.value).to.equal(expectedPage)
+      }
+      const clonedData = {
+        addPage: sinon.stub(),
+        addLink: sinon.stub()
+      }
+      data.save = sinon.stub()
+      data.save.resolves(clonedData)
+      const wrappedOnCreate = flags.mustCall(onCreate, 1)
+
+      const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
+      const preventDefault = sinon.spy()
+      wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
+      wrapper.find('#page-path').simulate('change', { target: { value: 'dancing-badgers' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'My New    Page 23?!¢#' } })
+
+      data.clone = sinon.stub()
+      data.clone.returns(clonedData)
+      clonedData.addLink.returns(clonedData)
+      clonedData.addPage.returns(clonedData)
+
+      await wrapper.instance().onSubmit({ preventDefault: preventDefault })
+      expect(clonedData.addPage.calledOnce).to.equal(true)
+      expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage)
+    })
+
+    test('Generated path ignored when a path is provided with a leading /', async flags => {
+      const expectedPage = {
+        path: '/dancing-badgers',
+        title: 'My New    Page 23?!¢#',
+        controller: './pages/start.js',
+        next: [],
+        components: []
+      }
+      const onCreate = data => {
+        expect(data.value).to.equal(expectedPage)
+      }
+      const clonedData = {
+        addPage: sinon.stub(),
+        addLink: sinon.stub()
+      }
+      data.save = sinon.stub()
+      data.save.resolves(clonedData)
+      const wrappedOnCreate = flags.mustCall(onCreate, 1)
+
+      const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
+      const preventDefault = sinon.spy()
+      wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
+      wrapper.find('#page-path').simulate('change', { target: { value: '/dancing-badgers' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'My New    Page 23?!¢#' } })
+
+      data.clone = sinon.stub()
+      data.clone.returns(clonedData)
+      clonedData.addLink.returns(clonedData)
+      clonedData.addPage.returns(clonedData)
+
+      await wrapper.instance().onSubmit({ preventDefault: preventDefault })
+      expect(clonedData.addPage.calledOnce).to.equal(true)
+      expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage)
+    })
+
+    test('Whitespace in paths is replaced with hyphens', async flags => {
+      const expectedPage = {
+        path: '/dancing--badger-s',
+        title: 'My New    Page 23?!¢#',
+        controller: './pages/start.js',
+        next: [],
+        components: []
+      }
+      const onCreate = data => {
+        expect(data.value).to.equal(expectedPage)
+      }
+      const clonedData = {
+        addPage: sinon.stub(),
+        addLink: sinon.stub()
+      }
+      data.save = sinon.stub()
+      data.save.resolves(clonedData)
+      const wrappedOnCreate = flags.mustCall(onCreate, 1)
+
+      const wrapper = shallow(<PageCreate data={data} onCreate={wrappedOnCreate} />)
+      const preventDefault = sinon.spy()
+      wrapper.find('#page-type').simulate('change', { target: { value: './pages/start.js' } })
+      wrapper.find('#page-path').simulate('change', { target: { value: 'dancing  badger s' } })
+      wrapper.find('#page-title').simulate('change', { target: { value: 'My New    Page 23?!¢#' } })
 
       data.clone = sinon.stub()
       data.clone.returns(clonedData)

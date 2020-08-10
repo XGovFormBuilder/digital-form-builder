@@ -130,6 +130,7 @@ const sheetsSchema = joi.object().keys({
 })
 const outputSchema = joi.object().keys({
   name: joi.string(),
+  title: joi.string().optional(),
   type: joi.string().allow('confirmationEmail', 'email', 'webhook', 'sheets'),
   outputConfiguration: joi.alternatives().try(notifySchema, emailSchema, webhookSchema, sheetsSchema)
 })

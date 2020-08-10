@@ -41,18 +41,17 @@ class FieldEdit extends React.Component {
       <div>
         <div data-test-id='standard-inputs'>
           <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
-            <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or
-              fullName.</span>
-            <input className='govuk-input govuk-input--width-20' id='field-name'
-              name='name' type='text' defaultValue={component.name} required pattern='^\S+' />
-          </div>
-
-          <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='field-title'>Title</label>
             <span className='govuk-hint'>This is the title text displayed on the page</span>
             <input className='govuk-input' id='field-title' name='title' type='text'
               defaultValue={component.title} required />
+          </div>
+
+          <div className='govuk-form-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
+            <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or fullName.</span>
+            <input className='govuk-input govuk-input--width-20' id='field-name'
+              name='name' type='text' defaultValue={component.name} required pattern='^\S+' />
           </div>
 
           <div className='govuk-form-group'>

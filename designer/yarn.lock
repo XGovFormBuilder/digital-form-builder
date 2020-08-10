@@ -2641,15 +2641,14 @@ diff@4.x.x, diff@^4.0.2:
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
-"digital-form-builder-engine@file:../engine":
-  version "1.9.0"
+"digital-form-builder-model@file:../model":
+  version "1.0.0"
   dependencies:
     "@babel/runtime" "7.10.4"
     "@hapi/hoek" "^9.0.4"
     "@hapi/joi" "17.1.1"
     boom "7.3.0"
     expr-eval "2.0.2"
-    flow-typed "^3.2.1"
     govuk-frontend "3.6.0"
     hmpo-components "2.6.5"
     joi "14.3.1"

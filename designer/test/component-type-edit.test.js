@@ -37,8 +37,8 @@ suite('Component type edit', () => {
         const inputs = standardInputs.find('input')
         expect(inputs.length).to.equal(5)
 
-        assertRequiredTextInput(inputs.get(0), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-        assertRequiredTextInput(inputs.get(1), 'field-title', 'My component', { name: 'title' })
+        assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
+        assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
         assertCheckboxInput(inputs.get(2), 'field-options.hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
         assertCheckboxInput(inputs.get(3), 'field-options.required', undefined, true, { name: 'options.required' })
         assertCheckboxInput(inputs.get(4), 'field-options.optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
@@ -63,8 +63,8 @@ suite('Component type edit', () => {
       const inputs = standardInputs.find('input')
       expect(inputs.length).to.equal(5)
 
-      assertRequiredTextInput(inputs.get(0), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-      assertRequiredTextInput(inputs.get(1), 'field-title', 'My component', { name: 'title' })
+      assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
+      assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
       assertCheckboxInput(inputs.get(2), 'field-options.hideTitle', 'true', '', { name: 'options.hideTitle' })
       assertCheckboxInput(inputs.get(3), 'field-options.required', undefined, '', { name: 'options.required' })
       assertCheckboxInput(inputs.get(4), 'field-options.optionalText', undefined, '', { name: 'options.optionalText' })
@@ -95,8 +95,8 @@ suite('Component type edit', () => {
 
           expect(inputs.length).to.equal(5)
 
-          assertRequiredTextInput(inputs.get(0), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertRequiredTextInput(inputs.get(1), 'field-title', 'My component', { name: 'title' })
+          assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
+          assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
           assertCheckboxInput(inputs.get(2), 'field-options.hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
           assertCheckboxInput(inputs.get(3), 'field-options.required', undefined, true, { name: 'options.required' })
           assertCheckboxInput(inputs.get(4), 'field-options.optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
@@ -127,8 +127,8 @@ suite('Component type edit', () => {
 
           expect(inputs.length).to.equal(5)
 
-          assertRequiredTextInput(inputs.get(0), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertRequiredTextInput(inputs.get(1), 'field-title', 'My component', { name: 'title' })
+          assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
+          assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
           assertCheckboxInput(inputs.get(2), 'field-options.hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
           assertCheckboxInput(inputs.get(3), 'field-options.required', undefined, '', { name: 'options.required' })
           assertCheckboxInput(inputs.get(4), 'field-options.optionalText', undefined, '', { name: 'options.optionalText' })
