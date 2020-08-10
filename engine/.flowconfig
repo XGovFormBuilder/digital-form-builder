@@ -1,8 +1,9 @@
 [ignore]
-.*/test/.*
+.*/(test|tests)/.*
 .*/lib/.*
 .*\.ignore\.js
 .*/*/*.json
+<PROJECT_ROOT>/node_modules/.*
 
 [include]
 src/
