@@ -3,7 +3,6 @@
 .*/dist/.*
 .*\.ignore\.js
 .*/*/*.json
-<PROJECT_ROOT>/node_modules/.*
 
 [include]
 lib/
