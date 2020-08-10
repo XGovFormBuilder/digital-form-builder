@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import PageEdit from '../client/page-edit'
-import { Data } from '../client/model/data-model'
+import { Data } from 'digital-form-builder-model'
 import { assertTextInput, assertSelectInput } from './helpers/element-assertions'
 
 const { expect } = Code
