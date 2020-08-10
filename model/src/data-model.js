@@ -99,6 +99,14 @@ class Data {
     return this
   }
 
+  updateLinksTo = function (oldPath, newPath) {
+    this.pages.filter(p => p.next && p.next.find(link => link.path === oldPath))
+      .forEach(page => {
+        page.next.find(link => link.path === oldPath).path = newPath
+      })
+    return this
+  }
+
   addPage (page) {
     this.pages = this.pages || []
     this.pages.push(page)

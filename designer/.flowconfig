@@ -1,5 +1,5 @@
 [ignore]
-.*/test/.*
+.*/(test|tests)/.*
 .*/dist/.*
 .*\.ignore\.js
 .*/*/*.json
@@ -13,5 +13,6 @@ client/
 [lints]
 
 [options]
+server.max_workers=4
 
 [strict]
