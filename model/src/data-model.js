@@ -19,12 +19,15 @@ const yesNoList = {
 
 class Data {
   #conditions
+  #name
 
   constructor (rawData) {
     const rawDataClone = Object.assign({}, rawData)
     delete rawDataClone.conditions
     Object.assign(this, rawDataClone)
     this.#conditions = (rawData.conditions || []).map(it => new Condition(it))
+    this.#name = rawData.name
+    delete this.name
   }
   /* eslint-disable-next-line */
   #listInputsFor(page, input) {
@@ -172,6 +175,14 @@ class Data {
     return this.#conditions.map(it => clone(it))
   }
 
+  get name () {
+    return this.#name
+  }
+
+  set name (name) {
+    this.#name = name
+  }
+
   clone () {
     return new Data(this._exposePrivateFields())
   }
@@ -184,6 +195,7 @@ class Data {
   _exposePrivateFields () {
     const toSerialize = Object.assign({}, this)
     toSerialize.conditions = this.conditions.map(it => clone(it))
+    toSerialize.name = this.name
     return toSerialize
   }
 }

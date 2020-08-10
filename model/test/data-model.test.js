@@ -996,6 +996,22 @@ suite('data model', () => {
     })
   })
 
+
+  describe('name', () => {
+    test('should get the provided name', () => {
+      const data = new Data({
+        name: 'My form'
+      })
+      expect(data.name).to.equal('My form')
+    })
+
+    test('should set the provided name', () => {
+      const data = new Data()
+      data.name = 'My form'
+      expect(data.name).to.equal('My form')
+    })
+  })
+
   describe('clone', () => {
     test('should deep clone the data class', () => {
       const data = new Data({
@@ -1263,6 +1279,14 @@ suite('data model', () => {
       expect(data.toJSON()).to.equal(rawData)
     })
 
+    test('should expose the name field', () => {
+      const rawData = {
+        name: 'My form'
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal(rawData)
+    })
+
     test('should expose the pages field', () => {
       const rawData = {
         pages: [{ name: 'someName' }]
@@ -1270,7 +1294,7 @@ suite('data model', () => {
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal({
         pages: [{ name: 'someName' }],
-        conditions: []
+        conditions: [],
       })
     })
 

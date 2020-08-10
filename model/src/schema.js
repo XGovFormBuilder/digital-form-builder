@@ -135,8 +135,17 @@ const outputSchema = joi.object().keys({
   outputConfiguration: joi.alternatives().try(notifySchema, emailSchema, webhookSchema, sheetsSchema)
 })
 
+const feedbackSchema = joi.object().keys({
+  feedbackForm: joi.boolean().default(false),
+  parseContext: joi.when('feedbackForm', {is: joi.boolean().valid(true), then: joi.boolean().default(false)}),
+  feedbackUrl: joi.when('feedbackForm', {is: joi.boolean().valid(false), then: joi.string().optional()}),
+  sendContext: joi.when('feedbackUrl', {is: joi.exists(), then: joi.boolean().default(false)}),
+  outputConfiguration: joi.alternatives().try(notifySchema, emailSchema, webhookSchema, sheetsSchema)
+})
+
 const schema = joi.object().required().keys({
   name: localisedString.optional(),
+  feedback: feedbackSchema,
   startPage: joi.string().required(),
   pages: joi.array().required().items(pageSchema).unique('path'),
   sections: joi.array().items(sectionsSchema).unique('name').required(),
