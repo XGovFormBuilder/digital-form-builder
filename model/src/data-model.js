@@ -184,7 +184,7 @@ class Data {
   }
 
   set name (name) {
-    if (typeof name === 'string') {
+    if (typeof name === 'string' || name === undefined) {
       this.#name = name
     } else {
       throw Error('name must be a string')
@@ -201,6 +201,42 @@ class Data {
       this.#feedback.feedbackForm = feedbackForm
     } else {
       throw Error('feedbackForm must be a boolean')
+    }
+  }
+
+  setFeedbackUrl (feedbackUrl, sendContext) {
+    this.#setFeedbackUrl(feedbackUrl)
+    this.#setSendFeedbackContext(sendContext || false)
+  }
+
+  get feedbackUrl () {
+    return this.#feedback?.url
+  }
+
+  /* eslint-disable-next-line */
+  #setFeedbackUrl (feedbackUrl) {
+    if(feedbackUrl && this.feedbackForm) {
+      throw Error('Cannot set a feedback url on a feedback form')
+    }
+    if (typeof feedbackUrl === 'string' || feedbackUrl === undefined) {
+      this.#feedback = this.#feedback || {}
+      this.#feedback.url = feedbackUrl
+    } else {
+      throw Error('feedbackUrl must be a string')
+    }
+  }
+
+  get sendFeedbackContext () {
+    return this.#feedback?.sendContext ?? false
+  }
+
+  /* eslint-disable-next-line */
+  #setSendFeedbackContext (sendFeedbackContext) {
+    if (typeof sendFeedbackContext === 'boolean') {
+      this.#feedback = this.#feedback || {}
+      this.#feedback.sendContext = sendFeedbackContext
+    } else {
+      throw Error('sendFeedbackContext must be a boolean')
     }
   }
 

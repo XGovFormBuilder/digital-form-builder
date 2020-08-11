@@ -137,10 +137,8 @@ const outputSchema = joi.object().keys({
 
 const feedbackSchema = joi.object().keys({
   feedbackForm: joi.boolean().default(false),
-  parseContext: joi.when('feedbackForm', { is: joi.boolean().valid(true), then: joi.boolean().default(false) }),
-  feedbackUrl: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() }),
-  sendContext: joi.when('feedbackUrl', { is: joi.string().required(), then: joi.boolean().default(false) }),
-  outputConfiguration: joi.alternatives().try(notifySchema, emailSchema, webhookSchema, sheetsSchema)
+  url: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() }),
+  sendContext: joi.when('feedbackUrl', { is: joi.string().required(), then: joi.boolean().default(false) })
 })
 
 const schema = joi.object().required().keys({

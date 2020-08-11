@@ -1,9 +1,9 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import {Data} from 'digital-form-builder-model/lib/data-model'
-import {assertRadioButton, assertTextInput} from './helpers/element-assertions'
+import { Data } from 'digital-form-builder-model/lib/data-model'
+import { assertRadioButton, assertTextInput } from './helpers/element-assertions'
 import FormDetails from '../client/form-details'
 
 import sinon from 'sinon'
@@ -11,7 +11,7 @@ import sinon from 'sinon'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { afterEach, before, describe, suite, test } = lab
+const { afterEach, beforeEach, describe, suite, test } = lab
 
 suite('Form details', () => {
   describe('rendering', () => {
@@ -34,37 +34,64 @@ suite('Form details', () => {
       assertTextInput(wrapper.find('#form-title'), 'form-title', 'My form')
     })
 
-    test('Renders Feedback yes checked when form is a feedback form', () => {
-      data.feedbackForm = true
-      const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', {'defaultChecked': true})
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', {'defaultChecked': false})
-    })
-
-    test('Renders Feedback no checked when form is a feedback form', () => {
-      const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', {'defaultChecked': false})
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', {'defaultChecked': true})
-    })
-
     test('Entered form name is displayed', () => {
       data.name = 'My form'
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#form-title').simulate('blur', { target: { value: 'New name' } })
       assertTextInput(wrapper.find('#form-title'), 'form-title', 'New name')
     })
+
+    test('Renders Feedback form \'yes\' checked when form is a feedback form', () => {
+      data.feedbackForm = true
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { 'defaultChecked': true })
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { 'defaultChecked': false })
+    })
+
+    test('Renders Feedback \'no\' checked when form is not a feedback form', () => {
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { 'defaultChecked': false })
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { 'defaultChecked': true })
+    })
+
+    test('Renders Feedback url input when form is not a feedback form', () => {
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertTextInput(wrapper.find('#feedback-url'), 'feedback-url')
+    })
+
+    test('Does not render Feedback url input when form is a feedback form', () => {
+      data.feedbackForm = true
+      const wrapper = shallow(<FormDetails data={data} />)
+      expect(wrapper.find('#feedback-url').exists()).to.equal(false)
+    })
+
+    test('Renders populated Feedback url input when present and form is not a feedback form', () => {
+      data.setFeedbackUrl('/feedback')
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertTextInput(wrapper.find('#feedback-url'), 'feedback-url', '/feedback')
+    })
+
+    test('Renders send feedback context inputs when feedback url is present', () => {
+      data.setFeedbackUrl('/feedback')
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertRadioButton(wrapper.find('#send-feedback-context-yes'), 'send-feedback-context-yes', 'true', 'Yes', { 'defaultChecked': false })
+      assertRadioButton(wrapper.find('#send-feedback-context-no'), 'send-feedback-context-no', 'false', 'No', { 'defaultChecked': true })
+    })
+
+    test('Renders send feedback context Yes checked when specified', () => {
+      data.setFeedbackUrl('/feedback', true)
+      const wrapper = shallow(<FormDetails data={data} />)
+      assertRadioButton(wrapper.find('#send-feedback-context-yes'), 'send-feedback-context-yes', 'true', 'Yes', { 'defaultChecked': true })
+      assertRadioButton(wrapper.find('#send-feedback-context-no'), 'send-feedback-context-no', 'false', 'No', { 'defaultChecked': false })
+    })
   })
 
   describe('on submit', () => {
-    const data = new Data({})
-    before(() => {
+    let data
+    beforeEach(() => {
+      data = new Data({})
       data.clone = sinon.stub().returns(data)
       data.save = sinon.stub().resolves(data)
-    })
-
-    afterEach(() => {
-      data.clone.resetHistory()
-      data.save.resetHistory()
     })
 
     test('name should be set correctly when unchanged', async () => {
@@ -86,9 +113,98 @@ suite('Form details', () => {
       expect(data.save.firstCall.args[0].name).to.equal('New name')
     })
 
+    test('feedbackForm should be set correctly when unchanged', async () => {
+      data.feedbackForm = true
+      const wrapper = shallow(<FormDetails data={data} />)
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].feedbackForm).to.equal(true)
+    })
+
+    test('feedbackForm should be set correctly when changed to true', async () => {
+      const wrapper = shallow(<FormDetails data={data} />)
+      wrapper.find('#feedback-yes').simulate('click')
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].feedbackForm).to.equal(true)
+    })
+
+    test('feedbackForm should be set correctly when changed to false', async () => {
+      data.feedbackForm = true
+      const wrapper = shallow(<FormDetails data={data} />)
+      wrapper.find('#feedback-no').simulate('click')
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].feedbackForm).to.equal(false)
+    })
+
+    test('Feedback url and send context should be cleared when changing to a feedback form', async () => {
+      data.setFeedbackUrl('/feedback', true)
+      const wrapper = shallow(<FormDetails data={data} />)
+      wrapper.find('#feedback-yes').simulate('click')
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].feedbackUrl).to.equal(undefined)
+      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(false)
+    })
+
+    test('feedbackUrl should be set correctly when unchanged', async () => {
+      data.setFeedbackUrl('/feedback')
+      const wrapper = shallow(<FormDetails data={data} />)
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].feedbackUrl).to.equal('/feedback')
+    })
+
+    test('feedbackUrl should be set correctly when changed', async () => {
+      data.setFeedbackUrl('/feedback')
+      const wrapper = shallow(<FormDetails data={data} />)
+      wrapper.find('#feedback-url').simulate('change', { target: { value: '/feedback-2' } })
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].feedbackUrl).to.equal('/feedback-2')
+    })
+
+    test('sendFeedback should be set correctly when unchanged', async () => {
+      data.setFeedbackUrl('/feedback', true)
+      const wrapper = shallow(<FormDetails data={data} />)
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(true)
+    })
+
+    test('sendFeedback should be set correctly when changed to true', async () => {
+      data.setFeedbackUrl('/feedback', false)
+      const wrapper = shallow(<FormDetails data={data} />)
+      wrapper.find('#send-feedback-context-yes').simulate('click')
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(true)
+    })
+
+    test('sendFeedback should be set correctly when changed to false', async () => {
+      data.setFeedbackUrl('/feedback', true)
+      const wrapper = shallow(<FormDetails data={data} />)
+      wrapper.find('#send-feedback-context-no').simulate('click')
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+      expect(data.save.callCount).to.equal(1)
+      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(false)
+    })
+
     test('Updated data should be saved correctly and saved data should be passed to callback', async () => {
       data.name = 'My form'
-      const clonedData = {}
+      const clonedData = {
+        setFeedbackUrl: sinon.spy()
+      }
       data.clone.returns(clonedData)
       const savedData = sinon.spy()
       data.save.resolves(savedData)
