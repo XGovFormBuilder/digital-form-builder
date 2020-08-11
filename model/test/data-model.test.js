@@ -1,13 +1,39 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { Data } from '..'
+import {Data} from '..'
+
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
 const { suite, describe, test } = lab
 
 suite('data model', () => {
+  const fullyPopulatedRawData = {
+    pages: [
+      {
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/2' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      },
+      {
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      }
+    ],
+    conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }],
+    feedback: {
+      feedbackForm: false,
+      url: '/feedback',
+      sendContext: true
+    }
+  };
+
   describe('all inputs', () => {
     test('should return all inputs from the page model', () => {
       const data = new Data({
@@ -1182,30 +1208,38 @@ suite('data model', () => {
     })
   })
 
+  describe('constructor', () => {
+    test('should construct data model from raw data schema', () => {
+      const returned = new Data(fullyPopulatedRawData)
+      expect(returned.pages).to.equal(fullyPopulatedRawData.pages)
+      expect(returned.conditions).to.equal(fullyPopulatedRawData.conditions)
+      expect(returned.feedbackUrl).to.equal(fullyPopulatedRawData.feedback.url)
+      expect(returned.feedbackForm).to.equal(fullyPopulatedRawData.feedback.feedbackForm)
+      expect(returned.sendFeedbackContext).to.equal(fullyPopulatedRawData.feedback.sendContext)
+      expect(returned instanceof Data).to.equal(true)
+    })
+
+    test('should construct data model from existing data model object', () => {
+      const rawData = new Data(fullyPopulatedRawData)
+      const returned = new Data(rawData)
+      expect(returned.pages).to.equal(rawData.pages)
+      expect(returned.conditions).to.equal(rawData.conditions)
+      expect(returned.feedbackUrl).to.equal(rawData.feedbackUrl)
+      expect(returned.feedbackForm).to.equal(rawData.feedbackForm)
+      expect(returned.sendFeedbackContext).to.equal(rawData.sendFeedbackContext)
+      expect(returned instanceof Data).to.equal(true)
+    })
+  })
+
   describe('clone', () => {
     test('should deep clone the data class', () => {
-      const data = new Data({
-        pages: [
-          {
-            name: 'page1',
-            section: 'section1',
-            path: '/1',
-            next: [{ path: '/2' }],
-            components: [{ name: 'name1' }, { name: 'name2' }]
-          },
-          {
-            name: 'page2',
-            section: 'section1',
-            path: '/2',
-            next: [{ path: '/3' }],
-            components: [{ name: 'name3' }, { name: 'name4' }]
-          }
-        ],
-        conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }]
-      })
+      const data = new Data(fullyPopulatedRawData)
       const returned = data.clone()
       expect(returned).to.equal(data)
       expect(returned.conditions).to.equal(data.conditions)
+      expect(returned.feedbackUrl).to.equal(data.feedbackUrl)
+      expect(returned.feedbackForm).to.equal(data.feedbackForm)
+      expect(returned.sendFeedbackContext).to.equal(data.sendFeedbackContext)
       expect(returned instanceof Data).to.equal(true)
       expect(data === returned).to.equal(false)
     })

@@ -23,14 +23,12 @@ class Data {
   #feedback
 
   constructor (rawData) {
-    const rawDataClone = Object.assign({}, rawData)
+    const rawDataClone = rawData instanceof Data ? rawData._exposePrivateFields() : Object.assign({}, rawData)
+    this.#conditions = (rawDataClone.conditions || []).map(it => new Condition(it))
+    this.#feedback = rawDataClone.feedback
     delete rawDataClone.conditions
-    delete rawDataClone.name
     delete rawDataClone.feedback
     Object.assign(this, rawDataClone)
-    this.#conditions = (rawData.conditions || []).map(it => new Condition(it))
-    this.#name = rawData.name
-    this.#feedback = rawData.feedback
   }
 
   /* eslint-disable-next-line */
