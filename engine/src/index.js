@@ -14,7 +14,7 @@ function getStartPageRedirect (h, id, model) {
   if (startPage.startsWith('http')) {
     startPageRedirect = h.redirect(startPage)
   } else {
-    startPageRedirect = h.redirect(`/${id}/${startPage}`)
+    startPageRedirect = h.redirect(`/${id}/${startPage}${h.request.url.search}`)
   }
   return startPageRedirect
 }

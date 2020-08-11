@@ -4,6 +4,8 @@ const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
 
+const { RelativeUrl, FeedbackContextInfo, decode } = require('./feedback')
+
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
 
@@ -68,7 +70,6 @@ class Page {
       pageTitle = pageTitle || label.text
       showTitle = false
     }
-
     return { page: this, name: this.name, pageTitle, sectionTitle, showTitle, components, errors, isStartPage: false }
   }
 
@@ -199,6 +200,22 @@ class Page {
     }
     return request.yar.get('lang')
   }
+
+  feedbackUrlFromRequest (request) {
+    if (this.def.feedback?.url) {
+      let feedbackLink = new RelativeUrl(this.def.feedback?.url)
+      if (this.def.feedback?.sendContext) {
+        const returnInfo = new FeedbackContextInfo(this.model.name, this.pageDef.title, request.url.pathname)
+        feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
+      }
+      return feedbackLink
+    }
+  }
+
+  feedbackFormTitleFromRequest (request) {
+    return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo()).formTitle
+  }
+
     #objLength (object) {  /* eslint-disable-line */
       return Object.keys(object).length ?? 0
     }
@@ -231,6 +248,7 @@ class Page {
         const viewModel = this.getViewModel(formData, num)
         viewModel.startPage = startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
         viewModel.currentPath = `${currentPath}${request.query.returnUrl ? '?returnUrl=' + request.query.returnUrl : ''}`
+        this.setFeedbackDetails(viewModel, request)
         viewModel.components = viewModel.components.filter(component => {
           if ((component.model.content || component.type === 'Details') && component.model.condition) {
             const condition = this.model.conditions[component.model.condition]
@@ -322,6 +340,7 @@ class Page {
         if (formResult.errors) {
           const viewModel = this.getViewModel(payload, num, formResult.errors)
           viewModel.backLink = progress[progress.length - 2]
+          this.setFeedbackDetails(viewModel, request)
           return h.view(this.viewName, viewModel)
         }
 
@@ -331,6 +350,7 @@ class Page {
         if (stateResult.errors) {
           const viewModel = this.getViewModel(payload, num, stateResult.errors)
           viewModel.backLink = progress[progress.length - 2]
+          this.setFeedbackDetails(viewModel, request)
           return h.view(this.viewName, viewModel)
         }
 
@@ -350,6 +370,13 @@ class Page {
         }
         const savedState = await cacheService.mergeState(request, update, !!this.repeatField)
         return this.proceed(request, h, savedState)
+      }
+    }
+
+    setFeedbackDetails (viewModel, request) {
+      viewModel.feedbackLink = this.feedbackUrlFromRequest(request)
+      if (this.def.feedback?.feedbackForm) {
+        viewModel.name = this.feedbackFormTitleFromRequest(request)
       }
     }
 

@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import {Data} from '..'
+import { Data } from '..'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -32,7 +32,7 @@ suite('data model', () => {
       url: '/feedback',
       sendContext: true
     }
-  };
+  }
 
   describe('all inputs', () => {
     test('should return all inputs from the page model', () => {
