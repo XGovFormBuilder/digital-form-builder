@@ -12,16 +12,14 @@
 
           {% for detail in details %}
             {{ summaryDetail(detail, true) }}
-        {% endfor %}
-
+          {% endfor %}
 
           <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
               <input type="hidden" name="crumb" value="{{crumb}}"/>
-              <input type="hidden" name="repeat" value="true"/>
-              <button data-prevent-double-click="true" value="add" class="govuk-button" data-module="govuk-button">
+              <button data-prevent-double-click="true" value="repeat" class="govuk-button" data-module="govuk-button" name="repeat">
                   Add another
               </button>
-              <button data-prevent-double-click="true" value="continue" class="govuk-button" data-module="govuk-button">
+              <button data-prevent-double-click="true" value="continue" class="govuk-button" data-module="govuk-button" name="continue">
                   Continue
               </button>
           </form>

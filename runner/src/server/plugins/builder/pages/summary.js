@@ -1,143 +1,40 @@
-const { Data } = require('@xgovformbuilder/model') //eslint-disable-line
-const { Helpers, decode, RelativeUrl, FeedbackContextInfo } = require('@xgovformbuilder/engine') //eslint-disable-line
-const redirectTo = Helpers.redirectTo
-const redirectUrl = Helpers.redirectUrl
+import * as querystring from 'querystring'
 
 const joi = require('joi')
 const Page = require('./index')
-const { nanoid } = require('nanoid')
+const shortid = require('shortid')
 const { formSchema } = require('../../../lib/formSchema')
-const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
-const { flatten } = require('flat') //eslint-disable-line
-const { clone, reach } = require('hoek') //eslint-disable-line
+const { serviceName } = require('../../../config')
+const { flatten } = require('flat')
+const { clone, reach } = require('hoek')
 
-/**
- * TODO - extract submission behaviour dependencies from the viewmodel
- * Webhookdata
- * outputs
- * skipSummary (replace with reference to this.model.def.skipSummary?)
- * _payApiKey
- * replace result with errors?
- * remove state and value?
- *
- * TODO - Pull out summary behaviours into separate service classes?
- * TODO - Move outputs conversion to an outputs service?
- * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
- */
 class SummaryViewModel {
-  constructor (pageTitle, model, state, request) {
+  constructor (pageTitle, model, state) {
     this.pageTitle = pageTitle
 
-    const { relevantPages, endPage } = this.#getRelevantPages(model, state)
-    const details = this.#summaryDetails(request, model, state, relevantPages)
+    const relevantPages = []
+    const details = []
 
-    this.declaration = model.def.declaration
-    this.skipSummary = model.def.skipSummary
-    this.endPage = endPage
-    const schema = model.makeFilteredSchema(state, relevantPages)
+    let nextPage = model.startPage
+    let endPage = null
 
-    const collatedRepeatPagesState = clone(state)
-    delete collatedRepeatPagesState.progress
-    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
-      if (Array.isArray(section)) {
-        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
+    while (nextPage != null) {
+      if (nextPage.hasFormComponents) {
+        relevantPages.push(nextPage)
+      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
+        endPage = nextPage
       }
-    })
-
-    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
-
-    if (result.error) {
-      this.#processErrors(result, details)
-    } else {
-      this.fees = this.#retrieveFees(model, state)
-      this.#parseDataForWebhook(model, relevantPages, details)
-      this._webhookData = this.#addFeedbackSourceDataToWebhook(this._webhookData, model, request)
-
-      if (model.def.outputs) {
-        this._outputs = model.def.outputs.map(output => {
-          switch (output.type) {
-            case 'notify':
-              return { type: 'notify', outputData: this.#notifyModel(model, output.outputConfiguration, state) }
-            case 'email':
-              return { type: 'email', outputData: this.#emailModel(model, output.outputConfiguration) }
-            case 'webhook':
-              return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
-            case 'sheets':
-              return { type: 'sheets', outputData: this.#sheetsModel(model, output.outputConfiguration, state) }
-          }
-        })
-      }
+      nextPage = nextPage.getNextPage(state, true)
     }
-
-    this.result = result
-    this.details = details
-    this.state = state
-    this.value = result.value
-  }
-
-  #retrieveFees(model, state) { //eslint-disable-line
-    let applicableFees = []
-
-    if (model.def.fees) {
-      applicableFees = model.def.fees.filter(fee => {
-        return !fee.condition || model.conditions[fee.condition].fn(state)
-      })
-
-      this._payApiKey = model.def.payApiKey
-      const flatState = flatten(state)
-      return {
-        details: applicableFees,
-        total: Object.values(applicableFees).map(fee => {
-          if (fee.multiplier) {
-            const multiplyBy = flatState[fee.multiplier]
-            fee.multiplyBy = Number(multiplyBy)
-            return fee.multiplyBy * fee.amount
-          }
-          return fee.amount
-        }).reduce((a, b) => a + b, 0)
-      }
-    }
-  }
-
-  #processErrors(result, details) { //eslint-disable-line
-    this.errors = result.error.details.map(err => {
-      const name = err.path[err.path.length - 1]
-
-      return {
-        path: err.path.join('.'),
-        name: name,
-        message: err.message
-      }
-    })
-
-    details.forEach(detail => {
-      const sectionErr = this.errors.find(err => err.path === detail.name)
-
-      detail.items.forEach(item => {
-        if (sectionErr) {
-          item.inError = true
-          return
-        }
-
-        const err = this.errors.find(err => err.path === (detail.name ? (detail.name + '.' + item.name) : item.name))
-        if (err) {
-          item.inError = true
-        }
-      })
-    })
-  }
-
-  #summaryDetails(request, model, state, relevantPages) { //eslint-disable-line
-    const details = [];
 
     [undefined, ...model.sections].forEach(section => {
       const items = []
       let sectionState = section
-          ? (state[section.name] || {})
-          : state
+        ? (state[section.name] || {})
+        : state
 
       const sectionPages = relevantPages
-          .filter(page => page.section === section)
+        .filter(page => page.section === section)
 
       const repeatablePage = sectionPages.find(page => !!page.repeatField)
       // Currently can't handle repeatable page outside a section.
@@ -159,22 +56,22 @@ class SummaryViewModel {
       }
 
       sectionPages
-          .forEach(page => {
-            for (const component of page.components.formItems) {
-              const item = this.Item(request, component, sectionState, page, model)
-              items.push(item)
-              if (component.items) {
-                const selectedValue = sectionState[component.name]
-                const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
-                if (selectedItem && selectedItem.conditional) {
-                  for (const cc of selectedItem.conditional.componentCollection.formItems) {
-                    const cItem = this.Item(request, cc, sectionState, page, model)
-                    items.push(cItem)
-                  }
+        .forEach(page => {
+          for (const component of page.components.formItems) {
+            const item = this.Item(component, sectionState, page, model)
+            items.push(item)
+            if (component.items) {
+              const selectedValue = sectionState[component.name]
+              const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
+              if (selectedItem && selectedItem.conditional) {
+                for (const cc of selectedItem.conditional.componentCollection.formItems) {
+                  const cItem = this.Item(cc, sectionState, page, model)
+                  items.push(cItem)
                 }
               }
             }
-          })
+          }
+        })
 
       if (items.length > 0) {
         if (Array.isArray(sectionState)) {
@@ -194,26 +91,100 @@ class SummaryViewModel {
         }
       }
     })
-    return details;
-  }
 
-  #getRelevantPages(model, state) { //eslint-disable-line
-    let nextPage = model.startPage
-    const relevantPages = []
-    let endPage = null
+    this.declaration = model.def.declaration
+    this.skipSummary = model.def.skipSummary
+    this.endPage = endPage
 
-    while (nextPage != null) {
-      if (nextPage.hasFormComponents) {
-        relevantPages.push(nextPage)
-      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
-        endPage = nextPage
-      }
-      nextPage = nextPage.getNextPage(state, true)
+    let applicableFees = []
+
+    if (model.def.fees) {
+      applicableFees = model.def.fees.filter(fee => {
+        return !fee.condition || model.conditions[fee.condition].fn(state)
+      })
+
+      this._payApiKey = model.def.payApiKey
     }
-    return {relevantPages, endPage};
+    const schema = model.makeFilteredSchema(state, relevantPages)
+
+    const collatedRepeatPagesState = clone(state)
+    delete collatedRepeatPagesState.progress
+    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+      if (Array.isArray(section)) {
+        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
+      }
+    })
+
+    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
+
+    if (result.error) {
+      this.errors = result.error.details.map(err => {
+        const name = err.path[err.path.length - 1]
+
+        return {
+          path: err.path.join('.'),
+          name: name,
+          message: err.message
+        }
+      })
+      this.hasErrors = true
+
+      details.forEach(detail => {
+        const sectionErr = this.errors.find(err => err.path === detail.name)
+
+        detail.items.forEach(item => {
+          if (sectionErr) {
+            item.inError = true
+            return
+          }
+
+          const err = this.errors.find(err => err.path === (detail.name ? (detail.name + '.' + item.name) : item.name))
+          if (err) {
+            item.inError = true
+          }
+        })
+      })
+    } else {
+      if (applicableFees.length) {
+        const flatState = flatten(state)
+        this.fees = {
+          details: applicableFees,
+          total: Object.values(applicableFees).map(fee => {
+            if (fee.multiplier) {
+              const multiplyBy = flatState[fee.multiplier]
+              fee.multiplyBy = Number(multiplyBy)
+              return fee.multiplyBy * fee.amount
+            }
+            return fee.amount
+          }).reduce((a, b) => a + b)
+        }
+      }
+
+      this.parseDataForWebhook(model, relevantPages, details)
+
+      if (model.def.outputs) {
+        this._outputs = model.def.outputs.map(output => {
+          switch (output.type) {
+            case 'notify':
+              return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
+            case 'email':
+              return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
+            case 'webhook':
+              return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
+            case 'sheets':
+              return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
+          }
+        })
+      }
+    }
+
+    this.result = result
+    this.details = details
+    this.state = state
+    this.value = result.value
   }
 
-  #notifyModel (model, outputConfiguration, state) { //eslint-disable-line
+  notifyModel (model, outputConfiguration, state) {
     const flatState = flatten(state)
     const personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
@@ -228,7 +199,7 @@ class SummaryViewModel {
     }
   }
 
-  #emailModel (outputOptions) { //eslint-disable-line
+  emailModel (outputOptions) {
     const attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
@@ -244,7 +215,7 @@ class SummaryViewModel {
     return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
-  #sheetsModel (model, outputConfiguration, state) { //eslint-disable-line
+  sheetsModel (model, outputConfiguration, state) {
     const flatState = flatten(state)
     // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration
@@ -257,7 +228,7 @@ class SummaryViewModel {
     }
   }
 
-  #toEnglish (localisableString) { //eslint-disable-line
+  toEnglish (localisableString) {
     let englishString = ''
     if (localisableString) {
       if (typeof localisableString === 'string') {
@@ -269,7 +240,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  #parseDataForWebhook (model, relevantPages, details) { //eslint-disable-line
+  parseDataForWebhook (model, relevantPages, details) {
     const questions = []
 
     for (const page of relevantPages) {
@@ -279,9 +250,9 @@ class SummaryViewModel {
 
       let question
       if (page.title) {
-        question = this.#toEnglish(page.title)
+        question = this.toEnglish(page.title)
       } else {
-        question = page.components.formItems.map(item => this.#toEnglish(item.title)).join(', ')
+        question = page.components.formItems.map(item => this.toEnglish(item.title)).join(', ')
       }
 
       let items
@@ -299,7 +270,7 @@ class SummaryViewModel {
           const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
           fields.push({
             key: detailItem.name,
-            title: this.#toEnglish(detailItem.title),
+            title: this.toEnglish(detailItem.title),
             type: detailItem.dataType,
             answer
           })
@@ -311,7 +282,7 @@ class SummaryViewModel {
                 const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
                 fields.push({
                   key: cc.name,
-                  title: this.#toEnglish(cc.title),
+                  title: this.toEnglish(cc.title),
                   type: cc.dataType,
                   answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
                 })
@@ -350,10 +321,6 @@ class SummaryViewModel {
     return result.value
   }
 
-  get webhookDataPaymentReference () {
-    return this._webhookData.fees.paymentReference ?? ''
-  }
-
   set webhookDataPaymentReference (paymentReference) {
     this._webhookData.fees.paymentReference = paymentReference
   }
@@ -385,14 +352,17 @@ class SummaryViewModel {
     })
   }
 
-  Item (request, component, sectionState, page, model, params) {
-    params = params || { returnUrl: redirectUrl(request, `/${model.basePath}/summary`) }
+  Item (component, sectionState, page, model, queryString = '') {
     const isRepeatable = !!page.repeatField
+    const query = {
+      returnUrl: `/${model.basePath}/summary`
+    }
 
     if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
         const collated = Object.values(state).reduce((acc, p) => ({ ...acc, ...p }), {})
-        return this.Item(request, component, collated, page, model, { ...params, num: i + 1 })
+        const qs = `${querystring.encode({ ...query, num: i + 1 })}`
+        return this.Item(component, collated, page, model, qs)
       })
     }
 
@@ -402,36 +372,12 @@ class SummaryViewModel {
       label: component.localisedString(component.title),
       value: component.getDisplayStringFromState(sectionState),
       rawValue: sectionState[component.name],
-      url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
+      url: `/${model.basePath}${page.path}?${queryString || querystring.encode(query)}`,
       pageId: `/${model.basePath}${page.path}`,
       type: component.type,
       title: component.title,
       dataType: component.dataType
     }
-  }
-
-  #addFeedbackSourceDataToWebhook(webhookData, model, request) { //eslint-disable-line
-    if(model.def.feedback?.feedbackForm) {
-      const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo)
-      if(feedbackContextInfo) {
-        webhookData.questions.push(
-          ...Data.FEEDBACK_CONTEXT_ITEMS.map(item => ({
-                category: null,
-                question: item.display,
-                fields: [
-                  {
-                    key: item.key,
-                    title: item.display,
-                    type: 'string',
-                    answer: item.get(feedbackContextInfo)
-                  }
-                ]
-              })
-          )
-        )
-      }
-    }
-    return webhookData;
   }
 }
 
@@ -448,11 +394,11 @@ class SummaryPage extends Page {
       }
 
       const state = await cacheService.getState(request)
-      const viewModel = new SummaryViewModel(this.title, model, state, request)
-      this.#setFeedbackDetails(viewModel, request)
+      const viewModel = new SummaryViewModel(this.title, model, state)
+      viewModel.currentPath = `/${model.basePath}${this.path}`
 
       if (viewModel.endPage) {
-        return redirectTo(request, h, `/${model.basePath}${viewModel.endPage.path}`)
+        return h.redirect(`/${model.basePath}${viewModel.endPage.path}`)
       }
 
       if (viewModel.errors) {
@@ -477,11 +423,11 @@ class SummaryPage extends Page {
           return false
         })[0]
         if (pageWithError) {
-          const params = {
-            returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
+          const query = {
+            returnUrl: `/${model.basePath}/summary`,
             num: iteration && pageWithError.repeatField ? iteration : null
           }
-          return redirectTo(request, h, `/${model.basePath}${pageWithError.path}`, params)
+          return h.redirect(`/${model.basePath}${pageWithError.path}?${querystring.encode(query)}`)
         }
       }
 
@@ -498,17 +444,16 @@ class SummaryPage extends Page {
       const { payService, cacheService } = request.services([])
       const model = this.model
       const state = await cacheService.getState(request)
-      const summaryViewModel = new SummaryViewModel(this.title, model, state, request)
-      this.#setFeedbackDetails(summaryViewModel, request)
+      const summaryViewModel = new SummaryViewModel(this.title, model, state)
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
-        let startPageRedirect = redirectTo(request, h, `/${model.basePath}${model.def.pages[0].path}`)
+        let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
         const startPage = model.def.startPage
         if (startPage.startsWith('http')) {
-          startPageRedirect = redirectTo(request, h, startPage)
+          startPageRedirect = h.redirect(startPage)
         } else if (model.def.pages.find(page => page.path === startPage)) {
-          startPageRedirect = redirectTo(request, h, `/${model.basePath}${startPage}`)
+          startPageRedirect = h.redirect(`/${model.basePath}${startPage}`)
         }
 
         return startPageRedirect
@@ -518,7 +463,7 @@ class SummaryPage extends Page {
         const { declaration } = request.payload
         if (!declaration) {
           request.yar.flash('declarationError', 'You must declare to be able to submit this application')
-          return redirectTo(request, h, `${request.headers.referer}#declaration`)
+          return h.redirect(`${request.headers.referer}#declaration`)
         }
         summaryViewModel.addDeclarationAsQuestion()
       }
@@ -526,13 +471,14 @@ class SummaryPage extends Page {
       await cacheService.mergeState(request, { outputs: summaryViewModel.outputs })
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
-      if (!summaryViewModel.fees || (summaryViewModel.fees.details ?? []).length === 0) {
-        return redirectTo(request, h, '/status')
+      if (!summaryViewModel.fees) {
+        return h.redirect('/status')
       }
 
-      const paymentReference = `FCO-${nanoid(10)}`
+      // TODO:- make generic (sorry non FCO)
+      const paymentReference = `FCO-${shortid.generate()}`
       const description = payService.descriptionFromFees(summaryViewModel.fees)
-      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey, redirectUrl(request, payReturnUrl))
+      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey)
 
       request.yar.set('basePath', model.basePath)
       await cacheService.mergeState(request, {
@@ -547,32 +493,7 @@ class SummaryPage extends Page {
       summaryViewModel.webhookDataPaymentReference = paymentReference
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
-      return redirectTo(request, h, res._links.next_url.href)
-    }
-  }
-
-  #setFeedbackDetails (viewModel, request) { /* eslint-disable-line */
-    const feedbackContextInfo = this.#getFeedbackContextInfo(request)
-    if(feedbackContextInfo) {
-      // set the form name to the source form name if this is a feedback form
-      viewModel.name = feedbackContextInfo.formTitle
-    }
-    // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
-    viewModel.feedbackLink = this.#feedbackUrlFromRequest(request)
-  }
-
-  #getFeedbackContextInfo(request) { /* eslint-disable-line */
-    if (this.model.def.feedback?.feedbackForm) {
-      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo);
-    }
-  }
-
-  #feedbackUrlFromRequest (request) {  /* eslint-disable-line */
-    if (this.model.def.feedback?.url) {
-      let feedbackLink = new RelativeUrl(this.model.def.feedback.url)
-      const returnInfo = new FeedbackContextInfo(this.model.name, 'Summary', `${request.url.pathname}${request.url.search}`)
-      feedbackLink.feedbackReturnInfo = returnInfo.toString()
-      return feedbackLink.toString()
+      return h.redirect(res._links.next_url.href)
     }
   }
 

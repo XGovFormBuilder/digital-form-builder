@@ -1,7 +1,7 @@
 {% from "./summary-row.html" import summaryRow %}
 
-{% macro summaryDetail(data) %}
-    {%  set isRepeatableSection = data.items[0] | isArray %}
+{% macro summaryDetail(data, allowDelete) %}
+    {% set isRepeatableSection = data.items[0] | isArray %}
     {% if not isRepeatableSection %}
         <h2 class="govuk-heading-m">{{data.title}}</h2>
     {% endif %}
@@ -9,7 +9,15 @@
     {% for item in data.items %}
         {% if not hide %}
         {%- if item | isArray %}
-            <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">{{data.title}} {{ loop.index }}</h2>
+            <div class="govuk-summary-list__row govuk-summary-list__row--mini-summary">
+                <h2 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-0">{{data.title}} {{ loop.index }}</h2>
+                {% if allowDelete %}
+                    <dd class="govuk-summary-list__value"></dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a href="?delete={{ loop.index }}" class="govuk-button govuk-button--warning govuk-!-margin-top-0 govuk-!-margin-bottom-0">Delete</a>
+                    </dd>
+                {% endif %}
+            </div>
             {% for repeated in item %}
                 {{ summaryRow(repeated) }}
             {% endfor %}

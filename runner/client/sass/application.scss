@@ -70,3 +70,12 @@
     display: none;
   }
 }
+
+
+.govuk-summary-list__row {
+  &--mini-summary {
+    & * {
+      border: none;
+    }
+  }
+}

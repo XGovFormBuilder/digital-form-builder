@@ -109,7 +109,9 @@
       "section": "applicant",
       "controller": "./pages/mini-summary.js",
       "components": [],
-      "next": []
+      "next": [ {
+        "path": "/summary"
+      }]
     },
     {
       "path": "/summary",
