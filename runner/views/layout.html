@@ -82,13 +82,21 @@
 
 
 {% block beforeContent %}
-    {{ govukPhaseBanner({
+    {% if feedbackLink %}
+        {{ govukPhaseBanner({
+            tag: {
+              text: "beta"
+            },
+            html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
+        }) }}
+    {% else %}
+        {{ govukPhaseBanner({
         tag: {
-          text: "beta"
+        text: "beta"
         },
-        html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
-    }) }}
-
+        html: 'This is a new service – your feedback will help us to improve it.'
+        }) }}
+    {% endif %}
     {% if backLink %}
         {{ govukBackLink({
             href: backLink,
