@@ -1,5 +1,5 @@
 {
-  "name": "digital-form-builder-model",
+  "name": "@xgovformbuilder/model",
   "version": "1.0.0",
   "description": "A hapi plugin providing the model for XGov digital form builder based applications",
   "main": "index.js",
@@ -10,8 +10,7 @@
     "build": "babel src -d lib --source-maps inline",
     "build:watch": "babel src -d lib --source-maps inline --watch",
     "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test -r console -o stdout -r html -o unit-test.html -I version",
-    "test": "yarn flow && yarn lint && yarn test-lab",
-    "postpack": "flow-typed install --ignoreDeps dev"
+    "test": "yarn flow && yarn lint && yarn test-lab"
   },
   "repository": {
     "type": "git",
@@ -35,19 +34,20 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
-    "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-flow": "^7.10.4",
-    "babel-eslint": "11.0.0-beta.2",
-    "eslint-plugin-flowtype": "^5.2.0",
-    "flow-bin": "^0.130.0",
-    "flow-typed": "^3.2.1",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
     "@xgovformbuilder/lab-babel": "2.0.0",
+    "babel-eslint": "11.0.0-beta.2",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "flow-bin": "^0.130.0",
+    "flow-mono-cli": "^1.5.3",
+    "flow-typed": "^3.2.1",
     "standard": "14.3.3"
   },
   "peerDependencies": {

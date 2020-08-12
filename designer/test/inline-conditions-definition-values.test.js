@@ -11,8 +11,8 @@ import {
   dateUnits,
   RelativeTimeValue,
   timeUnits
-} from 'digital-form-builder-model/lib/conditions/inline-condition-values'
-import { relativeDateOrTimeOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
+} from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+import { relativeDateOrTimeOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
 
 const { expect } = Code
 const lab = Lab.script()

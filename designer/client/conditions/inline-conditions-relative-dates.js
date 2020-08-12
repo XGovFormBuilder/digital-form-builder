@@ -1,5 +1,5 @@
 import React from 'react'
-import { dateDirections, RelativeTimeValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { dateDirections, RelativeTimeValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 
 class RelativeTimeValues extends React.Component {
   constructor (props) {

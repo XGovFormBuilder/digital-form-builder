@@ -1,0 +1,37 @@
+{
+  "name": "digital-form-builder-mono",
+  "version": "1.0.0",
+  "description": "Mono repo for xgovformbuilder's designer, engine, model and runner",
+  "repository": "https://github.com/XGovFormBuilder/digital-form-builder.git",
+  "author": "Jen <jen+git@cautionyourblast.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "model",
+    "designer",
+    "engine",
+    "runner"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-proposal-export-default-from": "^7.10.1",
+    "@babel/plugin-proposal-private-methods": "^7.10.1",
+    "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-flow": "^7.10.4",
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^22.0.4",
+    "@xgovformbuilder/lab-babel": "2.0.0",
+    "babel-eslint": "11.0.0-beta.2",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "flow-bin": "^0.130.0",
+    "flow-typed": "^3.2.1",
+    "standard": "14.3.3",
+    "workspace-builder": "^1.0.0",
+    "yarn": "^1.22.4"
+  }
+}

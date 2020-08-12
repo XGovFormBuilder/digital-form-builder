@@ -1,5 +1,5 @@
 const joi = require('joi')
-const componentTypes = require('digital-form-builder-model/lib/component-types')
+const componentTypes = require('@xgovformbuilder/model/lib/component-types')
 const nunjucks = require('nunjucks')
 const createConditionalComponents = Symbol('createConditionalComponents')
 const getSchemaKeys = Symbol('getSchemaKeys')
@@ -449,9 +449,9 @@ class ComponentCollection {
 nunjucks.configure([
   'node_modules/govuk-frontend/govuk/',
   'node_modules/govuk-frontend/govuk/components/',
-  'node_modules/digital-form-builder-engine/views',
-  'node_modules/digital-form-builder-engine/views/partials',
-  'node_modules/digital-form-builder-designer/views',
+  'node_modules/@xgovformbuilder/engine/views',
+  'node_modules/@xgovformbuilder/engine/views/partials',
+  'node_modules/@xgovformbuilder/designer/views',
   'node_modules/hmpo-components/components'
 ])
 module.exports = {

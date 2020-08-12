@@ -1,8 +1,8 @@
 import React from 'react'
 import { getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
-import ComponentTypes from 'digital-form-builder-model/lib/component-types'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ComponentCreate extends React.Component {
   state = {}

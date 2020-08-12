@@ -1,5 +1,5 @@
 {
-  "name": "digital-form-builder-engine",
+  "name": "@xgovformbuilder/engine",
   "version": "1.9.0",
   "description": "A hapi plugin providing the engine for XGov digital form builder based applications",
   "main": "index.js",
@@ -22,8 +22,8 @@
     "@babel/runtime": "7.10.4",
     "@hapi/hoek": "^9.0.4",
     "@hapi/joi": "17.1.1",
+    "@xgovformbuilder/model": "1.0.0",
     "boom": "7.3.0",
-    "digital-form-builder-model": "file:../model",
     "expr-eval": "2.0.2",
     "flow-typed": "^3.2.1",
     "govuk-frontend": "3.6.0",
@@ -37,9 +37,9 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
-    "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",

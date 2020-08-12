@@ -1,4 +1,4 @@
-import plugin from 'digital-form-builder-engine'
+import plugin from '@xgovformbuilder/engine'
 
 const path = require('path')
 const fs = require('fs')

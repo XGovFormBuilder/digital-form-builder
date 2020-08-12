@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 import { camelCase } from './helpers'
 
 class SectionCreate extends React.Component {

@@ -1,6 +1,6 @@
 import React from 'react'
 import ListItems from './list-items'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ListEdit extends React.Component {
   constructor (props) {
