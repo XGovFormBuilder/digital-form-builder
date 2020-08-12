@@ -8,14 +8,15 @@
     "dev": "yarn babel-build:dev & NODE_ENV=development node dist/index.js",
     "build:css": "bin/build-css",
     "build": "yarn build:css && yarn babel-build",
-    "lint": "standard",
-    "unit-test": "lab -T node_modules/@xgovformbuilder/lab-babel -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
+    "lint": "yarn run eslint ./ -c ../.eslintrc.json",
+    "fix-lint": "yarn run lint --fix",
+    "unit-test": "lab -T test/.transform.js -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "NODE_ENV=test yarn run flow && yarn run lint && yarn run unit-test",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
-    "babel-build": "babel src -d dist --copy-files --minified -s inline",
-    "babel-build:dev": "babel src -d dist --copy-files --watch -s inline"
+    "babel-build": "babel --root-mode upward src -d dist --copy-files --minified -s inline",
+    "watch": "bash -c 'yarn run babel --root-mode upward src -d dist --copy-files --watch -s inline'"
   },
   "repository": {
     "type": "git",
@@ -79,18 +80,22 @@
   },
   "devDependencies": {
     "@babel/cli": "7.10.3",
-    "@babel/core": "7.10.3",
+    "@babel/core": "^7.11.1",
+    "@babel/eslint-parser": "^7.11.3",
+    "@babel/eslint-plugin": "^7.11.3",
     "@babel/plugin-transform-classes": "^7.10.1",
     "@babel/plugin-transform-modules-commonjs": "7.10.1",
     "@babel/plugin-transform-runtime": "7.10.3",
     "@babel/preset-env": "7.10.3",
     "@babel/preset-flow": "^7.10.4",
     "@babel/register": "7.10.3",
-    "@xgovformbuilder/lab-babel": "2.1.0",
+    "@xgovformbuilder/lab-babel": "2.1.2",
     "babel-eslint": "^10.1.0",
     "cheerio": "1.0.0-rc.3",
     "code": "5.2.4",
+    "eslint": "^7.6.0",
     "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "flow-bin": "^0.130.0",
     "lab": "18.0.2",
     "node-sass": "4.13.1",
@@ -100,17 +105,5 @@
     "requiredScores": {
       "accessibility": 90
     }
-  },
-  "standard": {
-    "ignore": [
-      "public/",
-      "**/plugins/locale.js",
-      "flow-typed"
-    ],
-    "parser": "babel-eslint",
-    "plugins": [
-      "flowtype"
-    ]
-  },
-  "eslint": "babel-eslint"
+  }
 }

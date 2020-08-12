@@ -23,9 +23,11 @@ function TextValues (props) {
   }
 
   return (
-    <input className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
+    <input
+      className='govuk-input govuk-input--width-20' id='cond-value' name='cond-value'
       type='text' defaultValue={value?.value} required
-      onChange={onChangeTextInput} />
+      onChange={onChangeTextInput}
+    />
   )
 }
 
@@ -45,8 +47,10 @@ function SelectValues (props) {
   }
 
   return (
-    <select className='govuk-select' id='cond-value' name='cond-value' value={value?.value??''}
-      onChange={onChangeSelect}>
+    <select
+      className='govuk-select' id='cond-value' name='cond-value' value={value?.value ?? ''}
+      onChange={onChangeSelect}
+    >
       <option />
       {fieldDef.values.map(option => {
         return <option key={option.value} value={option.value}>{option.text}</option>
@@ -58,11 +62,11 @@ function SelectValues (props) {
 function customValueComponent (fieldType, operator) {
   const operatorConfig = getOperatorConfig(fieldType, operator)
   const absoluteDateTimeRenderFunctions = {
-    'DateField': (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
-    'DatePartsField': (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
-    'DateTimeField': (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
-    'DateTimePartsField': (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
-    'TimeField': (value, updateValue) => <AbsoluteTimeValues value={value} updateValue={updateValue} />
+    DateField: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
+    DatePartsField: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
+    DateTimeField: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
+    DateTimePartsField: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
+    TimeField: (value, updateValue) => <AbsoluteTimeValues value={value} updateValue={updateValue} />
   }
   const dateTimeFieldTypes = Object.keys(absoluteDateTimeRenderFunctions).includes(fieldType)
   if (dateTimeFieldTypes) {
@@ -83,7 +87,7 @@ class InlineConditionsDefinitionValue extends React.Component {
     if (customRendering) {
       return customRendering(value, updateValue)
     }
-    return (fieldDef?.values?.length??0) > 0 ? SelectValues(this.props) : TextValues(this.props)
+    return (fieldDef?.values?.length ?? 0) > 0 ? SelectValues(this.props) : TextValues(this.props)
   }
 }
 

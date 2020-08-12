@@ -31,11 +31,15 @@ class ConditionsEdit extends React.Component {
       <div className='govuk-body'>
         {!condition &&
           <div>
-            <Flyout title='Edit Conditions' show={!!this.state.showAddCondition}
-              onHide={this.cancelInlineCondition}>
-              <InlineConditions data={data}
+            <Flyout
+              title='Edit Conditions' show={!!this.state.showAddCondition}
+              onHide={this.cancelInlineCondition}
+            >
+              <InlineConditions
+                data={data}
                 conditionsChange={this.cancelInlineCondition}
-                cancelCallback={this.cancelInlineCondition} />
+                cancelCallback={this.cancelInlineCondition}
+              />
             </Flyout>
             <ul className='govuk-list'>
               {conditions.map((condition) => (
@@ -56,17 +60,16 @@ class ConditionsEdit extends React.Component {
                   ? <a href='#' id='add-condition-link' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
                   : <div className='govuk-body'>
                       You cannot add any conditions as there are no available fields
-                  </div>
-                }
+                  </div>}
               </li>
             </ul>
-          </div>
-        }
+          </div>}
         {condition &&
-          <ConditionEdit condition={condition} data={data}
+          <ConditionEdit
+            condition={condition} data={data}
             onEdit={this.editFinished}
-            onCancel={this.editFinished} />
-        }
+            onCancel={this.editFinished}
+          />}
       </div>
     )
   }

@@ -16,7 +16,7 @@ suite('Link edit', () => {
   describe('Editing a link which does not have a condition', () => {
     const data = new Data({
       pages: [
-        { path: '/1', title: 'Page 1', next: [ { path: '/2' } ] },
+        { path: '/1', title: 'Page 1', next: [{ path: '/2' }] },
         { path: '/2', title: 'Page 2' }
       ],
       conditions: [
@@ -61,7 +61,7 @@ suite('Link edit', () => {
   describe('Editing a link which has a condition', () => {
     const data = new Data({
       pages: [
-        { path: '/1', title: 'Page 1', next: [ { path: '/2', condition: 'anotherCondition' } ] },
+        { path: '/1', title: 'Page 1', next: [{ path: '/2', condition: 'anotherCondition' }] },
         { path: '/2', title: 'Page 2' }
       ],
       conditions: [
@@ -106,7 +106,7 @@ suite('Link edit', () => {
   describe('submitting the form', () => {
     const data = new Data({
       pages: [
-        { path: '/1', title: 'Page 1', next: [ { path: '/2' } ] },
+        { path: '/1', title: 'Page 1', next: [{ path: '/2' }] },
         { path: '/2', title: 'Page 2' }
       ],
       conditions: [

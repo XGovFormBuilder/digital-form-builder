@@ -76,7 +76,7 @@ suite('Editing inline conditions', () => {
     })
 
     test('Clicking the edit link for a subsequent condition causes the field definition inputs to be pre-populated correctly', () => {
-      let condition = new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), isEqualToOperator, new ConditionValue('N'), 'and')
+      const condition = new Condition(new Field(fields.field2.name, fields.field2.type, fields.field2.label), isEqualToOperator, new ConditionValue('N'), 'and')
       conditions.add(condition)
       const wrapper = shallow(<InlineConditionsEdit conditions={conditions} fields={fields} saveCallback={saveCallback} exitCallback={exitCallback} />)
       wrapper.find('#condition-1-edit').simulate('click')
@@ -276,7 +276,7 @@ suite('Editing inline conditions', () => {
 })
 
 function assertFieldDefinitionSection (wrapper, fields, hasConditions, condition, editingIndex) {
-  let inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
+  const inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
   expect(inlineConditionsDefinition.exists()).to.equal(true)
   expect(inlineConditionsDefinition.prop('expectsCoordinator')).to.equal(hasConditions && editingIndex !== 0)
   expect(inlineConditionsDefinition.prop('fields')).to.equal(fields)
@@ -286,7 +286,7 @@ function assertFieldDefinitionSection (wrapper, fields, hasConditions, condition
 }
 
 function assertEditPanel (wrapper, conditions, editingError) {
-  let editConditionsPanel = wrapper.find('#edit-conditions')
+  const editConditionsPanel = wrapper.find('#edit-conditions')
   expect(editConditionsPanel.exists()).to.equal(true)
 
   const fieldSet = editConditionsPanel.find('fieldset')
@@ -312,7 +312,7 @@ function assertEditPanel (wrapper, conditions, editingError) {
     expect(checkboxDiv.children().length).to.equal(3)
     assertCheckboxInput(checkboxDiv.children().at(0), `condition-${index}`, index, condition.selected || '')
     assertLabel(checkboxDiv.children().at(1), condition.condition)
-    let actions = checkboxDiv.children().at(2)
+    const actions = checkboxDiv.children().at(2)
     assertSpan(actions)
     expect(actions.prop('id')).to.equal(`condition-${index}-actions`)
     let expectedActions = 3

@@ -4,9 +4,11 @@ import * as Lab from '@hapi/lab'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
 import { getExpression, getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
 
-import { dateDirections,
+import {
+  dateDirections,
   dateUnits,
-  timeUnits, ConditionValue, RelativeTimeValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+  timeUnits, ConditionValue, RelativeTimeValue
+} from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -47,7 +49,7 @@ suite('Inline condition operators', () => {
       },
       {
         operators: {
-          'is': (field, value) => `${field} == '${value.value}'`,
+          is: (field, value) => `${field} == '${value.value}'`,
           'is after': (field, value) => `${field} > '${value.value}'`,
           'is before': (field, value) => `${field} < '${value.value}'`,
           'is not': (field, value) => `${field} != '${value.value}'`
@@ -58,11 +60,11 @@ suite('Inline condition operators', () => {
 
   // I expect this list to grow as time goes on.
   const componentTypesWithCustomValidators = {
-    'NumberField': {
+    NumberField: {
       cases: [
         {
           operators: {
-            'is': (field, value) => `${field} == ${value.value}`,
+            is: (field, value) => `${field} == ${value.value}`,
             'is at least': (field, value) => `${field} >= ${value.value}`,
             'is at most': (field, value) => `${field} <= ${value.value}`,
             'is less than': (field, value) => `${field} < ${value.value}`,
@@ -73,48 +75,48 @@ suite('Inline condition operators', () => {
       ]
 
     },
-    'DateField': {
+    DateField: {
       cases: dateTimeOperatorExpectations(dateUnits.MONTHS.value, dateUnits.DAYS.value)
     },
-    'DatePartsField': {
+    DatePartsField: {
       cases: dateTimeOperatorExpectations(dateUnits.YEARS.value, dateUnits.DAYS.value)
     },
-    'TimeField': {
+    TimeField: {
       cases: timeOperatorExpectations(timeUnits.HOURS.value, timeUnits.SECONDS.value)
     },
-    'DateTimeField': {
+    DateTimeField: {
       cases: dateTimeOperatorExpectations(dateUnits.YEARS.value, timeUnits.SECONDS.value)
     },
-    'DateTimePartsField': {
+    DateTimePartsField: {
       cases: dateTimeOperatorExpectations(dateUnits.YEARS.value, timeUnits.MINUTES.value)
     },
     // here because the formatting of value is different to the standard quoted string
-    'YesNoField': {
+    YesNoField: {
       cases: [
         {
           operators: {
-            'is': (field, value) => `${field} == ${value.value}`,
+            is: (field, value) => `${field} == ${value.value}`,
             'is not': (field, value) => `${field} != ${value.value}`
           }
         }
       ]
     },
-    'CheckboxesField': {
+    CheckboxesField: {
       cases: [
         {
           operators: {
-            'contains': (field, value) => `'${value.value}' in ${field}`,
+            contains: (field, value) => `'${value.value}' in ${field}`,
             'does not contain': (field, value) => `not ('${value.value}' in ${field})`
           }
         }
       ]
     },
-    'TextField': {
+    TextField: {
       cases: [
         {
           operators: {
             'has length': (field, value) => `length(${field}) == ${value.value}`,
-            'is': (field, value) => `${field} == '${value.value}'`,
+            is: (field, value) => `${field} == '${value.value}'`,
             'is longer than': (field, value) => `length(${field}) > ${value.value}`,
             'is not': (field, value) => `${field} != '${value.value}'`,
             'is shorter than': (field, value) => `length(${field}) < ${value.value}`
@@ -122,12 +124,12 @@ suite('Inline condition operators', () => {
         }
       ]
     },
-    'MultilineTextField': {
+    MultilineTextField: {
       cases: [
         {
           operators: {
             'has length': (field, value) => `length(${field}) == ${value.value}`,
-            'is': (field, value) => `${field} == '${value.value}'`,
+            is: (field, value) => `${field} == '${value.value}'`,
             'is longer than': (field, value) => `length(${field}) > ${value.value}`,
             'is not': (field, value) => `${field} != '${value.value}'`,
             'is shorter than': (field, value) => `length(${field}) < ${value.value}`
@@ -135,12 +137,12 @@ suite('Inline condition operators', () => {
         }
       ]
     },
-    'EmailAddressField': {
+    EmailAddressField: {
       cases: [
         {
           operators: {
             'has length': (field, value) => `length(${field}) == ${value.value}`,
-            'is': (field, value) => `${field} == '${value.value}'`,
+            is: (field, value) => `${field} == '${value.value}'`,
             'is longer than': (field, value) => `length(${field}) > ${value.value}`,
             'is not': (field, value) => `${field} != '${value.value}'`,
             'is shorter than': (field, value) => `length(${field}) < ${value.value}`
@@ -151,7 +153,7 @@ suite('Inline condition operators', () => {
   }
 
   const defaultValidators = {
-    'is': (field, value) => `${field} == '${value.value}'`,
+    is: (field, value) => `${field} == '${value.value}'`,
     'is not': (field, value) => `${field} != '${value.value}'`
   }
 

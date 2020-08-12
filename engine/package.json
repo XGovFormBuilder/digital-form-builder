@@ -5,11 +5,11 @@
   "main": "index.js",
   "module": "src/lib.js",
   "scripts": {
-    "fix-lint": "standard --fix",
-    "lint": "standard",
-    "build": "babel src -d lib --source-maps inline",
-    "build:watch": "babel src -d lib --source-maps inline --watch",
-    "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
+    "fix-lint": "yarn run lint --fix",
+    "lint": "yarn run eslint ./ -c ../.eslintrc.json",
+    "build": "yarn run babel --root-mode upward src -d lib --source-maps inline",
+    "watch": "bash -c 'nohup yarn run babel src --root-mode upward -d lib --source-maps inline --watch'",
+    "test-lab": "lab -T test/.transform.js -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
     "test": "yarn flow && yarn lint && yarn test-lab",
     "postpack": "flow-typed install --ignoreDeps dev"
   },
@@ -37,6 +37,8 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
+    "@babel/eslint-parser": "^7.11.3",
+    "@babel/eslint-plugin": "^7.11.3",
     "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
@@ -46,23 +48,14 @@
     "@babel/preset-flow": "^7.10.4",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
-    "@xgovformbuilder/lab-babel": "2.0.0",
-    "babel-eslint": "11.0.0-beta.2",
+    "@xgovformbuilder/lab-babel": "2.1.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.6.0",
+    "eslint-6": "npm:eslint@6",
+    "eslint-7": "npm:eslint@^7.1.0",
     "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "flow-bin": "^0.130.0",
     "standard": "14.3.3"
-  },
-  "peerDependencies": {
-    "joi": "^14"
-  },
-  "standard": {
-    "ignore": [
-      "lib",
-      "flow-typed"
-    ],
-    "parser": "babel-eslint",
-    "plugins": [
-      "flowtype"
-    ]
   }
 }

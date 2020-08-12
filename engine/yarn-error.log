@@ -1,0 +1,108 @@
+Arguments: 
+  /Users/jenniferduong/.nvm/versions/node/v12.16.1/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js lint
+
+PATH: 
+  /var/folders/08/g5jjrsyx5xbdqs_vh1yccz3c0000gn/T/yarn--1597854854383-0.778733700246063:/Users/jenniferduong/projects/cyb/fcoforms/digital-form-builder-mono/engine/node_modules/.bin:/Users/jenniferduong/.config/yarn/link/node_modules/.bin:/Users/jenniferduong/projects/cyb/fcoforms/digital-form-builder-mono/node_modules/.bin:/Users/jenniferduong/.nvm/versions/node/v12.16.1/libexec/lib/node_modules/npm/bin/node-gyp-bin:/Users/jenniferduong/.nvm/versions/node/v12.16.1/lib/node_modules/npm/bin/node-gyp-bin:/Users/jenniferduong/.nvm/versions/node/v12.16.1/bin/node_modules/npm/bin/node-gyp-bin:/Users/jenniferduong/projects/cyb/fcoforms/digital-form-builder-mono/engine/node_modules/.bin:/Users/jenniferduong/projects/cyb/fcoforms/digital-form-builder-mono/node_modules/.bin:/Users/jenniferduong/projects/cyb/fcoforms/node_modules/.bin:/Users/jenniferduong/projects/cyb/node_modules/.bin:/Users/jenniferduong/projects/node_modules/.bin:/Users/jenniferduong/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/Users/jenniferduong/.nvm/versions/node/v12.16.1/bin:/Users/jenniferduong/Downloads/google-cloud-sdk/bin:/Users/jenniferduong/.fastlane/bin:/Users/jenniferduong/.nvm/versions/node/v12.16.1/bin:/Users/jenniferduong/.fastlane/bin:/Users/jenniferduong/.nvm/versions/node/v12.16.1/bin:/Users/jenniferduong/.rvm/gems/ruby-2.4.2/bin:/Users/jenniferduong/.rvm/gems/ruby-2.4.2@global/bin:/Users/jenniferduong/.rvm/rubies/ruby-2.4.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/jenniferduong/.rvm/bin:/Users/jenniferduong/.rvm/bin:/Users/jenniferduong/.rvm/bin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.16.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: package.json: write EPIPE
+      at afterWriteDispatched (internal/stream_base_commons.js:154:25)
+      at writeGeneric (internal/stream_base_commons.js:145:3)
+      at Socket._writeGeneric (net.js:780:11)
+      at Socket._write (net.js:792:8)
+      at doWrite (_stream_writable.js:441:12)
+      at writeOrBuffer (_stream_writable.js:425:5)
+      at Socket.Writable.write (_stream_writable.js:316:11)
+      at ConsoleReporter.warn (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:96791:17)
+      at warn (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:51520:23)
+      at cleanDependencies (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:37540:11)
+
+npm manifest: 
+  {
+    "name": "@xgovformbuilder/engine",
+    "version": "1.9.0",
+    "description": "A hapi plugin providing the engine for XGov digital form builder based applications",
+    "main": "index.js",
+    "module": "src/lib.js",
+    "scripts": {
+      "fix-lint": "standard --fix",
+      "lint": "standard",
+      "build": "babel --root-mode upward src -d lib --source-maps inline",
+      "build:watch": "babel src --root-mode upward -d lib --source-maps inline --watch",
+      "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
+      "test": "yarn flow && yarn lint && yarn test-lab",
+      "postpack": "flow-typed install --ignoreDeps dev"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/master/engine"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "dependencies": {
+      "@babel/runtime": "7.10.4",
+      "@hapi/hoek": "^9.0.4",
+      "@hapi/joi": "17.1.1",
+      "@xgovformbuilder/model": "1.0.0",
+      "boom": "7.3.0",
+      "expr-eval": "2.0.2",
+      "flow-bin": "^0.131.0",
+      "flow-typed": "^3.2.1",
+      "govuk-frontend": "3.6.0",
+      "hmpo-components": "2.6.5",
+      "joi": "14.3.1",
+      "moment": "2.24.0",
+      "nunjucks": "3.2.1",
+      "path": "0.12.7",
+      "wreck": "14.2.0"
+    },
+    "devDependencies": {
+      "@babel/cli": "^7.10.1",
+      "@babel/core": "^7.10.2",
+      "@babel/eslint-parser": "^7.11.3",
+      "@babel/eslint-plugin": "^7.11.3",
+      "@babel/plugin-proposal-class-properties": "7.10.1",
+      "@babel/plugin-proposal-export-default-from": "^7.10.1",
+      "@babel/plugin-proposal-private-methods": "^7.10.1",
+      "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
+      "@babel/plugin-transform-runtime": "^7.10.1",
+      "@babel/preset-env": "^7.10.2",
+      "@babel/preset-flow": "^7.10.4",
+      "@hapi/code": "^8.0.1",
+      "@hapi/lab": "^23.0.0",
+      "@xgovformbuilder/lab-babel": "2.1.2",
+      "babel-eslint": "^10.1.0",
+      "eslint": "^7.6.0",
+      "eslint-6": "npm:eslint@6",
+      "eslint-7": "npm:eslint@^7.1.0",
+      "eslint-plugin-flowtype": "^5.2.0",
+      "eslint-plugin-import": "^2.22.0",
+      "flow-bin": "^0.130.0",
+      "standard": "14.3.3"
+    },
+    "standard": {
+      "ignore": [
+        "lib",
+        "flow-typed"
+      ],
+      "parser": "babel-eslint",
+      "plugins": [
+        "flowtype",
+        "@babel"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

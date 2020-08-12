@@ -73,12 +73,12 @@ suite('Select conditions', () => {
 
       test('should display the select conditions list and a link to allow inline creation', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
-        let conditionsSection = wrapper.find('.conditions')
+        const conditionsSection = wrapper.find('.conditions')
         expect(conditionsSection.exists()).to.equal(true)
-        let conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
+        const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
         expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
-        let selectConditions = conditionsSection.find('#select-condition')
+        const selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(true)
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
@@ -90,12 +90,12 @@ suite('Select conditions', () => {
 
       test('should default the selected condition when one is provided', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} selectedCondition={conditions[1].name} conditionsChange={conditionsChange} />)
-        let conditionsSection = wrapper.find('.conditions')
+        const conditionsSection = wrapper.find('.conditions')
         expect(conditionsSection.exists()).to.equal(true)
-        let conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
+        const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
         expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
-        let selectConditions = conditionsSection.find('#select-condition')
+        const selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(true)
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
@@ -198,12 +198,12 @@ suite('Select conditions', () => {
 
       test('should display a link to allow inline creation', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
-        let conditionsSection = wrapper.find('.conditions')
+        const conditionsSection = wrapper.find('.conditions')
         expect(conditionsSection.exists()).to.equal(true)
-        let conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
+        const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
         expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
-        let selectConditions = conditionsSection.find('#select-condition')
+        const selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(false)
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
@@ -228,7 +228,7 @@ suite('Select conditions', () => {
       })
 
       test('if the path property changes to a route without fields then the condition section is replaced by no fields text', () => {
-        let path2 = '/2'
+        const path2 = '/2'
         data.inputsAccessibleAt.withArgs(path2).returns([])
         data.listFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
@@ -238,7 +238,7 @@ suite('Select conditions', () => {
       })
 
       test('if the path property changes from a route with fields then the condition section appears', () => {
-        let path2 = '/2'
+        const path2 = '/2'
         data.inputsAccessibleAt.withArgs(path2).returns([])
         data.listFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path2} conditionsChange={conditionsChange} />)

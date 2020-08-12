@@ -87,18 +87,25 @@ class SectionEdit extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <a className='govuk-back-link' href='#'
-          onClick={e => this.props.onCancel(e)}>Back</a>
+        <a
+          className='govuk-back-link' href='#'
+          onClick={e => this.props.onCancel(e)}
+        >Back
+        </a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='section-name'>Name</label>
-          <input className='govuk-input' id='section-name' name='name'
+          <input
+            className='govuk-input' id='section-name' name='name'
             type='text' defaultValue={section.name} required pattern='^\S+'
-            onBlur={this.onBlurName} />
+            onBlur={this.onBlurName}
+          />
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='section-title'>Title</label>
-          <input className='govuk-input' id='section-title' name='title'
-            type='text' defaultValue={section.title} required />
+          <input
+            className='govuk-input' id='section-title' name='title'
+            type='text' defaultValue={section.title} required
+          />
         </div>
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>

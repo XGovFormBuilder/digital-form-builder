@@ -75,7 +75,8 @@ class ComponentEdit extends React.Component {
           <ComponentTypeEdit
             page={page}
             component={copyComp}
-            data={data} />
+            data={data}
+          />
 
           <button className='govuk-button' type='submit'>Save</button>{' '}
           <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>

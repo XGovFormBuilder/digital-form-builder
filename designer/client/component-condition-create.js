@@ -23,20 +23,23 @@ class ComponentConditionCreate extends React.Component {
       <div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='type'>Type</label>
-          <select className='govuk-select' id={`${idHelper || ''}'type`} name='cond-type' defaultValue={selectedType}
-            onChange={e => this.setState({ component: { type: e.target.value } })}>
+          <select
+            className='govuk-select' id={`${idHelper || ''}'type`} name='cond-type' defaultValue={selectedType}
+            onChange={e => this.setState({ component: { type: e.target.value } })}
+          >
             <option />
             {ConditionalComponentTypes.map(type => {
               return <option key={type.name} value={type.name}>{type.title}</option>
             })}
           </select>
         </div>
-        { selectedType &&
+        {selectedType &&
           <div>
-            <ComponentTypeEdit data={{}}
-              component={this.state.component} />
-          </div>
-        }
+            <ComponentTypeEdit
+              data={{}}
+              component={this.state.component}
+            />
+          </div>}
       </div>
     )
   }

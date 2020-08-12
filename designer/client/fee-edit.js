@@ -64,7 +64,8 @@ class FeeEdit extends React.Component {
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
           <div className='govuk-form-group'>
             <label htmlFor='pay-api-key'>Pay API Key</label>
-            <input className='govuk-input' id='pay-api-key' name='pay-api-key'
+            <input
+              className='govuk-input' id='pay-api-key' name='pay-api-key'
               type='text' required defaultValue={payApiKey}
             />
           </div>

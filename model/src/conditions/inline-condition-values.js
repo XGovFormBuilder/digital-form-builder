@@ -70,7 +70,7 @@ export const timeUnits = {
 }
 export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
 
-const relativeTimeValueType = registerValueType('RelativeTime', obj => RelativeTimeValue.from(obj))
+export const relativeTimeValueType = registerValueType('RelativeTime', obj => RelativeTimeValue.from(obj))
 export class RelativeTimeValue extends AbstractConditionValue {
   constructor (timePeriod, timeUnit, direction, timeOnly = false) {
     super(relativeTimeValueType)

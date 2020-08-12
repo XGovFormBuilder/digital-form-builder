@@ -148,5 +148,5 @@ suite('Component type edit', () => {
 
 function assertOptionalTextWrapper (input, hidden) {
   const wrappingDiv = input.parent.parent
-  expect(wrappingDiv.attribs['hidden']).to.equal(hidden ? '' : undefined)
+  expect(wrappingDiv.attribs.hidden).to.equal(hidden ? '' : undefined)
 }

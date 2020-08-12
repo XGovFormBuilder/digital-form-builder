@@ -32,9 +32,11 @@ class OutputsEdit extends React.Component {
         {!output ? (
           <div>
             {this.state.showAddOutput ? (
-              <OutputEdit data={data} output={{ name: id }}
+              <OutputEdit
+                data={data} output={{ name: id }}
                 onEdit={() => this.setState({ showAddOutput: false })}
-                onCancel={() => this.setState({ showAddOutput: false })} />
+                onCancel={() => this.setState({ showAddOutput: false })}
+              />
             ) : (
               <ul className='govuk-list'>
                 {(outputs || []).map(output => (
@@ -52,9 +54,11 @@ class OutputsEdit extends React.Component {
             )}
           </div>
         ) : (
-          <OutputEdit output={output} data={data}
+          <OutputEdit
+            output={output} data={data}
             onEdit={() => this.setState({ output: null })}
-            onCancel={() => this.setState({ output: null })} />
+            onCancel={() => this.setState({ output: null })}
+          />
         )}
       </div>
     )

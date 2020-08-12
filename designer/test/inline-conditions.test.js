@@ -35,8 +35,10 @@ suite('Inline conditions', () => {
   test('render returns nothing when there is an empty fields list', () => {
     data.inputsAccessibleAt.withArgs(path).returns([])
     data.listFor.returns(undefined)
-    expect(shallow(<InlineConditions data={data} path={path}
-      conditionsChange={conditionsChange} cancelCallback={cancelCallback} />).exists('#inline-conditions')).to.equal(false)
+    expect(shallow(<InlineConditions
+      data={data} path={path}
+      conditionsChange={conditionsChange} cancelCallback={cancelCallback}
+    />).exists('#inline-conditions')).to.equal(false)
     expect(conditionsChange.called).to.equal(false)
   })
 
@@ -93,7 +95,7 @@ suite('Inline conditions', () => {
     })
 
     test('if the path property changes to a route without fields then the condition section disappears', () => {
-      let path2 = '/2'
+      const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
@@ -103,7 +105,7 @@ suite('Inline conditions', () => {
     })
 
     test('if the path property changes from a route with fields then the condition section appears', () => {
-      let path2 = '/2'
+      const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
       const wrapper = shallow(<InlineConditions data={data} path={path2} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
@@ -134,7 +136,7 @@ suite('Inline conditions', () => {
 
     test('Clicking the cancel link should cancel any added conditions and partially completed inputs and trigger the cancel callback', () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
-      let instance = wrapper.instance()
+      const instance = wrapper.instance()
       instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(wrapper.find('#conditions-display').exists()).to.equal(true)
       const e = {}
@@ -145,7 +147,7 @@ suite('Inline conditions', () => {
 
     test('Clicking the cancel link should succeed if there is no cancel callback', () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-      let instance = wrapper.instance()
+      const instance = wrapper.instance()
       instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(wrapper.find('#conditions-display').exists()).to.equal(true)
       const e = {}
@@ -221,7 +223,7 @@ suite('Inline conditions', () => {
 })
 
 function assertFieldDefinitionSection (wrapper, expectedFields, hasConditions, editingIndex) {
-  let inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
+  const inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
   expect(inlineConditionsDefinition.exists()).to.equal(true)
   expect(inlineConditionsDefinition.prop('expectsCoordinator')).to.equal(hasConditions && editingIndex !== 0)
   expect(inlineConditionsDefinition.prop('fields')).to.equal(expectedFields)
@@ -266,7 +268,7 @@ function assertEditingHeaderGroupWithConditionString (wrapper, conditionString) 
 }
 
 function assertEditPanel (wrapper, expectedConditions, expectedFields) {
-  let editConditionsPanel = wrapper.find('InlineConditionsEdit')
+  const editConditionsPanel = wrapper.find('InlineConditionsEdit')
   expect(editConditionsPanel.exists()).to.equal(true)
   expect(editConditionsPanel.prop('conditions')).to.equal(expectedConditions)
   expect(editConditionsPanel.prop('fields')).to.equal(expectedFields)
