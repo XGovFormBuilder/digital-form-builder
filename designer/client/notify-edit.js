@@ -5,7 +5,7 @@ class NotifyEdit extends React.Component {
   constructor (props) {
     super(props)
     const { data } = this.props
-    this.usableKeys = data.allInputs().map(input => input.propertyPath)
+    this.usableKeys = data.allInputs().map(input => ({ name: input.propertyPath, display: input.title }))
   }
 
   render () {
@@ -14,7 +14,7 @@ class NotifyEdit extends React.Component {
     const outputConfiguration = output?.outputConfiguration ?? { templateId: '', apiKey: '', emailField: '', personalisation: [] }
     const { templateId, apiKey, emailField } = outputConfiguration
     const personalisation = outputConfiguration.personalisation
-    const values = [...conditions.map(condition => condition.name), ...this.usableKeys]
+    const values = [...conditions.map(condition => ({ name: condition.name, display: condition.displayName })), ...this.usableKeys]
 
     return (
       <div className='govuk-body'>
@@ -37,7 +37,7 @@ class NotifyEdit extends React.Component {
         <div className='govuk-form-group'>
           <label className='govuk-label' htmlFor='email-field'>Email field</label>
           <select className='govuk-select' id='email-field' name='email-field' defaultValue={emailField} required>
-            {this.usableKeys.map((value, i) => (<option key={value + i} value={value} onBlur={this.onBlur}>{value}</option>))}
+            {this.usableKeys.map((value, i) => (<option key={value + i} value={value.name} onBlur={this.onBlur}>{value.display??value.name}</option>))}
           </select>
         </div>
 
