@@ -30,6 +30,8 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-proposal-private-methods": "^7.10.1",
     "@babel/runtime": "7.10.4",
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",

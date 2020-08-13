@@ -501,7 +501,7 @@ class SummaryPage extends Page {
       await cacheService.mergeState(request, { outputs: summaryViewModel.outputs })
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
-      if (!summaryViewModel.fees) {
+      if (!summaryViewModel.fees || (summaryViewModel.fees.details??[]).length === 0) {
         return h.redirect('/status')
       }
 

@@ -43,13 +43,13 @@ class NotifyItems extends React.Component {
   }
 
   onChangeItem = (e, index) => {
-    const {items} = this.state
+    const { items } = this.state
     items[index] = e.target.value
     this.setState({
       items
     })
 
-    if(items.find((item, itemIndex) => item === e.target.value  && itemIndex!==index)) {
+    if (items.find((item, itemIndex) => item === e.target.value && itemIndex !== index)) {
       e.target.setCustomValidity('Duplicate conditions found in the list items')
     } else {
       e.target.setCustomValidity('')
@@ -82,7 +82,7 @@ class NotifyItems extends React.Component {
             <tr key={item + index} className='govuk-table__row' scope='row'>
               <td className='govuk-table__cell'>
                 <select className='govuk-select' id='link-source' name='personalisation' value={item} onChange={e => this.onChangeItem(e, index)} required>
-                  <option/>
+                  <option />
                   {values.map((value, i) => (<option key={value.name + i} value={value.name}>{value.display??value.name}</option>))}
                 </select>
               </td>

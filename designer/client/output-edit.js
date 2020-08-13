@@ -6,7 +6,7 @@ import { clone } from '@xgovformbuilder/model/lib/helpers'
 class OutputEdit extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { outputType: props.output?.type ?? 'confirmationEmail' }
+    this.state = { outputType: props.output?.type ?? 'notify' }
   }
 
   onSubmit = e => {
@@ -26,7 +26,7 @@ class OutputEdit extends React.Component {
 
     let outputConfiguration = output.outputConfiguration || {}
     switch (outputType) {
-      case 'confirmationEmail':
+      case 'notify':
         outputConfiguration = {
           personalisation: formData.getAll('personalisation').map(t => t.trim()),
           templateId: formData.get('template-id'),
@@ -98,7 +98,7 @@ class OutputEdit extends React.Component {
     const { data, output } = this.props
     const state = this.state
     let outputEdit
-    if (state.outputType === 'confirmationEmail') {
+    if (state.outputType === 'notify') {
       outputEdit = <NotifyEdit data={data} output={output} />
     } else if (state.outputType === 'email') {
       outputEdit = <EmailEdit output={output} />
@@ -145,7 +145,7 @@ class OutputEdit extends React.Component {
             value={state.outputType}
             onChange={this.onChangeOutputType}
           >
-            <option value='confirmationEmail'>Confirmation email</option>
+            <option value='notify'>Email via GOVUK Notify</option>
             <option value='email'>Email</option>
             <option value='webhook'>Webhook</option>
           </select>
