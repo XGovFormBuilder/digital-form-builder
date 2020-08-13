@@ -8,33 +8,133 @@ const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
 const { clone, reach } = require('hoek')
 
+/**
+ * TODO - extract submission behaviour dependencies from the viewmodel
+ * Webhookdata
+ * outputs
+ * skipSummary (replace with reference to this.model.def.skipSummary?)
+ * _payApiKey
+ * replace result with errors?
+ * remove state and value?
+ *
+ * TODO - Pull out summary behaviours into separate service classes?
+ * TODO - Move outputs conversion to an outputs service?
+ * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
+ */
+
 class SummaryViewModel {
   constructor (pageTitle, model, state) {
     this.pageTitle = pageTitle
 
-    const relevantPages = []
-    const details = []
+    let {relevantPages, endPage} = this.#getRelevantPages(model, state);
+    const details = this.#summaryDetails(model, state, relevantPages);
 
-    let nextPage = model.startPage
-    let endPage = null
+    this.declaration = model.def.declaration
+    this.skipSummary = model.def.skipSummary
+    this.endPage = endPage
+    const schema = model.makeFilteredSchema(state, relevantPages)
 
-    while (nextPage != null) {
-      if (nextPage.hasFormComponents) {
-        relevantPages.push(nextPage)
-      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
-        endPage = nextPage
+    const collatedRepeatPagesState = clone(state)
+    delete collatedRepeatPagesState.progress
+    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+      if (Array.isArray(section)) {
+        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
       }
-      nextPage = nextPage.getNextPage(state, true)
+    })
+
+    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
+
+    if (result.error) {
+      this.#processErrors(result, details);
+    } else {
+      this.fees = this.#retrieveFees(model, state);
+      this.#parseDataForWebhook(model, relevantPages, details)
+
+      if (model.def.outputs) {
+        this._outputs = model.def.outputs.map(output => {
+          switch (output.type) {
+            case 'notify':
+              return { type: 'notify', outputData: this.#notifyModel(model, output.outputConfiguration, state) }
+            case 'email':
+              return { type: 'email', outputData: this.#emailModel(model, output.outputConfiguration) }
+            case 'webhook':
+              return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
+            case 'sheets':
+              return { type: 'sheets', outputData: this.#sheetsModel(model, output.outputConfiguration, state) }
+          }
+        })
+      }
     }
+
+    this.result = result
+    this.details = details
+    this.state = state
+    this.value = result.value
+  }
+
+  #retrieveFees(model, state) {
+    let applicableFees = []
+
+    if (model.def.fees) {
+      applicableFees = model.def.fees.filter(fee => {
+        return !fee.condition || model.conditions[fee.condition].fn(state)
+      })
+
+      this._payApiKey = model.def.payApiKey
+      const flatState = flatten(state)
+      return {
+        details: applicableFees,
+        total: Object.values(applicableFees).map(fee => {
+          if (fee.multiplier) {
+            const multiplyBy = flatState[fee.multiplier]
+            fee.multiplyBy = Number(multiplyBy)
+            return fee.multiplyBy * fee.amount
+          }
+          return fee.amount
+        }).reduce((a, b) => a + b, 0)
+      }
+    }
+  }
+
+  #processErrors(result, details) {
+    this.errors = result.error.details.map(err => {
+      const name = err.path[err.path.length - 1]
+
+      return {
+        path: err.path.join('.'),
+        name: name,
+        message: err.message
+      }
+    })
+
+    details.forEach(detail => {
+      const sectionErr = this.errors.find(err => err.path === detail.name)
+
+      detail.items.forEach(item => {
+        if (sectionErr) {
+          item.inError = true
+          return
+        }
+
+        const err = this.errors.find(err => err.path === (detail.name ? (detail.name + '.' + item.name) : item.name))
+        if (err) {
+          item.inError = true
+        }
+      })
+    })
+  }
+
+  #summaryDetails(model, state, relevantPages) {
+    const details = [];
 
     [undefined, ...model.sections].forEach(section => {
       const items = []
       let sectionState = section
-        ? (state[section.name] || {})
-        : state
+          ? (state[section.name] || {})
+          : state
 
       const sectionPages = relevantPages
-        .filter(page => page.section === section)
+          .filter(page => page.section === section)
 
       const repeatablePage = sectionPages.find(page => !!page.repeatField)
       // Currently can't handle repeatable page outside a section.
@@ -56,22 +156,22 @@ class SummaryViewModel {
       }
 
       sectionPages
-        .forEach(page => {
-          for (const component of page.components.formItems) {
-            const item = this.Item(component, sectionState, page, model)
-            items.push(item)
-            if (component.items) {
-              const selectedValue = sectionState[component.name]
-              const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
-              if (selectedItem && selectedItem.conditional) {
-                for (const cc of selectedItem.conditional.componentCollection.formItems) {
-                  const cItem = this.Item(cc, sectionState, page, model)
-                  items.push(cItem)
+          .forEach(page => {
+            for (const component of page.components.formItems) {
+              const item = this.Item(component, sectionState, page, model)
+              items.push(item)
+              if (component.items) {
+                const selectedValue = sectionState[component.name]
+                const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
+                if (selectedItem && selectedItem.conditional) {
+                  for (const cc of selectedItem.conditional.componentCollection.formItems) {
+                    const cItem = this.Item(cc, sectionState, page, model)
+                    items.push(cItem)
+                  }
                 }
               }
             }
-          }
-        })
+          })
 
       if (items.length > 0) {
         if (Array.isArray(sectionState)) {
@@ -91,100 +191,26 @@ class SummaryViewModel {
         }
       }
     })
-
-    this.declaration = model.def.declaration
-    this.skipSummary = model.def.skipSummary
-    this.endPage = endPage
-
-    let applicableFees = []
-
-    if (model.def.fees) {
-      applicableFees = model.def.fees.filter(fee => {
-        return !fee.condition || model.conditions[fee.condition].fn(state)
-      })
-
-      this._payApiKey = model.def.payApiKey
-    }
-    const schema = model.makeFilteredSchema(state, relevantPages)
-
-    const collatedRepeatPagesState = clone(state)
-    delete collatedRepeatPagesState.progress
-    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
-      if (Array.isArray(section)) {
-        collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
-      }
-    })
-
-    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
-
-    if (result.error) {
-      this.errors = result.error.details.map(err => {
-        const name = err.path[err.path.length - 1]
-
-        return {
-          path: err.path.join('.'),
-          name: name,
-          message: err.message
-        }
-      })
-      this.hasErrors = true
-
-      details.forEach(detail => {
-        const sectionErr = this.errors.find(err => err.path === detail.name)
-
-        detail.items.forEach(item => {
-          if (sectionErr) {
-            item.inError = true
-            return
-          }
-
-          const err = this.errors.find(err => err.path === (detail.name ? (detail.name + '.' + item.name) : item.name))
-          if (err) {
-            item.inError = true
-          }
-        })
-      })
-    } else {
-      if (applicableFees.length) {
-        const flatState = flatten(state)
-        this.fees = {
-          details: applicableFees,
-          total: Object.values(applicableFees).map(fee => {
-            if (fee.multiplier) {
-              const multiplyBy = flatState[fee.multiplier]
-              fee.multiplyBy = Number(multiplyBy)
-              return fee.multiplyBy * fee.amount
-            }
-            return fee.amount
-          }).reduce((a, b) => a + b)
-        }
-      }
-
-      this.parseDataForWebhook(model, relevantPages, details)
-
-      if (model.def.outputs) {
-        this._outputs = model.def.outputs.map(output => {
-          switch (output.type) {
-            case 'notify':
-              return { type: 'notify', outputData: this.notifyModel(model, output.outputConfiguration, state) }
-            case 'email':
-              return { type: 'email', outputData: this.emailModel(model, output.outputConfiguration) }
-            case 'webhook':
-              return { type: 'webhook', outputData: { url: output.outputConfiguration.url } }
-            case 'sheets':
-              return { type: 'sheets', outputData: this.sheetsModel(model, output.outputConfiguration, state) }
-          }
-        })
-      }
-    }
-
-    this.result = result
-    this.details = details
-    this.state = state
-    this.value = result.value
+    return details;
   }
 
-  notifyModel (model, outputConfiguration, state) {
+  #getRelevantPages(model, state) {
+    let nextPage = model.startPage
+    const relevantPages = []
+    let endPage = null
+
+    while (nextPage != null) {
+      if (nextPage.hasFormComponents) {
+        relevantPages.push(nextPage)
+      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
+        endPage = nextPage
+      }
+      nextPage = nextPage.getNextPage(state, true)
+    }
+    return {relevantPages, endPage};
+  }
+
+  #notifyModel (model, outputConfiguration, state) {
     const flatState = flatten(state)
     const personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
@@ -199,7 +225,7 @@ class SummaryViewModel {
     }
   }
 
-  emailModel (outputOptions) {
+  #emailModel (outputOptions) {
     const attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
@@ -215,7 +241,7 @@ class SummaryViewModel {
     return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
-  sheetsModel (model, outputConfiguration, state) {
+  #sheetsModel (model, outputConfiguration, state) {
     const flatState = flatten(state)
     // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration
@@ -228,7 +254,7 @@ class SummaryViewModel {
     }
   }
 
-  toEnglish (localisableString) {
+  #toEnglish (localisableString) {
     let englishString = ''
     if (localisableString) {
       if (typeof localisableString === 'string') {
@@ -240,7 +266,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  parseDataForWebhook (model, relevantPages, details) {
+  #parseDataForWebhook (model, relevantPages, details) {
     const questions = []
 
     for (const page of relevantPages) {
@@ -250,9 +276,9 @@ class SummaryViewModel {
 
       let question
       if (page.title) {
-        question = this.toEnglish(page.title)
+        question = this.#toEnglish(page.title)
       } else {
-        question = page.components.formItems.map(item => this.toEnglish(item.title)).join(', ')
+        question = page.components.formItems.map(item => this.#toEnglish(item.title)).join(', ')
       }
 
       let items
@@ -270,7 +296,7 @@ class SummaryViewModel {
           const answer = (typeof detailItem.rawValue === 'object') ? detailItem.value : detailItem.rawValue
           fields.push({
             key: detailItem.name,
-            title: this.toEnglish(detailItem.title),
+            title: this.#toEnglish(detailItem.title),
             type: detailItem.dataType,
             answer
           })
@@ -282,7 +308,7 @@ class SummaryViewModel {
                 const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
                 fields.push({
                   key: cc.name,
-                  title: this.toEnglish(cc.title),
+                  title: this.#toEnglish(cc.title),
                   type: cc.dataType,
                   answer: (typeof itemDetailItem.rawValue === 'object') ? itemDetailItem.value : itemDetailItem.rawValue
                 })
