@@ -58,6 +58,38 @@ suite('data model', () => {
       ])
     })
 
+    test('should include feedback inputs for feedback form', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        },
+        startPage: '/page1',
+        pages: [
+          {
+            name: 'page1',
+            path: '/page1',
+            section: 'section1',
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            path: '/page2',
+            section: 'section1',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      expect(data.allInputs()).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
+        { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
+        { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
+      ])
+    })
+
     test('should include hidden inputs from appropriate lists', () => {
       const data = new Data({
         pages: [
@@ -437,6 +469,47 @@ suite('data model', () => {
         { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
         { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
         { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+      ])
+    })
+
+    test('should include feedback context inputs for feedback form', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        },
+        startPage: '/1',
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            path: '/3',
+            components: [{ name: 'name5' }, { name: 'name6' }]
+          }
+        ]
+      })
+      expect(data.inputsAccessibleAt('/3')).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' },
+        { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
+        { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
+        { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
       ])
     })
 

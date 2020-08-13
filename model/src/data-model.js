@@ -36,7 +36,7 @@ class Data {
     const list = this.listFor(input);
     return list ? list.items.flatMap(listItem =>listItem.conditional?.components
         ?.filter(it => it.name)
-        ?.map(it => new Input(it, page, listItem.text))??[]) : []
+        ?.map(it => new Input(it, page, {parentItemName: listItem.text}))??[]) : []
   }
 
   allInputs () {
@@ -45,6 +45,13 @@ class Data {
         .filter(component => component.name)
         .flatMap(it => [new Input(it, page)].concat(this.#listInputsFor(page, it)))
       )
+    if (this.feedbackForm) {
+      const startPage = this.findPage(this.startPage)
+      const options = { ignoreSection: true }
+      inputs.push(new Input({ type: 'TextField', title: 'Feedback source form name', name: 'feedbackContextInfo_formTitle' }, startPage, options))
+      inputs.push(new Input({ type: 'TextField', title: 'Feedback source page title', name: 'feedbackContextInfo_pageTitle' }, startPage, options))
+      inputs.push(new Input({ type: 'TextField', title: 'Feedback source url', name: 'feedbackContextInfo_url' }, startPage, options))
+    }
     const names = new Set()
     return inputs.filter(input => {
       const isPresent = !names.has(input.propertyPath)
@@ -270,13 +277,13 @@ Object.filter = function (obj, predicate) {
 class Input {
   #parentItemName
 
-  constructor (rawData, page, parentItemName) {
+  constructor (rawData, page, options = {}) {
     Object.assign(this, rawData)
     const myPage = clone(page)
     delete myPage.components
     this.page = myPage
-    this.propertyPath = page.section ? `${page.section}.${this.name}` : this.name
-    this.#parentItemName = parentItemName
+    this.propertyPath = !options.ignoreSection && page.section ? `${page.section}.${this.name}` : this.name
+    this.#parentItemName = options.parentItemName
   }
 
   get displayName () {
