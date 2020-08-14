@@ -76,7 +76,7 @@
     "schmervice": "1.5.0",
     "shortid": "2.2.15",
     "sinon": "9.0.2",
-    "standard": "14.3.3",
+    "standard": "^14.3.4",
     "tmp": "0.1.0",
     "uuid": "7.0.3",
     "vision": "5.4.4",

@@ -74,7 +74,7 @@ class SummaryViewModel {
     this.value = result.value
   }
 
-  #retrieveFees(model, state) { // eslint-disable-line
+  #retrieveFees(model, state) {
     let applicableFees = []
 
     if (model.def.fees) {
@@ -412,7 +412,7 @@ class SummaryViewModel {
     }
   }
 
-  #addFeedbackSourceDataToWebhook(webhookData, model, request) { /* eslint-disable-line */
+  #addFeedbackSourceDataToWebhook(webhookData, model, request) {
     if(model.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
       if(feedbackContextInfo) {
