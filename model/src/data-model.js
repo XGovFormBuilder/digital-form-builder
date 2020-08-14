@@ -1,3 +1,5 @@
+import { FeedbackContextInfo } from './lib'
+
 const { clone } = require('./helpers')
 const { ConditionsModel } = require('./conditions/inline-condition-model')
 
@@ -48,9 +50,9 @@ class Data {
     if (this.feedbackForm) {
       const startPage = this.findPage(this.startPage)
       const options = { ignoreSection: true }
-      inputs.push(new Input({ type: 'TextField', title: 'Feedback source form name', name: 'feedbackContextInfo_formTitle' }, startPage, options))
-      inputs.push(new Input({ type: 'TextField', title: 'Feedback source page title', name: 'feedbackContextInfo_pageTitle' }, startPage, options))
-      inputs.push(new Input({ type: 'TextField', title: 'Feedback source url', name: 'feedbackContextInfo_url' }, startPage, options))
+      FeedbackContextInfo.CONTEXT_ITEMS.forEach(it => {
+        inputs.push(new Input({ type: 'TextField', title: it.display, name: it.key }, startPage, options))
+      })
     }
     const names = new Set()
     return inputs.filter(input => {

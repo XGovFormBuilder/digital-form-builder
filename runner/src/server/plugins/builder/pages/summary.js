@@ -7,6 +7,7 @@ const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
 const { clone, reach } = require('hoek')
+const { decode, RelativeUrl } = require('digital-form-builder-model')
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -49,6 +50,7 @@ class SummaryViewModel {
     } else {
       this.fees = this.#retrieveFees(model, state);
       this.#parseDataForWebhook(model, relevantPages, details)
+      this._webhookData = this.#addFeedbackSourceDataToWebhook(this._webhookData, model, request)
 
       if (model.def.outputs) {
         this._outputs = model.def.outputs.map(output => {
@@ -72,7 +74,7 @@ class SummaryViewModel {
     this.value = result.value
   }
 
-  #retrieveFees(model, state) {
+  #retrieveFees(model, state) { // eslint-disable-line
     let applicableFees = []
 
     if (model.def.fees) {
@@ -96,7 +98,7 @@ class SummaryViewModel {
     }
   }
 
-  #processErrors(result, details) {
+  #processErrors(result, details) { // eslint-disable-line
     this.errors = result.error.details.map(err => {
       const name = err.path[err.path.length - 1]
 
@@ -124,7 +126,7 @@ class SummaryViewModel {
     })
   }
 
-  #summaryDetails(model, state, relevantPages) {
+  #summaryDetails(model, state, relevantPages) { /* eslint-disable-line */
     const details = [];
 
     [undefined, ...model.sections].forEach(section => {
@@ -194,7 +196,7 @@ class SummaryViewModel {
     return details;
   }
 
-  #getRelevantPages(model, state) {
+  #getRelevantPages(model, state) { /* eslint-disable-line */
     let nextPage = model.startPage
     const relevantPages = []
     let endPage = null
@@ -210,7 +212,7 @@ class SummaryViewModel {
     return {relevantPages, endPage};
   }
 
-  #notifyModel (model, outputConfiguration, state) {
+  #notifyModel (model, outputConfiguration, state) { /* eslint-disable-line */
     const flatState = flatten(state)
     const personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
@@ -225,7 +227,7 @@ class SummaryViewModel {
     }
   }
 
-  #emailModel (outputOptions) {
+  #emailModel (outputOptions) { /* eslint-disable-line */
     const attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
@@ -241,7 +243,7 @@ class SummaryViewModel {
     return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
-  #sheetsModel (model, outputConfiguration, state) {
+  #sheetsModel (model, outputConfiguration, state) { /* eslint-disable-line */
     const flatState = flatten(state)
     // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration
@@ -254,7 +256,7 @@ class SummaryViewModel {
     }
   }
 
-  #toEnglish (localisableString) {
+  #toEnglish (localisableString) { /* eslint-disable-line */
     let englishString = ''
     if (localisableString) {
       if (typeof localisableString === 'string') {
@@ -266,7 +268,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  #parseDataForWebhook (model, relevantPages, details) {
+  #parseDataForWebhook (model, relevantPages, details) { /* eslint-disable-line */
     const questions = []
 
     for (const page of relevantPages) {
@@ -408,6 +410,30 @@ class SummaryViewModel {
       title: component.title,
       dataType: component.dataType
     }
+  }
+
+  #addFeedbackSourceDataToWebhook(webhookData, model, request) { /* eslint-disable-line */
+    if(model.feedback?.feedbackForm) {
+      const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
+      if(feedbackContextInfo) {
+        webhookData.questions.push(
+          ...FeedbackContextInfo.CONTEXT_ITEMS.map(item => ({
+                category: null,
+                question: item.display,
+                fields: [
+                  {
+                    key: item.key,
+                    title: item.display,
+                    type: 'string',
+                    answer: item.get(feedbackContextInfo)
+                  }
+                ]
+              })
+          )
+        )
+      }
+    }
+    return webhookData;
   }
 }
 

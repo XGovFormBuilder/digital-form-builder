@@ -4,7 +4,7 @@ function proceed (request, h, nextUrl) {
   if (returnUrl && returnUrl.startsWith('/')) {
     url = returnUrl
   } else {
-    url = `${nextUrl}${request.url.search??''}`
+    url = `${nextUrl}${request.url.search ?? ''}`
   }
   return h.redirect(url)
 }

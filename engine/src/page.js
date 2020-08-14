@@ -4,7 +4,7 @@ const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
 
-const { RelativeUrl, FeedbackContextInfo, decode } = require('./feedback')
+const { RelativeUrl, FeedbackContextInfo, decode } = require('digital-form-builder-model') /* eslint-disable-line */
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -212,10 +212,6 @@ class Page {
     }
   }
 
-  feedbackFormTitleFromRequest (request) {
-    return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo()).formTitle
-  }
-
     #objLength (object) {  /* eslint-disable-line */
       return Object.keys(object).length ?? 0
     }
@@ -227,7 +223,7 @@ class Page {
         const state = await cacheService.getState(request)
         const progress = state.progress || []
         const { num } = request.query
-        const currentPath = `/${this.model.basePath}${this.path}${num ? '?num=' + num : ''}`
+        const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`
         const startPage = this.model.def.startPage
         const formData = this.getFormDataFromState(state, num - 1)
 
@@ -248,7 +244,7 @@ class Page {
         const viewModel = this.getViewModel(formData, num)
         viewModel.startPage = startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
         viewModel.currentPath = `${currentPath}${request.query.returnUrl ? '?returnUrl=' + request.query.returnUrl : ''}`
-        this.setFeedbackDetails(viewModel, request)
+        await this.#setFeedbackDetails(viewModel, request)
         viewModel.components = viewModel.components.filter(component => {
           if ((component.model.content || component.type === 'Details') && component.model.condition) {
             const condition = this.model.conditions[component.model.condition]
@@ -340,7 +336,7 @@ class Page {
         if (formResult.errors) {
           const viewModel = this.getViewModel(payload, num, formResult.errors)
           viewModel.backLink = progress[progress.length - 2]
-          this.setFeedbackDetails(viewModel, request)
+          await this.#setFeedbackDetails(viewModel, request)
           return h.view(this.viewName, viewModel)
         }
 
@@ -350,7 +346,7 @@ class Page {
         if (stateResult.errors) {
           const viewModel = this.getViewModel(payload, num, stateResult.errors)
           viewModel.backLink = progress[progress.length - 2]
-          this.setFeedbackDetails(viewModel, request)
+          await this.#setFeedbackDetails(viewModel, request)
           return h.view(this.viewName, viewModel)
         }
 
@@ -373,76 +369,84 @@ class Page {
       }
     }
 
-    setFeedbackDetails (viewModel, request) {
+    async #setFeedbackDetails (viewModel, request) { /* eslint-disable-line */
+      const feedbackContextInfo = this.#getFeedbackContextInfo(request)
+      if(feedbackContextInfo) {
+        viewModel.name = feedbackContextInfo.formTitle
+      }
+      // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
       viewModel.feedbackLink = this.feedbackUrlFromRequest(request)
-      if (this.def.feedback?.feedbackForm) {
-        viewModel.name = this.feedbackFormTitleFromRequest(request)
-      }
     }
 
-    makeGetRoute (getState) {
-      return {
-        method: 'get',
-        path: this.path,
-        options: this.getRouteOptions,
-        handler: this.makeGetRouteHandler(getState)
-      }
+  #getFeedbackContextInfo(request) { /* eslint-disable-line */
+    if (this.def.feedback?.feedbackForm) {
+      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo());
     }
+  }
 
-    makePostRoute (mergeState) {
-      return {
-        method: 'post',
-        path: this.path,
-        options: this.postRouteOptions,
-        handler: this.makePostRouteHandler(mergeState)
-      }
+  makeGetRoute (getState) {
+    return {
+      method: 'get',
+      path: this.path,
+      options: this.getRouteOptions,
+      handler: this.makeGetRouteHandler(getState)
     }
+  }
 
-    findPageByPath (path) {
-      return this.model.pages.find(page => page.path === path)
+  makePostRoute (mergeState) {
+    return {
+      method: 'post',
+      path: this.path,
+      options: this.postRouteOptions,
+      handler: this.makePostRouteHandler(mergeState)
     }
+  }
 
-    proceed (request, h, state) {
-      return proceed(request, h, this.getNext(state))
+  findPageByPath (path) {
+    return this.model.pages.find(page => page.path === path)
+  }
+
+  proceed (request, h, state) {
+    return proceed(request, h, this.getNext(state))
+  }
+
+  getPartialMergeState (value) {
+    return this.section ? { [this.section.name]: value } : value
+  }
+
+  localisedString (description, lang) {
+    let string
+    if (typeof description === 'string') {
+      string = description
+    } else {
+      string = description[lang]
+        ? description[lang]
+        : description.en
     }
+    return string
+  }
 
-    getPartialMergeState (value) {
-      return this.section ? { [this.section.name]: value } : value
-    }
+  get viewName () { return 'index' }
 
-    localisedString (description, lang) {
-      let string
-      if (typeof description === 'string') {
-        string = description
-      } else {
-        string = description[lang]
-          ? description[lang]
-          : description.en
-      }
-      return string
-    }
+  get defaultNextPath () { return `${this.model.basePath || ''}/summary` }
 
-    get viewName () { return 'index' }
+  get validationOptions () { return { abortEarly: false } }
 
-    get defaultNextPath () { return `${this.model.basePath || ''}/summary` }
+  get conditionOptions () { return this.model.conditionOptions }
 
-    get validationOptions () { return { abortEarly: false } }
+  get errorSummaryTitle () { return 'Fix the following errors' }
 
-    get conditionOptions () { return this.model.conditionOptions }
+  get getRouteOptions () { return {} }
 
-    get errorSummaryTitle () { return 'Fix the following errors' }
+  get postRouteOptions () { return {} }
 
-    get getRouteOptions () { return {} }
+  get formSchema () { return this[FORM_SCHEMA] }
 
-    get postRouteOptions () { return {} }
+  set formSchema (value) { this[FORM_SCHEMA] = value }
 
-    get formSchema () { return this[FORM_SCHEMA] }
+  get stateSchema () { return this[STATE_SCHEMA] }
 
-    set formSchema (value) { this[FORM_SCHEMA] = value }
-
-    get stateSchema () { return this[STATE_SCHEMA] }
-
-    set stateSchema (value) { this[STATE_SCHEMA] = value }
+  set stateSchema (value) { this[STATE_SCHEMA] = value }
 }
 
 module.exports = Page

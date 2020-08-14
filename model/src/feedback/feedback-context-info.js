@@ -5,6 +5,12 @@ const btoa = require('btoa')
 const RelativeUrl = require('./relative-url')
 
 class FeedbackContextInfo {
+  static CONTEXT_ITEMS = [
+    { key: 'feedbackContextInfo_formTitle', display: 'Feedback source form name', get: contextInfo => contextInfo.formTitle },
+    { key: 'feedbackContextInfo_pageTitle', display: 'Feedback source page title', get: contextInfo => contextInfo.pageTitle },
+    { key: 'feedbackContextInfo_url', display: 'Feedback source url', get: contextInfo => contextInfo.url }
+  ]
+
   constructor (formTitle, pageTitle, url) {
     this.formTitle = formTitle
     this.pageTitle = pageTitle
