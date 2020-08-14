@@ -1,16 +1,17 @@
 'use strict'
 
-const feedbackReturnInfoParameter = 'f_t'
-
 /**
   Enforces use of relative URL's, prevents someone maliciously causing a user to be directed to a phishing
-  site from our feedback page.
+  site.
 **/
 module.exports = class RelativeUrl {
+  static FEEDBACK_RETURN_INFO_PARAMETER = 'f_t'
+
   constructor (urlString) {
     this.url = new URL(urlString, 'http://www.example.com')
-    if (this.url.hostname !== 'www.example.com') {
-      throw Error('Only relative URLs are allowed in feedback configuration')
+    this.originalUrlString = urlString
+    if (this.url.hostname !== 'www.example.com' || urlString.includes('www.example.com')) {
+      throw Error('Only relative URLs are allowed')
     }
   }
 
@@ -19,13 +20,20 @@ module.exports = class RelativeUrl {
     return this
   }
 
+  addParamIfNotPresent (name, value) {
+    if (!this.url.searchParams.get(name)) {
+      this.url.searchParams.set(name, value)
+    }
+    return this
+  }
+
   setFeedbackReturnInfo (value) {
-    this.addParam(feedbackReturnInfoParameter, value)
+    this.addParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value)
     return this
   }
 
   getFeedbackReturnInfo () {
-    return this.getParam(feedbackReturnInfoParameter)
+    return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER)
   }
 
   getParam (name) {
@@ -33,6 +41,10 @@ module.exports = class RelativeUrl {
   }
 
   toString () {
-    return this.url.pathname + this.url.search
+    let url = this.url.pathname + this.url.search
+    if (url.startsWith('/') && !this.originalUrlString.startsWith('/')) {
+      url = url.substr(1)
+    }
+    return url
   }
 }
