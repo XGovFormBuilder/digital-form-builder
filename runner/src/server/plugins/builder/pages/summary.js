@@ -7,7 +7,7 @@ const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
 const { clone, reach } = require('hoek')
-const { decode, RelativeUrl } = require('digital-form-builder-model')
+const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-model')
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -22,9 +22,8 @@ const { decode, RelativeUrl } = require('digital-form-builder-model')
  * TODO - Move outputs conversion to an outputs service?
  * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
  */
-
 class SummaryViewModel {
-  constructor (pageTitle, model, state) {
+  constructor (pageTitle, model, state, request) {
     this.pageTitle = pageTitle
 
     let {relevantPages, endPage} = this.#getRelevantPages(model, state);
@@ -98,7 +97,7 @@ class SummaryViewModel {
     }
   }
 
-  #processErrors(result, details) { // eslint-disable-line
+  #processErrors(result, details) {
     this.errors = result.error.details.map(err => {
       const name = err.path[err.path.length - 1]
 
@@ -126,7 +125,7 @@ class SummaryViewModel {
     })
   }
 
-  #summaryDetails(model, state, relevantPages) { /* eslint-disable-line */
+  #summaryDetails(model, state, relevantPages) {
     const details = [];
 
     [undefined, ...model.sections].forEach(section => {
@@ -196,7 +195,7 @@ class SummaryViewModel {
     return details;
   }
 
-  #getRelevantPages(model, state) { /* eslint-disable-line */
+  #getRelevantPages(model, state) {
     let nextPage = model.startPage
     const relevantPages = []
     let endPage = null
@@ -212,7 +211,7 @@ class SummaryViewModel {
     return {relevantPages, endPage};
   }
 
-  #notifyModel (model, outputConfiguration, state) { /* eslint-disable-line */
+  #notifyModel (model, outputConfiguration, state) {
     const flatState = flatten(state)
     const personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
@@ -227,7 +226,7 @@ class SummaryViewModel {
     }
   }
 
-  #emailModel (outputOptions) { /* eslint-disable-line */
+  #emailModel (outputOptions) {
     const attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
@@ -243,7 +242,7 @@ class SummaryViewModel {
     return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
-  #sheetsModel (model, outputConfiguration, state) { /* eslint-disable-line */
+  #sheetsModel (model, outputConfiguration, state) {
     const flatState = flatten(state)
     // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration
@@ -256,7 +255,7 @@ class SummaryViewModel {
     }
   }
 
-  #toEnglish (localisableString) { /* eslint-disable-line */
+  #toEnglish (localisableString) {
     let englishString = ''
     if (localisableString) {
       if (typeof localisableString === 'string') {
@@ -268,7 +267,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  #parseDataForWebhook (model, relevantPages, details) { /* eslint-disable-line */
+  #parseDataForWebhook (model, relevantPages, details) {
     const questions = []
 
     for (const page of relevantPages) {
@@ -413,7 +412,7 @@ class SummaryViewModel {
   }
 
   #addFeedbackSourceDataToWebhook(webhookData, model, request) {
-    if(model.feedback?.feedbackForm) {
+    if(model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
       if(feedbackContextInfo) {
         webhookData.questions.push(
@@ -450,7 +449,7 @@ class SummaryPage extends Page {
       }
 
       const state = await cacheService.getState(request)
-      const viewModel = new SummaryViewModel(this.title, model, state)
+      const viewModel = new SummaryViewModel(this.title, model, state, request)
       viewModel.currentPath = `/${model.basePath}${this.path}`
 
       if (viewModel.endPage) {
@@ -500,7 +499,7 @@ class SummaryPage extends Page {
       const { payService, cacheService } = request.services([])
       const model = this.model
       const state = await cacheService.getState(request)
-      const summaryViewModel = new SummaryViewModel(this.title, model, state)
+      const summaryViewModel = new SummaryViewModel(this.title, model, state, request)
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
