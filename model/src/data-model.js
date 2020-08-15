@@ -211,9 +211,8 @@ class Data {
     }
   }
 
-  setFeedbackUrl (feedbackUrl, sendContext) {
+  setFeedbackUrl (feedbackUrl) {
     this.#setFeedbackUrl(feedbackUrl)
-    this.#setSendFeedbackContext(sendContext || false)
   }
 
   get feedbackUrl () {
@@ -230,20 +229,6 @@ class Data {
       this.#feedback.url = feedbackUrl
     } else {
       throw Error('feedbackUrl must be a string')
-    }
-  }
-
-  get sendFeedbackContext () {
-    return this.#feedback?.sendContext ?? false
-  }
-
-  /* eslint-disable-next-line */
-  #setSendFeedbackContext (sendFeedbackContext) {
-    if (typeof sendFeedbackContext === 'boolean') {
-      this.#feedback = this.#feedback || {}
-      this.#feedback.sendContext = sendFeedbackContext
-    } else {
-      throw Error('sendFeedbackContext must be a boolean')
     }
   }
 

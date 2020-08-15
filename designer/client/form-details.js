@@ -3,24 +3,23 @@ import React from 'react'
 class FormDetails extends React.Component {
   constructor (props) {
     super(props)
-    const { feedbackForm, feedbackUrl, sendFeedbackContext } = props.data
+    const { feedbackForm, feedbackUrl } = props.data
     this.state = {
       title: props.data.name,
       feedbackForm: feedbackForm,
-      feedbackUrl: feedbackUrl,
-      sendFeedbackContext: sendFeedbackContext
+      feedbackUrl: feedbackUrl
     }
   }
 
   onSubmit = async e => {
     e.preventDefault()
     const { data } = this.props
-    const { title, feedbackForm, feedbackUrl, sendFeedbackContext } = this.state
+    const { title, feedbackForm, feedbackUrl } = this.state
 
     let copy = data.clone()
     copy.name = title
     copy.feedbackForm = feedbackForm
-    copy.setFeedbackUrl(feedbackUrl, sendFeedbackContext)
+    copy.setFeedbackUrl(feedbackUrl)
 
     try {
       const saved = await data.save(copy)
@@ -31,7 +30,7 @@ class FormDetails extends React.Component {
   }
 
   render () {
-    const { title, feedbackForm, feedbackUrl, sendFeedbackContext } = this.state
+    const { title, feedbackForm, feedbackUrl } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -53,7 +52,7 @@ class FormDetails extends React.Component {
           </div>
           <div className='govuk-radios govuk-radios--inline'>
             <div className='govuk-radios__item'>
-              <input className='govuk-radios__input' id='feedback-yes' name='feedbackForm' type='radio' value='true' defaultChecked={feedbackForm} onClick={() => this.setState({ feedbackForm: true, feedbackUrl: undefined, sendFeedbackContext: undefined })} />
+              <input className='govuk-radios__input' id='feedback-yes' name='feedbackForm' type='radio' value='true' defaultChecked={feedbackForm} onClick={() => this.setState({ feedbackForm: true, feedbackUrl: undefined })} />
               <label className='govuk-label govuk-radios__label' htmlFor='feedback-yes'>
                 Yes
               </label>
@@ -71,42 +70,12 @@ class FormDetails extends React.Component {
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='feedback-url' aria-describedby='feedback-url-hint'>Feedback form url</label>
             <div id='feedback-url-hint' className='govuk-hint'>
-              Url's can start with http://, https:// or '/'.
-              Those starting with a '/' should relate to another form on the same digital-form-builder instance
+              Url's must be relative and should start with '/'. They should relate to another form on the same digital-form-builder instance
             </div>
             <input className='govuk-input' id='feedback-url' name='feedbackUrl'
               type='text' onChange={e => this.setState({ feedbackUrl: e.target.value })}
               defaultValue={feedbackUrl} />
           </div>
-        }
-
-        {feedbackUrl &&
-          <fieldset className='govuk-fieldset' aria-describedby='feedback-context-hint'>
-            <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
-              <h1 className='govuk-fieldset__heading'>
-                Send the feedback context?
-              </h1>
-            </legend>
-            <div id='feedback-context-hint' className='govuk-hint'>
-              <p>Sending the feedback context to your feedback form allows you to use details of where the user
-              was in this form when they provided feedback.</p>
-              <p>Note that this is only likely to be useful if you have created your feedback form in this designer.</p>
-            </div>
-            <div className='govuk-radios govuk-radios--inline'>
-              <div className='govuk-radios__item'>
-                <input className='govuk-radios__input' id='send-feedback-context-yes' name='sendContext' type='radio' value='true' defaultChecked={sendFeedbackContext} onClick={() => this.setState({ sendFeedbackContext: true })} />
-                <label className='govuk-label govuk-radios__label' htmlFor='feedback-context-yes'>
-                  Yes
-                </label>
-              </div>
-              <div className='govuk-radios__item'>
-                <input className='govuk-radios__input' id='send-feedback-context-no' name='sendContext' type='radio' value='false' defaultChecked={!sendFeedbackContext} onClick={() => this.setState({ sendFeedbackContext: false })} />
-                <label className='govuk-label govuk-radios__label' htmlFor='feedback-context-no'>
-                  No
-                </label>
-              </div>
-            </div>
-          </fieldset>
         }
 
         <button type='submit' className='govuk-button'>Save</button>

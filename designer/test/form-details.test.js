@@ -71,19 +71,6 @@ suite('Form details', () => {
       assertTextInput(wrapper.find('#feedback-url'), 'feedback-url', '/feedback')
     })
 
-    test('Renders send feedback context inputs when feedback url is present', () => {
-      data.setFeedbackUrl('/feedback')
-      const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#send-feedback-context-yes'), 'send-feedback-context-yes', 'true', 'Yes', { 'defaultChecked': false })
-      assertRadioButton(wrapper.find('#send-feedback-context-no'), 'send-feedback-context-no', 'false', 'No', { 'defaultChecked': true })
-    })
-
-    test('Renders send feedback context Yes checked when specified', () => {
-      data.setFeedbackUrl('/feedback', true)
-      const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#send-feedback-context-yes'), 'send-feedback-context-yes', 'true', 'Yes', { 'defaultChecked': true })
-      assertRadioButton(wrapper.find('#send-feedback-context-no'), 'send-feedback-context-no', 'false', 'No', { 'defaultChecked': false })
-    })
   })
 
   describe('on submit', () => {
@@ -141,7 +128,7 @@ suite('Form details', () => {
       expect(data.save.firstCall.args[0].feedbackForm).to.equal(false)
     })
 
-    test('Feedback url and send context should be cleared when changing to a feedback form', async () => {
+    test('Feedback url should be cleared when changing to a feedback form', async () => {
       data.setFeedbackUrl('/feedback', true)
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#feedback-yes').simulate('click')
@@ -149,7 +136,6 @@ suite('Form details', () => {
 
       expect(data.save.callCount).to.equal(1)
       expect(data.save.firstCall.args[0].feedbackUrl).to.equal(undefined)
-      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(false)
     })
 
     test('feedbackUrl should be set correctly when unchanged', async () => {
@@ -169,35 +155,6 @@ suite('Form details', () => {
 
       expect(data.save.callCount).to.equal(1)
       expect(data.save.firstCall.args[0].feedbackUrl).to.equal('/feedback-2')
-    })
-
-    test('sendFeedback should be set correctly when unchanged', async () => {
-      data.setFeedbackUrl('/feedback', true)
-      const wrapper = shallow(<FormDetails data={data} />)
-      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
-
-      expect(data.save.callCount).to.equal(1)
-      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(true)
-    })
-
-    test('sendFeedback should be set correctly when changed to true', async () => {
-      data.setFeedbackUrl('/feedback', false)
-      const wrapper = shallow(<FormDetails data={data} />)
-      wrapper.find('#send-feedback-context-yes').simulate('click')
-      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
-
-      expect(data.save.callCount).to.equal(1)
-      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(true)
-    })
-
-    test('sendFeedback should be set correctly when changed to false', async () => {
-      data.setFeedbackUrl('/feedback', true)
-      const wrapper = shallow(<FormDetails data={data} />)
-      wrapper.find('#send-feedback-context-no').simulate('click')
-      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
-
-      expect(data.save.callCount).to.equal(1)
-      expect(data.save.firstCall.args[0].sendFeedbackContext).to.equal(false)
     })
 
     test('Updated data should be saved correctly and saved data should be passed to callback', async () => {

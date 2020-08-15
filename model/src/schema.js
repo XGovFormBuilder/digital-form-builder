@@ -128,6 +128,7 @@ const sheetsSchema = joi.object().keys({
   sheets: joi.array().items(sheetItemSchema),
   spreadsheetIdField: joi.string()
 })
+
 const outputSchema = joi.object().keys({
   name: joi.string(),
   title: joi.string().optional(),
@@ -137,8 +138,7 @@ const outputSchema = joi.object().keys({
 
 const feedbackSchema = joi.object().keys({
   feedbackForm: joi.boolean().default(false),
-  url: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() }),
-  sendContext: joi.when('feedbackUrl', { is: joi.string().required(), then: joi.boolean().default(false) })
+  url: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() })
 })
 
 const schema = joi.object().required().keys({

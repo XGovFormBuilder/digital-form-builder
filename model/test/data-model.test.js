@@ -1190,7 +1190,7 @@ suite('data model', () => {
   describe('addFeedbackUrl', () => {
     test('should set the provided string', () => {
       const data = new Data({})
-      data.setFeedbackUrl('/feedback', false)
+      data.setFeedbackUrl('/feedback')
       expect(data.feedbackUrl).to.equal('/feedback')
     })
 
@@ -1203,12 +1203,11 @@ suite('data model', () => {
       })
       data.setFeedbackUrl()
       expect(data.feedbackUrl).to.equal(undefined)
-      expect(data.sendFeedbackContext).to.equal(false)
     })
 
     test('should error if setting url to a non-string value', () => {
       const data = new Data({})
-      expect(() => data.setFeedbackUrl(2, false)).to.throw(Error)
+      expect(() => data.setFeedbackUrl(2)).to.throw(Error)
     })
 
     test('should error if setting url on a feedback form', () => {
@@ -1231,54 +1230,6 @@ suite('data model', () => {
       expect(data.feedbackUrl).to.equal(undefined)
     })
 
-    test('should set the send context boolean to true', () => {
-      const data = new Data({})
-      data.setFeedbackUrl('/anything', true)
-      expect(data.sendFeedbackContext).to.equal(true)
-    })
-
-    test('should set the send context boolean to false', () => {
-      const data = new Data({})
-      data.setFeedbackUrl('/anything', false)
-      expect(data.sendFeedbackContext).to.equal(false)
-    })
-
-    test('should error if setting sendContext a non-boolean value', () => {
-      const data = new Data({})
-      expect(() => { data.setFeedbackUrl('/anything', 2) }).to.throw(Error)
-    })
-  })
-
-  describe('sendFeedbackContext', () => {
-    test('should return true if set to true', () => {
-      const data = new Data({
-        feedback: {
-          sendContext: true
-        }
-      })
-      expect(data.sendFeedbackContext).to.equal(true)
-    })
-
-    test('should return false if set to false', () => {
-      const data = new Data({
-        feedback: {
-          sendContext: false
-        }
-      })
-      expect(data.sendFeedbackContext).to.equal(false)
-    })
-
-    test('should return false if no value', () => {
-      const data = new Data({
-        feedback: {}
-      })
-      expect(data.sendFeedbackContext).to.equal(false)
-    })
-
-    test('should return false if no feedback config', () => {
-      const data = new Data({})
-      expect(data.sendFeedbackContext).to.equal(false)
-    })
   })
 
   describe('constructor', () => {
@@ -1288,7 +1239,6 @@ suite('data model', () => {
       expect(returned.conditions).to.equal(fullyPopulatedRawData.conditions)
       expect(returned.feedbackUrl).to.equal(fullyPopulatedRawData.feedback.url)
       expect(returned.feedbackForm).to.equal(fullyPopulatedRawData.feedback.feedbackForm)
-      expect(returned.sendFeedbackContext).to.equal(fullyPopulatedRawData.feedback.sendContext)
       expect(returned instanceof Data).to.equal(true)
     })
 
@@ -1299,7 +1249,6 @@ suite('data model', () => {
       expect(returned.conditions).to.equal(rawData.conditions)
       expect(returned.feedbackUrl).to.equal(rawData.feedbackUrl)
       expect(returned.feedbackForm).to.equal(rawData.feedbackForm)
-      expect(returned.sendFeedbackContext).to.equal(rawData.sendFeedbackContext)
       expect(returned instanceof Data).to.equal(true)
     })
   })
@@ -1312,7 +1261,6 @@ suite('data model', () => {
       expect(returned.conditions).to.equal(data.conditions)
       expect(returned.feedbackUrl).to.equal(data.feedbackUrl)
       expect(returned.feedbackForm).to.equal(data.feedbackForm)
-      expect(returned.sendFeedbackContext).to.equal(data.sendFeedbackContext)
       expect(returned instanceof Data).to.equal(true)
       expect(data === returned).to.equal(false)
     })
