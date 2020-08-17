@@ -1,13 +1,16 @@
-import * as querystring from 'querystring'
+const { Helpers } = require('digital-form-builder-engine')
+
+const redirectTo = Helpers.redirectTo
+const redirectUrl = Helpers.redirectUrl
 
 const joi = require('joi')
 const Page = require('./index')
 const shortid = require('shortid')
 const { formSchema } = require('../../../lib/formSchema')
-const { serviceName } = require('../../../config')
-const { flatten } = require('flat')
-const { clone, reach } = require('hoek')
-const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-model')
+const { serviceName } = require('../../../config') //eslint-disable-line
+const { flatten } = require('flat') //eslint-disable-line
+const { clone, reach } = require('hoek') //eslint-disable-line
+const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-model') //eslint-disable-line
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -26,8 +29,8 @@ class SummaryViewModel {
   constructor (pageTitle, model, state, request) {
     this.pageTitle = pageTitle
 
-    let {relevantPages, endPage} = this.#getRelevantPages(model, state);
-    const details = this.#summaryDetails(model, state, relevantPages);
+    const { relevantPages, endPage } = this.#getRelevantPages(model, state)
+    const details = this.#summaryDetails(request, model, state, relevantPages)
 
     this.declaration = model.def.declaration
     this.skipSummary = model.def.skipSummary
@@ -45,9 +48,9 @@ class SummaryViewModel {
     const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
 
     if (result.error) {
-      this.#processErrors(result, details);
+      this.#processErrors(result, details)
     } else {
-      this.fees = this.#retrieveFees(model, state);
+      this.fees = this.#retrieveFees(model, state)
       this.#parseDataForWebhook(model, relevantPages, details)
       this._webhookData = this.#addFeedbackSourceDataToWebhook(this._webhookData, model, request)
 
@@ -73,7 +76,7 @@ class SummaryViewModel {
     this.value = result.value
   }
 
-  #retrieveFees(model, state) {
+  #retrieveFees(model, state) { //eslint-disable-line
     let applicableFees = []
 
     if (model.def.fees) {
@@ -97,7 +100,7 @@ class SummaryViewModel {
     }
   }
 
-  #processErrors(result, details) {
+  #processErrors(result, details) { //eslint-disable-line
     this.errors = result.error.details.map(err => {
       const name = err.path[err.path.length - 1]
 
@@ -125,7 +128,7 @@ class SummaryViewModel {
     })
   }
 
-  #summaryDetails(model, state, relevantPages) {
+  #summaryDetails(request, model, state, relevantPages) { //eslint-disable-line
     const details = [];
 
     [undefined, ...model.sections].forEach(section => {
@@ -159,14 +162,14 @@ class SummaryViewModel {
       sectionPages
           .forEach(page => {
             for (const component of page.components.formItems) {
-              const item = this.Item(component, sectionState, page, model)
+              const item = this.Item(request, component, sectionState, page, model)
               items.push(item)
               if (component.items) {
                 const selectedValue = sectionState[component.name]
                 const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
                 if (selectedItem && selectedItem.conditional) {
                   for (const cc of selectedItem.conditional.componentCollection.formItems) {
-                    const cItem = this.Item(cc, sectionState, page, model)
+                    const cItem = this.Item(request, cc, sectionState, page, model)
                     items.push(cItem)
                   }
                 }
@@ -195,7 +198,7 @@ class SummaryViewModel {
     return details;
   }
 
-  #getRelevantPages(model, state) {
+  #getRelevantPages(model, state) { //eslint-disable-line
     let nextPage = model.startPage
     const relevantPages = []
     let endPage = null
@@ -211,7 +214,7 @@ class SummaryViewModel {
     return {relevantPages, endPage};
   }
 
-  #notifyModel (model, outputConfiguration, state) {
+  #notifyModel (model, outputConfiguration, state) { //eslint-disable-line
     const flatState = flatten(state)
     const personalisation = {}
     outputConfiguration.personalisation.forEach(p => {
@@ -226,7 +229,7 @@ class SummaryViewModel {
     }
   }
 
-  #emailModel (outputOptions) {
+  #emailModel (outputOptions) { //eslint-disable-line
     const attachments = []
     this._webhookData.questions.forEach(question => {
       question.fields.forEach(field => {
@@ -242,7 +245,7 @@ class SummaryViewModel {
     return { data, emailAddress: outputOptions.emailAddress, attachments }
   }
 
-  #sheetsModel (model, outputConfiguration, state) {
+  #sheetsModel (model, outputConfiguration, state) { //eslint-disable-line
     const flatState = flatten(state)
     // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration
@@ -255,7 +258,7 @@ class SummaryViewModel {
     }
   }
 
-  #toEnglish (localisableString) {
+  #toEnglish (localisableString) { //eslint-disable-line
     let englishString = ''
     if (localisableString) {
       if (typeof localisableString === 'string') {
@@ -267,7 +270,7 @@ class SummaryViewModel {
     return englishString
   }
 
-  #parseDataForWebhook (model, relevantPages, details) {
+  #parseDataForWebhook (model, relevantPages, details) { //eslint-disable-line
     const questions = []
 
     for (const page of relevantPages) {
@@ -383,17 +386,13 @@ class SummaryViewModel {
     })
   }
 
-  Item (component, sectionState, page, model, queryString = '') {
+  Item (request, component, sectionState, page, model, params = { returnUrl: `/${model.basePath}/summary` }) {
     const isRepeatable = !!page.repeatField
-    const query = {
-      returnUrl: `/${model.basePath}/summary`
-    }
 
     if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
         const collated = Object.values(state).reduce((acc, p) => ({ ...acc, ...p }), {})
-        const qs = `${querystring.encode({ ...query, num: i + 1 })}`
-        return this.Item(component, collated, page, model, qs)
+        return this.Item(request, component, collated, page, model, { ...params, num: i + 1 })
       })
     }
 
@@ -403,7 +402,7 @@ class SummaryViewModel {
       label: component.localisedString(component.title),
       value: component.getDisplayStringFromState(sectionState),
       rawValue: sectionState[component.name],
-      url: `/${model.basePath}${page.path}?${queryString || querystring.encode(query)}`,
+      url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
       pageId: `/${model.basePath}${page.path}`,
       type: component.type,
       title: component.title,
@@ -411,7 +410,7 @@ class SummaryViewModel {
     }
   }
 
-  #addFeedbackSourceDataToWebhook(webhookData, model, request) {
+  #addFeedbackSourceDataToWebhook(webhookData, model, request) { //eslint-disable-line
     if(model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
       if(feedbackContextInfo) {
@@ -453,7 +452,7 @@ class SummaryPage extends Page {
       viewModel.currentPath = `/${model.basePath}${this.path}`
 
       if (viewModel.endPage) {
-        return h.redirect(`/${model.basePath}${viewModel.endPage.path}`)
+        return redirectTo(request, h, `/${model.basePath}${viewModel.endPage.path}`)
       }
 
       if (viewModel.errors) {
@@ -478,11 +477,11 @@ class SummaryPage extends Page {
           return false
         })[0]
         if (pageWithError) {
-          const query = {
+          const params = {
             returnUrl: `/${model.basePath}/summary`,
             num: iteration && pageWithError.repeatField ? iteration : null
           }
-          return h.redirect(`/${model.basePath}${pageWithError.path}?${querystring.encode(query)}`)
+          return redirectTo(request, h, `/${model.basePath}${pageWithError.path}`, params)
         }
       }
 
@@ -503,12 +502,12 @@ class SummaryPage extends Page {
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
-        let startPageRedirect = h.redirect(`/${model.basePath}${model.def.pages[0].path}`)
+        let startPageRedirect = redirectTo(request, h, `/${model.basePath}${model.def.pages[0].path}`)
         const startPage = model.def.startPage
         if (startPage.startsWith('http')) {
-          startPageRedirect = h.redirect(startPage)
+          startPageRedirect = redirectTo(request, h, startPage)
         } else if (model.def.pages.find(page => page.path === startPage)) {
-          startPageRedirect = h.redirect(`/${model.basePath}${startPage}`)
+          startPageRedirect = redirectTo(request, h, `/${model.basePath}${startPage}`)
         }
 
         return startPageRedirect
@@ -518,7 +517,7 @@ class SummaryPage extends Page {
         const { declaration } = request.payload
         if (!declaration) {
           request.yar.flash('declarationError', 'You must declare to be able to submit this application')
-          return h.redirect(`${request.headers.referer}#declaration`)
+          return redirectTo(request, h, `${request.headers.referer}#declaration`)
         }
         summaryViewModel.addDeclarationAsQuestion()
       }
@@ -526,8 +525,8 @@ class SummaryPage extends Page {
       await cacheService.mergeState(request, { outputs: summaryViewModel.outputs })
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
-      if (!summaryViewModel.fees || (summaryViewModel.fees.details??[]).length === 0) {
-        return h.redirect('/status')
+      if (!summaryViewModel.fees || (summaryViewModel.fees.details ?? []).length === 0) {
+        return redirectTo(request, h, '/status')
       }
 
       const paymentReference = `FCO-${shortid.generate()}`
@@ -547,7 +546,7 @@ class SummaryPage extends Page {
       summaryViewModel.webhookDataPaymentReference = paymentReference
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
-      return h.redirect(res._links.next_url.href)
+      return redirectTo(request, h, res._links.next_url.href)
     }
   }
 

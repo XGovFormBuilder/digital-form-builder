@@ -1,3 +1,5 @@
+import { redirectTo } from './helpers'
+
 const Boom = require('boom')
 const pkg = require('../package.json')
 const Model = require('./model')
@@ -8,13 +10,13 @@ function normalisePath (path) {
     .replace(/\/$/, '')
 }
 
-function getStartPageRedirect (h, id, model) {
+function getStartPageRedirect (request, h, id, model) {
   const startPage = normalisePath(model.def.startPage)
   let startPageRedirect
   if (startPage.startsWith('http')) {
-    startPageRedirect = h.redirect(startPage)
+    startPageRedirect = redirectTo(request, h, startPage)
   } else {
-    startPageRedirect = h.redirect(`/${id}/${startPage}`)
+    startPageRedirect = redirectTo(request, h, `/${id}/${startPage}`)
   }
   return startPageRedirect
 }
@@ -74,7 +76,7 @@ module.exports = {
           }
           const model = forms[id]
           if (model) {
-            return getStartPageRedirect(h, id, model)
+            return getStartPageRedirect(request, h, id, model)
           }
           throw Boom.notFound('No default form found')
         }
@@ -87,7 +89,7 @@ module.exports = {
           const { id } = request.params
           const model = forms[id]
           if (model) {
-            return getStartPageRedirect(h, id, model)
+            return getStartPageRedirect(request, h, id, model)
           }
           throw Boom.notFound('No form found for id')
         }
@@ -105,7 +107,7 @@ module.exports = {
               return page.makeGetRouteHandler()(request, h)
             }
             if (normalisePath(path) === '') {
-              return getStartPageRedirect(h, id, model)
+              return getStartPageRedirect(request, h, id, model)
             }
           }
           throw Boom.notFound('No form or page found')

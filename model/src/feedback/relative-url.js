@@ -15,7 +15,7 @@ module.exports = class RelativeUrl {
     }
   }
 
-  addParam (name, value) {
+  setParam (name, value) {
     this.url.searchParams.set(name, value)
     return this
   }
@@ -28,7 +28,7 @@ module.exports = class RelativeUrl {
   }
 
   setFeedbackReturnInfo (value) {
-    this.addParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value)
+    this.setParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value)
     return this
   }
 

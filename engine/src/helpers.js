@@ -3,23 +3,33 @@ import { RelativeUrl } from 'digital-form-builder-model'
 const paramsToCopy = [RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]
 
 function proceed (request, h, nextUrl) {
-  let url
   const returnUrl = request.query.returnUrl
   if (returnUrl && returnUrl.startsWith('/')) {
-    url = returnUrl
+    return h.redirect(returnUrl)
   } else {
-    console.log(`Processing url ${nextUrl}`)
-    const relativeUrl = new RelativeUrl(nextUrl)
-    paramsToCopy.forEach(key => {
-      const value = request.query[key]
-      if (value) {
-        relativeUrl.addParamIfNotPresent(key, value)
-      }
-    })
-    url = relativeUrl.toString()
+    return redirectTo(request, h, nextUrl)
   }
-
-  return h.redirect(url)
 }
 
-module.exports = { proceed }
+function redirectUrl (request, targetUrl, params = {}) {
+  const relativeUrl = new RelativeUrl(targetUrl)
+  Object.entries(params).forEach(([name, value]) => {
+    relativeUrl.setParam(name, value)
+  })
+  paramsToCopy.forEach(key => {
+    const value = request.query[key]
+    if (value) {
+      relativeUrl.addParamIfNotPresent(key, value)
+    }
+  })
+  return relativeUrl.toString()
+}
+
+function redirectTo (request, h, targetUrl, params = {}) {
+  if (targetUrl.startsWith('http')) {
+    return h.redirect(targetUrl)
+  }
+  return h.redirect(redirectUrl(request, targetUrl, params))
+}
+
+module.exports = { proceed, redirectTo, redirectUrl }

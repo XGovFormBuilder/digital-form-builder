@@ -1,5 +1,6 @@
 import { merge, reach } from '@hapi/hoek'
 import * as querystring from 'querystring'
+import { redirectTo } from './helpers'
 const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
@@ -228,7 +229,7 @@ class Page {
         const formData = this.getFormDataFromState(state, num - 1)
 
         if (!this.model.options.previewMode && progress.length === 0 && this.path !== `${startPage}`) {
-          return startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
+          return startPage.startsWith('http') ? redirectTo(request, h, startPage) : redirectTo(request, h, `/${this.model.basePath}${startPage}`)
         }
 
         formData.lang = lang
@@ -242,7 +243,7 @@ class Page {
         }
 
         const viewModel = this.getViewModel(formData, num)
-        viewModel.startPage = startPage.startsWith('http') ? h.redirect(startPage) : h.redirect(`/${this.model.basePath}${startPage}`)
+        viewModel.startPage = startPage.startsWith('http') ? redirectTo(request, h, startPage) : redirectTo(request, h, `/${this.model.basePath}${startPage}`)
         viewModel.currentPath = `${currentPath}${request.query.returnUrl ? '?returnUrl=' + request.query.returnUrl : ''}`
         await this.#setFeedbackDetails(viewModel, request)
         viewModel.components = viewModel.components.filter(component => {

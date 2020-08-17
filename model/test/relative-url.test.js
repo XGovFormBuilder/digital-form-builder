@@ -29,29 +29,29 @@ suite('relative url', () => {
     })
   })
 
-  describe('addParam', () => {
+  describe('setParam', () => {
     test('should add a first param', () => {
       const underTest = new RelativeUrl('bob')
-      underTest.addParam('myParam', 'myBadger')
+      underTest.setParam('myParam', 'myBadger')
       expect(underTest.toString()).to.equal('bob?myParam=myBadger')
     })
 
     test('should add a second param', () => {
       const underTest = new RelativeUrl('bob')
-      underTest.addParam('myParam', 'myBadger')
-      underTest.addParam('myParam2', 'myBadger2')
+      underTest.setParam('myParam', 'myBadger')
+      underTest.setParam('myParam2', 'myBadger2')
       expect(underTest.toString()).to.equal('bob?myParam=myBadger&myParam2=myBadger2')
     })
 
     test('should add a second param to an existing query string', () => {
       const underTest = new RelativeUrl('bob?myParam=myBadger')
-      underTest.addParam('myParam2', 'myBadger2')
+      underTest.setParam('myParam2', 'myBadger2')
       expect(underTest.toString()).to.equal('bob?myParam=myBadger&myParam2=myBadger2')
     })
 
     test('should overwrite param of the same name', () => {
       const underTest = new RelativeUrl('bob?myParam=myBadger')
-      underTest.addParam('myParam', 'myBadger2')
+      underTest.setParam('myParam', 'myBadger2')
       expect(underTest.toString()).to.equal('bob?myParam=myBadger2')
     })
   })

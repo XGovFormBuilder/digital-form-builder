@@ -1229,7 +1229,6 @@ suite('data model', () => {
       data.setFeedbackUrl()
       expect(data.feedbackUrl).to.equal(undefined)
     })
-
   })
 
   describe('constructor', () => {

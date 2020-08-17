@@ -1,3 +1,6 @@
+const { Helpers } = require('digital-form-builder-engine')
+
+const redirectTo = Helpers.redirectTo
 const shortid = require('shortid')
 
 const applicationStatus = {
@@ -111,7 +114,7 @@ const applicationStatus = {
           const reference = `FCO-${shortid.generate()}`
           const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey)
           await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
-          return h.redirect(res._links.next_url.href)
+          return redirectTo(request, h, res._links.next_url.href)
         }
       })
     }
