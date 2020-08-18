@@ -202,15 +202,6 @@ class Page {
     return request.yar.get('lang')
   }
 
-  feedbackUrlFromRequest (request) {
-    if (this.def.feedback?.url) {
-      let feedbackLink = new RelativeUrl(this.def.feedback.url)
-      const returnInfo = new FeedbackContextInfo(this.model.name, this.pageDef.title, request.url.pathname)
-      feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
-      return feedbackLink
-    }
-  }
-
     #objLength (object) {  /* eslint-disable-line */
       return Object.keys(object).length ?? 0
     }
@@ -242,7 +233,7 @@ class Page {
 
         const viewModel = this.getViewModel(formData, num)
         viewModel.startPage = startPage.startsWith('http') ? redirectTo(request, h, startPage) : redirectTo(request, h, `/${this.model.basePath}${startPage}`)
-        await this.#setFeedbackDetails(viewModel, request)
+        this.#setFeedbackDetails(viewModel, request)
         viewModel.components = viewModel.components.filter(component => {
           if ((component.model.content || component.type === 'Details') && component.model.condition) {
             const condition = this.model.conditions[component.model.condition]
@@ -334,7 +325,7 @@ class Page {
         if (formResult.errors) {
           const viewModel = this.getViewModel(payload, num, formResult.errors)
           viewModel.backLink = progress[progress.length - 2]
-          await this.#setFeedbackDetails(viewModel, request)
+          this.#setFeedbackDetails(viewModel, request)
           return h.view(this.viewName, viewModel)
         }
 
@@ -344,7 +335,7 @@ class Page {
         if (stateResult.errors) {
           const viewModel = this.getViewModel(payload, num, stateResult.errors)
           viewModel.backLink = progress[progress.length - 2]
-          await this.#setFeedbackDetails(viewModel, request)
+          this.#setFeedbackDetails(viewModel, request)
           return h.view(this.viewName, viewModel)
         }
 
@@ -367,18 +358,27 @@ class Page {
       }
     }
 
-    async #setFeedbackDetails (viewModel, request) { /* eslint-disable-line */
+    #setFeedbackDetails (viewModel, request) { /* eslint-disable-line */
       const feedbackContextInfo = this.#getFeedbackContextInfo(request)
       if(feedbackContextInfo) {
         viewModel.name = feedbackContextInfo.formTitle
       }
       // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
-      viewModel.feedbackLink = this.feedbackUrlFromRequest(request)
+      viewModel.feedbackLink = this.#feedbackUrlFromRequest(request)
     }
 
   #getFeedbackContextInfo(request) { /* eslint-disable-line */
     if (this.def.feedback?.feedbackForm) {
       return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo());
+    }
+  }
+
+  #feedbackUrlFromRequest (request) {  /* eslint-disable-line */
+    if (this.def.feedback?.url) {
+      let feedbackLink = new RelativeUrl(this.def.feedback.url)
+      const returnInfo = new FeedbackContextInfo(this.model.name, this.pageDef.title, `${request.url.pathname}${request.url.search}`)
+      feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
+      return feedbackLink
     }
   }
 

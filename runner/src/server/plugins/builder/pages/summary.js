@@ -10,7 +10,7 @@ const { formSchema } = require('../../../lib/formSchema')
 const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
 const { clone, reach } = require('hoek') //eslint-disable-line
-const { decode, RelativeUrl } = require('digital-form-builder-engine') //eslint-disable-line
+const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-engine') //eslint-disable-line
 const { Data } = require('digital-form-builder-model')
 
 /**
@@ -451,6 +451,7 @@ class SummaryPage extends Page {
 
       const state = await cacheService.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state, request)
+      this.#setFeedbackDetails(viewModel, request)
 
       if (viewModel.endPage) {
         return redirectTo(request, h, `/${model.basePath}${viewModel.endPage.path}`)
@@ -500,6 +501,7 @@ class SummaryPage extends Page {
       const model = this.model
       const state = await cacheService.getState(request)
       const summaryViewModel = new SummaryViewModel(this.title, model, state, request)
+      this.#setFeedbackDetails(summaryViewModel, request)
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
@@ -548,6 +550,31 @@ class SummaryPage extends Page {
       await cacheService.mergeState(request, { webhookData: summaryViewModel.validatedWebhookData })
 
       return redirectTo(request, h, res._links.next_url.href)
+    }
+  }
+
+  #setFeedbackDetails (viewModel, request) { /* eslint-disable-line */
+    const feedbackContextInfo = this.#getFeedbackContextInfo(request)
+    if(feedbackContextInfo) {
+      // set the form name to the source form name if this is a feedback form
+      viewModel.name = feedbackContextInfo.formTitle
+    }
+    // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
+    viewModel.feedbackLink = this.#feedbackUrlFromRequest(request)
+  }
+
+  #getFeedbackContextInfo(request) { /* eslint-disable-line */
+    if (this.model.def.feedback?.feedbackForm) {
+      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo());
+    }
+  }
+
+  #feedbackUrlFromRequest (request) {  /* eslint-disable-line */
+    if (this.model.def.feedback?.url) {
+      let feedbackLink = new RelativeUrl(this.model.def.feedback.url)
+      const returnInfo = new FeedbackContextInfo(this.model.name, 'Summary', `${request.url.pathname}${request.url.search}`)
+      feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
+      return feedbackLink
     }
   }
 
