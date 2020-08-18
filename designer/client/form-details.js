@@ -36,13 +36,6 @@ class FormDetails extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='form-title'>Title</label>
-          <input className='govuk-input' id='form-title' name='title'
-            type='text' required onBlur={e => this.setState({ title: e.target.value })}
-            defaultValue={title} />
-        </div>
-
         <fieldset className='govuk-fieldset' aria-describedby='feedback-form-hint'>
           <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
             <h1 className='govuk-fieldset__heading'>
@@ -69,14 +62,23 @@ class FormDetails extends React.Component {
         </fieldset>
 
         {!feedbackForm &&
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='feedback-url' aria-describedby='feedback-url-hint'>Feedback form url</label>
-            <div id='feedback-url-hint' className='govuk-hint'>
-              Url's must be relative and should start with '/'. They should relate to another form on the same digital-form-builder instance
+          <div>
+            <div className='govuk-form-group'>
+              <label className='govuk-label govuk-label--s' htmlFor='form-title'>Title</label>
+              <input className='govuk-input' id='form-title' name='title'
+                type='text' required onBlur={e => this.setState({ title: e.target.value })}
+                defaultValue={title} />
             </div>
-            <input className='govuk-input' id='feedback-url' name='feedbackUrl'
-              type='text' onChange={e => this.setState({ feedbackUrl: e.target.value })}
-              defaultValue={feedbackUrl} />
+
+            <div className='govuk-form-group'>
+              <label className='govuk-label govuk-label--s' htmlFor='feedback-url' aria-describedby='feedback-url-hint'>Feedback form url</label>
+              <div id='feedback-url-hint' className='govuk-hint'>
+                Url's must be relative and should start with '/'. They should relate to another form on the same digital-form-builder instance
+              </div>
+              <input className='govuk-input' id='feedback-url' name='feedbackUrl'
+                type='text' onChange={e => this.setState({ feedbackUrl: e.target.value })}
+                defaultValue={feedbackUrl} />
+            </div>
           </div>
         }
 
