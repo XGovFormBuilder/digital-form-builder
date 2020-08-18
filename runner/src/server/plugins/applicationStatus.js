@@ -1,10 +1,24 @@
 
-const { Helpers } = require('digital-form-builder-engine')
+const { Helpers, RelativeUrl, decode } = require('digital-form-builder-engine')
 const { payReturnUrl } = require('../config')
 
 const redirectUrl = Helpers.redirectUrl
 const redirectTo = Helpers.redirectTo
 const shortid = require('shortid')
+
+function getFeedbackContextInfo (request) {
+  if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
+    return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
+  }
+}
+
+function successfulOutcome (request, h, model) {
+  const feedbackContextInfo = getFeedbackContextInfo(request)
+  if (feedbackContextInfo) {
+    return h.redirect(feedbackContextInfo.url)
+  }
+  return h.view('confirmation', model)
+}
 
 const applicationStatus = {
   plugin: {
@@ -40,9 +54,9 @@ const applicationStatus = {
           if (reference) {
             await cacheService.clearState(request)
             if (reference !== 'UNKNOWN') {
-              return h.view('confirmation', { reference })
+              return successfulOutcome(request, h, { reference })
             } else {
-              return h.view('confirmation')
+              return successfulOutcome(request, h)
             }
           }
 
@@ -91,9 +105,9 @@ const applicationStatus = {
             }
             await cacheService.clearState(request)
             if (newReference !== 'UNKNOWN') {
-              return h.view('confirmation', { reference: newReference, paySkipped: userCouldntPay })
+              return successfulOutcome(request, h, { reference: newReference, paySkipped: userCouldntPay })
             } else {
-              return h.view('confirmation', { paySkipped: userCouldntPay })
+              return successfulOutcome(request, h, { paySkipped: userCouldntPay })
             }
           } catch (err) {
             request.server.log(['error', 'output'], `Error processing output: ${err.message}`)
