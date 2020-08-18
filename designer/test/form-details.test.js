@@ -70,7 +70,6 @@ suite('Form details', () => {
       const wrapper = shallow(<FormDetails data={data} />)
       assertTextInput(wrapper.find('#feedback-url'), 'feedback-url', '/feedback')
     })
-
   })
 
   describe('on submit', () => {

@@ -1,6 +1,6 @@
-import { RelativeUrl } from 'digital-form-builder-model'
+import { RelativeUrl } from './feedback'
 
-const paramsToCopy = [RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]
+const paramsToCopy = [RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, RelativeUrl.VISIT_IDENTIFIER_PARAMETER]
 
 function proceed (request, h, nextUrl) {
   const returnUrl = request.query.returnUrl

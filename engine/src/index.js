@@ -1,5 +1,7 @@
 import { redirectTo } from './helpers'
+import { RelativeUrl } from './feedback'
 
+const shortid = require('shortid')
 const Boom = require('boom')
 const pkg = require('../package.json')
 const Model = require('./model')
@@ -19,6 +21,15 @@ function getStartPageRedirect (request, h, id, model) {
     startPageRedirect = redirectTo(request, h, `/${id}/${startPage}`)
   }
   return startPageRedirect
+}
+
+function redirectWithVisitParameter (request, h) {
+  const visitId = request.query[RelativeUrl.VISIT_IDENTIFIER_PARAMETER]
+  if (!visitId) {
+    const params = Object.assign({}, request.query)
+    params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = shortid.generate()
+    return redirectTo(request, h, request.url.pathname, params)
+  }
 }
 
 module.exports = {
@@ -69,16 +80,20 @@ module.exports = {
         method: 'get',
         path: '/',
         handler: (request, h) => {
-          const keys = Object.keys(forms)
-          let id = ''
-          if (keys.length === 1) {
-            id = keys[0]
+          function handle () {
+            const keys = Object.keys(forms)
+            let id = ''
+            if (keys.length === 1) {
+              id = keys[0]
+            }
+            const model = forms[id]
+            if (model) {
+              return getStartPageRedirect(request, h, id, model)
+            }
+            throw Boom.notFound('No default form found')
           }
-          const model = forms[id]
-          if (model) {
-            return getStartPageRedirect(request, h, id, model)
-          }
-          throw Boom.notFound('No default form found')
+
+          return redirectWithVisitParameter(request, h) || handle()
         }
       })
 
@@ -86,12 +101,16 @@ module.exports = {
         method: 'get',
         path: '/{id}',
         handler: (request, h) => {
-          const { id } = request.params
-          const model = forms[id]
-          if (model) {
-            return getStartPageRedirect(request, h, id, model)
+          function handle () {
+            const { id } = request.params
+            const model = forms[id]
+            if (model) {
+              return getStartPageRedirect(request, h, id, model)
+            }
+            throw Boom.notFound('No form found for id')
           }
-          throw Boom.notFound('No form found for id')
+
+          return redirectWithVisitParameter(request, h) || handle()
         }
       })
 
@@ -99,18 +118,22 @@ module.exports = {
         method: 'get',
         path: '/{id}/{path*}',
         handler: (request, h) => {
-          const { path, id } = request.params
-          const model = forms[id]
-          if (model) {
-            const page = model.pages.find(page => normalisePath(page.path) === normalisePath(path))
-            if (page) {
-              return page.makeGetRouteHandler()(request, h)
+          function handle () {
+            const { path, id } = request.params
+            const model = forms[id]
+            if (model) {
+              const page = model.pages.find(page => normalisePath(page.path) === normalisePath(path))
+              if (page) {
+                return page.makeGetRouteHandler()(request, h)
+              }
+              if (normalisePath(path) === '') {
+                return getStartPageRedirect(request, h, id, model)
+              }
             }
-            if (normalisePath(path) === '') {
-              return getStartPageRedirect(request, h, id, model)
-            }
+            throw Boom.notFound('No form or page found')
           }
-          throw Boom.notFound('No form or page found')
+
+          return redirectWithVisitParameter(request, h) || handle()
         }
       })
 

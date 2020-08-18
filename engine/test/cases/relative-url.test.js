@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { RelativeUrl } from '..'
+import { RelativeUrl } from '../..'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -107,6 +107,33 @@ suite('relative url', () => {
     test('should return null if no feedback return info', () => {
       const underTest = new RelativeUrl('bob')
       expect(underTest.getFeedbackReturnInfo()).to.equal(null)
+    })
+  })
+
+  describe('setVisitIdentifier', () => {
+    test('should set', () => {
+      const underTest = new RelativeUrl('bob')
+      underTest.setVisitIdentifier('myBadger2')
+      expect(underTest.toString()).to.equal('bob?visit=myBadger2')
+    })
+
+    test('should overwrite param on subsequent call', () => {
+      const underTest = new RelativeUrl('bob')
+      underTest.setVisitIdentifier('myBadger')
+      underTest.setVisitIdentifier('myBadger2')
+      expect(underTest.toString()).to.equal('bob?visit=myBadger2')
+    })
+  })
+
+  describe('getVisitIdentifier', () => {
+    test('should get', () => {
+      const underTest = new RelativeUrl('bob?visit=myBadger2')
+      expect(underTest.getVisitIdentifier()).to.equal('myBadger2')
+    })
+
+    test('should return null if no visit identifier', () => {
+      const underTest = new RelativeUrl('bob')
+      expect(underTest.getVisitIdentifier()).to.equal(null)
     })
   })
 

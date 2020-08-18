@@ -7,10 +7,10 @@ const joi = require('joi')
 const Page = require('./index')
 const shortid = require('shortid')
 const { formSchema } = require('../../../lib/formSchema')
-const { serviceName } = require('../../../config') //eslint-disable-line
+const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
 const { clone, reach } = require('hoek') //eslint-disable-line
-const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-model') //eslint-disable-line
+const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-engine') //eslint-disable-line
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -386,7 +386,8 @@ class SummaryViewModel {
     })
   }
 
-  Item (request, component, sectionState, page, model, params = { returnUrl: `/${model.basePath}/summary` }) {
+  Item (request, component, sectionState, page, model, params) {
+    params = params || { returnUrl: redirectUrl(request, `/${model.basePath}/summary`) }
     const isRepeatable = !!page.repeatField
 
     if (isRepeatable && Array.isArray(sectionState)) {
@@ -415,7 +416,7 @@ class SummaryViewModel {
       const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
       if(feedbackContextInfo) {
         webhookData.questions.push(
-          ...FeedbackContextInfo.CONTEXT_ITEMS.map(item => ({
+          ...Data.FEEDBACK_CONTEXT_ITEMS.map(item => ({
                 category: null,
                 question: item.display,
                 fields: [
@@ -449,7 +450,6 @@ class SummaryPage extends Page {
 
       const state = await cacheService.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state, request)
-      viewModel.currentPath = `/${model.basePath}${this.path}`
 
       if (viewModel.endPage) {
         return redirectTo(request, h, `/${model.basePath}${viewModel.endPage.path}`)
@@ -478,7 +478,7 @@ class SummaryPage extends Page {
         })[0]
         if (pageWithError) {
           const params = {
-            returnUrl: `/${model.basePath}/summary`,
+            returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
             num: iteration && pageWithError.repeatField ? iteration : null
           }
           return redirectTo(request, h, `/${model.basePath}${pageWithError.path}`, params)
@@ -531,7 +531,7 @@ class SummaryPage extends Page {
 
       const paymentReference = `FCO-${shortid.generate()}`
       const description = payService.descriptionFromFees(summaryViewModel.fees)
-      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey)
+      const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey, redirectUrl(request, payReturnUrl))
 
       request.yar.set('basePath', model.basePath)
       await cacheService.mergeState(request, {

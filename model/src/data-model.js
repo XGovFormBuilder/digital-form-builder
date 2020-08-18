@@ -1,5 +1,3 @@
-import { FeedbackContextInfo } from './lib'
-
 const { clone } = require('./helpers')
 const { ConditionsModel } = require('./conditions/inline-condition-model')
 
@@ -20,6 +18,16 @@ const yesNoList = {
 }
 
 class Data {
+  /**
+   * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
+   * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
+   */
+  static FEEDBACK_CONTEXT_ITEMS = [
+    { key: 'feedbackContextInfo_formTitle', display: 'Feedback source form name', get: contextInfo => contextInfo.formTitle },
+    { key: 'feedbackContextInfo_pageTitle', display: 'Feedback source page title', get: contextInfo => contextInfo.pageTitle },
+    { key: 'feedbackContextInfo_url', display: 'Feedback source url', get: contextInfo => contextInfo.url }
+  ]
+
   #conditions
   #name
   #feedback
@@ -50,7 +58,7 @@ class Data {
     if (this.feedbackForm) {
       const startPage = this.findPage(this.startPage)
       const options = { ignoreSection: true }
-      FeedbackContextInfo.CONTEXT_ITEMS.forEach(it => {
+      Data.FEEDBACK_CONTEXT_ITEMS.forEach(it => {
         inputs.push(new Input({ type: 'TextField', title: it.display, name: it.key }, startPage, options))
       })
     }

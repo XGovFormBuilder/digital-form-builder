@@ -23,7 +23,9 @@ class FormDetails extends React.Component {
 
     try {
       const saved = await data.save(copy)
-      this.props.onCreate(saved)
+      if (this.props.onCreate) {
+        this.props.onCreate(saved)
+      }
     } catch (err) {
       console.error(err)
     }

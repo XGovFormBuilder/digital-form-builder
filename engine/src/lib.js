@@ -7,5 +7,9 @@ import Page from './page'
 import Schema from '@xgovformbuilder/model/lib/schema'
 import { plugin } from './index'
 
-export { findByPostcode, ComponentTypes, ConditionalComponentTypes, Helpers, Model, Page, Schema }
+import {
+  FeedbackContextInfo, RelativeUrl, decode
+} from './feedback'
+
+export { findByPostcode, ComponentTypes, ConditionalComponentTypes, Helpers, Model, Page, Schema, FeedbackContextInfo, RelativeUrl, decode }
 export default plugin

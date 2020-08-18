@@ -102,12 +102,12 @@ suite('Dynamic pages', { skip: true }, () => {
   })
 
   test('Start of repeatable section appends num parameter', async () => {
-    const response = await server.inject(postOptions('/dynamic/how-many-people', { numberOfApplicants: 2 }))
-    expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=1')
+    const response = await server.inject(postOptions('/dynamic/how-many-people?visit=1', { numberOfApplicants: 2 }))
+    expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=1&visit=1')
   })
 
   test('Asks questions in section correct number of times', async () => {
-    let nextPath = '/dynamic/uk-passport'
+    let nextPath = '/dynamic/uk-passport?visit=1'
     let response
 
     const reassignNextPath = () => { nextPath = response.headers.location }
@@ -120,14 +120,14 @@ suite('Dynamic pages', { skip: true }, () => {
     reassignNextPath()
 
     response = await server.inject(postOptions(nextPath, FORMS.contact))
-    expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=2')
+    expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=2&visit=1')
     reassignNextPath()
 
     response = await server.inject(postOptions(nextPath, FORMS.name))
     reassignNextPath()
 
     response = await server.inject(postOptions(nextPath, FORMS.contact))
-    expect(response.headers.location).to.equal('/dynamic/summary')
+    expect(response.headers.location).to.equal('/dynamic/summary?visit=1')
 
     reassignNextPath()
   })
@@ -139,7 +139,7 @@ suite('Dynamic pages', { skip: true }, () => {
 
     const response = await server.inject({
       method: 'GET',
-      url: '/dynamic/summary'
+      url: '/dynamic/summary?visit=1'
     })
     expect(response.statusCode).to.equal(200)
     expect(response.headers['content-type']).to.include('text/html')
@@ -160,7 +160,7 @@ suite('Dynamic pages', { skip: true }, () => {
     await cacheService.mergeState({ yar: { id: 'TEST_ID' } }, state)
     const response = await server.inject({
       method: 'GET',
-      url: '/dynamic/summary'
+      url: '/dynamic/summary?visit=1'
     })
     expect(response.statusCode).to.equal(200)
     expect(response.headers['content-type']).to.include('text/html')
@@ -173,7 +173,7 @@ suite('Dynamic pages', { skip: true }, () => {
 
     const responseAfterNumberChange = await server.inject({
       method: 'GET',
-      url: '/dynamic/summary'
+      url: '/dynamic/summary?visit=1'
     })
 
     $ = cheerio.load(responseAfterNumberChange.payload)

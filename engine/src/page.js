@@ -5,7 +5,7 @@ const joi = require('joi')
 const { proceed } = require('./helpers')
 const { ComponentCollection } = require('../components')
 
-const { RelativeUrl, FeedbackContextInfo, decode } = require('digital-form-builder-model') /* eslint-disable-line */
+const { RelativeUrl, FeedbackContextInfo, decode } = require('./feedback') /* eslint-disable-line */
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -244,7 +244,6 @@ class Page {
 
         const viewModel = this.getViewModel(formData, num)
         viewModel.startPage = startPage.startsWith('http') ? redirectTo(request, h, startPage) : redirectTo(request, h, `/${this.model.basePath}${startPage}`)
-        viewModel.currentPath = `${currentPath}${request.query.returnUrl ? '?returnUrl=' + request.query.returnUrl : ''}`
         await this.#setFeedbackDetails(viewModel, request)
         viewModel.components = viewModel.components.filter(component => {
           if ((component.model.content || component.type === 'Details') && component.model.condition) {

@@ -74,6 +74,20 @@ suite('Helpers', () => {
       expect(returned).to.equal(returnValue)
     })
 
+    test('Should copy visit param from the original request', () => {
+      const request = {
+        query: {
+          visit: 'myValue'
+        }
+      }
+      const nextUrl = 'badgers/monkeys'
+      const returned = proceed(request, h, nextUrl)
+
+      expect(h.redirect.callCount).to.equal(1)
+      expect(h.redirect.firstCall.args[0]).to.equal(`${nextUrl}?visit=myValue`)
+      expect(returned).to.equal(returnValue)
+    })
+
     test('Should use params provided in nextUrl in preference to those in the original request', () => {
       const request = {
         query: {
@@ -137,6 +151,20 @@ suite('Helpers', () => {
 
       expect(h.redirect.callCount).to.equal(1)
       expect(h.redirect.firstCall.args[0]).to.equal(`${nextUrl}?f_t=myValue`)
+      expect(returned).to.equal(returnValue)
+    })
+
+    test('Should copy visit param from the original request', () => {
+      const request = {
+        query: {
+          visit: 'myValue'
+        }
+      }
+      const nextUrl = 'badgers/monkeys'
+      const returned = redirectTo(request, h, nextUrl)
+
+      expect(h.redirect.callCount).to.equal(1)
+      expect(h.redirect.firstCall.args[0]).to.equal(`${nextUrl}?visit=myValue`)
       expect(returned).to.equal(returnValue)
     })
 
@@ -231,6 +259,18 @@ suite('Helpers', () => {
       const returned = redirectUrl(request, nextUrl)
 
       expect(returned).to.equal(`${nextUrl}?f_t=myValue`)
+    })
+
+    test('Should copy visit param from the original request', () => {
+      const request = {
+        query: {
+          visit: 'myValue'
+        }
+      }
+      const nextUrl = 'badgers/monkeys'
+      const returned = redirectUrl(request, nextUrl)
+
+      expect(returned).to.equal(`${nextUrl}?visit=myValue`)
     })
 
     test('Should use params provided in nextUrl in preference to those in the original request', () => {

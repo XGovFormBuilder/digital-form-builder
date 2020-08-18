@@ -6,6 +6,7 @@
 **/
 module.exports = class RelativeUrl {
   static FEEDBACK_RETURN_INFO_PARAMETER = 'f_t'
+  static VISIT_IDENTIFIER_PARAMETER = 'visit'
 
   constructor (urlString) {
     this.url = new URL(urlString, 'http://www.example.com')
@@ -34,6 +35,15 @@ module.exports = class RelativeUrl {
 
   getFeedbackReturnInfo () {
     return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER)
+  }
+
+  setVisitIdentifier (value) {
+    this.setParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER, value)
+    return this
+  }
+
+  getVisitIdentifier () {
+    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER)
   }
 
   getParam (name) {

@@ -16,13 +16,9 @@ import {
   GroupDef
 } from './conditions/inline-condition-model'
 
-import {
-  FeedbackContextInfo, RelativeUrl, decode
-} from './feedback'
-
 export {
   ComponentTypes, ConditionalComponentTypes, Schema, Data, clone, ConditionValue, timeUnits,
   absoluteDateOrTimeOperatorNames, getOperatorConfig, relativeDateOrTimeOperatorNames, Condition, Field,
   valueFrom, getOperatorNames, getExpression, GroupDef, ConditionsModel, dateDirections, RelativeTimeValue,
-  dateTimeUnits, dateUnits, FeedbackContextInfo, RelativeUrl, decode, Logger
+  dateTimeUnits, dateUnits, Logger
 }

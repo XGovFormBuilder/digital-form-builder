@@ -1,4 +1,4 @@
-const { payApiUrl, payReturnUrl } = require('../config')
+const { payApiUrl } = require('../config')
 const Wreck = require('@hapi/wreck')
 
 class PayService {
@@ -11,17 +11,17 @@ class PayService {
     }
   }
 
-  payRequestData (amount, reference, description) {
+  payRequestData (amount, reference, description, returnUrl) {
     return {
       amount,
       reference,
       description,
-      return_url: payReturnUrl
+      return_url: returnUrl
     }
   }
 
-  async payRequest (amount, reference, description, apiKey) {
-    const data = { ...this.options(apiKey), payload: this.payRequestData(amount, reference, description) }
+  async payRequest (amount, reference, description, apiKey, returnUrl) {
+    const data = { ...this.options(apiKey), payload: this.payRequestData(amount, reference, description, returnUrl) }
     const { payload } = await Wreck.post(`${payApiUrl}/payments`, data)
     return JSON.parse(payload.toString())
   }
