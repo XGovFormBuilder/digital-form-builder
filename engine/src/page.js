@@ -204,11 +204,9 @@ class Page {
 
   feedbackUrlFromRequest (request) {
     if (this.def.feedback?.url) {
-      let feedbackLink = new RelativeUrl(this.def.feedback?.url)
-      if (this.def.feedback?.sendContext) {
-        const returnInfo = new FeedbackContextInfo(this.model.name, this.pageDef.title, request.url.pathname)
-        feedbackLink = feedbackLink.page.setFeedbackReturnInfo(returnInfo.toString()).toString()
-      }
+      let feedbackLink = new RelativeUrl(this.def.feedback.url)
+      const returnInfo = new FeedbackContextInfo(this.model.name, this.pageDef.title, request.url.pathname)
+      feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
       return feedbackLink
     }
   }

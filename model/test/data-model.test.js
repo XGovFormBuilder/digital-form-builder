@@ -29,8 +29,7 @@ suite('data model', () => {
     conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }],
     feedback: {
       feedbackForm: false,
-      url: '/feedback',
-      sendContext: true
+      url: '/feedback'
     }
   }
 
@@ -1197,7 +1196,6 @@ suite('data model', () => {
     test('should set feedback url to undefined and clear send context', () => {
       const data = new Data({
         feedback: {
-          sendContext: true,
           url: '/feedback'
         }
       })

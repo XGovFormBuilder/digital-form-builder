@@ -10,7 +10,8 @@ const { formSchema } = require('../../../lib/formSchema')
 const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
 const { clone, reach } = require('hoek') //eslint-disable-line
-const { decode, RelativeUrl, FeedbackContextInfo } = require('digital-form-builder-engine') //eslint-disable-line
+const { decode, RelativeUrl } = require('digital-form-builder-engine') //eslint-disable-line
+const { Data } = require('digital-form-builder-model')
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
