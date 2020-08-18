@@ -10,6 +10,7 @@ import FeeEdit from './fee-edit'
 import NotifyEdit from './notify-edit'
 import DeclarationEdit from './declaration-edit'
 import OutputsEdit from './outputs-edit'
+import FormDetails from './form-details'
 
 export default class Menu extends React.Component {
   state = {
@@ -84,6 +85,13 @@ export default class Menu extends React.Component {
     return (
       <div className='menu'>
         <span className='menu-inner'>
+          <button
+            className='govuk-button govuk-!-font-size-14 govuk-!-margin-bottom-1'
+            onClick={() => this.setState({ showFormConfig: true })}
+          >Form Details
+          </button>
+          {' '}
+
           <button
             className='govuk-button govuk-!-font-size-14 govuk-!-margin-bottom-1'
             onClick={() => this.setState({ showAddPage: true })}
@@ -161,6 +169,11 @@ export default class Menu extends React.Component {
             </a>{' '}
             <input type='file' id='upload' hidden onChange={this.onFileUpload} />
           </div>
+
+          <Flyout title='Form Details' show={this.state.showFormConfig}
+            onHide={() => this.setState({ showFormConfig: false })}>
+            <FormDetails data={data} onCreate={() => this.setState({ showFormConfig: false })} />
+          </Flyout>
 
           <Flyout
             title='Add Page' show={this.state.showAddPage}

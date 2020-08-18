@@ -95,7 +95,12 @@ const designerPlugin = {
         path: '/{id}/api/id',
         options: {
           handler: (request, h) => {
-            return h.response(shortid.generate()).code(200)
+            /**
+             * slightly hideous. We can't use hyphen as expr-eval uses that as an operator.
+             * introduces a (vanishingly small) risk of id collision. I did try a LOT of other
+             * possible characters - but expr-eval won't parse them.
+             */
+            return h.response(shortid.generate().replace(/-/g, '_')).code(200)
           }
         }
       })
