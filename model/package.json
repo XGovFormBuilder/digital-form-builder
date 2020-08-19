@@ -51,6 +51,7 @@
     "eslint": "^7.6.0",
     "flow-bin": "^0.130.0",
     "flow-mono-cli": "^1.5.3",
-    "flow-typed": "^3.2.1"
+    "flow-typed": "^3.2.1",
+    "sinon": "^9.0.2"
   }
 }

@@ -1,3 +1,5 @@
+import { clone } from "digital-form-builder-model";
+
 const joi = require('joi')
 const path = require('path')
 const schema = require('@xgovformbuilder/model/lib/schema')
@@ -12,7 +14,6 @@ const { ConditionsModel } = require('@xgovformbuilder/model/lib/conditions/inlin
 class Model {
   constructor (def, options) {
     const result = schema.validate(def, { abortEarly: false })
-
     // TODO:- throw/catch this properly 🤦🏻‍
     if (result.error) {
       throw result.error
@@ -20,7 +21,7 @@ class Model {
 
     // Make a clone of the shallow copy returned
     // by joi so as not to change the source data.
-    def = JSON.parse(JSON.stringify(result.value))
+    def = clone(result.value)
 
     // Add default lists
     def.lists.push({
