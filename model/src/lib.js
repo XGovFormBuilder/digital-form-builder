@@ -3,6 +3,7 @@ import ConditionalComponentTypes from './conditional-component-types'
 import Schema from './schema'
 import { Data } from './data-model'
 import { clone } from './helpers'
+import { Logger } from './logger'
 import { ConditionValue, timeUnits, valueFrom, dateDirections, RelativeTimeValue, dateTimeUnits, dateUnits } from './conditions/inline-condition-values'
 import {
   absoluteDateOrTimeOperatorNames, getOperatorConfig, relativeDateOrTimeOperatorNames, getOperatorNames, getExpression
@@ -19,5 +20,5 @@ export {
   ComponentTypes, ConditionalComponentTypes, Schema, Data, clone, ConditionValue, timeUnits,
   absoluteDateOrTimeOperatorNames, getOperatorConfig, relativeDateOrTimeOperatorNames, Condition, Field,
   valueFrom, getOperatorNames, getExpression, GroupDef, ConditionsModel, dateDirections, RelativeTimeValue,
-  dateTimeUnits, dateUnits
+  dateTimeUnits, dateUnits, Logger
 }
