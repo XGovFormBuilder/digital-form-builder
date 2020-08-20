@@ -1,5 +1,3 @@
-import {SchemaMigrationService} from "digital-form-builder-model";
-
 const hapi = require('@hapi/hapi')
 const { viewPlugin } = require('./plugins/view')
 const { designerPlugin } = require('./plugins/designer')
@@ -27,7 +25,6 @@ async function createServer () {
   await server.register(viewPlugin)
   await server.register(Schmervice)
   server.registerService([Schmervice.withName('persistenceService', determinePersistenceService(config.persistentBackend))])
-  server.registerService([Schmervice.withName('migrationService', SchemaMigrationService)])
   await server.register(designerPlugin)
   await server.register(require('./plugins/router'))
 
