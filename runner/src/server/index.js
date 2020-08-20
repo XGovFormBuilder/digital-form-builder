@@ -9,7 +9,7 @@ const { NotifyService, PayService, UploadService, CacheService, catboxProvider, 
 
 const serverOptions = () => {
   const defaultOptions = {
-    debug: { request: `${config.isDev}` },
+    debug: { request: `${config.isDev}` }, // eslint-disable-line
     port: config.port,
     routes: {
       validate: {
