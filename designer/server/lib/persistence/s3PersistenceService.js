@@ -2,7 +2,7 @@
 import S3 from 'aws-sdk/clients/s3'
 import config from '../../../config'
 import { PersistenceService } from './persistenceService'
-import {Logger} from "digital-form-builder-model";
+import { Logger } from 'digital-form-builder-model'
 
 export class S3PersistenceService implements PersistenceService {
   logger: any

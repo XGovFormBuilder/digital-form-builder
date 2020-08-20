@@ -9,11 +9,16 @@ class InlineConditions extends React.Component {
   constructor (props) {
     super(props)
 
-    const { path } = this.props
+    const { path, condition } = this.props
 
+    const conditions = condition && typeof condition.value === 'object' ? ConditionsModel.from(condition.value) : new ConditionsModel()
+    if (condition) {
+      conditions.name = condition.displayName
+    }
     this.state = {
-      conditions: new ConditionsModel(),
-      fields: this.fieldsForPath(path)
+      conditions: conditions,
+      fields: this.fieldsForPath(path),
+      conditionString: condition && typeof condition.value === 'string' ? condition.value : undefined
     }
   }
 
@@ -63,12 +68,21 @@ class InlineConditions extends React.Component {
   }
 
   onClickSave = async () => {
-    const { data, conditionsChange } = this.props
+    const { data, conditionsChange, condition } = this.props
+    const { conditions } = this.state
     const copy = data.clone()
-    const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, this.state.conditions)
-    await data.save(conditionResult.data)
-    if (conditionsChange) {
-      conditionsChange(conditionResult.condition)
+    if (condition) {
+      const updatedData = data.updateCondition(condition.name, conditions.name, conditions)
+      await data.save(updatedData)
+      if (conditionsChange) {
+        conditionsChange(condition.name)
+      }
+    } else {
+      const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, conditions)
+      await data.save(conditionResult.data)
+      if (conditionsChange) {
+        conditionsChange(conditionResult.condition)
+      }
     }
   }
 
@@ -94,19 +108,27 @@ class InlineConditions extends React.Component {
   }
 
   render () {
-    const { conditions, editView } = this.state
+    const { conditions, editView, conditionString } = this.state
     const hasConditions = conditions.hasConditions
 
     return (
       this.state.fields && Object.keys(this.state.fields).length > 0 &&
         <div id='inline-conditions'>
           <div id='inline-condition-header'>
+
+            {conditionString && <div id='condition-string-edit-warning' className='govuk-warning-text'>
+              <span className='govuk-warning-text__icon' aria-hidden='true'>!</span>
+              <strong className='govuk-warning-text__text'>
+                <span className='govuk-warning-text__assistive'>Warning</span>
+                You cannot edit this condition '{conditionString}'. Please recreate it in the editor below to continue
+              </strong>
+            </div> }
             <div>
               <div className='govuk-form-group'>
                 <label className='govuk-label' htmlFor='cond-name'>Display name</label>
                 <input
                   className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
-                  type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName}
+                  type='text' value={conditions.name} required onChange={this.onChangeDisplayName}
                 />
               </div>
               <div className='govuk-form-group'>

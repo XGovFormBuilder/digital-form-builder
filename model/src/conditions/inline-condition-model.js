@@ -205,6 +205,9 @@ export class ConditionsModel {
   }
 
   static from (obj) {
+    if (obj instanceof ConditionsModel) {
+      return obj
+    }
     const toReturn = new ConditionsModel()
     toReturn.#conditionName = obj.name
     toReturn.#userGroupedConditions = obj.conditions.map(it => conditionFrom(it))

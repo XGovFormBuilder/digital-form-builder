@@ -1,4 +1,4 @@
-import { clone } from "digital-form-builder-model";
+import { clone } from 'digital-form-builder-model'
 
 const joi = require('joi')
 const path = require('path')
