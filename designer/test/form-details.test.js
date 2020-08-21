@@ -3,10 +3,12 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import { Data } from 'digital-form-builder-model/lib/data-model'
-import { assertRadioButton, assertTextInput } from './helpers/element-assertions'
+import { assertRadioButton, assertSelectInput, assertTextInput } from './helpers/element-assertions'
 import FormDetails from '../client/form-details'
 
 import sinon from 'sinon'
+import { FormConfiguration } from 'digital-form-builder-model'
+import formConfigurationsApi from '../client/load-form-configurations'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -14,6 +16,21 @@ exports.lab = lab
 const { afterEach, beforeEach, describe, suite, test } = lab
 
 suite('Form details', () => {
+  const formConfigurations = [
+    new FormConfiguration('someKey', 'Some display name'),
+    new FormConfiguration('anotherKey', 'Another display name'),
+    new FormConfiguration('thirdKey')
+  ]
+  let formConfigurationApiStub
+
+  beforeEach(() => {
+    formConfigurationApiStub = sinon.stub(formConfigurationsApi, 'loadConfigurations').resolves(formConfigurations)
+  })
+
+  afterEach(() => {
+    formConfigurationApiStub.restore()
+  })
+
   describe('rendering', () => {
     const data = new Data({})
 
@@ -61,9 +78,26 @@ suite('Form details', () => {
       assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { 'defaultChecked': true })
     })
 
-    test('Renders Feedback url input when form is not a feedback form', () => {
+    test('Renders Feedback form input when form is not a feedback form', async () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#feedback-url'), 'feedback-url')
+      await wrapper.instance().componentDidMount()
+      assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+        { value: 'someKey', text: 'Some display name' },
+        { value: 'anotherKey', text: 'Another display name' },
+        { value: 'thirdKey', text: 'thirdKey' }
+      ])
+      expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
+      expect(wrapper.find('#target-feedback-form-hint').text()).to.equal('This is the form to use for gathering feedback about this form')
+    })
+
+    test('Renders no configurations found text when no form configurations are located', () => {
+      formConfigurationApiStub.restore()
+      formConfigurationApiStub = sinon.stub(formConfigurationsApi, 'loadConfigurations').resolves([])
+
+      const wrapper = shallow(<FormDetails data={data} />)
+      expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
+      expect(wrapper.find('#target-feedback-form-hint').text()).to.equal('No available feedback form configurations found')
+      expect(wrapper.find('#target-feedback-form').exists()).to.equal(false)
     })
 
     test('Does not render Feedback url input when form is a feedback form', () => {
@@ -72,10 +106,17 @@ suite('Form details', () => {
       expect(wrapper.find('#feedback-url').exists()).to.equal(false)
     })
 
-    test('Renders populated Feedback url input when present and form is not a feedback form', () => {
-      data.setFeedbackUrl('/feedback')
+    test('Renders populated target feedback form input when present and form is not a feedback form', async () => {
+      data.setFeedbackUrl('/anotherKey')
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#feedback-url'), 'feedback-url', '/feedback')
+      await wrapper.instance().componentDidMount()
+      assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+        { value: 'someKey', text: 'Some display name' },
+        { value: 'anotherKey', text: 'Another display name' },
+        { value: 'thirdKey', text: 'thirdKey' }
+      ], 'anotherKey')
+      expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
+      expect(wrapper.find('#target-feedback-form-hint').text()).to.equal('This is the form to use for gathering feedback about this form')
     })
   })
 
@@ -154,13 +195,15 @@ suite('Form details', () => {
     })
 
     test('feedbackUrl should be set correctly when changed', async () => {
-      data.setFeedbackUrl('/feedback')
+      data.setFeedbackUrl('/someKey')
+
       const wrapper = shallow(<FormDetails data={data} />)
-      wrapper.find('#feedback-url').simulate('change', { target: { value: '/feedback-2' } })
+      await wrapper.instance().componentDidMount()
+      wrapper.find('#target-feedback-form').simulate('change', { target: { value: 'anotherKey' } })
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
 
       expect(data.save.callCount).to.equal(1)
-      expect(data.save.firstCall.args[0].feedbackUrl).to.equal('/feedback-2')
+      expect(data.save.firstCall.args[0].feedbackUrl).to.equal('/anotherKey')
     })
 
     test('Updated data should be saved correctly and saved data should be passed to callback', async () => {

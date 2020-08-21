@@ -1,25 +1,34 @@
 import React from 'react'
+import formConfigurationApi from './load-form-configurations'
 
 class FormDetails extends React.Component {
   constructor (props) {
     super(props)
     const { feedbackForm, feedbackUrl } = props.data
+    const selectedFeedbackForm = feedbackUrl?.substr(1)
     this.state = {
       title: props.data.name,
       feedbackForm: feedbackForm,
-      feedbackUrl: feedbackUrl
+      formConfigurations: [],
+      selectedFeedbackForm
     }
+    this.onSelectFeedbackForm = this.onSelectFeedbackForm.bind(this)
+  }
+
+  async componentDidMount () {
+    const formConfigurations = await formConfigurationApi.loadConfigurations()
+    this.setState({ formConfigurations })
   }
 
   onSubmit = async e => {
     e.preventDefault()
     const { data } = this.props
-    const { title, feedbackForm, feedbackUrl } = this.state
+    const { title, feedbackForm, selectedFeedbackForm } = this.state
 
     let copy = data.clone()
     copy.name = title
     copy.feedbackForm = feedbackForm
-    copy.setFeedbackUrl(feedbackUrl)
+    copy.setFeedbackUrl(selectedFeedbackForm ? `/${selectedFeedbackForm}` : undefined)
 
     try {
       const saved = await data.save(copy)
@@ -31,8 +40,13 @@ class FormDetails extends React.Component {
     }
   }
 
+  onSelectFeedbackForm (e) {
+    const selectedFeedbackForm = e.target.value
+    this.setState({ selectedFeedbackForm })
+  }
+
   render () {
-    const { title, feedbackForm, feedbackUrl } = this.state
+    const { title, feedbackForm, selectedFeedbackForm, formConfigurations } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -47,7 +61,7 @@ class FormDetails extends React.Component {
           </div>
           <div className='govuk-radios govuk-radios--inline'>
             <div className='govuk-radios__item'>
-              <input className='govuk-radios__input' id='feedback-yes' name='feedbackForm' type='radio' value='true' defaultChecked={feedbackForm} onClick={() => this.setState({ feedbackForm: true, feedbackUrl: undefined })} />
+              <input className='govuk-radios__input' id='feedback-yes' name='feedbackForm' type='radio' value='true' defaultChecked={feedbackForm} onClick={() => this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })} />
               <label className='govuk-label govuk-radios__label' htmlFor='feedback-yes'>
                 Yes
               </label>
@@ -64,20 +78,28 @@ class FormDetails extends React.Component {
         {!feedbackForm &&
           <div>
             <div className='govuk-form-group'>
-              <label className='govuk-label govuk-label--s' htmlFor='form-title'>Title</label>
+              <label className='govuk-label govuk-label--s' htmlFor='form-title' aria-describedby='feedback-form-hint'>Title</label>
               <input className='govuk-input' id='form-title' name='title'
                 type='text' required onBlur={e => this.setState({ title: e.target.value })}
                 defaultValue={title} />
             </div>
 
             <div className='govuk-form-group'>
-              <label className='govuk-label govuk-label--s' htmlFor='feedback-url' aria-describedby='feedback-url-hint'>Feedback form url</label>
-              <div id='feedback-url-hint' className='govuk-hint'>
-                Url's must be relative and should start with '/'. They should relate to another form on the same digital-form-builder instance
-              </div>
-              <input className='govuk-input' id='feedback-url' name='feedbackUrl'
-                type='text' onChange={e => this.setState({ feedbackUrl: e.target.value })}
-                defaultValue={feedbackUrl} />
+              <label className='govuk-label govuk-label--s' htmlFor='target-feedback-form'>Feedback form</label>
+              {!formConfigurations.length && (
+                <div className='govuk-hint' id='target-feedback-form-hint'>No available feedback form configurations found</div>
+              )}
+
+              {formConfigurations.length && (
+                <div>
+                  <div id='target-feedback-form-hint' className='govuk-hint'>
+                    This is the form to use for gathering feedback about this form
+                  </div>
+                  <select className='govuk-select' id='target-feedback-form' name='targetFeedbackForm' value={selectedFeedbackForm} required onChange={this.onSelectFeedbackForm}>
+                    {formConfigurations.map((config, index) => (<option key={config.Key + index} value={config.Key}>{config.DisplayName}</option>))}
+                  </select>
+                </div>
+              )}
             </div>
           </div>
         }
