@@ -2,7 +2,7 @@
 import S3 from 'aws-sdk/clients/s3'
 import config from '../../../config'
 import { PersistenceService } from './persistenceService'
-import { Logger } from '@xgovformbuilder/model'
+import { Logger, FormConfiguration } from '@xgovformbuilder/model'
 
 export class S3PersistenceService implements PersistenceService {
   logger: any
@@ -23,7 +23,7 @@ export class S3PersistenceService implements PersistenceService {
       this.logger.error(`error listing all configurations ${response.error.message}`)
       return response.error
     }
-    return response.Contents
+    return response.Contents.map(entry => new FormConfiguration(entry.Key, undefined, entry.LastModified))
   }
 
   async getConfiguration (id: string) {
