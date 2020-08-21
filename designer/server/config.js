@@ -6,7 +6,7 @@ const schema = {
   port: joi.number().default(3000),
   env: joi.string().valid('development', 'test', 'production').default('development'),
   previewUrl: joi.string(),
-  persistentBackend: joi.string().valid('s3', 'blob').optional(),
+  persistentBackend: joi.string().valid('s3', 'blob', 'preview').optional(),
   s3Bucket: joi.string().optional(),
   persistentKeyId: joi.string().optional(),
   persistentAccessKey: joi.string().optional(),

@@ -1,5 +1,6 @@
 import { redirectTo } from './helpers'
 import { RelativeUrl } from './feedback'
+import { FormConfiguration } from 'digital-form-builder-model'
 
 const shortid = require('shortid')
 const Boom = require('boom')
@@ -72,6 +73,17 @@ module.exports = {
             } else {
               return h.response({}).code(204)
             }
+          }
+        })
+
+        server.route({
+          method: 'get',
+          path: '/published',
+          handler: (request, h) => {
+            return h.response(
+              JSON.stringify(Object.keys(forms).map(key => new FormConfiguration(key, forms[key].name)))
+            )
+              .code(200)
           }
         })
       }
