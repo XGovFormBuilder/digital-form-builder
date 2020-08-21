@@ -16,5 +16,6 @@ client/
 
 [options]
 server.max_workers=4
+esproposal.optional_chaining=enable
 
 [strict]

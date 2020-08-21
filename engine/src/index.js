@@ -81,7 +81,7 @@ module.exports = {
           path: '/published',
           handler: (request, h) => {
             return h.response(
-              JSON.stringify(Object.keys(forms).map(key => new FormConfiguration(key, forms[key].name)))
+              JSON.stringify(Object.keys(forms).map(key => new FormConfiguration(key, forms[key].name, undefined, forms[key].def.feedback?.feedbackForm)))
             )
               .code(200)
           }

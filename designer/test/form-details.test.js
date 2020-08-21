@@ -17,9 +17,10 @@ const { afterEach, beforeEach, describe, suite, test } = lab
 
 suite('Form details', () => {
   const formConfigurations = [
-    new FormConfiguration('someKey', 'Some display name'),
-    new FormConfiguration('anotherKey', 'Another display name'),
-    new FormConfiguration('thirdKey')
+    new FormConfiguration('someKey', 'Some display name', undefined, true),
+    new FormConfiguration('anotherKey', 'Another display name', undefined, true),
+    new FormConfiguration('thirdKey', undefined, undefined, true),
+    new FormConfiguration('nonFeedbackFormShouldBeIgnored', undefined, undefined, false)
   ]
   let formConfigurationApiStub
 
@@ -87,7 +88,7 @@ suite('Form details', () => {
         { value: 'thirdKey', text: 'thirdKey' }
       ])
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
-      expect(wrapper.find('#target-feedback-form-hint').text()).to.equal('This is the form to use for gathering feedback about this form')
+      expect(wrapper.find('#target-feedback-form-hint').text().startsWith('This is the form to use for gathering feedback about this form')).to.equal(true)
     })
 
     test('Renders no configurations found text when no form configurations are located', () => {
@@ -96,7 +97,7 @@ suite('Form details', () => {
 
       const wrapper = shallow(<FormDetails data={data} />)
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
-      expect(wrapper.find('#target-feedback-form-hint').text()).to.equal('No available feedback form configurations found')
+      expect(wrapper.find('#target-feedback-form-hint').text().startsWith('No available feedback form configurations found')).to.equal(true)
       expect(wrapper.find('#target-feedback-form').exists()).to.equal(false)
     })
 
@@ -116,7 +117,7 @@ suite('Form details', () => {
         { value: 'thirdKey', text: 'thirdKey' }
       ], 'anotherKey')
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
-      expect(wrapper.find('#target-feedback-form-hint').text()).to.equal('This is the form to use for gathering feedback about this form')
+      expect(wrapper.find('#target-feedback-form-hint').text().startsWith('This is the form to use for gathering feedback about this form')).to.equal(true)
     })
   })
 

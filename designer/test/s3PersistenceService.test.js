@@ -32,6 +32,7 @@ suite('s3PersistenceService', () => {
         Contents: [
           { Key: 'myForm', Metadata: { 'x-amz-meta-name': 'My form' }, LastModified: '2019-03-12T01:00:32.999Z' },
           { Key: 'anotherForm', Metadata: { 'x-amz-meta-name': 'Another form' } },
+          { Key: 'feedbackForm', Metadata: { 'x-amz-meta-name': 'Feedback form', 'x-amz-meta-type': 'feedback' } },
           { Key: 'thirdForm' }
         ]
       }) })
@@ -39,6 +40,7 @@ suite('s3PersistenceService', () => {
       expect(await underTest.listAllConfigurations()).to.equal([
         new FormConfiguration('myForm', 'My form', '2019-03-12T01:00:32.999Z'),
         new FormConfiguration('anotherForm', 'Another form'),
+        new FormConfiguration('feedbackForm', 'Feedback form', undefined, true),
         new FormConfiguration('thirdForm')
       ])
     })
@@ -89,7 +91,7 @@ suite('s3PersistenceService', () => {
         expect(await underTest.uploadConfiguration(testCase.id, configuration)).to.equal(response)
 
         expect(underTest.bucket.upload.callCount).to.equal(1)
-        expect(underTest.bucket.upload.firstCall.args[0]).to.equal({ Key: testCase.expectedId, Body: configuration, Metadata: { 'x-amz-meta-name': undefined } })
+        expect(underTest.bucket.upload.firstCall.args[0]).to.equal({ Key: testCase.expectedId, Body: configuration, Metadata: {} })
       })
 
       test(`should upload configuration with a display name when id is ${testCase.description}`, async () => {
@@ -102,6 +104,18 @@ suite('s3PersistenceService', () => {
 
         expect(underTest.bucket.upload.callCount).to.equal(1)
         expect(underTest.bucket.upload.firstCall.args[0]).to.equal({ Key: testCase.expectedId, Body: configuration, Metadata: { 'x-amz-meta-name': displayName } })
+      })
+
+      test(`should upload configuration which is a feedback form when id is ${testCase.description}`, async () => {
+        const response = {}
+        const displayName = 'My form'
+        underTest.bucket.upload.returns({ promise: () => response })
+        const configuration = JSON.stringify({ someStuff: 'someValue', name: displayName, feedback: { feedbackForm: true } })
+
+        expect(await underTest.uploadConfiguration(testCase.id, configuration)).to.equal(response)
+
+        expect(underTest.bucket.upload.callCount).to.equal(1)
+        expect(underTest.bucket.upload.firstCall.args[0]).to.equal({ Key: testCase.expectedId, Body: configuration, Metadata: { 'x-amz-meta-name': displayName, 'x-amz-meta-type': 'feedback' } })
       })
     })
 

@@ -5,7 +5,7 @@ const config = require('../../../config')
 
 export class PreviewPersistenceService implements PersistenceService {
   logger: any;
-  async uploadConfiguration (id: string, configuration: any) {
+  async uploadConfiguration (id: string, configuration: string) {
     return Wreck.post(`${config.previewUrl}/publish`, {
       payload: JSON.stringify({ id, configuration })
     })

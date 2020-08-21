@@ -5,7 +5,7 @@ export interface PersistenceService {
   logger: any;
   listAllConfigurations (): Promise<FormConfiguration[]>;
   getConfiguration (id: string): Promise<string>;
-  uploadConfiguration (id: string, configuration: any): Promise<any>;
+  uploadConfiguration (id: string, configuration: string): Promise<any>;
   copyConfiguration (configurationId: string, newName: string): Promise<any>;
 }
 

@@ -17,7 +17,7 @@ class FormDetails extends React.Component {
 
   async componentDidMount () {
     const formConfigurations = await formConfigurationApi.loadConfigurations()
-    this.setState({ formConfigurations })
+    this.setState({ formConfigurations: formConfigurations.filter(it => it.feedbackForm) })
   }
 
   onSubmit = async e => {
@@ -87,13 +87,17 @@ class FormDetails extends React.Component {
             <div className='govuk-form-group'>
               <label className='govuk-label govuk-label--s' htmlFor='target-feedback-form'>Feedback form</label>
               {!formConfigurations.length && (
-                <div className='govuk-hint' id='target-feedback-form-hint'>No available feedback form configurations found</div>
+                <div className='govuk-hint' id='target-feedback-form-hint'>
+                  <p>No available feedback form configurations found</p>
+                  <p>Only forms marked as being a feedback form are listed here</p>
+                </div>
               )}
 
               {formConfigurations.length && (
                 <div>
                   <div id='target-feedback-form-hint' className='govuk-hint'>
-                    This is the form to use for gathering feedback about this form
+                    <p>This is the form to use for gathering feedback about this form</p>
+                    <p>Only forms marked as being a feedback form are listed here</p>
                   </div>
                   <select className='govuk-select' id='target-feedback-form' name='targetFeedbackForm' value={selectedFeedbackForm} required onChange={this.onSelectFeedbackForm}>
                     {formConfigurations.map((config, index) => (<option key={config.Key + index} value={config.Key}>{config.DisplayName}</option>))}
