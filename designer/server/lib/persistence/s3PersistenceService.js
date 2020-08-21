@@ -23,7 +23,7 @@ export class S3PersistenceService implements PersistenceService {
       this.logger.error(`error listing all configurations ${response.error.message}`)
       return response.error
     }
-    return response.Contents.map(entry => new FormConfiguration(entry.Key.replace('.json', ''), undefined, entry.LastModified))
+    return response.Contents.map(entry => new FormConfiguration(entry.Key.replace('.json', ''), entry.Metadata["x-amz-meta-name"], entry.LastModified))
   }
 
   async getConfiguration (id: string) {
@@ -38,7 +38,8 @@ export class S3PersistenceService implements PersistenceService {
 
   async uploadConfiguration (id: string, configuration: any) {
     id = this.ensureJsonExtension(id)
-    const response = await this.bucket.upload({ Key: id, Body: configuration }).promise()
+    const metadata = {"x-amz-meta-name": JSON.parse(configuration).name}
+    const response = await this.bucket.upload({ Key: id, Body: configuration, Metadata: metadata }).promise()
     if (response.error) {
       this.logger.error(`error uploading configuration with id: ${id} ${response.error.message}`)
     }
