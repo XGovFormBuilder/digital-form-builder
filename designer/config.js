@@ -18,7 +18,7 @@ const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
   previewUrl: process.env.PREVIEW_URL || 'http://localhost:3009',
-  persistentBackend: process.env.PERSISTENT_BACKEND || 'preview',
+  persistentBackend: process.env.PERSISTENT_BACKEND,
   persistentKeyId: process.env.PERSISTENT_KEY_ID,
   persistentAccessKey: process.env.PERSISTENT_ACCESS_KEY,
   s3Bucket: process.env.S3_BUCKET,
