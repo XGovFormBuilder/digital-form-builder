@@ -5,6 +5,7 @@
  * @description
  * Configurable plugin for determine request language in hapi.js applications.
  */
+/* eslint-disable */
 const boom = require('@hapi/boom')
 const fs = require('fs')
 const path = require('path')

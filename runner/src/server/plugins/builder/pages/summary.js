@@ -321,6 +321,10 @@ class SummaryViewModel {
     return result.value
   }
 
+  get webhookDataPaymentReference () {
+    return this._webhookData.fees.paymentReference ?? ''
+  }
+
   set webhookDataPaymentReference (paymentReference) {
     this._webhookData.fees.paymentReference = paymentReference
   }
