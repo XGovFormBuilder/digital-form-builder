@@ -30,7 +30,8 @@
         "react/prop-types": 0,
         "react/react-in-jsx-scope": 1,
         "react/no-unescaped-entities": 1,
-        "react/display-name": 1
+        "react/display-name": 1,
+        "react/no-deprecated": 1
     },
     "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/lib/**", "**/flow-typed/**", "**/public/**", "node_modules/**", "dist/**", "lib/**", "flow-typed/**", "public/**"]
 }
