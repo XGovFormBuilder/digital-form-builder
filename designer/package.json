@@ -28,7 +28,7 @@
     "@hapi/hapi": "19.1.1",
     "@hapi/joi": "17.1.1",
     "@hapi/wreck": "17.0.0",
-    "@xgovformbuilder/model": "1.0.0",
+    "@xgovformbuilder/model": "2.0.0",
     "aws-sdk": "^2.723.0",
     "flat": "5.0.0",
     "hapi-pino": "^8.0.1",

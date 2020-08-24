@@ -6,12 +6,17 @@
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "model",
-    "engine",
-    "runner",
-    "designer"
-  ],
+  "workspaces": {
+    "packages": [
+      "model",
+      "engine",
+      "runner",
+      "designer"
+    ],
+    "nohoist": [
+      "**/@babel*/**"
+    ]
+  },
   "scripts": {
     "build": "yarn workspaces foreach run build",
     "lint": "yarn workspaces foreach run lint",
@@ -58,5 +63,8 @@
     "node-sass": "^4.14.1",
     "resolve": "^1.17.0",
     "rollup": "^2.25.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.11.2"
   }
 }

@@ -75,7 +75,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.10.2, @babel/core@npm:^7.11.1":
+"@babel/core@npm:^7.10.2, @babel/core@npm:^7.11.1, @babel/core@npm:^7.11.4":
   version: 7.11.4
   resolution: "@babel/core@npm:7.11.4"
   dependencies:
@@ -1560,6 +1560,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.11.2":
+  version: 7.11.2
+  resolution: "@babel/runtime@npm:7.11.2"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 2f127ad60a0f0568faa0044e5b48329d8166c7fd3a0a3ce774070010a1c441ebf5570f526dd6bb26e214fb1a01bb987ab6a4c3f60a00f04d02448939f4c61e1e
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.10.4":
   version: 7.10.4
   resolution: "@babel/template@npm:7.10.4"
@@ -2695,7 +2704,7 @@ __metadata:
     "@rollup/plugin-node-resolve": 8.1.0
     "@workspace-builder/rollup": ^1.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
-    "@xgovformbuilder/model": 1.0.0
+    "@xgovformbuilder/model": 2.0.0
     acorn: 7.2.0
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
@@ -2731,7 +2740,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xgovformbuilder/engine@1.9.0, @xgovformbuilder/engine@workspace:engine":
+"@xgovformbuilder/engine@2.0.0, @xgovformbuilder/engine@workspace:engine":
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/engine@workspace:engine"
   dependencies:
@@ -2752,7 +2761,7 @@ __metadata:
     "@hapi/joi": 17.1.1
     "@hapi/lab": ^22.0.4
     "@xgovformbuilder/lab-babel": 2.1.2
-    "@xgovformbuilder/model": 1.0.0
+    "@xgovformbuilder/model": 2.0.0
     babel-eslint: ^10.1.0
     boom: 7.3.0
     eslint: ^7.6.0
@@ -2783,7 +2792,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xgovformbuilder/model@1.0.0, @xgovformbuilder/model@workspace:model":
+"@xgovformbuilder/model@2.0.0, @xgovformbuilder/model@workspace:model":
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/model@workspace:model"
   dependencies:
@@ -2827,7 +2836,7 @@ __metadata:
   resolution: "@xgovformbuilder/runner@workspace:runner"
   dependencies:
     "@babel/cli": 7.10.3
-    "@babel/core": ^7.11.1
+    "@babel/core": ^7.11.4
     "@babel/eslint-parser": ^7.11.3
     "@babel/eslint-plugin": ^7.11.3
     "@babel/plugin-transform-classes": ^7.10.1
@@ -2847,7 +2856,7 @@ __metadata:
     "@hapi/lab": 22.0.4
     "@hapi/scooter": 6.0.0
     "@hapi/wreck": 17.0.0
-    "@xgovformbuilder/engine": 1.9.0
+    "@xgovformbuilder/engine": 2.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
@@ -5170,6 +5179,7 @@ __metadata:
     "@babel/preset-env": ^7.11.0
     "@babel/preset-flow": ^7.10.4
     "@babel/register": ^7.10.5
+    "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/lab": ^23.0.0
     babel-eslint: ^11.0.0-beta.2

@@ -22,7 +22,7 @@
     "@babel/runtime": "7.10.4",
     "@hapi/hoek": "^9.0.4",
     "@hapi/joi": "17.1.1",
-    "@xgovformbuilder/model": "1.0.0",
+    "@xgovformbuilder/model": "2.0.0",
     "boom": "7.3.0",
     "expr-eval": "2.0.2",
     "flow-typed": "^3.2.1",
