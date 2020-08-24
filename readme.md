@@ -65,6 +65,11 @@ If you have any problems, submit an issue or send a message via gitter.
 1. `$ yarn flow-mono create-symlinks`
 2. `$ yarn flow-mono create-stubs`
 
+#### Error: ENOENT: no such file or directory, scandir 'xxx/node_modules/node-sass/vendor'
+`/vendor` is not present since it hasn't been built or rebuilt. You may also get this issue with `core-js`, `fsevents`, `nodemailer` etc.
+`$ yarn rebuild` to rebuild all the packages
+`$ yarn rebuild only node-sass` to rebuild just node-sass
+
 
 
 

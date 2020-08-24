@@ -10,6 +10,10 @@ parameters:
     type: boolean
     default: false
 
+  force-build-all:
+    type: boolean
+    default: true
+
   # A parameter per package
   model:
     type: boolean
@@ -87,6 +91,9 @@ jobs:
             or:
               # changes were made to this module, it needs to be rebuilt
               - << parameters.should_build >>
+
+              # force flag
+              - << pipeline.parameters.force-build-all >>
 
               # if the upstream dependencies (model or engine) have changed, this package must be rebuilt.
               - and:
