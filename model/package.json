@@ -1,6 +1,6 @@
 {
   "name": "@xgovformbuilder/model",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A hapi plugin providing the model for XGov digital form builder based applications",
   "main": "index.js",
   "module": "src/lib.js",
