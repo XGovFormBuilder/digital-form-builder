@@ -114,21 +114,21 @@ jobs:
                 at: ~/project
 
             - when:
-              condition:
-                or:
-                  - and:
-                    - equal: ['runner', << parameters.package_name >>]
-                    - or:
-                      - not: << pipeline.parameters.engine >>
+                condition:
+                  or:
+                    - and:
+                      - equal: ['runner', << parameters.package_name >>]
+                      - or:
+                        - not: << pipeline.parameters.engine >>
+                        - not: << pipeline.parameters.model >>
+                    - and:
+                      - equal: ['designer', << parameters.package_name >>]
                       - not: << pipeline.parameters.model >>
-                  - and:
-                    - equal: ['designer', << parameters.package_name >>]
-                    - not: << pipeline.parameters.model >>
-
-              - run:
-                name: Build dependencies
-                    command: |
-                      - yarn build:dependencies
+                steps:
+                  - run:
+                      name: Build dependencies
+                      command: |
+                        - yarn build:dependencies
 
             - run:
                 name: Build
