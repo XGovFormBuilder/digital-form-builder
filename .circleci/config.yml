@@ -112,6 +112,24 @@ jobs:
           steps:
             - attach_workspace:
                 at: ~/project
+
+            - run:
+                when:
+                  condition:
+                    or:
+                      - and:
+                          - equal: ['runner', << parameters.package_name >>]
+                          - or:
+                            - not: << pipeline.parameters.engine >>
+                            - not: << pipeline.parameters.model >>
+                      - and:
+                          - equal: ['designer', << parameters.package_name >>]
+                          - not: << pipeline.parameters.model >>
+
+                name: Build dependencies
+                command: |
+                  - yarn build:dependencies
+
             - run:
                 name: Build
                 command: |
