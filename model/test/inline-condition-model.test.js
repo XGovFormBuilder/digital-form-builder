@@ -657,7 +657,7 @@ suite('inline condition model', () => {
     })
   })
 
-  describe('serialization and deserialization', () => {
+  describe('serialisation and deserialisation', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
@@ -670,7 +670,7 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 2)])
     })
 
-    test('serializing to json returns the expected result', () => {
+    test('serialising to json returns the expected result', () => {
       const expected = {
         name: 'some condition name',
         conditions: [
@@ -682,49 +682,49 @@ suite('inline condition model', () => {
                 value: { type: 'Value', value: 'Zebras', display: 'Zebras' }
               },
               {
+                coordinator: 'or',
                 field: { name: 'monkeys', type: 'TextField', display: 'Monkeys' },
                 operator: 'is',
-                value: { type: 'Value', value: 'giraffes', display: 'Giraffes' },
-                coordinator: 'or'
+                value: { type: 'Value', value: 'giraffes', display: 'Giraffes' }
               },
               {
+                coordinator: 'and',
                 field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
                 operator: 'is',
-                value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' },
-                coordinator: 'and'
+                value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' }
               }
             ]
           },
           {
+            coordinator: 'or',
             field: { name: 'duration', type: 'NumberField', display: 'Duration' },
             operator: 'is at least',
-            value: { type: 'Value', value: '10', display: '10' },
-            coordinator: 'or'
+            value: { type: 'Value', value: '10', display: '10' }
           },
           {
+            coordinator: 'or',
             field: { name: 'birthday', type: 'DateField', display: 'Birthday' },
             operator: 'is',
-            value: { type: 'Value', value: '10/10/2019', display: '10/10/2019' },
-            coordinator: 'or'
+            value: { type: 'Value', value: '10/10/2019', display: '10/10/2019' }
           },
           {
+            coordinator: 'and',
             field: { name: 'reported', type: 'DateField', display: 'Reported' },
             operator: 'is more than',
-            value: { type: 'RelativeTime', timePeriod: '10', timeUnit: dateUnits.DAYS.value, direction: dateDirections.PAST, timeOnly: false },
-            coordinator: 'and'
+            value: { type: 'RelativeTime', timePeriod: '10', timeUnit: dateUnits.DAYS.value, direction: dateDirections.PAST, timeOnly: false }
           },
           {
+            coordinator: 'and',
             field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
             operator: 'is not',
-            value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' },
-            coordinator: 'and'
+            value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' }
           }
         ]
       }
       expect(JSON.stringify(underTest)).to.equal(JSON.stringify(expected))
     })
 
-    test('deserializing the serialized json returns a new ConditionsModel equal to the original', () => {
+    test('deserialising the serialised json returns a new ConditionsModel equal to the original', () => {
       const returned = ConditionsModel.from(JSON.parse(JSON.stringify(underTest)))
       expect(returned).to.equal(underTest)
       expect(returned.asPerUserGroupings).to.equal(underTest.asPerUserGroupings)

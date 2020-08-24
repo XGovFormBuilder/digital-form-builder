@@ -130,11 +130,11 @@ export class ConditionsModel {
   }
 
   toPresentationString () {
-    return this.#groupedConditions.map(condition => condition.toPresentationString()).join(' ')
+    return this.#groupedConditions.map(condition => toPresentationString(condition)).join(' ')
   }
 
   toExpression () {
-    return this.#groupedConditions.map(condition => condition.toExpression()).join(' ')
+    return this.#groupedConditions.map(condition => toExpression(condition)).join(' ')
   }
 
   _applyGroups (userGroupedConditions: Array<ConditionInt<any>>) {
@@ -227,8 +227,6 @@ function conditionFrom (it:any) {
 }
 
 interface ConditionInt<A> {
-  toPresentationString() : string;
-  toExpression() : string;
   coordinatorString(): string;
   conditionString(): string;
   conditionExpression(): string;
@@ -277,18 +275,6 @@ class ConditionGroup implements ConditionInt<ConditionGroup> {
     this.conditions = conditions
   }
 
-  toPresentationString () {
-    const copy = [...this.conditions]
-    copy.splice(0, 1)
-    return `${this.coordinatorString()}${this.conditionString()}`
-  }
-
-  toExpression () {
-    const copy = [...this.conditions]
-    copy.splice(0, 1)
-    return `${this.coordinatorString()}${this.conditionExpression()}`
-  }
-
   coordinatorString () {
     return this.conditions[0].coordinatorString()
   }
@@ -296,13 +282,13 @@ class ConditionGroup implements ConditionInt<ConditionGroup> {
   conditionString () {
     const copy = [...this.conditions]
     copy.splice(0, 1)
-    return `(${this.conditions[0].conditionString()} ${copy.map(condition => condition.toPresentationString()).join(' ')})`
+    return `(${this.conditions[0].conditionString()} ${copy.map(condition => toPresentationString(condition)).join(' ')})`
   }
 
   conditionExpression () {
     const copy = [...this.conditions]
     copy.splice(0, 1)
-    return `(${this.conditions[0].conditionExpression()} ${copy.map(condition => condition.toExpression()).join(' ')})`
+    return `(${this.conditions[0].conditionExpression()} ${copy.map(condition => toExpression(condition)).join(' ')})`
   }
 
   asFirstCondition () {
@@ -331,6 +317,14 @@ class ConditionGroup implements ConditionInt<ConditionGroup> {
   }
 }
 
+function toPresentationString (condition: ConditionInt<any>): string {
+  return `${condition.coordinatorString()}${condition.conditionString()}`
+}
+
+function toExpression (condition: ConditionInt<any>): string {
+  return `${condition.coordinatorString()}${condition.conditionExpression()}`
+}
+
 export class Field {
   name: string;
   type: string;
@@ -356,45 +350,14 @@ export class Field {
   }
 }
 
-export class Condition implements ConditionInt<Condition> {
-  field: Field;
-  operator: string;
-  value: AbstractConditionValue;
+class AbstractCondition {
   coordinator: ?Coordinator;
 
-  constructor (field: Field, operator: string, value: AbstractConditionValue, coordinator: ?Coordinator) {
-    if (!(field instanceof Field)) {
-      throw Error(`field ${field} is not a valid Field object`)
-    }
-    if (typeof operator !== 'string') {
-      throw Error(`operator ${operator} is not a valid operator`)
-    }
-    if (!(value instanceof AbstractConditionValue)) {
-      throw Error(`value ${value} is not a valid value type`)
-    }
+  constructor (coordinator: ?Coordinator) {
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
       throw Error(`coordinator ${coordinator} is not a valid coordinator`)
     }
-    this.field = field
-    this.operator = operator
-    this.value = value
     this.coordinator = coordinator
-  }
-
-  toPresentationString () {
-    return `${this.coordinatorString()}${this.conditionString()}`
-  }
-
-  toExpression () {
-    return `${this.coordinatorString()}${this.conditionExpression()}`
-  }
-
-  conditionString () {
-    return `'${this.field.display}' ${this.operator} '${this.value.toPresentationString()}'`
-  }
-
-  conditionExpression () {
-    return getExpression(this.field.type, this.field.name, this.operator, this.value)
   }
 
   coordinatorString () {
@@ -409,17 +372,67 @@ export class Condition implements ConditionInt<Condition> {
     this.coordinator = coordinator
   }
 
-  asFirstCondition () {
-    delete this.coordinator
-    return this
-  }
-
   isGroup () {
     return false
   }
 
   getGroupedConditions () {
     return [this]
+  }
+
+  _asFirstCondition () {
+    delete this.coordinator
+  }
+
+  asFirstCondition () {
+    throw Error('Implement on the subclass (Why do we have to have this method here at all?!)')
+  }
+
+  clone () {
+    throw Error('Implement on the subclass (Why do we have to have this method here at all?!)')
+  }
+
+  conditionString () {
+    throw Error('Implement on the subclass (Why do we have to have this method here at all?!)')
+  }
+
+  conditionExpression () {
+    throw Error('Implement on the subclass (Why do we have to have this method here at all?!)')
+  }
+}
+
+export class Condition extends AbstractCondition implements ConditionInt<Condition> {
+  field: Field;
+  operator: string;
+  value: AbstractConditionValue;
+
+  constructor (field: Field, operator: string, value: AbstractConditionValue, coordinator: ?Coordinator) {
+    super(coordinator)
+    if (!(field instanceof Field)) {
+      throw Error(`field ${field} is not a valid Field object`)
+    }
+    if (typeof operator !== 'string') {
+      throw Error(`operator ${operator} is not a valid operator`)
+    }
+    if (!(value instanceof AbstractConditionValue)) {
+      throw Error(`value ${value} is not a valid value type`)
+    }
+    this.field = field
+    this.operator = operator
+    this.value = value
+  }
+
+  asFirstCondition () {
+    this._asFirstCondition()
+    return this
+  }
+
+  conditionString () {
+    return `'${this.field.display}' ${this.operator} '${this.value.toPresentationString()}'`
+  }
+
+  conditionExpression () {
+    return getExpression(this.field.type, this.field.name, this.operator, this.value)
   }
 
   clone () {
