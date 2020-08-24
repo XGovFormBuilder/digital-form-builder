@@ -37,7 +37,7 @@ module.exports = {
       }
     },
     path: [
-      './../views',
+      './views',
       `${path.dirname(resolve.sync('govuk-frontend'))}`,
       `${path.dirname(resolve.sync('govuk-frontend'))}/components`,
       `${path.dirname(resolve.sync('@xgovformbuilder/engine'))}/views`,

@@ -2796,7 +2796,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/model@workspace:model"
   dependencies:
-    "@babel/cli": ^7.10.1
+    "@babel/cli": ^7.10.5
     "@babel/core": ^7.11.1
     "@babel/eslint-parser": ^7.11.3
     "@babel/eslint-plugin": ^7.11.3
@@ -2884,7 +2884,6 @@ __metadata:
     hapi-rate-limit: 4.1.0
     hapi-require-https: 5.0.0
     hmpo-components: 2.6.5
-    hoek: ^6.1.3
     inert: 5.1.3
     ioredis: 4.16.1
     joi: 14.3.1
@@ -5198,6 +5197,7 @@ __metadata:
     flow-bin: 0.131.0
     flow-mono-cli: ^1.5.3
     flow-typed: ^3.2.1
+    govuk-frontend: ^3.8.1
     magic-string: ^0.25.7
     node-sass: ^4.14.1
     resolve: ^1.17.0
@@ -7480,6 +7480,13 @@ fsevents@~2.1.2:
   version: 3.6.0
   resolution: "govuk-frontend@npm:3.6.0"
   checksum: 25dccafedd4b6c9ddccad3d7e3b47cf0999b4422c404bea0830168f78cc14a92a19783ca2955786e2ea3c2509d6d56533212f97f016d5f5c3b97b155ae004a38
+  languageName: node
+  linkType: hard
+
+"govuk-frontend@npm:^3.8.1":
+  version: 3.8.1
+  resolution: "govuk-frontend@npm:3.8.1"
+  checksum: 052ab134fdc665a98a07ed170f1d721df334b1437ee3dfd119262cca626ed33a282f0c17065b46c65d43079437b5426cdcf267be97271706fae6daf5d2b379aa
   languageName: node
   linkType: hard
 

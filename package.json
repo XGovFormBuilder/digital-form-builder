@@ -14,7 +14,9 @@
       "designer"
     ],
     "nohoist": [
-      "**/@babel*/**"
+      "**/@babel*/**",
+      "**/govuk-frontend/**",
+      "**/govuk-frontend"
     ]
   },
   "scripts": {
@@ -65,6 +67,7 @@
     "rollup": "^2.25.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.11.2"
+    "@babel/runtime": "^7.11.2",
+    "govuk-frontend": "^3.8.1"
   }
 }
