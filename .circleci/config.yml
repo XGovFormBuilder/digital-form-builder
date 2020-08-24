@@ -128,7 +128,7 @@ jobs:
                   - run:
                       name: Build dependencies
                       command: |
-                        - yarn build:dependencies
+                        yarn build:dependencies
 
             - run:
                 name: Build
