@@ -1,6 +1,10 @@
+// @flow
+
 import ComponentTypes from '../component-types'
 import { getExpression } from './inline-condition-operators'
 import { AbstractConditionValue, valueFrom } from './inline-condition-values'
+
+type Coordinator = 'and' | 'or';
 
 export const coordinators = {
   AND: 'and',
@@ -32,7 +36,7 @@ export class ConditionsModel {
     return this
   }
 
-  set name (name) {
+  set name (name: string) {
     this.#conditionName = name
   }
 
@@ -40,7 +44,7 @@ export class ConditionsModel {
     return this.#conditionName
   }
 
-  add (condition) {
+  add (condition: ConditionInt<any>) {
     const coordinatorExpected = this.#userGroupedConditions.length !== 0
     if (condition.getCoordinator() && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
@@ -52,7 +56,7 @@ export class ConditionsModel {
     return this
   }
 
-  replace (index, condition) {
+  replace (index: number, condition: ConditionInt<any>) {
     const coordinatorExpected = index !== 0
     if (condition.getCoordinator() && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
@@ -66,7 +70,7 @@ export class ConditionsModel {
     return this
   }
 
-  remove (indexes) {
+  remove (indexes: Array<number>) {
     this.#userGroupedConditions = this.#userGroupedConditions.filter((condition, index) => !indexes.includes(index))
       .map((condition, index) => index === 0 ? condition.asFirstCondition() : condition)
 
@@ -74,19 +78,19 @@ export class ConditionsModel {
     return this
   }
 
-  addGroups (groupDefs) {
+  addGroups (groupDefs: Array<GroupDef>) {
     this.#userGroupedConditions = this._group(this.#userGroupedConditions, groupDefs)
     this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
-  splitGroup (index) {
+  splitGroup (index: number) {
     this.#userGroupedConditions = this._ungroup(this.#userGroupedConditions, index)
     this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
-  moveEarlier (index) {
+  moveEarlier (index: number) {
     if (index > 0 && index < (this.#userGroupedConditions.length)) {
       this.#userGroupedConditions.splice(index - 1, 0, this.#userGroupedConditions.splice(index, 1)[0])
       if (index === 1) {
@@ -97,7 +101,7 @@ export class ConditionsModel {
     return this
   }
 
-  moveLater (index) {
+  moveLater (index: number) {
     if (index >= 0 && index < (this.#userGroupedConditions.length - 1)) {
       this.#userGroupedConditions.splice(index + 1, 0, this.#userGroupedConditions.splice(index, 1)[0])
       if (index === 0) {
@@ -133,7 +137,7 @@ export class ConditionsModel {
     return this.#groupedConditions.map(condition => condition.toExpression()).join(' ')
   }
 
-  _applyGroups (userGroupedConditions) {
+  _applyGroups (userGroupedConditions: Array<ConditionInt<any>>) {
     const correctedUserGroups = userGroupedConditions
       .map(condition =>
         condition instanceof ConditionGroup && condition.conditions.length > 2
@@ -143,7 +147,7 @@ export class ConditionsModel {
     return this._group(correctedUserGroups, this._autoGroupDefs(correctedUserGroups))
   }
 
-  _group (conditions, groupDefs) {
+  _group (conditions: Array<ConditionInt<any>>, groupDefs: Array<GroupDef>) {
     return conditions.reduce((groups, condition, index, conditions) => {
       const groupDef = groupDefs.find(groupDef => groupDef.contains(index))
       if (groupDef) {
@@ -158,16 +162,16 @@ export class ConditionsModel {
     }, [])
   }
 
-  _ungroup (conditions, splitIndex) {
+  _ungroup (conditions: Array<ConditionInt<any>>, splitIndex: number) {
     if (conditions[splitIndex].isGroup()) {
       const copy = [...conditions]
-      copy.splice(splitIndex, 1, ...(conditions[splitIndex].conditions))
+      copy.splice(splitIndex, 1, ...(conditions[splitIndex].getGroupedConditions()))
       return copy
     }
     return conditions
   }
 
-  _autoGroupDefs (conditions) {
+  _autoGroupDefs (conditions: Array<ConditionInt<any>>) {
     const orPositions = []
     conditions.forEach((condition, index) => {
       if (condition.getCoordinator() === coordinators.OR) {
@@ -195,7 +199,7 @@ export class ConditionsModel {
     return []
   }
 
-  toJSON () {
+  toJSON (): any {
     const name = this.#conditionName
     const conditions = this.#userGroupedConditions
     return {
@@ -204,7 +208,7 @@ export class ConditionsModel {
     }
   }
 
-  static from (obj) {
+  static from (obj: any) {
     if (obj instanceof ConditionsModel) {
       return obj
     }
@@ -216,14 +220,31 @@ export class ConditionsModel {
   }
 }
 
-function conditionFrom (it) {
+function conditionFrom (it:any) {
   return it.conditions
     ? new ConditionGroup(it.conditions.map(condition => conditionFrom(condition)))
     : new Condition(Field.from(it.field), it.operator, valueFrom(it.value), it.coordinator)
 }
 
+interface ConditionInt<A> {
+  toPresentationString() : string;
+  toExpression() : string;
+  coordinatorString(): string;
+  conditionString(): string;
+  conditionExpression(): string;
+  isGroup(): boolean;
+  asFirstCondition () : A;
+  getCoordinator (): ?Coordinator;
+  setCoordinator (coordinator: ?Coordinator) : void;
+  getGroupedConditions(): Array<ConditionInt<any>>;
+  clone(): A;
+}
+
 export class GroupDef {
-  constructor (first, last) {
+  first: number;
+  last: number;
+
+  constructor (first: number, last: number) {
     if (typeof first !== 'number' || typeof last !== 'number') {
       throw Error(`Cannot construct a group from ${first} and ${last}`)
     } else if (first >= last) {
@@ -233,23 +254,25 @@ export class GroupDef {
     this.last = last
   }
 
-  contains (index) {
+  contains (index: number) {
     return this.first <= index && this.last >= index
   }
 
-  startsWith (index) {
+  startsWith (index: number) {
     return this.first === index
   }
 
-  applyTo (conditions) {
+  applyTo (conditions: Array<ConditionInt<any>>): Array<ConditionInt<any>> {
     return [...conditions].splice(this.first, (this.last - this.first) + 1)
   }
 }
 
-class ConditionGroup {
-  constructor (conditions) {
+class ConditionGroup implements ConditionInt<ConditionGroup> {
+  conditions: Array<ConditionInt<any>>
+
+  constructor (conditions: Array<ConditionInt<any>>) {
     if (!Array.isArray(conditions) || conditions.length < 2) {
-      throw Error(`Cannot construct a condition group from ${conditions}`)
+      throw Error('Cannot construct a condition group from a single condition')
     }
     this.conditions = conditions
   }
@@ -291,7 +314,7 @@ class ConditionGroup {
     return this.conditions[0].getCoordinator()
   }
 
-  setCoordinator (coordinator) {
+  setCoordinator (coordinator: ?Coordinator) {
     this.conditions[0].setCoordinator(coordinator)
   }
 
@@ -299,13 +322,47 @@ class ConditionGroup {
     return true
   }
 
+  getGroupedConditions () {
+    return this.conditions.map(condition => condition.clone())
+  }
+
   clone () {
     return new ConditionGroup(this.conditions.map(condition => condition.clone()))
   }
 }
 
-export class Condition {
-  constructor (field, operator, value, coordinator) {
+export class Field {
+  name: string;
+  type: string;
+  display: string;
+
+  constructor (name: string, type: string, display: string) {
+    if (!name || typeof name !== 'string') {
+      throw Error(`name ${name} is not valid`)
+    }
+    if (!ComponentTypes.find(componentType => componentType.name === type)) {
+      throw Error(`type ${type} is not valid`)
+    }
+    if (!display || typeof display !== 'string') {
+      throw Error(`display ${display} is not valid`)
+    }
+    this.name = name
+    this.type = type
+    this.display = display
+  }
+
+  static from (obj: any) {
+    return new Field(obj.name, obj.type, obj.display)
+  }
+}
+
+export class Condition implements ConditionInt<Condition> {
+  field: Field;
+  operator: string;
+  value: AbstractConditionValue;
+  coordinator: ?Coordinator;
+
+  constructor (field: Field, operator: string, value: AbstractConditionValue, coordinator: ?Coordinator) {
     if (!(field instanceof Field)) {
       throw Error(`field ${field} is not a valid Field object`)
     }
@@ -348,7 +405,7 @@ export class Condition {
     return this.coordinator
   }
 
-  setCoordinator (coordinator) {
+  setCoordinator (coordinator: ?Coordinator) {
     this.coordinator = coordinator
   }
 
@@ -361,28 +418,11 @@ export class Condition {
     return false
   }
 
+  getGroupedConditions () {
+    return [this]
+  }
+
   clone () {
     return new Condition(Field.from(this.field), this.operator, this.value.clone(), this.coordinator)
-  }
-}
-
-export class Field {
-  constructor (name, type, display) {
-    if (!name || typeof name !== 'string') {
-      throw Error(`name ${name} is not valid`)
-    }
-    if (!ComponentTypes.find(componentType => componentType.name === type)) {
-      throw Error(`type ${type} is not valid`)
-    }
-    if (!display || typeof display !== 'string') {
-      throw Error(`display ${display} is not valid`)
-    }
-    this.name = name
-    this.type = type
-    this.display = display
-  }
-
-  static from (obj) {
-    return new Field(obj.name, obj.type, obj.display)
   }
 }
