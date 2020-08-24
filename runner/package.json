@@ -98,8 +98,7 @@
     "eslint-plugin-import": "^2.22.0",
     "flow-bin": "^0.130.0",
     "lab": "18.0.2",
-    "node-sass": "4.13.1",
-    "rollup": "2.18.1"
+    "node-sass": "4.13.1"
   },
   "lighthouse": {
     "requiredScores": {
