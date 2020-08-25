@@ -82,6 +82,7 @@ suite('Form details', () => {
       const wrapper = shallow(<FormDetails data={data} />)
       await wrapper.instance().componentDidMount()
       assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+        { text: '' },
         { value: 'someKey', text: 'Some display name' },
         { value: 'anotherKey', text: 'Another display name' },
         { value: 'thirdKey', text: 'thirdKey' }
@@ -111,6 +112,7 @@ suite('Form details', () => {
       const wrapper = shallow(<FormDetails data={data} />)
       await wrapper.instance().componentDidMount()
       assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+        { text: '' },
         { value: 'someKey', text: 'Some display name' },
         { value: 'anotherKey', text: 'Another display name' },
         { value: 'thirdKey', text: 'thirdKey' }
