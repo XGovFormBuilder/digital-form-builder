@@ -2895,7 +2895,6 @@ __metadata:
     notifications-node-client: 4.7.3
     nunjucks: 3.2.1
     pdfmake: 0.1.65
-    rollup: 2.18.1
     rollup-plugin-includepaths: ^0.2.3
     schmervice: 1.5.0
     shortid: 2.2.15
@@ -12026,20 +12025,6 @@ resolve@1.1.7:
   bin:
     rollup: dist/bin/rollup
   checksum: 52a3f835d4560943e5005860017ecb7722d86de8f0a8121577c0d7ad36874019b4ba5c08713b62bc9abff48f66916943b7718e445a20aef2916f456a13417a43
-  languageName: node
-  linkType: hard
-
-"rollup@npm:2.18.1":
-  version: 2.18.1
-  resolution: "rollup@npm:2.18.1"
-  dependencies:
-    fsevents: ~2.1.2
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: d4ebbe86b90a7ed14e2b4a44739ffacd427526bea81bedc438bdb182a3dcb687a32ac857bcb73ef87cc6041609844cfe4672f1f57417486bad532223d274bd2a
   languageName: node
   linkType: hard
 
