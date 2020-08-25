@@ -1,10 +1,17 @@
 import React from 'react'
-import { clone, getFormData } from './helpers'
+import { getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
-import ComponentTypes from 'digital-form-builder-engine/src/component-types'
+import ComponentTypes from 'digital-form-builder-model/lib/component-types'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class ComponentCreate extends React.Component {
   state = {}
+
+  async componentDidMount () {
+    const { data } = this.props
+    const id = await data.getId()
+    this.setState({ id })
+  }
 
   onSubmit = e => {
     e.preventDefault()
@@ -29,6 +36,7 @@ class ComponentCreate extends React.Component {
 
   render () {
     const { page, data } = this.props
+    const { id } = this.state
 
     return (
       <div>
@@ -36,7 +44,7 @@ class ComponentCreate extends React.Component {
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='type'>Type</label>
             <select className='govuk-select' id='type' name='type' required
-              onChange={e => this.setState({ component: { type: e.target.value } })}>
+              onChange={e => this.setState({ component: { type: e.target.value, name: id } })}>
               <option />
               {ComponentTypes.sort((a, b) => (a.title??'').localeCompare(b.title)).map(type => {
                 return <option key={type.name} value={type.name}>{type.title}</option>

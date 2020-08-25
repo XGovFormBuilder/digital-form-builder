@@ -5,14 +5,14 @@ import * as Code from '@hapi/code'
 import { assertRequiredTextInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinitionValue from '../client/conditions/inline-conditions-definition-values'
-import { ConditionValue } from '../client/conditions/inline-condition-values'
 import {
+  ConditionValue,
   dateTimeUnits,
   dateUnits,
-  relativeTimeOperators,
   RelativeTimeValue,
   timeUnits
-} from '../client/conditions/inline-conditions-relative-dates'
+} from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { relativeDateOrTimeOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -93,6 +93,40 @@ suite('Inline conditions definition value inputs', () => {
     expect(updateValueCallback.firstCall.args[0]).to.equal(selectedValues[0])
   })
 
+  test('Should correctly compare boolean string to boolean value', () => {
+    const values = [{ value: true, text: 'Value 1' }, { value: false, text: 'Value 2' }]
+    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.text))
+
+    const fieldDef = {
+      label: 'Something',
+      name: 'field1',
+      values: values,
+      type: 'SelectField'
+    }
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} fieldDef={fieldDef} operator='is' />)
+
+    wrapper.find('#cond-value').simulate('change', { target: { value: 'true' } })
+    expect(updateValueCallback.calledOnce).to.equal(true)
+    expect(updateValueCallback.firstCall.args[0]).to.equal(selectedValues[0])
+  })
+
+  test('Should correctly compare number string to number value', () => {
+    const values = [{ value: 42, text: 'Value 1' }, { value: 43, text: 'Value 2' }]
+    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.text))
+
+    const fieldDef = {
+      label: 'Something',
+      name: 'field1',
+      values: values,
+      type: 'SelectField'
+    }
+    const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} fieldDef={fieldDef} operator='is' />)
+
+    wrapper.find('#cond-value').simulate('change', { target: { value: '42' } })
+    expect(updateValueCallback.calledOnce).to.equal(true)
+    expect(updateValueCallback.firstCall.args[0]).to.equal(selectedValues[0])
+  })
+
   test('selecting a blank value from the select list should call update value with undefined', () => {
     const fieldDef = {
       label: 'Something',
@@ -107,17 +141,16 @@ suite('Inline conditions definition value inputs', () => {
     expect(updateValueCallback.firstCall.args[0]).to.equal(undefined)
   })
 
-  const relativeTimeOperatorNames = Object.keys(relativeTimeOperators(dateUnits))
   const dateAndTimeMappings = [
-    { type: 'DateField', units: dateUnits, relativeOperators: relativeTimeOperatorNames },
-    { type: 'DatePartsField', units: dateUnits, relativeOperators: relativeTimeOperatorNames },
-    { type: 'TimeField', units: timeUnits, timeOnly: true, relativeOperators: relativeTimeOperatorNames },
-    { type: 'DateTimeField', units: dateTimeUnits, relativeOperators: relativeTimeOperatorNames },
-    { type: 'DateTimePartsField', units: dateTimeUnits, relativeOperators: relativeTimeOperatorNames }
+    { type: 'DateField', units: dateUnits },
+    { type: 'DatePartsField', units: dateUnits },
+    { type: 'TimeField', units: timeUnits, timeOnly: true },
+    { type: 'DateTimeField', units: dateTimeUnits },
+    { type: 'DateTimePartsField', units: dateTimeUnits }
   ]
 
   dateAndTimeMappings.forEach(mapping => {
-    mapping.relativeOperators.forEach(operator => {
+    relativeDateOrTimeOperatorNames.forEach(operator => {
       test(`Should display custom component for ${mapping.type} component type and '${operator}' operator`, () => {
         const fieldDef = {
           label: 'Something',

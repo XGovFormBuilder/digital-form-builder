@@ -3,15 +3,14 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import LinkCreate from '../client/link-create'
-import { Data } from '../client/model/data-model'
+import { Data } from 'digital-form-builder-model/lib/data-model'
 import sinon from 'sinon'
 import { assertSelectInput } from './helpers/element-assertions'
-import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { suite, test, describe, beforeEach, afterEach } = lab
+const { suite, test, describe } = lab
 
 suite('Link create', () => {
   const data = new Data({
@@ -56,20 +55,10 @@ suite('Link create', () => {
     expect(SelectConditions.exists()).to.equal(true)
     expect(SelectConditions.prop('data')).to.equal(data)
     expect(SelectConditions.prop('path')).to.equal('/1')
-    expect(SelectConditions.prop('conditionsChange')).to.equal(wrapper.instance().saveConditions)
+    expect(SelectConditions.prop('conditionsChange')).to.equal(wrapper.instance().conditionSelected)
   })
 
   describe('submitting the form', () => {
-    let storeConditionStub
-
-    beforeEach(function () {
-      storeConditionStub = sinon.stub(InlineConditionHelpers, 'storeConditionIfNecessary')
-    })
-
-    afterEach(function () {
-      storeConditionStub.restore()
-    })
-
     test('with a condition creates a link and calls back', async flags => {
       const clonedData = {
         addLink: sinon.stub()
@@ -89,11 +78,8 @@ suite('Link create', () => {
       const form = wrapper.find('form')
       form.find('#link-source').simulate('change', { target: { value: '/1' } })
       form.find('#link-target').simulate('change', { target: { value: '/2' } })
-      const conditions = {}
-      const selectedCondition = {}
-      wrapper.instance().saveConditions(conditions, selectedCondition)
-
-      storeConditionStub.resolves({ data: clonedData, condition: 'aCondition' })
+      const selectedCondition = 'aCondition'
+      wrapper.instance().conditionSelected(selectedCondition)
 
       const preventDefault = sinon.spy()
 
@@ -105,15 +91,11 @@ suite('Link create', () => {
       await wrapper.simulate('submit', { preventDefault: preventDefault })
 
       expect(preventDefault.calledOnce).to.equal(true)
-      expect(storeConditionStub.calledOnce).to.equal(true)
-      expect(storeConditionStub.firstCall.args[0]).to.equal(clonedData)
-      expect(storeConditionStub.firstCall.args[1]).to.equal(selectedCondition)
-      expect(storeConditionStub.firstCall.args[2]).to.equal(conditions)
 
       expect(clonedData.addLink.calledOnce).to.equal(true)
       expect(clonedData.addLink.firstCall.args[0]).to.equal('/1')
       expect(clonedData.addLink.firstCall.args[1]).to.equal('/2')
-      expect(clonedData.addLink.firstCall.args[2]).to.equal('aCondition')
+      expect(clonedData.addLink.firstCall.args[2]).to.equal(selectedCondition)
     })
 
     test('with no condition creates a link and calls back', async flags => {
@@ -136,8 +118,6 @@ suite('Link create', () => {
       await form.find('#link-source').simulate('change', { target: { value: '/1' } })
       await form.find('#link-target').simulate('change', { target: { value: '/2' } })
 
-      storeConditionStub.resolves({ data: clonedData, condition: 'aCondition' })
-
       const preventDefault = sinon.spy()
 
       data.clone = sinon.stub()
@@ -148,15 +128,11 @@ suite('Link create', () => {
       await wrapper.simulate('submit', { preventDefault: preventDefault })
 
       expect(preventDefault.calledOnce).to.equal(true)
-      expect(storeConditionStub.calledOnce).to.equal(true)
-      expect(storeConditionStub.firstCall.args[0]).to.equal(clonedData)
-      expect(storeConditionStub.firstCall.args[1]).to.equal(undefined)
-      expect(storeConditionStub.firstCall.args[2]).to.equal(undefined)
 
       expect(clonedData.addLink.calledOnce).to.equal(true)
       expect(clonedData.addLink.firstCall.args[0]).to.equal('/1')
       expect(clonedData.addLink.firstCall.args[1]).to.equal('/2')
-      expect(clonedData.addLink.firstCall.args[2]).to.equal('aCondition')
+      expect(clonedData.addLink.firstCall.args[2]).to.equal(undefined)
     })
   })
 })

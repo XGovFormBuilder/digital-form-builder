@@ -4,7 +4,8 @@ node_modules
 npm-debug.log
 .idea
 .nyc_output
-/engine/unit-test.html
+unit-test.html
 /engine/lib
+/model/lib
 package-lock.json
 */flow-typed/*

@@ -1,7 +1,6 @@
 import React from 'react'
-import { clone } from './helpers'
 import SelectConditions from './conditions/select-conditions'
-import InlineConditionHelpers from './conditions/inline-condition-helpers'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 class LinkEdit extends React.Component {
   constructor (props) {
@@ -15,18 +14,18 @@ class LinkEdit extends React.Component {
 
     this.state = {
       page: page,
-      link: link
+      link: link,
+      selectedCondition: link.condition
     }
   }
 
   onSubmit = async e => {
     e.preventDefault()
-    const { link, page, selectedCondition, conditions } = this.state
+    const { link, page, selectedCondition } = this.state
     const { data } = this.props
 
     const copy = clone(data)
-    const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, selectedCondition, conditions)
-    const updatedData = conditionResult.data.updateLink(page.path, link.path, conditionResult.condition)
+    const updatedData = copy.updateLink(page.path, link.path, selectedCondition)
 
     data.save(updatedData)
       .then(data => {
@@ -64,7 +63,7 @@ class LinkEdit extends React.Component {
   render () {
     const { data, edge } = this.props
     const { pages } = data
-    const { link } = this.state
+    const { selectedCondition } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -84,7 +83,7 @@ class LinkEdit extends React.Component {
           </select>
         </div>
 
-        <SelectConditions data={data} path={edge.source} selectedCondition={link.condition} conditionsChange={this.saveConditions} />
+        <SelectConditions data={data} path={edge.source} selectedCondition={selectedCondition} conditionsChange={this.conditionSelected} />
 
         <button className='govuk-button' type='submit'>Save</button>&nbsp;
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
@@ -92,9 +91,8 @@ class LinkEdit extends React.Component {
     )
   }
 
-  saveConditions = (conditions, selectedCondition) => {
+  conditionSelected = (selectedCondition) => {
     this.setState({
-      conditions: conditions,
       selectedCondition: selectedCondition
     })
   }

@@ -3,9 +3,7 @@ import React from 'react'
 class EmailEdit extends React.Component {
   render () {
     const { output } = this.props
-    const outputConfiguration = output ? output.outputConfiguration : {
-      emailAddress: ''
-    }
+    const outputConfiguration = output?.outputConfiguration?? { emailAddress: '' }
 
     return (
       <div className='govuk-body email-edit'>

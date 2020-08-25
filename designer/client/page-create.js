@@ -1,6 +1,5 @@
 import React from 'react'
 import SelectConditions from './conditions/select-conditions'
-import InlineConditionHelpers from './conditions/inline-condition-helpers'
 import { toUrl } from './helpers'
 
 class PageCreate extends React.Component {
@@ -15,8 +14,7 @@ class PageCreate extends React.Component {
     const section = this.state.section?.trim()
     const pageType = this.state.pageType?.trim()
     const selectedCondition = this.state.selectedCondition?.trim()
-    const conditions = this.state.conditions
-    const path = this.generatePath(title, data)
+    const path = this.state.path || this.state.generatedPath
 
     const value = {
       path,
@@ -36,8 +34,7 @@ class PageCreate extends React.Component {
     copy = copy.addPage(value)
 
     if (linkFrom) {
-      const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, selectedCondition, conditions)
-      copy = conditionResult.data.addLink(linkFrom, path, conditionResult.condition)
+      copy = copy.addLink(linkFrom, path, selectedCondition)
     }
     try {
       await data.save(copy)
@@ -64,7 +61,7 @@ class PageCreate extends React.Component {
   render () {
     const { data } = this.props
     const { sections, pages } = data
-    const { pageType, linkFrom, title, section } = this.state
+    const { pageType, linkFrom, title, section, path, generatedPath } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -85,13 +82,21 @@ class PageCreate extends React.Component {
           </select>
         </div>
 
-        {linkFrom && linkFrom.trim() !== '' && <SelectConditions data={data} path={linkFrom} conditionsChange={this.saveConditions} />}
+        {linkFrom && linkFrom.trim() !== '' && <SelectConditions data={data} path={linkFrom} conditionsChange={this.conditionSelected} />}
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
           <input className='govuk-input' id='page-title' name='title'
-            type='text' aria-describedby='page-title-hint' required onBlur={this.onBlurTitle}
-            defaultValue={title} />
+            type='text' aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
+            value={title || ''} />
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
+          <span className='govuk-hint'>The path of this page e.g. '/personal-details'.</span>
+          <input className='govuk-input' id='page-path' name='path'
+            type='text' aria-describedby='page-path-hint' required
+            value={path || generatedPath || ''} onChange={this.onChangePath} />
         </div>
 
         <div className='govuk-form-group'>
@@ -121,10 +126,22 @@ class PageCreate extends React.Component {
     })
   }
 
-  onBlurTitle = e => {
+  onChangeTitle = e => {
+    const { data } = this.props
     const input = e.target
+    const title = input.value
     this.setState({
-      title: input.value
+      title: title,
+      generatedPath: this.generatePath(title, data)
+    })
+  }
+
+  onChangePath = e => {
+    const input = e.target
+    const path = input.value.startsWith('/') ? input.value : `/${input.value}`
+    const sanitisedPath = path.replace(/\s/g, '-')
+    this.setState({
+      path: sanitisedPath
     })
   }
 
@@ -135,9 +152,8 @@ class PageCreate extends React.Component {
     })
   }
 
-  saveConditions = (conditions, selectedCondition) => {
+  conditionSelected = (selectedCondition) => {
     this.setState({
-      conditions: conditions,
       selectedCondition: selectedCondition
     })
   }

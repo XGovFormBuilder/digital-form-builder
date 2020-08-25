@@ -1,6 +1,12 @@
 import React from 'react'
-import { ConditionValue } from './inline-condition-values'
-import { getOperatorConfig } from './inline-condition-operators'
+import { ConditionValue, timeUnits } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import {
+  absoluteDateOrTimeOperatorNames,
+  getOperatorConfig, relativeDateOrTimeOperatorNames
+} from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
+
+import RelativeTimeValues from './inline-conditions-relative-dates'
+import { AbsoluteDateValues, AbsoluteDateTimeValues, AbsoluteTimeValues } from './inline-conditions-absolute-dates'
 
 function TextValues (props) {
   const { updateValue, value } = props
@@ -32,8 +38,8 @@ function SelectValues (props) {
 
     let value
     if (newValue && newValue?.trim() !== '') {
-      const option = fieldDef.values?.find(value => value.value === newValue)
-      value = new ConditionValue(option.value, option.text)
+      const option = fieldDef.values?.find(value => String(value.value) === newValue)
+      value = new ConditionValue(String(option.value), option.text)
     }
     updateValue(value)
   }
@@ -49,12 +55,31 @@ function SelectValues (props) {
   )
 }
 
+function customValueComponent (fieldType, operator) {
+  const operatorConfig = getOperatorConfig(fieldType, operator)
+  const absoluteDateTimeRenderFunctions = {
+    'DateField': (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
+    'DatePartsField': (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
+    'DateTimeField': (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
+    'DateTimePartsField': (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
+    'TimeField': (value, updateValue) => <AbsoluteTimeValues value={value} updateValue={updateValue} />
+  }
+  const dateTimeFieldTypes = Object.keys(absoluteDateTimeRenderFunctions).includes(fieldType)
+  if (dateTimeFieldTypes) {
+    if (absoluteDateOrTimeOperatorNames.includes(operator)) {
+      return absoluteDateTimeRenderFunctions[fieldType]
+    } else if (relativeDateOrTimeOperatorNames.includes(operator)) {
+      const units = operatorConfig.units
+      return (value, updateValue) => <RelativeTimeValues value={value} updateValue={updateValue} units={units} timeOnly={units === timeUnits} />
+    }
+  }
+}
+
 class InlineConditionsDefinitionValue extends React.Component {
   render () {
     const { fieldDef, operator, value, updateValue } = this.props
 
-    const operatorConfig = getOperatorConfig(fieldDef.type, operator)
-    const customRendering = operatorConfig.renderComponent
+    const customRendering = customValueComponent(fieldDef.type, operator)
     if (customRendering) {
       return customRendering(value, updateValue)
     }

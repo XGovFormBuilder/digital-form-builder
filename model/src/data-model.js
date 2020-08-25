@@ -1,4 +1,5 @@
-import { clone } from '../helpers'
+const { clone } = require('./helpers')
+const { ConditionsModel } = require('./conditions/inline-condition-model')
 
 const yesNoList = {
   name: '__yesNo',
@@ -16,7 +17,7 @@ const yesNoList = {
   ]
 }
 
-export class Data {
+class Data {
   #conditions
 
   constructor (rawData) {
@@ -74,6 +75,14 @@ export class Data {
     return this
   }
 
+  addSection (name, title) {
+    this.sections = this.sections || []
+    if (!this.sections.find(s => s.name === name)) {
+      this.sections.push({ name, title })
+    }
+    return this
+  }
+
   updateLink (from, to, condition) {
     const fromPage = this.findPage(from)
     const toPage = this.pages.find(p => p.path === to)
@@ -87,6 +96,14 @@ export class Data {
         }
       }
     }
+    return this
+  }
+
+  updateLinksTo = function (oldPath, newPath) {
+    this.pages.filter(p => p.next && p.next.find(link => link.path === oldPath))
+      .forEach(page => {
+        page.next.find(link => link.path === oldPath).path = newPath
+      })
     return this
   }
 
@@ -175,7 +192,7 @@ Object.filter = function (obj, predicate) {
   const result = {}
   let key
   for (key in obj) {
-    if (obj.hasOwnProperty(key) && predicate(obj[key])) {
+    if (obj[key] && predicate(obj[key])) {
       result[key] = obj[key]
     }
   }
@@ -205,4 +222,19 @@ class Condition {
     Object.assign(this, rawData)
     this.displayName = rawData.displayName || rawData.name
   }
+
+  get expression () {
+    if (typeof this.value === 'string') {
+      return this.value
+    } else {
+      return ConditionsModel.from(this.value).toExpression()
+    }
+  }
+
+  clone () {
+    return new Condition(this)
+  }
 }
+
+module.exports.Data = Data
+module.exports.Condition = Condition

@@ -5,9 +5,9 @@ import * as Lab from '@hapi/lab'
 import { assertLink, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinition from '../client/conditions/inline-conditions-definition'
-import { Condition, Field } from '../client/conditions/inline-condition-model'
-import { ConditionValue } from '../client/conditions/inline-condition-values'
-import { getOperatorNames } from '../client/conditions/inline-condition-operators'
+import { Condition, Field } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
+import { ConditionValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { getOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -369,7 +369,7 @@ function assertNoFieldsGroup (wrapper) {
 }
 
 function assertSaveConditionLink (wrapper) {
-  assertLink(wrapper.find('#save-condition'), 'save-condition', 'Save condition')
+  assertLink(wrapper.find('#save-condition'), 'save-condition', 'Add')
 }
 
 function assertNoSaveConditionLink (wrapper) {

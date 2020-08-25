@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from './helpers'
+import { clone } from 'digital-form-builder-model/lib/helpers'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {

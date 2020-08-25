@@ -35,6 +35,18 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
  
 `symlink-config` accepts two variables, ENV_LOC and LINK_TO. If the file location is not passed in, you will be prompted for a location.
  LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
+ 
+ | name                   | description                            | required | default     |            valid            |             notes             |
+ |-----------------------|-----------------------------------------|:--------:|-------------|:---------------------------:|:-----------------------------:|
+ | NODE_ENV              | Node environment                        |    no    | development | development,test,production |                               |
+ | PORT                  | Port number                             |    no    | 3000        |                             |                               |
+ | PREVIEW_MODE          | Preview mode                            |    no    | false       |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms. |
+ | PERSISTENT_BACKEND    | storage backend service                 |    no    |             | s3,blob                     | currently only s3 integration is properly supported. blob (or none) is stubbed. |
+ | PERSISTENT_ACCESS_KEY | Access key for backend persistence      |    no    |             |                             |                               |
+ | PERSISTENT_KEY_ID     | (Access) key ID for backend persistence |    no    |             |                             |                               |
+ | S3_BUCKET             | Name of the S3 bucket to upload to      |    no    |             |                             |                               |
+ | LOG_LEVEL             | Log level                               |    no    | debug       | trace,debug,info,error      |                               |
+
 
 ## License
 

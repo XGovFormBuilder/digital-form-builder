@@ -3,16 +3,22 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentCreate from '../client/component-create'
-import { Data } from '../client/model/data-model'
+import { Data } from 'digital-form-builder-model/lib/data-model'
+import sinon from 'sinon'
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { suite, test } = lab
+const { before, suite, test } = lab
 
 suite('Component create', () => {
   const data = new Data({})
   const page = { path: '/1' }
+  const generatedId = 'DMaslknf'
+
+  before(() => {
+    data.getId = sinon.stub().resolves(generatedId)
+  })
 
   test('Should display form with component types in alphabetical order', () => {
     const wrapper = shallow(<ComponentCreate data={data} page={page} />)
@@ -28,8 +34,10 @@ suite('Component create', () => {
     expect(wrapper.find('ComponentTypeEdit').exists()).to.equal(false)
   })
 
-  test('Selecting a component type should display the ComponentTypeEdit component', () => {
+  test('Selecting a component type should display the ComponentTypeEdit component', async flags => {
     const wrapper = shallow(<ComponentCreate data={data} page={page} />)
+    await wrapper.instance().componentDidMount()
+
     const form = wrapper.find('form')
 
     form.find('select').simulate('change', { target: { value: 'TextField' } })
@@ -37,7 +45,7 @@ suite('Component create', () => {
     const componentTypeEdit = wrapper.find('ComponentTypeEdit')
     expect(componentTypeEdit.exists()).to.equal(true)
     expect(componentTypeEdit.prop('page')).to.equal(page)
-    expect(componentTypeEdit.prop('component')).to.equal({ type: 'TextField' })
+    expect(componentTypeEdit.prop('component')).to.equal({ type: 'TextField', name: generatedId })
     expect(componentTypeEdit.prop('data')).to.equal(data)
     expect(Object.keys(componentTypeEdit.props()).length).to.equal(3)
   })

@@ -1,8 +1,9 @@
 import React from 'react'
-import { clone } from '../helpers'
-import { ConditionsModel } from './inline-condition-model'
+import { ConditionsModel } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
+import { clone } from 'digital-form-builder-model/lib/helpers'
+import InlineConditionHelpers from './inline-condition-helpers'
 
 class InlineConditions extends React.Component {
   constructor (props) {
@@ -12,9 +13,7 @@ class InlineConditions extends React.Component {
 
     this.state = {
       conditions: new ConditionsModel(),
-      fields: this.fieldsForPath(path),
-      inline: !props.data.hasConditions,
-      adding: props.hideAddLink
+      fields: this.fieldsForPath(path)
     }
   }
 
@@ -46,34 +45,30 @@ class InlineConditions extends React.Component {
       }, {})
   }
 
-  onClickAddItem = () => {
-    this.setState({
-      adding: true
-    })
-  }
-
   toggleEdit = () => {
     this.setState({
       editView: !this.state.editView
     })
   }
 
-  setState (state, callback) {
-    if (state.conditions) {
-      this.props.conditionsChange(state.conditions, undefined)
-    }
-    super.setState(state, callback)
-  }
-
   onClickCancel = e => {
+    const { cancelCallback } = this.props
     this.setState({
-      inline: !this.props.data.hasConditions,
-      adding: this.props.adding,
       conditions: this.state.conditions.clear(),
       editView: false
     })
-    if (this.props.cancelCallback) {
-      this.props.cancelCallback(e)
+    if (cancelCallback) {
+      cancelCallback(e)
+    }
+  }
+
+  onClickSave = async () => {
+    const { data, conditionsChange } = this.props
+    const copy = data.clone()
+    const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, this.state.conditions)
+    await data.save(conditionResult.data)
+    if (conditionsChange) {
+      conditionsChange(conditionResult.condition)
     }
   }
 
@@ -99,29 +94,23 @@ class InlineConditions extends React.Component {
   }
 
   render () {
-    const { conditions, adding, editView } = this.state
+    const { conditions, editView } = this.state
     const hasConditions = conditions.hasConditions
-    const definingCondition = adding || hasConditions
 
     return (
       this.state.fields && Object.keys(this.state.fields).length > 0 &&
         <div id='inline-conditions'>
           <div id='inline-condition-header'>
-            {!definingCondition &&
-              <a href='#' id='add-item' className='govuk-link' onClick={this.onClickAddItem}>Add</a>
-            }
-            {definingCondition &&
-              <div>
-                <div className='govuk-form-group'>
-                  <label className='govuk-label' htmlFor='cond-name'>Display name</label>
-                  <input className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
-                    type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName} />
-                </div>
-                <div className='govuk-form-group'>
-                  <label className='govuk-label' id='condition-string-label' htmlFor='condition-string'>When</label>
-                </div>
+            <div>
+              <div className='govuk-form-group'>
+                <label className='govuk-label' htmlFor='cond-name'>Display name</label>
+                <input className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
+                  type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName} />
               </div>
-            }
+              <div className='govuk-form-group'>
+                <label className='govuk-label' id='condition-string-label' htmlFor='condition-string'>When</label>
+              </div>
+            </div>
             {hasConditions &&
               <div id='conditions-display' className='govuk-body'>
                 <div key='condition-string' id='condition-string'>
@@ -137,11 +126,14 @@ class InlineConditions extends React.Component {
               </div>
             }
           </div>
-          {!editView && definingCondition &&
+          {!editView &&
             <div>
               <InlineConditionsDefinition expectsCoordinator={hasConditions} fields={this.state.fields}
                 saveCallback={this.saveCondition} />
               <div className='govuk-form-group'>
+                {hasConditions &&
+                  <a href='#' id='save-inline-conditions' className='govuk-button' onClick={this.onClickSave}>Save</a>
+                }
                 <a href='#' id='cancel-inline-conditions-link' className='govuk-link'
                   onClick={this.onClickCancel}>Cancel</a>
               </div>

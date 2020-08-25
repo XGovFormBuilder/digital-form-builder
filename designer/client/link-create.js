@@ -1,18 +1,16 @@
 import React from 'react'
 import SelectConditions from './conditions/select-conditions'
-import InlineConditionHelpers from './conditions/inline-condition-helpers'
 
 class LinkCreate extends React.Component {
   state = {}
 
   onSubmit = async e => {
     e.preventDefault()
-    const { from, to, selectedCondition, conditions } = this.state
+    const { from, to, selectedCondition } = this.state
     // Apply
     const { data } = this.props
     const copy = data.clone()
-    const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(copy, selectedCondition, conditions)
-    const updatedData = conditionResult.data.addLink(from, to, conditionResult.condition)
+    const updatedData = copy.addLink(from, to, selectedCondition)
 
     const savedData = await data.save(updatedData)
     this.props.onCreate({ data: savedData })
@@ -41,16 +39,15 @@ class LinkCreate extends React.Component {
           </select>
         </div>
 
-        {from && from.trim() !== '' && <SelectConditions data={data} path={from} conditionsChange={this.saveConditions} />}
+        {from && from.trim() !== '' && <SelectConditions data={data} path={from} conditionsChange={this.conditionSelected} />}
 
         <button className='govuk-button' type='submit'>Save</button>
       </form>
     )
   }
 
-  saveConditions = (conditions, selectedCondition) => {
+  conditionSelected = (selectedCondition) => {
     this.setState({
-      conditions: conditions,
       selectedCondition: selectedCondition
     })
   }

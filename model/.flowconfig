@@ -1,0 +1,17 @@
+[ignore]
+.*/test/.*
+.*/lib/.*
+.*\.ignore\.js
+.*/*/*.json
+
+[include]
+src/
+
+[libs]
+
+[lints]
+
+[options]
+server.max_workers=4
+
+[strict]

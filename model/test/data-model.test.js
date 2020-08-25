@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { Data } from '../client/model/data-model'
+import { Data } from '..'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
@@ -59,11 +59,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -81,7 +81,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -125,11 +125,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -147,7 +147,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -191,11 +191,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -213,7 +213,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -257,11 +257,11 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'type': 'TextField',
-                    'name': 'buildingNameOrNumber',
-                    'title': 'Building name or number',
-                    'hint': '',
-                    'schema': {}
+                    type: 'TextField',
+                    name: 'buildingNameOrNumber',
+                    title: 'Building name or number',
+                    hint: '',
+                    schema: {}
                   }
                 ]
               }
@@ -279,7 +279,7 @@ suite('data model', () => {
               conditional: {
                 components: [
                   {
-                    'name': 'myField'
+                    name: 'myField'
                   }
                 ]
               }
@@ -503,7 +503,7 @@ suite('data model', () => {
       const data = new Data({
         lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
       })
-      let returned = data.listFor({ options: { list: 'list2' } })
+      const returned = data.listFor({ options: { list: 'list2' } })
       expect(returned === data.lists[1]).to.equal(true)
     })
 
@@ -798,6 +798,91 @@ suite('data model', () => {
     })
   })
 
+  describe('add section', () => {
+    test('should add a section when no section exists with the same name', () => {
+      const data = new Data({
+        sections: [{ name: 'a', title: 'B' }]
+      })
+      const returned = data.addSection('badger', 'Badger')
+      expect(returned.sections.length).to.equal(2)
+      expect(returned.sections.find(it => it.name === 'a')).to.equal({ name: 'a', title: 'B' })
+      expect(returned.sections.find(it => it.name === 'badger')).to.equal({ name: 'badger', title: 'Badger' })
+    })
+
+    test('should not add a section when a section exists with the same name', () => {
+      const data = new Data({
+        sections: [{ name: 'a', title: 'B' }]
+      })
+      const returned = data.addSection('a', 'Badger')
+      expect(returned.sections.length).to.equal(1)
+      expect(returned.sections.find(it => it.name === 'a')).to.equal({ name: 'a', title: 'B' })
+    })
+  })
+
+  describe('update links to', () => {
+    test('should update all links pointing to the specified path to the new path', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page0',
+            path: '/0',
+            next: [{ path: '/2', condition: 'badgers' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            section: 'section1',
+            path: '/3',
+            components: []
+          }
+        ]
+      })
+
+      const returned = data.updateLinksTo('/2', '/7')
+
+      expect(returned.findPage(('/0'))).to.equal({
+        name: 'page0',
+        path: '/0',
+        next: [{ path: '/7', condition: 'badgers' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/1'))).to.equal({
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/7' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      })
+      expect(returned.findPage(('/2'))).to.equal({
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      })
+      expect(returned.findPage(('/3'))).to.equal({
+        name: 'page3',
+        section: 'section1',
+        path: '/3',
+        components: []
+      })
+    })
+  })
+
   describe('find page', () => {
     test('should return the page with the requested path if it exists', () => {
       const data = new Data({
@@ -818,7 +903,7 @@ suite('data model', () => {
           }
         ]
       })
-      let returned = data.findPage('/2')
+      const returned = data.findPage('/2')
       expect(returned === data.pages[1]).to.equal(true)
     })
 
@@ -900,7 +985,7 @@ suite('data model', () => {
           }
         ]
       })
-      let returned = data.getPages()
+      const returned = data.getPages()
       expect(returned === data.pages).to.equal(true)
     })
 
@@ -1048,7 +1133,7 @@ suite('data model', () => {
       const data = new Data({
         conditions: [{ name: 'some name', displayName: 'My name', value: 'a condition' }]
       })
-      let returned = data.conditions
+      const returned = data.conditions
       expect(returned === data.conditions).to.equal(false)
       expect(returned).to.equal(data.conditions)
       returned[0].name = 'badger'
@@ -1150,6 +1235,22 @@ suite('data model', () => {
       })
       data.removeCondition('someName')
       expect(data.conditions).to.equal([])
+    })
+  })
+
+  describe('Condition model', () => {
+    test('Get expression should return string if value is a string', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName', value: 'badgers == monkeys' }]
+      })
+      expect(data.findCondition('someName').expression).to.equal('badgers == monkeys')
+    })
+
+    test('Get expression should return parsed string from conditions model if value is a condition', () => {
+      const data = new Data({
+        conditions: [{ name: 'someName', value: { name: 'someName', conditions: [{ field: { name: 'badger', type: 'TextField', display: 'Badger' }, operator: 'is', value: { type: 'Value', value: 'Monkeys', display: 'Monkeys' } }] } }]
+      })
+      expect(data.findCondition('someName').expression).to.equal('badger == \'Monkeys\'')
     })
   })
 

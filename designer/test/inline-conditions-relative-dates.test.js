@@ -1,16 +1,17 @@
+import React from 'react'
 import { shallow } from 'enzyme'
 import * as Lab from '@hapi/lab'
 import * as Code from '@hapi/code'
 import { assertRequiredTextInput, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import {
-  relativeTime,
   dateDirections,
   dateTimeUnits,
   dateUnits,
   RelativeTimeValue,
   timeUnits
-} from '../client/conditions/inline-conditions-relative-dates'
+} from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import RelativeTimeValues from '../client/conditions/inline-conditions-relative-dates'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -41,8 +42,7 @@ suite('Inline conditions relative time value inputs', () => {
     test(`should display the expected inputs for ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
       const existingValue = new RelativeTimeValue('18', unit, dateDirections.FUTURE)
-      const timeShiftOperator = relativeTime('<', '>', mapping.units)
-      const wrapper = shallow(timeShiftOperator.renderComponent(existingValue, updateValueCallback))
+      const wrapper = shallow(<RelativeTimeValues value={existingValue} updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       assertRequiredTextInput(wrapper.find('#cond-value-period'), 'cond-value-period', '18')
       assertSelectInput(wrapper.find('#cond-value-units'), 'cond-value-units',
@@ -55,8 +55,7 @@ suite('Inline conditions relative time value inputs', () => {
 
     test(`specifying all inputs in order should save the expected value for adding ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
-      const timeShiftOperator = relativeTime('<', '>', mapping.units)
-      const wrapper = shallow(timeShiftOperator.renderComponent(undefined, updateValueCallback))
+      const wrapper = shallow(<RelativeTimeValues updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-period').simulate('change', { target: { value: '18' } })
       wrapper.find('#cond-value-units').simulate('change', { target: { value: unit } })
@@ -69,8 +68,7 @@ suite('Inline conditions relative time value inputs', () => {
 
     test(`specifying all inputs out of order should save the expected value for adding ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
-      const timeShiftOperator = relativeTime('<', '>', mapping.units)
-      const wrapper = shallow(timeShiftOperator.renderComponent(undefined, updateValueCallback))
+      const wrapper = shallow(<RelativeTimeValues updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-direction').simulate('change', { target: { value: dateDirections.FUTURE } })
       wrapper.find('#cond-value-units').simulate('change', { target: { value: unit } })
@@ -84,8 +82,7 @@ suite('Inline conditions relative time value inputs', () => {
     test(`updating period should save the expected value for editing ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
       const existingValue = new RelativeTimeValue('18', unit, dateDirections.FUTURE, mapping.timeOnly || false)
-      const timeShiftOperator = relativeTime('<', '>', mapping.units)
-      const wrapper = shallow(timeShiftOperator.renderComponent(existingValue, updateValueCallback))
+      const wrapper = shallow(<RelativeTimeValues value={existingValue} updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-period').simulate('change', { target: { value: '12' } })
 
@@ -96,8 +93,7 @@ suite('Inline conditions relative time value inputs', () => {
 
     test(`updating units should save the expected value for editing ${mapping.type} component type`, () => {
       const existingValue = new RelativeTimeValue('18', Object.values(mapping.units)[1].value, dateDirections.FUTURE, mapping.timeOnly || false)
-      const timeShiftOperator = relativeTime('<', '>', mapping.units)
-      const wrapper = shallow(timeShiftOperator.renderComponent(existingValue, updateValueCallback))
+      const wrapper = shallow(<RelativeTimeValues value={existingValue} updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       const unit = aRandomItemFrom(mapping.units).value
       wrapper.find('#cond-value-units').simulate('change', { target: { value: unit } })
@@ -110,8 +106,7 @@ suite('Inline conditions relative time value inputs', () => {
     test(`updating period should save the expected value for editing ${mapping.type} component type`, () => {
       const unit = aRandomItemFrom(mapping.units).value
       const existingValue = new RelativeTimeValue('18', unit, dateDirections.FUTURE)
-      const timeShiftOperator = relativeTime('<', '>', mapping.units)
-      const wrapper = shallow(timeShiftOperator.renderComponent(existingValue, updateValueCallback))
+      const wrapper = shallow(<RelativeTimeValues value={existingValue} updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
       wrapper.find('#cond-value-direction').simulate('change', { target: { value: dateDirections.PAST } })
 
