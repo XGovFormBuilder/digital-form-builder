@@ -1,5 +1,5 @@
 // @flow
-import { FormConfiguration } from 'digital-form-builder-model'
+import { FormConfiguration } from '@xgovformbuilder/model'
 
 export interface PersistenceService {
   logger: any;

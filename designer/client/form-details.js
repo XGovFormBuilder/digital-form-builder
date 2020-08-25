@@ -25,7 +25,7 @@ class FormDetails extends React.Component {
     const { data } = this.props
     const { title, feedbackForm, selectedFeedbackForm } = this.state
 
-    let copy = data.clone()
+    const copy = data.clone()
     copy.name = title
     copy.feedbackForm = feedbackForm
     copy.setFeedbackUrl(selectedFeedbackForm ? `/${selectedFeedbackForm}` : undefined)
@@ -100,6 +100,7 @@ class FormDetails extends React.Component {
                     <p>Only forms marked as being a feedback form are listed here</p>
                   </div>
                   <select className='govuk-select' id='target-feedback-form' name='targetFeedbackForm' value={selectedFeedbackForm} required onChange={this.onSelectFeedbackForm}>
+                    <option/>
                     {formConfigurations.map((config, index) => (<option key={config.Key + index} value={config.Key}>{config.DisplayName}</option>))}
                   </select>
                 </div>

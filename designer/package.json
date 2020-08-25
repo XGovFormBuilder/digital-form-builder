@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "lint": "yarn run eslint ./",
-    "fix-lint": "eslint --fix",
+    "fix-lint": "yarn run eslint ./ --fix",
     "build": "rollup -c && yarn babel-build",
     "watch": "concurrently 'yarn run rollup:watch' 'yarn run babel-watch'",
     "dev": "rollup -c -w & node server/index.js",

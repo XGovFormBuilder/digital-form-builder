@@ -2,12 +2,11 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { Data } from 'digital-form-builder-model/lib/data-model'
+import { Data, FormConfiguration } from '@xgovformbuilder/model'
 import { assertRadioButton, assertSelectInput, assertTextInput } from './helpers/element-assertions'
 import FormDetails from '../client/form-details'
 
 import sinon from 'sinon'
-import { FormConfiguration } from 'digital-form-builder-model'
 import formConfigurationsApi from '../client/load-form-configurations'
 
 const { expect } = Code
@@ -63,8 +62,8 @@ suite('Form details', () => {
       data.feedbackForm = true
       const wrapper = shallow(<FormDetails data={data} />)
       expect(wrapper.find('#form-title').exists()).to.equal(false)
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { 'defaultChecked': true })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { 'defaultChecked': false })
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: true })
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: false })
     })
 
     test('Should not render title input for feedback forms', () => {
@@ -75,8 +74,8 @@ suite('Form details', () => {
 
     test('Renders Feedback \'no\' checked when form is not a feedback form', () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { 'defaultChecked': false })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { 'defaultChecked': true })
+      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
+      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
     })
 
     test('Renders Feedback form input when form is not a feedback form', async () => {

@@ -9,7 +9,7 @@
     "build:css": "bin/build-css",
     "build": "yarn build:css && yarn babel-build",
     "lint": "yarn run eslint ./ -c ../.eslintrc.json",
-    "fix-lint": "yarn run lint --fix",
+    "fix-lint": "yarn run eslint ./ -c ../.eslintrc.json --fix",
     "unit-test": "lab -T test/.transform.js -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "NODE_ENV=test yarn run flow && yarn run lint && yarn run unit-test",

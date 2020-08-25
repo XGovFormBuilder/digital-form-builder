@@ -1,6 +1,6 @@
 import { redirectTo } from './helpers'
 import { RelativeUrl } from './feedback'
-import { FormConfiguration } from 'digital-form-builder-model'
+import { FormConfiguration } from '@xgovformbuilder/model'
 
 const shortid = require('shortid')
 const Boom = require('boom')

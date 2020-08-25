@@ -83,7 +83,7 @@ class NotifyItems extends React.Component {
               <td className='govuk-table__cell'>
                 <select className='govuk-select' id='link-source' name='personalisation' value={item} onChange={e => this.onChangeItem(e, index)} required>
                   <option />
-                  {values.map((value, i) => (<option key={value.name + i} value={value.name}>{value.display??value.name}</option>))}
+                  {values.map((value, i) => (<option key={value.name + i} value={value.name}>{value.display ?? value.name}</option>))}
                 </select>
               </td>
               <td className='govuk-table__cell' >{item}</td>

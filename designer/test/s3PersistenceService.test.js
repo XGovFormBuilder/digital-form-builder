@@ -3,7 +3,7 @@ import * as Lab from '@hapi/lab'
 import { S3PersistenceService } from '../server/lib/persistence/s3PersistenceService'
 
 import sinon from 'sinon'
-import { FormConfiguration } from 'digital-form-builder-model'
+import { FormConfiguration } from '@xgovformbuilder/model'
 const lab = Lab.script()
 exports.lab = lab
 const { afterEach, suite, describe, test } = lab
@@ -28,14 +28,16 @@ suite('s3PersistenceService', () => {
 
   describe('listAllConfigurations', () => {
     test('should return configured objects', async () => {
-      underTest.bucket.listObjects.returns({ promise: () => ({
-        Contents: [
-          { Key: 'myForm', Metadata: { 'x-amz-meta-name': 'My form' }, LastModified: '2019-03-12T01:00:32.999Z' },
-          { Key: 'anotherForm', Metadata: { 'x-amz-meta-name': 'Another form' } },
-          { Key: 'feedbackForm', Metadata: { 'x-amz-meta-name': 'Feedback form', 'x-amz-meta-type': 'feedback' } },
-          { Key: 'thirdForm' }
-        ]
-      }) })
+      underTest.bucket.listObjects.returns({
+        promise: () => ({
+          Contents: [
+            { Key: 'myForm', Metadata: { 'x-amz-meta-name': 'My form' }, LastModified: '2019-03-12T01:00:32.999Z' },
+            { Key: 'anotherForm', Metadata: { 'x-amz-meta-name': 'Another form' } },
+            { Key: 'feedbackForm', Metadata: { 'x-amz-meta-name': 'Feedback form', 'x-amz-meta-type': 'feedback' } },
+            { Key: 'thirdForm' }
+          ]
+        })
+      })
 
       expect(await underTest.listAllConfigurations()).to.equal([
         new FormConfiguration('myForm', 'My form', '2019-03-12T01:00:32.999Z'),
@@ -59,9 +61,11 @@ suite('s3PersistenceService', () => {
       { id: 'ab123456.txt', expectedId: 'ab123456.txt.json', description: 'a filename with a different extension' }
     ].forEach(testCase => {
       test(`should return configured objects when id is ${testCase.description}`, async () => {
-        underTest.bucket.getObject.returns({ promise: () => ({
-          Body: 'Some content string'
-        }) })
+        underTest.bucket.getObject.returns({
+          promise: () => ({
+            Body: 'Some content string'
+          })
+        })
 
         expect(await underTest.getConfiguration(testCase.id)).to.equal('Some content string')
 

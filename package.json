@@ -23,7 +23,7 @@
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",
     "lint": "yarn workspaces foreach run lint",
-    "fix-lint": "yarn workspaces foreach run lint",
+    "fix-lint": "yarn workspaces foreach run fix-lint",
     "flow": "yarn workspaces foreach -piva exec flow",
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",

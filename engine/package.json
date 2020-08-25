@@ -5,7 +5,7 @@
   "main": "index.js",
   "module": "src/lib.js",
   "scripts": {
-    "fix-lint": "yarn run lint --fix",
+    "fix-lint": "yarn run eslint ./ -c ../.eslintrc.json --fix",
     "lint": "yarn run eslint ./ -c ../.eslintrc.json",
     "build": "yarn run babel --root-mode upward src -d lib --source-maps inline",
     "watch": "bash -c 'nohup yarn run babel src --root-mode upward -d lib --source-maps inline --watch'",
