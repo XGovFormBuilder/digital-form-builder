@@ -8,13 +8,21 @@ export class Logger {
       this.name = name
     }
 
-    error = (message: string) => this.log('error', message)
+    error (message: string) {
+      this.log('error', message)
+    }
 
-    warn = (message: string) => this.log('warn', message)
+    warn (message: string) {
+      this.log('warn', message)
+    }
 
-    info = (message: string) => this.log('info', message)
+    info (message: string) {
+      this.log('info', message)
+    }
 
-    debug = (message: string) => this.log('debug', message)
+    debug (message: string) {
+      this.log('debug', message)
+    }
 
     log (level: string, message: string) {
       this.logger([level, this.name], message)

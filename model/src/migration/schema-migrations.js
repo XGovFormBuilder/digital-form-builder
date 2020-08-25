@@ -39,7 +39,7 @@ export class SchemaMigrationService {
       return formDef
     }
 
-    getResultantVersion(migrationInitialVersion: number) { //eslint-disable-line
+    getResultantVersion (migrationInitialVersion: number) {
       return migrationInitialVersion + 1
     }
 }

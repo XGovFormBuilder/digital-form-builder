@@ -11,5 +11,5 @@ package-lock.json
 */flow-typed/*
 /flow-typed/
 /.yarn/cache/
-/.yarn/install-state.gza
+/.yarn/install-state.gz
 */.env
