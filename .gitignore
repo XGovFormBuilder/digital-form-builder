@@ -12,3 +12,4 @@ package-lock.json
 /flow-typed/
 /.yarn/cache/
 /.yarn/install-state.gz
+*/.env

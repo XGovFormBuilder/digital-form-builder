@@ -2827,6 +2827,7 @@ __metadata:
     moment: 2.24.0
     nunjucks: 3.2.1
     path: 0.12.7
+    sinon: ^9.0.2
     wreck: 14.2.0
   languageName: unknown
   linkType: soft

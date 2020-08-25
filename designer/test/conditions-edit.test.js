@@ -29,7 +29,7 @@ suite('Conditions edit', () => {
       expect(listItems.length).to.equal(3)
       expect(listItems.at(0).find('a').text()).to.equal(condition.displayName)
       expect(listItems.at(1).find('a').text()).to.equal(condition2.displayName)
-      expect(wrapper.find('ConditionEdit').exists()).to.equal(false)
+      expect(wrapper.find('#edit-conditions').exists()).to.equal(false)
     })
 
     test('Clicking an edit link causes the edit view to be rendered and all other elements hidden.', () => {
@@ -41,12 +41,8 @@ suite('Conditions edit', () => {
       listItems.at(1).find('a').simulate('click', { preventDefault: sinon.spy() })
 
       expect(wrapper.find('li').exists()).to.equal(false)
-      const editView = wrapper.find('ConditionEdit')
-      expect(editView.exists()).to.equal(true)
-      expect(editView.prop('condition')).to.equal(condition2)
-      expect(editView.prop('data')).to.equal(data)
-      expect(editView.prop('onEdit')).to.equal(wrapper.instance().editFinished)
-      expect(editView.prop('onCancel')).to.equal(wrapper.instance().editFinished)
+      expect(wrapper.find('#edit-conditions').exists()).to.equal(true)
+      assertEditingInlineConditionsFlyout(wrapper, data, condition2, true)
     })
 
     test('Completion of editing causes the edit view to be hidden again .', () => {
@@ -58,8 +54,7 @@ suite('Conditions edit', () => {
       listItems.at(1).find('a').simulate('click', { preventDefault: sinon.spy() })
 
       expect(wrapper.find('li').exists()).to.equal(false)
-      const editView = wrapper.find('ConditionEdit')
-      expect(editView.exists()).to.equal(true)
+      expect(wrapper.find('#edit-conditions').exists()).to.equal(true)
 
       wrapper.instance().editFinished()
 
@@ -68,7 +63,7 @@ suite('Conditions edit', () => {
       expect(listItems2.length).to.equal(3)
       expect(listItems2.at(0).find('a').text()).to.equal(condition.displayName)
       expect(listItems2.at(1).find('a').text()).to.equal(condition2.displayName)
-      expect(wrapper.find('ConditionEdit').exists()).to.equal(false)
+      expect(wrapper.find('#edit-conditions').exists()).to.equal(false)
     })
 
     test('Renders add new condition link if there are inputs available', () => {
@@ -185,6 +180,21 @@ suite('Conditions edit', () => {
   })
 })
 
+function assertEditingInlineConditionsFlyout (wrapper, data, conditionModel, shown) {
+  const inlineConditions = wrapper.find('InlineConditions')
+  expect(inlineConditions.exists()).to.equal(true)
+  expect(inlineConditions.prop('data')).to.equal(data)
+  expect(inlineConditions.prop('condition')).to.equal(conditionModel)
+  expect(inlineConditions.prop('conditionsChange')).to.equal(wrapper.instance().editFinished)
+  expect(inlineConditions.prop('cancelCallback')).to.equal(wrapper.instance().editFinished)
+
+  const flyout = inlineConditions.parent('Flyout')
+  expect(flyout.exists()).to.equal(true)
+  expect(flyout.prop('show')).to.equal(shown)
+  expect(flyout.prop('title')).to.equal('Edit Conditions')
+  expect(flyout.prop('onHide')).to.equal(wrapper.instance().editFinished)
+}
+
 function assertInlineConditionsFlyout (wrapper, data, shown) {
   const inlineConditions = wrapper.find('InlineConditions')
   expect(inlineConditions.exists()).to.equal(true)
@@ -195,6 +205,6 @@ function assertInlineConditionsFlyout (wrapper, data, shown) {
   const flyout = inlineConditions.parent('Flyout')
   expect(flyout.exists()).to.equal(true)
   expect(flyout.prop('show')).to.equal(shown)
-  expect(flyout.prop('title')).to.equal('Edit Conditions')
+  expect(flyout.prop('title')).to.equal('Add Condition')
   expect(flyout.prop('onHide')).to.equal(wrapper.instance().cancelInlineCondition)
 }

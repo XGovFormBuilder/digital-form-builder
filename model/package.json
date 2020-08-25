@@ -7,8 +7,8 @@
   "scripts": {
     "fix-lint": "eslint --fix",
     "lint": "yarn run eslint ./ -c ../.eslintrc.json",
-    "build": "babel --root-mode upward src -d lib --source-maps inline",
-    "watch": "bash -c 'nohup yarn run babel --root-mode upward src -d lib --source-maps inline'",
+    "build": "babel src -d lib --source-maps inline",
+    "watch": "bash -c 'nohup yarn run babelupward src -d lib --source-maps inline'",
     "test-lab": "lab -T test/.transform.js -S -v -P 'test' test -r console -o stdout -r html -o unit-test.html -I version",
     "test": "yarn flow && yarn lint && yarn test-lab"
   },
@@ -51,6 +51,7 @@
     "eslint": "^7.6.0",
     "flow-bin": "^0.130.0",
     "flow-mono-cli": "^1.5.3",
-    "flow-typed": "^3.2.1"
+    "flow-typed": "^3.2.1",
+    "sinon": "^9.0.2"
   }
 }

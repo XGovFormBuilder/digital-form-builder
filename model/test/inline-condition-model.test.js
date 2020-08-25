@@ -732,5 +732,11 @@ suite('inline condition model', () => {
       expect(returned.toPresentationString()).to.equal(underTest.toPresentationString())
       expect(returned === underTest).to.equal(false)
     })
+
+    test('ConditionsModel.from with existing conditions model returns the passed object', () => {
+      const returned = ConditionsModel.from(underTest)
+      expect(returned).to.equal(underTest)
+      expect(returned === underTest).to.equal(true)
+    })
   })
 })
