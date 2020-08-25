@@ -1,4 +1,4 @@
-import { Page as EngineBasePage } from 'digital-form-builder-engine'
+import { Page as EngineBasePage } from '@xgovformbuilder/engine'
 
 class Page extends EngineBasePage {
   get getRouteOptions () {

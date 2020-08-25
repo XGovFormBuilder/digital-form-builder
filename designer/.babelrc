@@ -14,5 +14,6 @@
     "@babel/plugin-proposal-private-methods",
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime"
-  ]
+  ],
+  "ignore": ["./node_modules", "../node_modules", "**/node_modules/**"]
 }

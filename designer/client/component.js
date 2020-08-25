@@ -5,30 +5,30 @@ import ComponentEdit from './component-edit'
 const DragHandle = SortableHandle(() => <span className='drag-handle'>&#9776;</span>)
 
 export const componentTypes = {
-  'TextField': TextField,
-  'TelephoneNumberField': TelephoneNumberField,
-  'NumberField': NumberField,
-  'EmailAddressField': EmailAddressField,
-  'TimeField': TimeField,
-  'DateField': DateField,
-  'DateTimeField': DateTimeField,
-  'DatePartsField': DatePartsField,
-  'DateTimePartsField': DateTimePartsField,
-  'MultilineTextField': MultilineTextField,
-  'RadiosField': RadiosField,
-  'CheckboxesField': CheckboxesField,
-  'AutocompleteField': SelectField,
-  'SelectField': SelectField,
-  'YesNoField': YesNoField,
-  'UkAddressField': UkAddressField,
-  'FileUploadField': FileUploadField,
-  'Para': Para,
-  'Details': Details,
-  'Html': Html,
-  'InsetText': InsetText,
-  'FlashCard': FlashCard,
-  'List': List,
-  'WarningText': WarningText
+  TextField: TextField,
+  TelephoneNumberField: TelephoneNumberField,
+  NumberField: NumberField,
+  EmailAddressField: EmailAddressField,
+  TimeField: TimeField,
+  DateField: DateField,
+  DateTimeField: DateTimeField,
+  DatePartsField: DatePartsField,
+  DateTimePartsField: DateTimePartsField,
+  MultilineTextField: MultilineTextField,
+  RadiosField: RadiosField,
+  CheckboxesField: CheckboxesField,
+  AutocompleteField: SelectField,
+  SelectField: SelectField,
+  YesNoField: YesNoField,
+  UkAddressField: UkAddressField,
+  FileUploadField: FileUploadField,
+  Para: Para,
+  Details: Details,
+  Html: Html,
+  InsetText: InsetText,
+  FlashCard: FlashCard,
+  List: List,
+  WarningText: WarningText
 }
 
 function Base (props) {
@@ -207,7 +207,7 @@ function FileUploadField () {
   return (
     <ComponentField>
       <div className='govuk-!-margin-bottom-1'>
-        {`🗂`} <span className='line short' />
+        {'🗂'} <span className='line short' />
       </div>
     </ComponentField>
   )
@@ -216,7 +216,7 @@ function FileUploadField () {
 function Details () {
   return (
     <Base>
-      {`▶ `}<span className='line short' />
+      {'▶ '}<span className='line short' />
     </Base>
   )
 }
@@ -298,15 +298,21 @@ export class Component extends React.Component {
 
     return (
       <div>
-        <div className='component govuk-!-padding-2'
-          onClick={(e) => this.showEditor(e, true)}>
+        <div
+          className='component govuk-!-padding-2'
+          onClick={(e) => this.showEditor(e, true)}
+        >
           <DragHandle />
           <TagName />
         </div>
-        <Flyout title='Edit Component' show={this.state.showEditor}
-          onHide={e => this.showEditor(e, false)}>
-          <ComponentEdit component={component} page={page} data={data}
-            onEdit={e => this.setState({ showEditor: false })} />
+        <Flyout
+          title='Edit Component' show={this.state.showEditor}
+          onHide={e => this.showEditor(e, false)}
+        >
+          <ComponentEdit
+            component={component} page={page} data={data}
+            onEdit={e => this.setState({ showEditor: false })}
+          />
         </Flyout>
       </div>
     )

@@ -44,22 +44,22 @@ export default class NewConfig extends React.Component {
   }
 
   onSelect (e) {
-    let { configs } = this.state
-    let { value } = e.target
+    const { configs } = this.state
+    const { value } = e.target
 
     if (value === 'New') {
       this.setState({ selected: { Key: 'New' } })
     } else {
-      let selected = configs.find(config => config.Key === value)
+      const selected = configs.find(config => config.Key === value)
       this.setState({ selected })
     }
   }
 
   onNewNameChange (e) {
     const { configs } = this.state
-    let parsed = e.target.value.replace(/\s+/g, '-')
-    let alreadyExists = configs.find(config => {
-      let fileName = config.Key.replace('.json', '')
+    const parsed = e.target.value.replace(/\s+/g, '-')
+    const alreadyExists = configs.find(config => {
+      const fileName = config.Key.replace('.json', '')
       return fileName === parsed
     }) ?? false
     this.setState({
@@ -69,8 +69,8 @@ export default class NewConfig extends React.Component {
   }
 
   async onSubmit (e) {
-    let { selected, newName } = this.state
-    let newResponse = await window.fetch(`/new`, {
+    const { selected, newName } = this.state
+    const newResponse = await window.fetch('/new', {
       method: 'POST',
       body: JSON.stringify({ selected, name: newName }),
       headers: {
@@ -82,7 +82,7 @@ export default class NewConfig extends React.Component {
   }
 
   render () {
-    let { selected, configs, newName, alreadyExistsError } = this.state
+    const { selected, configs, newName, alreadyExistsError } = this.state
 
     return (
       <div>
@@ -92,7 +92,7 @@ export default class NewConfig extends React.Component {
         )}
 
         <select className='govuk-select' id='link-source' name='configuration' value={selected.Key} required onChange={this.onSelect}>
-          <option key={0} value={'New'} >{'New'}</option>
+          <option key={0} value='New'>New</option>
           {configs.length && (
             configs.map((config, i) => (<option key={config.Key + i} value={config.Key}>{config.Key}</option>))
           )}

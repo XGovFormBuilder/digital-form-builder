@@ -58,47 +58,47 @@ PACKAGES=$(ls ${ROOT} -l | grep ^d | awk '{print $9}')
 echo "Searching for changes since commit [${LAST_COMPLETED_BUILD_SHA:0:7}] ..."
 
 ## The CircleCI API parameters object
-PARAMETERS='"trigger":false, "designer":true, "runner":true, "engine":true'
+PARAMETERS='"trigger":false, "build-test": true'
 COUNT=2
 
 ## Get the list of workflows in current branch for which the CI is currently in failed state
-#FAILED_WORKFLOWS=$(cat circle.json \
-#  | jq -r "map(select(.branch == \"${CIRCLE_BRANCH}\")) \
-#  | group_by(.workflows.workflow_name) \
-#  | .[] \
-#  | {workflow: .[0].workflows.workflow_name, status: .[0].status} \
-#  | select(.status == \"failed\") \
-#  | .workflow")
-#
-#echo "Workflows currently in failed status: (${FAILED_WORKFLOWS[@]})."
-#
-#for PACKAGE in ${PACKAGES[@]}
-#do
-#  PACKAGE_PATH=${ROOT#.}/$PACKAGE
-#  LATEST_COMMIT_SINCE_LAST_BUILD=$(git log -1 $LAST_COMPLETED_BUILD_SHA..$CIRCLE_SHA1 --format=format:%H --full-diff ${PACKAGE_PATH#/})
-#
-#  if [[ -z "$LATEST_COMMIT_SINCE_LAST_BUILD" ]]; then
-#    INCLUDED=0
-#    for FAILED_BUILD in ${FAILED_WORKFLOWS[@]}
-#    do
-#      if [[ "$PACKAGE" == "$FAILED_BUILD" ]]; then
-#        INCLUDED=1
-#        PARAMETERS+=", \"$PACKAGE\":true"
-#        COUNT=$((COUNT + 1))
-#        echo -e "\e[36m  [+] ${PACKAGE} \e[21m (included because failed since last build)\e[0m"
-#        break
-#      fi
-#    done
-#
-#    if [[ "$INCLUDED" == "0" ]]; then
-#      echo -e "\e[90m  [-] $PACKAGE \e[0m"
-#    fi
-#  else
-#    PARAMETERS+=", \"$PACKAGE\":true"
-#    COUNT=$((COUNT + 1))
-#    echo -e "\e[36m  [+] ${PACKAGE} \e[21m (changed in [${LATEST_COMMIT_SINCE_LAST_BUILD:0:7}])\e[0m"
-#  fi
-#done
+FAILED_WORKFLOWS=$(cat circle.json \
+  | jq -r "map(select(.branch == \"${CIRCLE_BRANCH}\")) \
+  | group_by(.workflows.workflow_name) \
+  | .[] \
+  | {workflow: .[0].workflows.workflow_name, status: .[0].status} \
+  | select(.status == \"failed\") \
+  | .workflow")
+
+echo "Workflows currently in failed status: (${FAILED_WORKFLOWS[@]})."
+
+for PACKAGE in ${PACKAGES[@]}
+do
+  PACKAGE_PATH=${ROOT#.}/$PACKAGE
+  LATEST_COMMIT_SINCE_LAST_BUILD=$(git log -1 $LAST_COMPLETED_BUILD_SHA..$CIRCLE_SHA1 --format=format:%H --full-diff ${PACKAGE_PATH#/})
+
+  if [[ -z "$LATEST_COMMIT_SINCE_LAST_BUILD" ]]; then
+    INCLUDED=0
+    for FAILED_BUILD in ${FAILED_WORKFLOWS[@]}
+    do
+      if [[ "$PACKAGE" == "$FAILED_BUILD" ]]; then
+        INCLUDED=1
+        PARAMETERS+=", \"$PACKAGE\":true"
+        COUNT=$((COUNT + 1))
+        echo -e "\e[36m  [+] ${PACKAGE} \e[21m (included because failed since last build)\e[0m"
+        break
+      fi
+    done
+
+    if [[ "$INCLUDED" == "0" ]]; then
+      echo -e "\e[90m  [-] $PACKAGE \e[0m"
+    fi
+  else
+    PARAMETERS+=", \"$PACKAGE\":true"
+    COUNT=$((COUNT + 1))
+    echo -e "\e[36m  [+] ${PACKAGE} \e[21m (changed in [${LATEST_COMMIT_SINCE_LAST_BUILD:0:7}])\e[0m"
+  fi
+done
 
 if [[ $COUNT -eq 0 ]]; then
   echo -e "\e[93mNo changes detected in packages. Skip triggering workflows.\e[0m"

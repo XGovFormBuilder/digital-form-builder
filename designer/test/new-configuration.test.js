@@ -11,15 +11,16 @@ exports.lab = lab
 const { suite, test, beforeEach } = lab
 
 const configurations = [{
-  'Key': '111.json',
-  'LastModified': '2020-08-03T14:39:45.000Z' },
-{
-  'Key': '123.json',
-  'LastModified': '2020-08-03T14:18:50.000Z'
+  Key: '111.json',
+  LastModified: '2020-08-03T14:39:45.000Z'
 },
 {
-  'Key': '1234.json',
-  'LastModified': '2020-08-03T14:20:48.000Z'
+  Key: '123.json',
+  LastModified: '2020-08-03T14:18:50.000Z'
+},
+{
+  Key: '1234.json',
+  LastModified: '2020-08-03T14:20:48.000Z'
 }]
 
 suite('New configuration screen', () => {
@@ -63,10 +64,10 @@ suite('New configuration screen', () => {
     expect(wrapper.find('#error-already-exists').exists()).to.equal(true)
   })
 
-  test(`Input replaces whitespace with '-' on input change`, () => {
+  test('Input replaces whitespace with \'-\' on input change', () => {
     stub(NewConfig.prototype, 'loadConfigurations')
     const wrapper = mount(<NewConfig />)
-    let input = wrapper.find('input')
+    const input = wrapper.find('input')
     input.simulate('change', { target: { value: 'string with spaces' } })
     wrapper.update()
     expect(wrapper.state('newName')).to.be.equal('string-with-spaces')

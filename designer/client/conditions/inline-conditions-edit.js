@@ -1,8 +1,8 @@
 import React from 'react'
-import { GroupDef } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
+import { GroupDef } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
 import { icons } from '../icons'
 import InlineConditionsDefinition from './inline-conditions-definition'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class InlineConditionsEdit extends React.Component {
   constructor (props) {
@@ -25,51 +25,61 @@ class InlineConditionsEdit extends React.Component {
               Amend conditions
             </legend>
             {editingError &&
-            <span id='conditions-error' className='govuk-error-message'>
-              <span className='govuk-visually-hidden'>Error:</span> {editingError}
-            </span>
-            }
+              <span id='conditions-error' className='govuk-error-message'>
+                <span className='govuk-visually-hidden'>Error:</span> {editingError}
+              </span>}
             <div id='editing-checkboxes' className='govuk-checkboxes'>
               {
                 conditions.asPerUserGroupings.map((condition, index) => {
-                  return <div key={`condition-checkbox-${index}`} className='govuk-checkboxes__item'
-                    style={{ display: 'flex' }}>
-                    <input type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`}
+                  return <div
+                    key={`condition-checkbox-${index}`} className='govuk-checkboxes__item'
+                    style={{ display: 'flex' }}
+                  >
+                    <input
+                      type='checkbox' className='govuk-checkboxes__input' id={`condition-${index}`}
                       name={`condition-${index}`}
                       value={index} onChange={this.onChangeCheckbox}
-                      checked={selectedConditions?.includes(index) || ''} />
+                      checked={selectedConditions?.includes(index) || ''}
+                    />
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
                       {condition.toPresentationString()}
                     </label>
                     <span id={`condition-${index}-actions`} style={{ display: 'inline-flex', flexGrow: 1 }}>
                       {condition.isGroup() &&
                         <span style={{ flexGrow: 1 }}>
-                          <a href='#' id={`condition-${index}-split`} className='govuk-link'
-                            onClick={() => this.onClickSplit(index)}>Split</a>
-                        </span>
-                      }
+                          <a
+                            href='#' id={`condition-${index}-split`} className='govuk-link'
+                            onClick={() => this.onClickSplit(index)}
+                          >Split
+                          </a>
+                        </span>}
                       {!condition.isGroup() &&
-                      <span style={{ flexGrow: 1 }}>
-                        <a href='#' id={`condition-${index}-edit`} className='govuk-link'
-                          onClick={() => this.onClickEdit(index)}>
-                          {icons.edit}
-                        </a>
-                      </span>
-                      }
+                        <span style={{ flexGrow: 1 }}>
+                          <a
+                            href='#' id={`condition-${index}-edit`} className='govuk-link'
+                            onClick={() => this.onClickEdit(index)}
+                          >
+                            {icons.edit}
+                          </a>
+                        </span>}
                       {index > 0 &&
                         <span>
-                          <a href='#' id={`condition-${index}-move-earlier`}
-                            onClick={() => this.onClickMove(index, this.state.conditions.moveEarlier)}>
+                          <a
+                            href='#' id={`condition-${index}-move-earlier`}
+                            onClick={() => this.onClickMove(index, this.state.conditions.moveEarlier)}
+                          >
                             {icons.moveUp}
                           </a>
                         </span>}
                       {index < conditions.lastIndex &&
-                      <span>
-                        <a href='#' id={`condition-${index}-move-later`} className='govuk-link'
-                          onClick={() => this.onClickMove(index, this.state.conditions.moveLater)}>
-                          {icons.moveDown}
-                        </a>
-                      </span>}
+                        <span>
+                          <a
+                            href='#' id={`condition-${index}-move-later`} className='govuk-link'
+                            onClick={() => this.onClickMove(index, this.state.conditions.moveLater)}
+                          >
+                            {icons.moveDown}
+                          </a>
+                        </span>}
                     </span>
                   </div>
                 })
@@ -77,16 +87,18 @@ class InlineConditionsEdit extends React.Component {
             </div>
             <div className='govuk-form-group' id='group-and-remove'>
               {selectedConditions?.length > 1 &&
-              <span><a href='#' id='group-conditions' className='govuk-link'
-                onClick={this.onClickGroup}>Group</a> /</span>}
+                <span><a
+                  href='#' id='group-conditions' className='govuk-link'
+                  onClick={this.onClickGroup}
+                >Group
+                </a> /
+                </span>}
               {selectedConditions?.length > 0 &&
-              <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a>}
+                <a href='#' id='remove-conditions' className='govuk-link' onClick={this.onClickRemove}>Remove</a>}
             </div>
-          </fieldset>
-        }
+          </fieldset>}
         {(editingIndex >= 0) &&
-          <InlineConditionsDefinition expectsCoordinator={editingIndex > 0} fields={this.props.fields} condition={condition} saveCallback={this.saveCondition} />
-        }
+          <InlineConditionsDefinition expectsCoordinator={editingIndex > 0} fields={this.props.fields} condition={condition} saveCallback={this.saveCondition} />}
         <div className='govuk-form-group'>
           <a href='#' id='cancel-edit-inline-conditions-link' className='govuk-link' onClick={this.onClickCancelEditView}>Finished editing</a>
         </div>
@@ -95,7 +107,7 @@ class InlineConditionsEdit extends React.Component {
   }
 
   onChangeCheckbox = e => {
-    let copy = clone(this.state.selectedConditions??[])
+    let copy = clone(this.state.selectedConditions ?? [])
     const index = Number(e.target.value)
     if (e.target.checked) {
       copy.push(index)
@@ -152,7 +164,7 @@ class InlineConditionsEdit extends React.Component {
   }
 
   groupWithConsecutiveConditions (selectedConditions) {
-    let result = []
+    const result = []
     selectedConditions.sort((a, b) => a - b)
     selectedConditions.forEach(condition => {
       const groupForCondition = result.find(group => group.includes(condition - 1) || group.includes(condition + 1))

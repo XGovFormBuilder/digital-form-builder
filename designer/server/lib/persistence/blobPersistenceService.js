@@ -6,9 +6,11 @@ export class BlobPersistenceService implements PersistenceService {
   uploadConfiguration (id: string, configuration: any) {
     return Promise.resolve(undefined)
   }
+
   listAllConfigurations () {
     return Promise.resolve([])
   }
+
   getConfiguration (id: string) {
     return Promise.resolve('')
   }

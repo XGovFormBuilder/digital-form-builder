@@ -1,0 +1,38 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "allowImportExportEverywhere": true
+
+    },
+    "plugins": [
+        "react",
+        "flowtype",
+        "@babel"
+    ],
+    "rules": {
+        "react/prop-types": 0,
+        "react/react-in-jsx-scope": 1,
+        "react/no-unescaped-entities": 1,
+        "react/display-name": 1,
+        "react/no-deprecated": 1,
+        "react/jsx-no-target-blank": 1
+    },
+    "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/lib/**", "**/flow-typed/**", "**/public/**", "node_modules/**", "dist/**", "lib/**", "flow-typed/**", "public/**"]
+}

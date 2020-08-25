@@ -1,6 +1,8 @@
 const nunjucks = require('nunjucks')
 const config = require('../config')
 const pkg = require('../../../package.json')
+const resolve = require('resolve')
+const path = require('path')
 
 module.exports = {
   plugin: require('vision'),
@@ -35,13 +37,12 @@ module.exports = {
       }
     },
     path: [
-      'views',
-      'node_modules/govuk-frontend/govuk/',
-      'node_modules/govuk-frontend/govuk/components/',
-      'node_modules/digital-form-builder-engine/views',
-      'node_modules/digital-form-builder-engine/views/partials',
-      'node_modules/digital-form-builder-designer/views',
-      'node_modules/hmpo-components/components'
+      './views',
+      `${path.dirname(resolve.sync('govuk-frontend'))}`,
+      `${path.dirname(resolve.sync('govuk-frontend'))}/components`,
+      `${path.dirname(resolve.sync('@xgovformbuilder/engine'))}/views`,
+      `${path.dirname(resolve.sync('@xgovformbuilder/engine'))}/views/partials`,
+      `${path.dirname(resolve.sync('hmpo-components'))}/components`
     ],
     isCached: !config.isDev,
     context: {

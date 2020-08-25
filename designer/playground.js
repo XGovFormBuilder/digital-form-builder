@@ -1,5 +1,5 @@
 const joi = require('joi')
-const { schema } = require('digital-form-builder-model')
+const { schema } = require('@xgovformbuilder/model')
 const pkg = require('./package.json')
 
 module.exports = {

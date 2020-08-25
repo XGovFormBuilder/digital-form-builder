@@ -1,6 +1,6 @@
 import React from 'react'
 import ListItems from './list-items'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ListEdit extends React.Component {
   constructor (props) {
@@ -153,28 +153,37 @@ class ListEdit extends React.Component {
     const { conditions } = data
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <a className='govuk-back-link' href='#'
-          onClick={e => this.props.onCancel(e)}>Back</a>
+        <a
+          className='govuk-back-link' href='#'
+          onClick={e => this.props.onCancel(e)}
+        >Back
+        </a>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-title'>Title</label>
-          <input className='govuk-input govuk-input--width-20' id='list-title' name='title'
-            type='text' defaultValue={list.title} required />
+          <input
+            className='govuk-input govuk-input--width-20' id='list-title' name='title'
+            type='text' defaultValue={list.title} required
+          />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name</label>
           <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. animalTypes or countryNames</span>
-          <input className='govuk-input govuk-input--width-20' id='list-name' name='name'
+          <input
+            className='govuk-input govuk-input--width-20' id='list-name' name='name'
             type='text' defaultValue={list.name || id} required pattern='^\S+'
-            onBlur={this.onBlurName} />
+            onBlur={this.onBlurName}
+          />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-type'>Value type</label>
-          <select className='govuk-select govuk-input--width-10' id='list-type' name='type'
+          <select
+            className='govuk-select govuk-input--width-10' id='list-type' name='type'
             value={state.type}
-            onChange={e => this.setState({ type: e.target.value })}>
+            onChange={e => this.setState({ type: e.target.value })}
+          >
             <option value='string'>String</option>
             <option value='number'>Number</option>
           </select>

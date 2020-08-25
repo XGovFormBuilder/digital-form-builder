@@ -86,17 +86,21 @@ class PageCreate extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-title'>Title</label>
-          <input className='govuk-input' id='page-title' name='title'
+          <input
+            className='govuk-input' id='page-title' name='title'
             type='text' aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
-            value={title || ''} />
+            value={title || ''}
+          />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
           <span className='govuk-hint'>The path of this page e.g. '/personal-details'.</span>
-          <input className='govuk-input' id='page-path' name='path'
+          <input
+            className='govuk-input' id='page-path' name='path'
             type='text' aria-describedby='page-path-hint' required
-            value={path || generatedPath || ''} onChange={this.onChangePath} />
+            value={path || generatedPath || ''} onChange={this.onChangePath}
+          />
         </div>
 
         <div className='govuk-form-group'>

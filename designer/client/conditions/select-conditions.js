@@ -1,6 +1,6 @@
 import React from 'react'
 import InlineConditions from './inline-conditions'
-import { ConditionsModel } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
+import { ConditionsModel } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
 import Flyout from '../flyout'
 
 class SelectConditions extends React.Component {
@@ -33,7 +33,7 @@ class SelectConditions extends React.Component {
         label: input.title,
         name: input.propertyPath,
         type: input.type,
-        values: (data.listFor(input)??{}).items
+        values: (data.listFor(input) ?? {}).items
       }))
       .reduce((obj, item) => {
         obj[item.name] = item
@@ -91,27 +91,33 @@ class SelectConditions extends React.Component {
                 <label className='govuk-label' htmlFor='cond-select'>
                     Select a condition
                 </label>
-                <select className='govuk-select' id='cond-select' name='cond-select'
+                <select
+                  className='govuk-select' id='cond-select' name='cond-select'
                   value={selectedCondition ?? ''}
-                  onChange={this.onChangeConditionSelection}>
+                  onChange={this.onChangeConditionSelection}
+                >
                   <option />
                   {
                     this.props.data.conditions.map((it, index) =>
                       <option key={`select-condition-${index}`} value={it.name}>{it.displayName}</option>)
                   }
                 </select>
-              </div>
-            }
+              </div>}
             {!inline &&
               <div className='govuk-form-group'>
-                <a href='#' id='inline-conditions-link' className='govuk-link'
-                  onClick={this.onClickDefineCondition}>Define
-                  a new condition</a>
-              </div>
-            }
-            <Flyout title='Define condition' show={inline}
-              onHide={this.onCancelInlineCondition}>
-              <InlineConditions data={this.props.data} path={this.props.path}
+                <a
+                  href='#' id='inline-conditions-link' className='govuk-link'
+                  onClick={this.onClickDefineCondition}
+                >Define
+                  a new condition
+                </a>
+              </div>}
+            <Flyout
+              title='Define condition' show={inline}
+              onHide={this.onCancelInlineCondition}
+            >
+              <InlineConditions
+                data={this.props.data} path={this.props.path}
                 conditionsChange={this.onSaveInlineCondition}
                 cancelCallback={this.onCancelInlineCondition}
               />
@@ -119,8 +125,7 @@ class SelectConditions extends React.Component {
           </div>
           : <div className='govuk-body'>
                 You cannot add any conditions as there are no available fields
-          </div>
-        }
+          </div>}
       </div>
     )
   }

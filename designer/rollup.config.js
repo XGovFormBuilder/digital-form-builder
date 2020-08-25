@@ -16,14 +16,15 @@ export default {
     }
   },
   plugins: [
-    resolve(),
+    resolve({
+    }),
     commonjs({
-      include: ['node_modules/**', '../engine/**', '../model/**']
+      include: ['/node_modules/**', '../node_modules/**', '../model/**']
     }),
     globals(),
     babel({
       babelHelpers: 'runtime',
-      exclude: ['node_modules/**'],
+      exclude: ['/node_modules/**', '../node_modules/**'],
       presets: [
         '@babel/preset-flow',
         '@babel/react',
@@ -38,6 +39,5 @@ export default {
     json(),
     flow()
   ],
-  external: ['react', 'react-dom'],
-  clearScreen: false
+  external: ['react', 'react-dom']
 }

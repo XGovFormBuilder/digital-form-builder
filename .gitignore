@@ -9,3 +9,6 @@ unit-test.html
 /model/lib
 package-lock.json
 */flow-typed/*
+/flow-typed/
+/.yarn/cache/
+/.yarn/install-state.gz

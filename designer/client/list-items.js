@@ -1,7 +1,7 @@
 import React from 'react'
 import ComponentConditionCreate from './component-condition-create'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -17,32 +17,39 @@ const DragHandle = SortableHandle(() => <span className='drag-handle-list'>&#977
 
 const SortableItem = SortableElement(({ index, item, type, conditions, onBlur, onBlurValue, removeItem }) => {
   return (<tr className='govuk-table__row' scope='row'>
-    <td className='govuk-table__cell' >
+    <td className='govuk-table__cell'>
       <DragHandle />
     </td>
     <td className='govuk-table__cell'>
-      <input className='govuk-input' name='text'
+      <input
+        className='govuk-input' name='text'
         type='text' defaultValue={item.text} required
-        onBlur={onBlur} />
+        onBlur={onBlur}
+      />
     </td>
     <td className='govuk-table__cell'>
       {type === 'number'
         ? (
-          <input className='govuk-input' name='value'
+          <input
+            className='govuk-input' name='value'
             type='number' defaultValue={item.value} required
-            onBlur={onBlur} step='any' />
+            onBlur={onBlur} step='any'
+          />
         )
         : (
-          <input className='govuk-input' name='value'
+          <input
+            className='govuk-input' name='value'
             type='text' defaultValue={item.value} required
-            onBlur={onBlur} />
-        )
-      }
+            onBlur={onBlur}
+          />
+        )}
     </td>
     <td className='govuk-table__cell'>
-      <input className='govuk-input' name='description'
+      <input
+        className='govuk-input' name='description'
         type='text' defaultValue={item.description}
-        onBlur={onBlur} />
+        onBlur={onBlur}
+      />
     </td>
     <td className='govuk-table__cell'>
       <select className='govuk-select' id={`link-source-${index}`} name='condition' defaultValue={item.condition}>
@@ -177,9 +184,11 @@ class ListItems extends React.Component {
             </th>
           </tr>
         </thead>
-        <SortableList type={type} items={items || []} conditions={conditions} removeItem={this.removeItem}
+        <SortableList
+          type={type} items={items || []} conditions={conditions} removeItem={this.removeItem}
           onBlur={this.onBlur} onSortEnd={this.onSortEnd}
-          helperClass='dragging' lockToContainerEdges useDragHandle />
+          helperClass='dragging' lockToContainerEdges useDragHandle
+        />
         {/* sortable list */}
       </table>
     )

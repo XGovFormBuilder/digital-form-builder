@@ -8,6 +8,8 @@
 src/
 
 [libs]
+./flow-typed
+../flow-typed
 
 [lints]
 

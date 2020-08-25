@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { Data } from 'digital-form-builder-model'
+import { Data } from '@xgovformbuilder/model'
 import { assertTextInput } from './helpers/element-assertions'
 import SectionCreate from '../client/section-create'
 

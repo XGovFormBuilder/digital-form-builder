@@ -31,9 +31,11 @@ class SectionsEdit extends React.Component {
         {!section ? (
           <div>
             {this.state.showAddSection ? (
-              <SectionCreate data={data}
+              <SectionCreate
+                data={data}
                 onCreate={e => this.setState({ showAddSection: false })}
-                onCancel={e => this.setState({ showAddSection: false })} />
+                onCancel={e => this.setState({ showAddSection: false })}
+              />
             ) : (
               <ul className='govuk-list'>
                 {sections.map((section, index) => (
@@ -51,9 +53,11 @@ class SectionsEdit extends React.Component {
             )}
           </div>
         ) : (
-          <SectionEdit section={section} data={data}
+          <SectionEdit
+            section={section} data={data}
             onEdit={e => this.setState({ section: null })}
-            onCancel={e => this.setState({ section: null })} />
+            onCancel={e => this.setState({ section: null })}
+          />
         )}
       </div>
     )

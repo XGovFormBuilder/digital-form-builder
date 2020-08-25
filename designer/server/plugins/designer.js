@@ -1,4 +1,4 @@
-const Schema = require('digital-form-builder-engine/src/schema')
+const Schema = require('@xgovformbuilder/model/lib/schema')
 const shortid = require('shortid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')
@@ -25,17 +25,17 @@ const designerPlugin = {
     register: (server) => {
       server.route({
         method: 'get',
-        path: `/`,
+        path: '/',
         options: {
           handler: async (request, h) => {
-            return h.redirect(`/new`)
+            return h.redirect('/new')
           }
         }
       })
 
       server.route({
         method: 'get',
-        path: `/new`,
+        path: '/new',
         options: {
           handler: async (request, h) => {
             const { persistenceService } = request.services([])
@@ -55,12 +55,12 @@ const designerPlugin = {
 
       server.route({
         method: 'post',
-        path: `/new`,
+        path: '/new',
         options: {
           handler: async (request, h) => {
             const { persistenceService } = request.services([])
             const { selected, name } = request.payload
-            let newName = name === '' ? shortid.generate() : name
+            const newName = name === '' ? shortid.generate() : name
             try {
               if (selected.Key === 'New') {
                 await persistenceService.uploadConfiguration(`${newName}.json`, JSON.stringify(require('../../new-form.json')))
@@ -82,17 +82,17 @@ const designerPlugin = {
       // DESIGNER
       server.route({
         method: 'get',
-        path: `/{id}`,
+        path: '/{id}',
         options: {
           handler: (request, h) => {
-            let { id } = request.params
+            const { id } = request.params
             return h.view('designer', { id, previewUrl: config.previewUrl })
           }
         }
       })
       server.route({
         method: 'get',
-        path: `/{id}/api/id`,
+        path: '/{id}/api/id',
         options: {
           handler: (request, h) => {
             return h.response(shortid.generate()).code(200)
@@ -103,7 +103,7 @@ const designerPlugin = {
       // GET DATA
       server.route({
         method: 'GET',
-        path: `/{id}/api/data`,
+        path: '/{id}/api/data',
         options: {
           handler: async (request, h) => {
             const { id } = request.params
@@ -125,7 +125,7 @@ const designerPlugin = {
 
       server.route({
         method: 'GET',
-        path: `/configurations`,
+        path: '/configurations',
         options: {
           handler: async (request, h) => {
             const { persistenceService } = request.services([])
@@ -142,10 +142,10 @@ const designerPlugin = {
       // SAVE DATA
       server.route({
         method: 'PUT',
-        path: `/{id}/api/data`,
+        path: '/{id}/api/data',
         options: {
           handler: async (request, h) => {
-            let { id } = request.params
+            const { id } = request.params
             const { persistenceService } = request.services([])
             try {
               const result = joi.validate(request.payload, Schema,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { dateDirections, RelativeTimeValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { dateDirections, RelativeTimeValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 
 class RelativeTimeValues extends React.Component {
   constructor (props) {
@@ -29,20 +29,26 @@ class RelativeTimeValues extends React.Component {
 
     return (
       <div>
-        <input className='govuk-input govuk-input--width-20' id='cond-value-period' name='cond-value-period'
+        <input
+          className='govuk-input govuk-input--width-20' id='cond-value-period' name='cond-value-period'
           type='text' defaultValue={timePeriod} required
-          onChange={e => this.updateState({ timePeriod: e.target.value })} />
+          onChange={e => this.updateState({ timePeriod: e.target.value })}
+        />
 
-        <select className='govuk-select' id='cond-value-units' name='cond-value-units' value={timeUnits??''}
-          onChange={e => this.updateState({ timeUnits: e.target.value })}>
+        <select
+          className='govuk-select' id='cond-value-units' name='cond-value-units' value={timeUnits ?? ''}
+          onChange={e => this.updateState({ timeUnits: e.target.value })}
+        >
           <option />
           {Object.values(this.props.units).map(unit => {
             return <option key={unit.value} value={unit.value}>{unit.display}</option>
           })}
         </select>
 
-        <select className='govuk-select' id='cond-value-direction' name='cond-value-direction' value={direction??''}
-          onChange={e => this.updateState({ direction: e.target.value })}>
+        <select
+          className='govuk-select' id='cond-value-direction' name='cond-value-direction' value={direction ?? ''}
+          onChange={e => this.updateState({ direction: e.target.value })}
+        >
           <option />
           {Object.values(dateDirections).map(direction => {
             return <option key={direction} value={direction}>{direction}</option>

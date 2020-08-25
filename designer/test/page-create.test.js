@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import PageCreate from '../client/page-create'
-import { Data } from 'digital-form-builder-model/lib/data-model'
+import { Data } from '@xgovformbuilder/model/lib/data-model'
 import sinon from 'sinon'
 import { assertTextInput, assertSelectInput } from './helpers/element-assertions'
 

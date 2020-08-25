@@ -1,8 +1,8 @@
 import React from 'react'
-import { ConditionsModel } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
+import { ConditionsModel } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 import InlineConditionHelpers from './inline-condition-helpers'
 
 class InlineConditions extends React.Component {
@@ -37,7 +37,7 @@ class InlineConditions extends React.Component {
         label: input.displayName,
         name: input.propertyPath,
         type: input.type,
-        values: (data.listFor(input)??{}).items
+        values: (data.listFor(input) ?? {}).items
       }))
       .reduce((obj, item) => {
         obj[item.name] = item
@@ -104,8 +104,10 @@ class InlineConditions extends React.Component {
             <div>
               <div className='govuk-form-group'>
                 <label className='govuk-label' htmlFor='cond-name'>Display name</label>
-                <input className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
-                  type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName} />
+                <input
+                  className='govuk-input govuk-input--width-20' id='cond-name' name='cond-name'
+                  type='text' defaultValue={conditions.name} required onChange={this.onChangeDisplayName}
+                />
               </div>
               <div className='govuk-form-group'>
                 <label className='govuk-label' id='condition-string-label' htmlFor='condition-string'>When</label>
@@ -117,30 +119,33 @@ class InlineConditions extends React.Component {
                   {conditions.toPresentationString()}
                 </div>
                 {!editView &&
-                <div>
-                  <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.toggleEdit}>
+                  <div>
+                    <a href='#' id='edit-conditions-link' className='govuk-link' onClick={this.toggleEdit}>
                     Not what you meant?
-                  </a>
-                </div>
-                }
-              </div>
-            }
+                    </a>
+                  </div>}
+              </div>}
           </div>
           {!editView &&
             <div>
-              <InlineConditionsDefinition expectsCoordinator={hasConditions} fields={this.state.fields}
-                saveCallback={this.saveCondition} />
+              <InlineConditionsDefinition
+                expectsCoordinator={hasConditions} fields={this.state.fields}
+                saveCallback={this.saveCondition}
+              />
               <div className='govuk-form-group'>
                 {hasConditions &&
-                  <a href='#' id='save-inline-conditions' className='govuk-button' onClick={this.onClickSave}>Save</a>
-                }
-                <a href='#' id='cancel-inline-conditions-link' className='govuk-link'
-                  onClick={this.onClickCancel}>Cancel</a>
+                  <a href='#' id='save-inline-conditions' className='govuk-button' onClick={this.onClickSave}>Save</a>}
+                <a
+                  href='#' id='cancel-inline-conditions-link' className='govuk-link'
+                  onClick={this.onClickCancel}
+                >Cancel
+                </a>
               </div>
-            </div>
-          }
-          {editView && <InlineConditionsEdit conditions={conditions} fields={this.state.fields}
-            saveCallback={this.editCallback} exitCallback={this.toggleEdit} />}
+            </div>}
+          {editView && <InlineConditionsEdit
+            conditions={conditions} fields={this.state.fields}
+            saveCallback={this.editCallback} exitCallback={this.toggleEdit}
+          />}
         </div>
     )
   }

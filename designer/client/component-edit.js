@@ -1,7 +1,7 @@
 import React from 'react'
 import { getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ComponentEdit extends React.Component {
   state = {}
@@ -75,7 +75,8 @@ class ComponentEdit extends React.Component {
           <ComponentTypeEdit
             page={page}
             component={copyComp}
-            data={data} />
+            data={data}
+          />
 
           <button className='govuk-button' type='submit'>Save</button>{' '}
           <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
