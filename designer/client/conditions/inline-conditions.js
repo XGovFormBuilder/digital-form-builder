@@ -37,13 +37,20 @@ class InlineConditions extends React.Component {
   fieldsForPath (path) {
     const { data } = this.props
     const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs()
-    return inputs
+    const fieldInputs = inputs
       .map(input => ({
         label: input.displayName,
         name: input.propertyPath,
         type: input.type,
         values: (data.listFor(input) ?? {}).items
       }))
+    const conditionsInputs = data.conditions.map(condition => ({
+      label: condition.displayName,
+      name: condition.name,
+      type: 'Condition'
+    }))
+
+    return fieldInputs.concat(conditionsInputs)
       .reduce((obj, item) => {
         obj[item.name] = item
         return obj

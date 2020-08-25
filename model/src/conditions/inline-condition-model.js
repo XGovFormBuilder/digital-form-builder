@@ -317,11 +317,11 @@ class ConditionGroup implements ConditionInt<ConditionGroup> {
   }
 }
 
-function toPresentationString (condition: ConditionInt<any>): string {
+export function toPresentationString (condition: ConditionInt<any>): string {
   return `${condition.coordinatorString()}${condition.conditionString()}`
 }
 
-function toExpression (condition: ConditionInt<any>): string {
+export function toExpression (condition: ConditionInt<any>): string {
   return `${condition.coordinatorString()}${condition.conditionExpression()}`
 }
 

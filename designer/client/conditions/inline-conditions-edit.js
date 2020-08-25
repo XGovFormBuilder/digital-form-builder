@@ -1,5 +1,5 @@
 import React from 'react'
-import { GroupDef } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { GroupDef, toPresentationString } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
 import { icons } from '../icons'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
@@ -42,7 +42,7 @@ class InlineConditionsEdit extends React.Component {
                       checked={selectedConditions?.includes(index) || ''}
                     />
                     <label className='govuk-label govuk-checkboxes__label' htmlFor={`condition-${index}`}>
-                      {condition.toPresentationString()}
+                      { toPresentationString(condition) }
                     </label>
                     <span id={`condition-${index}-actions`} style={{ display: 'inline-flex', flexGrow: 1 }}>
                       {condition.isGroup() &&

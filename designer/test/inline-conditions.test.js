@@ -12,7 +12,7 @@ import InlineConditionHelpers from '../client/conditions/inline-condition-helper
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { afterEach, before, beforeEach, describe, suite, test } = lab
+const { after, afterEach, before, beforeEach, describe, suite, test } = lab
 
 suite('Inline conditions', () => {
   const data = {
@@ -21,7 +21,8 @@ suite('Inline conditions', () => {
     listFor: sinon.stub(),
     clone: sinon.stub(),
     save: sinon.stub(),
-    updateCondition: sinon.stub()
+    updateCondition: sinon.stub(),
+    conditions: []
   }
   const isEqualToOperator = 'is'
   const path = '/'
@@ -49,6 +50,7 @@ suite('Inline conditions', () => {
 
   describe('when fields are present', () => {
     let fields
+    let conditions
     let expectedFields
     const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
     let storeConditionStub
@@ -58,6 +60,10 @@ suite('Inline conditions', () => {
         { propertyPath: 'field1', displayName: 'Something', type: 'TextField' },
         { propertyPath: 'field2', displayName: 'Something else', type: 'TextField' },
         { propertyPath: 'field3', displayName: 'Another thing', type: 'SelectField' }
+      ]
+      conditions = [
+        { name: 'condition1', displayName: 'Condition 1' },
+        { name: 'condition2', displayName: 'Another Condition' }
       ]
       expectedFields = {
         field1: {
@@ -77,6 +83,16 @@ suite('Inline conditions', () => {
           name: 'field3',
           type: 'SelectField',
           values: values
+        },
+        condition1: {
+          label: 'Condition 1',
+          name: 'condition1',
+          type: 'Condition'
+        },
+        condition2: {
+          label: 'Another Condition',
+          name: 'condition2',
+          type: 'Condition'
         }
       }
       data.inputsAccessibleAt.withArgs(path).returns(fields)
@@ -84,7 +100,12 @@ suite('Inline conditions', () => {
       data.listFor.withArgs(fields[2]).returns({ items: values })
     })
 
+    after(() => {
+      data.conditions = []
+    })
+
     beforeEach(function () {
+      data.conditions = conditions
       storeConditionStub = sinon.stub(InlineConditionHelpers, 'storeConditionIfNecessary')
     })
 
@@ -103,16 +124,18 @@ suite('Inline conditions', () => {
       const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
+      data.conditions = []
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
       expect(wrapper.exists('#inline-conditions')).to.equal(true)
       wrapper.setProps({ path: path2 })
       expect(wrapper.exists('#inline-conditions')).to.equal(false)
     })
 
-    test('if the path property changes from a route with fields then the condition section appears', () => {
+    test('if the path property changes to a route with fields then the condition section appears', () => {
       const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
+      data.conditions = []
       const wrapper = shallow(<InlineConditions data={data} path={path2} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
       expect(wrapper.exists('#inline-conditions')).to.equal(false)
       wrapper.setProps({ path: path })
