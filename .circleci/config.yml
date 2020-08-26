@@ -18,7 +18,7 @@ parameters:
   # A parameter per package
   model:
     type: boolean
-    default: false
+    default: true
   engine:
     type: boolean
     default: true
