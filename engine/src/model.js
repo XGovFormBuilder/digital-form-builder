@@ -1,10 +1,12 @@
+import { clone } from '@xgovformbuilder/model'
+
 const joi = require('joi')
 const path = require('path')
-const schema = require('digital-form-builder-model/lib/schema')
+const schema = require('@xgovformbuilder/model/lib/schema')
 const Page = require('./page')
 const Parser = require('expr-eval').Parser
 const moment = require('moment')
-const { ConditionsModel } = require('digital-form-builder-model/lib/conditions/inline-condition-model')
+const { ConditionsModel } = require('@xgovformbuilder/model/lib/conditions/inline-condition-model')
 
 /**
  * TODO - convert references to this to using the shared Data class from the model library?
@@ -12,7 +14,6 @@ const { ConditionsModel } = require('digital-form-builder-model/lib/conditions/i
 class Model {
   constructor (def, options) {
     const result = schema.validate(def, { abortEarly: false })
-
     // TODO:- throw/catch this properly 🤦🏻‍
     if (result.error) {
       throw result.error
@@ -20,7 +21,7 @@ class Model {
 
     // Make a clone of the shallow copy returned
     // by joi so as not to change the source data.
-    def = JSON.parse(JSON.stringify(result.value))
+    def = clone(result.value)
 
     // Add default lists
     def.lists.push({

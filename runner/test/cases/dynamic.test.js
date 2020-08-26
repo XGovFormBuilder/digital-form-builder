@@ -78,7 +78,7 @@ const FORMS = {
   }
 }
 
-suite('Dynamic pages', () => {
+suite('Dynamic pages', { skip: true }, () => {
   let server
 
   // Create server before each test

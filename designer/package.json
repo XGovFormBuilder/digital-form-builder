@@ -1,23 +1,26 @@
 {
-  "name": "digital-form-builder-designer",
-  "version": "1.0.0",
+  "name": "@xgovformbuilder/designer",
+  "version": "2.0.0",
   "description": "Cross government digital form builder (designer)",
   "main": "server/index.js",
   "scripts": {
-    "lint": "standard",
-    "fix-lint": "standard --fix",
+    "lint": "yarn run eslint ./",
+    "fix-lint": "eslint --fix",
     "build": "rollup -c && yarn babel-build",
-    "watch": "(rollup -c -w) & yarn babel-watch",
+    "watch": "concurrently 'yarn run rollup:watch' 'yarn run babel-watch'",
     "dev": "rollup -c -w & node server/index.js",
     "start": "node dist/index.js",
     "symlink-env": "./bin/symlink-config",
-    "test-lab": "lab -T node_modules/@xgovformbuilder/lab-babel test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
+    "test-lab": "yarn run lab -T test/.transform.js test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "test": "yarn flow && yarn lint && yarn test-lab",
+    "test-lab-cov": "yarn run lab -T test/.transform.js test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
+    "test-cov": "yarn flow && yarn lint && yarn test-lab-cov",
     "audit": "npm audit --audit-level=high",
-    "postinstall": "flow-typed install -o --ignoreDeps dev",
     "babel-build": "babel server -d dist --copy-files -s inline",
-    "babel-watch": "babel server -d dist --copy-files -s inline --watch"
+    "babel-watch": "babel server -d dist --copy-files -s inline --watch",
+    "rollup:watch": "yarn rollup -c -w"
   },
+  "workspace-builder": "@workspace-builder/rollup",
   "repository": {
     "type": "git",
     "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/master/designer"
@@ -27,16 +30,19 @@
     "@hapi/hapi": "19.1.1",
     "@hapi/joi": "17.1.1",
     "@hapi/wreck": "17.0.0",
-    "digital-form-builder-model": "file:../model",
+    "@xgovformbuilder/model": "2.0.0",
     "aws-sdk": "^2.723.0",
     "flat": "5.0.0",
     "hapi-pino": "^8.0.1",
+    "hoek": "^6.1.3",
     "moment-timezone": "^0.5.31",
     "schmervice": "^1.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "@babel/core": "7.10.3",
+    "@babel/core": "^7.11.1",
+    "@babel/eslint-parser": "^7.11.3",
+    "@babel/eslint-plugin": "^7.11.3",
     "@babel/node": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-private-methods": "^7.10.4",
@@ -55,14 +61,17 @@
     "@rollup/plugin-commonjs": "13.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "8.1.0",
-    "@xgovformbuilder/lab-babel": "2.1.0",
+    "@workspace-builder/rollup": "^1.0.0",
+    "@xgovformbuilder/lab-babel": "2.1.2",
     "acorn": "7.2.0",
-    "babel-eslint": "11.0.0-beta.2",
+    "babel-eslint": "^10.1.0",
     "dagre": "0.8.2",
     "dotenv": "8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^7.6.0",
     "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
     "flow-bin": "^0.130.0",
     "flow-typed": "^3.2.1",
     "govuk-frontend": "3.6.0",
@@ -80,16 +89,5 @@
     "sinon": "^9.0.2",
     "standard": "12.0.1",
     "vision": "5.4.3"
-  },
-  "standard": {
-    "ignore": [
-      "dist/",
-      "flow-typed"
-    ],
-    "parser": "babel-eslint",
-    "plugins": [
-      "flowtype"
-    ]
-  },
-  "eslint": "babel-eslint"
+  }
 }

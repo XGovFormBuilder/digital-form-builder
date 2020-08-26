@@ -1,0 +1,76 @@
+{
+  "name": "digital-form-builder-mono",
+  "version": "2.0.0",
+  "description": "Mono repo for xgovformbuilder's designer, engine, model and runner",
+  "repository": "https://github.com/XGovFormBuilder/digital-form-builder.git",
+  "author": "Jen <jen+git@cautionyourblast.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "model",
+      "engine",
+      "runner",
+      "designer"
+    ],
+    "nohoist": [
+      "**/@babel*/**",
+      "**/govuk-frontend/**",
+      "**/govuk-frontend"
+    ]
+  },
+  "scripts": {
+    "build": "yarn workspaces foreach run build",
+    "build:dependencies": "yarn model build && yarn engine build",
+    "lint": "yarn workspaces foreach run lint",
+    "fix-lint": "yarn workspaces foreach run lint",
+    "flow": "yarn workspaces foreach -piva exec flow",
+    "watch": "yarn workspaces foreach -piva run watch",
+    "runner": "yarn workspace @xgovformbuilder/runner",
+    "designer": "yarn workspace @xgovformbuilder/designer",
+    "engine": "yarn workspace @xgovformbuilder/engine",
+    "model": "yarn workspace @xgovformbuilder/model",
+    "test-cov": "yarn workspaces foreach run test-cov",
+    "test": "yarn workspaces foreach run test"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/eslint-parser": "^7.11.3",
+    "@babel/eslint-plugin": "^7.11.3",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-proposal-export-default-from": "^7.10.1",
+    "@babel/plugin-proposal-private-methods": "^7.10.1",
+    "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-flow": "^7.10.4",
+    "@babel/register": "^7.10.5",
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^23.0.0",
+    "babel-eslint": "^11.0.0-beta.2",
+    "concurrently": "^5.3.0",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-workspaces": "^1.0.10",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-standard": "^4.0.1",
+    "flow-bin": "0.131.0",
+    "flow-mono-cli": "^1.5.3",
+    "flow-typed": "^3.2.1",
+    "magic-string": "^0.25.7",
+    "node-sass": "^4.14.1",
+    "resolve": "^1.17.0",
+    "rollup": "^2.25.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.11.2",
+    "govuk-frontend": "^3.8.1"
+  }
+}

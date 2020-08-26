@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from './editor'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ConditionEdit extends React.Component {
   constructor (props) {
@@ -79,13 +79,18 @@ class ConditionEdit extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <a className='govuk-back-link' href='#'
-          onClick={e => this.props.onCancel(e)}>Back</a>
+        <a
+          className='govuk-back-link' href='#'
+          onClick={e => this.props.onCancel(e)}
+        >Back
+        </a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Display name</label>
-          <input className='govuk-input' id='condition-name' name='displayName'
+          <input
+            className='govuk-input' id='condition-name' name='displayName'
             type='text' defaultValue={condition.displayName} required
-            onBlur={this.onBlurName} />
+            onBlur={this.onBlurName}
+          />
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-value'>Value</label>

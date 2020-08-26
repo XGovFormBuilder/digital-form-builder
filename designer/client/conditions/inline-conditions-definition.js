@@ -1,9 +1,9 @@
 import React from 'react'
-import { Condition, Field } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
-import { valueFrom } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
-import { getOperatorNames } from 'digital-form-builder-model/lib/conditions/inline-condition-operators'
+import { Condition, Field } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { valueFrom } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+import { getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
 import InlineConditionsDefinitionValue from './inline-conditions-definition-values'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class InlineConditionsDefinition extends React.Component {
   constructor (props) {
@@ -108,19 +108,22 @@ class InlineConditionsDefinition extends React.Component {
     return (<div className='govuk-form-group' id='condition-definition-group'>
       {expectsCoordinator &&
         <div className='govuk-form-group' id='cond-coordinator-group'>
-          <select className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator??''}
-            onChange={this.onChangeCoordinator}>
+          <select
+            className='govuk-select' id='cond-coordinator' name='cond-coordinator' value={condition?.coordinator ?? ''}
+            onChange={this.onChangeCoordinator}
+          >
             <option />
             <option key='and' value='and'>And</option>
             <option key='or' value='or'>Or</option>
           </select>
-        </div>
-      }
+        </div>}
       {(condition.coordinator || !expectsCoordinator) &&
         <div id='condition-definition-inputs'>
-          <select className='govuk-select' id='cond-field' name='cond-field'
-            value={(condition?.field?.name)??''}
-            onChange={this.onChangeField}>
+          <select
+            className='govuk-select' id='cond-field' name='cond-field'
+            value={(condition?.field?.name) ?? ''}
+            onChange={this.onChangeField}
+          >
             <option />
             {
               Object.values(this.props.fields).map((field, index) =>
@@ -129,26 +132,28 @@ class InlineConditionsDefinition extends React.Component {
           </select>
 
           {fieldDef &&
-          <select className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator??''}
-            onChange={this.onChangeOperator}>
-            <option />
-            {
-              getOperatorNames(fieldDef.type).map(conditional => {
-                return <option key={`${condition.field}-${conditional}`}
-                  value={conditional}>{conditional}</option>
-              })
-            }
-          </select>
-          }
+            <select
+              className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator ?? ''}
+              onChange={this.onChangeOperator}
+            >
+              <option />
+              {
+                getOperatorNames(fieldDef.type).map(conditional => {
+                  return <option
+                    key={`${condition.field}-${conditional}`}
+                    value={conditional}
+                  >{conditional}
+                  </option>
+                })
+              }
+            </select>}
 
           {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value} operator={condition.operator} updateValue={this.updateValue} />}
           {condition.value &&
-          <div className='govuk-form-group'>
-            <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Add</a>
-          </div>
-          }
-        </div>
-      }
+            <div className='govuk-form-group'>
+              <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Add</a>
+            </div>}
+        </div>}
     </div>)
   }
 }

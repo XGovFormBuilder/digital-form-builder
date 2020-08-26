@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -95,14 +95,18 @@ class FeeItems extends React.Component {
           {items.map((item, index) => (
             <tr key={item.description + index} className='govuk-table__row' scope='row'>
               <td className='govuk-table__cell'>
-                <input className='govuk-input' name='description'
+                <input
+                  className='govuk-input' name='description'
                   type='text' required defaultValue={item.description}
-                  onBlur={this.onBlur} />
+                  onBlur={this.onBlur}
+                />
               </td>
               <td className='govuk-table__cell'>
-                <input className='govuk-input' name='amount'
+                <input
+                  className='govuk-input' name='amount'
                   type='number' required defaultValue={item.amount}
-                  onBlur={this.onBlur} step='any' />
+                  onBlur={this.onBlur} step='any'
+                />
               </td>
               <td className='govuk-table__cell'>
                 <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition} required>

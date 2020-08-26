@@ -5,8 +5,8 @@ import * as Lab from '@hapi/lab'
 import { assertLabel, assertLink, assertText } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
-import { Condition, ConditionsModel, Field } from 'digital-form-builder-model/lib/conditions/inline-condition-model'
-import { ConditionValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { Condition, ConditionsModel, Field } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
@@ -20,7 +20,8 @@ suite('Inline conditions', () => {
     allInputs: sinon.stub(),
     listFor: sinon.stub(),
     clone: sinon.stub(),
-    save: sinon.stub()
+    save: sinon.stub(),
+    updateCondition: sinon.stub()
   }
   const isEqualToOperator = 'is'
   const path = '/'
@@ -32,11 +33,17 @@ suite('Inline conditions', () => {
     cancelCallback = sinon.spy()
   })
 
+  afterEach(() => {
+    data.save.resetHistory()
+  })
+
   test('render returns nothing when there is an empty fields list', () => {
     data.inputsAccessibleAt.withArgs(path).returns([])
     data.listFor.returns(undefined)
-    expect(shallow(<InlineConditions data={data} path={path}
-      conditionsChange={conditionsChange} cancelCallback={cancelCallback} />).exists('#inline-conditions')).to.equal(false)
+    expect(shallow(<InlineConditions
+      data={data} path={path}
+      conditionsChange={conditionsChange} cancelCallback={cancelCallback}
+    />).exists('#inline-conditions')).to.equal(false)
     expect(conditionsChange.called).to.equal(false)
   })
 
@@ -93,7 +100,7 @@ suite('Inline conditions', () => {
     })
 
     test('if the path property changes to a route without fields then the condition section disappears', () => {
-      let path2 = '/2'
+      const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
@@ -103,7 +110,7 @@ suite('Inline conditions', () => {
     })
 
     test('if the path property changes from a route with fields then the condition section appears', () => {
-      let path2 = '/2'
+      const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
       data.listFor.returns(undefined)
       const wrapper = shallow(<InlineConditions data={data} path={path2} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
@@ -134,7 +141,7 @@ suite('Inline conditions', () => {
 
     test('Clicking the cancel link should cancel any added conditions and partially completed inputs and trigger the cancel callback', () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
-      let instance = wrapper.instance()
+      const instance = wrapper.instance()
       instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(wrapper.find('#conditions-display').exists()).to.equal(true)
       const e = {}
@@ -145,7 +152,7 @@ suite('Inline conditions', () => {
 
     test('Clicking the cancel link should succeed if there is no cancel callback', () => {
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} />)
-      let instance = wrapper.instance()
+      const instance = wrapper.instance()
       instance.saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N')))
       expect(wrapper.find('#conditions-display').exists()).to.equal(true)
       const e = {}
@@ -179,7 +186,7 @@ suite('Inline conditions', () => {
       })
     })
 
-    describe('editing conditions', () => {
+    describe('editing conditions previously added in the same editor instance', () => {
       let conditions
 
       beforeEach(() => {
@@ -217,11 +224,78 @@ suite('Inline conditions', () => {
         assertEditPanelDoesNotExist(wrapper)
       })
     })
+
+    describe('editing conditions from persisted form configuration', () => {
+      let conditionModel
+
+      beforeEach(() => {
+        const conditions = new ConditionsModel()
+        conditions.add(new Condition(new Field(fields[0].propertyPath, fields[0].type, fields[0].displayName), isEqualToOperator, new ConditionValue('M')))
+        conditions.name = 'My condition'
+        conditionModel = { name: 'badger', displayName: 'My condition', value: conditions }
+      })
+
+      test('Condition model passed to the editor with a valid value renders as editable', () => {
+        const wrapper = shallow(<InlineConditions condition={conditionModel} data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
+
+        assertAddingSubsequentCondition(wrapper, '\'Something\' is \'M\'', expectedFields)
+
+        expect(wrapper.find('#condition-string-edit-warning').exists()).to.equal(false)
+      })
+
+      test('Condition model passed to the editor with a string value renders as non-editable', () => {
+        conditionModel.value = 'Something is \'M\''
+
+        const wrapper = shallow(<InlineConditions condition={conditionModel} data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
+
+        assertAddingFirstCondition(wrapper, expectedFields)
+        expect(wrapper.find('#condition-string-edit-warning').exists()).to.equal(true)
+      })
+
+      test('Condition model passed to the editor with a string value pre-populates name', () => {
+        conditionModel.value = 'Something is \'M\''
+
+        const wrapper = shallow(<InlineConditions condition={conditionModel} data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
+
+        expect(wrapper.find('#cond-name').prop('value')).to.equal('My condition')
+      })
+
+      test('Edited condition is updated and conditions change callback is called when save button is clicked', async () => {
+        const wrapper = shallow(<InlineConditions data={data} condition={conditionModel} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
+        expect(conditionsChange.called).to.equal(false)
+
+        const clonedData = sinon.spy()
+        const updatedData = sinon.spy()
+        const savedData = sinon.spy()
+        data.save.resolves(savedData)
+        data.clone.returns(clonedData)
+        data.updateCondition.returns(updatedData)
+
+        wrapper.find('#cond-name').simulate('change', { target: { value: 'Badgers' } })
+        wrapper.instance().saveCondition(new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N'), 'and'))
+        expect(wrapper.find('#save-inline-conditions').prop('onClick')).to.equal(wrapper.instance().onClickSave)
+        await wrapper.instance().onClickSave()
+
+        expect(data.updateCondition.callCount).to.equal(1)
+        expect(data.updateCondition.firstCall.args[0]).to.equal(conditionModel.name)
+        expect(data.updateCondition.firstCall.args[1]).to.equal('Badgers')
+        expect(data.updateCondition.firstCall.args[2].asPerUserGroupings).to.equal(
+          [
+            new Condition(new Field(fields[0].propertyPath, fields[0].type, fields[0].displayName), isEqualToOperator, new ConditionValue('M')),
+            new Condition(Field.from({ name: fields[0].propertyPath, type: fields[0].type, display: fields[0].displayName }), isEqualToOperator, new ConditionValue('N'), 'and')
+          ]
+        )
+
+        expect(data.save.callCount).to.equal(1)
+        expect(data.save.firstCall.args[0]).to.equal(updatedData)
+        expect(conditionsChange.calledOnceWith(conditionModel.name)).to.equal(true)
+      })
+    })
   })
 })
 
 function assertFieldDefinitionSection (wrapper, expectedFields, hasConditions, editingIndex) {
-  let inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
+  const inlineConditionsDefinition = wrapper.find('InlineConditionsDefinition')
   expect(inlineConditionsDefinition.exists()).to.equal(true)
   expect(inlineConditionsDefinition.prop('expectsCoordinator')).to.equal(hasConditions && editingIndex !== 0)
   expect(inlineConditionsDefinition.prop('fields')).to.equal(expectedFields)
@@ -266,7 +340,7 @@ function assertEditingHeaderGroupWithConditionString (wrapper, conditionString) 
 }
 
 function assertEditPanel (wrapper, expectedConditions, expectedFields) {
-  let editConditionsPanel = wrapper.find('InlineConditionsEdit')
+  const editConditionsPanel = wrapper.find('InlineConditionsEdit')
   expect(editConditionsPanel.exists()).to.equal(true)
   expect(editConditionsPanel.prop('conditions')).to.equal(expectedConditions)
   expect(editConditionsPanel.prop('fields')).to.equal(expectedFields)

@@ -1,5 +1,4 @@
 import React from 'react'
-import ConditionEdit from './condition-edit'
 import InlineConditions from './conditions/inline-conditions'
 import Flyout from './flyout'
 
@@ -10,7 +9,7 @@ class ConditionsEdit extends React.Component {
     e.preventDefault()
 
     this.setState({
-      condition: condition
+      editingCondition: condition
     })
   }
 
@@ -25,17 +24,21 @@ class ConditionsEdit extends React.Component {
   render () {
     const { data } = this.props
     const { conditions } = data
-    const condition = this.state.condition
+    const { editingCondition } = this.state
 
     return (
       <div className='govuk-body'>
-        {!condition &&
+        {!editingCondition &&
           <div>
-            <Flyout title='Edit Conditions' show={!!this.state.showAddCondition}
-              onHide={this.cancelInlineCondition}>
-              <InlineConditions data={data}
+            <Flyout
+              title='Add Condition' show={!!this.state.showAddCondition}
+              onHide={this.cancelInlineCondition}
+            >
+              <InlineConditions
+                data={data}
                 conditionsChange={this.cancelInlineCondition}
-                cancelCallback={this.cancelInlineCondition} />
+                cancelCallback={this.cancelInlineCondition}
+              />
             </Flyout>
             <ul className='govuk-list'>
               {conditions.map((condition) => (
@@ -56,22 +59,26 @@ class ConditionsEdit extends React.Component {
                   ? <a href='#' id='add-condition-link' onClick={e => this.onClickAddCondition(e)}>Add condition</a>
                   : <div className='govuk-body'>
                       You cannot add any conditions as there are no available fields
-                  </div>
-                }
+                  </div>}
               </li>
             </ul>
           </div>
         }
-        {condition &&
-          <ConditionEdit condition={condition} data={data}
-            onEdit={this.editFinished}
-            onCancel={this.editFinished} />
+        {editingCondition &&
+          <div id='edit-conditions'>
+            <Flyout title='Edit Conditions' show onHide={this.editFinished}>
+              <InlineConditions data={data} condition={editingCondition}
+                conditionsChange={this.editFinished}
+                cancelCallback={this.editFinished}
+              />
+            </Flyout>
+          </div>
         }
       </div>
     )
   }
 
-  editFinished = () => this.setState({ condition: null })
+  editFinished = () => this.setState({ editingCondition: null })
 
   cancelInlineCondition = () => this.setState({ showAddCondition: false })
 }

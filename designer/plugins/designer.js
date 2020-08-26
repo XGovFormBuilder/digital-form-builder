@@ -1,4 +1,4 @@
-const Schema = require('digital-form-builder-model/lib/schema')
+const Schema = require('@xgovformbuilder/model/lib/schema')
 const shortid = require('shortid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('./../package.json')
@@ -25,7 +25,7 @@ const designerPlugin = {
     register: (server) => {
       server.route({
         method: 'get',
-        path: `/`,
+        path: '/',
         options: {
           handler: (request, h) => {
             return h.redirect(`/${shortid.generate()}`)
@@ -36,17 +36,17 @@ const designerPlugin = {
       // DESIGNER
       server.route({
         method: 'get',
-        path: `/{id}`,
+        path: '/{id}',
         options: {
           handler: (request, h) => {
-            let { id } = request.params
+            const { id } = request.params
             return h.view('designer', { id, previewUrl: config.previewUrl })
           }
         }
       })
       server.route({
         method: 'get',
-        path: `/{id}/api/id`,
+        path: '/{id}/api/id',
         options: {
           handler: (request, h) => {
             return h.response(shortid.generate()).code(200)
@@ -57,7 +57,7 @@ const designerPlugin = {
       // GET DATA
       server.route({
         method: 'GET',
-        path: `/{id}/api/data`,
+        path: '/{id}/api/data',
         options: {
           handler: async (request, h) => {
             const { id } = request.params
@@ -78,10 +78,10 @@ const designerPlugin = {
       // SAVE DATA
       server.route({
         method: 'PUT',
-        path: `/{id}/api/data`,
+        path: '/{id}/api/data',
         options: {
           handler: async (request, h) => {
-            let { id } = request.params
+            const { id } = request.params
             try {
               const result = joi.validate(request.payload, Schema, { abortEarly: false })
 

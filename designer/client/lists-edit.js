@@ -32,9 +32,11 @@ class ListsEdit extends React.Component {
         {!list ? (
           <div>
             {this.state.showAddList ? (
-              <ListEdit data={data} id={id}
+              <ListEdit
+                data={data} id={id}
                 onEdit={() => this.setState({ showAddList: false })}
-                onCancel={() => this.setState({ showAddList: false })} />
+                onCancel={() => this.setState({ showAddList: false })}
+              />
             ) : (
               <ul className='govuk-list'>
                 {lists.map((list, index) => (
@@ -52,9 +54,11 @@ class ListsEdit extends React.Component {
             )}
           </div>
         ) : (
-          <ListEdit list={list} data={data}
+          <ListEdit
+            list={list} data={data}
             onEdit={() => this.setState({ list: null })}
-            onCancel={() => this.setState({ list: null })} />
+            onCancel={() => this.setState({ list: null })}
+          />
         )}
       </div>
     )

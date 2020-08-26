@@ -9,6 +9,8 @@ lib/
 client/
 
 [libs]
+./flow-typed
+../flow-typed
 
 [lints]
 

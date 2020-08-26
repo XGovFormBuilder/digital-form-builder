@@ -1,6 +1,6 @@
 import React from 'react'
 import SelectConditions from './conditions/select-conditions'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class LinkEdit extends React.Component {
   constructor (props) {

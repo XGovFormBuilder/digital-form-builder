@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from './editor'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class DeclarationEdit extends React.Component {
   constructor (props) {
@@ -41,10 +41,15 @@ class DeclarationEdit extends React.Component {
               <span className='govuk-hint'>The user will not be shown a summary page, and will continue to pay and/or the application complete page.</span>
             </legend>
             <div className='govuk-checkboxes__item'>
-              <input className='govuk-checkboxes__input' id='skip-summary' data-cast='boolean'
-                name='skip-summary' type='checkbox' defaultChecked={skipSummary} />
-              <label className='govuk-label govuk-checkboxes__label'
-                htmlFor='skip-summary'>Skip summary</label>
+              <input
+                className='govuk-checkboxes__input' id='skip-summary' data-cast='boolean'
+                name='skip-summary' type='checkbox' defaultChecked={skipSummary}
+              />
+              <label
+                className='govuk-label govuk-checkboxes__label'
+                htmlFor='skip-summary'
+              >Skip summary
+              </label>
             </div>
           </div>
 

@@ -11,7 +11,7 @@ class NotifyEdit extends React.Component {
   render () {
     const { data, output } = this.props
     const { conditions } = data
-    const outputConfiguration = output?.outputConfiguration??{ templateId: '', apiKey: '', emailField: '', personalisation: [] }
+    const outputConfiguration = output?.outputConfiguration ?? { templateId: '', apiKey: '', emailField: '', personalisation: [] }
     const { templateId, apiKey, emailField } = outputConfiguration
     const personalisation = outputConfiguration.personalisation
     const values = [...conditions.map(condition => condition.name), ...this.usableKeys]
@@ -20,15 +20,19 @@ class NotifyEdit extends React.Component {
       <div className='govuk-body'>
         <div className='govuk-form-group'>
           <label className='govuk-label' htmlFor='template-id'>Template ID</label>
-          <input className='govuk-input' name='template-id'
+          <input
+            className='govuk-input' name='template-id'
             type='text' required defaultValue={templateId}
-            onBlur={this.onBlur} step='any' />
+            onBlur={this.onBlur} step='any'
+          />
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label' htmlFor='api-key'>API Key</label>
-          <input className='govuk-input' name='api-key'
+          <input
+            className='govuk-input' name='api-key'
             type='text' required defaultValue={apiKey}
-            onBlur={this.onBlur} step='any' />
+            onBlur={this.onBlur} step='any'
+          />
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label' htmlFor='email-field'>Email field</label>

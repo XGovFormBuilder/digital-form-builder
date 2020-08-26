@@ -1,6 +1,6 @@
 import FeeItems from './fee-items'
 import React from 'react'
-import { clone } from 'digital-form-builder-model/lib/helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class FeeEdit extends React.Component {
   onSubmit = e => {
@@ -64,7 +64,8 @@ class FeeEdit extends React.Component {
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
           <div className='govuk-form-group'>
             <label htmlFor='pay-api-key'>Pay API Key</label>
-            <input className='govuk-input' id='pay-api-key' name='pay-api-key'
+            <input
+              className='govuk-input' id='pay-api-key' name='pay-api-key'
               type='text' required defaultValue={payApiKey}
             />
           </div>

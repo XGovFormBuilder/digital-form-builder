@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Menu from './menu'
 import Visualisation from './visualisation'
 import NewConfig from './new-config'
-import { Data } from 'digital-form-builder-model/lib/data-model'
+import { Data } from '@xgovformbuilder/model/lib/data-model'
 
 class App extends React.Component {
   state = {

@@ -1,10 +1,19 @@
 version: 2.1
-
 parameters:
   # This parameter is used to trigger the main workflow
   trigger:
     type: boolean
     default: true
+
+  # This parameter is used to trigger the build-test workflow
+  build-test:
+    type: boolean
+    default: false
+
+  # If you need to force build all of the packages, set default: true
+  force-build-all:
+    type: boolean
+    default: false
 
   # A parameter per package
   model:
@@ -40,81 +49,109 @@ jobs:
           name: Trigger workflows
           command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
 
-  build:
-    parameters:
-      package_name:
-        type: string
-
+  install-yarn:
     executor: node-browsers
-    working_directory: ~/project/<< parameters.package_name >>
-
+    working_directory: ~/project
     steps:
-      - checkout:
-          path: ~/project
-
+      - checkout
       - restore_cache:
           keys:
-            - << parameters.package_name >>-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - << parameters.package_name >>-dependencies-
-
+            - all-dependencies-{{ checksum "yarn.lock" }}
+            - all-dependencies
       - run: yarn install
-
-      - run:
-          name: Re-link model
-          command: |
-            rm -fr node_modules/digital-form-builder-model
-            yarn --check-files
-
-      - run:
-          name: Re-link engine
-          command: |
-            rm -fr node_modules/digital-form-builder-engine
-            yarn --check-files
-
+      - run: yarn rebuild node-sass only
+      - run: yarn flow-mono install-types && yarn flow-mono create-stubs
       - save_cache:
           paths:
             - node_modules
-            - flow-typed
-          key: << parameters.package_name >>-dependencies-{{ checksum "package.json" }}
-
-      - run:
-          name: Build
-          command: |
-            yarn build
-
+            - .yarn
+            - model/lib
+            - engine/lib
+            - model/flow-typed
+            - designer/flow-typed
+            - runner/flow-typed
+          key: all-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/project
           paths:
             - .
 
-  test:
+  build-lint-test:
     parameters:
       package_name:
         type: string
+      should_build:
+        type: boolean
 
     executor: node-browsers
-    working_directory: ~/project/<< parameters.package_name >>
-
+    working_directory: ~/project
     steps:
-      - attach_workspace:
-          at: ~/project
+      - when:
+          condition:
+            or:
+              # changes were made to this module, it needs to be rebuilt
+              - << parameters.should_build >>
 
+              # force flag
+              - << pipeline.parameters.force-build-all >>
+
+              # if the upstream dependencies (model or engine) have changed, this package must be rebuilt.
+              - and:
+                - equal: ['engine', << parameters.package_name >>]
+                - << pipeline.parameters.model >>
+              - and:
+                - equal: ['runner', << parameters.package_name >>]
+                - << pipeline.parameters.model >>
+              - and:
+                - equal: ['runner', << parameters.package_name >>]
+                - << pipeline.parameters.engine >>
+              - and:
+                - equal: ['designer', << parameters.package_name >>]
+                - << pipeline.parameters.model >>
+          steps:
+            - attach_workspace:
+                at: ~/project
+
+            - when:
+                condition:
+                  or:
+                    - and:
+                      - equal: ['runner', << parameters.package_name >>]
+                      - or:
+                        - not: << pipeline.parameters.engine >>
+                        - not: << pipeline.parameters.model >>
+                    - and:
+                      - equal: ['designer', << parameters.package_name >>]
+                      - not: << pipeline.parameters.model >>
+                steps:
+                  - run:
+                      name: Build dependencies
+                      command: |
+                        yarn build:dependencies
+
+            - run:
+                name: Build
+                command: |
+                  yarn << parameters.package_name >> run build
+            - run:
+                name: Test
+                command: yarn << parameters.package_name >> run test-cov
+            - store_test_results:
+                path: << parameters.package_name >>/test-results
+            - store_artifacts:
+                path: << parameters.package_name >>/test-coverage
+            - persist_to_workspace:
+                root: ~/project
+                paths:
+                  - .
       - run:
-          name: Re-link model
+          name: Changes made to << parameters.package_name >> - << parameters.should_build >>
           command: |
-            rm -fr node_modules/digital-form-builder-model
-            yarn --check-files
+            if [ ! '<< parameters.should_build >>' = 'true' ]; then
+              circleci-agent step halt
+            fi
 
-      - run:
-          name: Re-link engine
-          command: |
-            rm -fr node_modules/digital-form-builder-engine
-            yarn --check-files
-
-      - run:
-          name: Test
-          command: yarn test
 
 workflows:
   version: 2
@@ -126,73 +163,31 @@ workflows:
     jobs:
       - trigger-workflows
 
-
-  # Workflows defined for each package.
-
-  model:
-    when: << pipeline.parameters.model >>
+  build-test:
+    when: << pipeline.parameters.build-test >>
     jobs:
-      - build:
-          name: model-build
+      - install-yarn
+      - build-lint-test:
+          name: model-build-lint-test
           package_name: model
-      - test:
-          name: model-test
-          package_name: model
+          should_build: << pipeline.parameters.model >>
           requires:
-            - model-build
-
-  engine:
-    when: << pipeline.parameters.engine >>
-    jobs:
-      - build:
-          name: model-build
-          package_name: model
-      - build:
-          name: engine-build
-          package_name: engine
-          requires:
-            - model-build
-      - test:
-          name: engine-test
-          package_name: engine
-          requires:
-            - engine-build
-
-  designer:
-    when: << pipeline.parameters.designer >>
-    jobs:
-      - build:
-          name: model-build
-          package_name: model
-      - build:
-          name: designer-build
+            - install-yarn
+      - build-lint-test:
+          name: designer-build-lint-test
           package_name: designer
+          should_build: << pipeline.parameters.designer >>
           requires:
-            - model-build
-      - test:
-          name: designer-test
-          package_name: designer
-          requires:
-            - designer-build
-
-  runner:
-    when: << pipeline.parameters.runner >>
-    jobs:
-      - build:
-          name: model-build
-          package_name: model
-      - build:
-          name: engine-build
+            - model-build-lint-test
+      - build-lint-test:
+          name: engine-build-lint-test
           package_name: engine
+          should_build: << pipeline.parameters.engine >>
           requires:
-            - model-build
-      - build:
-          name: runner-build
+            - designer-build-lint-test
+      - build-lint-test:
+          name: runner-build-lint-test
           package_name: runner
+          should_build: << pipeline.parameters.runner >>
           requires:
-            - engine-build
-      - test:
-          name: runner-test
-          package_name: runner
-          requires:
-            - runner-build
+            - engine-build-lint-test

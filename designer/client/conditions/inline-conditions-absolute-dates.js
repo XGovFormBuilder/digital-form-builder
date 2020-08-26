@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConditionValue } from 'digital-form-builder-model/lib/conditions/inline-condition-values'
+import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 import momentTz from 'moment-timezone'
 
 export class AbsoluteTimeValues extends React.Component {
@@ -28,18 +28,22 @@ export class AbsoluteTimeValues extends React.Component {
         <div className='govuk-date-input__item'>
           <div className='govuk-form-group'>
             <label htmlFor='cond-value-hours' className='govuk-label govuk-label--s'>HH</label>
-            <input className='govuk-input govuk-input--width-2' id='cond-value-hours' name='cond-value-hours'
+            <input
+              className='govuk-input govuk-input--width-2' id='cond-value-hours' name='cond-value-hours'
               type='number' maxLength={2} defaultValue={hours} required
-              onChange={e => this.setState({ hours: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ hours: e.target.value.padStart(2, '0') })}
+            />
           </div>
         </div>
 
         <div className='govuk-date-input__item'>
           <div className='govuk-form-group'>
             <label htmlFor='cond-value-minutes' className='govuk-label govuk-label--s'>mm</label>
-            <input className='govuk-input govuk-input--width-2' id='cond-value-minutes' name='cond-value-minutes'
+            <input
+              className='govuk-input govuk-input--width-2' id='cond-value-minutes' name='cond-value-minutes'
               type='number' maxLength={2} defaultValue={minutes} required
-              onChange={e => this.setState({ minutes: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ minutes: e.target.value.padStart(2, '0') })}
+            />
           </div>
         </div>
       </div>
@@ -79,26 +83,32 @@ export class AbsoluteDateValues extends React.Component {
         <div className='govuk-date-input__item'>
           <div className='govuk-form-group'>
             <label htmlFor='cond-value-year' className='govuk-label govuk-label--s'>yyyy</label>
-            <input className='govuk-input govuk-input--width-4' id='cond-value-year' name='cond-value-year'
+            <input
+              className='govuk-input govuk-input--width-4' id='cond-value-year' name='cond-value-year'
               type='number' maxLength={4} minLength={4} defaultValue={year} required
-              onChange={e => this.setState({ year: e.target.value })} />
+              onChange={e => this.setState({ year: e.target.value })}
+            />
           </div>
         </div>
 
         <div className='govuk-date-input__item'>
           <div className='govuk-form-group'>
             <label htmlFor='cond-value-month' className='govuk-label govuk-label--s'>MM</label>
-            <input className='govuk-input govuk-input--width-2' id='cond-value-month' name='cond-value-month'
+            <input
+              className='govuk-input govuk-input--width-2' id='cond-value-month' name='cond-value-month'
               type='number' maxLength={2} defaultValue={month} required
-              onChange={e => this.setState({ month: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ month: e.target.value.padStart(2, '0') })}
+            />
           </div>
         </div>
         <div className='govuk-date-input__item'>
           <div className='govuk-form-group'>
             <label htmlFor='cond-value-day' className='govuk-label govuk-label--s'>dd</label>
-            <input className='govuk-input govuk-input--width-2' id='cond-value-day' name='cond-value-day'
+            <input
+              className='govuk-input govuk-input--width-2' id='cond-value-day' name='cond-value-day'
               type='number' maxLength={2} defaultValue={day} required
-              onChange={e => this.setState({ day: e.target.value.padStart(2, '0') })} />
+              onChange={e => this.setState({ day: e.target.value.padStart(2, '0') })}
+            />
           </div>
         </div>
       </div>
@@ -141,8 +151,10 @@ export class AbsoluteDateTimeValues extends React.Component {
       <div>
         <AbsoluteDateValues value={date} updateValue={dateValue => this.setState({ date: dateValue })} />
         <AbsoluteTimeValues value={time} updateValue={timeValue => this.setState({ time: timeValue })} />
-        <select className='govuk-select' id='cond-value-tz' name='cond-value-tz' value={timeZone}
-          onChange={e => this.setState({ timeZone: e.target.value })}>
+        <select
+          className='govuk-select' id='cond-value-tz' name='cond-value-tz' value={timeZone}
+          onChange={e => this.setState({ timeZone: e.target.value })}
+        >
           {momentTz.tz.names().map(tz => {
             return <option key={tz} value={tz}>{tz}</option>
           })}

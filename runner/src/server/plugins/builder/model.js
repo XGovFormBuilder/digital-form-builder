@@ -1,5 +1,5 @@
 // const joi = require('joi')
-const { EngineModel } = require('digital-form-builder-engine')
+const { EngineModel } = require('@xgovformbuilder/engine')
 
 class Model extends EngineModel {
   makeSchema (state) {

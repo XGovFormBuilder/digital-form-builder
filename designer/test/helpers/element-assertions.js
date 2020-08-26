@@ -11,7 +11,7 @@ export function assertText (wrapper, text) {
 }
 
 export function assertClasses (wrapper, classes) {
-  const certainClasses = classes??[]
+  const certainClasses = classes ?? []
   certainClasses.forEach(className => {
     expect(wrapper.hasClass(className), `${getTagName(wrapper)} ${getProperty(wrapper, 'id') || ''} to have class ${className}`).to.equal(true)
   })
@@ -124,10 +124,10 @@ function getPropertyNames (wrapper) {
 }
 
 function getText (wrapper) {
-  return typeof wrapper.text === 'function' ? wrapper.text() : wrapper.children?.[0]?.data??''
+  return typeof wrapper.text === 'function' ? wrapper.text() : wrapper.children?.[0]?.data ?? ''
 }
 
 const propertyMappings = {
-  defaultValue: attribs => attribs['value'],
+  defaultValue: attribs => attribs.value,
   checked: attribs => Object.keys(attribs).includes('checked') || ''
 }
