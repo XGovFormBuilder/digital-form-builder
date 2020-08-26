@@ -13,15 +13,15 @@ parameters:
   # If you need to force build all of the packages, set default: true
   force-build-all:
     type: boolean
-    default: false
+    default: true
 
   # A parameter per package
   model:
     type: boolean
-    default: true
+    default: false
   engine:
     type: boolean
-    default: true
+    default: false
   designer:
     type: boolean
     default: false
@@ -136,7 +136,7 @@ jobs:
                   yarn << parameters.package_name >> run build
             - run:
                 name: Test
-                command: yarn << parameters.package_name >> run test-cov
+                command: yarn << parameters.package_name >> run test
             - store_test_results:
                 path: << parameters.package_name >>/test-results
             - store_artifacts:
@@ -167,12 +167,14 @@ workflows:
     when: << pipeline.parameters.build-test >>
     jobs:
       - install-yarn
+      -
       - build-lint-test:
           name: model-build-lint-test
           package_name: model
           should_build: << pipeline.parameters.model >>
           requires:
             - install-yarn
+            -
       - build-lint-test:
           name: engine-build-lint-test
           package_name: engine
