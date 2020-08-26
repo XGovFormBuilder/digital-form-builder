@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'enzyme'
+import { render, mount } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
@@ -13,7 +13,7 @@ const lab = Lab.script()
 exports.lab = lab
 const { suite, test, describe } = lab
 
-suite('Component type edit', () => {
+suite.only('Component type edit', () => {
   const data = new Data({ lists: [] })
   const nextId = 'abcdef'
   data.getId = sinon.stub()
@@ -142,6 +142,20 @@ suite('Component type edit', () => {
           expect(selects.length).to.equal(0)
         })
       })
+    })
+  })
+
+  describe('optional checkbox', () => {
+    test('clicking checkbox should toggle checked', () => {
+      const wrapper = mount(<ComponentTypeEdit data={data} component={{ type: 'TextField', name: 'myComponent', title: 'My component' }} />)
+      const checkbox = wrapper.find('input[id="field-options.required"]')
+      const optionalText = wrapper.find('[data-test-id="field-options.optionalText-wrapper"]')
+      expect(checkbox.exists()).to.equal(true)
+      expect(optionalText.instance().hidden).to.equal(true)
+      expect(checkbox.props().checked).to.equal(false)
+      checkbox.simulate('change', { target: { checked: true } })
+      expect(checkbox.instance().checked).to.equal(true)
+      expect(optionalText.instance().hidden).to.equal(false)
     })
   })
 })
