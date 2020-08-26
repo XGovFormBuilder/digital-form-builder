@@ -221,9 +221,13 @@ export class ConditionsModel {
 }
 
 function conditionFrom (it:any) {
-  return it.conditions
-    ? new ConditionGroup(it.conditions.map(condition => conditionFrom(condition)))
-    : new Condition(Field.from(it.field), it.operator, valueFrom(it.value), it.coordinator)
+  if (it.conditions) {
+    return new ConditionGroup(it.conditions.map(condition => conditionFrom(condition)))
+  }
+  if (it.conditionName) {
+    return new ConditionRef(it.conditionName, it.conditionDisplayName, it.coordinator)
+  }
+  return new Condition(Field.from(it.field), it.operator, valueFrom(it.value), it.coordinator)
 }
 
 interface ConditionInt<A> {

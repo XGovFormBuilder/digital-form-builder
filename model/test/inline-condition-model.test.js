@@ -668,6 +668,7 @@ suite('inline condition model', () => {
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
       underTest.add(new Condition(new Field('reported', 'DateField', 'Reported'), 'is more than', new RelativeTimeValue('10', dateUnits.DAYS.value, dateDirections.PAST), 'and'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new ConditionValue('Donkeys'), 'and'))
+      underTest.add(new ConditionRef('anotherCondition', 'Another condition', 'or'))
       underTest.addGroups([new GroupDef(0, 2)])
     })
 
@@ -719,6 +720,11 @@ suite('inline condition model', () => {
             field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
             operator: 'is not',
             value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' }
+          },
+          {
+            coordinator: 'or',
+            conditionName: 'anotherCondition',
+            conditionDisplayName: 'Another condition'
           }
         ]
       }
