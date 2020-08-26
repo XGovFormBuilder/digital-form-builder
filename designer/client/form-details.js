@@ -49,7 +49,7 @@ class FormDetails extends React.Component {
     const { title, feedbackForm, selectedFeedbackForm, formConfigurations } = this.state
 
     return (
-      <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
+      <form onSubmit={this.onSubmit} autoComplete='off'>
         <fieldset className='govuk-fieldset' aria-describedby='feedback-form-hint'>
           <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
             <h1 className='govuk-fieldset__heading'>

@@ -28,21 +28,19 @@ module.exports = class RelativeUrl {
     return this
   }
 
-  setFeedbackReturnInfo (value) {
+  set feedbackReturnInfo (value) {
     this.setParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value)
-    return this
   }
 
-  getFeedbackReturnInfo () {
+  get feedbackReturnInfo () {
     return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER)
   }
 
-  setVisitIdentifier (value) {
+  set visitIdentifier (value) {
     this.setParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER, value)
-    return this
   }
 
-  getVisitIdentifier () {
+  get visitIdentifier () {
     return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER)
   }
 

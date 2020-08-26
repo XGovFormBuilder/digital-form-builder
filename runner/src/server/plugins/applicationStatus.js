@@ -8,7 +8,7 @@ const shortid = require('shortid')
 
 function getFeedbackContextInfo (request) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
-    return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
+    return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo)
   }
 }
 

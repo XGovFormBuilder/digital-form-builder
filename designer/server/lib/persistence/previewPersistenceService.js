@@ -3,6 +3,12 @@ import type { PersistenceService } from './persistenceService'
 const Wreck = require('@hapi/wreck')
 const config = require('../../../config')
 
+/**
+ * Persistence service that relies on the runner for storing
+ * the form configurations in memory.
+ * This should likely never be used in production but is a handy
+ * development utility.
+ */
 export class PreviewPersistenceService implements PersistenceService {
   logger: any;
   async uploadConfiguration (id: string, configuration: string) {
@@ -18,7 +24,7 @@ export class PreviewPersistenceService implements PersistenceService {
 
   async listAllConfigurations () {
     const { payload } = await Wreck.get(`${config.previewUrl}/published`)
-    return Promise.resolve(JSON.parse(payload.toString()))
+    return JSON.parse(payload.toString())
   }
 
   async getConfiguration (id: string) {

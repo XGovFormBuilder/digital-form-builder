@@ -412,7 +412,7 @@ class SummaryViewModel {
 
   #addFeedbackSourceDataToWebhook(webhookData, model, request) { //eslint-disable-line
     if(model.def.feedback?.feedbackForm) {
-      const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo())
+      const feedbackContextInfo = decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo)
       if(feedbackContextInfo) {
         webhookData.questions.push(
           ...Data.FEEDBACK_CONTEXT_ITEMS.map(item => ({
@@ -563,7 +563,7 @@ class SummaryPage extends Page {
 
   #getFeedbackContextInfo(request) { /* eslint-disable-line */
     if (this.model.def.feedback?.feedbackForm) {
-      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo());
+      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo);
     }
   }
 
@@ -571,8 +571,8 @@ class SummaryPage extends Page {
     if (this.model.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.model.def.feedback.url)
       const returnInfo = new FeedbackContextInfo(this.model.name, 'Summary', `${request.url.pathname}${request.url.search}`)
-      feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
-      return feedbackLink
+      feedbackLink.feedbackReturnInfo = returnInfo.toString()
+      return feedbackLink.toString()
     }
   }
 

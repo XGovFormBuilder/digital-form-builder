@@ -83,57 +83,57 @@ suite('relative url', () => {
     })
   })
 
-  describe('setFeedbackReturnInfo', () => {
+  describe('set feedbackReturnInfo', () => {
     test('should set feedback param', () => {
       const underTest = new RelativeUrl('bob')
-      underTest.setFeedbackReturnInfo('myBadger2')
+      underTest.feedbackReturnInfo = 'myBadger2'
       expect(underTest.toString()).to.equal('bob?f_t=myBadger2')
     })
 
     test('should overwrite param on subsequent call', () => {
       const underTest = new RelativeUrl('bob')
-      underTest.setFeedbackReturnInfo('myBadger')
-      underTest.setFeedbackReturnInfo('myBadger2')
+      underTest.feedbackReturnInfo = 'myBadger'
+      underTest.feedbackReturnInfo = 'myBadger2'
       expect(underTest.toString()).to.equal('bob?f_t=myBadger2')
     })
   })
 
-  describe('getFeedbackReturnInfo', () => {
+  describe('feedbackReturnInfo', () => {
     test('should get feedback param', () => {
       const underTest = new RelativeUrl('bob?f_t=myBadger2')
-      expect(underTest.getFeedbackReturnInfo()).to.equal('myBadger2')
+      expect(underTest.feedbackReturnInfo).to.equal('myBadger2')
     })
 
     test('should return null if no feedback return info', () => {
       const underTest = new RelativeUrl('bob')
-      expect(underTest.getFeedbackReturnInfo()).to.equal(null)
+      expect(underTest.feedbackReturnInfo).to.equal(null)
     })
   })
 
-  describe('setVisitIdentifier', () => {
+  describe('set visitIdentifier', () => {
     test('should set', () => {
       const underTest = new RelativeUrl('bob')
-      underTest.setVisitIdentifier('myBadger2')
+      underTest.visitIdentifier = 'myBadger2'
       expect(underTest.toString()).to.equal('bob?visit=myBadger2')
     })
 
     test('should overwrite param on subsequent call', () => {
       const underTest = new RelativeUrl('bob')
-      underTest.setVisitIdentifier('myBadger')
-      underTest.setVisitIdentifier('myBadger2')
+      underTest.visitIdentifier = 'myBadger'
+      underTest.visitIdentifier = 'myBadger2'
       expect(underTest.toString()).to.equal('bob?visit=myBadger2')
     })
   })
 
-  describe('getVisitIdentifier', () => {
+  describe('get visitIdentifier', () => {
     test('should get', () => {
       const underTest = new RelativeUrl('bob?visit=myBadger2')
-      expect(underTest.getVisitIdentifier()).to.equal('myBadger2')
+      expect(underTest.visitIdentifier).to.equal('myBadger2')
     })
 
     test('should return null if no visit identifier', () => {
       const underTest = new RelativeUrl('bob')
-      expect(underTest.getVisitIdentifier()).to.equal(null)
+      expect(underTest.visitIdentifier).to.equal(null)
     })
   })
 

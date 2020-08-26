@@ -52,6 +52,13 @@ module.exports = {
       })
 
       if (previewMode) {
+        /**
+         * The following endpoints are used from the designer for operating in 'preview' mode.
+         * I.E. Designs saved in the designer can be accessed in the runner for viewing.
+         * The designer also uses these endpoints as a persistence mechanism for storing and retrieving data
+         * for it's own purposes so if you're changing these endpoints you likely need to go and amend
+         * the designer too!
+         */
         server.route({
           method: 'post',
           path: '/publish',

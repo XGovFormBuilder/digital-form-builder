@@ -369,7 +369,7 @@ class Page {
 
   #getFeedbackContextInfo(request) { /* eslint-disable-line */
     if (this.def.feedback?.feedbackForm) {
-      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).getFeedbackReturnInfo());
+      return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo);
     }
   }
 
@@ -377,8 +377,8 @@ class Page {
     if (this.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.def.feedback.url)
       const returnInfo = new FeedbackContextInfo(this.model.name, this.pageDef.title, `${request.url.pathname}${request.url.search}`)
-      feedbackLink = feedbackLink.setFeedbackReturnInfo(returnInfo.toString()).toString()
-      return feedbackLink
+      feedbackLink = feedbackLink.feedbackReturnInfo = returnInfo.toString()
+      return feedbackLink.toString()
     }
   }
 
