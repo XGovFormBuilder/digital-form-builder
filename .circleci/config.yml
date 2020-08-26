@@ -136,7 +136,11 @@ jobs:
                   yarn << parameters.package_name >> run build
             - run:
                 name: Test
-                command: yarn << parameters.package_name >> run test
+                command: yarn << parameters.package_name >> run test-cov
+            - store_test_results:
+                path: test-results
+            - store_artifacts:
+                path: test-coverage
             - persist_to_workspace:
                 root: ~/project
                 paths:
