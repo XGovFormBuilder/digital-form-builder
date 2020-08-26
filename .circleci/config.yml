@@ -184,7 +184,7 @@ workflows:
           package_name: engine
           should_build: << pipeline.parameters.engine >>
           requires:
-            - model-build-lint-test
+            - designer-build-lint-test
       - build-lint-test:
           name: runner-build-lint-test
           package_name: runner
