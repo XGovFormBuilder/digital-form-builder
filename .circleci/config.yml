@@ -13,7 +13,7 @@ parameters:
   # If you need to force build all of the packages, set default: true
   force-build-all:
     type: boolean
-    default: true
+    default: false
 
   # A parameter per package
   model:
@@ -21,7 +21,7 @@ parameters:
     default: false
   engine:
     type: boolean
-    default: false
+    default: true
   designer:
     type: boolean
     default: false
