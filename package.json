@@ -23,6 +23,7 @@
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",
     "lint": "yarn workspaces foreach run lint",
+    "test": "yarn workspaces foreach run test",
     "fix-lint": "yarn workspaces foreach run fix-lint",
     "flow": "yarn workspaces foreach -piva exec flow",
     "watch": "yarn workspaces foreach -piva run watch",
