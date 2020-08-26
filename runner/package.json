@@ -13,6 +13,8 @@
     "unit-test": "lab -T test/.transform.js -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "NODE_ENV=test yarn run flow && yarn run lint && yarn run unit-test",
+    "unit-test-cov": "lab -T test/.transform.js test/**/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l --coverage-all",
+    "test-cov": "NODE_ENV=test yarn run flow && yarn run lint && yarn run unit-test-cov",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
     "babel-build": "babel src -d dist --copy-files --minified -s inline",
