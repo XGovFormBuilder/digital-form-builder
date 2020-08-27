@@ -1250,6 +1250,31 @@ suite('data model', () => {
     })
   })
 
+  describe('add component', () => {
+    test('should add a component if a page exists with the specified path', () => {
+      const data = new Data({
+        pages: [{ path: '/1' }]
+      })
+      const returned = data.addComponent('/1', { name: 'My name' })
+      expect(returned.findPage('/1')).to.equal({ path: '/1', components: [{ name: 'Ny name' }] })
+    })
+
+    test('should add a component to a page with existing components', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'First name' }] }]
+      })
+      const returned = data.addComponent('/1', { name: 'My name' })
+      expect(returned.findPage('/1')).to.equal({ path: '/1', components: [{ name: 'First name' }, { name: 'Ny name' }] })
+    })
+
+    test('should throw an error if no page exists with the specified path', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'First name' }] }]
+      })
+      expect(() => data.addComponent('/1', { name: 'My name' })).to.throw(Error)
+    })
+  })
+
   describe('clone', () => {
     test('should deep clone the data class', () => {
       const data = new Data(fullyPopulatedRawData)

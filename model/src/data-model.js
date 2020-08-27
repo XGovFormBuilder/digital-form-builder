@@ -157,6 +157,16 @@ class Data {
     return this
   }
 
+  addComponent (pagePath, component) {
+    const page = this.findPage(pagePath)
+    if (page) {
+      page.components.push(component)
+    } else {
+      throw Error(`No page exists with path ${pagePath}`)
+    }
+    return this
+  }
+
   updateCondition (name, displayName, value) {
     const condition = this.#conditions.find(condition => condition.name === name)
     if (condition) {
