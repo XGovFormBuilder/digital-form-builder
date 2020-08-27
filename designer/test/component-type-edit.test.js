@@ -13,7 +13,7 @@ const lab = Lab.script()
 exports.lab = lab
 const { suite, test, describe } = lab
 
-suite.only('Component type edit', () => {
+suite('Component type edit', () => {
   const data = new Data({ lists: [] })
   const nextId = 'abcdef'
   data.getId = sinon.stub()
