@@ -105,7 +105,7 @@ class FieldEdit extends React.Component {
             </div>
           </div>
 
-          <div className='govuk-checkboxes govuk-form-group' data-test-id='field-options.optionalText-wrapper' hidden={!this.state.optional}>
+          <div className='govuk-checkboxes govuk-form-group' data-test-id='field-options.optionalText-wrapper' hidden={isFileUploadField || !this.state.optional}>
             <div className='govuk-checkboxes__item'>
               <input
                 className='govuk-checkboxes__input' id='field-options.optionalText'
