@@ -632,7 +632,7 @@ const makeComponentTypes = {
   UrlField (component) {
     // Defaults
     if (!component.options.classes) {
-      component.options.classes = 'govuk-input--width-20'
+      component.options.classes = 'govuk-input--width-30'
     }
 
     const { name } = component

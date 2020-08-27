@@ -9,7 +9,7 @@ class UrlField extends FormComponent {
     const { options, schema } = this
 
     if (!options.classes) {
-      options.classes = 'govuk-input--width-20'
+      options.classes = 'govuk-input--width-30'
     }
 
     schema.regex = PATTERN
