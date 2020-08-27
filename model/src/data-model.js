@@ -160,7 +160,23 @@ class Data {
   addComponent (pagePath, component) {
     const page = this.findPage(pagePath)
     if (page) {
+      page.components = page.components || []
       page.components.push(component)
+    } else {
+      throw Error(`No page exists with path ${pagePath}`)
+    }
+    return this
+  }
+
+  updateComponent (pagePath, componentName, component) {
+    const page = this.findPage(pagePath)
+    if (page) {
+      page.components = page.components || []
+      const index = page.components.findIndex(it => it.name === componentName)
+      if (index < 0) {
+        throw Error(`No component exists with name ${componentName} with in page with path ${pagePath}`)
+      }
+      page.components[index] = component
     } else {
       throw Error(`No page exists with path ${pagePath}`)
     }

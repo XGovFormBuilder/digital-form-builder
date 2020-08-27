@@ -4,9 +4,8 @@ import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ComponentCreate extends React.Component {
-
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {}
     this.storeComponent = this.storeComponent.bind(this)
   }
