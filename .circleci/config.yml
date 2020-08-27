@@ -13,7 +13,7 @@ parameters:
   # If you need to force build all of the packages, set default: true
   force-build-all:
     type: boolean
-    default: false
+    default: true
 
   # A parameter per package
   model:
@@ -61,7 +61,8 @@ jobs:
             - all-dependencies
       - run: yarn install
       - run: yarn rebuild node-sass only
-      - run: yarn flow-mono install-types && yarn flow-mono create-stubs
+      - run: yarn run flow-mono install-types
+      - run: yarn run flow-mono create-stubs
       - save_cache:
           paths:
             - node_modules
@@ -72,6 +73,7 @@ jobs:
             - designer/flow-typed
             - runner/flow-typed
           key: all-dependencies-{{ checksum "yarn.lock" }}
+
       - persist_to_workspace:
           root: ~/project
           paths:
