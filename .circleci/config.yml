@@ -134,12 +134,11 @@ jobs:
                 condition:
                   or:
                     - and:
-                        - equal: ['model', << parameters.package_name >>]
-                        - not: << pipeline.parameters.model >>
-
+                      - equal: ['engine', << parameters.package_name >>]
+                      - not: << pipeline.parameters.model >>
                 steps:
                   - run:
-                      name: Build dependencies
+                      name: Build model
                       command: |
                         yarn model build
 
