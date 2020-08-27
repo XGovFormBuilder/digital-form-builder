@@ -238,6 +238,20 @@ suite('Component type edit', () => {
       })
     })
   })
+
+  describe('optional checkbox', () => {
+    test('clicking checkbox should toggle checked', () => {
+      const wrapper = mount(<ComponentTypeEdit data={data} component={{ type: 'TextField', name: 'myComponent', title: 'My component' }} updateModel={sinon.spy()} />)
+      const checkbox = wrapper.find('#field-options-required')
+      const optionalText = wrapper.find('[data-test-id="field-options.optionalText-wrapper"]')
+      expect(checkbox.exists()).to.equal(true)
+      expect(optionalText.instance().hidden).to.equal(true)
+      expect(checkbox.props().checked).to.equal(false)
+      checkbox.simulate('change', { target: { checked: true } })
+      expect(checkbox.instance().checked).to.equal(true)
+      expect(optionalText.instance().hidden).to.equal(false)
+    })
+  })
 })
 
 function assertOptionalTextWrapper (input, hidden) {
