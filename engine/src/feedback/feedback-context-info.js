@@ -1,8 +1,6 @@
-'use strict'
-
-const atob = require('atob')
-const btoa = require('btoa')
-const RelativeUrl = require('./relative-url')
+import atob from 'atob'
+import btoa from 'btoa'
+import RelativeUrl from './relative-url'
 
 class FeedbackContextInfo {
   constructor (formTitle, pageTitle, url) {

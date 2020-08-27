@@ -1,8 +1,6 @@
-'use strict'
-
 /**
-  Enforces use of relative URL's, prevents someone maliciously causing a user to be directed to a phishing
-  site.
+ * Enforces use of relative URL's, prevents someone maliciously causing a user to be directed to a phishing
+ * site.
 **/
 module.exports = class RelativeUrl {
   static FEEDBACK_RETURN_INFO_PARAMETER = 'f_t'
