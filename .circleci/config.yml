@@ -130,6 +130,19 @@ jobs:
                       command: |
                         yarn build:dependencies
 
+            - when:
+                condition:
+                  or:
+                    - and:
+                        - equal: ['model', << parameters.package_name >>]
+                        - not: << pipeline.parameters.model >>
+
+                steps:
+                  - run:
+                      name: Build dependencies
+                      command: |
+                        yarn model build
+
             - run:
                 name: Build
                 command: |
