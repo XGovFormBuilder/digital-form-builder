@@ -68,7 +68,7 @@ function TelephoneNumberField () {
 function NationalInsuranceNumberField () {
   return (
     <ComponentField>
-      <div>National Insurance Nunber</div>
+      <div className='box'>AA 123456 C</div>
     </ComponentField>
   )
 }
@@ -76,7 +76,7 @@ function NationalInsuranceNumberField () {
 function UrlField () {
   return (
     <ComponentField>
-      <div>URL</div>
+      <div className='box'>http(s)://...</div>
     </ComponentField>
   )
 }
