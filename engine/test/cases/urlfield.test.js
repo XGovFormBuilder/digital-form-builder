@@ -19,7 +19,7 @@ suite('url field', () => {
 
     expect(viewModel).to.equal(
       {
-        classes: 'govuk-input--width-20',
+        classes: 'govuk-input--width-30',
         id: 'myComponent',
         label: {
           classes: 'govuk-label--s',

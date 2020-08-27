@@ -1,7 +1,7 @@
 const { FormComponent } = require('.')
 const helpers = require('./helpers')
 
-const PATTERN = '^(?!BG|GB|NK|KN|TN|NT|ZZ)[ABCEGHJ-PRSTW-Z][ABCEGHJ-NPRSTW-Z]\\s*\\d{2}\\s*\\d{2}\\s*\\d{2}\\s*[A-D]$'
+const PATTERN = '^(?!BG|GB|NK|KN|TN|NT|ZZ)[ABCEGHJ-PRSTW-Z]\\s*[ABCEGHJ-NPRSTW-Z]\\s*\\d{1}\\s*\\d{1}\\s*\\d{1}\\s*\\d{1}\\s*\\d{1}\\s*\\d{1}\\s*[A-D]$'
 
 class NationalInsuranceNumberField extends FormComponent {
   constructor (def, model) {

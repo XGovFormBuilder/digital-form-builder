@@ -11,12 +11,22 @@ const nationalInsuranceNumbersValid = [
   'AA123456C',
   'AA 12 34 56 C',
   'AA 123456C',
-  'AA 123456 C'
+  'AA 123456 C',
+  'A A 12 34 56 C',
+  'AA 1 2 3 4 5 6 C',
+  'A A 1 2 3 4 5 6 C'
 ]
 
 const nationalInsuranceNumbersInvalid = [
   'A',
   '1',
+  'AA',
+  'AA1',
+  'AA12',
+  'AA234',
+  'AA1234',
+  'AA12345',
+  'AA123456',
   'AA123456CC'
 ]
 
