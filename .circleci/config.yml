@@ -186,20 +186,22 @@ workflows:
           requires:
             - install-yarn
       - build-lint-test:
-          name: designer-build-lint-test
-          package_name: designer
-          should_build: << pipeline.parameters.designer >>
-          requires:
-            - model-build-lint-test
-      - build-lint-test:
           name: engine-build-lint-test
           package_name: engine
           should_build: << pipeline.parameters.engine >>
           requires:
-            - designer-build-lint-test
+            - model-build-lint-test
+
       - build-lint-test:
           name: runner-build-lint-test
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
             - engine-build-lint-test
+
+      - build-lint-test:
+          name: designer-build-lint-test
+          package_name: designer
+          should_build: << pipeline.parameters.designer >>
+          requires:
+            - model-build-lint-test
