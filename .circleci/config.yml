@@ -98,17 +98,17 @@ jobs:
 
               # if the upstream dependencies (model or engine) have changed, this package must be rebuilt.
               - and:
-                - equal: ['engine', << parameters.package_name >>]
-                - << pipeline.parameters.model >>
+                  - equal: ['engine', << parameters.package_name >>]
+                  - << pipeline.parameters.model >>
               - and:
-                - equal: ['runner', << parameters.package_name >>]
-                - << pipeline.parameters.model >>
+                  - equal: ['runner', << parameters.package_name >>]
+                  - << pipeline.parameters.model >>
               - and:
-                - equal: ['runner', << parameters.package_name >>]
-                - << pipeline.parameters.engine >>
+                  - equal: ['runner', << parameters.package_name >>]
+                  - << pipeline.parameters.engine >>
               - and:
-                - equal: ['designer', << parameters.package_name >>]
-                - << pipeline.parameters.model >>
+                  - equal: ['designer', << parameters.package_name >>]
+                  - << pipeline.parameters.model >>
           steps:
             - attach_workspace:
                 at: ~/project
@@ -117,13 +117,13 @@ jobs:
                 condition:
                   or:
                     - and:
-                      - equal: ['runner', << parameters.package_name >>]
-                      - or:
-                        - not: << pipeline.parameters.engine >>
-                        - not: << pipeline.parameters.model >>
+                        - equal: ['runner', << parameters.package_name >>]
+                        - or:
+                            - not: << pipeline.parameters.engine >>
+                            - not: << pipeline.parameters.model >>
                     - and:
-                      - equal: ['designer', << parameters.package_name >>]
-                      - not: << pipeline.parameters.model >>
+                        - equal: ['designer', << parameters.package_name >>]
+                        - not: << pipeline.parameters.model >>
                 steps:
                   - run:
                       name: Build dependencies
@@ -134,8 +134,8 @@ jobs:
                 condition:
                   or:
                     - and:
-                      - equal: ['engine', << parameters.package_name >>]
-                      - not: << pipeline.parameters.model >>
+                        - equal: ['engine', << parameters.package_name >>]
+                        - not: << pipeline.parameters.model >>
                 steps:
                   - run:
                       name: Build model
