@@ -4,7 +4,12 @@ import ComponentTypeEdit from './component-type-edit'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ComponentEdit extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
+    this.state = {
+      component: props.component
+    }
+  }
 
   onSubmit = e => {
     e.preventDefault()
@@ -59,7 +64,8 @@ class ComponentEdit extends React.Component {
   }
 
   render () {
-    const { page, component, data } = this.props
+    const { page, data } = this.props
+    const { component } = this.state
 
     const copyComp = JSON.parse(JSON.stringify(component))
 
@@ -76,6 +82,7 @@ class ComponentEdit extends React.Component {
             page={page}
             component={copyComp}
             data={data}
+            updateModel={component => this.setState({ component })}
           />
 
           <button className='govuk-button' type='submit'>Save</button>{' '}

@@ -47,6 +47,7 @@ suite('Component create', () => {
     expect(componentTypeEdit.prop('page')).to.equal(page)
     expect(componentTypeEdit.prop('component')).to.equal({ type: 'TextField', name: generatedId })
     expect(componentTypeEdit.prop('data')).to.equal(data)
-    expect(Object.keys(componentTypeEdit.props()).length).to.equal(3)
+    expect(componentTypeEdit.prop('updateModel')).to.equal(wrapper.instance().storeComponent)
+    expect(Object.keys(componentTypeEdit.props()).length).to.equal(4)
   })
 })

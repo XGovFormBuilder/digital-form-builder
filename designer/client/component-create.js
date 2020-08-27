@@ -60,6 +60,7 @@ class ComponentCreate extends React.Component {
                 page={page}
                 component={this.state.component}
                 data={data}
+                updateModel={this.storeComponent}
               />
 
               <button type='submit' className='govuk-button'>Save</button>
@@ -69,6 +70,10 @@ class ComponentCreate extends React.Component {
         </form>
       </div>
     )
+  }
+
+  storeComponent (component) {
+    this.setState({ component })
   }
 }
 
