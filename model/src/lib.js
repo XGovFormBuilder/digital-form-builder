@@ -6,6 +6,7 @@ import { FormConfiguration } from './form-configuration'
 import { clone } from './helpers'
 import { Logger } from './logger'
 import { ConditionValue, timeUnits, valueFrom, dateDirections, RelativeTimeValue, dateTimeUnits, dateUnits } from './conditions/inline-condition-values'
+import { SchemaMigrationService } from './migration/schema-migrations'
 import {
   absoluteDateOrTimeOperatorNames, getOperatorConfig, relativeDateOrTimeOperatorNames, getOperatorNames, getExpression
 } from './conditions/inline-condition-operators'
@@ -21,5 +22,5 @@ export {
   ComponentTypes, ConditionalComponentTypes, Schema, Data, clone, ConditionValue, timeUnits,
   absoluteDateOrTimeOperatorNames, getOperatorConfig, relativeDateOrTimeOperatorNames, Condition, Field,
   valueFrom, getOperatorNames, getExpression, GroupDef, ConditionsModel, dateDirections, RelativeTimeValue,
-  dateTimeUnits, dateUnits, FormConfiguration, Logger
+  dateTimeUnits, dateUnits, FormConfiguration, Logger, SchemaMigrationService
 }
