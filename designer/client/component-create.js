@@ -7,7 +7,6 @@ class ComponentCreate extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
-    this.storeComponent = this.storeComponent.bind(this)
   }
 
   async componentDidMount () {
@@ -66,7 +65,7 @@ class ComponentCreate extends React.Component {
     )
   }
 
-  storeComponent (component) {
+  storeComponent = (component) => {
     this.setState({ component })
   }
 }

@@ -8,7 +8,6 @@ class ComponentEdit extends React.Component {
     this.state = {
       component: props.component
     }
-    this.storeComponent = this.storeComponent.bind(this)
   }
 
   async onSubmit (e) {
@@ -81,7 +80,7 @@ class ComponentEdit extends React.Component {
     )
   }
 
-  storeComponent (component) {
+  storeComponent = (component) => {
     this.setState({ component })
   }
 }
