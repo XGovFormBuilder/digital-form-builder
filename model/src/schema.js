@@ -25,6 +25,12 @@ const relativeTimeValueSchema = joi.object().keys({
   timeOnly: joi.boolean().required()
 })
 
+const conditionRefSchema = joi.object().keys({
+  conditionName: joi.string().required(),
+  conditionDisplayName: joi.string().required(),
+  coordinator: joi.string().optional()
+})
+
 const conditionSchema = joi.object().keys({
   field: conditionFieldSchema,
   operator: joi.string().required(),
@@ -33,12 +39,12 @@ const conditionSchema = joi.object().keys({
 })
 
 const conditionGroupSchema = joi.object().keys({
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
 })
 
 const conditionsModelSchema = joi.object().keys({
   name: joi.string().required(),
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionGroupSchema))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, conditionGroupSchema))
 })
 
 const conditionsSchema = joi.object().keys({

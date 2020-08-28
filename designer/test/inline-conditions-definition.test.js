@@ -5,7 +5,7 @@ import * as Lab from '@hapi/lab'
 import { assertLink, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinition from '../client/conditions/inline-conditions-definition'
-import { Condition, Field } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { Condition, Field, ConditionRef } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
 import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 import { getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
 
@@ -36,7 +36,8 @@ suite('Inline conditions definition section', () => {
         { name: 'field1', title: 'Something', type: 'TextField' },
         { name: 'field2', title: 'Something else', type: 'TextField' },
         { name: 'field3', title: 'Another thing', type: 'SelectField' },
-        { name: 'field4', title: 'A number', type: 'NumberField' }
+        { name: 'field4', title: 'A number', type: 'NumberField' },
+        { name: 'condition1', title: 'A condition', type: 'Condition' }
       ]
       expectedFields = {
         field1: {
@@ -62,6 +63,11 @@ suite('Inline conditions definition section', () => {
           name: 'field4',
           type: 'NumberField',
           values: undefined
+        },
+        condition1: {
+          label: 'A condition',
+          name: 'condition1',
+          type: 'Condition'
         }
       }
       data.inputsAccessibleAt.withArgs(path).returns(fields)
@@ -239,6 +245,44 @@ suite('Inline conditions definition section', () => {
 
         assertInlineConditionsDefinitionValueComponent(wrapper, selectFieldOperators[0])
         assertNoSaveConditionLink(wrapper)
+      })
+
+      test('Change field to an existing condition displays save condition link', () => {
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
+        wrapper.find('#cond-field').simulate('change', { target: { value: fields[3].name } })
+        wrapper.find('#cond-operator').simulate('change', { target: { value: 'is at least' } })
+        const value = new ConditionValue('10')
+        wrapper.instance().updateValue(value)
+
+        assertFieldInputPresent(wrapper, fields, fields[3].name)
+        assertOperatorInputPresent(wrapper, numberFieldOperators, 'is at least')
+        assertInlineConditionsDefinitionValueComponent(wrapper, 'is at least', value)
+
+        wrapper.find('#cond-field').simulate('change', { target: { value: fields[4].name } })
+
+        assertFieldInputPresent(wrapper, fields, fields[4].name)
+        assertOperatorInputNotPresent(wrapper)
+        assertValueInputNotPresent(wrapper)
+        assertSaveConditionLink(wrapper)
+      })
+
+      test('Clicking the \'save condition\' link with an existing condition selected stores a reference to the selected condition', () => {
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator={false} fields={expectedFields} />)
+        wrapper.find('#cond-field').simulate('change', { target: { value: fields[4].name } })
+        wrapper.find('#save-condition').simulate('click')
+
+        expect(saveCallback.calledOnce).to.equal(true)
+        expect(saveCallback.firstCall.args[0]).to.equal(new ConditionRef(fields[4].name, fields[4].title))
+      })
+
+      test('Clicking the \'save condition\' link when adding a condition as a subsequent condition includes the coordinator', () => {
+        const wrapper = shallow(<InlineConditionsDefinition saveCallback={saveCallback} expectsCoordinator fields={expectedFields} />)
+        wrapper.find('#cond-coordinator').simulate('change', { target: { value: 'or' } })
+        wrapper.find('#cond-field').simulate('change', { target: { value: fields[4].name } })
+        wrapper.find('#save-condition').simulate('click')
+
+        expect(saveCallback.calledOnce).to.equal(true)
+        expect(saveCallback.firstCall.args[0]).to.equal(new ConditionRef(fields[4].name, fields[4].title, 'or'))
       })
 
       test('Change field erases value but keeps operator if operator is still relevant', () => {

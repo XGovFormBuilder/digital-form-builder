@@ -1,9 +1,13 @@
 import React from 'react'
-import { Condition, Field } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { Condition, Field, ConditionRef } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
 import { valueFrom } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 import { getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
 import InlineConditionsDefinitionValue from './inline-conditions-definition-values'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
+
+function isCondition (fieldDef) {
+  return fieldDef?.type === 'Condition'
+}
 
 class InlineConditionsDefinition extends React.Component {
   constructor (props) {
@@ -42,7 +46,13 @@ class InlineConditionsDefinition extends React.Component {
     this.setState({
       condition: {}
     })
-    this.props.saveCallback(new Condition(Field.from(condition.field), condition.operator, valueFrom(condition.value), condition.coordinator))
+
+    const fieldDef = this.props.fields[condition.field.name]
+    if (isCondition(fieldDef)) {
+      this.props.saveCallback(new ConditionRef(fieldDef.name, fieldDef.label, condition.coordinator))
+    } else {
+      this.props.saveCallback(new Condition(Field.from(condition.field), condition.operator, valueFrom(condition.value), condition.coordinator))
+    }
   }
 
   onChangeField = e => {
@@ -58,13 +68,22 @@ class InlineConditionsDefinition extends React.Component {
 
     this._updateCondition(condition, c => {
       if (fieldName) {
-        if (currentField && this.props.fields[currentField].values !== fieldDef.values) {
+        if (isCondition(fieldDef)) {
           delete c.value
-        }
-        if (currentOperator && !getOperatorNames(fieldName).includes(currentOperator)) {
           delete c.operator
+        } else {
+          if (currentField && this.props.fields[currentField].values !== fieldDef.values) {
+            delete c.value
+          }
+          if (currentOperator && !getOperatorNames(fieldName).includes(currentOperator)) {
+            delete c.operator
+          }
         }
-        c.field = new Field(fieldName, fieldDef.type, fieldDef.label)
+        c.field = {
+          name: fieldName,
+          display: fieldDef.label,
+          type: fieldDef.type
+        }
       } else {
         delete c.field
         delete c.operator
@@ -127,11 +146,11 @@ class InlineConditionsDefinition extends React.Component {
             <option />
             {
               Object.values(this.props.fields).map((field, index) =>
-                <option key={`${field.propertyPath}-${index}`} value={field.name}>{field.label}</option>)
+                <option key={`${field.name}-${index}`} value={field.name}>{field.label}</option>)
             }
           </select>
 
-          {fieldDef &&
+          {fieldDef && !isCondition(fieldDef) &&
             <select
               className='govuk-select' id='cond-operator' name='cond-operator' value={condition.operator ?? ''}
               onChange={this.onChangeOperator}
@@ -146,15 +165,19 @@ class InlineConditionsDefinition extends React.Component {
                   </option>
                 })
               }
-            </select>}
+            </select>
+          }
 
           {condition.operator && <InlineConditionsDefinitionValue fieldDef={fieldDef} value={condition.value} operator={condition.operator} updateValue={this.updateValue} />}
-          {condition.value &&
+          {(condition.value || isCondition(fieldDef)) &&
             <div className='govuk-form-group'>
               <a href='#' id='save-condition' className='govuk-link' onClick={this.onClickFinalise}>Add</a>
-            </div>}
-        </div>}
-    </div>)
+            </div>
+          }
+        </div>
+      }
+    </div>
+    )
   }
 }
 
