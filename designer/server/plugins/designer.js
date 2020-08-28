@@ -1,5 +1,5 @@
 const Schema = require('@xgovformbuilder/model/lib/schema')
-const shortid = require('shortid')
+const { nanoid } = require('nanoid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')
 const config = require('../../config')
@@ -60,7 +60,7 @@ const designerPlugin = {
           handler: async (request, h) => {
             const { persistenceService } = request.services([])
             const { selected, name } = request.payload
-            const newName = name === '' ? shortid.generate() : name
+            const newName = name === '' ? nanoid(10) : name
             try {
               if (selected.Key === 'New') {
                 await persistenceService.uploadConfiguration(`${newName}.json`, JSON.stringify(require('../../new-form.json')))
@@ -87,15 +87,6 @@ const designerPlugin = {
           handler: (request, h) => {
             const { id } = request.params
             return h.view('designer', { id, previewUrl: config.previewUrl })
-          }
-        }
-      })
-      server.route({
-        method: 'get',
-        path: '/{id}/api/id',
-        options: {
-          handler: (request, h) => {
-            return h.response(shortid.generate()).code(200)
           }
         }
       })
@@ -155,7 +146,7 @@ const designerPlugin = {
                 console.log(result.error)
                 throw new Error('Schema validation failed')
               }
-              await persistenceService.uploadConfiguration(`${id}.json`, JSON.stringify(result.value))
+              await persistenceService.uploadConfiguration(`${id}`, JSON.stringify(result.value))
               await publish(id, result.value)
               return h.response({ ok: true }).code(204)
             } catch (err) {

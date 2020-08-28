@@ -1,3 +1,7 @@
+import { Helpers } from '@xgovformbuilder/engine'
+
+const redirectTo = Helpers.redirectTo
+
 const routes = [].concat(
   require('../routes/public')
 )
@@ -32,7 +36,7 @@ module.exports = {
             request.yar.reset()
           }
           const { redirect } = request.query
-          return h.redirect(redirect || '/')
+          return redirectTo(request, h, redirect || '/')
         }
       })
 

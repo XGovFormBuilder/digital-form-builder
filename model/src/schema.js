@@ -128,15 +128,22 @@ const sheetsSchema = joi.object().keys({
   sheets: joi.array().items(sheetItemSchema),
   spreadsheetIdField: joi.string()
 })
+
 const outputSchema = joi.object().keys({
   name: joi.string(),
   title: joi.string().optional(),
-  type: joi.string().allow('confirmationEmail', 'email', 'webhook', 'sheets'),
+  type: joi.string().allow('notify', 'email', 'webhook', 'sheets'),
   outputConfiguration: joi.alternatives().try(notifySchema, emailSchema, webhookSchema, sheetsSchema)
+})
+
+const feedbackSchema = joi.object().keys({
+  feedbackForm: joi.boolean().default(false),
+  url: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() })
 })
 
 const schema = joi.object().required().keys({
   name: localisedString.optional(),
+  feedback: feedbackSchema,
   startPage: joi.string().required(),
   pages: joi.array().required().items(pageSchema).unique('path'),
   sections: joi.array().items(sectionsSchema).unique('name').required(),

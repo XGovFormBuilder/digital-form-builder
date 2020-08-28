@@ -2,12 +2,37 @@ import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
 import { Data } from '..'
+
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
 const { suite, describe, test } = lab
 
 suite('data model', () => {
+  const fullyPopulatedRawData = {
+    pages: [
+      {
+        name: 'page1',
+        section: 'section1',
+        path: '/1',
+        next: [{ path: '/2' }],
+        components: [{ name: 'name1' }, { name: 'name2' }]
+      },
+      {
+        name: 'page2',
+        section: 'section1',
+        path: '/2',
+        next: [{ path: '/3' }],
+        components: [{ name: 'name3' }, { name: 'name4' }]
+      }
+    ],
+    conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }],
+    feedback: {
+      feedbackForm: false,
+      url: '/feedback'
+    }
+  }
+
   describe('all inputs', () => {
     test('should return all inputs from the page model', () => {
       const data = new Data({
@@ -29,6 +54,38 @@ suite('data model', () => {
         { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
         { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
         { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+      ])
+    })
+
+    test('should include feedback inputs for feedback form', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        },
+        startPage: '/page1',
+        pages: [
+          {
+            name: 'page1',
+            path: '/page1',
+            section: 'section1',
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            path: '/page2',
+            section: 'section1',
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          }
+        ]
+      })
+      expect(data.allInputs()).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
+        { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
+        { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
       ])
     })
 
@@ -411,6 +468,47 @@ suite('data model', () => {
         { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
         { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
         { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+      ])
+    })
+
+    test('should include feedback context inputs for feedback form', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        },
+        startPage: '/1',
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            path: '/1',
+            next: [{ path: '/2' }],
+            components: [{ name: 'name1' }, { name: 'name2' }]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            path: '/2',
+            next: [{ path: '/3' }],
+            components: [{ name: 'name3' }, { name: 'name4' }]
+          },
+          {
+            name: 'page3',
+            path: '/3',
+            components: [{ name: 'name5' }, { name: 'name6' }]
+          }
+        ]
+      })
+      expect(data.inputsAccessibleAt('/3')).to.equal([
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' },
+        { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
+        { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
+        { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
       ])
     })
 
@@ -996,30 +1094,170 @@ suite('data model', () => {
     })
   })
 
+  describe('name', () => {
+    test('should get the provided name', () => {
+      const data = new Data({
+        name: 'My form'
+      })
+      expect(data.name).to.equal('My form')
+    })
+
+    test('should set the provided name', () => {
+      const data = new Data({})
+      data.name = 'My form'
+      expect(data.name).to.equal('My form')
+    })
+
+    test('should set to undefined', () => {
+      const data = new Data({})
+      data.name = undefined
+      expect(data.name).to.equal(undefined)
+    })
+
+    test('should error if setting the name to a non-string value', () => {
+      const data = new Data({})
+      expect(() => { data.name = 2 }).to.throw(Error)
+    })
+  })
+
+  describe('feedbackForm', () => {
+    test('should return true if set to true', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        }
+      })
+      expect(data.feedbackForm).to.equal(true)
+    })
+
+    test('should return false if set to false', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: false
+        }
+      })
+      expect(data.feedbackForm).to.equal(false)
+    })
+
+    test('should return false if no value', () => {
+      const data = new Data({
+        feedback: {}
+      })
+      expect(data.feedbackForm).to.equal(false)
+    })
+
+    test('should return false if no feedback config', () => {
+      const data = new Data({})
+      expect(data.feedbackForm).to.equal(false)
+    })
+
+    test('should set the provided boolean', () => {
+      const data = new Data({})
+      data.feedbackForm = true
+      expect(data.feedbackForm).to.equal(true)
+    })
+
+    test('should error if setting to a non-boolean value', () => {
+      const data = new Data({})
+      expect(() => { data.feedbackForm = 2 }).to.throw(Error)
+    })
+  })
+
+  describe('feedbackUrl', () => {
+    test('should return value if set', () => {
+      const data = new Data({
+        feedback: {
+          url: '/feedback'
+        }
+      })
+      expect(data.feedbackUrl).to.equal('/feedback')
+    })
+
+    test('should return undefined if not set', () => {
+      const data = new Data({
+        feedback: {}
+      })
+      expect(data.feedbackUrl).to.equal(undefined)
+    })
+
+    test('should return undefined if no feedback config', () => {
+      const data = new Data({})
+      expect(data.feedbackUrl).to.equal(undefined)
+    })
+  })
+
+  describe('addFeedbackUrl', () => {
+    test('should set the provided string', () => {
+      const data = new Data({})
+      data.setFeedbackUrl('/feedback')
+      expect(data.feedbackUrl).to.equal('/feedback')
+    })
+
+    test('should set feedback url to undefined and clear send context', () => {
+      const data = new Data({
+        feedback: {
+          url: '/feedback'
+        }
+      })
+      data.setFeedbackUrl()
+      expect(data.feedbackUrl).to.equal(undefined)
+    })
+
+    test('should error if setting url to a non-string value', () => {
+      const data = new Data({})
+      expect(() => data.setFeedbackUrl(2)).to.throw(Error)
+    })
+
+    test('should error if setting url on a feedback form', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true
+        }
+      })
+      expect(() => data.setFeedbackUrl('/feedback')).to.throw(Error)
+    })
+
+    test('should not error if setting url to undefined on a feedback form', () => {
+      const data = new Data({
+        feedback: {
+          feedbackForm: true,
+          url: '/feedback'
+        }
+      })
+      data.setFeedbackUrl()
+      expect(data.feedbackUrl).to.equal(undefined)
+    })
+  })
+
+  describe('constructor', () => {
+    test('should construct data model from raw data schema', () => {
+      const returned = new Data(fullyPopulatedRawData)
+      expect(returned.pages).to.equal(fullyPopulatedRawData.pages)
+      expect(returned.conditions).to.equal(fullyPopulatedRawData.conditions)
+      expect(returned.feedbackUrl).to.equal(fullyPopulatedRawData.feedback.url)
+      expect(returned.feedbackForm).to.equal(fullyPopulatedRawData.feedback.feedbackForm)
+      expect(returned instanceof Data).to.equal(true)
+    })
+
+    test('should construct data model from existing data model object', () => {
+      const rawData = new Data(fullyPopulatedRawData)
+      const returned = new Data(rawData)
+      expect(returned.pages).to.equal(rawData.pages)
+      expect(returned.conditions).to.equal(rawData.conditions)
+      expect(returned.feedbackUrl).to.equal(rawData.feedbackUrl)
+      expect(returned.feedbackForm).to.equal(rawData.feedbackForm)
+      expect(returned instanceof Data).to.equal(true)
+    })
+  })
+
   describe('clone', () => {
     test('should deep clone the data class', () => {
-      const data = new Data({
-        pages: [
-          {
-            name: 'page1',
-            section: 'section1',
-            path: '/1',
-            next: [{ path: '/2' }],
-            components: [{ name: 'name1' }, { name: 'name2' }]
-          },
-          {
-            name: 'page2',
-            section: 'section1',
-            path: '/2',
-            next: [{ path: '/3' }],
-            components: [{ name: 'name3' }, { name: 'name4' }]
-          }
-        ],
-        conditions: [{ name: 'badger', displayName: 'Badgers', value: 'badger == true' }]
-      })
+      const data = new Data(fullyPopulatedRawData)
       const returned = data.clone()
       expect(returned).to.equal(data)
       expect(returned.conditions).to.equal(data.conditions)
+      expect(returned.feedbackUrl).to.equal(data.feedbackUrl)
+      expect(returned.feedbackForm).to.equal(data.feedbackForm)
       expect(returned instanceof Data).to.equal(true)
       expect(data === returned).to.equal(false)
     })
@@ -1258,6 +1496,26 @@ suite('data model', () => {
     test('should expose the conditions field', () => {
       const rawData = {
         conditions: [{ displayName: 'a Monkey', name: 'someName' }]
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal(rawData)
+    })
+
+    test('should expose the name field', () => {
+      const rawData = {
+        conditions: [],
+        name: 'My form'
+      }
+      const data = new Data(rawData)
+      expect(data.toJSON()).to.equal(rawData)
+    })
+
+    test('should expose the feedback field', () => {
+      const rawData = {
+        conditions: [],
+        feedback: {
+          feedbackForm: true
+        }
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)

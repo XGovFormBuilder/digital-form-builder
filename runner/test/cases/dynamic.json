@@ -203,7 +203,7 @@
       }
     },
     {
-      "name": "confirmationemail",
+      "name": "notify",
       "type": "notify",
       "outputConfiguration": {
         "templateId": "<GOV.UK Notify template ID>",

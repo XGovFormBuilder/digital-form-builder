@@ -14,7 +14,7 @@ suite('CSRF', () => {
   const options = () => {
     return {
       method: 'POST',
-      url: '/basic/start',
+      url: '/basic/start?visit=1',
       headers: form.getHeaders(),
       payload: form.getBuffer()
     }
@@ -33,7 +33,7 @@ suite('CSRF', () => {
   test('get request returns CSRF header', async () => {
     const options = {
       method: 'GET',
-      url: '/basic/start'
+      url: '/basic/start?visit=1'
     }
 
     const response = await server.inject(options)

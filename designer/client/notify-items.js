@@ -1,16 +1,6 @@
 import React from 'react'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 
-function headDuplicate (arr) {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] === arr[i]) {
-        return j
-      }
-    }
-  }
-}
-
 class NotifyItems extends React.Component {
   constructor (props) {
     super(props)
@@ -21,7 +11,7 @@ class NotifyItems extends React.Component {
 
   onClickAddItem = e => {
     this.setState({
-      items: this.state.items.concat({ description: '', amount: 0, condition: '' })
+      items: this.state.items.concat('')
     })
   }
 
@@ -52,22 +42,17 @@ class NotifyItems extends React.Component {
       })
   }
 
-  onBlur = e => {
-    const form = e.target.form
-    const formData = new window.FormData(form)
-    const personalisation = formData.getAll('personalisation').map(t => t.trim())
+  onChangeItem = (e, index) => {
+    const { items } = this.state
+    items[index] = e.target.value
+    this.setState({
+      items
+    })
 
-    // Only validate dupes if there is more than one item
-    if (personalisation.length < 2) {
-      return
-    }
-    console.log('form elements', form.elements)
-    form.elements.personalisation.forEach(el => el.setCustomValidity(''))
-
-    // Validate uniqueness
-    const dupeCondition = headDuplicate(personalisation)
-    if (dupeCondition) {
-      form.elements.personalisation[dupeCondition].setCustomValidity('Duplicate conditions found in the list items')
+    if (items.find((item, itemIndex) => item === e.target.value && itemIndex !== index)) {
+      e.target.setCustomValidity('Duplicate conditions found in the list items')
+    } else {
+      e.target.setCustomValidity('')
     }
   }
 
@@ -80,12 +65,13 @@ class NotifyItems extends React.Component {
         <caption className='govuk-table__caption'>
           Notify personalisations
           <span className='govuk-hint'>
-            These values must match the personalisations in the GOV.UK Notify template.
+            Notify template keys must match the personalisations in the GOV.UK Notify template.
           </span>
         </caption>
         <thead className='govuk-table__head'>
           <tr className='govuk-table__row'>
             <th className='govuk-table__header' scope='col'>Description</th>
+            <th className='govuk-table__header' scope='col'>Notify template key</th>
             <th className='govuk-table__header' scope='col'>
               <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
             </th>
@@ -95,10 +81,12 @@ class NotifyItems extends React.Component {
           {items.map((item, index) => (
             <tr key={item + index} className='govuk-table__row' scope='row'>
               <td className='govuk-table__cell'>
-                <select className='govuk-select' id='link-source' name='personalisation' defaultValue={item} required>
-                  {values.map((value, i) => (<option key={value + i} value={value} onBlur={this.onBlur}>{value}</option>))}
+                <select className='govuk-select' id='link-source' name='personalisation' value={item} onChange={e => this.onChangeItem(e, index)} required>
+                  <option />
+                  {values.map((value, i) => (<option key={value.name + i} value={value.name}>{value.display ?? value.name}</option>))}
                 </select>
               </td>
+              <td className='govuk-table__cell' >{item}</td>
               <td className='govuk-table__cell' width='20px'>
                 <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
               </td>

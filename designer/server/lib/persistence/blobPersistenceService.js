@@ -3,7 +3,7 @@ import type { PersistenceService } from './persistenceService'
 
 export class BlobPersistenceService implements PersistenceService {
   logger: any;
-  uploadConfiguration (id: string, configuration: any) {
+  uploadConfiguration (id: string, configuration: string) {
     return Promise.resolve(undefined)
   }
 
@@ -12,6 +12,9 @@ export class BlobPersistenceService implements PersistenceService {
   }
 
   getConfiguration (id: string) {
+    return Promise.resolve('')
+  }
+  copyConfiguration (configurationId: string, newName: string) {
     return Promise.resolve('')
   }
 }

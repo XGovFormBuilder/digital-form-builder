@@ -4,6 +4,13 @@ import Menu from './menu'
 import Visualisation from './visualisation'
 import NewConfig from './new-config'
 import { Data } from '@xgovformbuilder/model/lib/data-model'
+import { customAlphabet } from 'nanoid'
+/**
+ * Custom alphabet is required because '-' is used as a symbol in
+ * expr-eval (condition logic) so components which include a '-' in the name
+ * result in broken conditions
+ */
+const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz', 10)
 
 class App extends React.Component {
   state = {
@@ -49,17 +56,7 @@ class App extends React.Component {
   }
 
   getId = () => {
-    return window.fetch(`${this.state.id}/api/id`, {
-      method: 'get',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(res => {
-      return res.text()
-    }).catch(() => {
-      // Not connected to preview environment
-    })
+    return nanoid()
   }
 
   setFunctions (data) {
