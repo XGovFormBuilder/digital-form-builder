@@ -1,5 +1,5 @@
 const Schema = require('@xgovformbuilder/model/lib/schema')
-const shortid = require('shortid')
+const { nanoid } = require('nanoid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')
 const config = require('../../config')
@@ -60,7 +60,7 @@ const designerPlugin = {
           handler: async (request, h) => {
             const { persistenceService } = request.services([])
             const { selected, name } = request.payload
-            const newName = name === '' ? shortid.generate() : name
+            const newName = name === '' ? nanoid(10) : name
             try {
               if (selected.Key === 'New') {
                 await persistenceService.uploadConfiguration(`${newName}.json`, JSON.stringify(require('../../new-form.json')))
@@ -87,20 +87,6 @@ const designerPlugin = {
           handler: (request, h) => {
             const { id } = request.params
             return h.view('designer', { id, previewUrl: config.previewUrl })
-          }
-        }
-      })
-      server.route({
-        method: 'get',
-        path: '/{id}/api/id',
-        options: {
-          handler: (request, h) => {
-            /**
-             * slightly hideous. We can't use hyphen as expr-eval uses that as an operator.
-             * introduces a (vanishingly small) risk of id collision. I did try a LOT of other
-             * possible characters - but expr-eval won't parse them.
-             */
-            return h.response(shortid.generate().replace(/-/g, '_')).code(200)
           }
         }
       })

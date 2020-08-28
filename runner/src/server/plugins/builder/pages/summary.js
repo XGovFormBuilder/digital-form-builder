@@ -5,7 +5,7 @@ const redirectUrl = Helpers.redirectUrl
 
 const joi = require('joi')
 const Page = require('./index')
-const shortid = require('shortid')
+const { nanoid } = require('nanoid')
 const { formSchema } = require('../../../lib/formSchema')
 const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
@@ -530,7 +530,7 @@ class SummaryPage extends Page {
         return redirectTo(request, h, '/status')
       }
 
-      const paymentReference = `FCO-${shortid.generate()}`
+      const paymentReference = `FCO-${nanoid(10)}`
       const description = payService.descriptionFromFees(summaryViewModel.fees)
       const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey, redirectUrl(request, payReturnUrl))
 

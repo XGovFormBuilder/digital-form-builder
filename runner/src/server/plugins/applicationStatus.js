@@ -4,7 +4,7 @@ const { payReturnUrl } = require('../config')
 
 const redirectUrl = Helpers.redirectUrl
 const redirectTo = Helpers.redirectTo
-const shortid = require('shortid')
+const { nanoid } = require('nanoid')
 
 function getFeedbackContextInfo (request) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
@@ -127,8 +127,8 @@ const applicationStatus = {
           const { pay } = await cacheService.getState(request)
           const { meta } = pay
           meta.attempts++
-          // TODO:- let payService handle shortid.generate()
-          const reference = `FCO-${shortid.generate()}`
+          // TODO:- let payService handle nanoid(10)
+          const reference = `FCO-${nanoid(10)}`
           const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey, redirectUrl(request, payReturnUrl))
           await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
           return redirectTo(request, h, res._links.next_url.href)

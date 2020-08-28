@@ -2,7 +2,7 @@ import { redirectTo } from './helpers'
 import { RelativeUrl } from './feedback'
 import { FormConfiguration } from '@xgovformbuilder/model'
 
-const shortid = require('shortid')
+const { nanoid } = require('nanoid')
 const Boom = require('boom')
 const pkg = require('../package.json')
 const Model = require('./model')
@@ -28,7 +28,7 @@ function redirectWithVisitParameter (request, h) {
   const visitId = request.query[RelativeUrl.VISIT_IDENTIFIER_PARAMETER]
   if (!visitId) {
     const params = Object.assign({}, request.query)
-    params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = shortid.generate()
+    params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = nanoid(10)
     return redirectTo(request, h, request.url.pathname, params)
   }
 }

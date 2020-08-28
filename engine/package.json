@@ -32,9 +32,9 @@
     "hmpo-components": "2.6.5",
     "joi": "14.3.1",
     "moment": "2.24.0",
+    "nanoid": "^3.1.12",
     "nunjucks": "3.2.1",
     "path": "0.12.7",
-    "shortid": "^2.2.15",
     "wreck": "14.2.0"
   },
   "devDependencies": {
