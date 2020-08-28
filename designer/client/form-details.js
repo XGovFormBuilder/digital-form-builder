@@ -75,37 +75,34 @@ class FormDetails extends React.Component {
           </div>
         </fieldset>
 
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='form-title' aria-describedby='feedback-form-hint'>Title</label>
+          <input className='govuk-input' id='form-title' name='title'
+            type='text' required onBlur={e => this.setState({ title: e.target.value })}
+            defaultValue={title} />
+        </div>
         {!feedbackForm &&
-          <div>
-            <div className='govuk-form-group'>
-              <label className='govuk-label govuk-label--s' htmlFor='form-title' aria-describedby='feedback-form-hint'>Title</label>
-              <input className='govuk-input' id='form-title' name='title'
-                type='text' required onBlur={e => this.setState({ title: e.target.value })}
-                defaultValue={title} />
-            </div>
+          <div className='govuk-form-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='target-feedback-form'>Feedback form</label>
+            {!formConfigurations.length && (
+              <div className='govuk-hint' id='target-feedback-form-hint'>
+                <p>No available feedback form configurations found</p>
+                <p>Only forms marked as being a feedback form are listed here</p>
+              </div>
+            )}
 
-            <div className='govuk-form-group'>
-              <label className='govuk-label govuk-label--s' htmlFor='target-feedback-form'>Feedback form</label>
-              {!formConfigurations.length && (
-                <div className='govuk-hint' id='target-feedback-form-hint'>
-                  <p>No available feedback form configurations found</p>
+            {formConfigurations.length && (
+              <div>
+                <div id='target-feedback-form-hint' className='govuk-hint'>
+                  <p>This is the form to use for gathering feedback about this form</p>
                   <p>Only forms marked as being a feedback form are listed here</p>
                 </div>
-              )}
-
-              {formConfigurations.length && (
-                <div>
-                  <div id='target-feedback-form-hint' className='govuk-hint'>
-                    <p>This is the form to use for gathering feedback about this form</p>
-                    <p>Only forms marked as being a feedback form are listed here</p>
-                  </div>
-                  <select className='govuk-select' id='target-feedback-form' name='targetFeedbackForm' value={selectedFeedbackForm} required onChange={this.onSelectFeedbackForm}>
-                    <option/>
-                    {formConfigurations.map((config, index) => (<option key={config.Key + index} value={config.Key}>{config.DisplayName}</option>))}
-                  </select>
-                </div>
-              )}
-            </div>
+                <select className='govuk-select' id='target-feedback-form' name='targetFeedbackForm' value={selectedFeedbackForm} required onChange={this.onSelectFeedbackForm}>
+                  <option/>
+                  {formConfigurations.map((config, index) => (<option key={config.Key + index} value={config.Key}>{config.DisplayName}</option>))}
+                </select>
+              </div>
+            )}
           </div>
         }
 
