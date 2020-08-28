@@ -6,6 +6,7 @@ const { nanoid } = require('nanoid')
 const Boom = require('boom')
 const pkg = require('../package.json')
 const Model = require('./model')
+const { SchemaMigrationService } = require('@xgovformbuilder/model')
 
 function normalisePath (path) {
   return path
@@ -41,6 +42,8 @@ module.exports = {
     multiple: true,
     register: (server, options) => {
       const { modelOptions, configs, previewMode } = options
+
+      const schemaMigrationService = new SchemaMigrationService(server, options)
       /*
       * This plugin cannot be run outside of the context of the https://github.com/XGovFormBuilder/digital-form-builder project.
       * Ideally the engine encapsulates all the functionality required to run a form so work needs to be done to merge functionality
@@ -48,7 +51,7 @@ module.exports = {
       **/
       const forms = {}
       configs.forEach(config => {
-        forms[config.id] = new Model(config.configuration, { ...modelOptions, basePath: config.id })
+        forms[config.id] = new Model(schemaMigrationService.migrate(config.configuration), { ...modelOptions, basePath: config.id })
       })
 
       if (previewMode) {
@@ -64,7 +67,7 @@ module.exports = {
           path: '/publish',
           handler: (request, h) => {
             const { id, configuration } = request.payload
-            forms[id] = new Model(configuration, { ...modelOptions, basePath: id })
+            forms[id] = new Model(schemaMigrationService.migrate(configuration), { ...modelOptions, basePath: id })
             return h.response({}).code(204)
           }
         })
