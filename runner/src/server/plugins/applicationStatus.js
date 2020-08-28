@@ -128,7 +128,7 @@ const applicationStatus = {
           const { meta } = pay
           meta.attempts++
           // TODO:- let payService handle nanoid(10)
-          const reference = `FCO-${nanoid(10)}`
+          const reference = `${nanoid(10)}`
           const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey, redirectUrl(request, payReturnUrl))
           await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
           return redirectTo(request, h, res._links.next_url.href)

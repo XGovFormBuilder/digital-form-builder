@@ -21,5 +21,4 @@ module.exports.decode = function decode (encoded) {
     const decoded = JSON.parse(atob(encoded))
     return new FeedbackContextInfo(decoded.formTitle, decoded.pageTitle, decoded.url)
   }
-  return undefined
 }
