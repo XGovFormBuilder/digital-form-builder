@@ -7,7 +7,7 @@ class ListEdit extends React.Component {
     super(props)
 
     this.state = {
-      type: props.list.type,
+      type: props.list?.type,
       list: props.list || {}
     }
   }

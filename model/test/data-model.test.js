@@ -1250,6 +1250,55 @@ suite('data model', () => {
     })
   })
 
+  describe('add component', () => {
+    test('should add a component if a page exists with the specified path', () => {
+      const data = new Data({
+        pages: [{ path: '/1' }]
+      })
+      const returned = data.addComponent('/1', { name: 'My name' })
+      expect(returned.findPage('/1')).to.equal({ path: '/1', components: [{ name: 'My name' }] })
+    })
+
+    test('should add a component to a page with existing components', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'First name' }] }]
+      })
+      const returned = data.addComponent('/1', { name: 'My name' })
+      expect(returned.findPage('/1')).to.equal({ path: '/1', components: [{ name: 'First name' }, { name: 'My name' }] })
+    })
+
+    test('should throw an error if no page exists with the specified path', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'First name' }] }]
+      })
+      expect(() => data.addComponent('/2', { name: 'My name' })).to.throw(Error)
+    })
+  })
+
+  describe('update component', () => {
+    test('should update a component when the provided name is found in the specified page', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'anothercomponent' }, { name: 'mycomponent' }, { name: 'thirdComponent' }] }]
+      })
+      const returned = data.updateComponent('/1', 'mycomponent', { name: 'My name' })
+      expect(returned.findPage('/1')).to.equal({ path: '/1', components: [{ name: 'anothercomponent' }, { name: 'My name' }, { name: 'thirdComponent' }] })
+    })
+
+    test('should throw an error if no page exists with the specified path', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'First name' }] }]
+      })
+      expect(() => data.updateComponent('/2', { name: 'My name' })).to.throw(Error)
+    })
+
+    test('should throw an error if no component with the given name exists in the page', () => {
+      const data = new Data({
+        pages: [{ path: '/1', components: [{ name: 'First name' }] }]
+      })
+      expect(() => data.updateComponent('/1', 'myComponent', { name: 'My name' })).to.throw(Error)
+    })
+  })
+
   describe('clone', () => {
     test('should deep clone the data class', () => {
       const data = new Data(fullyPopulatedRawData)
