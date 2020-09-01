@@ -12,7 +12,12 @@ suite('Select field', () => {
       { display: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
       { display: 'Another thing', value: 'myOtherThing', something: 'Something else' }
     ]
-    const def = { name: 'myComponent', title: 'My component', options: { }, schema: {}, values: {
+    const def = {
+      name: 'myComponent',
+      title: 'My component',
+      options: { },
+      schema: {},
+      values: {
         type: 'static',
         valueType: 'string',
         items: items
