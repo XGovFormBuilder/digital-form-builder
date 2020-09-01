@@ -31,7 +31,7 @@ export default class ListItemReferencesToValueObjects implements Migration {
                 hint: item.description
               }))
             }
-            delete component.options.list
+            // delete component.options.list
           } else {
             this.logger.error(`Unable to migrate component with list name ${listName} as the corresponding list does not exist`)
           }
