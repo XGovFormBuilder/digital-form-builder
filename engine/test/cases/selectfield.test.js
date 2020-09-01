@@ -9,18 +9,17 @@ const { suite, test } = lab
 suite('Select field', () => {
   test('Should construct appropriate model for items', () => {
     const items = [
-      { text: 'A thing', value: 'myThing', condition: 'aCondition', something: 'Jobbie' },
-      { text: 'Another thing', value: 'myOtherThing', something: 'Something else' }
+      { display: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
+      { display: 'Another thing', value: 'myOtherThing', something: 'Something else' }
     ]
-    const def = { name: 'myComponent', title: 'My component', options: { list: 'myList' }, schema: {} }
+    const def = { name: 'myComponent', title: 'My component', options: { }, schema: {}, values: {
+        type: 'static',
+        valueType: 'string',
+        items: items
+      }
+    }
     const model = {
-      lists: [
-        {
-          name: 'myList',
-          type: 'string',
-          items: items
-        }
-      ]
+      lists: []
     }
     const underTest = new SelectField(def, model)
     const returned = underTest.getViewModel({ lang: 'en' })

@@ -1,7 +1,7 @@
 import type { Migration } from './schema-migrations'
 import { Logger } from '../logger'
 
-const MIGRATABLE_COMPONENT_TYPES = ['RadiosField', 'CheckboxesField']
+const MIGRATABLE_COMPONENT_TYPES = ['RadiosField', 'CheckboxesField', 'YesNoField', 'SelectField', 'AutocompleteField', 'List', 'FlashCard']
 
 export default class ListItemReferencesToValueObjects implements Migration {
   logger: Logger
