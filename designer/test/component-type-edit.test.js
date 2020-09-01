@@ -14,7 +14,27 @@ exports.lab = lab
 const { suite, test, describe } = lab
 
 suite('Component type edit', () => {
-  const data = new Data({ lists: [] })
+  const data = new Data({
+    lists: [{
+      name: 'myList',
+      type: 'number',
+      items: [
+        { text: 'Some Text', value: 'myValue', description: 'A hint' },
+        { text: 'Some Text 2', value: 'myValue2', conditional: { components: [{ type: 'TextField' }] } },
+        { text: 'Some Text 3', value: 'myValue3', condition: 'Azhgeqw' }
+      ]
+    }]
+  })
+  const expectedValues = {
+    type: 'static',
+    valueType: 'number',
+    items: [
+      { display: 'Some Text', value: 'myValue', hint: 'A hint' },
+      { display: 'Some Text 2', value: 'myValue2', children: [{ type: 'TextField' }] },
+      { display: 'Some Text 3', value: 'myValue3', condition: 'Azhgeqw' }
+    ]
+  }
+
   const nextId = 'abcdef'
   data.getId = sinon.stub()
   data.getId.resolves(nextId)
@@ -114,20 +134,20 @@ suite('Component type edit', () => {
       { type: 'DatePartsField', name: 'populating max days in future', fieldId: 'field-options-maxDaysInFuture', event: 'blur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInFuture: '236' } } },
       ...classesCases('DatePartsField'),
       ...casesForAllExceptFileUpload('SelectField'),
-      { type: 'SelectField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'SelectField', options: { list: '236' } } },
+      { type: 'SelectField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'SelectField', options: { list: 'myList' }, values: expectedValues } },
       ...classesCases('SelectField'),
       ...casesForAllExceptFileUpload('RadiosField'),
-      { type: 'RadiosField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'RadiosField', options: { list: '236' } } },
+      { type: 'RadiosField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'RadiosField', options: { list: 'myList' }, values: expectedValues } },
       { type: 'RadiosField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'RadiosField', options: { bold: true } } },
       { type: 'RadiosField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'RadiosField', options: { bold: false } } },
       ...casesForAllExceptFileUpload('CheckboxesField'),
-      { type: 'CheckboxesField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'CheckboxesField', options: { list: '236' } } },
+      { type: 'CheckboxesField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'CheckboxesField', options: { list: 'myList' }, values: expectedValues } },
       { type: 'CheckboxesField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'CheckboxesField', options: { bold: true } } },
       { type: 'CheckboxesField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'CheckboxesField', options: { bold: false } } },
-      { type: 'List', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'List', options: { list: '236' } } },
+      { type: 'List', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'List', options: { list: 'myList' }, values: expectedValues } },
       { type: 'List', name: 'selecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', expectedModel: { type: 'List', options: { type: 'numbered' } } },
       { type: 'List', name: 'deselecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', componentInitialState: { options: { type: 'numbered' } }, expectedModel: { type: 'List', options: { type: undefined } } },
-      { type: 'FlashCard', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'FlashCard', options: { list: '236' } } },
+      { type: 'FlashCard', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'FlashCard', options: { list: 'myList' }, values: expectedValues } },
       { type: 'Details', name: 'populating title', fieldId: 'details-title', event: 'blur', value: '236', expectedModel: { type: 'Details', title: '236' } },
       { type: 'Details', name: 'populating content', fieldId: 'details-content', event: 'blur', value: '236', expectedModel: { type: 'Details', content: '236' } }
     ]

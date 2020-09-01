@@ -28,8 +28,8 @@ suite('ListItemReferencesToValueObjects', () => {
     expect(underTest.getInitialVersion()).to.equal(0)
   })
 
-  function permutations(fieldTypes, valueTypes) {
-    return fieldTypes.flatMap(fieldType => valueTypes.map(valueType => ({fieldType, valueType})))
+  function permutations (fieldTypes, valueTypes) {
+    return fieldTypes.flatMap(fieldType => valueTypes.map(valueType => ({ fieldType, valueType })))
   }
 
   describe('migration', () => {

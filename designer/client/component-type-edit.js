@@ -368,6 +368,33 @@ function DateFieldEdit (props) {
   )
 }
 
+function addListValuesTo (component, data, listName) {
+  const list = data.lists.find(list => list.name === listName)
+
+  function itemFrom (item) {
+    const toReturn = {
+      display: item.text,
+      value: item.value
+    }
+    Object.assign(toReturn, item.description && { hint: item.description })
+    Object.assign(toReturn, item.condition && { condition: item.condition })
+    Object.assign(toReturn, item.conditional?.components && { children: item.conditional?.components })
+    return toReturn
+  }
+
+  if (list) {
+    component.values = {
+      type: 'static',
+      valueType: list.type,
+      items: list.items.map(item => itemFrom(item))
+    }
+    component.options.list = listName
+    return component
+  } else {
+    throw Error(`No list found with name ${listName}`)
+  }
+}
+
 function SelectFieldEdit (props) {
   const { component, data, updateModel } = props
   component.options = component.options || {}
@@ -381,7 +408,7 @@ function SelectFieldEdit (props) {
           <select
             className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
             value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
+            onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
           >
             <option />
             {lists.map(list => {
@@ -409,7 +436,7 @@ function RadiosFieldEdit (props) {
           <select
             className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
             value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
+            onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
           >
             <option />
             {lists.map(list => {
@@ -450,7 +477,7 @@ function CheckboxesFieldEdit (props) {
           <select
             className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
             value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
+            onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
           >
             <option />
             {lists.map(list => {
@@ -517,7 +544,7 @@ function ListContentEdit (props) {
         <select
           className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
           value={component.options.list} required
-          onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
+          onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
         >
           <option />
           {lists.map(list => {
@@ -554,7 +581,7 @@ function FlashCardEdit (props) {
       <select
         className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
         value={component.options.list} required
-        onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
+        onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
       >
         <option />
         {lists.map(list => {
