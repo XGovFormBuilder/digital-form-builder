@@ -67,7 +67,9 @@ module.exports = {
           path: '/publish',
           handler: (request, h) => {
             const { id, configuration } = request.payload
-            forms[id] = new Model(schemaMigrationService.migrate(configuration), { ...modelOptions, basePath: id })
+            const parsedConfiguration = typeof configuration === 'string' ? JSON.parse(configuration) : configuration
+            const def = schemaMigrationService.migrate(parsedConfiguration)
+            forms[id] = new Model(def, { ...modelOptions, basePath: id })
             return h.response({}).code(204)
           }
         })

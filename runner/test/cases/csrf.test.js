@@ -14,7 +14,7 @@ suite('CSRF', () => {
   const options = () => {
     return {
       method: 'POST',
-      url: '/basic/start?visit=1',
+      url: '/basic-v1/start?visit=1',
       headers: form.getHeaders(),
       payload: form.getBuffer()
     }
@@ -22,7 +22,7 @@ suite('CSRF', () => {
 
   // Create server before each test
   before(async () => {
-    server = await createServer({ data: 'basic.json', customPath: __dirname, enforceCsrf: true })
+    server = await createServer({ data: 'basic-v1.json', customPath: __dirname, enforceCsrf: true })
     await server.start()
   })
 
@@ -33,7 +33,7 @@ suite('CSRF', () => {
   test('get request returns CSRF header', async () => {
     const options = {
       method: 'GET',
-      url: '/basic/start?visit=1'
+      url: '/basic-v1/start?visit=1'
     }
 
     const response = await server.inject(options)
