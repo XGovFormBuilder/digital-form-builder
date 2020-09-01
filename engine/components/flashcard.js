@@ -2,11 +2,11 @@ const { Component } = require('.')
 
 class Flashcard extends Component {
   getViewModel () {
-    const list = this.model.lists.find(list => list.name === this.options.list)
-    const content = list.items.map(item => {
+    const { values } = this
+    const content = values.items.map(item => {
       const contentItem = {
-        title: item.text,
-        text: item.description || ''
+        title: item.display,
+        text: item.hint || ''
       }
       if (item.condition) {
         contentItem.condition = item.condition

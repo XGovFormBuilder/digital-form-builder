@@ -28,13 +28,15 @@ suite('ListItemReferencesToValueObjects', () => {
     expect(underTest.getInitialVersion()).to.equal(0)
   })
 
+  function permutations(fieldTypes, valueTypes) {
+    return fieldTypes.flatMap(fieldType => valueTypes.map(valueType => ({fieldType, valueType})))
+  }
+
   describe('migration', () => {
-    const testCases = [
-      { fieldType: 'RadiosField', valueType: 'number' },
-      { fieldType: 'RadiosField', valueType: 'string' },
-      { fieldType: 'CheckboxesField', valueType: 'number' },
-      { fieldType: 'CheckboxesField', valueType: 'string' }
-    ]
+    const testCases = permutations(
+      ['RadiosField', 'CheckboxesField', 'YesNoField', 'SelectField', 'AutocompleteField', 'FlashCard', 'List'],
+      ['number', 'string']
+    )
 
     testCases.forEach(testCase => {
       test(`should ignore definition with field of type ${testCase.fieldType} which is already migrated`, () => {

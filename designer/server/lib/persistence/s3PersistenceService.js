@@ -15,7 +15,7 @@ export class S3PersistenceService implements PersistenceService {
   bucket: any
 
   constructor (server: any, options: any) {
-    this.logger = new Logger(server.log, 'S3PersistenceService')
+    this.logger = new Logger(server, 'S3PersistenceService')
     this.bucket = new S3({
       region: 'eu-west-2',
       params: { Bucket: config.s3Bucket }
