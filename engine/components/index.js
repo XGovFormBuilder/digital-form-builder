@@ -207,42 +207,16 @@ function getType (name) {
 class ConditionalFormComponent extends FormComponent {
   constructor (def, model) {
     super(def, model)
-    const { options } = this
-    const list = model.lists.find(list => list.name === options.list)
-    const items = list.items
-    const values = items.map(item => item.value)
-    this.list = list
-    this.items = items
-    this.values = values
+    this.itemValues = this.values.items.map(item => item.value)
     this[createConditionalComponents](def, model)
-  }
-
-  addConditionalComponents (item, itemModel, formData, errors) {
-    // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to
-    // to be a way to do this in JavaScript. As such, render the conditional components with Nunjucks before the main view is rendered.
-    // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
-    // gov.uk design system macros.
-    if (item.conditional) {
-      itemModel.conditional = {
-        html: nunjucks.render('conditional-components.html', {
-          components: item.conditional.componentCollection.getViewModel(
-            formData,
-            errors
-          )
-        })
-      }
-    }
-    return itemModel
   }
 
   getFormDataFromState (state) {
     const formData = super.getFormDataFromState(state)
     if (formData) {
-      const itemsWithConditionalComponents = this.list.items.filter(
-        item => item.conditional && item.conditional.components
-      )
+      const itemsWithConditionalComponents = this.values.items.filter(item => item.childrenCollection)
       itemsWithConditionalComponents.forEach(item => {
-        const itemFormDataFromState = item.conditional.componentCollection.getFormDataFromState(
+        const itemFormDataFromState = item.childrenCollection.getFormDataFromState(
           state
         )
         if (
@@ -262,8 +236,8 @@ class ConditionalFormComponent extends FormComponent {
 
   getStateFromValidForm (payload) {
     const state = super.getStateFromValidForm(payload)
-    const itemsWithConditionalComponents = this.list.items.filter(
-      item => item.conditional && item.conditional.components
+    const itemsWithConditionalComponents = this.values.items.filter(
+      item => item.childrenCollection
     )
 
     const selectedItemsWithConditionalComponents = itemsWithConditionalComponents.filter(
@@ -282,7 +256,7 @@ class ConditionalFormComponent extends FormComponent {
     selectedItemsWithConditionalComponents.forEach(item =>
       Object.assign(
         state,
-        item.conditional.componentCollection.getStateFromValidForm(payload)
+        item.childrenCollection.getStateFromValidForm(payload)
       )
     )
 
@@ -292,10 +266,10 @@ class ConditionalFormComponent extends FormComponent {
       item => !selectedItemsWithConditionalComponents.includes(item)
     )
     unselectedItemsWithConditionalComponents.forEach(item => {
-      const stateFromValidForm = item.conditional.componentCollection.getStateFromValidForm(
+      const stateFromValidForm = item.childrenCollection.getStateFromValidForm(
         payload
       )
-      Object.values(item.conditional.componentCollection.items)
+      Object.values(item.childrenCollection.items)
         .filter(conditionalItem => stateFromValidForm[conditionalItem.name])
         .forEach(key => {
           const conditionalItemToNull = key.name
@@ -311,17 +285,38 @@ class ConditionalFormComponent extends FormComponent {
   }
 
   [createConditionalComponents] (def, model) {
-    const filteredItems = this.list.items.filter(
-      item => item.conditional && item.conditional.components
+    const { values } = this
+    const items = values.items
+
+    const filteredItems = items.filter(
+      item => item.children && item.children.length > 0
     )
     // Create a collection of conditional components that can be converted to a view model and rendered by Nunjucks
     // before primary view model rendering takes place.
     filteredItems.map(item => {
-      item.conditional.componentCollection = new ComponentCollection(
-        item.conditional.components,
+      item.childrenCollection = new ComponentCollection(
+        item.children,
         model
       )
     })
+  }
+
+  addConditionalComponents (item, itemModel, formData, errors) {
+    // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to
+    // to be a way to do this in JavaScript. As such, render the conditional components with Nunjucks before the main view is rendered.
+    // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
+    // gov.uk design system macros.
+    if (item.childrenCollection) {
+      itemModel.conditional = {
+        html: nunjucks.render('conditional-components.html', {
+          components: item.childrenCollection.getViewModel(
+            formData,
+            errors
+          )
+        })
+      }
+    }
+    return itemModel
   }
 
   [getSchemaKeys] (schemaType) {
@@ -329,8 +324,8 @@ class ConditionalFormComponent extends FormComponent {
     const schemaKeysFunctionName = `get${schemaType
       .substring(0, 1)
       .toUpperCase()}${schemaType.substring(1)}SchemaKeys`
-    const filteredItems = this.items.filter(
-      item => item.conditional && item.conditional.componentCollection
+    const filteredItems = this.values.items.filter(
+      item => item.childrenCollection
     )
     const conditionalName = this.name
     const schemaKeys = { [conditionalName]: this[schemaName] }
@@ -340,7 +335,7 @@ class ConditionalFormComponent extends FormComponent {
     // a) When a conditional component is visible it is required.
     // b) When a conditional component is not visible it is optional.
     filteredItems.forEach(item => {
-      const conditionalSchemaKeys = item.conditional.componentCollection[
+      const conditionalSchemaKeys = item.childrenCollection[
         schemaKeysFunctionName
       ]()
       // Iterate through the set of components handled by conditional reveal adding Joi validation rules

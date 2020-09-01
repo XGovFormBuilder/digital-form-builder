@@ -166,8 +166,8 @@ class SummaryViewModel {
               if (component.items) {
                 const selectedValue = sectionState[component.name]
                 const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
-                if (selectedItem && selectedItem.conditional) {
-                  for (const cc of selectedItem.conditional.componentCollection.formItems) {
+                if (selectedItem && selectedItem.childrenCollection) {
+                  for (const cc of selectedItem.childrenCollection.formItems) {
                     const cItem = this.Item(request, cc, sectionState, page, model)
                     items.push(cItem)
                   }
@@ -306,8 +306,8 @@ class SummaryViewModel {
 
           if (detailItem.items) {
             const selectedItem = detailItem.items.filter(i => i.value === answer)[0]
-            if (selectedItem && selectedItem.conditional) {
-              selectedItem.conditional.componentCollection.formItems.forEach(cc => {
+            if (selectedItem && selectedItem.childrenCollection) {
+              selectedItem.childrenCollection.formItems.forEach(cc => {
                 const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
                 fields.push({
                   key: cc.name,
