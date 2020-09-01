@@ -39,7 +39,7 @@ const conditionSchema = joi.object().keys({
 })
 
 const conditionGroupSchema = joi.object().keys({
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, joi.ref('conditionGroupSchema')))
 })
 
 const conditionsModelSchema = joi.object().keys({
@@ -55,6 +55,20 @@ const conditionsSchema = joi.object().keys({
 
 const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(''))
 
+const componentValuesItemSchema = joi.object().keys({
+  display: joi.string().required(),
+  value: joi.alternatives().try(joi.number(), joi.string()).required(),
+  hint: joi.string().optional(),
+  condition: joi.string().optional(),
+  children: joi.array().items(joi.ref('componentSchema')).unique('name')
+})
+
+const componentValuesSchema = joi.object().keys({
+  type: joi.string().allow('static').required(), // allow extension support for dynamically looked up types later
+  items: joi.when('type', { is: joi.string().valid('static'), then: joi.array().items(componentValuesItemSchema).unique('value') }),
+  valueType: joi.string().allow('string', 'number').required()
+})
+
 const componentSchema = joi.object().keys({
   type: joi.string().required(),
   name: joi.string(),
@@ -62,7 +76,8 @@ const componentSchema = joi.object().keys({
   hint: localisedString.optional(),
   options: joi.object().default({}),
   schema: joi.object().default({}),
-  errors: joi.object({ a: joi.any() }).optional()
+  errors: joi.object({ a: joi.any() }).optional(),
+  values: componentValuesSchema.optional()
 }).unknown(true)
 
 const nextSchema = joi.object().keys({
@@ -165,3 +180,10 @@ const schema = joi.object().required().keys({
 })
 
 module.exports = schema
+
+/**
+ *  Schema versions:
+ *  Undefined / 0 - initial version as at 28/8/20. Conditions may be in object structure or string form.
+ *  1 - Relevant components (radio, checkbox, select, autocomplete) now contain
+ *      options as 'values' rather than referencing a data list
+ **/

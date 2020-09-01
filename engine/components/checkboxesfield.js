@@ -5,18 +5,17 @@ const helpers = require('./helpers')
 class CheckboxesField extends ConditionalFormComponent {
   constructor (def, model) {
     super(def, model)
-    const { list, options, values } = this
-    const itemSchema = joi[list.type]().valid(values)
+    const { options, values, itemValues } = this
+    const itemSchema = joi[values.valueType]().valid(itemValues)
     const itemsSchema = joi.array().items(itemSchema)
     const alternatives = joi.alternatives([itemSchema, itemsSchema])
 
-    this.list = list
     this.formSchema = helpers.buildFormSchema(alternatives, this, options.required !== false)
     this.stateSchema = helpers.buildStateSchema(alternatives, this)
   }
 
   getDisplayStringFromState (state) {
-    const { name, items } = this
+    const { name, values } = this
 
     if (name in state) {
       const value = state[name]
@@ -26,12 +25,12 @@ class CheckboxesField extends ConditionalFormComponent {
       }
 
       const checked = Array.isArray(value) ? value : [value]
-      return checked.map(check => items.find(item => item.value === check).text).join(', ')
+      return checked.map(check => values.items.find(item => item.value === check).display).join(', ')
     }
   }
 
   getViewModel (formData, errors) {
-    const { name, items } = this
+    const { name, values } = this
     const viewModel = super.getViewModel(formData, errors)
     let formDataItems = []
 
@@ -45,9 +44,9 @@ class CheckboxesField extends ConditionalFormComponent {
       fieldset: {
         legend: viewModel.label
       },
-      items: items.map(item => {
+      items: values.items.map(item => {
         const itemModel = {
-          text: this.localisedString(item.text),
+          text: this.localisedString(item.display),
           value: item.value,
           // Do a loose string based check as state may or
           // may not match the item value types.
@@ -61,9 +60,9 @@ class CheckboxesField extends ConditionalFormComponent {
           }
         }
 
-        if (item.description) {
+        if (item.hint) {
           itemModel.hint = {
-            html: this.localisedString(item.description)
+            html: this.localisedString(item.hint)
           }
         }
 
