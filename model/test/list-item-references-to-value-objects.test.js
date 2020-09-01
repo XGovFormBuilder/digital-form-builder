@@ -78,6 +78,7 @@ function migratedDef (testCase) {
         components: [
           {
             options: {
+              list: 'licenceLengthDays',
               bold: true
             },
             type: testCase.fieldType,
