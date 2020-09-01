@@ -7,6 +7,7 @@
       "components": [
         {
           "options": {
+            "list": "licenceLengthDays",
             "bold": true
           },
           "type": "RadiosField",
@@ -15,28 +16,7 @@
             "en": "Which fishing licence do you want to get?",
             "fr": "some french"
           },
-          "schema": {},
-          "values": {
-            "type": "static",
-            "valueType": "number",
-            "items": [
-              {
-                "display": "1 day",
-                "value": 1,
-                "hint": "Valid for 24 hours from the start time that you select"
-              },
-              {
-                "display": "8 day",
-                "value": 8,
-                "hint": "Valid for 8 consecutive days from the start time that you select"
-              },
-              {
-                "display": "12 months",
-                "value": 365,
-                "hint": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
-              }
-            ]
-          }
+          "schema": {}
         }
       ],
       "section": "licenceDetails",

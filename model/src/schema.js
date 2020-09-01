@@ -58,7 +58,7 @@ const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unkn
 const componentValuesItemSchema = joi.object().keys({
   display: joi.string().required(),
   value: joi.alternatives().try(joi.number(), joi.string()).required(),
-  hint: joi.string().optional(),
+  hint: joi.string().allow('').optional(),
   condition: joi.string().optional(),
   children: joi.array().items(joi.ref('componentSchema')).unique('name')
 })
