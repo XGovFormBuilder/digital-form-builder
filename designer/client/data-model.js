@@ -24,9 +24,9 @@ function DataModel (props) {
             model[section.name] = {}
           }
 
-          model[section.name][component.name] = componentToString(component)
+          model[section.name][component.name] = `${component.type}`
         } else {
-          model[component.name] = componentToString(component)
+          model[component.name] = `${component.type}`
         }
       }
     })
