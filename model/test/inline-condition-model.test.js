@@ -11,6 +11,7 @@ import {
   RelativeTimeValue,
   ConditionValue
 } from '..'
+import { ConditionRef } from '../src/conditions/inline-condition-model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -138,7 +139,7 @@ suite('inline condition model', () => {
   describe('complicated conditions', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is at least', new RelativeTimeValue('10', 'days', dateDirections.PAST), 'or'))
@@ -147,12 +148,12 @@ suite('inline condition model', () => {
 
     test('should return a human readable presentation string with all properties', () => {
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is at least \'10 days in the past\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is at least \'10 days in the past\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should return a valid expression', () => {
       expect(underTest.toExpression())
-        .to.equal('badger == \'Zebras\' or (monkeys == \'Giraffes\' and squiffy == \'Donkeys\') or duration >= 10 or (birthday <= dateForComparison(-10, \'days\') and squiffy != \'Donkeys\')')
+        .to.equal('badger == \'Zebras\' or (under18 and squiffy == \'Donkeys\') or duration >= 10 or (birthday <= dateForComparison(-10, \'days\') and squiffy != \'Donkeys\')')
     })
   })
 
@@ -204,7 +205,7 @@ suite('inline condition model', () => {
   describe('adding user generated groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
@@ -214,45 +215,45 @@ suite('inline condition model', () => {
     test('should apply defined group and auto-group the remaining conditions', () => {
       underTest.addGroups([new GroupDef(0, 1)])
       expect(underTest.toPresentationString())
-        .to.equal('((\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\') and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('((\'Badger\' is \'Zebras\' or \'Under 18\') and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should be able to apply group with single and condition and not need to clarify', () => {
       underTest.addGroups([new GroupDef(1, 2)])
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should correctly auto-group multiple user groups together', () => {
       underTest.addGroups([new GroupDef(0, 1), new GroupDef(2, 3)])
       expect(underTest.toPresentationString())
-        .to.equal('((\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\') and (\'Squiffy\' is \'Donkeys\' or \'Duration\' is at least \'10\')) or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('((\'Badger\' is \'Zebras\' or \'Under 18\') and (\'Squiffy\' is \'Donkeys\' or \'Duration\' is at least \'10\')) or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should correctly handle trailing and condition with existing groups', () => {
       underTest.addGroups([new GroupDef(0, 1), new GroupDef(2, 4)])
       expect(underTest.toPresentationString())
-        .to.equal('(\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\') and (\'Squiffy\' is \'Donkeys\' or \'Duration\' is at least \'10\' or \'Birthday\' is \'10/10/2019\') and \'Squiffy\' is not \'Donkeys\'')
+        .to.equal('(\'Badger\' is \'Zebras\' or \'Under 18\') and (\'Squiffy\' is \'Donkeys\' or \'Duration\' is at least \'10\' or \'Birthday\' is \'10/10/2019\') and \'Squiffy\' is not \'Donkeys\'')
     })
 
     test('should correctly clarify conditions inside user generated groups', () => {
       underTest.addGroups([new GroupDef(0, 2), new GroupDef(3, 5)])
       expect(underTest.toPresentationString())
-        .to.equal('(\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\')) or (\'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\'))')
+        .to.equal('(\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\')) or (\'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\'))')
     })
 
     test('subsequent calls to addGroups should operate on the previously grouped entries', () => {
       underTest.addGroups([new GroupDef(0, 2)])
       underTest.addGroups([new GroupDef(1, 2)])
       expect(underTest.toPresentationString())
-        .to.equal('(\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\')) or ((\'Duration\' is at least \'10\' or \'Birthday\' is \'10/10/2019\') and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('(\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\')) or ((\'Duration\' is at least \'10\' or \'Birthday\' is \'10/10/2019\') and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('subsequent calls to addGroups can create nested groups', () => {
       underTest.addGroups([new GroupDef(0, 1)])
       underTest.addGroups([new GroupDef(0, 1)])
       expect(underTest.toPresentationString())
-        .to.equal('((\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\') and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('((\'Badger\' is \'Zebras\' or \'Under 18\') and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('user groupings, but not automatic groupings, should be returned from asPerUserGroupings', () => {
@@ -265,7 +266,7 @@ suite('inline condition model', () => {
             {
               conditions: [
                 { coordinator: undefined, field: { display: 'Badger', type: 'TextField', name: 'badger' }, operator: 'is', value: { type: 'Value', value: 'Zebras', display: 'Zebras' } },
-                { coordinator: 'or', field: { display: 'Monkeys', type: 'TextField', name: 'monkeys' }, operator: 'is', value: { type: 'Value', value: 'giraffes', display: 'Giraffes' } }
+                { coordinator: 'or', conditionName: 'under18', conditionDisplayName: 'Under 18' }
               ]
             },
             { coordinator: 'and', field: { display: 'Squiffy', type: 'TextField', name: 'squiffy' }, operator: 'is', value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' } }
@@ -281,7 +282,7 @@ suite('inline condition model', () => {
   describe('splitting user generated groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
@@ -292,7 +293,7 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 1)])
       underTest.splitGroup(0)
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should split composite group and auto-group the remaining conditions', () => {
@@ -300,20 +301,20 @@ suite('inline condition model', () => {
       underTest.addGroups([new GroupDef(0, 1)])
       underTest.splitGroup(0)
       expect(underTest.toPresentationString())
-        .to.equal('((\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\') and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('((\'Badger\' is \'Zebras\' or \'Under 18\') and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should do nothing if trying to split a group that is not grouped', () => {
       underTest.splitGroup(0)
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
   })
 
   describe('removing conditions and groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
@@ -369,7 +370,7 @@ suite('inline condition model', () => {
       underTest.remove([6])
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
   })
 
@@ -394,7 +395,7 @@ suite('inline condition model', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
@@ -419,7 +420,7 @@ suite('inline condition model', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
@@ -440,7 +441,7 @@ suite('inline condition model', () => {
   describe('moving conditions and groups', () => {
     beforeEach(() => {
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
-      underTest.add(new Condition(new Field('monkeys', 'TextField', 'Monkeys'), 'is', new ConditionValue('giraffes', 'Giraffes'), 'or'))
+      underTest.add(new ConditionRef('under18', 'Under 18', 'or'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is', new ConditionValue('Donkeys'), 'and'))
       underTest.add(new Condition(new Field('duration', 'NumberField', 'Duration'), 'is at least', new ConditionValue('10'), 'or'))
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
@@ -451,21 +452,21 @@ suite('inline condition model', () => {
       underTest.moveEarlier(3)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\' or (\'Duration\' is at least \'10\' and \'Squiffy\' is \'Donkeys\') or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or \'Under 18\' or (\'Duration\' is at least \'10\' and \'Squiffy\' is \'Donkeys\') or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should move the last condition earlier', () => {
       underTest.moveEarlier(5)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or (\'Duration\' is at least \'10\' and \'Squiffy\' is not \'Donkeys\') or \'Birthday\' is \'10/10/2019\'')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or (\'Duration\' is at least \'10\' and \'Squiffy\' is not \'Donkeys\') or \'Birthday\' is \'10/10/2019\'')
     })
 
     test('should move a condition earlier and switch co-ordinators when becoming the first item', () => {
       underTest.moveEarlier(1)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Monkeys\' is \'Giraffes\' or (\'Badger\' is \'Zebras\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Under 18\' or (\'Badger\' is \'Zebras\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should move a condition group earlier and switch co-ordinators when becoming the first item', () => {
@@ -473,70 +474,70 @@ suite('inline condition model', () => {
       underTest.moveEarlier(1)
 
       expect(underTest.toPresentationString())
-        .to.equal('(\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Badger\' is \'Zebras\' or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('(\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Badger\' is \'Zebras\' or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('move earlier does nothing when already the first item', () => {
       underTest.moveEarlier(0)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('move earlier does nothing when before the first item', () => {
       underTest.moveEarlier(-1)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('move earlier does nothing when after the last item', () => {
       underTest.moveEarlier(-1)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('move later does nothing when already the last item', () => {
       underTest.moveLater(5)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('move later does nothing when after the last item', () => {
       underTest.moveLater(6)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('move later does nothing when before the first item', () => {
       underTest.moveLater(-1)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should move a condition later when not the first or last item', () => {
       underTest.moveLater(3)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or \'Birthday\' is \'10/10/2019\' or (\'Duration\' is at least \'10\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or \'Birthday\' is \'10/10/2019\' or (\'Duration\' is at least \'10\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should move penultimate condition later', () => {
       underTest.moveLater(4)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Badger\' is \'Zebras\' or (\'Monkeys\' is \'Giraffes\' and \'Squiffy\' is \'Donkeys\') or (\'Duration\' is at least \'10\' and \'Squiffy\' is not \'Donkeys\') or \'Birthday\' is \'10/10/2019\'')
+        .to.equal('\'Badger\' is \'Zebras\' or (\'Under 18\' and \'Squiffy\' is \'Donkeys\') or (\'Duration\' is at least \'10\' and \'Squiffy\' is not \'Donkeys\') or \'Birthday\' is \'10/10/2019\'')
     })
 
     test('should move a condition later and switch co-ordinators when moving the first item', () => {
       underTest.moveLater(0)
 
       expect(underTest.toPresentationString())
-        .to.equal('\'Monkeys\' is \'Giraffes\' or (\'Badger\' is \'Zebras\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('\'Under 18\' or (\'Badger\' is \'Zebras\' and \'Squiffy\' is \'Donkeys\') or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
 
     test('should move a condition group later and switch co-ordinators when moving the first item', () => {
@@ -544,7 +545,7 @@ suite('inline condition model', () => {
       underTest.moveLater(0)
 
       expect(underTest.toPresentationString())
-        .to.equal('(\'Squiffy\' is \'Donkeys\' and (\'Badger\' is \'Zebras\' or \'Monkeys\' is \'Giraffes\')) or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
+        .to.equal('(\'Squiffy\' is \'Donkeys\' and (\'Badger\' is \'Zebras\' or \'Under 18\')) or \'Duration\' is at least \'10\' or (\'Birthday\' is \'10/10/2019\' and \'Squiffy\' is not \'Donkeys\')')
     })
   })
 
@@ -657,7 +658,7 @@ suite('inline condition model', () => {
     })
   })
 
-  describe('serialization and deserialization', () => {
+  describe('serialisation and deserialisation', () => {
     beforeEach(() => {
       underTest.name = 'some condition name'
       underTest.add(new Condition(new Field('badger', 'TextField', 'Badger'), 'is', new ConditionValue('Zebras')))
@@ -667,10 +668,11 @@ suite('inline condition model', () => {
       underTest.add(new Condition(new Field('birthday', 'DateField', 'Birthday'), 'is', new ConditionValue('10/10/2019'), 'or'))
       underTest.add(new Condition(new Field('reported', 'DateField', 'Reported'), 'is more than', new RelativeTimeValue('10', dateUnits.DAYS.value, dateDirections.PAST), 'and'))
       underTest.add(new Condition(new Field('squiffy', 'TextField', 'Squiffy'), 'is not', new ConditionValue('Donkeys'), 'and'))
+      underTest.add(new ConditionRef('anotherCondition', 'Another condition', 'or'))
       underTest.addGroups([new GroupDef(0, 2)])
     })
 
-    test('serializing to json returns the expected result', () => {
+    test('serialising to json returns the expected result', () => {
       const expected = {
         name: 'some condition name',
         conditions: [
@@ -682,49 +684,54 @@ suite('inline condition model', () => {
                 value: { type: 'Value', value: 'Zebras', display: 'Zebras' }
               },
               {
+                coordinator: 'or',
                 field: { name: 'monkeys', type: 'TextField', display: 'Monkeys' },
                 operator: 'is',
-                value: { type: 'Value', value: 'giraffes', display: 'Giraffes' },
-                coordinator: 'or'
+                value: { type: 'Value', value: 'giraffes', display: 'Giraffes' }
               },
               {
+                coordinator: 'and',
                 field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
                 operator: 'is',
-                value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' },
-                coordinator: 'and'
+                value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' }
               }
             ]
           },
           {
+            coordinator: 'or',
             field: { name: 'duration', type: 'NumberField', display: 'Duration' },
             operator: 'is at least',
-            value: { type: 'Value', value: '10', display: '10' },
-            coordinator: 'or'
+            value: { type: 'Value', value: '10', display: '10' }
           },
           {
+            coordinator: 'or',
             field: { name: 'birthday', type: 'DateField', display: 'Birthday' },
             operator: 'is',
-            value: { type: 'Value', value: '10/10/2019', display: '10/10/2019' },
-            coordinator: 'or'
+            value: { type: 'Value', value: '10/10/2019', display: '10/10/2019' }
           },
           {
+            coordinator: 'and',
             field: { name: 'reported', type: 'DateField', display: 'Reported' },
             operator: 'is more than',
-            value: { type: 'RelativeTime', timePeriod: '10', timeUnit: dateUnits.DAYS.value, direction: dateDirections.PAST, timeOnly: false },
-            coordinator: 'and'
+            value: { type: 'RelativeTime', timePeriod: '10', timeUnit: dateUnits.DAYS.value, direction: dateDirections.PAST, timeOnly: false }
           },
           {
+            coordinator: 'and',
             field: { name: 'squiffy', type: 'TextField', display: 'Squiffy' },
             operator: 'is not',
-            value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' },
-            coordinator: 'and'
+            value: { type: 'Value', value: 'Donkeys', display: 'Donkeys' }
+          },
+          {
+            coordinator: 'or',
+            conditionName: 'anotherCondition',
+            conditionDisplayName: 'Another condition'
           }
         ]
       }
       expect(JSON.stringify(underTest)).to.equal(JSON.stringify(expected))
     })
 
-    test('deserializing the serialized json returns a new ConditionsModel equal to the original', () => {
+    test('deserialising the serialised json returns a new ConditionsModel equal to the original', () => {
       const returned = ConditionsModel.from(JSON.parse(JSON.stringify(underTest)))
       expect(returned).to.equal(underTest)
       expect(returned.asPerUserGroupings).to.equal(underTest.asPerUserGroupings)

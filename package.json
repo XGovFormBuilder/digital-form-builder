@@ -23,15 +23,15 @@
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",
     "lint": "yarn workspaces foreach run lint",
-    "fix-lint": "yarn workspaces foreach run lint",
+    "test": "yarn workspaces foreach run test",
+    "fix-lint": "yarn workspaces foreach run fix-lint",
     "flow": "yarn workspaces foreach -piva exec flow",
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
     "engine": "yarn workspace @xgovformbuilder/engine",
     "model": "yarn workspace @xgovformbuilder/model",
-    "test-cov": "yarn workspaces foreach run test-cov",
-    "test": "yarn workspaces foreach run test"
+    "test-cov": "yarn workspaces foreach run test-cov"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

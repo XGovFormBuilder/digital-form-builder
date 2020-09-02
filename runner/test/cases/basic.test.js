@@ -20,7 +20,7 @@ suite('requests', () => {
   test('get request returns configured form page', async () => {
     const options = {
       method: 'GET',
-      url: '/basic/start'
+      url: '/basic/start?visit=1'
     }
 
     const response = await server.inject(options)
@@ -38,13 +38,13 @@ suite('requests', () => {
     form.append('licenceLength', 1)
     const options = {
       method: 'POST',
-      url: '/basic/start',
+      url: '/basic/start?visit=1',
       headers: form.getHeaders(),
       payload: form.getBuffer()
     }
     const response = await server.inject(options)
     expect(response.statusCode).to.equal(302)
     expect(response.headers).to.include('location')
-    expect(response.headers.location).to.equal('/basic/full-name')
+    expect(response.headers.location).to.equal('/basic/full-name?visit=1')
   })
 })

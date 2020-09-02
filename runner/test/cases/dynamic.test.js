@@ -78,6 +78,9 @@ const FORMS = {
   }
 }
 
+const SESSION_ID = 'TEST_ID'
+const VISIT_ID = 'AvsfDdnkdns'
+
 suite('Dynamic pages', { skip: true }, () => {
   let server
 
@@ -94,20 +97,20 @@ suite('Dynamic pages', { skip: true }, () => {
   afterEach(async () => {
     restore()
     const { cacheService } = server.services()
-    await cacheService.clearState({ yar: { id: 'TEST_ID' } })
+    await cacheService.clearState({ yar: { id: SESSION_ID }, query: { visit: VISIT_ID } })
     stub(CacheService.prototype, 'Key').callsFake(() => ({
       segment: 'segment',
-      id: 'TEST_ID'
+      id: `${SESSION_ID}:${VISIT_ID}`
     }))
   })
 
   test('Start of repeatable section appends num parameter', async () => {
-    const response = await server.inject(postOptions('/dynamic/how-many-people', { numberOfApplicants: 2 }))
-    expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=1')
+    const response = await server.inject(postOptions(`/dynamic/how-many-people?visit=${VISIT_ID}`, { numberOfApplicants: 2 }))
+    expect(response.headers.location).to.equal(`/dynamic/applicant-repeatable?num=1&visit=${VISIT_ID}`)
   })
 
   test('Asks questions in section correct number of times', async () => {
-    let nextPath = '/dynamic/uk-passport'
+    let nextPath = `/dynamic/uk-passport?visit=${VISIT_ID}`
     let response
 
     const reassignNextPath = () => { nextPath = response.headers.location }
@@ -120,14 +123,14 @@ suite('Dynamic pages', { skip: true }, () => {
     reassignNextPath()
 
     response = await server.inject(postOptions(nextPath, FORMS.contact))
-    expect(response.headers.location).to.equal('/dynamic/applicant-repeatable?num=2')
+    expect(response.headers.location).to.equal(`/dynamic/applicant-repeatable?num=2&visit=${VISIT_ID}`)
     reassignNextPath()
 
     response = await server.inject(postOptions(nextPath, FORMS.name))
     reassignNextPath()
 
     response = await server.inject(postOptions(nextPath, FORMS.contact))
-    expect(response.headers.location).to.equal('/dynamic/summary')
+    expect(response.headers.location).to.equal(`/dynamic/summary?visit=${VISIT_ID}`)
 
     reassignNextPath()
   })
@@ -139,7 +142,7 @@ suite('Dynamic pages', { skip: true }, () => {
 
     const response = await server.inject({
       method: 'GET',
-      url: '/dynamic/summary'
+      url: `/dynamic/summary?visit=${VISIT_ID}`
     })
     expect(response.statusCode).to.equal(200)
     expect(response.headers['content-type']).to.include('text/html')
@@ -157,10 +160,10 @@ suite('Dynamic pages', { skip: true }, () => {
 
   test('Summary page displays correct number of repeatable sections', async () => {
     const { cacheService } = server.services()
-    await cacheService.mergeState({ yar: { id: 'TEST_ID' } }, state)
+    await cacheService.mergeState({ yar: { id: SESSION_ID }, query: { visit: VISIT_ID } }, state)
     const response = await server.inject({
       method: 'GET',
-      url: '/dynamic/summary'
+      url: `/dynamic/summary?visit=${VISIT_ID}`
     })
     expect(response.statusCode).to.equal(200)
     expect(response.headers['content-type']).to.include('text/html')
@@ -173,7 +176,7 @@ suite('Dynamic pages', { skip: true }, () => {
 
     const responseAfterNumberChange = await server.inject({
       method: 'GET',
-      url: '/dynamic/summary'
+      url: `/dynamic/summary?visit=${VISIT_ID}`
     })
 
     $ = cheerio.load(responseAfterNumberChange.payload)

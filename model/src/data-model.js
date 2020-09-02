@@ -18,20 +18,35 @@ const yesNoList = {
 }
 
 class Data {
+  /**
+   * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
+   * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
+   */
+  static FEEDBACK_CONTEXT_ITEMS = [
+    { key: 'feedbackContextInfo_formTitle', display: 'Feedback source form name', get: contextInfo => contextInfo.formTitle },
+    { key: 'feedbackContextInfo_pageTitle', display: 'Feedback source page title', get: contextInfo => contextInfo.pageTitle },
+    { key: 'feedbackContextInfo_url', display: 'Feedback source url', get: contextInfo => contextInfo.url }
+  ]
+
   #conditions
+  #name
+  #feedback
 
   constructor (rawData) {
-    const rawDataClone = Object.assign({}, rawData)
+    const rawDataClone = rawData instanceof Data ? rawData._exposePrivateFields() : Object.assign({}, rawData)
+    this.#conditions = (rawDataClone.conditions || []).map(it => new Condition(it))
+    this.#feedback = rawDataClone.feedback
     delete rawDataClone.conditions
+    delete rawDataClone.feedback
     Object.assign(this, rawDataClone)
-    this.#conditions = (rawData.conditions || []).map(it => new Condition(it))
   }
+
   /* eslint-disable-next-line */
   #listInputsFor(page, input) {
     const list = this.listFor(input);
     return list ? list.items.flatMap(listItem =>listItem.conditional?.components
         ?.filter(it => it.name)
-        ?.map(it => new Input(it, page, listItem.text))??[]) : []
+        ?.map(it => new Input(it, page, {parentItemName: listItem.text}))??[]) : []
   }
 
   allInputs () {
@@ -40,6 +55,13 @@ class Data {
         .filter(component => component.name)
         .flatMap(it => [new Input(it, page)].concat(this.#listInputsFor(page, it)))
       )
+    if (this.feedbackForm) {
+      const startPage = this.findPage(this.startPage)
+      const options = { ignoreSection: true }
+      Data.FEEDBACK_CONTEXT_ITEMS.forEach(it => {
+        inputs.push(new Input({ type: 'TextField', title: it.display, name: it.key }, startPage, options))
+      })
+    }
     const names = new Set()
     return inputs.filter(input => {
       const isPresent = !names.has(input.propertyPath)
@@ -135,6 +157,32 @@ class Data {
     return this
   }
 
+  addComponent (pagePath, component) {
+    const page = this.findPage(pagePath)
+    if (page) {
+      page.components = page.components || []
+      page.components.push(component)
+    } else {
+      throw Error(`No page exists with path ${pagePath}`)
+    }
+    return this
+  }
+
+  updateComponent (pagePath, componentName, component) {
+    const page = this.findPage(pagePath)
+    if (page) {
+      page.components = page.components || []
+      const index = page.components.findIndex(it => it.name === componentName)
+      if (index < 0) {
+        throw Error(`No component exists with name ${componentName} with in page with path ${pagePath}`)
+      }
+      page.components[index] = component
+    } else {
+      throw Error(`No page exists with path ${pagePath}`)
+    }
+    return this
+  }
+
   updateCondition (name, displayName, value) {
     const condition = this.#conditions.find(condition => condition.name === name)
     if (condition) {
@@ -172,6 +220,52 @@ class Data {
     return this.#conditions.map(it => clone(it))
   }
 
+  get name () {
+    return this.#name
+  }
+
+  set name (name) {
+    if (typeof name === 'string' || name === undefined) {
+      this.#name = name
+    } else {
+      throw Error('name must be a string')
+    }
+  }
+
+  get feedbackForm () {
+    return this.#feedback?.feedbackForm ?? false
+  }
+
+  set feedbackForm (feedbackForm) {
+    if (typeof feedbackForm === 'boolean') {
+      this.#feedback = this.#feedback || {}
+      this.#feedback.feedbackForm = feedbackForm
+    } else {
+      throw Error('feedbackForm must be a boolean')
+    }
+  }
+
+  setFeedbackUrl (feedbackUrl) {
+    this.#setFeedbackUrl(feedbackUrl)
+  }
+
+  get feedbackUrl () {
+    return this.#feedback?.url
+  }
+
+  /* eslint-disable-next-line */
+  #setFeedbackUrl (feedbackUrl) {
+    if(feedbackUrl && this.feedbackForm) {
+      throw Error('Cannot set a feedback url on a feedback form')
+    }
+    if (typeof feedbackUrl === 'string' || feedbackUrl === undefined) {
+      this.#feedback = this.#feedback || {}
+      this.#feedback.url = feedbackUrl
+    } else {
+      throw Error('feedbackUrl must be a string')
+    }
+  }
+
   clone () {
     return new Data(this._exposePrivateFields())
   }
@@ -184,6 +278,8 @@ class Data {
   _exposePrivateFields () {
     const toSerialize = Object.assign({}, this)
     toSerialize.conditions = this.conditions.map(it => clone(it))
+    toSerialize.name = this.name
+    toSerialize.feedback = this.#feedback
     return toSerialize
   }
 }
@@ -202,13 +298,13 @@ Object.filter = function (obj, predicate) {
 class Input {
   #parentItemName
 
-  constructor (rawData, page, parentItemName) {
+  constructor (rawData, page, options = {}) {
     Object.assign(this, rawData)
     const myPage = clone(page)
     delete myPage.components
     this.page = myPage
-    this.propertyPath = page.section ? `${page.section}.${this.name}` : this.name
-    this.#parentItemName = parentItemName
+    this.propertyPath = !options.ignoreSection && page.section ? `${page.section}.${this.name}` : this.name
+    this.#parentItemName = options.parentItemName
   }
 
   get displayName () {

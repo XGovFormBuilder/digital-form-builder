@@ -1,30 +1,24 @@
 import React from 'react'
-import { getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ComponentEdit extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
+    this.state = {
+      component: props.component
+    }
+  }
 
-  onSubmit = e => {
+  async onSubmit (e) {
     e.preventDefault()
-    const form = e.target
     const { data, page, component } = this.props
-    const formData = getFormData(form)
     const copy = clone(data)
-    const copyPage = copy.findPage(page.path)
+    const updatedComponent = this.state.component
 
-    // Apply
-    const componentIndex = page.components.indexOf(component)
-    copyPage.components[componentIndex] = formData
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    const updatedData = copy.updateComponent(page.path, component.name, updatedComponent)
+    const savedData = await data.save(updatedData)
+    this.props.onEdit({ data: savedData })
   }
 
   onClickDelete = e => {
@@ -59,7 +53,8 @@ class ComponentEdit extends React.Component {
   }
 
   render () {
-    const { page, component, data } = this.props
+    const { page, data } = this.props
+    const { component } = this.state
 
     const copyComp = JSON.parse(JSON.stringify(component))
 
@@ -69,13 +64,13 @@ class ComponentEdit extends React.Component {
           <div className='govuk-form-group'>
             <span className='govuk-label govuk-label--s' htmlFor='type'>Type</span>
             <span className='govuk-body'>{component.type}</span>
-            <input id='type' type='hidden' name='type' defaultValue={component.type} />
           </div>
 
           <ComponentTypeEdit
             page={page}
             component={copyComp}
             data={data}
+            updateModel={this.storeComponent}
           />
 
           <button className='govuk-button' type='submit'>Save</button>{' '}
@@ -83,6 +78,10 @@ class ComponentEdit extends React.Component {
         </form>
       </div>
     )
+  }
+
+  storeComponent = (component) => {
+    this.setState({ component })
   }
 }
 

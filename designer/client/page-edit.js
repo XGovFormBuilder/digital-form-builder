@@ -163,8 +163,8 @@ class PageEdit extends React.Component {
     const { title, path, generatedPath, controller, section } = this.state
 
     const configuredController = controller || page.controller || ''
-    const configuredPath = path || generatedPath || page.path
-    const configuredTitle = title || page.title
+    const configuredPath = path || generatedPath || page.path || ''
+    const configuredTitle = title || page.title || ''
     const configuredSection = section || page.section || ''
 
     return (

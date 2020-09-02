@@ -86,6 +86,15 @@ export function assertCheckboxInput (wrapper, id, value, checked, attrs) {
   assertAdditionalAttributes(attrs, wrapper)
 }
 
+export function assertRadioButton (wrapper, id, value, label, attrs) {
+  expect(getTagName(wrapper)).to.equal('input')
+  expect(getProperty(wrapper, 'type')).to.equal('radio')
+  expect(getProperty(wrapper, 'id')).to.equal(id)
+  expect(getProperty(wrapper, 'value')).to.equal(value)
+  expect(wrapper.closest('div').text()).to.equal(label)
+  assertAdditionalAttributes(attrs, wrapper)
+}
+
 export function assertOption (wrapper, expectedValue, expectedText) {
   expect(getTagName(wrapper)).to.equal('option')
   expect(getProperty(wrapper, 'value')).to.equal(expectedValue)

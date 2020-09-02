@@ -2,13 +2,15 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { stub, restore } from 'sinon'
+import { stub } from 'sinon'
 import NewConfig from '../client/new-config'
+
+import formConfigurationsApi from '../client/load-form-configurations'
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { suite, test, beforeEach } = lab
+const { suite, test, afterEach } = lab
 
 const configurations = [{
   Key: '111.json',
@@ -24,16 +26,14 @@ const configurations = [{
 }]
 
 suite('New configuration screen', () => {
-  beforeEach(() => {
-    restore()
+  let formConfigurationApiStub
+
+  afterEach(() => {
+    formConfigurationApiStub.restore()
   })
 
   test('Should show no existing configurations found message', () => {
-    stub(NewConfig.prototype, 'fetchConfigurations').callsFake(() => {
-      return new Promise((resolve, reject) => {
-        resolve({})
-      })
-    })
+    formConfigurationApiStub = stub(formConfigurationsApi, 'loadConfigurations').resolves([])
     const wrapper = shallow(<NewConfig />)
     expect(wrapper.find('#hint-none-found').exists()).to.equal(true)
   })
@@ -41,11 +41,7 @@ suite('New configuration screen', () => {
   const wait = () => new Promise(resolve => setTimeout(resolve))
 
   test('Loads configurations into select', () => {
-    stub(NewConfig.prototype, 'fetchConfigurations').callsFake(() => {
-      return new Promise((resolve, reject) => {
-        resolve(configurations)
-      })
-    })
+    formConfigurationApiStub = stub(formConfigurationsApi, 'loadConfigurations').resolves(configurations)
     const wrapper = shallow(<NewConfig />)
 
     return wait().then(() => {
@@ -56,7 +52,7 @@ suite('New configuration screen', () => {
   })
 
   test('Button is disabled and shows a message when input matches an existing configuration', () => {
-    stub(NewConfig.prototype, 'loadConfigurations')
+    formConfigurationApiStub = stub(formConfigurationsApi, 'loadConfigurations').resolves(configurations)
     const wrapper = shallow(<NewConfig />)
     wrapper.setState({ configs: configurations })
     const input = wrapper.find('input')
@@ -65,7 +61,7 @@ suite('New configuration screen', () => {
   })
 
   test('Input replaces whitespace with \'-\' on input change', () => {
-    stub(NewConfig.prototype, 'loadConfigurations')
+    formConfigurationApiStub = stub(formConfigurationsApi, 'loadConfigurations').resolves(configurations)
     const wrapper = mount(<NewConfig />)
     const input = wrapper.find('input')
     input.simulate('change', { target: { value: 'string with spaces' } })

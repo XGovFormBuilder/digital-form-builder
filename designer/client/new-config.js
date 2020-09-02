@@ -1,4 +1,5 @@
 import React from 'react'
+import formConfigurationApi from './load-form-configurations'
 
 export default class NewConfig extends React.Component {
   constructor (props) {
@@ -15,32 +16,10 @@ export default class NewConfig extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  fetchConfigurations () {
-    return window.fetch('/configurations', {
-      method: 'get',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(res => {
-      if (res.ok) {
-        return res.json()
-      } else {
-        throw res.error
-      }
+  componentDidMount () {
+    formConfigurationApi.loadConfigurations().then(configs => {
+      this.setState({ configs })
     })
-  }
-
-  loadConfigurations () {
-    this.fetchConfigurations().then(data => {
-      this.setState({ configs: Object.values(data) || [] })
-    }).catch(error => {
-      console.log(error)
-    })
-  }
-
-  componentWillMount () {
-    this.loadConfigurations()
   }
 
   onSelect (e) {
@@ -94,7 +73,7 @@ export default class NewConfig extends React.Component {
         <select className='govuk-select' id='link-source' name='configuration' value={selected.Key} required onChange={this.onSelect}>
           <option key={0} value='New'>New</option>
           {configs.length && (
-            configs.map((config, i) => (<option key={config.Key + i} value={config.Key}>{config.Key}</option>))
+            configs.map((config, i) => (<option key={config.Key + i} value={config.Key}>{config.DisplayName}</option>))
           )}
         </select>
 

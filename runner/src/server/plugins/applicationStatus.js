@@ -1,4 +1,24 @@
-const shortid = require('shortid')
+
+const { Helpers, RelativeUrl, decode } = require('@xgovformbuilder/engine')
+const { payReturnUrl } = require('../config')
+
+const redirectUrl = Helpers.redirectUrl
+const redirectTo = Helpers.redirectTo
+const { nanoid } = require('nanoid')
+
+function getFeedbackContextInfo (request) {
+  if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
+    return decode(new RelativeUrl(`${request.url.pathname}${request.url.search}`).feedbackReturnInfo)
+  }
+}
+
+function successfulOutcome (request, h, model) {
+  const feedbackContextInfo = getFeedbackContextInfo(request)
+  if (feedbackContextInfo) {
+    return h.redirect(feedbackContextInfo.url)
+  }
+  return h.view('confirmation', model)
+}
 
 const applicationStatus = {
   plugin: {
@@ -34,9 +54,9 @@ const applicationStatus = {
           if (reference) {
             await cacheService.clearState(request)
             if (reference !== 'UNKNOWN') {
-              return h.view('confirmation', { reference })
+              return successfulOutcome(request, h, { reference })
             } else {
-              return h.view('confirmation')
+              return successfulOutcome(request, h)
             }
           }
 
@@ -85,9 +105,9 @@ const applicationStatus = {
             }
             await cacheService.clearState(request)
             if (newReference !== 'UNKNOWN') {
-              return h.view('confirmation', { reference: newReference, paySkipped: userCouldntPay })
+              return successfulOutcome(request, h, { reference: newReference, paySkipped: userCouldntPay })
             } else {
-              return h.view('confirmation', { paySkipped: userCouldntPay })
+              return successfulOutcome(request, h, { paySkipped: userCouldntPay })
             }
           } catch (err) {
             request.server.log(['error', 'output'], `Error processing output: ${err.message}`)
@@ -107,11 +127,11 @@ const applicationStatus = {
           const { pay } = await cacheService.getState(request)
           const { meta } = pay
           meta.attempts++
-          // TODO:- let payService handle shortid.generate()
-          const reference = `FCO-${shortid.generate()}`
-          const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey)
+          // TODO:- let payService handle nanoid(10)
+          const reference = `${nanoid(10)}`
+          const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey, redirectUrl(request, payReturnUrl))
           await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
-          return h.redirect(res._links.next_url.href)
+          return redirectTo(request, h, res._links.next_url.href)
         }
       })
     }

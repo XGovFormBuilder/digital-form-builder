@@ -1,11 +1,13 @@
 import React from 'react'
-import { getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class ComponentCreate extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
 
   async componentDidMount () {
     const { data } = this.props
@@ -13,25 +15,16 @@ class ComponentCreate extends React.Component {
     this.setState({ id })
   }
 
-  onSubmit = e => {
+  async onSubmit (e) {
     e.preventDefault()
-    const form = e.target
     const { page, data } = this.props
-    const formData = getFormData(form)
+    const { component } = this.state
     const copy = clone(data)
-    const copyPage = copy.findPage(page.path)
 
-    // Apply
-    copyPage.components.push(formData)
+    const updated = copy.addComponent(page.path, component)
 
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onCreate({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    const saved = await data.save(updated)
+    this.props.onCreate({ data: saved })
   }
 
   render () {
@@ -60,6 +53,7 @@ class ComponentCreate extends React.Component {
                 page={page}
                 component={this.state.component}
                 data={data}
+                updateModel={this.storeComponent}
               />
 
               <button type='submit' className='govuk-button'>Save</button>
@@ -69,6 +63,10 @@ class ComponentCreate extends React.Component {
         </form>
       </div>
     )
+  }
+
+  storeComponent = (component) => {
+    this.setState({ component })
   }
 }
 

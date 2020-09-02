@@ -5,13 +5,13 @@
   "main": "index.js",
   "module": "src/lib.js",
   "scripts": {
-    "fix-lint": "yarn run lint --fix",
+    "fix-lint": "yarn run eslint ./ -c ../.eslintrc.json --fix",
     "lint": "yarn run eslint ./ -c ../.eslintrc.json",
     "build": "yarn run babel --root-mode upward src -d lib --source-maps inline",
     "watch": "bash -c 'nohup yarn run babel src --root-mode upward -d lib --source-maps inline --watch'",
-    "test-lab": "lab -T test/.transform.js -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version",
+    "test-lab": "lab -T test/.transform.js -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version,regeneratorRuntime",
     "test": "yarn flow && yarn lint && yarn test-lab",
-    "test-lab-cov": "lab -T test/.transform.js test/**/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version",
+    "test-lab-cov": "lab -T test/.transform.js test/**/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version,regeneratorRuntime",
     "test-cov": "yarn flow && yarn lint && yarn test-lab-cov",
     "postpack": "flow-typed install --ignoreDeps dev"
   },
@@ -32,6 +32,7 @@
     "hmpo-components": "2.6.5",
     "joi": "14.3.1",
     "moment": "2.24.0",
+    "nanoid": "^3.1.12",
     "nunjucks": "3.2.1",
     "path": "0.12.7",
     "wreck": "14.2.0"
@@ -58,6 +59,7 @@
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.0",
     "flow-bin": "^0.130.0",
+    "sinon": "^9.0.2",
     "standard": "14.3.3"
   }
 }

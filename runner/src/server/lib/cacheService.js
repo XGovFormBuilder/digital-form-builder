@@ -7,17 +7,17 @@ const Redis = require('ioredis')
 const partition = 'cache'
 
 class CacheService {
-  constructor (server, options) {
+  constructor (server) {
     this.cache = server.cache({ segment: 'cache' })
   }
 
   async getState (request) {
-    const cached = await this.cache.get(this.Key(request.yar.id))
+    const cached = await this.cache.get(this.Key(request.yar.id, request.query.visit))
     return cached || {}
   }
 
   async mergeState (request, value, nullOverride = true, arrayMerge = false) {
-    const key = this.Key(request.yar.id)
+    const key = this.Key(request.yar.id, request.query.visit)
     const state = await this.getState(request)
     hoek.merge(state, value, nullOverride, arrayMerge)
     await this.cache.set(key, state, sessionTimeout)
@@ -26,14 +26,14 @@ class CacheService {
 
   async clearState (request) {
     if (request.yar && request.yar.id) {
-      this.cache.drop(this.Key(request.yar.id))
+      this.cache.drop(this.Key(request.yar.id, request.query.visit))
     }
   }
 
-  Key (id) {
+  Key (sessionId, visitId) {
     return {
       segment: partition,
-      id
+      id: `${sessionId}:${visitId}`
     }
   }
 }

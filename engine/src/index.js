@@ -1,3 +1,8 @@
+import { redirectTo } from './helpers'
+import { RelativeUrl } from './feedback'
+import { FormConfiguration } from '@xgovformbuilder/model'
+
+const { nanoid } = require('nanoid')
 const Boom = require('boom')
 const pkg = require('../package.json')
 const Model = require('./model')
@@ -8,15 +13,24 @@ function normalisePath (path) {
     .replace(/\/$/, '')
 }
 
-function getStartPageRedirect (h, id, model) {
+function getStartPageRedirect (request, h, id, model) {
   const startPage = normalisePath(model.def.startPage)
   let startPageRedirect
   if (startPage.startsWith('http')) {
-    startPageRedirect = h.redirect(startPage)
+    startPageRedirect = redirectTo(request, h, startPage)
   } else {
-    startPageRedirect = h.redirect(`/${id}/${startPage}`)
+    startPageRedirect = redirectTo(request, h, `/${id}/${startPage}`)
   }
   return startPageRedirect
+}
+
+function redirectWithVisitParameter (request, h) {
+  const visitId = request.query[RelativeUrl.VISIT_IDENTIFIER_PARAMETER]
+  if (!visitId) {
+    const params = Object.assign({}, request.query)
+    params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = nanoid(10)
+    return redirectTo(request, h, request.url.pathname, params)
+  }
 }
 
 module.exports = {
@@ -38,6 +52,13 @@ module.exports = {
       })
 
       if (previewMode) {
+        /**
+         * The following endpoints are used from the designer for operating in 'preview' mode.
+         * I.E. Designs saved in the designer can be accessed in the runner for viewing.
+         * The designer also uses these endpoints as a persistence mechanism for storing and retrieving data
+         * for it's own purposes so if you're changing these endpoints you likely need to go and amend
+         * the designer too!
+         */
         server.route({
           method: 'post',
           path: '/publish',
@@ -61,22 +82,37 @@ module.exports = {
             }
           }
         })
+
+        server.route({
+          method: 'get',
+          path: '/published',
+          handler: (request, h) => {
+            return h.response(
+              JSON.stringify(Object.keys(forms).map(key => new FormConfiguration(key, forms[key].name, undefined, forms[key].def.feedback?.feedbackForm)))
+            )
+              .code(200)
+          }
+        })
       }
 
       server.route({
         method: 'get',
         path: '/',
         handler: (request, h) => {
-          const keys = Object.keys(forms)
-          let id = ''
-          if (keys.length === 1) {
-            id = keys[0]
+          function handle () {
+            const keys = Object.keys(forms)
+            let id = ''
+            if (keys.length === 1) {
+              id = keys[0]
+            }
+            const model = forms[id]
+            if (model) {
+              return getStartPageRedirect(request, h, id, model)
+            }
+            throw Boom.notFound('No default form found')
           }
-          const model = forms[id]
-          if (model) {
-            return getStartPageRedirect(h, id, model)
-          }
-          throw Boom.notFound('No default form found')
+
+          return redirectWithVisitParameter(request, h) || handle()
         }
       })
 
@@ -84,12 +120,16 @@ module.exports = {
         method: 'get',
         path: '/{id}',
         handler: (request, h) => {
-          const { id } = request.params
-          const model = forms[id]
-          if (model) {
-            return getStartPageRedirect(h, id, model)
+          function handle () {
+            const { id } = request.params
+            const model = forms[id]
+            if (model) {
+              return getStartPageRedirect(request, h, id, model)
+            }
+            throw Boom.notFound('No form found for id')
           }
-          throw Boom.notFound('No form found for id')
+
+          return redirectWithVisitParameter(request, h) || handle()
         }
       })
 
@@ -97,18 +137,22 @@ module.exports = {
         method: 'get',
         path: '/{id}/{path*}',
         handler: (request, h) => {
-          const { path, id } = request.params
-          const model = forms[id]
-          if (model) {
-            const page = model.pages.find(page => normalisePath(page.path) === normalisePath(path))
-            if (page) {
-              return page.makeGetRouteHandler()(request, h)
+          function handle () {
+            const { path, id } = request.params
+            const model = forms[id]
+            if (model) {
+              const page = model.pages.find(page => normalisePath(page.path) === normalisePath(path))
+              if (page) {
+                return page.makeGetRouteHandler()(request, h)
+              }
+              if (normalisePath(path) === '') {
+                return getStartPageRedirect(request, h, id, model)
+              }
             }
-            if (normalisePath(path) === '') {
-              return getStartPageRedirect(h, id, model)
-            }
+            throw Boom.notFound('No form or page found')
           }
-          throw Boom.notFound('No form or page found')
+
+          return redirectWithVisitParameter(request, h) || handle()
         }
       })
 

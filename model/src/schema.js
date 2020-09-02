@@ -25,6 +25,12 @@ const relativeTimeValueSchema = joi.object().keys({
   timeOnly: joi.boolean().required()
 })
 
+const conditionRefSchema = joi.object().keys({
+  conditionName: joi.string().required(),
+  conditionDisplayName: joi.string().required(),
+  coordinator: joi.string().optional()
+})
+
 const conditionSchema = joi.object().keys({
   field: conditionFieldSchema,
   operator: joi.string().required(),
@@ -33,12 +39,12 @@ const conditionSchema = joi.object().keys({
 })
 
 const conditionGroupSchema = joi.object().keys({
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
 })
 
 const conditionsModelSchema = joi.object().keys({
   name: joi.string().required(),
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionGroupSchema))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, conditionGroupSchema))
 })
 
 const conditionsSchema = joi.object().keys({
@@ -128,15 +134,22 @@ const sheetsSchema = joi.object().keys({
   sheets: joi.array().items(sheetItemSchema),
   spreadsheetIdField: joi.string()
 })
+
 const outputSchema = joi.object().keys({
   name: joi.string(),
   title: joi.string().optional(),
-  type: joi.string().allow('confirmationEmail', 'email', 'webhook', 'sheets'),
+  type: joi.string().allow('notify', 'email', 'webhook', 'sheets'),
   outputConfiguration: joi.alternatives().try(notifySchema, emailSchema, webhookSchema, sheetsSchema)
+})
+
+const feedbackSchema = joi.object().keys({
+  feedbackForm: joi.boolean().default(false),
+  url: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() })
 })
 
 const schema = joi.object().required().keys({
   name: localisedString.optional(),
+  feedback: feedbackSchema,
   startPage: joi.string().required(),
   pages: joi.array().required().items(pageSchema).unique('path'),
   sections: joi.array().items(sectionsSchema).unique('name').required(),

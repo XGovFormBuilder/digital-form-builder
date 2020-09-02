@@ -63,7 +63,7 @@ If you have any problems, submit an issue or send a message via gitter.
 
 #### Cannot resolve module `xxx`. [cannot-resolve-module]
 1. `$ yarn flow-mono create-symlinks`
-2.  `$yarn flow-mono install-types`
+2. `$ yarn flow-mono install-types`
 3. `$ yarn flow-mono create-stubs`
 
 #### Error: ENOENT: no such file or directory, scandir 'xxx/node_modules/node-sass/vendor'
