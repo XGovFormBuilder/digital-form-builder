@@ -1,17 +1,16 @@
 const { clone } = require('./helpers')
 const { ConditionsModel } = require('./conditions/inline-condition-model')
 
-const yesNoList = {
-  name: '__yesNo',
-  title: 'Yes/No',
-  type: 'boolean',
+const yesNoItems = {
+  type: 'static',
+  valueType: 'boolean',
   items: [
     {
-      text: 'Yes',
+      display: 'Yes',
       value: true
     },
     {
-      text: 'No',
+      display: 'No',
       value: false
     }
   ]
@@ -43,10 +42,10 @@ class Data {
 
   /* eslint-disable-next-line */
   #listInputsFor(page, input) {
-    const list = this.listFor(input);
-    return list ? list.items.flatMap(listItem =>listItem.conditional?.components
+    const values = this.valuesFor(input);
+    return values ? values.items.flatMap(listItem => listItem.children
         ?.filter(it => it.name)
-        ?.map(it => new Input(it, page, {parentItemName: listItem.text}))??[]) : []
+        ?.map(it => new Input(it, page, {parentItemName: listItem.display}))??[]) : []
   }
 
   allInputs () {
@@ -139,8 +138,13 @@ class Data {
     return this.pages || []
   }
 
-  listFor (input) {
-    return (this.lists || []).find(it => it.name === (input.options || {}).list) || (input.type === 'YesNoField' ? yesNoList : undefined)
+  valuesFor (input) {
+    if (input.type === 'YesNoField') {
+      return yesNoItems
+    }
+    if (input.values) {
+      return input.values
+    }
   }
 
   _allPathsLeadingTo (path) {

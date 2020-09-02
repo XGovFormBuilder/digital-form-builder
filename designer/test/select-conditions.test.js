@@ -29,7 +29,7 @@ function assertInlineConditionFlyoutNotDisplayed (wrapper) {
 suite('Select conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
-    listFor: sinon.stub(),
+    valuesFor: sinon.stub(),
     hasConditions: false,
     conditions: []
   }
@@ -53,7 +53,7 @@ suite('Select conditions', () => {
 
     test('render returns placeholder message when there is an empty fields list', () => {
       data.inputsAccessibleAt.withArgs(path).returns([])
-      data.listFor.returns(undefined)
+      data.valuesFor.returns(undefined)
       assertNoFieldsText(shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />))
       expect(conditionsChange.called).to.equal(false)
     })
@@ -176,14 +176,14 @@ suite('Select conditions', () => {
 
     test('render returns placeholder message is an empty fields list', () => {
       data.inputsAccessibleAt.withArgs(path).returns([])
-      data.listFor.returns(undefined)
+      data.valuesFor.returns(undefined)
       assertNoFieldsText(shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />))
       expect(conditionsChange.called).to.equal(false)
     })
 
     describe('when fields are present', () => {
       let fields
-      const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
+      const values = [{ value: 'value1', display: 'Value 1' }, { value: 'value2', display: 'Value 2' }]
 
       before(() => {
         fields = [
@@ -192,8 +192,8 @@ suite('Select conditions', () => {
           { propertyPath: 'field3', title: 'Another thing', type: 'SelectField' }
         ]
         data.inputsAccessibleAt.withArgs(path).returns(fields)
-        data.listFor.returns(undefined)
-        data.listFor.withArgs(fields[2]).returns({ items: values })
+        data.valuesFor.returns(undefined)
+        data.valuesFor.withArgs(fields[2]).returns({ items: values })
       })
 
       test('should display a link to allow inline creation', () => {
@@ -210,7 +210,7 @@ suite('Select conditions', () => {
       })
 
       test('Clicking the define conditions link displays the inline conditions component', () => {
-        data.listFor.returns(undefined)
+        data.valuesFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.find('#inline-conditions-link').simulate('click')
 
@@ -230,7 +230,7 @@ suite('Select conditions', () => {
       test('if the path property changes to a route without fields then the condition section is replaced by no fields text', () => {
         const path2 = '/2'
         data.inputsAccessibleAt.withArgs(path2).returns([])
-        data.listFor.returns(undefined)
+        data.valuesFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
         expect(wrapper.find('InlineConditions').exists()).to.equal(true)
         wrapper.setProps({ path: path2 })
@@ -240,7 +240,7 @@ suite('Select conditions', () => {
       test('if the path property changes from a route with fields then the condition section appears', () => {
         const path2 = '/2'
         data.inputsAccessibleAt.withArgs(path2).returns([])
-        data.listFor.returns(undefined)
+        data.valuesFor.returns(undefined)
         const wrapper = shallow(<SelectConditions data={data} path={path2} conditionsChange={conditionsChange} />)
         expect(wrapper.exists('InlineConditions')).to.equal(false)
         wrapper.setProps({ path: path })

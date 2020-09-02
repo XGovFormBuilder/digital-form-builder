@@ -41,7 +41,7 @@ function SelectValues (props) {
     let value
     if (newValue && newValue?.trim() !== '') {
       const option = fieldDef.values?.find(value => String(value.value) === newValue)
-      value = new ConditionValue(String(option.value), option.text)
+      value = new ConditionValue(String(option.value), option.display)
     }
     updateValue(value)
   }
@@ -53,7 +53,7 @@ function SelectValues (props) {
     >
       <option />
       {fieldDef.values.map(option => {
-        return <option key={option.value} value={option.value}>{option.text}</option>
+        return <option key={option.value} value={option.value}>{option.display}</option>
       })}
     </select>
   )
