@@ -1,12 +1,3 @@
-const listTypes = ['SelectField', 'RadiosField', 'CheckboxesField', 'AutocompleteField']
-
-function componentToString (component) {
-  if (~listTypes.indexOf(component.type)) {
-    return `${component.type}<${component.options.list}>`
-  }
-  return `${component.type}`
-}
-
 function DataModel (props) {
   const { data } = props
   const { sections, pages } = data
@@ -22,9 +13,9 @@ function DataModel (props) {
             model[section.name] = {}
           }
 
-          model[section.name][component.name] = componentToString(component)
+          model[section.name][component.name] = `${component.type}`
         } else {
-          model[component.name] = componentToString(component)
+          model[component.name] = `${component.type}`
         }
       }
     })
