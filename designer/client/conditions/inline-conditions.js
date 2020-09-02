@@ -42,7 +42,7 @@ class InlineConditions extends React.Component {
         label: input.displayName,
         name: input.propertyPath,
         type: input.type,
-        values: (data.listFor(input) ?? {}).items
+        values: (data.valuesFor(input) ?? {}).items
       }))
     const conditionsInputs = data.conditions.map(condition => ({
       label: condition.displayName,

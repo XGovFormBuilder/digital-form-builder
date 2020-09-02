@@ -57,7 +57,7 @@ const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unkn
 
 const componentValuesItemSchema = joi.object().keys({
   display: joi.string().required(),
-  value: joi.alternatives().try(joi.number(), joi.string()).required(),
+  value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()).required(),
   hint: joi.string().allow('').optional(),
   condition: joi.string().optional(),
   children: joi.array().items(joi.ref('componentSchema')).unique('name')
@@ -66,7 +66,7 @@ const componentValuesItemSchema = joi.object().keys({
 const componentValuesSchema = joi.object().keys({
   type: joi.string().allow('static').required(), // allow extension support for dynamically looked up types later
   items: joi.when('type', { is: joi.string().valid('static'), then: joi.array().items(componentValuesItemSchema).unique('value') }),
-  valueType: joi.string().allow('string', 'number').required()
+  valueType: joi.string().allow('string', 'number', 'boolean').required()
 })
 
 const componentSchema = joi.object().keys({

@@ -33,7 +33,7 @@ class SelectConditions extends React.Component {
         label: input.title,
         name: input.propertyPath,
         type: input.type,
-        values: (data.listFor(input) ?? {}).items
+        values: (data.valuesFor(input) ?? {}).items
       }))
       .reduce((obj, item) => {
         obj[item.name] = item

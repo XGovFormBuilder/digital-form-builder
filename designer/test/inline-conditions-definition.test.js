@@ -17,7 +17,7 @@ const { before, beforeEach, describe, suite, test } = lab
 suite('Inline conditions definition section', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
-    listFor: sinon.stub()
+    valuesFor: sinon.stub()
   }
   const textFieldOperators = getOperatorNames('TextField')
   const numberFieldOperators = getOperatorNames('NumberField')
@@ -28,7 +28,7 @@ suite('Inline conditions definition section', () => {
     const selectFieldOperators = getOperatorNames('SelectField')
     let fields
     let expectedFields
-    const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
+    const values = [{ value: 'value1', display: 'Value 1' }, { value: 'value2', display: 'Value 2' }]
     let saveCallback
 
     before(() => {
@@ -71,8 +71,8 @@ suite('Inline conditions definition section', () => {
         }
       }
       data.inputsAccessibleAt.withArgs(path).returns(fields)
-      data.listFor.returns(undefined)
-      data.listFor.withArgs(fields[2]).returns({ items: values })
+      data.valuesFor.returns(undefined)
+      data.valuesFor.withArgs(fields[2]).returns({ items: values })
     })
 
     beforeEach(() => {
