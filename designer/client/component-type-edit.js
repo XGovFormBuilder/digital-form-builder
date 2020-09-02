@@ -171,7 +171,7 @@ function FileUploadFieldEdit (props) {
   )
 }
 
-function NationalInsuranceNumberFieldEdit(props) {
+function NationalInsuranceNumberFieldEdit (props) {
   const { component, updateModel } = props
 
   return (
@@ -179,7 +179,7 @@ function NationalInsuranceNumberFieldEdit(props) {
   )
 }
 
-function UrlFieldEdit(props) {
+function UrlFieldEdit (props) {
   const { component, updateModel } = props
 
   return (
