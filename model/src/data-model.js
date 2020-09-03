@@ -1,7 +1,7 @@
 const { clone } = require('./helpers')
 const { ConditionsModel } = require('./conditions/inline-condition-model')
 
-const yesNoItems = {
+const yesNoValues = {
   type: 'static',
   valueType: 'boolean',
   items: [
@@ -140,7 +140,7 @@ class Data {
 
   valuesFor (input) {
     if (input.type === 'YesNoField') {
-      return yesNoItems
+      return yesNoValues
     }
     if (input.values) {
       return input.values

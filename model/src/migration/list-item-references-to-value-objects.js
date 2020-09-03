@@ -18,7 +18,7 @@ export default class ListItemReferencesToValueObjects implements Migration {
     formDef.version = formDef.version || 1
     formDef.pages.forEach(page => {
       page.components.forEach(component => {
-        if (MIGRATABLE_COMPONENT_TYPES.includes(component.type) && component.options.list) {
+        if (MIGRATABLE_COMPONENT_TYPES.includes(component.type) && component.options?.list) {
           const listName = component.options.list
           const list = formDef.lists.find(list => list.name === listName)
           if (list) {
