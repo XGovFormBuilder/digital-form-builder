@@ -1,3 +1,5 @@
+const { Data } = require('@xgovformbuilder/model')
+
 const joi = require('joi')
 const componentTypes = require('@xgovformbuilder/model/lib/component-types')
 const nunjucks = require('nunjucks')
@@ -9,6 +11,9 @@ class Component {
   constructor (def, model) {
     Object.assign(this, def)
     this.model = model
+    const data = new Data(model.def)
+    const values = data.valuesFor(def)
+    this.values = values ? values.toStaticValues(data) : undefined
   }
 
   getViewModel () {

@@ -39,7 +39,7 @@ const conditionSchema = joi.object().keys({
 })
 
 const conditionGroupSchema = joi.object().keys({
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, joi.ref('conditionGroupSchema')))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, joi.any()/** Should be a joi.link('#conditionGroupSchema') */))
 })
 
 const conditionsModelSchema = joi.object().keys({
@@ -55,18 +55,26 @@ const conditionsSchema = joi.object().keys({
 
 const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(''))
 
-const componentValuesItemSchema = joi.object().keys({
+const staticValueSchema = joi.object().keys({
   display: joi.string().required(),
   value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()).required(),
   hint: joi.string().allow('').optional(),
   condition: joi.string().optional(),
-  children: joi.array().items(joi.ref('componentSchema')).unique('name')
+  children: joi.array().items(joi.any()/** Should be a joi.link('#componentSchema') */).unique('name')
+})
+
+// represents the 'children' which would appear e.g. under a radio option with the specified value
+const valueChildrenSchema = joi.object().keys({
+  value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()).required(),
+  children: joi.array().items(joi.any()/** Should be a joi.link('#componentSchema') */).unique('name')
 })
 
 const componentValuesSchema = joi.object().keys({
-  type: joi.string().allow('static').required(), // allow extension support for dynamically looked up types later
-  items: joi.when('type', { is: joi.string().valid('static'), then: joi.array().items(componentValuesItemSchema).unique('value') }),
-  valueType: joi.string().allow('string', 'number', 'boolean').required()
+  type: joi.string().allow('static', 'listRef').required(), // allow extension support for dynamically looked up types later
+  valueType: joi.when('type', { is: joi.string().valid('static'), then: joi.string().allow('string', 'number', 'boolean').required() }),
+  items: joi.when('type', { is: joi.string().valid('static'), then: joi.array().items(staticValueSchema).unique('value') }),
+  list: joi.when('type', { is: joi.string().valid('listRef'), then: joi.string().required() }),
+  valueChildren: joi.when('type', { is: joi.string().valid('listRef'), then: joi.array().items(valueChildrenSchema).unique('value') })
 })
 
 const componentSchema = joi.object().keys({
