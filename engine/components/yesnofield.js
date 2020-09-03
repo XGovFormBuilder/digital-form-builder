@@ -1,16 +1,18 @@
+const { Data } = require('@xgovformbuilder/model')
+
 const { FormComponent } = require('.')
 const helpers = require('./helpers')
 
 class YesNoField extends FormComponent {
   constructor (def, model) {
     super(def, model)
+    this.values = new Data(model.def).valuesFor(def)
 
     const { options, values } = this
 
     if (!options.classes) {
       options.classes = 'govuk-radios--inline'
     }
-
     const validValues = values.items.map(item => item.value)
     const formSchema = helpers.buildFormSchema(values.valueType, this, options.required !== false).valid(validValues)
     const stateSchema = helpers.buildStateSchema(values.valueType, this).valid(validValues)
