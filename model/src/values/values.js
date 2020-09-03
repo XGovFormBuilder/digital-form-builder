@@ -1,15 +1,15 @@
 // @flow
 
-import { Data } from '../data-model'
+import type { DataModel } from '../data-model-interface'
 
 type ValuesType = 'static' | 'listRef';
 type ValueTypes = 'string' | 'number' | 'boolean';
 type ConcreteValueTypes = string | number | boolean;
 
-interface ComponentValues {
+export interface ComponentValues {
   // Converts whatever type of values this is into a static values object
   // suitable for rendering
-  toStaticValues(data: Data): StaticValues // eslint-disable-line
+  toStaticValues(data: DataModel): StaticValues // eslint-disable-line
 }
 
 class Values implements ComponentValues {
@@ -18,7 +18,7 @@ class Values implements ComponentValues {
     this.type = type
   }
 
-  toStaticValues (): StaticValues { // eslint-disable-line
+  toStaticValues (data: DataModel): StaticValues { // eslint-disable-line
     throw Error('Unimplemented')
   }
 }
@@ -53,7 +53,7 @@ class StaticValues extends Values {
     this.items = items
   }
 
-  toStaticValues (): StaticValues {
+  toStaticValues (data: DataModel): StaticValues {
     return this
   }
 
@@ -89,7 +89,7 @@ class ListRefValues extends Values {
     this.valueChildren = valueChildren
   }
 
-  toStaticValues (data: Data): StaticValues {
+  toStaticValues (data: DataModel): StaticValues {
     const list = data.findList(this.list)
     if (list) {
       return new StaticValues(list.type,
