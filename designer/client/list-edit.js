@@ -41,13 +41,12 @@ class ListEdit extends React.Component {
             if (c.options && c.options.list === list.name) {
               c.options.list = newName
             }
-            if(c.values?.type === 'listRef' && c.values.list === list.name) {
+            if (c.values?.type === 'listRef' && c.values.list === list.name) {
               c.values.list = newName
             }
           }
         })
       })
-
     }
 
     copyList.title = newTitle
