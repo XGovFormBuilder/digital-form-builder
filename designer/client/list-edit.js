@@ -33,6 +33,21 @@ class ListEdit extends React.Component {
 
     if (nameChanged) {
       copyList.name = newName
+
+      // Update any references to the list
+      copy.pages.forEach(p => {
+        p.components.forEach(c => {
+          if (c.type === 'SelectField' || c.type === 'RadiosField' || c.type === 'AutocompleteField') {
+            if (c.options && c.options.list === list.name) {
+              c.options.list = newName
+            }
+            if(c.values?.type === 'listRef' && c.values.list === list.name) {
+              c.values.list = newName
+            }
+          }
+        })
+      })
+
     }
 
     copyList.title = newTitle
@@ -76,12 +91,12 @@ class ListEdit extends React.Component {
       return null
     })
 
-    copyList.items = texts.map((t, i) => ({
+    copyList.items = texts.map((t, index) => ({
       text: t,
-      value: values[i],
-      description: descriptions[i],
-      condition: conditions[i],
-      conditional: conditionals[i]
+      value: values[index],
+      description: descriptions[index],
+      condition: conditions[index],
+      conditional: conditionals[index]
     }))
 
     console.log(copy)

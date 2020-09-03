@@ -30,7 +30,17 @@ suite('data model', () => {
     feedback: {
       feedbackForm: false,
       url: '/feedback'
-    }
+    },
+    lists: [
+      {
+        name: 'myList',
+        type: 'string',
+        items: [
+          { text: 'some stuff', value: 'myValue', description: 'A hint', condition: 'badger' },
+          { text: 'another thing', value: 'anotherValue' }
+        ]
+      }
+    ]
   }
 
   describe('all inputs', () => {
@@ -776,11 +786,39 @@ suite('data model', () => {
   })
 
   describe('values for', () => {
-    test('should return the values specified in the provided input if it exists', () => {
-      const data = new Data({})
-      const values = { type: 'static', items: [{ display: 'some stuff' }] }
-      const returned = data.valuesFor({ values: values })
-      expect(returned).to.equal(values)
+    const staticValues = {
+      type: 'static',
+      valueType: 'string',
+      items: [
+        { display: 'some stuff', value: 'myValue', hint: 'A hint', condition: 'badger', children: [{ name: 'aBadger' }] },
+        { display: 'another thing', value: 'anotherValue', hint: undefined, condition: undefined, children: [] }
+      ]
+    }
+    const valuesTypes = [
+      staticValues,
+      {
+        type: 'listRef',
+        list: 'myList',
+        valueChildren: [
+          {
+            value: 'myValue',
+            children: [{ name: 'aBadger' }]
+          }
+        ]
+      }
+    ]
+    valuesTypes.forEach(values => {
+      test(`should return the '${values.type}' values specified in the provided input if it exists`, () => {
+        const data = new Data(fullyPopulatedRawData)
+        const returned = data.valuesFor({ values: values })
+        expect(returned).to.equal(values)
+      })
+
+      test(`returned '${values.type}' values should convert to static values`, () => {
+        const data = new Data(fullyPopulatedRawData)
+        const returned = data.valuesFor({ values: values })
+        expect(returned.toStaticValues(data)).to.equal(staticValues)
+      })
     })
 
     test('should return undefined if no values exist', () => {
@@ -798,11 +836,17 @@ suite('data model', () => {
         items: [
           {
             display: 'Yes',
-            value: true
+            value: true,
+            hint: undefined,
+            condition: undefined,
+            children: []
           },
           {
             display: 'No',
-            value: false
+            value: false,
+            hint: undefined,
+            condition: undefined,
+            children: []
           }
         ]
       })
@@ -1129,6 +1173,38 @@ suite('data model', () => {
         path: '/3',
         components: []
       })
+    })
+  })
+
+  describe('find list', () => {
+    test('should return the page with the requested path if it exists', () => {
+      const data = new Data({
+        lists: [
+          { name: 'firstList' },
+          { name: 'myList' },
+          { name: 'anotherList' }
+        ]
+      })
+      const returned = data.findList('myList')
+      expect(returned === data.lists[1]).to.equal(true)
+    })
+
+    test('should return undefined if the requested list does not exist', () => {
+      const data = new Data({
+        lists: [{ name: 'firstList' }]
+      })
+
+      expect(data.findList('myList')).to.equal(undefined)
+    })
+
+    test('should handle no lists', () => {
+      const data = new Data({ lists: [] })
+      expect(data.findList('/1')).to.equal(undefined)
+    })
+
+    test('should handle undefined lists', () => {
+      const data = new Data({ })
+      expect(data.findList('/1')).to.equal(undefined)
     })
   })
 

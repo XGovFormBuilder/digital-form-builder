@@ -1,22 +1,10 @@
+import { yesNoValues, valuesFrom } from './values/values'
+import { DataModel } from './data-model-interface'
+
 const { clone } = require('./helpers')
 const { ConditionsModel } = require('./conditions/inline-condition-model')
 
-const yesNoValues = {
-  type: 'static',
-  valueType: 'boolean',
-  items: [
-    {
-      display: 'Yes',
-      value: true
-    },
-    {
-      display: 'No',
-      value: false
-    }
-  ]
-}
-
-class Data {
+class Data implements DataModel {
   /**
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
@@ -76,6 +64,10 @@ class Data {
 
   findPage (path) {
     return this.getPages().find(p => p.path === path)
+  }
+
+  findList (listName) {
+    return (this.lists ?? []).find(list => list.name === listName)
   }
 
   addLink (from, to, condition) {
@@ -143,7 +135,7 @@ class Data {
       return yesNoValues
     }
     if (input.values) {
-      return input.values
+      return valuesFrom(input.values, this)
     }
   }
 
