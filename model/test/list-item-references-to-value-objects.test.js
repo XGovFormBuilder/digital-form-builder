@@ -89,23 +89,23 @@ function migratedDef (testCase) {
             },
             schema: {},
             values: {
-              type: 'static',
-              valueType: testCase.valueType,
-              items: [
+              type: 'listRef',
+              list: 'licenceLengthDays',
+              valueChildren: [
                 {
-                  display: '1 day',
-                  value: 1,
-                  hint: 'Valid for 24 hours from the start time that you select'
-                },
-                {
-                  display: '8 day',
-                  value: 8,
-                  hint: 'Valid for 8 consecutive days from the start time that you select'
-                },
-                {
-                  display: '12 months',
                   value: 365,
-                  hint: '12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year'
+                  children: [
+                    {
+                      name: 'aName',
+                      type: 'RadiosField',
+                      options: { list: 'anotherList' },
+                      values: {
+                        list: 'anotherList',
+                        type: 'listRef',
+                        valueChildren: []
+                      }
+                    }
+                  ]
                 }
               ]
             }
@@ -171,12 +171,50 @@ function migratedDef (testCase) {
           {
             text: '8 day',
             value: 8,
-            description: 'Valid for 8 consecutive days from the start time that you select'
+            description: 'Valid for 8 consecutive days from the start time that you select',
+            condition: 'myCondition'
           },
           {
             text: '12 months',
             value: 365,
-            description: '12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year'
+            description: '12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year',
+            conditional: {
+              components: [
+                {
+                  name: 'aName',
+                  type: 'RadiosField',
+                  options: { list: 'anotherList' },
+                  values: {
+                    list: 'anotherList',
+                    type: 'listRef',
+                    valueChildren: []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        name: 'anotherList',
+        title: 'Licence length (minutes)',
+        type: testCase.valueType,
+        items: [
+          {
+            text: '1 minute',
+            value: 1,
+            description: 'Valid for 1 minute from the start time that you select'
+          },
+          {
+            text: '8 minutes',
+            value: 8,
+            description: 'Valid for 8 consecutive minutes from the start time that you select',
+            condition: 'myCondition'
+          },
+          {
+            text: '12 minutes',
+            value: 12,
+            description: '12-minute licences are now valid for an absurdly short period of time from their start date and can be purchased at any time during the year'
           }
         ]
       }
@@ -267,12 +305,39 @@ function unmigratedDef (testCase) {
           {
             text: '8 day',
             value: 8,
-            description: 'Valid for 8 consecutive days from the start time that you select'
+            description: 'Valid for 8 consecutive days from the start time that you select',
+            condition: 'myCondition'
           },
           {
             text: '12 months',
             value: 365,
-            description: '12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year'
+            description: '12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year',
+            conditional: {
+              components: [{ name: 'aName', type: 'RadiosField', options: { list: 'anotherList' } }]
+            }
+          }
+        ]
+      },
+      {
+        name: 'anotherList',
+        title: 'Licence length (minutes)',
+        type: testCase.valueType,
+        items: [
+          {
+            text: '1 minute',
+            value: 1,
+            description: 'Valid for 1 minute from the start time that you select'
+          },
+          {
+            text: '8 minutes',
+            value: 8,
+            description: 'Valid for 8 consecutive minutes from the start time that you select',
+            condition: 'myCondition'
+          },
+          {
+            text: '12 minutes',
+            value: 12,
+            description: '12-minute licences are now valid for an absurdly short period of time from their start date and can be purchased at any time during the year'
           }
         ]
       }
