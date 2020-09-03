@@ -27,7 +27,7 @@ function Classes (props) {
 }
 
 class FieldEdit extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     const { component } = this.props
 
@@ -37,7 +37,7 @@ class FieldEdit extends React.Component {
     }
   }
 
-  checkOptionalBox() {
+  checkOptionalBox () {
     this.setState({ hidden: !this.state.hidden })
   }
 
@@ -506,7 +506,7 @@ function ParaEdit (props) {
         <label className='govuk-label' htmlFor='para-content'>Content</label>
         <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
         <Editor name='content' value={component.content}
-          valueCallback={content => updateComponent(component, component => { component.content = content }, updateModel)}/>
+          valueCallback={content => updateComponent(component, component => { component.content = content }, updateModel)} />
       </div>
       <div className='govuk-form-group'>
         <label className='govuk-label' htmlFor='condition'>Condition (optional)</label>
@@ -614,26 +614,26 @@ function DetailsEdit (props) {
 }
 
 const componentTypeEditors = {
-  'TextFieldEdit': TextFieldEdit,
-  'EmailAddressFieldEdit': TextFieldEdit,
-  'TelephoneNumberFieldEdit': TextFieldEdit,
-  'NationalInsuranceNumberFieldEdit': NationalInsuranceNumberFieldEdit,
-  'UrlFieldEdit': UrlFieldEdit,
-  'NumberFieldEdit': NumberFieldEdit,
-  'MultilineTextFieldEdit': MultilineTextFieldEdit,
-  'AutocompleteFieldEdit': SelectFieldEdit,
-  'SelectFieldEdit': SelectFieldEdit,
-  'RadiosFieldEdit': RadiosFieldEdit,
-  'CheckboxesFieldEdit': CheckboxesFieldEdit,
-  'ParaEdit': ParaEdit,
-  'HtmlEdit': HtmlEdit,
-  'InsetTextEdit': InsetTextEdit,
-  'WarningTextEdit': WarningTextEdit,
-  'DetailsEdit': DetailsEdit,
-  'FlashCardEdit': FlashCardEdit,
-  'FileUploadFieldEdit': FileUploadFieldEdit,
-  'DatePartsFieldEdit': DateFieldEdit,
-  'ListEdit': ListContentEdit
+  TextFieldEdit: TextFieldEdit,
+  EmailAddressFieldEdit: TextFieldEdit,
+  TelephoneNumberFieldEdit: TextFieldEdit,
+  NationalInsuranceNumberFieldEdit: NationalInsuranceNumberFieldEdit,
+  UrlFieldEdit: UrlFieldEdit,
+  NumberFieldEdit: NumberFieldEdit,
+  MultilineTextFieldEdit: MultilineTextFieldEdit,
+  AutocompleteFieldEdit: SelectFieldEdit,
+  SelectFieldEdit: SelectFieldEdit,
+  RadiosFieldEdit: RadiosFieldEdit,
+  CheckboxesFieldEdit: CheckboxesFieldEdit,
+  ParaEdit: ParaEdit,
+  HtmlEdit: HtmlEdit,
+  InsetTextEdit: InsetTextEdit,
+  WarningTextEdit: WarningTextEdit,
+  DetailsEdit: DetailsEdit,
+  FlashCardEdit: FlashCardEdit,
+  FileUploadFieldEdit: FileUploadFieldEdit,
+  DatePartsFieldEdit: DateFieldEdit,
+  ListEdit: ListContentEdit
 }
 
 class ComponentTypeEdit extends React.Component {
