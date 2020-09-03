@@ -1,6 +1,7 @@
 import React from 'react'
 import Editor from './editor'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import { ComponentValues } from './components/component-values'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -368,54 +369,14 @@ function DateFieldEdit (props) {
   )
 }
 
-function addListValuesTo (component, data, listName) {
-  const list = data.lists.find(list => list.name === listName)
-
-  function itemFrom (item) {
-    const toReturn = {
-      display: item.text,
-      value: item.value
-    }
-    Object.assign(toReturn, item.description && { hint: item.description })
-    Object.assign(toReturn, item.condition && { condition: item.condition })
-    Object.assign(toReturn, item.conditional?.components && { children: item.conditional?.components })
-    return toReturn
-  }
-
-  if (list) {
-    component.values = {
-      type: 'static',
-      valueType: list.type,
-      items: list.items.map(item => itemFrom(item))
-    }
-    component.options.list = listName
-    return component
-  } else {
-    throw Error(`No list found with name ${listName}`)
-  }
-}
-
 function SelectFieldEdit (props) {
   const { component, data, updateModel } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
       <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
+        <ComponentValues data={data} component={component} updateModel={updateModel}/>
 
         <Classes component={component} updateModel={updateModel} />
       </div>
@@ -426,25 +387,10 @@ function SelectFieldEdit (props) {
 function RadiosFieldEdit (props) {
   const { component, data, updateModel } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -467,25 +413,10 @@ function RadiosFieldEdit (props) {
 function CheckboxesFieldEdit (props) {
   const { component, data, updateModel } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -535,23 +466,12 @@ function ParaEdit (props) {
 function ListContentEdit (props) {
   const { component, data, updateModel } = props
   component.options = component.options || {}
-  const { lists } = data
 
   return (
     <div>
-      <div className='govuk-form-group'>
-        <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-        <select
-          className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-          value={component.options.list} required
-          onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
-        >
-          <option />
-          {lists.map(list => {
-            return <option key={list.name} value={list.name}>{list.title}</option>
-          })}
-        </select>
-      </div>
+
+      <ComponentValues data={data} component={component} updateModel={updateModel}/>
+
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
           <input
@@ -573,22 +493,9 @@ function ListContentEdit (props) {
 function FlashCardEdit (props) {
   const { component, data, updateModel } = props
   component.options = component.options || {}
-  const { lists } = data
 
   return (
-    <div className='govuk-form-group'>
-      <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-      <select
-        className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-        value={component.options.list} required
-        onChange={e => updateComponent(component, component => addListValuesTo(component, data, e.target.value), updateModel)}
-      >
-        <option />
-        {lists.map(list => {
-          return <option key={list.name} value={list.name}>{list.title}</option>
-        })}
-      </select>
-    </div>
+    <ComponentValues data={data} component={component} updateModel={updateModel}/>
   )
 }
 
