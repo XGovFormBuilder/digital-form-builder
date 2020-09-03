@@ -6,10 +6,10 @@ exports.lab = lab
 const { expect } = Code
 const { suite, test } = lab
 
-suite('Data parts field', () => {
+suite('Date parts field', () => {
   test('Should construct appropriate children when required', () => {
     const def = { name: 'myComponent', title: 'My component', options: {}, schema: {} }
-    const underTest = new DatePartsField(def, undefined)
+    const underTest = new DatePartsField(def, {})
     const returned = underTest.getViewModel({ lang: 'en' })
 
     expect(returned.fieldset).to.equal({
@@ -27,7 +27,7 @@ suite('Data parts field', () => {
 
   test('Should construct appropriate children when not required', () => {
     const def = { name: 'myComponent', title: 'My component', options: { required: false }, schema: {} }
-    const underTest = new DatePartsField(def, undefined)
+    const underTest = new DatePartsField(def, {})
     const returned = underTest.getViewModel({ lang: 'en' })
 
     expect(returned.fieldset).to.equal({
