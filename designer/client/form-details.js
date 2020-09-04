@@ -1,5 +1,6 @@
 import React from 'react'
 import formConfigurationApi from './load-form-configurations'
+import { radio, Option } from './govuk-react-components/radio'
 
 class FormDetails extends React.Component {
   constructor (props) {
@@ -50,30 +51,17 @@ class FormDetails extends React.Component {
 
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
-        <fieldset className='govuk-fieldset' aria-describedby='feedback-form-hint'>
-          <legend className='govuk-fieldset__legend govuk-fieldset__legend--l'>
-            <h1 className='govuk-fieldset__heading'>
-              Is this a feedback form?
-            </h1>
-          </legend>
-          <div id='feedback-form-hint' className='govuk-hint'>
-            A feedback form is used to gather feedback from users about another form
-          </div>
-          <div className='govuk-radios govuk-radios--inline'>
-            <div className='govuk-radios__item'>
-              <input className='govuk-radios__input' id='feedback-yes' name='feedbackForm' type='radio' value='true' defaultChecked={feedbackForm} onClick={() => this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })} />
-              <label className='govuk-label govuk-radios__label' htmlFor='feedback-yes'>
-                Yes
-              </label>
-            </div>
-            <div className='govuk-radios__item'>
-              <input className='govuk-radios__input' id='feedback-no' name='feedbackForm' type='radio' value='false' defaultChecked={!feedbackForm} onClick={() => this.setState({ feedbackForm: false })} />
-              <label className='govuk-label govuk-radios__label' htmlFor='feedback-no'>
-                No
-              </label>
-            </div>
-          </div>
-        </fieldset>
+        {
+          radio(
+            'feedbackForm',
+            'Is this a feedback form?',
+            'A feedback form is used to gather feedback from users about another form',
+            [
+              new Option('feedback-yes', 'Yes', 'true', feedbackForm, () => this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })),
+              new Option('feedback-no', 'No', 'false', !feedbackForm, () => this.setState({ feedbackForm: false }))
+            ]
+          )
+        }
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='form-title' aria-describedby='feedback-form-hint'>Title</label>
@@ -84,14 +72,14 @@ class FormDetails extends React.Component {
         {!feedbackForm &&
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='target-feedback-form'>Feedback form</label>
-            {!formConfigurations.length && (
+            {formConfigurations.length === 0 &&
               <div className='govuk-hint' id='target-feedback-form-hint'>
                 <p>No available feedback form configurations found</p>
                 <p>Only forms marked as being a feedback form are listed here</p>
               </div>
-            )}
+            }
 
-            {formConfigurations.length && (
+            {formConfigurations.length > 0 &&
               <div>
                 <div id='target-feedback-form-hint' className='govuk-hint'>
                   <p>This is the form to use for gathering feedback about this form</p>
@@ -102,7 +90,7 @@ class FormDetails extends React.Component {
                   {formConfigurations.map((config, index) => (<option key={config.Key + index} value={config.Key}>{config.DisplayName}</option>))}
                 </select>
               </div>
-            )}
+            }
           </div>
         }
 
