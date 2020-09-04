@@ -27,7 +27,17 @@ const nationalInsuranceNumbersInvalid = [
   'AA1234',
   'AA12345',
   'AA123456',
-  'AA123456CC'
+  'AA123456CC',
+  'AA123456!',
+  'AA123456@',
+  'AA123456£',
+  'AA123456$',
+  'AA123456%',
+  'AA123456^',
+  'AA123456&',
+  'AA123456*',
+  'AA123456(',
+  'AA123456)'
 ]
 
 suite('national insurance number field', () => {
