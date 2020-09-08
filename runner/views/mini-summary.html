@@ -14,7 +14,7 @@
             {{ summaryDetail(detail, true) }}
           {% endfor %}
 
-          <form method="post" action="{{currentPath}}" enctype="multipart/form-data" autocomplete="off" novalidate>
+          <form method="post" enctype="multipart/form-data" autocomplete="off" novalidate>
               <input type="hidden" name="crumb" value="{{crumb}}"/>
               <button data-prevent-double-click="true" value="repeat" class="govuk-button" data-module="govuk-button" name="repeat">
                   Add another

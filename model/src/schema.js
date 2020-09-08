@@ -1,10 +1,5 @@
 const joi = require('joi')
 
-const sectionsSchema = joi.object().keys({
-  name: joi.string().required(),
-  title: joi.string().required()
-})
-
 const conditionFieldSchema = joi.object().keys({
   name: joi.string().required(),
   type: joi.string().required(),
@@ -76,9 +71,7 @@ const pageSchema = joi.object().keys({
   section: joi.string(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
-  next: joi.array().items(nextSchema),
-  repeatField: joi.string().optional(),
-  isRepeatable: joi.boolean().optional()
+  next: joi.array().items(nextSchema)
 })
 
 const listItemSchema = joi.object().keys({
@@ -146,6 +139,12 @@ const outputSchema = joi.object().keys({
 const feedbackSchema = joi.object().keys({
   feedbackForm: joi.boolean().default(false),
   url: joi.when('feedbackForm', { is: joi.boolean().valid(false), then: joi.string().optional() })
+})
+
+const sectionsSchema = joi.object().keys({
+  name: joi.string().required(),
+  title: joi.string().required(),
+  repeat: joi.alternatives().try(joi.string(), joi.boolean()).optional()
 })
 
 const schema = joi.object().required().keys({

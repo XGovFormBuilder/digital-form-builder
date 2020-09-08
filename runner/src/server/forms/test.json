@@ -47,7 +47,6 @@
       "path": "/applicant-repeatable",
       "title": "Applicant",
       "section": "applicant",
-      "isRepeatable": true,
 "components": [
         {
           "type": "Para",
@@ -83,7 +82,6 @@
     {
       "path": "/contact-details",
       "section": "applicant",
-      "isRepeatable": true,
       "components": [
         {
           "type": "TelephoneNumberField",
@@ -132,7 +130,8 @@
     },
     {
       "name": "applicant",
-      "title": "Applicant"
+      "title": "Applicant",
+      "repeat": true
     }
   ],
   "lists": [

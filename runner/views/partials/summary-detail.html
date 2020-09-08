@@ -14,7 +14,7 @@
                 {% if allowDelete %}
                     <dd class="govuk-summary-list__value"></dd>
                     <dd class="govuk-summary-list__actions">
-                        <a href="?delete={{ loop.index }}" class="govuk-button govuk-button--warning govuk-!-margin-top-0 govuk-!-margin-bottom-0">Delete</a>
+                        <a href="?delete={{ loop.index - 1 }}" class="govuk-button govuk-button--warning govuk-!-margin-top-0 govuk-!-margin-bottom-0">Delete</a>
                     </dd>
                 {% endif %}
             </div>

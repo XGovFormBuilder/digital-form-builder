@@ -22,8 +22,6 @@ class Page {
     this.path = pageDef.path
     this.title = pageDef.title
     this.condition = pageDef.condition
-    this.repeatField = pageDef.repeatField
-    this.isRepeatable = pageDef.isRepeatable
 
     // Resolve section
     this.section = pageDef.section &&
@@ -95,19 +93,15 @@ class Page {
     }).filter(v => !!v)
   }
 
-  getPseudoSection (state) {
-
-  }
-
   getNextRepeatable (state, suppressRepetition = false) {
     if (!suppressRepetition) {
-      const miniSummary = this.model.pages.filter(page => page.section === this.section && (page.pageDef.controller !== './pages/mini-summary.js'))
-      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page.isRepeatable || page.repeatField) && (page instanceof Page))
+      const miniSummary = this.model.pages.filter(page => page.section === this.section.name && (page.pageDef.controller !== './pages/mini-summary.js'))
+      const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section.name && (page instanceof Page))
       const sectionState = state[this.section.name] || {}
-      if (this.repeatField) {
-        const requiredCount = reach(state, this.repeatField)
-        // const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.repeatField)
-        if (Object.keys(sectionState[sectionState.length - 1]).length === otherRepeatPagesInSection.length) { // iterated all pages at least once
+
+      if (typeof this.section.repeat === 'string') {
+        const requiredCount = reach(state, this.section.repeat)
+        if (this.#objLength(sectionState[sectionState.length - 1]) === otherRepeatPagesInSection.length) { // iterated all pages at least once
           const lastIteration = sectionState[sectionState.length - 1]
           if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { // this iteration is 'complete'
             if (sectionState.length < requiredCount) {
@@ -115,11 +109,9 @@ class Page {
             }
           }
         }
-        if (this.isRepeatable) {
+        if (this.section.repeat === true) {
           // if next page is repeatable
-          // go to it
-          // const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && page.isRepeatable)
-          if (Object.keys(sectionState[sectionState.length - 1]).length === otherRepeatPagesInSection.length) { // iterated all pages at least once
+          if (this.#objLength(sectionState[sectionState.length - 1]) === otherRepeatPagesInSection.length) { // iterated all pages at least once
             const lastIteration = sectionState[sectionState.length - 1]
             if (otherRepeatPagesInSection.length === this.#objLength(lastIteration)) { // this iteration is 'complete'
               return miniSummary
@@ -132,7 +124,7 @@ class Page {
 
   getNextPage (state, suppressRepetition = false) {
     let nextRepeat
-    if (this.repeatField || this.isRepeatable) {
+    if (this.section.repeat) {
       nextRepeat = this.getNextRepeatable(state, suppressRepetition)
       if (nextRepeat) return nextRepeat
     }
@@ -153,18 +145,18 @@ class Page {
   repeatableQueryString (nextPage, state) {
     const query = { num: 0 }
     let queryString = ''
-    let isRepeatable = nextPage.isRepeatable ?? nextPage.repeatField ?? nextPage.controller === './pages/mini-summary.js' // this is so ugly
+    const isRepeatable = nextPage.section.repeat ?? nextPage.controller === './pages/mini-summary.js' // this is so ugly
 
     if (!isRepeatable) return queryString
 
-    const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page.isRepeatable || page.repeatField) && (page instanceof Page))
+    const otherRepeatPagesInSection = this.model.pages.filter(page => page.section === this.section && (page instanceof Page))
     const sectionState = state[nextPage.section.name]
     const lastInSection = sectionState?.[sectionState.length - 1] ?? {}
     const isLastComplete = this.#objLength(lastInSection) === otherRepeatPagesInSection.length
     query.num = sectionState ? isLastComplete ? this.#objLength(sectionState) + 1 : this.#objLength(sectionState) : 1
 
-    if (nextPage.repeatField) {
-      const requiredCount = reach(state, nextPage.repeatField)
+    if (typeof this.section.repeat === 'string') {
+      const requiredCount = reach(state, nextPage.section.repeat)
       queryString = query.num <= requiredCount ? `${querystring.encode(query)}` : ''
     } else {
       queryString = `?${querystring.encode(query)}`
@@ -174,7 +166,7 @@ class Page {
 
   getNext (state) {
     const nextPage = this.getNextPage(state)
-    let queryString = this.repeatableQueryString(nextPage, state)
+    const queryString = this.repeatableQueryString(nextPage, state)
 
     if (nextPage) {
       return `/${this.model.basePath || ''}${nextPage.path}${queryString}`
@@ -184,7 +176,7 @@ class Page {
 
   getFormDataFromState (state, atIndex) {
     const pageState = this.section ? state[this.section.name] : state
-    if (this.repeatField) {
+    if (this.section.repeat) {
       const repeatedPageState = pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {}
       const values = Object.values(repeatedPageState)
       return this.components.getFormDataFromState(values.length ? values.reduce((acc, page) => ({ ...acc, ...page })) : {})
@@ -377,7 +369,7 @@ class Page {
         }
 
         let update = this.getPartialMergeState(stateResult.value)
-        if (this.repeatField || this.isRepeatable) {
+        if (this.section.repeat) {
           const updateValue = { [this.path]: update[this.section.name] }
           const sectionState = state[this.section.name]
           const numAsIndex = (num || 1) - 1
@@ -385,12 +377,12 @@ class Page {
           if (!sectionState) { // add to new section as an array
             update = { [this.section.name]: [updateValue] }
           } else {
-            let deleteValue = sectionState[numAsIndex] ? 1 : 0
+            const deleteValue = sectionState[numAsIndex] ? 1 : 0
             sectionState.splice(numAsIndex, deleteValue, merge(sectionState[numAsIndex] ?? {}, updateValue))
             update = { [this.section.name]: sectionState }
           }
         }
-        const savedState = await cacheService.mergeState(request, update, (!!this.repeatField || !!this.isRepeatable))
+        const savedState = await cacheService.mergeState(request, update, (!!this.section.repeat))
         return this.proceed(request, h, savedState)
       }
     }

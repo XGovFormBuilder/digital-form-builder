@@ -1,32 +1,28 @@
 import SummaryPage from './summary'
 import querystring from 'querystring'
 import joi from 'joi'
-import { merge } from '@hapi/hoek'
 const { clone, reach } = require('hoek')
 
 class SummaryViewModel {
   constructor (pageTitle, model, state, section) {
     this.pageTitle = pageTitle
 
-    const relevantPages = []
     const details = []
-
     const items = []
-    let sectionState = section
+    const sectionState = section
       ? (state[section.name] || {})
       : state
+    this.section = section
 
     const sectionPages = model.pages.filter(page => page.pageDef.section === section.name)
 
-    const repeatablePage = sectionPages.find(page => !!page.pageDef.repeatField)
-    const isUnspecifiedRepeatable = sectionPages.find(page => !!page.isRepeatable)
-    // Currently can't handle repeatable page outside a section.
-    // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
-    // repeatable
+    const repeatablePage = typeof section.repeat === 'string'
+    const isUnspecifiedRepeatable = section.repeat === true
+
     if (section) {
       // Make sure the right number of items
-      if (repeatablePage) {
-        const requiredIterations = reach(state, repeatablePage.repeatField)
+      if (typeof section.repeat === 'string') {
+        const requiredIterations = reach(state, section.repeat)
         if (requiredIterations < sectionState.length) {
           state[section.name] = sectionState.slice(0, requiredIterations)
         } else {
@@ -57,7 +53,7 @@ class SummaryViewModel {
     if (items.length > 0) {
       let repeatItems = []
       if (repeatablePage) {
-        repeatItems = [...Array(reach(state, repeatablePage.repeatField))].map((x, i) => {
+        repeatItems = [...Array(reach(state, section.repeat))].map((x, i) => {
           return items.map(item => item[i])
         })
       } else if (isUnspecifiedRepeatable) {
@@ -73,11 +69,10 @@ class SummaryViewModel {
     }
 
     const schema = model.makeFilteredSchema(sectionState, sectionPages)
+    // eslint-disable-next-line
+    let collatedRepeatPagesState = {}
 
-    // const collatedRepeatPagesState = clone(sectionState)
-    let collatedRepeatPagesState = clone(sectionState)
-
-    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+    Object.entries(sectionState).forEach(([key, section]) => {
       if (Array.isArray(section)) {
         collatedRepeatPagesState[key] = section.map(pages => Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {}))
       }
@@ -163,7 +158,7 @@ class SummaryViewModel {
   }
 
   Item (component, sectionState, page, model, queryString = '') {
-    const isRepeatable = !!page.repeatField || !!page.isRepeatable
+    const isRepeatable = this.section.repeat
     const query = {
       returnUrl: `/${model.basePath}/summary`
     }
@@ -196,7 +191,6 @@ export default class MiniSummary extends SummaryPage {
     return async (request, h) => {
       const { cacheService } = request.services([])
       const model = this.model
-
       const state = await cacheService.getState(request)
       const viewModel = new SummaryViewModel(this.title, model, state, this.section)
       viewModel.currentPath = `/${model.basePath}${this.path}`
@@ -229,7 +223,7 @@ export default class MiniSummary extends SummaryPage {
         if (pageWithError) {
           const query = {
             returnUrl: viewModel.currentPath,
-            num: iteration && pageWithError.repeatField ? iteration : null
+            num: iteration && pageWithError.section.repeat ? iteration : null
           }
           return h.redirect(`/${model.basePath}${pageWithError.path}?${querystring.encode(query)}`)
         }
@@ -244,7 +238,7 @@ export default class MiniSummary extends SummaryPage {
       const { cacheService } = request.services([])
       const state = await cacheService.getState(request)
       if (payload.repeat) {
-        let sectionState = state[this.section.name] ?? [] // how did you get here without state[section]..!
+        const sectionState = state[this.section.name] ?? {}// how did you get here without state[section]..!
         const firstPage = Object.keys(sectionState[0])[0]
         return h.redirect(`/${this.model.basePath}${firstPage}?${querystring.encode({ num: sectionState.length + 1 })}`)
       } else {

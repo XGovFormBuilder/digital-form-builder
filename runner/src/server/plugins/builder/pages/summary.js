@@ -2,7 +2,7 @@ import * as querystring from 'querystring'
 
 const joi = require('joi')
 const Page = require('./index')
-const shortid = require('shortid')
+const { nanoid } = require('nanoid')
 const { formSchema } = require('../../../lib/formSchema')
 const { serviceName } = require('../../../config')
 const { flatten } = require('flat')
@@ -36,16 +36,12 @@ class SummaryViewModel {
       const sectionPages = relevantPages
         .filter(page => page.section === section)
 
-      const repeatablePage = sectionPages.find(page => !!page.repeatField)
-      // Currently can't handle repeatable page outside a section.
-      // In fact currently if any page in a section is repeatable it's expected that all pages in that section will be
-      // repeatable
-      if (section && repeatablePage) {
+      if (section && section.repeat) {
         if (!state[section.name]) {
           state[section.name] = sectionState = []
         }
         // Make sure the right number of items
-        const requiredIterations = reach(state, repeatablePage.repeatField)
+        const requiredIterations = reach(state, section.repeat)
         if (requiredIterations < sectionState.length) {
           state[section.name] = sectionState.slice(0, requiredIterations)
         } else {
@@ -78,7 +74,7 @@ class SummaryViewModel {
           details.push({
             name: section?.name,
             title: section?.title,
-            items: [...Array(reach(state, repeatablePage.repeatField))].map((x, i) => {
+            items: [...Array(reach(state, page.section.repeat))].map((x, i) => {
               return items.map(item => item[i])
             })
           })
@@ -476,7 +472,7 @@ class SummaryPage extends Page {
       }
 
       // TODO:- make generic (sorry non FCO)
-      const paymentReference = `FCO-${shortid.generate()}`
+      const paymentReference = `FCO-${nanoid.generate()}`
       const description = payService.descriptionFromFees(summaryViewModel.fees)
       const res = await payService.payRequest(summaryViewModel.fees.total, paymentReference, description, summaryViewModel.payApiKey)
 

@@ -33,7 +33,7 @@ class CacheService {
   Key (sessionId, visitId) {
     return {
       segment: partition,
-      id: `${sessionId}:${visitId}`
+      id: `${sessionId}`
     }
   }
 }

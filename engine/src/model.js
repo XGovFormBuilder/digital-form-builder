@@ -85,7 +85,7 @@ class Model {
 
       if (sectionPages.length > 0) {
         if (section) {
-          const isRepeatable = sectionPages.find(page => page.pageDef.repeatField || page.pageDef.isRepeatable)
+          const isRepeatable = section.repeat
 
           let sectionSchema = joi.object().required()
           sectionPages.forEach(sectionPage => {
