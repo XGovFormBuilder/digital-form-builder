@@ -35,7 +35,7 @@ export default class ListItemReferencesToValueObjects implements Migration {
           valueChildren: list.items.filter(item => item.conditional?.components)
             .map(item => ({ value: item.value, children: item.conditional.components.map(it => this.migrateComponent(it, formDef)) }))
         }
-        // delete component.options.list
+        delete component.options.list
       } else {
         this.logger.error(`Unable to migrate component with list name ${listName} as the corresponding list does not exist`)
       }

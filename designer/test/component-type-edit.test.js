@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, mount } from 'enzyme'
+import { shallow, mount, render } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
@@ -25,19 +25,12 @@ suite('Component type edit', () => {
       ]
     }]
   })
-  const expectedValues = {
-    type: 'static',
-    valueType: 'number',
-    items: [
-      { display: 'Some Text', value: 'myValue', hint: 'A hint' },
-      { display: 'Some Text 2', value: 'myValue2', children: [{ type: 'TextField' }] },
-      { display: 'Some Text 3', value: 'myValue3', condition: 'Azhgeqw' }
-    ]
-  }
 
   const nextId = 'abcdef'
   data.getId = sinon.stub()
   data.getId.resolves(nextId)
+
+  const page = sinon.spy()
 
   describe('FileUploadField type gets the standard inputs but is always optional', () => {
     const cases = [
@@ -134,20 +127,15 @@ suite('Component type edit', () => {
       { type: 'DatePartsField', name: 'populating max days in future', fieldId: 'field-options-maxDaysInFuture', event: 'blur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInFuture: '236' } } },
       ...classesCases('DatePartsField'),
       ...casesForAllExceptFileUpload('SelectField'),
-      { type: 'SelectField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'SelectField', options: { list: 'myList' }, values: expectedValues } },
       ...classesCases('SelectField'),
       ...casesForAllExceptFileUpload('RadiosField'),
-      { type: 'RadiosField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'RadiosField', options: { list: 'myList' }, values: expectedValues } },
       { type: 'RadiosField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'RadiosField', options: { bold: true } } },
       { type: 'RadiosField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'RadiosField', options: { bold: false } } },
       ...casesForAllExceptFileUpload('CheckboxesField'),
-      { type: 'CheckboxesField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'CheckboxesField', options: { list: 'myList' }, values: expectedValues } },
       { type: 'CheckboxesField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'CheckboxesField', options: { bold: true } } },
       { type: 'CheckboxesField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'CheckboxesField', options: { bold: false } } },
-      { type: 'List', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'List', options: { list: 'myList' }, values: expectedValues } },
       { type: 'List', name: 'selecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', expectedModel: { type: 'List', options: { type: 'numbered' } } },
       { type: 'List', name: 'deselecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', componentInitialState: { options: { type: 'numbered' } }, expectedModel: { type: 'List', options: { type: undefined } } },
-      { type: 'FlashCard', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: 'myList', expectedModel: { type: 'FlashCard', options: { list: 'myList' }, values: expectedValues } },
       { type: 'Details', name: 'populating title', fieldId: 'details-title', event: 'blur', value: '236', expectedModel: { type: 'Details', title: '236' } },
       { type: 'Details', name: 'populating content', fieldId: 'details-content', event: 'blur', value: '236', expectedModel: { type: 'Details', content: '236' } }
     ]
@@ -165,6 +153,25 @@ suite('Component type edit', () => {
         expect(updateModel.callCount).to.equal(1)
         expect(updateModel.firstCall.args[0]).to.equal(testCase.expectedModel)
       })
+    })
+  })
+
+  const componentTypesWithValues = ['RadiosField', 'CheckboxesField', 'SelectField', 'List', 'FlashCard']
+
+  componentTypesWithValues.forEach(componentType => {
+    test(`${componentType} component renders the ComponentValues component correctly`, () => {
+      const updateModel = sinon.spy()
+
+      const component = { type: componentType }
+      const wrapper = shallow(<ComponentTypeEdit data={data} component={component} updateModel={updateModel} page={page}/>).dive()
+
+      const field = wrapper.find('ComponentValues')
+      expect(field.exists()).to.equal(true)
+      expect(Object.keys(field.props()).length).to.equal(4)
+      expect(field.prop('component')).to.equal(component)
+      expect(field.prop('data')).to.equal(data)
+      expect(field.prop('updateModel')).to.equal(updateModel)
+      expect(field.prop('page')).to.equal(page)
     })
   })
 

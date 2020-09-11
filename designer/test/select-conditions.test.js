@@ -29,6 +29,7 @@ function assertInlineConditionFlyoutNotDisplayed (wrapper) {
 suite('Select conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
+    allInputs: sinon.stub(),
     valuesFor: sinon.stub(),
     hasConditions: false,
     conditions: []
@@ -69,10 +70,30 @@ suite('Select conditions', () => {
         ]
 
         data.inputsAccessibleAt.withArgs(path).returns(fields)
+        data.allInputs.returns([])
       })
 
       test('should display the select conditions list and a link to allow inline creation', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
+        const conditionsSection = wrapper.find('.conditions')
+        expect(conditionsSection.exists()).to.equal(true)
+        const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
+        expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
+        assertInlineConditionFlyoutNotDisplayed(wrapper)
+        const selectConditions = conditionsSection.find('#select-condition')
+        expect(selectConditions.exists()).to.equal(true)
+        expect(selectConditions.find('label').text()).to.equal('Select a condition')
+        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
+        expectedFieldOptions.unshift({ text: '' })
+        assertSelectInput(selectConditions.find('select'), 'cond-select',
+          expectedFieldOptions, '')
+        assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
+      })
+
+      test('should display all inputs when no path provided', () => {
+        data.inputsAccessibleAt.returns([])
+        data.allInputs.returns(fields)
+        const wrapper = shallow(<SelectConditions data={data} conditionsChange={conditionsChange} />)
         const conditionsSection = wrapper.find('.conditions')
         expect(conditionsSection.exists()).to.equal(true)
         const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')

@@ -43,7 +43,7 @@ class StaticValue {
   }
 }
 
-class StaticValues extends Values {
+export class StaticValues extends Values {
   valueType: ValueTypes;
   items: Array<StaticValue>;
 
@@ -59,7 +59,7 @@ class StaticValues extends Values {
 
   static from (obj: any): StaticValues {
     if (obj.type === 'static') {
-      return new StaticValues(obj.valueType, obj.items.map(it => StaticValue.from(it)))
+      return new StaticValues(obj.valueType, (obj.items ?? []).map(it => StaticValue.from(it)))
     }
     throw Error(`Cannot create from non static values object ${JSON.stringify(obj)}`)
   }
@@ -90,17 +90,21 @@ class ListRefValues extends Values {
   }
 
   toStaticValues (data: DataModel): StaticValues {
-    const list = data.findList(this.list)
-    if (list) {
-      return new StaticValues(list.type,
-        list.items.map(item =>
-          new StaticValue(item.text, item.value, item.description, item.condition,
-            this.valueChildren.find(it => it.value === item.value)?.children ?? [])
+    if (this.list) {
+      const list = data.findList(this.list)
+      if (list) {
+        return new StaticValues(list.type,
+          list.items.map(item =>
+            new StaticValue(item.text, item.value, item.description, item.condition,
+              this.valueChildren.find(it => it.value === item.value)?.children ?? [])
+          )
         )
-      )
-    } else {
-      throw Error(`Could not find list with name ${this.list}`)
+      } else {
+        throw Error(`Could not find list with name ${this.list}`)
+      }
     }
+    // just return some default values as we're not a completely defined component yet (used in the designer)
+    return new StaticValues('string', [])
   }
 
   toJSON () {
@@ -109,7 +113,7 @@ class ListRefValues extends Values {
 
   static from (obj: any): ListRefValues {
     if (obj.type === 'listRef') {
-      return new ListRefValues(obj.list, obj.valueChildren.map(it => ValueChildren.from(it)))
+      return new ListRefValues(obj.list, (obj.valueChildren ?? []).map(it => ValueChildren.from(it)))
     }
     throw Error(`Cannot create from non listRef values object ${JSON.stringify(obj)}`)
   }

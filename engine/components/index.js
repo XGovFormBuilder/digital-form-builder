@@ -13,7 +13,7 @@ class Component {
     this.model = model
     const data = new Data(model.def)
     const values = data.valuesFor(def)
-    this.values = values ? values.toStaticValues(data) : undefined
+    this.values = values ? values.toStaticValues() : undefined
   }
 
   getViewModel () {
