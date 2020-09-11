@@ -3,7 +3,7 @@
 
 __metadata:
   version: 4
-  cacheKey: 5
+  cacheKey: 6
 
 "@babel/cli@npm:7.10.3":
   version: 7.10.3
@@ -2469,24 +2469,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-node-resolve@npm:8.1.0":
-  version: 8.1.0
-  resolution: "@rollup/plugin-node-resolve@npm:8.1.0"
+"@rollup/plugin-node-resolve@npm:9.0.0, @rollup/plugin-node-resolve@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@rollup/plugin-node-resolve@npm:9.0.0"
   dependencies:
-    "@rollup/pluginutils": ^3.0.8
-    "@types/resolve": 0.0.8
+    "@rollup/pluginutils": ^3.1.0
+    "@types/resolve": 1.17.1
     builtin-modules: ^3.1.0
-    deep-freeze: ^0.0.1
     deepmerge: ^4.2.2
     is-module: ^1.0.0
-    resolve: ^1.14.2
+    resolve: ^1.17.0
   peerDependencies:
     rollup: ^1.20.0||^2.0.0
-  checksum: 8e2739ee0daf7e61a57c5132237f32a2baae185bc03b0af115158003d7d0454870a1e4d067381f9442ba115e894206eabd0b8831f8e36c148d5f40ce1ccc2d51
+  checksum: 34576bbd9cfb096ed6fcce256e9210995144ccfd352ef09134507a7c6b479cee20da2896525ebf8bf139d9a31e8eec4b6787ed9de3209ee6610a949dc9f7c268
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^3.0.8":
+"@rollup/pluginutils@npm:^3.0.8, @rollup/pluginutils@npm:^3.1.0":
   version: 3.1.0
   resolution: "@rollup/pluginutils@npm:3.1.0"
   dependencies:
@@ -2648,12 +2647,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/resolve@npm:0.0.8":
-  version: 0.0.8
-  resolution: "@types/resolve@npm:0.0.8"
+"@types/resolve@npm:1.17.1":
+  version: 1.17.1
+  resolution: "@types/resolve@npm:1.17.1"
   dependencies:
     "@types/node": "*"
-  checksum: f54f13e4b6ac46a6c7bde9e609cd730f4369b434aa59c5230478b9262bb75e7349c3247fd2cdb917e98d053a57f5609dd552379c612a720b59a8714914d324ed
+  checksum: 8e72a73574f9489760662498c1ad512a8d4084a5db15f327e0d785cb277bb0a3146cd049241a8e3268bd0ed204ad3ee7b4a6b4622ef681e70547be9af258ca6a
   languageName: node
   linkType: hard
 
@@ -2716,13 +2715,14 @@ __metadata:
     "@rollup/plugin-babel": 5.0.4
     "@rollup/plugin-commonjs": 13.0.0
     "@rollup/plugin-json": ^4.1.0
-    "@rollup/plugin-node-resolve": 8.1.0
+    "@rollup/plugin-node-resolve": 9.0.0
     "@workspace-builder/rollup": ^1.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 2.0.0
     acorn: 7.2.0
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
+    cross-env: ^7.0.2
     dagre: 0.8.2
     dotenv: 8.2.0
     enzyme: ^3.11.0
@@ -2823,7 +2823,7 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.10.1
     "@babel/preset-env": ^7.10.2
     "@babel/preset-flow": ^7.10.4
-    "@babel/runtime": 7.10.4
+    "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/hoek": ^9.0.4
     "@hapi/joi": 17.1.1
@@ -2832,6 +2832,7 @@ __metadata:
     babel-eslint: ^10.1.0
     boom: 7.3.0
     btoa: ^1.2.1
+    cross-env: ^7.0.2
     eslint: ^7.6.0
     eslint-plugin-flowtype: ^5.2.0
     eslint-plugin-import: ^2.22.0
@@ -4939,6 +4940,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-env@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "cross-env@npm:7.0.2"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 624d638db3b4b6b221f32238aeb6785b865365bf41154f01d46a23b6d78f807ca5588a3b32e9af5f17384b866fed3752d0e3ecf8c4a8cfca2935d363d27ba058
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^3.0.0":
   version: 3.0.1
   resolution: "cross-spawn@npm:3.0.1"
@@ -4973,7 +4986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -5260,13 +5273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-freeze@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "deep-freeze@npm:0.0.1"
-  checksum: c43ab54de95c60197f2a303aa60da76aa9f13f8a656d39f924daec63707712be1f75b9f5853bf2d5ec62fc72c840ba73ccefe32bdf3398472751de290b71a15c
-  languageName: node
-  linkType: hard
-
 "deep-is@npm:^0.1.3, deep-is@npm:~0.1.3":
   version: 0.1.3
   resolution: "deep-is@npm:0.1.3"
@@ -5416,6 +5422,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"designer@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "designer@npm:1.0.2"
+  dependencies:
+    request: ^2.60.0
+  checksum: 7a1fdcd920bea3976e3a4d696b6b988fbc1d5f80a3265df1780ea9689d13c9182cc7047d006638d8dbd2cc4a66736cebff888f5e9256a9d2b6877098788d5233
+  languageName: node
+  linkType: hard
+
 "details-element-polyfill@npm:^2.4.0":
   version: 2.4.0
   resolution: "details-element-polyfill@npm:2.4.0"
@@ -5467,8 +5482,10 @@ __metadata:
     "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/lab": ^23.0.0
+    "@rollup/plugin-node-resolve": ^9.0.0
     babel-eslint: ^11.0.0-beta.2
     concurrently: ^5.3.0
+    designer: ^1.0.2
     eslint: ^7.7.0
     eslint-config-prettier: ^6.11.0
     eslint-config-standard: ^14.1.1
@@ -7418,20 +7435,20 @@ fsevents@^1.2.7:
 
 "fsevents@patch:fsevents@^1.2.7#builtin<compat/fsevents>":
   version: 1.2.13
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#builtin<compat/fsevents>::version=1.2.13&hash=495457"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.13#builtin<compat/fsevents>::version=1.2.13&hash=87eb42"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
-  checksum: 508a7e7e1e365236a7a0478392827145ba05c0181b1928b73b20c1a5212d15f6529735db897d617d7b0b051248c5720160f74c113bd727fc02de4f6cf885e1ff
+  checksum: 31c62373556f061f4b4c52ff61c91bc9080243ea074a38a81cf12c1f2c9098da731ea3d39705c805b738427e4284af6b8151efe65ce9ca6b11378d43f36db2c4
   languageName: node
   linkType: hard
 
 "fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
   version: 2.1.3
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=495457"
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.3#builtin<compat/fsevents>::version=2.1.3&hash=87eb42"
   dependencies:
     node-gyp: latest
-  checksum: 0005677b72f38a129a3cbe8c3794bdc83081a2bec53dfc03b085c2e5e4ca7a33a861a779d623313652df89746d97f79d24e4fef3b101c11c39ce1ea8a9690e18
+  checksum: d8ae862048fc127cdbd00d02b2feb7c25946c3ce4cbc44e958134be87e239577a16dafafa1c270d010b8624e1b1e0372e23f7865c55c6f83e83fc9f68b0a30d2
   languageName: node
   linkType: hard
 
@@ -12448,7 +12465,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"request@npm:^2.87.0, request@npm:^2.88.0, request@npm:^2.88.2":
+"request@npm:^2.60.0, request@npm:^2.87.0, request@npm:^2.88.0, request@npm:^2.88.2":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
@@ -12528,14 +12545,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-resolve@1.1.7:
-  version: 1.1.7
-  resolution: "resolve@npm:1.1.7"
-  checksum: 3e928e9586d51dd985d42f524646267f08269261d844adfb54bf2e3a2f96e9bdb2be8e3db686145a7ac2b65c7cd894bdfa7b48b80b828ea5cb1d2abc403778b0
-  languageName: node
-  linkType: hard
-
-"resolve@^1.1.5, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.3.2, resolve@^1.6.0, resolve@^1.8.1":
+"resolve@npm:^1.17":
   version: 1.17.0
   resolution: "resolve@npm:1.17.0"
   dependencies:
@@ -12544,14 +12554,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@1.1.7#builtin<compat/resolve>":
-  version: 1.1.7
-  resolution: "resolve@patch:resolve@npm%3A1.1.7#builtin<compat/resolve>::version=1.1.7&hash=3388aa"
-  checksum: ca4e21815c78134fdb248d2175d98c2ead024c680a3a9c7b8ee13fc8a7f5157e061b13ae29ee07a60e1b9faea33c3740cb88d48d94966d7e94479add70d3f544
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@^1.1.5#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.10.1#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.6.0#builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.17#builtin<compat/resolve>":
   version: 1.17.0
   resolution: "resolve@patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
   dependencies:

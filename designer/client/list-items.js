@@ -1,6 +1,6 @@
 import React from 'react'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {

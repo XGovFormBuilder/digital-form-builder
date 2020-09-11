@@ -6,19 +6,12 @@
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "model",
-      "engine",
-      "runner",
-      "designer"
-    ],
-    "nohoist": [
-      "**/@babel*/**",
-      "**/govuk-frontend/**",
-      "**/govuk-frontend"
-    ]
-  },
+  "workspaces": [
+    "model",
+    "engine",
+    "runner",
+    "designer"
+  ],
   "scripts": {
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",
@@ -71,6 +64,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "designer": "^1.0.2",
     "govuk-frontend": "^3.8.1"
+  },
+  "resolutions": {
+    "resolve": "^1.17"
   }
 }

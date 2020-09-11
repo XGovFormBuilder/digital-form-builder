@@ -1,7 +1,8 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone, ComponentTypes } from '@xgovformbuilder/model'
+
+
 
 class ComponentCreate extends React.Component {
   constructor (props) {

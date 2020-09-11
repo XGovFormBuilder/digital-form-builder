@@ -1,6 +1,6 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class ComponentEdit extends React.Component {
   constructor (props) {

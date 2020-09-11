@@ -5,6 +5,7 @@ import globals from 'rollup-plugin-node-globals'
 import builtins from '@cautionyourblast/rollup-plugin-node-builtins'
 import json from '@rollup/plugin-json'
 import flow from 'rollup-plugin-flow'
+import * as path from 'path'
 
 export default {
   input: 'client/index.js',
@@ -17,22 +18,28 @@ export default {
     }
   },
   plugins: [
+    builtins({ crypto: false }),
     resolve({
       preferBuiltins: false,
       browser: true
     }),
     commonjs({
-      include: ['/node_modules/**', '../node_modules/**', '../model/**']
+      include: ['/node_modules/**', /node_modules/]
     }),
-    builtins({ crypto: false }),
-    globals(),
     babel({
       babelHelpers: 'runtime',
-      exclude: ['/node_modules/**', '../node_modules/**'],
+      exclude: ['/node_modules/**', '../node_modules/**', /node_modules/],
       presets: [
         '@babel/preset-flow',
         '@babel/react',
-        '@babel/preset-env'
+        [
+          '@babel/preset-env',
+          {
+            targets: 'defaults, ie >= 11',
+            debug: true,
+            modules: false
+          }
+        ]
       ],
       plugins: [
         '@babel/plugin-proposal-class-properties',
@@ -41,7 +48,8 @@ export default {
       ]
     }),
     json(),
-    flow()
+    globals()
+
   ],
-  external: ['react', 'react-dom', 'crypto']
+  external: ['react', 'react-dom']
 }

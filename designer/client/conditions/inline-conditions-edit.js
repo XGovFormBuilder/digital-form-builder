@@ -1,8 +1,8 @@
 import React from 'react'
-import { GroupDef, toPresentationString } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { GroupDef, toPresentationString } from '@xgovformbuilder/model'
 import { icons } from '../icons'
 import InlineConditionsDefinition from './inline-conditions-definition'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class InlineConditionsEdit extends React.Component {
   constructor (props) {

@@ -5,9 +5,9 @@ import * as Lab from '@hapi/lab'
 import { assertLink, assertSelectInput } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsDefinition from '../client/conditions/inline-conditions-definition'
-import { Condition, Field, ConditionRef } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
-import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
-import { getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+import { Condition, Field, ConditionRef } from '@xgovformbuilder/model'
+import { ConditionValue } from '@xgovformbuilder/model'
+import { getOperatorNames } from '@xgovformbuilder/model'
 
 const { expect } = Code
 const lab = Lab.script()

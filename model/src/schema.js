@@ -1,4 +1,4 @@
-const joi = require('joi')
+import joi from '@hapi/joi'
 
 const sectionsSchema = joi.object().keys({
   name: joi.string().required(),
@@ -187,8 +187,7 @@ const schema = joi.object().required().keys({
   version: joi.number().default(0)
 })
 
-module.exports = schema
-
+export default schema
 /**
  *  Schema versions:
  *  Undefined / 0 - initial version as at 28/8/20. Conditions may be in object structure or string form.
