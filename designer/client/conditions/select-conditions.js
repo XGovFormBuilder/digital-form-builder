@@ -98,7 +98,7 @@ class SelectConditions extends React.Component {
                 selectedCondition ?? '',
                 this.props.data.conditions.map((it, index) => (new SelectOption(it.displayName, it.name))),
                 this.onChangeConditionSelection,
-                new SelectInputOptions(false, true)
+                new SelectInputOptions(false, true, undefined, 'select-condition')
               )
             }
             {!inline &&
