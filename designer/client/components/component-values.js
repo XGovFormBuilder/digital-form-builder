@@ -2,7 +2,7 @@ import React from 'react'
 import { radioGroup, RadioOption } from '../govuk-react-components/radio'
 import { icons } from '../icons'
 import Flyout from '../flyout'
-import AddComponentValue from './add-component-value'
+import DefineComponentValue from './define-component-value'
 import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
 
@@ -71,9 +71,62 @@ export default class ComponentValues extends React.Component {
 
   cancelAddItem = () => this.setState({ showAddItem: false })
 
-  showEditItem = (index) => this.setState({ editingItem: index })
+  showEditItem = (index) => this.setState({ editingIndex: index })
 
-  cancelEditItem = () => this.setState({ editingItem: undefined })
+  removeItem = (index) => {
+    const { updateModel } = this.props
+    const { component } = this.state
+    updateComponent(
+      component,
+      component => component.values.items.splice(index, 1),
+      updateModel)
+    this.setState(
+      component
+    )
+  }
+  addItem = item => {
+    const { updateModel } = this.props
+    const { component } = this.state
+
+    updateComponent(
+      component,
+      component => {
+        component.values.items = component.values.items || []
+        component.values.items.push(item)
+      },
+      updateModel)
+    this.setState({
+      showAddItem: false
+    })
+  }
+
+  updateItem = item => {
+    const { updateModel } = this.props
+    const { component, editingIndex } = this.state
+
+    updateComponent(
+      component,
+      component => {
+        component.values.items = component.values.items || []
+        component.values.items[editingIndex] = item
+      },
+      updateModel)
+    this.setState({
+      editingIndex: undefined
+    })
+  }
+
+  initialiseValues = e => {
+    const { component } = this.state
+    component.values = {
+      type: e.target.value
+    }
+    this.setState({
+      component
+    })
+  };
+
+  cancelEditItem = () => this.setState({ editingIndex: undefined })
 
   render () {
     const { data, updateModel, page } = this.props
@@ -150,17 +203,17 @@ export default class ComponentValues extends React.Component {
                 {staticValues && staticValues.items.map((item, index) => (
                   <tr key={`item-row-${index}`} className='govuk-table__row' scope='row'>
                     <td className='govuk-table__cell'>
-                      <h2 className='govuk-label'>{item.display}</h2>
+                      <h2 className='govuk-label' id={`item-details-${index}`}>{item.display}</h2>
                       <div className="govuk-hint"> {item.hint}</div>
-                      {item.condition && <p><string>Condition:</string> {item.condition}</p>}
-                      <p><string>Children:</string> {item.children.length}</p>
+                      {item.condition && <p><strong>Condition:</strong> {item.condition}</p>}
+                      <p><strong>Children:</strong> {item.children.length}</p>
                     </td>
                     <td className='govuk-table__cell'>
-                      <a className='list-item-delete' onClick={ () => this.showEditItem(index) }>{icons.edit(false)}</a>
+                      <a className='list-item-delete' id={`edit-item-${index}`} onClick={ () => this.showEditItem(index) }>{icons.edit(false)}</a>
                     </td>
                     <td className='govuk-table__cell'>
                       {type === 'static' &&
-                        <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
+                        <a className='list-item-delete' id={`remove-item-${index}`}  onClick={() => this.removeItem(index)}>&#128465;</a>
                       }
                     </td>
                   </tr>
@@ -169,42 +222,26 @@ export default class ComponentValues extends React.Component {
             </table>
             <Flyout title='Add Item' show={!!showAddItem}
               onHide={this.cancelAddItem}>
-              <AddComponentValue
+              <DefineComponentValue
                 data={data}
-                component={component}
                 page={page}
-                addItemCallback={this.addItem}
+                saveCallback={this.addItem}
                 cancelCallback={this.cancelAddItem}
               />
             </Flyout>
             <Flyout title='Edit Item' show={editingIndex !== undefined}
               onHide={this.cancelEditItem}>
-              {/* <AddComponentValue */}
-              {/*  data={data} */}
-              {/*  component={component} */}
-              {/*  page={page} */}
-              {/*  addItemCallback={item => updateComponent(component, component => component.items.push(item), updateModel)} */}
-              {/*  cancelCallback={this.cancelAddItem} */}
-              {/* /> */}
+               <DefineComponentValue
+                data={data}
+                value={staticValues.items[editingIndex]}
+                page={page}
+                saveCallback={this.updateItem}
+                cancelCallback={this.cancelEditItem}
+               />
             </Flyout>
           </div>
         </div>
       }
     </div>
   }
-
-  addItem = item => {
-    const { component, updateModel } = this.props
-    updateComponent(component, component => component.values.items.push(item), updateModel)
-  }
-
-  initialiseValues = e => {
-    const { component } = this.state
-    component.values = {
-      type: e.target.value
-    }
-    this.setState({
-      component
-    })
-  };
 }

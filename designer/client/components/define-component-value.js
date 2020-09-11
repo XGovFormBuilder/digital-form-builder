@@ -4,19 +4,23 @@ import SelectConditions from '../conditions/select-conditions'
 import { icons } from '../icons'
 import Flyout from '../flyout'
 import { InputOptions } from '../govuk-react-components/helpers'
+import { clone } from '@xgovformbuilder/model'
+import DefineChildComponent from "./define-child-component";
 
-export default class AddComponentValue extends React.Component {
+export default class DefineComponentValue extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      children: []
+    const value = props.value
+    this.state = value ? clone(value) : {children:[]}
+    if(!this.state.children) {
+      this.state.children = []
     }
   }
 
   saveItem = () => {
     const { label, value, hint, condition, children } = this.state
 
-    this.props.addItemCallback({
+    this.props.saveCallback({
       label,
       value,
       hint,
@@ -33,9 +37,28 @@ export default class AddComponentValue extends React.Component {
 
   cancelAddChild = () => this.setState({ showAddChild: false })
 
-  showEditChild = (index) => this.setState({ editingItem: index })
+  showEditChild = (index) => this.setState({ editingIndex: index })
 
-  cancelEditChild = () => this.setState({ editingItem: undefined })
+  cancelEditChild = () => this.setState({ editingIndex: undefined })
+
+  addChild = (component) => {
+    const { children } = this.state
+    children.push(component)
+    this.setState(
+      { children: children }
+    )
+  }
+
+  updateChild = (component) => {
+    const { children, editingIndex } = this.state
+    children[editingIndex] = component
+    this.setState(
+    {
+        children,
+        editingIndex: undefined
+      }
+    )
+  }
 
   removeChild = (index) => {
     const { children } = this.state
@@ -54,6 +77,7 @@ export default class AddComponentValue extends React.Component {
   render () {
     const { label, value, hint, condition, children, showAddChild, editingIndex } = this.state
     const { data, page } = this.props
+    const child = children[editingIndex]
 
     return <div>
       { textGroup(
@@ -98,7 +122,7 @@ export default class AddComponentValue extends React.Component {
               <tr className='govuk-table__row'>
                 <th className='govuk-table__header' scope='col' colSpan='2'></th>
                 <th className='govuk-table__header' scope='col'>
-                  {<a className='pull-right' href='#' onClick={this.showAddChild}>Add</a>}
+                  {<a className='pull-right' id='add-child-link' href='#' onClick={this.showAddChild}>Add</a>}
                 </th>
               </tr>
             </thead>
@@ -106,20 +130,20 @@ export default class AddComponentValue extends React.Component {
               {children.map((item, index) => (
                 <tr key={`item-row-${index}`} className='govuk-table__row' scope='row'>
                   <td className='govuk-table__cell'>
-                    <h2 className='govuk-label'>{item.title || item.name} (item.type)</h2>
+                    <h2 id={`child-details-${index}`} className='govuk-label'>{item.title || item.name} ({item.type})</h2>
                   </td>
                   <td className='govuk-table__cell'>
-                    <a className='list-item-delete' onClick={ () => this.showEditChild(index) }>{icons.edit(false)}</a>
+                    <a className='list-item-delete' id={`edit-child-${index}`} onClick={ () => this.showEditChild(index) }>{icons.edit(false)}</a>
                   </td>
                   <td className='govuk-table__cell'>
-                    <a className='list-item-delete' onClick={() => this.removeChild(index)}>&#128465;</a>
+                    <a className='list-item-delete' id={`remove-child-${index}`} onClick={() => this.removeChild(index)}>&#128465;</a>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
           <a
-            href='#' id='cancel-add-component-value-link' className='govuk-button'
+            href='#' id='save-component-value-link' className='govuk-button'
             onClick={this.saveItem}
           >Save
           </a>
@@ -130,23 +154,22 @@ export default class AddComponentValue extends React.Component {
           </a>
           <Flyout title='Add Child' show={!!showAddChild}
             onHide={this.cancelAddChild}>
-            {/* <AddComponentValue */}
-            {/*  data={data} */}
-            {/*  component={component} */}
-            {/*  page={page} */}
-            {/*  addItemCallback={item => updateComponent(component, component => component.items.push(item), updateModel)} */}
-            {/*  cancelCallback={this.cancelAddItem} */}
-            {/* /> */}
+             <DefineChildComponent
+              data={data}
+              page={page}
+              saveCallback={this.addChild}
+              cancelCallback={this.cancelAddChild}
+             />
           </Flyout>
           <Flyout title='Edit Child' show={editingIndex !== undefined}
             onHide={this.cancelEditChild}>
-            {/* <AddComponentValue */}
-            {/*  data={data} */}
-            {/*  component={component} */}
-            {/*  page={page} */}
-            {/*  addItemCallback={item => updateComponent(component, component => component.items.push(item), updateModel)} */}
-            {/*  cancelCallback={this.cancelAddItem} */}
-            {/* /> */}
+             <DefineChildComponent
+              data={data}
+              component={child}
+              page={page}
+              saveCallback={this.updateChild}
+              cancelCallback={this.cancelEditChild}
+             />
           </Flyout>
         </div>
       }

@@ -2,6 +2,8 @@ import React from 'react'
 import Editor from './editor'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
 import ComponentValues from './components/component-values'
+import {textAreaGroup} from "./govuk-react-components/text";
+import {InputOptions} from "./govuk-react-components/helpers";
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -70,15 +72,15 @@ class FieldEdit extends React.Component {
             />
           </div>
 
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-hint'>Hint (optional)</label>
-            <span className='govuk-hint'>The hint can include HTML</span>
-            <textarea
-              className='govuk-textarea' id='field-hint' name='hint'
-              defaultValue={component.hint} rows='2'
-              onBlur={e => updateComponent(component, component => { component.hint = e.target.value }, updateModel)}
-            />
-          </div>
+          {textAreaGroup(
+            'field-hint',
+            'hint',
+            'Hint (optional)',
+            component.hint,
+            2,
+            e => updateComponent(component, component => { component.hint = e.target.value }, updateModel),
+            new InputOptions(false, ['The hint can include HTML'])
+          )}
 
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
