@@ -78,7 +78,6 @@ function migratedDef (testCase) {
         components: [
           {
             options: {
-              list: 'licenceLengthDays',
               bold: true
             },
             type: testCase.fieldType,
@@ -98,7 +97,7 @@ function migratedDef (testCase) {
                     {
                       name: 'aName',
                       type: 'RadiosField',
-                      options: { list: 'anotherList' },
+                      options: {},
                       values: {
                         list: 'anotherList',
                         type: 'listRef',
@@ -183,7 +182,7 @@ function migratedDef (testCase) {
                 {
                   name: 'aName',
                   type: 'RadiosField',
-                  options: { list: 'anotherList' },
+                  options: {},
                   values: {
                     list: 'anotherList',
                     type: 'listRef',

@@ -60,10 +60,10 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -89,10 +89,10 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name1', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
         { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
         { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
         { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
@@ -192,12 +192,13 @@ suite('data model', () => {
                 }
               ]
             }]
-          }
+          },
+          title: undefined
         },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -314,9 +315,10 @@ suite('data model', () => {
               }
             ]
           },
-          propertyPath: 'section1.name1'
+          propertyPath: 'section1.name1',
+          title: undefined
         },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
         {
           name: 'name2',
           page: { name: 'page1', section: 'section1' },
@@ -335,10 +337,11 @@ suite('data model', () => {
               }
             ]
           },
-          propertyPath: 'section1.name2'
+          propertyPath: 'section1.name2',
+          title: undefined
         },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -417,10 +420,11 @@ suite('data model', () => {
               }
             ]
           },
-          propertyPath: 'section1.name1'
+          propertyPath: 'section1.name1',
+          title: undefined
         },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
         {
           name: 'name3',
           page: { name: 'page2', section: 'section1' },
@@ -439,9 +443,10 @@ suite('data model', () => {
               }
             ]
           },
-          propertyPath: 'section1.name3'
+          propertyPath: 'section1.name3',
+          title: undefined
         },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -516,10 +521,11 @@ suite('data model', () => {
               ]
             }]
           },
-          propertyPath: 'section1.name1'
+          propertyPath: 'section1.name1',
+          title: undefined
         },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
         {
           name: 'name3',
           page: { name: 'page2', section: 'section2' },
@@ -536,10 +542,11 @@ suite('data model', () => {
               ]
             }]
           },
-          propertyPath: 'section2.name3'
+          propertyPath: 'section2.name3',
+          title: undefined
         },
-        { name: 'myField', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.myField' },
-        { name: 'name4', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.name4' }
+        { name: 'myField', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.myField', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.name4', title: undefined }
       ])
     })
 
@@ -559,9 +566,9 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -616,12 +623,12 @@ suite('data model', () => {
         ]
       })
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined }
       ])
     })
 
@@ -651,12 +658,12 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined }
       ])
     })
 
@@ -689,12 +696,12 @@ suite('data model', () => {
         ]
       })
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' },
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined },
         { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
         { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
         { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
@@ -727,10 +734,10 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined }
       ])
     })
 
@@ -754,9 +761,9 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/2')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -811,13 +818,14 @@ suite('data model', () => {
       test(`should return the '${values.type}' values specified in the provided input if it exists`, () => {
         const data = new Data(fullyPopulatedRawData)
         const returned = data.valuesFor({ values: values })
-        expect(returned).to.equal(values)
+        delete returned.values.toStaticValues
+        expect(returned.values).to.equal(values)
       })
 
       test(`returned '${values.type}' values should convert to static values`, () => {
         const data = new Data(fullyPopulatedRawData)
         const returned = data.valuesFor({ values: values })
-        expect(returned.toStaticValues(data)).to.equal(staticValues)
+        expect(returned.toStaticValues()).to.equal(staticValues)
       })
     })
 
@@ -830,7 +838,7 @@ suite('data model', () => {
     test('should return yes/no list if the provided input has no values defined but is a YesNoField', () => {
       const data = new Data({})
 
-      expect(data.valuesFor({ type: 'YesNoField' })).to.equal({
+      expect(data.valuesFor({ type: 'YesNoField' }).toStaticValues()).to.equal({
         type: 'static',
         valueType: 'boolean',
         items: [
@@ -1675,7 +1683,7 @@ suite('data model', () => {
       const data = new Data({
         conditions: [{ name: 'someName' }]
       })
-      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'someName' })
+      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'someName', value: undefined })
     })
 
     test('should return undefined if there is no condition with the specified name', () => {
@@ -1706,7 +1714,7 @@ suite('data model', () => {
         conditions: [{ name: 'anotherName' }]
       })
       data.updateCondition('someName', 'My condition', 'Some value')
-      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName', value: undefined }])
     })
 
     test('should do nothing if conditions is undefined', () => {
@@ -1741,7 +1749,7 @@ suite('data model', () => {
         conditions: [{ name: 'anotherName' }]
       })
       data.removeCondition('someName')
-      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName', value: undefined }])
     })
 
     test('should do nothing if conditions is undefined', () => {
@@ -1771,7 +1779,10 @@ suite('data model', () => {
   describe('toJSON', () => {
     test('should expose the conditions field', () => {
       const rawData = {
-        conditions: [{ displayName: 'a Monkey', name: 'someName' }]
+        conditions: [{ displayName: 'a Monkey', name: 'someName', value: undefined }],
+        lists: [],
+        pages: [],
+        sections: []
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1780,7 +1791,10 @@ suite('data model', () => {
     test('should expose the name field', () => {
       const rawData = {
         conditions: [],
-        name: 'My form'
+        name: 'My form',
+        lists: [],
+        pages: [],
+        sections: []
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1791,7 +1805,10 @@ suite('data model', () => {
         conditions: [],
         feedback: {
           feedbackForm: true
-        }
+        },
+        lists: [],
+        pages: [],
+        sections: []
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1804,7 +1821,9 @@ suite('data model', () => {
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal({
         pages: [{ name: 'someName' }],
-        conditions: []
+        conditions: [],
+        lists: [],
+        sections: []
       })
     })
 
@@ -1814,7 +1833,10 @@ suite('data model', () => {
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal({
-        conditions: []
+        conditions: [],
+        lists: [],
+        pages: [],
+        sections: []
       })
     })
   })

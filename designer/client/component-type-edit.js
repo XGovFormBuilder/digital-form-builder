@@ -1,7 +1,7 @@
 import React from 'react'
 import Editor from './editor'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import { ComponentValues } from './components/component-values'
+import ComponentValues from './components/component-values'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -392,13 +392,13 @@ function DateFieldEdit (props) {
 }
 
 function SelectFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
       <div>
-        <ComponentValues data={data} component={component} updateModel={updateModel}/>
+        <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
 
         <Classes component={component} updateModel={updateModel} />
       </div>
@@ -407,12 +407,12 @@ function SelectFieldEdit (props) {
 }
 
 function RadiosFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <ComponentValues data={data} component={component} updateModel={updateModel}/>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} />
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -433,12 +433,12 @@ function RadiosFieldEdit (props) {
 }
 
 function CheckboxesFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <ComponentValues data={data} component={component} updateModel={updateModel}/>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -486,13 +486,12 @@ function ParaEdit (props) {
 }
 
 function ListContentEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
 
   return (
     <div>
-
-      <ComponentValues data={data} component={component} updateModel={updateModel}/>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -513,11 +512,11 @@ function ListContentEdit (props) {
 }
 
 function FlashCardEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
 
   return (
-    <ComponentValues data={data} component={component} updateModel={updateModel}/>
+    <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
   )
 }
 
@@ -576,14 +575,14 @@ const componentTypeEditors = {
 
 class ComponentTypeEdit extends React.Component {
   render () {
-    const { component, data, updateModel } = this.props
+    const { component, data, updateModel, page } = this.props
 
     const type = ComponentTypes.find(t => t.name === component.type)
     if (!type) {
       return ''
     } else {
       const TagName = componentTypeEditors[`${component.type}Edit`] || FieldEdit
-      return <TagName component={component} data={data} updateModel={updateModel} />
+      return <TagName component={component} data={data} updateModel={updateModel} page={page}/>
     }
   }
 }

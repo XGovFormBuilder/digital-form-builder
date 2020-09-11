@@ -59,7 +59,7 @@ class InlineConditionsEdit extends React.Component {
                             href='#' id={`condition-${index}-edit`} className='govuk-link'
                             onClick={() => this.onClickEdit(index)}
                           >
-                            {icons.edit}
+                            {icons.edit(true)}
                           </a>
                         </span>}
                       {index > 0 &&

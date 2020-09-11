@@ -1,6 +1,7 @@
 import React from 'react'
 import formConfigurationApi from './load-form-configurations'
-import { radio, Option } from './govuk-react-components/radio'
+import { radioGroup, RadioOption } from './govuk-react-components/radio'
+import { InputOptions } from './govuk-react-components/helpers'
 
 class FormDetails extends React.Component {
   constructor (props) {
@@ -52,14 +53,14 @@ class FormDetails extends React.Component {
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
         {
-          radio(
+          radioGroup(
             'feedbackForm',
             'Is this a feedback form?',
-            'A feedback form is used to gather feedback from users about another form',
             [
-              new Option('feedback-yes', 'Yes', 'true', feedbackForm, () => this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })),
-              new Option('feedback-no', 'No', 'false', !feedbackForm, () => this.setState({ feedbackForm: false }))
-            ]
+              new RadioOption('feedback-yes', 'Yes', 'true', feedbackForm, () => this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })),
+              new RadioOption('feedback-no', 'No', 'false', !feedbackForm, () => this.setState({ feedbackForm: false }))
+            ],
+            new InputOptions(true, ['A feedback form is used to gather feedback from users about another form'])
           )
         }
 

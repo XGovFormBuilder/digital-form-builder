@@ -6,7 +6,7 @@ const helpers = require('./helpers')
 class YesNoField extends FormComponent {
   constructor (def, model) {
     super(def, model)
-    this.values = new Data(model.def).valuesFor(def)
+    this.values = new Data(model.def).valuesFor(def).toStaticValues()
 
     const { options, values } = this
 
