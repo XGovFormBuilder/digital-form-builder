@@ -1,9 +1,9 @@
 import React from 'react'
-import { ConditionValue, timeUnits } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+import { ConditionValue, timeUnits } from '@xgovformbuilder/model'
 import {
   absoluteDateOrTimeOperatorNames,
   getOperatorConfig, relativeDateOrTimeOperatorNames
-} from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+} from '@xgovformbuilder/model'
 
 import RelativeTimeValues from './inline-conditions-relative-dates'
 import { AbsoluteDateValues, AbsoluteDateTimeValues, AbsoluteTimeValues } from './inline-conditions-absolute-dates'

@@ -65,6 +65,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "designer": "^1.0.2",
     "govuk-frontend": "^3.8.1"
+  },
+  "resolutions": {
+    "resolve": "^1.17"
   }
 }

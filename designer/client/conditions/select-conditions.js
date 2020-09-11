@@ -1,6 +1,6 @@
 import React from 'react'
 import InlineConditions from './inline-conditions'
-import { ConditionsModel } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { ConditionsModel } from '@xgovformbuilder/model'
 import Flyout from '../flyout'
 import { selectGroup, SelectInputOptions, SelectOption } from '../govuk-react-components/select'
 import { renderHints } from '../govuk-react-components/helpers'

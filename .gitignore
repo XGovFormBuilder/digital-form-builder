@@ -15,6 +15,8 @@ package-lock.json
 */test-results/*
 */test-coverage/*
 /runner/tmp.pdf
+/model/module/
+/model/dist/
 
 .yarn/*
 !.yarn/releases

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentCreate from '../client/component-create'
-import { Data } from '@xgovformbuilder/model/lib/data-model'
+import { Data } from '@xgovformbuilder/model'
 import sinon from 'sinon'
 
 const { expect } = Code

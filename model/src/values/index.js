@@ -12,7 +12,7 @@ export interface ComponentValues {
   toStaticValues(data: DataModel): StaticValues // eslint-disable-line
 }
 
-class Values implements ComponentValues {
+class Index implements ComponentValues {
   type: ValuesType
   constructor (type: ValuesType) {
     this.type = type
@@ -43,7 +43,7 @@ class StaticValue {
   }
 }
 
-export class StaticValues extends Values {
+export class StaticValues extends Index {
   valueType: ValueTypes;
   items: Array<StaticValue>;
 
@@ -79,7 +79,7 @@ class ValueChildren {
   }
 }
 
-class ListRefValues extends Values {
+class ListRefValues extends Index {
   list: string;
   valueChildren: Array<ValueChildren>;
 

@@ -1,10 +1,10 @@
 // @flow
 
-import { StaticValues, valuesFrom, yesNoValues, ComponentValues } from './values/values'
-import { DataModel } from './data-model-interface'
-
-const { clone } = require('./helpers')
-const { ConditionsModel } = require('./conditions/inline-condition-model')
+import { StaticValues, valuesFrom, yesNoValues } from './values'
+import type { ComponentValues } from './values'
+import type { DataModel } from './data-model-interface'
+import { clone } from './helpers'
+import { ConditionsModel } from './conditions'
 
 function filter (obj: any, predicate: function): any {
   const result = {}
@@ -39,7 +39,7 @@ class Input {
   }
 }
 
-class Condition {
+export class Condition {
   name: string;
   displayName: string;
   value: any;
@@ -76,7 +76,7 @@ class ValuesWrapper {
   }
 }
 
-class Data implements DataModel {
+export class Data implements DataModel {
   /**
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
@@ -358,6 +358,3 @@ class Data implements DataModel {
     return toSerialize
   }
 }
-
-module.exports.Data = Data
-module.exports.Condition = Condition

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Menu from './menu'
 import Visualisation from './visualisation'
 import NewConfig from './new-config'
-import { Data } from '@xgovformbuilder/model/lib/data-model'
+import { Data } from '@xgovformbuilder/model'
 import { customAlphabet } from 'nanoid'
 import './index.scss'
 /**

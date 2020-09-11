@@ -1,9 +1,9 @@
 import React from 'react'
-import { Condition, Field, ConditionRef } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
-import { valueFrom } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
-import { getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+import { Condition, Field, ConditionRef } from '@xgovformbuilder/model'
+import { valueFrom } from '@xgovformbuilder/model'
+import { getOperatorNames } from '@xgovformbuilder/model'
 import InlineConditionsDefinitionValue from './inline-conditions-definition-values'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 function isCondition (fieldDef) {
   return fieldDef?.type === 'Condition'
