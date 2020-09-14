@@ -8,7 +8,7 @@
     "fix-lint": "yarn run eslint ./ --fix",
     "build": "rollup -c && yarn babel-build",
     "watch": "concurrently 'yarn run rollup:watch' 'yarn run babel-watch'",
-    "dev": "rollup -c -w & node server/index.js",
+    "dev": "concurrently 'yarn watch' 'yarn start'",
     "start": "node dist/index.js",
     "symlink-env": "./bin/symlink-config",
     "test-lab": "yarn run lab -T test/.transform.js test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
