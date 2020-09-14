@@ -5,6 +5,7 @@ import globals from 'rollup-plugin-node-globals'
 import builtins from '@cautionyourblast/rollup-plugin-node-builtins'
 import json from '@rollup/plugin-json'
 import flow from 'rollup-plugin-flow'
+import scss from 'rollup-plugin-scss'
 
 export default {
   input: 'client/index.js',
@@ -41,7 +42,10 @@ export default {
       ]
     }),
     json(),
-    flow()
+    flow(),
+    scss({
+      output: 'assets/application.css'
+    })
   ],
   external: ['react', 'react-dom', 'crypto']
 }
