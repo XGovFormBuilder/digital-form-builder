@@ -53,7 +53,7 @@ suite('Define component value', () => {
 
     assertTextInput(wrapper.find('#item-label'), 'item-label', undefined, {required: true})
     assertTextInput(wrapper.find('#item-value'), 'item-value', undefined, {required: true})
-    assertTextArea(wrapper.find('#item-hint'), 'item-hint', undefined, {rows: 2, required: undefined})
+    assertTextArea(wrapper.find('#item-hint'), 'item-hint', '', {rows: 2, required: undefined})
     assertSelectConditionsDisplayed(wrapper);
     expect(wrapper.find('#add-child-link').exists()).to.equal(true)
     expect(wrapper.find('#save-component-value-link').exists()).to.equal(true)
