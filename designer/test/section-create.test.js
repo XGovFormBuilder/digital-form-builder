@@ -10,9 +10,11 @@ import sinon from 'sinon'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { beforeEach, suite, test } = lab
+const { afterEach, beforeEach, suite, test } = lab
 
 suite('Section create', () => {
+  const onCreate = sinon.spy()
+
   const data = new Data({
     sections: [{ name: 'awesomeBadgers' }, { name: 'awesomeBadgers1' }, { name: 'awesomeBadgers2' }]
   })
@@ -21,6 +23,10 @@ suite('Section create', () => {
     data.clone = sinon.stub().returns(data)
     data.addSection = sinon.stub().returns(data)
     data.save = sinon.stub().resolves(data)
+  })
+
+  afterEach(() => {
+    onCreate.resetHistory()
   })
 
   test('Should display form with title and name inputs', () => {
@@ -69,7 +75,7 @@ suite('Section create', () => {
   })
 
   test('Submitting without changing the name should generate the appropriate section', flags => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' My badgers ' } })
     const preventDefault = sinon.spy()
@@ -81,7 +87,7 @@ suite('Section create', () => {
   })
 
   test('Submitting without changing the name should use generated name with integer if needed', async () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
     const preventDefault = sinon.spy()
@@ -94,7 +100,7 @@ suite('Section create', () => {
   })
 
   test('Submitting with a specified name should use the specified name', async () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
     wrapper.find('#section-name').simulate('blur', { target: { value: 'myName', setCustomValidity: sinon.spy() } })
@@ -118,7 +124,6 @@ suite('Section create', () => {
     const savedData = sinon.stub()
     data.save.resolves(savedData)
 
-    const onCreate = sinon.spy()
     const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
