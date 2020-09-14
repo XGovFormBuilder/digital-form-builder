@@ -87,6 +87,7 @@
     "rollup": "2.15.0",
     "rollup-plugin-flow": "^1.1.1",
     "rollup-plugin-node-globals": "1.4.0",
+    "rollup-plugin-scss": "^2.6.0",
     "sinon": "^9.0.2",
     "standard": "12.0.1",
     "vision": "5.4.3"
