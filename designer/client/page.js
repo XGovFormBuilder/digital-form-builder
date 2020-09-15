@@ -51,21 +51,21 @@ class Page extends React.Component {
   }
 
   toggleAddComponent = () => {
-    this.setState(prevState => ({ 
+    this.setState(prevState => ({
       showAddComponent: !prevState.showAddComponent
-    }));
+    }))
   }
 
   toggleEditor = () => {
-    this.setState(prevState => ({ 
-      showEditor: !prevState.showEditor 
-    }));
+    this.setState(prevState => ({
+      showEditor: !prevState.showEditor
+    }))
   }
 
   render () {
     const { page, data, id, previewUrl, persona } = this.props
     const { sections } = data
-    const formComponents = page?.components?.filter(comp => 
+    const formComponents = page?.components?.filter(comp =>
       ComponentTypes.find(type => type.name === comp.type).subType === 'field'
     )
     const section = page.section && sections.find(section => section.name === page.section)
@@ -74,8 +74,8 @@ class Page extends React.Component {
       page.title ||
       (formComponents.length === 1 && page.components[0] === formComponents[0]
         ? formComponents[0].title
-        : page.title);
-    
+        : page.title)
+
     if (pageTitle && typeof pageTitle === 'object') {
       pageTitle = pageTitle.en
     }
@@ -87,7 +87,7 @@ class Page extends React.Component {
         title={page.path} style={this.props.layout}
       >
         <div className='page__handle' onClick={this.toggleEditor} />
-        
+
         <div className='page__heading'>
           <h3>
             {section && <span>{section.title}</span>}
@@ -124,14 +124,14 @@ class Page extends React.Component {
         </Flyout>
 
         <Flyout
-          title='Add Component' 
+          title='Add Component'
           show={this.state.showAddComponent}
           onHide={this.toggleAddComponent}
         >
-          <ComponentCreate 
-            page={page} 
-            data={data} 
-            onCreate={this.toggleAddComponent} 
+          <ComponentCreate
+            page={page}
+            data={data}
+            onCreate={this.toggleAddComponent}
           />
         </Flyout>
       </div>
