@@ -5,7 +5,7 @@ class Flashcard extends Component {
     const { values } = this
     const content = values.items.map(item => {
       const contentItem = {
-        title: item.display,
+        title: item.label,
         text: item.hint || ''
       }
       if (item.condition) {

@@ -56,7 +56,7 @@ const conditionsSchema = joi.object().keys({
 const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(''))
 
 const staticValueSchema = joi.object().keys({
-  display: joi.string().required(),
+  label: joi.string().required(),
   value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()).required(),
   hint: joi.string().allow('').optional(),
   condition: joi.string().optional(),

@@ -137,7 +137,7 @@ suite('Component values', () => {
     })
 
     test('Should render existing values with edit and remove links', () => {
-      const item = { display: 'My item', value: '12', children: [] };
+      const item = { label: 'My item', value: '12', children: [] }
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', items: [item] } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
@@ -167,7 +167,7 @@ suite('Component values', () => {
     })
 
     test('Clicking the edit item link should display the edit component value flyout', () => {
-      const item = { display: 'My item', value: '12', children: [], condition: undefined, hint: undefined };
+      const item = { label: 'My item', value: '12', children: [], condition: undefined, hint: undefined }
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', valueType: 'string', items: [item] } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>)
 
@@ -177,9 +177,9 @@ suite('Component values', () => {
     })
 
     test('Clicking the remove item link should remove the correct item', () => {
-      const item = { display: 'My item', value: '12', children: [] };
-      const item2 = { display: 'Another item', value: '13', children: [] };
-      const item3 = { display: 'Third item', value: '13', children: [] };
+      const item = { label: 'My item', value: '12', children: [] }
+      const item2 = { label: 'Another item', value: '13', children: [] }
+      const item3 = { label: 'Third item', value: '13', children: [] }
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', valueType: 'string', items: [item, item2, item3] } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>)
 
@@ -220,9 +220,9 @@ suite('Component values', () => {
           type: 'static',
           valueType: 'string',
           items: [
-            { display: 'My item', value: '12', children: [] },
-            { display: 'Item 2', hint: 'My hint', value: '11', condition: 'Abcewdad', children: [] },
-            { display: 'Item 3', value: '11', children: [{ type: 'TextField' }] }
+            { label: 'My item', value: '12', children: [] },
+            { label: 'Item 2', hint: 'My hint', value: '11', condition: 'Abcewdad', children: [] },
+            { label: 'Item 3', value: '11', children: [{ type: 'TextField' }] }
           ]
         }
       }
@@ -230,7 +230,7 @@ suite('Component values', () => {
     })
 
     test('Should update model in the expected fashion when a list is selected and there were already values', () => {
-      const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', items: [{display:'old item'}] } }
+      const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', items: [{ label: 'old item' }] } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
       wrapper.find('#field-options-list').simulate('change', { target: { value: 'anotherList' } })
@@ -243,9 +243,9 @@ suite('Component values', () => {
           type: 'static',
           valueType: 'string',
           items: [
-            { display: 'My item', value: '12', children: [] },
-            { display: 'Item 2', hint: 'My hint', value: '11', condition: 'Abcewdad', children: [] },
-            { display: 'Item 3', value: '11', children: [{ type: 'TextField' }] }
+            { label: 'My item', value: '12', children: [] },
+            { label: 'Item 2', hint: 'My hint', value: '11', condition: 'Abcewdad', children: [] },
+            { label: 'Item 3', value: '11', children: [{ type: 'TextField' }] }
           ]
         }
       }
@@ -268,7 +268,7 @@ suite('Component values', () => {
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>)
 
       wrapper.find('#add-value-link').simulate('click')
-      const item = { display: 'My item', value: '12', children: [] };
+      const item = { label: 'My item', value: '12', children: [] }
       expect(updateModel.callCount).to.equal(0)
 
       wrapper.instance().addItem(item)
@@ -284,14 +284,14 @@ suite('Component values', () => {
           type: 'static',
           valueType: 'string'
         }
-      };
+      }
       expect(updateModel.firstCall.args[0]).to.equal(expected)
       assertAddComponentValueFlyout(wrapper, data, page, expected, false)
       assertEditComponentValueFlyout(wrapper, data, page, component, false)
     })
 
     test('The cancel edit item callback should hide the edit component value flyout', () => {
-      const item = { display: 'My item', value: '12', children: [], condition: undefined, hint: undefined };
+      const item = { label: 'My item', value: '12', children: [], condition: undefined, hint: undefined }
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', valueType: 'string', items: [item] } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>)
 
@@ -303,20 +303,19 @@ suite('Component values', () => {
     })
 
     test('The edit item callback should update the model in the expected way and hide the edit component value flyout', () => {
-      const item = { display: 'My item', value: '12', children: [] };
-      const item2 = { display: 'Another item', value: '13', children: [], hint: undefined, condition: undefined };
-      const item3 = { display: 'Third item', value: '13', children: [] };
+      const item = { label: 'My item', value: '12', children: [] }
+      const item2 = { label: 'Another item', value: '13', children: [], hint: undefined, condition: undefined }
+      const item3 = { label: 'Third item', value: '13', children: [] }
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', valueType: 'string', items: [item, item2, item3] } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>)
 
       wrapper.find('#edit-item-1').simulate('click')
       assertEditComponentValueFlyout(wrapper, data, page, component, true, item2)
 
-
       expect(updateModel.callCount).to.equal(0)
 
       const updatedItem = clone(item2)
-      updatedItem.display = 'My new item name'
+      updatedItem.label = 'My new item name'
       wrapper.instance().updateItem(updatedItem)
 
       const expected = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', valueType: 'string', items: [item, updatedItem, item3] } }

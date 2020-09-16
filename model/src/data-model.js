@@ -111,7 +111,7 @@ export class Data implements DataModel {
     const values = this.valuesFor(input)?.toStaticValues()
     return values ? values.items.flatMap(listItem => listItem.children
       ?.filter(it => it.name)
-      ?.map(it => new Input(it, page, { parentItemName: listItem.display })) ?? []) : []
+      ?.map(it => new Input(it, page, { parentItemName: listItem.label })) ?? []) : []
   }
 
   allInputs (): Array<Input> {

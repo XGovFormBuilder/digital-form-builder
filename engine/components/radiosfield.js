@@ -23,7 +23,7 @@ class RadiosField extends ConditionalFormComponent {
     const { name, values } = this
     const value = state[name]
     const item = values.items.find(item => item.value === value)
-    return item ? item.display : value
+    return item ? item.label : value
   }
 
   getViewModel (formData, errors) {
@@ -37,7 +37,7 @@ class RadiosField extends ConditionalFormComponent {
       items: values.items
         .map((item) => {
           const itemModel = {
-            html: this.localisedString(item.display),
+            html: this.localisedString(item.label),
             value: item.value,
             // Do a loose string based check as state may or
             // may not match the item item types.
