@@ -2,8 +2,6 @@ import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
 import { clone, ComponentTypes } from '@xgovformbuilder/model'
 
-
-
 class ComponentCreate extends React.Component {
   state = {
     isSaving: false

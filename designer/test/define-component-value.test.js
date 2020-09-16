@@ -2,16 +2,15 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Lab from '@hapi/lab'
 import * as Code from '@hapi/code'
-import { Data } from '@xgovformbuilder/model/lib/data-model'
+import { Data } from '@xgovformbuilder/model'
 import sinon from 'sinon'
 import DefineComponentValue from '../client/components/define-component-value'
-import {assertTextArea, assertTextInput} from './helpers/element-assertions'
+import { assertTextArea, assertTextInput } from './helpers/element-assertions'
 
 const lab = Lab.script()
 exports.lab = lab
 const { afterEach, before, suite, test } = lab
 const { expect } = Code
-
 
 suite('Define component value', () => {
   const data = new Data(
@@ -51,10 +50,10 @@ suite('Define component value', () => {
   test('Should render expected form', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
 
-    assertTextInput(wrapper.find('#item-label'), 'item-label', undefined, {required: true})
-    assertTextInput(wrapper.find('#item-value'), 'item-value', undefined, {required: true})
-    assertTextArea(wrapper.find('#item-hint'), 'item-hint', '', {rows: 2, required: undefined})
-    assertSelectConditionsDisplayed(wrapper);
+    assertTextInput(wrapper.find('#item-label'), 'item-label', undefined, { required: true })
+    assertTextInput(wrapper.find('#item-value'), 'item-value', undefined, { required: true })
+    assertTextArea(wrapper.find('#item-hint'), 'item-hint', '', { rows: 2, required: undefined })
+    assertSelectConditionsDisplayed(wrapper)
     expect(wrapper.find('#add-child-link').exists()).to.equal(true)
     expect(wrapper.find('#save-component-value-link').exists()).to.equal(true)
     expect(wrapper.find('#cancel-add-component-value-link').exists()).to.equal(true)
@@ -64,8 +63,8 @@ suite('Define component value', () => {
   })
 
   test('Should render expected form when editing a fully-populated value', () => {
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
-    const value= {
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    const value = {
       label: 'My label',
       value: 'My value',
       hint: 'My hint',
@@ -75,10 +74,10 @@ suite('Define component value', () => {
 
     const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
 
-    assertTextInput(wrapper.find('#item-label'), 'item-label', 'My label', {required: true})
-    assertTextInput(wrapper.find('#item-value'), 'item-value', 'My value', {required: true})
-    assertTextArea(wrapper.find('#item-hint'), 'item-hint', 'My hint', {rows: 2, required: undefined})
-    assertSelectConditionsDisplayed(wrapper, 'myCondition');
+    assertTextInput(wrapper.find('#item-label'), 'item-label', 'My label', { required: true })
+    assertTextInput(wrapper.find('#item-value'), 'item-value', 'My value', { required: true })
+    assertTextArea(wrapper.find('#item-hint'), 'item-hint', 'My hint', { rows: 2, required: undefined })
+    assertSelectConditionsDisplayed(wrapper, 'myCondition')
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
     expect(wrapper.find('#child-details-0').text()).to.equal('My child component (TextField)')
@@ -91,8 +90,8 @@ suite('Define component value', () => {
   })
 
   test('Clicking the add child link causes the add child flyout to be displayed', () => {
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
-    const value= {
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    const value = {
       label: 'My label',
       value: 'My value',
       hint: 'My hint',
@@ -108,8 +107,8 @@ suite('Define component value', () => {
   })
 
   test('The cancel add child callback causes the add child flyout to be hidden again', () => {
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
-    const value= {
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    const value = {
       label: 'My label',
       value: 'My value',
       hint: 'My hint',
@@ -125,8 +124,26 @@ suite('Define component value', () => {
     assertEditChildFlyout(wrapper, data, page, false)
   })
 
+  test('Adding a child causes the add child view to be hidden', () => {
+    const value = {
+      label: 'My label',
+      value: 'My value',
+      hint: 'My hint',
+      condition: 'myCondition',
+      children: []
+    }
+    const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    wrapper.find('#add-child-link').simulate('click')
+
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    wrapper.instance().addChild(child)
+
+    assertAddChildFlyout(wrapper, data, page, false)
+    assertEditChildFlyout(wrapper, data, page, false)
+  })
+
   test('Should be able to add child when original value has no children', () => {
-    const value= {
+    const value = {
       label: 'My label',
       value: 'My value',
       hint: 'My hint',
@@ -134,7 +151,7 @@ suite('Define component value', () => {
     }
 
     const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
     wrapper.instance().addChild(child)
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
@@ -144,7 +161,7 @@ suite('Define component value', () => {
   test('Adding a child causes the child to be displayed along with edit and remove links', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
 
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
     wrapper.instance().addChild(child)
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
@@ -156,9 +173,9 @@ suite('Define component value', () => {
   test('Clicking the remove child link causes the correct child to be removed', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
 
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
-    const child2 = {name: 'myChild2', title: 'Another child component', type: 'TextField'};
-    const child3 = {name: 'myChild3', title: 'Third child component', type: 'TextField'};
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    const child2 = { name: 'myChild2', title: 'Another child component', type: 'TextField' }
+    const child3 = { name: 'myChild3', title: 'Third child component', type: 'TextField' }
     wrapper.instance().addChild(child)
     wrapper.instance().addChild(child2)
     wrapper.instance().addChild(child3)
@@ -175,9 +192,9 @@ suite('Define component value', () => {
   })
 
   test('Clicking the edit child link causes the edit child flyout to be displayed with the correct child', () => {
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
-    const child2 = {name: 'myChild2', title: 'Another child component', type: 'TextField'};
-    const child3 = {name: 'myChild3', title: 'Third child component', type: 'TextField'};
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    const child2 = { name: 'myChild2', title: 'Another child component', type: 'TextField' }
+    const child3 = { name: 'myChild3', title: 'Third child component', type: 'TextField' }
     const value = {
       label: 'My label',
       value: 'My value',
@@ -195,8 +212,8 @@ suite('Define component value', () => {
 
   test('Clicking the save link should call callback with appropriate value for minimally populated item', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
-    wrapper.find('#item-label').simulate('blur', {target: {value: 'My label'}})
-    wrapper.find('#item-value').simulate('blur', {target: {value: 'My value'}})
+    wrapper.find('#item-label').simulate('blur', { target: { value: 'My label' } })
+    wrapper.find('#item-value').simulate('blur', { target: { value: 'My value' } })
 
     wrapper.find('#save-component-value-link').simulate('click')
 
@@ -212,12 +229,12 @@ suite('Define component value', () => {
 
   test('Clicking the save link should call callback with appropriate value', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
-    wrapper.find('#item-label').simulate('blur', {target: {value: 'My label'}})
-    wrapper.find('#item-value').simulate('blur', {target: {value: 'My value'}})
-    wrapper.find('#item-hint').simulate('blur', {target: {value: 'My hint'}})
+    wrapper.find('#item-label').simulate('blur', { target: { value: 'My label' } })
+    wrapper.find('#item-value').simulate('blur', { target: { value: 'My value' } })
+    wrapper.find('#item-hint').simulate('blur', { target: { value: 'My hint' } })
 
     wrapper.instance().conditionSelected('myCondition')
-    const child = {name: 'myChild'};
+    const child = { name: 'myChild' }
     wrapper.instance().addChild(child)
 
     wrapper.find('#save-component-value-link').simulate('click')
@@ -233,10 +250,10 @@ suite('Define component value', () => {
   })
 
   test('Updating the child causes the correct child to be updated and hides the edit child flyout', () => {
-    const child = {name: 'myChild', title: 'My child component', type: 'TextField'};
-    const child2 = {name: 'myChild2', title: 'Another child component', type: 'TextField'};
-    const child3 = {name: 'myChild3', title: 'Third child component', type: 'TextField'};
-    const value= {
+    const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    const child2 = { name: 'myChild2', title: 'Another child component', type: 'TextField' }
+    const child3 = { name: 'myChild3', title: 'Third child component', type: 'TextField' }
+    const value = {
       label: 'My label',
       value: 'My value',
       hint: 'My hint',
@@ -247,7 +264,7 @@ suite('Define component value', () => {
 
     wrapper.find('#edit-child-1').simulate('click')
 
-    const updated = {name: 'myChild2', title: 'New child component name', type: 'TextField'};
+    const updated = { name: 'myChild2', title: 'New child component name', type: 'TextField' }
     wrapper.instance().updateChild(updated)
 
     assertAddChildFlyout(wrapper, data, page, false)
@@ -295,8 +312,8 @@ suite('Define component value', () => {
     expect(flyout.prop('onHide')).to.equal(wrapper.instance().cancelEditChild)
   }
 
-  function assertSelectConditionsDisplayed(wrapper, selectedCondition) {
-    const selectConditions = wrapper.find('SelectConditions');
+  function assertSelectConditionsDisplayed (wrapper, selectedCondition) {
+    const selectConditions = wrapper.find('SelectConditions')
     expect(selectConditions.exists()).to.equal(true)
     expect(selectConditions.prop('data')).to.equal(data)
     expect(selectConditions.prop('path')).to.equal(page.path)

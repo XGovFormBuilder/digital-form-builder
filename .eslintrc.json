@@ -39,7 +39,8 @@
         "dist/**",
         "lib/**",
         "flow-typed/**",
-        "public/**"
+        "public/**",
+        "module/**"
     ],
     "settings": {
         "react": {

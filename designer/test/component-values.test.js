@@ -2,11 +2,10 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Lab from '@hapi/lab'
 import * as Code from '@hapi/code'
-import { Data } from '@xgovformbuilder/model'
+import { Data, clone } from '@xgovformbuilder/model'
 import sinon from 'sinon'
 import ComponentValues from '../client/components/component-values'
 import { assertRadioButton, assertSelectInput } from './helpers/element-assertions'
-import { clone } from '@xgovformbuilder/model'
 
 const lab = Lab.script()
 exports.lab = lab

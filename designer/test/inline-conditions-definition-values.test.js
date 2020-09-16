@@ -11,8 +11,8 @@ import {
   dateUnits,
   RelativeTimeValue,
   timeUnits
+  , relativeDateOrTimeOperatorNames
 } from '@xgovformbuilder/model'
-import { relativeDateOrTimeOperatorNames } from '@xgovformbuilder/model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -20,8 +20,8 @@ exports.lab = lab
 const { beforeEach, suite, test } = lab
 
 suite('Inline conditions definition value inputs', () => {
-  const values = [{ value: 'value1', display: 'Value 1' }, { value: 'value2', display: 'Value 2' }]
-  const selectedValues = values.map(it => new ConditionValue(it.value, it.display))
+  const values = [{ value: 'value1', label: 'Value 1' }, { value: 'value2', label: 'Value 2' }]
+  const selectedValues = values.map(it => new ConditionValue(it.value, it.label))
   let updateValueCallback
 
   beforeEach(() => {
