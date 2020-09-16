@@ -1,6 +1,5 @@
 import React from 'react'
-import ComponentTypeEdit from '../component-type-edit'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import { ComponentTypes } from '@xgovformbuilder/model'
 
 class DefineChildComponent extends React.Component {
   constructor (props) {
@@ -13,11 +12,11 @@ class DefineChildComponent extends React.Component {
   async componentDidMount () {
     const { data } = this.props
     const { component } = this.state
-    this.setState({id: component?.name || await data.getId()})
+    this.setState({ id: component?.name || await data.getId() })
   }
 
   render () {
-    const { page, data } = this.props
+    const { page, data, EditComponentView } = this.props
     const { id, component } = this.state
 
     return (
@@ -27,6 +26,7 @@ class DefineChildComponent extends React.Component {
           <select
             className='govuk-select' id='type' name='type' required
             onChange={e => this.setState({ component: { type: e.target.value, name: id } })}
+            defaultValue={component?.type}
           >
             <option />
             {ComponentTypes.sort((a, b) => (a.title ?? '').localeCompare(b.title)).map(type => {
@@ -37,14 +37,19 @@ class DefineChildComponent extends React.Component {
 
         {component && component.type && (
           <div>
-            <ComponentTypeEdit
+            <EditComponentView
               page={page}
               component={component}
               data={data}
-              updateModel={this.props.saveCallback}
+              updateModel={this.storeComponent}
             />
             <a
-              href='#' id='cancel-add-component-link' className='govuk-link'
+              href='#' id='save-child-component-link' className='govuk-button'
+              onClick={() => this.props.saveCallback(component)}
+            >Save
+            </a>
+            <a
+              href='#' id='cancel-child-component-link' className='govuk-link'
               onClick={this.props.cancelCallback}
             >Cancel
             </a>
@@ -52,6 +57,10 @@ class DefineChildComponent extends React.Component {
         )}
       </div>
     )
+  }
+
+  storeComponent = (component) => {
+    this.setState({ component })
   }
 }
 

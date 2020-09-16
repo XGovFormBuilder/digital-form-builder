@@ -7,12 +7,26 @@ internals.transform = function (content, filename) {
   }
 
   let transformed = Babel.transform(content, {
+    presets: [    "@babel/preset-flow",
+      ["@babel/preset-env", {
+        "targets": {
+          "node": "12"
+        },
+      }]
+    ],
     filename: filename,
     sourceMap: 'inline',
     sourceFileName: filename,
     auxiliaryCommentBefore: '$lab:coverage:off$',
     auxiliaryCommentAfter: '$lab:coverage:on$',
-    plugins: ['@babel/plugin-transform-runtime'],
+    "exclude": ["node_modules/**"],
+    "plugins": [
+      "@babel/plugin-proposal-export-default-from",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-private-property-in-object",
+      "@babel/plugin-proposal-private-methods",
+      "@babel/plugin-transform-runtime"
+    ],
     ignore: ['../node_modules', 'node_modules']
   })
 

@@ -79,16 +79,16 @@ class ListEdit extends React.Component {
     const copy = clone(data)
 
     const affectedComponents = copy.pages.flatMap(p => p.components)
-      .filter(component => component.values?.type === 'listRef' && c.values.list === list.name)
+      .filter(component => component.values?.type === 'listRef' && component.values.list === list.name)
 
-    //Flag anything we are breaking to the user
-    let aborted = false;
-    if(affectedComponents.length > 0) {
+    // Flag anything we are breaking to the user
+    let aborted = false
+    if (affectedComponents.length > 0) {
       aborted = !window.confirm(`The following components will no longer function correctly:\n\n
-      ${affectedComponents.map(it => it.type + ': '+it.title+'\n\n')}
+      ${affectedComponents.map(it => it.type + ': ' + it.title + '\n\n')}
       Are you sure you want to proceed?`)
     }
-    if(!aborted) {
+    if (!aborted) {
       // Remove the list
       copy.lists.splice(data.lists.indexOf(list), 1)
       // Update any references to the list
@@ -104,8 +104,6 @@ class ListEdit extends React.Component {
           console.error(err)
         })
     }
-
-
   }
 
   onBlurName = e => {

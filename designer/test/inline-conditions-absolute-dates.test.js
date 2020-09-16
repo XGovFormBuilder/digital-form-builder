@@ -7,8 +7,9 @@ import sinon from 'sinon'
 import momentTz from 'moment-timezone'
 import {
   absoluteDateOrTimeOperatorNames
+  , ConditionValue
 } from '@xgovformbuilder/model'
-import { ConditionValue } from '@xgovformbuilder/model'
+
 import {
   AbsoluteDateTimeValues,
   AbsoluteDateValues,

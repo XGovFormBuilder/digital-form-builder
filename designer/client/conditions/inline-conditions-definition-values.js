@@ -1,6 +1,6 @@
 import React from 'react'
-import { ConditionValue, timeUnits } from '@xgovformbuilder/model'
 import {
+  ConditionValue, timeUnits,
   absoluteDateOrTimeOperatorNames,
   getOperatorConfig, relativeDateOrTimeOperatorNames
 } from '@xgovformbuilder/model'

@@ -2,9 +2,9 @@ import React from 'react'
 import { shallow, mount, render } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { ComponentTypes } from '@xgovformbuilder/model'
+import { ComponentTypes, Data } from '@xgovformbuilder/model'
 import ComponentTypeEdit from '../client/component-type-edit'
-import { Data } from '@xgovformbuilder/model'
+
 import sinon from 'sinon'
 import { assertCheckboxInput, assertRequiredTextInput, assertTextArea } from './helpers/element-assertions'
 
@@ -167,11 +167,12 @@ suite('Component type edit', () => {
 
       const field = wrapper.find('ComponentValues')
       expect(field.exists()).to.equal(true)
-      expect(Object.keys(field.props()).length).to.equal(4)
+      expect(Object.keys(field.props()).length).to.equal(5)
       expect(field.prop('component')).to.equal(component)
       expect(field.prop('data')).to.equal(data)
       expect(field.prop('updateModel')).to.equal(updateModel)
       expect(field.prop('page')).to.equal(page)
+      expect(field.prop('EditComponentView')).to.equal(ComponentTypeEdit)
     })
   })
 

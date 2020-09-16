@@ -5,14 +5,14 @@ import { icons } from '../icons'
 import Flyout from '../flyout'
 import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
-import DefineChildComponent from "./define-child-component";
+import DefineChildComponent from './define-child-component'
 
 export default class DefineComponentValue extends React.Component {
   constructor (props) {
     super(props)
     const value = props.value
-    this.state = value ? clone(value) : {children:[]}
-    if(!this.state.children) {
+    this.state = value ? clone(value) : { children: [] }
+    if (!this.state.children) {
       this.state.children = []
     }
   }
@@ -44,16 +44,17 @@ export default class DefineComponentValue extends React.Component {
   addChild = (component) => {
     const { children } = this.state
     children.push(component)
-    this.setState(
-      { children: children }
-    )
+    this.setState( {
+      children: children,
+      showAddChild: false
+    })
   }
 
   updateChild = (component) => {
     const { children, editingIndex } = this.state
     children[editingIndex] = component
     this.setState(
-    {
+      {
         children,
         editingIndex: undefined
       }
@@ -154,22 +155,24 @@ export default class DefineComponentValue extends React.Component {
           </a>
           <Flyout title='Add Child' show={!!showAddChild}
             onHide={this.cancelAddChild}>
-             <DefineChildComponent
+            <DefineChildComponent
               data={data}
               page={page}
               saveCallback={this.addChild}
               cancelCallback={this.cancelAddChild}
-             />
+              EditComponentView={this.props.EditComponentView}
+            />
           </Flyout>
           <Flyout title='Edit Child' show={editingIndex !== undefined}
             onHide={this.cancelEditChild}>
-             <DefineChildComponent
+            <DefineChildComponent
               data={data}
               component={child}
               page={page}
               saveCallback={this.updateChild}
               cancelCallback={this.cancelEditChild}
-             />
+              EditComponentView={this.props.EditComponentView}
+            />
           </Flyout>
         </div>
       }

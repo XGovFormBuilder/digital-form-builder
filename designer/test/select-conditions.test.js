@@ -214,7 +214,7 @@ suite('Select conditions', () => {
         ]
         data.inputsAccessibleAt.withArgs(path).returns(fields)
         data.valuesFor.returns(undefined)
-        data.valuesFor.withArgs(fields[2]).returns({ items: values })
+        data.valuesFor.withArgs(fields[2]).returns({ toStaticValues: () => ({ items: values }) })
       })
 
       test('should display a link to allow inline creation', () => {

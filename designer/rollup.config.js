@@ -4,8 +4,6 @@ import resolve from '@rollup/plugin-node-resolve'
 import globals from 'rollup-plugin-node-globals'
 import builtins from '@cautionyourblast/rollup-plugin-node-builtins'
 import json from '@rollup/plugin-json'
-import flow from 'rollup-plugin-flow'
-import * as path from 'path'
 
 export default {
   input: 'client/index.js',

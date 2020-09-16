@@ -2,8 +2,8 @@ import React from 'react'
 import Editor from './editor'
 import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
-import {textAreaGroup} from "./govuk-react-components/text";
-import {InputOptions} from "./govuk-react-components/helpers";
+import { textAreaGroup } from './govuk-react-components/text'
+import { InputOptions } from './govuk-react-components/helpers'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -378,7 +378,7 @@ function SelectFieldEdit (props) {
   return (
     <FieldEdit component={component} updateModel={updateModel}>
       <div>
-        <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
+        <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
         <Classes component={component} updateModel={updateModel} />
       </div>
@@ -392,7 +392,7 @@ function RadiosFieldEdit (props) {
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} />
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -418,7 +418,7 @@ function CheckboxesFieldEdit (props) {
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -471,7 +471,7 @@ function ListContentEdit (props) {
 
   return (
     <div>
-      <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -496,7 +496,7 @@ function FlashCardEdit (props) {
   component.options = component.options || {}
 
   return (
-    <ComponentValues data={data} component={component} updateModel={updateModel} page={page}/>
+    <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
   )
 }
 

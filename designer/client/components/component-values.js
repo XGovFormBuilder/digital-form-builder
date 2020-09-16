@@ -213,7 +213,7 @@ export default class ComponentValues extends React.Component {
                     </td>
                     <td className='govuk-table__cell'>
                       {type === 'static' &&
-                        <a className='list-item-delete' id={`remove-item-${index}`}  onClick={() => this.removeItem(index)}>&#128465;</a>
+                        <a className='list-item-delete' id={`remove-item-${index}`} onClick={() => this.removeItem(index)}>&#128465;</a>
                       }
                     </td>
                   </tr>
@@ -227,17 +227,19 @@ export default class ComponentValues extends React.Component {
                 page={page}
                 saveCallback={this.addItem}
                 cancelCallback={this.cancelAddItem}
+                EditComponentView={this.props.EditComponentView}
               />
             </Flyout>
             <Flyout title='Edit Item' show={editingIndex !== undefined}
               onHide={this.cancelEditItem}>
-               <DefineComponentValue
+              <DefineComponentValue
                 data={data}
                 value={staticValues.items[editingIndex]}
                 page={page}
                 saveCallback={this.updateItem}
                 cancelCallback={this.cancelEditItem}
-               />
+                EditComponentView={this.props.EditComponentView}
+              />
             </Flyout>
           </div>
         </div>

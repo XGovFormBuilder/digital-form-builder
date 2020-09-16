@@ -5,8 +5,8 @@ import * as Lab from '@hapi/lab'
 import { assertLabel, assertLink, assertText } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
-import { Condition, ConditionsModel, Field } from '@xgovformbuilder/model'
-import { ConditionValue } from '@xgovformbuilder/model'
+import { Condition, ConditionsModel, Field, ConditionValue } from '@xgovformbuilder/model'
+
 import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
@@ -97,7 +97,7 @@ suite('Inline conditions', () => {
       }
       data.inputsAccessibleAt.withArgs(path).returns(fields)
       data.valuesFor.returns(undefined)
-      data.valuesFor.withArgs(fields[2]).returns({ items: values })
+      data.valuesFor.withArgs(fields[2]).returns({ toStaticValues: () => ({ items: values }) })
     })
 
     after(() => {

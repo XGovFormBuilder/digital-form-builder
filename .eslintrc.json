@@ -34,5 +34,5 @@
         "react/no-deprecated": 1,
         "react/jsx-no-target-blank": 1
     },
-    "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/lib/**", "**/flow-typed/**", "**/public/**", "node_modules/**", "dist/**", "lib/**", "flow-typed/**", "public/**"]
+    "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/lib/**", "**/flow-typed/**", "**/public/**", "module/**"]
 }

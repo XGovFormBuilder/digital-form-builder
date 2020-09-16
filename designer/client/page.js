@@ -4,8 +4,7 @@ import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
-import { ComponentTypes } from '@xgovformbuilder/model'
-import { clone } from '@xgovformbuilder/model'
+import { ComponentTypes, clone } from '@xgovformbuilder/model'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
