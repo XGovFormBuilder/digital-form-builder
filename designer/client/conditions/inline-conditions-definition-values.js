@@ -62,19 +62,25 @@ function SelectValues (props) {
 function customValueComponent (fieldType, operator) {
   const operatorConfig = getOperatorConfig(fieldType, operator)
   const absoluteDateTimeRenderFunctions = {
-    DateField: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
-    DatePartsField: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
-    DateTimeField: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
-    DateTimePartsField: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
-    TimeField: (value, updateValue) => <AbsoluteTimeValues value={value} updateValue={updateValue} />
+    DateField: AbsoluteDateValues,
+    DatePartsField: AbsoluteDateValues,
+    DateTimeField: AbsoluteDateTimeValues,
+    DateTimePartsField: AbsoluteDateTimeValues,
+    TimeField: AbsoluteTimeValues
   }
-  const dateTimeFieldTypes = Object.keys(absoluteDateTimeRenderFunctions).includes(fieldType)
-  if (dateTimeFieldTypes) {
+  if (fieldType in absoluteDateTimeRenderFunctions) {
     if (absoluteDateOrTimeOperatorNames.includes(operator)) {
       return absoluteDateTimeRenderFunctions[fieldType]
     } else if (relativeDateOrTimeOperatorNames.includes(operator)) {
       const units = operatorConfig.units
-      return (value, updateValue) => <RelativeTimeValues value={value} updateValue={updateValue} units={units} timeOnly={units === timeUnits} />
+      return function RelativeTimeValuesWrapper (value, updateValue) {
+        return <RelativeTimeValues
+          value={value}
+          updateValue={updateValue}
+          units={units}
+          timeOnly={units === timeUnits}
+        />
+      }
     }
   }
 }

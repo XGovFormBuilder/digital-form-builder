@@ -127,7 +127,7 @@ class InlineConditions extends React.Component {
               <span className='govuk-warning-text__icon' aria-hidden='true'>!</span>
               <strong className='govuk-warning-text__text'>
                 <span className='govuk-warning-text__assistive'>Warning</span>
-                You cannot edit this condition '{conditionString}'. Please recreate it in the editor below to continue
+                You cannot edit this condition &apos;{conditionString}&apos;. Please recreate it in the editor below to continue
               </strong>
             </div> }
             <div>

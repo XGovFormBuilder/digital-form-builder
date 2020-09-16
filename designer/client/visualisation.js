@@ -154,7 +154,8 @@ export default class Visualisation extends React.Component {
     this.scheduleLayout()
   }
 
-  componentWillReceiveProps () {
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps () {
     this.scheduleLayout()
   }
 
