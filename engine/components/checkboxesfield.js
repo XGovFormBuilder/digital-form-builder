@@ -25,7 +25,7 @@ class CheckboxesField extends ConditionalFormComponent {
       }
 
       const checked = Array.isArray(value) ? value : [value]
-      return checked.map(check => values.items.find(item => item.value === check).display).join(', ')
+      return checked.map(check => values.items.find(item => item.value === check).label).join(', ')
     }
   }
 
@@ -46,7 +46,7 @@ class CheckboxesField extends ConditionalFormComponent {
       },
       items: values.items.map(item => {
         const itemModel = {
-          text: this.localisedString(item.display),
+          text: this.localisedString(item.label),
           value: item.value,
           // Do a loose string based check as state may or
           // may not match the item value types.

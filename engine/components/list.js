@@ -9,7 +9,7 @@ class List extends Component {
     }
     const content = values.items.map(item => {
       const contentItem = {
-        text: item.hint || item.display
+        text: item.hint || item.label
       }
       if (item.condition) {
         contentItem.condition = item.condition

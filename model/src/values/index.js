@@ -24,14 +24,14 @@ class Index implements ComponentValues {
 }
 
 class StaticValue {
-  display: string;
+  label: string;
   value: ConcreteValueTypes;
   hint: ?string;
   condition: ?string;
   children: Array<any>; // should be Array<Component> whenever someone introduces the appropriate class
 
-  constructor (display: string, value: ConcreteValueTypes, hint: ?string, condition: ?string, children: Array<*> = []) {
-    this.display = display
+  constructor (label: string, value: ConcreteValueTypes, hint: ?string, condition: ?string, children: Array<*> = []) {
+    this.label = label
     this.value = value
     this.hint = hint
     this.condition = condition
@@ -39,7 +39,7 @@ class StaticValue {
   }
 
   static from (obj: any) {
-    return new StaticValue(obj.display, obj.value, obj.hint, obj.condition, obj.children)
+    return new StaticValue(obj.label, obj.value, obj.hint, obj.condition, obj.children)
   }
 }
 

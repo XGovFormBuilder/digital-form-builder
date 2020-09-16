@@ -33,7 +33,7 @@ class YesNoField extends FormComponent {
     const { name, values } = this
     const value = state[name]
     const item = values.items.find(item => item.value === value)
-    return item ? item.display : ''
+    return item ? item.label : ''
   }
 
   getViewModel (formData, errors) {
@@ -46,7 +46,7 @@ class YesNoField extends FormComponent {
       },
       items: values.items.map(item => {
         return {
-          text: item.display,
+          text: item.label,
           value: item.value,
           // Do a loose string based check as state may or
           // may not match the item value types.

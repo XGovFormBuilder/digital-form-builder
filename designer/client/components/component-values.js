@@ -32,7 +32,7 @@ function initialiseStaticValuesFrom (component, data, listName) {
 
   function itemFrom (item) {
     const newItem = {
-      display: item.text,
+      label: item.text,
       value: item.value,
       children: item.conditional?.components ?? []
     }
@@ -84,6 +84,7 @@ export default class ComponentValues extends React.Component {
       component
     )
   }
+
   addItem = item => {
     const { updateModel } = this.props
     const { component } = this.state
@@ -178,7 +179,7 @@ export default class ComponentValues extends React.Component {
             <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
             <select
               className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-              value={listName} required
+              value={listName} required={type === 'listRef'}
               onChange={listSelectionOnChangeFunctions[type]}
             >
               <option/>
@@ -203,7 +204,7 @@ export default class ComponentValues extends React.Component {
                 {staticValues && staticValues.items.map((item, index) => (
                   <tr key={`item-row-${index}`} className='govuk-table__row' scope='row'>
                     <td className='govuk-table__cell'>
-                      <h2 className='govuk-label' id={`item-details-${index}`}>{item.display}</h2>
+                      <h2 className='govuk-label' id={`item-details-${index}`}>{item.label}</h2>
                       <div className="govuk-hint"> {item.hint}</div>
                       {item.condition && <p><strong>Condition:</strong> {item.condition}</p>}
                       <p><strong>Children:</strong> {item.children.length}</p>
