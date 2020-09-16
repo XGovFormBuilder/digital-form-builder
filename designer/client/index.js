@@ -5,6 +5,7 @@ import Visualisation from './visualisation'
 import NewConfig from './new-config'
 import { Data } from '@xgovformbuilder/model/lib/data-model'
 import { customAlphabet } from 'nanoid'
+import './index.scss'
 /**
  * Custom alphabet is required because '-' is used as a symbol in
  * expr-eval (condition logic) so components which include a '-' in the name
@@ -17,7 +18,7 @@ class App extends React.Component {
     id: ''
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.setState({ newConfig: window.newConfig ?? false },
       () => {
         if (!this.state.loaded && !this.state.newConfig) {
