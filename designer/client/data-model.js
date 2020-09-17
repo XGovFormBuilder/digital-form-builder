@@ -1,3 +1,5 @@
+import React from 'react'
+
 const listTypes = ['SelectField', 'RadiosField', 'CheckboxesField', 'AutocompleteField']
 
 function componentToString (component) {

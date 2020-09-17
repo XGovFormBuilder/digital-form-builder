@@ -95,7 +95,7 @@ class PageCreate extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
-          <span className='govuk-hint'>The path of this page e.g. '/personal-details'.</span>
+          <span className='govuk-hint'>The path of this page e.g. &apos;/personal-details&apos;.</span>
           <input
             className='govuk-input' id='page-path' name='path'
             type='text' aria-describedby='page-path-hint' required
