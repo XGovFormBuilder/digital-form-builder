@@ -128,7 +128,7 @@ class FieldEdit extends React.Component {
               <label
                 className='govuk-label govuk-checkboxes__label'
                 htmlFor='field-options-optionalText'
-              >Hide '(Optional)' text
+              >Hide &apos;(Optional)&apos; text
               </label>
             </div>
           </div>

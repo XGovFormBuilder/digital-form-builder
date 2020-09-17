@@ -1,3 +1,4 @@
+import React from 'react'
 
 function Flyout (props) {
   if (!props.show) {
