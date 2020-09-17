@@ -9,14 +9,14 @@ import sinon from 'sinon'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { before, suite, test } = lab
+const { beforeEach, suite, test } = lab
 
 suite('Component create', () => {
   const data = new Data({})
   const page = { path: '/1' }
   const generatedId = 'DMaslknf'
 
-  before(() => {
+  beforeEach(() => {
     data.getId = sinon.stub().resolves(generatedId)
     data.clone = sinon.stub()
     data.save = sinon.stub()
@@ -81,5 +81,28 @@ suite('Component create', () => {
 
     expect(onCreate.callCount).to.equal(1)
     expect(onCreate.firstCall.args[0]).to.equal({ data: savedData })
+  })
+
+  test('Should not allow onSubmit multiple times', async () => {
+    const component = { type: 'TextField', schema: { max: 24, min: 22 }, options: { required: false } }
+    const clonedData = { addComponent: sinon.stub() }
+    const onCreate = sinon.spy()
+    const savedData = sinon.stub()
+    const updatedData = sinon.stub()
+    data.clone.returns(clonedData)
+    clonedData.addComponent.returns(updatedData)
+    data.save.resolves(savedData)
+
+    const wrapper = shallow(<ComponentCreate data={data} page={page} onCreate={onCreate}/>)
+
+    wrapper.instance().storeComponent(component)
+
+    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
+
+    const saveButton = wrapper.find('.govuk-button').first()
+    expect(data.save.callCount).to.equal(1)
+    expect(saveButton.prop('disabled')).to.equal(true)
   })
 })
