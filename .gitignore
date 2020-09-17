@@ -11,9 +11,14 @@ package-lock.json
 */flow-typed/*
 /flow-typed/
 /.yarn/cache/
-/.yarn/build-state.yml
-/.yarn/install-state.gz
 */.env
 */test-results/*
 */test-coverage/*
 /runner/tmp.pdf
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
