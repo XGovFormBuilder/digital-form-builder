@@ -6,11 +6,12 @@ import builtins from '@cautionyourblast/rollup-plugin-node-builtins'
 import json from '@rollup/plugin-json'
 import flow from 'rollup-plugin-flow'
 import scss from 'rollup-plugin-scss'
+import copy from 'rollup-plugin-copy'
 
 export default {
   input: 'client/index.js',
   output: {
-    file: 'dist/designer.js',
+    file: 'dist/assets/designer.js',
     format: 'iife',
     globals: {
       react: 'React',
@@ -44,7 +45,13 @@ export default {
     json(),
     flow(),
     scss({
-      output: 'assets/application.css'
+      output: 'dist/assets/styles.css'
+    }),
+    copy({
+      copyOnce: true,
+      targets: [
+        { src: 'node_modules/govuk-frontend/govuk/assets/*', dest: 'dist/assets' }
+      ]
     })
   ],
   external: ['react', 'react-dom', 'crypto']
