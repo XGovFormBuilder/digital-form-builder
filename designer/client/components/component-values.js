@@ -1,10 +1,11 @@
 import React from 'react'
-import { radioGroup, RadioOption } from '../govuk-react-components/radio'
 import { icons } from '../icons'
 import Flyout from '../flyout'
 import DefineComponentValue from './define-component-value'
 import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
+import { RenderInPortal } from './render-in-portal'
+import { radioGroup, RadioOption } from '../govuk-react-components/radio'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -65,6 +66,9 @@ export default class ComponentValues extends React.Component {
       component: clone(props.component),
       listName: values?.list
     }
+
+    this.formAddItem = React.createRef();
+    this.formEditItem = React.createRef();
   }
 
   showAddItem = () => this.setState({ showAddItem: true })
@@ -88,33 +92,39 @@ export default class ComponentValues extends React.Component {
   addItem = item => {
     const { updateModel } = this.props
     const { component } = this.state
-
-    updateComponent(
-      component,
-      component => {
-        component.values.items = component.values.items || []
-        component.values.items.push(item)
-      },
-      updateModel)
-    this.setState({
-      showAddItem: false
-    })
+    const isFormValid = this.formAddItem.current.reportValidity()
+    
+    if (isFormValid) {
+      updateComponent(
+        component,
+        component => {
+          component.values.items = component.values.items || []
+          component.values.items.push(item)
+        },
+        updateModel
+      )
+      this.setState({ 
+        showAddItem: false 
+      })
+    }
   }
 
   updateItem = item => {
     const { updateModel } = this.props
     const { component, editingIndex } = this.state
-
-    updateComponent(
-      component,
-      component => {
-        component.values.items = component.values.items || []
-        component.values.items[editingIndex] = item
-      },
-      updateModel)
-    this.setState({
-      editingIndex: undefined
-    })
+    const isFormValid = this.formEditItem.current.reportValidity()
+    
+    if (isFormValid) {
+      updateComponent(
+        component,
+        component => {
+          component.values.items = component.values.items || []
+          component.values.items[editingIndex] = item
+        },
+        updateModel
+      )
+      this.setState({ editingIndex: undefined })
+    }
   }
 
   initialiseValues = e => {
@@ -128,6 +138,10 @@ export default class ComponentValues extends React.Component {
   };
 
   cancelEditItem = () => this.setState({ editingIndex: undefined })
+
+  handleSubmit = (e) => {
+    console.log('Form Submitted')
+  }
 
   render () {
     const { data, updateModel, page } = this.props
@@ -147,104 +161,115 @@ export default class ComponentValues extends React.Component {
       }
     }
 
-    return <div>
-      {
-        radioGroup(
-          'definitionType',
-          'How would you like to populate the options?',
-          [
-            new RadioOption('population-type-list',
-              'From a list',
-              'listRef',
-              type === 'listRef',
-              this.initialiseValues,
-              'Any changes to the list will be reflected in the options presented to users.'
-            ),
-            new RadioOption(
-              'population-type-static',
-              'I\'ll populate my own entries',
-              'static',
-              type === 'static',
-              this.initialiseValues,
-              'You can still select a list to get you started, but any changes to the list later won\'t be reflected in the options presented to users'
-            )
-          ],
-          new InputOptions(true)
-        )
-      }
+    return (
+      <div>
+        {
+          radioGroup(
+            'definitionType',
+            'How would you like to populate the options?',
+            [
+              new RadioOption('population-type-list',
+                'From a list',
+                'listRef',
+                type === 'listRef',
+                this.initialiseValues,
+                'Any changes to the list will be reflected in the options presented to users.'
+              ),
+              new RadioOption(
+                'population-type-static',
+                'I\'ll populate my own entries',
+                'static',
+                type === 'static',
+                this.initialiseValues,
+                'You can still select a list to get you started, but any changes to the list later won\'t be reflected in the options presented to users'
+              )
+            ],
+            new InputOptions(true)
+          )
+        }
 
-      {type &&
-        <div>
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-            <select
-              className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-              value={listName} required={type === 'listRef'}
-              onChange={listSelectionOnChangeFunctions[type]}
-            >
-              <option/>
-              {lists.map(list => {
-                return <option key={list.name} value={list.name}>{list.title}</option>
-              })}
-            </select>
-          </div>
-
+        {type &&
           <div>
-            <table className='govuk-table'>
-              <caption className='govuk-table__caption'>Items</caption>
-              <thead className='govuk-table__head'>
-                <tr className='govuk-table__row'>
-                  <th className='govuk-table__header' scope='col' colSpan='2'></th>
-                  <th className='govuk-table__header' scope='col'>
-                    {type === 'static' && <a id='add-value-link' className='pull-right' href='#' onClick={this.showAddItem}>Add</a>}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className='govuk-table__body'>
-                {staticValues && staticValues.items.map((item, index) => (
-                  <tr key={`item-row-${index}`} className='govuk-table__row' scope='row'>
-                    <td className='govuk-table__cell'>
-                      <h2 className='govuk-label' id={`item-details-${index}`}>{item.label}</h2>
-                      <div className="govuk-hint"> {item.hint}</div>
-                      {item.condition && <p><strong>Condition:</strong> {item.condition}</p>}
-                      <p><strong>Children:</strong> {item.children.length}</p>
-                    </td>
-                    <td className='govuk-table__cell'>
-                      <a className='list-item-delete' id={`edit-item-${index}`} onClick={ () => this.showEditItem(index) }>{icons.edit(false)}</a>
-                    </td>
-                    <td className='govuk-table__cell'>
-                      {type === 'static' &&
-                        <a className='list-item-delete' id={`remove-item-${index}`} onClick={() => this.removeItem(index)}>&#128465;</a>
-                      }
-                    </td>
+            <div className='govuk-form-group'>
+              <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
+              <select
+                className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
+                value={listName} required={type === 'listRef'}
+                onChange={listSelectionOnChangeFunctions[type]}
+              >
+                <option/>
+                {lists.map(list => {
+                  return <option key={list.name} value={list.name}>{list.title}</option>
+                })}
+              </select>
+            </div>
+
+            <div>
+              <table className='govuk-table'>
+                <caption className='govuk-table__caption'>Items</caption>
+                <thead className='govuk-table__head'>
+                  <tr className='govuk-table__row'>
+                    <th className='govuk-table__header' scope='col' colSpan='2'></th>
+                    <th className='govuk-table__header' scope='col'>
+                      {type === 'static' && <a id='add-value-link' className='pull-right' href='#' onClick={this.showAddItem}>Add</a>}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <Flyout title='Add Item' show={!!showAddItem}
-              onHide={this.cancelAddItem}>
-              <DefineComponentValue
-                data={data}
-                page={page}
-                saveCallback={this.addItem}
-                cancelCallback={this.cancelAddItem}
-                EditComponentView={this.props.EditComponentView}
-              />
-            </Flyout>
-            <Flyout title='Edit Item' show={editingIndex !== undefined}
-              onHide={this.cancelEditItem}>
-              <DefineComponentValue
-                data={data}
-                value={staticValues.items[editingIndex]}
-                page={page}
-                saveCallback={this.updateItem}
-                cancelCallback={this.cancelEditItem}
-                EditComponentView={this.props.EditComponentView}
-              />
-            </Flyout>
+                </thead>
+                <tbody className='govuk-table__body'>
+                  {staticValues && staticValues.items.map((item, index) => (
+                    <tr key={`item-row-${index}`} className='govuk-table__row' scope='row'>
+                      <td className='govuk-table__cell'>
+                        <h2 className='govuk-label' id={`item-details-${index}`}>{item.label}</h2>
+                        <div className="govuk-hint"> {item.hint}</div>
+                        {item.condition && <p><strong>Condition:</strong> {item.condition}</p>}
+                        <p><strong>Children:</strong> {item.children.length}</p>
+                      </td>
+                      <td className='govuk-table__cell'>
+                        <a className='list-item-delete' id={`edit-item-${index}`} onClick={ () => this.showEditItem(index) }>{icons.edit(false)}</a>
+                      </td>
+                      <td className='govuk-table__cell'>
+                        {type === 'static' &&
+                          <a className='list-item-delete' id={`remove-item-${index}`} onClick={() => this.removeItem(index)}>&#128465;</a>
+                        }
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <RenderInPortal>
+                <Flyout title='Add Item' show={!!showAddItem}
+                  onHide={this.cancelAddItem}>
+                  <form ref={this.formAddItem}>
+                    <DefineComponentValue
+                      data={data}
+                      page={page}
+                      saveCallback={this.addItem}
+                      cancelCallback={this.cancelAddItem}
+                      EditComponentView={this.props.EditComponentView}
+                    />
+                  </form>
+                </Flyout>
+              </RenderInPortal>
+
+              <RenderInPortal>
+                <Flyout title='Edit Item' show={editingIndex !== undefined}
+                  onHide={this.cancelEditItem}>
+                  <form ref={this.formEditItem}>
+                    <DefineComponentValue
+                      data={data}
+                      value={staticValues.items[editingIndex]}
+                      page={page}
+                      saveCallback={this.updateItem}
+                      cancelCallback={this.cancelEditItem}
+                      EditComponentView={this.props.EditComponentView}
+                    />
+                  </form>
+                </Flyout>
+              </RenderInPortal>
+            </div>
           </div>
-        </div>
-      }
+        }
     </div>
+    )
   }
 }

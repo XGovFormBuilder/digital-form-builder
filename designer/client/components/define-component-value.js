@@ -6,6 +6,7 @@ import Flyout from '../flyout'
 import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
 import DefineChildComponent from './define-child-component'
+import { RenderInPortal } from './render-in-portal'
 
 export default class DefineComponentValue extends React.Component {
   constructor (props) {
@@ -15,6 +16,9 @@ export default class DefineComponentValue extends React.Component {
     if (!this.state.children) {
       this.state.children = []
     }
+
+    this.formAddItem = React.createRef();
+    this.formEditItem = React.createRef();
   }
 
   saveItem = () => {
@@ -43,22 +47,28 @@ export default class DefineComponentValue extends React.Component {
 
   addChild = (component) => {
     const { children } = this.state
-    children.push(component)
-    this.setState( {
-      children: children,
-      showAddChild: false
-    })
+    const isFormValid = this.formAddItem.current.reportValidity()
+    
+    if (isFormValid) {
+      children.push(component)
+      this.setState( {
+        children: children,
+        showAddChild: false
+      })
+    }
   }
 
   updateChild = (component) => {
     const { children, editingIndex } = this.state
-    children[editingIndex] = component
-    this.setState(
-      {
+    const isFormValid = this.formAddItem.current.reportValidity()
+
+    if (isFormValid) {
+      children[editingIndex] = component
+      this.setState({
         children,
         editingIndex: undefined
-      }
-    )
+      })
+    }
   }
 
   removeChild = (index) => {
@@ -123,7 +133,7 @@ export default class DefineComponentValue extends React.Component {
               <tr className='govuk-table__row'>
                 <th className='govuk-table__header' scope='col' colSpan='2'></th>
                 <th className='govuk-table__header' scope='col'>
-                  {<a className='pull-right' id='add-child-link' href='#' onClick={this.showAddChild}>Add</a>}
+                  <a className='pull-right' id='add-child-link' href='#' onClick={this.showAddChild}>Add New Item</a>
                 </th>
               </tr>
             </thead>
@@ -146,34 +156,43 @@ export default class DefineComponentValue extends React.Component {
           <a
             href='#' id='save-component-value-link' className='govuk-button'
             onClick={this.saveItem}
-          >Save
+          >Add Item
           </a>
           <a
             href='#' id='cancel-add-component-value-link' className='govuk-link'
             onClick={this.onClickCancel}
           >Cancel
           </a>
-          <Flyout title='Add Child' show={!!showAddChild}
-            onHide={this.cancelAddChild}>
-            <DefineChildComponent
-              data={data}
-              page={page}
-              saveCallback={this.addChild}
-              cancelCallback={this.cancelAddChild}
-              EditComponentView={this.props.EditComponentView}
-            />
-          </Flyout>
-          <Flyout title='Edit Child' show={editingIndex !== undefined}
-            onHide={this.cancelEditChild}>
-            <DefineChildComponent
-              data={data}
-              component={child}
-              page={page}
-              saveCallback={this.updateChild}
-              cancelCallback={this.cancelEditChild}
-              EditComponentView={this.props.EditComponentView}
-            />
-          </Flyout>
+
+          <RenderInPortal>
+            <Flyout title='Add Child' show={!!showAddChild}
+              onHide={this.cancelAddChild}>
+              <form ref={this.formAddItem}>
+                <DefineChildComponent
+                  data={data}
+                  page={page}
+                  saveCallback={this.addChild}
+                  cancelCallback={this.cancelAddChild}
+                  EditComponentView={this.props.EditComponentView}
+                />
+              </form>
+            </Flyout>
+          </RenderInPortal>
+          <RenderInPortal>
+            <Flyout title='Edit Child' show={editingIndex !== undefined}
+              onHide={this.cancelEditChild}>
+              <form ref={this.formEditItem}>
+                <DefineChildComponent
+                  data={data}
+                  component={child}
+                  page={page}
+                  saveCallback={this.updateChild}
+                  cancelCallback={this.cancelEditChild}
+                  EditComponentView={this.props.EditComponentView}
+                />
+              </form>
+            </Flyout>
+          </RenderInPortal>
         </div>
       }
     </div>
