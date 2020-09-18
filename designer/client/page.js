@@ -109,7 +109,9 @@ class Page extends React.Component {
           <a
             title="Preview page"
             className='page__actions__preview'
-            href={`${previewUrl}/${id}${page.path}`} target='_blank'
+            href={`${previewUrl}/${id}${page.path}`}
+            target='_blank'
+            rel="noreferrer"
           >Preview</a>
         </div>
 
