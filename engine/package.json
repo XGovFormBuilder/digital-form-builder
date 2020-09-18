@@ -58,7 +58,7 @@
     "eslint-7": "npm:eslint@^7.1.0",
     "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "flow-bin": "^0.130.0",
+    "flow-bin": "^0.134.0",
     "sinon": "^9.0.2",
     "standard": "14.3.3"
   }
