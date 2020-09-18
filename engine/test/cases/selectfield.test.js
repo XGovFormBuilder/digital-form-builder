@@ -1,6 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import SelectField from '../../components/selectfield'
+import SelectField from '../../src/components/selectfield'
 const lab = Lab.script()
 exports.lab = lab
 const { expect } = Code
@@ -9,8 +9,8 @@ const { suite, test } = lab
 suite('Select field', () => {
   test('Should construct appropriate model for items', () => {
     const items = [
-      { display: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
-      { display: 'Another thing', value: 'myOtherThing', something: 'Something else' }
+      { label: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
+      { label: 'Another thing', value: 'myOtherThing', something: 'Something else' }
     ]
     const def = {
       name: 'myComponent',

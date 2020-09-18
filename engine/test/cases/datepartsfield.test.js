@@ -1,6 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import DatePartsField from '../../components/datepartsfield'
+import DatePartsField from '../../src/components/datepartsfield'
 const lab = Lab.script()
 exports.lab = lab
 const { expect } = Code

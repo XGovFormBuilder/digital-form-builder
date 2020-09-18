@@ -1,12 +1,16 @@
-const { Data } = require('@xgovformbuilder/model') //eslint-disable-line
-const { Helpers, decode, RelativeUrl, FeedbackContextInfo } = require('@xgovformbuilder/engine') //eslint-disable-line
-const redirectTo = Helpers.redirectTo
-const redirectUrl = Helpers.redirectUrl
+ //eslint-disable-line
+import {
+  redirectTo,
+  redirectUrl
+} from '@xgovformbuilder/engine'
+import { formSchema } from '../../../lib/formSchema'
 
-const joi = require('joi')
-const Page = require('./index')
-const { nanoid } = require('nanoid')
-const { formSchema } = require('../../../lib/formSchema')
+import Page from './page'
+
+import { nanoid } from 'nanoid'
+
+import joi from 'joi'
+
 const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
 const { clone, reach } = require('hoek') //eslint-disable-line

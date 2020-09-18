@@ -25,7 +25,8 @@
     "designer": "yarn workspace @xgovformbuilder/designer",
     "engine": "yarn workspace @xgovformbuilder/engine",
     "model": "yarn workspace @xgovformbuilder/model",
-    "test-cov": "yarn workspaces foreach run test-cov"
+    "test-cov": "yarn workspaces foreach run test-cov",
+    "runner:start": "yarn workspace @xgovformbuilder/runner start"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

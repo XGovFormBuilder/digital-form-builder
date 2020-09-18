@@ -1,6 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import CheckboxesField from '../../components/checkboxesfield'
+import CheckboxesField from '../../src/components/checkboxesfield'
 const lab = Lab.script()
 exports.lab = lab
 const { expect } = Code
@@ -9,8 +9,8 @@ const { suite, test } = lab
 suite('Checkboxes field', () => {
   test('Should construct appropriate model for items', () => {
     const items = [
-      { display: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
-      { display: 'Another thing', value: 'myOtherThing', something: 'Something else' }
+      { label: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
+      { label: 'Another thing', value: 'myOtherThing', something: 'Something else' }
     ]
     const def = {
       name: 'myComponent',
