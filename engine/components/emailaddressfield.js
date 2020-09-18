@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import { getStateSchemaKeys, getFormSchemaKeys } from './helpers'
 
-class EmailAddressField extends FormComponent {
+export default class EmailAddressField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { options, schema } = this
@@ -13,11 +13,11 @@ class EmailAddressField extends FormComponent {
   }
 
   getFormSchemaKeys () {
-    return helpers.getFormSchemaKeys(this.name, 'string', this)
+    return getFormSchemaKeys(this.name, 'string', this)
   }
 
   getStateSchemaKeys () {
-    return helpers.getStateSchemaKeys(this.name, 'string', this)
+    return getStateSchemaKeys(this.name, 'string', this)
   }
 
   getViewModel (formData, errors) {
@@ -35,5 +35,3 @@ class EmailAddressField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = EmailAddressField

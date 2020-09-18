@@ -1,6 +1,7 @@
+import componentTypes from '@xgovformbuilder/model'
 const joi = require('joi')
 
-function buildSchema (type, keys) {
+export function buildSchema (type, keys) {
   let schema = type.isJoi ? type : joi[type]()
 
   Object.keys(keys).forEach(key => {
@@ -14,7 +15,7 @@ function buildSchema (type, keys) {
   return schema
 }
 
-function buildFormSchema (schemaType, component, isRequired = true) {
+export function buildFormSchema (schemaType, component, isRequired = true) {
   let schema = buildSchema(schemaType, component.schema)
 
   if (isRequired) {
@@ -36,7 +37,7 @@ function buildFormSchema (schemaType, component, isRequired = true) {
   return schema
 }
 
-function buildStateSchema (schemaType, component) {
+export function buildStateSchema (schemaType, component) {
   let schema = buildSchema(schemaType, component.schema)
 
   if (component.title) {
@@ -58,22 +59,26 @@ function buildStateSchema (schemaType, component) {
   return schema
 }
 
-function getFormSchemaKeys (name, schemaType, component) {
+export function getFormSchemaKeys (name, schemaType, component) {
   const schema = buildFormSchema(schemaType, component)
 
   return { [component.name]: schema }
 }
 
-function getStateSchemaKeys (name, schemaType, component) {
+export function getStateSchemaKeys (name, schemaType, component) {
   const schema = buildStateSchema(schemaType, component)
 
   return { [name]: schema }
 }
 
-module.exports = {
-  buildSchema,
-  buildFormSchema,
-  buildStateSchema,
-  getFormSchemaKeys,
-  getStateSchemaKeys
+let Types = null
+export function getType (name) {
+  if (Types === null) {
+    Types = {}
+    componentTypes.forEach(componentType => {
+      Types[componentType.name] = require(`./${componentType.name.toLowerCase()}`)
+    })
+  }
+
+  return Types[name]
 }

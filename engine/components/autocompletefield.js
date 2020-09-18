@@ -1,6 +1,6 @@
-const SelectField = require('./selectfield')
+import SelectField from './selectfield'
 
-class AutocompleteField extends SelectField {
+export default classAutocompleteField extends SelectField {
   constructor (def, model) {
     super(def, model)
     const { options } = this
@@ -10,4 +10,4 @@ class AutocompleteField extends SelectField {
   }
 }
 
-module.exports = AutocompleteField
+

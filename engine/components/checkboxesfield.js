@@ -1,8 +1,9 @@
-const joi = require('joi')
-const { ConditionalFormComponent } = require('.')
-const helpers = require('./helpers')
+import ConditionalFormComponent from './conditionalFormComponent'
+import * as helpers from './helpers'
 
-class CheckboxesField extends ConditionalFormComponent {
+const joi = require('joi')
+
+export default class CheckboxesField extends ConditionalFormComponent {
   constructor (def, model) {
     super(def, model)
     const { options, values, itemValues } = this
@@ -73,5 +74,3 @@ class CheckboxesField extends ConditionalFormComponent {
     return viewModel
   }
 }
-
-module.exports = CheckboxesField

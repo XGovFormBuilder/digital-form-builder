@@ -1,6 +1,4 @@
-const { Component } = require('.')
-
-class Para extends Component {
+import Component from './component'export default class Para extends Component {
   getViewModel () {
     const model = {
       content: this.content
@@ -13,5 +11,3 @@ class Para extends Component {
     return model
   }
 }
-
-module.exports = Para

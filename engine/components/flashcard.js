@@ -1,6 +1,4 @@
-const { Component } = require('.')
-
-class Flashcard extends Component {
+import Component from './component'export default class Flashcard extends Component {
   getViewModel () {
     const { values } = this
     const content = values.items.map(item => {
@@ -18,5 +16,3 @@ class Flashcard extends Component {
     }
   }
 }
-
-module.exports = Flashcard

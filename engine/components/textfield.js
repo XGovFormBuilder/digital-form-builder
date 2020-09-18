@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
-class TextField extends FormComponent {
+export default class TextField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { options, schema } = this
@@ -35,5 +35,3 @@ class TextField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = TextField

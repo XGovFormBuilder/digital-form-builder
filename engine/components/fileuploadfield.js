@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
-class FileUploadField extends FormComponent {
+export default class FileUploadField extends FormComponent {
   getFormSchemaKeys () {
     return helpers.getFormSchemaKeys(this.name, 'string', this)
   }
@@ -31,5 +31,3 @@ class FileUploadField extends FormComponent {
     return 'file'
   }
 }
-
-module.exports = FileUploadField

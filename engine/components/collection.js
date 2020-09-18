@@ -67,5 +67,3 @@ function makeComponentCollection (list, def) {
 
   return collection
 }
-
-module.exports = makeComponentCollection

@@ -1,22 +1,50 @@
-const moment = require('moment')
-const { FormComponent, ComponentCollection } = require('.')
-const helpers = require('./helpers')
-const constants = require('./constants')
+import moment from 'moment'
+import FormComponent from './formComponent'
+import ComponentCollection from './componentCollection'
+import constants from './constants'
+import * as helpers from './helpers'
 
-class DatePartsField extends FormComponent {
+export default class DatePartsField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { name, options } = this
-    const stateSchema = helpers.buildStateSchema('date', this)
-
-    const children = new ComponentCollection([
-      { type: 'NumberField', name: `${name}__day`, title: 'Day', schema: { min: 1, max: 31 }, options: { required: options.required, optionalText: options.optionalText, classes: 'govuk-input--width-2' } },
-      { type: 'NumberField', name: `${name}__month`, title: 'Month', schema: { min: 1, max: 12 }, options: { required: options.required, optionalText: options.optionalText, classes: 'govuk-input--width-2' } },
-      { type: 'NumberField', name: `${name}__year`, title: 'Year', schema: { min: 1000, max: 3000 }, options: { required: options.required, optionalText: options.optionalText, classes: 'govuk-input--width-4' } }
+    this.children = new ComponentCollection([
+      {
+        type: 'NumberField',
+        name: `${name}__day`,
+        title: 'Day',
+        schema: { min: 1, max: 31 },
+        options: {
+          required: options.required,
+          optionalText: options.optionalText,
+          classes: 'govuk-input--width-2'
+        }
+      },
+      {
+        type: 'NumberField',
+        name: `${name}__month`,
+        title: 'Month',
+        schema: { min: 1, max: 12 },
+        options: {
+          required: options.required,
+          optionalText: options.optionalText,
+          classes: 'govuk-input--width-2'
+        }
+      },
+      {
+        type: 'NumberField',
+        name: `${name}__year`,
+        title: 'Year',
+        schema: { min: 1000, max: 3000 },
+        options: {
+          required: options.required,
+          optionalText: options.optionalText,
+          classes: 'govuk-input--width-4'
+        }
+      }
     ], def)
 
-    this.children = children
-    this.stateSchema = stateSchema
+    this.stateSchema = helpers.buildStateSchema('date', this)
   }
 
   getFormSchemaKeys () {
@@ -109,5 +137,3 @@ class DatePartsField extends FormComponent {
     return 'date'
   }
 }
-
-module.exports = DatePartsField

@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
-class MultilineTextField extends FormComponent {
+export default class MultilineTextField extends FormComponent {
   getFormSchemaKeys () {
     return helpers.getFormSchemaKeys(this.name, 'string', this)
   }
@@ -27,5 +27,3 @@ class MultilineTextField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = MultilineTextField

@@ -1,24 +1,52 @@
-const moment = require('moment')
-const { FormComponent, ComponentCollection } = require('.')
-const helpers = require('./helpers')
-const { optionalText } = require('./constants')
+import moment from 'moment'
+import FormComponent from './formComponent'
+import ComponentCollection from './componentCollection'
+import { optionalText } from './constants'
+import * as helpers from './helpers'
 
-class DateTimePartsField extends FormComponent {
+export default class DateTimePartsField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { name, options } = this
-    const stateSchema = helpers.buildStateSchema('date', this)
 
-    const children = new ComponentCollection([
-      { type: 'NumberField', name: `${name}__day`, title: 'Day', schema: { min: 1, max: 31 }, options: { required: options.required, classes: 'govuk-input--width-2' } },
-      { type: 'NumberField', name: `${name}__month`, title: 'Month', schema: { min: 1, max: 12 }, options: { required: options.required, classes: 'govuk-input--width-2' } },
-      { type: 'NumberField', name: `${name}__year`, title: 'Year', schema: { min: 1000, max: 3000 }, options: { required: options.required, classes: 'govuk-input--width-4' } },
-      { type: 'NumberField', name: `${name}__hour`, title: 'Hour', schema: { min: 0, max: 23 }, options: { required: options.required, classes: 'govuk-input--width-2' } },
-      { type: 'NumberField', name: `${name}__minute`, title: 'Minute', schema: { min: 0, max: 59 }, options: { required: options.required, classes: 'govuk-input--width-2' } }
+    this.children = new ComponentCollection([
+      {
+        type: 'NumberField',
+        name: `${name}__day`,
+        title: 'Day',
+        schema: { min: 1, max: 31 },
+        options: { required: options.required, classes: 'govuk-input--width-2' }
+      },
+      {
+        type: 'NumberField',
+        name: `${name}__month`,
+        title: 'Month',
+        schema: { min: 1, max: 12 },
+        options: { required: options.required, classes: 'govuk-input--width-2' }
+      },
+      {
+        type: 'NumberField',
+        name: `${name}__year`,
+        title: 'Year',
+        schema: { min: 1000, max: 3000 },
+        options: { required: options.required, classes: 'govuk-input--width-4' }
+      },
+      {
+        type: 'NumberField',
+        name: `${name}__hour`,
+        title: 'Hour',
+        schema: { min: 0, max: 23 },
+        options: { required: options.required, classes: 'govuk-input--width-2' }
+      },
+      {
+        type: 'NumberField',
+        name: `${name}__minute`,
+        title: 'Minute',
+        schema: { min: 0, max: 59 },
+        options: { required: options.required, classes: 'govuk-input--width-2' }
+      }
     ], def)
-
-    this.children = children
-    this.stateSchema = stateSchema
+    this.stateSchema = helpers.buildStateSchema('date', this)
   }
 
   getFormSchemaKeys () {
@@ -95,5 +123,3 @@ class DateTimePartsField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = DateTimePartsField

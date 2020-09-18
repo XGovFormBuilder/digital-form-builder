@@ -1,9 +1,9 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
 const PATTERN = '^[0-9\\s\\+\\(\\)]*$'
 
-class TelephoneNumberField extends FormComponent {
+export default class TelephoneNumberField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { options, schema } = this
@@ -38,5 +38,3 @@ class TelephoneNumberField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = TelephoneNumberField

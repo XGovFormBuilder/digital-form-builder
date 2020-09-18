@@ -1,9 +1,9 @@
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
+
 const { Data } = require('@xgovformbuilder/model')
 
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
-
-class YesNoField extends FormComponent {
+export default class YesNoField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     this.values = new Data(model.def).valuesFor(def).toStaticValues()
@@ -58,5 +58,3 @@ class YesNoField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = YesNoField

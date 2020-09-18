@@ -1,12 +1,10 @@
-import { clone } from '@xgovformbuilder/model'
+import schema, { clone, ConditionsModel } from '@xgovformbuilder/model'
+import path from 'path'
+import Page from './page'
+import { Parser } from 'expr-eval'
+import moment from 'moment'
 
 const joi = require('joi')
-const path = require('path')
-const schema = require('@xgovformbuilder/model/lib/schema')
-const Page = require('./page')
-const Parser = require('expr-eval').Parser
-const moment = require('moment')
-const { ConditionsModel } = require('@xgovformbuilder/model/lib/conditions/inline-condition-model')
 
 /**
  * TODO - convert references to this to using the shared Data class from the model library?

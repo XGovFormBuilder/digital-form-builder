@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
-class NumberField extends FormComponent {
+export default class NumberField extends FormComponent {
   getFormSchemaKeys () {
     return helpers.getFormSchemaKeys(this.name, 'number', this)
   }
@@ -23,5 +23,3 @@ class NumberField extends FormComponent {
     return state[this.name] || state[this.name] === 0 ? state[this.name].toString() : undefined
   }
 }
-
-module.exports = NumberField

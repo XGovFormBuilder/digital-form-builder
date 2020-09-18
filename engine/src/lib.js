@@ -1,10 +1,10 @@
 import findByPostcode from './address-service'
-import * as ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import * as ConditionalComponentTypes from '@xgovformbuilder/model/lib/conditional-component-types'
+import * as ComponentTypes from '@xgovformbuilder/model'
+import * as ConditionalComponentTypes from '@xgovformbuilder/model'
 import * as Helpers from './helpers'
 import Model from './model'
 import Page from './page'
-import Schema from '@xgovformbuilder/model/lib/schema'
+import Schema from '@xgovformbuilder/model'
 import { plugin } from './index'
 
 import {

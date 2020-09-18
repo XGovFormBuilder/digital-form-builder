@@ -1,8 +1,8 @@
+import * as helpers from './helpers'
+import FormComponent from './formComponent'
+import ComponentCollection from './componentCollection'
 const joi = require('joi')
-const { FormComponent, ComponentCollection } = require('.')
-const helpers = require('./helpers')
-
-class UkAddressField extends FormComponent {
+export default class UkAddressField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { name, options } = this
@@ -96,5 +96,3 @@ class UkAddressField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = UkAddressField

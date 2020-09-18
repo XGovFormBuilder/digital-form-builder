@@ -1,6 +1,4 @@
-const { Component } = require('.')
-
-class List extends Component {
+import Component from './component'export default class List extends Component {
   getViewModel () {
     const { values } = this
     const viewModel = {}
@@ -20,5 +18,3 @@ class List extends Component {
     return { ...viewModel, content }
   }
 }
-
-module.exports = List

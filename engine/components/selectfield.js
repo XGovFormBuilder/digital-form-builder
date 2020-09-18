@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
-class SelectField extends FormComponent {
+export default class SelectField extends FormComponent {
   constructor (def, model) {
     super(def, model)
 
@@ -49,5 +49,3 @@ class SelectField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = SelectField

@@ -1,6 +1,4 @@
-const { Component } = require('.')
-
-class Html extends Component {
+import Component from './component'export default class Html extends Component {
   getViewModel () {
     const model = {
       content: this.content
@@ -13,5 +11,3 @@ class Html extends Component {
     return model
   }
 }
-
-module.exports = Html

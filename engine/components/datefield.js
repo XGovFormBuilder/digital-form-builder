@@ -1,8 +1,8 @@
-const moment = require('moment')
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
+import moment from 'moment'
 
-class DateField extends FormComponent {
+export default class DateField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { options } = this
@@ -44,5 +44,3 @@ class DateField extends FormComponent {
     return 'date'
   }
 }
-
-module.exports = DateField

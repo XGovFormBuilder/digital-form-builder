@@ -1,7 +1,6 @@
-const { ConditionalFormComponent } = require('.')
-const helpers = require('./helpers')
-
-class RadiosField extends ConditionalFormComponent {
+import * as helpers from './helpers'
+import ConditionalFormComponent from './conditionalFormComponent'
+export default class RadiosField extends ConditionalFormComponent {
   constructor (def, model) {
     super(def, model)
 
@@ -64,5 +63,3 @@ class RadiosField extends ConditionalFormComponent {
     return viewModel
   }
 }
-
-module.exports = RadiosField

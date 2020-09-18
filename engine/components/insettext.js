@@ -1,11 +1,7 @@
-const { Component } = require('.')
-
-class InsetText extends Component {
+import Component from './component'export default class InsetText extends Component {
   getViewModel () {
     return {
       content: this.content
     }
   }
 }
-
-module.exports = InsetText

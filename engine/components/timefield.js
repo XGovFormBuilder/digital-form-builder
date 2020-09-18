@@ -1,7 +1,7 @@
-const { FormComponent } = require('.')
-const helpers = require('./helpers')
+import FormComponent from './formComponent'
+import * as helpers from './helpers'
 
-class TimeField extends FormComponent {
+export default class TimeField extends FormComponent {
   constructor (def, model) {
     super(def, model)
     const { options } = this
@@ -26,5 +26,3 @@ class TimeField extends FormComponent {
     return viewModel
   }
 }
-
-module.exports = TimeField
