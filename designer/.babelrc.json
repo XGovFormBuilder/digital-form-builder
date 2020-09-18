@@ -15,5 +15,8 @@
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime"
   ],
-  "ignore": ["./node_modules", "../node_modules", "**/node_modules/**"]
+  "exclude": [
+    "node_modules", 
+    "../node_modules/**"
+  ]
 }
