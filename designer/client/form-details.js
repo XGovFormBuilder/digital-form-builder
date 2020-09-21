@@ -1,9 +1,13 @@
 import React from 'react'
 import formConfigurationApi from './load-form-configurations'
-import { radioGroup, RadioOption } from './govuk-react-components/radio'
+import { RadioGroup, RadioOption } from './govuk-react-components/radio'
 import { InputOptions } from './govuk-react-components/helpers'
 
 class FormDetails extends React.Component {
+  radioInputOptions = new InputOptions(
+    true, ['A feedback form is used to gather feedback from users about another form']
+  )
+
   constructor (props) {
     super(props)
     const { feedbackForm, feedbackUrl } = props.data
@@ -47,23 +51,31 @@ class FormDetails extends React.Component {
     this.setState({ selectedFeedbackForm })
   }
 
+  handleIsFeedbackFormRadio = (e) => {
+    const isFeedbackForm = e.target.value
+
+    if (isFeedbackForm) {
+      this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })
+    } else {
+      this.setState({ feedbackForm: false })
+    }
+  }
+
   render () {
     const { title, feedbackForm, selectedFeedbackForm, formConfigurations } = this.state
 
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
-        {
-          radioGroup(
-            'feedbackForm',
-            'Is this a feedback form?',
-            [
-              new RadioOption('feedback-yes', 'Yes', 'true', feedbackForm, () => this.setState({ feedbackForm: true, selectedFeedbackForm: undefined })),
-              new RadioOption('feedback-no', 'No', 'false', !feedbackForm, () => this.setState({ feedbackForm: false }))
-            ],
-            new InputOptions(true, ['A feedback form is used to gather feedback from users about another form'])
-          )
-        }
-
+        <RadioGroup
+          name="feedbackForm"
+          heading="Is this a feedback form?"
+          options={this.radioInputOptions}
+          value={feedbackForm}
+          onClick={this.handleIsFeedbackFormRadio}
+        >
+          <RadioOption text="Yes" value={true} />
+          <RadioOption text="No" value={false} />
+        </RadioGroup>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='form-title' aria-describedby='feedback-form-hint'>Title</label>
           <input className='govuk-input' id='form-title' name='title'
@@ -94,7 +106,6 @@ class FormDetails extends React.Component {
             }
           </div>
         }
-
         <button type='submit' className='govuk-button'>Save</button>
       </form>
     )

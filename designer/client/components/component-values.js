@@ -5,7 +5,7 @@ import DefineComponentValue from './define-component-value'
 import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
 import { RenderInPortal } from './render-in-portal'
-import { radioGroup, RadioOption } from '../govuk-react-components/radio'
+import { RadioGroup, RadioOption } from '../govuk-react-components/radio'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -67,8 +67,8 @@ export default class ComponentValues extends React.Component {
       listName: values?.list
     }
 
-    this.formAddItem = React.createRef();
-    this.formEditItem = React.createRef();
+    this.formAddItem = React.createRef()
+    this.formEditItem = React.createRef()
   }
 
   showAddItem = () => this.setState({ showAddItem: true })
@@ -129,12 +129,8 @@ export default class ComponentValues extends React.Component {
 
   initialiseValues = e => {
     const { component } = this.state
-    component.values = {
-      type: e.target.value
-    }
-    this.setState({
-      component
-    })
+    component.values = { type: e.target.value }
+    this.setState({ component })
   };
 
   cancelEditItem = () => this.setState({ editingIndex: undefined })
@@ -163,31 +159,24 @@ export default class ComponentValues extends React.Component {
 
     return (
       <div>
-        {
-          radioGroup(
-            'definitionType',
-            'How would you like to populate the options?',
-            [
-              new RadioOption('population-type-list',
-                'From a list',
-                'listRef',
-                type === 'listRef',
-                this.initialiseValues,
-                'Any changes to the list will be reflected in the options presented to users.'
-              ),
-              new RadioOption(
-                'population-type-static',
-                'I\'ll populate my own entries',
-                'static',
-                type === 'static',
-                this.initialiseValues,
-                'You can still select a list to get you started, but any changes to the list later won\'t be reflected in the options presented to users'
-              )
-            ],
-            new InputOptions(true)
-          )
-        }
-
+        <RadioGroup
+          name="definitionType"
+          heading="How would you like to populate the options?"
+          options={new InputOptions(true)}
+          value={type}
+          onClick={this.initialiseValues}
+        >
+          <RadioOption
+            text="From a list"
+            value="listRef"
+            hint="Any changes to the list will be reflected in the options presented to users."
+          />
+          <RadioOption
+            text="I'll populate my own entries"
+            value="static"
+            hint="You can still select a list to get you started, but any changes to the list later won't be reflected in the options presented to users."
+          />
+        </RadioGroup>
         {type &&
           <div>
             <div className='govuk-form-group'>
@@ -269,7 +258,7 @@ export default class ComponentValues extends React.Component {
             </div>
           </div>
         }
-    </div>
+      </div>
     )
   }
 }
