@@ -148,7 +148,7 @@ jobs:
                   yarn << parameters.package_name >> run build
             - run:
                 name: Test
-                command: yarn << parameters.package_name >> run test-cov
+                command: yarn << parameters.package_name >> run test:cov
             - store_test_results:
                 path: << parameters.package_name >>/test-results
             - store_artifacts:

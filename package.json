@@ -6,19 +6,12 @@
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "model",
-      "engine",
-      "runner",
-      "designer"
-    ],
-    "nohoist": [
-      "**/@babel*/**",
-      "**/govuk-frontend/**",
-      "**/govuk-frontend"
-    ]
-  },
+  "workspaces": [
+    "model",
+    "engine",
+    "runner",
+    "designer"
+  ],
   "scripts": {
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",

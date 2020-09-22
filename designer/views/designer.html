@@ -13,9 +13,12 @@
     <link rel="apple-touch-icon" sizes="152x152" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-152x152.png">
     <link rel="apple-touch-icon" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon.png">
 
-  <!--[if !IE 8]><!-->
-  <link href="{{ assetPath }}/styles.css" rel="stylesheet" />
-  <!--<![endif]-->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!--[if !IE 8]><!-->
+    <link href="{{ assetPath }}/styles.css" rel="stylesheet" />
+    <!--<![endif]-->
 
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
@@ -32,8 +35,5 @@
       {% endif %}
     </script>
     <div id="root"></div>
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="{{ assetPath }}/designer.js"></script>
   </body>
 </html>

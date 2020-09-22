@@ -10,20 +10,11 @@ const routes = [].concat([
   },
   {
     method: 'GET',
-    path: '/assets/all.js',
-    options: {
-      handler: {
-        file: 'node_modules/govuk-frontend/all.js'
-      }
-    }
-  },
-  {
-    method: 'GET',
     path: '/assets/{path*}',
     options: {
       handler: {
         directory: {
-          path: './dist/assets'
+          path: './dist/client/assets'
         }
       }
     }
