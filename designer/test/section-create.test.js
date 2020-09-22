@@ -13,6 +13,7 @@ exports.lab = lab
 const { beforeEach, suite, test } = lab
 
 suite('Section create', () => {
+  let onCreate
   const data = new Data({
     sections: [{ name: 'awesomeBadgers' }, { name: 'awesomeBadgers1' }, { name: 'awesomeBadgers2' }]
   })
@@ -21,10 +22,11 @@ suite('Section create', () => {
     data.clone = sinon.stub().returns(data)
     data.addSection = sinon.stub().returns(data)
     data.save = sinon.stub().resolves(data)
+    onCreate = sinon.spy()
   })
 
   test('Should display form with title and name inputs', () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
     const form = wrapper.find('form')
 
     const inputs = form.find('input')
@@ -34,7 +36,7 @@ suite('Section create', () => {
   })
 
   test('Specifying a title should default the name to the camel case version of the string', () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: 'Bob\'s your uncle' } })
 
@@ -45,7 +47,7 @@ suite('Section create', () => {
   })
 
   test('Specifying a title should default the name to camel case + an integer when sections with the name already exist', () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: 'Awesome badgers' } })
 
@@ -56,7 +58,7 @@ suite('Section create', () => {
   })
 
   test('Specifying a name should overwrite any auto-generated value', () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: 'My badgers' } })
     wrapper.find('#section-name').simulate('blur', { target: { value: 'myName', setCustomValidity: sinon.spy() } })
@@ -69,7 +71,7 @@ suite('Section create', () => {
   })
 
   test('Submitting without changing the name should generate the appropriate section', flags => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' My badgers ' } })
     const preventDefault = sinon.spy()
@@ -81,7 +83,7 @@ suite('Section create', () => {
   })
 
   test('Submitting without changing the name should use generated name with integer if needed', async () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
     const preventDefault = sinon.spy()
@@ -94,7 +96,7 @@ suite('Section create', () => {
   })
 
   test('Submitting with a specified name should use the specified name', async () => {
-    const wrapper = shallow(<SectionCreate data={data} />)
+    const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })
     wrapper.find('#section-name').simulate('blur', { target: { value: 'myName', setCustomValidity: sinon.spy() } })

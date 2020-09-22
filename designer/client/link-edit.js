@@ -10,8 +10,6 @@ class LinkEdit extends React.Component {
     const page = data.findPage(edge.source)
     const link = page.next.find(n => n.path === edge.target)
 
-    console.log(edge, link)
-
     this.state = {
       page: page,
       link: link,
