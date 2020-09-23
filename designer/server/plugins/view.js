@@ -8,7 +8,6 @@ const viewPlugin = {
       html: {
         compile: (src, options) => {
           const template = nunjucks.compile(src, options.environment)
-
           return (context) => {
             if (context.nonce) {
               delete Object.assign(context, { script_nonce: context['script-nonce'] })['script-nonce']
@@ -32,9 +31,7 @@ const viewPlugin = {
       }
     },
     path: [
-      'views',
-      'node_modules/govuk-frontend/',
-      'node_modules/govuk-frontend/components/'
+      'dist/client'
     ],
     context: {
       appVersion: pkg.version,
