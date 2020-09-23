@@ -38,8 +38,8 @@ suite('Component type edit', () => {
         expect(inputs.length).to.equal(5)
 
         assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-        assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-        assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+        assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+        assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
         assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, true, { name: 'options.required' })
         assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
         assertOptionalTextWrapper(inputs.get(4), true)
@@ -158,8 +158,8 @@ suite('Component type edit', () => {
       expect(inputs.length).to.equal(5)
 
       assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-      assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-      assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', '', { name: 'options.hideTitle' })
+      assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', '', { name: 'options.hideTitle' })
+      assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
       assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, '', { name: 'options.required' })
       assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, '', { name: 'options.optionalText' })
       assertOptionalTextWrapper(inputs.get(4), true)
@@ -188,10 +188,10 @@ suite('Component type edit', () => {
           const inputs = standardInputs.find('input')
 
           expect(inputs.length).to.equal(5)
-
+          // TODO:- getting input by index is dangerous.. it makes changing order of components a bit of a pain 😭
           assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-          assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
           assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, true, { name: 'options.required' })
           assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
           assertOptionalTextWrapper(inputs.get(4))
@@ -222,8 +222,8 @@ suite('Component type edit', () => {
           expect(inputs.length).to.equal(5)
 
           assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-          assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
           assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, '', { name: 'options.required' })
           assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, '', { name: 'options.optionalText' })
           assertOptionalTextWrapper(inputs.get(4), true)
