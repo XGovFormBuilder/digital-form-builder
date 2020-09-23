@@ -15,22 +15,29 @@ Workspaces will deal with sym-linking the packages, so we do not have to manuall
 It will also deal with hoisting the node_modules for any packages that are shared between the repos, thus decreasing any install times. Hopefully it all just works™️.
 
 ## Setup
+**Always run scripts from the root directory.**
 
-after forking or cloning this repository
+1. Make sure you are using node >=12. `node --version`.
+2. Make sure you have yarn 2 installed.
+3. Run `yarn setup`, this script will:
+   1. Run `$ yarn` command to install all dependencies in all workspaces.
+   2. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
+   3. Run `flow-mono` commands to adjust flow types.
 
-1. make sure you are using node >=12. `node --version`
-2. run `$ yarn` this should install the dependencies with yarn 2 (berry).
-  **you must use yarn 2**
-3. run `$ yarn build` this will build all the modules
+As already mentioned, **always run scripts from the root directory.** because workspaces don't have scripts or packages you need to run from inside their folders and by running in the root directory yarn 2 can resolve the scripts/packages properly.
 
-**always run scripts from the root directory.** ${workspace}/node_modules is unlikely to have the scripts or packages you need to run inside the workspace. 
-By running in the root directory yarn 2 can resolve the scripts/packages properly.
+To learn more about workspaces, check these links:
+- [Workspaces in Yarn](https://classic.yarnpkg.com/blog/2017/08/02/introducing-workspaces/)
+- [Workspaces](https://classic.yarnpkg.com/en/docs/workspaces)
 
-
+  
+  
 ### I want to...
 
 #### run a specific workspaces' script 
-`$ yarn runner/designer/engine/model name-of-script`
+`$ yarn [runner|designer|engine|model] name-of-script` 
+
+eg.: `yarn desginer start` or `yarn runner add babel-core --dev`
 
 
 #### run a script for each of the workspaces
