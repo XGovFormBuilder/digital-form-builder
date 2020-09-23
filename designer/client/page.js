@@ -86,8 +86,6 @@ class Page extends React.Component {
         id={page.path} className={`page${conditional ? ' conditional' : ''} ${highlight ? 'highlight' : ''}`}
         title={page.path} style={this.props.layout}
       >
-        <div className='page__handle' onClick={this.toggleEditor} />
-
         <div className='page__heading'>
           <h3>
             {section && <span>{section.title}</span>}
@@ -102,13 +100,14 @@ class Page extends React.Component {
         />
 
         <div className='page__actions'>
-          <button
-            className='page__actions__button active'
-            onClick={this.toggleAddComponent}
-          />
+          <button title="Edit page" onClick={this.toggleEditor}>
+            Edit page
+          </button>
+          <button title="Create component" onClick={this.toggleAddComponent}>
+            Create component
+          </button>
           <a
             title="Preview page"
-            className='page__actions__preview'
             href={`${previewUrl}/${id}${page.path}`}
             target='_blank'
             rel="noreferrer"
