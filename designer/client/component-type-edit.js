@@ -29,12 +29,12 @@ class FieldEdit extends React.Component {
   constructor (props) {
     super(props)
     const { component } = this.props
-
     const options = component.options || {}
     this.isFileUploadField = component.type === 'FileUploadField'
 
     this.state = {
-      hidden: options.required !== false
+      hidden: options.required !== false,
+      name: component.name
     }
   }
 
@@ -43,9 +43,18 @@ class FieldEdit extends React.Component {
     this.setState({ hidden: !this.state.hidden })
   }
 
+  onChangeName = (event) => {
+    const inputValue = event.target.value
+    this.setState({
+      name: inputValue,
+      nameHasError: (/\s/g).test(inputValue)
+    })
+  }
+
   render () {
     const { component, updateModel } = this.props
     component.options = component.options || {}
+    const { name, nameHasError } = this.state
 
     return (
       <div>
@@ -57,16 +66,6 @@ class FieldEdit extends React.Component {
               className='govuk-input' id='field-title' name='title' type='text'
               defaultValue={component.title} required
               onBlur={e => updateComponent(component, component => { component.title = e.target.value }, updateModel)}
-            />
-          </div>
-
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
-            <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or fullName.</span>
-            <input
-              className='govuk-input govuk-input--width-20' id='field-name'
-              name='name' type='text' defaultValue={component.name} required pattern='^\S+'
-              onBlur={e => updateComponent(component, component => { component.name = e.target.value }, updateModel)}
             />
           </div>
 
@@ -94,6 +93,27 @@ class FieldEdit extends React.Component {
               </label>
               <span className='govuk-hint'>Hide the title of the component</span>
             </div>
+          </div>
+
+          <div className={`govuk-form-group ${nameHasError ? 'govuk-form-group--error' : ''}`}>
+            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Component name</label>
+            <span className='govuk-hint'>
+              This has been generated automatically, it will not show on the page.
+              You usually wont need to change it unless an integration requires it. It must not contain spaces.
+            </span>
+            { nameHasError &&
+              <span
+                className="govuk-error-message">
+                <span className="govuk-visually-hidden">Error:</span> Name must not contain spaces
+              </span>
+            }
+            <input
+              className={`govuk-input govuk-input--width-20 ${nameHasError ? 'govuk-input--error' : ''}`} id='field-name'
+              name='name' type='text' required pattern='^\S+'
+              value={name}
+              onChange={this.onChangeName}
+              onBlur={e => updateComponent(component, component => { component.name = e.target.value }, updateModel)}
+            />
           </div>
 
           <div className='govuk-checkboxes govuk-form-group'>
