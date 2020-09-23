@@ -18,3 +18,4 @@ export class BlobPersistenceService implements PersistenceService {
     return Promise.resolve('')
   }
 }
+
