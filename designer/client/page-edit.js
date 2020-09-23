@@ -157,6 +157,14 @@ class PageEdit extends React.Component {
     return path
   }
 
+  editSection = (e) => {
+    e.preventDefault()
+  }
+
+  createSection = (e) => {
+    e.preventDefault()
+  }
+
   render () {
     const { data, page } = this.props
     const { sections } = data
@@ -208,6 +216,8 @@ class PageEdit extends React.Component {
             <option />
             {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
           </select>
+          <a href='#' className="govuk-link govuk-!-display-block">Edit section</a>
+          <a href='#' className="govuk-link govuk-!-display-block">Create section</a>
         </div>
 
         <button className='govuk-button' type='submit'>Save</button>{' '}

@@ -1,19 +1,40 @@
 import React from 'react'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { camelCase } from '../helpers'
 
 class SectionEdit extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
+    this.onCancel = props.onCancel
+    const { section } = props
 
-  onSubmit = e => {
+    this.state = {
+      name: section?.name ?? '',
+      title: section?.name ?? ''
+    }
+  }
+
+  onSubmit = async e => {
     e.preventDefault()
+    const { name, title } = this.state
+    const { data } = this.props
+    const { generatedName } = this.state
+    const copy = clone(data)
+
+    const updated = copy.addSection(name || generatedName, title.trim())
+
+    try {
+      const savedData = await data.save(updated)
+      this.props.onCreate(savedData)
+    } catch (err) {
+      console.error(err)
+    }
     const form = e.target
     const formData = new window.FormData(form)
     const newName = formData.get('name').trim()
     const newTitle = formData.get('title').trim()
-    const { data, section } = this.props
-
-    const copy = clone(data)
-    const nameChanged = newName !== section.name
+    const section = { name, title }
+    const nameChanged = newName !== name
     const copySection = copy.sections[data.sections.indexOf(section)]
 
     if (nameChanged) {
@@ -21,7 +42,7 @@ class SectionEdit extends React.Component {
 
       // Update any references to the section
       copy.pages.forEach(p => {
-        if (p.section === section.name) {
+        if (p.section === name) {
           p.section = newName
         }
       })
@@ -54,7 +75,7 @@ class SectionEdit extends React.Component {
 
     // Update any references to the section
     copy.pages.forEach(p => {
-      if (p.section === section.name) {
+      if (p.section === name) {
         delete p.section
       }
     })
@@ -82,8 +103,27 @@ class SectionEdit extends React.Component {
     }
   }
 
+  onChangeTitle = e => {
+    const input = e.target
+    const { data } = this.props
+    const newTitle = input.value
+    const generatedName = camelCase(newTitle).trim()
+    let newName = generatedName
+
+    let i = 1
+    while (data.sections.find(s => s.name === newName)) {
+      newName = generatedName + i
+      i++
+    }
+
+    this.setState({
+      generatedName: newName,
+      title: newTitle
+    })
+  }
+
   render () {
-    const { section } = this.props
+    const { name, title } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
@@ -92,19 +132,23 @@ class SectionEdit extends React.Component {
           onClick={e => this.props.onCancel(e)}
         >Back
         </a>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='section-name'>Name</label>
-          <input
-            className='govuk-input' id='section-name' name='name'
-            type='text' defaultValue={section.name} required pattern='^\S+'
-            onBlur={this.onBlurName}
-          />
-        </div>
+
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='section-title'>Title</label>
           <input
             className='govuk-input' id='section-title' name='title'
-            type='text' defaultValue={section.title} required
+            type='text'
+            value={title}
+            onChange={this.onChangeTitle}
+            required
+          />
+        </div>
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='section-name'>Name</label>
+          <input
+            className='govuk-input' id='section-name' name='name'
+            type='text' value={name} required pattern='^\S+'
+            onBlur={this.onBlurName}
           />
         </div>
         <button className='govuk-button' type='submit'>Save</button>{' '}
