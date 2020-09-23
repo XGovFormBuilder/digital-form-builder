@@ -13,6 +13,7 @@
     "designer"
   ],
   "scripts": {
+    "setup": "yarn && yarn build && yarn flow-mono create-symlinks && yarn flow-mono install-types && yarn flow-mono create-stubs",
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",
     "lint": "yarn workspaces foreach run lint",
