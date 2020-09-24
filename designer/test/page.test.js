@@ -40,16 +40,6 @@ suite('Page', () => {
     })
   })
 
-  test('Clicking page\'s handle toggles showEditor', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
-    const handle = wrapper.find('.page__handle').first()
-
-    expect(wrapper.state().showEditor).to.equal(false)
-
-    handle.simulate('click')
-    expect(wrapper.state().showEditor).to.equal(true)
-  })
-
   test('PageEdit Flyout onHide toggles showEditor', () => {
     const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
     const editor = wrapper.find(Flyout).first()
@@ -81,9 +71,28 @@ suite('Page', () => {
     expect(wrapper.state().showEditor).to.equal('showEditor')
   })
 
+  test('Page actions contain expected buttons', () => {
+    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const actions = wrapper.find('.page__actions').children()
+
+    expect(actions.at(0).text()).to.equal('Edit page')
+    expect(actions.at(1).text()).to.equal('Create component')
+    expect(actions.at(2).text()).to.equal('Preview')
+  })
+
+  test('Button Edit page toggles showEditor', () => {
+    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const button = wrapper.find('.page__actions').children().first()
+
+    expect(wrapper.state().showEditor).to.equal(false)
+
+    button.simulate('click')
+    expect(wrapper.state().showEditor).to.equal(true)
+  })
+
   test('Button add components toggles showAddComponent', () => {
     const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
-    const button = wrapper.find('.page__actions__button').first()
+    const button = wrapper.find('.page__actions').children().at(1)
 
     expect(wrapper.state().showAddComponent).to.equal(false)
 
