@@ -1,20 +1,13 @@
 FROM node:12
 
-WORKDIR /usr/src/app
-
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+WORKDIR /usr/src/app
 
-WORKDIR /usr/src/app/engine
+COPY . .
 
-COPY engine/package*.json ./
-RUN npm install
-COPY engine/. .
+RUN yarn
+RUN yarn build:dependencies
+RUN yarn build
 
-WORKDIR /usr/src/app/designer
-
-COPY designer/package*.json ./
-RUN npm install
-
-COPY designer/. .
+CMD [ "yarn", "designer", "start" ]
