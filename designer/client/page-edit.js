@@ -9,42 +9,48 @@ import SectionEdit from './section/section-edit'
 class PageEdit extends React.Component {
   constructor (props) {
     super(props)
-    if (props.page.path !== this.generatePath(props.page.title)) {
-      this.state = { path: props.page.path }
+    const { page } = this.props
+    const path = page?.path !== this.generatePath(page.title) ? props.page.path : ''
+    this.state = {
+      path,
+      controller: page?.controller ?? '',
+      title: page?.title,
+      section: page?.section ?? {},
+      isCreatingSection: false
     }
-    this.state = props.page.path !== this.generatePath(props.page.title) ? { path: props.page.path } : {}
     this.formEditSection = React.createRef()
   }
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault()
     const form = e.target
     const formData = new window.FormData(form)
-    const title = formData.get('title').trim()
+    /*    const title = formData.get('title').trim()
     const newPath = formData.get('path').trim()
     const section = formData.get('section').trim()
-    const pageType = formData.get('page-type').trim()
+    const pageType = formData.get('page-type').trim() */
+    const { title, path, section, controller } = this.state
     const { data, page } = this.props
 
     const copy = clone(data)
-    const pathChanged = newPath !== page.path
     const pageIndex = data.pages.indexOf(page)
     const copyPage = copy.pages[pageIndex]
+    const pathChanged = path !== page.path
 
     if (pathChanged) {
       // `path` has changed - validate it is unique
-      if (data.findPage(newPath)) {
-        form.elements.path.setCustomValidity(`Path '${newPath}' already exists`)
+      if (data.findPage(path)) {
+        form.elements.path.setCustomValidity(`Path '${path}' already exists`)
         form.reportValidity()
         return
       }
 
-      data.updateLinksTo(page.path, newPath)
+      data.updateLinksTo(page.path, path)
 
-      copyPage.path = newPath
+      copyPage.path = path
 
       if (pageIndex === 0) {
-        copy.startPage = newPath
+        copy.startPage = path
       }
     }
 
@@ -56,24 +62,22 @@ class PageEdit extends React.Component {
       delete copyPage.section
     }
 
-    if (pageType) {
-      copyPage.controller = pageType
+    if (controller) {
+      copyPage.controller = controller
     } else {
       delete copyPage.controller
     }
 
     copy.pages[pageIndex] = copyPage
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    try {
+      await data.save(copy)
+      this.props.onEdit({ data })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
-  onClickDelete = e => {
+  onClickDelete = async e => {
     e.preventDefault()
 
     if (!window.confirm('Confirm delete')) {
@@ -88,7 +92,7 @@ class PageEdit extends React.Component {
     // Remove all links to the page
     copy.pages.forEach((p, index) => {
       if (index !== copyPageIdx && Array.isArray(p.next)) {
-        for (var i = p.next.length - 1; i >= 0; i--) {
+        for (let i = p.next.length - 1; i >= 0; i--) {
           const next = p.next[i]
           if (next.path === page.path) {
             p.next.splice(i, 1)
@@ -97,20 +101,15 @@ class PageEdit extends React.Component {
       }
     })
 
-    // Remove the page itself
     copy.pages.splice(copyPageIdx, 1)
-
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        // this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    try {
+      await data.save(copy)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  onClickDuplicate = e => {
+  onClickDuplicate = async e => {
     e.preventDefault()
 
     const { data, page } = this.props
@@ -123,13 +122,11 @@ class PageEdit extends React.Component {
     })
     copy.pages.push(duplicatedPage)
 
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    try {
+      await data.save(copy)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   onChangeTitle = e => {
@@ -137,7 +134,7 @@ class PageEdit extends React.Component {
     const title = input.value
     this.setState({
       title: title,
-      generatedPath: this.generatePath(title)
+      path: this.generatePath(title)
     })
   }
 
@@ -167,6 +164,7 @@ class PageEdit extends React.Component {
 
   editSection = (e) => {
     e.preventDefault()
+    this.setState({ isCreatingSection: true })
   }
 
   createSection = (e) => {
@@ -175,20 +173,30 @@ class PageEdit extends React.Component {
   }
 
   closeFlyout = (sectionName) => {
-    const { sections } = this.props.data
-    this.setState({ isCreatingSection: false, section: sections.find(s => s.name === sectionName) })
+    const propSection = this.state.section ?? this.props.page?.section ?? {}
+    this.setState({ isCreatingSection: false, section: sectionName ? this.findSectionWithName(sectionName) : propSection })
+  }
+
+  onChangeSection = (e) => {
+    const { data } = this.props
+    const { sections } = data
+    console.log('val', e.target.value)
+    console.log('find section', sections.find(section => section.name === e.target.value))
+    this.setState({
+      section: this.findSectionWithName(e.target.value)
+    })
+  }
+
+  findSectionWithName (name) {
+    const { data } = this.props
+    const { sections } = data
+    return sections.find(section => section.name === name)
   }
 
   render () {
-    const { data, page } = this.props
+    const { data } = this.props
     const { sections } = data
-    const { title, path, generatedPath, controller, section, isCreatingSection } = this.state
-
-    const configuredController = controller || page.controller || ''
-    const configuredPath = path || generatedPath || page.path || ''
-    const configuredTitle = title || page.title || ''
-    const configuredSection = section || page.section || ''
-    console.log('configs', configuredSection)
+    const { title, path, controller, section, isCreatingSection } = this.state
 
     return (
       <div>
@@ -196,7 +204,7 @@ class PageEdit extends React.Component {
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
             <select
-              className='govuk-select' id='page-type' name='page-type' value={configuredController}
+              className='govuk-select' id='page-type' name='page-type' value={controller}
               onChange={e => this.setState({ controller: e.target.value })}
             >
               <option value=''>Question Page</option>
@@ -208,7 +216,7 @@ class PageEdit extends React.Component {
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='page-title'>Page Title</label>
             <input
-              className='govuk-input' id='page-title' name='title' type='text' value={configuredTitle}
+              className='govuk-input' id='page-title' name='title' type='text' value={title}
               aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
             />
           </div>
@@ -219,21 +227,23 @@ class PageEdit extends React.Component {
             <input
               className='govuk-input' id='page-path' name='path'
               type='text' aria-describedby='page-path-hint' required
-              value={configuredPath} onChange={this.onChangePath}
+              value={path} onChange={this.onChangePath}
             />
           </div>
 
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
+            {sections.length > 0 &&
             <select
-              className='govuk-select' id='page-section' name='section' value={configuredSection.name}
-              onChange={e => this.setState({ section: e.target.value })}
+              className='govuk-select' id='page-section' name='section' value={section?.name}
+              onChange={this.onChangeSection}
             >
-              <option />
+              <option/>
               {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
             </select>
-            {configuredSection &&
-              <a href='#' className="govuk-link govuk-!-display-block" onClick={this.createSection}>Edit section</a>
+            }
+            {sections.length > 0 &&
+              <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Edit section</a>
             }
             <a href='#' className="govuk-link govuk-!-display-block" onClick={this.createSection}>Create section</a>
           </div>
@@ -248,7 +258,7 @@ class PageEdit extends React.Component {
             onHide={this.closeFlyout}>
             <form ref={this.formEditSection}>
               <SectionEdit
-                section={sections.find(section => section.name === configuredSection)}
+                section={section}
                 data={data}
                 closeFlyout={this.closeFlyout}
               />
