@@ -2,6 +2,11 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 
 @import "../node_modules/govuk-frontend/govuk/all.scss";
 
+$color-orange: #ffbf47;
+
+* {
+  box-sizing: border-box;
+}
 
 .pull-right {
   float: right;
@@ -18,7 +23,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
   background-color: #006435;
 
   &.active:hover {
-    background-color: #ffbf47
+    background-color: $color-orange
   }
 
   &.square {
@@ -33,6 +38,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 
 // Visualisation
 #app {
+
   @include govuk-media-query($from: tablet) {
     .menu {
       padding: 3px;
@@ -59,18 +65,9 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
       border-left: solid 2px #000;
       background-color: rgba(255, 255, 255, 0.85);
 
-      &__handle {
-        height: 14px;
-        cursor: pointer;
-        background-color: #000;
-
-        &:hover {
-          background-color: #ffbf47;
-        }
-      }
-
       &__heading {
-        @extend .govuk-\!-padding-top-2, .govuk-\!-padding-left-2, .govuk-\!-padding-right-2;
+        min-height: 2.8em;
+        @extend .govuk-\!-padding-2;
 
         h3 {
           @extend .govuk-heading-s;
@@ -83,18 +80,28 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 
       &__actions {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        @extend .govuk-\!-padding-2;
+        flex-direction: column;
 
-        &__button {
-          @extend .button;
+        & > * {
+          width: 100%;
+          @include govuk-font(14);
+          @extend .govuk-\!-padding-top-1, .govuk-\!-padding-bottom-1, .govuk-\!-padding-left-2, .govuk-\!-padding-right-2;
+          border: none;
+          box-shadow: none;
+          text-decoration: none;
+          text-align: left;
+          background-color: govuk-colour('black');
+          color: govuk-colour('white');
+
+          &:hover {
+            background-color: $color-orange;
+            color: govuk-colour('black');
+            cursor: pointer;
+          }
         }
 
-        &__preview {
-          @extend .govuk-body, .govuk-\!-font-size-14;
-          margin-bottom: 0;
+        & > *:not(:last-child) {
+          border-bottom: 1px solid #FFFFFF;
         }
       }
 
@@ -121,7 +128,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
       stroke-width: 1
     }
     rect:hover {
-      fill: #ffbf47;
+      fill: $color-orange;
     }
   }
 }
@@ -132,7 +139,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
   // padding: 6px;
 
   &:hover {
-    background-color: #ffbf47;
+    background-color: $color-orange;
   }
 
   .line {
@@ -265,7 +272,7 @@ $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 }
 
 .dragging {
-  background-color: #ffbf47;
+  background-color: $color-orange;
 }
 
 .govuk-table__row {
@@ -470,7 +477,7 @@ polyline {
   stroke: #4781ff;
 
   &:hover {
-    stroke: #ffbf47;
+    stroke: $color-orange;
     opacity: 1;
   }
 
@@ -482,7 +489,7 @@ polyline {
 
 /* Syntax highlighting */
 .editor textarea:focus {
-  outline: 3px solid #ffbf47;
+  outline: 3px solid $color-orange;
   outline-offset: 2px;
 }
 
