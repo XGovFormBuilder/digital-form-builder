@@ -2445,7 +2445,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/pluginutils@npm:^3.0.8":
+"@rollup/plugin-node-resolve@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "@rollup/plugin-node-resolve@npm:9.0.0"
+  dependencies:
+    "@rollup/pluginutils": ^3.1.0
+    "@types/resolve": 1.17.1
+    builtin-modules: ^3.1.0
+    deepmerge: ^4.2.2
+    is-module: ^1.0.0
+    resolve: ^1.17.0
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: 34576bbd9cfb096ed6fcce256e9210995144ccfd352ef09134507a7c6b479cee20da2896525ebf8bf139d9a31e8eec4b6787ed9de3209ee6610a949dc9f7c268
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^3.0.8, @rollup/pluginutils@npm:^3.1.0":
   version: 3.1.0
   resolution: "@rollup/pluginutils@npm:3.1.0"
   dependencies:
@@ -2641,6 +2657,15 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: 4a8f720afac47b474d3f2eece312340e72bc31bc9561cda37b596ce2ed218c0099765d302625bb67d659a8452a1f93d514f4863c11c7ebaf65430428687dc426
+  languageName: node
+  linkType: hard
+
+"@types/resolve@npm:1.17.1":
+  version: 1.17.1
+  resolution: "@types/resolve@npm:1.17.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 8e72a73574f9489760662498c1ad512a8d4084a5db15f327e0d785cb277bb0a3146cd049241a8e3268bd0ed204ad3ee7b4a6b4622ef681e70547be9af258ca6a
   languageName: node
   linkType: hard
 
@@ -2937,6 +2962,7 @@ __metadata:
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.1.0
+    cross-env: ^7.0.2
     css-loader: ^4.3.0
     dagre: 0.8.2
     dotenv: 8.2.0
@@ -3012,7 +3038,7 @@ __metadata:
     eslint-plugin-flowtype: ^5.2.0
     eslint-plugin-import: ^2.22.0
     expr-eval: 2.0.2
-    flow-bin: ^0.130.0
+    flow-bin: ^0.134.0
     flow-typed: ^3.2.1
     govuk-frontend: 3.6.0
     hmpo-components: 2.6.5
@@ -3050,7 +3076,7 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.10.1
     "@babel/preset-env": ^7.10.2
     "@babel/preset-flow": ^7.10.4
-    "@babel/runtime": 7.10.4
+    "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/hoek": ^9.0.4
     "@hapi/joi": 17.1.1
@@ -3059,11 +3085,12 @@ __metadata:
     babel-eslint: ^10.1.0
     boom: 7.3.0
     btoa: ^1.2.1
+    cross-env: ^7.0.2
     eslint: ^7.6.0
     eslint-plugin-flowtype: ^5.2.0
     eslint-plugin-import: ^2.22.0
     expr-eval: 2.0.2
-    flow-bin: ^0.130.0
+    flow-bin: ^0.134.0
     flow-mono-cli: ^1.5.3
     flow-typed: ^3.2.1
     govuk-frontend: 3.6.0
@@ -3121,7 +3148,7 @@ __metadata:
     eslint-plugin-flowtype: ^5.2.0
     eslint-plugin-import: ^2.22.0
     flat: 5.0.0
-    flow-bin: ^0.130.0
+    flow-bin: ^0.134.0
     flow-typed: ^3.2.1
     form-data: 3.0.0
     googleapis: 48.0.0
@@ -4611,6 +4638,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"builtin-modules@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "builtin-modules@npm:3.1.0"
+  checksum: 54f062393cd48ff6c7293d885a106faa0988cbffb8b5f7790bfd0148e56cedf21b13bd4c1e544911ec7b4b022c52fd4c606e8697469b342e8b3e529ce48d8831
+  languageName: node
+  linkType: hard
+
 "builtin-status-codes@npm:^3.0.0":
   version: 3.0.0
   resolution: "builtin-status-codes@npm:3.0.0"
@@ -5604,6 +5638,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cross-env@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "cross-env@npm:7.0.2"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 624d638db3b4b6b221f32238aeb6785b865365bf41154f01d46a23b6d78f807ca5588a3b32e9af5f17384b866fed3752d0e3ecf8c4a8cfca2935d363d27ba058
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^3.0.0":
   version: 3.0.1
   resolution: "cross-spawn@npm:3.0.1"
@@ -5638,7 +5684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -5998,6 +6044,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"deepmerge@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "deepmerge@npm:4.2.2"
+  checksum: 85abf8e0045ee280996e7d2396979c877ef0741e413b716e42441110e0a83ac08098b2a49cea035510060bf667c0eae3189b2a52349f5fa4b000c211041637b1
+  languageName: node
+  linkType: hard
+
 "default-gateway@npm:^4.2.0":
   version: 4.2.0
   resolution: "default-gateway@npm:4.2.0"
@@ -6172,6 +6225,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"designer@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "designer@npm:1.0.2"
+  dependencies:
+    request: ^2.60.0
+  checksum: 7a1fdcd920bea3976e3a4d696b6b988fbc1d5f80a3265df1780ea9689d13c9182cc7047d006638d8dbd2cc4a66736cebff888f5e9256a9d2b6877098788d5233
+  languageName: node
+  linkType: hard
+
 "destroy@npm:~1.0.4":
   version: 1.0.4
   resolution: "destroy@npm:1.0.4"
@@ -6244,8 +6306,10 @@ __metadata:
     "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/lab": ^23.0.0
+    "@rollup/plugin-node-resolve": ^9.0.0
     babel-eslint: ^11.0.0-beta.2
     concurrently: ^5.3.0
+    designer: ^1.0.2
     eslint: ^7.7.0
     eslint-config-prettier: ^6.11.0
     eslint-config-standard: ^14.1.1
@@ -6257,7 +6321,7 @@ __metadata:
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-react: ^7.20.6
     eslint-plugin-standard: ^4.0.1
-    flow-bin: 0.131.0
+    flow-bin: ^0.134.0
     flow-mono-cli: ^1.5.3
     flow-typed: ^3.2.1
     govuk-frontend: ^3.8.1
@@ -8228,21 +8292,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-bin@npm:0.131.0":
-  version: 0.131.0
-  resolution: "flow-bin@npm:0.131.0"
-  bin:
-    flow: cli.js
-  checksum: 7d0d157a6a6372772c08d8d7425d8dd8b115ad25abf0cbc2b72b2ea6b4edb3c727b32141d1d3e310697cc3ce2a5390ee08269bf9d63c3d8ed1f8d761f4cc09af
-  languageName: node
-  linkType: hard
-
 "flow-bin@npm:^0.130.0":
   version: 0.130.0
   resolution: "flow-bin@npm:0.130.0"
   bin:
     flow: cli.js
   checksum: 720c430c71dfe9274bf26aba61abea39a43cc9173fc155dad07e43e610f2c7af3583c3138d6f4ecffc3b0ecd5739a8af22b4d02de61dbe6ea6417973b5a2bc66
+  languageName: node
+  linkType: hard
+
+"flow-bin@npm:^0.134.0":
+  version: 0.134.0
+  resolution: "flow-bin@npm:0.134.0"
+  bin:
+    flow: cli.js
+  checksum: 8858ccda62b4e7d30c1672cb48dfcd43c9421c89c692f295224090032573b1488a07abbd7cabdd9d4e2acd8792467d67e7fbeaeb0792191af772e4eae70c4010
   languageName: node
   linkType: hard
 
@@ -10259,6 +10323,13 @@ fsevents@~2.1.2:
   version: 1.0.0
   resolution: "is-interactive@npm:1.0.0"
   checksum: d79b435e5134ccd60dfe035117b1cddd5c5100e90b2d33428adfe1667e26f0114cc1bc7b3ff84a1b107de8ef27f155e3ecc3bb08c0e502a15c66300b4a45d9e5
+  languageName: node
+  linkType: hard
+
+"is-module@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "is-module@npm:1.0.0"
+  checksum: 2cbd41e2760874130b76aee84cc53120c4feef0d0f196fa665326857b444c8549909cc840f3f3a59652a7e8df46146a77f6c0f3f70a578704e03670975843e74
   languageName: node
   linkType: hard
 
@@ -14756,7 +14827,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"request@npm:^2.87.0, request@npm:^2.88.0, request@npm:^2.88.2":
+"request@npm:^2.60.0, request@npm:^2.87.0, request@npm:^2.88.0, request@npm:^2.88.2":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
@@ -14894,14 +14965,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-resolve@1.1.7:
-  version: 1.1.7
-  resolution: "resolve@npm:1.1.7"
-  checksum: 3e928e9586d51dd985d42f524646267f08269261d844adfb54bf2e3a2f96e9bdb2be8e3db686145a7ac2b65c7cd894bdfa7b48b80b828ea5cb1d2abc403778b0
-  languageName: node
-  linkType: hard
-
-"resolve@^1.1.5, resolve@^1.1.6, resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.17.0, resolve@^1.3.2, resolve@^1.6.0, resolve@^1.8.1":
+"resolve@npm:^1.17":
   version: 1.17.0
   resolution: "resolve@npm:1.17.0"
   dependencies:
@@ -14910,14 +14974,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@1.1.7#builtin<compat/resolve>":
-  version: 1.1.7
-  resolution: "resolve@patch:resolve@npm%3A1.1.7#builtin<compat/resolve>::version=1.1.7&hash=3388aa"
-  checksum: ca4e21815c78134fdb248d2175d98c2ead024c680a3a9c7b8ee13fc8a7f5157e061b13ae29ee07a60e1b9faea33c3740cb88d48d94966d7e94479add70d3f544
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@^1.1.5#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.10.1#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.6.0#builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.17#builtin<compat/resolve>":
   version: 1.17.0
   resolution: "resolve@patch:resolve@npm%3A1.17.0#builtin<compat/resolve>::version=1.17.0&hash=3388aa"
   dependencies:
