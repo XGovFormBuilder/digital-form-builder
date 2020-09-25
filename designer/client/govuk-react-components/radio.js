@@ -1,6 +1,7 @@
-// @flow
 import React from 'react'
 import { renderHints } from './helpers'
+
+// TODO: Replace with govuk-react-jsx component
 
 export class RadioGroup extends React.Component {
   radioId = Date.now()
