@@ -6,10 +6,17 @@ function Flyout (props) {
   }
 
   const width = props.width || ''
+  const offset = props.offset || 0
+  const style = {
+    paddingLeft: `${offset * 50}px`,
+    transform: `translateX(${offset * -50}px)`,
+    position: 'relative'
+  }
 
   return (
     <div className='flyout-menu show'>
-      <div className={`flyout-menu-container ${width}`}>
+      <div className={`flyout-menu-container ${width}`}
+        style={style} >
         <a title='Close' className='close govuk-body govuk-!-font-size-16' onClick={e => props.onHide(e)}>Close</a>
         <div className='panel'>
           <div className='panel-header govuk-!-padding-top-4 govuk-!-padding-left-4'>

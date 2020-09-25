@@ -1,67 +1,66 @@
 import React from 'react'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 import { camelCase } from '../helpers'
+import Name from '../name'
+import { nanoid } from 'nanoid'
 
 class SectionEdit extends React.Component {
   constructor (props) {
     super(props)
-    this.onCancel = props.onCancel
+    this.closeFlyout = props.closeFlyout
     const { section } = props
+    this.isNewSection = !section
+
+    console.log('section', section)
 
     this.state = {
-      name: section?.name ?? '',
-      title: section?.name ?? ''
+      name: section?.name ?? nanoid(6),
+      title: section?.title ?? ''
     }
   }
 
-  onSubmit = async e => {
+  async onSubmit (e) {
     e.preventDefault()
     const { name, title } = this.state
     const { data } = this.props
-    const { generatedName } = this.state
     const copy = clone(data)
+    if (this.isNewSection) {
+      copy.addSection(name, title.trim())
+    } else {
+      const previousName = this.props.name
+      const section = { name, title }
+      const nameChanged = previousName !== name
+      const copySection = copy.sections[data.sections.indexOf(section)]
 
-    const updated = copy.addSection(name || generatedName, title.trim())
+      if (nameChanged) {
+        copySection.name = name
+        // Update any references to the section
+        copy.pages.forEach(p => {
+          if (p.section === name) {
+            p.section = name
+          }
+        })
+        copySection.title = title
+      }
+    }
 
     try {
-      const savedData = await data.save(updated)
-      this.props.onCreate(savedData)
+      await data.save(copy)
+      this.closeFlyout(name)
     } catch (err) {
       console.error(err)
     }
-    const form = e.target
-    const formData = new window.FormData(form)
-    const newName = formData.get('name').trim()
-    const newTitle = formData.get('title').trim()
-    const section = { name, title }
-    const nameChanged = newName !== name
-    const copySection = copy.sections[data.sections.indexOf(section)]
-
-    if (nameChanged) {
-      copySection.name = newName
-
-      // Update any references to the section
-      copy.pages.forEach(p => {
-        if (p.section === name) {
-          p.section = newName
-        }
-      })
-    }
-
-    copySection.title = newTitle
-
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
   }
 
-  onClickDelete = e => {
+  onChangeTitle = e => {
+    this.setState({
+      title: e.target.value
+    })
+  }
+
+  onClickDelete = async e => {
     e.preventDefault()
+    const { name } = this.state
 
     if (!window.confirm('Confirm delete')) {
       return
@@ -80,59 +79,19 @@ class SectionEdit extends React.Component {
       }
     })
 
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
-
-  onBlurName = e => {
-    const input = e.target
-    const { data, section } = this.props
-    const newName = input.value.trim()
-
-    // Validate it is unique
-    if (data.sections.find(s => s !== section && s.name === newName)) {
-      input.setCustomValidity(`Name '${newName}' already exists`)
-    } else {
-      input.setCustomValidity('')
+    try {
+      await data.save(copy)
+    } catch (error) {
+      // TODO:- we should really think about handling these errors properly.
+      console.log(error)
     }
-  }
-
-  onChangeTitle = e => {
-    const input = e.target
-    const { data } = this.props
-    const newTitle = input.value
-    const generatedName = camelCase(newTitle).trim()
-    let newName = generatedName
-
-    let i = 1
-    while (data.sections.find(s => s.name === newName)) {
-      newName = generatedName + i
-      i++
-    }
-
-    this.setState({
-      generatedName: newName,
-      title: newTitle
-    })
   }
 
   render () {
-    const { name, title } = this.state
+    const { title, name } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <a
-          className='govuk-back-link' href='#'
-          onClick={e => this.props.onCancel(e)}
-        >Back
-        </a>
-
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='section-title'>Title</label>
           <input
@@ -143,14 +102,9 @@ class SectionEdit extends React.Component {
             required
           />
         </div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='section-name'>Name</label>
-          <input
-            className='govuk-input' id='section-name' name='name'
-            type='text' value={name} required pattern='^\S+'
-            onBlur={this.onBlurName}
-          />
-        </div>
+        <Name id='section-name' labelText='Section name' name={ name }
+        />
+
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
       </form>

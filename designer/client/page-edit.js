@@ -1,11 +1,19 @@
 import React from 'react'
 import { toUrl } from './helpers'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { RenderInPortal } from './components/render-in-portal'
+import Flyout from './flyout'
+import SectionsEdit from './section/sections-edit'
+import SectionEdit from './section/section-edit'
 
 class PageEdit extends React.Component {
   constructor (props) {
     super(props)
+    if (props.page.path !== this.generatePath(props.page.title)) {
+      this.state = { path: props.page.path }
+    }
     this.state = props.page.path !== this.generatePath(props.page.title) ? { path: props.page.path } : {}
+    this.formEditSection = React.createRef()
   }
 
   onSubmit = e => {
@@ -163,67 +171,93 @@ class PageEdit extends React.Component {
 
   createSection = (e) => {
     e.preventDefault()
+    this.setState({ isCreatingSection: true, section: {} })
+  }
+
+  closeFlyout = (sectionName) => {
+    const { sections } = this.props.data
+    this.setState({ isCreatingSection: false, section: sections.find(s => s.name === sectionName) })
   }
 
   render () {
     const { data, page } = this.props
     const { sections } = data
-    const { title, path, generatedPath, controller, section } = this.state
+    const { title, path, generatedPath, controller, section, isCreatingSection } = this.state
 
     const configuredController = controller || page.controller || ''
     const configuredPath = path || generatedPath || page.path || ''
     const configuredTitle = title || page.title || ''
     const configuredSection = section || page.section || ''
+    console.log('configs', configuredSection)
 
     return (
-      <form onSubmit={this.onSubmit} autoComplete='off'>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
-          <select
-            className='govuk-select' id='page-type' name='page-type' value={configuredController}
-            onChange={e => this.setState({ controller: e.target.value })}
-          >
-            <option value=''>Question Page</option>
-            <option value='./pages/start.js'>Start Page</option>
-            <option value='./pages/summary.js'>Summary Page</option>
-          </select>
-        </div>
+      <div>
+        <form onSubmit={this.onSubmit} autoComplete='off'>
+          <div className='govuk-form-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
+            <select
+              className='govuk-select' id='page-type' name='page-type' value={configuredController}
+              onChange={e => this.setState({ controller: e.target.value })}
+            >
+              <option value=''>Question Page</option>
+              <option value='./pages/start.js'>Start Page</option>
+              <option value='./pages/summary.js'>Summary Page</option>
+            </select>
+          </div>
 
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-title'>Page Title</label>
-          <input
-            className='govuk-input' id='page-title' name='title' type='text' value={configuredTitle}
-            aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
-          />
-        </div>
+          <div className='govuk-form-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='page-title'>Page Title</label>
+            <input
+              className='govuk-input' id='page-title' name='title' type='text' value={configuredTitle}
+              aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
+            />
+          </div>
 
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
-          <span className='govuk-hint'>The path of this page e.g. &apos;/personal-details&apos;.</span>
-          <input
-            className='govuk-input' id='page-path' name='path'
-            type='text' aria-describedby='page-path-hint' required
-            value={configuredPath} onChange={this.onChangePath}
-          />
-        </div>
+          <div className='govuk-form-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
+            <span className='govuk-hint'>The path of this page e.g. &apos;/personal-details&apos;.</span>
+            <input
+              className='govuk-input' id='page-path' name='path'
+              type='text' aria-describedby='page-path-hint' required
+              value={configuredPath} onChange={this.onChangePath}
+            />
+          </div>
 
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
-          <select
-            className='govuk-select' id='page-section' name='section' value={configuredSection}
-            onChange={e => this.setState({ section: e.target.value })}
-          >
-            <option />
-            {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
-          </select>
-          <a href='#' className="govuk-link govuk-!-display-block">Edit section</a>
-          <a href='#' className="govuk-link govuk-!-display-block">Create section</a>
-        </div>
+          <div className='govuk-form-group'>
+            <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
+            <select
+              className='govuk-select' id='page-section' name='section' value={configuredSection.name}
+              onChange={e => this.setState({ section: e.target.value })}
+            >
+              <option />
+              {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
+            </select>
+            {configuredSection &&
+              <a href='#' className="govuk-link govuk-!-display-block" onClick={this.createSection}>Edit section</a>
+            }
+            <a href='#' className="govuk-link govuk-!-display-block" onClick={this.createSection}>Create section</a>
+          </div>
 
-        <button className='govuk-button' type='submit'>Save</button>{' '}
-        <button className='govuk-button' type='button' onClick={this.onClickDuplicate}>Duplicate</button>{' '}
-        <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
-      </form>
+          <button className='govuk-button' type='submit'>Save</button>{' '}
+          <button className='govuk-button' type='button' onClick={this.onClickDuplicate}>Duplicate</button>{' '}
+          <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
+        </form>
+        { isCreatingSection &&
+        <RenderInPortal>
+          <Flyout title='Add Item' show={isCreatingSection} offset={1}
+            onHide={this.closeFlyout}>
+            <form ref={this.formEditSection}>
+              <SectionEdit
+                section={sections.find(section => section.name === configuredSection)}
+                data={data}
+                closeFlyout={this.closeFlyout}
+              />
+            </form>
+          </Flyout>
+        </RenderInPortal>
+        }
+      </div>
+
     )
   }
 }

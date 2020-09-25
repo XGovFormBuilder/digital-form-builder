@@ -1,5 +1,6 @@
 import React from 'react'
 import SectionEdit from './section-edit'
+// import SectionCreate from './section-create'
 
 class SectionsEdit extends React.Component {
   state = {}
@@ -32,8 +33,7 @@ class SectionsEdit extends React.Component {
             {this.state.showAddSection ? (
               <SectionEdit
                 data={data}
-                onCreate={e => this.setState({ showAddSection: false })}
-                onCancel={e => this.setState({ showAddSection: false })}
+                closeFlyout={e => this.setState({ showAddSection: false })}
               />
             ) : (
               <ul className='govuk-list'>
@@ -54,8 +54,7 @@ class SectionsEdit extends React.Component {
         ) : (
           <SectionEdit
             section={section} data={data}
-            onEdit={e => this.setState({ section: null })}
-            onCancel={e => this.setState({ section: null })}
+            closeFlyout={e => this.setState({ section: null })}
           />
         )}
       </div>

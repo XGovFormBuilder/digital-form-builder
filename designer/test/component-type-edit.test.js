@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, mount } from 'enzyme'
+import { render, mount, shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
@@ -7,6 +7,7 @@ import ComponentTypeEdit from '../client/component-type-edit'
 import { Data } from '@xgovformbuilder/model/lib/data-model'
 import sinon from 'sinon'
 import { assertCheckboxInput, assertRequiredTextInput, assertTextArea } from './helpers/element-assertions'
+import { componentCases } from './component-type-edit.cases'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -55,95 +56,17 @@ suite('Component type edit', () => {
   })
 
   describe('Populating the component model', () => {
-    function casesForAllInputs (type, modelCustomisation = {}) {
-      return [
-        { type: type, name: 'populating title', fieldId: 'field-title', event: 'blur', value: 'My title', expectedModel: Object.assign({ type: type, title: 'My title', options: {} }, modelCustomisation) },
-        { type: type, name: 'populating name', fieldId: 'field-name', event: 'blur', value: 'someName', expectedModel: Object.assign({ type: type, name: 'someName', options: {} }, modelCustomisation) },
-        { type: type, name: 'populating hint', fieldId: 'field-hint', event: 'blur', value: 'My hint', expectedModel: Object.assign({ type: type, hint: 'My hint', options: {} }, modelCustomisation) },
-        { type: type, name: 'selecting hide title', fieldId: 'field-options-hideTitle', event: 'change', value: '', expectedModel: Object.assign({ type: type, options: { hideTitle: true } }, modelCustomisation) },
-        { type: type, name: 'selecting unhide title', fieldId: 'field-options-hideTitle', event: 'change', value: '', componentInitialState: { options: { hideTitle: true } }, expectedModel: Object.assign({ type: type, options: { hideTitle: false } }, modelCustomisation) }
-      ]
-    }
-
-    function casesForAllExceptFileUpload (type, modelCustomisation = {}) {
-      return [
-        ...casesForAllInputs(type, modelCustomisation),
-        { type: type, name: 'selecting optional', fieldId: 'field-options-required', event: 'change', value: '', expectedModel: Object.assign({ type: type, options: { required: false } }, modelCustomisation) },
-        { type: type, name: 'selecting optional when required is explicitly true', fieldId: 'field-options-required', event: 'change', value: '', componentInitialState: { options: { required: true } }, expectedModel: Object.assign({ type: type, options: { required: false } }, modelCustomisation) },
-        { type: type, name: 'deselecting optional', fieldId: 'field-options-required', event: 'change', value: '', componentInitialState: { options: { required: false } }, expectedModel: Object.assign({ type: type, options: { required: undefined } }, modelCustomisation) },
-        { type: type, name: 'selecting hide optional text', fieldId: 'field-options-optionalText', event: 'change', value: '', expectedModel: Object.assign({ type: type, options: { optionalText: false } }, modelCustomisation) },
-        { type: type, name: 'selecting hide optional text when explicitly true', fieldId: 'field-options-optionalText', event: 'change', value: '', componentInitialState: { options: { optionalText: true } }, expectedModel: Object.assign({ type: type, options: { optionalText: false } }, modelCustomisation) },
-        { type: type, name: 'deselecting hide optional text', fieldId: 'field-options-optionalText', event: 'change', value: '', componentInitialState: { options: { optionalText: false } }, expectedModel: Object.assign({ type: type, options: { optionalText: undefined } }, modelCustomisation) }
-      ]
-    }
-
-    function classesCases (type, modelCustomisation = {}) {
-      return [{ type: type, name: 'populating classes', fieldId: 'field-options-classes', event: 'blur', value: 'my-class', expectedModel: Object.assign({ type: type, options: { classes: 'my-class' } }, modelCustomisation) }]
-    }
-
-    function textFieldCases (type) {
-      return [
-        ...casesForAllExceptFileUpload(type, { schema: {} }),
-        { type: type, name: 'populating max length', fieldId: 'field-schema-max', event: 'blur', value: '236', expectedModel: { type: type, schema: { max: '236' }, options: {} } },
-        { type: type, name: 'populating min length', fieldId: 'field-schema-min', event: 'blur', value: '236', expectedModel: { type: type, schema: { min: '236' }, options: {} } },
-        { type: type, name: 'populating exact length', fieldId: 'field-schema-length', event: 'blur', value: '236', expectedModel: { type: type, schema: { length: '236' }, options: {} } },
-        { type: type, name: 'populating regex', fieldId: 'field-schema-regex', event: 'blur', value: '[a-z0-9]', expectedModel: { type: type, schema: { regex: '[a-z0-9]' }, options: {} } },
-        ...classesCases(type, { schema: {} })
-      ]
-    }
-
-    const componentCases = [
-      ...casesForAllInputs('FileUploadField'),
-      ...classesCases('FileUploadField'),
-      ...textFieldCases('TextField'),
-      ...textFieldCases('EmailAddressField'),
-      ...textFieldCases('TelephoneNumberField'),
-      ...casesForAllExceptFileUpload('MultilineTextField', { schema: {} }),
-      { type: 'MultilineTextField', name: 'populating max length', fieldId: 'field-schema-max', event: 'blur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { max: '236' }, options: {} } },
-      { type: 'MultilineTextField', name: 'populating min length', fieldId: 'field-schema-min', event: 'blur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { min: '236' }, options: {} } },
-      { type: 'MultilineTextField', name: 'populating number of rows', fieldId: 'field-options-rows', event: 'blur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { }, options: { rows: '236' } } },
-      ...classesCases('MultilineTextField', { schema: {} }),
-      ...casesForAllExceptFileUpload('NumberField', { schema: {} }),
-      { type: 'NumberField', name: 'populating max value', fieldId: 'field-schema-max', event: 'blur', value: '236', expectedModel: { type: 'NumberField', schema: { max: '236' }, options: {} } },
-      { type: 'NumberField', name: 'populating min value', fieldId: 'field-schema-min', event: 'blur', value: '236', expectedModel: { type: 'NumberField', schema: { min: '236' }, options: {} } },
-      { type: 'NumberField', name: 'populating precision', fieldId: 'field-schema-precision', event: 'blur', value: '236', expectedModel: { type: 'NumberField', schema: { precision: '236' }, options: {} } },
-      ...classesCases('NumberField', { schema: {} }),
-      ...casesForAllExceptFileUpload('DateField'),
-      ...casesForAllExceptFileUpload('DatePartsField'),
-      { type: 'DatePartsField', name: 'populating max days in past', fieldId: 'field-options-maxDaysInPast', event: 'blur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInPast: '236' } } },
-      { type: 'DatePartsField', name: 'populating max days in future', fieldId: 'field-options-maxDaysInFuture', event: 'blur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInFuture: '236' } } },
-      ...classesCases('DatePartsField'),
-      ...casesForAllExceptFileUpload('SelectField'),
-      { type: 'SelectField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'SelectField', options: { list: '236' } } },
-      ...classesCases('SelectField'),
-      ...casesForAllExceptFileUpload('RadiosField'),
-      { type: 'RadiosField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'RadiosField', options: { list: '236' } } },
-      { type: 'RadiosField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'RadiosField', options: { bold: true } } },
-      { type: 'RadiosField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'RadiosField', options: { bold: false } } },
-      ...casesForAllExceptFileUpload('CheckboxesField'),
-      { type: 'CheckboxesField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'CheckboxesField', options: { list: '236' } } },
-      { type: 'CheckboxesField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'CheckboxesField', options: { bold: true } } },
-      { type: 'CheckboxesField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'CheckboxesField', options: { bold: false } } },
-      { type: 'List', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'List', options: { list: '236' } } },
-      { type: 'List', name: 'selecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', expectedModel: { type: 'List', options: { type: 'numbered' } } },
-      { type: 'List', name: 'deselecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', componentInitialState: { options: { type: 'numbered' } }, expectedModel: { type: 'List', options: { type: undefined } } },
-      { type: 'FlashCard', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'FlashCard', options: { list: '236' } } },
-      { type: 'Details', name: 'populating title', fieldId: 'details-title', event: 'blur', value: '236', expectedModel: { type: 'Details', title: '236' } },
-      { type: 'Details', name: 'populating content', fieldId: 'details-content', event: 'blur', value: '236', expectedModel: { type: 'Details', content: '236' } }
-    ]
-
     componentCases.forEach(testCase => {
       test(`${testCase.name} for ${testCase.type} component results in the appropriate model being passed to the callback function`, () => {
         const updateModel = sinon.spy()
 
-        const component = Object.assign({ type: testCase.type }, testCase.componentInitialState || {})
+        const component = { ...testCase.componentInitialState, type: testCase.type }
         const wrapper = mount(<ComponentTypeEdit data={data} component={component} updateModel={updateModel}/>)
-
         const field = wrapper.find(`#${testCase.fieldId}`)
-        expect(field.exists()).to.equal(true)
         field.simulate(testCase.event, { target: { value: testCase.value } })
-        expect(updateModel.callCount).to.equal(1)
         expect(updateModel.firstCall.args[0]).to.equal(testCase.expectedModel)
+        expect(field.exists()).to.equal(true)
+        expect(updateModel.callCount).to.equal(1)
       })
     })
   })
@@ -252,41 +175,9 @@ suite('Component type edit', () => {
       expect(optionalText.instance().hidden).to.equal(false)
     })
   })
-
-  describe('controlled name field', () => {
-    test('error messages shows up when whitespaces are entered', () => {
-      const wrapper = mount(<ComponentTypeEdit data={data} component={{ type: 'TextField', name: 'myComponent', title: 'My component' }}/>)
-      const field = wrapper.find('#field-name')
-      field.simulate('change', { target: { value: `this${randomWhitespaceCharacter()}value${randomWhitespaceCharacter()}has dif${whitespaceCharacters.join('')}ferent spaces${randomWhitespaceCharacter()} in it` } })
-      wrapper.update()
-      expect(wrapper.find('#field-name').hasClass('govuk-input--error')).to.equal(true)
-      expect(wrapper.find('#field-name').parent().hasClass('govuk-form-group--error')).to.equal(true)
-      expect(wrapper.find('.govuk-error-message').exists()).to.equal(true)
-    })
-  })
 })
 
 function assertOptionalTextWrapper (input, hidden) {
   const wrappingDiv = input.parent.parent
   expect(wrappingDiv.attribs.hidden).to.equal(hidden ? '' : undefined)
-}
-const whitespaceCharacters = ['\u0020',
-  '\u00A0',
-  '\u2000',
-  '\u2001',
-  '\u2002',
-  '\u2003',
-  '\u2004',
-  '\u2005',
-  '\u2006',
-  '\u2007',
-  '\u2008',
-  '\u2009',
-  '\u200A',
-  '\u2028',
-  '\u205F',
-  '\u3000']
-
-const randomWhitespaceCharacter = () => {
-  return whitespaceCharacters[Math.floor(Math.random() * whitespaceCharacters.length)]
 }
