@@ -17,8 +17,8 @@ export default class DefineComponentValue extends React.Component {
       this.state.children = []
     }
 
-    this.formAddItem = React.createRef();
-    this.formEditItem = React.createRef();
+    this.formAddItem = React.createRef()
+    this.formEditItem = React.createRef()
   }
 
   saveItem = () => {
@@ -48,10 +48,10 @@ export default class DefineComponentValue extends React.Component {
   addChild = (component) => {
     const { children } = this.state
     const isFormValid = this.formAddItem.current.reportValidity()
-    
+
     if (isFormValid) {
       children.push(component)
-      this.setState( {
+      this.setState({
         children: children,
         showAddChild: false
       })

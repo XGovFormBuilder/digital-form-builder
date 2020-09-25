@@ -93,7 +93,7 @@ export default class ComponentValues extends React.Component {
     const { updateModel } = this.props
     const { component } = this.state
     const isFormValid = this.formAddItem.current.reportValidity()
-    
+
     if (isFormValid) {
       updateComponent(
         component,
@@ -103,8 +103,8 @@ export default class ComponentValues extends React.Component {
         },
         updateModel
       )
-      this.setState({ 
-        showAddItem: false 
+      this.setState({
+        showAddItem: false
       })
     }
   }
@@ -113,7 +113,7 @@ export default class ComponentValues extends React.Component {
     const { updateModel } = this.props
     const { component, editingIndex } = this.state
     const isFormValid = this.formEditItem.current.reportValidity()
-    
+
     if (isFormValid) {
       updateComponent(
         component,
