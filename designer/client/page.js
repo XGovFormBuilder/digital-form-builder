@@ -1,5 +1,6 @@
 import React from 'react'
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
+import { withTranslation } from 'react-i18next'
 import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
@@ -63,7 +64,7 @@ class Page extends React.Component {
   }
 
   render () {
-    const { page, data, id, previewUrl, persona } = this.props
+    const { page, data, id, previewUrl, persona, t } = this.props
     const { sections } = data
     const formComponents = page?.components?.filter(comp =>
       ComponentTypes.find(type => type.name === comp.type).subType === 'field'
@@ -100,18 +101,18 @@ class Page extends React.Component {
         />
 
         <div className='page__actions'>
-          <button title="Edit page" onClick={this.toggleEditor}>
-            Edit page
+          <button title={t('Edit page')} onClick={this.toggleEditor}>
+            {t('Edit page')}
           </button>
-          <button title="Create component" onClick={this.toggleAddComponent}>
-            Create component
+          <button title={t('Create component')} onClick={this.toggleAddComponent}>
+            {t('Create component')}
           </button>
           <a
-            title="Preview page"
+            title={t('Preview page')}
             href={`${previewUrl}/${id}${page.path}`}
             target='_blank'
             rel="noreferrer"
-          >Preview</a>
+          >{t('Preview')}</a>
         </div>
 
         <Flyout
@@ -140,4 +141,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page
+export default withTranslation()(Page)
