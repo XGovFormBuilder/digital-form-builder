@@ -224,7 +224,7 @@ class PageEdit extends React.Component {
         </form>
         { isEditingSection &&
         <RenderInPortal>
-          <Flyout title='editing'
+          <Flyout title={`${section?.name ? `Editing ${section.name}` : 'Add a new section'}`}
             onHide={this.closeFlyout} show={isEditingSection}>
             <form ref={this.formEditSection}>
               <SectionEdit
