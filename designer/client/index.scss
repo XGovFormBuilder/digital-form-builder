@@ -38,7 +38,24 @@ $color-orange: #ffbf47;
 
 // Visualisation
 #app {
+  .menu {
 
+    &__row:not(:first-child) {
+      @extend .govuk-\!-margin-top-4;
+    }
+
+    button {
+      @extend .govuk-button;
+      @extend .govuk-\!-font-size-14;
+      @extend .govuk-\!-margin-bottom-1, .govuk-\!-margin-right-1;
+    }
+
+    a {
+      @extend .govuk-body-s;
+      @extend .govuk-\!-margin-right-4;
+    }
+  }
+  
   @include govuk-media-query($from: tablet) {
     .menu {
       padding: 3px;
