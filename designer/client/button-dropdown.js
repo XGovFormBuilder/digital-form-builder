@@ -1,6 +1,7 @@
 import React from 'react'
+import { withTranslation } from 'react-i18next'
 
-export default class buttonDropdown extends React.Component {
+class ButtonDropdown extends React.Component {
   /* TODO:- generalise this */
   constructor (props) {
     super(props)
@@ -19,6 +20,7 @@ export default class buttonDropdown extends React.Component {
   render () {
     const showPersonas = this.state.showPersonas
     const { value } = this.state
+    const { t } = this.props
     const personas = [{
       id: 'a',
       paths: ['/ceremony', '/no-civil-partnership']
@@ -37,12 +39,15 @@ export default class buttonDropdown extends React.Component {
         <button
           className='govuk-button govuk-!-font-size-14'
           onClick={() => this.setState({ showPersonas: !this.state.showPersonas })}
-        > Personas {!showPersonas ? '🔽' : '🔼'}
+        >
+          {t('Personas')} {!showPersonas ? '🔽' : '🔼'}
         </button>
         {showPersonas &&
           <div className='menu-dropdown'>
             <div className='govuk-form-group'>
-              <label className='govuk-label govuk-label--s' htmlFor='persona'>Persona</label>
+              <label className='govuk-label govuk-label--s' htmlFor='persona'>
+                {t('Persona')}
+              </label>
               <select className='govuk-select' id='persona' name='persona' onChange={this.handlePersonaChange} value={JSON.stringify(value)} required>
                 <option />
                 {personas.map(persona => (<option key={persona.id} value={JSON.stringify(persona)}>{persona.id}</option>))}
@@ -54,3 +59,5 @@ export default class buttonDropdown extends React.Component {
     )
   }
 }
+
+export default withTranslation()(ButtonDropdown)
