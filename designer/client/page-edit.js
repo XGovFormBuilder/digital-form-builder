@@ -2,9 +2,9 @@ import React from 'react'
 import { toUrl } from './helpers'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 import { RenderInPortal } from './components/render-in-portal'
-import Flyout from './flyout'
-import SectionsEdit from './section/sections-edit'
 import SectionEdit from './section/section-edit'
+import { nanoid } from 'nanoid'
+import Flyout from './flyout'
 
 class PageEdit extends React.Component {
   constructor (props) {
@@ -16,7 +16,7 @@ class PageEdit extends React.Component {
       controller: page?.controller ?? '',
       title: page?.title,
       section: page?.section ?? {},
-      isCreatingSection: false
+      isEditingSection: false
     }
     this.formEditSection = React.createRef()
   }
@@ -24,11 +24,6 @@ class PageEdit extends React.Component {
   onSubmit = async e => {
     e.preventDefault()
     const form = e.target
-    const formData = new window.FormData(form)
-    /*    const title = formData.get('title').trim()
-    const newPath = formData.get('path').trim()
-    const section = formData.get('section').trim()
-    const pageType = formData.get('page-type').trim() */
     const { title, path, section, controller } = this.state
     const { data, page } = this.props
 
@@ -44,29 +39,16 @@ class PageEdit extends React.Component {
         form.reportValidity()
         return
       }
-
       data.updateLinksTo(page.path, path)
-
       copyPage.path = path
-
       if (pageIndex === 0) {
         copy.startPage = path
       }
     }
 
     copyPage.title = title
-
-    if (section) {
-      copyPage.section = section
-    } else {
-      delete copyPage.section
-    }
-
-    if (controller) {
-      copyPage.controller = controller
-    } else {
-      delete copyPage.controller
-    }
+    section ? copyPage.section = section : delete copyPage.section
+    controller ? copyPage.controller = controller : delete copyPage.controller
 
     copy.pages[pageIndex] = copyPage
     try {
@@ -115,13 +97,11 @@ class PageEdit extends React.Component {
     const { data, page } = this.props
     const copy = clone(data)
     const duplicatedPage = clone(page)
-    const id = Math.floor(100 + Math.random() * 900)
-    duplicatedPage.path = `${duplicatedPage.path}-${id}`
+    duplicatedPage.path = `${duplicatedPage.path}-${nanoid(6)}`
     duplicatedPage.components.forEach(component => {
-      component.name = `${duplicatedPage.path}-${id}`
+      component.name = `${duplicatedPage.path}-${nanoid(6)}`
     })
     copy.pages.push(duplicatedPage)
-
     try {
       await data.save(copy)
     } catch (err) {
@@ -139,49 +119,39 @@ class PageEdit extends React.Component {
   }
 
   onChangePath = e => {
-    const input = e.target
-    const path = input.value.startsWith('/') ? input.value : `/${input.value}`
-    const sanitizedPath = path.replace(/\s/g, '-')
+    const input = e.target.value
+    const path = input.startsWith('/') ? input : `/${input}`
     this.setState({
-      path: sanitizedPath
+      path: path.replace(/\s/g, '-')
     })
   }
 
   generatePath (title) {
     let path = toUrl(title)
     const { data, page } = this.props
-
-    let count = 1
-    while (data.findPage(path) && page.title !== title) {
-      if (count > 1) {
-        path = path.substr(0, path.length - 2)
-      }
-      path = `${path}-${count}`
-      count++
+    if (data.findPage(path) && page.title !== title) {
+      path = `${path}-${nanoid(6)}`
     }
     return path
   }
 
   editSection = (e) => {
     e.preventDefault()
-    this.setState({ isCreatingSection: true })
+    this.setState({ isEditingSection: true })
   }
 
   createSection = (e) => {
     e.preventDefault()
-    this.setState({ isCreatingSection: true, section: {} })
+    this.setState({ isEditingSection: true })
   }
 
   closeFlyout = (sectionName) => {
     const propSection = this.state.section ?? this.props.page?.section ?? {}
-    this.setState({ isCreatingSection: false, section: sectionName ? this.findSectionWithName(sectionName) : propSection })
+    this.setState({ isEditingSection: false, section: sectionName ? this.findSectionWithName(sectionName) : propSection })
   }
 
   onChangeSection = (e) => {
-    const { data } = this.props
-    const { sections } = data
-    console.log('val', e.target.value)
-    console.log('find section', sections.find(section => section.name === e.target.value))
+    console.log('looking for', e.target.value)
     this.setState({
       section: this.findSectionWithName(e.target.value)
     })
@@ -196,7 +166,7 @@ class PageEdit extends React.Component {
   render () {
     const { data } = this.props
     const { sections } = data
-    const { title, path, controller, section, isCreatingSection } = this.state
+    const { title, path, controller, section, isEditingSection } = this.state
 
     return (
       <div>
@@ -242,7 +212,7 @@ class PageEdit extends React.Component {
               {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
             </select>
             }
-            {sections.length > 0 &&
+            {section?.name &&
               <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Edit section</a>
             }
             <a href='#' className="govuk-link govuk-!-display-block" onClick={this.createSection}>Create section</a>
@@ -252,10 +222,10 @@ class PageEdit extends React.Component {
           <button className='govuk-button' type='button' onClick={this.onClickDuplicate}>Duplicate</button>{' '}
           <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
         </form>
-        { isCreatingSection &&
+        { isEditingSection &&
         <RenderInPortal>
-          <Flyout title='Add Item' show={isCreatingSection} offset={1}
-            onHide={this.closeFlyout}>
+          <Flyout title='editing'
+            onHide={this.closeFlyout} show={isEditingSection}>
             <form ref={this.formEditSection}>
               <SectionEdit
                 section={section}

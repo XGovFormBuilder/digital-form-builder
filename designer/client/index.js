@@ -5,6 +5,7 @@ import Visualisation from './visualisation'
 import NewConfig from './new-config'
 import { Data } from '@xgovformbuilder/model/lib/data-model'
 import { customAlphabet } from 'nanoid'
+import { FlyoutContext } from './context'
 import './index.scss'
 /**
  * Custom alphabet is required because '-' is used as a symbol in
@@ -15,7 +16,8 @@ const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijkl
 
 class App extends React.Component {
   state = {
-    id: ''
+    id: '',
+    flyoutCount: -1
   }
 
   componentDidMount () {
@@ -70,11 +72,22 @@ class App extends React.Component {
   }
 
   setStateId = (id) => {
-    this.setState({ id: id })
+    this.setState({ id })
+  }
+
+  incrementFlyoutCounter = () => {
+    let currentCount = this.state.flyoutCount
+    this.setState({ flyoutCount: ++currentCount })
+  }
+
+  decrementFlyoutCounter = () => {
+    let currentCount = this.state.flyoutCount
+    this.setState({ flyoutCount: --currentCount })
   }
 
   render () {
-    const { previewUrl, id } = this.state
+    const { previewUrl, id, flyoutCount } = this.state
+
     if (this.state.newConfig === true) {
       return (
         <div id='app'>
@@ -85,10 +98,12 @@ class App extends React.Component {
     if (this.state.loaded) {
       const data = new Data(this.state.data)
       return (
-        <div id='app'>
-          <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} updatePersona={this.updatePersona} />
-          <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} persona={this.state.persona} id={id} previewUrl={previewUrl} />
-        </div>
+        <FlyoutContext.Provider value={{ flyoutCount, incrementFlyoutCounter: this.incrementFlyoutCounter, decrementFlyoutCounter: this.decrementFlyoutCounter }}>
+          <div id='app'>
+            <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} updatePersona={this.updatePersona} />
+            <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} persona={this.state.persona} id={id} previewUrl={previewUrl} />
+          </div>
+        </FlyoutContext.Provider>
       )
     } else {
       return <div>Loading...</div>

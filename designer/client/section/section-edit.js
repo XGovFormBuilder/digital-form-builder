@@ -1,6 +1,5 @@
 import React from 'react'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
-import { camelCase } from '../helpers'
 import Name from '../name'
 import { nanoid } from 'nanoid'
 
@@ -9,9 +8,7 @@ class SectionEdit extends React.Component {
     super(props)
     this.closeFlyout = props.closeFlyout
     const { section } = props
-    this.isNewSection = !section
-
-    console.log('section', section)
+    this.isNewSection = !section?.name
 
     this.state = {
       name: section?.name ?? nanoid(6),
@@ -27,21 +24,22 @@ class SectionEdit extends React.Component {
     if (this.isNewSection) {
       copy.addSection(name, title.trim())
     } else {
-      const previousName = this.props.name
-      const section = { name, title }
+      const previousName = this.props.section?.name
       const nameChanged = previousName !== name
-      const copySection = copy.sections[data.sections.indexOf(section)]
+      const copySection = copy.sections.find(section => section.name === previousName)
 
       if (nameChanged) {
         copySection.name = name
-        // Update any references to the section
+        /**
+         * @code removing any references to the section
+         */
         copy.pages.forEach(p => {
-          if (p.section === name) {
+          if (p.section === previousName) {
             p.section = name
           }
         })
-        copySection.title = title
       }
+      copySection.title = title
     }
 
     try {
@@ -74,7 +72,7 @@ class SectionEdit extends React.Component {
 
     // Update any references to the section
     copy.pages.forEach(p => {
-      if (p.section === name) {
+      if (p.section.name === name) {
         delete p.section
       }
     })

@@ -1,23 +1,45 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { FlyoutContext } from './context'
 
 function Flyout (props) {
+  // TODO:- This should really be handled by the parent to determine whether or not flyout should render.
   if (!props.show) {
     return null
   }
+  const flyoutContext = useContext(FlyoutContext)
+  const [offset, setOffset] = useState(0)
+
+  /**
+   * @code on component mount, increment the flyout counter, then set offset value.
+   */
+  useEffect(() => {
+    flyoutContext.incrementFlyoutCounter()
+  }, [])
+  useEffect(() => {
+    setOffset(flyoutContext.flyoutCount)
+  }, [])
+
+  const [style, setStyle] = useState()
+  useEffect(() => {
+    setStyle({
+      paddingLeft: `${offset * 50}px`,
+      transform: `translateX(${offset * -50}px)`,
+      position: 'relative'
+    })
+  }, [offset])
 
   const width = props.width || ''
-  const offset = props.offset || 0
-  const style = {
-    paddingLeft: `${offset * 50}px`,
-    transform: `translateX(${offset * -50}px)`,
-    position: 'relative'
+
+  const onHide = e => {
+    flyoutContext.decrementFlyoutCounter()
+    props.onHide(e)
   }
 
   return (
     <div className='flyout-menu show'>
       <div className={`flyout-menu-container ${width}`}
         style={style} >
-        <a title='Close' className='close govuk-body govuk-!-font-size-16' onClick={e => props.onHide(e)}>Close</a>
+        <a title='Close' className='close govuk-body govuk-!-font-size-16' onClick={onHide}>Close</a>
         <div className='panel'>
           <div className='panel-header govuk-!-padding-top-4 govuk-!-padding-left-4'>
             {props.title && <h4 className='govuk-heading-m'>{props.title}</h4>}
