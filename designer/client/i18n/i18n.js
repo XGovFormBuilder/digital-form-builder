@@ -7,7 +7,7 @@ const initI18n = (i18next: i18n): void => {
   i18next
     .use(Backend)
     .init({
-      lng: 'en',
+      lng: 'cy',
       fallbackLng: 'en',
       debug: true,
       interpolation: {
@@ -19,11 +19,12 @@ const initI18n = (i18next: i18n): void => {
     })
 }
 
+const translate = (text: string): string => i18n.t(text)
+
 function withI18n<Props> (
   Component: React.AbstractComponent<{| ...Props, i18n: (text: string) => string |}>
 ): React.AbstractComponent<Props> {
   return function WithI18n (props) {
-    const translate = (text) => i18n.t(text)
     return <Component {...props} i18n={translate} />
   }
 }
