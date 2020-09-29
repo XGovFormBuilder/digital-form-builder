@@ -10,7 +10,15 @@ exports.lab = lab
 const { suite, test, describe } = lab
 
 suite.only('Name component', () => {
-  test('With component prop', () => {
+  describe('with component prop', () => {
+    test('renders with correct values', () => {
+      const wrapper = mount(<Name component={{ type: 'TextField', name: 'myComponent', title: 'My component' }} id={'an-id'} labelText={'label text'}/>)
+      const field = wrapper.find('#an-id').hostNodes()
+      expect(wrapper.find('#an-id').hostNodes().exists).to.equal(true)
+      expect(wrapper.find('#an-id').hostNodes().exists).to.equal(true)
+    })
+  })
+  test('Renders with', () => {
 
   })
   test('Without component prop', () => {

@@ -110,8 +110,7 @@ class PageEdit extends React.Component {
   }
 
   onChangeTitle = e => {
-    const input = e.target
-    const title = input.value
+    const title = e.target.value
     this.setState({
       title: title,
       path: this.generatePath(title)
@@ -151,7 +150,6 @@ class PageEdit extends React.Component {
   }
 
   onChangeSection = (e) => {
-    console.log('looking for', e.target.value)
     this.setState({
       section: this.findSectionWithName(e.target.value)
     })
@@ -203,14 +201,15 @@ class PageEdit extends React.Component {
 
           <div className='govuk-form-group'>
             <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
+            <span className='govuk-hint'>The section title is shown above the page title. If the page and the section title are the same, the section title wont show.</span>
             {sections.length > 0 &&
-            <select
-              className='govuk-select' id='page-section' name='section' value={section?.name}
-              onChange={this.onChangeSection}
-            >
-              <option/>
-              {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
-            </select>
+              <select
+                className='govuk-select' id='page-section' name='section' value={section?.name}
+                onChange={this.onChangeSection}
+              >
+                <option/>
+                {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
+              </select>
             }
             {section?.name &&
               <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Edit section</a>
@@ -223,18 +222,18 @@ class PageEdit extends React.Component {
           <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
         </form>
         { isEditingSection &&
-        <RenderInPortal>
-          <Flyout title={`${section?.name ? `Editing ${section.name}` : 'Add a new section'}`}
-            onHide={this.closeFlyout} show={isEditingSection}>
-            <form ref={this.formEditSection}>
-              <SectionEdit
-                section={section}
-                data={data}
-                closeFlyout={this.closeFlyout}
-              />
-            </form>
-          </Flyout>
-        </RenderInPortal>
+          <RenderInPortal>
+            <Flyout title={`${section?.name ? `Editing ${section.name}` : 'Add a new section'}`}
+              onHide={this.closeFlyout} show={isEditingSection}>
+              <form ref={this.formEditSection}>
+                <SectionEdit
+                  section={section}
+                  data={data}
+                  closeFlyout={this.closeFlyout}
+                />
+              </form>
+            </Flyout>
+          </RenderInPortal>
         }
       </div>
 

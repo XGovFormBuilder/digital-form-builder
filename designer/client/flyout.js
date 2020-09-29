@@ -10,13 +10,12 @@ function Flyout (props) {
   const [offset, setOffset] = useState(0)
 
   /**
-   * @code on component mount, increment the flyout counter, then set offset value.
+   * @code on component mount
    */
   useEffect(() => {
-    flyoutContext.incrementFlyoutCounter()
-  }, [])
-  useEffect(() => {
-    setOffset(flyoutContext.flyoutCount)
+    flyoutContext.increment(() => {
+      setOffset(flyoutContext.flyoutCount)
+    })
   }, [])
 
   const [style, setStyle] = useState()
@@ -31,7 +30,7 @@ function Flyout (props) {
   const width = props.width || ''
 
   const onHide = e => {
-    flyoutContext.decrementFlyoutCounter()
+    flyoutContext.decrement()
     props.onHide(e)
   }
 

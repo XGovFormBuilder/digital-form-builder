@@ -17,7 +17,7 @@ const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijkl
 class App extends React.Component {
   state = {
     id: '',
-    flyoutCount: -1
+    flyoutCount: 0
   }
 
   componentDidMount () {
@@ -75,20 +75,21 @@ class App extends React.Component {
     this.setState({ id })
   }
 
-  incrementFlyoutCounter = () => {
+  incrementFlyoutCounter = (callback = () => {}) => {
     let currentCount = this.state.flyoutCount
-    this.setState({ flyoutCount: ++currentCount })
+    this.setState({ flyoutCount: ++currentCount }, callback())
   }
 
-  decrementFlyoutCounter = () => {
+  decrementFlyoutCounter = (callback = () => {}) => {
     let currentCount = this.state.flyoutCount
-    this.setState({ flyoutCount: --currentCount })
+    this.setState({ flyoutCount: --currentCount }, callback())
   }
 
   render () {
-    const { previewUrl, id, flyoutCount } = this.state
+    const { previewUrl, id, flyoutCount, newConfig } = this.state
+    const flyoutContextProviderValue = { flyoutCount, increment: this.incrementFlyoutCounter, decrement: this.decrementFlyoutCounter }
 
-    if (this.state.newConfig === true) {
+    if (newConfig) {
       return (
         <div id='app'>
           <NewConfig setStateId={this.setStateId} />
@@ -98,7 +99,7 @@ class App extends React.Component {
     if (this.state.loaded) {
       const data = new Data(this.state.data)
       return (
-        <FlyoutContext.Provider value={{ flyoutCount, incrementFlyoutCounter: this.incrementFlyoutCounter, decrementFlyoutCounter: this.decrementFlyoutCounter }}>
+        <FlyoutContext.Provider value={flyoutContextProviderValue}>
           <div id='app'>
             <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} updatePersona={this.updatePersona} />
             <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} persona={this.state.persona} id={id} previewUrl={previewUrl} />
