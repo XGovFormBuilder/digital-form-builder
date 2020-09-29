@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import Name from '../client/name'
@@ -12,31 +12,46 @@ const { suite, test, describe } = lab
 suite.only('Name component', () => {
   describe('with component prop', () => {
     test('renders with correct values', () => {
-      const wrapper = mount(<Name component={{ type: 'TextField', name: 'myComponent', title: 'My component' }} id={'an-id'} labelText={'label text'}/>)
+      const component = { type: 'TextField', name: 'myComponent', title: 'My component' }
+      const wrapper = mount(<Name component={component} id={'an-id'} labelText={'label text'} />)
+      expect(wrapper.state()).to.include({ name: 'myComponent', nameHasError: false })
       const field = wrapper.find('#an-id').hostNodes()
-      expect(wrapper.find('#an-id').hostNodes().exists).to.equal(true)
-      expect(wrapper.find('#an-id').hostNodes().exists).to.equal(true)
+      expect(field.exists()).to.equal(true)
+      expect(field.props().value).to.equal(component.name)
+      expect(wrapper.find('.govuk-label').text()).to.equal('label text')
+      expect(wrapper.find('.govuk-hint').text()).to.equal('This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.')
+      expect(wrapper.state()).to.equal({ name: component.name, nameHasError: false })
+    })
+    test('update method is called with correct param', () => {
+      const component = { type: 'TextField', name: 'myComponent', title: 'My component' }
+      const updateModelSpy = sinon.spy()
+      const wrapper = mount(<Name component={component} id={'an-id'} labelText={'label text'} updateModel={updateModelSpy}/>)
+      const field = wrapper.find('#an-id').hostNodes()
+      field.simulate('change', { target: { value: 'beepboop' } })
+      expect(updateModelSpy.calledOnce).to.equal(true)
+      expect(updateModelSpy.firstCall.firstArg).to.include({ type: 'TextField', name: 'beepboop', title: 'My component' })
+    })
+    test('update method is not called when there is an error', () => {
+      const component = { type: 'TextField', name: 'myComponent', title: 'My component' }
+      const updateModelSpy = sinon.spy()
+      const wrapper = mount(<Name component={component} id={'an-id'} labelText={'label text'} updateModel={updateModelSpy}/>)
+      const field = wrapper.find('#an-id').hostNodes()
+      field.simulate('change', { target: { value: 'beep boop' } })
+      expect(updateModelSpy.callCount).to.equal(0)
     })
   })
-  test('Renders with', () => {
-
+  describe('Without component prop', () => {
+    test('renders correctly with all props provided', () => {
+      const wrapper = mount(<Name id={'an-id'} labelText={'label text'} name={'myComponent'} hint={'a hint'}/>)
+      const field = wrapper.find('#an-id').hostNodes()
+      expect(field.exists()).to.equal(true)
+      expect(field.props().value).to.equal('myComponent')
+      expect(wrapper.find('.govuk-label').text()).to.equal('label text')
+      expect(wrapper.find('.govuk-hint').text()).to.equal('a hint')
+      expect(wrapper.state()).to.equal({ name: 'myComponent', nameHasError: false })
+    })
   })
-  test('Without component prop', () => {
-
-  })
-  test('Without name prop', () => {
-
-  })
-  test('With name prop', () => {
-
-  })
-  test('With id prop', () => {
-
-  })
-  test('Typing in field updates value', () => {
-
-  })
-  test.only('Error message shows up when whitespaces are entered', () => {
+  test('Error message shows up when whitespaces are entered', () => {
     const wrapper = mount(<Name component={{ type: 'TextField', name: 'myComponent', title: 'My component' }} id={'an-id'} labelText={'label text'}/>)
     const field = wrapper.find('#an-id').hostNodes()
     field.simulate('change', { target: { value: `this${randomWhitespaceCharacter()}value${randomWhitespaceCharacter()}has dif${whitespaceCharacters.join('')}ferent spaces${randomWhitespaceCharacter()} in it` } })
