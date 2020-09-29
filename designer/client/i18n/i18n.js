@@ -9,7 +9,7 @@ const initI18n = (i18next: i18n): void => {
     .init({
       lng: 'cy',
       fallbackLng: 'en',
-      debug: true,
+      debug: false,
       interpolation: {
         escapeValue: false
       },
