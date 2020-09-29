@@ -10,7 +10,7 @@ module.exports = {
   locales: ['en', 'cy'],
   output: 'client/i18n/translations/$LOCALE.$NAMESPACE.json',
   lexers: {
-    js: ['JsxLexer', 'JavascriptLexer']
+    js: ['JsxLexer']
   },
   createOldCatalogs: true,
   useKeysAsDefaultValue: true
