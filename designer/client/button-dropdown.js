@@ -1,5 +1,5 @@
 import React from 'react'
-import { withTranslation } from 'react-i18next'
+import { withI18n } from './i18n'
 
 class ButtonDropdown extends React.Component {
   /* TODO:- generalise this */
@@ -20,7 +20,7 @@ class ButtonDropdown extends React.Component {
   render () {
     const showPersonas = this.state.showPersonas
     const { value } = this.state
-    const { t } = this.props
+    const { i18n } = this.props
     const personas = [{
       id: 'a',
       paths: ['/ceremony', '/no-civil-partnership']
@@ -40,13 +40,13 @@ class ButtonDropdown extends React.Component {
           className='govuk-button govuk-!-font-size-14'
           onClick={() => this.setState({ showPersonas: !this.state.showPersonas })}
         >
-          {t('Personas')} {!showPersonas ? '🔽' : '🔼'}
+          {i18n('Personas')} {!showPersonas ? '🔽' : '🔼'}
         </button>
         {showPersonas &&
           <div className='menu-dropdown'>
             <div className='govuk-form-group'>
               <label className='govuk-label govuk-label--s' htmlFor='persona'>
-                {t('Persona')}
+                {i18n('Persona')}
               </label>
               <select className='govuk-select' id='persona' name='persona' onChange={this.handlePersonaChange} value={JSON.stringify(value)} required>
                 <option />
@@ -60,4 +60,4 @@ class ButtonDropdown extends React.Component {
   }
 }
 
-export default withTranslation()(ButtonDropdown)
+export default withI18n(ButtonDropdown)
