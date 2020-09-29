@@ -1,8 +1,9 @@
-import React from 'react'
+// @flow
+import * as React from 'react'
 import i18n from 'i18next'
 import Backend from 'i18next-http-backend'
 
-const initI18n = (i18n) => {
+const initI18n = (i18n: i18n): void => {
   i18n
     .use(Backend)
     .init({
@@ -18,7 +19,9 @@ const initI18n = (i18n) => {
     })
 }
 
-function withI18n (Component) {
+function withI18n<Props> (
+  Component:  React.AbstractComponent<{| ...Props, i18n: (text: string) => string |}>
+  ): React.AbstractComponent<Props> {
   return function WithI18n (props) {
     const translate = (text) => i18n.t(text)
     return <Component {...props} i18n={translate} />
