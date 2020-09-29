@@ -1,12 +1,12 @@
 import React from 'react'
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
-import { withTranslation } from 'react-i18next'
 import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { withI18n } from './i18n'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
@@ -24,7 +24,7 @@ const SortableList = SortableContainer(({ page, data }) => {
   )
 })
 
-class Page extends React.Component {
+export class Page extends React.Component {
   state = {
     showEditor: false,
     showAddComponent: false
@@ -64,7 +64,7 @@ class Page extends React.Component {
   }
 
   render () {
-    const { page, data, id, previewUrl, persona, t } = this.props
+    const { page, data, id, previewUrl, persona, i18n } = this.props
     const { sections } = data
     const formComponents = page?.components?.filter(comp =>
       ComponentTypes.find(type => type.name === comp.type).subType === 'field'
@@ -101,18 +101,20 @@ class Page extends React.Component {
         />
 
         <div className='page__actions'>
-          <button title={t('Edit page')} onClick={this.toggleEditor}>
-            {t('Edit page')}
+          <button title={i18n('Edit page')} onClick={this.toggleEditor}>
+            {i18n('Edit page')}
           </button>
-          <button title={t('Create component')} onClick={this.toggleAddComponent}>
-            {t('Create component')}
+          <button title={i18n('Create component')} onClick={this.toggleAddComponent}>
+            {i18n('Create component')}
           </button>
           <a
-            title={t('Preview page')}
+            title={i18n('Preview page')}
             href={`${previewUrl}/${id}${page.path}`}
             target='_blank'
             rel="noreferrer"
-          >{t('Preview')}</a>
+          >
+            {i18n('Preview')}
+          </a>
         </div>
 
         <Flyout
@@ -141,4 +143,4 @@ class Page extends React.Component {
   }
 }
 
-export default withTranslation()(Page)
+export default withI18n(Page)
