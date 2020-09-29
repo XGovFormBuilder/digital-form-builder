@@ -1,21 +1,32 @@
+import React from 'react'
 import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-
 import Backend from 'i18next-http-backend'
 
-i18n
-  .use(Backend)
-  .use(initReactI18next)
-  .init({
-    lng: 'en',
-    fallbackLng: 'en',
-    debug: true,
-    interpolation: {
-      escapeValue: false
-    },
-    backend: {
-      loadPath: '/assets/translations/{{lng}}.{{ns}}.json'
-    }
-  })
+const initI18n = (i18n) => {
+  i18n
+    .use(Backend)
+    .init({
+      lng: 'en',
+      fallbackLng: 'en',
+      debug: true,
+      interpolation: {
+        escapeValue: false
+      },
+      backend: {
+        loadPath: '/assets/translations/{{lng}}.{{ns}}.json'
+      }
+    })
+}
 
-export default i18n
+function withI18n (Component) {
+  return function WithI18n (props) {
+    const translate = (text) => i18n.t(text)
+    return <Component {...props} i18n={translate} />
+  }
+}
+
+export {
+  i18n,
+  initI18n,
+  withI18n
+}
