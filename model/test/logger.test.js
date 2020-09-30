@@ -10,13 +10,15 @@ exports.lab = lab
 const { afterEach, suite, test } = lab
 
 suite('logger', () => {
-  const underlyingLogger = sinon.spy()
+  const server = {
+    log: sinon.spy()
+  }
   const identifier = 'MyIdentifier'
   const message = 'My message'
-  const logger = new Logger(underlyingLogger, identifier)
+  const logger = new Logger(server, identifier)
 
   afterEach(() => {
-    underlyingLogger.resetHistory()
+    server.log.resetHistory()
   })
 
   test('should log an error level message', () => {
@@ -40,8 +42,8 @@ suite('logger', () => {
   })
 
   function assertMessageLoggedAt (level) {
-    expect(underlyingLogger.callCount).to.equal(1)
-    expect(underlyingLogger.firstCall.args[0]).to.equal([level, identifier])
-    expect(underlyingLogger.firstCall.args[1]).to.equal(message)
+    expect(server.log.callCount).to.equal(1)
+    expect(server.log.firstCall.args[0]).to.equal([level, identifier])
+    expect(server.log.firstCall.args[1]).to.equal(message)
   }
 })

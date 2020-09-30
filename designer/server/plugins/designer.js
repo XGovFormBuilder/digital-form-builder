@@ -1,4 +1,4 @@
-const Schema = require('@xgovformbuilder/model/lib/schema')
+const { Schema } = require('@xgovformbuilder/model')
 const { nanoid } = require('nanoid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')

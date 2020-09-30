@@ -1,4 +1,4 @@
-const joi = require('joi')
+import joi from '@hapi/joi'
 
 const sectionsSchema = joi.object().keys({
   name: joi.string().required(),
@@ -39,7 +39,7 @@ const conditionSchema = joi.object().keys({
 })
 
 const conditionGroupSchema = joi.object().keys({
-  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, /** Should be a link to conditionGroupSchema **/joi.any()))
+  conditions: joi.array().items(joi.alternatives().try(conditionSchema, conditionRefSchema, joi.any()/** Should be a joi.link('#conditionGroupSchema') */))
 })
 
 const conditionsModelSchema = joi.object().keys({
@@ -55,6 +55,28 @@ const conditionsSchema = joi.object().keys({
 
 const localisedString = joi.alternatives().try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(''))
 
+const staticValueSchema = joi.object().keys({
+  label: joi.string().required(),
+  value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()).required(),
+  hint: joi.string().allow('').optional(),
+  condition: joi.string().optional(),
+  children: joi.array().items(joi.any()/** Should be a joi.link('#componentSchema') */).unique('name')
+})
+
+// represents the 'children' which would appear e.g. under a radio option with the specified value
+const valueChildrenSchema = joi.object().keys({
+  value: joi.alternatives().try(joi.number(), joi.string(), joi.boolean()).required(),
+  children: joi.array().items(joi.any()/** Should be a joi.link('#componentSchema') */).unique('name')
+})
+
+const componentValuesSchema = joi.object().keys({
+  type: joi.string().allow('static', 'listRef').required(), // allow extension support for dynamically looked up types later
+  valueType: joi.when('type', { is: joi.string().valid('static'), then: joi.string().allow('string', 'number', 'boolean').required() }),
+  items: joi.when('type', { is: joi.string().valid('static'), then: joi.array().items(staticValueSchema).unique('value') }),
+  list: joi.when('type', { is: joi.string().valid('listRef'), then: joi.string().required() }),
+  valueChildren: joi.when('type', { is: joi.string().valid('listRef'), then: joi.array().items(valueChildrenSchema).unique('value') })
+})
+
 const componentSchema = joi.object().keys({
   type: joi.string().required(),
   name: joi.string(),
@@ -62,7 +84,8 @@ const componentSchema = joi.object().keys({
   hint: localisedString.optional(),
   options: joi.object().default({}),
   schema: joi.object().default({}),
-  errors: joi.object({ a: joi.any() }).optional()
+  errors: joi.object({ a: joi.any() }).optional(),
+  values: componentValuesSchema.optional()
 }).unknown(true)
 
 const nextSchema = joi.object().keys({
@@ -164,4 +187,10 @@ const schema = joi.object().required().keys({
   version: joi.number().default(0)
 })
 
-module.exports = schema
+export default schema
+/**
+ *  Schema versions:
+ *  Undefined / 0 - initial version as at 28/8/20. Conditions may be in object structure or string form.
+ *  1 - Relevant components (radio, checkbox, select, autocomplete) now contain
+ *      options as 'values' rather than referencing a data list
+ **/

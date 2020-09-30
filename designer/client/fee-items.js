@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {

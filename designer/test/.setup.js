@@ -3,7 +3,14 @@ const { configure } = require('enzyme')
 const { JSDOM } = require('jsdom')
 
 function setUpDomEnvironment() {
-  const dom = new JSDOM('<!doctype html><html></html>', {url: 'http://localhost/'})
+  const dom = new JSDOM(`
+    <!doctype html>
+      <html>
+        <div id="portal-root"></div>
+      </html>
+    `, 
+    {url: 'http://localhost/'}
+  )
   const { window } = dom
 
   global.window = window

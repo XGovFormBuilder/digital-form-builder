@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from './editor'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class DeclarationEdit extends React.Component {
   constructor (props) {

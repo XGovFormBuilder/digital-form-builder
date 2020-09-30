@@ -4,8 +4,7 @@ import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { ComponentTypes, clone } from '@xgovformbuilder/model'
 import { withI18n } from './i18n'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>

@@ -1,6 +1,6 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import ConditionalComponentTypes from '@xgovformbuilder/model/lib/conditional-component-types'
+import { ConditionalComponentTypes } from '@xgovformbuilder/model'
 
 class ComponentConditionCreate extends React.Component {
   constructor (props) {

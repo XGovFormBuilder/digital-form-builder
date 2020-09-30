@@ -8,7 +8,7 @@ suite('Rate limit', () => {
 
   // Create server before each test
   before(async () => {
-    server = await createServer({ data: 'basic.json', customPath: __dirname, rateOptions: { userLimit: 1, userCache: { expiresIn: 5000 } } })
+    server = await createServer({ data: 'basic-v1.json', customPath: __dirname, rateOptions: { userLimit: 1, userCache: { expiresIn: 5000 } } })
     server.route({
       method: 'GET',
       path: '/start',

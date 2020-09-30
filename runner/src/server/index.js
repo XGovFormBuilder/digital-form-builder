@@ -1,11 +1,18 @@
+import { configurePlugins } from './plugins/builder'
+
+import {
+  CacheService, catboxProvider, EmailService,
+  NotifyService,
+  PayService, SheetsService,
+  UploadService, WebhookService
+} from './lib/services'
+
 const fs = require('fs')
 const hapi = require('@hapi/hapi')
 const Blankie = require('blankie')
 const Scooter = require('@hapi/scooter')
 const config = require('./config')
-const { configurePlugins } = require('./plugins/builder')
 const Schmervice = require('schmervice')
-const { NotifyService, PayService, UploadService, CacheService, catboxProvider, EmailService, WebhookService, SheetsService } = require('./lib/services')
 
 const serverOptions = () => {
   const defaultOptions = {

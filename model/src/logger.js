@@ -1,10 +1,10 @@
 // @flow
 export class Logger {
-    logger: any;
+    server: any;
     name: string;
 
-    constructor (logger: any, name: string) {
-      this.logger = logger
+    constructor (server: any, name: string) {
+      this.server = server
       this.name = name
     }
 
@@ -25,6 +25,6 @@ export class Logger {
     }
 
     log (level: string, message: string) {
-      this.logger([level, this.name], message)
+      this.server.log([level, this.name], message)
     }
 }

@@ -1,0 +1,55 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+           "@babel/preset-flow",
+    ["@babel/preset-env", {
+          "targets": {
+            "node": "12"
+          }
+        }]
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-runtime"
+      ]
+    },
+    "browser": {
+      "presets": [
+            "@babel/preset-flow",
+   [ "@babel/preset-env", {
+          "targets": {
+            "browsers": "last 2 versions, ie 10-11"
+          },
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-runtime"
+      ]
+    },
+    "module": {
+      "presets":
+        [    "@babel/preset-flow",
+    ["@babel/preset-env", {
+          "targets": {
+            "node": "12"
+          },
+          "modules": false
+        }]
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-runtime"
+      ]
+    }
+  },
+  "sourceMaps": true
+}

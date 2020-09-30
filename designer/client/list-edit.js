@@ -1,6 +1,6 @@
 import React from 'react'
 import ListItems from './list-items'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class ListEdit extends React.Component {
   constructor (props) {
@@ -37,10 +37,8 @@ class ListEdit extends React.Component {
       // Update any references to the list
       copy.pages.forEach(p => {
         p.components.forEach(c => {
-          if (c.type === 'SelectField' || c.type === 'RadiosField' || c.type === 'AutocompleteField') {
-            if (c.options && c.options.list === list.name) {
-              c.options.list = newName
-            }
+          if (c.values?.type === 'listRef' && c.values.list === list.name) {
+            c.values.list = newName
           }
         })
       })
@@ -55,44 +53,11 @@ class ListEdit extends React.Component {
     const descriptions = formData.getAll('description').map(t => t.trim())
     const conditions = formData.getAll('condition').map(t => t.trim())
 
-    const conditionalTypes = formData.getAll('cond-type').map(t => t.trim())
-    const conditionalNames = formData.getAll('name').map(t => t.trim())
-    const conditionalTitles = formData.getAll('title').map(t => t.trim())
-    const conditionalHints = formData.getAll('hint').map(t => t.trim())
-
-    // remove list name and title
-    conditionalNames.shift()
-    conditionalTitles.shift()
-
-    const conditionals = conditionalTypes.map(type => {
-      if (type) {
-        const name = conditionalNames.shift()
-        const title = conditionalTitles.shift()
-        const hint = conditionalHints.shift()
-        return {
-          components: [
-            {
-              type,
-              name,
-              title,
-              hint,
-              options: {
-                classes: 'govuk-!-width-one-third'
-              },
-              schema: {}
-            }
-          ]
-        }
-      }
-      return null
-    })
-
-    copyList.items = texts.map((t, i) => ({
+    copyList.items = texts.map((t, index) => ({
       text: t,
-      value: values[i],
-      description: descriptions[i],
-      condition: conditions[i],
-      conditional: conditionals[i]
+      value: values[index],
+      description: descriptions[index],
+      condition: conditions[index]
     }))
 
     console.log(copy)
@@ -113,24 +78,32 @@ class ListEdit extends React.Component {
     const { data, list } = this.props
     const copy = clone(data)
 
-    // Remove the list
-    copy.lists.splice(data.lists.indexOf(list), 1)
+    const affectedComponents = copy.pages.flatMap(p => p.components)
+      .filter(component => component.values?.type === 'listRef' && component.values.list === list.name)
 
-    // Update any references to the list
-    copy.pages.forEach(p => {
-      if (p.list === list.name) {
-        delete p.list
-      }
-    })
-
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
+    // Flag anything we are breaking to the user
+    let aborted = false
+    if (affectedComponents.length > 0) {
+      aborted = !window.confirm(`The following components will no longer function correctly:\n\n
+      ${affectedComponents.map(it => it.type + ': ' + it.title + '\n\n')}
+      Are you sure you want to proceed?`)
+    }
+    if (!aborted) {
+      // Remove the list
+      copy.lists.splice(data.lists.indexOf(list), 1)
+      // Update any references to the list
+      affectedComponents.forEach(c => {
+        delete c.values
       })
-      .catch(err => {
-        console.error(err)
-      })
+      data.save(copy)
+        .then(data => {
+          console.log(data)
+          this.props.onEdit({ data })
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
   }
 
   onBlurName = e => {

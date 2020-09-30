@@ -2,7 +2,7 @@
  * Enforces use of relative URL's, prevents someone maliciously causing a user to be directed to a phishing
  * site.
 **/
-module.exports = class RelativeUrl {
+export default class RelativeUrl {
   static FEEDBACK_RETURN_INFO_PARAMETER = 'f_t'
   static VISIT_IDENTIFIER_PARAMETER = 'visit'
 
