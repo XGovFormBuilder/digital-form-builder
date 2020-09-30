@@ -14,7 +14,7 @@ import './index.scss'
  */
 const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz', 10)
 
-class App extends React.Component {
+export class App extends React.Component {
   state = {
     id: '',
     flyoutCount: 0

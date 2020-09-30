@@ -9,7 +9,7 @@ const lab = Lab.script()
 exports.lab = lab
 const { suite, test, describe } = lab
 
-suite.only('Name component', () => {
+suite('Name component', () => {
   describe('with component prop', () => {
     test('renders with correct values', () => {
       const component = { type: 'TextField', name: 'myComponent', title: 'My component' }

@@ -14,14 +14,7 @@ class SectionsEdit extends React.Component {
     })
   }
 
-  onClickAddSection = (e) => {
-    e.preventDefault()
-    this.setState({
-      isEditingSection: true
-    })
-  }
-
-  // TODO:- This is borrwed from page-edit.js. Needs refactor. (hooks hooks hooks)
+  // TODO:- This is borrowed from page-edit.js. Needs refactor. (hooks hooks hooks)
   closeFlyout = (sectionName) => {
     const propSection = this.state.section ?? this.props.page?.section ?? {}
     this.setState({ isEditingSection: false, section: sectionName ? this.findSectionWithName(sectionName) : propSection })
@@ -50,7 +43,7 @@ class SectionsEdit extends React.Component {
           ))}
           <li>
             <hr />
-            <a href='#' onClick={e => this.onClickAddSection(e)}>Add section</a>
+            <a href='#' onClick={e => this.onClickSection(e)}>Add section</a>
           </li>
         </ul>
 

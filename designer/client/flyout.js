@@ -1,24 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { FlyoutContext } from './context'
 
-function Flyout (props) {
-  // TODO:- This should really be handled by the parent to determine whether or not flyout should render.
-  if (!props.show) {
-    return null
-  }
+export function useFlyoutEffect (props) {
   const flyoutContext = useContext(FlyoutContext)
   const [offset, setOffset] = useState(0)
+  const [style, setStyle] = useState()
 
   /**
    * @code on component mount
    */
-  useEffect(() => {
-    flyoutContext.increment(() => {
-      setOffset(flyoutContext.flyoutCount)
-    })
+  useLayoutEffect(() => {
+    flyoutContext.increment()
   }, [])
 
-  const [style, setStyle] = useState()
+  useLayoutEffect(() => {
+    setOffset(flyoutContext.flyoutCount)
+  }, [])
+
   useEffect(() => {
     setStyle({
       paddingLeft: `${offset * 50}px`,
@@ -27,12 +25,21 @@ function Flyout (props) {
     })
   }, [offset])
 
-  const width = props.width || ''
-
   const onHide = e => {
     flyoutContext.decrement()
     props.onHide(e)
   }
+
+  return { style, width: props?.width, onHide, offset }
+}
+
+function Flyout (props) {
+  // TODO:- This should really be handled by the parent to determine whether or not flyout should render.
+  if (!props.show) {
+    return null
+  }
+
+  const { style, width = '', onHide } = useFlyoutEffect(props)
 
   return (
     <div className='flyout-menu show'>
