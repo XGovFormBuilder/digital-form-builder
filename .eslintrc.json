@@ -6,8 +6,14 @@
         "node": true
     },
     "extends": [
+        "standard",
         "plugin:react/recommended",
-        "standard"
+        "plugin:flowtype/recommended",
+        "plugin:prettier/recommended",
+        "prettier/babel",
+        "prettier/flowtype",
+        "prettier/react",
+        "prettier/standard"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -24,7 +30,8 @@
     "plugins": [
         "react",
         "flowtype",
-        "@babel"
+        "@babel",
+        "prettier"
     ],
     "rules": {
         "react/prop-types": 0
