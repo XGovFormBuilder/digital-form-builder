@@ -7195,11 +7195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
 "eslint-config-prettier@npm:^6.12.0":
-=======
-"eslint-config-prettier@npm:^6.11.0":
->>>>>>> 6add9d23332072361cd8a45d56c5c9770fa38e6d
   version: 6.12.0
   resolution: "eslint-config-prettier@npm:6.12.0"
   dependencies:
@@ -8148,7 +8144,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
 "fast-diff@npm:^1.1.2":
   version: 1.2.0
   resolution: "fast-diff@npm:1.2.0"
@@ -8156,10 +8151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.0.3":
-=======
 "fast-glob@npm:^3.0.3, fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.4":
->>>>>>> 6add9d23332072361cd8a45d56c5c9770fa38e6d
   version: 3.2.4
   resolution: "fast-glob@npm:3.2.4"
   dependencies:
@@ -14331,7 +14323,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.1.2":
+"prettier@npm:2.1.2, prettier@npm:^2.0.5":
   version: 2.1.2
   resolution: "prettier@npm:2.1.2"
   bin:
@@ -14346,15 +14338,6 @@ fsevents@~2.1.2:
   bin:
     prettier: ./bin-prettier.js
   checksum: e5fcdfe5e159ef5c5480245353cf8fb5bbd1b8afff266f31f281641825238f8a645e58472f77cd75a09ccc45d44c335466e8d901ec138c2bda05e1bd6ea1077c
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.0.5":
-  version: 2.1.2
-  resolution: "prettier@npm:2.1.2"
-  bin:
-    prettier: bin-prettier.js
-  checksum: bedc24c568efbcfe45f255558900777e2fabb36bf28ed4c22d2456eb22dfb012d12e566a46472ea5b857a4e9f263e888f7e316527d00bb58188f1820b0b0031a
   languageName: node
   linkType: hard
 
