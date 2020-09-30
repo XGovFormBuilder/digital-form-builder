@@ -6,6 +6,7 @@ import { Component } from './component'
 import ComponentCreate from './component-create'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { withI18n } from './i18n'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
@@ -23,7 +24,7 @@ const SortableList = SortableContainer(({ page, data }) => {
   )
 })
 
-class Page extends React.Component {
+export class Page extends React.Component {
   state = {
     showEditor: false,
     showAddComponent: false
@@ -63,7 +64,7 @@ class Page extends React.Component {
   }
 
   render () {
-    const { page, data, id, previewUrl, persona } = this.props
+    const { page, data, id, previewUrl, persona, i18n } = this.props
     const { sections } = data
     const formComponents = page?.components?.filter(comp =>
       ComponentTypes.find(type => type.name === comp.type).subType === 'field'
@@ -100,18 +101,20 @@ class Page extends React.Component {
         />
 
         <div className='page__actions'>
-          <button title="Edit page" onClick={this.toggleEditor}>
-            Edit page
+          <button title={i18n('Edit page')} onClick={this.toggleEditor}>
+            {i18n('Edit page')}
           </button>
-          <button title="Create component" onClick={this.toggleAddComponent}>
-            Create component
+          <button title={i18n('Create component')} onClick={this.toggleAddComponent}>
+            {i18n('Create component')}
           </button>
           <a
-            title="Preview page"
+            title={i18n('Preview page')}
             href={`${previewUrl}/${id}${page.path}`}
             target='_blank'
             rel="noreferrer"
-          >Preview</a>
+          >
+            {i18n('Preview')}
+          </a>
         </div>
 
         <Flyout
@@ -140,4 +143,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page
+export default withI18n(Page)

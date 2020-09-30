@@ -2,11 +2,12 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import Page from '../client/page'
+import PageTranslated, { Page } from '../client/page'
 import Flyout from '../client/flyout'
 import PageEdit from '../client/page-edit'
 import ComponentCreate from '../client/component-create'
 import { Data } from '@xgovformbuilder/model'
+import sinon from 'sinon'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -15,6 +16,7 @@ const { suite, test, beforeEach } = lab
 
 suite('Page', () => {
   let data
+  let props
 
   beforeEach(() => {
     data = new Data({
@@ -38,10 +40,16 @@ suite('Page', () => {
         }
       ]
     })
+
+    props = {
+      data,
+      page: data.pages[0],
+      i18n: sinon.spy(text => text)
+    }
   })
 
   test('PageEdit Flyout onHide toggles showEditor', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const editor = wrapper.find(Flyout).first()
 
     wrapper.setState({ showEditor: true })
@@ -53,7 +61,7 @@ suite('Page', () => {
   })
 
   test('PageEdit onEdit toggles showEditor', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const editor = wrapper.find(PageEdit).first()
 
     wrapper.setState({ showEditor: true })
@@ -65,14 +73,14 @@ suite('Page', () => {
   })
 
   test('PageEdit Flyout receives showEditor correctly', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
 
     wrapper.setState({ showEditor: 'showEditor' })
     expect(wrapper.state().showEditor).to.equal('showEditor')
   })
 
   test('Page actions contain expected buttons', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const actions = wrapper.find('.page__actions').children()
 
     expect(actions.at(0).text()).to.equal('Edit page')
@@ -81,7 +89,7 @@ suite('Page', () => {
   })
 
   test('Button Edit page toggles showEditor', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const button = wrapper.find('.page__actions').children().first()
 
     expect(wrapper.state().showEditor).to.equal(false)
@@ -91,7 +99,7 @@ suite('Page', () => {
   })
 
   test('Button add components toggles showAddComponent', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const button = wrapper.find('.page__actions').children().at(1)
 
     expect(wrapper.state().showAddComponent).to.equal(false)
@@ -101,7 +109,7 @@ suite('Page', () => {
   })
 
   test('AddComponent Flyout onHide toggles showAddComponent', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const addComponent = wrapper.find(Flyout).at(1)
 
     wrapper.setState({ showAddComponent: true })
@@ -113,7 +121,7 @@ suite('Page', () => {
   })
 
   test('ComponentCreate onCreate toggles showAddComponent', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
     const componentCreate = wrapper.find(ComponentCreate).first()
 
     wrapper.setState({ showAddComponent: true })
@@ -125,9 +133,28 @@ suite('Page', () => {
   })
 
   test('AddComponent Flyout receives showAddComponent correctly', () => {
-    const wrapper = shallow(<Page data={data} page={data.pages[0]} />)
+    const wrapper = shallow(<Page {...props} />)
 
     wrapper.setState({ showAddComponent: 'showAddComponent' })
     expect(wrapper.state().showAddComponent).to.equal('showAddComponent')
+  })
+
+  test('page is wrapped with withTranslation', () => {
+    const wrapper = shallow(<PageTranslated />)
+
+    expect(wrapper.prop('i18n')).to.exist()
+  })
+
+  test('Expected translation are called', () => {
+    shallow(<Page {...props} />)
+
+    expect(props.i18n.args.flat()).to.equal([
+      'Edit page',
+      'Edit page',
+      'Create component',
+      'Create component',
+      'Preview page',
+      'Preview'
+    ])
   })
 })

@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const babelOptions = require('./.babelrc.json')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const devMode = process.env.NODE_ENV !== 'production'
 const prodMode = process.env.NODE_ENV === 'production'
@@ -67,6 +68,11 @@ const client = {
     new MiniCssExtractPlugin({
       filename: devMode ? 'assets/css/[name].css' : 'assets/css/[name].[hash].css',
       chunkFilename: devMode ? 'assets/css/[id].css' : 'assets/css/[id].[hash].css'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'client/i18n/translations', to: 'assets/translations' }
+      ]
     })
   ],
   externals: {

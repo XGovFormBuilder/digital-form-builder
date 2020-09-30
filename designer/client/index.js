@@ -6,6 +6,10 @@ import NewConfig from './new-config'
 import { Data } from '@xgovformbuilder/model/lib/data-model'
 import { customAlphabet } from 'nanoid'
 import './index.scss'
+import { initI18n, i18n } from './i18n'
+
+initI18n(i18n)
+
 /**
  * Custom alphabet is required because '-' is used as a symbol in
  * expr-eval (condition logic) so components which include a '-' in the name
