@@ -1,6 +1,6 @@
 import { Page as EngineBasePage } from '@xgovformbuilder/engine'
 
-class Page extends EngineBasePage {
+export default class Page extends EngineBasePage {
   get getRouteOptions () {
     return {
       ext: {
@@ -38,5 +38,3 @@ class Page extends EngineBasePage {
     }
   }
 }
-
-module.exports = Page

@@ -1,6 +1,10 @@
 import React from 'react'
 import Editor from './editor'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import { ComponentTypes } from '@xgovformbuilder/model'
+import ComponentValues from './components/component-values'
+import { textAreaGroup } from './govuk-react-components/text'
+import { InputOptions } from './govuk-react-components/helpers'
+
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
   updateModel(component)
@@ -69,15 +73,15 @@ class FieldEdit extends React.Component {
             />
           </div>
 
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-hint'>Help Text (optional)</label>
-            <span className='govuk-hint'>Text can include HTML</span>
-            <textarea
-              className='govuk-textarea' id='field-hint' name='hint'
-              defaultValue={component.hint} rows='2'
-              onBlur={e => updateComponent(component, component => { component.hint = e.target.value }, updateModel)}
-            />
-          </div>
+          {textAreaGroup(
+            'field-hint',
+            'hint',
+            'Help Text (optional)',
+            component.hint,
+            2,
+            e => updateComponent(component, component => { component.hint = e.target.value }, updateModel),
+            new InputOptions(false, ['Text can include HTML'])
+          )}
 
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
@@ -390,26 +394,13 @@ function DateFieldEdit (props) {
 }
 
 function SelectFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
       <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
+        <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
         <Classes component={component} updateModel={updateModel} />
       </div>
@@ -418,27 +409,12 @@ function SelectFieldEdit (props) {
 }
 
 function RadiosFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -459,27 +435,12 @@ function RadiosFieldEdit (props) {
 }
 
 function CheckboxesFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -527,25 +488,13 @@ function ParaEdit (props) {
 }
 
 function ListContentEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const { lists } = data
 
   return (
     <div>
-      <div className='govuk-form-group'>
-        <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-        <select
-          className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-          value={component.options.list} required
-          onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-        >
-          <option />
-          {lists.map(list => {
-            return <option key={list.name} value={list.name}>{list.title}</option>
-          })}
-        </select>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
+
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
           <input
@@ -565,24 +514,11 @@ function ListContentEdit (props) {
 }
 
 function FlashCardEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const { lists } = data
 
   return (
-    <div className='govuk-form-group'>
-      <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-      <select
-        className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-        value={component.options.list} required
-        onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-      >
-        <option />
-        {lists.map(list => {
-          return <option key={list.name} value={list.name}>{list.title}</option>
-        })}
-      </select>
-    </div>
+    <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
   )
 }
 
@@ -641,14 +577,14 @@ const componentTypeEditors = {
 
 class ComponentTypeEdit extends React.Component {
   render () {
-    const { component, data, updateModel } = this.props
+    const { component, data, updateModel, page } = this.props
 
     const type = ComponentTypes.find(t => t.name === component.type)
     if (!type) {
       return ''
     } else {
       const TagName = componentTypeEditors[`${component.type}Edit`] || FieldEdit
-      return <TagName component={component} data={data} updateModel={updateModel} />
+      return <TagName component={component} data={data} updateModel={updateModel} page={page}/>
     }
   }
 }

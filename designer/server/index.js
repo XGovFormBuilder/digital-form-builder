@@ -7,7 +7,7 @@ const { determinePersistenceService } = require('./lib/persistence')
 
 const serverOptions = () => {
   return {
-    port: 3000,
+    port: config.PORT,
     routes: {
       validate: {
         options: {

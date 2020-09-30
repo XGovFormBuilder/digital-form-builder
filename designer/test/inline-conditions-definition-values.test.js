@@ -11,8 +11,8 @@ import {
   dateUnits,
   RelativeTimeValue,
   timeUnits
-} from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
-import { relativeDateOrTimeOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+  , relativeDateOrTimeOperatorNames
+} from '@xgovformbuilder/model'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -20,8 +20,8 @@ exports.lab = lab
 const { beforeEach, suite, test } = lab
 
 suite('Inline conditions definition value inputs', () => {
-  const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
-  const selectedValues = values.map(it => new ConditionValue(it.value, it.text))
+  const values = [{ value: 'value1', label: 'Value 1' }, { value: 'value2', label: 'Value 2' }]
+  const selectedValues = values.map(it => new ConditionValue(it.value, it.label))
   let updateValueCallback
 
   beforeEach(() => {
@@ -74,7 +74,7 @@ suite('Inline conditions definition value inputs', () => {
     }
     const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} value={selectedValues[0]} fieldDef={fieldDef} operator='is' />)
 
-    const expectedFieldOptions = [...values]
+    const expectedFieldOptions = values.map(it => ({ text: it.label, value: it.value }))
     expectedFieldOptions.unshift({ text: '' })
     assertSelectInput(wrapper.find('select'), 'cond-value', expectedFieldOptions, values[0].value)
   })
@@ -94,8 +94,8 @@ suite('Inline conditions definition value inputs', () => {
   })
 
   test('Should correctly compare boolean string to boolean value', () => {
-    const values = [{ value: true, text: 'Value 1' }, { value: false, text: 'Value 2' }]
-    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.text))
+    const values = [{ value: true, label: 'Value 1' }, { value: false, label: 'Value 2' }]
+    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.label))
 
     const fieldDef = {
       label: 'Something',
@@ -111,8 +111,8 @@ suite('Inline conditions definition value inputs', () => {
   })
 
   test('Should correctly compare number string to number value', () => {
-    const values = [{ value: 42, text: 'Value 1' }, { value: 43, text: 'Value 2' }]
-    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.text))
+    const values = [{ value: 42, label: 'Value 1' }, { value: 43, label: 'Value 2' }]
+    const selectedValues = values.map(it => new ConditionValue(String(it.value), it.label))
 
     const fieldDef = {
       label: 'Something',

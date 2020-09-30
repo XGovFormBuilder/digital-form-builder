@@ -1,11 +1,8 @@
-const { UploadService } = require('./documentUpload')
-const { PayService } = require('./payService')
-const { NotifyService } = require('./notifyService')
-const { EmailService } = require('./emailService')
-const { CacheService, catboxProvider } = require('./cacheService')
-const { WebhookService } = require('./webhookService')
-const { SheetsService } = require('./sheetsService')
+export { UploadService } from './documentUpload'
+export { PayService } from './payService'
+export { NotifyService } from './notifyService'
+export { EmailService } from './emailService'
+export { CacheService, catboxProvider } from './cacheService'
+export { WebhookService } from './webhookService'
+export { SheetsService } from './sheetsService'
 
-module.exports = {
-  UploadService, PayService, NotifyService, EmailService, CacheService, catboxProvider, WebhookService, SheetsService
-}

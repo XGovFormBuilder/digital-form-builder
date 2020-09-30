@@ -1,19 +1,17 @@
-import { clone } from '@xgovformbuilder/model'
+import { Schema, clone, ConditionsModel } from '@xgovformbuilder/model'
+import path from 'path'
+import Page from './page'
+import { Parser } from 'expr-eval'
+import moment from 'moment'
 
 const joi = require('joi')
-const path = require('path')
-const schema = require('@xgovformbuilder/model/lib/schema')
-const Page = require('./page')
-const Parser = require('expr-eval').Parser
-const moment = require('moment')
-const { ConditionsModel } = require('@xgovformbuilder/model/lib/conditions/inline-condition-model')
 
 /**
  * TODO - convert references to this to using the shared Data class from the model library?
  */
-class Model {
+export default class Model {
   constructor (def, options) {
-    const result = schema.validate(def, { abortEarly: false })
+    const result = Schema.validate(def, { abortEarly: false })
     // TODO:- throw/catch this properly 🤦🏻‍
     if (result.error) {
       throw result.error
@@ -182,5 +180,3 @@ class EvaluationContext {
     }
   }
 }
-
-module.exports = Model

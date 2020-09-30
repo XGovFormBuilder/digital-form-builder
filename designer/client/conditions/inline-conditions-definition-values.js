@@ -1,9 +1,9 @@
 import React from 'react'
-import { ConditionValue, timeUnits } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 import {
+  ConditionValue, timeUnits,
   absoluteDateOrTimeOperatorNames,
   getOperatorConfig, relativeDateOrTimeOperatorNames
-} from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+} from '@xgovformbuilder/model'
 
 import RelativeTimeValues from './inline-conditions-relative-dates'
 import { AbsoluteDateValues, AbsoluteDateTimeValues, AbsoluteTimeValues } from './inline-conditions-absolute-dates'
@@ -41,7 +41,7 @@ function SelectValues (props) {
     let value
     if (newValue && newValue?.trim() !== '') {
       const option = fieldDef.values?.find(value => String(value.value) === newValue)
-      value = new ConditionValue(String(option.value), option.text)
+      value = new ConditionValue(String(option.value), option.label)
     }
     updateValue(value)
   }
@@ -53,7 +53,7 @@ function SelectValues (props) {
     >
       <option />
       {fieldDef.values.map(option => {
-        return <option key={option.value} value={option.value}>{option.text}</option>
+        return <option key={option.value} value={option.value}>{option.label}</option>
       })}
     </select>
   )

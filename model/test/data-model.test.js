@@ -30,7 +30,17 @@ suite('data model', () => {
     feedback: {
       feedbackForm: false,
       url: '/feedback'
-    }
+    },
+    lists: [
+      {
+        name: 'myList',
+        type: 'string',
+        items: [
+          { text: 'some stuff', value: 'myValue', description: 'A hint', condition: 'badger' },
+          { text: 'another thing', value: 'anotherValue' }
+        ]
+      }
+    ]
   }
 
   describe('all inputs', () => {
@@ -50,10 +60,10 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -79,23 +89,42 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name4' },
+        { name: 'name1', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
         { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
         { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
         { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/page1', section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
       ])
     })
 
-    test('should include hidden inputs from appropriate lists', () => {
+    test('should include hidden inputs from values', () => {
       const data = new Data({
         pages: [
           {
             name: 'page1',
             section: 'section1',
-            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2' }]
+            components: [
+              {
+                name: 'name1',
+                values: {
+                  type: 'static',
+                  valueType: 'string',
+                  items: [
+                    {
+                      display: 'Something',
+                      value: 'something',
+                      children: [
+                        {
+                          name: 'myField'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              { name: 'name2' }]
           },
           {
             name: 'page2',
@@ -147,21 +176,76 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        {
+          name: 'name1',
+          page: { name: 'page1', section: 'section1' },
+          propertyPath: 'section1.name1',
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [{
+              display: 'Something',
+              value: 'something',
+              children: [
+                {
+                  name: 'myField'
+                }
+              ]
+            }]
+          },
+          title: undefined
+        },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
-    test('should not duplicate hidden inputs from lists if more than one component in the same page uses the same list', () => {
+    test('should not duplicate hidden inputs from children if more than one component in the same page uses the same hidden component', () => {
       const data = new Data({
         pages: [
           {
             name: 'page1',
             section: 'section1',
-            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2', options: { list: 'badgerList' } }]
+            components: [
+              {
+                name: 'name1',
+                values: {
+                  type: 'static',
+                  valueType: 'string',
+                  items: [
+                    {
+                      display: 'Something',
+                      value: 'something',
+                      children: [
+                        {
+                          name: 'myField'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                name: 'name2',
+                values: {
+                  type: 'static',
+                  valueType: 'string',
+                  items: [
+                    {
+                      display: 'Something',
+                      value: 'something',
+                      children: [
+                        {
+                          name: 'myField'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
           },
           {
             name: 'page2',
@@ -213,144 +297,256 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
-      ])
-    })
-
-    test('should not duplicate hidden inputs from lists if components in different pages with the same section use the same list', () => {
-      const data = new Data({
-        pages: [
-          {
-            name: 'page1',
-            section: 'section1',
-            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2' }]
-          },
-          {
-            name: 'page2',
-            section: 'section1',
-            components: [{ name: 'name3', options: { list: 'badgerList' } }, { name: 'name4' }]
-          }
-        ],
-        lists: [
-          {
-            name: 'anotherList',
-            title: 'Address Yes/No',
-            type: 'string',
-            items: [{
-              text: 'Yes',
-              value: 'true',
-              description: '',
-              condition: '',
-              conditional: {
-                components: [
-                  {
-                    type: 'TextField',
-                    name: 'buildingNameOrNumber',
-                    title: 'Building name or number',
-                    hint: '',
-                    schema: {}
-                  }
-                ]
-              }
-            }]
-          },
-          {
-            name: 'badgerList',
-            title: 'Badgers are epic',
-            type: 'string',
-            items: [{
-              text: 'Something',
-              value: 'something',
-              description: '',
-              condition: '',
-              conditional: {
-                components: [
+        {
+          name: 'name1',
+          page: { name: 'page1', section: 'section1' },
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [
+              {
+                display: 'Something',
+                value: 'something',
+                children: [
                   {
                     name: 'myField'
                   }
                 ]
               }
-            }]
-          }
-        ]
-      })
-      expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+            ]
+          },
+          propertyPath: 'section1.name1',
+          title: undefined
+        },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        {
+          name: 'name2',
+          page: { name: 'page1', section: 'section1' },
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [
+              {
+                display: 'Something',
+                value: 'something',
+                children: [
+                  {
+                    name: 'myField'
+                  }
+                ]
+              }
+            ]
+          },
+          propertyPath: 'section1.name2',
+          title: undefined
+        },
+        { name: 'name3', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
-    test('should return multiple of the same hidden input from lists if components in different pages with different sections use the same list', () => {
+    test('should not duplicate hidden inputs from children if components in different pages with the same section use the same child', () => {
       const data = new Data({
         pages: [
           {
             name: 'page1',
             section: 'section1',
-            components: [{ name: 'name1', options: { list: 'badgerList' } }, { name: 'name2' }]
+            components: [
+              {
+                name: 'name1',
+                values: {
+                  type: 'static',
+                  valueType: 'string',
+                  items: [
+                    {
+                      display: 'Something',
+                      value: 'something',
+                      children: [
+                        {
+                          name: 'myField'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              { name: 'name2' }
+            ]
+          },
+          {
+            name: 'page2',
+            section: 'section1',
+            components: [
+              {
+                name: 'name3',
+                values: {
+                  type: 'static',
+                  valueType: 'string',
+                  items: [
+                    {
+                      display: 'Something',
+                      value: 'something',
+                      children: [
+                        {
+                          name: 'myField'
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              { name: 'name4' }
+            ]
+          }
+        ],
+        lists: []
+      })
+      expect(data.allInputs()).to.equal([
+        {
+          name: 'name1',
+          page: { name: 'page1', section: 'section1' },
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [
+              {
+                display: 'Something',
+                value: 'something',
+                children: [
+                  {
+                    name: 'myField'
+                  }
+                ]
+              }
+            ]
+          },
+          propertyPath: 'section1.name1',
+          title: undefined
+        },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        {
+          name: 'name3',
+          page: { name: 'page2', section: 'section1' },
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [
+              {
+                display: 'Something',
+                value: 'something',
+                children: [
+                  {
+                    name: 'myField'
+                  }
+                ]
+              }
+            ]
+          },
+          propertyPath: 'section1.name3',
+          title: undefined
+        },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
+      ])
+    })
+
+    test('should return multiple of the same hidden input from children if components in different pages with different sections use the same children', () => {
+      const data = new Data({
+        pages: [
+          {
+            name: 'page1',
+            section: 'section1',
+            components: [{
+              name: 'name1',
+              values: {
+                type: 'static',
+                valueType: 'string',
+                items: [
+                  {
+                    display: 'Something',
+                    value: 'something',
+                    children: [
+                      {
+                        name: 'myField'
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            { name: 'name2' }
+            ]
           },
           {
             name: 'page2',
             section: 'section2',
-            components: [{ name: 'name3', options: { list: 'badgerList' } }, { name: 'name4' }]
+            components: [{
+              name: 'name3',
+              values: {
+                type: 'static',
+                valueType: 'string',
+                items: [
+                  {
+                    display: 'Something',
+                    value: 'something',
+                    children: [
+                      {
+                        name: 'myField'
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            { name: 'name4' }
+            ]
           }
         ],
-        lists: [
-          {
-            name: 'anotherList',
-            title: 'Address Yes/No',
-            type: 'string',
-            items: [{
-              text: 'Yes',
-              value: 'true',
-              description: '',
-              condition: '',
-              conditional: {
-                components: [
-                  {
-                    type: 'TextField',
-                    name: 'buildingNameOrNumber',
-                    title: 'Building name or number',
-                    hint: '',
-                    schema: {}
-                  }
-                ]
-              }
-            }]
-          },
-          {
-            name: 'badgerList',
-            title: 'Badgers are epic',
-            type: 'string',
-            items: [{
-              text: 'Something',
-              value: 'something',
-              description: '',
-              condition: '',
-              conditional: {
-                components: [
-                  {
-                    name: 'myField'
-                  }
-                ]
-              }
-            }]
-          }
-        ]
+        lists: []
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, options: { list: 'badgerList' }, propertyPath: 'section1.name1' },
-        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', section: 'section2' }, options: { list: 'badgerList' }, propertyPath: 'section2.name3' },
-        { name: 'myField', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.myField' },
-        { name: 'name4', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.name4' }
+        {
+          name: 'name1',
+          page: { name: 'page1', section: 'section1' },
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [{
+              display: 'Something',
+              value: 'something',
+              children: [
+                {
+                  name: 'myField'
+                }
+              ]
+            }]
+          },
+          propertyPath: 'section1.name1',
+          title: undefined
+        },
+        { name: 'myField', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.myField', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        {
+          name: 'name3',
+          page: { name: 'page2', section: 'section2' },
+          values: {
+            type: 'static',
+            valueType: 'string',
+            items: [{
+              display: 'Something',
+              value: 'something',
+              children: [
+                {
+                  name: 'myField'
+                }
+              ]
+            }]
+          },
+          propertyPath: 'section2.name3',
+          title: undefined
+        },
+        { name: 'myField', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.myField', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section2' }, propertyPath: 'section2.name4', title: undefined }
       ])
     })
 
@@ -370,9 +566,9 @@ suite('data model', () => {
         ]
       })
       expect(data.allInputs()).to.equal([
-        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name1', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name4', page: { name: 'page2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -427,12 +623,12 @@ suite('data model', () => {
         ]
       })
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined }
       ])
     })
 
@@ -462,12 +658,12 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined }
       ])
     })
 
@@ -500,12 +696,12 @@ suite('data model', () => {
         ]
       })
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3' },
-        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' },
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name3', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name3', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', next: [{ path: '/3' }], section: 'section1' }, propertyPath: 'section1.name4', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined },
         { name: 'feedbackContextInfo_formTitle', type: 'TextField', title: 'Feedback source form name', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_formTitle' },
         { name: 'feedbackContextInfo_pageTitle', type: 'TextField', title: 'Feedback source page title', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_pageTitle' },
         { name: 'feedbackContextInfo_url', type: 'TextField', title: 'Feedback source url', page: { name: 'page1', path: '/1', next: [{ path: '/2' }], section: 'section1' }, propertyPath: 'feedbackContextInfo_url' }
@@ -538,10 +734,10 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/3')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5' },
-        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name5', page: { name: 'page3', path: '/3' }, propertyPath: 'name5', title: undefined },
+        { name: 'name6', page: { name: 'page3', path: '/3' }, propertyPath: 'name6', title: undefined }
       ])
     })
 
@@ -565,9 +761,9 @@ suite('data model', () => {
       })
 
       expect(data.inputsAccessibleAt('/2')).to.equal([
-        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1' },
-        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2' },
-        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' }, propertyPath: 'section1.name4' }
+        { name: 'name1', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name1', title: undefined },
+        { name: 'name2', page: { name: 'page1', path: '/1', next: [{ path: '/2' }, { path: '/3' }], section: 'section1' }, propertyPath: 'section1.name2', title: undefined },
+        { name: 'name4', page: { name: 'page2', path: '/2', section: 'section1' }, propertyPath: 'section1.name4', title: undefined }
       ])
     })
 
@@ -596,62 +792,69 @@ suite('data model', () => {
     })
   })
 
-  describe('list for', () => {
-    test('should return the list specified in the provided input if it exists', () => {
-      const data = new Data({
-        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
+  describe('values for', () => {
+    const staticValues = {
+      type: 'static',
+      valueType: 'string',
+      items: [
+        { display: 'some stuff', value: 'myValue', hint: 'A hint', condition: 'badger', children: [{ name: 'aBadger' }] },
+        { display: 'another thing', value: 'anotherValue', hint: undefined, condition: undefined, children: [] }
+      ]
+    }
+    const valuesTypes = [
+      staticValues,
+      {
+        type: 'listRef',
+        list: 'myList',
+        valueChildren: [
+          {
+            value: 'myValue',
+            children: [{ name: 'aBadger' }]
+          }
+        ]
+      }
+    ]
+    valuesTypes.forEach(values => {
+      test(`should return the '${values.type}' values specified in the provided input if it exists`, () => {
+        const data = new Data(fullyPopulatedRawData)
+        const returned = data.valuesFor({ values: values })
+        delete returned.values.toStaticValues
+        expect(returned.values).to.equal(values)
       })
-      const returned = data.listFor({ options: { list: 'list2' } })
-      expect(returned === data.lists[1]).to.equal(true)
+
+      test(`returned '${values.type}' values should convert to static values`, () => {
+        const data = new Data(fullyPopulatedRawData)
+        const returned = data.valuesFor({ values: values })
+        expect(returned.toStaticValues()).to.equal(staticValues)
+      })
     })
 
-    test('should return undefined if no lists exist', () => {
+    test('should return undefined if no values exist', () => {
       const data = new Data({})
 
-      expect(data.listFor({ options: { list: 'list2' } })).to.equal(undefined)
+      expect(data.valuesFor({ options: { } })).to.equal(undefined)
     })
 
-    test('should return undefined if the requested list does not exist', () => {
-      const data = new Data({
-        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
-      })
+    test('should return yes/no list if the provided input has no values defined but is a YesNoField', () => {
+      const data = new Data({})
 
-      expect(data.listFor({ options: { list: 'list3' } })).to.equal(undefined)
-    })
-
-    test('should return undefined if the provided input has no list data', () => {
-      const data = new Data({
-        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
-      })
-
-      expect(data.listFor({ options: {} })).to.equal(undefined)
-    })
-
-    test('should return undefined if the provided input has no options defined', () => {
-      const data = new Data({
-        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
-      })
-
-      expect(data.listFor({})).to.equal(undefined)
-    })
-
-    test('should return yes/no list if the provided input has no options defined but is a YesNoField', () => {
-      const data = new Data({
-        lists: [{ name: 'list1' }, { name: 'list2', badger: 'monkeys' }]
-      })
-
-      expect(data.listFor({ type: 'YesNoField' })).to.equal({
-        name: '__yesNo',
-        title: 'Yes/No',
-        type: 'boolean',
+      expect(data.valuesFor({ type: 'YesNoField' }).toStaticValues()).to.equal({
+        type: 'static',
+        valueType: 'boolean',
         items: [
           {
-            text: 'Yes',
-            value: true
+            display: 'Yes',
+            value: true,
+            hint: undefined,
+            condition: undefined,
+            children: []
           },
           {
-            text: 'No',
-            value: false
+            display: 'No',
+            value: false,
+            hint: undefined,
+            condition: undefined,
+            children: []
           }
         ]
       })
@@ -978,6 +1181,38 @@ suite('data model', () => {
         path: '/3',
         components: []
       })
+    })
+  })
+
+  describe('find list', () => {
+    test('should return the page with the requested path if it exists', () => {
+      const data = new Data({
+        lists: [
+          { name: 'firstList' },
+          { name: 'myList' },
+          { name: 'anotherList' }
+        ]
+      })
+      const returned = data.findList('myList')
+      expect(returned === data.lists[1]).to.equal(true)
+    })
+
+    test('should return undefined if the requested list does not exist', () => {
+      const data = new Data({
+        lists: [{ name: 'firstList' }]
+      })
+
+      expect(data.findList('myList')).to.equal(undefined)
+    })
+
+    test('should handle no lists', () => {
+      const data = new Data({ lists: [] })
+      expect(data.findList('/1')).to.equal(undefined)
+    })
+
+    test('should handle undefined lists', () => {
+      const data = new Data({ })
+      expect(data.findList('/1')).to.equal(undefined)
     })
   })
 
@@ -1448,7 +1683,7 @@ suite('data model', () => {
       const data = new Data({
         conditions: [{ name: 'someName' }]
       })
-      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'someName' })
+      expect(data.findCondition('someName')).to.equal({ name: 'someName', displayName: 'someName', value: undefined })
     })
 
     test('should return undefined if there is no condition with the specified name', () => {
@@ -1479,7 +1714,7 @@ suite('data model', () => {
         conditions: [{ name: 'anotherName' }]
       })
       data.updateCondition('someName', 'My condition', 'Some value')
-      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName', value: undefined }])
     })
 
     test('should do nothing if conditions is undefined', () => {
@@ -1514,7 +1749,7 @@ suite('data model', () => {
         conditions: [{ name: 'anotherName' }]
       })
       data.removeCondition('someName')
-      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName' }])
+      expect(data.conditions).to.equal([{ name: 'anotherName', displayName: 'anotherName', value: undefined }])
     })
 
     test('should do nothing if conditions is undefined', () => {
@@ -1544,7 +1779,10 @@ suite('data model', () => {
   describe('toJSON', () => {
     test('should expose the conditions field', () => {
       const rawData = {
-        conditions: [{ displayName: 'a Monkey', name: 'someName' }]
+        conditions: [{ displayName: 'a Monkey', name: 'someName', value: undefined }],
+        lists: [],
+        pages: [],
+        sections: []
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1553,7 +1791,10 @@ suite('data model', () => {
     test('should expose the name field', () => {
       const rawData = {
         conditions: [],
-        name: 'My form'
+        name: 'My form',
+        lists: [],
+        pages: [],
+        sections: []
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1564,7 +1805,10 @@ suite('data model', () => {
         conditions: [],
         feedback: {
           feedbackForm: true
-        }
+        },
+        lists: [],
+        pages: [],
+        sections: []
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal(rawData)
@@ -1577,7 +1821,9 @@ suite('data model', () => {
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal({
         pages: [{ name: 'someName' }],
-        conditions: []
+        conditions: [],
+        lists: [],
+        sections: []
       })
     })
 
@@ -1587,7 +1833,10 @@ suite('data model', () => {
       }
       const data = new Data(rawData)
       expect(data.toJSON()).to.equal({
-        conditions: []
+        conditions: [],
+        lists: [],
+        pages: [],
+        sections: []
       })
     })
   })

@@ -1,6 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import CheckboxesField from '../../components/checkboxesfield'
+import CheckboxesField from '../../src/components/checkboxesfield'
 const lab = Lab.script()
 exports.lab = lab
 const { expect } = Code
@@ -9,19 +9,17 @@ const { suite, test } = lab
 suite('Checkboxes field', () => {
   test('Should construct appropriate model for items', () => {
     const items = [
-      { text: 'A thing', value: 'myThing', condition: 'aCondition', something: 'Jobbie' },
-      { text: 'Another thing', value: 'myOtherThing', something: 'Something else' }
+      { label: 'A thing', value: 'myThing', condition: 'aCondition', hint: 'Jobbie' },
+      { label: 'Another thing', value: 'myOtherThing', something: 'Something else' }
     ]
-    const def = { name: 'myComponent', title: 'My component', options: { list: 'myList' }, schema: {} }
-    const model = {
-      lists: [
-        {
-          name: 'myList',
-          type: 'string',
-          items: items
-        }
-      ]
+    const def = {
+      name: 'myComponent',
+      title: 'My component',
+      options: {},
+      schema: {},
+      values: { type: 'static', valueType: 'string', items: items }
     }
+    const model = {}
     const underTest = new CheckboxesField(def, model)
     const returned = underTest.getViewModel({ lang: 'en' })
 
@@ -32,7 +30,7 @@ suite('Checkboxes field', () => {
       }
     })
     expect(returned.items).to.equal([
-      { checked: false, text: 'A thing', value: 'myThing', condition: 'aCondition' },
+      { checked: false, text: 'A thing', value: 'myThing', condition: 'aCondition', hint: { html: 'Jobbie' } },
       { checked: false, text: 'Another thing', value: 'myOtherThing', condition: undefined }
     ])
   })

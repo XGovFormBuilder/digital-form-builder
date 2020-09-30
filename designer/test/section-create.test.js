@@ -10,7 +10,7 @@ import sinon from 'sinon'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { beforeEach, suite, test } = lab
+const { afterEach, beforeEach, suite, test } = lab
 
 suite('Section create', () => {
   let onCreate
@@ -23,6 +23,10 @@ suite('Section create', () => {
     data.addSection = sinon.stub().returns(data)
     data.save = sinon.stub().resolves(data)
     onCreate = sinon.spy()
+  })
+
+  afterEach(() => {
+    onCreate.resetHistory()
   })
 
   test('Should display form with title and name inputs', () => {
@@ -120,7 +124,6 @@ suite('Section create', () => {
     const savedData = sinon.stub()
     data.save.resolves(savedData)
 
-    const onCreate = sinon.spy()
     const wrapper = shallow(<SectionCreate data={data} onCreate={onCreate} />)
 
     wrapper.find('#section-title').simulate('change', { target: { value: ' Awesome Badgers ' } })

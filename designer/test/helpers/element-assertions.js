@@ -62,7 +62,7 @@ export function assertTextBasedInput (wrapper, id, expectedValue, type, attrs) {
 export function assertTextArea (wrapper, id, expectedValue, attrs) {
   expect(getTagName(wrapper)).to.equal('textarea')
   expect(getProperty(wrapper, 'id')).to.equal(id)
-  expect(getText(wrapper)).to.equal(expectedValue)
+  expect(getProperty(wrapper, 'defaultValue') || getText(wrapper)).to.equal(expectedValue)
   assertAdditionalAttributes(attrs, wrapper)
 }
 
@@ -91,7 +91,7 @@ export function assertRadioButton (wrapper, id, value, label, attrs) {
   expect(getProperty(wrapper, 'type')).to.equal('radio')
   expect(getProperty(wrapper, 'id')).to.equal(id)
   expect(getProperty(wrapper, 'value')).to.equal(value)
-  expect(wrapper.closest('div').text()).to.equal(label)
+  expect(wrapper.closest('div').find('label').text()).to.equal(label)
   assertAdditionalAttributes(attrs, wrapper)
 }
 
