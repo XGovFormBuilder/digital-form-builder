@@ -3,6 +3,7 @@
 import React from 'react'
 
 type Props = {
+  updateModel: ?(any) => {},
   component: ?any,
   hint: ?string,
   name: string,
@@ -16,7 +17,6 @@ type State = {
 }
 
 export default class Name extends React.Component<Props, State> {
-
   constructor (props: Props) {
     super(props)
     const { name, component } = this.props
@@ -38,7 +38,7 @@ export default class Name extends React.Component<Props, State> {
   updateGlobalState = () => {
     const { updateModel, component } = this.props
     const { name, nameHasError } = this.state
-    if(updateModel && !nameHasError) {
+    if (updateModel && !nameHasError) {
       updateModel({ ...component, name })
     }
   }
@@ -69,4 +69,3 @@ export default class Name extends React.Component<Props, State> {
     )
   }
 }
-
