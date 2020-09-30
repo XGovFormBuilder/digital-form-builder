@@ -64,7 +64,7 @@ suite('I18n', () => {
     expect(mockI18n.init.firstCall.args[0]).to.equal({
       lng: 'en',
       fallbackLng: 'en',
-      debug: true,
+      debug: false,
       interpolation: {
         escapeValue: false
       },

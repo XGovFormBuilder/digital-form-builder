@@ -7,7 +7,7 @@ const initI18n = (i18next: i18n): void => {
   i18next
     .use(Backend)
     .init({
-      lng: 'cy',
+      lng: 'en',
       fallbackLng: 'en',
       debug: false,
       interpolation: {
