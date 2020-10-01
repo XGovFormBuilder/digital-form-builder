@@ -2,8 +2,7 @@ import React from 'react'
 import Editor from './editor'
 import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
-import { textAreaGroup } from './govuk-react-components/text'
-import { InputOptions } from './govuk-react-components/helpers'
+import { Textarea } from 'govuk-react-jsx'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -73,15 +72,24 @@ class FieldEdit extends React.Component {
             />
           </div>
 
-          {textAreaGroup(
-            'field-hint',
-            'hint',
-            'Help Text (optional)',
-            component.hint,
-            2,
-            e => updateComponent(component, component => { component.hint = e.target.value }, updateModel),
-            new InputOptions(false, ['Text can include HTML'])
-          )}
+          <Textarea
+            id="field-hint"
+            name="hint"
+            rows={2}
+            label={{
+              className: 'govuk-label--s',
+              children: [
+                'Help Text (optional)'
+              ]
+            }}
+            hint={{
+              children: [
+                'Text can include HTML'
+              ]
+            }}
+            required={false}
+            onChange={e => updateComponent(component, component => { component.hint = e.target.value }, updateModel)}
+          />
 
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
