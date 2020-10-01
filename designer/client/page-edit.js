@@ -5,8 +5,9 @@ import SectionEdit from './section/section-edit'
 import { nanoid } from 'nanoid'
 import Flyout from './flyout'
 import { clone } from '@xgovformbuilder/model'
+import { withI18n } from './i18n'
 
-class PageEdit extends React.Component {
+export class PageEdit extends React.Component {
   constructor (props) {
     super(props)
     const { page } = this.props
@@ -160,83 +161,80 @@ class PageEdit extends React.Component {
   }
 
   render () {
-    const { data } = this.props
+    const { data, i18n } = this.props
     const { sections } = data
     const { title, path, controller, section, isEditingSection } = this.state
 
-    return (
-      <div>
-        <form onSubmit={this.onSubmit} autoComplete='off'>
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='page-type'>Page Type</label>
+    return <div>
+      <form onSubmit={this.onSubmit} autoComplete='off'>
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-type'>{i18n('page.type')}</label>
+          <select
+            className='govuk-select' id='page-type' name='page-type' value={controller}
+            onChange={e => this.setState({ controller: e.target.value })}
+          >
+            <option value=''>{i18n('page.types.question')}</option>
+            <option value='./pages/start.js'>{i18n('page.types.start')}</option>
+            <option value='./pages/summary.js'>{i18n('page.types.summary')}</option>
+          </select>
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-title'>{i18n('page.title')}</label>
+          <input
+            className='govuk-input' id='page-title' name='title' type='text' value={title}
+            aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
+          />
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-path'>{i18n('page.path')}</label>
+          <span className='govuk-hint'>{i18n('page.pathHint')}</span>
+          <input
+            className='govuk-input' id='page-path' name='path'
+            type='text' aria-describedby='page-path-hint' required
+            value={path} onChange={this.onChangePath}
+          />
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-section'>{i18n('page.section')}</label>
+          <span className='govuk-hint'>{i18n('page.sectionHint')}</span>
+          {sections.length > 0 &&
             <select
-              className='govuk-select' id='page-type' name='page-type' value={controller}
-              onChange={e => this.setState({ controller: e.target.value })}
+              className='govuk-select' id='page-section' name='section' value={section?.name}
+              onChange={this.onChangeSection}
             >
-              <option value=''>Question Page</option>
-              <option value='./pages/start.js'>Start Page</option>
-              <option value='./pages/summary.js'>Summary Page</option>
+              <option/>
+              {sections.map(section => <option key={section.name} value={section.name}>{section.title}</option>)}
             </select>
-          </div>
+          }
+          {section?.name &&
+            <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>{i18n('section.edit')}</a>
+          }
+          <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>{i18n('section.create')}</a>
+        </div>
 
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='page-title'>Page Title</label>
-            <input
-              className='govuk-input' id='page-title' name='title' type='text' value={title}
-              aria-describedby='page-title-hint' required onChange={this.onChangeTitle}
-            />
-          </div>
-
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
-            <span className='govuk-hint'>The path of this page e.g. &apos;/personal-details&apos;.</span>
-            <input
-              className='govuk-input' id='page-path' name='path'
-              type='text' aria-describedby='page-path-hint' required
-              value={path} onChange={this.onChangePath}
-            />
-          </div>
-
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='page-section'>Section (optional)</label>
-            <span className='govuk-hint'>The section title is shown above the page title. If the page and the section title are the same, the section title wont show.</span>
-            {sections.length > 0 &&
-              <select
-                className='govuk-select' id='page-section' name='section' value={section?.name}
-                onChange={this.onChangeSection}
-              >
-                <option/>
-                {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
-              </select>
-            }
-            {section?.name &&
-              <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Edit section</a>
-            }
-            <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Create section</a>
-          </div>
-
-          <button className='govuk-button' type='submit'>Save</button>{' '}
-          <button className='govuk-button' type='button' onClick={this.onClickDuplicate}>Duplicate</button>{' '}
-          <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
-        </form>
-        { isEditingSection &&
-          <RenderInPortal>
-            <Flyout title={`${section?.name ? `Editing ${section.name}` : 'Add a new section'}`}
-              onHide={this.closeFlyout} show={isEditingSection}>
-              <form ref={this.formEditSection}>
-                <SectionEdit
-                  section={section}
-                  data={data}
-                  closeFlyout={this.closeFlyout}
-                />
-              </form>
-            </Flyout>
-          </RenderInPortal>
-        }
-      </div>
-
-    )
+        <button className='govuk-button' type='submit'>{i18n('save')}</button>{' '}
+        <button className='govuk-button' type='button' onClick={this.onClickDuplicate}>{i18n('duplicate')}</button>{' '}
+        <button className='govuk-button' type='button' onClick={this.onClickDelete}>{i18n('delete')}</button>
+      </form>
+      { isEditingSection &&
+        <RenderInPortal>
+          <Flyout title={section?.name ? i18n('section.editingTitle', { title: section.title }) : i18n('section.newTitle')}
+            onHide={this.closeFlyout} show={isEditingSection}>
+            <form ref={this.formEditSection}>
+              <SectionEdit
+                section={section}
+                data={data}
+                closeFlyout={this.closeFlyout}
+              />
+            </form>
+          </Flyout>
+        </RenderInPortal>
+      }
+    </div>
   }
 }
 
-export default PageEdit
+export default withI18n(PageEdit)

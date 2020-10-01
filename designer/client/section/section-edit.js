@@ -2,6 +2,7 @@ import React from 'react'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 import Name from '../name'
 import { nanoid } from 'nanoid'
+import { withI18n } from '../i18n'
 
 class SectionEdit extends React.Component {
   constructor (props) {
@@ -86,12 +87,13 @@ class SectionEdit extends React.Component {
   }
 
   render () {
+    const { i18n } = this.props
     const { title, name } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='section-title'>Title</label>
+          <label className='govuk-label govuk-label--s' htmlFor='section-title'>{i18n('title')}</label>
           <input
             className='govuk-input' id='section-title' name='title'
             type='text'
@@ -104,10 +106,10 @@ class SectionEdit extends React.Component {
         />
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
-        <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
+        <button className='govuk-button' type='button' onClick={this.onClickDelete}>{i18n('delete')}</button>
       </form>
     )
   }
 }
 
-export default SectionEdit
+export default withI18n(SectionEdit)
