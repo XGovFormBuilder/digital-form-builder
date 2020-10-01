@@ -13,14 +13,15 @@ suite('Name component', () => {
   describe('with component prop', () => {
     test('renders with correct values', () => {
       const component = { type: 'TextField', name: 'myComponent', title: 'My component' }
-      const wrapper = mount(<Name component={component} id={'an-id'} labelText={'label text'} />)
-      expect(wrapper.state()).to.include({ name: 'myComponent', nameHasError: false })
-      const field = wrapper.find('#an-id').hostNodes()
+      const wrapper = mount(<Name component={component} id={'an-id'} labelText={'label text'} hint={'nudge nudge'}/>)
+      const name = wrapper.find('Name')
+      expect(name.state()).to.include({ name: 'myComponent', nameHasError: false })
+      const field = name.find('#an-id').hostNodes()
       expect(field.exists()).to.equal(true)
       expect(field.props().value).to.equal(component.name)
-      expect(wrapper.find('.govuk-label').text()).to.equal('label text')
-      expect(wrapper.find('.govuk-hint').text()).to.equal('This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.')
-      expect(wrapper.state()).to.equal({ name: component.name, nameHasError: false })
+      expect(name.find('.govuk-label').text()).to.equal('label text')
+      expect(name.find('.govuk-hint').text()).to.equal('nudge nudge')
+      expect(name.state()).to.equal({ name: component.name, nameHasError: false })
     })
     test('update method is called with correct param', () => {
       const component = { type: 'TextField', name: 'myComponent', title: 'My component' }
@@ -43,12 +44,13 @@ suite('Name component', () => {
   describe('Without component prop', () => {
     test('renders correctly with all props provided', () => {
       const wrapper = mount(<Name id={'an-id'} labelText={'label text'} name={'myComponent'} hint={'a hint'}/>)
+      const name = wrapper.find('Name')
       const field = wrapper.find('#an-id').hostNodes()
       expect(field.exists()).to.equal(true)
       expect(field.props().value).to.equal('myComponent')
       expect(wrapper.find('.govuk-label').text()).to.equal('label text')
       expect(wrapper.find('.govuk-hint').text()).to.equal('a hint')
-      expect(wrapper.state()).to.equal({ name: 'myComponent', nameHasError: false })
+      expect(name.state()).to.equal({ name: 'myComponent', nameHasError: false })
     })
   })
   test('Error message shows up when whitespaces are entered', () => {
