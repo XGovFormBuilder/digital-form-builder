@@ -59,27 +59,26 @@ class SectionEdit extends React.Component {
 
   onClickDelete = async e => {
     e.preventDefault()
-    const { name } = this.state
-
     if (!window.confirm('Confirm delete')) {
       return
     }
 
     const { data, section } = this.props
     const copy = clone(data)
+    const previousName = this.props.section?.name
 
-    // Remove the section
     copy.sections.splice(data.sections.indexOf(section), 1)
 
     // Update any references to the section
     copy.pages.forEach(p => {
-      if (p.section.name === name) {
+      if (p.section === previousName) {
         delete p.section
       }
     })
 
     try {
       await data.save(copy)
+      this.closeFlyout({})
     } catch (error) {
       // TODO:- we should really think about handling these errors properly.
       console.log(error)
@@ -87,7 +86,7 @@ class SectionEdit extends React.Component {
   }
 
   render () {
-    const { i18n } = this.props
+    const { i18n, section } = this.props
     const { title, name } = this.state
 
     return (
@@ -106,7 +105,9 @@ class SectionEdit extends React.Component {
         />
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
-        <button className='govuk-button' type='button' onClick={this.onClickDelete}>{i18n('delete')}</button>
+        {section &&
+          <button className='govuk-button' type='button' onClick={this.onClickDelete}>{i18n('delete')}</button>
+        }
       </form>
     )
   }
