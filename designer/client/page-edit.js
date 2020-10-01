@@ -136,12 +136,10 @@ class PageEdit extends React.Component {
 
   editSection = (e) => {
     e.preventDefault()
-    this.setState({ isEditingSection: true })
-  }
-
-  createSection = (e) => {
-    e.preventDefault()
-    this.setState({ isEditingSection: true })
+    this.setState({
+      section: this.state.section ?? {},
+      isEditingSection: true
+    })
   }
 
   closeFlyout = (sectionName) => {
@@ -214,7 +212,7 @@ class PageEdit extends React.Component {
             {section?.name &&
               <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Edit section</a>
             }
-            <a href='#' className="govuk-link govuk-!-display-block" onClick={this.createSection}>Create section</a>
+            <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>Create section</a>
           </div>
 
           <button className='govuk-button' type='submit'>Save</button>{' '}
