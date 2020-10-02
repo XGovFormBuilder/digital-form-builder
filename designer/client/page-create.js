@@ -16,7 +16,6 @@ class PageCreate extends React.Component {
       section: page?.section ?? {},
       isEditingSection: false
     }
-    this.formEditSection = React.createRef()
   }
 
   onSubmit = async e => {
@@ -206,13 +205,11 @@ class PageCreate extends React.Component {
         <RenderInPortal>
           <Flyout title={`${section?.name ? `Editing ${section.name}` : 'Add a new section'}`}
             onHide={this.closeFlyout} show={true}>
-            <form ref={this.formEditSection}>
-              <SectionEdit
-                section={section}
-                data={data}
-                closeFlyout={this.closeFlyout}
-              />
-            </form>
+            <SectionEdit
+              section={section}
+              data={data}
+              closeFlyout={this.closeFlyout}
+            />
           </Flyout>
         </RenderInPortal>
         }
