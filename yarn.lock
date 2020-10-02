@@ -2891,7 +2891,6 @@ __metadata:
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.1.0
-    babel-plugin-file-loader: ^2.0.0
     clean-webpack-plugin: ^3.0.0
     copy-webpack-plugin: ^6.1.1
     cross-env: ^7.0.2
@@ -3996,17 +3995,6 @@ __metadata:
   dependencies:
     object.assign: ^4.1.0
   checksum: 6745b8edca96f6c8bc34ab65935b5676358d2e55323e8e823b8de7aa353e3e6398a495ce434c9c36ad5fb1609467a1b1a0028946e1490bf7de8f97df3ae7f3b1
-  languageName: node
-  linkType: hard
-
-"babel-plugin-file-loader@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "babel-plugin-file-loader@npm:2.0.0"
-  dependencies:
-    big.js: ^5.2.2
-    fs-extra: ^8.1.0
-    mime: ^2.4.4
-  checksum: 442c11a2acab0076f9077220bf6c8ae78f3bec93a89a4a59d2ab4f073878bc30badd6c0d126e8e526dd72f8bcee275d5a474b055ec27b899591e992adf75bf62
   languageName: node
   linkType: hard
 
