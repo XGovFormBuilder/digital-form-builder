@@ -2,7 +2,7 @@ import React from 'react'
 import Editor from './editor'
 import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
-import { Textarea } from 'govuk-react-jsx'
+import { Textarea } from '@xgovformbuilder/govuk-react-jsx'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -66,7 +66,10 @@ class FieldEdit extends React.Component {
             <label className='govuk-label govuk-label--s' htmlFor='field-title'>Title</label>
             <span className='govuk-hint'>This is the title text displayed on the page</span>
             <input
-              className='govuk-input' id='field-title' name='title' type='text'
+              className='govuk-input'
+              id='field-title'
+              name='title'
+              type='text'
               defaultValue={component.title} required
               onBlur={e => updateComponent(component, component => { component.title = e.target.value }, updateModel)}
             />
@@ -88,14 +91,20 @@ class FieldEdit extends React.Component {
               ]
             }}
             required={false}
+            value={component.hint || ''}
             onChange={e => updateComponent(component, component => { component.hint = e.target.value }, updateModel)}
+            {...component.attrs}
           />
 
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
               <input
-                className='govuk-checkboxes__input' id='field-options-hideTitle'
-                name='options.hideTitle' type='checkbox' value checked={component.options.hideTitle || false}
+                className='govuk-checkboxes__input'
+                id='field-options-hideTitle'
+                name='options.hideTitle'
+                type='checkbox'
+                value
+                checked={component.options.hideTitle || false}
                 onChange={() => updateComponent(component, component => { component.options.hideTitle = !component.options.hideTitle }, updateModel)}
               />
               <label
@@ -120,8 +129,12 @@ class FieldEdit extends React.Component {
               </span>
             }
             <input
-              className={`govuk-input govuk-input--width-20 ${nameHasError ? 'govuk-input--error' : ''}`} id='field-name'
-              name='name' type='text' required pattern='^\S+'
+              className={`govuk-input govuk-input--width-20 ${nameHasError ? 'govuk-input--error' : ''}`}
+              id='field-name'
+              name='name'
+              type='text'
+              required
+              pattern='^\S+'
               value={name}
               onChange={this.onChangeName}
               onBlur={e => updateComponent(component, component => { component.name = e.target.value }, updateModel)}
@@ -131,13 +144,15 @@ class FieldEdit extends React.Component {
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
               <input
-                className={`govuk-checkboxes__input ${this.isFileUploadField ? 'disabled' : ''}`} id='field-options-required'
-                name='options.required' type='checkbox' checked={this.isFileUploadField || component.options.required === false}
+                type='checkbox'
+                id='field-options-required'
+                className={`govuk-checkboxes__input ${this.isFileUploadField ? 'disabled' : ''}`}
+                name='options.required'
+                checked={this.isFileUploadField || component.options.required === false}
                 onChange={(e) => {
                   updateComponent(component, component => { component.options.required = component.options.required === false ? undefined : false }, updateModel)
                   this.checkOptionalBox(e)
-                }
-                }
+                }}
               />
               <label
                 className='govuk-label govuk-checkboxes__label'
@@ -153,8 +168,11 @@ class FieldEdit extends React.Component {
           <div className='govuk-checkboxes govuk-form-group' data-test-id='field-options.optionalText-wrapper' hidden={this.state.hidden}>
             <div className='govuk-checkboxes__item'>
               <input
-                className='govuk-checkboxes__input' id='field-options-optionalText'
-                name='options.optionalText' type='checkbox' checked={component.options.optionalText === false}
+                className='govuk-checkboxes__input'
+                id='field-options-optionalText'
+                name='options.optionalText'
+                type='checkbox'
+                checked={component.options.optionalText === false}
                 onChange={e => updateComponent(component, component => { component.options.optionalText = component.options.optionalText === false ? undefined : false }, updateModel)}
               />
               <label
@@ -219,9 +237,12 @@ function TextFieldEdit (props) {
           <label className='govuk-label govuk-label--s' htmlFor='field-schema-max'>Max length</label>
           <span className='govuk-hint'>Specifies the maximum number of characters</span>
           <input
-            className='govuk-input govuk-input--width-3' data-cast='number'
-            id='field-schema-max' name='schema.max'
-            defaultValue={component.schema.max} type='number'
+            className='govuk-input govuk-input--width-3'
+            data-cast='number'
+            id='field-schema-max'
+            name='schema.max'
+            defaultValue={component.schema.max}
+            type='number'
             onBlur={e => updateComponent(component, component => { component.schema.max = e.target.value }, updateModel)}
           />
         </div>
