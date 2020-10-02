@@ -1,36 +1,67 @@
 const Babel = require('@babel/core')
 let internals = {}
+
 internals.transform = function (content, filename) {
   const regexp = new RegExp('node_modules')
-  if (regexp.test(filename)) {
-    return content
+  const isGovUKFrontend = filename.indexOf('govuk-frontend') > -1
+  const isGovUKReactJsx = filename.indexOf('govuk-react-jsx') > -1
+  const isNodeModule = filename.indexOf('node_modules') > -1
+
+  if (isGovUKReactJsx) {
+    return `
+      "use strict";
+
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+
+      Object.defineProperty(exports, 'Textarea', {
+        enumerable: true,
+        get: function get() {
+          return function Textarea() { return 'textarea' }
+        }
+      });
+    `
   }
 
-  let transformed = Babel.transform(content, {
-    presets: [    "@babel/preset-flow",
-      ["@babel/preset-env", {
-        "targets": {
-          "node": "12"
-        },
-      }]
-    ],
-    filename: filename,
-    sourceMap: 'inline',
-    sourceFileName: filename,
-    auxiliaryCommentBefore: '$lab:coverage:off$',
-    auxiliaryCommentAfter: '$lab:coverage:on$',
-    "exclude": ["node_modules/**"],
-    "plugins": [
-      "@babel/plugin-proposal-export-default-from",
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-private-property-in-object",
-      "@babel/plugin-proposal-private-methods",
-      "@babel/plugin-transform-runtime"
-    ],
-    ignore: ['../node_modules', 'node_modules']
-  })
+  if (!isNodeModule) {
+    let transformed = Babel.transform(content, {
+      presets: [    
+        "@babel/preset-flow",
+        ["@babel/preset-env", {
+          "targets": {
+            "node": "12"
+          },
+        }]
+      ],
+      filename: filename,
+      sourceMap: 'inline',
+      sourceFileName: filename,
+      auxiliaryCommentBefore: '$lab:coverage:off$',
+      auxiliaryCommentAfter: '$lab:coverage:on$',
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-property-in-object",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-runtime",
+      ],
+      // "exclude": ["node_modules/**"],
+      // ignore: ['../node_modules', 'node_modules']
+    })
 
-  return transformed.code
+    return transformed.code
+  }
+
+  // return content of node_module
+  return content
+
+  // if (regexp.test(filename)) {
+  //   if (filename.indexOf('govuk-frontend') > -1) {
+  //     console.log(content)
+  //   }
+  //   return content
+  // }
 }
 
 internals.extensions = ['js', 'jsx', 'es', 'es6']
