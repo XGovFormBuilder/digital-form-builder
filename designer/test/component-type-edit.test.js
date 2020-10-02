@@ -3,17 +3,38 @@ import { shallow, mount, render } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import { ComponentTypes, Data } from '@xgovformbuilder/model'
+import sinon from 'sinon'
 import ComponentTypeEdit from '../client/component-type-edit'
 
-import sinon from 'sinon'
 import { assertCheckboxInput, assertRequiredTextInput, assertTextArea } from './helpers/element-assertions'
+
+function fakeDefaultExport (moduleRelativePath, stubs) {
+  if (require.cache[require.resolve(moduleRelativePath)]) {
+    delete require.cache[require.resolve(moduleRelativePath)]
+  }
+  Object.keys(stubs).forEach(dependencyRelativePath => {
+    require.cache[require.resolve(dependencyRelativePath)] = {
+      exports: stubs[dependencyRelativePath]
+    }
+  })
+
+  return require(moduleRelativePath)
+}
+
+const stubby = fakeDefaultExport('govuk-react-jsx', {
+  'govuk-react-jsx/govuk/components/header': sinon.stub(),
+  'govuk-react-jsx/govuk/template': sinon.stub()
+})
+const { Textarea } = require('govuk-react-jsx')
+
+console.log(Textarea)
 
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
 const { suite, test, describe } = lab
 
-suite('Component type edit', () => {
+suite.only('Component type edit', () => {
   const data = new Data({
     lists: [{
       name: 'myList',
