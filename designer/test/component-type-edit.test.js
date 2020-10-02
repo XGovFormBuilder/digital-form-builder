@@ -8,33 +8,12 @@ import ComponentTypeEdit from '../client/component-type-edit'
 
 import { assertCheckboxInput, assertRequiredTextInput, assertTextArea } from './helpers/element-assertions'
 
-function fakeDefaultExport (moduleRelativePath, stubs) {
-  if (require.cache[require.resolve(moduleRelativePath)]) {
-    delete require.cache[require.resolve(moduleRelativePath)]
-  }
-  Object.keys(stubs).forEach(dependencyRelativePath => {
-    require.cache[require.resolve(dependencyRelativePath)] = {
-      exports: stubs[dependencyRelativePath]
-    }
-  })
-
-  return require(moduleRelativePath)
-}
-
-const stubby = fakeDefaultExport('govuk-react-jsx', {
-  'govuk-react-jsx/govuk/components/header': sinon.stub(),
-  'govuk-react-jsx/govuk/template': sinon.stub()
-})
-const { Textarea } = require('govuk-react-jsx')
-
-console.log(Textarea)
-
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
 const { suite, test, describe } = lab
 
-suite.only('Component type edit', () => {
+suite('Component type edit', () => {
   const data = new Data({
     lists: [{
       name: 'myList',
@@ -65,22 +44,74 @@ suite.only('Component type edit', () => {
 
     cases.forEach(testCase => {
       test(`${testCase.case}`, () => {
-        const wrapper = render(<ComponentTypeEdit data={data} component={{ type: 'FileUploadField', name: 'myComponent', title: 'My component', hint: testCase.hint, options: testCase.options }} />)
+        const wrapper = mount(
+          <ComponentTypeEdit
+            data={data}
+            component={{
+              type: 'FileUploadField',
+              name: 'myComponent',
+              title: 'My component',
+              hint: testCase.hint,
+              options: testCase.options
+            }}
+          />
+        )
+
         const standardInputs = wrapper.find('[data-test-id="standard-inputs"]')
         expect(standardInputs.length).to.equal(1)
+
         const inputs = standardInputs.find('input')
         expect(inputs.length).to.equal(5)
 
-        assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-        assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
-        assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-        assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, true, { name: 'options.required' })
-        assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
-        assertOptionalTextWrapper(inputs.get(4), true)
+        assertRequiredTextInput({
+          wrapper: inputs.at(0),
+          id: 'field-title',
+          expectedValue: 'My component'
+        })
 
-        const textAreas = standardInputs.find('textarea')
-        expect(textAreas.length).to.equal(1)
-        assertTextArea(textAreas.get(0), 'field-hint', testCase.hint || '', { name: 'hint', rows: '2' })
+        assertCheckboxInput({
+          wrapper: inputs.at(1),
+          id: 'field-options-hideTitle',
+          value: true,
+          checked: testCase.options?.hideTitle || false,
+          attrs: { name: 'options.hideTitle' }
+        })
+
+        assertRequiredTextInput({
+          wrapper: inputs.at(2),
+          id: 'field-name',
+          expectedValue: 'myComponent'
+        })
+
+        assertCheckboxInput({
+          wrapper: inputs.at(3),
+          id: 'field-options-required',
+          value: undefined,
+          checked: true,
+          attrs: { name: 'options.required' }
+        })
+
+        assertCheckboxInput({
+          wrapper: inputs.at(4),
+          id: 'field-options-optionalText',
+          value: undefined,
+          checked: testCase.options?.optionalText === false || false,
+          attrs: { name: 'options.optionalText' }
+        })
+
+        expect(
+          wrapper.find('[data-test-id="field-options.optionalText-wrapper"]')
+            .prop('hidden')
+        ).to.equal(true)
+
+        const textarea = standardInputs.find('Textarea').first()
+
+        assertTextArea({
+          wrapper: textarea,
+          id: 'field-hint',
+          expectedValue: (testCase.hint || ''),
+          attrs: { name: 'hint', rows: 2 }
+        })
 
         const selects = standardInputs.find('select')
         expect(selects.length).to.equal(0)
@@ -166,11 +197,20 @@ suite.only('Component type edit', () => {
         const updateModel = sinon.spy()
 
         const component = Object.assign({ type: testCase.type }, testCase.componentInitialState || {})
-        const wrapper = mount(<ComponentTypeEdit data={data} component={component} updateModel={updateModel}/>)
+        const wrapper = mount(
+          <ComponentTypeEdit data={data} component={component} updateModel={updateModel}/>
+        )
 
         const field = wrapper.find(`#${testCase.fieldId}`)
         expect(field.exists()).to.equal(true)
-        field.simulate(testCase.event, { target: { value: testCase.value } })
+
+        if (field.name() === 'Textarea') {
+          // https://github.com/enzymejs/enzyme/blob/d65fc69d87e985fcb51ad5cdc8fdec4933519fe6/docs/common-issues.md#testing-third-party-libraries
+          field.prop('onChange')({ target: { value: testCase.value } })
+        } else {
+          field.simulate(testCase.event, { target: { value: testCase.value } })
+        }
+
         expect(updateModel.callCount).to.equal(1)
         expect(updateModel.firstCall.args[0]).to.equal(testCase.expectedModel)
       })
@@ -197,25 +237,70 @@ suite.only('Component type edit', () => {
     })
   })
 
-  const inputsExcludingFileUpload = ComponentTypes.filter(type => type.subType === 'field').filter(type => type.name !== 'FileUploadField')
+  const inputsExcludingFileUpload = ComponentTypes
+    .filter(type => type.subType === 'field')
+    .filter(type => type.name !== 'FileUploadField')
+
   inputsExcludingFileUpload.forEach(componentType => {
     test(`${componentType.name} type gets the standard inputs and is required by default`, () => {
-      const wrapper = render(<ComponentTypeEdit data={data} component={{ type: componentType.name, name: 'myComponent', title: 'My component' }} />)
+      const wrapper = mount(
+        <ComponentTypeEdit
+          data={data}
+          component={{ type: componentType.name, name: 'myComponent', title: 'My component' }}
+        />
+      )
       const standardInputs = wrapper.find('[data-test-id="standard-inputs"]')
       expect(standardInputs.length).to.equal(1)
       const inputs = standardInputs.find('input')
       expect(inputs.length).to.equal(5)
 
-      assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-      assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', '', { name: 'options.hideTitle' })
-      assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-      assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, '', { name: 'options.required' })
-      assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, '', { name: 'options.optionalText' })
-      assertOptionalTextWrapper(inputs.get(4), true)
+      assertRequiredTextInput({
+        wrapper: inputs.at(0),
+        id: 'field-title',
+        expectedValue: 'My component'
+      })
 
-      const textAreas = standardInputs.find('textarea')
+      assertCheckboxInput({
+        wrapper: inputs.at(1),
+        id: 'field-options-hideTitle',
+        value: true,
+        checked: false
+      })
+
+      assertRequiredTextInput({
+        wrapper: inputs.at(2),
+        id: 'field-name',
+        expectedValue: 'myComponent'
+      })
+
+      assertCheckboxInput({
+        wrapper: inputs.at(3),
+        id: 'field-options-required',
+        value: undefined,
+        checked: false
+      })
+
+      assertCheckboxInput({
+        wrapper: inputs.at(4),
+        id: 'field-options-optionalText',
+        value: undefined,
+        checked: false
+      })
+
+      expect(
+        wrapper.find('[data-test-id="field-options.optionalText-wrapper"]').prop('hidden')
+      ).to.equal(true)
+
+      const textAreas = standardInputs.find('Textarea')
+
       expect(textAreas.length).to.equal(1)
-      assertTextArea(textAreas.get(0), 'field-hint', '', { name: 'hint', rows: '2' })
+
+      assertTextArea({
+        wrapper: textAreas.at(0),
+        id: 'field-hint',
+        expectedValue: '',
+        attrs: { name: 'hint', rows: 2 }
+      })
 
       const selects = standardInputs.find('select')
       expect(selects.length).to.equal(0)
@@ -231,23 +316,72 @@ suite.only('Component type edit', () => {
 
       optionalCases.forEach(testCase => {
         test(`when specified as optional ${testCase.case}`, () => {
-          const wrapper = render(<ComponentTypeEdit data={data} component={{ type: componentType.name, name: 'myComponent', title: 'My component', hint: testCase.hint, options: testCase.options }} />)
+          const wrapper = mount(
+            <ComponentTypeEdit
+              data={data}
+              component={{
+                type: componentType.name,
+                name: 'myComponent',
+                title: 'My component',
+                hint: testCase.hint,
+                options: testCase.options
+              }}
+            />
+          )
+
           const standardInputs = wrapper.find('[data-test-id="standard-inputs"]')
           expect(standardInputs.length).to.equal(1)
+
           const inputs = standardInputs.find('input')
-
           expect(inputs.length).to.equal(5)
-          // TODO:- getting input by index is dangerous.. it makes changing order of components a bit of a pain 😭
-          assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-          assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
-          assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, true, { name: 'options.required' })
-          assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
-          assertOptionalTextWrapper(inputs.get(4))
 
-          const textAreas = standardInputs.find('textarea')
+          assertRequiredTextInput({
+            wrapper: inputs.at(0),
+            id: 'field-title',
+            expectedValue: 'My component'
+          })
+
+          assertCheckboxInput({
+            wrapper: inputs.at(1),
+            id: 'field-options-hideTitle',
+            value: true,
+            checked: testCase.options?.hideTitle || false
+          })
+
+          assertRequiredTextInput({
+            wrapper: inputs.at(2),
+            id: 'field-name',
+            expectedValue: 'myComponent'
+          })
+
+          assertCheckboxInput({
+            wrapper: inputs.at(3),
+            id: 'field-options-required',
+            value: undefined,
+            checked: true
+          })
+
+          assertCheckboxInput({
+            wrapper: inputs.at(4),
+            id: 'field-options-optionalText',
+            value: undefined,
+            checked: testCase.options?.optionalText === false || false
+          })
+
+          expect(
+            wrapper.find('[data-test-id="field-options.optionalText-wrapper"]')
+              .prop('hidden')
+          ).to.equal(false)
+
+          const textAreas = standardInputs.find('Textarea')
           expect(textAreas.length).to.equal(1)
-          assertTextArea(textAreas.get(0), 'field-hint', testCase.hint || '', { name: 'hint', rows: '2' })
+
+          assertTextArea({
+            wrapper: textAreas.at(0),
+            id: 'field-hint',
+            expectedValue: testCase.hint || '',
+            attrs: { name: 'hint', rows: 2 }
+          })
 
           const selects = standardInputs.find('select')
           expect(selects.length).to.equal(0)
@@ -263,23 +397,72 @@ suite.only('Component type edit', () => {
 
       nonOptionalCases.forEach(testCase => {
         test(`when not specified as optional ${testCase.case}`, () => {
-          const wrapper = render(<ComponentTypeEdit data={data} component={{ type: componentType.name, name: 'myComponent', title: 'My component', hint: testCase.hint, options: testCase.options }} />)
+          const wrapper = mount(
+            <ComponentTypeEdit
+              data={data}
+              component={{
+                type: componentType.name,
+                name: 'myComponent',
+                title: 'My component',
+                hint: testCase.hint,
+                options: testCase.options
+              }}
+            />
+          )
+
           const standardInputs = wrapper.find('[data-test-id="standard-inputs"]')
           expect(standardInputs.length).to.equal(1)
           const inputs = standardInputs.find('input')
 
           expect(inputs.length).to.equal(5)
 
-          assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-          assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
-          assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, '', { name: 'options.required' })
-          assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, '', { name: 'options.optionalText' })
-          assertOptionalTextWrapper(inputs.get(4), true)
+          assertRequiredTextInput({
+            wrapper: inputs.at(0),
+            id: 'field-title',
+            expectedValue: 'My component'
+          })
 
-          const textAreas = standardInputs.find('textarea')
+          assertCheckboxInput({
+            wrapper: inputs.at(1),
+            id: 'field-options-hideTitle',
+            value: true,
+            checked: testCase.options?.hideTitle || false
+          })
+
+          assertRequiredTextInput({
+            wrapper: inputs.at(2),
+            id: 'field-name',
+            expectedValue: 'myComponent'
+          })
+
+          assertCheckboxInput({
+            wrapper: inputs.at(3),
+            id: 'field-options-required',
+            value: undefined,
+            checked: false
+          })
+
+          assertCheckboxInput({
+            wrapper: inputs.at(4),
+            id: 'field-options-optionalText',
+            value: undefined,
+            checked: false
+          })
+
+          expect(
+            wrapper.find('[data-test-id="field-options.optionalText-wrapper"]')
+              .prop('hidden')
+          ).to.equal(true)
+
+          const textAreas = standardInputs.find('Textarea')
           expect(textAreas.length).to.equal(1)
-          assertTextArea(textAreas.get(0), 'field-hint', testCase.hint || '', { name: 'hint', rows: '2' })
+
+          assertTextArea({
+            wrapper: textAreas.at(0),
+            id: 'field-hint',
+            expectedValue: testCase.hint || '',
+            attrs: { name: 'hint', rows: 2 }
+          })
 
           const selects = standardInputs.find('select')
           expect(selects.length).to.equal(0)
@@ -290,9 +473,17 @@ suite.only('Component type edit', () => {
 
   describe('optional checkbox', () => {
     test('clicking checkbox should toggle checked', () => {
-      const wrapper = mount(<ComponentTypeEdit data={data} component={{ type: 'TextField', name: 'myComponent', title: 'My component' }} updateModel={sinon.spy()} />)
+      const wrapper = mount(
+        <ComponentTypeEdit
+          data={data}
+          component={{ type: 'TextField', name: 'myComponent', title: 'My component' }}
+          updateModel={sinon.spy()}
+        />
+      )
+
       const checkbox = wrapper.find('#field-options-required')
       const optionalText = wrapper.find('[data-test-id="field-options.optionalText-wrapper"]')
+
       expect(checkbox.exists()).to.equal(true)
       expect(optionalText.instance().hidden).to.equal(true)
       expect(checkbox.props().checked).to.equal(false)
@@ -304,21 +495,31 @@ suite.only('Component type edit', () => {
 
   describe('controlled name field', () => {
     test('error messages shows up when whitespaces are entered', () => {
-      const wrapper = mount(<ComponentTypeEdit data={data} component={{ type: 'TextField', name: 'myComponent', title: 'My component' }}/>)
+      const wrapper = mount(
+        <ComponentTypeEdit
+          data={data}
+          component={{ type: 'TextField', name: 'myComponent', title: 'My component' }}
+        />
+      )
+
       const field = wrapper.find('#field-name')
-      field.simulate('change', { target: { value: `this${randomWhitespaceCharacter()}value${randomWhitespaceCharacter()}has dif${whitespaceCharacters.join('')}ferent spaces${randomWhitespaceCharacter()} in it` } })
+
+      field.simulate('change', {
+        target: {
+          value: `this${randomWhitespaceCharacter()}value${randomWhitespaceCharacter()}has dif${whitespaceCharacters.join('')}ferent spaces${randomWhitespaceCharacter()} in it`
+        }
+      })
+
       wrapper.update()
       expect(wrapper.find('#field-name').hasClass('govuk-input--error')).to.equal(true)
-      expect(wrapper.find('#field-name').parent().hasClass('govuk-form-group--error')).to.equal(true)
+      expect(
+        wrapper.find('#field-name').parent().hasClass('govuk-form-group--error')
+      ).to.equal(true)
       expect(wrapper.find('.govuk-error-message').exists()).to.equal(true)
     })
   })
 })
 
-function assertOptionalTextWrapper (input, hidden) {
-  const wrappingDiv = input.parent.parent
-  expect(wrappingDiv.attribs.hidden).to.equal(hidden ? '' : undefined)
-}
 const whitespaceCharacters = ['\u0020',
   '\u00A0',
   '\u2000',
