@@ -31,6 +31,18 @@ internals.transform = function (content, filename) {
           return function Input() { return 'input' }
         }
       });
+      Object.defineProperty(exports, 'Hint', {
+        enumerable: true,
+        get: function get() {
+          return function Hint() { return 'hint' }
+        }
+      });
+      Object.defineProperty(exports, 'Select', {
+        enumerable: true,
+        get: function get() {
+          return function Select() { return 'select' }
+        }
+      });
     `
   }
 
