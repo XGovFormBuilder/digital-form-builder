@@ -45,26 +45,20 @@ suite('Form details', () => {
         wrapper: wrapper.find('#form-title'),
         id: 'form-title'
       })
-      assertRadioButton({ 
-      wrapper: , 
-      id: , 
-      value: , 
-      label: , 
-      attrs:  
-    }
-        
-        
-        wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
-      assertRadioButton({ 
-      wrapper: , 
-      id: , 
-      value: , 
-      label: , 
-      attrs:  
-    }
-        
-        
-        wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
+      assertRadioButton({
+        wrapper: wrapper.find('#feedback-yes'),
+        id: 'feedback-yes',
+        value: 'true',
+        label: 'Yes',
+        attrs: { defaultChecked: false }
+      })
+      assertRadioButton({
+        wrapper: wrapper.find('#feedback-no'),
+        id: 'feedback-no',
+        value: 'false',
+        label: 'No',
+        attrs: { defaultChecked: true }
+      })
     })
 
     test('Renders pre-populated name input when form already has a name', () => {
@@ -95,49 +89,40 @@ suite('Form details', () => {
         wrapper: wrapper.find('#form-title'),
         id: 'form-title'
       })
-      assertRadioButton({ 
-      wrapper: , 
-      id: , 
-      value: , 
-      label: , 
-      attrs:  
-    }
-        
-        wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: true })
-      assertRadioButton({ 
-      wrapper: , 
-      id: , 
-      value: , 
-      label: , 
-      attrs:  
-    }
-        
-        
-        wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: false })
+
+      assertRadioButton({
+        wrapper: wrapper.find('#feedback-yes'),
+        id: 'feedback-yes',
+        value: 'true',
+        label: 'Yes',
+        attrs: { defaultChecked: true }
+      })
+
+      assertRadioButton({
+        wrapper: wrapper.find('#feedback-no'),
+        id: 'feedback-no',
+        value: 'false',
+        label: 'No',
+        attrs: { defaultChecked: false }
+      })
     })
 
     test('Renders Feedback \'no\' checked when form is not a feedback form', () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton({ 
-      wrapper: , 
-      id: , 
-      value: , 
-      label: , 
-      attrs:  
-    }
-        
-        
-        wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
-      assertRadioButton({ 
-      wrapper: , 
-      id: , 
-      value: , 
-      label: , 
-      attrs:  
-    }
-        
-        
-        wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
+      assertRadioButton({
+        wrapper: wrapper.find('#feedback-yes'),
+        id: 'feedback-yes',
+        value: 'true',
+        label: 'Yes',
+        attrs: { defaultChecked: false }
+      })
+      assertRadioButton({
+        wrapper: wrapper.find('#feedback-no'),
+        id: 'feedback-no',
+        value: 'false',
+        label: 'No',
+        attrs: { defaultChecked: true }
+      })
     })
 
     test('Renders Feedback form input when form is not a feedback form', async () => {
