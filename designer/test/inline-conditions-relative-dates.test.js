@@ -44,7 +44,11 @@ suite('Inline conditions relative time value inputs', () => {
       const existingValue = new RelativeTimeValue('18', unit, dateDirections.FUTURE)
       const wrapper = shallow(<RelativeTimeValues value={existingValue} updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
-      assertRequiredTextInput(wrapper.find('#cond-value-period'), 'cond-value-period', '18')
+      assertRequiredTextInput({
+        wrapper: wrapper.find('#cond-value-period'),
+        id: 'cond-value-period',
+        expectedValue: '18'
+      })
       assertSelectInput(wrapper.find('#cond-value-units'), 'cond-value-units',
         valuesAndDisplayOptionsWithEmptyOption(Object.values(mapping.units)),
         unit)
