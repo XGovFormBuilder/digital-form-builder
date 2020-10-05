@@ -36,8 +36,20 @@ suite('Page edit', () => {
       { value: './pages/start.js', text: 'Start Page' },
       { value: './pages/summary.js', text: 'Summary Page' }
     ], './pages/start.js')
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'My first page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/1' })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: undefined,
+      attrs: { value: 'My first page' }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: undefined,
+      attrs: { value: '/1' }
+    })
 
     assertSelectInput(wrapper.find('#page-section'), 'page-section', [
       { text: '' },
@@ -75,8 +87,20 @@ suite('Page edit', () => {
       { value: './pages/start.js', text: 'Start Page' },
       { value: './pages/summary.js', text: 'Summary Page' }
     ], '')
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'My first page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/1' })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: undefined,
+      attrs: { value: 'My first page' }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: undefined,
+      attrs: { value: '/1' }
+    })
 
     assertSelectInput(wrapper.find('#page-section'), 'page-section', [
       { text: '' },
@@ -110,8 +134,19 @@ suite('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/new-page' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: undefined,
+      attrs: { value: 'New Page' }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: undefined,
+      attrs: { value: '/new-page' }
+    })
   })
 
   test('Updating the title changes the path if the path is the auto-generated one for no title', () => {
@@ -134,8 +169,19 @@ suite('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/new-page' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: undefined,
+      attrs: { value: 'New Page' }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: undefined,
+      attrs: { value: '/new-page' }
+    })
   })
 
   test('Updating the title does not change the path if the path is not the auto-generated one', () => {
@@ -158,8 +204,19 @@ suite('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/1' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: undefined,
+      attrs: { value: 'New Page' }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: undefined,
+      attrs: { value: '/1' }
+    })
   })
 
   test('Changing the section causes the new section to be selected', () => {
