@@ -86,7 +86,7 @@ class SectionEdit extends React.Component {
   }
 
   render () {
-    const { i18n, section } = this.props
+    const { i18n } = this.props
     const { title, name } = this.state
 
     return (
@@ -105,7 +105,7 @@ class SectionEdit extends React.Component {
         />
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
-        {section &&
+        {!this.isNewSection &&
           <button className='govuk-button' type='button' onClick={this.onClickDelete}>{i18n('delete')}</button>
         }
       </form>
