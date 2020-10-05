@@ -36,7 +36,11 @@ suite('Inline conditions definition value inputs', () => {
     }
     const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} value={new ConditionValue('my-value')} fieldDef={fieldDef} operator='is' />)
 
-    assertRequiredTextInput(wrapper.find('input'), 'cond-value', 'my-value')
+    assertRequiredTextInput({
+      wrapper: wrapper.find('input'),
+      id: 'cond-value',
+      expectedValue: 'my-value'
+    })
   })
 
   test('Inputting a text value should call update value', () => {
