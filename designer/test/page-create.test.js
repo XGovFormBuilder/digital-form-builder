@@ -33,11 +33,15 @@ suite('Page create', () => {
   test('Renders a form with the appropriate initial inputs', () => {
     const wrapper = shallow(<PageCreate data={data} />)
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ])
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ]
+    })
 
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
@@ -50,16 +54,24 @@ suite('Page create', () => {
       id: 'page-path'
     })
 
-    assertSelectInput(wrapper.find('#link-from'), 'link-from', [
-      { text: '' },
-      { value: '/1', text: '/1' },
-      { value: '/2', text: '/2' }
-    ])
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ])
+    assertSelectInput({
+      wrapper: wrapper.find('#link-from'),
+      id: 'link-from',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: '/1', text: '/1' },
+        { value: '/2', text: '/2' }
+      ]
+    })
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ]
+    })
     expect(wrapper.find('SelectConditions').exists()).to.equal(false)
   })
 
@@ -77,21 +89,36 @@ suite('Page create', () => {
       attrs: { value: 'New Page' }
     })
 
-    assertSelectInput(wrapper.find('#link-from'), 'link-from', [
-      { text: '' },
-      { value: '/1', text: '/1' },
-      { value: '/2', text: '/2' }
-    ], '/2')
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], 'personalDetails')
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], './pages/start.js')
+    assertSelectInput({
+      wrapper: wrapper.find('#link-from'),
+      id: 'link-from',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: '/1', text: '/1' },
+        { value: '/2', text: '/2' }
+      ],
+      expectedValue: '/2'
+    })
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: 'personalDetails'
+    })
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: './pages/start.js'
+    })
     expect(wrapper.find('SelectConditions').exists()).to.equal(true)
   })
 

@@ -92,7 +92,11 @@ suite('Component values', () => {
         label: 'I\'ll populate my own entries',
         attrs: { defaultChecked: false }
       })
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
+      assertSelectInput({
+        wrapper: wrapper.find('#field-options-list'),
+        id: 'field-options-list',
+        expectedFieldOptions: expectedListSelectionOptions
+      })
     })
 
     test('Should render list selection where the component already has a list selected', () => {
@@ -176,7 +180,11 @@ suite('Component values', () => {
         label: 'I\'ll populate my own entries',
         attrs: { defaultChecked: true }
       })
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
+      assertSelectInput({
+        wrapper: wrapper.find('#field-options-list'),
+        id: 'field-options-list',
+        expectedFieldOptions: expectedListSelectionOptions
+      })
     })
 
     test('Should render list selection where the component already has type selected but no values', () => {
@@ -198,7 +206,11 @@ suite('Component values', () => {
         attrs: { defaultChecked: true }
       })
 
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
+      assertSelectInput({
+        wrapper: wrapper.find('#field-options-list'),
+        id: 'field-options-list',
+        expectedFieldOptions: expectedListSelectionOptions
+      })
       expect(updateModel.callCount).to.equal(0)
     })
 

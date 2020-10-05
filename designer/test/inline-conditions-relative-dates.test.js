@@ -49,12 +49,18 @@ suite('Inline conditions relative time value inputs', () => {
         id: 'cond-value-period',
         expectedValue: '18'
       })
-      assertSelectInput(wrapper.find('#cond-value-units'), 'cond-value-units',
-        valuesAndDisplayOptionsWithEmptyOption(Object.values(mapping.units)),
-        unit)
-      assertSelectInput(wrapper.find('#cond-value-direction'), 'cond-value-direction',
-        singleValueAndDisplayOptionsWithEmptyOption(Object.values(dateDirections)),
-        dateDirections.FUTURE)
+      assertSelectInput({
+        wrapper: wrapper.find('#cond-value-units'),
+        id: 'cond-value-units',
+        expectedFieldOptions: valuesAndDisplayOptionsWithEmptyOption(Object.values(mapping.units)),
+        expectedValue: unit
+      })
+      assertSelectInput({
+        wrapper: wrapper.find('#cond-value-direction'),
+        id: 'cond-value-direction',
+        expectedFieldOptions: singleValueAndDisplayOptionsWithEmptyOption(Object.values(dateDirections)),
+        expectedValue: dateDirections.FUTURE
+      })
     })
 
     test(`specifying all inputs in order should save the expected value for adding ${mapping.type} component type`, () => {

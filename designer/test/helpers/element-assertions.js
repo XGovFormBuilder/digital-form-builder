@@ -67,7 +67,7 @@ export function assertTextArea ({ wrapper, id, expectedValue, attrs }) {
   assertAdditionalAttributes(attrs, wrapper)
 }
 
-export function assertSelectInput (wrapper, id, expectedFieldOptions, expectedValue) {
+export function assertSelectInput ({ wrapper, id, expectedFieldOptions, expectedValue }) {
   expect(getTagName(wrapper)).to.equal('select')
   expect(getProperty(wrapper, 'id')).to.equal(id)
   const options = wrapper.children()

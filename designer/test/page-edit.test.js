@@ -31,11 +31,16 @@ suite('Page edit', () => {
 
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], './pages/start.js')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: './pages/start.js'
+    })
 
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
@@ -51,11 +56,16 @@ suite('Page edit', () => {
       attrs: { value: '/1' }
     })
 
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], 'badger')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: 'badger'
+    })
     const buttons = wrapper.find('button')
     expect(buttons.length).to.equal(3)
     expect(buttons.at(0).text()).to.equal('Save')
@@ -82,11 +92,16 @@ suite('Page edit', () => {
 
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], '')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: ''
+    })
 
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
@@ -102,11 +117,16 @@ suite('Page edit', () => {
       attrs: { value: '/1' }
     })
 
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], '')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: ''
+    })
     const buttons = wrapper.find('button')
     expect(buttons.length).to.equal(3)
     expect(buttons.at(0).text()).to.equal('Save')
@@ -239,11 +259,16 @@ suite('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-section').simulate('change', { target: { value: 'badger' } })
 
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], 'badger')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: 'badger'
+    })
   })
 
   test('Changing the controller causes the new controller to be selected', () => {
@@ -266,10 +291,15 @@ suite('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-type').simulate('change', { target: { value: './pages/summary.js' } })
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], './pages/summary.js')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: './pages/summary.js'
+    })
   })
 })

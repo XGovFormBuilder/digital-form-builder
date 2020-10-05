@@ -128,12 +128,18 @@ suite('Form details', () => {
     test('Renders Feedback form input when form is not a feedback form', async () => {
       const wrapper = shallow(<FormDetails data={data} />)
       await wrapper.instance().componentDidMount()
-      assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+      const expectedFieldOptions = [
         { text: '' },
         { value: 'someKey', text: 'Some display name' },
         { value: 'anotherKey', text: 'Another display name' },
         { value: 'thirdKey', text: 'thirdKey' }
-      ])
+      ]
+
+      assertSelectInput({
+        wrapper: wrapper.find('#target-feedback-form'),
+        id: 'target-feedback-form',
+        expectedFieldOptions
+      })
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
       expect(wrapper.find('#target-feedback-form-hint').text().startsWith('This is the form to use for gathering feedback about this form')).to.equal(true)
     })
@@ -158,12 +164,19 @@ suite('Form details', () => {
       data.setFeedbackUrl('/anotherKey')
       const wrapper = shallow(<FormDetails data={data} />)
       await wrapper.instance().componentDidMount()
-      assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+      const expectedFieldOptions = [
         { text: '' },
         { value: 'someKey', text: 'Some display name' },
         { value: 'anotherKey', text: 'Another display name' },
         { value: 'thirdKey', text: 'thirdKey' }
-      ], 'anotherKey')
+      ]
+
+      assertSelectInput({
+        wrapper: wrapper.find('#target-feedback-form'),
+        id: 'target-feedback-form',
+        expectedFieldOptions,
+        expectedValue: 'anotherKey'
+      })
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
       expect(wrapper.find('#target-feedback-form-hint').text().startsWith('This is the form to use for gathering feedback about this form')).to.equal(true)
     })

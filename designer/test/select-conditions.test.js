@@ -85,8 +85,12 @@ suite('Select conditions', () => {
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
         expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(selectConditions.find('select'), 'cond-select',
-          expectedFieldOptions, '')
+        assertSelectInput({
+          wrapper: selectConditions.find('select'),
+          id: 'cond-select',
+          expectedFieldOptions,
+          expectedValue: ''
+        })
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -104,8 +108,12 @@ suite('Select conditions', () => {
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
         expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(selectConditions.find('select'), 'cond-select',
-          expectedFieldOptions, '')
+        assertSelectInput({
+          wrapper: selectConditions.find('select'),
+          id: 'cond-select',
+          expectedFieldOptions,
+          expectedValue: ''
+        })
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -121,8 +129,12 @@ suite('Select conditions', () => {
         expect(selectConditions.find('label').text()).to.equal('Select a condition')
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
         expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(selectConditions.find('select'), 'cond-select',
-          expectedFieldOptions, conditions[1].name)
+        assertSelectInput({
+          wrapper: selectConditions.find('select'),
+          id: 'cond-select',
+          expectedFieldOptions,
+          expectedValue: conditions[1].name
+        })
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -143,7 +155,12 @@ suite('Select conditions', () => {
 
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
         expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(wrapper.find('select'), 'cond-select', expectedFieldOptions, '')
+        assertSelectInput({
+          wrapper: wrapper.find('select'),
+          id: 'cond-select',
+          expectedFieldOptions,
+          expectedValue: ''
+        })
         assertInlineConditionFlyoutNotDisplayed(wrapper)
       })
 
@@ -155,7 +172,12 @@ suite('Select conditions', () => {
 
         const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
         expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(wrapper.find('select'), 'cond-select', expectedFieldOptions, conditions[1].name)
+        assertSelectInput({
+          wrapper: wrapper.find('select'),
+          id: 'cond-select',
+          expectedFieldOptions,
+          expectedValue: conditions[1].name
+        })
         assertInlineConditionFlyoutNotDisplayed(wrapper)
         expect(conditionsChange.called).to.equal(false)
       })
