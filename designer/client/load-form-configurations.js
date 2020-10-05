@@ -17,8 +17,7 @@ function fetchConfigurations () {
 async function loadConfigurations () {
   return fetchConfigurations().then(data => {
     return Object.values(data) || []
-  }).catch(error => {
-    console.log(error)
+  }).catch(_error => {
     return []
   })
 }
