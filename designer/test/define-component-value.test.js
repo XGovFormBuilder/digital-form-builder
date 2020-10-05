@@ -50,8 +50,20 @@ suite('Define component value', () => {
   test('Should render expected form', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
 
-    assertTextInput(wrapper.find('#item-label'), 'item-label', undefined, { required: true })
-    assertTextInput(wrapper.find('#item-value'), 'item-value', undefined, { required: true })
+    assertTextInput({
+      wrapper: wrapper.find('#item-label'),
+      id: 'item-label',
+      expectedValue: undefined,
+      attrs: { required: true }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#item-value'),
+      id: 'item-value',
+      expectedValue: undefined,
+      attrs: { required: true }
+    })
+
     assertTextArea(wrapper.find('#item-hint'), 'item-hint', '', { rows: 2, required: undefined })
     assertSelectConditionsDisplayed(wrapper)
     expect(wrapper.find('#add-child-link').exists()).to.equal(true)
@@ -74,8 +86,20 @@ suite('Define component value', () => {
 
     const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
 
-    assertTextInput(wrapper.find('#item-label'), 'item-label', 'My label', { required: true })
-    assertTextInput(wrapper.find('#item-value'), 'item-value', 'My value', { required: true })
+    assertTextInput({
+      wrapper: wrapper.find('#item-label'),
+      id: 'item-label',
+      expectedValue: 'My label',
+      attrs: { required: true }
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#item-value'),
+      id: 'item-value',
+      expectedValue: 'My value',
+      attrs: { required: true }
+    })
+
     assertTextArea(wrapper.find('#item-hint'), 'item-hint', 'My hint', { rows: 2, required: undefined })
     assertSelectConditionsDisplayed(wrapper, 'myCondition')
 
