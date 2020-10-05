@@ -28,7 +28,7 @@ internals.transform = function (content, filename) {
       Object.defineProperty(exports, 'Input', {
         enumerable: true,
         get: function get() {
-          return function Input() { return 'radios' }
+          return function Input() { return 'input' }
         }
       });
     `
