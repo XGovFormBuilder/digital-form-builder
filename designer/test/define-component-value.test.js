@@ -5,7 +5,6 @@ import * as Code from '@hapi/code'
 import { Data } from '@xgovformbuilder/model'
 import sinon from 'sinon'
 import DefineComponentValue from '../client/components/define-component-value'
-import { assertTextArea, assertTextInput } from './helpers/element-assertions'
 
 const lab = Lab.script()
 exports.lab = lab
@@ -48,24 +47,31 @@ suite('Define component value', () => {
   })
 
   test('Should render expected form', () => {
-    const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />)
 
-    assertTextInput({
-      wrapper: wrapper.find('#item-label'),
-      id: 'item-label',
-      expectedValue: undefined,
-      attrs: { required: true }
-    })
+    const labelInput = wrapper.find('#item-label')
+    expect(labelInput.prop('name')).to.equal('label')
+    expect(labelInput.prop('required')).to.equal(true)
+    expect(labelInput.prop('value')).to.equal(undefined)
 
-    assertTextInput({
-      wrapper: wrapper.find('#item-value'),
-      id: 'item-value',
-      expectedValue: undefined,
-      attrs: { required: true }
-    })
+    const valueInput = wrapper.find('#item-value')
+    expect(valueInput.prop('name')).to.equal('value')
+    expect(valueInput.prop('required')).to.equal(true)
+    expect(valueInput.prop('value')).to.equal(undefined)
 
-    assertTextArea(wrapper.find('#item-hint'), 'item-hint', '', { rows: 2, required: undefined })
+    const hintInput = wrapper.find('#item-hint')
+    expect(hintInput.prop('name')).to.equal('hint')
+    expect(hintInput.prop('required')).to.equal(false)
+    expect(hintInput.prop('value')).to.equal(undefined)
+
     assertSelectConditionsDisplayed(wrapper)
+
     expect(wrapper.find('#add-child-link').exists()).to.equal(true)
     expect(wrapper.find('#save-component-value-link').exists()).to.equal(true)
     expect(wrapper.find('#cancel-add-component-value-link').exists()).to.equal(true)
@@ -84,23 +90,31 @@ suite('Define component value', () => {
       children: [child]
     }
 
-    const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        value={value}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />
+    )
+    const labelInput = wrapper.find('#item-label')
+    expect(labelInput.prop('name')).to.equal('label')
+    expect(labelInput.prop('required')).to.equal(true)
+    expect(labelInput.prop('value')).to.equal('My label')
 
-    assertTextInput({
-      wrapper: wrapper.find('#item-label'),
-      id: 'item-label',
-      expectedValue: 'My label',
-      attrs: { required: true }
-    })
+    const valueInput = wrapper.find('#item-value')
+    expect(valueInput.prop('name')).to.equal('value')
+    expect(valueInput.prop('required')).to.equal(true)
+    expect(valueInput.prop('value')).to.equal('My value')
 
-    assertTextInput({
-      wrapper: wrapper.find('#item-value'),
-      id: 'item-value',
-      expectedValue: 'My value',
-      attrs: { required: true }
-    })
+    const hintInput = wrapper.find('#item-hint')
+    expect(hintInput.prop('name')).to.equal('hint')
+    expect(hintInput.prop('required')).to.equal(false)
+    expect(hintInput.prop('value')).to.equal('My hint')
+    expect(hintInput.prop('rows')).to.equal(2)
 
-    assertTextArea(wrapper.find('#item-hint'), 'item-hint', 'My hint', { rows: 2, required: undefined })
     assertSelectConditionsDisplayed(wrapper, 'myCondition')
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
@@ -139,7 +153,15 @@ suite('Define component value', () => {
       condition: 'myCondition',
       children: [child]
     }
-    const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        value={value}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />
+    )
 
     wrapper.find('#add-child-link').simulate('click')
     wrapper.instance().cancelAddChild()
@@ -156,10 +178,19 @@ suite('Define component value', () => {
       condition: 'myCondition',
       children: []
     }
-    const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        value={value}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />
+    )
     wrapper.find('#add-child-link').simulate('click')
 
     const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    stubFlyoutFormsReportValidity(wrapper)
     wrapper.instance().addChild(child)
 
     assertAddChildFlyout(wrapper, data, page, false)
@@ -174,8 +205,17 @@ suite('Define component value', () => {
       condition: 'myCondition'
     }
 
-    const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        value={value}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />
+    )
     const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    stubFlyoutFormsReportValidity(wrapper)
     wrapper.instance().addChild(child)
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
@@ -183,9 +223,17 @@ suite('Define component value', () => {
   })
 
   test('Adding a child causes the child to be displayed along with edit and remove links', () => {
-    const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />
+    )
 
     const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
+    stubFlyoutFormsReportValidity(wrapper)
     wrapper.instance().addChild(child)
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
@@ -195,11 +243,19 @@ suite('Define component value', () => {
   })
 
   test('Clicking the remove child link causes the correct child to be removed', () => {
-    const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+      />
+    )
 
     const child = { name: 'myChild', title: 'My child component', type: 'TextField' }
     const child2 = { name: 'myChild2', title: 'Another child component', type: 'TextField' }
     const child3 = { name: 'myChild3', title: 'Third child component', type: 'TextField' }
+    stubFlyoutFormsReportValidity(wrapper)
     wrapper.instance().addChild(child)
     wrapper.instance().addChild(child2)
     wrapper.instance().addChild(child3)
@@ -226,7 +282,15 @@ suite('Define component value', () => {
       condition: 'myCondition',
       children: [child, child2, child3]
     }
-    const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page} value={value}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+        value={value}
+      />
+    )
 
     wrapper.find('#edit-child-1').simulate('click')
 
@@ -236,8 +300,8 @@ suite('Define component value', () => {
 
   test('Clicking the save link should call callback with appropriate value for minimally populated item', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
-    wrapper.find('#item-label').simulate('blur', { target: { value: 'My label' } })
-    wrapper.find('#item-value').simulate('blur', { target: { value: 'My value' } })
+    wrapper.find('#item-label').prop('onChange')({ target: { value: 'My label' } })
+    wrapper.find('#item-value').prop('onChange')({ target: { value: 'My value' } })
 
     wrapper.find('#save-component-value-link').simulate('click')
 
@@ -253,12 +317,13 @@ suite('Define component value', () => {
 
   test('Clicking the save link should call callback with appropriate value', () => {
     const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
-    wrapper.find('#item-label').simulate('blur', { target: { value: 'My label' } })
-    wrapper.find('#item-value').simulate('blur', { target: { value: 'My value' } })
-    wrapper.find('#item-hint').simulate('blur', { target: { value: 'My hint' } })
+    wrapper.find('#item-label').prop('onChange')({ target: { value: 'My label' } })
+    wrapper.find('#item-value').prop('onChange')({ target: { value: 'My value' } })
+    wrapper.find('#item-hint').prop('onChange')({ target: { value: 'My hint' } })
 
     wrapper.instance().conditionSelected('myCondition')
     const child = { name: 'myChild' }
+    stubFlyoutFormsReportValidity(wrapper)
     wrapper.instance().addChild(child)
 
     wrapper.find('#save-component-value-link').simulate('click')
@@ -284,11 +349,20 @@ suite('Define component value', () => {
       condition: 'myCondition',
       children: [child, child2, child3]
     }
-    const wrapper = shallow(<DefineComponentValue data={data} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page} value={value}/>)
+    const wrapper = shallow(
+      <DefineComponentValue
+        data={data}
+        saveCallback={saveCallback}
+        cancelCallback={cancelCallback}
+        page={page}
+        value={value}
+      />
+    )
 
     wrapper.find('#edit-child-1').simulate('click')
 
     const updated = { name: 'myChild2', title: 'New child component name', type: 'TextField' }
+    stubFlyoutFormsReportValidity(wrapper)
     wrapper.instance().updateChild(updated)
 
     assertAddChildFlyout(wrapper, data, page, false)
@@ -314,7 +388,7 @@ suite('Define component value', () => {
     expect(addComponentValue.prop('page')).to.equal(page)
     expect(addComponentValue.prop('saveCallback')).to.equal(wrapper.instance().addChild)
     expect(addComponentValue.prop('cancelCallback')).to.equal(wrapper.instance().cancelAddChild)
-    const flyout = addComponentValue.parent('Flyout')
+    const flyout = addComponentValue.closest('Flyout')
     expect(flyout.exists()).to.equal(true)
     expect(flyout.prop('title')).to.equal('Add Child')
     expect(flyout.prop('show')).to.equal(displayed)
@@ -329,7 +403,7 @@ suite('Define component value', () => {
     expect(addComponentValue.prop('page')).to.equal(page)
     expect(addComponentValue.prop('saveCallback')).to.equal(wrapper.instance().updateChild)
     expect(addComponentValue.prop('cancelCallback')).to.equal(wrapper.instance().cancelEditChild)
-    const flyout = addComponentValue.parent('Flyout')
+    const flyout = addComponentValue.closest('Flyout')
     expect(flyout.exists()).to.equal(true)
     expect(flyout.prop('title')).to.equal('Edit Child')
     expect(flyout.prop('show')).to.equal(displayed)
@@ -346,3 +420,17 @@ suite('Define component value', () => {
     expect(selectConditions.prop('hints')).to.equal(['The item will only be displayed if the selected condition holds'])
   }
 })
+
+function stubFlyoutFormsReportValidity (wrapper) {
+  sinon.stub(wrapper.instance(), 'formAddItem').value({
+    current: {
+      reportValidity: () => true
+    }
+  })
+
+  sinon.stub(wrapper.instance(), 'formEditItem').value({
+    current: {
+      reportValidity: () => true
+    }
+  })
+}

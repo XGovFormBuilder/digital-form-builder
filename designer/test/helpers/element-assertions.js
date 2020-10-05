@@ -63,7 +63,9 @@ export function assertTextBasedInput (wrapper, id, expectedValue, type, attrs) {
 
 export function assertTextArea ({ wrapper, id, expectedValue, attrs }) {
   expect(wrapper.prop('id')).to.equal(id)
-  expect(wrapper.prop('value')).to.equal(expectedValue)
+  expect(
+    getProperty(wrapper, 'defaultValue') || getProperty(wrapper, 'value')
+  ).to.equal(expectedValue)
   assertAdditionalAttributes(attrs, wrapper)
 }
 
