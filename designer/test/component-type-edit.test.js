@@ -264,27 +264,31 @@ suite('Component type edit', () => {
         wrapper: inputs.at(1),
         id: 'field-options-hideTitle',
         value: true,
-        checked: false
+        checked: false,
+        attrs: { name: 'options.hideTitle' }
       })
 
       assertRequiredTextInput({
         wrapper: inputs.at(2),
         id: 'field-name',
-        expectedValue: 'myComponent'
+        expectedValue: 'myComponent',
+        attrs: { name: 'name', pattern: '^\\S+' }
       })
 
       assertCheckboxInput({
         wrapper: inputs.at(3),
         id: 'field-options-required',
         value: undefined,
-        checked: false
+        checked: false,
+        attrs: { name: 'options.required' }
       })
 
       assertCheckboxInput({
         wrapper: inputs.at(4),
         id: 'field-options-optionalText',
         value: undefined,
-        checked: false
+        checked: false,
+        attrs: { name: 'options.optionalText' }
       })
 
       expect(
