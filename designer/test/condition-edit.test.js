@@ -22,7 +22,7 @@ suite('Condition edit', () => {
     assertTextInput({
       wrapper: displayNameInput,
       id: 'condition-name',
-      expectedValue: 'My condition',
+      expectedValue: 'My condition'
     })
 
     const editor = form.find('Editor')

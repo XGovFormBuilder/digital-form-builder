@@ -136,10 +136,6 @@ function getPropertyNames (wrapper) {
   return typeof wrapper.props === 'function' ? Object.keys(wrapper.props()) : Object.keys(wrapper.attribs)
 }
 
-function getText (wrapper) {
-  return typeof wrapper.text === 'function' ? wrapper.text() : wrapper.children?.[0]?.data ?? ''
-}
-
 const propertyMappings = {
   defaultValue: attribs => attribs.value,
   checked: attribs => Object.keys(attribs).includes('checked') || ''
