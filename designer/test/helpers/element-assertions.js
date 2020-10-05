@@ -87,7 +87,7 @@ export function assertCheckboxInput ({ wrapper, id, value, checked, attrs }) {
   assertAdditionalAttributes(attrs, wrapper)
 }
 
-export function assertRadioButton (wrapper, id, value, label, attrs) {
+export function assertRadioButton ({ wrapper, id, value, label, attrs }) {
   expect(getTagName(wrapper)).to.equal('input')
   expect(getProperty(wrapper, 'type')).to.equal('radio')
   expect(getProperty(wrapper, 'id')).to.equal(id)

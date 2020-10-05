@@ -54,8 +54,21 @@ suite('Component values', () => {
     const component = { type: 'RadiosField', name: 'myComponent' }
     const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-    assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: false })
-    assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: false })
+    assertRadioButton({
+      wrapper: wrapper.find('#population-type-list'),
+      id: 'population-type-list',
+      value: 'listRef',
+      label: 'From a list',
+      attrs: { defaultChecked: false }
+    })
+
+    assertRadioButton({
+      wrapper: wrapper.find('#population-type-static'),
+      id: 'population-type-static',
+      value: 'static',
+      label: 'I\'ll populate my own entries',
+      attrs: { defaultChecked: false }
+    })
   })
 
   describe('Connecting to a list', () => {
@@ -65,8 +78,20 @@ suite('Component values', () => {
 
       wrapper.find('#population-type-list').simulate('click', { target: { value: 'listRef' } })
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: true })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: false })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-list'),
+        id: 'population-type-list',
+        value: 'listRef',
+        label: 'From a list',
+        attrs: { defaultChecked: true }
+      })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-static'),
+        id: 'population-type-static',
+        value: 'static',
+        label: 'I\'ll populate my own entries',
+        attrs: { defaultChecked: false }
+      })
       assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
     })
 
@@ -74,10 +99,27 @@ suite('Component values', () => {
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'listRef', list: 'myList' } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: true })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: false })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-list'),
+        id: 'population-type-list',
+        value: 'listRef',
+        label: 'From a list',
+        attrs: { defaultChecked: true }
+      })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-static'),
+        id: 'population-type-static',
+        value: 'static',
+        label: 'I\'ll populate my own entries',
+        attrs: { defaultChecked: false }
+      })
 
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions, 'myList')
+      assertSelectInput({
+        wrapper: wrapper.find('#field-options-list'),
+        id: 'field-options-list',
+        value: expectedListSelectionOptions,
+        label: 'myList'
+      })
       expect(updateModel.callCount).to.equal(0)
     })
 
@@ -120,8 +162,20 @@ suite('Component values', () => {
 
       wrapper.find('#population-type-static').simulate('click', { target: { value: 'static' } })
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: true })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-list'),
+        id: 'population-type-list',
+        value: 'listRef',
+        label: 'From a list',
+        attrs: { defaultChecked: false }
+      })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-static'),
+        id: 'population-type-static',
+        value: 'static',
+        label: 'I\'ll populate my own entries',
+        attrs: { defaultChecked: true }
+      })
       assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
     })
 
@@ -129,8 +183,20 @@ suite('Component values', () => {
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static' } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: true })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-list'),
+        id: 'population-type-list',
+        value: 'listRef',
+        label: 'From a list',
+        attrs: { defaultChecked: false }
+      })
+      assertRadioButton({
+        wrapper: wrapper.find('#population-type-static'),
+        id: 'population-type-static',
+        value: 'static',
+        label: 'I\'ll populate my own entries',
+        attrs: { defaultChecked: true }
+      })
 
       assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
       expect(updateModel.callCount).to.equal(0)

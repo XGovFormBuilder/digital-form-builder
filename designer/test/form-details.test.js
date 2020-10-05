@@ -41,36 +41,103 @@ suite('Form details', () => {
 
     test('Renders a form with the appropriate initial inputs', () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#form-title'), 'form-title')
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title'
+      })
+      assertRadioButton({ 
+      wrapper: , 
+      id: , 
+      value: , 
+      label: , 
+      attrs:  
+    }
+        
+        
+        wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
+      assertRadioButton({ 
+      wrapper: , 
+      id: , 
+      value: , 
+      label: , 
+      attrs:  
+    }
+        
+        
+        wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
     })
 
     test('Renders pre-populated name input when form already has a name', () => {
       data.name = 'My form'
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#form-title'), 'form-title', 'My form')
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title',
+        expectedValue: 'My form'
+      })
     })
 
     test('Entered form name is displayed', () => {
       data.name = 'My form'
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#form-title').simulate('blur', { target: { value: 'New name' } })
-      assertTextInput(wrapper.find('#form-title'), 'form-title', 'New name')
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title',
+        expectedValue: 'New name'
+      })
     })
 
     test('Renders Feedback form \'yes\' checked when form is a feedback form', () => {
       data.feedbackForm = true
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#form-title'), 'form-title')
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: true })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: false })
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title'
+      })
+      assertRadioButton({ 
+      wrapper: , 
+      id: , 
+      value: , 
+      label: , 
+      attrs:  
+    }
+        
+        wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: true })
+      assertRadioButton({ 
+      wrapper: , 
+      id: , 
+      value: , 
+      label: , 
+      attrs:  
+    }
+        
+        
+        wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: false })
     })
 
     test('Renders Feedback \'no\' checked when form is not a feedback form', () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
+      assertRadioButton({ 
+      wrapper: , 
+      id: , 
+      value: , 
+      label: , 
+      attrs:  
+    }
+        
+        
+        wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
+      assertRadioButton({ 
+      wrapper: , 
+      id: , 
+      value: , 
+      label: , 
+      attrs:  
+    }
+        
+        
+        wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
     })
 
     test('Renders Feedback form input when form is not a feedback form', async () => {
