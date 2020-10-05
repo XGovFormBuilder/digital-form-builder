@@ -4,6 +4,23 @@ let internals = {}
 internals.transform = function (content, filename) {
   const regexp = new RegExp('node_modules')
   const isNodeModule = filename.indexOf('node_modules') > -1
+  const isGovUKFrontend = filename.indexOf('govuk-frontend') > -1
+  const isGovUKReactJsx = filename.indexOf('govuk-react-jsx') > -1
+
+  if (isGovUKReactJsx) {
+    return `
+      "use strict";
+      Object.defineProperty(exports, "__esModule", {
+        value: true
+      });
+      Object.defineProperty(exports, 'Textarea', {
+        enumerable: true,
+        get: function get() {
+          return function Textarea() { return 'textarea' }
+        }
+      });
+    `
+  }
 
   if (isNodeModule) {
     return content
