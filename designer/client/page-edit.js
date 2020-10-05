@@ -134,11 +134,11 @@ export class PageEdit extends React.Component {
     return path
   }
 
-  editSection = (e) => {
+  editSection = (e, newSection = false) => {
     e.preventDefault()
     this.setState({
-      section: this.state.section ?? {},
-      isEditingSection: true
+      isEditingSection: true,
+      isNewSection: newSection
     })
   }
 
@@ -162,7 +162,7 @@ export class PageEdit extends React.Component {
   render () {
     const { data, i18n } = this.props
     const { sections } = data
-    const { title, path, controller, section, isEditingSection } = this.state
+    const { title, path, controller, section, isEditingSection, isNewSection } = this.state
 
     return <div>
       <form onSubmit={this.onSubmit} autoComplete='off'>
@@ -211,7 +211,7 @@ export class PageEdit extends React.Component {
           {section?.name &&
             <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>{i18n('section.edit')}</a>
           }
-          <a href='#' className="govuk-link govuk-!-display-block" onClick={this.editSection}>{i18n('section.create')}</a>
+          <a href='#' className="govuk-link govuk-!-display-block" onClick={ e => this.editSection(e, true)}>{i18n('section.create')}</a>
         </div>
 
         <button className='govuk-button' type='submit'>{i18n('save')}</button>{' '}
@@ -223,7 +223,7 @@ export class PageEdit extends React.Component {
           <Flyout title={section?.name ? i18n('section.editingTitle', { title: section.title }) : i18n('section.newTitle')}
             onHide={this.closeFlyout} show={isEditingSection}>
             <SectionEdit
-              section={section}
+              section={isNewSection ? {} : section}
               data={data}
               closeFlyout={this.closeFlyout}
             />
