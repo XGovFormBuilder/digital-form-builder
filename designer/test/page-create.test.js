@@ -38,8 +38,18 @@ suite('Page create', () => {
       { value: './pages/start.js', text: 'Start Page' },
       { value: './pages/summary.js', text: 'Summary Page' }
     ])
-    assertTextInput(wrapper.find('#page-title'), 'page-title')
-    assertTextInput(wrapper.find('#page-path'), 'page-path')
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: 'My condition'
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path'
+    })
+
     assertSelectInput(wrapper.find('#link-from'), 'link-from', [
       { text: '' },
       { value: '/1', text: '/1' },
@@ -60,7 +70,13 @@ suite('Page create', () => {
     wrapper.find('#link-from').simulate('change', { target: { value: '/2' } })
     wrapper.find('#page-section').simulate('change', { target: { value: 'personalDetails' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: undefined,
+      attrs: { value: 'New Page' }
+    })
+
     assertSelectInput(wrapper.find('#link-from'), 'link-from', [
       { text: '' },
       { value: '/1', text: '/1' },
