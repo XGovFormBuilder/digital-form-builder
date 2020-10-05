@@ -38,13 +38,12 @@ suite('Section create', () => {
     assertTextInput({
       wrapper: inputs.at(0),
       id: 'section-title',
-      expectedValue: undefined,
-      attrs: { value: '' }
+      expectedValue: ''
     })
     assertTextInput({
       wrapper: inputs.at(1),
       id: 'section-name',
-      expectedValue: ''
+      expectedValue: undefined
     })
   })
 
@@ -58,8 +57,7 @@ suite('Section create', () => {
     assertTextInput({
       wrapper: inputs.at(0),
       id: 'section-title',
-      expectedValue: undefined,
-      attrs: { value: 'Bob\'s your uncle' }
+      expectedValue: "Bob's your uncle"
     })
     assertTextInput({
       wrapper: inputs.at(1),
@@ -78,8 +76,7 @@ suite('Section create', () => {
     assertTextInput({
       wrapper: inputs.at(0),
       id: 'section-title',
-      expectedValue: undefined,
-      attrs: { value: 'Awesome badgers' }
+      expectedValue: 'Awesome badgers'
     })
     assertTextInput({
       wrapper: inputs.at(1),
@@ -100,8 +97,7 @@ suite('Section create', () => {
     assertTextInput({
       wrapper: inputs.at(0),
       id: 'section-title',
-      expectedValue: undefined,
-      attrs: { value: 'Your badgers' }
+      expectedValue: 'Your badgers'
     })
     assertTextInput({
       wrapper: inputs.at(1),

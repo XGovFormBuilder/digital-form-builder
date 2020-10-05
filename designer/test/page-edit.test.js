@@ -45,15 +45,13 @@ suite('Page edit', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: undefined,
-      attrs: { value: 'My first page' }
+      expectedValue: 'My first page'
     })
 
     assertTextInput({
       wrapper: wrapper.find('#page-path'),
       id: 'page-path',
-      expectedValue: undefined,
-      attrs: { value: '/1' }
+      expectedValue: '/1'
     })
 
     assertSelectInput({
@@ -106,15 +104,13 @@ suite('Page edit', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: undefined,
-      attrs: { value: 'My first page' }
+      expectedValue: 'My first page'
     })
 
     assertTextInput({
       wrapper: wrapper.find('#page-path'),
       id: 'page-path',
-      expectedValue: undefined,
-      attrs: { value: '/1' }
+      expectedValue: '/1'
     })
 
     assertSelectInput({
@@ -157,15 +153,13 @@ suite('Page edit', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: undefined,
-      attrs: { value: 'New Page' }
+      expectedValue: 'New Page'
     })
 
     assertTextInput({
       wrapper: wrapper.find('#page-path'),
       id: 'page-path',
-      expectedValue: undefined,
-      attrs: { value: '/new-page' }
+      expectedValue: '/new-page'
     })
   })
 
@@ -192,15 +186,13 @@ suite('Page edit', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: undefined,
-      attrs: { value: 'New Page' }
+      expectedValue: 'New Page'
     })
 
     assertTextInput({
       wrapper: wrapper.find('#page-path'),
       id: 'page-path',
-      expectedValue: undefined,
-      attrs: { value: '/new-page' }
+      expectedValue: '/new-page'
     })
   })
 
@@ -227,15 +219,13 @@ suite('Page edit', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: undefined,
-      attrs: { value: 'New Page' }
+      expectedValue: 'New Page'
     })
 
     assertTextInput({
       wrapper: wrapper.find('#page-path'),
       id: 'page-path',
-      expectedValue: undefined,
-      attrs: { value: '/1' }
+      expectedValue: '/1'
     })
   })
 

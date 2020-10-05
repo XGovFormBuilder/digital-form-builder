@@ -46,12 +46,13 @@ suite('Page create', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: 'My condition'
+      expectedValue: ''
     })
 
     assertTextInput({
       wrapper: wrapper.find('#page-path'),
-      id: 'page-path'
+      id: 'page-path',
+      expectedValue: ''
     })
 
     assertSelectInput({
@@ -63,6 +64,7 @@ suite('Page create', () => {
         { value: '/2', text: '/2' }
       ]
     })
+
     assertSelectInput({
       wrapper: wrapper.find('#page-section'),
       id: 'page-section',
@@ -72,6 +74,7 @@ suite('Page create', () => {
         { value: 'personalDetails', text: 'Personal Details' }
       ]
     })
+
     expect(wrapper.find('SelectConditions').exists()).to.equal(false)
   })
 
@@ -85,8 +88,7 @@ suite('Page create', () => {
     assertTextInput({
       wrapper: wrapper.find('#page-title'),
       id: 'page-title',
-      expectedValue: undefined,
-      attrs: { value: 'New Page' }
+      expectedValue: 'New Page'
     })
 
     assertSelectInput({
@@ -99,6 +101,7 @@ suite('Page create', () => {
       ],
       expectedValue: '/2'
     })
+
     assertSelectInput({
       wrapper: wrapper.find('#page-section'),
       id: 'page-section',
@@ -109,6 +112,7 @@ suite('Page create', () => {
       ],
       expectedValue: 'personalDetails'
     })
+
     assertSelectInput({
       wrapper: wrapper.find('#page-type'),
       id: 'page-type',
@@ -119,6 +123,7 @@ suite('Page create', () => {
       ],
       expectedValue: './pages/start.js'
     })
+
     expect(wrapper.find('SelectConditions').exists()).to.equal(true)
   })
 
