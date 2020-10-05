@@ -1,6 +1,6 @@
 import React from 'react'
 import Editor from './editor'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class ConditionEdit extends React.Component {
   constructor (props) {

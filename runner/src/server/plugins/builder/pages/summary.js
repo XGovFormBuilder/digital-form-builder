@@ -1,12 +1,16 @@
-const { Data } = require('@xgovformbuilder/model') //eslint-disable-line
-const { Helpers, decode, RelativeUrl, FeedbackContextInfo } = require('@xgovformbuilder/engine') //eslint-disable-line
-const redirectTo = Helpers.redirectTo
-const redirectUrl = Helpers.redirectUrl
+ //eslint-disable-line
+import {
+  redirectTo,
+  redirectUrl
+} from '@xgovformbuilder/engine'
+import { formSchema } from '../../../lib/formSchema'
 
-const joi = require('joi')
-const Page = require('./index')
-const { nanoid } = require('nanoid')
-const { formSchema } = require('../../../lib/formSchema')
+import Page from './page'
+
+import { nanoid } from 'nanoid'
+
+import joi from 'joi'
+
 const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
 const { clone, reach } = require('hoek') //eslint-disable-line
@@ -166,8 +170,8 @@ class SummaryViewModel {
               if (component.items) {
                 const selectedValue = sectionState[component.name]
                 const selectedItem = component.items.filter(i => i.value === selectedValue)[0]
-                if (selectedItem && selectedItem.conditional) {
-                  for (const cc of selectedItem.conditional.componentCollection.formItems) {
+                if (selectedItem && selectedItem.childrenCollection) {
+                  for (const cc of selectedItem.childrenCollection.formItems) {
                     const cItem = this.Item(request, cc, sectionState, page, model)
                     items.push(cItem)
                   }
@@ -306,8 +310,8 @@ class SummaryViewModel {
 
           if (detailItem.items) {
             const selectedItem = detailItem.items.filter(i => i.value === answer)[0]
-            if (selectedItem && selectedItem.conditional) {
-              selectedItem.conditional.componentCollection.formItems.forEach(cc => {
+            if (selectedItem && selectedItem.childrenCollection) {
+              selectedItem.childrenCollection.formItems.forEach(cc => {
                 const itemDetailItem = detail.items.find(detailItem => detailItem.name === cc.name)
                 fields.push({
                   key: cc.name,

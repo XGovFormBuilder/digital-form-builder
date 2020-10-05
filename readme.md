@@ -96,7 +96,21 @@ If you have any problems, submit an issue or send a message via gitter.
 3. `circle_trigger.sh` will trigger a workflow via the API. It will pass the parameters model, engine, runner, designer (bool) to the workflow.
 4. If there are any changes to a workspace, it will be built and tested. 
   - If an upstream dependency, like model or engine has changed, the downstream dependencies (engine, runner, designer) will also be built and tested. 
- 
+
+#### Development environment
+
+The development workflow is triggered whenever a PR is merged into master and you can monitor it on the repository's [action tab](https://github.com/XGovFormBuilder/digital-form-builder/actions).
+
+The workflow contains two separate jobs that run in parallel, one for the Runner and another for the Designer application.
+
+Both jobs work as follows:
+
+1. Build the docker image with all dependencies.
+2. Push image to Heroku Container Registry.
+3. Release the latest image.
+
+The latest releases will be running here: [Runner](https://digital-form-builder-runner.herokuapp.com) / [Designer](https://digital-form-builder-designer.herokuapp.com).
+
 
 ## contributions
 Issues and pull requests are welcome. Please check [CONTRIBUTING.md](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/.github/CONTRIBUTING.md) first!

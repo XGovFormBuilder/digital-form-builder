@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+import { ConditionValue } from '@xgovformbuilder/model'
 import momentTz from 'moment-timezone'
 
 export class AbsoluteTimeValues extends React.Component {

@@ -1,8 +1,8 @@
 import React from 'react'
-import { ConditionsModel } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { ConditionsModel, clone } from '@xgovformbuilder/model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+
 import InlineConditionHelpers from './inline-condition-helpers'
 
 class InlineConditions extends React.Component {
@@ -42,7 +42,7 @@ class InlineConditions extends React.Component {
         label: input.displayName,
         name: input.propertyPath,
         type: input.type,
-        values: (data.listFor(input) ?? {}).items
+        values: data.valuesFor(input)?.toStaticValues()?.items
       }))
     const conditionsInputs = data.conditions.map(condition => ({
       label: condition.displayName,

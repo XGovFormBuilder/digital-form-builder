@@ -5,8 +5,8 @@ import * as Lab from '@hapi/lab'
 import { assertLabel, assertLink, assertText } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditions from '../client/conditions/inline-conditions'
-import { Condition, ConditionsModel, Field } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
-import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+import { Condition, ConditionsModel, Field, ConditionValue } from '@xgovformbuilder/model'
+
 import InlineConditionHelpers from '../client/conditions/inline-condition-helpers'
 
 const { expect } = Code
@@ -18,7 +18,7 @@ suite('Inline conditions', () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
     allInputs: sinon.stub(),
-    listFor: sinon.stub(),
+    valuesFor: sinon.stub(),
     clone: sinon.stub(),
     save: sinon.stub(),
     updateCondition: sinon.stub(),
@@ -40,7 +40,7 @@ suite('Inline conditions', () => {
 
   test('render returns nothing when there is an empty fields list', () => {
     data.inputsAccessibleAt.withArgs(path).returns([])
-    data.listFor.returns(undefined)
+    data.valuesFor.returns(undefined)
     expect(shallow(<InlineConditions
       data={data} path={path}
       conditionsChange={conditionsChange} cancelCallback={cancelCallback}
@@ -52,7 +52,7 @@ suite('Inline conditions', () => {
     let fields
     let conditions
     let expectedFields
-    const values = [{ value: 'value1', text: 'Value 1' }, { value: 'value2', text: 'Value 2' }]
+    const values = [{ value: 'value1', display: 'Value 1' }, { value: 'value2', display: 'Value 2' }]
     let storeConditionStub
 
     before(() => {
@@ -96,8 +96,8 @@ suite('Inline conditions', () => {
         }
       }
       data.inputsAccessibleAt.withArgs(path).returns(fields)
-      data.listFor.returns(undefined)
-      data.listFor.withArgs(fields[2]).returns({ items: values })
+      data.valuesFor.returns(undefined)
+      data.valuesFor.withArgs(fields[2]).returns({ toStaticValues: () => ({ items: values }) })
     })
 
     after(() => {
@@ -123,7 +123,7 @@ suite('Inline conditions', () => {
     test('if the path property changes to a route without fields then the condition section disappears', () => {
       const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
-      data.listFor.returns(undefined)
+      data.valuesFor.returns(undefined)
       data.conditions = []
       const wrapper = shallow(<InlineConditions data={data} path={path} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
       expect(wrapper.exists('#inline-conditions')).to.equal(true)
@@ -134,7 +134,7 @@ suite('Inline conditions', () => {
     test('if the path property changes to a route with fields then the condition section appears', () => {
       const path2 = '/2'
       data.inputsAccessibleAt.withArgs(path2).returns([])
-      data.listFor.returns(undefined)
+      data.valuesFor.returns(undefined)
       data.conditions = []
       const wrapper = shallow(<InlineConditions data={data} path={path2} conditionsChange={conditionsChange} cancelCallback={cancelCallback} />)
       expect(wrapper.exists('#inline-conditions')).to.equal(false)

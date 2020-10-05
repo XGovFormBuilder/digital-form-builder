@@ -1,6 +1,6 @@
 import FeeItems from './fee-items'
 import React from 'react'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class FeeEdit extends React.Component {
   onSubmit = e => {

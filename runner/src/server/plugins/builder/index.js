@@ -1,4 +1,5 @@
-import plugin from '@xgovformbuilder/engine'
+import { plugin } from '@xgovformbuilder/engine'
+import { defaultPageController } from './pages'
 
 const path = require('path')
 const fs = require('fs')
@@ -6,8 +7,6 @@ const configPath = path.join(__dirname, '..', '..', 'forms')
 const config = require('../../config')
 
 const relativeTo = __dirname
-const defaultPageController = './pages'
-
 const configFiles = fs.readdirSync(configPath).filter(filename => {
   if (filename.indexOf('.json') >= 0) {
     return filename

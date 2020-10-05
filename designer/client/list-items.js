@@ -1,7 +1,6 @@
 import React from 'react'
-import ComponentConditionCreate from './component-condition-create'
 import { SortableContainer, SortableElement, arrayMove, SortableHandle } from 'react-sortable-hoc'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -56,11 +55,6 @@ const SortableItem = SortableElement(({ index, item, type, conditions, onBlur, o
         <option />
         {(conditions || []).map((condition, i) => (<option key={condition.name + index} value={condition.name}>{condition.displayName}</option>))}
       </select>
-    </td>
-    <td className='govuk-table__cell'>
-      <div className='component-item'>
-        <ComponentConditionCreate conditional={item.conditional} idHelper={index} />
-      </div>
     </td>
     <td className='govuk-table__cell' width='20px'>
       <a className='list-item-delete' onClick={() => removeItem(index)}>&#128465;</a>
@@ -177,8 +171,6 @@ class ListItems extends React.Component {
             <th className='govuk-table__header' scope='col'>Value</th>
             <th className='govuk-table__header' scope='col'>Description</th>
             <th className='govuk-table__header' scope='col'>Condition</th>
-
-            <th className='govuk-table__header' scope='col' />
             <th className='govuk-table__header' scope='col'>
               <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
             </th>

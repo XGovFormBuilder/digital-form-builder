@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class NotifyItems extends React.Component {
   constructor (props) {

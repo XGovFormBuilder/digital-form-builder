@@ -13,9 +13,7 @@ import {
 } from './helpers/element-assertions'
 import sinon from 'sinon'
 import InlineConditionsEdit from '../client/conditions/inline-conditions-edit'
-import { Condition, ConditionsModel, Field } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
-import { ConditionValue } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
-import { getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+import { Condition, ConditionsModel, Field, ConditionValue, getOperatorNames } from '@xgovformbuilder/model'
 
 const { expect } = Code
 const lab = Lab.script()
