@@ -19,6 +19,18 @@ internals.transform = function (content, filename) {
           return function Textarea() { return 'textarea' }
         }
       });
+      Object.defineProperty(exports, 'Radios', {
+        enumerable: true,
+        get: function get() {
+          return function Radios() { return 'radios' }
+        }
+      });
+      Object.defineProperty(exports, 'Input', {
+        enumerable: true,
+        get: function get() {
+          return function Input() { return 'radios' }
+        }
+      });
     `
   }
 
