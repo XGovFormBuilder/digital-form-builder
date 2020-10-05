@@ -1,9 +1,8 @@
 import React from 'react'
-import { textAreaGroup, textGroup } from '../govuk-react-components/text'
+import { Textarea, Input } from '@xgovformbuilder/govuk-react-jsx'
 import SelectConditions from '../conditions/select-conditions'
 import { icons } from '../icons'
 import Flyout from '../flyout'
-import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
 import DefineChildComponent from './define-child-component'
 import { RenderInPortal } from './render-in-portal'
@@ -90,42 +89,70 @@ export default class DefineComponentValue extends React.Component {
     const { data, page } = this.props
     const child = children[editingIndex]
 
-    return <div>
-      { textGroup(
-        'item-label',
-        'label',
-        'Label',
-        label,
-        e => this.setState({ label: e.target.value }),
-        new InputOptions(true)
-      )
-      }
-      { textGroup(
-        'item-value',
-        'value',
-        'Value',
-        value,
-        e => this.setState({ value: e.target.value }),
-        new InputOptions(true)
-      )
-      }
-      { textAreaGroup(
-        'item-hint',
-        'hint',
-        'Hint (optional)',
-        hint,
-        2,
-        e => this.setState({ hint: e.target.value })
-      )
-      }
-      <SelectConditions
-        data={data}
-        path={page.path}
-        selectedCondition={condition}
-        conditionsChange={this.conditionSelected}
-        hints={['The item will only be displayed if the selected condition holds']}
-      />
-      {
+    return (
+      <div>
+        <Input
+          id="item-label"
+          name="label"
+          label={{
+            className: 'govuk-label--s',
+            children: [
+              'Label'
+            ]
+          }}
+          hint={{
+            children: [
+              'Text can include HTML'
+            ]
+          }}
+          required={true}
+          value={label}
+          onChange={e => this.setState({ label: e.target.value })}
+        />
+        <Input
+          id="item-value"
+          name="value"
+          label={{
+            className: 'govuk-label--s',
+            children: [
+              'Value'
+            ]
+          }}
+          hint={{
+            children: [
+              'Text can include HTML'
+            ]
+          }}
+          required={true}
+          value={value}
+          onChange={e => this.setState({ value: e.target.value })}
+        />
+        <Textarea
+          id="item-hint"
+          name="hint"
+          rows={2}
+          label={{
+            className: 'govuk-label--s',
+            children: [
+              'Hint (optional)'
+            ]
+          }}
+          hint={{
+            children: [
+              'Text can include HTML'
+            ]
+          }}
+          required={false}
+          value={hint}
+          onChange={e => this.setState({ hint: e.target.value })}
+        />
+        <SelectConditions
+          data={data}
+          path={page.path}
+          selectedCondition={condition}
+          conditionsChange={this.conditionSelected}
+          hints={['The item will only be displayed if the selected condition holds']}
+        />
         <div>
           <table className='govuk-table'>
             <caption className='govuk-table__caption'>Children</caption>
@@ -194,7 +221,7 @@ export default class DefineComponentValue extends React.Component {
             </Flyout>
           </RenderInPortal>
         </div>
-      }
-    </div>
+      </div>
+    )
   }
 }
