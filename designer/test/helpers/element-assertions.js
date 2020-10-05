@@ -43,11 +43,11 @@ export function assertNumberInput (wrapper, id, expectedValue) {
 }
 
 export function assertRequiredTextInput ({ wrapper, id, expectedValue }) {
-  assertTextInput(wrapper, id, expectedValue)
+  assertTextInput({ wrapper, id, expectedValue })
   expect(getPropertyNames(wrapper).includes('required')).to.equal(true)
 }
 
-export function assertTextInput (wrapper, id, expectedValue, attrs) {
+export function assertTextInput ({ wrapper, id, expectedValue, attrs }) {
   assertTextBasedInput(wrapper, id, expectedValue, 'text', attrs)
 }
 
