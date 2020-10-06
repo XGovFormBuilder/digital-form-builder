@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { FlyoutContext } from './context'
+import { withI18n } from './i18n'
 
 export function useFlyoutEffect (props) {
   const flyoutContext = useContext(FlyoutContext)
