@@ -1,6 +1,5 @@
 import React from 'react'
 import Editor from './editor'
-// import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
 import { Textarea } from '@xgovformbuilder/govuk-react-jsx'
 import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
