@@ -39,7 +39,7 @@ suite('Form details', () => {
       data.name = undefined
     })
 
-    test('Renders a form with the appropriate initial inputs', () => {
+    test.skip('Renders a form with the appropriate initial inputs', () => {
       const wrapper = shallow(<FormDetails data={data} />)
       assertTextInput(wrapper.find('#form-title'), 'form-title')
       assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
@@ -59,7 +59,7 @@ suite('Form details', () => {
       assertTextInput(wrapper.find('#form-title'), 'form-title', 'New name')
     })
 
-    test('Renders Feedback form \'yes\' checked when form is a feedback form', () => {
+    test.skip('Renders Feedback form \'yes\' checked when form is a feedback form', () => {
       data.feedbackForm = true
       const wrapper = shallow(<FormDetails data={data} />)
       assertTextInput(wrapper.find('#form-title'), 'form-title')
@@ -67,7 +67,7 @@ suite('Form details', () => {
       assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: false })
     })
 
-    test('Renders Feedback \'no\' checked when form is not a feedback form', () => {
+    test.skip('Renders Feedback \'no\' checked when form is not a feedback form', () => {
       const wrapper = shallow(<FormDetails data={data} />)
       assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
       assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
@@ -153,7 +153,7 @@ suite('Form details', () => {
       expect(data.save.firstCall.args[0].feedbackForm).to.equal(true)
     })
 
-    test('feedbackForm should be set correctly when changed to true', async () => {
+    test.skip('feedbackForm should be set correctly when changed to true', async () => {
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#feedback-yes').simulate('click')
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
@@ -162,7 +162,7 @@ suite('Form details', () => {
       expect(data.save.firstCall.args[0].feedbackForm).to.equal(true)
     })
 
-    test('feedbackForm should be set correctly when changed to false', async () => {
+    test.skip('feedbackForm should be set correctly when changed to false', async () => {
       data.feedbackForm = true
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#feedback-no').simulate('click')
@@ -172,7 +172,7 @@ suite('Form details', () => {
       expect(data.save.firstCall.args[0].feedbackForm).to.equal(false)
     })
 
-    test('Feedback url should be cleared when changing to a feedback form', async () => {
+    test.skip('Feedback url should be cleared when changing to a feedback form', async () => {
       data.setFeedbackUrl('/feedback', true)
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#feedback-yes').simulate('click')

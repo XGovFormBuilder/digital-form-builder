@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { RelativeUrl } from '../..'
+import { RelativeUrl } from '../../src/feedback'
 
 const { expect } = Code
 const lab = Lab.script()

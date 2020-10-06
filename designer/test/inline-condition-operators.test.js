@@ -1,14 +1,12 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import { getExpression, getOperatorNames } from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
-
 import {
+  ComponentTypes, getExpression, getOperatorNames,
   dateDirections,
   dateUnits,
   timeUnits, ConditionValue, RelativeTimeValue
-} from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+} from '@xgovformbuilder/model'
 
 const { expect } = Code
 const lab = Lab.script()

@@ -1,6 +1,10 @@
 import React from 'react'
 import Editor from './editor'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import Name from './name'
+import { ComponentTypes } from '@xgovformbuilder/model'
+import ComponentValues from './components/component-values'
+import { textAreaGroup } from './govuk-react-components/text'
+import { InputOptions } from './govuk-react-components/helpers'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -30,22 +34,31 @@ class FieldEdit extends React.Component {
   constructor (props) {
     super(props)
     const { component } = this.props
-
     const options = component.options || {}
+    this.isFileUploadField = component.type === 'FileUploadField'
+
     this.state = {
-      hidden: options.required !== false
+      hidden: options.required !== false,
+      name: component.name
     }
   }
 
   checkOptionalBox () {
+    if (this.isFileUploadField) { return }
     this.setState({ hidden: !this.state.hidden })
+  }
+
+  onChangeName = (event) => {
+    const inputValue = event.target.value
+    this.setState({
+      name: inputValue,
+      nameHasError: (/\s/g).test(inputValue)
+    })
   }
 
   render () {
     const { component, updateModel } = this.props
-    const isFileUploadField = component.type === 'FileUploadField'
     component.options = component.options || {}
-
     return (
       <div>
         <div data-test-id='standard-inputs'>
@@ -59,25 +72,15 @@ class FieldEdit extends React.Component {
             />
           </div>
 
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
-            <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or fullName.</span>
-            <input
-              className='govuk-input govuk-input--width-20' id='field-name'
-              name='name' type='text' defaultValue={component.name} required pattern='^\S+'
-              onBlur={e => updateComponent(component, component => { component.name = e.target.value }, updateModel)}
-            />
-          </div>
-
-          <div className='govuk-form-group'>
-            <label className='govuk-label govuk-label--s' htmlFor='field-hint'>Hint (optional)</label>
-            <span className='govuk-hint'>The hint can include HTML</span>
-            <textarea
-              className='govuk-textarea' id='field-hint' name='hint'
-              defaultValue={component.hint} rows='2'
-              onBlur={e => updateComponent(component, component => { component.hint = e.target.value }, updateModel)}
-            />
-          </div>
+          {textAreaGroup(
+            'field-hint',
+            'hint',
+            'Help Text (optional)',
+            component.hint,
+            2,
+            e => updateComponent(component, component => { component.hint = e.target.value }, updateModel),
+            new InputOptions(false, ['Text can include HTML'])
+          )}
 
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
@@ -95,11 +98,13 @@ class FieldEdit extends React.Component {
             </div>
           </div>
 
+          <Name component={component} id='field-name' labelText='Component name' updateComponent={updateComponent} updateModel={updateModel}/>
+
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
               <input
-                className={`govuk-checkboxes__input ${isFileUploadField ? 'disabled' : ''}`} id='field-options-required'
-                name='options.required' type='checkbox' checked={isFileUploadField || component.options.required === false}
+                className={`govuk-checkboxes__input ${this.isFileUploadField ? 'disabled' : ''}`} id='field-options-required'
+                name='options.required' type='checkbox' checked={this.isFileUploadField || component.options.required === false}
                 onChange={(e) => {
                   updateComponent(component, component => { component.options.required = component.options.required === false ? undefined : false }, updateModel)
                   this.checkOptionalBox(e)
@@ -109,9 +114,9 @@ class FieldEdit extends React.Component {
               <label
                 className='govuk-label govuk-checkboxes__label'
                 htmlFor='field-options-required'
-              >Optional
+              >{`Make ${ComponentTypes.find(type => type.name === component.type)?.title ?? ''} optional`}
               </label>
-              {isFileUploadField && (
+              {this.isFileUploadField && (
                 <span className='govuk-hint govuk-checkboxes__label'>All file upload fields are optional to mitigate possible upload errors</span>
               )}
             </div>
@@ -127,7 +132,7 @@ class FieldEdit extends React.Component {
               <label
                 className='govuk-label govuk-checkboxes__label'
                 htmlFor='field-options-optionalText'
-              >Hide '(Optional)' text
+              >Hide &apos;(Optional)&apos; text
               </label>
             </div>
           </div>
@@ -385,26 +390,13 @@ function DateFieldEdit (props) {
 }
 
 function SelectFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
       <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
+        <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
         <Classes component={component} updateModel={updateModel} />
       </div>
@@ -413,27 +405,12 @@ function SelectFieldEdit (props) {
 }
 
 function RadiosFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -454,27 +431,12 @@ function RadiosFieldEdit (props) {
 }
 
 function CheckboxesFieldEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const lists = data.lists
 
   return (
     <FieldEdit component={component} updateModel={updateModel}>
-      <div>
-        <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-          <select
-            className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-            value={component.options.list} required
-            onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-          >
-            <option />
-            {lists.map(list => {
-              return <option key={list.name} value={list.name}>{list.title}</option>
-            })}
-          </select>
-        </div>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
 
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
@@ -522,25 +484,13 @@ function ParaEdit (props) {
 }
 
 function ListContentEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const { lists } = data
 
   return (
     <div>
-      <div className='govuk-form-group'>
-        <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-        <select
-          className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-          value={component.options.list} required
-          onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-        >
-          <option />
-          {lists.map(list => {
-            return <option key={list.name} value={list.name}>{list.title}</option>
-          })}
-        </select>
-      </div>
+      <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
+
       <div className='govuk-checkboxes govuk-form-group'>
         <div className='govuk-checkboxes__item'>
           <input
@@ -560,24 +510,11 @@ function ListContentEdit (props) {
 }
 
 function FlashCardEdit (props) {
-  const { component, data, updateModel } = props
+  const { component, data, updateModel, page } = props
   component.options = component.options || {}
-  const { lists } = data
 
   return (
-    <div className='govuk-form-group'>
-      <label className='govuk-label govuk-label--s' htmlFor='field-options-list'>List</label>
-      <select
-        className='govuk-select govuk-input--width-10' id='field-options-list' name='options.list'
-        value={component.options.list} required
-        onChange={e => updateComponent(component, component => { component.options.list = e.target.value }, updateModel)}
-      >
-        <option />
-        {lists.map(list => {
-          return <option key={list.name} value={list.name}>{list.title}</option>
-        })}
-      </select>
-    </div>
+    <ComponentValues data={data} component={component} updateModel={updateModel} page={page} EditComponentView={ComponentTypeEdit}/>
   )
 }
 
@@ -638,14 +575,14 @@ const componentTypeEditors = {
 
 class ComponentTypeEdit extends React.Component {
   render () {
-    const { component, data, updateModel } = this.props
+    const { component, data, updateModel, page } = this.props
 
     const type = ComponentTypes.find(t => t.name === component.type)
     if (!type) {
       return ''
     } else {
       const TagName = componentTypeEditors[`${component.type}Edit`] || FieldEdit
-      return <TagName component={component} data={data} updateModel={updateModel} />
+      return <TagName component={component} data={data} updateModel={updateModel} page={page}/>
     }
   }
 }

@@ -1,12 +1,10 @@
 import React from 'react'
 import ComponentTypeEdit from './component-type-edit'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone, ComponentTypes } from '@xgovformbuilder/model'
 
 class ComponentCreate extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
+  state = {
+    isSaving: false
   }
 
   async componentDidMount () {
@@ -17,6 +15,13 @@ class ComponentCreate extends React.Component {
 
   async onSubmit (e) {
     e.preventDefault()
+
+    if (this.state.isSaving) {
+      return
+    }
+
+    this.setState({ isSaving: true })
+
     const { page, data } = this.props
     const { component } = this.state
     const copy = clone(data)
@@ -27,9 +32,13 @@ class ComponentCreate extends React.Component {
     this.props.onCreate({ data: saved })
   }
 
+  storeComponent = (component) => {
+    this.setState({ component })
+  }
+
   render () {
     const { page, data } = this.props
-    const { id } = this.state
+    const { id, isSaving } = this.state
 
     return (
       <div>
@@ -47,26 +56,24 @@ class ComponentCreate extends React.Component {
             </select>
           </div>
 
-          {this.state.component && this.state.component.type && (
+          {this.state?.component?.type && (
             <div>
               <ComponentTypeEdit
                 page={page}
-                component={this.state.component}
                 data={data}
+                component={this.state.component}
                 updateModel={this.storeComponent}
               />
-
-              <button type='submit' className='govuk-button'>Save</button>
+              <button
+                type='submit'
+                className='govuk-button'
+                disabled={isSaving}
+              >Save</button>
             </div>
           )}
-
         </form>
       </div>
     )
-  }
-
-  storeComponent = (component) => {
-    this.setState({ component })
   }
 }
 

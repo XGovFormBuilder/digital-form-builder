@@ -1,6 +1,6 @@
 import React from 'react'
 import SelectConditions from './conditions/select-conditions'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 
 class LinkEdit extends React.Component {
   constructor (props) {
@@ -9,8 +9,6 @@ class LinkEdit extends React.Component {
     const { data, edge } = this.props
     const page = data.findPage(edge.source)
     const link = page.next.find(n => n.path === edge.target)
-
-    console.log(edge, link)
 
     this.state = {
       page: page,

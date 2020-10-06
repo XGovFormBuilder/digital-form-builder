@@ -1,6 +1,7 @@
 // @flow
 
 import { Logger } from '../logger'
+import ListItemReferencesToValueObjects from './list-item-references-to-value-objects'
 
 export interface Migration {
     getInitialVersion(): number;
@@ -12,8 +13,8 @@ export class SchemaMigrationService {
     migrations: Array<Migration>
 
     constructor (server: any, options: any) {
-      this.logger = new Logger(server.log, 'SchemaMigrationService')
-      this.migrations = []
+      this.logger = new Logger(server, 'SchemaMigrationService')
+      this.migrations = [new ListItemReferencesToValueObjects(server)]
     }
 
     migrate (formDef: any) {

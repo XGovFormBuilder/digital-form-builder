@@ -6,20 +6,14 @@
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "model",
-      "engine",
-      "runner",
-      "designer"
-    ],
-    "nohoist": [
-      "**/@babel*/**",
-      "**/govuk-frontend/**",
-      "**/govuk-frontend"
-    ]
-  },
+  "workspaces": [
+    "model",
+    "engine",
+    "runner",
+    "designer"
+  ],
   "scripts": {
+    "setup": "yarn && yarn build && yarn flow-mono create-symlinks && yarn flow-mono install-types && yarn flow-mono create-stubs",
     "build": "yarn workspaces foreach run build",
     "build:dependencies": "yarn model build && yarn engine build",
     "lint": "yarn workspaces foreach run lint",
@@ -31,7 +25,8 @@
     "designer": "yarn workspace @xgovformbuilder/designer",
     "engine": "yarn workspace @xgovformbuilder/engine",
     "model": "yarn workspace @xgovformbuilder/model",
-    "test-cov": "yarn workspaces foreach run test-cov"
+    "test-cov": "yarn workspaces foreach run test-cov",
+    "runner:start": "yarn workspace @xgovformbuilder/runner start"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -61,7 +56,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-standard": "^4.0.1",
-    "flow-bin": "0.131.0",
+    "flow-bin": "^0.134.0",
     "flow-mono-cli": "^1.5.3",
     "flow-typed": "^3.2.1",
     "magic-string": "^0.25.7",
@@ -71,6 +66,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "designer": "^1.0.2",
     "govuk-frontend": "^3.8.1"
+  },
+  "resolutions": {
+    "resolve": "^1.17"
   }
 }

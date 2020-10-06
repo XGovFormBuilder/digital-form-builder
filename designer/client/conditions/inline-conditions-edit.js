@@ -1,8 +1,7 @@
 import React from 'react'
-import { GroupDef, toPresentationString } from '@xgovformbuilder/model/lib/conditions/inline-condition-model'
+import { GroupDef, toPresentationString, clone } from '@xgovformbuilder/model'
 import { icons } from '../icons'
 import InlineConditionsDefinition from './inline-conditions-definition'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
 
 class InlineConditionsEdit extends React.Component {
   constructor (props) {
@@ -59,7 +58,7 @@ class InlineConditionsEdit extends React.Component {
                             href='#' id={`condition-${index}-edit`} className='govuk-link'
                             onClick={() => this.onClickEdit(index)}
                           >
-                            {icons.edit}
+                            {icons.edit(true)}
                           </a>
                         </span>}
                       {index > 0 &&

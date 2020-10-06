@@ -1,16 +1,15 @@
 import { merge, reach } from '@hapi/hoek'
 import * as querystring from 'querystring'
-import { redirectTo } from './helpers'
-const joi = require('joi')
-const { proceed } = require('./helpers')
-const { ComponentCollection } = require('../components')
+import { proceed, redirectTo } from './helpers'
+import ComponentCollection from './components/componentcollection'
 
-const { RelativeUrl, FeedbackContextInfo, decode } = require('./feedback') /* eslint-disable-line */
+ /* eslint-disable-line */
+import joi from 'joi'
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
 
-class Page {
+export default class Page {
   constructor (model, pageDef) {
     const { def } = model
 
@@ -446,5 +445,3 @@ class Page {
 
   set stateSchema (value) { this[STATE_SCHEMA] = value }
 }
-
-module.exports = Page

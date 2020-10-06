@@ -1,4 +1,4 @@
-const createServer = require('./server')
+import createServer from './server'
 
 createServer()
   .then(server => server.start())

@@ -1,12 +1,13 @@
 import React from 'react'
-import { render, mount } from 'enzyme'
+import { render, mount, shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import { ComponentTypes, Data } from '@xgovformbuilder/model'
 import ComponentTypeEdit from '../client/component-type-edit'
-import { Data } from '@xgovformbuilder/model/lib/data-model'
+
 import sinon from 'sinon'
 import { assertCheckboxInput, assertRequiredTextInput, assertTextArea } from './helpers/element-assertions'
+import { componentCases } from './component-type-edit.cases'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -14,10 +15,23 @@ exports.lab = lab
 const { suite, test, describe } = lab
 
 suite('Component type edit', () => {
-  const data = new Data({ lists: [] })
+  const data = new Data({
+    lists: [{
+      name: 'myList',
+      type: 'number',
+      items: [
+        { text: 'Some Text', value: 'myValue', description: 'A hint' },
+        { text: 'Some Text 2', value: 'myValue2', conditional: { components: [{ type: 'TextField' }] } },
+        { text: 'Some Text 3', value: 'myValue3', condition: 'Azhgeqw' }
+      ]
+    }]
+  })
+
   const nextId = 'abcdef'
   data.getId = sinon.stub()
   data.getId.resolves(nextId)
+
+  const page = sinon.spy()
 
   describe('FileUploadField type gets the standard inputs but is always optional', () => {
     const cases = [
@@ -38,8 +52,8 @@ suite('Component type edit', () => {
         expect(inputs.length).to.equal(5)
 
         assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-        assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-        assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+        assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+        assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
         assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, true, { name: 'options.required' })
         assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
         assertOptionalTextWrapper(inputs.get(4), true)
@@ -55,96 +69,38 @@ suite('Component type edit', () => {
   })
 
   describe('Populating the component model', () => {
-    function casesForAllInputs (type, modelCustomisation = {}) {
-      return [
-        { type: type, name: 'populating title', fieldId: 'field-title', event: 'blur', value: 'My title', expectedModel: Object.assign({ type: type, title: 'My title', options: {} }, modelCustomisation) },
-        { type: type, name: 'populating name', fieldId: 'field-name', event: 'blur', value: 'someName', expectedModel: Object.assign({ type: type, name: 'someName', options: {} }, modelCustomisation) },
-        { type: type, name: 'populating hint', fieldId: 'field-hint', event: 'blur', value: 'My hint', expectedModel: Object.assign({ type: type, hint: 'My hint', options: {} }, modelCustomisation) },
-        { type: type, name: 'selecting hide title', fieldId: 'field-options-hideTitle', event: 'change', value: '', expectedModel: Object.assign({ type: type, options: { hideTitle: true } }, modelCustomisation) },
-        { type: type, name: 'selecting unhide title', fieldId: 'field-options-hideTitle', event: 'change', value: '', componentInitialState: { options: { hideTitle: true } }, expectedModel: Object.assign({ type: type, options: { hideTitle: false } }, modelCustomisation) }
-      ]
-    }
-
-    function casesForAllExceptFileUpload (type, modelCustomisation = {}) {
-      return [
-        ...casesForAllInputs(type, modelCustomisation),
-        { type: type, name: 'selecting optional', fieldId: 'field-options-required', event: 'change', value: '', expectedModel: Object.assign({ type: type, options: { required: false } }, modelCustomisation) },
-        { type: type, name: 'selecting optional when required is explicitly true', fieldId: 'field-options-required', event: 'change', value: '', componentInitialState: { options: { required: true } }, expectedModel: Object.assign({ type: type, options: { required: false } }, modelCustomisation) },
-        { type: type, name: 'deselecting optional', fieldId: 'field-options-required', event: 'change', value: '', componentInitialState: { options: { required: false } }, expectedModel: Object.assign({ type: type, options: { required: undefined } }, modelCustomisation) },
-        { type: type, name: 'selecting hide optional text', fieldId: 'field-options-optionalText', event: 'change', value: '', expectedModel: Object.assign({ type: type, options: { optionalText: false } }, modelCustomisation) },
-        { type: type, name: 'selecting hide optional text when explicitly true', fieldId: 'field-options-optionalText', event: 'change', value: '', componentInitialState: { options: { optionalText: true } }, expectedModel: Object.assign({ type: type, options: { optionalText: false } }, modelCustomisation) },
-        { type: type, name: 'deselecting hide optional text', fieldId: 'field-options-optionalText', event: 'change', value: '', componentInitialState: { options: { optionalText: false } }, expectedModel: Object.assign({ type: type, options: { optionalText: undefined } }, modelCustomisation) }
-      ]
-    }
-
-    function classesCases (type, modelCustomisation = {}) {
-      return [{ type: type, name: 'populating classes', fieldId: 'field-options-classes', event: 'blur', value: 'my-class', expectedModel: Object.assign({ type: type, options: { classes: 'my-class' } }, modelCustomisation) }]
-    }
-
-    function textFieldCases (type) {
-      return [
-        ...casesForAllExceptFileUpload(type, { schema: {} }),
-        { type: type, name: 'populating max length', fieldId: 'field-schema-max', event: 'blur', value: '236', expectedModel: { type: type, schema: { max: '236' }, options: {} } },
-        { type: type, name: 'populating min length', fieldId: 'field-schema-min', event: 'blur', value: '236', expectedModel: { type: type, schema: { min: '236' }, options: {} } },
-        { type: type, name: 'populating exact length', fieldId: 'field-schema-length', event: 'blur', value: '236', expectedModel: { type: type, schema: { length: '236' }, options: {} } },
-        { type: type, name: 'populating regex', fieldId: 'field-schema-regex', event: 'blur', value: '[a-z0-9]', expectedModel: { type: type, schema: { regex: '[a-z0-9]' }, options: {} } },
-        ...classesCases(type, { schema: {} })
-      ]
-    }
-
-    const componentCases = [
-      ...casesForAllInputs('FileUploadField'),
-      ...classesCases('FileUploadField'),
-      ...textFieldCases('TextField'),
-      ...textFieldCases('EmailAddressField'),
-      ...textFieldCases('TelephoneNumberField'),
-      ...casesForAllExceptFileUpload('MultilineTextField', { schema: {} }),
-      { type: 'MultilineTextField', name: 'populating max length', fieldId: 'field-schema-max', event: 'blur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { max: '236' }, options: {} } },
-      { type: 'MultilineTextField', name: 'populating min length', fieldId: 'field-schema-min', event: 'blur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { min: '236' }, options: {} } },
-      { type: 'MultilineTextField', name: 'populating number of rows', fieldId: 'field-options-rows', event: 'blur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { }, options: { rows: '236' } } },
-      ...classesCases('MultilineTextField', { schema: {} }),
-      ...casesForAllExceptFileUpload('NumberField', { schema: {} }),
-      { type: 'NumberField', name: 'populating max value', fieldId: 'field-schema-max', event: 'blur', value: '236', expectedModel: { type: 'NumberField', schema: { max: '236' }, options: {} } },
-      { type: 'NumberField', name: 'populating min value', fieldId: 'field-schema-min', event: 'blur', value: '236', expectedModel: { type: 'NumberField', schema: { min: '236' }, options: {} } },
-      { type: 'NumberField', name: 'populating precision', fieldId: 'field-schema-precision', event: 'blur', value: '236', expectedModel: { type: 'NumberField', schema: { precision: '236' }, options: {} } },
-      ...classesCases('NumberField', { schema: {} }),
-      ...casesForAllExceptFileUpload('DateField'),
-      ...casesForAllExceptFileUpload('DatePartsField'),
-      { type: 'DatePartsField', name: 'populating max days in past', fieldId: 'field-options-maxDaysInPast', event: 'blur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInPast: '236' } } },
-      { type: 'DatePartsField', name: 'populating max days in future', fieldId: 'field-options-maxDaysInFuture', event: 'blur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInFuture: '236' } } },
-      ...classesCases('DatePartsField'),
-      ...casesForAllExceptFileUpload('SelectField'),
-      { type: 'SelectField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'SelectField', options: { list: '236' } } },
-      ...classesCases('SelectField'),
-      ...casesForAllExceptFileUpload('RadiosField'),
-      { type: 'RadiosField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'RadiosField', options: { list: '236' } } },
-      { type: 'RadiosField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'RadiosField', options: { bold: true } } },
-      { type: 'RadiosField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'RadiosField', options: { bold: false } } },
-      ...casesForAllExceptFileUpload('CheckboxesField'),
-      { type: 'CheckboxesField', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'CheckboxesField', options: { list: '236' } } },
-      { type: 'CheckboxesField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', expectedModel: { type: 'CheckboxesField', options: { bold: true } } },
-      { type: 'CheckboxesField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'change', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'CheckboxesField', options: { bold: false } } },
-      { type: 'List', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'List', options: { list: '236' } } },
-      { type: 'List', name: 'selecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', expectedModel: { type: 'List', options: { type: 'numbered' } } },
-      { type: 'List', name: 'deselecting numbered', fieldId: 'field-options-type', event: 'change', value: 'numbered', componentInitialState: { options: { type: 'numbered' } }, expectedModel: { type: 'List', options: { type: undefined } } },
-      { type: 'FlashCard', name: 'populating list', fieldId: 'field-options-list', event: 'change', value: '236', expectedModel: { type: 'FlashCard', options: { list: '236' } } },
-      { type: 'Details', name: 'populating title', fieldId: 'details-title', event: 'blur', value: '236', expectedModel: { type: 'Details', title: '236' } },
-      { type: 'Details', name: 'populating content', fieldId: 'details-content', event: 'blur', value: '236', expectedModel: { type: 'Details', content: '236' } }
-    ]
-
     componentCases.forEach(testCase => {
       test(`${testCase.name} for ${testCase.type} component results in the appropriate model being passed to the callback function`, () => {
         const updateModel = sinon.spy()
 
-        const component = Object.assign({ type: testCase.type }, testCase.componentInitialState || {})
+        const component = { ...testCase.componentInitialState, type: testCase.type }
         const wrapper = mount(<ComponentTypeEdit data={data} component={component} updateModel={updateModel}/>)
-
         const field = wrapper.find(`#${testCase.fieldId}`)
-        expect(field.exists()).to.equal(true)
         field.simulate(testCase.event, { target: { value: testCase.value } })
-        expect(updateModel.callCount).to.equal(1)
         expect(updateModel.firstCall.args[0]).to.equal(testCase.expectedModel)
+        expect(field.exists()).to.equal(true)
+        expect(updateModel.callCount).to.equal(1)
       })
+    })
+  })
+
+  const componentTypesWithValues = ['RadiosField', 'CheckboxesField', 'SelectField', 'List', 'FlashCard']
+
+  componentTypesWithValues.forEach(componentType => {
+    test(`${componentType} component renders the ComponentValues component correctly`, () => {
+      const updateModel = sinon.spy()
+
+      const component = { type: componentType }
+      const wrapper = shallow(<ComponentTypeEdit data={data} component={component} updateModel={updateModel} page={page}/>).dive()
+
+      const field = wrapper.find('ComponentValues')
+      expect(field.exists()).to.equal(true)
+      expect(Object.keys(field.props()).length).to.equal(5)
+      expect(field.prop('component')).to.equal(component)
+      expect(field.prop('data')).to.equal(data)
+      expect(field.prop('updateModel')).to.equal(updateModel)
+      expect(field.prop('page')).to.equal(page)
+      expect(field.prop('EditComponentView')).to.equal(ComponentTypeEdit)
     })
   })
 
@@ -158,8 +114,8 @@ suite('Component type edit', () => {
       expect(inputs.length).to.equal(5)
 
       assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-      assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-      assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', '', { name: 'options.hideTitle' })
+      assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', '', { name: 'options.hideTitle' })
+      assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
       assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, '', { name: 'options.required' })
       assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, '', { name: 'options.optionalText' })
       assertOptionalTextWrapper(inputs.get(4), true)
@@ -188,10 +144,10 @@ suite('Component type edit', () => {
           const inputs = standardInputs.find('input')
 
           expect(inputs.length).to.equal(5)
-
+          // TODO:- getting input by index is dangerous.. it makes changing order of components a bit of a pain 😭
           assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-          assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
           assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, true, { name: 'options.required' })
           assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, testCase.options?.optionalText === false || '', { name: 'options.optionalText' })
           assertOptionalTextWrapper(inputs.get(4))
@@ -222,8 +178,8 @@ suite('Component type edit', () => {
           expect(inputs.length).to.equal(5)
 
           assertRequiredTextInput(inputs.get(0), 'field-title', 'My component', { name: 'title' })
-          assertRequiredTextInput(inputs.get(1), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
-          assertCheckboxInput(inputs.get(2), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertCheckboxInput(inputs.get(1), 'field-options-hideTitle', 'true', testCase.options?.hideTitle || '', { name: 'options.hideTitle' })
+          assertRequiredTextInput(inputs.get(2), 'field-name', 'myComponent', { name: 'name', pattern: '^\\S+' })
           assertCheckboxInput(inputs.get(3), 'field-options-required', undefined, '', { name: 'options.required' })
           assertCheckboxInput(inputs.get(4), 'field-options-optionalText', undefined, '', { name: 'options.optionalText' })
           assertOptionalTextWrapper(inputs.get(4), true)

@@ -1,9 +1,9 @@
 import React from 'react'
-import { ConditionValue, timeUnits } from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
 import {
+  ConditionValue, timeUnits,
   absoluteDateOrTimeOperatorNames,
   getOperatorConfig, relativeDateOrTimeOperatorNames
-} from '@xgovformbuilder/model/lib/conditions/inline-condition-operators'
+} from '@xgovformbuilder/model'
 
 import RelativeTimeValues from './inline-conditions-relative-dates'
 import { AbsoluteDateValues, AbsoluteDateTimeValues, AbsoluteTimeValues } from './inline-conditions-absolute-dates'
@@ -41,7 +41,7 @@ function SelectValues (props) {
     let value
     if (newValue && newValue?.trim() !== '') {
       const option = fieldDef.values?.find(value => String(value.value) === newValue)
-      value = new ConditionValue(String(option.value), option.text)
+      value = new ConditionValue(String(option.value), option.label)
     }
     updateValue(value)
   }
@@ -53,7 +53,7 @@ function SelectValues (props) {
     >
       <option />
       {fieldDef.values.map(option => {
-        return <option key={option.value} value={option.value}>{option.text}</option>
+        return <option key={option.value} value={option.value}>{option.label}</option>
       })}
     </select>
   )
@@ -62,19 +62,25 @@ function SelectValues (props) {
 function customValueComponent (fieldType, operator) {
   const operatorConfig = getOperatorConfig(fieldType, operator)
   const absoluteDateTimeRenderFunctions = {
-    DateField: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
-    DatePartsField: (value, updateValue) => <AbsoluteDateValues value={value} updateValue={updateValue} />,
-    DateTimeField: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
-    DateTimePartsField: (value, updateValue) => <AbsoluteDateTimeValues value={value} updateValue={updateValue} />,
-    TimeField: (value, updateValue) => <AbsoluteTimeValues value={value} updateValue={updateValue} />
+    DateField: AbsoluteDateValues,
+    DatePartsField: AbsoluteDateValues,
+    DateTimeField: AbsoluteDateTimeValues,
+    DateTimePartsField: AbsoluteDateTimeValues,
+    TimeField: AbsoluteTimeValues
   }
-  const dateTimeFieldTypes = Object.keys(absoluteDateTimeRenderFunctions).includes(fieldType)
-  if (dateTimeFieldTypes) {
+  if (fieldType in absoluteDateTimeRenderFunctions) {
     if (absoluteDateOrTimeOperatorNames.includes(operator)) {
       return absoluteDateTimeRenderFunctions[fieldType]
     } else if (relativeDateOrTimeOperatorNames.includes(operator)) {
       const units = operatorConfig.units
-      return (value, updateValue) => <RelativeTimeValues value={value} updateValue={updateValue} units={units} timeOnly={units === timeUnits} />
+      return function RelativeTimeValuesWrapper (value, updateValue) {
+        return <RelativeTimeValues
+          value={value}
+          updateValue={updateValue}
+          units={units}
+          timeOnly={units === timeUnits}
+        />
+      }
     }
   }
 }

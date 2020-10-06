@@ -1,6 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { proceed, redirectTo, redirectUrl } from '../../lib/helpers'
+import { proceed, redirectTo, redirectUrl } from '../../src/helpers'
 import sinon from 'sinon'
 const lab = Lab.script()
 exports.lab = lab

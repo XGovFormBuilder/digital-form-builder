@@ -27,12 +27,24 @@
         "@babel"
     ],
     "rules": {
-        "react/prop-types": 0,
-        "react/react-in-jsx-scope": 1,
-        "react/no-unescaped-entities": 1,
-        "react/display-name": 1,
-        "react/no-deprecated": 1,
-        "react/jsx-no-target-blank": 1
+        "react/prop-types": 0
     },
-    "ignorePatterns": ["**/node_modules/**", "**/dist/**", "**/lib/**", "**/flow-typed/**", "**/public/**", "node_modules/**", "dist/**", "lib/**", "flow-typed/**", "public/**"]
+    "ignorePatterns": [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/lib/**",
+        "**/flow-typed/**",
+        "**/public/**",
+        "node_modules/**",
+        "dist/**",
+        "lib/**",
+        "flow-typed/**",
+        "public/**",
+        "module/**"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
 }

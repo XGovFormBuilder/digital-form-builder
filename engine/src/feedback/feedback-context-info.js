@@ -2,7 +2,7 @@ import atob from 'atob'
 import btoa from 'btoa'
 import RelativeUrl from './relative-url'
 
-class FeedbackContextInfo {
+export class FeedbackContextInfo {
   constructor (formTitle, pageTitle, url) {
     this.formTitle = formTitle
     this.pageTitle = pageTitle
@@ -14,9 +14,8 @@ class FeedbackContextInfo {
     return btoa(JSON.stringify(this))
   }
 }
-module.exports.FeedbackContextInfo = FeedbackContextInfo
 
-module.exports.decode = function decode (encoded) {
+export function decode (encoded) {
   if (encoded) {
     const decoded = JSON.parse(atob(encoded))
     return new FeedbackContextInfo(decoded.formTitle, decoded.pageTitle, decoded.url)

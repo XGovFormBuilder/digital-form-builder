@@ -4,8 +4,8 @@ import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { ComponentTypes, clone } from '@xgovformbuilder/model'
+import { withI18n } from './i18n'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
@@ -23,8 +23,11 @@ const SortableList = SortableContainer(({ page, data }) => {
   )
 })
 
-class Page extends React.Component {
-  state = {}
+export class Page extends React.Component {
+  state = {
+    showEditor: false,
+    showAddComponent: false
+  }
 
   showEditor = (e, value) => {
     e.stopPropagation()
@@ -47,13 +50,32 @@ class Page extends React.Component {
     // data.save(data)
   }
 
+  toggleAddComponent = () => {
+    this.setState(prevState => ({
+      showAddComponent: !prevState.showAddComponent
+    }))
+  }
+
+  toggleEditor = () => {
+    this.setState(prevState => ({
+      showEditor: !prevState.showEditor
+    }))
+  }
+
   render () {
-    const { page, data, id, previewUrl, persona } = this.props
+    const { page, data, id, previewUrl, persona, i18n } = this.props
     const { sections } = data
-    const formComponents = page.components.filter(comp => ComponentTypes.find(type => type.name === comp.type).subType === 'field')
+    const formComponents = page?.components?.filter(comp =>
+      ComponentTypes.find(type => type.name === comp.type).subType === 'field'
+    )
     const section = page.section && sections.find(section => section.name === page.section)
     const conditional = !!page.condition
-    let pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)
+    let pageTitle =
+      page.title ||
+      (formComponents.length === 1 && page.components[0] === formComponents[0]
+        ? formComponents[0].title
+        : page.title)
+
     if (pageTitle && typeof pageTitle === 'object') {
       pageTitle = pageTitle.en
     }
@@ -64,10 +86,9 @@ class Page extends React.Component {
         id={page.path} className={`page${conditional ? ' conditional' : ''} ${highlight ? 'highlight' : ''}`}
         title={page.path} style={this.props.layout}
       >
-        <div className='handle' onClick={(e) => this.showEditor(e, true)} />
-        <div className='govuk-!-padding-top-2 govuk-!-padding-left-2 govuk-!-padding-right-2'>
-          <h3 className='govuk-heading-s'>
-            {section && <span className='govuk-caption-m govuk-!-font-size-14'>{section.title}</span>}
+        <div className='page__heading'>
+          <h3>
+            {section && <span>{section.title}</span>}
             {pageTitle}
           </h3>
         </div>
@@ -78,35 +99,42 @@ class Page extends React.Component {
           lockToContainerEdges useDragHandle
         />
 
-        <div className='govuk-!-padding-2'>
+        <div className='page__actions'>
+          <button title={i18n('Edit page')} onClick={this.toggleEditor}>
+            {i18n('Edit page')}
+          </button>
+          <button title={i18n('Create component')} onClick={this.toggleAddComponent}>
+            {i18n('Create component')}
+          </button>
           <a
-            className='preview pull-right govuk-body govuk-!-font-size-14'
-            href={`${previewUrl}/${id}${page.path}`} target='_blank'
-          >Open
+            title={i18n('Preview page')}
+            href={`${previewUrl}/${id}${page.path}`}
+            target='_blank'
+            rel="noreferrer"
+          >
+            {i18n('Preview')}
           </a>
-          <div
-            className='button active'
-            onClick={e => this.setState({ showAddComponent: true })}
-          />
         </div>
 
         <Flyout
           title='Edit Page' show={this.state.showEditor}
-          onHide={e => this.showEditor(e, false)}
+          onHide={this.toggleEditor}
         >
           <PageEdit
             page={page} data={data}
-            onEdit={e => this.setState({ showEditor: false })}
+            onEdit={this.toggleEditor}
           />
         </Flyout>
 
         <Flyout
-          title='Add Component' show={this.state.showAddComponent}
-          onHide={() => this.setState({ showAddComponent: false })}
+          title='Add Component'
+          show={this.state.showAddComponent}
+          onHide={this.toggleAddComponent}
         >
           <ComponentCreate
-            page={page} data={data}
-            onCreate={e => this.setState({ showAddComponent: false })}
+            page={page}
+            data={data}
+            onCreate={this.toggleAddComponent}
           />
         </Flyout>
       </div>
@@ -114,4 +142,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page
+export default withI18n(Page)

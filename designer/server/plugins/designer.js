@@ -1,4 +1,4 @@
-const Schema = require('@xgovformbuilder/model/lib/schema')
+const { Schema } = require('@xgovformbuilder/model')
 const { nanoid } = require('nanoid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')
@@ -6,13 +6,13 @@ const config = require('../../config')
 const joi = require('joi')
 
 const publish = async function (id, configuration) {
-  return Wreck.post(`${config.previewUrl}/publish`, {
+  return Wreck.post(`${config.publishUrl}/publish`, {
     payload: JSON.stringify({ id, configuration })
   })
 }
 
 const getPublished = async function (id) {
-  const { payload } = await Wreck.get(`${config.previewUrl}/published/${id}`)
+  const { payload } = await Wreck.get(`${config.publishUrl}/published/${id}`)
   return payload.toString()
 }
 

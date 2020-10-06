@@ -10,7 +10,7 @@ import {
   dateUnits,
   RelativeTimeValue,
   timeUnits
-} from '@xgovformbuilder/model/lib/conditions/inline-condition-values'
+} from '@xgovformbuilder/model'
 import RelativeTimeValues from '../client/conditions/inline-conditions-relative-dates'
 
 const { expect } = Code
