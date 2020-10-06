@@ -2,6 +2,7 @@ import React from 'react'
 import { clone } from '@xgovformbuilder/model/lib/helpers'
 import Name from '../name'
 import { nanoid } from 'nanoid'
+import { withI18n } from '../i18n'
 
 class SectionEdit extends React.Component {
   constructor (props) {
@@ -58,27 +59,26 @@ class SectionEdit extends React.Component {
 
   onClickDelete = async e => {
     e.preventDefault()
-    const { name } = this.state
-
     if (!window.confirm('Confirm delete')) {
       return
     }
 
     const { data, section } = this.props
     const copy = clone(data)
+    const previousName = this.props.section?.name
 
-    // Remove the section
     copy.sections.splice(data.sections.indexOf(section), 1)
 
     // Update any references to the section
     copy.pages.forEach(p => {
-      if (p.section.name === name) {
+      if (p.section === previousName) {
         delete p.section
       }
     })
 
     try {
       await data.save(copy)
+      this.closeFlyout({})
     } catch (error) {
       // TODO:- we should really think about handling these errors properly.
       console.log(error)
@@ -86,12 +86,13 @@ class SectionEdit extends React.Component {
   }
 
   render () {
+    const { i18n } = this.props
     const { title, name } = this.state
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
-          <label className='govuk-label govuk-label--s' htmlFor='section-title'>Title</label>
+          <label className='govuk-label govuk-label--s' htmlFor='section-title'>{i18n('title')}</label>
           <input
             className='govuk-input' id='section-title' name='title'
             type='text'
@@ -104,10 +105,12 @@ class SectionEdit extends React.Component {
         />
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
-        <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
+        {!this.isNewSection &&
+          <button className='govuk-button' type='button' onClick={this.onClickDelete}>{i18n('delete')}</button>
+        }
       </form>
     )
   }
 }
 
-export default SectionEdit
+export default withI18n(SectionEdit)

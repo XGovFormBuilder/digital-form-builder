@@ -12,7 +12,7 @@ const lab = Lab.script()
 exports.lab = lab
 const { suite, test, describe } = lab
 
-suite('Page create', () => {
+suite.skip('Page create', () => {
   const data = new Data({
     pages: [
       { path: '/1' },

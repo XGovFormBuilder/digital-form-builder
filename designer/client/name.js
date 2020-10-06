@@ -1,13 +1,16 @@
 // @flow
 
 import React from 'react'
+import { withI18n } from './i18n'
 
 type Props = {
+  updateModel: ?(any) => {},
   component: ?any,
   hint: ?string,
   name: string,
   id: string,
-  labelText: string
+  labelText: string,
+  i18n: (string) => any
 }
 
 type State = {
@@ -15,8 +18,7 @@ type State = {
   nameHasError: boolean
 }
 
-export default class Name extends React.Component<Props, State> {
-
+export class Name extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props)
     const { name, component } = this.props
@@ -38,25 +40,25 @@ export default class Name extends React.Component<Props, State> {
   updateGlobalState = () => {
     const { updateModel, component } = this.props
     const { name, nameHasError } = this.state
-    if(updateModel && !nameHasError) {
+    if (updateModel && !nameHasError) {
       updateModel({ ...component, name })
     }
   }
 
   render () {
-    const { id, labelText, hint } = this.props
+    const { id, labelText, hint, i18n } = this.props
     const { name, nameHasError } = this.state
 
     return (
       <div className={`govuk-form-group ${nameHasError ? 'govuk-form-group--error' : ''}`}>
         <label className='govuk-label govuk-label--s' htmlFor={id}>{labelText}</label>
         <span className='govuk-hint'>
-          { hint || 'This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.' }
+          { hint || i18n('name.hint') }
         </span>
         { nameHasError &&
         <span
           className="govuk-error-message">
-          <span className="govuk-visually-hidden">Error:</span> Name must not contain spaces
+          <span className="govuk-visually-hidden">{i18n('error')}</span> {i18n('name.errors.whitespace')}
         </span>
         }
         <input
@@ -70,3 +72,4 @@ export default class Name extends React.Component<Props, State> {
   }
 }
 
+export default withI18n(Name)

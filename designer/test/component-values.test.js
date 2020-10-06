@@ -89,7 +89,7 @@ suite('Component values', () => {
   })
 
   describe('Connecting to a list', () => {
-    test('Should render the list selection input when list type is chosen', () => {
+    test.skip('Should render the list selection input when list type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = mount(
         <ComponentValues
@@ -126,7 +126,7 @@ suite('Component values', () => {
       expect(wrapper.find('#add-value-link').exists()).to.equal(false)
     })
 
-    test('Should not update model when the list population type is chosen', () => {
+    test.skip('Should not update model when the list population type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
@@ -151,7 +151,7 @@ suite('Component values', () => {
     })
   })
 
-  describe('Populating own inputs', () => {
+  describe.skip('Populating own inputs', () => {
     test('Should render the list selection input when static type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)

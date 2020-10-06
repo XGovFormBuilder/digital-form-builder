@@ -3,5 +3,43 @@
   "Edit page": "Edit page",
   "Create component": "Create component",
   "Preview page": "Preview page",
-  "Preview": "Preview"
+  "Preview": "Preview",
+  "page": {
+    "noun": "page",
+    "noun_plural": "pages",
+    "type": "Page type",
+    "types": {
+      "question": "Question page",
+      "start": "Start page",
+      "summary": "Summary page"
+    },
+    "title": "Page title",
+    "path": "Path",
+    "pathHint": "The path of this page e.g. /personal-details",
+    "section": "Section (optional)",
+    "sectionHint": "The section title is shown above the page title. If the page and the section title are the same, the section title wont show."
+  },
+  "section": {
+    "noun": "section",
+    "noun_plural": "sections",
+    "editingTitle": "Editing {{title}}",
+    "newTitle": "Add a new section",
+    "edit": "Edit section",
+    "create": "Create section"
+  },
+  "edit": "edit {{noun}}",
+  "create": "create {{noun}}",
+  "save": "Save",
+  "duplicate": "Duplicate",
+  "optional": "{{noun}} (optional)",
+  "name": {
+    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.",
+    "errors": {
+      "whitespace": "Name must not contain spaces"
+    }
+
+  },
+  "error": "Error:",
+  "title": "Title",
+  "close": "Close"
 }

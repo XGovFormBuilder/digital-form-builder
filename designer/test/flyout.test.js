@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { mount } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import { useFlyoutEffect } from '../client/flyout'
@@ -8,7 +8,7 @@ import sinon from 'sinon'
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab
-const { suite, test, describe, beforeEach } = lab
+const { test, describe, beforeEach } = lab
 
 function HookWrapper (props) {
   const hook = props.hook ? props.hook() : undefined
