@@ -90,7 +90,6 @@ suite.skip('Define component value', () => {
       children: [child]
     }
 
-<<<<<<< HEAD
     const wrapper = shallow(
       <DefineComponentValue
         data={data}
@@ -116,13 +115,6 @@ suite.skip('Define component value', () => {
     expect(hintInput.prop('value')).to.equal('My hint')
     expect(hintInput.prop('rows')).to.equal(2)
 
-=======
-    const wrapper = shallow(<DefineComponentValue data={data} value={value} saveCallback={saveCallback} cancelCallback={cancelCallback} page={page}/>)
-    // FIXME:- this can be done in a oneliner without a helper. The error messaging is extremely unhelpful (gives me line numbers inside the helpers files.)
-    assertTextInput(wrapper.find('#item-label'), 'item-label', 'My label', { required: true })
-    assertTextInput(wrapper.find('#item-value'), 'item-value', 'My value', { required: true })
-    assertTextArea(wrapper.find('#item-hint'), 'item-hint', 'My hint', { rows: 2, required: undefined })
->>>>>>> 786c9d43f1c49099ae3b1f5fb66fb965aaa37322
     assertSelectConditionsDisplayed(wrapper, 'myCondition')
 
     expect(wrapper.find('#child-details-0').exists()).to.equal(true)
