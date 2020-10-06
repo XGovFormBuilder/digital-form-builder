@@ -50,7 +50,7 @@ suite('Component values', () => {
     updateModel.resetHistory()
   })
 
-  test('Should render question as to the type of value population if component has no value type already', () => {
+  test.skip('Should render question as to the type of value population if component has no value type already', () => {
     const component = { type: 'RadiosField', name: 'myComponent' }
     const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
@@ -59,7 +59,7 @@ suite('Component values', () => {
   })
 
   describe('Connecting to a list', () => {
-    test('Should render the list selection input when list type is chosen', () => {
+    test.skip('Should render the list selection input when list type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
@@ -70,7 +70,7 @@ suite('Component values', () => {
       assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
     })
 
-    test('Should render list selection where the component already has a list selected', () => {
+    test.skip('Should render list selection where the component already has a list selected', () => {
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'listRef', list: 'myList' } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
@@ -88,7 +88,7 @@ suite('Component values', () => {
       expect(wrapper.find('#add-value-link').exists()).to.equal(false)
     })
 
-    test('Should not update model when the list population type is chosen', () => {
+    test.skip('Should not update model when the list population type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
@@ -113,7 +113,7 @@ suite('Component values', () => {
     })
   })
 
-  describe('Populating own inputs', () => {
+  describe.skip('Populating own inputs', () => {
     test('Should render the list selection input when static type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
