@@ -114,16 +114,6 @@ class SelectConditions extends React.Component {
                 required={false}
               />
             }
-            {/* {selectGroup(
-                'cond-select',
-                'cond-select',
-                'Select a condition',
-                selectedCondition ?? '',
-                this.props.data.conditions.map((it, index) => (new SelectOption(it.displayName, it.name))), // (text: string, value: string)
-                this.onChangeConditionSelection,
-                new SelectInputOptions(false, true, undefined, 'select-condition')
-                                      (required: boolean, includeBlankOption: boolean, hints: ?Array<string>, groupId: ?string)
-              )} */}
             {!inline &&
               <div className='govuk-form-group'>
                 <a
