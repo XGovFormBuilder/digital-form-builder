@@ -41,7 +41,7 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
  | NODE_ENV              | Node environment                        |    no    | development | development,test,production |                               |
  | PORT                  | Port number                             |    no    | 3000        |                             |                               |
  | PREVIEW_MODE          | Preview mode                            |    no    | false       |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms. |
- | PREVIEW_URL           | Base URL for links to preview forms in user's web browswer |    no    | localhost:3009 | |
+ | PREVIEW_URL           | Base URL for links to preview forms in user's web browser |    no    | localhost:3009 | |
  | PUBLISH_URL           | Base URL used by designer to POST and GET runner's API |    no    | localhost:3009 | |
   PERSISTENT_BACKEND    | storage backend service                 |    no    |             | s3,blob                     | currently only s3 integration is properly supported. blob (or none) is stubbed. |
  | PERSISTENT_ACCESS_KEY | Access key for backend persistence      |    no    |             |                             |                               |
