@@ -128,9 +128,9 @@ suite('Component type edit', () => {
         const component = { ...testCase.componentInitialState, type: testCase.type }
         const wrapper = mount(<ComponentTypeEdit data={data} component={component} updateModel={updateModel}/>)
         const field = wrapper.find(`#${testCase.fieldId}`)
-        field.simulate(testCase.event, { target: { value: testCase.value } })
-        expect(updateModel.firstCall.args[0]).to.equal(testCase.expectedModel)
         expect(field.exists()).to.equal(true)
+        field.prop(testCase.event)({ target: { value: testCase.value } })
+        expect(updateModel.firstCall.args[0], JSON.stringify(testCase)).to.equal(testCase.expectedModel)
         expect(updateModel.callCount).to.equal(1)
       })
     })
