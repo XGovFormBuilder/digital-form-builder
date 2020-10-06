@@ -47,7 +47,7 @@ export class PageEdit extends React.Component {
     }
 
     copyPage.title = title
-    section ? copyPage.section = section : delete copyPage.section
+    section ? copyPage.section = section.name : delete copyPage.section
     controller ? copyPage.controller = controller : delete copyPage.controller
 
     copy.pages[pageIndex] = copyPage

@@ -24,7 +24,7 @@ class PageCreate extends React.Component {
 
     const title = this.state.title?.trim()
     const linkFrom = this.state.linkFrom?.trim()
-    const section = this.state.section?.trim()
+    const section = this.state.section?.name?.trim()
     const pageType = this.state.pageType?.trim()
     const selectedCondition = this.state.selectedCondition?.trim()
     const path = this.state.path || this.state.path
