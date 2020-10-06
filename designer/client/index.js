@@ -5,6 +5,7 @@ import Visualisation from './visualisation'
 import NewConfig from './new-config'
 import { Data } from '@xgovformbuilder/model'
 import { customAlphabet } from 'nanoid'
+import { FlyoutContext } from './context'
 import './index.scss'
 import { initI18n, i18n } from './i18n'
 
@@ -17,9 +18,10 @@ initI18n(i18n)
  */
 const nanoid = customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz', 10)
 
-class App extends React.Component {
+export class App extends React.Component {
   state = {
-    id: ''
+    id: '',
+    flyoutCount: 0
   }
 
   componentDidMount () {
@@ -74,12 +76,24 @@ class App extends React.Component {
   }
 
   setStateId = (id) => {
-    this.setState({ id: id })
+    this.setState({ id })
+  }
+
+  incrementFlyoutCounter = (callback = () => {}) => {
+    let currentCount = this.state.flyoutCount
+    this.setState({ flyoutCount: ++currentCount }, callback())
+  }
+
+  decrementFlyoutCounter = (callback = () => {}) => {
+    let currentCount = this.state.flyoutCount
+    this.setState({ flyoutCount: --currentCount }, callback())
   }
 
   render () {
-    const { previewUrl, id } = this.state
-    if (this.state.newConfig === true) {
+    const { previewUrl, id, flyoutCount, newConfig } = this.state
+    const flyoutContextProviderValue = { flyoutCount, increment: this.incrementFlyoutCounter, decrement: this.decrementFlyoutCounter }
+
+    if (newConfig) {
       return (
         <div id='app'>
           <NewConfig setStateId={this.setStateId} />
@@ -89,10 +103,12 @@ class App extends React.Component {
     if (this.state.loaded) {
       const data = new Data(this.state.data)
       return (
-        <div id='app'>
-          <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} updatePersona={this.updatePersona} />
-          <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} persona={this.state.persona} id={id} previewUrl={previewUrl} />
-        </div>
+        <FlyoutContext.Provider value={flyoutContextProviderValue}>
+          <div id='app'>
+            <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} updatePersona={this.updatePersona} />
+            <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} persona={this.state.persona} id={id} previewUrl={previewUrl} />
+          </div>
+        </FlyoutContext.Provider>
       )
     } else {
       return <div>Loading...</div>

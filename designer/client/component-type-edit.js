@@ -1,8 +1,10 @@
 import React from 'react'
 import Editor from './editor'
-import { ComponentTypes } from '@xgovformbuilder/model'
+// import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
 import { Textarea } from '@xgovformbuilder/govuk-react-jsx'
+import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import Name from './name'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -57,8 +59,6 @@ class FieldEdit extends React.Component {
   render () {
     const { component, updateModel } = this.props
     component.options = component.options || {}
-    const { name, nameHasError } = this.state
-
     return (
       <div>
         <div data-test-id='standard-inputs'>
@@ -116,30 +116,7 @@ class FieldEdit extends React.Component {
             </div>
           </div>
 
-          <div className={`govuk-form-group ${nameHasError ? 'govuk-form-group--error' : ''}`}>
-            <label className='govuk-label govuk-label--s' htmlFor='field-name'>Component name</label>
-            <span className='govuk-hint'>
-              This has been generated automatically, it will not show on the page.
-              You usually wont need to change it unless an integration requires it. It must not contain spaces.
-            </span>
-            { nameHasError &&
-              <span
-                className="govuk-error-message">
-                <span className="govuk-visually-hidden">Error:</span> Name must not contain spaces
-              </span>
-            }
-            <input
-              className={`govuk-input govuk-input--width-20 ${nameHasError ? 'govuk-input--error' : ''}`}
-              id='field-name'
-              name='name'
-              type='text'
-              required
-              pattern='^\S+'
-              value={name}
-              onChange={this.onChangeName}
-              onBlur={e => updateComponent(component, component => { component.name = e.target.value }, updateModel)}
-            />
-          </div>
+          <Name component={component} id='field-name' labelText='Component name' updateComponent={updateComponent} updateModel={updateModel}/>
 
           <div className='govuk-checkboxes govuk-form-group'>
             <div className='govuk-checkboxes__item'>
