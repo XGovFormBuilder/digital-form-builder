@@ -2884,7 +2884,7 @@ __metadata:
     "@hapi/wreck": 17.0.0
     "@rollup/plugin-commonjs": 13.0.0
     "@workspace-builder/rollup": ^1.0.0
-    "@xgovformbuilder/govuk-react-jsx": ^4.0.7
+    "@xgovformbuilder/govuk-react-jsx": ^4.0.10
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 2.0.0
     acorn: 7.2.0
@@ -2986,16 +2986,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xgovformbuilder/govuk-react-jsx@npm:^4.0.7":
-  version: 4.0.7
-  resolution: "@xgovformbuilder/govuk-react-jsx@npm:4.0.7"
-  dependencies:
+"@xgovformbuilder/govuk-react-jsx@npm:^4.0.10":
+  version: 4.0.10
+  resolution: "@xgovformbuilder/govuk-react-jsx@npm:4.0.10"
+  peerDependencies:
     govuk-frontend: 3.8.1
     react: ^16.13.1
     react-helmet: ^6.1.0
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
-  checksum: e09b2a93e8bb0e40cd7c1d36f0f5eed1e9f8719a5b9329cade1ace6ccc2d4d71f848e733a66bfb67651619948880d2bd946c56d7df18b00558cb6378214bea39
+  checksum: e2611a266871c6465a30ceb6b721782d254cdf31b0533c1bd260090b993f97535ec574138da626aeb97fbac597d2c8bce0263bb84a2377e4c973ca46ddf31d9d
   languageName: node
   linkType: hard
 
@@ -9219,13 +9219,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:3.8.1":
-  version: 3.8.1
-  resolution: "govuk-frontend@npm:3.8.1"
-  checksum: 052ab134fdc665a98a07ed170f1d721df334b1437ee3dfd119262cca626ed33a282f0c17065b46c65d43079437b5426cdcf267be97271706fae6daf5d2b379aa
-  languageName: node
-  linkType: hard
-
 "govuk-frontend@npm:^3.8.1":
   version: 3.9.1
   resolution: "govuk-frontend@npm:3.9.1"
@@ -14793,7 +14786,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react@npm:16.13.1, react@npm:^16.13.1":
+"react@npm:16.13.1":
   version: 16.13.1
   resolution: "react@npm:16.13.1"
   dependencies:

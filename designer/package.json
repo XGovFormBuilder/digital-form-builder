@@ -29,7 +29,7 @@
     "@hapi/hapi": "19.1.1",
     "@hapi/joi": "17.1.1",
     "@hapi/wreck": "17.0.0",
-    "@xgovformbuilder/govuk-react-jsx": "^4.0.7",
+    "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
     "aws-sdk": "^2.723.0",
     "flat": "5.0.0",
