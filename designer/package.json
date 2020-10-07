@@ -11,7 +11,7 @@
     "lint": "yarn run eslint ./",
     "fix-lint": "yarn run eslint ./ --fix",
     "symlink-env": "./bin/symlink-config",
-    "test": "yarn flow && yarn lint && yarn test-lab",
+    "test": "yarn test-lab",
     "test:dev": "yarn run lab -T test/.transform.js test/.setup.js test/*.test.js -S -r console -o stdout -r html -o unit-test.html -I version -l --coverage-exclude client --coverage-exclude server --coverage-exclude config.js",
     "test-lab-cov": "yarn run lab -T test/.transform.js test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "test-lab": "yarn run lab -T test/.transform.js test/.setup.js test/*.test.js -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
