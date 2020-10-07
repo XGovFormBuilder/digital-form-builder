@@ -3,9 +3,6 @@ import * as querystring from 'querystring'
 import { proceed, redirectTo } from '@xgovformbuilder/engine'
 import ComponentCollection from '@xgovformbuilder/engine/lib/components/componentcollection'
 
-/* eslint-disable-line */
-import joi from 'joi'
-
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
 

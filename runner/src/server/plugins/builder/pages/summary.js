@@ -9,8 +9,6 @@ import Page from './page'
 
 import { nanoid } from 'nanoid'
 
-import joi from 'joi'
-
 const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
 const { flatten } = require('flat') //eslint-disable-line
 const { clone, reach } = require('hoek') //eslint-disable-line
