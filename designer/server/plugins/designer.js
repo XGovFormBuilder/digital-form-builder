@@ -3,7 +3,9 @@ const { nanoid } = require('nanoid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')
 const config = require('../../config')
-const joi = require('joi')
+const joi = require('@hapi/joi')
+
+const compiledSchema = joi.compile(Schema, { legacy: true })
 
 const publish = async function (id, configuration) {
   return Wreck.post(`${config.publishUrl}/publish`, {
@@ -139,18 +141,15 @@ const designerPlugin = {
             const { id } = request.params
             const { persistenceService } = request.services([])
             try {
-              const result = joi.validate(request.payload, Schema,
-                { abortEarly: false })
-
-              if (result.error) {
-                console.log(result.error)
+              const { value, error } = compiledSchema.validate(request.payload)
+              if (error) {
                 throw new Error('Schema validation failed')
               }
-              await persistenceService.uploadConfiguration(`${id}`, JSON.stringify(result.value))
-              await publish(id, result.value)
+              await persistenceService.uploadConfiguration(`${id}`, JSON.stringify(value))
+              await publish(id, value)
               return h.response({ ok: true }).code(204)
             } catch (err) {
-              return h.response({ ok: false, err: 'Write file failed' })
+              return h.response({ ok: false, err })
                 .code(401)
             }
           }

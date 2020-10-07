@@ -3,17 +3,6 @@
   },
   "startPage": "/",
   "pages": [
-    {
-      "path": "/",
-      "components": [
-      ]
-    },
-    {
-      "path": "/summary",
-      "controller": "./pages/summary.js",
-      "components": [],
-      "title": "Summary"
-    }
   ],
   "lists": [
   ],
