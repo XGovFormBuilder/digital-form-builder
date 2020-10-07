@@ -38,7 +38,7 @@ class StaticValue {
     this.children = children
   }
 
-  static from (obj: any) {
+  static from (obj: any): StaticValue {
     return new StaticValue(obj.label, obj.value, obj.hint, obj.condition, obj.children)
   }
 }
@@ -132,4 +132,4 @@ export function valuesFrom (obj: any): ComponentValues {
   throw Error(`No factory found for type ${obj.type} in object ${JSON.stringify(obj)}`)
 }
 
-export const yesNoValues = new StaticValues('boolean', [new StaticValue('Yes', true), new StaticValue('No', false)])
+export const yesNoValues: StaticValues = new StaticValues('boolean', [new StaticValue('Yes', true), new StaticValue('No', false)])

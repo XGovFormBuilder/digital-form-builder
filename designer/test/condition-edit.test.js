@@ -19,7 +19,11 @@ suite('Condition edit', () => {
     const wrapper = shallow(<ConditionEdit condition={data.findCondition('abdefg')} data={data} />)
     const form = wrapper.find('form')
     const displayNameInput = form.find('input')
-    assertTextInput(displayNameInput, 'condition-name', 'My condition')
+    assertTextInput({
+      wrapper: displayNameInput,
+      id: 'condition-name',
+      expectedValue: 'My condition'
+    })
 
     const editor = form.find('Editor')
     expect(editor.prop('name')).to.equal('value')

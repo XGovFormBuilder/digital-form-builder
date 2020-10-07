@@ -1,11 +1,11 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import * as Lab from '@hapi/lab'
 import * as Code from '@hapi/code'
 import { Data, clone } from '@xgovformbuilder/model'
 import sinon from 'sinon'
 import ComponentValues from '../client/components/component-values'
-import { assertRadioButton, assertSelectInput } from './helpers/element-assertions'
+import { assertSelectInput } from './helpers/element-assertions'
 
 const lab = Lab.script()
 exports.lab = lab
@@ -50,34 +50,72 @@ suite('Component values', () => {
     updateModel.resetHistory()
   })
 
-  test.skip('Should render question as to the type of value population if component has no value type already', () => {
+  test('Should pass the correct items for the radio options', () => {
     const component = { type: 'RadiosField', name: 'myComponent' }
-    const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
+    const wrapper = shallow(
+      <ComponentValues
+        data={data}
+        component={component}
+        updateModel={updateModel}
+      />
+    )
 
-    assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: false })
-    assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: false })
+    const radiosWrapper = wrapper.find('Radios')
+
+    expect(radiosWrapper.prop('items')).to.equal([
+      {
+        children: [
+          'From a list'
+        ],
+        value: 'listRef',
+        hint: {
+          children: [
+            'Any changes to the list will be reflected in the options presented to users.'
+          ]
+        }
+      },
+      {
+        children: [
+          'I\'ll populate my own entries'
+        ],
+        value: 'static',
+        hint: {
+          children: [
+            'You can still select a list to get you started, but any changes to the list later won\'t be reflected in the options presented to users.'
+          ]
+        }
+      }
+    ])
   })
 
   describe('Connecting to a list', () => {
     test.skip('Should render the list selection input when list type is chosen', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
-      const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
+      const wrapper = mount(
+        <ComponentValues
+          data={data}
+          component={component}
+          updateModel={updateModel}
+        />
+      )
 
-      wrapper.find('#population-type-list').simulate('click', { target: { value: 'listRef' } })
+      wrapper.find('#population-type-list').prop('onChange')({
+        target: { value: 'listRef' }
+      })
+      wrapper.update()
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: true })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: false })
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
+      assertSelectInput({
+        wrapper: wrapper.find('#field-options-list'),
+        id: 'field-options-list',
+        expectedFieldOptions: expectedListSelectionOptions
+      })
     })
 
-    test.skip('Should render list selection where the component already has a list selected', () => {
+    test('Should set Radios value to listRef', () => {
       const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'listRef', list: 'myList' } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: true })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: false })
-
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions, 'myList')
+      expect(wrapper.find('#population-type-list').prop('value')).to.equal('listRef')
       expect(updateModel.callCount).to.equal(0)
     })
 
@@ -118,21 +156,21 @@ suite('Component values', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-      wrapper.find('#population-type-static').simulate('click', { target: { value: 'static' } })
+      wrapper.find('#population-type-list').prop('onChange')({ target: { value: 'static' } })
+      wrapper.update()
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: true })
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
+      assertSelectInput({
+        wrapper: wrapper.find('#field-options-list'),
+        id: 'field-options-list',
+        expectedFieldOptions: expectedListSelectionOptions
+      })
     })
 
-    test('Should render list selection where the component already has type selected but no values', () => {
-      const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static' } }
+    test('Should set Radios value to static', () => {
+      const component = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', list: 'myList' } }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-      assertRadioButton(wrapper.find('#population-type-list'), 'population-type-list', 'listRef', 'From a list', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#population-type-static'), 'population-type-static', 'static', 'I\'ll populate my own entries', { defaultChecked: true })
-
-      assertSelectInput(wrapper.find('#field-options-list'), 'field-options-list', expectedListSelectionOptions)
+      expect(wrapper.find('#population-type-list').prop('value')).to.equal('static')
       expect(updateModel.callCount).to.equal(0)
     })
 
@@ -201,7 +239,7 @@ suite('Component values', () => {
       const component = { type: 'RadiosField', name: 'myComponent' }
       const wrapper = shallow(<ComponentValues data={data} component={component} updateModel={updateModel}/>)
 
-      wrapper.find('#population-type-static').simulate('click', { target: { value: 'static' } })
+      wrapper.find('#population-type-list').prop('onChange')({ target: { value: 'static' } })
 
       expect(updateModel.callCount).to.equal(0)
     })
@@ -271,7 +309,13 @@ suite('Component values', () => {
       const item = { label: 'My item', value: '12', children: [] }
       expect(updateModel.callCount).to.equal(0)
 
+      sinon.stub(wrapper.instance(), 'formAddItem').value({
+        current: {
+          reportValidity: () => true
+        }
+      })
       wrapper.instance().addItem(item)
+      wrapper.update()
 
       expect(updateModel.callCount).to.equal(1)
       const expected = {
@@ -316,6 +360,12 @@ suite('Component values', () => {
 
       const updatedItem = clone(item2)
       updatedItem.label = 'My new item name'
+
+      sinon.stub(wrapper.instance(), 'formEditItem').value({
+        current: {
+          reportValidity: () => true
+        }
+      })
       wrapper.instance().updateItem(updatedItem)
 
       const expected = { type: 'RadiosField', name: 'myComponent', values: { type: 'static', valueType: 'string', items: [item, updatedItem, item3] } }
@@ -335,7 +385,7 @@ suite('Component values', () => {
     expect(addComponentValue.prop('saveCallback')).to.equal(wrapper.instance().addItem)
     expect(addComponentValue.prop('cancelCallback')).to.equal(wrapper.instance().cancelAddItem)
     expect(addComponentValue.prop('value')).to.equal(undefined)
-    const flyout = addComponentValue.parent('Flyout')
+    const flyout = addComponentValue.closest('Flyout')
     expect(flyout.exists()).to.equal(true)
     expect(flyout.prop('title')).to.equal('Add Item')
     expect(flyout.prop('show')).to.equal(displayed)
@@ -350,7 +400,7 @@ suite('Component values', () => {
     expect(addComponentValue.prop('saveCallback')).to.equal(wrapper.instance().updateItem)
     expect(addComponentValue.prop('cancelCallback')).to.equal(wrapper.instance().cancelEditItem)
     expect(addComponentValue.prop('value')).to.equal(value)
-    const flyout = addComponentValue.parent('Flyout')
+    const flyout = addComponentValue.closest('Flyout')
     expect(flyout.exists()).to.equal(true)
     expect(flyout.prop('title')).to.equal('Edit Item')
     expect(flyout.prop('show')).to.equal(displayed)

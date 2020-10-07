@@ -34,19 +34,29 @@ suite('Link edit', () => {
       const form = wrapper.find('form')
 
       const fromInput = form.find('#link-source')
-      assertSelectInput(fromInput, 'link-source', [
-        { text: '' },
-        { value: '/1', text: 'Page 1' },
-        { value: '/2', text: 'Page 2' }
-      ], '/1')
+      assertSelectInput({
+        wrapper: fromInput,
+        id: 'link-source',
+        expectedFieldOptions: [
+          { text: '' },
+          { value: '/1', text: 'Page 1' },
+          { value: '/2', text: 'Page 2' }
+        ],
+        expectedValue: '/1'
+      })
       expect(fromInput.prop('disabled')).to.equal(true)
 
       const toInput = form.find('#link-target')
-      assertSelectInput(toInput, 'link-target', [
-        { text: '' },
-        { value: '/1', text: 'Page 1' },
-        { value: '/2', text: 'Page 2' }
-      ], '/2')
+      assertSelectInput({
+        wrapper: toInput,
+        id: 'link-target',
+        expectedFieldOptions: [
+          { text: '' },
+          { value: '/1', text: 'Page 1' },
+          { value: '/2', text: 'Page 2' }
+        ],
+        expectedValue: '/2'
+      })
       expect(toInput.prop('disabled')).to.equal(true)
 
       const selectConditions = wrapper.find('SelectConditions')
@@ -79,19 +89,29 @@ suite('Link edit', () => {
       const form = wrapper.find('form')
 
       const fromInput = form.find('#link-source')
-      assertSelectInput(fromInput, 'link-source', [
-        { text: '' },
-        { value: '/1', text: 'Page 1' },
-        { value: '/2', text: 'Page 2' }
-      ], '/1')
+      assertSelectInput({
+        wrapper: fromInput,
+        id: 'link-source',
+        expectedFieldOptions: [
+          { text: '' },
+          { value: '/1', text: 'Page 1' },
+          { value: '/2', text: 'Page 2' }
+        ],
+        expectedValue: '/1'
+      })
       expect(fromInput.prop('disabled')).to.equal(true)
 
       const toInput = form.find('#link-target')
-      assertSelectInput(toInput, 'link-target', [
-        { text: '' },
-        { value: '/1', text: 'Page 1' },
-        { value: '/2', text: 'Page 2' }
-      ], '/2')
+      assertSelectInput({
+        wrapper: toInput,
+        id: 'link-target',
+        expectedFieldOptions: [
+          { text: '' },
+          { value: '/1', text: 'Page 1' },
+          { value: '/2', text: 'Page 2' }
+        ],
+        expectedValue: '/2'
+      })
       expect(toInput.prop('disabled')).to.equal(true)
 
       const selectConditions = wrapper.find('SelectConditions')

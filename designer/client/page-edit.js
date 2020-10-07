@@ -1,24 +1,24 @@
 import React from 'react'
 import { toUrl } from './helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 import { RenderInPortal } from './components/render-in-portal'
 import SectionEdit from './section/section-edit'
 import { nanoid } from 'nanoid'
 import Flyout from './flyout'
-import { clone } from '@xgovformbuilder/model'
 import { withI18n } from './i18n'
 
 export class PageEdit extends React.Component {
   constructor (props) {
     super(props)
     const { page } = this.props
-    const path = page?.path !== this.generatePath(page.title) ? props.page.path : ''
     this.state = {
-      path,
+      path: page?.path ?? this.generatePath(page.title),
       controller: page?.controller ?? '',
       title: page?.title,
       section: page?.section ?? {},
       isEditingSection: false
     }
+    this.formEditSection = React.createRef()
   }
 
   onSubmit = async e => {

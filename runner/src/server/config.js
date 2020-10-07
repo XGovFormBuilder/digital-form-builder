@@ -1,6 +1,6 @@
 require('dotenv').config({ path: '.env' })
 
-const Joi = require('@hapi/joi')
+const Joi = require('joi')
 
 // Define config schema
 const schema = Joi.object({
