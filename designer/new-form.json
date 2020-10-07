@@ -6,8 +6,7 @@
     { 
       "title": "Question page",
       "path": "/question-page",
-      "components": [
-      ]
+      "components": []
     },
     {
       "title": "Summary",
