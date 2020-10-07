@@ -1,10 +1,6 @@
-// @flow
-
 import ComponentTypes from '../component-types'
 import { getExpression } from './inline-condition-operators'
 import { AbstractConditionValue, valueFrom } from './inline-condition-values'
-
-type Coordinator = 'and' | 'or';
 
 export const coordinators = {
   AND: 'and',
@@ -12,16 +8,16 @@ export const coordinators = {
 }
 
 export class ConditionsModel {
-  #groupedConditions: any[]
-  #userGroupedConditions: any[]
-  #conditionName: string | typeof undefined
+  #groupedConditions
+  #userGroupedConditions
+  #conditionName
 
   constructor () {
     this.#groupedConditions = []
     this.#userGroupedConditions = []
   }
 
-  clone (): ConditionsModel {
+  clone () {
     const toReturn = new ConditionsModel()
     toReturn.#groupedConditions = this.#groupedConditions.map(it => it.clone())
     toReturn.#userGroupedConditions = this.#userGroupedConditions.map(it => it.clone())
@@ -29,22 +25,22 @@ export class ConditionsModel {
     return toReturn
   }
 
-  clear (): ConditionsModel {
+  clear () {
     this.#userGroupedConditions = []
     this.#groupedConditions = []
     this.#conditionName = undefined
     return this
   }
 
-  set name (name: string) {
+  set name (name) {
     this.#conditionName = name
   }
 
-  get name (): string | typeof undefined {
+  get name () {
     return this.#conditionName
   }
 
-  add (condition: ConditionInt<any>): ConditionsModel {
+  add (condition) {
     const coordinatorExpected = this.#userGroupedConditions.length !== 0
     if (condition.getCoordinator() && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
@@ -56,7 +52,7 @@ export class ConditionsModel {
     return this
   }
 
-  replace (index: number, condition: ConditionInt<any>): ConditionsModel {
+  replace (index, condition) {
     const coordinatorExpected = index !== 0
     if (condition.getCoordinator() && !coordinatorExpected) {
       throw Error('No coordinator allowed on the first condition')
@@ -70,7 +66,7 @@ export class ConditionsModel {
     return this
   }
 
-  remove (indexes: Array<number>): ConditionsModel {
+  remove (indexes) {
     this.#userGroupedConditions = this.#userGroupedConditions.filter((condition, index) => !indexes.includes(index))
       .map((condition, index) => index === 0 ? condition.asFirstCondition() : condition)
 
@@ -78,19 +74,19 @@ export class ConditionsModel {
     return this
   }
 
-  addGroups (groupDefs: Array<GroupDef>): ConditionsModel {
+  addGroups (groupDefs) {
     this.#userGroupedConditions = this._group(this.#userGroupedConditions, groupDefs)
     this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
-  splitGroup (index: number): ConditionsModel {
+  splitGroup (index) {
     this.#userGroupedConditions = this._ungroup(this.#userGroupedConditions, index)
     this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
     return this
   }
 
-  moveEarlier (index: number): ConditionsModel {
+  moveEarlier (index) {
     if (index > 0 && index < (this.#userGroupedConditions.length)) {
       this.#userGroupedConditions.splice(index - 1, 0, this.#userGroupedConditions.splice(index, 1)[0])
       if (index === 1) {
@@ -101,7 +97,7 @@ export class ConditionsModel {
     return this
   }
 
-  moveLater (index: number): ConditionsModel {
+  moveLater (index) {
     if (index >= 0 && index < (this.#userGroupedConditions.length - 1)) {
       this.#userGroupedConditions.splice(index + 1, 0, this.#userGroupedConditions.splice(index, 1)[0])
       if (index === 0) {
@@ -117,27 +113,27 @@ export class ConditionsModel {
     this.#userGroupedConditions[0].setCoordinator(undefined)
   }
 
-  get asPerUserGroupings (): any[] {
+  get asPerUserGroupings () {
     return [...this.#userGroupedConditions]
   }
 
-  get hasConditions (): boolean {
+  get hasConditions () {
     return this.#userGroupedConditions.length > 0
   }
 
-  get lastIndex (): number {
+  get lastIndex () {
     return this.#userGroupedConditions.length - 1
   }
 
-  toPresentationString (): string {
+  toPresentationString () {
     return this.#groupedConditions.map(condition => toPresentationString(condition)).join(' ')
   }
 
-  toExpression (): string {
+  toExpression () {
     return this.#groupedConditions.map(condition => toExpression(condition)).join(' ')
   }
 
-  _applyGroups (userGroupedConditions: Array<ConditionInt<any>>): any {
+  _applyGroups (userGroupedConditions) {
     const correctedUserGroups = userGroupedConditions
       .map(condition =>
         condition instanceof ConditionGroup && condition.conditions.length > 2
@@ -147,7 +143,7 @@ export class ConditionsModel {
     return this._group(correctedUserGroups, this._autoGroupDefs(correctedUserGroups))
   }
 
-  _group (conditions: Array<ConditionInt<any>>, groupDefs: Array<GroupDef>): any {
+  _group (conditions, groupDefs) {
     return conditions.reduce((groups, condition, index, conditions) => {
       const groupDef = groupDefs.find(groupDef => groupDef.contains(index))
       if (groupDef) {
@@ -162,7 +158,7 @@ export class ConditionsModel {
     }, [])
   }
 
-  _ungroup (conditions: Array<ConditionInt<any>>, splitIndex: number): any {
+  _ungroup (conditions, splitIndex) {
     if (conditions[splitIndex].isGroup()) {
       const copy = [...conditions]
       copy.splice(splitIndex, 1, ...(conditions[splitIndex].getGroupedConditions()))
@@ -171,7 +167,7 @@ export class ConditionsModel {
     return conditions
   }
 
-  _autoGroupDefs (conditions: Array<ConditionInt<any>>): any {
+  _autoGroupDefs (conditions) {
     const orPositions = []
     conditions.forEach((condition, index) => {
       if (condition.getCoordinator() === coordinators.OR) {
@@ -199,7 +195,7 @@ export class ConditionsModel {
     return []
   }
 
-  toJSON (): any {
+  toJSON () {
     const name = this.#conditionName
     const conditions = this.#userGroupedConditions
     return {
@@ -208,7 +204,7 @@ export class ConditionsModel {
     }
   }
 
-  static from (obj: any): ConditionsModel {
+  static from (obj) {
     if (obj instanceof ConditionsModel) {
       return obj
     }
@@ -220,7 +216,7 @@ export class ConditionsModel {
   }
 }
 
-function conditionFrom (it:any) {
+function conditionFrom (it) {
   if (it.conditions) {
     return new ConditionGroup(it.conditions.map(condition => conditionFrom(condition)))
   }
@@ -230,23 +226,11 @@ function conditionFrom (it:any) {
   return new Condition(Field.from(it.field), it.operator, valueFrom(it.value), it.coordinator)
 }
 
-interface ConditionInt<A> {
-  coordinatorString(): string;
-  conditionString(): string;
-  conditionExpression(): string;
-  isGroup(): boolean;
-  asFirstCondition () : A;
-  getCoordinator (): ?Coordinator;
-  setCoordinator (coordinator: ?Coordinator) : void;
-  getGroupedConditions(): Array<ConditionInt<any>>;
-  clone(): A;
-}
-
 export class GroupDef {
-  first: number;
-  last: number;
+  first ;
+  last ;
 
-  constructor (first: number, last: number) {
+  constructor (first, last) {
     if (typeof first !== 'number' || typeof last !== 'number') {
       throw Error(`Cannot construct a group from ${first} and ${last}`)
     } else if (first >= last) {
@@ -256,23 +240,23 @@ export class GroupDef {
     this.last = last
   }
 
-  contains (index: number): boolean {
+  contains (index) {
     return this.first <= index && this.last >= index
   }
 
-  startsWith (index: number): boolean {
+  startsWith (index) {
     return this.first === index
   }
 
-  applyTo (conditions: Array<ConditionInt<any>>): Array<ConditionInt<any>> {
+  applyTo (conditions) {
     return [...conditions].splice(this.first, (this.last - this.first) + 1)
   }
 }
 
-class ConditionGroup implements ConditionInt<ConditionGroup> {
-  conditions: Array<ConditionInt<any>>
+class ConditionGroup {
+  conditions
 
-  constructor (conditions: Array<ConditionInt<any>>) {
+  constructor (conditions) {
     if (!Array.isArray(conditions) || conditions.length < 2) {
       throw Error('Cannot construct a condition group from a single condition')
     }
@@ -304,7 +288,7 @@ class ConditionGroup implements ConditionInt<ConditionGroup> {
     return this.conditions[0].getCoordinator()
   }
 
-  setCoordinator (coordinator: ?Coordinator) {
+  setCoordinator (coordinator) {
     this.conditions[0].setCoordinator(coordinator)
   }
 
@@ -321,20 +305,20 @@ class ConditionGroup implements ConditionInt<ConditionGroup> {
   }
 }
 
-export function toPresentationString (condition: ConditionInt<any>): string {
+export function toPresentationString (condition) {
   return `${condition.coordinatorString()}${condition.conditionString()}`
 }
 
-export function toExpression (condition: ConditionInt<any>): string {
+export function toExpression (condition) {
   return `${condition.coordinatorString()}${condition.conditionExpression()}`
 }
 
 export class Field {
-  name: string;
-  type: string;
-  display: string;
+  name ;
+  type ;
+  display ;
 
-  constructor (name: string, type: string, display: string) {
+  constructor (name, type, display) {
     if (!name || typeof name !== 'string') {
       throw Error(`name ${name} is not valid`)
     }
@@ -349,38 +333,38 @@ export class Field {
     this.display = display
   }
 
-  static from (obj: any): Field {
+  static from (obj) {
     return new Field(obj.name, obj.type, obj.display)
   }
 }
 
 class AbstractCondition {
-  coordinator: ?Coordinator;
+  coordinator ;
 
-  constructor (coordinator: ?Coordinator) {
+  constructor (coordinator) {
     if (coordinator && !Object.values(coordinators).includes(coordinator)) {
       throw Error(`coordinator ${coordinator} is not a valid coordinator`)
     }
     this.coordinator = coordinator
   }
 
-  coordinatorString (): string {
+  coordinatorString () {
     return this.coordinator ? `${this.coordinator} ` : ''
   }
 
-  getCoordinator (): any {
+  getCoordinator () {
     return this.coordinator
   }
 
-  setCoordinator (coordinator: ?Coordinator) {
+  setCoordinator (coordinator) {
     this.coordinator = coordinator
   }
 
-  isGroup (): boolean {
+  isGroup () {
     return false
   }
 
-  getGroupedConditions (): any[] {
+  getGroupedConditions () {
     return [this]
   }
 
@@ -405,12 +389,12 @@ class AbstractCondition {
   }
 }
 
-export class Condition extends AbstractCondition implements ConditionInt<Condition> {
-  field: Field;
-  operator: string;
-  value: typeof AbstractConditionValue;
+export class Condition extends AbstractCondition {
+  field ;
+  operator ;
+  value ;
 
-  constructor (field: Field, operator: string, value: typeof AbstractConditionValue, coordinator: ?Coordinator) {
+  constructor (field, operator, value, coordinator) {
     super(coordinator)
     if (!(field instanceof Field)) {
       throw Error(`field ${field} is not a valid Field object`)
@@ -426,29 +410,29 @@ export class Condition extends AbstractCondition implements ConditionInt<Conditi
     this.value = value
   }
 
-  asFirstCondition (): Condition {
+  asFirstCondition () {
     this._asFirstCondition()
     return this
   }
 
-  conditionString (): string {
+  conditionString () {
     return `'${this.field.display}' ${this.operator} '${this.value.toPresentationString()}'`
   }
 
-  conditionExpression (): any {
+  conditionExpression () {
     return getExpression(this.field.type, this.field.name, this.operator, this.value)
   }
 
-  clone (): Condition {
+  clone () {
     return new Condition(Field.from(this.field), this.operator, this.value.clone(), this.coordinator)
   }
 }
 
-export class ConditionRef extends AbstractCondition implements ConditionInt<ConditionRef> {
-  conditionName: string
-  conditionDisplayName: string
+export class ConditionRef extends AbstractCondition {
+  conditionName
+  conditionDisplayName
 
-  constructor (conditionName: string, conditionDisplayName: string, coordinator: ?Coordinator) {
+  constructor (conditionName, conditionDisplayName, coordinator) {
     super(coordinator)
     if (typeof conditionName !== 'string') {
       throw Error(`condition name ${conditionName} is not valid`)
@@ -460,20 +444,20 @@ export class ConditionRef extends AbstractCondition implements ConditionInt<Cond
     this.conditionDisplayName = conditionDisplayName
   }
 
-  asFirstCondition (): ConditionRef {
+  asFirstCondition () {
     this._asFirstCondition()
     return this
   }
 
-  conditionString (): string {
+  conditionString () {
     return `'${this.conditionDisplayName}'`
   }
 
-  conditionExpression (): string {
+  conditionExpression () {
     return this.conditionName
   }
 
-  clone (): ConditionRef {
+  clone () {
     return new ConditionRef(this.conditionName, this.conditionDisplayName, this.coordinator)
   }
 }
