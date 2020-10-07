@@ -178,7 +178,7 @@ export default class Page {
   }
 
   validate (value, schema) {
-    const result = joi.validate(value, schema, this.validationOptions)
+    const result = schema.validate(value, this.validationOptions)
     const errors = result.error ? this.getErrors(result) : null
 
     return { value: result.value, errors }

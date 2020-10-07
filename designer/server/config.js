@@ -2,7 +2,7 @@ require('dotenv').config({ path: './../env' })
 const joi = require('joi')
 
 // Define config schema
-const schema = {
+const schema = joi.object({
   port: joi.number().default(3000),
   env: joi.string().valid('development', 'test', 'production').default('development'),
   previewUrl: joi.string(),
@@ -12,7 +12,7 @@ const schema = {
   persistentKeyId: joi.string().optional(),
   persistentAccessKey: joi.string().optional(),
   logLevel: joi.string().valid('trace', 'info', 'debug', 'error').default('debug')
-}
+})
 
 // Build config
 const config = {
@@ -28,9 +28,7 @@ const config = {
 }
 
 // Validate config
-const result = joi.validate(config, schema, {
-  abortEarly: false
-})
+const result = schema.validate(config, { abortEarly: false })
 
 // Throw if config is invalid
 if (result.error) {

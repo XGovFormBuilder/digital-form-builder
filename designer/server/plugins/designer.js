@@ -3,12 +3,16 @@ const { nanoid } = require('nanoid')
 const Wreck = require('@hapi/wreck')
 const pkg = require('../../package.json')
 const config = require('../../config')
-const joi = require('joi')
 
 const publish = async function (id, configuration) {
-  return Wreck.post(`${config.publishUrl}/publish`, {
-    payload: JSON.stringify({ id, configuration })
-  })
+  try {
+    const result = Wreck.post(`${config.publishUrl}/publish`, {
+      payload: JSON.stringify({ id, configuration })
+    })
+    return result
+  } catch (error) {
+    throw new Error(`Error when publishing to endpoint ${config.publishUrl}/publish: message: ${error.message}`)
+  }
 }
 
 const getPublished = async function (id) {
@@ -138,20 +142,17 @@ const designerPlugin = {
           handler: async (request, h) => {
             const { id } = request.params
             const { persistenceService } = request.services([])
+
             try {
-              const result = joi.validate(request.payload, Schema,
-                { abortEarly: false })
+              const result = Schema.validate(request.payload, { abortEarly: false })
 
               if (result.error) {
-                console.log(result.error)
                 throw new Error('Schema validation failed')
               }
               await persistenceService.uploadConfiguration(`${id}`, JSON.stringify(result.value))
               await publish(id, result.value)
               return h.response({ ok: true }).code(204)
             } catch (err) {
-              console.log('Server PUT /{id}/api/data error:', err)
-              
               return h.response({ ok: false, err: 'Write file failed' })
                 .code(401)
             }

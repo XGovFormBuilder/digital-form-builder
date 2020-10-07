@@ -48,7 +48,7 @@ class SummaryViewModel {
       }
     })
 
-    const result = joi.validate(collatedRepeatPagesState, schema, { abortEarly: false, stripUnknown: true })
+    const result = schema.validate(collatedRepeatPagesState, { abortEarly: false, stripUnknown: true })
 
     if (result.error) {
       this.#processErrors(result, details)
