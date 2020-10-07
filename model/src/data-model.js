@@ -33,7 +33,7 @@ class Input {
     this.#parentItemName = options.parentItemName
   }
 
-  get displayName () {
+  get displayName (): string {
     const titleWithContext = this.#parentItemName ? `${this.title} under ${this.#parentItemName}` : this.title
     return this.page.section ? `${titleWithContext} in ${this.page.section}` : titleWithContext
   }
@@ -49,7 +49,7 @@ export class Condition {
     this.displayName = rawData.displayName || rawData.name
   }
 
-  get expression () {
+  get expression (): any {
     if (typeof this.value === 'string') {
       return this.value
     } else {
@@ -57,7 +57,7 @@ export class Condition {
     }
   }
 
-  clone () {
+  clone (): Condition {
     return new Condition(this)
   }
 }
@@ -81,7 +81,7 @@ export class Data implements DataModel {
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
    */
-  static FEEDBACK_CONTEXT_ITEMS = [
+  static FEEDBACK_CONTEXT_ITEMS: any[] = [
     { key: 'feedbackContextInfo_formTitle', display: 'Feedback source form name', get: (contextInfo: any) => contextInfo.formTitle },
     { key: 'feedbackContextInfo_pageTitle', display: 'Feedback source page title', get: (contextInfo: any) => contextInfo.pageTitle },
     { key: 'feedbackContextInfo_url', display: 'Feedback source url', get: (contextInfo: any) => contextInfo.url }
@@ -190,7 +190,7 @@ export class Data implements DataModel {
     return this
   }
 
-  updateLinksTo = function (oldPath: string, newPath: string): Data {
+  updateLinksTo: ((oldPath: string, newPath: string) => Data) = function (oldPath: string, newPath: string): Data {
     this.pages.filter(p => p.next && p.next.find(link => link.path === oldPath))
       .forEach(page => {
         page.next.find(link => link.path === oldPath).path = newPath

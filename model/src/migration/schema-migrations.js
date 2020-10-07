@@ -17,7 +17,7 @@ export class SchemaMigrationService {
       this.migrations = [new ListItemReferencesToValueObjects(server)]
     }
 
-    migrate (formDef: any) {
+    migrate (formDef: any): any {
       const orderedMigrations = this.migrations.sort((a, b) => (a.getInitialVersion()) - (b.getInitialVersion()))
       const initialFormDefVersion = formDef.version ?? 0
       const applicableMigrations = orderedMigrations.filter(migration => migration.getInitialVersion() >= initialFormDefVersion)
@@ -40,7 +40,7 @@ export class SchemaMigrationService {
       return formDef
     }
 
-    getResultantVersion (migrationInitialVersion: number) {
+    getResultantVersion (migrationInitialVersion: number): number {
       return migrationInitialVersion + 1
     }
 }

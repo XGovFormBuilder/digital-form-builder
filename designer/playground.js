@@ -60,7 +60,7 @@ module.exports = {
         options: {
           handler: async (request, h) => {
             try {
-              const result = joi.validate(request.payload, schema, { abortEarly: false })
+              const result = schema.validate(request.payload, { abortEarly: false })
 
               if (result.error) {
                 throw new Error('Schema validation failed')
