@@ -11,9 +11,8 @@ export class PageEdit extends React.Component {
   constructor (props) {
     super(props)
     const { page } = this.props
-    const path = page?.path !== this.generatePath(page.title) ? props.page.path : ''
     this.state = {
-      path,
+      path: page?.path ?? this.generatePath(page.title),
       controller: page?.controller ?? '',
       title: page?.title,
       section: page?.section ?? {},
