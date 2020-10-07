@@ -1,6 +1,6 @@
 import React from "react";
 import NotifyEdit from "./notify-edit";
-import EmailEdit from "./email-edit";
+import EmailEdit from "./component-editors/email-edit";
 import { clone } from "@xgovformbuilder/model";
 
 class OutputEdit extends React.Component {

@@ -3,6 +3,7 @@ import Page from "./page";
 import dagre from "dagre";
 import Flyout from "./flyout";
 import LinkEdit from "./link-edit";
+import { DataContext } from "./context";
 
 function getLayout(data, el) {
   // Create a new directed graph
@@ -23,7 +24,7 @@ function getLayout(data, el) {
 
   // Add nodes to the graph. The first argument is the node id. The second is
   // metadata about the node. In this case we're going to add labels to each node
-  data.pages.forEach((page, index) => {
+  data?.pages?.forEach((page, index) => {
     const pageEl = el.children[index];
 
     g.setNode(page.path, {
@@ -134,19 +135,18 @@ class Lines extends React.Component {
             );
           })}
         </svg>
-        {this.state.showEditor && (
-          <Flyout
-            title="Edit Link"
-            show={this.state.showEditor}
-            onHide={(e) => this.setState({ showEditor: false })}
-          >
-            <LinkEdit
-              edge={this.state.showEditor}
-              data={data}
-              onEdit={(e) => this.setState({ showEditor: false })}
-            />
-          </Flyout>
-        )}
+
+        <Flyout
+          title="Edit Link"
+          show={this.state.showEditor}
+          onHide={(e) => this.setState({ showEditor: false })}
+        >
+          <LinkEdit
+            edge={this.state.showEditor}
+            data={data}
+            onEdit={(e) => this.setState({ showEditor: false })}
+          />
+        </Flyout>
       </div>
     );
   }
@@ -154,6 +154,7 @@ class Lines extends React.Component {
 
 export default class Visualisation extends React.Component {
   state = {};
+  static contextType = DataContext;
 
   constructor() {
     super();
@@ -181,14 +182,8 @@ export default class Visualisation extends React.Component {
   }
 
   render() {
-    const {
-      data,
-      id,
-      updatedAt,
-      downloadedAt,
-      previewUrl,
-      persona,
-    } = this.props;
+    const { id, updatedAt, downloadedAt, previewUrl, persona } = this.props;
+    const { data, save } = this.context;
     const { pages } = data;
 
     const wrapperStyle = this.state.layout && {

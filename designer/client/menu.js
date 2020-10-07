@@ -3,7 +3,7 @@ import Flyout from "./flyout";
 import DataModel from "./data-model";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
-import ListsEdit from "./lists-edit";
+import ListsEdit from "../client/list/lists-edit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions-edit";
 import FeeEdit from "./fee-edit";
@@ -11,6 +11,9 @@ import NotifyEdit from "./notify-edit";
 import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs-edit";
 import FormDetails from "./form-details";
+import { ListContext, ListContextProvider } from "./reducers/listReducer";
+import { ComponentContextProvider } from "./reducers/componentReducer";
+import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 
 export default class Menu extends React.Component {
   state = {
@@ -139,228 +142,215 @@ export default class Menu extends React.Component {
           </a>
           <input type="file" id="upload" hidden onChange={this.onFileUpload} />
         </div>
-        {this.state.showFormConfig && (
-          <Flyout
-            title="Form Details"
-            show={this.state.showFormConfig}
-            onHide={() => this.setState({ showFormConfig: false })}
-          >
-            <FormDetails
-              data={data}
-              onCreate={() => this.setState({ showFormConfig: false })}
-            />
-          </Flyout>
-        )}
 
-        {this.state.showAddPage && (
-          <Flyout
-            title="Add Page"
-            show={this.state.showAddPage}
-            onHide={() => this.setState({ showAddPage: false })}
-          >
-            <PageCreate
-              data={data}
-              onCreate={() => this.setState({ showAddPage: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Form Details"
+          show={this.state.showFormConfig}
+          onHide={() => this.setState({ showFormConfig: false })}
+          NEVER_UNMOUNTS={true}
+        >
+          <FormDetails
+            data={data}
+            onCreate={() => this.setState({ showFormConfig: false })}
+          />
+        </Flyout>
 
-        {this.state.showAddLink && (
-          <Flyout
-            title="Add Link"
-            show={this.state.showAddLink}
-            onHide={() => this.setState({ showAddLink: false })}
-          >
-            <LinkCreate
-              data={data}
-              onCreate={() => this.setState({ showAddLink: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Add Page"
+          show={this.state.showAddPage}
+          onHide={() => this.setState({ showAddPage: false })}
+          NEVER_UNMOUNTS={true}
+        >
+          <PageCreate
+            data={data}
+            onCreate={() => this.setState({ showAddPage: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditSections && (
-          <Flyout
-            title="Edit Sections"
-            show={this.state.showEditSections}
-            onHide={() => this.setState({ showEditSections: false })}
-          >
-            <SectionsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditSections: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Add Link"
+          show={this.state.showAddLink}
+          onHide={() => this.setState({ showAddLink: false })}
+          NEVER_UNMOUNTS={true}
+        >
+          <LinkCreate
+            data={data}
+            onCreate={() => this.setState({ showAddLink: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditConditions && (
-          <Flyout
-            title="Edit Conditions"
-            show={this.state.showEditConditions}
-            onHide={() => this.setState({ showEditConditions: false })}
-            width="large"
-          >
-            <ConditionsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditConditions: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Sections"
+          show={this.state.showEditSections}
+          onHide={() => this.setState({ showEditSections: false })}
+          NEVER_UNMOUNTS={true}
+        >
+          <SectionsEdit
+            data={data}
+            onCreate={() => this.setState({ showEditSections: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditLists && (
-          <Flyout
-            title="Edit Lists"
-            show={this.state.showEditLists}
-            onHide={() => this.setState({ showEditLists: false })}
-            width="xlarge"
-          >
-            <ListsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditLists: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Conditions"
+          show={this.state.showEditConditions}
+          onHide={() => this.setState({ showEditConditions: false })}
+          width="large"
+          NEVER_UNMOUNTS={true}
+        >
+          <ConditionsEdit
+            data={data}
+            onCreate={() => this.setState({ showEditConditions: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditFees && (
-          <Flyout
-            title="Edit Fees"
-            show={this.state.showEditFees}
-            onHide={() => this.setState({ showEditFees: false })}
-            width="xlarge"
-          >
-            <FeeEdit
-              data={data}
-              onCreate={() => this.setState({ showEditFees: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Lists"
+          show={this.state.showEditLists}
+          onHide={() => this.setState({ showEditLists: false })}
+          NEVER_UNMOUNTS={true}
+        >
+          <ListsEditorContextProvider>
+            <ListContextProvider>
+              <ListsEdit data={data} context={ListContext} />
+            </ListContextProvider>
+          </ListsEditorContextProvider>
+        </Flyout>
 
-        {this.state.showEditNotify && (
-          <Flyout
-            title="Edit Notify"
-            show={this.state.showEditNotify}
-            onHide={() => this.setState({ showEditNotify: false })}
-            width="xlarge"
-          >
-            <NotifyEdit
-              data={data}
-              onCreate={() => this.setState({ showEditNotify: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Fees"
+          show={this.state.showEditFees}
+          onHide={() => this.setState({ showEditFees: false })}
+          width="xlarge"
+          NEVER_UNMOUNTS={true}
+        >
+          <FeeEdit
+            data={data}
+            onCreate={() => this.setState({ showEditFees: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditDeclaration && (
-          <Flyout
-            title="Edit Declaration"
-            show={this.state.showEditDeclaration}
-            onHide={() => this.setState({ showEditDeclaration: false })}
-            width="xlarge"
-          >
-            <DeclarationEdit
-              data={data}
-              toggleShowState={this.toggleShowState}
-              onCreate={() => this.setState({ showEditDeclaration: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Notify"
+          show={this.state.showEditNotify}
+          onHide={() => this.setState({ showEditNotify: false })}
+          width="xlarge"
+          NEVER_UNMOUNTS={true}
+        >
+          <NotifyEdit
+            data={data}
+            onCreate={() => this.setState({ showEditNotify: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditOutputs && (
-          <Flyout
-            title="Edit Outputs"
-            show={this.state.showEditOutputs}
-            onHide={() => this.setState({ showEditOutputs: false })}
-            width="xlarge"
-          >
-            <OutputsEdit
-              data={data}
-              toggleShowState={this.toggleShowState}
-              onCreate={() => this.setState({ showEditOutputs: false })}
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Declaration"
+          show={this.state.showEditDeclaration}
+          onHide={() => this.setState({ showEditDeclaration: false })}
+          width="xlarge"
+          NEVER_UNMOUNTS={true}
+        >
+          <DeclarationEdit
+            data={data}
+            toggleShowState={this.toggleShowState}
+            onCreate={() => this.setState({ showEditDeclaration: false })}
+          />
+        </Flyout>
 
-        {this.state.showEditSummaryBehaviour && (
-          <Flyout
-            title="Edit Summary behaviour"
-            show={this.state.showEditSummaryBehaviour}
-            onHide={() => this.setState({ showEditSummaryBehaviour: false })}
-            width="xlarge"
-          >
-            <DeclarationEdit
-              data={data}
-              toggleShowState={this.toggleShowState}
-              onCreate={() =>
-                this.setState({ showEditSummaryBehaviour: false })
-              }
-            />
-          </Flyout>
-        )}
+        <Flyout
+          title="Edit Outputs"
+          show={this.state.showEditOutputs}
+          onHide={() => this.setState({ showEditOutputs: false })}
+          width="xlarge"
+          NEVER_UNMOUNTS={true}
+        >
+          <OutputsEdit
+            data={data}
+            toggleShowState={this.toggleShowState}
+            onCreate={() => this.setState({ showEditOutputs: false })}
+          />
+        </Flyout>
 
-        {this.state.showSummary && (
-          <Flyout
-            title="Summary"
-            show={this.state.showSummary}
-            width="large"
-            onHide={() => this.setState({ showSummary: false })}
-          >
-            <div className="js-enabled" style={{ paddingTop: "3px" }}>
-              <div className="govuk-tabs" data-module="tabs">
-                <h2 className="govuk-tabs__title">Summary</h2>
-                <ul className="govuk-tabs__list">
-                  <li className="govuk-tabs__list-item">
-                    <a
-                      className="govuk-tabs__tab"
-                      href="#"
-                      aria-selected={`${tab === "model"}`}
-                      onClick={(e) => this.setTab(e, "model")}
-                    >
-                      Data Model
-                    </a>
-                  </li>
-                  <li className="govuk-tabs__list-item">
-                    <a
-                      className="govuk-tabs__tab"
-                      href="#"
-                      aria-selected={`${tab === "json"}`}
-                      onClick={(e) => this.setTab(e, "json")}
-                    >
-                      JSON
-                    </a>
-                  </li>
-                  <li className="govuk-tabs__list-item">
-                    <a
-                      className="govuk-tabs__tab"
-                      href="#"
-                      aria-selected={`${tab === "summary"}`}
-                      onClick={(e) => this.setTab(e, "summary")}
-                    >
-                      Summary
-                    </a>
-                  </li>
-                </ul>
-                {tab === "model" && (
-                  <section className="govuk-tabs__panel">
-                    <DataModel data={data} />
-                  </section>
-                )}
-                {tab === "json" && (
-                  <section className="govuk-tabs__panel">
-                    <pre>{JSON.stringify(data, null, 2)}</pre>
-                  </section>
-                )}
-                {tab === "summary" && (
-                  <section className="govuk-tabs__panel">
-                    <pre>
-                      {JSON.stringify(
-                        data.pages.map((page) => page.path),
-                        null,
-                        2
-                      )}
-                    </pre>
-                  </section>
-                )}
-              </div>
+        <Flyout
+          title="Edit Summary behaviour"
+          show={this.state.showEditSummaryBehaviour}
+          onHide={() => this.setState({ showEditSummaryBehaviour: false })}
+          width="xlarge"
+          NEVER_UNMOUNTS={true}
+        >
+          <DeclarationEdit
+            data={data}
+            toggleShowState={this.toggleShowState}
+            onCreate={() => this.setState({ showEditSummaryBehaviour: false })}
+          />
+        </Flyout>
+
+        <Flyout
+          title="Summary"
+          show={this.state.showSummary}
+          width="large"
+          onHide={() => this.setState({ showSummary: false })}
+          NEVER_UNMOUNTS={true}
+        >
+          <div className="js-enabled" style={{ paddingTop: "3px" }}>
+            <div className="govuk-tabs" data-module="tabs">
+              <h2 className="govuk-tabs__title">Summary</h2>
+              <ul className="govuk-tabs__list">
+                <li className="govuk-tabs__list-item">
+                  <a
+                    className="govuk-tabs__tab"
+                    href="#"
+                    aria-selected={`${tab === "model"}`}
+                    onClick={(e) => this.setTab(e, "model")}
+                  >
+                    Data Model
+                  </a>
+                </li>
+                <li className="govuk-tabs__list-item">
+                  <a
+                    className="govuk-tabs__tab"
+                    href="#"
+                    aria-selected={`${tab === "json"}`}
+                    onClick={(e) => this.setTab(e, "json")}
+                  >
+                    JSON
+                  </a>
+                </li>
+                <li className="govuk-tabs__list-item">
+                  <a
+                    className="govuk-tabs__tab"
+                    href="#"
+                    aria-selected={`${tab === "summary"}`}
+                    onClick={(e) => this.setTab(e, "summary")}
+                  >
+                    Summary
+                  </a>
+                </li>
+              </ul>
+              {tab === "model" && (
+                <section className="govuk-tabs__panel">
+                  <DataModel data={data} />
+                </section>
+              )}
+              {tab === "json" && (
+                <section className="govuk-tabs__panel">
+                  <pre>{JSON.stringify(data, null, 2)}</pre>
+                </section>
+              )}
+              {tab === "summary" && (
+                <section className="govuk-tabs__panel">
+                  <pre>
+                    {JSON.stringify(
+                      data.pages.map((page) => page.path),
+                      null,
+                      2
+                    )}
+                  </pre>
+                </section>
+              )}
             </div>
-          </Flyout>
-        )}
+          </div>
+        </Flyout>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 
 @import "../node_modules/govuk-frontend/govuk/all.scss";
+@import "utils";
 
 $color-orange: #ffbf47;
 
@@ -365,6 +366,7 @@ $color-orange: #ffbf47;
       position: absolute;
       right: 10px;
       top: 10px;
+      z-index: 100;
     }
 
     > .close:hover {
@@ -625,5 +627,38 @@ polyline {
     z-index: 50;
 
     pointer-events: none;
+  }
+}
+
+.govuk-link {
+  @include m(v-centre) {
+    display: inline-block;
+    position: relative;
+    top: 1em;
+    transform: translateY(-50%);
+  }
+}
+
+.warning {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  padding: 20px;
+  background-color: $color-orange;
+  @include e(action) {
+    &:not(:first-of-type) {
+      margin-left: 10px;
+    }
+  }
+  @include e(title) {
+    margin-top: 0;
+  }
+}
+
+.panel {
+  @include m(flyout) {
+    position: relative;
   }
 }

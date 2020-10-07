@@ -16,7 +16,10 @@ const initI18n = (i18next: typeof i18n): void => {
   });
 };
 
-const translate = (text: string): string => i18n.t(text);
+const translate = (
+  text: string,
+  interpolation?: Record<string, string>
+): string => i18n.t(text, interpolation);
 
 interface WithI18nProps {
   i18n: (text: string) => string;

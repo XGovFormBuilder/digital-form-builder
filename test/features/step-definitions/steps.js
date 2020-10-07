@@ -11,7 +11,7 @@ const pages = {
 };
 
 Given("I have created a new form configuration", () => {
-  pages["start"].open();
+  pages.start.open();
   const configRef = `smoke-testing ${Date.parse(Date())}`;
   ConfigPage.newConfig(configRef);
   expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));

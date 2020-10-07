@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import Wreck from "@hapi/wreck";
 import pkg from "../../package.json";
 import config from "../../config";
-import newFormJson from "../../new-form.json";
+import newFormJson from "./../../new-form.json";
 
 const publish = async function (id, configuration) {
   try {
@@ -104,6 +104,12 @@ export const designerPlugin = {
         path: "/{id}",
         options: {
           handler: (request, h) => {
+            const { value, error } = Schema.validate(newFormJson, {
+              abortEarly: false,
+            });
+            if (error) {
+              server.logger.error(["error"], error);
+            }
             const { id } = request.params;
             return h.view("designer", { id, previewUrl: config.previewUrl });
           },
@@ -159,24 +165,18 @@ export const designerPlugin = {
             const { persistenceService } = request.services([]);
 
             try {
-              const result = Schema.validate(request.payload, {
+              const { value, error } = Schema.validate(request.payload, {
                 abortEarly: false,
               });
-
-              if (result.error) {
-                throw new Error("Schema validation failed");
-              }
               await persistenceService.uploadConfiguration(
                 `${id}`,
-                JSON.stringify(result.value)
+                JSON.stringify(value)
               );
-              await publish(id, result.value);
+              await publish(id, value);
               return h.response({ ok: true }).code(204);
             } catch (err) {
               console.log("Designer Server PUT /{id}/api/data error:", err);
-              return h
-                .response({ ok: false, err: "Write file failed" })
-                .code(401);
+              return h.response({ ok: false, err }).code(401);
             }
           },
         },

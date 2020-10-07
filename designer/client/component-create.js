@@ -1,16 +1,19 @@
 import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
+import { DataContext } from "./context";
 
+/**
+ * @deprecated (keeping until tests are refactored)
+ */
 class ComponentCreate extends React.Component {
+  static contextType = DataContext;
   state = {
     isSaving: false,
   };
 
   async componentDidMount() {
-    const { data } = this.props;
-    const id = await data.getId();
-    this.setState({ id });
+    this.setState({ name: nanoid(6) });
   }
 
   async onSubmit(e) {
@@ -22,14 +25,13 @@ class ComponentCreate extends React.Component {
 
     this.setState({ isSaving: true });
 
-    const { page, data } = this.props;
+    const { page } = this.props;
+    const { data, save } = this.context;
     const { component } = this.state;
     const copy = clone(data);
-
     const updated = copy.addComponent(page.path, component);
-
-    const saved = await data.save(updated);
-    this.props.onCreate({ data: saved });
+    await save(updated);
+    this.setState({ isSaving: false });
   }
 
   storeComponent = (component) => {
@@ -37,8 +39,8 @@ class ComponentCreate extends React.Component {
   };
 
   render() {
-    const { page, data } = this.props;
-    const { id, isSaving } = this.state;
+    const { page, allowedTypes = ComponentTypes } = this.props;
+    const { isSaving } = this.state;
 
     return (
       <div>
@@ -53,30 +55,25 @@ class ComponentCreate extends React.Component {
               name="type"
               required
               onChange={(e) =>
-                this.setState({ component: { type: e.target.value, name: id } })
+                this.setState({ component: { type: e.target.value } })
               }
             >
               <option />
-              {ComponentTypes.sort((a, b) =>
-                (a.title ?? "").localeCompare(b.title)
-              ).map((type) => {
-                return (
-                  <option key={type.name} value={type.name}>
-                    {type.title}
-                  </option>
-                );
-              })}
+              {allowedTypes
+                .sort((a, b) => (a.title ?? "").localeCompare(b.title))
+                .map((type) => {
+                  return (
+                    <option key={type.name} value={type.name}>
+                      {type.title}
+                    </option>
+                  );
+                })}
             </select>
           </div>
 
           {this.state?.component?.type && (
             <div>
-              <ComponentTypeEdit
-                page={page}
-                data={data}
-                component={this.state.component}
-                updateModel={this.storeComponent}
-              />
+              <ComponentTypeEdit page={page} />
               <button
                 type="submit"
                 className="govuk-button"
