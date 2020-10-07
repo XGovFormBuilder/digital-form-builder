@@ -3,6 +3,17 @@
   },
   "startPage": "/",
   "pages": [
+    { "title": "Question page",
+      "path": "/question-page",
+      "components": [
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": [],
+      "title": "Summary"
+    }
   ],
   "lists": [
   ],
