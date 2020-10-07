@@ -3,7 +3,7 @@ import Flyout from "./flyout";
 import DataModel from "./data-model";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
-import ListsEdit from "./lists-edit";
+import ListsEdit from "../client/list/lists-edit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions-edit";
 import FeeEdit from "./fee-edit";
@@ -11,6 +11,9 @@ import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs/outputs-edit";
 import FormDetails from "./form-details";
+import { ListContext, ListContextProvider } from "./reducers/listReducer";
+import { ComponentContextProvider } from "./reducers/componentReducer";
+import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 
 export default class Menu extends React.Component {
   state = {
@@ -206,18 +209,19 @@ export default class Menu extends React.Component {
         )}
 
         {this.state.showEditLists && (
-          <Flyout
-            title="Edit Lists"
-            show={this.state.showEditLists}
-            onHide={() => this.setState({ showEditLists: false })}
-            width="xlarge"
-          >
-            <ListsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditLists: false })}
-            />
-          </Flyout>
-        )}
+                                      <Flyout
+                                      title="Edit Lists"
+                                      show={this.state.showEditLists}
+                                      onHide={() => this.setState({ showEditLists: false })}
+                                      NEVER_UNMOUNTS={true}
+                                      >
+                                      <ListsEditorContextProvider>
+                                      <ListContextProvider>
+                                      <ListsEdit data={data} context={ListContext} />
+                                      </ListContextProvider>
+                                      </ListsEditorContextProvider>
+                                      </Flyout>
+                                      )}
 
         {this.state.showEditFees && (
           <Flyout

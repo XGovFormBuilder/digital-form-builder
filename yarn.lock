@@ -2151,7 +2151,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/hoek@npm:9.x.x, @hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.0.3, @hapi/hoek@npm:^9.0.4":
+"@hapi/hoek@npm:9.x.x, @hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.0.3, @hapi/hoek@npm:^9.0.4, @hapi/hoek@npm:^9.1.0":
   version: 9.1.0
   resolution: "@hapi/hoek@npm:9.1.0"
   checksum: c77ac8f0c1ae6e21b3d77fa63f462dc1b0c84481388f5e54c651e86cf565d58cb701c396a1fa86a746d5dc278013ad5b3513a58c4cb19a493802d17b68c90740
@@ -3978,7 +3978,7 @@ __metadata:
     "@babel/preset-typescript": ^7.10.4
     "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
-    "@hapi/hoek": ^9.0.4
+    "@hapi/hoek": ^9.1.0
     "@hapi/lab": ^24.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     babel-eslint: ^10.1.0

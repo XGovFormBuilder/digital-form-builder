@@ -1,6 +1,7 @@
-import React from "react";
+import React, { memo, useContext } from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone } from "@xgovformbuilder/model";
+<<<<<<< HEAD
 import { hasValidationErrors } from "./validations";
 import { ErrorSummary } from "./error-summary";
 
@@ -24,14 +25,33 @@ class ComponentEdit extends React.Component {
     const updatedComponent = this.state.component;
 
     const updatedData = copy.updateComponent(
-      page.path,
-      component.name,
-      updatedComponent
-    );
-    const savedData = await data.save(updatedData);
-    this.props.onEdit({ data: savedData });
-  }
+=======
+import { DataContext } from "./context";
+import {
+  ComponentActions,
+  ComponentContext,
+} from "./reducers/componentReducer";
 
+export function ComponentEdit(props) {
+  const { data, save } = useContext(DataContext);
+  const [{ selectedComponent, initialName }, dispatch] = useContext(
+    props.context || ComponentContext
+  );
+  const { page, toggleShowEditor } = props;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedData = data.updateComponent(
+>>>>>>> rename files (+1 squashed commit)
+      page.path,
+      initialName,
+      selectedComponent
+    );
+    await save(updatedData.toJSON());
+    toggleShowEditor();
+  };
+
+<<<<<<< HEAD
   validate = () => {
     if (this.typeEditRef.current) {
       const errors = this.typeEditRef.current.validate();
@@ -42,37 +62,15 @@ class ComponentEdit extends React.Component {
   };
 
   onClickDelete = (e) => {
+=======
+  const handleDelete = async (e) => {
+>>>>>>> rename files (+1 squashed commit)
     e.preventDefault();
 
-    if (!window.confirm("Confirm delete")) {
-      return;
-    }
-
-    const { data, page, component } = this.props;
-    const componentIdx = page.components.findIndex((c) => c === component);
-    const copy = clone(data);
-
-    const copyPage = copy.findPage(page.path);
-    const isLast = componentIdx === page.components.length - 1;
-
-    // Remove the component
-    copyPage.components.splice(componentIdx, 1);
-
-    data
-      .save(copy)
-      .then((data) => {
-        console.log(data);
-        if (!isLast) {
-          // We dont have an id we can use for `key`-ing react <Component />'s
-          // We therefore need to conditionally report `onEdit` changes.
-          this.props.onEdit({ data });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    dispatch({ action: ComponentActions.DELETE });
   };
 
+<<<<<<< HEAD
   render() {
     const { page, data } = this.props;
     const { component, errors } = this.state;
@@ -109,13 +107,29 @@ class ComponentEdit extends React.Component {
             Delete
           </button>
         </form>
+=======
+  return (
+    <form autoComplete="off" onSubmit={handleSubmit}>
+      <div className="govuk-form-group">
+        <span className="govuk-label govuk-label--s" htmlFor="type">
+          Type
+        </span>
+        <span className="govuk-body">{selectedComponent.type}</span>
+>>>>>>> rename files (+1 squashed commit)
       </div>
-    );
-  }
-
-  storeComponent = (component) => {
-    this.setState({ component });
-  };
+      <ComponentTypeEdit context={props.context} page={page} />
+      <button className="govuk-button" type="submit">
+        Save
+      </button>{" "}
+      <a
+        href="#"
+        onClick={(event) => event.preventDefault()}
+        className="govuk-link"
+      >
+        Delete
+      </a>
+    </form>
+  );
 }
 
-export default ComponentEdit;
+export default memo(ComponentEdit);

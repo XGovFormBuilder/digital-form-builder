@@ -297,6 +297,7 @@ main {
       position: absolute;
       right: 10px;
       top: 10px;
+      z-index: 100;
     }
 
     > .close:hover {
@@ -770,5 +771,38 @@ footer {
 
   .footer-menu ul {
     padding-left: 0;
+  }
+}
+
+.govuk-link {
+  @include m(v-centre) {
+    display: inline-block;
+    position: relative;
+    top: 1em;
+    transform: translateY(-50%);
+  }
+}
+
+.warning {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  padding: 20px;
+  background-color: $color-orange;
+  @include e(action) {
+    &:not(:first-of-type) {
+      margin-left: 10px;
+    }
+  }
+  @include e(title) {
+    margin-top: 0;
+  }
+}
+
+.panel {
+  @include m(flyout) {
+    position: relative;
   }
 }

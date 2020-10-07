@@ -1,0 +1,25 @@
+
+/* MIXINS AND FUNCTIONS
+ *
+ * BEM NAMING CONVENTION
+ * Elements are noted with __ (double underscore), for example .chapter__heading
+ * Modifiers are noted with -- (double dash), for example .chapter--splash
+ * Element mixin: @include e(heading) outputs &__heading
+ * Modifier mixin: @include m(splash) outputs &--splash
+ * WARNING:- you can't use this with parent selector!
+ *
+ */
+
+//element selector
+@mixin e($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+//modifier selector
+@mixin m($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
