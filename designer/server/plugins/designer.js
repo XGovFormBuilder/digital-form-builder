@@ -150,6 +150,7 @@ const designerPlugin = {
               await publish(id, result.value)
               return h.response({ ok: true }).code(204)
             } catch (err) {
+              console.log('Server PUT /{id}/api/data error:', err)
               return h.response({ ok: false, err: 'Write file failed' })
                 .code(401)
             }
