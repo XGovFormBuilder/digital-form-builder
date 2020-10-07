@@ -336,7 +336,6 @@ module.exports.plugin = {
    * @param {PluginOptions}   options     - Plugin configuration options.
    */
   register: async function (server, options) {
-    console.log('AAA')
     try {
       var internal = new Internal(options)
     } catch (err) {
