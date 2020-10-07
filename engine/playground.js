@@ -27,13 +27,13 @@ module.exports = {
       async function post (request, page, h) {
         const payload = request.payload
         const options = { abortEarly: false }
-        const formResult = joi.validate(payload, page.formSchema, options)
+        const formResult = page.formSchema.validate(payload, options)
 
         if (formResult.error) {
           return h.view('index', page.getViewModel(payload, formResult))
         } else {
           const newState = page.getStateFromValidForm(formResult.value)
-          const stateResult = joi.validate(newState, page.stateSchema, options)
+          const stateResult = page.stateSchema.validate(newState, options)
 
           if (stateResult.error) {
             return h.view('index', page.getViewModel(payload, stateResult))

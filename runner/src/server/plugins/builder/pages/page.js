@@ -3,9 +3,6 @@ import * as querystring from 'querystring'
 import { proceed, redirectTo } from '@xgovformbuilder/engine'
 import ComponentCollection from '@xgovformbuilder/engine/lib/components/componentcollection'
 
-/* eslint-disable-line */
-import joi from 'joi'
-
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
 
@@ -178,7 +175,7 @@ export default class Page {
   }
 
   validate (value, schema) {
-    const result = joi.validate(value, schema, this.validationOptions)
+    const result = schema.validate(value, this.validationOptions)
     const errors = result.error ? this.getErrors(result) : null
 
     return { value: result.value, errors }

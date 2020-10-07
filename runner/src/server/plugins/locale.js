@@ -47,6 +47,7 @@ var defaultOptions = {
   locales: [],
   configFile: '',
   configKey: '',
+  default: null,
   scan: {
     path: null,
     fileType: 'json',
@@ -75,7 +76,8 @@ var orderParameters = {
   cookie: 'parseCookie'
 }
 
-var optionsSchema = {
+console.log(defaultOptions)
+var optionsSchema = Joi.object({
   locales: Joi.array().items(Joi.string()).default(defaultOptions.locales),
   default: Joi.string().allow(null).default(defaultOptions.default),
   configFile: Joi.string().allow(null).default(defaultOptions.configFile),
@@ -91,14 +93,14 @@ var optionsSchema = {
   cookie: Joi.string().allow(null).default(defaultOptions.cookie),
   cookieKey: Joi.string().allow(null).default(defaultOptions.cookieKey),
   header: Joi.string().allow(null).default(defaultOptions.header),
-  order: Joi.array().items(Joi.any().valid(Object.keys(orderParameters))).default(defaultOptions.order),
+  order: Joi.array().items(Joi.any().valid(...Object.keys(orderParameters))).default(defaultOptions.order),
   throw404: Joi.boolean().default(defaultOptions.throw404),
   getter: Joi.string().allow(null).default(defaultOptions.getter),
   setter: Joi.string().allow(null).default(defaultOptions.setter),
   attribute: Joi.string().allow(null).default(defaultOptions.attribute),
   createAccessors: Joi.string().allow(null).default(defaultOptions.createAccessors),
   onEvent: Joi.string().default(defaultOptions.onEvent)
-}
+})
 
 /**
  * Class to implement inner working of plugin.
@@ -110,6 +112,7 @@ var Internal = function (options) {
   if ((options.setter && options.setter.indexOf('.') > -1) || (options.getter && options.getter.indexOf('.') > -1)) {
     throw new Error('Getter (' + options.getter + ') and setter (' + options.setter + ') methods cannot be nested, so they cannot contain dot(.)')
   }
+
   this.options = Joi.attempt(options, optionsSchema)
 }
 

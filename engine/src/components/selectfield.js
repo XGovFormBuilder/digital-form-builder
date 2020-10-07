@@ -7,7 +7,7 @@ export default class SelectField extends FormComponent {
 
     const { values } = this
     const formSchema = helpers.buildFormSchema('string'/* values.valueType */, this) // .valid(values.items.map(item => item.value))
-    const stateSchema = helpers.buildStateSchema(values.valueType, this).valid(values.items.map(item => item.value))
+    const stateSchema = helpers.buildStateSchema(values.valueType, this).valid(...values.items.map(item => item.value))
 
     this.items = values.items
     this.formSchema = formSchema

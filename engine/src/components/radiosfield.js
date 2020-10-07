@@ -6,13 +6,9 @@ export default class RadiosField extends Conditionalformcomponent {
 
     const { options, values, itemValues } = this
 
-    if (itemValues === 2) {
-      options.classes = options.classes ? [...options.classes, 'govuk-radios--inline'] : ['govuk-radios--inline']
-    }
-
     const valueType = values.valueType
-    const formSchema = helpers.buildFormSchema(valueType, this, options.required !== false).valid(itemValues)
-    const stateSchema = helpers.buildStateSchema(valueType, this).valid(itemValues)
+    const formSchema = helpers.buildFormSchema(valueType, this, options.required !== false).valid(...itemValues)
+    const stateSchema = helpers.buildStateSchema(valueType, this).valid(...itemValues)
 
     this.formSchema = formSchema
     this.stateSchema = stateSchema
