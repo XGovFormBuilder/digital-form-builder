@@ -11,7 +11,6 @@ const publish = async function (id, configuration) {
     })
     return result
   } catch (error) {
-    console.error(`Designer Server Publish to endpoint ${config.publishUrl}/publish: message: ${error.message}`)
     throw new Error(`Error when publishing to endpoint ${config.publishUrl}/publish: message: ${error.message}`)
   }
 }
