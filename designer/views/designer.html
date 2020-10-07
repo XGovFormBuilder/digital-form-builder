@@ -16,6 +16,10 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
+    <!--[if !IE 8]><!-->
+    <link href="{{ assetPath }}/styles.css" rel="stylesheet" />
+    <!--<![endif]-->
+
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
   </head>
@@ -34,5 +38,6 @@
     <div id="portal-root"></div>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="{{ assetPath }}/designer.js"></script>
   </body>
 </html>
