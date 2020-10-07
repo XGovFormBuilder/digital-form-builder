@@ -11,6 +11,7 @@ const publish = async function (id, configuration) {
     })
     return result
   } catch (error) {
+    console.error(`Designer Server Publish to endpoint ${config.publishUrl}/publish: message: ${error.message}`)
     throw new Error(`Error when publishing to endpoint ${config.publishUrl}/publish: message: ${error.message}`)
   }
 }
@@ -153,6 +154,7 @@ const designerPlugin = {
               await publish(id, result.value)
               return h.response({ ok: true }).code(204)
             } catch (err) {
+              console.log('Designer Server PUT /{id}/api/data error:', err)
               return h.response({ ok: false, err: 'Write file failed' })
                 .code(401)
             }
