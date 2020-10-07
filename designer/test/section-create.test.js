@@ -35,8 +35,16 @@ suite('Section create', () => {
 
     const inputs = form.find('input')
     expect(inputs.length).to.equal(2)
-    assertTextInput(inputs.at(0), 'section-title', undefined, { value: '' })
-    assertTextInput(inputs.at(1), 'section-name', '')
+    assertTextInput({
+      wrapper: inputs.at(0),
+      id: 'section-title',
+      expectedValue: ''
+    })
+    assertTextInput({
+      wrapper: inputs.at(1),
+      id: 'section-name',
+      expectedValue: undefined
+    })
   })
 
   test('Specifying a title should default the name to the camel case version of the string', () => {
@@ -46,8 +54,16 @@ suite('Section create', () => {
 
     const inputs = wrapper.find('input')
     expect(inputs.length).to.equal(2)
-    assertTextInput(inputs.at(0), 'section-title', undefined, { value: 'Bob\'s your uncle' })
-    assertTextInput(inputs.at(1), 'section-name', 'bobsYourUncle')
+    assertTextInput({
+      wrapper: inputs.at(0),
+      id: 'section-title',
+      expectedValue: "Bob's your uncle"
+    })
+    assertTextInput({
+      wrapper: inputs.at(1),
+      id: 'section-name',
+      expectedValue: 'bobsYourUncle'
+    })
   })
 
   test('Specifying a title should default the name to camel case + an integer when sections with the name already exist', () => {
@@ -57,8 +73,16 @@ suite('Section create', () => {
 
     const inputs = wrapper.find('input')
     expect(inputs.length).to.equal(2)
-    assertTextInput(inputs.at(0), 'section-title', undefined, { value: 'Awesome badgers' })
-    assertTextInput(inputs.at(1), 'section-name', 'awesomeBadgers3')
+    assertTextInput({
+      wrapper: inputs.at(0),
+      id: 'section-title',
+      expectedValue: 'Awesome badgers'
+    })
+    assertTextInput({
+      wrapper: inputs.at(1),
+      id: 'section-name',
+      expectedValue: 'awesomeBadgers3'
+    })
   })
 
   test('Specifying a name should overwrite any auto-generated value', () => {
@@ -70,8 +94,16 @@ suite('Section create', () => {
 
     const inputs = wrapper.find('input')
     expect(inputs.length).to.equal(2)
-    assertTextInput(inputs.at(0), 'section-title', undefined, { value: 'Your badgers' })
-    assertTextInput(inputs.at(1), 'section-name', 'myName')
+    assertTextInput({
+      wrapper: inputs.at(0),
+      id: 'section-title',
+      expectedValue: 'Your badgers'
+    })
+    assertTextInput({
+      wrapper: inputs.at(1),
+      id: 'section-name',
+      expectedValue: 'myName'
+    })
   })
 
   test('Submitting without changing the name should generate the appropriate section', flags => {

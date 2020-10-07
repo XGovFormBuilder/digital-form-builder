@@ -31,17 +31,25 @@ suite('Link create', () => {
     const wrapper = shallow(<LinkCreate data={data} />)
     const form = wrapper.find('form')
 
-    assertSelectInput(form.find('#link-source'), 'link-source', [
-      { text: '' },
-      { value: '/1', text: 'Page 1' },
-      { value: '/2', text: 'Page 2' }
-    ])
+    assertSelectInput({
+      wrapper: form.find('#link-source'),
+      id: 'link-source',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: '/1', text: 'Page 1' },
+        { value: '/2', text: 'Page 2' }
+      ]
+    })
 
-    assertSelectInput(form.find('#link-target'), 'link-target', [
-      { text: '' },
-      { value: '/1', text: 'Page 1' },
-      { value: '/2', text: 'Page 2' }
-    ])
+    assertSelectInput({
+      wrapper: form.find('#link-target'),
+      id: 'link-target',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: '/1', text: 'Page 1' },
+        { value: '/2', text: 'Page 2' }
+      ]
+    })
 
     expect(wrapper.find('SelectConditions').exists()).to.equal(false)
   })

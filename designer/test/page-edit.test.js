@@ -33,19 +33,39 @@ suite.skip('Page edit', () => {
 
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], './pages/start.js')
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'My first page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/1' })
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: './pages/start.js'
+    })
 
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], 'badger')
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: 'My first page'
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: '/1'
+    })
+
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: 'badger'
+    })
     const buttons = wrapper.find('button')
     expect(buttons.length).to.equal(3)
     expect(buttons.at(0).text()).to.equal('Save')
@@ -72,19 +92,39 @@ suite.skip('Page edit', () => {
 
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], '')
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'My first page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/1' })
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: ''
+    })
 
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], '')
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: 'My first page'
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: '/1'
+    })
+
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: ''
+    })
     const buttons = wrapper.find('button')
     expect(buttons.length).to.equal(3)
     expect(buttons.at(0).text()).to.equal('Save')
@@ -112,8 +152,17 @@ suite.skip('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/new-page' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: 'New Page'
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: '/new-page'
+    })
   })
 
   test('Updating the title changes the path if the path is the auto-generated one for no title', () => {
@@ -136,8 +185,17 @@ suite.skip('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/new-page' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: 'New Page'
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: '/new-page'
+    })
   })
 
   test('Updating the title does not change the path if the path is not the auto-generated one', () => {
@@ -160,8 +218,17 @@ suite.skip('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-title').simulate('change', { target: { value: 'New Page' } })
 
-    assertTextInput(wrapper.find('#page-title'), 'page-title', undefined, { value: 'New Page' })
-    assertTextInput(wrapper.find('#page-path'), 'page-path', undefined, { value: '/1' })
+    assertTextInput({
+      wrapper: wrapper.find('#page-title'),
+      id: 'page-title',
+      expectedValue: 'New Page'
+    })
+
+    assertTextInput({
+      wrapper: wrapper.find('#page-path'),
+      id: 'page-path',
+      expectedValue: '/1'
+    })
   })
 
   test('Changing the section causes the new section to be selected', () => {
@@ -184,11 +251,16 @@ suite.skip('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-section').simulate('change', { target: { value: 'badger' } })
 
-    assertSelectInput(wrapper.find('#page-section'), 'page-section', [
-      { text: '' },
-      { value: 'badger', text: 'Badger' },
-      { value: 'personalDetails', text: 'Personal Details' }
-    ], 'badger')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-section'),
+      id: 'page-section',
+      expectedFieldOptions: [
+        { text: '' },
+        { value: 'badger', text: 'Badger' },
+        { value: 'personalDetails', text: 'Personal Details' }
+      ],
+      expectedValue: 'badger'
+    })
   })
 
   test('Changing the controller causes the new controller to be selected', () => {
@@ -211,10 +283,15 @@ suite.skip('Page edit', () => {
     const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />)
     wrapper.find('#page-type').simulate('change', { target: { value: './pages/summary.js' } })
 
-    assertSelectInput(wrapper.find('#page-type'), 'page-type', [
-      { value: '', text: 'Question Page' },
-      { value: './pages/start.js', text: 'Start Page' },
-      { value: './pages/summary.js', text: 'Summary Page' }
-    ], './pages/summary.js')
+    assertSelectInput({
+      wrapper: wrapper.find('#page-type'),
+      id: 'page-type',
+      expectedFieldOptions: [
+        { value: '', text: 'Question Page' },
+        { value: './pages/start.js', text: 'Start Page' },
+        { value: './pages/summary.js', text: 'Summary Page' }
+      ],
+      expectedValue: './pages/summary.js'
+    })
   })
 })

@@ -374,7 +374,12 @@ function assertOperatorInputPresent (wrapper, operators, expectedOperator) {
     text: operator
   }))
   expectedFieldOptions.unshift({ text: '' })
-  assertSelectInput(wrapper.find('#cond-operator'), 'cond-operator', expectedFieldOptions, expectedOperator || '')
+  assertSelectInput({
+    wrapper: wrapper.find('#cond-operator'),
+    id: 'cond-operator',
+    expectedFieldOptions,
+    expectedValue: expectedOperator || ''
+  })
 }
 
 function assertOperatorInputNotPresent (wrapper) {
@@ -399,7 +404,12 @@ function assertFieldInputPresent (wrapper, fields, expectedField) {
     text: field.title
   }))
   expectedFieldOptions.unshift({ text: '' })
-  assertSelectInput(wrapper.find('#cond-field'), 'cond-field', expectedFieldOptions, expectedField || '')
+  assertSelectInput({
+    wrapper: wrapper.find('#cond-field'),
+    id: 'cond-field',
+    expectedFieldOptions,
+    expectedValue: expectedField || ''
+  })
 }
 
 function assertFieldInputNotPresent (wrapper) {
@@ -421,8 +431,17 @@ function assertNoSaveConditionLink (wrapper) {
 function assertConditionCoordinatorInput (wrapper, expectedValue) {
   const conditionCoordinatorGroup = wrapper.find('#cond-coordinator-group')
   expect(conditionCoordinatorGroup.hasClass('govuk-form-group')).to.equal(true)
-
-  assertSelectInput(conditionCoordinatorGroup.find('select'), 'cond-coordinator', [{ text: '' }, { value: 'and', text: 'And' }, { value: 'or', text: 'Or' }], expectedValue || '')
+  const expectedFieldOptions = [
+    { text: '' },
+    { value: 'and', text: 'And' },
+    { value: 'or', text: 'Or' }
+  ]
+  assertSelectInput({
+    wrapper: conditionCoordinatorGroup.find('select'),
+    id: 'cond-coordinator',
+    expectedFieldOptions,
+    expectedValue: expectedValue || ''
+  })
 }
 
 function assertNoConditionCoordinatorInput (wrapper) {

@@ -36,7 +36,11 @@ suite('Inline conditions definition value inputs', () => {
     }
     const wrapper = shallow(<InlineConditionsDefinitionValue updateValue={updateValueCallback} value={new ConditionValue('my-value')} fieldDef={fieldDef} operator='is' />)
 
-    assertRequiredTextInput(wrapper.find('input'), 'cond-value', 'my-value')
+    assertRequiredTextInput({
+      wrapper: wrapper.find('input'),
+      id: 'cond-value',
+      expectedValue: 'my-value'
+    })
   })
 
   test('Inputting a text value should call update value', () => {
@@ -76,7 +80,12 @@ suite('Inline conditions definition value inputs', () => {
 
     const expectedFieldOptions = values.map(it => ({ text: it.label, value: it.value }))
     expectedFieldOptions.unshift({ text: '' })
-    assertSelectInput(wrapper.find('select'), 'cond-value', expectedFieldOptions, values[0].value)
+    assertSelectInput({
+      wrapper: wrapper.find('select'),
+      id: 'cond-value',
+      expectedFieldOptions,
+      expectedValue: values[0].value
+    })
   })
 
   test('selecting a value from the select list should call update value', () => {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { toUrl } from './helpers'
+import { clone } from '@xgovformbuilder/model/lib/helpers'
 import { RenderInPortal } from './components/render-in-portal'
 import SectionEdit from './section/section-edit'
 import { nanoid } from 'nanoid'
 import Flyout from './flyout'
-import { clone } from '@xgovformbuilder/model'
 import { withI18n } from './i18n'
 
 export class PageEdit extends React.Component {
@@ -19,6 +19,7 @@ export class PageEdit extends React.Component {
       section: page?.section ?? {},
       isEditingSection: false
     }
+    this.formEditSection = React.createRef()
   }
 
   onSubmit = async e => {

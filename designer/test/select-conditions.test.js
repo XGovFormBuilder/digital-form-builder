@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { assertLink, assertSelectInput } from './helpers/element-assertions'
+import { assertLink } from './helpers/element-assertions'
 import sinon from 'sinon'
 import SelectConditions from '../client/conditions/select-conditions'
 
@@ -77,16 +77,28 @@ suite('Select conditions', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
         const conditionsSection = wrapper.find('.conditions')
         expect(conditionsSection.exists()).to.equal(true)
+
         const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
         expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
+
         const selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(true)
-        expect(selectConditions.find('label').text()).to.equal('Select a condition')
-        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
-        expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(selectConditions.find('select'), 'cond-select',
-          expectedFieldOptions, '')
+
+        expect(selectConditions.props()).to.equal({
+          id: 'select-condition',
+          name: 'cond-select',
+          value: '',
+          items: [
+            { children: [''], value: '' },
+            { children: ['Monkeys love badgers'], value: 'badger' },
+            { children: ['another thing'], value: 'badger2' }
+          ],
+          label: { className: 'govuk-label--s', children: ['Select a condition'] },
+          required: false,
+          onChange: wrapper.instance().onChangeConditionSelection
+        })
+
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -99,13 +111,23 @@ suite('Select conditions', () => {
         const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
         expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
+
         const selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(true)
-        expect(selectConditions.find('label').text()).to.equal('Select a condition')
-        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
-        expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(selectConditions.find('select'), 'cond-select',
-          expectedFieldOptions, '')
+        expect(selectConditions.props()).to.equal({
+          id: 'select-condition',
+          name: 'cond-select',
+          value: '',
+          items: [
+            { children: [''], value: '' },
+            { children: ['Monkeys love badgers'], value: 'badger' },
+            { children: ['another thing'], value: 'badger2' }
+          ],
+          label: { className: 'govuk-label--s', children: ['Select a condition'] },
+          required: false,
+          onChange: wrapper.instance().onChangeConditionSelection
+        })
+
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -116,13 +138,24 @@ suite('Select conditions', () => {
         const conditionHeaderGroup = conditionsSection.find('#conditions-header-group')
         expect(conditionHeaderGroup.find('label').text()).to.equal('Conditions (optional)')
         assertInlineConditionFlyoutNotDisplayed(wrapper)
+
         const selectConditions = conditionsSection.find('#select-condition')
         expect(selectConditions.exists()).to.equal(true)
-        expect(selectConditions.find('label').text()).to.equal('Select a condition')
-        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
-        expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(selectConditions.find('select'), 'cond-select',
-          expectedFieldOptions, conditions[1].name)
+
+        expect(selectConditions.props()).to.equal({
+          id: 'select-condition',
+          name: 'cond-select',
+          value: 'badger2',
+          items: [
+            { children: [''], value: '' },
+            { children: ['Monkeys love badgers'], value: 'badger' },
+            { children: ['another thing'], value: 'badger2' }
+          ],
+          label: { className: 'govuk-label--s', children: ['Select a condition'] },
+          required: false,
+          onChange: wrapper.instance().onChangeConditionSelection
+        })
+
         assertLink(conditionsSection.find('#inline-conditions-link'), 'inline-conditions-link', 'Define a new condition')
       })
 
@@ -141,9 +174,22 @@ suite('Select conditions', () => {
         assertInlineConditionsComponentDisplayed(wrapper, data, path)
         wrapper.instance().onCancelInlineCondition()
 
-        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
-        expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(wrapper.find('select'), 'cond-select', expectedFieldOptions, '')
+        const selectConditions = wrapper.find('#select-condition')
+        expect(selectConditions.exists()).to.equal(true)
+        expect(selectConditions.props()).to.equal({
+          id: 'select-condition',
+          name: 'cond-select',
+          value: '',
+          items: [
+            { children: [''], value: '' },
+            { children: ['Monkeys love badgers'], value: 'badger' },
+            { children: ['another thing'], value: 'badger2' }
+          ],
+          label: { className: 'govuk-label--s', children: ['Select a condition'] },
+          required: false,
+          onChange: wrapper.instance().onChangeConditionSelection
+        })
+
         assertInlineConditionFlyoutNotDisplayed(wrapper)
       })
 
@@ -153,9 +199,22 @@ suite('Select conditions', () => {
         assertInlineConditionsComponentDisplayed(wrapper, data, path)
         wrapper.instance().onCancelInlineCondition()
 
-        const expectedFieldOptions = conditions.map(condition => ({ text: condition.displayName, value: condition.name }))
-        expectedFieldOptions.unshift({ text: '' })
-        assertSelectInput(wrapper.find('select'), 'cond-select', expectedFieldOptions, conditions[1].name)
+        const selectConditions = wrapper.find('#select-condition')
+        expect(selectConditions.exists()).to.equal(true)
+        expect(selectConditions.props()).to.equal({
+          id: 'select-condition',
+          name: 'cond-select',
+          value: 'badger2',
+          items: [
+            { children: [''], value: '' },
+            { children: ['Monkeys love badgers'], value: 'badger' },
+            { children: ['another thing'], value: 'badger2' }
+          ],
+          label: { className: 'govuk-label--s', children: ['Select a condition'] },
+          required: false,
+          onChange: wrapper.instance().onChangeConditionSelection
+        })
+
         assertInlineConditionFlyoutNotDisplayed(wrapper)
         expect(conditionsChange.called).to.equal(false)
       })
@@ -163,7 +222,7 @@ suite('Select conditions', () => {
       test('Conditions change is called when a condition is selected', () => {
         const wrapper = shallow(<SelectConditions data={data} path={path} conditionsChange={conditionsChange} />)
         wrapper.instance().render = sinon.stub()
-        wrapper.find('#cond-select').simulate('change', { target: { value: 'badger2' } })
+        wrapper.find('#select-condition').prop('onChange')({ target: { value: 'badger2' } })
 
         expect(conditionsChange.calledOnceWith('badger2')).to.equal(true)
       })

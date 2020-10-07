@@ -42,12 +42,12 @@ export function assertNumberInput (wrapper, id, expectedValue) {
   assertTextBasedInput(wrapper, id, expectedValue, 'number')
 }
 
-export function assertRequiredTextInput (wrapper, id, expectedValue) {
-  assertTextInput(wrapper, id, expectedValue)
+export function assertRequiredTextInput ({ wrapper, id, expectedValue }) {
+  assertTextInput({ wrapper, id, expectedValue })
   expect(getPropertyNames(wrapper).includes('required')).to.equal(true)
 }
 
-export function assertTextInput (wrapper, id, expectedValue, attrs) {
+export function assertTextInput ({ wrapper, id, expectedValue, attrs }) {
   assertTextBasedInput(wrapper, id, expectedValue, 'text', attrs)
 }
 
@@ -55,18 +55,21 @@ export function assertTextBasedInput (wrapper, id, expectedValue, type, attrs) {
   expect(getTagName(wrapper)).to.equal('input')
   expect(getProperty(wrapper, 'id')).to.equal(id)
   expect(getProperty(wrapper, 'type')).to.equal(type)
-  expect(getProperty(wrapper, 'defaultValue')).to.equal(expectedValue)
+  expect(
+    getProperty(wrapper, 'defaultValue') || getProperty(wrapper, 'value')
+  ).to.equal(expectedValue)
   assertAdditionalAttributes(attrs, wrapper)
 }
 
-export function assertTextArea (wrapper, id, expectedValue, attrs) {
-  expect(getTagName(wrapper)).to.equal('textarea')
-  expect(getProperty(wrapper, 'id')).to.equal(id)
-  expect(getProperty(wrapper, 'defaultValue') || getText(wrapper)).to.equal(expectedValue)
+export function assertTextArea ({ wrapper, id, expectedValue, attrs }) {
+  expect(wrapper.prop('id')).to.equal(id)
+  expect(
+    getProperty(wrapper, 'defaultValue') || getProperty(wrapper, 'value')
+  ).to.equal(expectedValue)
   assertAdditionalAttributes(attrs, wrapper)
 }
 
-export function assertSelectInput (wrapper, id, expectedFieldOptions, expectedValue) {
+export function assertSelectInput ({ wrapper, id, expectedFieldOptions, expectedValue }) {
   expect(getTagName(wrapper)).to.equal('select')
   expect(getProperty(wrapper, 'id')).to.equal(id)
   const options = wrapper.children()
@@ -77,7 +80,7 @@ export function assertSelectInput (wrapper, id, expectedFieldOptions, expectedVa
   expect(getProperty(wrapper, 'value')).to.equal(expectedValue)
 }
 
-export function assertCheckboxInput (wrapper, id, value, checked, attrs) {
+export function assertCheckboxInput ({ wrapper, id, value, checked, attrs }) {
   expect(getTagName(wrapper)).to.equal('input')
   expect(getProperty(wrapper, 'type')).to.equal('checkbox')
   expect(getProperty(wrapper, 'id')).to.equal(id)
@@ -86,7 +89,7 @@ export function assertCheckboxInput (wrapper, id, value, checked, attrs) {
   assertAdditionalAttributes(attrs, wrapper)
 }
 
-export function assertRadioButton (wrapper, id, value, label, attrs) {
+export function assertRadioButton ({ wrapper, id, value, label, attrs }) {
   expect(getTagName(wrapper)).to.equal('input')
   expect(getProperty(wrapper, 'type')).to.equal('radio')
   expect(getProperty(wrapper, 'id')).to.equal(id)
@@ -106,9 +109,9 @@ function assertElement (wrapper, elementName, classes) {
   assertClasses(wrapper, classes)
 }
 
-function assertAdditionalAttributes (attrs, wrapper) {
-  Object.keys(attrs || {}).forEach(key => {
-    expect(getProperty(wrapper, key)).to.equal(attrs[key])
+function assertAdditionalAttributes (attrs = {}, wrapper) {
+  Object.keys(attrs).forEach(key => {
+    expect(wrapper.prop(key)).to.equal(attrs[key])
   })
 }
 
@@ -117,6 +120,7 @@ function getTagName (wrapper) {
   if (typeof wrapper.name === 'function') {
     return wrapper.name()
   }
+
   return wrapper.name
 }
 
@@ -130,10 +134,6 @@ function getProperty (wrapper, name) {
 
 function getPropertyNames (wrapper) {
   return typeof wrapper.props === 'function' ? Object.keys(wrapper.props()) : Object.keys(wrapper.attribs)
-}
-
-function getText (wrapper) {
-  return typeof wrapper.text === 'function' ? wrapper.text() : wrapper.children?.[0]?.data ?? ''
 }
 
 const propertyMappings = {

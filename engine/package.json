@@ -48,7 +48,7 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-flow": "^7.10.4",
     "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^22.0.4",
+    "@hapi/lab": "^24.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.6.0",

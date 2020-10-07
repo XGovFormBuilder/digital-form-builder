@@ -2,10 +2,9 @@ import React from 'react'
 import { icons } from '../icons'
 import Flyout from '../flyout'
 import DefineComponentValue from './define-component-value'
-import { InputOptions } from '../govuk-react-components/helpers'
 import { clone } from '@xgovformbuilder/model'
 import { RenderInPortal } from './render-in-portal'
-import { RadioGroup, RadioOption } from '../govuk-react-components/radio'
+import { Radios } from '@xgovformbuilder/govuk-react-jsx'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)
@@ -159,24 +158,43 @@ export default class ComponentValues extends React.Component {
 
     return (
       <div>
-        <RadioGroup
+        <Radios
+          id="population-type-list"
           name="definitionType"
-          heading="How would you like to populate the options?"
-          options={new InputOptions(true)}
           value={type}
-          onClick={this.initialiseValues}
-        >
-          <RadioOption
-            text="From a list"
-            value="listRef"
-            hint="Any changes to the list will be reflected in the options presented to users."
-          />
-          <RadioOption
-            text="I'll populate my own entries"
-            value="static"
-            hint="You can still select a list to get you started, but any changes to the list later won't be reflected in the options presented to users."
-          />
-        </RadioGroup>
+          onChange={this.initialiseValues}
+          fieldset={{
+            legend: {
+              children: [
+                'How would you like to populate the options?'
+              ]
+            }
+          }}
+          items={[
+            {
+              children: [
+                'From a list'
+              ],
+              value: 'listRef',
+              hint: {
+                children: [
+                  'Any changes to the list will be reflected in the options presented to users.'
+                ]
+              }
+            },
+            {
+              children: [
+                'I\'ll populate my own entries'
+              ],
+              value: 'static',
+              hint: {
+                children: [
+                  'You can still select a list to get you started, but any changes to the list later won\'t be reflected in the options presented to users.'
+                ]
+              }
+            }
+          ]}
+        />
         {type &&
           <div>
             <div className='govuk-form-group'>

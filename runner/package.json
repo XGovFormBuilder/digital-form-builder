@@ -38,7 +38,7 @@
     "@hapi/code": "8.0.1",
     "@hapi/crumb": "8.0.0",
     "@hapi/hapi": "19.1.1",
-    "@hapi/lab": "22.0.4",
+    "@hapi/lab": "24.0.0",
     "@hapi/scooter": "6.0.0",
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/engine": "2.0.0",
