@@ -11,6 +11,7 @@ class configPage extends Page {
   newConfig(configName) {
     this.newName.setValue(configName);
     this.startBtn.click();
+    this.designerMenu.waitForDisplayed();
   }
 
   open() {

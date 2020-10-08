@@ -4,19 +4,20 @@ const addComponentPage = require("../pageobjects/add-component.page");
 const ConfigPage = require("../pageobjects/config.page");
 const EditPageSection = require("../pageobjects/edit-page.section");
 const FormDesignerPage = require("../pageobjects/form-designer.page");
+const MenuSection = require("../pageobjects/menu.section");
 
 const pages = {
   start: ConfigPage,
 };
 
-Given("I have created a new form", () => {
-  // browser.maximizeWindow();
+Given("I have created a new form configuration", () => {
   pages["start"].open();
-  var dateTimeToInt = Date.parse(Date());
-  ConfigPage.newConfig("smoke-testing " + dateTimeToInt);
+  var configRef = `smoke-testing ${Date.parse(Date())}`;
+  ConfigPage.newConfig(configRef);
+  expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));
 });
 
-When("I add a {string} control to the page", (componentName) => {
+When("I add a {string} control to the default page", (componentName) => {
   FormDesignerPage.createComponentForPageName("").click();
   addComponentPage.selectComponentByName(componentName);
   addComponentPage.completeDateField(
@@ -32,7 +33,7 @@ Then("the Date field control is displayed in the page", () => {
   expect(FormDesignerPage.dropdown).toHaveText("dd/mm/yyyy");
 });
 
-When("I edit a page", () => {
+When("I edit the page title the default page", () => {
   this.newPageName = "testing";
   FormDesignerPage.editPageForPageName("").click();
   EditPageSection.pageTitle.setValue(this.newPageName);
@@ -45,4 +46,17 @@ Then("the changes are reflected in the page designer", () => {
   expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
     this.newPageName
   );
+});
+
+When("I choose {string} from the designer menu", (menuOption) => {
+  MenuSection.buttonByName(menuOption).click();
+  this.newPageName = "Personal Details";
+  EditPageSection.pageTitle.setValue(this.newPageName);
+  EditPageSection.saveBtn.click();
+});
+
+Then("the page is added in the designer", () => {
+  var pageName = this.newPageName.toLowerCase().replace(" ", "-");
+  FormDesignerPage.designerMenu.waitForDisplayed();
+  expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });
