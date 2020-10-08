@@ -2,7 +2,7 @@ import { RelativeUrl } from './feedback'
 
 const paramsToCopy = [RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, RelativeUrl.VISIT_IDENTIFIER_PARAMETER]
 
-function proceed (request, h, nextUrl) {
+export function proceed (request, h, nextUrl) {
   const returnUrl = request.query.returnUrl
   if (returnUrl && returnUrl.startsWith('/')) {
     return h.redirect(returnUrl)
@@ -11,7 +11,7 @@ function proceed (request, h, nextUrl) {
   }
 }
 
-function redirectUrl (request, targetUrl, params = {}) {
+export function redirectUrl (request, targetUrl, params = {}) {
   const relativeUrl = new RelativeUrl(targetUrl)
   Object.entries(params).forEach(([name, value]) => {
     relativeUrl.setParam(name, value)
@@ -25,11 +25,9 @@ function redirectUrl (request, targetUrl, params = {}) {
   return relativeUrl.toString()
 }
 
-function redirectTo (request, h, targetUrl, params = {}) {
+export function redirectTo (request, h, targetUrl, params = {}) {
   if (targetUrl.startsWith('http')) {
     return h.redirect(targetUrl)
   }
   return h.redirect(redirectUrl(request, targetUrl, params))
 }
-
-module.exports = { proceed, redirectTo, redirectUrl }
