@@ -39,23 +39,6 @@ suite('uploads', () => {
     expect(response.headers.location).to.equal('/upload/summary')
   })
 
-  test('request with file upload field missing returns with error message', async () => {
-    const form = new FormData()
-    form.append('fullName', 1)
-    form.append('file1', Buffer.from([]))
-    const options = {
-      method: 'POST',
-      url: '/upload/upload-file',
-      headers: form.getHeaders(),
-      payload: form.getBuffer()
-    }
-    const response = await server.inject(options)
-    expect(response.statusCode).to.equal(200)
-
-    const $ = cheerio.load(response.payload)
-    expect($('[href=\'#file1\']').text().trim()).to.equal('Passport photo is required')
-  })
-
   test('request with file upload field containing virus returns with error message', async () => {
     restore()
 
