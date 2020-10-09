@@ -14,8 +14,8 @@ export default class YesNoField extends FormComponent {
       options.classes = 'govuk-radios--inline'
     }
     const validValues = values.items.map(item => item.value)
-    const formSchema = helpers.buildFormSchema(values.valueType, this, options.required !== false).valid(validValues)
-    const stateSchema = helpers.buildStateSchema(values.valueType, this).valid(validValues)
+    const formSchema = helpers.buildFormSchema(values.valueType, this, options.required !== false).valid(...validValues)
+    const stateSchema = helpers.buildStateSchema(values.valueType, this).valid(...validValues)
 
     this.formSchema = formSchema
     this.stateSchema = stateSchema

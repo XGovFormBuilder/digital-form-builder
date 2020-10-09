@@ -216,9 +216,12 @@ suite('Inline conditions absolute date and time value inputs', () => {
         expect(absoluteTimeValues.exists()).to.equal(true)
         expect(absoluteTimeValues.prop('value')).to.equal(new ConditionValue('13:46'))
 
-        assertSelectInput(wrapper.find('#cond-value-tz'), 'cond-value-tz',
-          momentTz.tz.names().map(tz => ({ value: tz, text: tz })),
-          'Europe/London')
+        assertSelectInput({
+          wrapper: wrapper.find('#cond-value-tz'),
+          id: 'cond-value-tz',
+          expectedFieldOptions: momentTz.tz.names().map(tz => ({ value: tz, text: tz })),
+          expectedValue: 'Europe/London'
+        })
       })
 
       test(`should convert date and time back to default time zone when displaying '${operator}' operator`, () => {
@@ -233,9 +236,12 @@ suite('Inline conditions absolute date and time value inputs', () => {
         expect(absoluteTimeValues.exists()).to.equal(true)
         expect(absoluteTimeValues.prop('value')).to.equal(new ConditionValue('02:46'))
 
-        assertSelectInput(wrapper.find('#cond-value-tz'), 'cond-value-tz',
-          momentTz.tz.names().map(tz => ({ value: tz, text: tz })),
-          'Europe/London')
+        assertSelectInput({
+          wrapper: wrapper.find('#cond-value-tz'),
+          id: 'cond-value-tz',
+          expectedFieldOptions: momentTz.tz.names().map(tz => ({ value: tz, text: tz })),
+          expectedValue: 'Europe/London'
+        })
       })
 
       test(`specifying date and time inputs in order should save the expected value for adding with '${operator}' operator`, () => {

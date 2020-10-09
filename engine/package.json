@@ -9,9 +9,9 @@
     "build": "yarn run babel src -d lib --source-maps inline --copy-files",
     "watch": "yarn build --watch",
     "test-lab": "lab -T test/.transform.js -S -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version,regeneratorRuntime",
-    "test": "yarn flow && yarn lint && yarn test-lab",
+    "test": "yarn test-lab",
     "test-lab-cov": "lab -T test/.transform.js test/**/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version,regeneratorRuntime",
-    "test-cov": "yarn flow && yarn lint && yarn test-lab-cov"
+    "test-cov": "yarn test-lab-cov"
   },
   "repository": {
     "type": "git",
@@ -21,14 +21,13 @@
   "dependencies": {
     "@babel/runtime": "7.10.4",
     "@hapi/hoek": "^9.0.4",
-    "@hapi/joi": "17.1.1",
     "@xgovformbuilder/model": "2.0.0",
     "boom": "7.3.0",
     "expr-eval": "2.0.2",
     "flow-typed": "^3.2.1",
     "govuk-frontend": "3.6.0",
     "hmpo-components": "2.6.5",
-    "joi": "14.3.1",
+    "joi": "17.2.1",
     "moment": "2.24.0",
     "nanoid": "^3.1.12",
     "nunjucks": "3.2.1",
@@ -48,7 +47,7 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-flow": "^7.10.4",
     "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^22.0.4",
+    "@hapi/lab": "^24.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.6.0",

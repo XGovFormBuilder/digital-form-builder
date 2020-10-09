@@ -2,8 +2,7 @@ import React from 'react'
 import InlineConditions from './inline-conditions'
 import { ConditionsModel } from '@xgovformbuilder/model'
 import Flyout from '../flyout'
-import { selectGroup, SelectInputOptions, SelectOption } from '../govuk-react-components/select'
-import { renderHints } from '../govuk-react-components/helpers'
+import { Hint, Select } from '@xgovformbuilder/govuk-react-jsx'
 
 class SelectConditions extends React.Component {
   constructor (props) {
@@ -79,27 +78,41 @@ class SelectConditions extends React.Component {
 
   render () {
     const { selectedCondition, inline } = this.state
-    const { data, hints } = this.props
+    const { data, hints = [] } = this.props
     const hasConditions = data.hasConditions || selectedCondition
 
     return (
       <div className='conditions'>
         <div className='govuk-form-group' id='conditions-header-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-conditions'>Conditions (optional)</label>
-          {renderHints('conditions-header-group', hints)}
+          {hints.map((hint, index) => <Hint key={`conditions-header-group-hint-${index}`}>{hint}</Hint>)}
         </div>
         {this.state.fields && Object.keys(this.state.fields).length > 0
           ? <div>
             {hasConditions &&
-              selectGroup(
-                'cond-select',
-                'cond-select',
-                'Select a condition',
-                selectedCondition ?? '',
-                this.props.data.conditions.map((it, index) => (new SelectOption(it.displayName, it.name))),
-                this.onChangeConditionSelection,
-                new SelectInputOptions(false, true, undefined, 'select-condition')
-              )
+              <Select
+                id="select-condition"
+                name="cond-select"
+                value={selectedCondition ?? ''}
+                items={[
+                  {
+                    children: [''],
+                    value: ''
+                  },
+                  ...this.props.data.conditions.map((it, index) => ({
+                    children: [it.displayName],
+                    value: it.name
+                  }))
+                ]}
+                label={{
+                  className: 'govuk-label--s',
+                  children: [
+                    'Select a condition'
+                  ]
+                }}
+                onChange={this.onChangeConditionSelection}
+                required={false}
+              />
             }
             {!inline &&
               <div className='govuk-form-group'>

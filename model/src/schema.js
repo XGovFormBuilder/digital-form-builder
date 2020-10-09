@@ -1,4 +1,4 @@
-import joi from '@hapi/joi'
+import joi from 'joi'
 
 const sectionsSchema = joi.object().keys({
   name: joi.string().required(),

@@ -44,13 +44,23 @@ suite('Inline conditions relative time value inputs', () => {
       const existingValue = new RelativeTimeValue('18', unit, dateDirections.FUTURE)
       const wrapper = shallow(<RelativeTimeValues value={existingValue} updateValue={updateValueCallback} units={mapping.units} timeOnly={mapping.timeOnly} />)
 
-      assertRequiredTextInput(wrapper.find('#cond-value-period'), 'cond-value-period', '18')
-      assertSelectInput(wrapper.find('#cond-value-units'), 'cond-value-units',
-        valuesAndDisplayOptionsWithEmptyOption(Object.values(mapping.units)),
-        unit)
-      assertSelectInput(wrapper.find('#cond-value-direction'), 'cond-value-direction',
-        singleValueAndDisplayOptionsWithEmptyOption(Object.values(dateDirections)),
-        dateDirections.FUTURE)
+      assertRequiredTextInput({
+        wrapper: wrapper.find('#cond-value-period'),
+        id: 'cond-value-period',
+        expectedValue: '18'
+      })
+      assertSelectInput({
+        wrapper: wrapper.find('#cond-value-units'),
+        id: 'cond-value-units',
+        expectedFieldOptions: valuesAndDisplayOptionsWithEmptyOption(Object.values(mapping.units)),
+        expectedValue: unit
+      })
+      assertSelectInput({
+        wrapper: wrapper.find('#cond-value-direction'),
+        id: 'cond-value-direction',
+        expectedFieldOptions: singleValueAndDisplayOptionsWithEmptyOption(Object.values(dateDirections)),
+        expectedValue: dateDirections.FUTURE
+      })
     })
 
     test(`specifying all inputs in order should save the expected value for adding ${mapping.type} component type`, () => {

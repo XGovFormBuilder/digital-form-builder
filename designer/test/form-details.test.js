@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 import { Data, FormConfiguration } from '@xgovformbuilder/model'
-import { assertRadioButton, assertSelectInput, assertTextInput } from './helpers/element-assertions'
+import { assertSelectInput, assertTextInput } from './helpers/element-assertions'
 import FormDetails from '../client/form-details'
 
 import sinon from 'sinon'
@@ -41,47 +41,100 @@ suite('Form details', () => {
 
     test.skip('Renders a form with the appropriate initial inputs', () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#form-title'), 'form-title')
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
+      const radios = wrapper.find('Radios')
+
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title'
+      })
+      expect(radios.props()).to.equal({
+        name: 'feedbackForm',
+        value: false,
+        onChange: wrapper.instance().handleIsFeedbackFormRadio,
+        required: true,
+        fieldset: {
+          legend: {
+            children: [
+              'Is this a feedback form?'
+            ]
+          }
+        },
+        hint: {
+          children: [
+            'A feedback form is used to gather feedback from users about another form'
+          ]
+        },
+        items: [
+          {
+            children: [
+              'Yes'
+            ],
+            value: true
+          },
+          {
+            children: [
+              'No'
+            ],
+            value: false
+          }
+        ]
+      })
     })
 
     test('Renders pre-populated name input when form already has a name', () => {
       data.name = 'My form'
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#form-title'), 'form-title', 'My form')
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title',
+        expectedValue: 'My form'
+      })
     })
 
     test('Entered form name is displayed', () => {
       data.name = 'My form'
       const wrapper = shallow(<FormDetails data={data} />)
       wrapper.find('#form-title').simulate('blur', { target: { value: 'New name' } })
-      assertTextInput(wrapper.find('#form-title'), 'form-title', 'New name')
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title',
+        expectedValue: 'New name'
+      })
     })
 
     test.skip('Renders Feedback form \'yes\' checked when form is a feedback form', () => {
       data.feedbackForm = true
       const wrapper = shallow(<FormDetails data={data} />)
-      assertTextInput(wrapper.find('#form-title'), 'form-title')
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: true })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: false })
+      const radios = wrapper.find('Radios')
+      assertTextInput({
+        wrapper: wrapper.find('#form-title'),
+        id: 'form-title'
+      })
+
+      expect(radios.prop('value')).to.equal(true)
     })
 
     test.skip('Renders Feedback \'no\' checked when form is not a feedback form', () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      assertRadioButton(wrapper.find('#feedback-yes'), 'feedback-yes', 'true', 'Yes', { defaultChecked: false })
-      assertRadioButton(wrapper.find('#feedback-no'), 'feedback-no', 'false', 'No', { defaultChecked: true })
+      const radios = wrapper.find('Radios')
+      expect(radios.prop('value')).to.equal(false)
     })
 
     test('Renders Feedback form input when form is not a feedback form', async () => {
       const wrapper = shallow(<FormDetails data={data} />)
       await wrapper.instance().componentDidMount()
-      assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+      const expectedFieldOptions = [
         { text: '' },
         { value: 'someKey', text: 'Some display name' },
         { value: 'anotherKey', text: 'Another display name' },
         { value: 'thirdKey', text: 'thirdKey' }
-      ])
+      ]
+
+      assertSelectInput({
+        wrapper: wrapper.find('#target-feedback-form'),
+        id: 'target-feedback-form',
+        expectedFieldOptions
+      })
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
       expect(wrapper.find('#target-feedback-form-hint').text().startsWith('This is the form to use for gathering feedback about this form')).to.equal(true)
     })
@@ -106,12 +159,19 @@ suite('Form details', () => {
       data.setFeedbackUrl('/anotherKey')
       const wrapper = shallow(<FormDetails data={data} />)
       await wrapper.instance().componentDidMount()
-      assertSelectInput(wrapper.find('#target-feedback-form'), 'target-feedback-form', [
+      const expectedFieldOptions = [
         { text: '' },
         { value: 'someKey', text: 'Some display name' },
         { value: 'anotherKey', text: 'Another display name' },
         { value: 'thirdKey', text: 'thirdKey' }
-      ], 'anotherKey')
+      ]
+
+      assertSelectInput({
+        wrapper: wrapper.find('#target-feedback-form'),
+        id: 'target-feedback-form',
+        expectedFieldOptions,
+        expectedValue: 'anotherKey'
+      })
       expect(wrapper.find('#target-feedback-form-hint').exists()).to.equal(true)
       expect(wrapper.find('#target-feedback-form-hint').text().startsWith('This is the form to use for gathering feedback about this form')).to.equal(true)
     })
@@ -155,7 +215,7 @@ suite('Form details', () => {
 
     test.skip('feedbackForm should be set correctly when changed to true', async () => {
       const wrapper = shallow(<FormDetails data={data} />)
-      wrapper.find('#feedback-yes').simulate('click')
+      wrapper.find('Radios').first().prop('onChange')({ target: { value: true } })
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
 
       expect(data.save.callCount).to.equal(1)
@@ -165,7 +225,7 @@ suite('Form details', () => {
     test.skip('feedbackForm should be set correctly when changed to false', async () => {
       data.feedbackForm = true
       const wrapper = shallow(<FormDetails data={data} />)
-      wrapper.find('#feedback-no').simulate('click')
+      wrapper.find('Radios').first().prop('onChange')({ target: { value: false } })
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
 
       expect(data.save.callCount).to.equal(1)
@@ -175,7 +235,7 @@ suite('Form details', () => {
     test.skip('Feedback url should be cleared when changing to a feedback form', async () => {
       data.setFeedbackUrl('/feedback', true)
       const wrapper = shallow(<FormDetails data={data} />)
-      wrapper.find('#feedback-yes').simulate('click')
+      wrapper.find('Radios').first().prop('onChange')({ target: { value: true } })
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() })
 
       expect(data.save.callCount).to.equal(1)

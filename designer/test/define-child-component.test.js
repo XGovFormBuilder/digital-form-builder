@@ -40,7 +40,8 @@ suite('Define child component', () => {
 
   test('Should pre-populate type field when provided with a component', () => {
     const component = { type: 'TextField', name: 'badger', hint: 'My hint' }
-    const wrapper = shallow(<DefineChildComponent data={data} page={page} component={component}/>)
+    function EditComponentView () {}
+    const wrapper = shallow(<DefineChildComponent data={data} page={page} component={component} EditComponentView={EditComponentView}/>)
 
     const componentTypeInput = wrapper.find('select')
     expect(componentTypeInput.prop('defaultValue')).to.equal('TextField')

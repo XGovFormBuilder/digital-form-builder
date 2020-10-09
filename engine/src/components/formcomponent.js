@@ -12,11 +12,13 @@ export default class FormComponent extends Component {
 
     schema.error = errors => {
       errors.forEach(err => {
-        const { limit } = err.context
-        const today = new Date()
-        const limitIsToday = limit && limit.getDate && limit.getDate() ===
-          today.getDate() && limit.getMonth() === today.getMonth() &&
-          limit.getFullYear() === today.getFullYear()
+        let limit
+        const today = (new Date()).setUTCHours(0, 0, 0)
+        if (err.context?.limit) {
+          limit = (err.context.limit.setUTCHours(0, 0, 0))
+        }
+
+        const limitIsToday = limit === today
 
         switch (err.type) {
           case 'any.empty':

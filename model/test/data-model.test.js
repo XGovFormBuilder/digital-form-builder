@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { Data } from '..'
+import { Data } from '../src'
 
 const { expect } = Code
 const lab = Lab.script()
@@ -797,8 +797,8 @@ suite('data model', () => {
       type: 'static',
       valueType: 'string',
       items: [
-        { display: 'some stuff', value: 'myValue', hint: 'A hint', condition: 'badger', children: [{ name: 'aBadger' }] },
-        { display: 'another thing', value: 'anotherValue', hint: undefined, condition: undefined, children: [] }
+        { label: 'some stuff', value: 'myValue', hint: 'A hint', condition: 'badger', children: [{ name: 'aBadger' }] },
+        { label: 'another thing', value: 'anotherValue', hint: undefined, condition: undefined, children: [] }
       ]
     }
     const valuesTypes = [
@@ -843,14 +843,14 @@ suite('data model', () => {
         valueType: 'boolean',
         items: [
           {
-            display: 'Yes',
+            label: 'Yes',
             value: true,
             hint: undefined,
             condition: undefined,
             children: []
           },
           {
-            display: 'No',
+            label: 'No',
             value: false,
             hint: undefined,
             condition: undefined,

@@ -7,7 +7,7 @@ export default class CheckboxesField extends Conditionalformcomponent {
   constructor (def, model) {
     super(def, model)
     const { options, values, itemValues } = this
-    const itemSchema = joi[values.valueType]().valid(itemValues)
+    const itemSchema = joi[values.valueType]().valid(...itemValues)
     const itemsSchema = joi.array().items(itemSchema)
     const alternatives = joi.alternatives([itemSchema, itemsSchema])
 

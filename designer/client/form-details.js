@@ -1,13 +1,8 @@
 import React from 'react'
 import formConfigurationApi from './load-form-configurations'
-import { RadioGroup, RadioOption } from './govuk-react-components/radio'
-import { InputOptions } from './govuk-react-components/helpers'
+import { Radios } from '@xgovformbuilder/govuk-react-jsx'
 
 class FormDetails extends React.Component {
-  radioInputOptions = new InputOptions(
-    true, ['A feedback form is used to gather feedback from users about another form']
-  )
-
   constructor (props) {
     super(props)
     const { feedbackForm, feedbackUrl } = props.data
@@ -66,16 +61,38 @@ class FormDetails extends React.Component {
 
     return (
       <form onSubmit={this.onSubmit} autoComplete='off'>
-        <RadioGroup
+        <Radios
           name="feedbackForm"
-          heading="Is this a feedback form?"
-          options={this.radioInputOptions}
           value={feedbackForm}
-          onClick={this.handleIsFeedbackFormRadio}
-        >
-          <RadioOption text="Yes" value={true} />
-          <RadioOption text="No" value={false} />
-        </RadioGroup>
+          onChange={this.handleIsFeedbackFormRadio}
+          required={true}
+          fieldset={{
+            legend: {
+              children: [
+                'Is this a feedback form?'
+              ]
+            }
+          }}
+          hint={{
+            children: [
+              'A feedback form is used to gather feedback from users about another form'
+            ]
+          }}
+          items={[
+            {
+              children: [
+                'Yes'
+              ],
+              value: true
+            },
+            {
+              children: [
+                'No'
+              ],
+              value: false
+            }
+          ]}
+        />
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='form-title' aria-describedby='feedback-form-hint'>Title</label>
           <input className='govuk-input' id='form-title' name='title'
