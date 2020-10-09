@@ -7,6 +7,12 @@ export function casesForAllInputs (type, modelCustomisation = {}) {
   ]
 }
 
+const casesForFileUploadField = casesForAllInputs('FileUploadField').map(c => {
+  const testCase = c
+  testCase.expectedModel.options.required = false
+  return testCase
+})
+
 export function casesForAllExceptFileUpload (type, modelCustomisation = {}) {
   return [
     ...casesForAllInputs(type, modelCustomisation),
@@ -20,7 +26,11 @@ export function casesForAllExceptFileUpload (type, modelCustomisation = {}) {
 }
 
 export function classesCases (type, modelCustomisation = {}) {
-  return [{ type, name: 'populating classes', fieldId: 'field-options-classes', event: 'onBlur', value: 'my-class', expectedModel: { ...modelCustomisation, type, options: { classes: 'my-class' } } }]
+  const testCase = { type, name: 'populating classes', fieldId: 'field-options-classes', event: 'onBlur', value: 'my-class', expectedModel: { ...modelCustomisation, type, options: { classes: 'my-class' } } }
+  if (type === 'FileUploadField') {
+    testCase.expectedModel.options.required = false
+  }
+  return testCase
 }
 
 export function textFieldCases (type) {
@@ -30,13 +40,13 @@ export function textFieldCases (type) {
     { type, name: 'populating min length', fieldId: 'field-schema-min', event: 'onBlur', value: '236', expectedModel: { type, schema: { min: '236' }, options: {} } },
     { type, name: 'populating exact length', fieldId: 'field-schema-length', event: 'onBlur', value: '236', expectedModel: { type, schema: { length: '236' }, options: {} } },
     { type, name: 'populating regex', fieldId: 'field-schema-regex', event: 'onBlur', value: '[a-z0-9]', expectedModel: { type, schema: { regex: '[a-z0-9]' }, options: {} } },
-    ...classesCases(type, { schema: {} })
+    classesCases(type, { schema: {} })
   ]
 }
 
 export const componentCases = [
-  ...casesForAllInputs('FileUploadField'),
-  ...classesCases('FileUploadField'),
+  ...casesForFileUploadField,
+  classesCases('FileUploadField'),
   ...textFieldCases('TextField'),
   ...textFieldCases('EmailAddressField'),
   ...textFieldCases('TelephoneNumberField'),
@@ -44,19 +54,19 @@ export const componentCases = [
   { type: 'MultilineTextField', name: 'populating max length', fieldId: 'field-schema-max', event: 'onBlur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { max: '236' }, options: {} } },
   { type: 'MultilineTextField', name: 'populating min length', fieldId: 'field-schema-min', event: 'onBlur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { min: '236' }, options: {} } },
   { type: 'MultilineTextField', name: 'populating number of rows', fieldId: 'field-options-rows', event: 'onBlur', value: '236', expectedModel: { type: 'MultilineTextField', schema: { }, options: { rows: '236' } } },
-  ...classesCases('MultilineTextField', { schema: {} }),
+  classesCases('MultilineTextField', { schema: {} }),
   ...casesForAllExceptFileUpload('NumberField', { schema: {} }),
   { type: 'NumberField', name: 'populating max value', fieldId: 'field-schema-max', event: 'onBlur', value: '236', expectedModel: { type: 'NumberField', schema: { max: '236' }, options: {} } },
   { type: 'NumberField', name: 'populating min value', fieldId: 'field-schema-min', event: 'onBlur', value: '236', expectedModel: { type: 'NumberField', schema: { min: '236' }, options: {} } },
   { type: 'NumberField', name: 'populating precision', fieldId: 'field-schema-precision', event: 'onBlur', value: '236', expectedModel: { type: 'NumberField', schema: { precision: '236' }, options: {} } },
-  ...classesCases('NumberField', { schema: {} }),
+  classesCases('NumberField', { schema: {} }),
   ...casesForAllExceptFileUpload('DateField'),
   ...casesForAllExceptFileUpload('DatePartsField'),
   { type: 'DatePartsField', name: 'populating max days in past', fieldId: 'field-options-maxDaysInPast', event: 'onBlur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInPast: '236' } } },
   { type: 'DatePartsField', name: 'populating max days in future', fieldId: 'field-options-maxDaysInFuture', event: 'onBlur', value: '236', expectedModel: { type: 'DatePartsField', options: { maxDaysInFuture: '236' } } },
-  ...classesCases('DatePartsField'),
+  classesCases('DatePartsField'),
   ...casesForAllExceptFileUpload('SelectField'),
-  ...classesCases('SelectField'),
+  classesCases('SelectField'),
   ...casesForAllExceptFileUpload('RadiosField'),
   { type: 'RadiosField', name: 'selecting bold labels', fieldId: 'field-options-bold', event: 'onChange', value: '', expectedModel: { type: 'RadiosField', options: { bold: true } } },
   { type: 'RadiosField', name: 'deselecting bold labels', fieldId: 'field-options-bold', event: 'onChange', value: '', componentInitialState: { options: { bold: true } }, expectedModel: { type: 'RadiosField', options: { bold: false } } },

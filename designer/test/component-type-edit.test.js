@@ -131,6 +131,7 @@ suite('Component type edit', () => {
         expect(field.exists()).to.equal(true)
         field.prop(testCase.event)({ target: { value: testCase.value } })
         expect(updateModel.firstCall.args[0], JSON.stringify(testCase)).to.equal(testCase.expectedModel)
+
         expect(updateModel.callCount).to.equal(1)
       })
     })
