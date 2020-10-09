@@ -12,7 +12,7 @@ const pages = {
 
 Given("I have created a new form configuration", () => {
   pages["start"].open();
-  var configRef = `smoke-testing ${Date.parse(Date())}`;
+  const configRef = `smoke-testing ${Date.parse(Date())}`;
   ConfigPage.newConfig(configRef);
   expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));
 });
@@ -56,7 +56,7 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  var pageName = this.newPageName.toLowerCase().replace(" ", "-");
+  const pageName = this.newPageName.toLowerCase().replace(" ", "-");
   FormDesignerPage.designerMenu.waitForDisplayed();
   expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });
