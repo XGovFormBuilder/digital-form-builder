@@ -7,11 +7,11 @@ Feature: Smoke tests
     Given I have created a new form configuration
 
   Scenario: Add a component to a page
-    When I add a "Date field" control to the default page
+    When I add a "Date field" control to the "Question page"
     Then the Date field control is displayed in the page
 
   Scenario: Edit a page title
-    When I edit the page title the default page
+    When I edit the page title on the "Question page"
     Then the changes are reflected in the page designer
 
   Scenario: Add a page

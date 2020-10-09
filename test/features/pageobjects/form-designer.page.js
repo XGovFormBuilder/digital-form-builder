@@ -17,12 +17,12 @@ class FormDesignerPage extends Page {
     return $$(".page");
   }
 
-  get dropdown() {
-    return $(".dropdown");
+  dropdown(name) {
+    return this.pageContainer(name).$(".dropdown");
   }
 
   pageContainer(elem) {
-    return $(`#\\/${elem}`);
+    return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
   }
 
   getTitleTextForPage(name) {

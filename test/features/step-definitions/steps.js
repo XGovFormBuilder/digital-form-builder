@@ -17,8 +17,9 @@ Given("I have created a new form configuration", () => {
   expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));
 });
 
-When("I add a {string} control to the default page", (componentName) => {
-  FormDesignerPage.createComponentForPageName("").click();
+When("I add a {string} control to the {string}", (componentName, pageName) => {
+  this.pageName = pageName
+  FormDesignerPage.createComponentForPageName(pageName).click();
   addComponentPage.selectComponentByName(componentName);
   addComponentPage.completeDateField(
     "Date of Birth",
@@ -28,14 +29,13 @@ When("I add a {string} control to the default page", (componentName) => {
 });
 
 Then("the Date field control is displayed in the page", () => {
-  console.log(FormDesignerPage.dropdownComponentForPage("").isDisplayed());
-  chai.expect(FormDesignerPage.dropdown.isDisplayed()).to.be.true;
-  expect(FormDesignerPage.dropdown).toHaveText("dd/mm/yyyy");
+  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be.true;
+  expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 
-When("I edit the page title the default page", () => {
+When("I edit the page title on the {string}", (pageName) => {
   this.newPageName = "testing";
-  FormDesignerPage.editPageForPageName("").click();
+  FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
 });
