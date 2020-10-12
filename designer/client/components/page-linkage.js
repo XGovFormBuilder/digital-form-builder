@@ -8,18 +8,17 @@ export function PageLinkage ({ page, data, layout }) {
   const [isDraggingOver, setIsDraggingOver] = useState(false)
 
   const reset = () => {
+    setIsDraggingOver(false)
     setIsDragging(false)
     setLineStart(null)
     setLineEnd(null)
-    setIsDraggingOver(false)
   }
 
-  console.log(layout)
-
-  const handleDragStart = useCallback(({ clientX, clientY }) => {
+  const handleDragStart = useCallback((event) => {
+    const { clientX, clientY } = event
     setIsDragging(true)
-    setLineStart({ x: clientX, y: clientY })
     setLineEnd({ x: clientX, y: clientY })
+    setLineStart({ x: clientX, y: clientY })
     event.dataTransfer.setData('linkingPage', JSON.stringify(page))
   }, [])
 
@@ -28,8 +27,7 @@ export function PageLinkage ({ page, data, layout }) {
     setLineEnd({ x: clientX, y: clientY })
 
     if (!clientX && !clientY) {
-      // event might return 0 0 when outside dom or drop occurs outside linkage
-      setLineStart({ x: clientX, y: clientY })
+      // event might return 0 0 moved outside dom or drop occurs outside linkage
       reset()
     }
   }, [])
@@ -46,18 +44,15 @@ export function PageLinkage ({ page, data, layout }) {
 
   const handleDrop = useCallback(async (event) => {
     event.preventDefault()
+
     const linkingPage = JSON.parse(event.dataTransfer.getData('linkingPage'))
-
-    if (linkingPage.path === page.path) {
-      // don't link page to itself
-      return
+    if (linkingPage.path !== page.path) {
+      const copy = data.clone()
+      const updatedData = copy.addLink(linkingPage.path, page.path)
+      await data.save(updatedData)
     }
-
-    const copy = data.clone()
-    const updatedData = copy.addLink(linkingPage.path, page.path)
-    await data.save(updatedData)
     reset()
-  }, [])
+  }, [data])
 
   const handleDragEnd = useCallback((event) => {
     event.preventDefault()
