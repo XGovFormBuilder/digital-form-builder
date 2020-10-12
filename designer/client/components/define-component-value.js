@@ -1,5 +1,6 @@
 import React from 'react'
-import { Textarea, Input } from '@xgovformbuilder/govuk-react-jsx'
+import { Textarea } from '@govuk-jsx/textarea'
+import { Input } from '@govuk-jsx/input'
 import SelectConditions from '../conditions/select-conditions'
 import { icons } from '../icons'
 import Flyout from '../flyout'

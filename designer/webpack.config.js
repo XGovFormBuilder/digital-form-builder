@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const babelOptions = require('./.babelrc.json')
+const babelOptions = require('./.babelrc.js')
 const CopyPlugin = require('copy-webpack-plugin')
 
 const devMode = process.env.NODE_ENV !== 'production'
@@ -16,6 +16,11 @@ const client = {
   output: {
     path: path.resolve(__dirname, 'dist', 'client'),
     filename: 'assets/[name].js'
+  },
+  resolve: {
+    alias: {
+      '@govuk-jsx': require.resolve('@xgovformbuilder/govuk-react-jsx', { paths: ['module/govuk/components/'] })
+    }
   },
   devtool: 'source-map',
   module: {
