@@ -9,8 +9,6 @@ import { FlyoutContext } from './context'
 import './index.scss'
 import { initI18n, i18n } from './i18n'
 
-import { Textarea } from '@govuk-jsx/textarea'
-
 initI18n(i18n)
 
 /**
@@ -106,23 +104,6 @@ export class App extends React.Component {
       const data = new Data(this.state.data)
       return (
         <FlyoutContext.Provider value={flyoutContextProviderValue}>
-          <Textarea
-            id="field-hint"
-            name="hint"
-            rows={2}
-            label={{
-              className: 'govuk-label--s',
-              children: [
-                'Help Text (optional)'
-              ]
-            }}
-            hint={{
-              children: [
-                'Text can include HTML'
-              ]
-            }}
-            required={false}
-          />
           <div id='app'>
             <Menu data={data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} updatePersona={this.updatePersona} />
             <Visualisation data={data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} persona={this.state.persona} id={id} previewUrl={previewUrl} />
