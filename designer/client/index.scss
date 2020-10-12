@@ -82,15 +82,15 @@ $color-orange: #ffbf47;
       border-left: solid 2px #000;
       
       &--selected {
-        -webkit-box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
-        -moz-box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
-        box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
+        -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
+        -moz-box-shadow: 0px 0px 0px 6px $color-orange;
+        box-shadow: 0px 0px 0px 6px $color-orange;
       }
 
       &:hover {
-        -webkit-box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
-        -moz-box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
-        box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
+        -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
+        -moz-box-shadow: 0px 0px 0px 6px $color-orange;
+        box-shadow: 0px 0px 0px 6px $color-orange;
       }
 
       &__heading {
@@ -608,12 +608,12 @@ polyline {
     left: -2px;
     z-index: -1;
     background-color: #fceabe;
-    box-shadow: 0px 0px 0px 6px rgb(247, 179, 21);
+    box-shadow: 0px 0px 0px 6px $color-orange;
   }
 
   &__line {
-    fill: rgb(247, 179, 21);
-    stroke: rgb(247, 179, 21);
+    fill: $color-orange;
+    stroke: $color-orange;
     stroke-width: 4;
     position: absolute;
     top: 0;
