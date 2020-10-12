@@ -28,8 +28,7 @@ const SortableList = SortableContainer(({ page, data }) => {
 export class Page extends React.Component {
   state = {
     showEditor: false,
-    showAddComponent: false,
-    isPageSelected: false
+    showAddComponent: false
   }
 
   showEditor = (e, value) => {
