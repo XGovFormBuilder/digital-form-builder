@@ -28,6 +28,9 @@ parameters:
   runner:
     type: boolean
     default: false
+  test:
+    type: boolean
+    default: false
 
 executors:
   node:

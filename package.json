@@ -44,6 +44,7 @@
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
     "babel-eslint": "^11.0.0-beta.2",
+    "chromedriver": "^86.0.0",
     "concurrently": "^5.3.0",
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
@@ -62,13 +63,19 @@
     "magic-string": "^0.25.7",
     "node-sass": "^4.14.1",
     "resolve": "^1.17.0",
-    "rollup": "^2.25.0"
+    "rollup": "^2.25.0",
+    "wdio-chromedriver-service": "^6.0.4"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "chai": "^4.2.0",
+    "chai-webdriverio": "^1.0.0",
+    "cucumber-html-reporter": "^5.2.0",
     "designer": "^1.0.2",
-    "govuk-frontend": "^3.8.1"
+    "govuk-frontend": "^3.8.1",
+    "wdio-json-reporter": "^2.0.0",
+    "webdriverio": "^6.6.0"
   },
   "resolutions": {
     "resolve": "^1.17"
