@@ -100,7 +100,7 @@ export function PageLinkage ({ page, data, layout }) {
               >
                 <polygon
                   points="0 0, 0 6, 6 3"
-                  fill="#000000" stroke="transparent"
+                  fill="#f7b315" stroke="transparent"
                 />
               </marker>
             </defs>
