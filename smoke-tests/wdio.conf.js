@@ -44,7 +44,7 @@ exports.config = {
     profile: [],
     strict: false,
     tagExpression: "",
-    timeout: 60000,
+    timeout: 600000,
     ignoreUndefinedDefinitions: false,
   },
 

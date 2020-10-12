@@ -6,6 +6,10 @@ class EditPageSection {
     return this.parentElement.$("input#page-title");
   }
 
+  get sectionDropdown() {
+    return this.parentElement.$('select#page-section')
+  }
+
   get saveBtn() {
     return this.parentElement.$(".govuk-button=Save");
   }

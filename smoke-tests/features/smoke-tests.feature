@@ -23,3 +23,8 @@ Feature: Smoke tests
     When I choose "Add Link" from the designer menu
     And I link the "Question page" to the "Summary"
     Then a link between them will be displayed
+
+  Scenario: Edit Sections from the form designer menu
+    When I choose "Edit Sections" from the designer menu
+    And I add a new section
+    Then the section should be available when I edit the Question page
