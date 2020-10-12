@@ -16,6 +16,15 @@ class AddComponentPage extends Page {
   get hintField() {
     return this.parent.$("#field-hint");
   }
+
+  get fromAList() {
+    return this.parent.$('input#definitionType');
+  }
+
+  get listOptions() {
+    return this.parent.$('select#field-options-list')
+  }
+
   get saveBtn() {
     return this.parent.$(".govuk-button");
   }

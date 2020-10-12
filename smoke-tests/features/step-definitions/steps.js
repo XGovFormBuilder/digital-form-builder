@@ -3,10 +3,12 @@ const { Given, When, Then } = require("cucumber");
 const addComponentPage = require("../pageobjects/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
 const ConfigPage = require("../pageobjects/config.page");
+const EditListSection = require("../pageobjects/sections/edit-lists.section");
 const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
 const FormDesignerPage = require("../pageobjects/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
+const editListsSection = require("../pageobjects/sections/edit-lists.section");
 
 const pages = {
   start: ConfigPage,
@@ -80,13 +82,32 @@ Then("a link between them will be displayed", () => {
 
 When("I add a new section", () => {
   EditSection.addSection.click();
-  EditSection.pageTitle.setValue('MyTestSection');
+  EditSection.pageTitle.setValue("MyTestSection");
   EditSection.saveBtn.click();
-  expect(EditSection.sectionLinks[0]).toHaveText('MyTestSection')
-  EditSection.closeSection.click()
+  expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
+  EditSection.closeSection.click();
 });
 
 Then("the section should be available when I edit the Question page", () => {
-  FormDesignerPage.editPageForPageName('Question page').click();
-  expect(EditPageSection.sectionDropdown).toHaveTextContaining('MyTestSection')
+  FormDesignerPage.editPageForPageName("Question page").click();
+  expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
+});
+
+When("I add a new list", () => {
+  EditListSection.addList.click();
+  EditListSection.listTitle.setValue("Countries");
+  EditListSection.add.click();
+  EditListSection.fillOutItems("one", "two", "three");
+  EditListSection.closeSection.click();
+});
+
+When("I create a {string} control for the {string}", (componentName, pageName) => {
+  FormDesignerPage.createComponentForPageName(pageName).click();
+  addComponentPage.selectComponentByName(componentName);
+  addComponentPage.fromAList.click();
+});
+
+Then("the list is available in the list options", () => {
+  expect(addComponentPage.listOptions).toHaveText('Countries');
+
 });
