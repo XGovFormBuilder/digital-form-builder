@@ -194,7 +194,6 @@ export default class Visualisation extends React.Component {
 
         {this.state.layout &&
           <Minimap layout={this.state.layout} data={data} />}
-
       </div>
     )
   }
