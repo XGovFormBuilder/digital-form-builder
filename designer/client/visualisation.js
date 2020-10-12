@@ -187,13 +187,13 @@ export default class Visualisation extends React.Component {
         ))}
 
         {this.state.layout &&
-            <Lines layout={this.state.layout} data={data} persona={persona} />}
+          <Lines layout={this.state.layout} data={data} persona={persona} />}
 
         {this.state.layout &&
-            <Info layout={this.state.layout} downloadedAt={downloadedAt} updatedAt={updatedAt} persona={persona?.id} />}
+          <Info layout={this.state.layout} downloadedAt={downloadedAt} updatedAt={updatedAt} persona={persona?.id} />}
 
         {this.state.layout &&
-            <Minimap layout={this.state.layout} data={data} />}
+          <Minimap layout={this.state.layout} data={data} />}
 
       </div>
     )
