@@ -1,4 +1,13 @@
 {
+  "name": "@xgovformbuilder/test",
+  "version": "1.0.0",
+  "description": "Digital forms smoke tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/wdio"
+  },
+  "author": "Carlos Gutierrez",
+  "license": "MIT",
   "devDependencies": {
     "@rpii/wdio-html-reporter": "^6.1.1",
     "@wdio/cli": "^6.6.0",

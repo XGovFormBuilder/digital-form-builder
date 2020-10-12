@@ -1,6 +1,7 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
 const addComponentPage = require("../pageobjects/add-component.page");
+const AddLinkSection = require("../pageobjects/add-link.section")
 const ConfigPage = require("../pageobjects/config.page");
 const EditPageSection = require("../pageobjects/edit-page.section");
 const FormDesignerPage = require("../pageobjects/form-designer.page");
@@ -50,6 +51,9 @@ Then("the changes are reflected in the page designer", () => {
 
 When("I choose {string} from the designer menu", (menuOption) => {
   MenuSection.buttonByName(menuOption).click();
+});
+
+When("I enter the details for my page", () => {
   this.newPageName = "Personal Details";
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
@@ -60,3 +64,17 @@ Then("the page is added in the designer", () => {
   FormDesignerPage.designerMenu.waitForDisplayed();
   expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });
+
+
+When('I link the {string} to the {string}', (fromPage, toPage) => {
+	console.log(fromPage, toPage);
+  AddLinkSection.selectFromByName(fromPage)
+  AddLinkSection.selectToByName(toPage)
+  AddLinkSection.saveBtn.click()
+});
+
+Then("a link between them will be displayed", () => {
+  expect(FormDesignerPage.linkLine).toExist()
+});
+
+

@@ -16,4 +16,10 @@ Feature: Smoke tests
 
   Scenario: Add a page
     When I choose "Add Page" from the designer menu
+    And I enter the details for my page
     Then the page is added in the designer
+
+  Scenario: Link two pages
+    When I choose "Add Link" from the designer menu
+    And I link the "Question page" to the "Summary"
+    Then a link between them will be displayed

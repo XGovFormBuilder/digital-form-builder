@@ -1,6 +1,6 @@
 exports.config = {
   runner: "local",
-  specs: ["./test/features/**/*.feature"],
+  specs: ["./features/**/*.feature"],
   exclude: [],
   maxInstances: 10,
   capabilities: [
@@ -33,7 +33,7 @@ exports.config = {
   framework: "cucumber",
   reporters: ["spec"],
   cucumberOpts: {
-    require: ["./test/features/step-definitions/steps.js"],
+    require: ["./features/step-definitions/steps.js"],
     backtrace: false,
     requireModule: [],
     dryRun: false,

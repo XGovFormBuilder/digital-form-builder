@@ -17,6 +17,10 @@ class FormDesignerPage extends Page {
     return $$(".page");
   }
 
+  get linkLine() {
+    return $('polyline')
+  }
+
   dropdown(name) {
     return this.pageContainer(name).$(".dropdown");
   }
