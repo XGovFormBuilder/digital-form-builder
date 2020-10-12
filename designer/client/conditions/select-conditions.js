@@ -2,7 +2,8 @@ import React from 'react'
 import InlineConditions from './inline-conditions'
 import { ConditionsModel } from '@xgovformbuilder/model'
 import Flyout from '../flyout'
-import { Hint, Select } from '@xgovformbuilder/govuk-react-jsx'
+import { Select } from '@govuk-jsx/select'
+import { Hint } from '@govuk-jsx/hint'
 
 class SelectConditions extends React.Component {
   constructor (props) {

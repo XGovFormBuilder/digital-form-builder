@@ -2,7 +2,7 @@ import path from 'path'
 const joi = require('joi')
 
 export function buildSchema (type, keys) {
-  let schema = type.isJoi ? type : joi[type]()
+  let schema = type.isJoi ? type : joi[type.type ?? type]()
 
   Object.keys(keys).forEach(key => {
     let val = keys[key]

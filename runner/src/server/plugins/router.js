@@ -1,6 +1,4 @@
-import { helpers } from '@xgovformbuilder/engine'
-
-const { redirectTo } = helpers
+import { redirectTo } from '@xgovformbuilder/engine'
 
 const routes = [].concat(
   require('../routes/public')

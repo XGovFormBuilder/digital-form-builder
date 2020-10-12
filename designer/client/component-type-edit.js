@@ -1,8 +1,8 @@
 import React from 'react'
 import Editor from './editor'
+import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
-import { Textarea } from '@xgovformbuilder/govuk-react-jsx'
-import ComponentTypes from '@xgovformbuilder/model/lib/component-types'
+import { Textarea } from '@govuk-jsx/textarea'
 import Name from './name'
 
 function updateComponent (component, modifier, updateModel) {
@@ -56,8 +56,14 @@ class FieldEdit extends React.Component {
   }
 
   render () {
+    // FIXME:- We need to refactor so this is not being driven off mutating the props.
     const { component, updateModel } = this.props
     component.options = component.options || {}
+
+    if (this.isFileUploadField) {
+      component.options.required = false
+    }
+
     return (
       <div>
         <div data-test-id='standard-inputs'>
@@ -126,7 +132,10 @@ class FieldEdit extends React.Component {
                 name='options.required'
                 checked={this.isFileUploadField || component.options.required === false}
                 onChange={(e) => {
-                  updateComponent(component, component => { component.options.required = component.options.required === false ? undefined : false }, updateModel)
+                  updateComponent(component, component => {
+                    if (this.isFileUploadField) { return }
+                    component.options.required = component.options.required === false ? undefined : false
+                  }, updateModel)
                   this.checkOptionalBox(e)
                 }}
               />

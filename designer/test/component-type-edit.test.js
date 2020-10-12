@@ -129,8 +129,14 @@ suite('Component type edit', () => {
         const wrapper = mount(<ComponentTypeEdit data={data} component={component} updateModel={updateModel}/>)
         const field = wrapper.find(`#${testCase.fieldId}`)
         expect(field.exists()).to.equal(true)
-        field.prop(testCase.event)({ target: { value: testCase.value } })
+        if (field.length > 1) {
+          field.first().prop(testCase.event)({ target: { value: testCase.value } })
+        } else {
+          field.prop(testCase.event)({ target: { value: testCase.value } })
+        }
+
         expect(updateModel.firstCall.args[0], JSON.stringify(testCase)).to.equal(testCase.expectedModel)
+
         expect(updateModel.callCount).to.equal(1)
       })
     })
@@ -145,7 +151,7 @@ suite('Component type edit', () => {
       const component = { type: componentType }
       const wrapper = shallow(<ComponentTypeEdit data={data} component={component} updateModel={updateModel} page={page}/>).dive()
 
-      const field = wrapper.find('ComponentValues')
+      const field = wrapper.find('ComponentValues').first()
       expect(field.exists()).to.equal(true)
       expect(Object.keys(field.props()).length).to.equal(5)
       expect(field.prop('component')).to.equal(component)
