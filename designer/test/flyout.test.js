@@ -5,6 +5,7 @@ import * as Lab from '@hapi/lab'
 import { useFlyoutEffect } from '../client/flyout'
 import { FlyoutContext } from '../client/context'
 import sinon from 'sinon'
+
 const { expect } = Code
 const lab = Lab.script()
 exports.lab = lab

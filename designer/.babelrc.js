@@ -17,7 +17,7 @@ module.exports = {
     "@babel/plugin-transform-runtime",
     ["module-resolver", {
       "alias": {
-        '@govuk-jsx': path.join( path.dirname(require.resolve('@xgovformbuilder/govuk-react-jsx')), '/govuk/components')
+        '@govuk-jsx': path.join( path.dirname(require.resolve('@xgovformbuilder/govuk-react-jsx')), '/components')
       }
     }]
   ],

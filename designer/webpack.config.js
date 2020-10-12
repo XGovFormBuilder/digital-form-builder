@@ -17,11 +17,6 @@ const client = {
     path: path.resolve(__dirname, 'dist', 'client'),
     filename: 'assets/[name].js'
   },
-  resolve: {
-    alias: {
-      '@govuk-jsx': require.resolve('@xgovformbuilder/govuk-react-jsx', { paths: ['module/govuk/components/'] })
-    }
-  },
   devtool: 'source-map',
   module: {
     rules: [

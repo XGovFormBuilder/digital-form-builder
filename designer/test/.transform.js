@@ -39,7 +39,9 @@ internals.transform = function (content, filename) {
       presets: [
         "@babel/preset-flow",
         ["@babel/preset-env", {
-          "targets": "> 0.25%, not dead"
+          "targets": {
+            node: 12
+          }
         }]
       ],
       filename: filename,
