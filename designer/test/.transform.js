@@ -1,5 +1,6 @@
 const Babel = require('@babel/core')
 let internals = {}
+const path = require('path')
 
 internals.transform = function (content, filename) {
   const regexp = new RegExp('node_modules')
@@ -7,43 +8,27 @@ internals.transform = function (content, filename) {
   const isGovUKFrontend = filename.indexOf('govuk-frontend') > -1
   const isGovUKReactJsx = filename.indexOf('govuk-react-jsx') > -1
 
-  if (isGovUKReactJsx) {
+  const stubber = (name) => {
     return `
       "use strict";
       Object.defineProperty(exports, "__esModule", {
         value: true
       });
-      Object.defineProperty(exports, 'Textarea', {
+      Object.defineProperty(exports, '${name}', {
         enumerable: true,
         get: function get() {
-          return function Textarea() { return 'textarea' }
-        }
-      });
-      Object.defineProperty(exports, 'Radios', {
-        enumerable: true,
-        get: function get() {
-          return function Radios() { return 'radios' }
-        }
-      });
-      Object.defineProperty(exports, 'Input', {
-        enumerable: true,
-        get: function get() {
-          return function Input() { return 'input' }
-        }
-      });
-      Object.defineProperty(exports, 'Hint', {
-        enumerable: true,
-        get: function get() {
-          return function Hint() { return 'hint' }
-        }
-      });
-      Object.defineProperty(exports, 'Select', {
-        enumerable: true,
-        get: function get() {
-          return function Select() { return 'select' }
+          return function ${name}() { return '${name}' }
         }
       });
     `
+  }
+
+  if (isGovUKReactJsx) {
+    if (filename.includes('radios')) {
+      return stubber('Radios')
+    } else if(filename.includes('select')) {
+      return stubber('Select')
+    }
   }
 
   if (isNodeModule) {
@@ -51,12 +36,12 @@ internals.transform = function (content, filename) {
   }
 
   let transformed = Babel.transform(content, {
-      presets: [    
+      presets: [
         "@babel/preset-flow",
         ["@babel/preset-env", {
           "targets": {
-            "node": "12"
-          },
+            node: 12
+          }
         }]
       ],
       filename: filename,
@@ -70,11 +55,17 @@ internals.transform = function (content, filename) {
         "@babel/plugin-proposal-private-property-in-object",
         "@babel/plugin-proposal-private-methods",
         "@babel/plugin-transform-runtime",
+        "@babel/plugin-syntax-dynamic-import",
+        ["module-resolver", {
+          "alias": {
+            '@govuk-jsx': path.join( path.dirname(require.resolve('@xgovformbuilder/govuk-react-jsx')), '/components')
+          }
+        }]
       ],
       "exclude": ["node_modules/**"],
       ignore: ['../node_modules', 'node_modules']
     })
-  
+
   return transformed.code
 }
 

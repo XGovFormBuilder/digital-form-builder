@@ -2,7 +2,7 @@ import React from 'react'
 import Editor from './editor'
 import { ComponentTypes } from '@xgovformbuilder/model'
 import ComponentValues from './components/component-values'
-import { Textarea } from '@xgovformbuilder/govuk-react-jsx'
+import { Textarea } from '@govuk-jsx/textarea'
 import Name from './name'
 
 function updateComponent (component, modifier, updateModel) {
