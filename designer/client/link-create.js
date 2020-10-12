@@ -11,9 +11,22 @@ class LinkCreate extends React.Component {
     const { data } = this.props
     const copy = data.clone()
     const updatedData = copy.addLink(from, to, selectedCondition)
-
+    console.log(from, to, selectedCondition)
     const savedData = await data.save(updatedData)
     this.props.onCreate({ data: savedData })
+  }
+
+  conditionSelected = (selectedCondition) => {
+    this.setState({
+      selectedCondition: selectedCondition
+    })
+  }
+
+  storeValue = (e, key) => {
+    const input = e.target
+    const stateUpdate = {}
+    stateUpdate[key] = input.value
+    this.setState(stateUpdate)
   }
 
   render () {
@@ -44,19 +57,6 @@ class LinkCreate extends React.Component {
         <button className='govuk-button' type='submit'>Save</button>
       </form>
     )
-  }
-
-  conditionSelected = (selectedCondition) => {
-    this.setState({
-      selectedCondition: selectedCondition
-    })
-  }
-
-  storeValue = (e, key) => {
-    const input = e.target
-    const stateUpdate = {}
-    stateUpdate[key] = input.value
-    this.setState(stateUpdate)
   }
 }
 

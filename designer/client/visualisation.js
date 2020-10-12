@@ -163,28 +163,38 @@ export default class Visualisation extends React.Component {
     const { data, id, updatedAt, downloadedAt, previewUrl, persona } = this.props
     const { pages } = data
 
+    const wrapperStyle = this.state.layout && {
+      width: this.state.layout.width,
+      height: this.state.layout.height
+    }
+
     return (
       <div
-        ref={this.ref} className='visualisation' style={this.state.layout &&
-      { width: this.state.layout.width, height: this.state.layout.height }}
+        ref={this.ref}
+        className='visualisation'
+        style={wrapperStyle}
       >
-
-        {pages.map((page, index) =>
-          (<Page
-            key={index} data={data} page={page} id={id} previewUrl={previewUrl} persona={persona}
+        {pages.map((page, index) => (
+          <Page
+            id={id}
+            key={index}
+            data={data}
+            page={page}
+            persona={persona}
+            previewUrl={previewUrl}
             layout={this.state.layout && this.state.layout.nodes[index]}
           />
-          )
-        )}
+        ))}
 
         {this.state.layout &&
-          <Lines layout={this.state.layout} data={data} persona={persona} />}
+            <Lines layout={this.state.layout} data={data} persona={persona} />}
 
         {this.state.layout &&
-          <Info layout={this.state.layout} downloadedAt={downloadedAt} updatedAt={updatedAt} persona={persona?.id} />}
+            <Info layout={this.state.layout} downloadedAt={downloadedAt} updatedAt={updatedAt} persona={persona?.id} />}
 
         {this.state.layout &&
-          <Minimap layout={this.state.layout} data={data} />}
+            <Minimap layout={this.state.layout} data={data} />}
+
       </div>
     )
   }
