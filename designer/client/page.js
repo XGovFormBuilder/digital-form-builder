@@ -65,17 +65,8 @@ export class Page extends React.Component {
     }))
   }
 
-  toggleIsPageSelected = (value = undefined) => {
-    if (value === undefined) {
-      this.setState((state) => ({ isPageSelected: !state.isPageSelected }))
-    } else {
-      this.setState({ isPageSelected: value })
-    }
-  }
-
   render () {
     const { page, data, id, previewUrl, persona, i18n } = this.props
-    const { isPageSelected } = this.state
     const { sections } = data
     const formComponents = page?.components?.filter(comp =>
       ComponentTypes.find(type => type.name === comp.type).subType === 'field'
@@ -95,8 +86,7 @@ export class Page extends React.Component {
     const highlight = persona?.paths?.includes(page.path)
     const pageClassName = [
       `page${conditional ? ' conditional' : ''}`,
-      `${highlight ? 'highlight' : ''}`,
-      `${isPageSelected ? 'page--selected' : ''}`
+      `${highlight ? 'highlight' : ''}`
     ].join(' ')
 
     return (
