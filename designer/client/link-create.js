@@ -11,7 +11,6 @@ class LinkCreate extends React.Component {
     const { data } = this.props
     const copy = data.clone()
     const updatedData = copy.addLink(from, to, selectedCondition)
-    console.log(from, to, selectedCondition)
     const savedData = await data.save(updatedData)
     this.props.onCreate({ data: savedData })
   }
