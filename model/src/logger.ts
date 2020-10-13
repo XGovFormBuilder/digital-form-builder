@@ -1,4 +1,3 @@
-// @flow
 export class Logger {
     server: any;
     name: string;

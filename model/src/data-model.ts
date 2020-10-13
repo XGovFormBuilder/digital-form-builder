@@ -1,12 +1,10 @@
-// @flow
-
 import { StaticValues, valuesFrom, yesNoValues } from './values'
 import type { ComponentValues } from './values'
 import type { DataModel } from './data-model-interface'
 import { clone } from './helpers'
 import { ConditionsModel } from './conditions'
 
-function filter (obj: any, predicate: function): any {
+function filter (obj, predicate) {
   const result = {}
   let key
   for (key in obj) {
@@ -18,13 +16,13 @@ function filter (obj: any, predicate: function): any {
 }
 
 class Input {
-  name: string;
-  title: string;
-  propertyPath: string;
-  page: any;
+  name: string | undefined;
+  title: string | undefined;
+  propertyPath: string | undefined;
+  page;
   #parentItemName: string;
 
-  constructor (rawData: any, page: any, options: any = {}) {
+  constructor (rawData, page, options) {
     Object.assign(this, rawData)
     const myPage = clone(page)
     delete myPage.components
@@ -33,23 +31,23 @@ class Input {
     this.#parentItemName = options.parentItemName
   }
 
-  get displayName (): string {
+  get displayName (): string | undefined {
     const titleWithContext = this.#parentItemName ? `${this.title} under ${this.#parentItemName}` : this.title
     return this.page.section ? `${titleWithContext} in ${this.page.section}` : titleWithContext
   }
 }
 
 export class Condition {
-  name: string;
+  name: string | undefined;
   displayName: string;
-  value: any;
+  value;
 
-  constructor (rawData: any) {
+  constructor (rawData) {
     Object.assign(this, rawData)
     this.displayName = rawData.displayName || rawData.name
   }
 
-  get expression (): any {
+  get expression () {
     if (typeof this.value === 'string') {
       return this.value
     } else {
@@ -81,33 +79,34 @@ export class Data implements DataModel {
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
    */
-  static FEEDBACK_CONTEXT_ITEMS: any[] = [
-    { key: 'feedbackContextInfo_formTitle', display: 'Feedback source form name', get: (contextInfo: any) => contextInfo.formTitle },
-    { key: 'feedbackContextInfo_pageTitle', display: 'Feedback source page title', get: (contextInfo: any) => contextInfo.pageTitle },
-    { key: 'feedbackContextInfo_url', display: 'Feedback source url', get: (contextInfo: any) => contextInfo.url }
+  static FEEDBACK_CONTEXT_ITEMS = [
+    { key: 'feedbackContextInfo_formTitle', display: 'Feedback source form name', get: (contextInfo) => contextInfo.formTitle },
+    { key: 'feedbackContextInfo_pageTitle', display: 'Feedback source page title', get: (contextInfo) => contextInfo.pageTitle },
+    { key: 'feedbackContextInfo_url', display: 'Feedback source url', get: (contextInfo) => contextInfo.url }
   ]
 
-  startPage: string;
+  startPage: string | undefined;
   pages: Array<any>;
   lists: Array<any>;
   sections: Array<any>;
   #conditions: Array<any>;
-  #name: string;
-  #feedback: any;
+  #name: string = '';
+  #feedback;
 
-  constructor (rawData: any) {
+  constructor (rawData) {
     const rawDataClone = rawData instanceof Data ? rawData._exposePrivateFields() : Object.assign({}, rawData)
     this.#conditions = (rawDataClone.conditions || []).map(it => new Condition(it))
     this.#feedback = rawDataClone.feedback
     delete rawDataClone.conditions
     delete rawDataClone.feedback
     Object.assign(this, rawDataClone)
-    this.pages = this.pages || []
-    this.lists = this.lists || []
-    this.sections = this.sections || []
+    
+    this.pages = []
+    this.lists = []
+    this.sections = []
   }
 
-  _listInputsFor (page: any, input: any): Array<Input> {
+  _listInputsFor (page, input): Array<Input> {
     const values = this.valuesFor(input)?.toStaticValues()
     return values ? values.items.flatMap(listItem => listItem.children
       ?.filter(it => it.name)
@@ -118,7 +117,7 @@ export class Data implements DataModel {
     const inputs: Array<Input> = this.pages
       .flatMap(page => (page.components || [])
         .filter(component => component.name)
-        .flatMap(it => [new Input(it, page)].concat(this._listInputsFor(page, it)))
+        .flatMap(it => [new Input(it, page, {})].concat(this._listInputsFor(page, it)))
       )
     if (this.feedbackForm) {
       const startPage = this.findPage(this.startPage)
@@ -140,26 +139,25 @@ export class Data implements DataModel {
     return this.allInputs().filter(it => precedingPages.includes(it.page.path) || path === it.page.path)
   }
 
-  findPage (path: string): any {
-    return this.getPages().find(p => p.path === path)
+  findPage (path: string | undefined) {
+    return this.getPages().find(p => p?.path === path)
   }
 
-  findList (listName: string): any {
+  findList (listName: string) {
     return this.lists.find(list => list.name === listName)
   }
 
-  addLink (from: string, to: string, condition: ?string): Data {
+  addLink (from: string, to: string, condition: string): Data {
     const fromPage = this.pages.find(p => p.path === from)
     const toPage = this.pages.find(p => p.path === to)
     if (fromPage && toPage) {
-      const existingLink = fromPage.next?.find(it => it.path === to)
+      const existingLink = fromPage.next?.find((it: { path: string }) => it.path === to)
+      
       if (!existingLink) {
-        const link = {}
-        link.path = to
-        if (condition) {
-          link.condition = condition
+        const link = {
+          path: to,
+          condition
         }
-
         fromPage.next = fromPage.next || []
         fromPage.next.push(link)
       }
@@ -190,7 +188,7 @@ export class Data implements DataModel {
     return this
   }
 
-  updateLinksTo: ((oldPath: string, newPath: string) => Data) = function (oldPath: string, newPath: string): Data {
+  updateLinksTo = (oldPath: string, newPath: string) => {
     this.pages.filter(p => p.next && p.next.find(link => link.path === oldPath))
       .forEach(page => {
         page.next.find(link => link.path === oldPath).path = newPath
@@ -198,7 +196,7 @@ export class Data implements DataModel {
     return this
   }
 
-  addPage (page: any): Data {
+  addPage (page): Data {
     this.pages.push(page)
     return this
   }
@@ -207,20 +205,25 @@ export class Data implements DataModel {
     return this.pages
   }
 
-  valuesFor (input: any): ?ValuesWrapper {
+  valuesFor (input): ValuesWrapper | undefined {
     const values = this._valuesFor(input)
+    
     if (values) {
       return new ValuesWrapper(values, this)
     }
+
+    return undefined
   }
 
-  _valuesFor (input: any): ?ComponentValues {
+  _valuesFor (input): ComponentValues | undefined {
     if (input.type === 'YesNoField') {
       return yesNoValues
     }
     if (input.values) {
       return valuesFrom(input.values)
     }
+
+    return undefined
   }
 
   _allPathsLeadingTo (path: string): Array<string> {
@@ -228,7 +231,7 @@ export class Data implements DataModel {
       .flatMap(page => [page.path].concat(this._allPathsLeadingTo(page.path)))
   }
 
-  addCondition (name: string, displayName: string, value: any): Data {
+  addCondition (name: string, displayName: string, value): Data {
     this.#conditions = this.#conditions
     if (this.#conditions.find(it => it.name === name)) {
       throw Error(`A condition already exists with name ${name}`)
@@ -237,7 +240,7 @@ export class Data implements DataModel {
     return this
   }
 
-  addComponent (pagePath: string, component: any): Data {
+  addComponent (pagePath: string, component): Data {
     const page = this.findPage(pagePath)
     if (page) {
       page.components = page.components || []
@@ -248,7 +251,7 @@ export class Data implements DataModel {
     return this
   }
 
-  updateComponent (pagePath: string, componentName: string, component: any): Data {
+  updateComponent (pagePath: string, componentName: string, component): Data {
     const page = this.findPage(pagePath)
     if (page) {
       page.components = page.components || []
@@ -263,7 +266,7 @@ export class Data implements DataModel {
     return this
   }
 
-  updateCondition (name: string, displayName: string, value: any): Data {
+  updateCondition (name: string, displayName: string, value): Data {
     const condition = this.#conditions.find(condition => condition.name === name)
     if (condition) {
       condition.displayName = displayName
@@ -288,7 +291,7 @@ export class Data implements DataModel {
     return this
   }
 
-  findCondition (name: string): ?Condition {
+  findCondition (name: string): Condition | undefined {
     return this.conditions.find(condition => condition.name === name)
   }
 
@@ -345,16 +348,16 @@ export class Data implements DataModel {
     return new Data(this._exposePrivateFields())
   }
 
-  toJSON (): any {
+  toJSON () {
     const withoutFunctions = filter(this._exposePrivateFields(), field => typeof field !== 'function')
     return Object.assign({}, withoutFunctions)
   }
 
-  _exposePrivateFields (): any {
-    const toSerialize = Object.assign({}, this)
-    toSerialize.conditions = this.conditions.map(it => clone(it))
-    toSerialize.name = this.name
-    toSerialize.feedback = this.#feedback
-    return toSerialize
+  _exposePrivateFields () {
+    return Object.assign({}, this, {
+      conditions: this.conditions.map(it => clone(it)),
+      name: this.name,
+      feedback: this.#feedback
+    })
   }
 }

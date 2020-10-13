@@ -1,5 +1,3 @@
-// @flow
-
 import { Logger } from '../logger'
 import ListItemReferencesToValueObjects from './list-item-references-to-value-objects'
 
@@ -12,7 +10,7 @@ export class SchemaMigrationService {
     logger: Logger
     migrations: Array<Migration>
 
-    constructor (server: any, options: any) {
+    constructor (server: any, _options: any) {
       this.logger = new Logger(server, 'SchemaMigrationService')
       this.migrations = [new ListItemReferencesToValueObjects(server)]
     }

@@ -1,5 +1,3 @@
-// @flow
-
 import type { DataModel } from '../data-model-interface'
 
 type ValuesType = 'static' | 'listRef';
@@ -18,7 +16,7 @@ class Index implements ComponentValues {
     this.type = type
   }
 
-  toStaticValues (data: DataModel): StaticValues { // eslint-disable-line
+  toStaticValues (_data: DataModel): StaticValues {
     throw Error('Unimplemented')
   }
 }
@@ -26,11 +24,11 @@ class Index implements ComponentValues {
 class StaticValue {
   label: string;
   value: ConcreteValueTypes;
-  hint: ?string;
-  condition: ?string;
+  hint?: string;
+  condition?: string;
   children: Array<any>; // should be Array<Component> whenever someone introduces the appropriate class
 
-  constructor (label: string, value: ConcreteValueTypes, hint: ?string, condition: ?string, children: Array<*> = []) {
+  constructor (label: string, value: ConcreteValueTypes, hint?: string, condition?: string, children: Array<any> = []) {
     this.label = label
     this.value = value
     this.hint = hint
@@ -53,7 +51,7 @@ export class StaticValues extends Index {
     this.items = items
   }
 
-  toStaticValues (data: DataModel): StaticValues {
+  toStaticValues (_data: DataModel): StaticValues {
     return this
   }
 
