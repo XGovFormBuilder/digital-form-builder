@@ -1,4 +1,3 @@
-// @flow
 import type { PersistenceService } from './persistenceService'
 const Wreck = require('@hapi/wreck')
 const config = require('../../../config')
@@ -11,6 +10,7 @@ const config = require('../../../config')
  */
 export class PreviewPersistenceService implements PersistenceService {
   logger: any;
+  
   async uploadConfiguration (id: string, configuration: string) {
     return Wreck.post(`${config.previewUrl}/publish`, {
       payload: JSON.stringify({ id, configuration })

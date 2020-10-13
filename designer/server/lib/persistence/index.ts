@@ -1,4 +1,3 @@
-// @flow
 import { S3PersistenceService } from './s3PersistenceService'
 import { BlobPersistenceService } from './blobPersistenceService'
 import { StubPersistenceService } from './persistenceService'

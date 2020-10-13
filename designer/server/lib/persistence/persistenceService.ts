@@ -1,4 +1,3 @@
-// @flow
 import { FormConfiguration } from '@xgovformbuilder/model'
 
 export interface PersistenceService {
@@ -11,7 +10,7 @@ export interface PersistenceService {
 
 export class StubPersistenceService implements PersistenceService {
   logger: any
-  uploadConfiguration (id: string, configuration: any) {
+  uploadConfiguration (_id: string, _configuration: any) {
     return Promise.resolve(undefined)
   }
 
@@ -19,10 +18,10 @@ export class StubPersistenceService implements PersistenceService {
     return Promise.resolve([])
   }
 
-  getConfiguration (id: string) {
+  getConfiguration (_id: string) {
     return Promise.resolve('')
   }
-  copyConfiguration (configurationId: string, newName: string) {
+  copyConfiguration (_configurationId: string, _newName: string) {
     return Promise.resolve('')
   }
 }
