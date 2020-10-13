@@ -40,6 +40,7 @@
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-flow": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.10.5",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
@@ -64,6 +65,7 @@
     "node-sass": "^4.14.1",
     "resolve": "^1.17.0",
     "rollup": "^2.25.0",
+    "typescript": "^4.0.3",
     "wdio-chromedriver-service": "^6.0.4"
   },
   "dependencies": {
