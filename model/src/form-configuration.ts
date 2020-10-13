@@ -1,8 +1,8 @@
 export class FormConfiguration {
   Key: string;
   DisplayName: string;
-  LastModified?: string;
-  feedbackForm?: boolean;
+  LastModified: string | undefined;
+  feedbackForm: boolean | undefined;
 
   constructor (Key: string, DisplayName?: string, LastModified?: string, feedbackForm?: boolean) {
     if (!Key) {

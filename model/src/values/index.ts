@@ -24,8 +24,8 @@ class Index implements ComponentValues {
 class StaticValue {
   label: string;
   value: ConcreteValueTypes;
-  hint?: string;
-  condition?: string;
+  hint: string | undefined;
+  condition: string | undefined;
   children: Array<any>; // should be Array<Component> whenever someone introduces the appropriate class
 
   constructor (label: string, value: ConcreteValueTypes, hint?: string, condition?: string, children: Array<any> = []) {
