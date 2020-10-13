@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES2015",
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "jsx": "react",
+    
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": false,  // once all ts this should be true
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true, 
+    "noImplicitThis": true,
+    "alwaysStrict": true, 
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,      
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",      
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Libs */
+    "lib": [
+      "es2019"
+    ]
+  }
+}

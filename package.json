@@ -26,7 +26,9 @@
     "engine": "yarn workspace @xgovformbuilder/engine",
     "model": "yarn workspace @xgovformbuilder/model",
     "test-cov": "yarn workspaces foreach run test-cov",
-    "runner:start": "yarn workspace @xgovformbuilder/runner start"
+    "runner:start": "yarn workspace @xgovformbuilder/runner start",
+    "type-check": "yarn workspaces foreach run tsc --noEmit",
+    "type-check:watch": "yarn workspaces foreach run type-check --watch"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

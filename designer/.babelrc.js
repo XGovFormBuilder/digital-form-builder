@@ -7,8 +7,8 @@ module.exports = {
           "node": "12"
         }
       }],
-    "@babel/preset-flow",
-    "@babel/preset-react"
+    "@babel/preset-react",
+    "@babel/typescript"
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",

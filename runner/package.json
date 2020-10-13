@@ -18,7 +18,9 @@
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
     "babel-build": "babel src -d dist --copy-files --minified -s inline",
-    "watch": "bash -c 'yarn run babel src -d dist --copy-files --watch -s inline'"
+    "watch": "bash -c 'yarn run babel src -d dist --copy-files --watch -s inline'",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch"
   },
   "repository": {
     "type": "git",

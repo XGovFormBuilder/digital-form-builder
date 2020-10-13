@@ -10,6 +10,7 @@ const prodMode = process.env.NODE_ENV === 'production'
 const environment = prodMode ? 'production' : 'development'
 
 const client = {
+  target: 'web',
   mode: environment,
   watch: devMode,
   entry: path.resolve(__dirname, 'client', 'index.js'),
