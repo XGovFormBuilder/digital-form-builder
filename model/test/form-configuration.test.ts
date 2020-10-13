@@ -1,7 +1,7 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
 
-import { FormConfiguration } from '..'
+import { FormConfiguration } from '../.dist'
 
 const { expect } = Code
 const lab = Lab.script()

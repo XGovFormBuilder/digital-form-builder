@@ -10,7 +10,7 @@ import {
   dateUnits,
   RelativeTimeValue,
   ConditionValue
-} from '..'
+} from '../src'
 import { ConditionRef } from '../src/conditions/inline-condition-model'
 
 const { expect } = Code

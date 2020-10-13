@@ -4,6 +4,7 @@ import * as Lab from '@hapi/lab'
 import { Data } from '../src'
 
 const { expect } = Code
+
 const lab = Lab.script()
 exports.lab = lab
 const { suite, describe, test } = lab

@@ -17,6 +17,7 @@ suite('ListItemReferencesToValueObjects', () => {
     error: sinon.spy()
   }
   const underTest = new ListItemReferencesToValueObjects({})
+  // @ts-ignore
   underTest.logger = logger
 
   afterEach(() => {

@@ -4,7 +4,7 @@ import * as Lab from '@hapi/lab'
 import {
   ConditionValue,
   valueFrom
-} from '..'
+} from '../.dist'
 
 const { expect } = Code
 const lab = Lab.script()
