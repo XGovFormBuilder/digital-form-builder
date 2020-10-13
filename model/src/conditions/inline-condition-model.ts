@@ -67,7 +67,7 @@ export class ConditionsModel {
   }
 
   remove (indexes) {
-    this.#userGroupedConditions = this.#userGroupedConditions.filter((condition, index) => !indexes.includes(index))
+    this.#userGroupedConditions = this.#userGroupedConditions.filter((_condition, index) => !indexes.includes(index))
       .map((condition, index) => index === 0 ? condition.asFirstCondition() : condition)
 
     this.#groupedConditions = this._applyGroups(this.#userGroupedConditions)
@@ -168,7 +168,7 @@ export class ConditionsModel {
   }
 
   _autoGroupDefs (conditions) {
-    const orPositions = []
+    const orPositions: number[] = []
     conditions.forEach((condition, index) => {
       if (condition.getCoordinator() === coordinators.OR) {
         orPositions.push(index)
@@ -178,7 +178,7 @@ export class ConditionsModel {
     const hasOr = orPositions.length > 0
     if (hasAnd && hasOr) {
       let start = 0
-      const groupDefs = []
+      const groupDefs: GroupDef[] = []
       orPositions.forEach((position, index) => {
         if (start < position - 1) {
           groupDefs.push(new GroupDef(start, position - 1))

@@ -1,6 +1,8 @@
 const conditionValueFactories = {}
 
 class Registration {
+  type;
+
   constructor (type, factory) {
     conditionValueFactories[type] = factory
     this.type = type
@@ -8,6 +10,8 @@ class Registration {
 }
 
 export class AbstractConditionValue {
+  type;
+
   constructor (registration) {
     if (new.target === AbstractConditionValue) {
       throw new TypeError('Cannot construct ConditionValue instances directly')
@@ -24,6 +28,9 @@ export class AbstractConditionValue {
 
 const valueType = registerValueType('Value', obj => ConditionValue.from(obj))
 export class ConditionValue extends AbstractConditionValue {
+  value;
+  display;
+
   constructor (value, display) {
     super(valueType)
     if (!value || typeof value !== 'string') {
@@ -72,6 +79,11 @@ export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits)
 
 export const relativeTimeValueType = registerValueType('RelativeTime', obj => RelativeTimeValue.from(obj))
 export class RelativeTimeValue extends AbstractConditionValue {
+  timePeriod;
+  timeUnit;
+  direction;
+  timeOnly;
+  
   constructor (timePeriod, timeUnit, direction, timeOnly = false) {
     super(relativeTimeValueType)
     if (typeof timePeriod !== 'string') {
