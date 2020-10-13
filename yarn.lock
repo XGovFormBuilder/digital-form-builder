@@ -2647,10 +2647,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^14.11.8":
+  version: 14.11.8
+  resolution: "@types/node@npm:14.11.8"
+  checksum: 5139c07ba76d791b4930fa02ec746656dacf78b43c431d56a7514a8285962d0511bf356bee870968a541033c14967b58f7b2a58c48ac81646ce4eb28d2ff433d
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: 4a8f720afac47b474d3f2eece312340e72bc31bc9561cda37b596ce2ed218c0099765d302625bb67d659a8452a1f93d514f4863c11c7ebaf65430428687dc426
+  languageName: node
+  linkType: hard
+
+"@types/prop-types@npm:*":
+  version: 15.7.3
+  resolution: "@types/prop-types@npm:15.7.3"
+  checksum: bd0eab69d5120ad3784d0c9985f902653d5924707a7f2b3702a330e762dfd61b6494954cb54ad0c52b918ffd6f1e7e27c9270e4442bc15250de348596f2f60cb
   languageName: node
   linkType: hard
 
@@ -2660,6 +2674,25 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 319594c312e25a0ff10be60259a02f7b35385dfb9a79ba580c324e6bc1febb570ce05c4caa353aa759e6cdcfde4e037758db9be9cb4ef3a9e41e33a408742e4e
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^16.9.8":
+  version: 16.9.8
+  resolution: "@types/react-dom@npm:16.9.8"
+  dependencies:
+    "@types/react": "*"
+  checksum: 53a223c0266178bca9161301d18ee6199e8f75f88caed5c4601c5aaedaf4c68f03bd72f6aafa979254beb20759f0b68a542ce04295d704eb67ae179769c50813
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*, @types/react@npm:^16.9.52":
+  version: 16.9.52
+  resolution: "@types/react@npm:16.9.52"
+  dependencies:
+    "@types/prop-types": "*"
+    csstype: ^3.0.2
+  checksum: 5e352e28b7a5ee6104a1ddddb7585ce50f88c5fca78f2edb73cc6df897ab3efa4404111052b643782d130755b8657494f3f5324b1eba4644b4a36fea34fec6fb
   languageName: node
   linkType: hard
 
@@ -3024,6 +3057,9 @@ __metadata:
     "@hapi/lab": ^24.0.0
     "@hapi/wreck": 17.0.0
     "@rollup/plugin-commonjs": 13.0.0
+    "@types/node": ^14.11.8
+    "@types/react": ^16.9.52
+    "@types/react-dom": ^16.9.8
     "@workspace-builder/rollup": ^1.0.0
     "@xgovformbuilder/govuk-react-jsx": ^4.0.10
     "@xgovformbuilder/lab-babel": 2.1.2
@@ -6290,6 +6326,13 @@ __metadata:
   dependencies:
     cssom: ~0.3.6
   checksum: a778180d2f5eef44742b7083997a0ad6e59eee016724ceac4d6229e48842d3c5ebbb55dc02c555f793bdc486254f6eef8d2049c1815e8fc74514e3eb827d49ec
+  languageName: node
+  linkType: hard
+
+"csstype@npm:^3.0.2":
+  version: 3.0.3
+  resolution: "csstype@npm:3.0.3"
+  checksum: ec722366b468229bcc6c7fa3f07eb795efddfc4fdcfeb81728046f8bd20e21584735e89973ec18e8b0d4d3c8dddb288872440ee034836c159d664798da4cf832
   languageName: node
   linkType: hard
 
