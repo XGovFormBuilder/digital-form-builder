@@ -6,7 +6,8 @@
       "targets": {
         "node": "12"
       }
-    }]
+    }],
+    "@babel/typescript"
   ],
   "exclude": ["node_modules/**"],
   "plugins": [

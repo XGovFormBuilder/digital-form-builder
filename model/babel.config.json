@@ -2,12 +2,15 @@
   "env": {
     "development": {
       "presets": [
-           "@babel/preset-flow",
-    ["@babel/preset-env", {
-          "targets": {
-            "node": "12"
+        "@babel/preset-flow",
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": "12"
+            }
           }
-        }]
+        ]
       ],
       "plugins": [
         "@babel/plugin-proposal-export-default-from",
@@ -18,13 +21,16 @@
     },
     "browser": {
       "presets": [
-            "@babel/preset-flow",
-   [ "@babel/preset-env", {
-          "targets": {
-            "browsers": "last 2 versions, ie 10-11"
-          },
-          "modules": false
-        }]
+        "@babel/preset-flow",
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "browsers": "last 2 versions, ie 10-11"
+            },
+            "modules": false
+          }
+        ]
       ],
       "plugins": [
         "@babel/plugin-proposal-export-default-from",
@@ -34,14 +40,17 @@
       ]
     },
     "module": {
-      "presets":
-        [    "@babel/preset-flow",
-    ["@babel/preset-env", {
-          "targets": {
-            "node": "12"
-          },
-          "modules": false
-        }]
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": "12"
+            },
+            "modules": false
+          }
+        ],
+        "@babel/typescript"
       ],
       "plugins": [
         "@babel/plugin-proposal-export-default-from",
@@ -49,7 +58,8 @@
         "@babel/plugin-proposal-private-methods",
         "@babel/plugin-transform-runtime"
       ]
-    }
+    },
+    "typescript": {}
   },
   "sourceMaps": true
 }
