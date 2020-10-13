@@ -1,6 +1,6 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
-const addComponentPage = require("../pageobjects/add-component.page");
+const AddComponentPage = require("../pageobjects/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
 const ConfigPage = require("../pageobjects/config.page");
 const EditListSection = require("../pageobjects/sections/edit-lists.section");
@@ -8,7 +8,6 @@ const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
 const FormDesignerPage = require("../pageobjects/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
-const editListsSection = require("../pageobjects/sections/edit-lists.section");
 
 const pages = {
   start: ConfigPage,
@@ -24,8 +23,8 @@ Given("I have created a new form configuration", () => {
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
-  addComponentPage.selectComponentByName(componentName);
-  addComponentPage.completeDateField(
+  AddComponentPage.selectComponentByName(componentName);
+  AddComponentPage.completeDateField(
     "Date of Birth",
     "dateOfBirth",
     "Please enter your date of birth using the format dd/mm/yyyy"
@@ -103,11 +102,10 @@ When("I add a new list", () => {
 
 When("I create a {string} control for the {string}", (componentName, pageName) => {
   FormDesignerPage.createComponentForPageName(pageName).click();
-  addComponentPage.selectComponentByName(componentName);
-  addComponentPage.fromAList.click();
+  AddComponentPage.selectComponentByName(componentName);
+  AddComponentPage.fromAList.click();
 });
 
 Then("the list is available in the list options", () => {
-  expect(addComponentPage.listOptions).toHaveText('Countries');
-
+  expect(AddComponentPage.listOptions).toHaveText('Countries');
 });

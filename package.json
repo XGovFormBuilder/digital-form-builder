@@ -10,7 +10,8 @@
     "model",
     "engine",
     "runner",
-    "designer"
+    "designer",
+    "smoke-tests"
   ],
   "scripts": {
     "setup": "yarn && yarn build && yarn flow-mono create-symlinks && yarn flow-mono install-types && yarn flow-mono create-stubs",

@@ -31,7 +31,15 @@ exports.config = {
   connectionRetryCount: 3,
   services: ["selenium-standalone"],
   framework: "cucumber",
-  reporters: ["spec"],
+  reporters: [
+    [
+      "cucumberjs-json",
+      {
+        jsonFolder: "./reports/json/",
+        language: "en",
+      },
+    ],
+  ],
   cucumberOpts: {
     require: ["./features/step-definitions/steps.js"],
     backtrace: false,
