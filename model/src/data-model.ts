@@ -355,9 +355,9 @@ export class Data implements DataModel {
 
   _exposePrivateFields () {
     return Object.assign({}, this, {
-      conditions: this.conditions.map(it => clone(it)),
       name: this.name,
-      feedback: this.#feedback
+      feedback: this.#feedback,
+      conditions: this.#conditions.map(it => clone(it))
     })
   }
 }

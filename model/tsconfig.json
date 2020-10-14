@@ -4,7 +4,6 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": "dist",
-    // "declarationDir": "dist"
   },
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "exclude": ["node_modules", "**/*.test.ts", "dist"]
 }
