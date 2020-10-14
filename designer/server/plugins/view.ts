@@ -1,8 +1,9 @@
 import pkg from '../../package.json'
 import nunjucks from 'nunjucks'
+import vision from 'vision'
 
 export const viewPlugin = {
-  plugin: require('vision'),
+  plugin: vision,
   options: {
     engines: {
       html: {
@@ -31,6 +32,7 @@ export const viewPlugin = {
       }
     },
     path: [
+      'designer/dist/client',
       'dist/client'
     ],
     context: {
