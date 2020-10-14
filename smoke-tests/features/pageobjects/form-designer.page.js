@@ -64,8 +64,6 @@ class FormDesignerPage extends Page {
     });
   }
 
-
-
   getFormPageText() {
     this.formPages.filter((page) => {
       return console.log(page.getText());
@@ -78,7 +76,5 @@ class FormDesignerPage extends Page {
     }).length
   }
 }
-// a.filter(function(value){
-//   return value === false;
-// }).length   
+
 module.exports = new FormDesignerPage();

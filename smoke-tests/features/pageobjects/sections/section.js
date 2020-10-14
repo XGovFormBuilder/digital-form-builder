@@ -1,14 +1,18 @@
 module.exports = class Section {
   get parentElement() {
-    return $(".flyout-menu-container");
+    return $(".flyout-menu-container div.panel");
   }
 
   get pageTitle() {
-    return $('.panel input#section-title')
+    return $('input#page-title')
+  }
+  
+  get sectionTitle() {
+    return $('input#section-title')
   }
 
   get saveBtn() {
-    return $(".govuk-button=Save");
+    return this.parentElement.$(".govuk-button=Save");
   }
 
   get closeSection() {

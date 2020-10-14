@@ -8,6 +8,10 @@ class EditSections extends Section {
   get sectionLinks() {
     return $$('ul li a')
   }
+
+  get sectionSaveBtn() {
+    return $(".govuk-button=Save");
+  }
 }
 
 module.exports = new EditSections();

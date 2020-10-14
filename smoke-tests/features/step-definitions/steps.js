@@ -105,8 +105,8 @@ Then("a link between them will be displayed", () => {
 
 When("I add a new section", () => {
   EditSection.addSection.click();
-  EditSection.pageTitle.setValue("MyTestSection");
-  EditSection.saveBtn.click();
+  EditSection.sectionTitle.setValue("MyTestSection");
+  EditSection.sectionSaveBtn.click();
   expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
   EditSection.closeSection.click();
 });
