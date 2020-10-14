@@ -1,6 +1,6 @@
 import * as Code from '@hapi/code'
 import * as Lab from '@hapi/lab'
-import { Logger } from '../.dist'
+import { Logger } from '../src'
 import sinon from 'sinon'
 
 const { expect } = Code

@@ -1,21 +1,45 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "12"
-        },
-        "modules": false
-      }
-    ],
-    "@babel/typescript"
-  ],
-  "plugins": [
-    "@babel/plugin-proposal-export-default-from",
-    "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-private-methods",
-    "@babel/plugin-transform-runtime"
-  ],
-  "sourceMaps": true
+  "env": {
+    "node": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "node": "12"
+            },
+            "modules": false
+          }
+        ],
+        "@babel/typescript"
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-runtime"
+      ],
+      "sourceMaps": true
+    }, 
+    "browser": {
+      "presets": [
+        "@babel/typescript",
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "browsers": "last 2 versions, ie 10-11"
+            }
+          }
+        ]
+      ],
+      "plugins": [
+        "@babel/plugin-proposal-export-default-from",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-proposal-private-methods",
+        "@babel/plugin-transform-runtime"
+      ],
+      "sourceMaps": true
+    }
+  }
 }
