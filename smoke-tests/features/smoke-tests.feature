@@ -12,6 +12,7 @@ Feature: Smoke tests
     Examples:
       | type                |
       | Date field          |
+      | Date time field     |
       | Email address field |
 
   Scenario: Edit a page title

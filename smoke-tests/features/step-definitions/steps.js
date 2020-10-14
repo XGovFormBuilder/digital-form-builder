@@ -32,18 +32,9 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
     / /g,
     ""
   )}`;
-  switch (componentName) {
-    case "Date field":
-      AddComponentPage[`complete${myComponentName}`](
-        FieldData[TestHelpers.toCamelCase(componentName)]
-      );
-      break;
-    case "Email address field":
-      AddComponentPage[`complete${myComponentName}`](
-        FieldData[TestHelpers.toCamelCase(componentName)]
-      );
-      break;
-  }
+  AddComponentPage.completeCommonFields(
+    FieldData[TestHelpers.toCamelCase(componentName)]
+  );
 });
 
 Then("the {string} control is displayed in the page", (componentName) => {
@@ -56,7 +47,12 @@ Then("the {string} control is displayed in the page", (componentName) => {
     case "Email address field":
       chai.expect(FormDesignerPage.emailComponent(this.pageName).isDisplayed())
         .to.be.true;
-      console.log("ASSERTION NEEDED HERE!");
+      break;
+    case "Date time field":
+      chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be;
+      expect(FormDesignerPage.dropdown(this.pageName)).toHaveText(
+        "dd/mm/yyyy hh:mm"
+      );
       break;
   }
 });
