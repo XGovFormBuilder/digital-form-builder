@@ -14,7 +14,8 @@
     "server", 
     "client", 
     "package.json", 
-    "config.js"
+    "config.ts",
+    "new-form.json"
   ],
   "paths": {
     "*": [
