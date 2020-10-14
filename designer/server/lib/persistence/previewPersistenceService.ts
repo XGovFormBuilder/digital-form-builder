@@ -1,6 +1,6 @@
 import type { PersistenceService } from './persistenceService'
-const Wreck = require('@hapi/wreck')
-const config = require('../../../config')
+import Wreck from '@hapi/wreck'
+import config from '../../../config'
 
 /**
  * Persistence service that relies on the runner for storing

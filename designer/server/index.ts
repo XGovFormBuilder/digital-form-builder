@@ -1,9 +1,9 @@
-const hapi = require('@hapi/hapi')
-const { viewPlugin } = require('./plugins/view')
-const { designerPlugin } = require('./plugins/designer')
-const Schmervice = require('schmervice')
-const config = require('../config')
-const { determinePersistenceService } = require('./lib/persistence')
+import hapi from '@hapi/hapi'
+import { viewPlugin } from './plugins/view'
+import { designerPlugin } from './plugins/designer'
+import Schmervice from 'schmervice'
+import config from '../config'
+import { determinePersistenceService } from './lib/persistence'
 
 const serverOptions = () => {
   return {

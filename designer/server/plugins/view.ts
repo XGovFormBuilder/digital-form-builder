@@ -1,7 +1,7 @@
-const pkg = require('../../package.json')
-const nunjucks = require('nunjucks')
+import pkg from '../../package.json'
+import nunjucks from 'nunjucks'
 
-const viewPlugin = {
+export const viewPlugin = {
   plugin: require('vision'),
   options: {
     engines: {
@@ -38,8 +38,4 @@ const viewPlugin = {
       assetPath: '/assets'
     }
   }
-}
-
-module.exports = {
-  viewPlugin
 }

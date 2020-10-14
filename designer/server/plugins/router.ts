@@ -1,4 +1,4 @@
-const routes = [].concat([
+const routes = [
   {
     method: 'GET',
     path: '/robots.txt',
@@ -19,12 +19,12 @@ const routes = [].concat([
       }
     }
   }
-])
+]
 
-module.exports = {
+export default {
   plugin: {
     name: 'router',
-    register: (server, options) => {
+    register: (server, _options) => {
       server.route(routes)
     }
   }

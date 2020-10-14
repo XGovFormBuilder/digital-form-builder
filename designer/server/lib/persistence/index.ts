@@ -3,7 +3,9 @@ import { BlobPersistenceService } from './blobPersistenceService'
 import { StubPersistenceService } from './persistenceService'
 import { PreviewPersistenceService } from './previewPersistenceService'
 
-export function determinePersistenceService (name: "s3" | "blob" | "preview") {
+type Name = "s3" | "blob" | "preview";
+
+export function determinePersistenceService (name: Name) {
   switch (name) {
     case 's3' : return S3PersistenceService
     case 'blob' : return BlobPersistenceService

@@ -1,8 +1,8 @@
-const { Schema } = require('@xgovformbuilder/model')
-const { nanoid } = require('nanoid')
-const Wreck = require('@hapi/wreck')
-const pkg = require('../../package.json')
-const config = require('../../config')
+import { Schema } from '@xgovformbuilder/model'
+import { nanoid } from 'nanoid'
+import Wreck from '@hapi/wreck'
+import pkg from '../../package.json'
+import config from '../../config'
 
 const publish = async function (id, configuration) {
   try {
