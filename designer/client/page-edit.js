@@ -1,6 +1,6 @@
 import React from 'react'
 import { toUrl } from './helpers'
-import { clone } from '@xgovformbuilder/model/dist/helpers'
+import { clone } from '@xgovformbuilder/model'
 import { RenderInPortal } from './components/render-in-portal'
 import SectionEdit from './section/section-edit'
 import { nanoid } from 'nanoid'
