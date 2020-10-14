@@ -1,3 +1,4 @@
+const Helpers = require("../../support/testHelpers");
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
 const AddComponentPage = require("../pageobjects/add-component.page");
@@ -8,6 +9,9 @@ const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
 const FormDesignerPage = require("../pageobjects/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
+
+const FieldData = require("../../data/componentFieldData");
+const TestHelpers = require("../../support/testHelpers");
 
 const pages = {
   start: ConfigPage,
@@ -24,17 +28,37 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.completeDateField(
-    "Date of Birth",
-    "dateOfBirth",
-    "Please enter your date of birth using the format dd/mm/yyyy"
-  );
+  const myComponentName = `${Helpers.capitalizeAllWords(componentName).replace(
+    / /g,
+    ""
+  )}`;
+  switch (componentName) {
+    case "Date field":
+      AddComponentPage[`complete${myComponentName}`](
+        FieldData[TestHelpers.toCamelCase(componentName)]
+      );
+      break;
+    case "Email address field":
+      AddComponentPage[`complete${myComponentName}`](
+        FieldData[TestHelpers.toCamelCase(componentName)]
+      );
+      break;
+  }
 });
 
-Then("the Date field control is displayed in the page", () => {
-  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
-    .true;
-  expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
+Then("the {string} control is displayed in the page", (componentName) => {
+  switch (componentName) {
+    case "Date field":
+      chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
+        .true;
+      expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
+      break;
+    case "Email address field":
+      chai.expect(FormDesignerPage.emailComponent(this.pageName).isDisplayed())
+        .to.be.true;
+      console.log("ASSERTION NEEDED HERE!");
+      break;
+  }
 });
 
 When("I edit the page title on the {string}", (pageName) => {
@@ -100,12 +124,25 @@ When("I add a new list", () => {
   EditListSection.closeSection.click();
 });
 
-When("I create a {string} control for the {string}", (componentName, pageName) => {
-  FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.fromAList.click();
-});
+When(
+  "I create a {string} control for the {string}",
+  (componentName, pageName) => {
+    FormDesignerPage.createComponentForPageName(pageName).click();
+    AddComponentPage.selectComponentByName(componentName);
+    AddComponentPage.fromAList.click();
+  }
+);
 
 Then("the list is available in the list options", () => {
-  expect(AddComponentPage.listOptions).toHaveText('Countries');
+  expect(AddComponentPage.listOptions).toHaveText("Countries");
+});
+
+When("I choose to duplicate the {string}", (pageName) => {
+  FormDesignerPage.editPageForPageName(pageName).click();
+  EditPageSection.duplicateBtn.click();
+  EditPageSection.closeSection.click();
+});
+
+Then("{int} {string} pages are shown in the designer", (numberOfPages, pageName) => {
+  expect(FormDesignerPage.getNumberInArray(pageName)).toEqual(numberOfPages);
 });

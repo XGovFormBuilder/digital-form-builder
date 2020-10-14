@@ -17,12 +17,20 @@ class FormDesignerPage extends Page {
     return $$(".page");
   }
 
+  get formPageTitles() {
+    return $$('.page__heading h3')
+  }
+
   get linkLine() {
     return $('polyline')
   }
 
   dropdown(name) {
     return this.pageContainer(name).$(".dropdown");
+  }
+
+  emailComponent(pageName) {
+    return this.pageContainer(pageName).$('div.email')
   }
 
   pageContainer(elem) {
@@ -56,10 +64,21 @@ class FormDesignerPage extends Page {
     });
   }
 
+
+
   getFormPageText() {
     this.formPages.filter((page) => {
-      console.log(page.getText());
+      return console.log(page.getText());
     });
   }
+
+  getNumberInArray(term) {
+    return this.formPageTitles.filter((value) => {
+      return value.getText() === term;
+    }).length
+  }
 }
+// a.filter(function(value){
+//   return value === false;
+// }).length   
 module.exports = new FormDesignerPage();

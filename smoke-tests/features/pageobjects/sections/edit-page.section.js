@@ -1,4 +1,6 @@
-class EditPageSection {
+const Section = require("./section");
+
+class EditPageSection extends Section {
   get parentElement() {
     return $(".flyout-menu-container");
   }
@@ -12,6 +14,10 @@ class EditPageSection {
 
   get saveBtn() {
     return this.parentElement.$(".govuk-button=Save");
+  }
+
+  get duplicateBtn() {
+    return this.parentElement.$(".govuk-button=Duplicate");
   }
 }
 

@@ -6,9 +6,13 @@ Feature: Smoke tests
   Background: Create new config
     Given I have created a new form configuration
 
-  Scenario: Add a component to a page
-    When I add a "Date field" control to the "Question page"
-    Then the Date field control is displayed in the page
+  Scenario Outline: Add a component to a page
+    When I add a "<type>" control to the "Question page"
+    Then the "<type>" control is displayed in the page
+    Examples:
+      | type                |
+      | Date field          |
+      | Email address field |
 
   Scenario: Edit a page title
     When I edit the page title on the "Question page"
@@ -34,3 +38,7 @@ Feature: Smoke tests
     When I add a new list
     And I create a "List" control for the "Question page"
     Then the list is available in the list options
+
+  Scenario: Duplicate a page
+    When I choose to duplicate the "Summary"
+    Then 2 "Summary" pages are shown in the designer

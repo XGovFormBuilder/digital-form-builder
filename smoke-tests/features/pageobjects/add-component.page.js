@@ -33,10 +33,17 @@ class AddComponentPage extends Page {
     this.selectList.selectByVisibleText(name);
   }
 
-  completeDateField(title, name, hint) {
-    this.titleField.setValue(title);
-    this.nameField.setValue(name);
-    this.hintField.setValue(hint);
+  completeDateField(dataObject) {
+    this.titleField.setValue(dataObject.title);
+    this.hintField.setValue(dataObject.hint);
+    this.nameField.setValue(dataObject.name);
+    this.saveBtn.click();
+  }
+
+  completeEmailAddressField(dataObject) {
+    this.titleField.setValue(dataObject.title);
+    this.hintField.setValue(dataObject.hint);
+    this.nameField.setValue(dataObject.name);
     this.saveBtn.click();
   }
 }
