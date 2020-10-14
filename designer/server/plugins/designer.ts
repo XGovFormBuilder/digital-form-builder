@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import Wreck from '@hapi/wreck'
 import pkg from '../../package.json'
 import config from '../../config'
+import newFormJson from '../../new-form.json'
 
 const publish = async function (id, configuration) {
   try {
@@ -31,7 +32,7 @@ export const designerPlugin = {
         method: 'get',
         path: '/',
         options: {
-          handler: async (request, h) => {
+          handler: async (_request, h) => {
             return h.redirect('/new')
           }
         }
@@ -67,8 +68,8 @@ export const designerPlugin = {
             const newName = name === '' ? nanoid(10) : name
             try {
               if (selected.Key === 'New') {
-                await persistenceService.uploadConfiguration(`${newName}.json`, JSON.stringify(require('../../new-form.json')))
-                await publish(newName, require('../../new-form.json'))
+                await persistenceService.uploadConfiguration(`${newName}.json`, JSON.stringify(newFormJson))
+                await publish(newName, newFormJson)
               } else {
                 await persistenceService.copyConfiguration(`${selected.Key}`, newName)
                 const copied = await persistenceService.getConfiguration(newName)
@@ -112,7 +113,7 @@ export const designerPlugin = {
             } catch (error) {
               // ignore
             }
-            return h.response(require('../../new-form.json'))
+            return h.response(newFormJson)
               .type('application/json')
           }
         }
@@ -163,7 +164,3 @@ export const designerPlugin = {
     }
   }
 }
-
-// module.exports = {
-//   designerPlugin
-// }
