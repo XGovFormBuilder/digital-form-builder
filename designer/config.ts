@@ -1,5 +1,7 @@
-require('dotenv').config({ path: '.env' })
-const joi = require('joi')
+import dotEnv from 'dotenv'
+import joi from 'joi'
+
+dotEnv.config({ path: '.env' })
 
 // Define config schema
 const schema = joi.object({
@@ -41,4 +43,4 @@ const value = result.value
 value.isProd = value.env === 'production'
 value.isDev = !value.isProd
 
-module.exports = value
+export default value
