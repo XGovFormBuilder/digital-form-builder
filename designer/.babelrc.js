@@ -1,4 +1,5 @@
 const path = require('path')
+
 module.exports = {
   "presets": [
     "@babel/preset-react",
@@ -26,5 +27,6 @@ module.exports = {
   "exclude": [
     "node_modules",
     "../node_modules/**"
-  ]
+  ], 
+  "sourceMaps": true
 }
