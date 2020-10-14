@@ -13,6 +13,10 @@ class Helpers {
       });
     return string.charAt(0).toLowerCase() + string.substring(1);
   }
+
+  acceptAlert() {
+    browser.acceptAlert();
+  }
 }
 
 module.exports = new Helpers();

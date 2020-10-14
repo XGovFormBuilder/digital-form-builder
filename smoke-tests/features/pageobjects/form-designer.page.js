@@ -18,11 +18,11 @@ class FormDesignerPage extends Page {
   }
 
   get formPageTitles() {
-    return $$('.page__heading h3')
+    return $$(".page__heading h3");
   }
 
   get linkLine() {
-    return $('polyline')
+    return $("polyline");
   }
 
   dropdown(name) {
@@ -30,7 +30,7 @@ class FormDesignerPage extends Page {
   }
 
   emailComponent(pageName) {
-    return this.pageContainer(pageName).$('div.email')
+    return this.pageContainer(pageName).$("div.email");
   }
 
   pageContainer(elem) {
@@ -73,7 +73,7 @@ class FormDesignerPage extends Page {
   getNumberInArray(term) {
     return this.formPageTitles.filter((value) => {
       return value.getText() === term;
-    }).length
+    }).length;
   }
 }
 

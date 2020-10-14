@@ -42,3 +42,7 @@ Feature: Smoke tests
   Scenario: Duplicate a page
     When I choose to duplicate the "Summary"
     Then 2 "Summary" pages are shown in the designer
+
+  Scenario: Delete a page
+    When I choose to delete the "Question page"
+    Then the "Question page" is no longer visible in the designer

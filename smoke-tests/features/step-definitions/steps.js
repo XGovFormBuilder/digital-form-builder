@@ -143,6 +143,25 @@ When("I choose to duplicate the {string}", (pageName) => {
   EditPageSection.closeSection.click();
 });
 
-Then("{int} {string} pages are shown in the designer", (numberOfPages, pageName) => {
-  expect(FormDesignerPage.getNumberInArray(pageName)).toEqual(numberOfPages);
+Then(
+  "{int} {string} pages are shown in the designer",
+  (numberOfPages, pageName) => {
+    expect(FormDesignerPage.getNumberInArray(pageName)).toEqual(numberOfPages);
+  }
+);
+
+When("I choose to delete the {string}", (pageName) => {
+  FormDesignerPage.editPageForPageName(pageName).click();
+  EditPageSection.deleteBtn.click();
+  TestHelpers.acceptAlert();
+  EditPageSection.closeSection.click();
+});
+
+Then("the {string} is no longer visible in the designer", (pageName) => {
+  const pageNames = [];
+  FormDesignerPage.formPageTitles.forEach((elem) => {
+    pageNames.push(elem.getText());
+  });
+  expect(FormDesignerPage.formPages.length).toEqual(1);
+  chai.expect(pageNames).not.include(pageName);
 });

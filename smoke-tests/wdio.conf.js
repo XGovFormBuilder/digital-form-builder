@@ -31,7 +31,7 @@ exports.config = {
   connectionRetryCount: 3,
   services: ["selenium-standalone"],
   framework: "cucumber",
-  reporters: [
+  reporters: ["spec", 
     [
       "cucumberjs-json",
       {

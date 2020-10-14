@@ -12,6 +12,10 @@ class EditPageSection extends Section {
   get duplicateBtn() {
     return this.parentElement.$(".govuk-button=Duplicate");
   }
+
+  get deleteBtn() {
+    return this.parentElement.$(".govuk-button=delete");
+  }
 }
 
 module.exports = new EditPageSection();
