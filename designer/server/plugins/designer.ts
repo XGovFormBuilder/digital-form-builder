@@ -20,13 +20,13 @@ const getPublished = async function (id) {
   return payload.toString()
 }
 
-const designerPlugin = {
+export const designerPlugin = {
   plugin: {
     name: pkg.name,
     version: pkg.version,
     multiple: true,
     dependencies: 'vision',
-    register: (server) => {
+    register: async (server) => {
       server.route({
         method: 'get',
         path: '/',
@@ -164,6 +164,6 @@ const designerPlugin = {
   }
 }
 
-module.exports = {
-  designerPlugin
-}
+// module.exports = {
+//   designerPlugin
+// }
