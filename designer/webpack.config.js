@@ -123,6 +123,6 @@ const server = {
 }
 
 module.exports = [
-  // client,
+  client,
   server
 ]
