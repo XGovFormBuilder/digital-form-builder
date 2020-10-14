@@ -86,10 +86,10 @@ export class Data implements DataModel {
   ]
 
   startPage: string | undefined;
-  pages: Array<any>;
-  lists: Array<any>;
-  sections: Array<any>;
-  #conditions: Array<any>;
+  pages: Array<any> = [];
+  lists: Array<any> = [];
+  sections: Array<any> = [];
+  #conditions: Array<any> = [];
   #name: string = '';
   #feedback;
 
@@ -100,10 +100,6 @@ export class Data implements DataModel {
     delete rawDataClone.conditions
     delete rawDataClone.feedback
     Object.assign(this, rawDataClone)
-    
-    this.pages = []
-    this.lists = []
-    this.sections = []
   }
 
   _listInputsFor (page, input): Array<Input> {
