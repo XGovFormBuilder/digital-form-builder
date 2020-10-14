@@ -13,16 +13,22 @@ const client = {
   target: 'web',
   mode: environment,
   watch: devMode,
-  entry: path.resolve(__dirname, 'client', 'index.js'),
+  entry: path.resolve(__dirname, 'client', 'index.tsx'),
   output: {
     path: path.resolve(__dirname, 'dist', 'client'),
     filename: 'assets/[name].js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [
+      path.resolve(__dirname, '../node_modules')
+    ]
   },
   devtool: 'source-map',
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -86,15 +92,21 @@ const server = {
   target: 'node',
   mode: environment,
   watch: devMode,
-  entry: path.resolve(__dirname, 'server', 'index.js'),
+  entry: path.resolve(__dirname, 'server', 'index.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'server.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [
+      path.resolve(__dirname, '../node_modules')
+    ]
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -111,6 +123,6 @@ const server = {
 }
 
 module.exports = [
-  client,
+  // client,
   server
 ]

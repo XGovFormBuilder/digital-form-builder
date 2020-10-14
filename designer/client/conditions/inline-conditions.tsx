@@ -1,20 +1,39 @@
-import React from 'react'
+import React, { MouseEvent, ChangeEvent } from 'react'
 import { ConditionsModel, clone } from '@xgovformbuilder/model'
 import InlineConditionsDefinition from './inline-conditions-definition'
 import InlineConditionsEdit from './inline-conditions-edit'
 
 import InlineConditionHelpers from './inline-condition-helpers'
 
-class InlineConditions extends React.Component {
+interface Props {
+  path: string;
+  condition: any;
+  data: any;
+  cancelCallback?: (event: MouseEvent) => void
+  conditionsChange?: (name: string) => void;
+}
+
+interface State {
+  editView?: boolean;
+  conditions: ConditionsModel;
+  fields: any;
+  conditionString: any;
+}
+
+class InlineConditions extends React.Component<Props, State> {
   constructor (props) {
     super(props)
 
     const { path, condition } = this.props
 
-    const conditions = condition && typeof condition.value === 'object' ? ConditionsModel.from(condition.value) : new ConditionsModel()
+    const conditions = condition && typeof condition.value === 'object' 
+      ? ConditionsModel.from(condition.value) 
+      : new ConditionsModel()
+    
     if (condition) {
       conditions.name = condition.displayName
     }
+    
     this.state = {
       conditions: conditions,
       fields: this.fieldsForPath(path),
@@ -22,7 +41,7 @@ class InlineConditions extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
+  componentDidUpdate (prevProps) {
     if (this.props.path !== prevProps.path) {
       const fields = this.fieldsForPath(this.props.path)
 
@@ -63,7 +82,7 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onClickCancel = e => {
+  onClickCancel = (e: MouseEvent<HTMLAnchorElement>) => {
     const { cancelCallback } = this.props
     this.setState({
       conditions: this.state.conditions.clear(),
@@ -105,7 +124,7 @@ class InlineConditions extends React.Component {
     })
   }
 
-  onChangeDisplayName = (e) => {
+  onChangeDisplayName = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target
     const copy = clone(this.state.conditions)
     copy.name = input.value
@@ -158,7 +177,8 @@ class InlineConditions extends React.Component {
           {!editView &&
             <div>
               <InlineConditionsDefinition
-                expectsCoordinator={hasConditions} fields={this.state.fields}
+                expectsCoordinator={hasConditions} 
+                fields={this.state.fields}
                 saveCallback={this.saveCondition}
               />
               <div className='govuk-form-group'>
@@ -171,10 +191,14 @@ class InlineConditions extends React.Component {
                 </a>
               </div>
             </div>}
-          {editView && <InlineConditionsEdit
-            conditions={conditions} fields={this.state.fields}
-            saveCallback={this.editCallback} exitCallback={this.toggleEdit}
-          />}
+          {editView && 
+            <InlineConditionsEdit
+              conditions={conditions} 
+              fields={this.state.fields}
+              saveCallback={this.editCallback} 
+              exitCallback={this.toggleEdit}
+            />
+          }
         </div>
     )
   }

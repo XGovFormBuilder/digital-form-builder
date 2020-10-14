@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import InlineConditions from './inline-conditions'
 import { ConditionsModel } from '@xgovformbuilder/model'
 import Flyout from '../flyout'
 import { Select } from '@govuk-jsx/select'
 import { Hint } from '@govuk-jsx/hint'
 
-class SelectConditions extends React.Component {
+interface Props {
+  path: string;
+  data: any;
+  conditionsChange: (selectedCondition: string) => void;
+  hints: any[]
+}
+
+interface State {
+  inline: boolean;
+  selectedCondition: string;
+  fields: any;
+}
+
+class SelectConditions extends React.Component<Props, State> {
   constructor (props) {
     super(props)
 
@@ -16,7 +29,7 @@ class SelectConditions extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
+  componentDidUpdate = (prevProps) => {
     if (this.props.path !== prevProps.path) {
       const fields = this.fieldsForPath(this.props.path)
 
@@ -28,7 +41,7 @@ class SelectConditions extends React.Component {
     }
   }
 
-  fieldsForPath (path) {
+  fieldsForPath (path: string) {
     const { data } = this.props
     const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs()
     return inputs
@@ -50,14 +63,14 @@ class SelectConditions extends React.Component {
     })
   }
 
-  setState (state, callback) {
+  setState (state, callback?: () => void) {
     if (state.selectedCondition !== undefined) {
       this.props.conditionsChange(state.selectedCondition)
     }
     super.setState(state, callback)
   }
 
-  onChangeConditionSelection = e => {
+  onChangeConditionSelection = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target
     this.setState({
       selectedCondition: input.value
@@ -129,7 +142,8 @@ class SelectConditions extends React.Component {
               onHide={this.onCancelInlineCondition}
             >
               <InlineConditions
-                data={this.props.data} path={this.props.path}
+                data={this.props.data} 
+                path={this.props.path}
                 conditionsChange={this.onSaveInlineCondition}
                 cancelCallback={this.onCancelInlineCondition}
               />

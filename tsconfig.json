@@ -34,5 +34,7 @@
     "lib": [
       "es2019"
     ]
-  }
+  },
+  "exclude": ["webpack.config.js", "node_modules", "babel*", "test"],
+  "include": ["node_modules/"]
 }

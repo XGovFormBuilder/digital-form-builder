@@ -1,9 +1,25 @@
 {
+  "baseUrl": ".",
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "rootDirs": ["client"],
-    "outDir": ".dist-ts",
-    "composite": true
+    "target": "ES2015",
+    "rootDirs": ["server"],
+    "outDir": "dist",
+    "composite": true,
+    "declarationDir": "dist/types",
+    "sourceMap": true,
+    "resolveJsonModule": true
   },
-  "references": [{ "path": "../model" }]
+  "include": [
+    "server", 
+    "client", 
+    "package.json", 
+    "config.js"
+  ],
+  "paths": {
+    "*": [
+      "node_modules/*",
+      "../node_modules"
+    ]
+  }
 }
