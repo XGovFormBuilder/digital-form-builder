@@ -17,9 +17,9 @@ Feature: Smoke tests
       | Email address field |
 
   Scenario: Delete a component
-    When I add a "Date field" control to the "Summary"
-    And I delete the "Date field" control from the "Summary"
-    Then the "Date field" will not be visible in the "Summary"
+    When I add a "Date field" control to the "Question page"
+    And I delete the "Date field" control from the "Question page"
+    Then the "Date field" will not be visible in the "Question page"
 
   Scenario: Edit a page title
     When I edit the page title on the "Question page"
