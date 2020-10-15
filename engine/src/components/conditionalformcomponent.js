@@ -1,8 +1,9 @@
 import nunjucks from 'nunjucks'
 import FormComponent from './formcomponent'
 import ComponentCollection from './componentcollection'
+import joi from 'joi'
+
 const getSchemaKeys = Symbol('getSchemaKeys')
-const joi = require('joi')
 
 export default class Conditionalformcomponent extends FormComponent {
   constructor (def, model) {

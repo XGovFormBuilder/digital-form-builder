@@ -1,7 +1,6 @@
 import Conditionalformcomponent from './conditionalformcomponent'
 import * as helpers from './helpers'
-
-const joi = require('joi')
+import joi from 'joi'
 
 export default class CheckboxesField extends Conditionalformcomponent {
   constructor (def, model) {

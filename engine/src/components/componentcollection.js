@@ -1,5 +1,5 @@
 import { getType } from './helpers'
-const joi = require('joi')
+import joi from 'joi'
 
 export default class ComponentCollection {
   constructor (items, model) {

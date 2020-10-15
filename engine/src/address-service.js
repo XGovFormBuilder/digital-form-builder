@@ -1,4 +1,4 @@
-const util = require('../util')
+import util from '../util'
 
 async function findByPostcode (key, postcode) {
   const findByPostcodeUrl = `https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?lr=EN&fq=logical_status_code:1&dataset=DPA&postcode=${postcode}&key=${key}`
@@ -24,4 +24,4 @@ async function findByPostcode (key, postcode) {
     })
 }
 
-module.exports = findByPostcode
+export default findByPostcode
