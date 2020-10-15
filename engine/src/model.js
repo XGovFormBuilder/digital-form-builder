@@ -12,9 +12,9 @@ import Page from './page'
 export default class Model {
   constructor (def, options) {
     const result = Schema.validate(def, { abortEarly: false })
-    // TODO:- throw/catch this properly 🤦🏻‍
+
     if (result.error) {
-      throw result.error
+      throw new Error(result.error)
     }
 
     // Make a clone of the shallow copy returned
@@ -47,7 +47,7 @@ export default class Model {
 
     if (options.defaultPageController) {
       const defaultPageControllerPath = path.resolve(options.relativeTo, options.defaultPageController)
-      console.log(defaultPageControllerPath)
+      console.log('BBBBB', defaultPageControllerPath)
       this.DefaultPageController = require(defaultPageControllerPath)
     }
 
