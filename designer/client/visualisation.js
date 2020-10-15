@@ -101,7 +101,7 @@ class Lines extends React.Component {
               const ys = edge.points.map(p => p.y)
 
               const textX = xs.reduce((a, b) => a + b, 0) / xs.length
-              const textY = ys.reduce((a, b) => a + b, 0) / ys.length
+              const textY = (ys.reduce((a, b) => a + b, 0) / ys.length) - 5
               const highlight = [edge.source, edge.target].every(path => persona?.paths?.includes(path))
               return (
                 <g key={points}>
