@@ -1,4 +1,4 @@
-module.exports = [{
+export default [{
   method: 'GET',
   path: '/assets/govuk-template.js',
   options: {

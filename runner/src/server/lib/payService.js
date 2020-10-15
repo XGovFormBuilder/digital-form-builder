@@ -1,7 +1,7 @@
-const { payApiUrl } = require('../config')
-const Wreck = require('@hapi/wreck')
+import { payApiUrl } from '../config'
+import Wreck from '@hapi/wreck'
 
-class PayService {
+export class PayService {
   options (apiKey) {
     return {
       headers: {
@@ -39,8 +39,4 @@ class PayService {
       return `${detail.description}: £${detail.amount / 100}`
     }).join(', ')
   }
-}
-
-module.exports = {
-  PayService
 }

@@ -1,9 +1,10 @@
-const Lab = require('@hapi/lab')
-const { expect } = require('@hapi/code')
-const cheerio = require('cheerio')
-const FormData = require('form-data')
-const cookie = require('cookie')
-const createServer = require('../../src/server/index')
+import Lab from '@hapi/lab'
+import { expect } from '@hapi/code'
+import cheerio from 'cheerio'
+import FormData from 'form-data'
+import cookie from 'cookie'
+import createServer from '../../src/server'
+
 const { suite, before, test, after } = exports.lab = Lab.script()
 
 suite('CSRF', () => {

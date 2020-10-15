@@ -1,7 +1,7 @@
-const joi = require('joi')
-const Page = require('./index')
+import joi from 'joi'
+import Page from './index'
 
-class StartDatePage extends Page {
+export default class StartDatePage extends Page {
   get stateSchema () {
     const keys = this.components.getStateSchemaKeys()
     const name = this.components.formItems[0].name
@@ -16,5 +16,3 @@ class StartDatePage extends Page {
     return joi.object().keys(keys)
   }
 }
-
-module.exports = StartDatePage

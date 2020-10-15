@@ -1,18 +1,30 @@
 import { configurePlugins } from './plugins/builder'
+import fs from 'fs'
+import hapi from '@hapi/hapi'
+import Blankie from 'blankie'
+import Scooter from '@hapi/scooter'
+import rateLimit from 'hapi-rate-limit'
+import pulse from 'hapi-pulse'
+import inert from 'inert'
+import crumb from '@hapi/crumb'
+import Schmervice from 'schmervice'
+import blipp from 'blipp'
 
+import pluginLocale from './plugins/locale'
+import pluginSession from './plugins/session'
+import pluginViews from './plugins/views'
+import pluginApplicationStatus from './plugins/applicationStatus'
+import pluginRouter from './plugins/router'
+import pluginErrorPages from './plugins/error-pages'
+import pluginLogging from './plugins/logging'
+
+import config from './config'
 import {
   CacheService, catboxProvider, EmailService,
   NotifyService,
   PayService, SheetsService,
   UploadService, WebhookService
 } from './lib/services'
-
-const fs = require('fs')
-const hapi = require('@hapi/hapi')
-const Blankie = require('blankie')
-const Scooter = require('@hapi/scooter')
-const config = require('./config')
-const Schmervice = require('schmervice')
 
 const serverOptions = () => {
   const defaultOptions = {
@@ -55,7 +67,7 @@ async function createServer (routeConfig) {
 
   if (config.rateLimit) {
     await server.register({
-      plugin: require('hapi-rate-limit'),
+      plugin: rateLimit,
       options: routeConfig ? routeConfig.rateOptions || { enabled: false } : {
         trustProxy: true,
         pathLimit: false,
@@ -70,12 +82,12 @@ async function createServer (routeConfig) {
   }
 
   await server.register({
-    plugin: require('hapi-pulse'),
+    plugin: pulse,
     options: {
       timeout: 800
     }
   })
-  await server.register(require('inert'))
+  await server.register(inert)
   await server.register([Scooter, {
     plugin: Blankie,
     options: {
@@ -87,7 +99,7 @@ async function createServer (routeConfig) {
     }
   }])
   await server.register({
-    plugin: require('@hapi/crumb'),
+    plugin: crumb,
     options: {
       logUnauthorized: true,
       enforce: routeConfig ? routeConfig.enforceCsrf || false : !config.previewMode,
@@ -125,24 +137,25 @@ async function createServer (routeConfig) {
     return h.continue
   })
 
-  await server.register(require('./plugins/locale'))
-  await server.register(require('./plugins/session'))
-  await server.register(require('./plugins/views'))
+  await server.register(pluginLocale)
+  await server.register(pluginSession)
+  await server.register(pluginViews)
 
   if (routeConfig) {
     await server.register(configurePlugins(routeConfig.data, routeConfig.customPath))
   } else {
     await server.register(configurePlugins())
   }
-  await server.register(require('./plugins/applicationStatus'))
-  await server.register(require('./plugins/router'))
-  await server.register(require('./plugins/error-pages'))
+  await server.register(pluginApplicationStatus)
+  await server.register(pluginRouter)
+  await server.register(pluginErrorPages)
+
   if (!config.isTest) {
-    await server.register(require('blipp'))
+    await server.register(blipp)
   }
-  await server.register(require('./plugins/logging'))
+  await server.register(pluginLogging)
 
   return server
 }
 
-module.exports = createServer
+export default createServer

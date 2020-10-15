@@ -1,17 +1,11 @@
- //eslint-disable-line
-import {
-  redirectTo,
-  redirectUrl
-} from '@xgovformbuilder/engine'
-import { formSchema } from '../../../lib/formSchema'
+import { nanoid } from 'nanoid'
+import { flatten } from 'flat' //eslint-disable-line
+import { clone, reach } from 'hoek' //eslint-disable-line
+import { redirectTo, redirectUr } from '@xgovformbuilder/engine' //eslint-disable-line
 
 import Page from './page'
-
-import { nanoid } from 'nanoid'
-
-const { serviceName, payReturnUrl } = require('../../../config') //eslint-disable-line
-const { flatten } = require('flat') //eslint-disable-line
-const { clone, reach } = require('hoek') //eslint-disable-line
+import { formSchema } from '../../../lib/formSchema'
+import { serviceName, payReturnUrl } from '../../../config' //eslint-disable-line
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -437,7 +431,7 @@ class SummaryViewModel {
   }
 }
 
-class SummaryPage extends Page {
+export default class SummaryPage extends Page {
   makeGetRouteHandler () {
     return async (request, h) => {
       this.langFromRequest(request)
@@ -590,5 +584,3 @@ class SummaryPage extends Page {
     }
   }
 }
-
-module.exports = SummaryPage

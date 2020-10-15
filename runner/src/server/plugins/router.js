@@ -1,10 +1,11 @@
 import { redirectTo } from '@xgovformbuilder/engine'
+import publicRoutes from '../routes/public'
 
-const routes = [].concat(
-  require('../routes/public')
-)
+const routes = [
+  ...publicRoutes
+]
 
-module.exports = {
+export default {
   plugin: {
     name: 'router',
     register: (server, options) => {

@@ -1,5 +1,5 @@
-const joi = require('joi')
-const Page = require('./index')
+import joi from 'joi'
+import Page from './index'
 
 class DobPage extends Page {
   constructor (defs, pageDef) {
@@ -24,4 +24,4 @@ class DobPage extends Page {
   }
 }
 
-module.exports = DobPage
+export default DobPage

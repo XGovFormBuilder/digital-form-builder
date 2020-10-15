@@ -1,6 +1,6 @@
-const Page = require('./index')
+import Page from './index'
 
-class HomePage extends Page {
+export default class HomePage extends Page {
   constructor (defs, pageDef) {
     super(defs, pageDef)
     this.x = ''
@@ -42,5 +42,3 @@ class HomePage extends Page {
     }
   }
 }
-
-module.exports = HomePage

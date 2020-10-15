@@ -1,6 +1,7 @@
-require('dotenv').config({ path: '.env' })
+import dotEnv from 'dotenv'
+import Joi from 'joi'
 
-const Joi = require('joi')
+dotEnv.config({ path: '.env' })
 
 // Define config schema
 const schema = Joi.object({
@@ -80,4 +81,4 @@ value.isDev = !value.isProd
 value.isSandbox = process.env.sandbox || false // for heroku instances
 value.isTest = config.env === 'test'
 
-module.exports = value
+export default value

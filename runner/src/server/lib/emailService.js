@@ -1,8 +1,8 @@
-const AWS = require('aws-sdk')
-const MailComposer = require('nodemailer/lib/mail-composer')
-const config = require('../config')
+import AWS from 'aws-sdk'
+import MailComposer from 'nodemailer/lib/mail-composer'
+import config from '../config'
 
-class EmailService {
+export class EmailService {
   constructor (server, options) {
     this.documentService = server.services([])
   }
@@ -34,8 +34,4 @@ class EmailService {
       .sendRawEmail({ RawMessage: { Data: message } })
       .promise()
   }
-}
-
-module.exports = {
-  EmailService
 }

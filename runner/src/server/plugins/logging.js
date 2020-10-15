@@ -1,7 +1,8 @@
-const config = require('../config')
+import config from '../config'
+import pino from 'hapi-pino'
 
-module.exports = {
-  plugin: require('hapi-pino'),
+export default {
+  plugin: pino,
   options: {
     prettyPrint: config.isDev,
     level: config.logLevel

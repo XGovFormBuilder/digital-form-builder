@@ -1,7 +1,7 @@
-const createServer = require('../../src/server/index')
-const lighthouse = require('lighthouse')
-const chromeLauncher = require('chrome-launcher')
-const fs = require('fs')
+import createServer from '../../src/server'
+import lighthouse from 'lighthouse'
+import chromeLauncher from 'chrome-launcher'
+import fs from 'fs'
 
 const opts = {
   chromeFlags: ['--headless', '--disable-gpu', '--no-sandbox'],

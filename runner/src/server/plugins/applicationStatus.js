@@ -138,4 +138,4 @@ const applicationStatus = {
   }
 }
 
-module.exports = applicationStatus
+export default applicationStatus

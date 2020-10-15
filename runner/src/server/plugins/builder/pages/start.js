@@ -1,6 +1,6 @@
-const Page = require('./index')
+import Page from './index'
 
-class StartPage extends Page {
+export default class StartPage extends Page {
   getViewModel (formData, errors) {
     return {
       ...super.getViewModel(formData, errors),
@@ -9,5 +9,3 @@ class StartPage extends Page {
     }
   }
 }
-
-module.exports = StartPage
