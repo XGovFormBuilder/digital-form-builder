@@ -5,7 +5,7 @@ import joi from 'joi'
 
 const getSchemaKeys = Symbol('getSchemaKeys')
 
-export default class Conditionalformcomponent extends FormComponent {
+class ConditionalFormComponent extends FormComponent {
   constructor (def, model) {
     super(def, model)
     this.itemValues = this.values.items.map(item => item.value)
@@ -165,3 +165,6 @@ export default class Conditionalformcomponent extends FormComponent {
     return schemaKeys
   }
 }
+
+export default ConditionalFormComponent
+
