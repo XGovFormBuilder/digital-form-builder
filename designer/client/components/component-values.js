@@ -4,7 +4,7 @@ import Flyout from '../flyout'
 import DefineComponentValue from './define-component-value'
 import { clone } from '@xgovformbuilder/model'
 import { RenderInPortal } from './render-in-portal'
-import { Radios } from '@xgovformbuilder/govuk-react-jsx'
+import { Radios } from '@govuk-jsx/radios'
 
 function updateComponent (component, modifier, updateModel) {
   modifier(component)

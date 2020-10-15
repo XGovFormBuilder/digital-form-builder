@@ -1,6 +1,6 @@
 import React from 'react'
 import formConfigurationApi from './load-form-configurations'
-import { Radios } from '@xgovformbuilder/govuk-react-jsx'
+import { Radios } from '@govuk-jsx/radios'
 
 class FormDetails extends React.Component {
   constructor (props) {
