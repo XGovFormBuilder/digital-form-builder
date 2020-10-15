@@ -1,6 +1,6 @@
 {
   "presets": [
-    ["@babel/preset-flow"],
+    "@babel/typescript",
     ["@babel/preset-env",
       {
         "loose": true,
@@ -9,8 +9,8 @@
         }
       }
     ],
-    "@babel/typescript"
   ],
   "exclude": ["node_modules/**"],
-  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-private-methods"]
+  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-private-methods"],
+  "sourceMaps": true
 }
