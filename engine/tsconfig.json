@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDirs": ["src"],
     "outDir": ".dist-ts",
-    "composite": true
+    "composite": true,
+    "declarationDir": "lib",
   },
   "references": [{ "path": "../model" }]
 }
