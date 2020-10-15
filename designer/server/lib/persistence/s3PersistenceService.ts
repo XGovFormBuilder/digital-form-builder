@@ -22,7 +22,6 @@ export class S3PersistenceService implements PersistenceService {
   }
 
   async listAllConfigurations () {
-    // TODO:- flow does not like try catch.. boo
     const response = await this.bucket.listObjects().promise()
     if (response.error) {
       this.logger.error(`error listing all configurations ${response.error.message}`)
