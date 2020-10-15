@@ -2,8 +2,6 @@
   "baseUrl": ".",
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2015",
-    "rootDirs": ["server"],
     "outDir": "dist",
     "composite": true,
     "declarationDir": "dist/types",

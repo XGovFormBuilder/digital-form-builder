@@ -69,7 +69,7 @@ const client = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'views', 'designer.html'),
+      template: path.resolve(__dirname, 'server', 'views', 'designer.html'),
       filename: 'designer.html'
     }),
     new MiniCssExtractPlugin({
