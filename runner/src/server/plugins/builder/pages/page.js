@@ -442,3 +442,6 @@ export default class Page {
 
   set stateSchema (value) { this[STATE_SCHEMA] = value }
 }
+
+// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
+module.exports = Page

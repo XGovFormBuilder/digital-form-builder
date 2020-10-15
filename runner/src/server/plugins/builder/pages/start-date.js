@@ -16,3 +16,6 @@ export default class StartDatePage extends Page {
     return joi.object().keys(keys)
   }
 }
+
+// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
+module.exports = StartDatePage

@@ -9,3 +9,6 @@ export default class StartPage extends Page {
     }
   }
 }
+
+// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
+module.exports = StartPage
