@@ -7,19 +7,27 @@ internals.transform = function (content, filename) {
   }
 
   let transformed = Babel.transform(content, {
+    presets: [
+      "@babel/typescript",
+      ["@babel/preset-env",
+        { "targets": {
+          "node": "12"
+        },
+      }]
+    ],
     filename: filename,
     sourceMap: 'inline',
     sourceFileName: filename,
     auxiliaryCommentBefore: '$lab:coverage:off$',
     auxiliaryCommentAfter: '$lab:coverage:on$',
     plugins: ['@babel/plugin-transform-runtime'],
-    ignore: ['../node_modules', 'node_modules']
+    ignore: ['../node_modules', 'node_modules'],
   })
 
   return transformed.code
 }
 
-internals.extensions = ['js', 'jsx', 'es', 'es6']
+internals.extensions = ['.js', '.jsx', '.ts', '.tsx', 'es', 'es6']
 internals.methods = []
 for (let i = 0, il = internals.extensions.length; i < il; ++i) {
   internals.methods.push({ ext: internals.extensions[i], transform: internals.transform })
