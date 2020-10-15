@@ -25,12 +25,20 @@ class FormDesignerPage extends Page {
     return $("polyline");
   }
 
-  dropdown(name) {
-    return this.pageContainer(name).$(".dropdown");
+  dateField(name) {
+    return this.pageContainer(name).react$('DateField');
   }
 
-  emailComponent(pageName) {
-    return this.pageContainer(pageName).$("div.email");
+  datePartsField(name) {
+    return this.pageContainer(name).react$('DatePartsField');
+  }
+  
+  dateTimeField(name) {
+    return this.pageContainer(name).react$('DateTimeField');
+  }
+
+  emailAddressField(pageName) {
+    return this.pageContainer(pageName).react$("EmailAddressField");
   }
 
   pageContainer(elem) {

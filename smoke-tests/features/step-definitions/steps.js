@@ -38,21 +38,29 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
 });
 
 Then("the {string} control is displayed in the page", (componentName) => {
-  switch (componentName) {
-    case "Date field":
-      chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
-        .true;
-      expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
+  const pageComponent = TestHelpers.toCamelCase(componentName);
+  switch (pageComponent) {
+    case "DateField":
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
+        .to.be.true;
+      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
+        "dd/mm/yyyy"
+      );
       break;
-    case "Email address field":
-      chai.expect(FormDesignerPage.emailComponent(this.pageName).isDisplayed())
+    case "EmailAddressField":
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
         .to.be.true;
       break;
-    case "Date time field":
-      chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be;
-      expect(FormDesignerPage.dropdown(this.pageName)).toHaveText(
+    case "DateTimeField":
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
+        .to.be.true;
+      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
         "dd/mm/yyyy hh:mm"
       );
+      break;
+    case "DatePartsField":
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
+        .to.be.true;
       break;
   }
 });

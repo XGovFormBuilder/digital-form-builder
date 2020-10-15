@@ -13,5 +13,10 @@ module.exports = {
     title: "Your Email Address",
     name: "emailAddress",
     hint: "Please enter your email adress",
+  },
+  datePartsField: {
+    title: "Your Import",
+    name: "importDate",
+    hint: "Please enter the estimated date of arrival of your goods",
   }
 };

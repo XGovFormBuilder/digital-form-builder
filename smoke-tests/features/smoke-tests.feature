@@ -12,6 +12,7 @@ Feature: Smoke tests
     Examples:
       | type                |
       | Date field          |
+      | Date parts field    |
       | Date time field     |
       | Email address field |
 
