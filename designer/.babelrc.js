@@ -1,9 +1,14 @@
 const path = require('path')
 
+const reactJsxPath = path.join(
+  path.dirname(require.resolve('@xgovformbuilder/govuk-react-jsx')), 
+  '/components'
+)
+
 module.exports = {
   "presets": [
-    "@babel/preset-react",
     "@babel/typescript",
+    "@babel/preset-react",
     ["@babel/preset-env",
       {
         "targets": {
@@ -20,7 +25,7 @@ module.exports = {
     "@babel/plugin-proposal-export-default-from",
     ["module-resolver", {
       "alias": {
-        "@govuk-jsx": path.join(path.dirname(require.resolve('@xgovformbuilder/govuk-react-jsx')), '/components'),
+        "@govuk-jsx": reactJsxPath,
       }
     }]
   ],
