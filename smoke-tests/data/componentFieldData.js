@@ -1,3 +1,4 @@
+// TODO Use real data based on an actual form for the components
 module.exports = {
   dateField: {
     title: "Date of Birth",
