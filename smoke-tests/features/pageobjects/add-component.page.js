@@ -29,6 +29,10 @@ class AddComponentPage extends Page {
     return this.parent.$(".govuk-button");
   }
 
+  get deleteBtn() {
+    return this.parent.$(".govuk-button=Delete")
+  }
+
   selectComponentByName(name) {
     this.selectList.selectByVisibleText(name);
   }

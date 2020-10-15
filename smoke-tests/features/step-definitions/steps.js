@@ -1,6 +1,6 @@
 const Helpers = require("../../support/testHelpers");
 const chai = require("chai");
-const { Given, When, Then } = require("cucumber");
+const { Given, When, And, Then } = require("cucumber");
 const AddComponentPage = require("../pageobjects/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
 const ConfigPage = require("../pageobjects/config.page");
@@ -28,10 +28,6 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
-  const myComponentName = `${Helpers.capitalizeAllWords(componentName).replace(
-    / /g,
-    ""
-  )}`;
   AddComponentPage.completeCommonFields(
     FieldData[TestHelpers.toCamelCase(componentName)]
   );
@@ -64,6 +60,25 @@ Then("the {string} control is displayed in the page", (componentName) => {
       break;
   }
 });
+
+When(
+  "I delete the {string} control from the {string}",
+  (componentName, pageName) => {
+    const pageComponent = TestHelpers.toCamelCase(componentName);
+    FormDesignerPage[pageComponent](pageName).click();
+    AddComponentPage.deleteBtn.click();
+    TestHelpers.acceptAlert();
+  }
+);
+
+Then(
+  "the {string} will not be visible in the {string}",
+  (componentName, pageName) => {
+    const pageComponent = TestHelpers.toCamelCase(componentName);
+    chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to.be
+      .false;
+  }
+);
 
 When("I edit the page title on the {string}", (pageName) => {
   this.newPageName = "testing";

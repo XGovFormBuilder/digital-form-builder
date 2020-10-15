@@ -16,6 +16,11 @@ Feature: Smoke tests
       | Date time field     |
       | Email address field |
 
+  Scenario: Delete a component
+    When I add a "Date field" control to the "Summary"
+    And I delete the "Date field" control from the "Summary"
+    Then the "Date field" will not be visible in the "Summary"
+
   Scenario: Edit a page title
     When I edit the page title on the "Question page"
     Then the changes are reflected in the page designer
