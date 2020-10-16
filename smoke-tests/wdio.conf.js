@@ -8,6 +8,9 @@ exports.config = {
       maxInstances: 5,
       //
       browserName: "chrome",
+      "goog:chromeOptions": {
+        args: ["--headless"],
+      },
       acceptInsecureCerts: true,
     },
   ],
@@ -31,7 +34,8 @@ exports.config = {
   connectionRetryCount: 3,
   services: ["selenium-standalone"],
   framework: "cucumber",
-  reporters: ["spec", 
+  reporters: [
+    "spec",
     [
       "cucumberjs-json",
       {
