@@ -14,7 +14,7 @@ export default class Model {
     const result = Schema.validate(def, { abortEarly: false })
 
     if (result.error) {
-      throw new Error(result.error)
+      throw result.error
     }
 
     // Make a clone of the shallow copy returned

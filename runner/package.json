@@ -6,21 +6,20 @@
   "scripts": {
     "start": "NODE_ENV=development node dist/index.js",
     "dev": "bash -c 'yarn run watch & NODE_ENV=development yarn node dist/index.js'",
-    "build:css": "bin/build-css",
     "build": "yarn build:css && yarn babel-build",
+    "build:css": "bin/build-css",
+    "babel-build": "babel --extensions '.js,.ts' src -d dist --copy-files --minified -s inline",
     "lint": "yarn run eslint ./ -c ../.eslintrc.json",
     "fix-lint": "yarn run eslint ./ -c ../.eslintrc.json --fix",
-    "unit-test": "lab -T test/.transform.js -v -P 'test' test/cases -r console -o stdout -r html -o unit-test.html -I version -l",
-    "unit-test:dev": "lab -v -P 'test' --inspect-brk",
     "test": "NODE_ENV=test yarn run unit-test",
-    "unit-test-cov": "lab -T test/.transform.js test/**/*.test.js -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
     "test-cov": "NODE_ENV=test yarn run lint && yarn run unit-test-cov",
+    "unit-test": "lab -T test/.transform.js -P test/**/*.test.* -v test -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
+    "unit-test:dev": "DEBUG=true lab -T test/.transform.js -P test/**/*.test.* -v test  --inspect-brk",
+    "unit-test-cov": "lab -T test/.transform.js -P test/**/*.test.* -v test -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
-    "babel-build": "babel src -d dist --copy-files --minified -s inline",
     "watch": "bash -c 'yarn run babel src -d dist --copy-files --watch -s inline'",
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch"
+    "type-check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",

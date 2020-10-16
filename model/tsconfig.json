@@ -3,7 +3,6 @@
   "baseUrl": "./src",
   "compilerOptions": {
     "rootDirs": ["src"],
-    "outDir": "dist/module",
     "declarationDir": "dist/types"
   },
   "include": ["src"],

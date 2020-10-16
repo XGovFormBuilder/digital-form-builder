@@ -2,9 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "rootDirs": ["src"],
-    "outDir": ".dist-ts",
+    "outDir": "dist",
     "composite": true,
-    "declarationDir": "lib",
+    "declarationDir": "dist"
   },
+  "include": ["src"],
   "references": [{ "path": "../model" }]
 }
