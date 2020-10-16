@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { flatten } from 'flat' //eslint-disable-line
 import { clone, reach } from 'hoek' //eslint-disable-line
-import { redirectTo, redirectUr } from '@xgovformbuilder/engine' //eslint-disable-line
+import { redirectTo, redirectUrl } from '@xgovformbuilder/engine' //eslint-disable-line
 
 import Page from './page'
 import { formSchema } from '../../../lib/formSchema'
