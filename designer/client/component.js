@@ -288,7 +288,7 @@ export class Component extends React.Component {
   state = {}
 
   showEditor = (e, value) => {
-    e.stopPropagation()
+    e?.stopPropagation()
     this.setState({ showEditor: value })
   }
 
