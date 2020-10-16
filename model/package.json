@@ -6,10 +6,10 @@
   "browser": "dist/browser/index.js",
   "types": "dist/types/index.d.ts",
   "scripts": {
-    "test": "yarn type-check && yarn test-lab",
+    "test": "yarn test-lab",
     "test-cov": "yarn lint && yarn test-lab-cov",
-    "test-lab": "lab -T ../node_modules/lab-transform-typescript test/*.test.ts -S -v test -r console -o stdout -r html -o unit-test.html -I version",
-    "test-lab-cov": "lab -T ../node_modules/lab-transform-typescript test/*.test.ts -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html  -r junit -o test-results/lab/unit-test.xml -I version",
+    "test-lab": "lab -T test/.transform.js test/*.test.ts -S -v test -r console -o stdout -r html -o unit-test.html -I version",
+    "test-lab-cov": "lab -T test/.transform.js test/*.test.ts -S -v -r console -o stdout -r html -o test-coverage/lab/unit-test.html  -r junit -o test-results/lab/unit-test.xml -I version",
     "build": "yarn run build:node && yarn run build:browser && yarn run build:types",
     "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module --source-maps",
     "build:browser": "BABEL_ENV=browser babel --extensions '.ts' src --out-dir dist/browser --source-maps",
@@ -53,7 +53,6 @@
     "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.6.0",
-    "lab-transform-typescript": "^3.0.1",
     "sinon": "^9.0.2",
     "typescript": "^4.0.3"
   }

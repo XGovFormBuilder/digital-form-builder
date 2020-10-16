@@ -3035,7 +3035,6 @@ __metadata:
     govuk-frontend: 3.6.0
     hmpo-components: 2.6.5
     joi: 17.2.1
-    lab-transform-typescript: ^3.0.1
     moment: 2.24.0
     nunjucks: 3.2.1
     path: 0.12.7
@@ -6130,7 +6129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.8, debug@npm:^2.6.9":
+"debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.8, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
   dependencies:
@@ -11752,17 +11751,6 @@ fsevents@~2.1.2:
   version: 2.0.4
   resolution: "klona@npm:2.0.4"
   checksum: be4a0c784135b6a75ac2c5ac9564894807aa050de041ac775a20d3ee46969ac5c3d37503d12c215c7decb592196e59e22852fd0cf28ac0cc29fe3a6df9168624
-  languageName: node
-  linkType: hard
-
-"lab-transform-typescript@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "lab-transform-typescript@npm:3.0.1"
-  dependencies:
-    debug: ^2.6.0
-  peerDependencies:
-    typescript: ">=2.1.5"
-  checksum: 0f28006ed88fe5e7d460b61632dcd20439b75169c39166449f3e6a374dc282129f754a47b6cda7ea80621551ba112cb4917542a61c872fa1f467516166cfa427
   languageName: node
   linkType: hard
 
