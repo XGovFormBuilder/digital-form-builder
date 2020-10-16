@@ -16,8 +16,8 @@ function filter (obj, predicate) {
 }
 
 class Input {
-  name: string | undefined;
-  title: string | undefined;
+  name: string | undefined = undefined;
+  title: string | undefined = undefined;
   propertyPath: string | undefined;
   page;
   #parentItemName: string;
@@ -40,7 +40,7 @@ class Input {
 export class Condition {
   name: string | undefined;
   displayName: string;
-  value;
+  value = undefined;
 
   constructor (rawData) {
     Object.assign(this, rawData)
@@ -96,10 +96,13 @@ export class Data implements DataModel {
   constructor (rawData) {
     const rawDataClone = rawData instanceof Data ? rawData._exposePrivateFields() : Object.assign({}, rawData)
     this.#conditions = (rawDataClone.conditions || []).map(it => new Condition(it))
+    console.log(this.#conditions)
     this.#feedback = rawDataClone.feedback
     delete rawDataClone.conditions
     delete rawDataClone.feedback
+    console.log('rawDataClone', rawDataClone)
     Object.assign(this, rawDataClone)
+    console.log('this', this)
   }
 
   _listInputsFor (page, input): Array<Input> {
@@ -150,10 +153,14 @@ export class Data implements DataModel {
       const existingLink = fromPage.next?.find((it: { path: string }) => it.path === to)
       
       if (!existingLink) {
-        const link = {
-          path: to,
-          condition
+        const link: { path: string, condition?: string } = {
+          path: to
         }
+
+        if (condition) {
+          link.condition = condition
+        }
+        
         fromPage.next = fromPage.next || []
         fromPage.next.push(link)
       }
@@ -211,7 +218,7 @@ export class Data implements DataModel {
     return undefined
   }
 
-  _valuesFor (input): ComponentValues | undefined {
+  _valuesFor (input): ComponentValues | null {
     if (input.type === 'YesNoField') {
       return yesNoValues
     }
@@ -219,7 +226,7 @@ export class Data implements DataModel {
       return valuesFrom(input.values)
     }
 
-    return undefined
+    return null
   }
 
   _allPathsLeadingTo (path: string): Array<string> {
