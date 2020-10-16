@@ -1,6 +1,5 @@
-const Helpers = require("../../support/testHelpers");
 const chai = require("chai");
-const { Given, When, And, Then } = require("cucumber");
+const { Given, When, Then } = require("cucumber");
 const AddComponentPage = require("../pageobjects/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
 const ConfigPage = require("../pageobjects/config.page");
@@ -11,7 +10,7 @@ const FormDesignerPage = require("../pageobjects/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 
 const FieldData = require("../../data/componentFieldData");
-const TestHelpers = require("../../support/testHelpers");
+const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
 
 const pages = {
   start: ConfigPage,
@@ -28,13 +27,11 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.completeCommonFields(
-    FieldData[TestHelpers.toCamelCase(componentName)]
-  );
+  AddComponentPage.completeCommonFields(FieldData[toCamelCase(componentName)]);
 });
 
 Then("the {string} control is displayed in the page", (componentName) => {
-  const pageComponent = TestHelpers.toCamelCase(componentName);
+  const pageComponent = toCamelCase(componentName);
   switch (pageComponent) {
     case "DateField":
       chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
@@ -64,17 +61,17 @@ Then("the {string} control is displayed in the page", (componentName) => {
 When(
   "I delete the {string} control from the {string}",
   (componentName, pageName) => {
-    const pageComponent = TestHelpers.toCamelCase(componentName);
+    const pageComponent = toCamelCase(componentName);
     FormDesignerPage[pageComponent](pageName).click();
     AddComponentPage.deleteBtn.click();
-    TestHelpers.acceptAlert();
+    acceptAlert();
   }
 );
 
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
-    const pageComponent = TestHelpers.toCamelCase(componentName);
+    const pageComponent = toCamelCase(componentName);
     chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to.be
       .false;
   }
@@ -165,14 +162,16 @@ When("I choose to duplicate the {string}", (pageName) => {
 Then(
   "{int} {string} pages are shown in the designer",
   (numberOfPages, pageName) => {
-    expect(FormDesignerPage.getNumberInArray(pageName)).toEqual(numberOfPages);
+    expect(FormDesignerPage.retrieveNumberOfPagesMatching(pageName)).toEqual(
+      numberOfPages
+    );
   }
 );
 
 When("I choose to delete the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.deleteBtn.click();
-  TestHelpers.acceptAlert();
+  acceptAlert();
   EditPageSection.closeSection.click();
 });
 

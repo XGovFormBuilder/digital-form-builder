@@ -1,10 +1,4 @@
-class Helpers {
-  capitalizeAllWords(myString) {
-    return myString.replace(/\w\S*/g, (w) =>
-      w.replace(/^\w/, (c) => c.toUpperCase())
-    );
-  }
-
+module.exports = {
   toCamelCase(string) {
     string = string
       .toLowerCase()
@@ -12,11 +6,9 @@ class Helpers {
         return match.charAt(match.length - 1).toUpperCase();
       });
     return string.charAt(0).toLowerCase() + string.substring(1);
-  }
+  },
 
   acceptAlert() {
     browser.acceptAlert();
-  }
-}
-
-module.exports = new Helpers();
+  },
+};

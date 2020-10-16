@@ -26,15 +26,15 @@ class FormDesignerPage extends Page {
   }
 
   dateField(name) {
-    return this.pageContainer(name).react$('DateField');
+    return this.pageContainer(name).react$("DateField");
   }
 
   datePartsField(name) {
-    return this.pageContainer(name).react$('DatePartsField');
+    return this.pageContainer(name).react$("DatePartsField");
   }
-  
+
   dateTimeField(name) {
-    return this.pageContainer(name).react$('DateTimeField');
+    return this.pageContainer(name).react$("DateTimeField");
   }
 
   emailAddressField(pageName) {
@@ -72,15 +72,9 @@ class FormDesignerPage extends Page {
     });
   }
 
-  getFormPageText() {
-    this.formPages.filter((page) => {
-      return console.log(page.getText());
-    });
-  }
-
-  getNumberInArray(term) {
+  retrieveNumberOfPagesMatching(pageName) {
     return this.formPageTitles.filter((value) => {
-      return value.getText() === term;
+      return value.getText() === pageName;
     }).length;
   }
 }
