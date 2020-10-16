@@ -1,7 +1,7 @@
 import { merge, reach } from '@hapi/hoek'
 import * as querystring from 'querystring'
 import { proceed, redirectTo } from '@xgovformbuilder/engine'
-import ComponentCollection from '@xgovformbuilder/engine/lib/components/componentcollection'
+import ComponentCollection from '@xgovformbuilder/engine/dist/components/componentcollection'
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')

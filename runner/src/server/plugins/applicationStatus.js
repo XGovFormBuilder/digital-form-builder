@@ -4,7 +4,7 @@ import {
   decode, redirectTo,
   redirectUrl,
   RelativeUrl
-} from '@xgovformbuilder/engine/lib/helpers'
+} from '@xgovformbuilder/engine'
 
 function getFeedbackContextInfo (request) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
