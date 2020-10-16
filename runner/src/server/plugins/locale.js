@@ -6,13 +6,13 @@
  * Configurable plugin for determine request language in hapi.js applications.
  */
 /* eslint-disable */
-const boom = require('@hapi/boom')
-const fs = require('fs')
-const path = require('path')
-const lodash = require('lodash')
-const headerParser = require('accept-language-parser')
-const Joi = require('joi')
-const pkg = require('../../../package.json')
+import boom from '@hapi/boom'
+import fs from 'fs'
+import path from 'path'
+import lodash from 'lodash'
+import headerParser from 'accept-language-parser'
+import Joi from 'joi'
+import pkg from '../../../package.json'
 
 /**
  * @typedef {Object}                    PluginOptions                   - Plugin configuration options.
@@ -76,7 +76,6 @@ var orderParameters = {
   cookie: 'parseCookie'
 }
 
-console.log(defaultOptions)
 var optionsSchema = Joi.object({
   locales: Joi.array().items(Joi.string()).default(defaultOptions.locales),
   default: Joi.string().allow(null).default(defaultOptions.default),
@@ -324,7 +323,7 @@ Internal.prototype.processRequest = function processRequest (request, h) {
   return h.continue
 }
 
-module.exports.plugin = {
+const plugin = {
   name: 'locale',
   version: pkg.version,
   pkg: pkg,
@@ -391,3 +390,5 @@ module.exports.plugin = {
     server.ext(internal.options.onEvent, internal.processRequest, { bind: internal })
   }
 }
+
+export default plugin

@@ -1,5 +1,5 @@
 import React from 'react'
-import { clone } from '@xgovformbuilder/model/lib/helpers'
+import { clone } from '@xgovformbuilder/model'
 import Name from '../name'
 import { nanoid } from 'nanoid'
 import { withI18n } from '../i18n'

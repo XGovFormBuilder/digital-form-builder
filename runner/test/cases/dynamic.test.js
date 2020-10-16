@@ -1,11 +1,12 @@
 import { CacheService } from '../../src/server/lib/cacheService'
-const Lab = require('@hapi/lab')
-const { expect } = require('@hapi/code')
-const cheerio = require('cheerio')
-const FormData = require('form-data')
-const createServer = require('../../src/server/index')
+import Lab from '@hapi/lab'
+import { expect } from '@hapi/code'
+import cheerio from 'cheerio'
+import FormData from 'form-data'
+import createServer from '../../src/server/index'
+import { stub, restore } from 'sinon'
+
 const { before, afterEach, test, suite, after } = exports.lab = Lab.script()
-const { stub, restore } = require('sinon')
 
 const state = {
   progress: [

@@ -1,11 +1,11 @@
+import fs from 'fs'
+import path from 'path'
 import { plugin } from '@xgovformbuilder/engine'
+
+import config from '../../config'
 import { defaultPageController } from './pages'
 
-const path = require('path')
-const fs = require('fs')
 const configPath = path.join(__dirname, '..', '..', 'forms')
-const config = require('../../config')
-
 const relativeTo = __dirname
 const configFiles = fs.readdirSync(configPath).filter(filename => {
   if (filename.indexOf('.json') >= 0) {
@@ -17,7 +17,7 @@ const idFromFilename = (filename) => {
   return filename.replace(/govsite\.|\.json|/gi, '')
 }
 
-const configurePlugins = (configFile, customPath) => {
+export const configurePlugins = (configFile, customPath) => {
   let configs
   if (configFile && customPath) {
     configs = [{ configuration: require(path.join(customPath, configFile)), id: idFromFilename(configFile) }]
@@ -40,7 +40,4 @@ const configurePlugins = (configFile, customPath) => {
     plugin,
     options: { modelOptions, configs, previewMode: config.previewMode }
   }
-}
-module.exports = {
-  configurePlugins
 }

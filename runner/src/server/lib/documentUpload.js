@@ -1,6 +1,6 @@
-const FormData = require('form-data')
-const Wreck = require('@hapi/wreck')
-const { documentUploadApiUrl } = require('../config')
+import FormData from 'form-data'
+import Wreck from '@hapi/wreck'
+import { documentUploadApiUrl } from '../config'
 
 const parsedError = (key, error) => {
   return {
@@ -8,7 +8,7 @@ const parsedError = (key, error) => {
   }
 }
 
-class UploadService {
+export class UploadService {
   get fileSizeLimit () {
     return 5 * 1024 * 1024 // 5mb
   }
@@ -166,7 +166,4 @@ class UploadService {
       return Wreck.get(path)
     })
   }
-}
-module.exports = {
-  UploadService
 }

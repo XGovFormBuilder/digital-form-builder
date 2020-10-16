@@ -1,6 +1,6 @@
 import Component from './component'
 import { optionalText } from './constants'
-const joi = require('joi')
+import joi from 'joi'
 
 export default class FormComponent extends Component {
   constructor (def, model) {

@@ -1,8 +1,8 @@
+import config from '../config'
+import yar from 'yar'
 
-const config = require('../config')
-
-module.exports = {
-  plugin: require('yar'),
+export default {
+  plugin: yar,
   options: {
     cache: {
       expiresIn: config.sessionTimeout

@@ -38,3 +38,6 @@ export default class Page extends EngineBasePage {
     }
   }
 }
+
+// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
+module.exports = EngineBasePage

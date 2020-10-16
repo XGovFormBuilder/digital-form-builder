@@ -1,6 +1,6 @@
-const { google } = require('googleapis')
+import { google } from 'googleapis'
 
-class SheetsService {
+export class SheetsService {
   /**
    * google authentication options
    * @typedef { Object } GoogleAuthOpts
@@ -52,8 +52,4 @@ class SheetsService {
       }
     })
   }
-}
-
-module.exports = {
-  SheetsService
 }

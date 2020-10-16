@@ -17,6 +17,8 @@ package-lock.json
 /runner/tmp.pdf
 /model/module/
 /model/dist/
+*/dist/
+*/.dist/
 
 .yarn/*
 !.yarn/releases

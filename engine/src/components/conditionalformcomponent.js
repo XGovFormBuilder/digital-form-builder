@@ -1,10 +1,11 @@
 import nunjucks from 'nunjucks'
 import FormComponent from './formcomponent'
 import ComponentCollection from './componentcollection'
-const getSchemaKeys = Symbol('getSchemaKeys')
-const joi = require('joi')
+import joi from 'joi'
 
-export default class Conditionalformcomponent extends FormComponent {
+const getSchemaKeys = Symbol('getSchemaKeys')
+
+class ConditionalFormComponent extends FormComponent {
   constructor (def, model) {
     super(def, model)
     this.itemValues = this.values.items.map(item => item.value)
@@ -164,3 +165,6 @@ export default class Conditionalformcomponent extends FormComponent {
     return schemaKeys
   }
 }
+
+export default ConditionalFormComponent
+

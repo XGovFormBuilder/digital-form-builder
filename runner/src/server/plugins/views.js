@@ -1,11 +1,13 @@
-const nunjucks = require('nunjucks')
-const config = require('../config')
-const pkg = require('../../../package.json')
-const resolve = require('resolve')
-const path = require('path')
+import path from 'path'
+import resolve from 'resolve'
+import nunjucks from 'nunjucks'
+import vision from 'vision'
 
-module.exports = {
-  plugin: require('vision'),
+import config from '../config'
+import pkg from '../../../package.json'
+
+export default {
+  plugin: vision,
   options: {
     engines: {
       html: {

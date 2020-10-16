@@ -64,16 +64,11 @@ jobs:
             - all-dependencies
       - run: yarn install
       - run: yarn rebuild node-sass only
-      - run: yarn flow-mono install-types
-      - run: yarn flow-mono create-stubs
       - save_cache:
           paths:
             - .yarn
             - model/lib
-            - engine/lib
-            - model/flow-typed
-            - designer/flow-typed
-            - runner/flow-typed
+            - engine/lib  
           key: all-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/project

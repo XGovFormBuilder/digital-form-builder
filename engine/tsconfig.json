@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDirs": ["src"],
+    "outDir": "dist",
+    "composite": true,
+    "declarationDir": "dist"
+  },
+  "include": ["src", "util.js"],
+  "references": [{ "path": "../model" }]
+}

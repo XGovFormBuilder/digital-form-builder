@@ -1,4 +1,4 @@
-const joi = require('joi')
+import joi from 'joi'
 
 const fieldSchema = joi.object({
   key: joi.string().required(),
@@ -26,14 +26,10 @@ const feesSchema = joi.object({
 
 const metadataSchema = joi.object()
 
-const formSchema = joi.object().keys({
+export const formSchema = joi.object().keys({
   name: joi.string().required(),
   preferredLanguage: joi.string().optional(),
   fees: feesSchema,
   questions: joi.array().items(questionSchema),
   metadata: metadataSchema
 })
-
-module.exports = {
-  formSchema
-}
