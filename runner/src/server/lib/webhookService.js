@@ -1,4 +1,5 @@
-const Wreck = require('@hapi/wreck')
+import Wreck from '@hapi/wreck'
+
 const options = {
   headers: {
     'content-type': 'application/json'
@@ -6,7 +7,7 @@ const options = {
   timeout: 60000
 }
 
-class WebhookService {
+export class WebhookService {
   /**
    * Posts data to a webhook
    * @params { string } url must be webhook with a POST endpoint which returns a webhookResponse object.
@@ -25,8 +26,4 @@ class WebhookService {
     }
     return 'UNKNOWN'
   }
-}
-
-module.exports = {
-  WebhookService
 }

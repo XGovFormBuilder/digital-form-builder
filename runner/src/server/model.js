@@ -3,7 +3,7 @@ import path from 'path'
 import { Parser } from 'expr-eval'
 import moment from 'moment'
 import Page from './plugins/builder/pages'
-const joi = require('joi')
+import joi from 'joi'
 
 /**
  * TODO - convert references to this to using the shared Data class from the model library?

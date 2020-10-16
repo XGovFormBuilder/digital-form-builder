@@ -8,7 +8,7 @@ internals.transform = function (content, filename) {
 
   let transformed = Babel.transform(content, {
     presets: [
-      "@babel/preset-flow",
+      "@babel/typescript",
       ["@babel/preset-env",
         { "targets": {
           "node": "12"
@@ -35,7 +35,7 @@ internals.transform = function (content, filename) {
 }
 
 
-internals.extensions = ['js', 'jsx', 'es', 'es6']
+internals.extensions = ['.js', '.jsx', '.ts', '.tsx', 'es', 'es6']
 internals.methods = []
 for (let i = 0, il = internals.extensions.length; i < il; ++i) {
   internals.methods.push({ ext: internals.extensions[i], transform: internals.transform })

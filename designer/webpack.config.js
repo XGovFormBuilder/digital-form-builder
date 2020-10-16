@@ -10,18 +10,25 @@ const prodMode = process.env.NODE_ENV === 'production'
 const environment = prodMode ? 'production' : 'development'
 
 const client = {
+  target: 'web',
   mode: environment,
   watch: devMode,
-  entry: path.resolve(__dirname, 'client', 'index.js'),
+  entry: path.resolve(__dirname, 'client', 'index.tsx'),
   output: {
     path: path.resolve(__dirname, 'dist', 'client'),
     filename: 'assets/[name].js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [
+      path.resolve(__dirname, '../node_modules')
+    ]
   },
   devtool: 'source-map',
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -62,7 +69,7 @@ const client = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'views', 'designer.html'),
+      template: path.resolve(__dirname, 'server', 'views', 'designer.html'),
       filename: 'designer.html'
     }),
     new MiniCssExtractPlugin({
@@ -85,15 +92,21 @@ const server = {
   target: 'node',
   mode: environment,
   watch: devMode,
-  entry: path.resolve(__dirname, 'server', 'index.js'),
+  entry: path.resolve(__dirname, 'server', 'index.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'server.js'
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [
+      path.resolve(__dirname, '../node_modules')
+    ]
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {

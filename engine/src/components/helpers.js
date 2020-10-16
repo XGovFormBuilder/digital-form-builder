@@ -1,5 +1,5 @@
 import path from 'path'
-const joi = require('joi')
+import joi from 'joi'
 
 export function buildSchema (type, keys) {
   let schema = type.isJoi ? type : joi[type.type ?? type]()

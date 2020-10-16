@@ -1,12 +1,13 @@
-const hoek = require('hoek')
-const CatboxRedis = require('@hapi/catbox-redis')
-const CatboxMemory = require('@hapi/catbox-memory')
-const { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } = require('../config')
-const Redis = require('ioredis')
+import hoek from 'hoek'
+import CatboxRedis from '@hapi/catbox-redis'
+import CatboxMemory from '@hapi/catbox-memory'
+import Redis from 'ioredis'
+
+import { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } from '../config'
 
 const partition = 'cache'
 
-class CacheService {
+export class CacheService {
   constructor (server) {
     this.cache = server.cache({ segment: 'cache' })
   }
@@ -38,7 +39,7 @@ class CacheService {
   }
 }
 
-const catboxProvider = () => {
+export const catboxProvider = () => {
   const provider = {
     constructor: redisHost ? CatboxRedis : CatboxMemory,
     options: {}
@@ -67,5 +68,3 @@ const catboxProvider = () => {
 
   return provider
 }
-
-module.exports = { CacheService, catboxProvider }

@@ -1,13 +1,15 @@
-const Lab = require('@hapi/lab')
-const { expect } = require('@hapi/code')
-const cheerio = require('cheerio')
-const FormData = require('form-data')
-const createServer = require('../../src/server/index')
+import fs from 'fs'
+import path from 'path'
+import Lab from '@hapi/lab'
+import cheerio from 'cheerio'
+import FormData from 'form-data'
+import { expect } from '@hapi/code'
+import { stub, restore } from 'sinon'
+
+import createServer from '../../src/server/index'
+import { UploadService } from '../../src/server/lib/documentUpload'
+
 const { before, test, suite, after } = exports.lab = Lab.script()
-const { UploadService } = require('../../src/server/lib/documentUpload')
-const { stub, restore } = require('sinon')
-const fs = require('fs')
-const path = require('path')
 
 suite('uploads', () => {
   let server

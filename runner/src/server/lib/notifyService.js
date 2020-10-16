@@ -1,6 +1,6 @@
-const { NotifyClient } = require('notifications-node-client')
+import { NotifyClient } from 'notifications-node-client'
 
-class NotifyService {
+export class NotifyService {
   parsePersonalisations (options) {
     const parsed = {}
     Object.assign(parsed, ...Object.keys(options).map(key => {
@@ -31,8 +31,4 @@ class NotifyService {
 
     return this.notifyClient(apiKey).sendEmail(templateId, emailAddress, parsedOptions)
   }
-}
-
-module.exports = {
-  NotifyService
 }

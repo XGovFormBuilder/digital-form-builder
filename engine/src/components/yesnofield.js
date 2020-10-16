@@ -1,7 +1,6 @@
 import FormComponent from './formcomponent'
 import * as helpers from './helpers'
-
-const { Data } = require('@xgovformbuilder/model')
+import { Data } from '@xgovformbuilder/model'
 
 export default class YesNoField extends FormComponent {
   constructor (def, model) {

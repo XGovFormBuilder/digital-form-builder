@@ -23,7 +23,6 @@
     },
     "plugins": [
         "react",
-        "flowtype",
         "@babel"
     ],
     "rules": {
@@ -33,12 +32,10 @@
         "**/node_modules/**",
         "**/dist/**",
         "**/lib/**",
-        "**/flow-typed/**",
         "**/public/**",
         "node_modules/**",
         "dist/**",
         "lib/**",
-        "flow-typed/**",
         "public/**",
         "module/**"
     ],

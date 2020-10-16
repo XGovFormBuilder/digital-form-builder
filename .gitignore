@@ -18,6 +18,8 @@ package-lock.json
 /model/module/
 /model/dist/
 smoke-tests/reports/json/*json
+*/dist/
+*/.dist/
 
 .yarn/*
 !.yarn/releases

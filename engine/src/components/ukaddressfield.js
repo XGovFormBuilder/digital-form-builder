@@ -1,7 +1,8 @@
 import * as helpers from './helpers'
 import FormComponent from './formcomponent'
 import ComponentCollection from './componentcollection'
-const joi = require('joi')
+import joi from 'joi'
+
 export default class UkAddressField extends FormComponent {
   constructor (def, model) {
     super(def, model)

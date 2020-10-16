@@ -1,7 +1,7 @@
 import { merge, reach } from '@hapi/hoek'
 import * as querystring from 'querystring'
 import { proceed, redirectTo } from '@xgovformbuilder/engine'
-import ComponentCollection from '@xgovformbuilder/engine/lib/components/componentcollection'
+import ComponentCollection from '@xgovformbuilder/engine/dist/components/componentcollection'
 
 const FORM_SCHEMA = Symbol('FORM_SCHEMA')
 const STATE_SCHEMA = Symbol('STATE_SCHEMA')
@@ -442,3 +442,6 @@ export default class Page {
 
   set stateSchema (value) { this[STATE_SCHEMA] = value }
 }
+
+// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
+module.exports = Page

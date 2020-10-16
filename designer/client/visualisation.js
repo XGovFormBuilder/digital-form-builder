@@ -101,7 +101,7 @@ class Lines extends React.Component {
               const ys = edge.points.map(p => p.y)
 
               const textX = xs.reduce((a, b) => a + b, 0) / xs.length
-              const textY = ys.reduce((a, b) => a + b, 0) / ys.length
+              const textY = (ys.reduce((a, b) => a + b, 0) / ys.length) - 5
               const highlight = [edge.source, edge.target].every(path => persona?.paths?.includes(path))
               return (
                 <g key={points}>
@@ -163,19 +163,28 @@ export default class Visualisation extends React.Component {
     const { data, id, updatedAt, downloadedAt, previewUrl, persona } = this.props
     const { pages } = data
 
+    const wrapperStyle = this.state.layout && {
+      width: this.state.layout.width,
+      height: this.state.layout.height
+    }
+
     return (
       <div
-        ref={this.ref} className='visualisation' style={this.state.layout &&
-      { width: this.state.layout.width, height: this.state.layout.height }}
+        ref={this.ref}
+        className='visualisation'
+        style={wrapperStyle}
       >
-
-        {pages.map((page, index) =>
-          (<Page
-            key={index} data={data} page={page} id={id} previewUrl={previewUrl} persona={persona}
+        {pages.map((page, index) => (
+          <Page
+            id={id}
+            key={index}
+            data={data}
+            page={page}
+            persona={persona}
+            previewUrl={previewUrl}
             layout={this.state.layout && this.state.layout.nodes[index]}
           />
-          )
-        )}
+        ))}
 
         {this.state.layout &&
           <Lines layout={this.state.layout} data={data} persona={persona} />}

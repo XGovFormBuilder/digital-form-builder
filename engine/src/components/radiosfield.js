@@ -1,6 +1,7 @@
 import * as helpers from './helpers'
-import Conditionalformcomponent from './conditionalformcomponent'
-export default class RadiosField extends Conditionalformcomponent {
+import ConditionalFormComponent from './conditionalformcomponent'
+
+export default class RadiosField extends ConditionalFormComponent {
   constructor (def, model) {
     super(def, model)
 

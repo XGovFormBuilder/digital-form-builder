@@ -1,4 +1,5 @@
 import Component from './component'
+
 export default class Details extends Component {
   getViewModel () {
     const model = {

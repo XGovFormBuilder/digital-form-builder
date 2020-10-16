@@ -7,6 +7,8 @@ import ComponentCreate from './component-create'
 import { ComponentTypes, clone } from '@xgovformbuilder/model'
 import { withI18n } from './i18n'
 
+import { PageLinkage } from './components/page-linkage'
+
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>
     <Component key={index} page={page} component={component} data={data} />
@@ -79,18 +81,26 @@ export class Page extends React.Component {
     if (pageTitle && typeof pageTitle === 'object') {
       pageTitle = pageTitle.en
     }
+
     const highlight = persona?.paths?.includes(page.path)
+    const pageClassName = [
+      `page${conditional ? ' conditional' : ''}`,
+      `${highlight ? 'highlight' : ''}`
+    ].join(' ')
 
     return (
       <div
-        id={page.path} className={`page${conditional ? ' conditional' : ''} ${highlight ? 'highlight' : ''}`}
-        title={page.path} style={this.props.layout}
+        id={page.path}
+        className={pageClassName}
+        title={page.path}
+        style={this.props.layout}
       >
         <div className='page__heading'>
           <h3>
             {section && <span>{section.title}</span>}
             {pageTitle}
           </h3>
+          <PageLinkage page={page} data={data} layout={this.props.layout}/>
         </div>
 
         <SortableList
