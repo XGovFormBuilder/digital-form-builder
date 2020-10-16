@@ -28,7 +28,7 @@ parameters:
   runner:
     type: boolean
     default: false
-  test:
+  smoke-tests:
     type: boolean
     default: false
 
