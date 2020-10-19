@@ -18,7 +18,7 @@ Given("I have created a new form configuration", () => {
 });
 
 When("I add a {string} control to the {string}", (componentName, pageName) => {
-  this.pageName = pageName
+  this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   addComponentPage.selectComponentByName(componentName);
   addComponentPage.completeDateField(
@@ -29,7 +29,8 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
 });
 
 Then("the Date field control is displayed in the page", () => {
-  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be.true;
+  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
+    .true;
   expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 

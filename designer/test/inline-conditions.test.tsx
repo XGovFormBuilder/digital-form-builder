@@ -202,19 +202,17 @@ suite("Inline conditions", () => {
           cancelCallback={cancelCallback}
         />
       );
-      wrapper
-        .instance()
-        .saveCondition(
-          new Condition(
-            Field.from({
-              name: fields[0].propertyPath,
-              type: fields[0].type,
-              display: fields[0].displayName,
-            }),
-            isEqualToOperator,
-            new ConditionValue("N")
-          )
-        );
+      wrapper.instance().saveCondition(
+        new Condition(
+          Field.from({
+            name: fields[0].propertyPath,
+            type: fields[0].type,
+            display: fields[0].displayName,
+          }),
+          isEqualToOperator,
+          new ConditionValue("N")
+        )
+      );
       expect(conditionsChange.called).to.equal(false);
 
       const clonedData = sinon.spy();
@@ -548,20 +546,18 @@ suite("Inline conditions", () => {
         wrapper
           .find("#cond-name")
           .simulate("change", { target: { value: "Badgers" } });
-        wrapper
-          .instance()
-          .saveCondition(
-            new Condition(
-              Field.from({
-                name: fields[0].propertyPath,
-                type: fields[0].type,
-                display: fields[0].displayName,
-              }),
-              isEqualToOperator,
-              new ConditionValue("N"),
-              "and"
-            )
-          );
+        wrapper.instance().saveCondition(
+          new Condition(
+            Field.from({
+              name: fields[0].propertyPath,
+              type: fields[0].type,
+              display: fields[0].displayName,
+            }),
+            isEqualToOperator,
+            new ConditionValue("N"),
+            "and"
+          )
+        );
         expect(
           wrapper.find("#save-inline-conditions").prop("onClick")
         ).to.equal(wrapper.instance().onClickSave);

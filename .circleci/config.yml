@@ -68,7 +68,7 @@ jobs:
           paths:
             - .yarn
             - model/lib
-            - engine/lib  
+            - engine/lib
           key: all-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/project
@@ -96,16 +96,16 @@ jobs:
 
               # if the upstream dependencies (model or engine) have changed, this package must be rebuilt.
               - and:
-                  - equal: ['engine', << parameters.package_name >>]
+                  - equal: ["engine", << parameters.package_name >>]
                   - << pipeline.parameters.model >>
               - and:
-                  - equal: ['runner', << parameters.package_name >>]
+                  - equal: ["runner", << parameters.package_name >>]
                   - << pipeline.parameters.model >>
               - and:
-                  - equal: ['runner', << parameters.package_name >>]
+                  - equal: ["runner", << parameters.package_name >>]
                   - << pipeline.parameters.engine >>
               - and:
-                  - equal: ['designer', << parameters.package_name >>]
+                  - equal: ["designer", << parameters.package_name >>]
                   - << pipeline.parameters.model >>
           steps:
             - attach_workspace:
@@ -115,12 +115,12 @@ jobs:
                 condition:
                   or:
                     - and:
-                        - equal: ['runner', << parameters.package_name >>]
+                        - equal: ["runner", << parameters.package_name >>]
                         - or:
                             - not: << pipeline.parameters.engine >>
                             - not: << pipeline.parameters.model >>
                     - and:
-                        - equal: ['designer', << parameters.package_name >>]
+                        - equal: ["designer", << parameters.package_name >>]
                         - not: << pipeline.parameters.model >>
                 steps:
                   - run:
@@ -132,7 +132,7 @@ jobs:
                 condition:
                   or:
                     - and:
-                        - equal: ['engine', << parameters.package_name >>]
+                        - equal: ["engine", << parameters.package_name >>]
                         - not: << pipeline.parameters.model >>
                 steps:
                   - run:
@@ -161,7 +161,6 @@ jobs:
             if [ ! '<< parameters.should_build >>' = 'true' ]; then
               circleci-agent step halt
             fi
-
 
 workflows:
   version: 2

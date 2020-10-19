@@ -99,11 +99,9 @@ suite("Section create", () => {
     wrapper
       .find("#section-title")
       .simulate("change", { target: { value: "My badgers" } });
-    wrapper
-      .find("#section-name")
-      .simulate("blur", {
-        target: { value: "myName", setCustomValidity: sinon.spy() },
-      });
+    wrapper.find("#section-name").simulate("blur", {
+      target: { value: "myName", setCustomValidity: sinon.spy() },
+    });
     wrapper
       .find("#section-title")
       .simulate("change", { target: { value: "Your badgers" } });
@@ -157,11 +155,9 @@ suite("Section create", () => {
     wrapper
       .find("#section-title")
       .simulate("change", { target: { value: " Awesome Badgers " } });
-    wrapper
-      .find("#section-name")
-      .simulate("blur", {
-        target: { value: "myName", setCustomValidity: sinon.spy() },
-      });
+    wrapper.find("#section-name").simulate("blur", {
+      target: { value: "myName", setCustomValidity: sinon.spy() },
+    });
     const preventDefault = sinon.spy();
     await wrapper.instance().onSubmit({ preventDefault });
 
@@ -187,11 +183,9 @@ suite("Section create", () => {
     wrapper
       .find("#section-title")
       .simulate("change", { target: { value: " Awesome Badgers " } });
-    wrapper
-      .find("#section-name")
-      .simulate("blur", {
-        target: { value: "myName", setCustomValidity: sinon.spy() },
-      });
+    wrapper.find("#section-name").simulate("blur", {
+      target: { value: "myName", setCustomValidity: sinon.spy() },
+    });
     const preventDefault = sinon.spy();
     await wrapper.instance().onSubmit({ preventDefault });
 
