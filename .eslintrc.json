@@ -7,7 +7,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "standard"
+        "standard",
+        "prettier"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -31,13 +32,10 @@
     "ignorePatterns": [
         "**/node_modules/**",
         "**/dist/**",
-        "**/lib/**",
         "**/public/**",
         "node_modules/**",
         "dist/**",
-        "lib/**",
-        "public/**",
-        "module/**"
+        "public/**"
     ],
     "settings": {
         "react": {
