@@ -17,8 +17,28 @@ class FormDesignerPage extends Page {
     return $$(".page");
   }
 
-  dropdown(name) {
-    return this.pageContainer(name).$(".dropdown");
+  get formPageTitles() {
+    return $$(".page__heading h3");
+  }
+
+  get linkLine() {
+    return $("polyline");
+  }
+
+  dateField(name) {
+    return this.pageContainer(name).react$("DateField");
+  }
+
+  datePartsField(name) {
+    return this.pageContainer(name).react$("DatePartsField");
+  }
+
+  dateTimeField(name) {
+    return this.pageContainer(name).react$("DateTimeField");
+  }
+
+  emailAddressField(pageName) {
+    return this.pageContainer(pageName).react$("EmailAddressField");
   }
 
   pageContainer(elem) {
@@ -52,10 +72,11 @@ class FormDesignerPage extends Page {
     });
   }
 
-  getFormPageText() {
-    this.formPages.filter((page) => {
-      console.log(page.getText());
-    });
+  retrieveNumberOfPagesMatching(pageName) {
+    return this.formPageTitles.filter((value) => {
+      return value.getText() === pageName;
+    }).length;
   }
 }
+
 module.exports = new FormDesignerPage();

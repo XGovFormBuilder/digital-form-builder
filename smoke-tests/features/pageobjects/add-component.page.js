@@ -16,18 +16,31 @@ class AddComponentPage extends Page {
   get hintField() {
     return this.parent.$("#field-hint");
   }
+
+  get fromAList() {
+    return this.parent.$('input#definitionType');
+  }
+
+  get listOptions() {
+    return this.parent.$('select#field-options-list')
+  }
+
   get saveBtn() {
     return this.parent.$(".govuk-button");
+  }
+
+  get deleteBtn() {
+    return this.parent.$(".govuk-button=Delete")
   }
 
   selectComponentByName(name) {
     this.selectList.selectByVisibleText(name);
   }
 
-  completeDateField(title, name, hint) {
-    this.titleField.setValue(title);
-    this.nameField.setValue(name);
-    this.hintField.setValue(hint);
+  completeCommonFields(dataObject) {
+    this.titleField.setValue(dataObject.title);
+    this.hintField.setValue(dataObject.hint);
+    this.nameField.setValue(dataObject.name);
     this.saveBtn.click();
   }
 }
