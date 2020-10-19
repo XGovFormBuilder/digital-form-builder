@@ -1,77 +1,80 @@
-import React, { useCallback, useState, Fragment } from 'react'
-import { RenderInPortal } from './render-in-portal'
+import React, { useCallback, useState, Fragment } from "react";
+import { RenderInPortal } from "./render-in-portal";
 
-export function PageLinkage ({ page, data, layout }) {
-  const [lineStart, setLineStart] = useState(null)
-  const [lineEnd, setLineEnd] = useState(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [isDraggingOver, setIsDraggingOver] = useState(false)
+export function PageLinkage({ page, data, layout }) {
+  const [lineStart, setLineStart] = useState(null);
+  const [lineEnd, setLineEnd] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const reset = () => {
-    setIsDraggingOver(false)
-    setIsDragging(false)
-    setLineStart(null)
-    setLineEnd(null)
-  }
+    setIsDraggingOver(false);
+    setIsDragging(false);
+    setLineStart(null);
+    setLineEnd(null);
+  };
 
   const handleDragStart = useCallback((event) => {
-    const { clientX: x, clientY: y } = event
-    setIsDragging(true)
-    setLineEnd({ x, y })
-    setLineStart({ x, y })
-    event.dataTransfer.setData('linkingPage', JSON.stringify(page))
-  }, [])
+    const { clientX: x, clientY: y } = event;
+    setIsDragging(true);
+    setLineEnd({ x, y });
+    setLineStart({ x, y });
+    event.dataTransfer.setData("linkingPage", JSON.stringify(page));
+  }, []);
 
   const handleDrag = useCallback((event) => {
-    const { clientX: x, clientY: y } = event
+    const { clientX: x, clientY: y } = event;
 
     if (!x && !y) {
       // event might return 0 0 moved outside dom or drop occurs outside linkage
-      reset()
+      reset();
     } else {
-      setLineEnd({ x, y })
+      setLineEnd({ x, y });
     }
-  }, [])
+  }, []);
 
   const handleDragOver = useCallback((event) => {
-    event.preventDefault()
-    setIsDraggingOver(true)
-  }, [])
+    event.preventDefault();
+    setIsDraggingOver(true);
+  }, []);
 
   const handleDragLeave = useCallback((event) => {
-    event.preventDefault()
-    setIsDraggingOver(false)
-  }, [])
+    event.preventDefault();
+    setIsDraggingOver(false);
+  }, []);
 
-  const handleDrop = useCallback(async (event) => {
-    event.preventDefault()
+  const handleDrop = useCallback(
+    async (event) => {
+      event.preventDefault();
 
-    const linkingPage = JSON.parse(event.dataTransfer.getData('linkingPage'))
-    if (linkingPage.path !== page.path) {
-      const copy = data.clone()
-      const updatedData = copy.addLink(linkingPage.path, page.path)
-      await data.save(updatedData)
-    }
-    reset()
-  }, [data])
+      const linkingPage = JSON.parse(event.dataTransfer.getData("linkingPage"));
+      if (linkingPage.path !== page.path) {
+        const copy = data.clone();
+        const updatedData = copy.addLink(linkingPage.path, page.path);
+        await data.save(updatedData);
+      }
+      reset();
+    },
+    [data]
+  );
 
   const handleDragEnd = useCallback((event) => {
-    event.preventDefault()
-    reset()
-  }, [])
+    event.preventDefault();
+    reset();
+  }, []);
 
-  const showHighlight = isDragging || isDraggingOver
+  const showHighlight = isDragging || isDraggingOver;
 
   const pageNodeSize = {
     width: layout?.node?.width,
-    height: layout?.node?.height
-  }
+    height: layout?.node?.height,
+  };
 
   return (
     <Fragment>
-      {showHighlight &&
+      {showHighlight && (
         <div className="page-linkage__highlight-area" style={pageNodeSize} />
-      }
+      )}
       <div
         className="page-linkage__drag-area"
         onDrag={handleDrag}
@@ -79,16 +82,12 @@ export function PageLinkage ({ page, data, layout }) {
         onDragEnd={handleDragEnd}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        onDragLeave = {handleDragLeave}
+        onDragLeave={handleDragLeave}
         draggable="true"
       />
       {isDragging && lineEnd && (
         <RenderInPortal>
-          <svg
-            className="page-linkage__line"
-            width="9000"
-            height="9000"
-          >
+          <svg className="page-linkage__line" width="9000" height="9000">
             <defs>
               <marker
                 id="arrow"
@@ -101,7 +100,8 @@ export function PageLinkage ({ page, data, layout }) {
               >
                 <polygon
                   points="0 0, 0 6, 6 3"
-                  fill="#f7b315" stroke="transparent"
+                  fill="#f7b315"
+                  stroke="transparent"
                 />
               </marker>
             </defs>
@@ -116,5 +116,5 @@ export function PageLinkage ({ page, data, layout }) {
         </RenderInPortal>
       )}
     </Fragment>
-  )
+  );
 }

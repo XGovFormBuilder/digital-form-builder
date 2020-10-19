@@ -1,4 +1,3 @@
-
 /**
   This is the configuration for i18next-parser which is a tool used to facilitate the maintenance of the translation catalogs.
   Please run "yarn designer i18n-parse" to create/update translations files inside client/i18n/translations.
@@ -7,11 +6,11 @@
  */
 module.exports = {
   // en: English, cy: Welsh
-  locales: ['en', 'cy'],
-  output: 'client/i18n/translations/$LOCALE.$NAMESPACE.json',
+  locales: ["en", "cy"],
+  output: "client/i18n/translations/$LOCALE.$NAMESPACE.json",
   lexers: {
-    js: ['JsxLexer']
+    js: ["JsxLexer"],
   },
   createOldCatalogs: true,
-  useKeysAsDefaultValue: true
-}
+  useKeysAsDefaultValue: true,
+};

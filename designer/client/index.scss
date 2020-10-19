@@ -23,7 +23,7 @@ $color-orange: #ffbf47;
   background-color: #006435;
 
   &.active:hover {
-    background-color: $color-orange
+    background-color: $color-orange;
   }
 
   &.square {
@@ -31,7 +31,7 @@ $color-orange: #ffbf47;
     width: 24px;
     &:after {
       float: right;
-      content: '\1F50E';
+      content: "\1F50E";
     }
   }
 }
@@ -39,7 +39,6 @@ $color-orange: #ffbf47;
 // Visualisation
 #app {
   .menu {
-
     &__row:not(:first-child) {
       @extend .govuk-\!-margin-top-4;
     }
@@ -55,7 +54,7 @@ $color-orange: #ffbf47;
       @extend .govuk-\!-margin-right-4;
     }
   }
-  
+
   @include govuk-media-query($from: tablet) {
     .menu {
       padding: 3px;
@@ -80,7 +79,7 @@ $color-orange: #ffbf47;
       border-right: solid 2px #000;
       border-bottom: solid 2px #000;
       border-left: solid 2px #000;
-      
+
       &--selected {
         -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
         -moz-box-shadow: 0px 0px 0px 6px $color-orange;
@@ -114,23 +113,26 @@ $color-orange: #ffbf47;
         & > * {
           width: 100%;
           @include govuk-font(14);
-          @extend .govuk-\!-padding-top-1, .govuk-\!-padding-bottom-1, .govuk-\!-padding-left-2, .govuk-\!-padding-right-2;
+          @extend .govuk-\!-padding-top-1,
+            .govuk-\!-padding-bottom-1,
+            .govuk-\!-padding-left-2,
+            .govuk-\!-padding-right-2;
           border: none;
           box-shadow: none;
           text-decoration: none;
           text-align: left;
-          background-color: govuk-colour('black');
-          color: govuk-colour('white');
+          background-color: govuk-colour("black");
+          color: govuk-colour("white");
 
           &:hover {
             background-color: $color-orange;
-            color: govuk-colour('black');
+            color: govuk-colour("black");
             cursor: pointer;
           }
         }
 
         & > *:not(:last-child) {
-          border-bottom: 1px solid #FFFFFF;
+          border-bottom: 1px solid #ffffff;
         }
       }
 
@@ -154,7 +156,7 @@ $color-orange: #ffbf47;
     border-left: solid 1px #000;
 
     polyline {
-      stroke-width: 1
+      stroke-width: 1;
     }
     rect:hover {
       fill: $color-orange;
@@ -258,7 +260,9 @@ $color-orange: #ffbf47;
     }
   }
 
-  span.box, span.button, span.line {
+  span.box,
+  span.button,
+  span.line {
     display: inline-block;
   }
 
@@ -272,11 +276,11 @@ $color-orange: #ffbf47;
 
   .html {
     &:before {
-      content: '⟨';
+      content: "⟨";
       font-size: 20px;
     }
     &:after {
-      content: '⟩';
+      content: "⟩";
       font-size: 20px;
     }
   }
@@ -333,7 +337,7 @@ $color-orange: #ffbf47;
   position: fixed;
   top: 0;
   left: 0;
-  transition: transform .3s cubic-bezier(0, .52, 0, 1);
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
   overflow: scroll;
   z-index: 1000;
 
@@ -374,9 +378,10 @@ $color-orange: #ffbf47;
     .panel {
       display: flex;
       max-height: 100%;
-      flex-direction: column
+      flex-direction: column;
     }
-    .panel-header {}
+    .panel-header {
+    }
     .panel-body {
       flex: 1;
       overflow: auto;
@@ -411,7 +416,6 @@ $color-orange: #ffbf47;
 .flyout-menu h2 a:hover {
   text-decoration: underline;
 }
-
 
 // Modal
 .modal {
@@ -474,7 +478,6 @@ $color-orange: #ffbf47;
   }
 }
 
-
 // Tooltip
 .tooltip {
   &:before {
@@ -511,10 +514,9 @@ polyline {
   }
 
   :after {
-    content: 'sada'
+    content: "sada";
   }
 }
-
 
 /* Syntax highlighting */
 .editor textarea:focus {
@@ -586,7 +588,7 @@ polyline {
   &.disabled {
     cursor: default;
     pointer-events: none;
-    & +.govuk-checkboxes__label {
+    & + .govuk-checkboxes__label {
       opacity: 0.5;
     }
   }
@@ -621,7 +623,7 @@ polyline {
     right: 0;
     bottom: 0;
     z-index: 50;
-    
+
     pointer-events: none;
   }
 }

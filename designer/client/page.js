@@ -1,48 +1,58 @@
-import React from 'react'
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
-import Flyout from './flyout'
-import PageEdit from './page-edit'
-import { Component } from './component'
-import ComponentCreate from './component-create'
-import { ComponentTypes, clone } from '@xgovformbuilder/model'
-import { withI18n } from './i18n'
+import React from "react";
+import {
+  SortableContainer,
+  SortableElement,
+  arrayMove,
+} from "react-sortable-hoc";
+import Flyout from "./flyout";
+import PageEdit from "./page-edit";
+import { Component } from "./component";
+import ComponentCreate from "./component-create";
+import { ComponentTypes, clone } from "@xgovformbuilder/model";
+import { withI18n } from "./i18n";
 
-import { PageLinkage } from './components/page-linkage'
+import { PageLinkage } from "./components/page-linkage";
 
-const SortableItem = SortableElement(({ index, page, component, data }) =>
-  <div className='component-item'>
+const SortableItem = SortableElement(({ index, page, component, data }) => (
+  <div className="component-item">
     <Component key={index} page={page} component={component} data={data} />
   </div>
-)
+));
 
 const SortableList = SortableContainer(({ page, data }) => {
   return (
-    <div className='component-list'>
+    <div className="component-list">
       {page.components.map((component, index) => (
-        <SortableItem key={index} index={index} page={page} component={component} data={data} />
+        <SortableItem
+          key={index}
+          index={index}
+          page={page}
+          component={component}
+          data={data}
+        />
       ))}
     </div>
-  )
-})
+  );
+});
 
 export class Page extends React.Component {
   state = {
     showEditor: false,
-    showAddComponent: false
-  }
+    showAddComponent: false,
+  };
 
   showEditor = (e, value) => {
-    e.stopPropagation()
-    this.setState({ showEditor: value })
-  }
+    e.stopPropagation();
+    this.setState({ showEditor: value });
+  };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { page, data } = this.props
-    const copy = clone(data)
-    const copyPage = data.findPage(page.path)
-    copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex)
+    const { page, data } = this.props;
+    const copy = clone(data);
+    const copyPage = data.findPage(page.path);
+    copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex);
 
-    data.save(copy)
+    data.save(copy);
 
     // OPTIMISTIC SAVE TO STOP JUMP
 
@@ -50,43 +60,46 @@ export class Page extends React.Component {
     // page.components = arrayMove(page.components, oldIndex, newIndex)
 
     // data.save(data)
-  }
+  };
 
   toggleAddComponent = () => {
-    this.setState(prevState => ({
-      showAddComponent: !prevState.showAddComponent
-    }))
-  }
+    this.setState((prevState) => ({
+      showAddComponent: !prevState.showAddComponent,
+    }));
+  };
 
   toggleEditor = () => {
-    this.setState(prevState => ({
-      showEditor: !prevState.showEditor
-    }))
-  }
+    this.setState((prevState) => ({
+      showEditor: !prevState.showEditor,
+    }));
+  };
 
-  render () {
-    const { page, data, id, previewUrl, persona, i18n } = this.props
-    const { sections } = data
-    const formComponents = page?.components?.filter(comp =>
-      ComponentTypes.find(type => type.name === comp.type).subType === 'field'
-    )
-    const section = page.section && sections.find(section => section.name === page.section)
-    const conditional = !!page.condition
+  render() {
+    const { page, data, id, previewUrl, persona, i18n } = this.props;
+    const { sections } = data;
+    const formComponents = page?.components?.filter(
+      (comp) =>
+        ComponentTypes.find((type) => type.name === comp.type).subType ===
+        "field"
+    );
+    const section =
+      page.section && sections.find((section) => section.name === page.section);
+    const conditional = !!page.condition;
     let pageTitle =
       page.title ||
       (formComponents.length === 1 && page.components[0] === formComponents[0]
         ? formComponents[0].title
-        : page.title)
+        : page.title);
 
-    if (pageTitle && typeof pageTitle === 'object') {
-      pageTitle = pageTitle.en
+    if (pageTitle && typeof pageTitle === "object") {
+      pageTitle = pageTitle.en;
     }
 
-    const highlight = persona?.paths?.includes(page.path)
+    const highlight = persona?.paths?.includes(page.path);
     const pageClassName = [
-      `page${conditional ? ' conditional' : ''}`,
-      `${highlight ? 'highlight' : ''}`
-    ].join(' ')
+      `page${conditional ? " conditional" : ""}`,
+      `${highlight ? "highlight" : ""}`,
+    ].join(" ");
 
     return (
       <div
@@ -95,49 +108,55 @@ export class Page extends React.Component {
         title={page.path}
         style={this.props.layout}
       >
-        <div className='page__heading'>
+        <div className="page__heading">
           <h3>
             {section && <span>{section.title}</span>}
             {pageTitle}
           </h3>
-          <PageLinkage page={page} data={data} layout={this.props.layout}/>
+          <PageLinkage page={page} data={data} layout={this.props.layout} />
         </div>
 
         <SortableList
-          page={page} data={data} pressDelay={200}
-          onSortEnd={this.onSortEnd} lockAxis='y' helperClass='dragging'
-          lockToContainerEdges useDragHandle
+          page={page}
+          data={data}
+          pressDelay={200}
+          onSortEnd={this.onSortEnd}
+          lockAxis="y"
+          helperClass="dragging"
+          lockToContainerEdges
+          useDragHandle
         />
 
-        <div className='page__actions'>
-          <button title={i18n('Edit page')} onClick={this.toggleEditor}>
-            {i18n('Edit page')}
+        <div className="page__actions">
+          <button title={i18n("Edit page")} onClick={this.toggleEditor}>
+            {i18n("Edit page")}
           </button>
-          <button title={i18n('Create component')} onClick={this.toggleAddComponent}>
-            {i18n('Create component')}
+          <button
+            title={i18n("Create component")}
+            onClick={this.toggleAddComponent}
+          >
+            {i18n("Create component")}
           </button>
           <a
-            title={i18n('Preview page')}
+            title={i18n("Preview page")}
             href={`${previewUrl}/${id}${page.path}`}
-            target='_blank'
+            target="_blank"
             rel="noreferrer"
           >
-            {i18n('Preview')}
+            {i18n("Preview")}
           </a>
         </div>
 
         <Flyout
-          title='Edit Page' show={this.state.showEditor}
+          title="Edit Page"
+          show={this.state.showEditor}
           onHide={this.toggleEditor}
         >
-          <PageEdit
-            page={page} data={data}
-            onEdit={this.toggleEditor}
-          />
+          <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
         </Flyout>
 
         <Flyout
-          title='Add Component'
+          title="Add Component"
           show={this.state.showAddComponent}
           onHide={this.toggleAddComponent}
         >
@@ -148,8 +167,8 @@ export class Page extends React.Component {
           />
         </Flyout>
       </div>
-    )
+    );
   }
 }
 
-export default withI18n(Page)
+export default withI18n(Page);

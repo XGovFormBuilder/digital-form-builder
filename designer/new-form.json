@@ -1,9 +1,8 @@
 {
-  "metadata": {
-  },
+  "metadata": {},
   "startPage": "/",
   "pages": [
-    { 
+    {
       "title": "Question page",
       "path": "/question-page",
       "components": []
@@ -15,8 +14,7 @@
       "components": []
     }
   ],
-  "lists": [
-  ],
+  "lists": [],
   "sections": [],
   "conditions": [],
   "fees": [],
