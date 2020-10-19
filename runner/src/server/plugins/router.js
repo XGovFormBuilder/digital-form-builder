@@ -1,67 +1,65 @@
-import { redirectTo } from '@xgovformbuilder/engine'
-import publicRoutes from '../routes/public'
+import { redirectTo } from "@xgovformbuilder/engine";
+import publicRoutes from "../routes/public";
 
-const routes = [
-  ...publicRoutes
-]
+const routes = [...publicRoutes];
 
 export default {
   plugin: {
-    name: 'router',
+    name: "router",
     register: (server, options) => {
-      server.route(routes)
+      server.route(routes);
 
       server.route({
-        method: 'get',
-        path: '/help/cookies',
+        method: "get",
+        path: "/help/cookies",
         handler: async (request, h) => {
-          return h.view('help/cookies')
-        }
-      })
+          return h.view("help/cookies");
+        },
+      });
 
       server.route({
-        method: 'get',
-        path: '/help/terms-and-conditions',
+        method: "get",
+        path: "/help/terms-and-conditions",
         handler: async (request, h) => {
-          return h.view('help/terms-and-conditions')
-        }
-      })
+          return h.view("help/terms-and-conditions");
+        },
+      });
 
       server.route({
-        method: 'get',
-        path: '/clear-session',
-        handler: async (request, h) => {
-          if (request.yar) {
-            request.yar.reset()
-          }
-          const { redirect } = request.query
-          return redirectTo(request, h, redirect || '/')
-        }
-      })
-
-      server.route({
-        method: 'get',
-        path: '/timeout',
+        method: "get",
+        path: "/clear-session",
         handler: async (request, h) => {
           if (request.yar) {
-            request.yar.reset()
+            request.yar.reset();
+          }
+          const { redirect } = request.query;
+          return redirectTo(request, h, redirect || "/");
+        },
+      });
+
+      server.route({
+        method: "get",
+        path: "/timeout",
+        handler: async (request, h) => {
+          if (request.yar) {
+            request.yar.reset();
           }
 
-          let startPage = '/'
-          const { referer } = request.headers
+          let startPage = "/";
+          const { referer } = request.headers;
 
           if (referer) {
-            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/)
+            const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
             if (match && match.length > 1) {
-              startPage = `/${match[1]}`
+              startPage = `/${match[1]}`;
             }
           }
 
-          return h.view('timeout', {
-            startPage
-          })
-        }
-      })
-    }
-  }
-}
+          return h.view("timeout", {
+            startPage,
+          });
+        },
+      });
+    },
+  },
+};

@@ -1,4 +1,4 @@
-import { google } from 'googleapis'
+import { google } from "googleapis";
 
 export class SheetsService {
   /**
@@ -18,15 +18,15 @@ export class SheetsService {
    * @params {GoogleAuthOpts.project_id} projectId
    * @params {GoogleAuthOpts.scopes} scopes
    */
-  googleAuthClient (authOptions) {
+  googleAuthClient(authOptions) {
     // eslint-disable-next-line camelcase
-    const { credentials, project_id, scopes } = authOptions
+    const { credentials, project_id, scopes } = authOptions;
     return new google.auth.GoogleAuth({
       // Scopes can be specified either as an array or as a single, space-delimited string.
       credentials,
       project_id,
-      scopes
-    })
+      scopes,
+    });
   }
 
   /**
@@ -37,19 +37,19 @@ export class SheetsService {
    * @params { string } [range='Sheet1'] which range ('tab', colloquially) to append to.
    * @returns { promise }
    */
-  async appendTo (spreadsheetId, data, authOptions, range = 'Sheet1') {
-    const auth = this.googleAuthClient(authOptions)
-    const sheets = google.sheets({ version: 'v4', auth })
+  async appendTo(spreadsheetId, data, authOptions, range = "Sheet1") {
+    const auth = this.googleAuthClient(authOptions);
+    const sheets = google.sheets({ version: "v4", auth });
 
     return sheets.spreadsheets.values.append({
       spreadsheetId,
       range,
-      valueInputOption: 'RAW',
-      insertDataOption: 'INSERT_ROWS',
+      valueInputOption: "RAW",
+      insertDataOption: "INSERT_ROWS",
       resource: {
-        majorDimension: 'ROWS',
-        values: [data]
-      }
-    })
+        majorDimension: "ROWS",
+        values: [data],
+      },
+    });
   }
 }

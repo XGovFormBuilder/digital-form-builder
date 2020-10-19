@@ -1,16 +1,20 @@
 {
   "presets": [
     "@babel/typescript",
-    ["@babel/preset-env",
+    [
+      "@babel/preset-env",
       {
         "loose": true,
         "targets": {
           "node": "12"
         }
       }
-    ],
+    ]
   ],
   "exclude": ["node_modules/**"],
-  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-private-methods"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-private-methods"
+  ],
   "sourceMaps": true
 }

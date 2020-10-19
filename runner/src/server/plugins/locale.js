@@ -6,13 +6,13 @@
  * Configurable plugin for determine request language in hapi.js applications.
  */
 /* eslint-disable */
-import boom from '@hapi/boom'
-import fs from 'fs'
-import path from 'path'
-import lodash from 'lodash'
-import headerParser from 'accept-language-parser'
-import Joi from 'joi'
-import pkg from '../../../package.json'
+import boom from "@hapi/boom";
+import fs from "fs";
+import path from "path";
+import lodash from "lodash";
+import headerParser from "accept-language-parser";
+import Joi from "joi";
+import pkg from "../../../package.json";
 
 /**
  * @typedef {Object}                    PluginOptions                   - Plugin configuration options.
@@ -45,36 +45,36 @@ import pkg from '../../../package.json'
  */
 var defaultOptions = {
   locales: [],
-  configFile: '',
-  configKey: '',
+  configFile: "",
+  configKey: "",
   default: null,
   scan: {
     path: null,
-    fileType: 'json',
+    fileType: "json",
     directories: true,
-    exclude: ['templates', 'template.json']
+    exclude: ["templates", "template.json"],
   },
-  param: 'lang',
-  query: 'lang',
-  cookie: 'lang',
-  cookieKey: 'lang',
-  header: 'accept-language',
-  order: ['query', 'cookie', 'params', 'headers'],
+  param: "lang",
+  query: "lang",
+  cookie: "lang",
+  cookieKey: "lang",
+  header: "accept-language",
+  order: ["query", "cookie", "params", "headers"],
   throw404: true,
-  getter: 'i18n.getLocale',
-  setter: 'i18n.setLocale',
-  attribute: 'i18n.locale',
+  getter: "i18n.getLocale",
+  setter: "i18n.setLocale",
+  attribute: "i18n.locale",
   createAccessors: true,
-  onEvent: 'onPreAuth'
-}
+  onEvent: "onPreAuth",
+};
 
 var orderParameters = {
   // Process in options.order array and JS method which will be called for that process.
-  params: 'parseParam',
-  query: 'parseQuery',
-  headers: 'parseHeader',
-  cookie: 'parseCookie'
-}
+  params: "parseParam",
+  query: "parseQuery",
+  headers: "parseHeader",
+  cookie: "parseCookie",
+};
 
 var optionsSchema = Joi.object({
   locales: Joi.array().items(Joi.string()).default(defaultOptions.locales),
@@ -85,21 +85,30 @@ var optionsSchema = Joi.object({
     path: Joi.string().default(defaultOptions.scan.path),
     fileType: Joi.string().default(defaultOptions.scan.fileType),
     directories: Joi.boolean().default(defaultOptions.scan.directories),
-    exclude: Joi.array().items(Joi.string()).allow(null).default(defaultOptions.scan.exclude)
-  }).allow(null).default(defaultOptions.scan),
+    exclude: Joi.array()
+      .items(Joi.string())
+      .allow(null)
+      .default(defaultOptions.scan.exclude),
+  })
+    .allow(null)
+    .default(defaultOptions.scan),
   param: Joi.string().allow(null).default(defaultOptions.param),
   query: Joi.string().allow(null).default(defaultOptions.query),
   cookie: Joi.string().allow(null).default(defaultOptions.cookie),
   cookieKey: Joi.string().allow(null).default(defaultOptions.cookieKey),
   header: Joi.string().allow(null).default(defaultOptions.header),
-  order: Joi.array().items(Joi.any().valid(...Object.keys(orderParameters))).default(defaultOptions.order),
+  order: Joi.array()
+    .items(Joi.any().valid(...Object.keys(orderParameters)))
+    .default(defaultOptions.order),
   throw404: Joi.boolean().default(defaultOptions.throw404),
   getter: Joi.string().allow(null).default(defaultOptions.getter),
   setter: Joi.string().allow(null).default(defaultOptions.setter),
   attribute: Joi.string().allow(null).default(defaultOptions.attribute),
-  createAccessors: Joi.string().allow(null).default(defaultOptions.createAccessors),
-  onEvent: Joi.string().default(defaultOptions.onEvent)
-})
+  createAccessors: Joi.string()
+    .allow(null)
+    .default(defaultOptions.createAccessors),
+  onEvent: Joi.string().default(defaultOptions.onEvent),
+});
 
 /**
  * Class to implement inner working of plugin.
@@ -108,12 +117,21 @@ var optionsSchema = Joi.object({
  * @private
  */
 var Internal = function (options) {
-  if ((options.setter && options.setter.indexOf('.') > -1) || (options.getter && options.getter.indexOf('.') > -1)) {
-    throw new Error('Getter (' + options.getter + ') and setter (' + options.setter + ') methods cannot be nested, so they cannot contain dot(.)')
+  if (
+    (options.setter && options.setter.indexOf(".") > -1) ||
+    (options.getter && options.getter.indexOf(".") > -1)
+  ) {
+    throw new Error(
+      "Getter (" +
+        options.getter +
+        ") and setter (" +
+        options.setter +
+        ") methods cannot be nested, so they cannot contain dot(.)"
+    );
   }
 
-  this.options = Joi.attempt(options, optionsSchema)
-}
+  this.options = Joi.attempt(options, optionsSchema);
+};
 
 /**
  * Returns requested languages as an array by looking url part.
@@ -121,21 +139,23 @@ var Internal = function (options) {
  * @returns {string|undefined}          - Requested locale or undefined.
  * @private
  */
-Internal.prototype.parseParam = function parseParam (request) {
-  'use strict'
-  if (!request.params.hasOwnProperty(this.options.param)) return
-  var name = this.options.param
+Internal.prototype.parseParam = function parseParam(request) {
+  "use strict";
+  if (!request.params.hasOwnProperty(this.options.param)) return;
+  var name = this.options.param;
 
-  var locales = lodash.get(request.params, name)
+  var locales = lodash.get(request.params, name);
 
-  var match = this.bestMatch(locales)
+  var match = this.bestMatch(locales);
 
   if (!match && this.options.throw404) {
-    throw new Error('Requested locale/language ' + locales + ' cannot be found.')
+    throw new Error(
+      "Requested locale/language " + locales + " cannot be found."
+    );
   }
 
-  return match
-}
+  return match;
+};
 
 /**
  * Returns requested languages as an array by looking query parameter.
@@ -143,14 +163,14 @@ Internal.prototype.parseParam = function parseParam (request) {
  * @returns {string|undefined}          - Requested locale or undefined.
  * @private
  */
-Internal.prototype.parseQuery = function parseQuery (request) {
-  'use strict'
-  var name = this.options.query
+Internal.prototype.parseQuery = function parseQuery(request) {
+  "use strict";
+  var name = this.options.query;
 
-  var locales = lodash.get(request.query, name)
+  var locales = lodash.get(request.query, name);
 
-  return this.bestMatch(locales)
-}
+  return this.bestMatch(locales);
+};
 
 /**
  * Returns requested language from cookie if found in available languages.
@@ -158,16 +178,16 @@ Internal.prototype.parseQuery = function parseQuery (request) {
  * @returns {string|undefined}          - Requested locale or undefined.
  * @private
  */
-Internal.prototype.parseCookie = function parseCookie (request) {
-  'use strict'
-  var name = this.options.cookie
+Internal.prototype.parseCookie = function parseCookie(request) {
+  "use strict";
+  var name = this.options.cookie;
 
-  var key = this.options.cookieKey
+  var key = this.options.cookieKey;
 
-  var locales = lodash.get(request.state[name], key)
+  var locales = lodash.get(request.state[name], key);
 
-  return this.bestMatch(locales)
-}
+  return this.bestMatch(locales);
+};
 
 /**
  * Returns requested language from header if found in available languages.
@@ -175,17 +195,17 @@ Internal.prototype.parseCookie = function parseCookie (request) {
  * @returns {string|undefined}          - Requested locale or undefined.
  * @private
  */
-Internal.prototype.parseHeader = function parseHeader (request) {
-  var name = this.options.header
+Internal.prototype.parseHeader = function parseHeader(request) {
+  var name = this.options.header;
 
-  var raw = headerParser.parse(request.headers[name])
+  var raw = headerParser.parse(request.headers[name]);
 
   var locales = raw.map(function (value) {
-    return value.region ? value.code + '_' + value.region : value.code
-  })
+    return value.region ? value.code + "_" + value.region : value.code;
+  });
 
-  return this.bestMatch(locales)
-}
+  return this.bestMatch(locales);
+};
 
 /**
  * Returns best match for requested locale among available locales. First matched locale will be returned.
@@ -193,14 +213,14 @@ Internal.prototype.parseHeader = function parseHeader (request) {
  * @returns {string|undefined}                  - Matched locale or null if not any match found.
  * @private
  */
-Internal.prototype.bestMatch = function bestMatch (requested) {
-  if (!requested) return
-  if (!Array.isArray(requested)) requested = [requested]
+Internal.prototype.bestMatch = function bestMatch(requested) {
+  if (!requested) return;
+  if (!Array.isArray(requested)) requested = [requested];
 
   for (const one of requested) {
-    if (this.locales.indexOf(one) > -1) return one
+    if (this.locales.indexOf(one) > -1) return one;
   }
-}
+};
 
 /**
  * Checks synchroniously if given file or directory exists. Returns true or false.
@@ -209,20 +229,20 @@ Internal.prototype.bestMatch = function bestMatch (requested) {
  * @returns {boolean}
  * @private
  */
-function fileExists (path, shouldBeDir) {
-  'use strict'
+function fileExists(path, shouldBeDir) {
+  "use strict";
   try {
-    var lstat = fs.lstatSync(path)
+    var lstat = fs.lstatSync(path);
     if (shouldBeDir && lstat.isDirectory()) {
-      return true
+      return true;
     }
     if (!shouldBeDir && lstat.isFile()) {
-      return true
+      return true;
     }
   } catch (err) {
-    return false
+    return false;
   }
-  return false
+  return false;
 }
 
 /**
@@ -231,31 +251,36 @@ function fileExists (path, shouldBeDir) {
  * @throws {Error} - Throws error if locales directory is not found.
  * @private
  */
-Internal.prototype.scan = function scan () {
+Internal.prototype.scan = function scan() {
   // Check if scan path is available
   if (this.options.scan && !fileExists(this.options.scan.path, true)) {
-    throw new Error('Locales directory "' + this.options.scan.path + '"cannot be found.')
+    throw new Error(
+      'Locales directory "' + this.options.scan.path + '"cannot be found.'
+    );
   }
 
-  const dir = this.options.scan.path
+  const dir = this.options.scan.path;
 
-  const files = fs.readdirSync(dir)
+  const files = fs.readdirSync(dir);
 
-  const locales = []
+  const locales = [];
 
   for (const file of files) {
-    const fullPath = path.join(dir, file)
+    const fullPath = path.join(dir, file);
 
     // Skip if it is in exclude list or it is directory and scan.directories is false
-    if (this.options.scan.exclude.indexOf(file) > -1 || (fs.statSync(fullPath).isDirectory() && !this.options.scan.directories)) {
-      continue
+    if (
+      this.options.scan.exclude.indexOf(file) > -1 ||
+      (fs.statSync(fullPath).isDirectory() && !this.options.scan.directories)
+    ) {
+      continue;
     }
 
-    locales.push(path.basename(file, path.extname(file))) // Strip extension such as .json
+    locales.push(path.basename(file, path.extname(file))); // Strip extension such as .json
   }
 
-  return lodash.uniq(locales)
-}
+  return lodash.uniq(locales);
+};
 
 /**
  * Determines which locales are available. It tries to determine available locales in given order:
@@ -272,16 +297,16 @@ Internal.prototype.scan = function scan () {
  * @returns {string|undefined}          - Locale
  * @private
  */
-Internal.prototype.determineLocale = function determineLocale (request) {
-  let requestedLocale
+Internal.prototype.determineLocale = function determineLocale(request) {
+  let requestedLocale;
 
   for (const method of this.options.order) {
-    requestedLocale = this[orderParameters[method]](request) // this.parseParam | this.parseCookie ... etc.
-    if (requestedLocale) break
+    requestedLocale = this[orderParameters[method]](request); // this.parseParam | this.parseCookie ... etc.
+    if (requestedLocale) break;
   }
 
-  return requestedLocale || this.default
-}
+  return requestedLocale || this.default;
+};
 
 /**
  *
@@ -289,42 +314,42 @@ Internal.prototype.determineLocale = function determineLocale (request) {
  * @param {Function}            reply   - hapi.js reply object
  * @returns {*}
  */
-Internal.prototype.processRequest = function processRequest (request, h) {
-  'use strict'
+Internal.prototype.processRequest = function processRequest(request, h) {
+  "use strict";
   try {
-    var locale = this.determineLocale(request)
+    var locale = this.determineLocale(request);
   } catch (err) {
     // throw boom.notFound(err);
   }
 
-  const getter = this.options.getter
+  const getter = this.options.getter;
 
-  const setter = this.options.setter
+  const setter = this.options.setter;
 
-  const attribute = this.options.attribute
+  const attribute = this.options.attribute;
 
   // Create accessors if necessary
   if (this.options.createAccessors) {
     if (!lodash.get(request, getter)) {
       lodash.set(request, getter, function () {
-        return lodash.get(request, attribute)
-      })
+        return lodash.get(request, attribute);
+      });
     }
     if (!lodash.get(request, setter)) {
       lodash.set(request, setter, function (locale) {
-        return lodash.set(request, attribute, locale)
-      })
+        return lodash.set(request, attribute, locale);
+      });
     }
   }
 
   // Call setter.
-  lodash.get(request, setter)(locale)
+  lodash.get(request, setter)(locale);
 
-  return h.continue
-}
+  return h.continue;
+};
 
 const plugin = {
-  name: 'locale',
+  name: "locale",
   version: pkg.version,
   pkg: pkg,
   once: true,
@@ -336,9 +361,9 @@ const plugin = {
    */
   register: async function (server, options) {
     try {
-      var internal = new Internal(options)
+      var internal = new Internal(options);
     } catch (err) {
-      throw new boom.Boom(err)
+      throw new boom.Boom(err);
     }
 
     /**
@@ -358,9 +383,9 @@ const plugin = {
      * @example
      * var locales = request.server.plugins['hapi-locale'].getLocales(); // ['tr_TR', 'en_US'] etc.
      */
-    server.expose('getLocales', function getLocales () {
-      return internal.locales
-    })
+    server.expose("getLocales", function getLocales() {
+      return internal.locales;
+    });
 
     /**
      * Returns default locale.
@@ -368,9 +393,9 @@ const plugin = {
      * @function
      * @returns {string}    - Default locale
      */
-    server.expose('getDefaultLocale', function getDefaultLocale () {
-      return internal.default
-    })
+    server.expose("getDefaultLocale", function getDefaultLocale() {
+      return internal.default;
+    });
 
     /**
      * Returns requested language.
@@ -379,16 +404,18 @@ const plugin = {
      * @param {Object}      request - Hapi.js request object
      * @returns {string}    Locale
      */
-    server.expose('getLocale', function getLocale (request) {
+    server.expose("getLocale", function getLocale(request) {
       try {
-        return lodash.get(request, internal.options.getter)()
+        return lodash.get(request, internal.options.getter)();
       } catch (err) {
-        return null
+        return null;
       }
-    })
+    });
 
-    server.ext(internal.options.onEvent, internal.processRequest, { bind: internal })
-  }
-}
+    server.ext(internal.options.onEvent, internal.processRequest, {
+      bind: internal,
+    });
+  },
+};
 
-export default plugin
+export default plugin;

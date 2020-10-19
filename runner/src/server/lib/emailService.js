@@ -1,10 +1,10 @@
-import AWS from 'aws-sdk'
-import MailComposer from 'nodemailer/lib/mail-composer'
-import config from '../config'
+import AWS from "aws-sdk";
+import MailComposer from "nodemailer/lib/mail-composer";
+import config from "../config";
 
 export class EmailService {
-  constructor (server, options) {
-    this.documentService = server.services([])
+  constructor(server, options) {
+    this.documentService = server.services([]);
   }
 
   /**
@@ -16,22 +16,24 @@ export class EmailService {
    * @param [options.attachments] {string[]} - url(s) of the attachments
    * @param [options.message] {string} - Message to be sent in email body
    */
-  async sendEmail (emailAddress, subject, options = {}) {
+  async sendEmail(emailAddress, subject, options = {}) {
     const mailOptions = {
       from: config.fromEmailAddress,
       to: emailAddress,
       subject,
-      text: options.message || ''
-    }
+      text: options.message || "",
+    };
     if (options.attachments) {
-      mailOptions.attachments = await Promise.all(this.documentService.downloadDocuments(options.attachments))
+      mailOptions.attachments = await Promise.all(
+        this.documentService.downloadDocuments(options.attachments)
+      );
     }
 
-    const mailComposer = new MailComposer(mailOptions)
-    const message = await mailComposer.compile().build()
+    const mailComposer = new MailComposer(mailOptions);
+    const message = await mailComposer.compile().build();
     // SES is not available in eu-west-2
-    return new AWS.SES({ apiVersion: '2010-12-01', region: 'eu-west-1' })
+    return new AWS.SES({ apiVersion: "2010-12-01", region: "eu-west-1" })
       .sendRawEmail({ RawMessage: { Data: message } })
-      .promise()
+      .promise();
   }
 }
