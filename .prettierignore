@@ -6,6 +6,7 @@ dist
 npm-debug.log
 runner/performance
 public
+.yarn
 
 # Ignore all HTML files:
 *.html
