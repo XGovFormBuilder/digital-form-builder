@@ -1,6 +1,6 @@
 exports.config = {
   runner: "local",
-  specs: ["./test/features/**/*.feature"],
+  specs: ["./features/**/*.feature"],
   exclude: [],
   maxInstances: 10,
   capabilities: [
@@ -8,6 +8,9 @@ exports.config = {
       maxInstances: 5,
       //
       browserName: "chrome",
+      "goog:chromeOptions": {
+        args: ["--headless"],
+      },
       acceptInsecureCerts: true,
     },
   ],
@@ -21,7 +24,7 @@ exports.config = {
   baseUrl: "http://localhost:3000",
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
+  waitforTimeout: 5000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
@@ -31,9 +34,18 @@ exports.config = {
   connectionRetryCount: 3,
   services: ["selenium-standalone"],
   framework: "cucumber",
-  reporters: ["spec"],
+  reporters: [
+    "spec",
+    [
+      "cucumberjs-json",
+      {
+        jsonFolder: "./reports/json/",
+        language: "en",
+      },
+    ],
+  ],
   cucumberOpts: {
-    require: ["./test/features/step-definitions/steps.js"],
+    require: ["./features/step-definitions/steps.js"],
     backtrace: false,
     requireModule: [],
     dryRun: false,

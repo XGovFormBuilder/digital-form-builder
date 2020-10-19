@@ -6,6 +6,10 @@ module.exports = class Page {
   get designerMenu() {
     return $("div.menu");
   }
+
+  get saveBtn() {
+    return this.parent.$(".govuk-button");
+  }
   /**
    * Opens a sub page of the page
    * @param path path of the sub page (e.g. /path/to/page.html)
