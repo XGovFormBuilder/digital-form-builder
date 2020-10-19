@@ -2919,7 +2919,7 @@ __metadata:
     nanoid: ^3.1.12
     nodemon: ^2.0.4
     nunjucks: 3.2.1
-    prismjs: 1.15.0
+    prismjs: 1.21.0
     react: 16.13.1
     react-dom: 16.13.1
     react-helmet: ^6.1.0
@@ -6570,7 +6570,7 @@ __metadata:
     cucumber-html-reporter: ^5.2.0
     designer: ^1.0.2
     eslint: ^7.7.0
-    eslint-config-prettier: ^6.11.0
+    eslint-config-prettier: ^6.13.0
     eslint-config-standard: ^14.1.1
     eslint-import-resolver-alias: ^1.1.2
     eslint-import-resolver-workspaces: ^1.0.10
@@ -6582,6 +6582,7 @@ __metadata:
     govuk-frontend: ^3.8.1
     magic-string: ^0.25.7
     node-sass: ^4.14.1
+    prettier: 2.1.2
     resolve: ^1.17.0
     rollup: ^2.25.0
     typescript: ^4.0.3
@@ -7325,16 +7326,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^6.11.0":
-  version: 6.12.0
-  resolution: "eslint-config-prettier@npm:6.12.0"
+"eslint-config-prettier@npm:^6.13.0":
+  version: 6.13.0
+  resolution: "eslint-config-prettier@npm:6.13.0"
   dependencies:
     get-stdin: ^6.0.0
   peerDependencies:
     eslint: ">=3.14.1"
   bin:
     eslint-config-prettier-check: bin/cli.js
-  checksum: 9371c0a8d05df36f3698247e703118a8eb95fa887aabc4b1e189c21e248ab9c49c3b8e5621f42826b89bbfd05aa52493ffddf0c41219db9b6e4df20e46e21da0
+  checksum: fe88da82a493da579fe57cc7b0be0cac5c84bfb5148d5e35abda99a73e6a0ab1125aa24ceae52144c9382c958f1f33efaadb4b86455cd28fef72172d9046a683
   languageName: node
   linkType: hard
 
@@ -14634,6 +14635,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"prettier@npm:2.1.2":
+  version: 2.1.2
+  resolution: "prettier@npm:2.1.2"
+  bin:
+    prettier: bin-prettier.js
+  checksum: bedc24c568efbcfe45f255558900777e2fabb36bf28ed4c22d2456eb22dfb012d12e566a46472ea5b857a4e9f263e888f7e316527d00bb58188f1820b0b0031a
+  languageName: node
+  linkType: hard
+
 "pretty-error@npm:^2.1.1":
   version: 2.1.1
   resolution: "pretty-error@npm:2.1.1"
@@ -14654,15 +14664,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prismjs@npm:1.15.0":
-  version: 1.15.0
-  resolution: "prismjs@npm:1.15.0"
+"prismjs@npm:1.21.0":
+  version: 1.21.0
+  resolution: "prismjs@npm:1.21.0"
   dependencies:
     clipboard: ^2.0.0
   dependenciesMeta:
     clipboard:
       optional: true
-  checksum: 1f6031ab60692e69ace2043972929379f769c79388a3134133657ced5ac8071450d70e36f07cccb46a50c3ee4c2d5e159b1d67a7349db8fe1e6cef020aa8312f
+  checksum: 27f763abe2b8e93ad18b64b0d08ce990cbe5c80244c80d121d9010b0a890f2ae12286d59155b9669a89007a1868e861a0ad62051a8f602a6da79b9cebe68b65a
   languageName: node
   linkType: hard
 
