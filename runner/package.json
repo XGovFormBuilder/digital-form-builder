@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "NODE_ENV=development node dist/index.js",
+    "start:local": "NODE_ENV=development PREVIEW_MODE=true node dist/index.js",
     "dev": "bash -c 'yarn run watch & NODE_ENV=development yarn node dist/index.js'",
     "build": "yarn build:css && yarn babel-build",
     "build:css": "bin/build-css",
