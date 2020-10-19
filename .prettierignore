@@ -1,0 +1,11 @@
+# Ignore
+node_modules
+test-coverage
+test-results
+dist
+npm-debug.log
+runner/performance
+public
+
+# Ignore all HTML files:
+*.html
