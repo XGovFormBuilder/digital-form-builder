@@ -6578,7 +6578,6 @@ __metadata:
     eslint-plugin-node: ^11.1.0
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-react: ^7.20.6
-    eslint-plugin-standard: ^4.0.1
     govuk-frontend: ^3.8.1
     magic-string: ^0.25.7
     node-sass: ^4.14.1
@@ -7669,7 +7668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-standard@npm:^4.0.1, eslint-plugin-standard@npm:~4.0.0":
+"eslint-plugin-standard@npm:~4.0.0":
   version: 4.0.1
   resolution: "eslint-plugin-standard@npm:4.0.1"
   peerDependencies:
