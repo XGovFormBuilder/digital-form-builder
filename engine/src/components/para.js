@@ -1,14 +1,14 @@
-import Component from './component'
+import Component from "./component";
 export default class Para extends Component {
-  getViewModel () {
+  getViewModel() {
     const model = {
-      content: this.content
-    }
+      content: this.content,
+    };
 
     if (this.options.condition) {
-      model.condition = this.options.condition
+      model.condition = this.options.condition;
     }
 
-    return model
+    return model;
   }
 }

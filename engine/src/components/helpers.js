@@ -1,75 +1,79 @@
-import path from 'path'
-import joi from 'joi'
+import path from "path";
+import joi from "joi";
 
-export function buildSchema (type, keys) {
-  let schema = type.isJoi ? type : joi[type.type ?? type]()
+export function buildSchema(type, keys) {
+  let schema = type.isJoi ? type : joi[type.type ?? type]();
 
-  Object.keys(keys).forEach(key => {
-    let val = keys[key]
-    if (key === 'regex') {
-      val = new RegExp(val)
+  Object.keys(keys).forEach((key) => {
+    let val = keys[key];
+    if (key === "regex") {
+      val = new RegExp(val);
     }
-    schema = schema[key](typeof val === 'boolean' ? undefined : val)
-  })
+    schema = schema[key](typeof val === "boolean" ? undefined : val);
+  });
 
-  return schema
+  return schema;
 }
 
-export function buildFormSchema (schemaType, component, isRequired = true) {
-  let schema = buildSchema(schemaType, component.schema)
+export function buildFormSchema(schemaType, component, isRequired = true) {
+  let schema = buildSchema(schemaType, component.schema);
 
   if (isRequired) {
-    schema = schema.required()
+    schema = schema.required();
   }
 
   if (component.title) {
-    schema = schema.label(typeof component.title === 'string' ? component.title : component.title.en)
+    schema = schema.label(
+      typeof component.title === "string" ? component.title : component.title.en
+    );
   }
 
   if (component.options.required === false) {
-    schema = schema.allow('')
+    schema = schema.allow("");
   }
 
   if (schema.trim && component.schema.trim !== false) {
-    schema = schema.trim()
+    schema = schema.trim();
   }
 
-  return schema
+  return schema;
 }
 
-export function buildStateSchema (schemaType, component) {
-  let schema = buildSchema(schemaType, component.schema)
+export function buildStateSchema(schemaType, component) {
+  let schema = buildSchema(schemaType, component.schema);
 
   if (component.title) {
-    schema = schema.label(typeof component.title === 'string' ? component.title : component.title.en)
+    schema = schema.label(
+      typeof component.title === "string" ? component.title : component.title.en
+    );
   }
 
   if (component.options.required !== false) {
-    schema = schema.required()
+    schema = schema.required();
   }
 
   if (component.options.required === false) {
-    schema = schema.allow(null)
+    schema = schema.allow(null);
   }
 
   if (schema.trim && component.schema.trim !== false) {
-    schema = schema.trim()
+    schema = schema.trim();
   }
 
-  return schema
+  return schema;
 }
 
-export function getFormSchemaKeys (name, schemaType, component) {
-  const schema = buildFormSchema(schemaType, component)
+export function getFormSchemaKeys(name, schemaType, component) {
+  const schema = buildFormSchema(schemaType, component);
 
-  return { [component.name]: schema }
+  return { [component.name]: schema };
 }
 
-export function getStateSchemaKeys (name, schemaType, component) {
-  const schema = buildStateSchema(schemaType, component)
+export function getStateSchemaKeys(name, schemaType, component) {
+  const schema = buildStateSchema(schemaType, component);
 
-  return { [name]: schema }
+  return { [name]: schema };
 }
-export function getType (name) {
-  return require(path.join(__dirname, name.toLowerCase()))
+export function getType(name) {
+  return require(path.join(__dirname, name.toLowerCase()));
 }

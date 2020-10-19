@@ -1,37 +1,37 @@
-import FormComponent from './formcomponent'
-import * as helpers from './helpers'
+import FormComponent from "./formcomponent";
+import * as helpers from "./helpers";
 
 export default class TextField extends FormComponent {
-  constructor (def, model) {
-    super(def, model)
-    const { options, schema } = this
+  constructor(def, model) {
+    super(def, model);
+    const { options, schema } = this;
 
     if (!options.classes) {
-      options.classes = 'govuk-input--width-20'
+      options.classes = "govuk-input--width-20";
     }
 
     if (!schema.regex) {
-      schema.regex = '^[^"\\/\\#;]*$'
+      schema.regex = '^[^"\\/\\#;]*$';
     }
   }
 
-  getFormSchemaKeys () {
-    return helpers.getFormSchemaKeys(this.name, 'string', this)
+  getFormSchemaKeys() {
+    return helpers.getFormSchemaKeys(this.name, "string", this);
   }
 
-  getStateSchemaKeys () {
-    return helpers.getStateSchemaKeys(this.name, 'string', this)
+  getStateSchemaKeys() {
+    return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel (formData, errors) {
-    const { schema } = this
-    const viewModel = super.getViewModel(formData, errors)
+  getViewModel(formData, errors) {
+    const { schema } = this;
+    const viewModel = super.getViewModel(formData, errors);
 
-    if (typeof schema.max === 'number') {
+    if (typeof schema.max === "number") {
       viewModel.attributes = {
-        maxlength: schema.max
-      }
+        maxlength: schema.max,
+      };
     }
-    return viewModel
+    return viewModel;
   }
 }
