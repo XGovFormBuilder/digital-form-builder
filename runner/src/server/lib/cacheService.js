@@ -3,8 +3,9 @@ import CatboxRedis from '@hapi/catbox-redis'
 import CatboxMemory from '@hapi/catbox-memory'
 import Redis from 'ioredis'
 
-import { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } from '../config'
+import config from '../config'
 
+const { redisHost, redisPort, redisPassword, redisTls, isSandbox, sessionTimeout } = config;
 const partition = 'cache'
 
 export class CacheService {

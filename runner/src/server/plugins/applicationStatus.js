@@ -1,4 +1,4 @@
-import { payReturnUrl } from '../config'
+import config from '../config'
 import { nanoid } from 'nanoid'
 import {
   decode, redirectTo,
@@ -129,7 +129,7 @@ const applicationStatus = {
           meta.attempts++
           // TODO:- let payService handle nanoid(10)
           const reference = `${nanoid(10)}`
-          const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey, redirectUrl(request, payReturnUrl))
+          const res = await payService.payRequest(meta.amount, reference, meta.description, meta.payApiKey, redirectUrl(request, config.payReturnUrl))
           await cacheService.mergeState(request, { pay: { payId: res.payment_id, reference, self: res._links.self.href, meta } })
           return redirectTo(request, h, res._links.next_url.href)
         }
