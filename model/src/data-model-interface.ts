@@ -1,3 +1,3 @@
 export interface DataModel {
-  findList (listName: string): any
+  findList(listName: string): any;
 }
