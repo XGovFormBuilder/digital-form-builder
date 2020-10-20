@@ -1,4 +1,4 @@
-import { payReturnUrl } from "../config";
+import config from "../config";
 import { nanoid } from "nanoid";
 import {
   decode,
@@ -191,7 +191,7 @@ const applicationStatus = {
             reference,
             meta.description,
             meta.payApiKey,
-            redirectUrl(request, payReturnUrl)
+            redirectUrl(request, config.payReturnUrl)
           );
           await cacheService.mergeState(request, {
             pay: {

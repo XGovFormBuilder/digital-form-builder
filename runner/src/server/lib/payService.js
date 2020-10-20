@@ -1,4 +1,4 @@
-import { payApiUrl } from "../config";
+import config from "../config";
 import Wreck from "@hapi/wreck";
 
 export class PayService {
@@ -25,7 +25,7 @@ export class PayService {
       ...this.options(apiKey),
       payload: this.payRequestData(amount, reference, description, returnUrl),
     };
-    const { payload } = await Wreck.post(`${payApiUrl}/payments`, data);
+    const { payload } = await Wreck.post(`${config.payApiUrl}/payments`, data);
     return JSON.parse(payload.toString());
   }
 

@@ -7,6 +7,7 @@
     "watch": "NODE_ENV=development webpack --mode development --watch",
     "build": "NODE_ENV=production webpack --mode production",
     "start": "nodemon dist/server.js",
+    "start:local": "NODE_ENV=development PERSISTENT_BACKEND=preview nodemon dist/server.js",
     "dev": "concurrently 'yarn watch' 'yarn start'",
     "lint": "yarn run eslint ./",
     "fix-lint": "yarn run eslint ./ --fix",

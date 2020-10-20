@@ -1,6 +1,6 @@
 import FormData from "form-data";
 import Wreck from "@hapi/wreck";
-import { documentUploadApiUrl } from "../config";
+import config from "../config";
 
 const parsedError = (key, error) => {
   return {
@@ -42,7 +42,10 @@ export class UploadService {
     }
 
     const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await Wreck.post(`${documentUploadApiUrl}/v1/files`, data);
+    const { res } = await Wreck.post(
+      `${config.documentUploadApiUrl}/v1/files`,
+      data
+    );
     return this.parsedDocumentUploadResponse(res);
   }
 
