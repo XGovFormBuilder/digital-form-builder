@@ -104,38 +104,37 @@ const applicationStatus = {
                 reference: newReference,
               });
             }
-            /* eslint-disable no-case-declarations */
+
             const outputPromises = (outputs || [])
               .filter((output) => output !== firstWebhook)
               .map((output) => {
                 switch (output.type) {
-                  case "email":
-                    const { emailAddress, attachments } = output.outputData;
-                    return emailService.sendEmail(emailAddress, "subject", {
-                      attachments,
-                    });
                   case "notify":
+                  case "email": {
                     const {
                       apiKey,
                       templateId,
-                      personalisation,
-                      emailField,
+                      emailAddress,
+                      personalisation = {},
                     } = output.outputData;
-                    return notifyService.sendNotification(
+
+                    return notifyService.sendNotification({
                       apiKey,
                       templateId,
-                      emailField,
-                      newReference,
-                      personalisation || {}
-                    );
-                  case "webhook":
+                      emailAddress,
+                      personalisation,
+                      reference: newReference,
+                    });
+                  }
+                  case "webhook": {
                     const { url } = output.outputData;
                     const formData = webhookData;
                     if (userCouldntPay) {
                       delete formData.fees;
                     }
                     return webhookService.postRequest(url, formData);
-                  case "sheets":
+                  }
+                  case "sheets": {
                     const {
                       spreadsheetId,
                       data,
@@ -146,9 +145,9 @@ const applicationStatus = {
                       data,
                       authOptions
                     );
+                  }
                 }
               });
-            /* eslint-enable no-case-declarations */
 
             if (outputPromises.length) {
               await Promise.all(outputPromises);
