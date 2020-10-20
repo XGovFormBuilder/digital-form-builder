@@ -1,11 +1,11 @@
-import Wreck from '@hapi/wreck'
+import Wreck from "@hapi/wreck";
 
 const options = {
   headers: {
-    'content-type': 'application/json'
+    "content-type": "application/json",
   },
-  timeout: 60000
-}
+  timeout: 60000,
+};
 
 export class WebhookService {
   /**
@@ -14,16 +14,19 @@ export class WebhookService {
    * @returns { object } webhookResponse
    * @returns { string } webhookResponse.reference webhook should return with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
-  async postRequest (url, data) {
-    console.log('submitting', data)
-    const { payload, res } = await Wreck.post(url, { ...options, payload: JSON.stringify(data) })
+  async postRequest(url, data) {
+    console.log("submitting", data);
+    const { payload, res } = await Wreck.post(url, {
+      ...options,
+      payload: JSON.stringify(data),
+    });
     if (payload && payload.toString()) {
-      const { reference } = JSON.parse(payload.toString())
-      return reference
+      const { reference } = JSON.parse(payload.toString());
+      return reference;
     }
     if (res.statusCode === 202) {
       // send dead letter queue message
     }
-    return 'UNKNOWN'
+    return "UNKNOWN";
   }
 }

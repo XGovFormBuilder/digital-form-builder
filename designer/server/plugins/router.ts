@@ -1,31 +1,31 @@
 const routes = [
   {
-    method: 'GET',
-    path: '/robots.txt',
+    method: "GET",
+    path: "/robots.txt",
     options: {
       handler: {
-        file: 'server/public/static/robots.txt'
-      }
-    }
+        file: "server/public/static/robots.txt",
+      },
+    },
   },
   {
-    method: 'GET',
-    path: '/assets/{path*}',
+    method: "GET",
+    path: "/assets/{path*}",
     options: {
       handler: {
         directory: {
-          path: './dist/client/assets'
-        }
-      }
-    }
-  }
-]
+          path: "./dist/client/assets",
+        },
+      },
+    },
+  },
+];
 
 export default {
   plugin: {
-    name: 'router',
+    name: "router",
     register: (server, _options) => {
-      server.route(routes)
-    }
-  }
-}
+      server.route(routes);
+    },
+  },
+};

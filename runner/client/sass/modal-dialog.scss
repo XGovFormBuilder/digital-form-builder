@@ -4,7 +4,6 @@
 @import "../node_modules/govuk-frontend/govuk/components/button/button";
 
 .modal-dialog {
-
   // Don't display modal if user doesn't have js. Can be overriden with .modal-dialog--no-js-persistent
   display: none;
 
@@ -110,10 +109,11 @@
 }
 
 // Modal dialog polyfill styles
-$dialog_backdrop_colour: rgba(0,0,0,0.8);
+$dialog_backdrop_colour: rgba(0, 0, 0, 0.8);
 $dialog_border: 5px solid black;
 dialog {
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   width: -moz-fit-content;
   width: -webkit-fit-content;
   width: fit-content;
@@ -130,7 +130,10 @@ dialog {
 
   & + .backdrop {
     position: fixed;
-    top: 0; right: 0; bottom: 0; left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background: $dialog_backdrop_colour;
   }
 
@@ -147,7 +150,7 @@ dialog {
     }
 
     // Backdrop styles for browsers using polyfil
-    &+ .backdrop {
+    & + .backdrop {
       background: $dialog_backdrop_colour;
     }
     // Backdrop styles for browsers with native support

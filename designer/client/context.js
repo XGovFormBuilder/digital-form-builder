@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-export const FlyoutContext = React.createContext(
-  {
-    count: 0,
-    increment: () => {},
-    decrement: () => {}
-  }
-)
+export const FlyoutContext = React.createContext({
+  count: 0,
+  increment: () => {},
+  decrement: () => {},
+});

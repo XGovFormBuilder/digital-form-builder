@@ -6,8 +6,8 @@ or gitter, with the owners of this repository before making a change.
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
 ## Submitting issues
-Please submit bugs and feature requests to us using the issue templates.
 
+Please submit bugs and feature requests to us using the issue templates.
 
 ## Pull Request Process
 
@@ -18,4 +18,3 @@ Please submit bugs and feature requests to us using the issue templates.
    Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
 4. Rebase your branch onto master to resolve any conflicts.
 5. Submit your pull request. It will be rebase-merged if it's approved. Once merged your branch will be deleted.
-

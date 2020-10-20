@@ -5,6 +5,7 @@
 /* from "hmpo-components/assets/stylesheets/_typeography.scss"
  * fixes typography for circle steps. The whole file messes up confirmation/panel.
  **/
-main ol, main ul {
+main ol,
+main ul {
   @extend .govuk-list;
 }

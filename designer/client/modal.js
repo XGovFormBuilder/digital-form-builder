@@ -1,17 +1,23 @@
-import React from 'react'
+import React from "react";
 
-function Modal (props) {
+function Modal(props) {
   if (!props.show) {
-    return null
+    return null;
   }
 
   return (
-    <div className='modal govuk-body'>
+    <div className="modal govuk-body">
       <div>
-        <a title='Close' className='close govuk-body govuk-!-font-size-16' onClick={e => props.onHide(e)}>Close</a>
+        <a
+          title="Close"
+          className="close govuk-body govuk-!-font-size-16"
+          onClick={(e) => props.onHide(e)}
+        >
+          Close
+        </a>
         {props.children}
       </div>
     </div>
-  )
+  );
 }
-export default Modal
+export default Modal;

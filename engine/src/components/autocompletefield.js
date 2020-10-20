@@ -1,11 +1,11 @@
-import SelectField from './selectfield'
+import SelectField from "./selectfield";
 
 export default class AutocompleteField extends SelectField {
-  constructor (def, model) {
-    super(def, model)
-    const { options } = this
+  constructor(def, model) {
+    super(def, model);
+    const { options } = this;
     if (!options.classes) {
-      options.classes = 'govuk-input--width-20'
+      options.classes = "govuk-input--width-20";
     }
   }
 }

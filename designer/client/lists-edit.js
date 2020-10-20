@@ -1,68 +1,72 @@
-import React from 'react'
-import ListEdit from './list-edit'
+import React from "react";
+import ListEdit from "./list-edit";
 
 class ListsEdit extends React.Component {
-  state = {}
+  state = {};
 
   onClickList = (e, list) => {
-    e.preventDefault()
+    e.preventDefault();
 
     this.setState({
-      list
-    })
-  }
+      list,
+    });
+  };
 
-  onClickAddList = async e => {
-    e.preventDefault()
-    const { data } = this.props
-    const id = await data.getId()
+  onClickAddList = async (e) => {
+    e.preventDefault();
+    const { data } = this.props;
+    const id = await data.getId();
     this.setState({
       id,
-      showAddList: true
-    })
-  }
+      showAddList: true,
+    });
+  };
 
-  render () {
-    const { data } = this.props
-    const { lists } = data
-    const { list, id } = this.state
+  render() {
+    const { data } = this.props;
+    const { lists } = data;
+    const { list, id } = this.state;
 
     return (
-      <div className='govuk-body'>
+      <div className="govuk-body">
         {!list ? (
           <div>
             {this.state.showAddList ? (
               <ListEdit
-                data={data} id={id}
+                data={data}
+                id={id}
                 onEdit={() => this.setState({ showAddList: false })}
                 onCancel={() => this.setState({ showAddList: false })}
               />
             ) : (
-              <ul className='govuk-list'>
+              <ul className="govuk-list">
                 {lists.map((list, index) => (
                   <li key={list.name}>
-                    <a href='#' onClick={e => this.onClickList(e, list)}>
+                    <a href="#" onClick={(e) => this.onClickList(e, list)}>
                       {list.title}
                     </a>
                   </li>
                 ))}
                 <li>
                   <hr />
-                  <a href='#' onClick={this.onClickAddList}>Add list</a>
+                  <a href="#" onClick={this.onClickAddList}>
+                    Add list
+                  </a>
                 </li>
               </ul>
             )}
           </div>
         ) : (
           <ListEdit
-            list={list} data={data}
+            list={list}
+            data={data}
             onEdit={() => this.setState({ list: null })}
             onCancel={() => this.setState({ list: null })}
           />
         )}
       </div>
-    )
+    );
   }
 }
 
-export default ListsEdit
+export default ListsEdit;

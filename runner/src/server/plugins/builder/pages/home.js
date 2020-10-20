@@ -1,12 +1,12 @@
-import Page from './index'
+import Page from "./index";
 
 export default class HomePage extends Page {
-  constructor (defs, pageDef) {
-    super(defs, pageDef)
-    this.x = ''
+  constructor(defs, pageDef) {
+    super(defs, pageDef);
+    this.x = "";
   }
 
-  get getRouteOptions () {
+  get getRouteOptions() {
     return {
       // handler: (request, h) => {
       //   return { ok: 200 }
@@ -14,17 +14,17 @@ export default class HomePage extends Page {
       ext: {
         onPostHandler: {
           method: (request, h) => {
-            console.log('onPostHandler Home')
+            console.log("onPostHandler Home");
 
             // Method must return a value, a promise, or throw an error
-            return h.continue
-          }
-        }
-      }
-    }
+            return h.continue;
+          },
+        },
+      },
+    };
   }
 
-  get postRouteOptions () {
+  get postRouteOptions() {
     return {
       // handler: (request, h) => {
       //   return { ok: 200 }
@@ -32,16 +32,16 @@ export default class HomePage extends Page {
       ext: {
         onPostHandler: {
           method: (request, h) => {
-            console.log('onPostHandler Home')
+            console.log("onPostHandler Home");
 
             // Method must return a value, a promise, or throw an error
-            return h.continue
-          }
-        }
-      }
-    }
+            return h.continue;
+          },
+        },
+      },
+    };
   }
 }
 
 // Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = HomePage
+module.exports = HomePage;

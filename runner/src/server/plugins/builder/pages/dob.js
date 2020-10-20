@@ -1,30 +1,26 @@
-import joi from 'joi'
-import Page from './index'
+import joi from "joi";
+import Page from "./index";
 
 class DobPage extends Page {
-  constructor (defs, pageDef) {
-    super(defs, pageDef)
+  constructor(defs, pageDef) {
+    super(defs, pageDef);
 
     this.stateSchema = this.stateSchema.append({
-      ageGroup: joi.string().required().valid('junior', 'full', 'senior')
-    })
+      ageGroup: joi.string().required().valid("junior", "full", "senior"),
+    });
   }
 
-  getStateFromValidForm (formData) {
-    const state = super.getStateFromValidForm(formData)
-    const age = ~~((Date.now() - state.dob) / (31557600000))
+  getStateFromValidForm(formData) {
+    const state = super.getStateFromValidForm(formData);
+    const age = ~~((Date.now() - state.dob) / 31557600000);
 
-    state.ageGroup = age < 13
-      ? 'junior'
-      : age > 65
-        ? 'senior'
-        : 'full'
+    state.ageGroup = age < 13 ? "junior" : age > 65 ? "senior" : "full";
 
-    return state
+    return state;
   }
 }
 
-export default DobPage
+export default DobPage;
 
 // Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = DobPage
+module.exports = DobPage;

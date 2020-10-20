@@ -9,11 +9,11 @@ This repository is a mono repo for
 - @xgovformbuilder/[designer](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/designer) - A React app to aide in form building
 - @xgovformbuilder/[model](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/model) - Serves the data model and other helpers
 
-The repos are forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder). 
+The repos are forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
 
-This is a (getting close to) zero-install yarn 2 workspaces repository. .yarnrc.yml allows us to align our yarn environments. Please commit any plugins in .yarn, but do not commit your .yarn/cache. CI will save and restore the caches. 
+This is a (getting close to) zero-install yarn 2 workspaces repository. .yarnrc.yml allows us to align our yarn environments. Please commit any plugins in .yarn, but do not commit your .yarn/cache. CI will save and restore the caches.
 
-Workspaces will deal with sym-linking the packages, so we do not have to manually run `yarn link`. 
+Workspaces will deal with sym-linking the packages, so we do not have to manually run `yarn link`.
 It will also deal with hoisting the node_modules for any packages that are shared between the repos, thus decreasing any install times. Hopefully it all just works™️.
 
 ## Setup
@@ -36,15 +36,13 @@ To learn more about workspaces, check these links:
 
 #### run a specific workspaces' script
 
-`$ yarn [runner|designer|engine|model] name-of-script` 
+`$ yarn [runner|designer|engine|model] name-of-script`
 
 eg.: `yarn desginer start` or `yarn runner add babel-core --dev`
-
 
 #### run a script for each of the workspaces
 
 `$ yarn workspaces foreach run name-of-script`
-
 
 #### watch and build for changes across all repos
 
@@ -59,11 +57,11 @@ I wouldn't recommend it unless you have a beefy processor.
 #### create a new workspace
 
 1. create a new directory for the workspace and yarn init it
-    1. `$ mkdir myNewLib`
-    2. `$ cd myNewlib`
-    3. `$ yarn init`
-2. in the root `package.json` 
-    1. add `myNewLib` to the `workspaces` object.
+   1. `$ mkdir myNewLib`
+   2. `$ cd myNewlib`
+   3. `$ yarn init`
+2. in the root `package.json`
+   1. add `myNewLib` to the `workspaces` object.
 
 ## Troubleshooting
 

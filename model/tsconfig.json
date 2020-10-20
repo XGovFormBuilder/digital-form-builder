@@ -5,7 +5,7 @@
     "outDir": "dist",
     "rootDirs": ["src"],
     "declarationDir": "dist/types",
-    "composite": true,
+    "composite": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/*.test.ts", "test-coverage", "test-results"]

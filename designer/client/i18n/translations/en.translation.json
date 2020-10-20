@@ -37,7 +37,6 @@
     "errors": {
       "whitespace": "Name must not contain spaces"
     }
-
   },
   "error": "Error:",
   "title": "Title",

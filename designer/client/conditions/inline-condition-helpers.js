@@ -1,12 +1,12 @@
-async function storeConditionIfNecessary (data, conditions) {
-  let condition
+async function storeConditionIfNecessary(data, conditions) {
+  let condition;
   if (conditions && conditions.hasConditions) {
-    condition = await data.getId()
-    data = data.addCondition(condition, conditions.name, conditions)
+    condition = await data.getId();
+    data = data.addCondition(condition, conditions.name, conditions);
   }
-  return { data, condition }
+  return { data, condition };
 }
 
 export default {
-  storeConditionIfNecessary: storeConditionIfNecessary
-}
+  storeConditionIfNecessary: storeConditionIfNecessary,
+};

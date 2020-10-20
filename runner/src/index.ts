@@ -1,9 +1,9 @@
-import createServer from './server'
+import createServer from "./server";
 
 createServer()
-  .then(server => server.start())
-  .then(() => process.send && process.send('online'))
-  .catch(err => {
-    console.log(err)
-    process.exit(1)
-  })
+  .then((server) => server.start())
+  .then(() => process.send && process.send("online"))
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });

@@ -8,17 +8,8 @@
     "sourceMap": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "server", 
-    "client", 
-    "package.json", 
-    "config.ts",
-    "new-form.json"
-  ],
+  "include": ["server", "client", "package.json", "config.ts", "new-form.json"],
   "paths": {
-    "*": [
-      "node_modules/*",
-      "../node_modules"
-    ]
+    "*": ["node_modules/*", "../node_modules"]
   }
 }

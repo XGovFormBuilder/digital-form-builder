@@ -19,7 +19,7 @@
         "@babel/plugin-transform-runtime"
       ],
       "sourceMaps": true
-    }, 
+    },
     "browser": {
       "presets": [
         "@babel/typescript",
