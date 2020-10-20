@@ -5,8 +5,14 @@ import { redirectTo, redirectUrl } from "@xgovformbuilder/engine"; //eslint-disa
 
 import Page from "./page";
 import { formSchema } from "../../../lib/formSchema";
-import { serviceName, payReturnUrl } from "../../../config"; //eslint-disable-line
+import config from "../../../config"; //eslint-disable-line
 
+const {
+  serviceName,
+  payReturnUrl,
+  govUKNotifyDefaultTemplateId,
+  govUKNotifyDefaultAPIKey,
+} = config;
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
  * Webhookdata
@@ -261,42 +267,44 @@ class SummaryViewModel {
     return {
       templateId: outputConfiguration.templateId,
       personalisation,
-      emailField: flatState[outputConfiguration.emailField],
+      emailAddress: flatState[outputConfiguration.emailField],
       apiKey: outputConfiguration.apiKey,
     };
   }
 
-  #emailModel(outputOptions) {
-    //eslint-disable-line
-    const attachments = [];
-    this._webhookData.questions.forEach((question) => {
-      question.fields.forEach((field) => {
-        if (field.type === "file" && field.answer) {
-          attachments.push({
-            question: question.question,
-            answer: field.answer,
-          });
-        }
-      });
-    });
-    const data =
-      "'question','field','answer'" +
-      "\n" +
-      this._webhookData.questions.map((question) => {
-        return question.fields
-          .map(
-            (field) => `${question.question}, ${field.title}, ${field.answer}`
-          )
-          .join("\r\n");
-      });
+  /**
+   * Builds an object with all parameters needed to send an email via GovUK Notify
+   * using our default TemplateID and API Key.
+   * @param {*} model
+   * @param {*} outputConfiguration
+   */
+  #emailModel(model, outputConfiguration) {
+    const data = [];
 
-    return { data, emailAddress: outputOptions.emailAddress, attachments };
+    this._webhookData.questions.forEach((question) => {
+      data.push("---");
+      data.push(`Page: ${question.question}.\n`);
+      question.fields.forEach((field) =>
+        data.push(`${field.title} ${field.answer}.\n`)
+      );
+    });
+    data.push("---");
+
+    const formName = model.name || `Form ${model.basePath}`;
+
+    return {
+      personalisation: {
+        formName,
+        formPayload: data.join("\r\n"),
+      },
+      apiKey: govUKNotifyDefaultAPIKey,
+      templateId: govUKNotifyDefaultTemplateId,
+      emailAddress: outputConfiguration.emailAddress,
+    };
   }
 
   #sheetsModel(model, outputConfiguration, state) {
-    //eslint-disable-line
     const flatState = flatten(state);
-    // eslint-disable-next-line camelcase
     const { credentials, project_id, scopes } = outputConfiguration;
     const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField];
     const spreadsheetId = outputConfiguration.sheets.find(
@@ -315,7 +323,6 @@ class SummaryViewModel {
   }
 
   #toEnglish(localisableString) {
-    //eslint-disable-line
     let englishString = "";
     if (localisableString) {
       if (typeof localisableString === "string") {
@@ -328,7 +335,6 @@ class SummaryViewModel {
   }
 
   #parseDataForWebhook(model, relevantPages, details) {
-    //eslint-disable-line
     const questions = [];
 
     for (const page of relevantPages) {
@@ -495,7 +501,6 @@ class SummaryViewModel {
   }
 
   #addFeedbackSourceDataToWebhook(webhookData, model, request) {
-    //eslint-disable-line
     if (model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -608,6 +613,7 @@ export default class SummaryPage extends Page {
         request
       );
       this.#setFeedbackDetails(summaryViewModel, request);
+
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
@@ -630,6 +636,7 @@ export default class SummaryPage extends Page {
         return startPageRedirect;
       }
 
+      // request declaration
       if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
         const { declaration } = request.payload;
         if (!declaration) {
@@ -649,10 +656,12 @@ export default class SummaryPage extends Page {
       await cacheService.mergeState(request, {
         outputs: summaryViewModel.outputs,
       });
+
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
+      // no need to pay, redirect to status
       if (
         !summaryViewModel.fees ||
         (summaryViewModel.fees.details ?? []).length === 0
@@ -660,6 +669,7 @@ export default class SummaryPage extends Page {
         return redirectTo(request, h, "/status");
       }
 
+      // user must pay for service
       const paymentReference = `FCO-${nanoid(10)}`;
       const description = payService.descriptionFromFees(summaryViewModel.fees);
       const res = await payService.payRequest(
@@ -694,7 +704,6 @@ export default class SummaryPage extends Page {
   }
 
   #setFeedbackDetails(viewModel, request) {
-    /* eslint-disable-line */
     const feedbackContextInfo = this.#getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
       // set the form name to the source form name if this is a feedback form
@@ -705,7 +714,6 @@ export default class SummaryPage extends Page {
   }
 
   #getFeedbackContextInfo(request) {
-    /* eslint-disable-line */
     if (this.model.def.feedback?.feedbackForm) {
       return decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -715,7 +723,6 @@ export default class SummaryPage extends Page {
   }
 
   #feedbackUrlFromRequest(request) {
-    /* eslint-disable-line */
     if (this.model.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.model.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(
