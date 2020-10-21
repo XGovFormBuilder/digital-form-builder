@@ -24,7 +24,7 @@ createServer({ data: "components.json", customPath: __dirname })
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.error(err);
     process.exit(1);
   });
 
