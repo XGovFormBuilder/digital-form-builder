@@ -6,7 +6,7 @@ import ComponentCollection from "@xgovformbuilder/engine/dist/components/compone
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
 
-export default class Page {
+export default class PageBase {
   constructor(model, pageDef) {
     const { def } = model;
 
