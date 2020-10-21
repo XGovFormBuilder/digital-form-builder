@@ -145,18 +145,20 @@ class SelectConditions extends React.Component<Props, State> {
                 </a>
               </div>
             )}
-            <Flyout
-              title="Define condition"
-              show={inline}
-              onHide={this.onCancelInlineCondition}
-            >
-              <InlineConditions
-                data={this.props.data}
-                path={this.props.path}
-                conditionsChange={this.onSaveInlineCondition}
-                cancelCallback={this.onCancelInlineCondition}
-              />
-            </Flyout>
+            {inline && (
+              <Flyout
+                title="Define condition"
+                show={inline}
+                onHide={this.onCancelInlineCondition}
+              >
+                <InlineConditions
+                  data={this.props.data}
+                  path={this.props.path}
+                  conditionsChange={this.onSaveInlineCondition}
+                  cancelCallback={this.onCancelInlineCondition}
+                />
+              </Flyout>
+            )}
           </div>
         ) : (
           <div className="govuk-body">

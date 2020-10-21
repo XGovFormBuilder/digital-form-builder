@@ -302,18 +302,20 @@ export class Component extends React.Component {
           <DragHandle />
           <TagName />
         </div>
-        <Flyout
-          title="Edit Component"
-          show={this.state.showEditor}
-          onHide={(e) => this.showEditor(e, false)}
-        >
-          <ComponentEdit
-            component={component}
-            page={page}
-            data={data}
-            onEdit={(e) => this.setState({ showEditor: false })}
-          />
-        </Flyout>
+        {this.state.showEditor && (
+          <Flyout
+            title="Edit Component"
+            show={this.state.showEditor}
+            onHide={(e) => this.showEditor(e, false)}
+          >
+            <ComponentEdit
+              component={component}
+              page={page}
+              data={data}
+              onEdit={(e) => this.setState({ showEditor: false })}
+            />
+          </Flyout>
+        )}
       </div>
     );
   }

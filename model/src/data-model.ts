@@ -120,13 +120,10 @@ export class Data implements DataModel {
     this.#conditions = (rawDataClone.conditions || []).map(
       (it) => new Condition(it)
     );
-    console.log(this.#conditions);
     this.#feedback = rawDataClone.feedback;
     delete rawDataClone.conditions;
     delete rawDataClone.feedback;
-    console.log("rawDataClone", rawDataClone);
     Object.assign(this, rawDataClone);
-    console.log("this", this);
   }
 
   _listInputsFor(page, input): Array<Input> {

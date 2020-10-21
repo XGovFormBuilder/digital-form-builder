@@ -3,7 +3,7 @@ import { FlyoutContext } from "./context";
 import { withI18n } from "./i18n";
 
 export function useFlyoutEffect(props) {
-  const flyoutContext = useContext(FlyoutContext);
+  const { count, increment, decrement } = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
 
@@ -11,11 +11,16 @@ export function useFlyoutEffect(props) {
    * @code on component mount
    */
   useLayoutEffect(() => {
-    flyoutContext.increment();
+    if (props?.show) {
+      increment();
+    }
+    return () => {
+      decrement();
+    };
   }, []);
 
   useLayoutEffect(() => {
-    setOffset(flyoutContext.flyoutCount);
+    setOffset(count);
   }, []);
 
   useEffect(() => {
@@ -27,8 +32,7 @@ export function useFlyoutEffect(props) {
   }, [offset]);
 
   const onHide = () => {
-    flyoutContext.decrement();
-    props.onHide();
+    props.onHide?.();
   };
 
   return { style, width: props?.width, onHide, offset };
@@ -36,7 +40,7 @@ export function useFlyoutEffect(props) {
 
 function Flyout(props) {
   // TODO:- This should really be handled by the parent to determine whether or not flyout should render.
-  if (!props.show) {
+  if (!props?.show) {
     return null;
   }
 

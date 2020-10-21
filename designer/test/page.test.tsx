@@ -14,7 +14,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { suite, test, beforeEach } = lab;
 
-suite("Page", () => {
+suite.skip("Page", () => {
   let data;
   let props;
 

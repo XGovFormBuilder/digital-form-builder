@@ -26,31 +26,41 @@ describe("useFlyoutContext", () => {
   });
 
   test("Increment is called on mount", () => {
-    const flyoutContextProviderValue = { flyoutCount: 0, increment, decrement };
+    const flyoutContextProviderValue = { count: 0, increment, decrement };
     mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
-        <HookWrapper hook={() => useFlyoutEffect()} />
+        <HookWrapper hook={() => useFlyoutEffect({ show: true })} />
       </FlyoutContext.Provider>
     );
     expect(increment.calledOnce).to.equal(true);
     expect(decrement.notCalled).to.equal(true);
   });
 
-  test("Increment is called on mount", () => {
-    const flyoutContextProviderValue = { flyoutCount: 0, increment, decrement };
-    const wrapper = mount(
+  test("Increment is not called when show is false", () => {
+    //TODO:- deprecate this test when we remove reliance on show prop
+    const flyoutContextProviderValue = { count: 0, increment, decrement };
+    mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
-        <HookWrapper hook={() => useFlyoutEffect({ onHide: sinon.stub() })} />
+        <HookWrapper hook={() => useFlyoutEffect({ show: false })} />
       </FlyoutContext.Provider>
     );
-    const { hook } = wrapper.find("div").props();
-    hook.onHide();
+    expect(increment.calledOnce).to.equal(false);
+  });
+
+  test("Decrement is called on unmount", () => {
+    const flyoutContextProviderValue = { count: 0, increment, decrement };
+    const wrapper = mount(
+      <FlyoutContext.Provider value={flyoutContextProviderValue}>
+        <HookWrapper hook={() => useFlyoutEffect({ show: true })} />
+      </FlyoutContext.Provider>
+    );
+    wrapper.unmount();
     expect(increment.calledOnce).to.equal(true);
     expect(decrement.calledOnce).to.equal(true);
   });
 
   test("flyout is offset by correct amount", () => {
-    const flyoutContextProviderValue = { flyoutCount: 1, increment, decrement };
+    const flyoutContextProviderValue = { count: 1, increment, decrement };
     const wrapper = mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
         <HookWrapper hook={() => useFlyoutEffect()} />

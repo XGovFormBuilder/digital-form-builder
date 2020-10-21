@@ -91,18 +91,18 @@ export class App extends React.Component {
 
   incrementFlyoutCounter = (callback = () => {}) => {
     let currentCount = this.state.flyoutCount;
-    this.setState({ flyoutCount: ++currentCount }, callback());
+    this.setState({ flyoutCount: currentCount + 1 }, callback());
   };
 
   decrementFlyoutCounter = (callback = () => {}) => {
     let currentCount = this.state.flyoutCount;
-    this.setState({ flyoutCount: --currentCount }, callback());
+    this.setState({ flyoutCount: currentCount - 1 }, callback());
   };
 
   render() {
     const { previewUrl, id, flyoutCount, newConfig } = this.state;
     const flyoutContextProviderValue = {
-      flyoutCount,
+      count: flyoutCount,
       increment: this.incrementFlyoutCounter,
       decrement: this.decrementFlyoutCounter,
     };
