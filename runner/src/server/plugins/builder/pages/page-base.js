@@ -549,4 +549,4 @@ export default class PageBase {
 }
 
 // Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = Page;
+module.exports = PageBase;
