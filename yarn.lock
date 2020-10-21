@@ -3275,6 +3275,7 @@ __metadata:
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.1.0
+    babel-plugin-module-name-mapper: ^1.2.0
     babel-plugin-module-resolver: ^4.0.0
     clean-webpack-plugin: ^3.0.0
     copy-webpack-plugin: ^6.1.1
@@ -4510,6 +4511,15 @@ __metadata:
   dependencies:
     object.assign: ^4.1.0
   checksum: 6745b8edca96f6c8bc34ab65935b5676358d2e55323e8e823b8de7aa353e3e6398a495ce434c9c36ad5fb1609467a1b1a0028946e1490bf7de8f97df3ae7f3b1
+  languageName: node
+  linkType: hard
+
+"babel-plugin-module-name-mapper@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "babel-plugin-module-name-mapper@npm:1.2.0"
+  dependencies:
+    lodash.memoize: ^4.1.2
+  checksum: 7a1d25720833629c0f2f01b5c25aadfbb4a93c9dda963e5619f358a1f7dd60e1fcc01e720a5f8613c5eba1a4d90d4e2fe795be4c704cfbec0ed40747485d4fbb
   languageName: node
   linkType: hard
 
@@ -13221,6 +13231,13 @@ fsevents@~2.1.2:
   version: 4.0.1
   resolution: "lodash.isstring@npm:4.0.1"
   checksum: 20c46960b74fd63c27b534f1725cd4141ac19b35c7250affee37c8b7899b1a4c5e9820becfafe571a4d48cd4c86206ee03c2e93fe943dbeab82ddd5cab710540
+  languageName: node
+  linkType: hard
+
+"lodash.memoize@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "lodash.memoize@npm:4.1.2"
+  checksum: 080c1095b7795b293a06078737550dc0c8138192cadbafb4e4b1303357d367ac589a1a570fad8de154175b008ca7b2b48d6a7f1755a143e13b764e20a7104080
   languageName: node
   linkType: hard
 

@@ -1,8 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "rootDirs": ["src"],
-    "outDir": "dist"
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist",
+    "paths": {
+      "src/*": ["src/*"] // this mapping is relative to "baseUrl"
+    }
   },
   "references": [{ "path": "../engine" }]
 }
