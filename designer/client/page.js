@@ -146,26 +146,29 @@ export class Page extends React.Component {
             {i18n("Preview")}
           </a>
         </div>
+        {this.state.showEditor && (
+          <Flyout
+            title="Edit Page"
+            show={this.state.showEditor}
+            onHide={this.toggleEditor}
+          >
+            <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
+          </Flyout>
+        )}
 
-        <Flyout
-          title="Edit Page"
-          show={this.state.showEditor}
-          onHide={this.toggleEditor}
-        >
-          <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
-        </Flyout>
-
-        <Flyout
-          title="Add Component"
-          show={this.state.showAddComponent}
-          onHide={this.toggleAddComponent}
-        >
-          <ComponentCreate
-            page={page}
-            data={data}
-            onCreate={this.toggleAddComponent}
-          />
-        </Flyout>
+        {this.state.showAddComponent && (
+          <Flyout
+            title="Add Component"
+            show={this.state.showAddComponent}
+            onHide={this.toggleAddComponent}
+          >
+            <ComponentCreate
+              page={page}
+              data={data}
+              onCreate={this.toggleAddComponent}
+            />
+          </Flyout>
+        )}
       </div>
     );
   }
