@@ -6,6 +6,6 @@
     "composite": true,
     "declarationDir": "dist"
   },
-  "include": ["src", "util.js"],
+  "include": ["src"],
   "references": [{ "path": "../model" }]
 }
