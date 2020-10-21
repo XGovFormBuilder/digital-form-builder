@@ -63,15 +63,15 @@ export class Page extends React.Component {
   };
 
   toggleAddComponent = () => {
-    this.setState((prevState) => ({
-      showAddComponent: !prevState.showAddComponent,
-    }));
+    this.setState({
+      showAddComponent: !this.state.showAddComponent,
+    });
   };
 
   toggleEditor = () => {
-    this.setState((prevState) => ({
-      showEditor: !prevState.showEditor,
-    }));
+    this.setState({
+      showEditor: !this.state.showEditor,
+    });
   };
 
   render() {

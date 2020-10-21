@@ -222,7 +222,7 @@ export default class DefineComponentValue extends React.Component {
           >
             Cancel
           </a>
-          {showAddChild && (
+          {!!showAddChild && (
             <RenderInPortal>
               <Flyout
                 title="Add Child"

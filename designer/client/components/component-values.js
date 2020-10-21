@@ -316,7 +316,7 @@ export default class ComponentValues extends React.Component {
                   </Flyout>
                 </RenderInPortal>
               )}
-              {editingIndex !== undefined >= 0 && (
+              {editingIndex !== undefined && (
                 <RenderInPortal>
                   <Flyout
                     title="Edit Item"
