@@ -4,7 +4,7 @@ import { clone, reach } from "hoek"; //eslint-disable-line
 import { redirectTo, redirectUrl } from "@xgovformbuilder/engine"; //eslint-disable-line
 
 import Page from "./page";
-import { formSchema } from "../../../lib/formSchema";
+import { formSchema } from "../../../schemas/formSchema";
 import { serviceName, payReturnUrl } from "../../../config"; //eslint-disable-line
 
 /**
