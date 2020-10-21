@@ -23,7 +23,17 @@ internals.transform = function (content, filename) {
     sourceFileName: filename,
     auxiliaryCommentBefore: "$lab:coverage:off$",
     auxiliaryCommentAfter: "$lab:coverage:on$",
-    plugins: ["@babel/plugin-transform-runtime"],
+    plugins: [
+      "@babel/plugin-transform-runtime",
+      [
+        "module-name-mapper",
+        {
+          moduleNameMapper: {
+            "^src/(.*)": "<pkgDir>/src/$1",
+          },
+        },
+      ],
+    ],
     ignore: ["../node_modules", "node_modules"],
   });
 
