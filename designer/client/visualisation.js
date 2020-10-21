@@ -134,18 +134,19 @@ class Lines extends React.Component {
             );
           })}
         </svg>
-
-        <Flyout
-          title="Edit Link"
-          show={this.state.showEditor}
-          onHide={(e) => this.setState({ showEditor: false })}
-        >
-          <LinkEdit
-            edge={this.state.showEditor}
-            data={data}
-            onEdit={(e) => this.setState({ showEditor: false })}
-          />
-        </Flyout>
+        {this.state.showEditor && (
+          <Flyout
+            title="Edit Link"
+            show={this.state.showEditor}
+            onHide={(e) => this.setState({ showEditor: false })}
+          >
+            <LinkEdit
+              edge={this.state.showEditor}
+              data={data}
+              onEdit={(e) => this.setState({ showEditor: false })}
+            />
+          </Flyout>
+        )}
       </div>
     );
   }

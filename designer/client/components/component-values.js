@@ -250,90 +250,92 @@ export default class ComponentValues extends React.Component {
                   </tr>
                 </thead>
                 <tbody className="govuk-table__body">
-                  {staticValues &&
-                    staticValues.items.map((item, index) => (
-                      <tr
-                        key={`item-row-${index}`}
-                        className="govuk-table__row"
-                        scope="row"
-                      >
-                        <td className="govuk-table__cell">
-                          <h2
-                            className="govuk-label"
-                            id={`item-details-${index}`}
-                          >
-                            {item.label}
-                          </h2>
-                          <div className="govuk-hint"> {item.hint}</div>
-                          {item.condition && (
-                            <p>
-                              <strong>Condition:</strong> {item.condition}
-                            </p>
-                          )}
+                  {staticValues?.items?.map((item, index) => (
+                    <tr
+                      key={`item-row-${index}`}
+                      className="govuk-table__row"
+                      scope="row"
+                    >
+                      <td className="govuk-table__cell">
+                        <h2
+                          className="govuk-label"
+                          id={`item-details-${index}`}
+                        >
+                          {item.label}
+                        </h2>
+                        <div className="govuk-hint"> {item.hint}</div>
+                        {item.condition && (
                           <p>
-                            <strong>Children:</strong> {item.children.length}
+                            <strong>Condition:</strong> {item.condition}
                           </p>
-                        </td>
-                        <td className="govuk-table__cell">
+                        )}
+                        <p>
+                          <strong>Children:</strong> {item.children.length}
+                        </p>
+                      </td>
+                      <td className="govuk-table__cell">
+                        <a
+                          className="list-item-delete"
+                          id={`edit-item-${index}`}
+                          onClick={() => this.showEditItem(index)}
+                        >
+                          {icons.edit(false)}
+                        </a>
+                      </td>
+                      <td className="govuk-table__cell">
+                        {type === "static" && (
                           <a
                             className="list-item-delete"
-                            id={`edit-item-${index}`}
-                            onClick={() => this.showEditItem(index)}
+                            id={`remove-item-${index}`}
+                            onClick={() => this.removeItem(index)}
                           >
-                            {icons.edit(false)}
+                            &#128465;
                           </a>
-                        </td>
-                        <td className="govuk-table__cell">
-                          {type === "static" && (
-                            <a
-                              className="list-item-delete"
-                              id={`remove-item-${index}`}
-                              onClick={() => this.removeItem(index)}
-                            >
-                              &#128465;
-                            </a>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                        )}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
-              <RenderInPortal>
-                <Flyout
-                  title="Add Item"
-                  show={!!showAddItem}
-                  onHide={this.cancelAddItem}
-                >
-                  <form ref={this.formAddItem}>
-                    <DefineComponentValue
-                      data={data}
-                      page={page}
-                      saveCallback={this.addItem}
-                      cancelCallback={this.cancelAddItem}
-                      EditComponentView={this.props.EditComponentView}
-                    />
-                  </form>
-                </Flyout>
-              </RenderInPortal>
-
-              <RenderInPortal>
-                <Flyout
-                  title="Edit Item"
-                  show={editingIndex !== undefined}
-                  onHide={this.cancelEditItem}
-                >
-                  <form ref={this.formEditItem}>
-                    <DefineComponentValue
-                      data={data}
-                      value={staticValues.items[editingIndex]}
-                      page={page}
-                      saveCallback={this.updateItem}
-                      cancelCallback={this.cancelEditItem}
-                      EditComponentView={this.props.EditComponentView}
-                    />
-                  </form>
-                </Flyout>
-              </RenderInPortal>
+              {showAddItem && (
+                <RenderInPortal>
+                  <Flyout
+                    title="Add Item"
+                    show={!!showAddItem}
+                    onHide={this.cancelAddItem}
+                  >
+                    <form ref={this.formAddItem}>
+                      <DefineComponentValue
+                        data={data}
+                        page={page}
+                        saveCallback={this.addItem}
+                        cancelCallback={this.cancelAddItem}
+                        EditComponentView={this.props.EditComponentView}
+                      />
+                    </form>
+                  </Flyout>
+                </RenderInPortal>
+              )}
+              {editingIndex !== undefined && (
+                <RenderInPortal>
+                  <Flyout
+                    title="Edit Item"
+                    show={editingIndex !== undefined}
+                    onHide={this.cancelEditItem}
+                  >
+                    <form ref={this.formEditItem}>
+                      <DefineComponentValue
+                        data={data}
+                        value={staticValues.items[editingIndex]}
+                        page={page}
+                        saveCallback={this.updateItem}
+                        cancelCallback={this.cancelEditItem}
+                        EditComponentView={this.props.EditComponentView}
+                      />
+                    </form>
+                  </Flyout>
+                </RenderInPortal>
+              )}
             </div>
           </div>
         )}

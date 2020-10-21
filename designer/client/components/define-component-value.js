@@ -222,42 +222,46 @@ export default class DefineComponentValue extends React.Component {
           >
             Cancel
           </a>
+          {!!showAddChild && (
+            <RenderInPortal>
+              <Flyout
+                title="Add Child"
+                show={!!showAddChild}
+                onHide={this.cancelAddChild}
+              >
+                <form ref={this.formAddItem}>
+                  <DefineChildComponent
+                    data={data}
+                    page={page}
+                    saveCallback={this.addChild}
+                    cancelCallback={this.cancelAddChild}
+                    EditComponentView={this.props.EditComponentView}
+                  />
+                </form>
+              </Flyout>
+            </RenderInPortal>
+          )}
 
-          <RenderInPortal>
-            <Flyout
-              title="Add Child"
-              show={!!showAddChild}
-              onHide={this.cancelAddChild}
-            >
-              <form ref={this.formAddItem}>
-                <DefineChildComponent
-                  data={data}
-                  page={page}
-                  saveCallback={this.addChild}
-                  cancelCallback={this.cancelAddChild}
-                  EditComponentView={this.props.EditComponentView}
-                />
-              </form>
-            </Flyout>
-          </RenderInPortal>
-          <RenderInPortal>
-            <Flyout
-              title="Edit Child"
-              show={editingIndex !== undefined}
-              onHide={this.cancelEditChild}
-            >
-              <form ref={this.formEditItem}>
-                <DefineChildComponent
-                  data={data}
-                  component={child}
-                  page={page}
-                  saveCallback={this.updateChild}
-                  cancelCallback={this.cancelEditChild}
-                  EditComponentView={this.props.EditComponentView}
-                />
-              </form>
-            </Flyout>
-          </RenderInPortal>
+          {editingIndex !== undefined && (
+            <RenderInPortal>
+              <Flyout
+                title="Edit Child"
+                show={editingIndex !== undefined}
+                onHide={this.cancelEditChild}
+              >
+                <form ref={this.formEditItem}>
+                  <DefineChildComponent
+                    data={data}
+                    component={child}
+                    page={page}
+                    saveCallback={this.updateChild}
+                    cancelCallback={this.cancelEditChild}
+                    EditComponentView={this.props.EditComponentView}
+                  />
+                </form>
+              </Flyout>
+            </RenderInPortal>
+          )}
         </div>
       </div>
     );

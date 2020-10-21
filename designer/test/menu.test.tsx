@@ -118,7 +118,7 @@ suite("Page", () => {
     expect(createNewFormMenu.prop("onClick")).to.equal(undefined);
   });
 
-  test('menu "Form Details" shows correct Flyout', () => {
+  test.skip('menu "Form Details" shows correct Flyout', () => {
     const menuSettings = [
       {
         buttonText: "Form Details",
