@@ -3,6 +3,43 @@ import Joi from "joi";
 
 dotEnv.config({ path: ".env" });
 
+export type ENV = "development" | "test" | "production";
+export type LogLevel = "trace" | "debug" | "info" | "warn" | "error";
+export interface ConfigSchema {
+  port: number;
+  env: ENV;
+  logLevel?: LogLevel;
+  ordnanceSurveyKey?: string;
+  browserRefreshUrl?: string;
+  feedbackLink?: string;
+  matomoId?: string;
+  matomoUrl?: string;
+  payApiUrl: string;
+  payReturnUrl: string;
+  serviceUrl?: string;
+  redisHost?: string;
+  redisPort?: number;
+  redisPassword?: string;
+  redisTls?: boolean;
+  serviceName?: string;
+  documentUploadApiUrl?: string;
+  previewMode?: boolean;
+  sslKey?: string;
+  sslCert?: string;
+  sessionTimeout?: number;
+  sessionCookiePassword?: string;
+  rateLimit?: boolean;
+  fromEmailAddress?: string;
+  serviceStartPage?: string;
+  privacyPolicyUrl?: string;
+  isProd: boolean;
+  isDev: boolean;
+  isSandbox: boolean;
+  isTest: boolean;
+  govUKNotifyDefaultTemplateId?: string;
+  govUKNotifyDefaultAPIKey?: string;
+}
+
 // Define config schema
 const schema = Joi.object({
   port: Joi.number().default(3009),
@@ -33,6 +70,20 @@ const schema = Joi.object({
   fromEmailAddress: Joi.string().optional(),
   serviceStartPage: Joi.string().optional(),
   privacyPolicyUrl: Joi.string().optional(),
+  govUKNotifyDefaultTemplateId: Joi.string()
+    .when("env", {
+      is: "production",
+      then: Joi.required(),
+      otherwise: Joi.optional(),
+    })
+    .label("GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID"),
+  govUKNotifyDefaultAPIKey: Joi.string()
+    .when("env", {
+      is: "production",
+      then: Joi.required(),
+      otherwise: Joi.optional(),
+    })
+    .label("GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID"),
 });
 
 // Build config
@@ -64,6 +115,8 @@ const config = {
   fromEmailAddress: process.env.FROM_EMAIL_ADDRESS,
   serviceStartPage: process.env.SERVICE_START_PAGE,
   privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
+  govUKNotifyDefaultTemplateId: process.env.GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID,
+  govUKNotifyDefaultAPIKey: process.env.GOV_UK_NOTIFY_DEFAULT_API_KEY,
 };
 
 // Validate config
@@ -77,11 +130,11 @@ if (result.error) {
 }
 
 // Use the Joi validated value
-const value = result.value;
+const value: ConfigSchema = result.value;
 
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;
-value.isSandbox = process.env.sandbox || false; // for heroku instances
-value.isTest = config.env === "test";
+value.isTest = value.env === "test";
+value.isSandbox = String(process.env.sandbox) === "true" ? true : false; // for heroku instances
 
 export default value;
