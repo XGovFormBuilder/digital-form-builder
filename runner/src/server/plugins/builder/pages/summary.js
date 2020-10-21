@@ -613,7 +613,6 @@ export default class SummaryPage extends Page {
         request
       );
       this.#setFeedbackDetails(summaryViewModel, request);
-
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         // default to first defined page
@@ -656,7 +655,6 @@ export default class SummaryPage extends Page {
       await cacheService.mergeState(request, {
         outputs: summaryViewModel.outputs,
       });
-
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
       });

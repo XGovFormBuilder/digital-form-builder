@@ -104,7 +104,6 @@ const applicationStatus = {
                 reference: newReference,
               });
             }
-
             const outputPromises = (outputs || [])
               .filter((output) => output !== firstWebhook)
               .map((output) => {
