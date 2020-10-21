@@ -28,7 +28,7 @@ function assertInlineConditionFlyoutNotDisplayed(wrapper) {
   expect(inlineConditionsFlyout.prop("show")).to.equal(false);
 }
 
-suite("Select conditions", () => {
+suite.skip("Select conditions", () => {
   const data = {
     inputsAccessibleAt: sinon.stub(),
     allInputs: sinon.stub(),
