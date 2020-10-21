@@ -283,9 +283,9 @@ class SummaryViewModel {
 
     this._webhookData.questions.forEach((question) => {
       data.push("---");
-      data.push(`Page: ${question.question}.\n`);
+      data.push(`Page: ${question.question}\n`);
       question.fields.forEach((field) =>
-        data.push(`${field.title} ${field.answer}.\n`)
+        data.push(`*${field.title.replace("?", "")}: ${field.answer}\n`)
       );
     });
     data.push("---");
