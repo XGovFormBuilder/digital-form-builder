@@ -1,5 +1,5 @@
 import joi from "joi";
-import Page from "./index";
+import Page from "./page";
 
 export default class StartDatePage extends Page {
   get stateSchema() {
