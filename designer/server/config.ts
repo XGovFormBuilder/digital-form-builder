@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
 
-dotenv.config({ path: "./../env" })
+dotenv.config({ path: "./../env" });
 
 // Define config schema
 const schema = joi.object({
