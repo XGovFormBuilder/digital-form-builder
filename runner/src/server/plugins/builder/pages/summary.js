@@ -610,6 +610,7 @@ export default class SummaryPage extends Page {
       this.#setFeedbackDetails(summaryViewModel, request);
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
+        console.error(`SummaryPage Error`, summaryViewModel.result.error);
         // default to first defined page
         let startPageRedirect = redirectTo(
           request,
