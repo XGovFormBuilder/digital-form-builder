@@ -3,6 +3,9 @@ import Joi from "joi";
 
 dotEnv.config({ path: ".env" });
 
+const minute = 60 * 1000;
+const DEFAULT_SESSION_TTL = 20 * minute;
+
 // Define config schema
 const schema = Joi.object({
   port: Joi.number().default(3009),
@@ -27,7 +30,7 @@ const schema = Joi.object({
   previewMode: Joi.boolean().optional(),
   sslKey: Joi.string().optional(),
   sslCert: Joi.string().optional(),
-  sessionTimeout: Joi.number().optional(),
+  sessionTimeout: Joi.number().default(DEFAULT_SESSION_TTL),
   sessionCookiePassword: Joi.string().optional(),
   rateLimit: Joi.boolean().optional(),
   fromEmailAddress: Joi.string().optional(),
@@ -58,7 +61,7 @@ const config = {
   previewMode: process.env.PREVIEW_MODE || false,
   sslKey: process.env.SSL_KEY,
   sslCert: process.env.SSL_CERT,
-  sessionTimeout: process.env.SESSION_TIMEOUT || 20 * 60 * 1000, // default 20 mins
+  sessionTimeout: process.env.SESSION_TIMEOUT,
   sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
   rateLimit: process.env.RATE_LIMIT !== "false",
   fromEmailAddress: process.env.FROM_EMAIL_ADDRESS,
