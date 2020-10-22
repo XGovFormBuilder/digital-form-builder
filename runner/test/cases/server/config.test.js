@@ -85,7 +85,7 @@ suite(`Server Config`, () => {
 
     const result = buildConfig();
 
-    expect(result).to.equal(expectedResult);
+    expect(result).to.include(expectedResult);
   });
 
   test("Missing environment values fall back to defaults", () => {
@@ -114,4 +114,5 @@ suite(`Server Config`, () => {
 
   // TODO
   test("Error is throw when required environment value XXX is missing");
+  test("Notify Required environment variables in production");
 });
