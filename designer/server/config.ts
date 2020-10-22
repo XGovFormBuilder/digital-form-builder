@@ -1,12 +1,15 @@
-import dotenv from "dotenv"
-import joi from "joi"
+import dotenv from "dotenv";
+import joi from "joi";
 
-dotenv.config({ path: "./../env" })
+dotenv.config({ path: "./../env" });
 
 // Define config schema
 const schema = joi.object({
   port: joi.number().default(3000),
-  env: joi.string().valid("development", "test", "production").default("development"),
+  env: joi
+    .string()
+    .valid("development", "test", "production")
+    .default("development"),
   previewUrl: joi.string(),
   publishUrl: joi.string(),
   persistentBackend: joi.string().valid("s3", "blob", "preview").optional(),
