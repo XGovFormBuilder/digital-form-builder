@@ -36,8 +36,8 @@ export interface ConfigSchema {
   isDev: boolean;
   isSandbox: boolean;
   isTest: boolean;
-  govUKNotifyDefaultTemplateId?: string;
-  govUKNotifyDefaultAPIKey?: string;
+  notifyTemplateId?: string;
+  notifyAPIKey?: string;
 }
 
 // Define config schema
@@ -70,20 +70,20 @@ const schema = Joi.object({
   fromEmailAddress: Joi.string().optional(),
   serviceStartPage: Joi.string().optional(),
   privacyPolicyUrl: Joi.string().optional(),
-  govUKNotifyDefaultTemplateId: Joi.string()
+  notifyTemplateId: Joi.string()
     .when("env", {
       is: "production",
       then: Joi.required(),
       otherwise: Joi.optional(),
     })
-    .label("GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID"),
-  govUKNotifyDefaultAPIKey: Joi.string()
+    .label("NOTIFY_TEMPLATE_ID"),
+  notifyAPIKey: Joi.string()
     .when("env", {
       is: "production",
       then: Joi.required(),
       otherwise: Joi.optional(),
     })
-    .label("GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID"),
+    .label("NOTIFY_API_KEY"),
 });
 
 // Build config
@@ -115,8 +115,8 @@ const config = {
   fromEmailAddress: process.env.FROM_EMAIL_ADDRESS,
   serviceStartPage: process.env.SERVICE_START_PAGE,
   privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
-  govUKNotifyDefaultTemplateId: process.env.GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID,
-  govUKNotifyDefaultAPIKey: process.env.GOV_UK_NOTIFY_DEFAULT_API_KEY,
+  notifyTemplateId: process.env.NOTIFY_TEMPLATE_ID,
+  notifyAPIKey: process.env.NOTIFY_API_KEY,
 };
 
 // Validate config
