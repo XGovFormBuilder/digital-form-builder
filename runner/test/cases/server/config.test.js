@@ -44,41 +44,6 @@ suite(`Server Config`, () => {
     process.env = processEnv;
   });
 
-  test("config is correct", async () => {
-    expect(config).to.equal({
-      port: 3009,
-      env: "test",
-      logLevel: "debug",
-      ordnanceSurveyKey: undefined,
-      browserRefreshUrl: undefined,
-      feedbackLink: "#",
-      matomoId: undefined,
-      matomoUrl: undefined,
-      payApiUrl: undefined,
-      payReturnUrl: undefined,
-      serviceUrl: "http://localhost:3009",
-      redisHost: undefined,
-      redisPort: undefined,
-      redisPassword: undefined,
-      redisTls: false,
-      serviceName: undefined,
-      documentUploadApiUrl: "http://localhost:9000",
-      previewMode: true,
-      sslKey: undefined,
-      sslCert: undefined,
-      sessionTimeout: 1200000,
-      sessionCookiePassword: undefined,
-      rateLimit: true,
-      fromEmailAddress: undefined,
-      serviceStartPage: undefined,
-      privacyPolicyUrl: undefined,
-      isProd: false,
-      isDev: true,
-      isSandbox: false,
-      isTest: true,
-    });
-  });
-
   test("Environment values are captured", () => {
     process.env = {
       ...process.env,
