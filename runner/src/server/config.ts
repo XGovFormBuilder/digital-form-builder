@@ -41,20 +41,6 @@ const schema = Joi.object({
   fromEmailAddress: Joi.string().optional(),
   serviceStartPage: Joi.string().optional(),
   privacyPolicyUrl: Joi.string().optional(),
-  notifyTemplateId: Joi.string()
-    .when("env", {
-      is: "production",
-      then: Joi.required(),
-      otherwise: Joi.optional(),
-    })
-    .label("NOTIFY_TEMPLATE_ID"),
-  notifyAPIKey: Joi.string()
-    .when("env", {
-      is: "production",
-      then: Joi.required(),
-      otherwise: Joi.optional(),
-    })
-    .label("NOTIFY_API_KEY"),
 });
 
 export function buildConfig() {
