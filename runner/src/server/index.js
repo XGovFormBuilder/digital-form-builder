@@ -185,7 +185,7 @@ async function createServer(routeConfig) {
 
   if (!config.isTest) {
     await server.register(blipp);
-    await server.register(pluginLogging);
+    // await server.register(pluginLogging);
   }
 
   return server;

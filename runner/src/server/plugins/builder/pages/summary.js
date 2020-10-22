@@ -7,12 +7,7 @@ import Page from "./page";
 import { formSchema } from "../../../schemas/formSchema";
 import config from "../../../config";
 
-const {
-  serviceName,
-  payReturnUrl,
-  govUKNotifyDefaultTemplateId,
-  govUKNotifyDefaultAPIKey,
-} = config;
+const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
  * Webhookdata
@@ -297,8 +292,8 @@ class SummaryViewModel {
         formName,
         formPayload: data.join("\r\n"),
       },
-      apiKey: govUKNotifyDefaultAPIKey,
-      templateId: govUKNotifyDefaultTemplateId,
+      apiKey: notifyAPIKey,
+      templateId: notifyTemplateId,
       emailAddress: outputConfiguration.emailAddress,
     };
   }
