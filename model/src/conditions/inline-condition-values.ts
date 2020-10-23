@@ -1,26 +1,28 @@
 const conditionValueFactories = {};
 
 class Registration {
-  type;
+  type: string;
 
-  constructor(type, factory) {
+  constructor(type: string, factory) {
     conditionValueFactories[type] = factory;
     this.type = type;
   }
 }
 
 export class AbstractConditionValue {
-  type;
+  type: string;
 
   constructor(registration) {
     if (new.target === AbstractConditionValue) {
       throw new TypeError("Cannot construct ConditionValue instances directly");
     }
+
     if (!(registration instanceof Registration)) {
       throw new TypeError(
         "You must register your value type! Call registerValueType!"
       );
     }
+
     this.type = registration.type;
   }
 
@@ -33,7 +35,7 @@ export class ConditionValue extends AbstractConditionValue {
   value;
   display;
 
-  constructor(value, display) {
+  constructor(value: string, display?: string) {
     super(valueType);
     if (!value || typeof value !== "string") {
       throw Error(`value ${value} is not valid`);
@@ -144,7 +146,7 @@ export class RelativeTimeValue extends AbstractConditionValue {
  * Otherwise we can't guarantee they've been registered for deserialization before
  * valueFrom is called
  */
-function registerValueType(type, factory) {
+function registerValueType(type: string, factory) {
   return new Registration(type, factory);
 }
 

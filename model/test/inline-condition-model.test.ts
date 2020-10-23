@@ -11,7 +11,7 @@ import {
   RelativeTimeValue,
   ConditionValue,
 } from "../src";
-import { ConditionRef } from "../src/conditions/inline-condition-model";
+import { ConditionRef } from "../src/conditions";
 
 const { expect } = Code;
 const lab = Lab.script();

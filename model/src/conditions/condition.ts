@@ -10,7 +10,7 @@ export class AbstractCondition {
   coordinator: Coordinator | undefined;
 
   constructor(coordinator: Coordinator | undefined) {
-    if (coordinator && !(coordinator in Coordinator)) {
+    if (coordinator && !Object.values(Coordinator).includes(coordinator)) {
       throw Error(`coordinator ${coordinator} is not a valid coordinator`);
     }
 
@@ -75,7 +75,7 @@ export class Condition extends AbstractCondition {
     field: Field,
     operator: string,
     value: ConditionValue,
-    coordinator: Coordinator | undefined
+    coordinator?: Coordinator
   ) {
     super(coordinator);
 
