@@ -1,5 +1,5 @@
 import React from "react";
-import { dateDirections, RelativeTimeValue } from "@xgovformbuilder/model";
+import { DateDirections, RelativeTimeValue } from "@xgovformbuilder/model";
 
 class RelativeTimeValues extends React.Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class RelativeTimeValues extends React.Component {
           onChange={(e) => this.updateState({ direction: e.target.value })}
         >
           <option />
-          {Object.values(dateDirections).map((direction) => {
+          {Object.values(DateDirections).map((direction) => {
             return (
               <option key={direction} value={direction}>
                 {direction}

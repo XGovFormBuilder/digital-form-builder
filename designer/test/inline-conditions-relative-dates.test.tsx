@@ -8,7 +8,7 @@ import {
 } from "./helpers/element-assertions";
 import sinon from "sinon";
 import {
-  dateDirections,
+  DateDirections,
   dateTimeUnits,
   dateUnits,
   RelativeTimeValue,
@@ -47,7 +47,7 @@ suite("Inline conditions relative time value inputs", () => {
       const existingValue = new RelativeTimeValue(
         "18",
         unit,
-        dateDirections.FUTURE
+        DateDirections.FUTURE
       );
       const wrapper = shallow(
         <RelativeTimeValues
@@ -75,9 +75,9 @@ suite("Inline conditions relative time value inputs", () => {
         wrapper: wrapper.find("#cond-value-direction"),
         id: "cond-value-direction",
         expectedFieldOptions: singleValueAndDisplayOptionsWithEmptyOption(
-          Object.values(dateDirections)
+          Object.values(DateDirections)
         ),
-        expectedValue: dateDirections.FUTURE,
+        expectedValue: DateDirections.FUTURE,
       });
     });
 
@@ -99,7 +99,7 @@ suite("Inline conditions relative time value inputs", () => {
         .simulate("change", { target: { value: unit } });
       wrapper
         .find("#cond-value-direction")
-        .simulate("change", { target: { value: dateDirections.FUTURE } });
+        .simulate("change", { target: { value: DateDirections.FUTURE } });
 
       expect(updateValueCallback.callCount).to.equal(1);
       expect(updateValueCallback.firstCall.args.length).to.equal(1);
@@ -107,7 +107,7 @@ suite("Inline conditions relative time value inputs", () => {
         new RelativeTimeValue(
           "18",
           unit,
-          dateDirections.FUTURE,
+          DateDirections.FUTURE,
           mapping.timeOnly || false
         )
       );
@@ -125,7 +125,7 @@ suite("Inline conditions relative time value inputs", () => {
 
       wrapper
         .find("#cond-value-direction")
-        .simulate("change", { target: { value: dateDirections.FUTURE } });
+        .simulate("change", { target: { value: DateDirections.FUTURE } });
       wrapper
         .find("#cond-value-units")
         .simulate("change", { target: { value: unit } });
@@ -139,7 +139,7 @@ suite("Inline conditions relative time value inputs", () => {
         new RelativeTimeValue(
           "18",
           unit,
-          dateDirections.FUTURE,
+          DateDirections.FUTURE,
           mapping.timeOnly || false
         )
       );
@@ -150,7 +150,7 @@ suite("Inline conditions relative time value inputs", () => {
       const existingValue = new RelativeTimeValue(
         "18",
         unit,
-        dateDirections.FUTURE,
+        DateDirections.FUTURE,
         mapping.timeOnly || false
       );
       const wrapper = shallow(
@@ -172,7 +172,7 @@ suite("Inline conditions relative time value inputs", () => {
         new RelativeTimeValue(
           "12",
           unit,
-          dateDirections.FUTURE,
+          DateDirections.FUTURE,
           mapping.timeOnly || false
         )
       );
@@ -182,7 +182,7 @@ suite("Inline conditions relative time value inputs", () => {
       const existingValue = new RelativeTimeValue(
         "18",
         Object.values(mapping.units)[1].value,
-        dateDirections.FUTURE,
+        DateDirections.FUTURE,
         mapping.timeOnly || false
       );
       const wrapper = shallow(
@@ -205,7 +205,7 @@ suite("Inline conditions relative time value inputs", () => {
         new RelativeTimeValue(
           "18",
           unit,
-          dateDirections.FUTURE,
+          DateDirections.FUTURE,
           mapping.timeOnly || false
         )
       );
@@ -216,7 +216,7 @@ suite("Inline conditions relative time value inputs", () => {
       const existingValue = new RelativeTimeValue(
         "18",
         unit,
-        dateDirections.FUTURE
+        DateDirections.FUTURE
       );
       const wrapper = shallow(
         <RelativeTimeValues
@@ -229,7 +229,7 @@ suite("Inline conditions relative time value inputs", () => {
 
       wrapper
         .find("#cond-value-direction")
-        .simulate("change", { target: { value: dateDirections.PAST } });
+        .simulate("change", { target: { value: DateDirections.PAST } });
 
       expect(updateValueCallback.callCount).to.equal(1);
       expect(updateValueCallback.firstCall.args.length).to.equal(1);
@@ -237,7 +237,7 @@ suite("Inline conditions relative time value inputs", () => {
         new RelativeTimeValue(
           "18",
           unit,
-          dateDirections.PAST,
+          DateDirections.PAST,
           mapping.timeOnly || false
         )
       );

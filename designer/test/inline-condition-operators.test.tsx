@@ -5,7 +5,7 @@ import {
   ComponentTypes,
   getExpression,
   getOperatorNames,
-  dateDirections,
+  DateDirections,
   dateUnits,
   timeUnits,
   ConditionValue,
@@ -51,7 +51,7 @@ suite("Inline condition operators", () => {
         testValue: new RelativeTimeValue(
           timePeriod,
           futureUnit,
-          dateDirections.FUTURE,
+          DateDirections.FUTURE,
           timeOnly
         ),
         operators: {
@@ -69,7 +69,7 @@ suite("Inline condition operators", () => {
         testValue: new RelativeTimeValue(
           timePeriod,
           pastUnit,
-          dateDirections.PAST,
+          DateDirections.PAST,
           timeOnly
         ),
         operators: {
