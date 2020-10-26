@@ -275,23 +275,34 @@ export class ConditionsModel {
   }
 }
 
-function conditionFrom(it) {
-  if (it.conditions) {
+interface ConditionFrom {
+  (it: Condition | ConditionRef | ConditionGroup):
+    | Condition
+    | ConditionRef
+    | ConditionGroup;
+}
+
+const conditionFrom: ConditionFrom = function (it) {
+  if ("conditions" in it) {
     return new ConditionGroup(
-      it.conditions.map((condition) => conditionFrom(condition))
+      (it as ConditionGroup).conditions.map((condition) =>
+        conditionFrom(condition)
+      )
     );
   }
-  if (it.conditionName) {
+
+  if ("conditionName" in it) {
     return new ConditionRef(
       it.conditionName,
       it.conditionDisplayName,
       it.coordinator
     );
   }
+
   return new Condition(
     Field.from(it.field),
     it.operator,
     valueFrom(it.value),
     it.coordinator
   );
-}
+};
