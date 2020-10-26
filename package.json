@@ -45,6 +45,8 @@
     "@babel/register": "^7.10.5",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
     "babel-eslint": "^11.0.0-beta.2",
     "chromedriver": "^86.0.0",
     "concurrently": "^5.3.0",
@@ -55,8 +57,11 @@
     "eslint-import-resolver-workspaces": "^1.0.10",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.6",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "node-sass": "^4.14.1",
     "prettier": "2.1.2",
@@ -78,5 +83,13 @@
   },
   "resolutions": {
     "resolve": "^1.17"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*": "eslint"
   }
 }

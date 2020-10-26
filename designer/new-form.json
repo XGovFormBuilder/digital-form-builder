@@ -1,10 +1,10 @@
 {
   "metadata": {},
-  "startPage": "/",
+  "startPage": "/first-page",
   "pages": [
     {
-      "title": "Question page",
-      "path": "/question-page",
+      "title": "First page",
+      "path": "/first-page",
       "components": []
     },
     {

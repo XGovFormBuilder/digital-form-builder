@@ -1,11 +1,15 @@
 {
+  "extends": [
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "plugins": ["react", "@babel", "prettier"],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
     "es6": true,
     "node": true
   },
-  "extends": ["plugin:react/recommended", "prettier"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -17,9 +21,9 @@
     "ecmaVersion": 2018,
     "allowImportExportEverywhere": true
   },
-  "plugins": ["react", "@babel"],
   "rules": {
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "prettier/prettier": ["error"]
   },
   "ignorePatterns": [
     "**/node_modules/**",
@@ -33,5 +37,13 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "overrides": [{
+    "files": ["*.ts", "*.tsx"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["react", "@babel", "prettier", "@typescript-eslint"],
+    "parserOptions": {
+      "ecmaFeatures": { "jsx": true }
+    }
+  }]
 }
