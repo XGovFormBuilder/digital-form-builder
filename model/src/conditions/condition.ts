@@ -2,6 +2,7 @@ import { getExpression } from "./inline-condition-operators";
 import {
   ConditionValue,
   AbstractConditionValue,
+  RelativeTimeValue,
 } from "./inline-condition-values";
 import { Coordinator } from "./helpers";
 import { Field } from "./field";
@@ -69,12 +70,12 @@ export class AbstractCondition {
 export class Condition extends AbstractCondition {
   field: Field;
   operator: string;
-  value: ConditionValue;
+  value: ConditionValue | RelativeTimeValue;
 
   constructor(
     field: Field,
     operator: string,
-    value: ConditionValue,
+    value: ConditionValue | RelativeTimeValue,
     coordinator?: Coordinator
   ) {
     super(coordinator);

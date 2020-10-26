@@ -10,7 +10,7 @@ export {
   ConditionValue,
   timeUnits,
   valueFrom,
-  dateDirections,
+  DateDirections,
   RelativeTimeValue,
   dateTimeUnits,
   dateUnits,
@@ -21,4 +21,4 @@ export { GroupDef } from "./group-def";
 export { Condition } from "./condition";
 export { ConditionRef } from "./condition-ref";
 export { ConditionsModel } from "./inline-condition-model";
-export { toExpression, toPresentationString } from "./helpers";
+export { Coordinator, toExpression, toPresentationString } from "./helpers";

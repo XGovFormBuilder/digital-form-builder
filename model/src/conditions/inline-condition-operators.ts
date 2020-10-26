@@ -3,7 +3,7 @@ import { AbstractConditionValue } from "./inline-condition-values";
 
 import {
   ConditionValue,
-  dateDirections,
+  DateDirections,
   dateTimeUnits,
   dateUnits,
   RelativeTimeValue,
@@ -163,7 +163,7 @@ function relativeTime(pastOperator, futureOperator, units) {
     expression: (field, value) => {
       if (value instanceof RelativeTimeValue) {
         const operator =
-          value.direction === dateDirections.PAST
+          value.direction === DateDirections.PAST
             ? pastOperator
             : futureOperator;
         return `${field.name} ${operator} ${value.toExpression()}`;
