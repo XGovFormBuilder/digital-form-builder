@@ -19,15 +19,6 @@ export default [
   },
   {
     method: "GET",
-    path: "/assets/ukaddressfield.js",
-    options: {
-      handler: {
-        file: "node_modules/@xgovformbuilder/engine/client/ukaddressfield.js",
-      },
-    },
-  },
-  {
-    method: "GET",
     path: "/assets/{path*}",
     options: {
       handler: {

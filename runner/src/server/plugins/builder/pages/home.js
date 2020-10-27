@@ -1,4 +1,4 @@
-import Page from "./index";
+import Page from "./page";
 
 export default class HomePage extends Page {
   constructor(defs, pageDef) {

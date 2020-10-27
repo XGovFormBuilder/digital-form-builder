@@ -1,5 +1,5 @@
 import joi from "joi";
-import Page from "./index";
+import Page from "./page";
 
 class DobPage extends Page {
   constructor(defs, pageDef) {

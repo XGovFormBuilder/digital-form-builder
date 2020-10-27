@@ -50,7 +50,6 @@ export default class Model {
         options.relativeTo,
         options.defaultPageController
       );
-      console.log("BBBBB", defaultPageControllerPath);
       this.DefaultPageController = require(defaultPageControllerPath);
     }
 
