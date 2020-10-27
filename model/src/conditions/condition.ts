@@ -44,25 +44,25 @@ export class AbstractCondition {
 
   asFirstCondition() {
     throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
+      "Unsupported Operation. Method asFirstCondition have not been implemented"
     );
   }
 
   clone() {
     throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
+      "Unsupported Operation. Method clone have not been implemented"
     );
   }
 
   conditionString() {
     throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
+      "Unsupported Operation. Method conditionString have not been implemented"
     );
   }
 
   conditionExpression() {
     throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
+      "Unsupported Operation. Method conditionExpression have not been implemented"
     );
   }
 }
