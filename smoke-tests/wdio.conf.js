@@ -8,9 +8,9 @@ exports.config = {
       maxInstances: 5,
       //
       browserName: "chrome",
-      "goog:chromeOptions": {
-        args: ["--headless"],
-      },
+      // "goog:chromeOptions": {
+      //   args: ["--headless"],
+      // },
       acceptInsecureCerts: true,
     },
   ],
@@ -45,7 +45,7 @@ exports.config = {
     ],
   ],
   cucumberOpts: {
-    require: ["./features/step-definitions/steps.js"],
+    require: ["./features/step-definitions/*steps.js"],
     backtrace: false,
     requireModule: [],
     dryRun: false,
@@ -55,9 +55,9 @@ exports.config = {
     source: true,
     profile: [],
     strict: false,
-    tagExpression: "",
+    tagExpression: "not @pending",
     timeout: 60000,
-    ignoreUndefinedDefinitions: false,
+    ignoreUndefinedDefinitions: true,
   },
 
   // =====

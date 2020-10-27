@@ -1,4 +1,4 @@
-const Page = require("../page");
+const Page = require("../pages/page");
 
 class MenuSection extends Page {
   buttonByName(name) {

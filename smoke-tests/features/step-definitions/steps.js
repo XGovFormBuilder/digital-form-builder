@@ -1,12 +1,12 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
-const AddComponentPage = require("../pageobjects/add-component.page");
+const AddComponentPage = require("../pageobjects/pages/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
-const ConfigPage = require("../pageobjects/config.page");
+const ConfigPage = require("../pageobjects/pages/config.page");
 const EditListSection = require("../pageobjects/sections/edit-lists.section");
 const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
-const FormDesignerPage = require("../pageobjects/form-designer.page");
+const FormDesignerPage = require("../pageobjects/pages/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 
 const FieldData = require("../../data/componentFieldData");
