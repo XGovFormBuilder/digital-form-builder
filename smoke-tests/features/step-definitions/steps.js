@@ -128,7 +128,7 @@ When("I add a new section", () => {
 });
 
 Then("the section should be available when I edit the Question page", () => {
-  FormDesignerPage.editPageForPageName("Question page").click();
+  FormDesignerPage.editPageForPageName("First page").click();
   expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
 });
 

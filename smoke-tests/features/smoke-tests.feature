@@ -7,7 +7,7 @@ Feature: Smoke tests
     Given I have created a new form configuration
 
   Scenario Outline: Add a component to a page
-    When I add a "<type>" control to the "Question page"
+    When I add a "<type>" control to the "First page"
     Then the "<type>" control is displayed in the page
     Examples:
       | type                |
@@ -17,12 +17,12 @@ Feature: Smoke tests
       | Email address field |
 
   Scenario: Delete a component
-    When I add a "Date field" control to the "Question page"
-    And I delete the "Date field" control from the "Question page"
-    Then the "Date field" will not be visible in the "Question page"
+    When I add a "Date field" control to the "First page"
+    And I delete the "Date field" control from the "First page"
+    Then the "Date field" will not be visible in the "First page"
 
   Scenario: Edit a page title
-    When I edit the page title on the "Question page"
+    When I edit the page title on the "First page"
     Then the changes are reflected in the page designer
 
   Scenario: Add a page
@@ -32,7 +32,7 @@ Feature: Smoke tests
 
   Scenario: Link two pages
     When I choose "Add Link" from the designer menu
-    And I link the "Question page" to the "Summary"
+    And I link the "First page" to the "Summary"
     Then a link between them will be displayed
 
   Scenario: Edit Sections from the form designer menu
@@ -43,7 +43,7 @@ Feature: Smoke tests
   Scenario: Edit Lists
     And I choose "Edit Lists" from the designer menu
     When I add a new list
-    And I create a "List" control for the "Question page"
+    And I create a "List" control for the "First page"
     Then the list is available in the list options
 
   Scenario: Duplicate a page
@@ -51,5 +51,5 @@ Feature: Smoke tests
     Then 2 "Summary" pages are shown in the designer
 
   Scenario: Delete a page
-    When I choose to delete the "Question page"
-    Then the "Question page" is no longer visible in the designer
+    When I choose to delete the "First page"
+    Then the "First page" is no longer visible in the designer
