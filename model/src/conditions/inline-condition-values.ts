@@ -1,26 +1,28 @@
 const conditionValueFactories = {};
 
 class Registration {
-  type;
+  type: string;
 
-  constructor(type, factory) {
+  constructor(type: string, factory) {
     conditionValueFactories[type] = factory;
     this.type = type;
   }
 }
 
 export class AbstractConditionValue {
-  type;
+  type: string;
 
   constructor(registration) {
     if (new.target === AbstractConditionValue) {
       throw new TypeError("Cannot construct ConditionValue instances directly");
     }
+
     if (!(registration instanceof Registration)) {
       throw new TypeError(
         "You must register your value type! Call registerValueType!"
       );
     }
+
     this.type = registration.type;
   }
 
@@ -28,19 +30,21 @@ export class AbstractConditionValue {
   toExpression() {}
 }
 
-const valueType = registerValueType("Value", (obj) => ConditionValue.from(obj));
 export class ConditionValue extends AbstractConditionValue {
-  value;
-  display;
+  value: string;
+  display: string;
 
-  constructor(value, display) {
+  constructor(value: string, display?: string) {
     super(valueType);
+
     if (!value || typeof value !== "string") {
       throw Error(`value ${value} is not valid`);
     }
+
     if (display && typeof display !== "string") {
       throw Error(`display ${display} is not valid`);
     }
+
     this.value = value;
     this.display = display || value;
   }
@@ -53,7 +57,7 @@ export class ConditionValue extends AbstractConditionValue {
     return this.value;
   }
 
-  static from(obj) {
+  static from(obj: { value: string; display?: string }) {
     return new ConditionValue(obj.value, obj.display);
   }
 
@@ -62,47 +66,81 @@ export class ConditionValue extends AbstractConditionValue {
   }
 }
 
-export const dateDirections = {
-  FUTURE: "in the future",
-  PAST: "in the past",
+const valueType = registerValueType("Value", (obj) => ConditionValue.from(obj));
+
+export enum DateDirections {
+  FUTURE = "in the future",
+  PAST = "in the past",
+}
+
+type DateTimeUnitValues =
+  | "years"
+  | "months"
+  | "days"
+  | "hours"
+  | "minutes"
+  | "seconds";
+
+type DateUnits = {
+  YEARS: { display: "year(s)"; value: "years" };
+  MONTHS: { display: "month(s)"; value: "months" };
+  DAYS: { display: "day(s)"; value: "days" };
 };
 
-export const dateUnits = {
+type TimeUnits = {
+  HOURS: { display: "hour(s)"; value: "hours" };
+  MINUTES: { display: "minute(s)"; value: "minutes" };
+  SECONDS: { display: "second(s)"; value: "seconds" };
+};
+
+export const dateUnits: DateUnits = {
   YEARS: { display: "year(s)", value: "years" },
   MONTHS: { display: "month(s)", value: "months" },
   DAYS: { display: "day(s)", value: "days" },
 };
-export const timeUnits = {
+
+export const timeUnits: TimeUnits = {
   HOURS: { display: "hour(s)", value: "hours" },
   MINUTES: { display: "minute(s)", value: "minutes" },
   SECONDS: { display: "second(s)", value: "seconds" },
 };
-export const dateTimeUnits = Object.assign({}, dateUnits, timeUnits);
 
-export const relativeTimeValueType = registerValueType("RelativeTime", (obj) =>
-  RelativeTimeValue.from(obj)
+export const dateTimeUnits: DateUnits & TimeUnits = Object.assign(
+  {},
+  dateUnits,
+  timeUnits
 );
-export class RelativeTimeValue extends AbstractConditionValue {
-  timePeriod;
-  timeUnit;
-  direction;
-  timeOnly;
 
-  constructor(timePeriod, timeUnit, direction, timeOnly = false) {
+export class RelativeTimeValue extends AbstractConditionValue {
+  timePeriod: string;
+  timeUnit: DateTimeUnitValues;
+  direction: DateDirections;
+  timeOnly: boolean;
+
+  constructor(
+    timePeriod: string,
+    timeUnit: DateTimeUnitValues,
+    direction: DateDirections,
+    timeOnly = false
+  ) {
     super(relativeTimeValueType);
+
     if (typeof timePeriod !== "string") {
       throw Error(`time period ${timePeriod} is not valid`);
     }
+
     if (
       !Object.values(dateTimeUnits)
-        .map((it) => it.value)
+        .map((unit) => unit.value)
         .includes(timeUnit)
     ) {
       throw Error(`time unit ${timeUnit} is not valid`);
     }
-    if (!Object.values(dateDirections).includes(direction)) {
+
+    if (!Object.values(DateDirections).includes(direction)) {
       throw Error(`direction ${direction} is not valid`);
     }
+
     this.timePeriod = timePeriod;
     this.timeUnit = timeUnit;
     this.direction = direction;
@@ -113,9 +151,9 @@ export class RelativeTimeValue extends AbstractConditionValue {
     return `${this.timePeriod} ${this.timeUnit} ${this.direction}`;
   }
 
-  toExpression() {
+  toExpression(): string {
     const timePeriod =
-      this.direction === dateDirections.PAST
+      this.direction === DateDirections.PAST
         ? 0 - Number(this.timePeriod)
         : this.timePeriod;
     return this.timeOnly
@@ -137,6 +175,11 @@ export class RelativeTimeValue extends AbstractConditionValue {
   }
 }
 
+export const relativeTimeValueType = registerValueType(
+  "RelativeTime",
+  (obj): RelativeTimeValue => RelativeTimeValue.from(obj)
+);
+
 /**
  * All value types should call this, and should be located in this file.
  * Furthermore the types should be registered without the classes needing to be instantiated.
@@ -144,7 +187,7 @@ export class RelativeTimeValue extends AbstractConditionValue {
  * Otherwise we can't guarantee they've been registered for deserialization before
  * valueFrom is called
  */
-function registerValueType(type, factory) {
+function registerValueType(type: string, factory: (obj: any) => Registration) {
   return new Registration(type, factory);
 }
 

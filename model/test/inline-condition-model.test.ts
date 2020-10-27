@@ -2,16 +2,17 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 
 import {
+  Coordinator,
   ConditionsModel,
   Condition,
   Field,
   GroupDef,
-  dateDirections,
+  DateDirections,
   dateUnits,
   RelativeTimeValue,
   ConditionValue,
 } from "../src";
-import { ConditionRef } from "../src/conditions/inline-condition-model";
+import { ConditionRef } from "../src/conditions";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -91,7 +92,7 @@ suite("inline condition model", () => {
           new Field("monkeys", "TextField", "Monkeys"),
           "is not",
           new ConditionValue("Giraffes"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -99,7 +100,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -158,7 +159,7 @@ suite("inline condition model", () => {
           new Field("monkeys", "TextField", "Monkeys"),
           "is not",
           new ConditionValue("Giraffes"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -166,7 +167,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "or"
+          Coordinator.OR
         )
       );
     });
@@ -221,7 +222,7 @@ suite("inline condition model", () => {
           new Field("monkeys", "TextField", "Monkeys"),
           "is",
           new ConditionValue("Giraffes"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -229,7 +230,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       expect(underTest.toPresentationString()).to.equal(
@@ -255,7 +256,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -263,7 +264,7 @@ suite("inline condition model", () => {
           new Field("monkeys", "TextField", "Monkeys"),
           "is",
           new ConditionValue("Giraffes"),
-          "or"
+          Coordinator.OR
         )
       );
       expect(underTest.toPresentationString()).to.equal(
@@ -284,13 +285,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -298,15 +299,15 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
         new Condition(
           new Field("birthday", "DateField", "Birthday"),
           "is at least",
-          new RelativeTimeValue("10", "days", dateDirections.PAST),
-          "or"
+          new RelativeTimeValue("10", "days", DateDirections.PAST),
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -314,7 +315,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -362,7 +363,7 @@ suite("inline condition model", () => {
           new Field("monkeys", "TextField", "Monkeys"),
           "is not",
           new ConditionValue("Giraffes"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -370,7 +371,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -396,7 +397,7 @@ suite("inline condition model", () => {
           new Field("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Giraffes"),
-          "and"
+          Coordinator.AND
         )
       );
       expect(underTest.toPresentationString()).to.equal(
@@ -412,7 +413,7 @@ suite("inline condition model", () => {
             new Field("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes"),
-            "and"
+            Coordinator.AND
           )
         )
       ).to.throw(Error);
@@ -426,7 +427,7 @@ suite("inline condition model", () => {
             new Field("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes"),
-            "and"
+            Coordinator.AND
           )
         )
       ).to.throw(Error);
@@ -440,7 +441,7 @@ suite("inline condition model", () => {
             new Field("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes"),
-            "and"
+            Coordinator.AND
           )
         )
       ).to.throw(Error);
@@ -469,13 +470,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -483,7 +484,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -491,7 +492,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -499,7 +500,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -620,13 +621,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -634,7 +635,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -642,7 +643,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -650,7 +651,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -689,13 +690,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -703,7 +704,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -711,7 +712,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -719,7 +720,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -808,13 +809,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -822,7 +823,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -830,7 +831,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -838,7 +839,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -867,13 +868,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -881,7 +882,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -889,7 +890,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -897,7 +898,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.addGroups([new GroupDef(0, 2)]);
@@ -922,13 +923,13 @@ suite("inline condition model", () => {
           new ConditionValue("Zebras")
         )
       );
-      underTest.add(new ConditionRef("under18", "Under 18", "or"));
+      underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -936,7 +937,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -944,7 +945,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -952,7 +953,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
     });
@@ -1090,7 +1091,7 @@ suite("inline condition model", () => {
           () =>
             new Condition(
               new Field("badger", "TextField", "Badger"),
-              {},
+              {} as string,
               new ConditionValue("Monkeys")
             )
         ).to.throw(Error);
@@ -1106,12 +1107,7 @@ suite("inline condition model", () => {
 
       test("should throw an error on condition creation if field is not a Field type", () => {
         expect(
-          () =>
-            new Condition(
-              { value: "badger", display: "Badger" },
-              "is",
-              new ConditionValue("Monkeys")
-            )
+          () => new Condition({} as Field, "is", new ConditionValue("Monkeys"))
         ).to.throw(Error);
       });
 
@@ -1124,17 +1120,21 @@ suite("inline condition model", () => {
       });
 
       test("should throw an error on field creation if invalid type provided", () => {
-        expect(() => new Field("badger", "MadeUpType", "Badger")).to.throw(
+        expect(
+          () => new Field("badger", "MadeUpType" as any, "Badger")
+        ).to.throw(Error);
+      });
+
+      test("should throw an error on field creation if invalid name value type provided", () => {
+        expect(() => new Field({} as string, "TextField", "Badger")).to.throw(
           Error
         );
       });
 
-      test("should throw an error on field creation if invalid name value type provided", () => {
-        expect(() => new Field({}, "TextField", "Badger")).to.throw(Error);
-      });
-
       test("should throw an error on field creation if invalid display value type provided", () => {
-        expect(() => new Field("Badger", "TextField", {})).to.throw(Error);
+        expect(() => new Field("Badger", "TextField", {} as string)).to.throw(
+          Error
+        );
       });
 
       test("should throw an error on field creation if no display value provided", () => {
@@ -1142,14 +1142,20 @@ suite("inline condition model", () => {
       });
 
       test("should throw errors from factory method", () => {
-        expect(() => Field.from({ name: "badger" })).to.throw(Error);
+        expect(() => Field.from({ name: "badger" } as any)).to.throw(Error);
       });
     });
 
     describe("invalid value", () => {
       test("should throw an error on condition creation if no value provided", () => {
         expect(
-          () => new Condition(new Field("badger", "TextField", "Badger"), "is")
+          () =>
+            new Condition(
+              new Field("badger", "TextField", "Badger"),
+              "is",
+              undefined,
+              undefined
+            )
         ).to.throw(Error);
       });
 
@@ -1157,27 +1163,28 @@ suite("inline condition model", () => {
         expect(
           () =>
             new Condition(
-              { value: "badger", display: "Badger" },
+              { value: "badger", display: "Badger" } as any,
               "is",
-              "Monkeys"
+              "Monkeys" as any
             )
         ).to.throw(Error);
       });
 
       test("should throw an error on value creation if no value provided", () => {
+        // @ts-ignore
         expect(() => new ConditionValue()).to.throw(Error);
       });
 
       test("should throw an error on value creation if display value is provided and is not a string", () => {
-        expect(() => new ConditionValue("badger", {})).to.throw(Error);
+        expect(() => new ConditionValue("badger", {} as any)).to.throw(Error);
       });
 
       test("should throw an error on value creation if value is provided and is not a string", () => {
-        expect(() => new ConditionValue({}, "Badger")).to.throw(Error);
+        expect(() => new ConditionValue({} as any, "Badger")).to.throw(Error);
       });
 
       test("should throw errors from factory method", () => {
-        expect(() => ConditionValue.from({})).to.throw(Error);
+        expect(() => ConditionValue.from({} as any)).to.throw(Error);
       });
     });
 
@@ -1189,7 +1196,7 @@ suite("inline condition model", () => {
               new Field("badger", "TextField", "Badger"),
               "is",
               new ConditionValue("Monkeys"),
-              "is"
+              "is" as Coordinator
             )
         ).to.throw(Error);
       });
@@ -1201,7 +1208,7 @@ suite("inline condition model", () => {
               new Field("badger", "TextField", "Badger"),
               "is",
               new ConditionValue("Monkeys"),
-              "or"
+              Coordinator.OR
             )
           )
         ).to.throw(Error);
@@ -1229,6 +1236,7 @@ suite("inline condition model", () => {
 
     describe("invalid group def", () => {
       test("should throw error if there is no last value", () => {
+        // @ts-ignore
         expect(() => new GroupDef(3)).to.throw(Error);
       });
 
@@ -1261,7 +1269,7 @@ suite("inline condition model", () => {
           new Field("monkeys", "TextField", "Monkeys"),
           "is",
           new ConditionValue("giraffes", "Giraffes"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -1269,7 +1277,7 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -1277,7 +1285,7 @@ suite("inline condition model", () => {
           new Field("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -1285,7 +1293,7 @@ suite("inline condition model", () => {
           new Field("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
-          "or"
+          Coordinator.OR
         )
       );
       underTest.add(
@@ -1295,9 +1303,9 @@ suite("inline condition model", () => {
           new RelativeTimeValue(
             "10",
             dateUnits.DAYS.value,
-            dateDirections.PAST
+            DateDirections.PAST
           ),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
@@ -1305,11 +1313,15 @@ suite("inline condition model", () => {
           new Field("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
-          "and"
+          Coordinator.AND
         )
       );
       underTest.add(
-        new ConditionRef("anotherCondition", "Another condition", "or")
+        new ConditionRef(
+          "anotherCondition",
+          "Another condition",
+          Coordinator.OR
+        )
       );
       underTest.addGroups([new GroupDef(0, 2)]);
     });
@@ -1379,7 +1391,7 @@ suite("inline condition model", () => {
               type: "RelativeTime",
               timePeriod: "10",
               timeUnit: dateUnits.DAYS.value,
-              direction: dateDirections.PAST,
+              direction: DateDirections.PAST,
               timeOnly: false,
             },
           },

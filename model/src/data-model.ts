@@ -47,7 +47,7 @@ class Input {
 export class Condition {
   name: string | undefined;
   displayName: string;
-  value = undefined;
+  value;
 
   constructor(rawData) {
     Object.assign(this, rawData);

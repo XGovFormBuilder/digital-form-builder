@@ -1,6 +1,9 @@
+import { ComponentName } from "../component-types";
+import { AbstractConditionValue } from "./inline-condition-values";
+
 import {
   ConditionValue,
-  dateDirections,
+  DateDirections,
   dateTimeUnits,
   dateUnits,
   RelativeTimeValue,
@@ -81,7 +84,12 @@ export function getOperatorNames(fieldType) {
   return Object.keys(getConditionals(fieldType)).sort();
 }
 
-export function getExpression(fieldType, fieldName, operator, value) {
+export function getExpression(
+  fieldType: ComponentName,
+  fieldName: string,
+  operator: string,
+  value: AbstractConditionValue
+) {
   return getConditionals(fieldType)[operator].expression(
     { type: fieldType, name: fieldName },
     value
@@ -92,7 +100,7 @@ export function getOperatorConfig(fieldType, operator) {
   return getConditionals(fieldType)[operator];
 }
 
-function getConditionals(fieldType) {
+function getConditionals(fieldType: ComponentName) {
   return customOperators[fieldType] || defaultOperators;
 }
 
@@ -155,7 +163,7 @@ function relativeTime(pastOperator, futureOperator, units) {
     expression: (field, value) => {
       if (value instanceof RelativeTimeValue) {
         const operator =
-          value.direction === dateDirections.PAST
+          value.direction === DateDirections.PAST
             ? pastOperator
             : futureOperator;
         return `${field.name} ${operator} ${value.toExpression()}`;

@@ -1,4 +1,41 @@
-export default [
+export type ComponentName =
+  | "TextField"
+  | "MultilineTextField"
+  | "YesNoField"
+  | "DateField"
+  | "TimeField"
+  | "DateTimeField"
+  | "DatePartsField"
+  | "DateTimePartsField"
+  | "SelectField"
+  | "AutocompleteField"
+  | "RadiosField"
+  | "RadiosField"
+  | "CheckboxesField"
+  | "CheckboxesField"
+  | "NumberField"
+  | "UkAddressField"
+  | "TelephoneNumberField"
+  | "EmailAddressField"
+  | "FileUploadField"
+  | "Para"
+  | "Html"
+  | "InsetText"
+  | "Details"
+  | "FlashCard"
+  | "List";
+
+export type ComponentSubType = "field" | "content";
+
+export type ComponentType = {
+  name: ComponentName;
+  title: string;
+  subType: ComponentSubType;
+};
+
+export type ComponentTypes = ComponentType[];
+
+const componentTypes: ComponentTypes = [
   {
     name: "TextField",
     title: "Text field",
@@ -115,3 +152,5 @@ export default [
     subType: "content",
   },
 ];
+
+export default componentTypes;
