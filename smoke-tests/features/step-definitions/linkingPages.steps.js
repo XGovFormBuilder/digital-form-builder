@@ -22,6 +22,8 @@ When("I link ths page to link from the {string}", (linkedPage) => {
 Then("my page is created with a link to the page", () => {
   this.pageName = this.newPageName.toLowerCase().replace(" ", "-");
   FormDesignerPage.designerMenu.waitForDisplayed();
-  expect(FormDesignerPage.getTitleTextForPage(this.pageName)).toBe(this.newPageName);
+  expect(FormDesignerPage.getTitleTextForPage(this.pageName)).toBe(
+    this.newPageName
+  );
   expect(FormDesignerPage.linkLine).toExist();
 });
