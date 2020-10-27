@@ -7,7 +7,7 @@ import { expect } from "@hapi/code";
 import { stub, restore } from "sinon";
 
 import createServer from "../../src/server/index";
-import { UploadService } from "../../src/server/lib/documentUpload";
+import { UploadService } from "../../src/server/services/uploadService";
 
 const { before, test, suite, after } = (exports.lab = Lab.script());
 

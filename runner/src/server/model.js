@@ -2,7 +2,7 @@ import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
 import path from "path";
 import { Parser } from "expr-eval";
 import moment from "moment";
-import Page from "./plugins/builder/pages";
+import Page from "./plugins/builder/pages/page";
 import joi from "joi";
 
 /**

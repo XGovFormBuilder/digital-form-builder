@@ -28,7 +28,7 @@ import {
   SheetsService,
   UploadService,
   WebhookService,
-} from "./lib/services";
+} from "./services";
 
 const serverOptions = () => {
   const defaultOptions = {

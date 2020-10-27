@@ -3,7 +3,6 @@ import path from "path";
 import { plugin } from "@xgovformbuilder/engine";
 
 import config from "../../config";
-import { defaultPageController } from "./pages";
 
 const configPath = path.join(__dirname, "..", "..", "forms");
 const relativeTo = __dirname;
@@ -35,9 +34,9 @@ export const configurePlugins = (configFile, customPath) => {
       return { configuration, id };
     });
   }
+
   const modelOptions = {
     relativeTo,
-    defaultPageController,
     previewMode: config.previewMode,
   };
 

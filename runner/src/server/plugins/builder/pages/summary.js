@@ -1,11 +1,11 @@
 import { nanoid } from "nanoid";
-import { flatten } from "flat"; //eslint-disable-line
-import { clone, reach } from "hoek"; //eslint-disable-line
-import { redirectTo, redirectUrl } from "@xgovformbuilder/engine"; //eslint-disable-line
+import { flatten } from "flat";
+import { clone, reach } from "hoek";
+import { redirectTo, redirectUrl } from "@xgovformbuilder/engine";
 
 import Page from "./page";
-import { formSchema } from "../../../lib/formSchema";
-import config from "../../../config"; //eslint-disable-line
+import { formSchema } from "../../../schemas/formSchema";
+import config from "../../../config";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 /**

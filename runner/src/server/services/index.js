@@ -1,4 +1,4 @@
-export { UploadService } from "./documentUpload";
+export { UploadService } from "./uploadService";
 export { PayService } from "./payService";
 export { NotifyService } from "./notifyService";
 export { EmailService } from "./emailService";

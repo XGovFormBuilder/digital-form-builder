@@ -1,4 +1,4 @@
-import { CacheService } from "../../src/server/lib/cacheService";
+import { CacheService } from "../../src/server/services/cacheService";
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import cheerio from "cheerio";
