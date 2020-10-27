@@ -11,7 +11,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { describe, test } = lab;
 
-describe.only("Values - Yes/No Values", () => {
+describe("Values - Yes/No Values", () => {
   test("valuesFrom build yeas-no-values", () => {
     const obj: any = {
       type: "static",
