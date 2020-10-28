@@ -76,17 +76,17 @@ export class Data {
     {
       key: "feedbackContextInfo_formTitle",
       display: "Feedback source form name",
-      get: (contextInfo) => contextInfo.formTitle,
+      get: (contextInfo: { formTitle: string }) => contextInfo.formTitle,
     },
     {
       key: "feedbackContextInfo_pageTitle",
       display: "Feedback source page title",
-      get: (contextInfo) => contextInfo.pageTitle,
+      get: (contextInfo: { pageTitle: string }) => contextInfo.pageTitle,
     },
     {
       key: "feedbackContextInfo_url",
       display: "Feedback source url",
-      get: (contextInfo) => contextInfo.url,
+      get: (contextInfo: { url: string }) => contextInfo.url,
     },
   ];
 
@@ -98,21 +98,19 @@ export class Data {
   #name: string = "";
   #feedback; // TODO types
 
+  // TODO rawData type
   constructor(rawData) {
     const rawDataClone =
       rawData instanceof Data
         ? rawData._exposePrivateFields()
         : Object.assign({}, rawData);
     this.#conditions = (rawDataClone.conditions || []).map(
-      (it) => new ConditionsWrapper(it)
+      (conditionObj) => new ConditionsWrapper(conditionObj)
     );
     this.#feedback = rawDataClone.feedback;
     delete rawDataClone.conditions;
     delete rawDataClone.feedback;
     Object.assign(this, rawDataClone);
-
-    console.log("pages", JSON.stringify(this.pages));
-    console.log("Data", this);
   }
 
   _listInputsFor(page, input): Array<Input> {
