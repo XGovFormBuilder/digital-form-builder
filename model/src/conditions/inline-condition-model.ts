@@ -4,6 +4,7 @@ import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
 import { valueFrom } from "./inline-condition-values";
+import { ConditionsWrapperValue } from "../data-model/conditions-wrapper";
 import { Coordinator, toPresentationString, toExpression } from "./helpers";
 
 type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
@@ -257,9 +258,7 @@ export class ConditionsModel {
     };
   }
 
-  static from(
-    obj: ConditionsModel | { name: string; conditions: Condition[] }
-  ) {
+  static from(obj: ConditionsModel | ConditionsWrapperValue) {
     if (obj instanceof ConditionsModel) {
       return obj;
     }

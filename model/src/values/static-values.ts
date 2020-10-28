@@ -1,4 +1,4 @@
-import { Data } from "../data-model";
+import { Data } from "../data-model/data-model";
 import { ConcreteValueTypes, ValueTypes } from "./types";
 import { ValuesBase } from "./values-base";
 

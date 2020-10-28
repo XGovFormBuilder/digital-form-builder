@@ -1,5 +1,5 @@
 import { Migration } from "./schema-migrations";
-import { Logger } from "../logger";
+import { Logger } from "../utils/logger";
 
 const MIGRATABLE_COMPONENT_TYPES = [
   "RadiosField",

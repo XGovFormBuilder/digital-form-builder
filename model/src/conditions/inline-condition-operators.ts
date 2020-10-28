@@ -1,4 +1,4 @@
-import { ComponentName } from "../component-types";
+import { ComponentType } from "../components/types";
 import { AbstractConditionValue } from "./inline-condition-values";
 
 import {
@@ -85,7 +85,7 @@ export function getOperatorNames(fieldType) {
 }
 
 export function getExpression(
-  fieldType: ComponentName,
+  fieldType: ComponentType,
   fieldName: string,
   operator: string,
   value: AbstractConditionValue
@@ -100,7 +100,7 @@ export function getOperatorConfig(fieldType, operator) {
   return getConditionals(fieldType)[operator];
 }
 
-function getConditionals(fieldType: ComponentName) {
+function getConditionals(fieldType: ComponentType) {
   return customOperators[fieldType] || defaultOperators;
 }
 

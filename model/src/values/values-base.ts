@@ -1,4 +1,4 @@
-import { Data } from "../data-model";
+import { Data } from "../data-model/data-model";
 import { ValuesType } from "./types";
 
 export class ValuesBase {

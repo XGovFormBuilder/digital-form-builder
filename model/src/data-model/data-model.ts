@@ -1,16 +1,18 @@
-import { StaticValues, valuesFrom, yesNoValues } from "./values";
-import type { ComponentValues } from "./values";
-import { clone } from "./helpers";
-import { ConditionsModel } from "./conditions";
+import { StaticValues, valuesFrom, yesNoValues } from "../values";
+import type { ComponentValues } from "../values";
+import { ConditionsWrapper } from "./conditions-wrapper";
+import { clone } from "../helpers";
+import { Page, Section } from "./types";
 
-function filter(obj, predicate) {
+function filter<T>(obj: T, predicate: (value: any) => boolean): Partial<T> {
   const result = {};
-  let key;
-  for (key in obj) {
-    if (obj[key] && predicate(obj[key])) {
-      result[key] = obj[key];
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (value && predicate(value)) {
+      result[key] = value;
     }
   }
+
   return result;
 }
 
@@ -18,11 +20,18 @@ class Input {
   name: string | undefined = undefined;
   title: string | undefined = undefined;
   propertyPath: string | undefined;
-  page;
-  #parentItemName: string;
+  #parentItemName: string | undefined;
+  page: Page;
 
-  constructor(rawData, page, options) {
+  constructor(
+    rawData: { [prop: string]: any },
+    page: Page,
+    options: { ignoreSection?: boolean; parentItemName?: string }
+  ) {
     Object.assign(this, rawData);
+
+    console.log("InputRawData", rawData);
+
     const myPage = clone(page);
     delete myPage.components;
     this.page = myPage;
@@ -37,32 +46,10 @@ class Input {
     const titleWithContext = this.#parentItemName
       ? `${this.title} under ${this.#parentItemName}`
       : this.title;
+
     return this.page.section
       ? `${titleWithContext} in ${this.page.section}`
       : titleWithContext;
-  }
-}
-
-export class Condition {
-  name: string | undefined;
-  displayName: string;
-  value;
-
-  constructor(rawData) {
-    Object.assign(this, rawData);
-    this.displayName = rawData.displayName || rawData.name;
-  }
-
-  get expression() {
-    if (typeof this.value === "string") {
-      return this.value;
-    } else {
-      return ConditionsModel.from(this.value).toExpression();
-    }
-  }
-
-  clone(): Condition {
-    return new Condition(this);
   }
 }
 
@@ -104,10 +91,10 @@ export class Data {
   ];
 
   startPage: string | undefined;
-  pages: Array<any> = [];
-  lists: Array<any> = [];
-  sections: Array<any> = [];
-  #conditions: Array<any> = [];
+  pages: Page[] = [];
+  lists: any[] = [];
+  sections: Section[] = [];
+  #conditions: Pick<ConditionsWrapper, "name" | "displayName" | "value">[] = [];
   #name: string = "";
   #feedback;
 
@@ -117,16 +104,20 @@ export class Data {
         ? rawData._exposePrivateFields()
         : Object.assign({}, rawData);
     this.#conditions = (rawDataClone.conditions || []).map(
-      (it) => new Condition(it)
+      (it) => new ConditionsWrapper(it)
     );
     this.#feedback = rawDataClone.feedback;
     delete rawDataClone.conditions;
     delete rawDataClone.feedback;
     Object.assign(this, rawDataClone);
+
+    console.log("pages", JSON.stringify(this.pages));
+    console.log("Data", this);
   }
 
   _listInputsFor(page, input): Array<Input> {
     const values = this.valuesFor(input)?.toStaticValues();
+
     return values
       ? values.items.flatMap(
           (listItem) =>
@@ -147,9 +138,11 @@ export class Data {
           [new Input(it, page, {})].concat(this._listInputsFor(page, it))
         )
     );
+
     if (this.feedbackForm) {
       const startPage = this.findPage(this.startPage);
       const options = { ignoreSection: true };
+
       Data.FEEDBACK_CONTEXT_ITEMS.forEach((it) => {
         inputs.push(
           new Input(
@@ -160,7 +153,9 @@ export class Data {
         );
       });
     }
+
     const names = new Set();
+
     return inputs.filter((input: Input) => {
       const isPresent = !names.has(input.propertyPath);
       names.add(input.propertyPath);
@@ -234,7 +229,11 @@ export class Data {
     this.pages
       .filter((p) => p.next && p.next.find((link) => link.path === oldPath))
       .forEach((page) => {
-        page.next.find((link) => link.path === oldPath).path = newPath;
+        const pageLink = page.next?.find((link) => link.path === oldPath);
+
+        if (pageLink) {
+          pageLink.path = newPath;
+        }
       });
     return this;
   };
@@ -349,7 +348,7 @@ export class Data {
     return this;
   }
 
-  findCondition(name: string): Condition | undefined {
+  findCondition(name: string): ConditionsWrapper | undefined {
     return this.conditions.find((condition) => condition.name === name);
   }
 
@@ -357,7 +356,7 @@ export class Data {
     return this.conditions.length > 0;
   }
 
-  get conditions(): Array<Condition> {
+  get conditions(): Array<ConditionsWrapper> {
     return this.#conditions.map((it) => clone(it));
   }
 

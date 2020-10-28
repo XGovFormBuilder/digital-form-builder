@@ -1,10 +1,10 @@
-export { default as ComponentTypes } from "./component-types";
-export { default as ConditionalComponentTypes } from "./conditional-component-types";
-export { default as Schema } from "./schema";
-export { Data } from "./data-model";
-export { FormConfiguration } from "./form-configuration";
+export { default as ComponentTypes } from "./components/component-types";
+export { default as ConditionalComponentTypes } from "./components/conditional-component-types";
+export { default as Schema } from "./schema/schema";
+export { Data } from "./data-model/data-model";
+export { FormConfiguration } from "./form/form-configuration";
 export { clone } from "./helpers";
-export { Logger } from "./logger";
+export { Logger } from "./utils/logger";
 export { SchemaMigrationService } from "./migration/schema-migrations";
 
 export {

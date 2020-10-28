@@ -20,5 +20,6 @@ export { Field } from "./field";
 export { GroupDef } from "./group-def";
 export { Condition } from "./condition";
 export { ConditionRef } from "./condition-ref";
+export { ConditionGroup } from "./condition-group";
 export { ConditionsModel } from "./inline-condition-model";
 export { Coordinator, toExpression, toPresentationString } from "./helpers";
