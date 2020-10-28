@@ -1,4 +1,4 @@
-import type { DataModel } from "../data-model-interface";
+import { Data } from "../data-model";
 import { ConcreteValueTypes } from "./types";
 import { ValuesBase } from "./values-base";
 import { StaticValue, StaticValues } from "./static-values";
@@ -33,7 +33,7 @@ export class ListRefValues extends ValuesBase {
     this.valueChildren = valueChildren;
   }
 
-  toStaticValues(data: DataModel): StaticValues {
+  toStaticValues(data: Data): StaticValues {
     if (this.list) {
       const list = data.findList(this.list);
       if (list) {

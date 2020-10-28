@@ -1,4 +1,4 @@
-import type { DataModel } from "../data-model-interface";
+import { Data } from "../data-model";
 import { ValuesType } from "./types";
 
 export class ValuesBase {
@@ -8,7 +8,7 @@ export class ValuesBase {
     this.type = type;
   }
 
-  toStaticValues(_data: DataModel): ValuesBase {
+  toStaticValues(_data: Data): ValuesBase {
     throw Error(
       "Unsupported Operation. Method toStaticValues have not been implemented"
     );

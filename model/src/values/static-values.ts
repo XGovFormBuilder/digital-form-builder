@@ -1,4 +1,4 @@
-import type { DataModel } from "../data-model-interface";
+import { Data } from "../data-model";
 import { ConcreteValueTypes, ValueTypes } from "./types";
 import { ValuesBase } from "./values-base";
 
@@ -58,7 +58,7 @@ export class StaticValues extends ValuesBase {
     this.items = items;
   }
 
-  toStaticValues(_data: DataModel): StaticValues {
+  toStaticValues(_data: Data): StaticValues {
     return this;
   }
 
