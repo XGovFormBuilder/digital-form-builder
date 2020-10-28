@@ -1,20 +1,22 @@
 import { Condition } from "../conditions/condition";
 import { ConditionsModel } from "../conditions/inline-condition-model";
 
-export type ConditionsWrapperValue = {
-  name: string;
-  conditions: Condition[];
-};
+type ConditionWrapperValue =
+  | string
+  | {
+      name: string;
+      conditions: Condition[];
+    };
 
 export class ConditionsWrapper {
   name: string;
   displayName: string;
-  value: ConditionsWrapperValue | string;
+  value: ConditionWrapperValue;
 
   constructor(rawData: {
     name: string;
     displayName: string;
-    value: ConditionsWrapperValue | string;
+    value: ConditionWrapperValue;
   }) {
     const { name, displayName, value } = rawData;
     this.displayName = displayName || name;

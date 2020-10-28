@@ -2,7 +2,7 @@ import { StaticValues, valuesFrom, yesNoValues } from "../values";
 import type { ComponentValues } from "../values";
 import { ConditionsWrapper } from "./conditions-wrapper";
 import { clone } from "../helpers";
-import { Page, Section } from "./types";
+import { Page, Section, List } from "./types";
 
 function filter<T>(obj: T, predicate: (value: any) => boolean): Partial<T> {
   const result = {};
@@ -92,11 +92,11 @@ export class Data {
 
   startPage: string | undefined;
   pages: Page[] = [];
-  lists: any[] = [];
+  lists: List[] = [];
   sections: Section[] = [];
-  #conditions: Pick<ConditionsWrapper, "name" | "displayName" | "value">[] = [];
+  #conditions: ConditionsWrapper[] = [];
   #name: string = "";
-  #feedback;
+  #feedback; // TODO types
 
   constructor(rawData) {
     const rawDataClone =
@@ -280,10 +280,12 @@ export class Data {
 
   addCondition(name: string, displayName: string, value): Data {
     this.#conditions = this.#conditions;
+
     if (this.#conditions.find((it) => it.name === name)) {
       throw Error(`A condition already exists with name ${name}`);
     }
-    this.#conditions.push({ name, displayName, value });
+
+    this.#conditions.push(new ConditionsWrapper({ name, displayName, value }));
     return this;
   }
 

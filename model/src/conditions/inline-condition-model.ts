@@ -4,10 +4,16 @@ import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
 import { valueFrom } from "./inline-condition-values";
-import { ConditionsWrapperValue } from "../data-model/conditions-wrapper";
 import { Coordinator, toPresentationString, toExpression } from "./helpers";
 
 type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
+
+type ConditionRawObject =
+  | ConditionsModel
+  | {
+      name: string;
+      conditions: Condition[];
+    };
 
 export class ConditionsModel {
   #groupedConditions: ConditionsArray = [];
@@ -258,7 +264,7 @@ export class ConditionsModel {
     };
   }
 
-  static from(obj: ConditionsModel | ConditionsWrapperValue) {
+  static from(obj: ConditionRawObject) {
     if (obj instanceof ConditionsModel) {
       return obj;
     }
