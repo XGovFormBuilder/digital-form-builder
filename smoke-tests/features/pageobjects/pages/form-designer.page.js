@@ -45,6 +45,10 @@ class FormDesignerPage extends Page {
     return this.pageContainer(pageName).react$("Para");
   }
 
+  textField(pageName) {
+    return this.pageContainer(pageName).react$("TextField");
+  }
+
   pageContainer(elem) {
     return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
   }

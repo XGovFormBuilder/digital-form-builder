@@ -16,6 +16,7 @@ Feature: Smoke tests
       | Date time field     |
       | Email address field |
       | Paragraph           |
+      | Text field          |
 
   Scenario: Add mulitple components to a page
     When I add multiple components to the "First page"
@@ -34,11 +35,6 @@ Feature: Smoke tests
     When I choose "Add Page" from the designer menu
     And I enter the details for my page
     Then the page is added in the designer
-
-  Scenario: Link two pages
-    When I choose "Add Link" from the designer menu
-    And I link the "First page" to the "Summary"
-    Then a link between them will be displayed
 
   Scenario: Edit Sections from the form designer menu
     When I choose "Edit Sections" from the designer menu

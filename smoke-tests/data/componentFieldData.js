@@ -20,4 +20,9 @@ module.exports = {
     name: "importDate",
     hint: "Please enter the estimated date of arrival of your goods",
   },
+  textField: {
+    title: "Your Vehicle Make and Model",
+    name: "vehicleMakeAndModel",
+    hint: "Please enter your vehicle using the format: BMW, 3 Series",
+  },
 };
