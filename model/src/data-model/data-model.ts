@@ -1,73 +1,15 @@
-import { StaticValues, valuesFrom, yesNoValues } from "../values";
+import { valuesFrom, yesNoValues } from "../values";
 import type { ComponentValues } from "../values";
 import {
   ConditionsWrapper,
   ConditionWrapperValue,
   ConditionRawData,
 } from "./conditions-wrapper";
-import { clone } from "../helpers";
+import { InputWrapper } from "./input-wrapper";
+import { ValuesWrapper } from "./values-wrapper";
+import { clone, filter } from "../helpers";
 import { Component } from "../components/types";
 import { Page, Section, List, Feedback } from "./types";
-
-function filter<T>(obj: T, predicate: (value: any) => boolean): Partial<T> {
-  const result = {};
-
-  for (const [key, value] of Object.entries(obj)) {
-    if (value && predicate(value)) {
-      result[key] = value;
-    }
-  }
-
-  return result;
-}
-
-class Input {
-  name: string | undefined = undefined;
-  title: string | undefined = undefined;
-  propertyPath: string | undefined;
-  #parentItemName: string | undefined;
-  page: Page;
-
-  constructor(
-    rawData: Component,
-    page: Page,
-    options: { ignoreSection?: boolean; parentItemName?: string }
-  ) {
-    Object.assign(this, rawData);
-    const myPage = clone(page);
-    delete myPage.components;
-    this.page = myPage;
-    this.propertyPath =
-      !options.ignoreSection && page.section
-        ? `${page.section}.${this.name}`
-        : this.name;
-    this.#parentItemName = options.parentItemName;
-  }
-
-  get displayName(): string | undefined {
-    const titleWithContext = this.#parentItemName
-      ? `${this.title} under ${this.#parentItemName}`
-      : this.title;
-
-    return this.page.section
-      ? `${titleWithContext} in ${this.page.section}`
-      : titleWithContext;
-  }
-}
-
-class ValuesWrapper {
-  values: ComponentValues;
-  data: Data;
-
-  constructor(values: ComponentValues, data: Data) {
-    this.values = values;
-    this.data = data;
-  }
-
-  toStaticValues(): StaticValues {
-    return this.values.toStaticValues(this.data);
-  }
-}
 
 type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
   name?: string;
@@ -127,7 +69,7 @@ export class Data {
     Object.assign(this, rawDataClone);
   }
 
-  _listInputsFor(page: Page, input: Component): Array<Input> {
+  _listInputsFor(page: Page, input: Component): Array<InputWrapper> {
     const values = this.valuesFor(input)?.toStaticValues();
     return values
       ? values.items.flatMap(
@@ -136,18 +78,20 @@ export class Data {
               ?.filter((component) => component.name)
               ?.map(
                 (component) =>
-                  new Input(component, page, { parentItemName: listItem.label })
+                  new InputWrapper(component, page, {
+                    parentItemName: listItem.label,
+                  })
               ) ?? []
         )
       : [];
   }
 
-  allInputs(): Array<Input> {
-    const inputs: Array<Input> = this.pages.flatMap((page) =>
+  allInputs(): Array<InputWrapper> {
+    const inputs: Array<InputWrapper> = this.pages.flatMap((page) =>
       (page.components || [])
         .filter((component) => component.name)
         .flatMap((component) =>
-          [new Input(component, page, {})].concat(
+          [new InputWrapper(component, page, {})].concat(
             this._listInputsFor(page, component)
           )
         )
@@ -159,7 +103,7 @@ export class Data {
 
       Data.FEEDBACK_CONTEXT_ITEMS.forEach((it) => {
         inputs.push(
-          new Input(
+          new InputWrapper(
             { type: "TextField", title: it.display, name: it.key },
             startPage,
             options
@@ -170,14 +114,14 @@ export class Data {
 
     const names = new Set();
 
-    return inputs.filter((input: Input) => {
+    return inputs.filter((input: InputWrapper) => {
       const isPresent = !names.has(input.propertyPath);
       names.add(input.propertyPath);
       return isPresent;
     });
   }
 
-  inputsAccessibleAt(path: string): Array<Input> {
+  inputsAccessibleAt(path: string): Array<InputWrapper> {
     const precedingPages = this._allPathsLeadingTo(path);
     return this.allInputs().filter(
       (input) =>
