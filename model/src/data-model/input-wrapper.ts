@@ -16,7 +16,9 @@ export class InputWrapper {
   ) {
     Object.assign(this, rawData);
     const myPage = clone(page);
+
     delete myPage.components;
+
     this.page = myPage;
     this.propertyPath =
       !options.ignoreSection && page.section

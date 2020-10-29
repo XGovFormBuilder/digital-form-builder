@@ -4,7 +4,7 @@ export interface Page {
   title: string;
   path: string;
   controller: string;
-  components: Component[];
+  components?: Component[];
   section: string; // the section ID
   next?: { path: string }[];
 }
