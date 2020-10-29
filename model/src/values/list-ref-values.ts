@@ -59,6 +59,10 @@ export class ListRefValues extends ValuesBase {
     return new StaticValues("string", []);
   }
 
+  toJSON() {
+    return { list: this.list, valueChildren: this.valueChildren };
+  }
+
   static from(obj: ListRefValuesLikeObject): ListRefValues {
     if (obj.type === "listRef") {
       return new ListRefValues(

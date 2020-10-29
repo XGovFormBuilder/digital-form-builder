@@ -1,8 +1,8 @@
 import { StaticValues, valuesFrom, yesNoValues } from "../values";
 import type { ComponentValues } from "../values";
-import { ConditionsWrapper } from "./conditions-wrapper";
+import { ConditionsWrapper, ConditionWrapperValue } from "./conditions-wrapper";
 import { clone } from "../helpers";
-import { Page, Section, List } from "./types";
+import { Page, Section, List, Feedback } from "./types";
 
 function filter<T>(obj: T, predicate: (value: any) => boolean): Partial<T> {
   const result = {};
@@ -69,6 +69,7 @@ class ValuesWrapper {
 
 export class Data {
   /**
+   * TODO
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
    */
@@ -90,26 +91,29 @@ export class Data {
     },
   ];
 
-  startPage: string | undefined;
+  #name: string = "";
+  startPage: string = "";
   pages: Page[] = [];
   lists: List[] = [];
   sections: Section[] = [];
   #conditions: ConditionsWrapper[] = [];
-  #name: string = "";
-  #feedback; // TODO types
+  #feedback: Feedback;
 
-  // TODO rawData type
-  constructor(rawData) {
+  constructor(rawData: Data | { [prop: string]: any }) {
     const rawDataClone =
       rawData instanceof Data
         ? rawData._exposePrivateFields()
         : Object.assign({}, rawData);
+
+    this.#feedback = rawDataClone.feedback;
     this.#conditions = (rawDataClone.conditions || []).map(
+      // TODO: conditionObj type
       (conditionObj) => new ConditionsWrapper(conditionObj)
     );
-    this.#feedback = rawDataClone.feedback;
+
     delete rawDataClone.conditions;
     delete rawDataClone.feedback;
+
     Object.assign(this, rawDataClone);
   }
 
@@ -276,7 +280,11 @@ export class Data {
       );
   }
 
-  addCondition(name: string, displayName: string, value): Data {
+  addCondition(
+    name: string,
+    displayName: string,
+    value: ConditionWrapperValue
+  ): Data {
     this.#conditions = this.#conditions;
 
     if (this.#conditions.find((it) => it.name === name)) {

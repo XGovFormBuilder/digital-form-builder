@@ -22,6 +22,11 @@ export interface List {
     text: string;
     value: string;
     description: string;
-    condition: string; // ID of the condition (see dataModel.conditions)
+    condition: string; // ID of the condition stored in dataModel.conditions
   }[];
+}
+
+export interface Feedback {
+  feedbackForm: boolean;
+  url: string;
 }

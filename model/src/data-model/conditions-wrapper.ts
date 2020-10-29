@@ -1,7 +1,7 @@
 import { Condition } from "../conditions/condition";
 import { ConditionsModel } from "../conditions/inline-condition-model";
 
-type ConditionWrapperValue =
+export type ConditionWrapperValue =
   | string
   | {
       name: string;
