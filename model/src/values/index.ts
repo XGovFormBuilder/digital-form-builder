@@ -1,7 +1,7 @@
-import { ListRefValues } from "./list-ref-values";
+import { ListRefValues } from "./listref-values";
 import { StaticValues } from "./static-values";
 
-export { yesNoValues } from "./yes-no-values";
+export { yesNoValues } from "./yesno-values";
 export { valuesFrom } from "./helpers";
 export { StaticValues } from "./static-values";
 

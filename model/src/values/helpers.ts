@@ -1,4 +1,4 @@
-import { ListRefValues } from "./list-ref-values";
+import { ListRefValues } from "./listref-values";
 import { StaticValues } from "./static-values";
 
 type StaticValuesObj = Pick<StaticValues, "type" | "valueType" | "items">;
