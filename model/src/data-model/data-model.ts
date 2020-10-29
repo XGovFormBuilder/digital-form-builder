@@ -323,7 +323,7 @@ export class Data {
   }
 
   findCondition(name: string): ConditionsWrapper | undefined {
-    return this.conditions.find((condition) => condition.name === name);
+    return this.#conditions.find((condition) => condition.name === name);
   }
 
   get hasConditions(): boolean {

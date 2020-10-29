@@ -66,7 +66,7 @@ suite("data model", () => {
             components: [{ name: "name3" }, { name: "name4" }],
           },
         ],
-      });
+      } as any);
       expect(data.allInputs()).to.equal([
         {
           name: "name1",
@@ -2134,14 +2134,13 @@ suite("data model", () => {
   });
 
   describe("find condition", () => {
-    test("should find a condition if oone exists with the provided name", () => {
+    test("should find a condition if one exists with the provided name", () => {
       const data = new Data({
         conditions: [{ name: "someName" }],
       });
-      expect(data.findCondition("someName")).to.equal({
+      expect(data.findCondition("someName")).to.contain({
         name: "someName",
         displayName: "someName",
-        value: undefined,
       });
     });
 
@@ -2177,7 +2176,7 @@ suite("data model", () => {
       });
       data.updateCondition("someName", "My condition", "Some value");
       expect(data.conditions).to.equal([
-        { name: "anotherName", displayName: "anotherName", value: undefined },
+        { name: "anotherName", displayName: "anotherName" },
       ]);
     });
 
@@ -2222,7 +2221,7 @@ suite("data model", () => {
       });
       data.removeCondition("someName");
       expect(data.conditions).to.equal([
-        { name: "anotherName", displayName: "anotherName", value: undefined },
+        { name: "anotherName", displayName: "anotherName" },
       ]);
     });
 
@@ -2277,9 +2276,13 @@ suite("data model", () => {
 
   describe("toJSON", () => {
     test("should expose the conditions field", () => {
-      const rawData = {
+      const rawData: any = {
         conditions: [
-          { displayName: "a Monkey", name: "someName", value: undefined },
+          {
+            displayName: "a Monkey",
+            name: "someName",
+            value: "a Monkey value",
+          },
         ],
         lists: [],
         pages: [],
@@ -2290,7 +2293,7 @@ suite("data model", () => {
     });
 
     test("should expose the name field", () => {
-      const rawData = {
+      const rawData: any = {
         conditions: [],
         name: "My form",
         lists: [],
