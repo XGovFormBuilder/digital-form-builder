@@ -17,6 +17,10 @@ Feature: Smoke tests
       | Email address field |
       | Paragraph           |
 
+  Scenario: Add mulitple components to a page
+    When I add multiple components to the "First page"
+    Then all the components are displayed in the "First page"
+
   Scenario: Delete a component
     When I add a "Date field" control to the "First page"
     And I delete the "Date field" control from the "First page"

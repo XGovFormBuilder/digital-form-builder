@@ -2,7 +2,6 @@ const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
 const AddComponentPage = require("../pageobjects/pages/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
-const ConfigPage = require("../pageobjects/pages/config.page");
 const EditListSection = require("../pageobjects/sections/edit-lists.section");
 const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
@@ -67,6 +66,22 @@ Then(
     }
   }
 );
+
+When("I add multiple components to the {string}", (pageName) => {
+  this.pageComponents = ["Email address field", "Date field"];
+  this.pageComponents.forEach((component) =>
+    Actions.createComponentForPage(component, pageName)
+  );
+});
+
+Then("all the components are displayed in the {string}", (pageName) => {
+  this.pageComponents.forEach(
+    (component) =>
+      chai.expect(
+        FormDesignerPage[toCamelCase(component)](pageName).isDisplayed()
+      ).to.be.true
+  );
+});
 
 When(
   "I delete the {string} control from the {string}",
