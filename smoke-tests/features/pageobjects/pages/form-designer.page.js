@@ -41,6 +41,10 @@ class FormDesignerPage extends Page {
     return this.pageContainer(pageName).react$("EmailAddressField");
   }
 
+  paragraph(pageName) {
+    return this.pageContainer(pageName).react$("Para");
+  }
+
   pageContainer(elem) {
     return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
   }

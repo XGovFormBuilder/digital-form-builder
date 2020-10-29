@@ -8,55 +8,65 @@ const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
 const FormDesignerPage = require("../pageobjects/pages/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
-
 const FieldData = require("../../data/componentFieldData");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
-
-const pages = {
-  start: ConfigPage,
-};
+const Actions = require("../actions/actions");
 
 Given("I have created a new form configuration", () => {
-  pages["start"].open();
-  const configRef = `smoke-testing ${Date.parse(Date())}`;
-  ConfigPage.newConfig(configRef);
-  expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));
+  Actions.createNewConfig();
 });
 
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.completeCommonFields(FieldData[toCamelCase(componentName)]);
-});
-
-Then("the {string} control is displayed in the page", (componentName) => {
-  const pageComponent = toCamelCase(componentName);
-  switch (pageComponent) {
-    case "DateField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy"
+  switch (componentName) {
+    case "Paragraph":
+      AddComponentPage.paragraphSetText(
+        "You need the vehicle’s number plate (registration number)." +
+          "\n" +
+          "You can see the results as soon as the MOT centre has recorded the test result." +
+          "\n" +
+          "You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location."
       );
+      AddComponentPage.saveBtn.click();
       break;
-    case "EmailAddressField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      break;
-    case "DateTimeField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy hh:mm"
+    default:
+      AddComponentPage.completeCommonFields(
+        FieldData[toCamelCase(componentName)]
       );
-      break;
-    case "DatePartsField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
       break;
   }
 });
+
+Then(
+  "the {string} control is displayed in the {string}",
+  (componentName, pageName) => {
+    const pageComponent = toCamelCase(componentName);
+    console.log("PAGE COMPONENT IS: " + pageComponent);
+    switch (pageComponent) {
+      case "dateField":
+        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
+          .be.true;
+        expect(FormDesignerPage[pageComponent](pageName)).toHaveText(
+          "dd/mm/yyyy"
+        );
+        break;
+      case "dateTimeField":
+        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
+          .be.true;
+        expect(FormDesignerPage[pageComponent](pageName)).toHaveText(
+          "dd/mm/yyyy hh:mm"
+        );
+        break;
+      default:
+        console.log(pageComponent + " " + pageName);
+        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
+          .be.true;
+        break;
+    }
+  }
+);
 
 When(
   "I delete the {string} control from the {string}",

@@ -8,13 +8,14 @@ Feature: Smoke tests
 
   Scenario Outline: Add a component to a page
     When I add a "<type>" control to the "First page"
-    Then the "<type>" control is displayed in the page
+    Then the "<type>" control is displayed in the "First page"
     Examples:
       | type                |
       | Date field          |
       | Date parts field    |
       | Date time field     |
       | Email address field |
+      | Paragraph           |
 
   Scenario: Delete a component
     When I add a "Date field" control to the "First page"

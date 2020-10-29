@@ -38,6 +38,10 @@ class AddComponentPage extends Page {
     this.selectList.selectByVisibleText(name);
   }
 
+  paragraphSetText(text) {
+    $("[name='content']").setValue(text);
+  }
+
   completeCommonFields(dataObject) {
     this.titleField.setValue(dataObject.title);
     this.hintField.setValue(dataObject.hint);
