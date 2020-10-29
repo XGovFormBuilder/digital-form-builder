@@ -29,7 +29,7 @@ class Input {
   page: Page;
 
   constructor(
-    rawData: { [prop: string]: any },
+    rawData: Component,
     page: Page,
     options: { ignoreSection?: boolean; parentItemName?: string }
   ) {
@@ -127,15 +127,16 @@ export class Data {
     Object.assign(this, rawDataClone);
   }
 
-  _listInputsFor(page, input): Array<Input> {
+  _listInputsFor(page: Page, input: Component): Array<Input> {
     const values = this.valuesFor(input)?.toStaticValues();
     return values
       ? values.items.flatMap(
           (listItem) =>
             listItem.children
-              ?.filter((it) => it.name)
+              ?.filter((component) => component.name)
               ?.map(
-                (it) => new Input(it, page, { parentItemName: listItem.label })
+                (component) =>
+                  new Input(component, page, { parentItemName: listItem.label })
               ) ?? []
         )
       : [];
@@ -145,8 +146,10 @@ export class Data {
     const inputs: Array<Input> = this.pages.flatMap((page) =>
       (page.components || [])
         .filter((component) => component.name)
-        .flatMap((it) =>
-          [new Input(it, page, {})].concat(this._listInputsFor(page, it))
+        .flatMap((component) =>
+          [new Input(component, page, {})].concat(
+            this._listInputsFor(page, component)
+          )
         )
     );
 
@@ -177,12 +180,13 @@ export class Data {
   inputsAccessibleAt(path: string): Array<Input> {
     const precedingPages = this._allPathsLeadingTo(path);
     return this.allInputs().filter(
-      (it) => precedingPages.includes(it.page.path) || path === it.page.path
+      (input) =>
+        precedingPages.includes(input.page.path) || path === input.page.path
     );
   }
 
   findPage(path: string | undefined) {
-    return this.getPages().find((p) => p?.path === path);
+    return this.getPages().find((page) => page?.path === path);
   }
 
   findList(listName: string) {
@@ -190,11 +194,12 @@ export class Data {
   }
 
   addLink(from: string, to: string, condition: string): Data {
-    const fromPage = this.pages.find((p) => p.path === from);
-    const toPage = this.pages.find((p) => p.path === to);
+    const fromPage = this.pages.find((page) => page.path === from);
+    const toPage = this.pages.find((page) => page.path === to);
+
     if (fromPage && toPage) {
       const existingLink = fromPage.next?.find(
-        (it: { path: string }) => it.path === to
+        (page: { path: string }) => page.path === to
       );
 
       if (!existingLink) {
@@ -214,7 +219,7 @@ export class Data {
   }
 
   addSection(name: string, title: string): Data {
-    if (!this.sections.find((s) => s.name === name)) {
+    if (!this.sections.find((section) => section.name === name)) {
       this.sections.push({ name, title });
     }
     return this;
@@ -222,9 +227,10 @@ export class Data {
 
   updateLink(from: string, to: string, condition: string): Data {
     const fromPage = this.findPage(from);
-    const toPage = this.pages.find((p) => p.path === to);
+    const toPage = this.pages.find((page) => page.path === to);
+
     if (fromPage && toPage) {
-      const existingLink = fromPage.next?.find((it) => it.path === to);
+      const existingLink = fromPage.next?.find((page) => page.path === to);
       if (existingLink) {
         if (condition) {
           existingLink.condition = condition;
@@ -238,7 +244,7 @@ export class Data {
 
   updateLinksTo = (oldPath: string, newPath: string) => {
     this.pages
-      .filter((p) => p.next && p.next.find((link) => link.path === oldPath))
+      .filter((page) => page.next?.find((link) => link.path === oldPath))
       .forEach((page) => {
         const pageLink = page.next?.find((link) => link.path === oldPath);
 
@@ -249,7 +255,7 @@ export class Data {
     return this;
   };
 
-  addPage(page): Data {
+  addPage(page: Page): Data {
     this.pages.push(page);
     return this;
   }
@@ -293,7 +299,7 @@ export class Data {
   ): Data {
     this.#conditions = this.#conditions;
 
-    if (this.#conditions.find((it) => it.name === name)) {
+    if (this.#conditions.find((condition) => condition.name === name)) {
       throw Error(`A condition already exists with name ${name}`);
     }
 
@@ -344,6 +350,7 @@ export class Data {
     const condition = this.#conditions.find(
       (condition) => condition.name === name
     );
+
     if (condition) {
       condition.displayName = displayName;
       condition.value = value;
@@ -359,9 +366,9 @@ export class Data {
         1
       );
       // Update any references to the condition
-      this.getPages().forEach((p) => {
-        Array.isArray(p.next) &&
-          p.next.forEach((n) => {
+      this.getPages().forEach((page) => {
+        Array.isArray(page.next) &&
+          page.next.forEach((n) => {
             if (n.if === name) {
               delete n.if;
             }
