@@ -1,7 +1,12 @@
 import { StaticValues, valuesFrom, yesNoValues } from "../values";
 import type { ComponentValues } from "../values";
-import { ConditionsWrapper, ConditionWrapperValue } from "./conditions-wrapper";
+import {
+  ConditionsWrapper,
+  ConditionWrapperValue,
+  ConditionRawData,
+} from "./conditions-wrapper";
 import { clone } from "../helpers";
+import { Component } from "../components/types";
 import { Page, Section, List, Feedback } from "./types";
 
 function filter<T>(obj: T, predicate: (value: any) => boolean): Partial<T> {
@@ -29,9 +34,6 @@ class Input {
     options: { ignoreSection?: boolean; parentItemName?: string }
   ) {
     Object.assign(this, rawData);
-
-    console.log("InputRawData", rawData);
-
     const myPage = clone(page);
     delete myPage.components;
     this.page = myPage;
@@ -67,6 +69,12 @@ class ValuesWrapper {
   }
 }
 
+type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
+  name?: string;
+  conditions?: ConditionRawData[];
+  feedback?: Feedback;
+};
+
 export class Data {
   /**
    * TODO
@@ -97,20 +105,22 @@ export class Data {
   lists: List[] = [];
   sections: Section[] = [];
   #conditions: ConditionsWrapper[] = [];
-  #feedback: Feedback;
+  #feedback?: Feedback;
 
-  constructor(rawData: Data | { [prop: string]: any }) {
+  constructor(rawData: RawData) {
     const rawDataClone =
       rawData instanceof Data
         ? rawData._exposePrivateFields()
         : Object.assign({}, rawData);
 
+    this.#name = rawDataClone.name || "";
+    this.startPage = rawDataClone.startPage;
     this.#feedback = rawDataClone.feedback;
     this.#conditions = (rawDataClone.conditions || []).map(
-      // TODO: conditionObj type
-      (conditionObj) => new ConditionsWrapper(conditionObj)
+      (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
     );
 
+    delete rawDataClone.name;
     delete rawDataClone.conditions;
     delete rawDataClone.feedback;
 
@@ -119,7 +129,6 @@ export class Data {
 
   _listInputsFor(page, input): Array<Input> {
     const values = this.valuesFor(input)?.toStaticValues();
-
     return values
       ? values.items.flatMap(
           (listItem) =>
@@ -249,24 +258,21 @@ export class Data {
     return this.pages;
   }
 
-  valuesFor(input): ValuesWrapper | undefined {
-    const values = this._valuesFor(input);
-
+  valuesFor(component: Component): ValuesWrapper | undefined {
+    const values = this._valuesFor(component);
     if (values) {
       return new ValuesWrapper(values, this);
     }
-
     return undefined;
   }
 
-  _valuesFor(input): ComponentValues | null {
-    if (input.type === "YesNoField") {
+  _valuesFor(component: Component): ComponentValues | null {
+    if (component.type === "YesNoField") {
       return yesNoValues;
     }
-    if (input.values) {
-      return valuesFrom(input.values);
+    if (component.values) {
+      return valuesFrom(component.values);
     }
-
     return null;
   }
 
@@ -295,7 +301,7 @@ export class Data {
     return this;
   }
 
-  addComponent(pagePath: string, component): Data {
+  addComponent(pagePath: string, component: Component): Data {
     const page = this.findPage(pagePath);
     if (page) {
       page.components = page.components || [];
@@ -306,22 +312,31 @@ export class Data {
     return this;
   }
 
-  updateComponent(pagePath: string, componentName: string, component): Data {
+  updateComponent(
+    pagePath: string,
+    componentName: string,
+    component: Component
+  ): Data {
     const page = this.findPage(pagePath);
+
     if (page) {
       page.components = page.components || [];
+
       const index = page.components.findIndex(
-        (it) => it.name === componentName
+        (component: Component) => component.name === componentName
       );
+
       if (index < 0) {
         throw Error(
           `No component exists with name ${componentName} with in page with path ${pagePath}`
         );
       }
+
       page.components[index] = component;
     } else {
       throw Error(`No page exists with path ${pagePath}`);
     }
+
     return this;
   }
 
@@ -405,7 +420,7 @@ export class Data {
     }
   }
 
-  get feedbackUrl(): string {
+  get feedbackUrl(): string | undefined {
     return this.#feedback?.url;
   }
 

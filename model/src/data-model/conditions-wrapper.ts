@@ -8,16 +8,18 @@ export type ConditionWrapperValue =
       conditions: Condition[];
     };
 
+export type ConditionRawData = {
+  name: string;
+  displayName: string;
+  value: ConditionWrapperValue;
+};
+
 export class ConditionsWrapper {
   name: string;
   displayName: string;
   value: ConditionWrapperValue;
 
-  constructor(rawData: {
-    name: string;
-    displayName: string;
-    value: ConditionWrapperValue;
-  }) {
+  constructor(rawData: ConditionRawData) {
     const { name, displayName, value } = rawData;
     this.displayName = displayName || name;
     this.value = value;

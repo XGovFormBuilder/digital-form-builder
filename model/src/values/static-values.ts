@@ -1,27 +1,14 @@
 import { Data } from "../data-model/data-model";
-import { ConcreteValueTypes, ValueTypes } from "./types";
 import { ValuesBase } from "./values-base";
-
-export type StaticValuesLikeObject = {
-  type: "static";
-  valueType: ValueTypes;
-  items?: Array<StaticValue>;
-};
-
-export type StaticValueLikeObject = {
-  label: string;
-  value: ConcreteValueTypes;
-  hint?: string;
-  condition?: string;
-  children?: Array<any>;
-};
+import { ConcreteValueTypes, ValueTypes } from "./types";
+import { Component } from "../components/types";
 
 export class StaticValue {
   label: string;
   value: ConcreteValueTypes;
   hint: string | undefined;
   condition: string | undefined;
-  children: Array<any>; // should be Array<Component> whenever someone introduces the appropriate class
+  children: Array<Component>;
 
   constructor(
     label: string,
@@ -37,7 +24,7 @@ export class StaticValue {
     this.children = children;
   }
 
-  static from(obj: StaticValueLikeObject): StaticValue {
+  static from(obj: Omit<StaticValue, "from">): StaticValue {
     return new StaticValue(
       obj.label,
       obj.value,
@@ -62,7 +49,9 @@ export class StaticValues extends ValuesBase {
     return this;
   }
 
-  static from(obj: StaticValuesLikeObject): StaticValues {
+  static from(
+    obj: Pick<StaticValues, "type" | "valueType" | "items">
+  ): StaticValues {
     if (obj.type === "static") {
       return new StaticValues(
         obj.valueType,

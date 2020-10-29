@@ -2,23 +2,18 @@ import { Data } from "../data-model/data-model";
 import { ConcreteValueTypes } from "./types";
 import { ValuesBase } from "./values-base";
 import { StaticValue, StaticValues } from "./static-values";
-
-export type ListRefValuesLikeObject = {
-  type: "listRef";
-  list: string;
-  valueChildren: Array<ValueChildren>;
-};
+import { Component } from "../components/types";
 
 export class ValueChildren {
   value: ConcreteValueTypes;
-  children: Array<any>; // should be Array<Component> whenever someone introduces the appropriate class
+  children: Array<Component>;
 
   constructor(value: ConcreteValueTypes, children: Array<any>) {
     this.value = value;
     this.children = children;
   }
 
-  static from(obj: { value: ConcreteValueTypes; children: Array<any> }) {
+  static from(obj: Pick<ValueChildren, "value" | "children">) {
     return new ValueChildren(obj.value, obj.children);
   }
 }
@@ -63,7 +58,9 @@ export class ListRefValues extends ValuesBase {
     return { list: this.list, valueChildren: this.valueChildren };
   }
 
-  static from(obj: ListRefValuesLikeObject): ListRefValues {
+  static from(
+    obj: Pick<ListRefValues, "type" | "list" | "valueChildren">
+  ): ListRefValues {
     if (obj.type === "listRef") {
       return new ListRefValues(
         obj.list,
