@@ -1,5 +1,4 @@
 import { Data } from "../data-model/data-model";
-import { ValuesBase } from "./values-base";
 import { ConcreteValueTypes, ValueTypes } from "./types";
 import { Component } from "../components/types";
 
@@ -35,12 +34,12 @@ export class StaticValue {
   }
 }
 
-export class StaticValues extends ValuesBase {
+export class StaticValues {
+  type: "static" = "static";
   valueType: ValueTypes;
   items: Array<StaticValue>;
 
   constructor(valueType: ValueTypes, items: Array<StaticValue>) {
-    super("static");
     this.valueType = valueType;
     this.items = items;
   }

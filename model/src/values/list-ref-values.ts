@@ -1,6 +1,5 @@
 import { Data } from "../data-model/data-model";
 import { ConcreteValueTypes } from "./types";
-import { ValuesBase } from "./values-base";
 import { StaticValue, StaticValues } from "./static-values";
 import { Component } from "../components/types";
 
@@ -18,12 +17,12 @@ export class ValueChildren {
   }
 }
 
-export class ListRefValues extends ValuesBase {
+export class ListRefValues {
+  type: "listRef" = "listRef";
   list: string;
   valueChildren: Array<ValueChildren>;
 
   constructor(list: string, valueChildren: Array<ValueChildren>) {
-    super("listRef");
     this.list = list;
     this.valueChildren = valueChildren;
   }
