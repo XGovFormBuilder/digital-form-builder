@@ -331,7 +331,9 @@ export class Data {
   }
 
   get conditions(): Array<ConditionsWrapper> {
-    return this.#conditions.map((it) => clone(it));
+    return this.#conditions.map((condition: ConditionsWrapper) =>
+      clone(condition)
+    );
   }
 
   get name(): string {
@@ -375,7 +377,7 @@ export class Data {
     return this.#feedback?.url;
   }
 
-  clone(): Data {
+  clone() {
     return new Data(this._exposePrivateFields());
   }
 
@@ -391,7 +393,7 @@ export class Data {
     return Object.assign({}, this, {
       name: this.name,
       feedback: this.#feedback,
-      conditions: this.#conditions.map((it) => clone(it)),
+      conditions: this.#conditions.map((condition) => clone(condition)),
     });
   }
 }

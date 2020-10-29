@@ -1,6 +1,6 @@
 import { ConditionalComponent } from "./types";
 
-const conditionalComponents: ConditionalComponent[] = [
+export const ConditionalComponentTypes: ConditionalComponent[] = [
   {
     name: "TextField",
     title: "Text field",
@@ -12,5 +12,3 @@ const conditionalComponents: ConditionalComponent[] = [
     subType: "field",
   },
 ];
-
-export default conditionalComponents;

@@ -1,6 +1,6 @@
 import { Component } from "./types";
 
-const componentTypes: Component[] = [
+export const ComponentTypes: Component[] = [
   {
     name: "TextField",
     type: "TextField",
@@ -140,5 +140,3 @@ const componentTypes: Component[] = [
     subType: "content",
   },
 ];
-
-export default componentTypes;

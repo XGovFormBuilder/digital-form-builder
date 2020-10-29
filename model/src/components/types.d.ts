@@ -1,5 +1,3 @@
-import { ValuesType } from "../values/types";
-import { ConcreteValueTypes } from "../values/types";
 import { ComponentValues } from "../values";
 
 export type ComponentType =
