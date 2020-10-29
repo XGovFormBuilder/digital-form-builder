@@ -1,4 +1,4 @@
-import { clone } from "../helpers";
+import { clone } from "../utils/helpers";
 import { Component } from "../components/types";
 import { Page } from "./types";
 

@@ -2,7 +2,6 @@ export { ComponentTypes, ConditionalComponentTypes } from "./components";
 export { Schema } from "./schema";
 export { Data } from "./data-model";
 export { FormConfiguration } from "./form";
-export { clone } from "./helpers";
 export { Logger } from "./utils/logger";
 export { SchemaMigrationService } from "./migration/schema-migrations";
 
@@ -13,4 +12,4 @@ export {
   ComponentValues,
 } from "./values";
 export * from "./conditions";
-export * from "./helpers";
+export * from "./utils/helpers";

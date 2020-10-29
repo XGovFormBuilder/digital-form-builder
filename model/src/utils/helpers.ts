@@ -1,4 +1,4 @@
-import { Data } from "./data-model";
+import { Data } from "../data-model";
 
 export const serialiseAndDeserialise = <T>(obj: T): T => {
   return JSON.parse(JSON.stringify(obj));

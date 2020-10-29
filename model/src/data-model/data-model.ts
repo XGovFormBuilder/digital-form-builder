@@ -7,7 +7,7 @@ import {
 } from "./conditions-wrapper";
 import { InputWrapper } from "./input-wrapper";
 import { ValuesWrapper } from "./values-wrapper";
-import { clone, filter } from "../helpers";
+import { clone, filter } from "../utils/helpers";
 import { Component } from "../components/types";
 import { Page, Section, List, Feedback } from "./types";
 
