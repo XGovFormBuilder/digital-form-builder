@@ -1,19 +1,19 @@
 export {
-  absoluteDateOrTimeOperatorNames,
-  getOperatorConfig,
-  relativeDateOrTimeOperatorNames,
-  getOperatorNames,
   getExpression,
+  getOperatorConfig,
+  getOperatorNames,
+  absoluteDateOrTimeOperatorNames,
+  relativeDateOrTimeOperatorNames,
 } from "./inline-condition-operators";
 
 export {
-  ConditionValue,
   timeUnits,
+  dateUnits,
+  dateTimeUnits,
   valueFrom,
+  ConditionValue,
   DateDirections,
   RelativeTimeValue,
-  dateTimeUnits,
-  dateUnits,
 } from "./inline-condition-values";
 
 export { Field } from "./field";

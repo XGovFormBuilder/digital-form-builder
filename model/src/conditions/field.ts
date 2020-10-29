@@ -1,5 +1,4 @@
-import { ComponentType } from "../components/types";
-import componentTypes from "../components/component-types";
+import { ComponentTypes, ComponentType } from "../components";
 
 export class Field {
   name: string;
@@ -11,7 +10,7 @@ export class Field {
       throw Error(`name ${name} is not valid`);
     }
 
-    if (!componentTypes.find((componentType) => componentType.type === type)) {
+    if (!ComponentTypes.find((componentType) => componentType.type === type)) {
       throw Error(`type ${type} is not valid`);
     }
 

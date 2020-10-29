@@ -1,8 +1,4 @@
-import { Condition } from "./condition";
-import { ConditionRef } from "./condition-ref";
-import { ConditionGroup } from "./condition-group";
-
-type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
+import { ConditionsArray } from "./types";
 
 export class GroupDef {
   first: number;

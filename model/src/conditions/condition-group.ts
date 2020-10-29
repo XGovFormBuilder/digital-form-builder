@@ -1,8 +1,5 @@
-import { Condition } from "./condition";
-import { ConditionRef } from "./condition-ref";
 import { Coordinator, toPresentationString, toExpression } from "./helpers";
-
-type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
+import { ConditionsArray } from "./types";
 
 export class ConditionGroup {
   conditions: ConditionsArray;

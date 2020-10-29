@@ -5,8 +5,7 @@ import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
 import { valueFrom } from "./inline-condition-values";
 import { Coordinator, toPresentationString, toExpression } from "./helpers";
-
-type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
+import { ConditionsArray } from "./types";
 
 type ConditionRawObject =
   | ConditionsModel
@@ -270,8 +269,8 @@ export class ConditionsModel {
     }
     const toReturn = new ConditionsModel();
     toReturn.#conditionName = obj.name;
-    toReturn.#userGroupedConditions = obj.conditions.map((it) =>
-      conditionFrom(it)
+    toReturn.#userGroupedConditions = obj.conditions.map((condition) =>
+      conditionFrom(condition)
     );
     toReturn.#groupedConditions = toReturn._applyGroups(
       toReturn.#userGroupedConditions
