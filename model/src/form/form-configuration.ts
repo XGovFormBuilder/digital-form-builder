@@ -1,5 +1,3 @@
-// TODO: This doesn't seems to be used anywhere, dead legacy code to delete?
-
 export class FormConfiguration {
   Key: string;
   DisplayName: string;
