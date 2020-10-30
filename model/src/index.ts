@@ -1,14 +1,14 @@
-export { ComponentTypes, ConditionalComponentTypes } from "./components";
 export { Schema } from "./schema";
 export { Data } from "./data-model";
-export { FormConfiguration } from "./form";
 export { Logger } from "./utils/logger";
+export { FormConfiguration } from "./form";
 export { SchemaMigrationService } from "./migration";
+export { ComponentTypes, ConditionalComponentTypes } from "./components";
 
 export {
-  StaticValues,
   valuesFrom,
   yesNoValues,
+  StaticValues,
   ComponentValues,
 } from "./values";
 export * from "./conditions";
