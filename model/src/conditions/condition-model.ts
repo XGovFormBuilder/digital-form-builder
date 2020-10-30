@@ -3,7 +3,7 @@ import { ConditionGroupDef } from "./condition-group-def";
 import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
-import { valueFrom } from "./condition-values";
+import { conditionValueFrom } from "./condition-values";
 import { toPresentationString, toExpression } from "./helpers";
 import { Coordinator, ConditionsArray } from "./types";
 
@@ -308,7 +308,7 @@ const conditionFrom: ConditionFrom = function (it) {
   return new Condition(
     ConditionField.from(it.field),
     it.operator,
-    valueFrom(it.value),
+    conditionValueFrom(it.value),
     it.coordinator
   );
 };

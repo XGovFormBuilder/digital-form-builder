@@ -1,11 +1,8 @@
 import { ConditionField } from "./condition-field";
 import { ConditionAbstract } from "./condition-abstract";
 import { getExpression } from "./condition-operators";
-import {
-  ConditionValue,
-  AbstractConditionValue,
-  RelativeTimeValue,
-} from "./condition-values";
+import { ConditionValue, RelativeTimeValue } from "./condition-values";
+import { ConditionValueAbstract } from "./condition-value-abstract";
 import { Coordinator } from "./types";
 
 export class Condition extends ConditionAbstract {
@@ -27,7 +24,7 @@ export class Condition extends ConditionAbstract {
     if (typeof operator !== "string") {
       throw Error(`operator ${operator} is not a valid operator`);
     }
-    if (!(value instanceof AbstractConditionValue)) {
+    if (!(value instanceof ConditionValueAbstract)) {
       throw Error(`value ${value} is not a valid value type`);
     }
 

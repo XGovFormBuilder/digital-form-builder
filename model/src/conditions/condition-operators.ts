@@ -1,5 +1,5 @@
 import { ComponentType, Component } from "../components";
-import { AbstractConditionValue } from "./condition-values";
+import { ConditionValueAbstract } from "./condition-value-abstract";
 
 import {
   timeUnits,
@@ -90,7 +90,7 @@ export function getExpression(
   fieldType: ComponentType,
   fieldName: string,
   operator: string,
-  value: AbstractConditionValue
+  value: ConditionValueAbstract
 ) {
   return getConditionals(fieldType)[operator].expression(
     { type: fieldType, name: fieldName },
