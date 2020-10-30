@@ -11,7 +11,7 @@ const MIGRATABLE_COMPONENT_TYPES = [
   "FlashCard",
 ];
 
-export default class ListItemReferencesToValueObjects implements Migration {
+export class ListItemReferencesToValueObjects implements Migration {
   logger: Logger;
 
   constructor(server) {

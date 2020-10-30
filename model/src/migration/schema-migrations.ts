@@ -1,5 +1,5 @@
 import { Logger } from "../utils/logger";
-import ListItemReferencesToValueObjects from "./list-item-references-to-value-objects";
+import { ListItemReferencesToValueObjects } from "./list-item-references-to-value-objects";
 
 export interface Migration {
   getInitialVersion(): number;

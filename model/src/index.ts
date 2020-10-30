@@ -3,7 +3,7 @@ export { Schema } from "./schema";
 export { Data } from "./data-model";
 export { FormConfiguration } from "./form";
 export { Logger } from "./utils/logger";
-export { SchemaMigrationService } from "./migration/schema-migrations";
+export { SchemaMigrationService } from "./migration";
 
 export {
   StaticValues,

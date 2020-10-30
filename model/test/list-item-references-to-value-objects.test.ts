@@ -1,7 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import ListItemReferencesToValueObjects from "../src/migration/list-item-references-to-value-objects";
+import { ListItemReferencesToValueObjects } from "../src/migration/";
 
 import { clone } from "../src/utils/helpers";
 
