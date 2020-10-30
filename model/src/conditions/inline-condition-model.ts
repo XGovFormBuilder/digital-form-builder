@@ -263,7 +263,7 @@ export class ConditionsModel {
     };
   }
 
-  static from(obj: ConditionRawObject) {
+  static from(obj: ConditionRawObject | ConditionsModel) {
     if (obj instanceof ConditionsModel) {
       return obj;
     }
