@@ -3,7 +3,7 @@ import * as Lab from "@hapi/lab";
 
 import { valuesFrom } from "../../src/values/helpers";
 import { StaticValues } from "../../src/values";
-import { ListRefValues } from "../../src/values/list-ref-values";
+import { ListRefValues } from "../../src/values/listref-values";
 
 const { expect } = Code;
 

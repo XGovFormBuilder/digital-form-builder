@@ -2176,7 +2176,7 @@ suite("data model", () => {
       });
       data.updateCondition("someName", "My condition", "Some value");
       expect(data.conditions).to.equal([
-        { name: "anotherName", displayName: "anotherName" },
+        { name: "anotherName", displayName: "anotherName", value: undefined },
       ]);
     });
 
@@ -2221,7 +2221,7 @@ suite("data model", () => {
       });
       data.removeCondition("someName");
       expect(data.conditions).to.equal([
-        { name: "anotherName", displayName: "anotherName" },
+        { name: "anotherName", displayName: "anotherName", value: undefined },
       ]);
     });
 
