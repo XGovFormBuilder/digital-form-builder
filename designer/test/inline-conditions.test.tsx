@@ -12,7 +12,7 @@ import InlineConditions from "../client/conditions/inline-conditions";
 import {
   Condition,
   ConditionsModel,
-  Field,
+  ConditionField,
   ConditionValue,
 } from "@xgovformbuilder/model";
 
@@ -204,7 +204,7 @@ suite("Inline conditions", () => {
       );
       wrapper.instance().saveCondition(
         new Condition(
-          Field.from({
+          ConditionField.from({
             name: fields[0].propertyPath,
             type: fields[0].type,
             display: fields[0].displayName,
@@ -247,7 +247,7 @@ suite("Inline conditions", () => {
       const instance = wrapper.instance();
       instance.saveCondition(
         new Condition(
-          Field.from({
+          ConditionField.from({
             name: fields[0].propertyPath,
             type: fields[0].type,
             display: fields[0].displayName,
@@ -274,7 +274,7 @@ suite("Inline conditions", () => {
       const instance = wrapper.instance();
       instance.saveCondition(
         new Condition(
-          Field.from({
+          ConditionField.from({
             name: fields[0].propertyPath,
             type: fields[0].type,
             display: fields[0].displayName,
@@ -330,7 +330,7 @@ suite("Inline conditions", () => {
           />
         );
         const condition = new Condition(
-          new Field("something", "TextField", "Something"),
+          new ConditionField("something", "TextField", "Something"),
           "is",
           new ConditionValue("M")
         );
@@ -353,7 +353,7 @@ suite("Inline conditions", () => {
         conditions = new ConditionsModel();
         conditions.add(
           new Condition(
-            new Field(
+            new ConditionField(
               fields[0].propertyPath,
               fields[0].type,
               fields[0].displayName
@@ -396,7 +396,7 @@ suite("Inline conditions", () => {
           .instance()
           .saveCondition(
             new Condition(
-              new Field(
+              new ConditionField(
                 fields[1].propertyPath,
                 fields[1].type,
                 fields[1].displayName
@@ -448,7 +448,7 @@ suite("Inline conditions", () => {
         const conditions = new ConditionsModel();
         conditions.add(
           new Condition(
-            new Field(
+            new ConditionField(
               fields[0].propertyPath,
               fields[0].type,
               fields[0].displayName
@@ -548,7 +548,7 @@ suite("Inline conditions", () => {
           .simulate("change", { target: { value: "Badgers" } });
         wrapper.instance().saveCondition(
           new Condition(
-            Field.from({
+            ConditionField.from({
               name: fields[0].propertyPath,
               type: fields[0].type,
               display: fields[0].displayName,
@@ -572,7 +572,7 @@ suite("Inline conditions", () => {
           data.updateCondition.firstCall.args[2].asPerUserGroupings
         ).to.equal([
           new Condition(
-            new Field(
+            new ConditionField(
               fields[0].propertyPath,
               fields[0].type,
               fields[0].displayName
@@ -581,7 +581,7 @@ suite("Inline conditions", () => {
             new ConditionValue("M")
           ),
           new Condition(
-            Field.from({
+            ConditionField.from({
               name: fields[0].propertyPath,
               type: fields[0].type,
               display: fields[0].displayName,

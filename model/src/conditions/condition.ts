@@ -1,4 +1,4 @@
-import { Field } from "./field";
+import { ConditionField } from "./condition-field";
 import { ConditionAbstract } from "./condition-abstract";
 import { getExpression } from "./condition-operators";
 import {
@@ -9,20 +9,20 @@ import {
 import { Coordinator } from "./types";
 
 export class Condition extends ConditionAbstract {
-  field: Field;
+  field: ConditionField;
   operator: string;
   value: ConditionValue | RelativeTimeValue;
 
   constructor(
-    field: Field,
+    field: ConditionField,
     operator: string,
     value: ConditionValue | RelativeTimeValue,
     coordinator?: Coordinator
   ) {
     super(coordinator);
 
-    if (!(field instanceof Field)) {
-      throw Error(`field ${field} is not a valid Field object`);
+    if (!(field instanceof ConditionField)) {
+      throw Error(`field ${field} is not a valid ConditionField object`);
     }
     if (typeof operator !== "string") {
       throw Error(`operator ${operator} is not a valid operator`);
@@ -58,7 +58,7 @@ export class Condition extends ConditionAbstract {
 
   clone() {
     return new Condition(
-      Field.from(this.field),
+      ConditionField.from(this.field),
       this.operator,
       this.value.clone(),
       this.coordinator

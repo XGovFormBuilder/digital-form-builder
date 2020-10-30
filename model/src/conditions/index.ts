@@ -16,7 +16,7 @@ export {
   RelativeTimeValue,
 } from "./condition-values";
 
-export { Field } from "./field";
+export { ConditionField } from "./condition-field";
 export { Condition } from "./condition";
 export { ConditionRef } from "./condition-ref";
 export { ConditionGroup } from "./condition-group";

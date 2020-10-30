@@ -1,6 +1,6 @@
 import { ComponentTypes, ComponentType } from "../components";
 
-export class Field {
+export class ConditionField {
   name: string;
   type: ComponentType;
   display: string;
@@ -24,6 +24,6 @@ export class Field {
   }
 
   static from(obj: { name: string; type: ComponentType; display: string }) {
-    return new Field(obj.name, obj.type, obj.display);
+    return new ConditionField(obj.name, obj.type, obj.display);
   }
 }

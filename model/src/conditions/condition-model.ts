@@ -1,4 +1,4 @@
-import { Field } from "./field";
+import { ConditionField } from "./condition-field";
 import { ConditionGroupDef } from "./condition-group-def";
 import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
@@ -306,7 +306,7 @@ const conditionFrom: ConditionFrom = function (it) {
   }
 
   return new Condition(
-    Field.from(it.field),
+    ConditionField.from(it.field),
     it.operator,
     valueFrom(it.value),
     it.coordinator

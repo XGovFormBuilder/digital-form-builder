@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Condition,
-  Field,
+  ConditionField,
   ConditionRef,
   valueFrom,
   getOperatorNames,
@@ -64,7 +64,7 @@ class InlineConditionsDefinition extends React.Component {
     } else {
       this.props.saveCallback(
         new Condition(
-          Field.from(condition.field),
+          ConditionField.from(condition.field),
           condition.operator,
           valueFrom(condition.value),
           condition.coordinator
