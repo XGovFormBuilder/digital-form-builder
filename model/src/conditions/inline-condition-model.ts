@@ -4,8 +4,8 @@ import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
 import { valueFrom } from "./inline-condition-values";
-import { Coordinator, toPresentationString, toExpression } from "./helpers";
-import { ConditionsArray } from "./types";
+import { toPresentationString, toExpression } from "./helpers";
+import { Coordinator, ConditionsArray } from "./types";
 
 type ConditionRawObject =
   | ConditionsModel

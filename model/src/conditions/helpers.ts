@@ -1,8 +1,3 @@
-export enum Coordinator {
-  AND = "and",
-  OR = "or",
-}
-
 export function toPresentationString(condition) {
   return `${condition.coordinatorString()}${condition.conditionString()}`;
 }
