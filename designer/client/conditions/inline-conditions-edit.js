@@ -1,5 +1,9 @@
 import React from "react";
-import { GroupDef, toPresentationString, clone } from "@xgovformbuilder/model";
+import {
+  ConditionGroupDef,
+  toPresentationString,
+  clone,
+} from "@xgovformbuilder/model";
 import { icons } from "../icons";
 import InlineConditionsDefinition from "./inline-conditions-definition";
 
@@ -207,7 +211,9 @@ class InlineConditionsEdit extends React.Component {
             groups
               .sort((a, b) => a - b)
               .reduce((groupDefs, group) => {
-                groupDefs.push(new GroupDef(group[0], group[group.length - 1]));
+                groupDefs.push(
+                  new ConditionGroupDef(group[0], group[group.length - 1])
+                );
                 return groupDefs;
               }, [])
           ),

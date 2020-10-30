@@ -1,6 +1,6 @@
 import { ConditionsArray } from "./types";
 
-export class GroupDef {
+export class ConditionGroupDef {
   first: number;
   last: number;
 
