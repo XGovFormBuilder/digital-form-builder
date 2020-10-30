@@ -3,7 +3,7 @@ import { GroupDef } from "./group-def";
 import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
-import { valueFrom } from "./inline-condition-values";
+import { valueFrom } from "./condition-values";
 import { toPresentationString, toExpression } from "./helpers";
 import { Coordinator, ConditionsArray } from "./types";
 

@@ -1,5 +1,5 @@
 import { ComponentType, Component } from "../components";
-import { AbstractConditionValue } from "./inline-condition-values";
+import { AbstractConditionValue } from "./condition-values";
 
 import {
   timeUnits,
@@ -8,7 +8,7 @@ import {
   ConditionValue,
   DateDirections,
   RelativeTimeValue,
-} from "./inline-condition-values";
+} from "./condition-values";
 
 type Operator = "==" | "!=" | ">=" | "<=" | "<" | ">";
 

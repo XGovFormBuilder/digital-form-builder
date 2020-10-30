@@ -1,5 +1,5 @@
 import { Condition } from "../conditions/condition";
-import { ConditionsModel } from "../conditions/inline-condition-model";
+import { ConditionsModel } from "../conditions/condition-model";
 
 export type ConditionWrapperValue =
   | string

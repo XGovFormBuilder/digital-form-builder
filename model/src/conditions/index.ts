@@ -4,7 +4,7 @@ export {
   getOperatorNames,
   absoluteDateOrTimeOperatorNames,
   relativeDateOrTimeOperatorNames,
-} from "./inline-condition-operators";
+} from "./condition-operators";
 
 export {
   timeUnits,
@@ -14,13 +14,13 @@ export {
   ConditionValue,
   DateDirections,
   RelativeTimeValue,
-} from "./inline-condition-values";
+} from "./condition-values";
 
 export { Field } from "./field";
 export { GroupDef } from "./group-def";
 export { Condition } from "./condition";
 export { ConditionRef } from "./condition-ref";
 export { ConditionGroup } from "./condition-group";
-export { ConditionsModel } from "./inline-condition-model";
+export { ConditionsModel } from "./condition-model";
 export { toExpression, toPresentationString } from "./helpers";
 export { Coordinator } from "./types";
