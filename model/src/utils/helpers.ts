@@ -1,15 +1,20 @@
-import { Data } from "../data-model";
-
 export const serialiseAndDeserialise = <T>(obj: T): T => {
-  return JSON.parse(JSON.stringify(obj));
-};
-
-export const clone = <T>(obj: T): T => {
-  if (obj instanceof Data) {
-    return (obj as any).clone();
+  if (typeof obj === "object" && obj !== null) {
+    return JSON.parse(JSON.stringify(obj));
   }
 
-  return serialiseAndDeserialise<T>(obj);
+  return obj;
+};
+
+export const clone = <T>(obj: T & { clone?: () => T }): T => {
+  if (obj) {
+    if (typeof obj.clone === "function") {
+      return obj.clone();
+    }
+
+    return serialiseAndDeserialise<T>(obj);
+  }
+  return obj;
 };
 
 export function filter<T>(
