@@ -327,7 +327,7 @@ export class Data {
   }
 
   get hasConditions(): boolean {
-    return this.conditions.length > 0;
+    return this.#conditions.length > 0;
   }
 
   get conditions(): Array<ConditionsWrapper> {
