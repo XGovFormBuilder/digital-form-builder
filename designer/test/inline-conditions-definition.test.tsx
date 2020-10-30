@@ -775,7 +775,7 @@ function assertValueInputNotPresent(wrapper) {
   expect(wrapper.find("#cond-value").exists()).to.equal(false);
 }
 
-function assertFieldInputPresent(wrapper, fields, expectedField) {
+function assertFieldInputPresent(wrapper, fields, expectedField?) {
   const expectedFieldOptions = fields.map((field) => ({
     value: field.name,
     text: field.title,
