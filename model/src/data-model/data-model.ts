@@ -1,88 +1,25 @@
-import { StaticValues, valuesFrom, yesNoValues } from "./values";
-import type { ComponentValues } from "./values";
-import type { DataModel } from "./data-model-interface";
-import { clone } from "./helpers";
-import { ConditionsModel } from "./conditions";
+import { valuesFrom, yesNoValues } from "../values";
+import type { ComponentValues } from "../values";
+import {
+  ConditionsWrapper,
+  ConditionWrapperValue,
+  ConditionRawData,
+} from "./conditions-wrapper";
+import { InputWrapper } from "./input-wrapper";
+import { ValuesWrapper } from "./values-wrapper";
+import { clone, filter } from "../utils/helpers";
+import { Component } from "../components/types";
+import { Page, Section, List, Feedback } from "./types";
 
-function filter(obj, predicate) {
-  const result = {};
-  let key;
-  for (key in obj) {
-    if (obj[key] && predicate(obj[key])) {
-      result[key] = obj[key];
-    }
-  }
-  return result;
-}
+type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
+  name?: string;
+  conditions?: ConditionRawData[];
+  feedback?: Feedback;
+};
 
-class Input {
-  name: string | undefined = undefined;
-  title: string | undefined = undefined;
-  propertyPath: string | undefined;
-  page;
-  #parentItemName: string;
-
-  constructor(rawData, page, options) {
-    Object.assign(this, rawData);
-    const myPage = clone(page);
-    delete myPage.components;
-    this.page = myPage;
-    this.propertyPath =
-      !options.ignoreSection && page.section
-        ? `${page.section}.${this.name}`
-        : this.name;
-    this.#parentItemName = options.parentItemName;
-  }
-
-  get displayName(): string | undefined {
-    const titleWithContext = this.#parentItemName
-      ? `${this.title} under ${this.#parentItemName}`
-      : this.title;
-    return this.page.section
-      ? `${titleWithContext} in ${this.page.section}`
-      : titleWithContext;
-  }
-}
-
-export class Condition {
-  name: string | undefined;
-  displayName: string;
-  value;
-
-  constructor(rawData) {
-    Object.assign(this, rawData);
-    this.displayName = rawData.displayName || rawData.name;
-  }
-
-  get expression() {
-    if (typeof this.value === "string") {
-      return this.value;
-    } else {
-      return ConditionsModel.from(this.value).toExpression();
-    }
-  }
-
-  clone(): Condition {
-    return new Condition(this);
-  }
-}
-
-class ValuesWrapper {
-  values: ComponentValues;
-  data: DataModel;
-
-  constructor(values: ComponentValues, data: DataModel) {
-    this.values = values;
-    this.data = data;
-  }
-
-  toStaticValues(): StaticValues {
-    return this.values.toStaticValues(this.data);
-  }
-}
-
-export class Data implements DataModel {
+export class Data {
   /**
+   * TODO
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
    */
@@ -90,70 +27,83 @@ export class Data implements DataModel {
     {
       key: "feedbackContextInfo_formTitle",
       display: "Feedback source form name",
-      get: (contextInfo) => contextInfo.formTitle,
+      get: (contextInfo: { formTitle: string }) => contextInfo.formTitle,
     },
     {
       key: "feedbackContextInfo_pageTitle",
       display: "Feedback source page title",
-      get: (contextInfo) => contextInfo.pageTitle,
+      get: (contextInfo: { pageTitle: string }) => contextInfo.pageTitle,
     },
     {
       key: "feedbackContextInfo_url",
       display: "Feedback source url",
-      get: (contextInfo) => contextInfo.url,
+      get: (contextInfo: { url: string }) => contextInfo.url,
     },
   ];
 
-  startPage: string | undefined;
-  pages: Array<any> = [];
-  lists: Array<any> = [];
-  sections: Array<any> = [];
-  #conditions: Array<any> = [];
   #name: string = "";
-  #feedback;
+  startPage: string = "";
+  pages: Page[] = [];
+  lists: List[] = [];
+  sections: Section[] = [];
+  #conditions: ConditionsWrapper[] = [];
+  #feedback?: Feedback;
 
-  constructor(rawData) {
+  constructor(rawData: RawData) {
     const rawDataClone =
       rawData instanceof Data
         ? rawData._exposePrivateFields()
         : Object.assign({}, rawData);
-    this.#conditions = (rawDataClone.conditions || []).map(
-      (it) => new Condition(it)
-    );
+
+    this.#name = rawDataClone.name || "";
+    this.startPage = rawDataClone.startPage;
     this.#feedback = rawDataClone.feedback;
+    this.#conditions = (rawDataClone.conditions || []).map(
+      (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
+    );
+
+    delete rawDataClone.name;
     delete rawDataClone.conditions;
     delete rawDataClone.feedback;
+
     Object.assign(this, rawDataClone);
   }
 
-  _listInputsFor(page, input): Array<Input> {
+  _listInputsFor(page: Page, input: Component): Array<InputWrapper> {
     const values = this.valuesFor(input)?.toStaticValues();
     return values
       ? values.items.flatMap(
           (listItem) =>
             listItem.children
-              ?.filter((it) => it.name)
+              ?.filter((component) => component.name)
               ?.map(
-                (it) => new Input(it, page, { parentItemName: listItem.label })
+                (component) =>
+                  new InputWrapper(component, page, {
+                    parentItemName: listItem.label,
+                  })
               ) ?? []
         )
       : [];
   }
 
-  allInputs(): Array<Input> {
-    const inputs: Array<Input> = this.pages.flatMap((page) =>
+  allInputs(): Array<InputWrapper> {
+    const inputs: Array<InputWrapper> = this.pages.flatMap((page) =>
       (page.components || [])
         .filter((component) => component.name)
-        .flatMap((it) =>
-          [new Input(it, page, {})].concat(this._listInputsFor(page, it))
+        .flatMap((component) =>
+          [new InputWrapper(component, page, {})].concat(
+            this._listInputsFor(page, component)
+          )
         )
     );
+
     if (this.feedbackForm) {
       const startPage = this.findPage(this.startPage);
       const options = { ignoreSection: true };
+
       Data.FEEDBACK_CONTEXT_ITEMS.forEach((it) => {
         inputs.push(
-          new Input(
+          new InputWrapper(
             { type: "TextField", title: it.display, name: it.key },
             startPage,
             options
@@ -161,23 +111,26 @@ export class Data implements DataModel {
         );
       });
     }
+
     const names = new Set();
-    return inputs.filter((input: Input) => {
+
+    return inputs.filter((input: InputWrapper) => {
       const isPresent = !names.has(input.propertyPath);
       names.add(input.propertyPath);
       return isPresent;
     });
   }
 
-  inputsAccessibleAt(path: string): Array<Input> {
+  inputsAccessibleAt(path: string): Array<InputWrapper> {
     const precedingPages = this._allPathsLeadingTo(path);
     return this.allInputs().filter(
-      (it) => precedingPages.includes(it.page.path) || path === it.page.path
+      (input) =>
+        precedingPages.includes(input.page.path) || path === input.page.path
     );
   }
 
   findPage(path: string | undefined) {
-    return this.getPages().find((p) => p?.path === path);
+    return this.getPages().find((page) => page?.path === path);
   }
 
   findList(listName: string) {
@@ -185,11 +138,12 @@ export class Data implements DataModel {
   }
 
   addLink(from: string, to: string, condition: string): Data {
-    const fromPage = this.pages.find((p) => p.path === from);
-    const toPage = this.pages.find((p) => p.path === to);
+    const fromPage = this.pages.find((page) => page.path === from);
+    const toPage = this.pages.find((page) => page.path === to);
+
     if (fromPage && toPage) {
       const existingLink = fromPage.next?.find(
-        (it: { path: string }) => it.path === to
+        (page: { path: string }) => page.path === to
       );
 
       if (!existingLink) {
@@ -209,7 +163,7 @@ export class Data implements DataModel {
   }
 
   addSection(name: string, title: string): Data {
-    if (!this.sections.find((s) => s.name === name)) {
+    if (!this.sections.find((section) => section.name === name)) {
       this.sections.push({ name, title });
     }
     return this;
@@ -217,9 +171,10 @@ export class Data implements DataModel {
 
   updateLink(from: string, to: string, condition: string): Data {
     const fromPage = this.findPage(from);
-    const toPage = this.pages.find((p) => p.path === to);
+    const toPage = this.pages.find((page) => page.path === to);
+
     if (fromPage && toPage) {
-      const existingLink = fromPage.next?.find((it) => it.path === to);
+      const existingLink = fromPage.next?.find((page) => page.path === to);
       if (existingLink) {
         if (condition) {
           existingLink.condition = condition;
@@ -233,14 +188,18 @@ export class Data implements DataModel {
 
   updateLinksTo = (oldPath: string, newPath: string) => {
     this.pages
-      .filter((p) => p.next && p.next.find((link) => link.path === oldPath))
+      .filter((page) => page.next?.find((link) => link.path === oldPath))
       .forEach((page) => {
-        page.next.find((link) => link.path === oldPath).path = newPath;
+        const pageLink = page.next?.find((link) => link.path === oldPath);
+
+        if (pageLink) {
+          pageLink.path = newPath;
+        }
       });
     return this;
   };
 
-  addPage(page): Data {
+  addPage(page: Page): Data {
     this.pages.push(page);
     return this;
   }
@@ -249,24 +208,21 @@ export class Data implements DataModel {
     return this.pages;
   }
 
-  valuesFor(input): ValuesWrapper | undefined {
-    const values = this._valuesFor(input);
-
+  valuesFor(component: Component): ValuesWrapper | undefined {
+    const values = this._valuesFor(component);
     if (values) {
       return new ValuesWrapper(values, this);
     }
-
     return undefined;
   }
 
-  _valuesFor(input): ComponentValues | null {
-    if (input.type === "YesNoField") {
+  _valuesFor(component: Component): ComponentValues | null {
+    if (component.type === "YesNoField") {
       return yesNoValues;
     }
-    if (input.values) {
-      return valuesFrom(input.values);
+    if (component.values) {
+      return valuesFrom(component.values);
     }
-
     return null;
   }
 
@@ -280,16 +236,22 @@ export class Data implements DataModel {
       );
   }
 
-  addCondition(name: string, displayName: string, value): Data {
+  addCondition(
+    name: string,
+    displayName: string,
+    value: ConditionWrapperValue
+  ): Data {
     this.#conditions = this.#conditions;
-    if (this.#conditions.find((it) => it.name === name)) {
+
+    if (this.#conditions.find((condition) => condition.name === name)) {
       throw Error(`A condition already exists with name ${name}`);
     }
-    this.#conditions.push({ name, displayName, value });
+
+    this.#conditions.push(new ConditionsWrapper({ name, displayName, value }));
     return this;
   }
 
-  addComponent(pagePath: string, component): Data {
+  addComponent(pagePath: string, component: Component): Data {
     const page = this.findPage(pagePath);
     if (page) {
       page.components = page.components || [];
@@ -300,22 +262,31 @@ export class Data implements DataModel {
     return this;
   }
 
-  updateComponent(pagePath: string, componentName: string, component): Data {
+  updateComponent(
+    pagePath: string,
+    componentName: string,
+    component: Component
+  ): Data {
     const page = this.findPage(pagePath);
+
     if (page) {
       page.components = page.components || [];
+
       const index = page.components.findIndex(
-        (it) => it.name === componentName
+        (component: Component) => component.name === componentName
       );
+
       if (index < 0) {
         throw Error(
           `No component exists with name ${componentName} with in page with path ${pagePath}`
         );
       }
+
       page.components[index] = component;
     } else {
       throw Error(`No page exists with path ${pagePath}`);
     }
+
     return this;
   }
 
@@ -323,6 +294,7 @@ export class Data implements DataModel {
     const condition = this.#conditions.find(
       (condition) => condition.name === name
     );
+
     if (condition) {
       condition.displayName = displayName;
       condition.value = value;
@@ -338,9 +310,9 @@ export class Data implements DataModel {
         1
       );
       // Update any references to the condition
-      this.getPages().forEach((p) => {
-        Array.isArray(p.next) &&
-          p.next.forEach((n) => {
+      this.getPages().forEach((page) => {
+        Array.isArray(page.next) &&
+          page.next.forEach((n) => {
             if (n.if === name) {
               delete n.if;
             }
@@ -350,16 +322,18 @@ export class Data implements DataModel {
     return this;
   }
 
-  findCondition(name: string): Condition | undefined {
-    return this.conditions.find((condition) => condition.name === name);
+  findCondition(name: string): ConditionsWrapper | undefined {
+    return this.#conditions.find((condition) => condition.name === name);
   }
 
   get hasConditions(): boolean {
-    return this.conditions.length > 0;
+    return this.#conditions.length > 0;
   }
 
-  get conditions(): Array<Condition> {
-    return this.#conditions.map((it) => clone(it));
+  get conditions(): Array<ConditionsWrapper> {
+    return this.#conditions.map((condition: ConditionsWrapper) =>
+      clone(condition)
+    );
   }
 
   get name(): string {
@@ -399,11 +373,11 @@ export class Data implements DataModel {
     }
   }
 
-  get feedbackUrl(): string {
+  get feedbackUrl(): string | undefined {
     return this.#feedback?.url;
   }
 
-  clone(): Data {
+  clone() {
     return new Data(this._exposePrivateFields());
   }
 
@@ -419,7 +393,7 @@ export class Data implements DataModel {
     return Object.assign({}, this, {
       name: this.name,
       feedback: this.#feedback,
-      conditions: this.#conditions.map((it) => clone(it)),
+      conditions: this.#conditions.map((condition) => clone(condition)),
     });
   }
 }

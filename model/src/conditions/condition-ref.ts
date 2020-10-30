@@ -1,7 +1,7 @@
-import { AbstractCondition } from "./condition";
-import { Coordinator } from "./helpers";
+import { ConditionAbstract } from "./condition-abstract";
+import { Coordinator } from "./types";
 
-export class ConditionRef extends AbstractCondition {
+export class ConditionRef extends ConditionAbstract {
   conditionName: string;
   conditionDisplayName: string;
 

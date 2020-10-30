@@ -1,12 +1,18 @@
-import { Field } from "./field";
-import { GroupDef } from "./group-def";
+import { ConditionField } from "./condition-field";
+import { ConditionGroupDef } from "./condition-group-def";
 import { Condition } from "./condition";
 import { ConditionRef } from "./condition-ref";
 import { ConditionGroup } from "./condition-group";
-import { valueFrom } from "./inline-condition-values";
-import { Coordinator, toPresentationString, toExpression } from "./helpers";
+import { conditionValueFrom } from "./condition-values";
+import { toPresentationString, toExpression } from "./helpers";
+import { Coordinator, ConditionsArray } from "./types";
 
-type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
+type ConditionRawObject =
+  | ConditionsModel
+  | {
+      name: string;
+      conditions: Condition[];
+    };
 
 export class ConditionsModel {
   #groupedConditions: ConditionsArray = [];
@@ -85,7 +91,7 @@ export class ConditionsModel {
     return this;
   }
 
-  addGroups(groupDefs: GroupDef[]) {
+  addGroups(groupDefs: ConditionGroupDef[]) {
     this.#userGroupedConditions = this._group(
       this.#userGroupedConditions,
       groupDefs
@@ -184,7 +190,7 @@ export class ConditionsModel {
     );
   }
 
-  _group(conditions: ConditionsArray, groupDefs: GroupDef[]) {
+  _group(conditions: ConditionsArray, groupDefs: ConditionGroupDef[]) {
     return conditions.reduce((groups, condition, index, conditions) => {
       const groupDef = groupDefs.find((groupDef) => groupDef.contains(index));
 
@@ -230,15 +236,17 @@ export class ConditionsModel {
 
     if (hasAnd && hasOr) {
       let start = 0;
-      const groupDefs: GroupDef[] = [];
+      const groupDefs: ConditionGroupDef[] = [];
       orPositions.forEach((position, index) => {
         if (start < position - 1) {
-          groupDefs.push(new GroupDef(start, position - 1));
+          groupDefs.push(new ConditionGroupDef(start, position - 1));
         }
         const thisIsTheLastOr = orPositions.length === index + 1;
         const thereAreMoreConditions = conditions.length - 1 > position;
         if (thisIsTheLastOr && thereAreMoreConditions) {
-          groupDefs.push(new GroupDef(position, conditions.length - 1));
+          groupDefs.push(
+            new ConditionGroupDef(position, conditions.length - 1)
+          );
         }
         start = position;
       });
@@ -257,16 +265,14 @@ export class ConditionsModel {
     };
   }
 
-  static from(
-    obj: ConditionsModel | { name: string; conditions: Condition[] }
-  ) {
+  static from(obj: ConditionRawObject | ConditionsModel) {
     if (obj instanceof ConditionsModel) {
       return obj;
     }
     const toReturn = new ConditionsModel();
     toReturn.#conditionName = obj.name;
-    toReturn.#userGroupedConditions = obj.conditions.map((it) =>
-      conditionFrom(it)
+    toReturn.#userGroupedConditions = obj.conditions.map((condition) =>
+      conditionFrom(condition)
     );
     toReturn.#groupedConditions = toReturn._applyGroups(
       toReturn.#userGroupedConditions
@@ -300,9 +306,9 @@ const conditionFrom: ConditionFrom = function (it) {
   }
 
   return new Condition(
-    Field.from(it.field),
+    ConditionField.from(it.field),
     it.operator,
-    valueFrom(it.value),
+    conditionValueFrom(it.value),
     it.coordinator
   );
 };

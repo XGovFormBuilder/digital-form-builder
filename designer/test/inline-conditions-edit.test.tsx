@@ -16,7 +16,7 @@ import InlineConditionsEdit from "../client/conditions/inline-conditions-edit";
 import {
   Condition,
   ConditionsModel,
-  Field,
+  ConditionField,
   ConditionValue,
   getOperatorNames,
 } from "@xgovformbuilder/model";
@@ -57,7 +57,11 @@ suite("Editing inline conditions", () => {
     },
   };
   const firstCondition = new Condition(
-    new Field(fields.field1.name, fields.field1.type, fields.field1.label),
+    new ConditionField(
+      fields.field1.name,
+      fields.field1.type,
+      fields.field1.label
+    ),
     isEqualToOperator,
     new ConditionValue("M")
   );
@@ -102,7 +106,11 @@ suite("Editing inline conditions", () => {
 
     test("Clicking the edit link for a subsequent condition causes the field definition inputs to be pre-populated correctly", () => {
       const condition = new Condition(
-        new Field(fields.field2.name, fields.field2.type, fields.field2.label),
+        new ConditionField(
+          fields.field2.name,
+          fields.field2.type,
+          fields.field2.label
+        ),
         isEqualToOperator,
         new ConditionValue("N"),
         "and"
@@ -125,7 +133,7 @@ suite("Editing inline conditions", () => {
     test("Save condition callback results in an updated condition string and returns the users to an updated edit panel", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -153,7 +161,7 @@ suite("Editing inline conditions", () => {
         .instance()
         .saveCondition(
           new Condition(
-            new Field(
+            new ConditionField(
               fields.field1.name,
               fields.field1.type,
               fields.field1.label
@@ -175,7 +183,7 @@ suite("Editing inline conditions", () => {
     test("Grouping conditions combines them into a single condition which can be split but not edited", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -225,7 +233,7 @@ suite("Editing inline conditions", () => {
     test("should not group non-consecutive conditions", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -237,7 +245,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field3.name,
             fields.field3.type,
             fields.field3.label
@@ -283,7 +291,7 @@ suite("Editing inline conditions", () => {
     test("should group multiple consecutive condition groups", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -295,7 +303,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field3.name,
             fields.field3.type,
             fields.field3.label
@@ -307,7 +315,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field3.name,
             fields.field3.type,
             fields.field3.label
@@ -319,7 +327,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -381,7 +389,7 @@ suite("Editing inline conditions", () => {
     test("splitting grouped conditions returns them to their original components", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -430,7 +438,7 @@ suite("Editing inline conditions", () => {
     test("removing selected conditions", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -442,7 +450,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field3.name,
             fields.field3.type,
             fields.field3.label
@@ -478,7 +486,7 @@ suite("Editing inline conditions", () => {
     test("Should deselect conditions", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -490,7 +498,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field3.name,
             fields.field3.type,
             fields.field3.label
@@ -523,7 +531,7 @@ suite("Editing inline conditions", () => {
     test("removing grouped conditions removes everything in the group", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label
@@ -535,7 +543,7 @@ suite("Editing inline conditions", () => {
       );
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field3.name,
             fields.field3.type,
             fields.field3.label
@@ -577,7 +585,7 @@ suite("Editing inline conditions", () => {
     test("removing last condition triggers exitCallback", () => {
       conditions.add(
         new Condition(
-          new Field(
+          new ConditionField(
             fields.field2.name,
             fields.field2.type,
             fields.field2.label

@@ -228,7 +228,7 @@ const feedbackSchema = joi.object().keys({
   }),
 });
 
-const schema = joi
+export const Schema = joi
   .object()
   .required()
   .keys({
@@ -248,7 +248,6 @@ const schema = joi
     version: joi.number().default(0),
   });
 
-export default schema;
 /**
  *  Schema versions:
  *  Undefined / 0 - initial version as at 28/8/20. Conditions may be in object structure or string form.

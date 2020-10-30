@@ -5,8 +5,8 @@ import {
   Coordinator,
   ConditionsModel,
   Condition,
-  Field,
-  GroupDef,
+  ConditionField,
+  ConditionGroupDef,
   DateDirections,
   dateUnits,
   RelativeTimeValue,
@@ -45,7 +45,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Monkeys")
         )
@@ -82,14 +82,14 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Monkeys")
         )
       );
       underTest.add(
         new Condition(
-          new Field("monkeys", "TextField", "Monkeys"),
+          new ConditionField("monkeys", "TextField", "Monkeys"),
           "is not",
           new ConditionValue("Giraffes"),
           Coordinator.AND
@@ -97,7 +97,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -149,14 +149,14 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Monkeys")
         )
       );
       underTest.add(
         new Condition(
-          new Field("monkeys", "TextField", "Monkeys"),
+          new ConditionField("monkeys", "TextField", "Monkeys"),
           "is not",
           new ConditionValue("Giraffes"),
           Coordinator.OR
@@ -164,7 +164,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.OR
@@ -212,14 +212,14 @@ suite("inline condition model", () => {
     test("should return a human readable presentation string with all properties", () => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
       );
       underTest.add(
         new Condition(
-          new Field("monkeys", "TextField", "Monkeys"),
+          new ConditionField("monkeys", "TextField", "Monkeys"),
           "is",
           new ConditionValue("Giraffes"),
           Coordinator.OR
@@ -227,7 +227,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -246,14 +246,14 @@ suite("inline condition model", () => {
     test("should return a human readable presentation string with all properties", () => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -261,7 +261,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("monkeys", "TextField", "Monkeys"),
+          new ConditionField("monkeys", "TextField", "Monkeys"),
           "is",
           new ConditionValue("Giraffes"),
           Coordinator.OR
@@ -280,7 +280,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -288,7 +288,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -296,7 +296,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -304,7 +304,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is at least",
           new RelativeTimeValue("10", "days", DateDirections.PAST),
           Coordinator.OR
@@ -312,7 +312,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -337,7 +337,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "YesNoField", "Badger"),
+          new ConditionField("badger", "YesNoField", "Badger"),
           "is",
           new ConditionValue("true")
         )
@@ -353,14 +353,14 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Monkeys")
         )
       );
       underTest.add(
         new Condition(
-          new Field("monkeys", "TextField", "Monkeys"),
+          new ConditionField("monkeys", "TextField", "Monkeys"),
           "is not",
           new ConditionValue("Giraffes"),
           Coordinator.AND
@@ -368,7 +368,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -380,7 +380,7 @@ suite("inline condition model", () => {
       underTest.replace(
         0,
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Giraffes")
         )
@@ -394,7 +394,7 @@ suite("inline condition model", () => {
       underTest.replace(
         2,
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Giraffes"),
           Coordinator.AND
@@ -410,7 +410,7 @@ suite("inline condition model", () => {
         underTest.replace(
           0,
           new Condition(
-            new Field("badger", "TextField", "Badger"),
+            new ConditionField("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes"),
             Coordinator.AND
@@ -424,7 +424,7 @@ suite("inline condition model", () => {
         underTest.replace(
           3,
           new Condition(
-            new Field("badger", "TextField", "Badger"),
+            new ConditionField("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes"),
             Coordinator.AND
@@ -438,7 +438,7 @@ suite("inline condition model", () => {
         underTest.replace(
           4,
           new Condition(
-            new Field("badger", "TextField", "Badger"),
+            new ConditionField("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes"),
             Coordinator.AND
@@ -452,7 +452,7 @@ suite("inline condition model", () => {
         underTest.replace(
           2,
           new Condition(
-            new Field("badger", "TextField", "Badger"),
+            new ConditionField("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Giraffes")
           )
@@ -465,7 +465,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -473,7 +473,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -481,7 +481,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -489,7 +489,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -497,7 +497,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -506,59 +506,68 @@ suite("inline condition model", () => {
     });
 
     test("should apply defined group and auto-group the remaining conditions", () => {
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       expect(underTest.toPresentationString()).to.equal(
         "(('Badger' is 'Zebras' or 'Under 18') and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should be able to apply group with single and condition and not need to clarify", () => {
-      underTest.addGroups([new GroupDef(1, 2)]);
+      underTest.addGroups([new ConditionGroupDef(1, 2)]);
       expect(underTest.toPresentationString()).to.equal(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should correctly auto-group multiple user groups together", () => {
-      underTest.addGroups([new GroupDef(0, 1), new GroupDef(2, 3)]);
+      underTest.addGroups([
+        new ConditionGroupDef(0, 1),
+        new ConditionGroupDef(2, 3),
+      ]);
       expect(underTest.toPresentationString()).to.equal(
         "(('Badger' is 'Zebras' or 'Under 18') and ('Squiffy' is 'Donkeys' or 'Duration' is at least '10')) or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should correctly handle trailing and condition with existing groups", () => {
-      underTest.addGroups([new GroupDef(0, 1), new GroupDef(2, 4)]);
+      underTest.addGroups([
+        new ConditionGroupDef(0, 1),
+        new ConditionGroupDef(2, 4),
+      ]);
       expect(underTest.toPresentationString()).to.equal(
         "('Badger' is 'Zebras' or 'Under 18') and ('Squiffy' is 'Donkeys' or 'Duration' is at least '10' or 'Birthday' is '10/10/2019') and 'Squiffy' is not 'Donkeys'"
       );
     });
 
     test("should correctly clarify conditions inside user generated groups", () => {
-      underTest.addGroups([new GroupDef(0, 2), new GroupDef(3, 5)]);
+      underTest.addGroups([
+        new ConditionGroupDef(0, 2),
+        new ConditionGroupDef(3, 5),
+      ]);
       expect(underTest.toPresentationString()).to.equal(
         "('Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys')) or ('Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys'))"
       );
     });
 
     test("subsequent calls to addGroups should operate on the previously grouped entries", () => {
-      underTest.addGroups([new GroupDef(0, 2)]);
-      underTest.addGroups([new GroupDef(1, 2)]);
+      underTest.addGroups([new ConditionGroupDef(0, 2)]);
+      underTest.addGroups([new ConditionGroupDef(1, 2)]);
       expect(underTest.toPresentationString()).to.equal(
         "('Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys')) or (('Duration' is at least '10' or 'Birthday' is '10/10/2019') and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("subsequent calls to addGroups can create nested groups", () => {
-      underTest.addGroups([new GroupDef(0, 1)]);
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       expect(underTest.toPresentationString()).to.equal(
         "(('Badger' is 'Zebras' or 'Under 18') and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("user groupings, but not automatic groupings, should be returned from asPerUserGroupings", () => {
-      underTest.addGroups([new GroupDef(0, 1)]);
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       const returned = underTest.asPerUserGroupings;
       expect(returned).to.equal([
         {
@@ -616,7 +625,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -624,7 +633,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -632,7 +641,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -640,7 +649,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -648,7 +657,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -657,7 +666,7 @@ suite("inline condition model", () => {
     });
 
     test("should split defined group and auto-group the remaining conditions", () => {
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.splitGroup(0);
       expect(underTest.toPresentationString()).to.equal(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
@@ -665,8 +674,8 @@ suite("inline condition model", () => {
     });
 
     test("should split composite group and auto-group the remaining conditions", () => {
-      underTest.addGroups([new GroupDef(0, 1)]);
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.splitGroup(0);
       expect(underTest.toPresentationString()).to.equal(
         "(('Badger' is 'Zebras' or 'Under 18') and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
@@ -685,7 +694,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -693,7 +702,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -701,7 +710,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -709,7 +718,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -717,7 +726,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -735,20 +744,20 @@ suite("inline condition model", () => {
     });
 
     test("should remove the only condition", () => {
-      underTest.addGroups([new GroupDef(0, 5)]);
+      underTest.addGroups([new ConditionGroupDef(0, 5)]);
       underTest.remove([0]);
       expect(underTest.asPerUserGroupings.length).to.equal(0);
     });
 
     test("should allow removal of condition before group condition", () => {
-      underTest.addGroups([new GroupDef(1, 2)]);
+      underTest.addGroups([new ConditionGroupDef(1, 2)]);
       underTest.remove([0]);
       expect(underTest.asPerUserGroupings.length).to.equal(4);
     });
 
     test("should remove all elements from a user-defined group", () => {
       expect(underTest.asPerUserGroupings.length).to.equal(6);
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       expect(underTest.asPerUserGroupings.length).to.equal(5);
       underTest.remove([0]);
       expect(underTest.asPerUserGroupings.length).to.equal(4);
@@ -760,8 +769,8 @@ suite("inline condition model", () => {
 
     test("should remove all elements from a nested group", () => {
       expect(underTest.asPerUserGroupings.length).to.equal(6);
-      underTest.addGroups([new GroupDef(0, 1)]);
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       expect(underTest.asPerUserGroupings.length).to.equal(4);
       underTest.remove([0]);
       expect(underTest.asPerUserGroupings.length).to.equal(3);
@@ -804,7 +813,7 @@ suite("inline condition model", () => {
       underTest.name = "some condition name";
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -812,7 +821,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -820,7 +829,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -828,7 +837,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -836,7 +845,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -863,7 +872,7 @@ suite("inline condition model", () => {
       underTest.name = "some condition name";
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -871,7 +880,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -879,7 +888,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -887,7 +896,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -895,13 +904,13 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
         )
       );
-      underTest.addGroups([new GroupDef(0, 2)]);
+      underTest.addGroups([new ConditionGroupDef(0, 2)]);
     });
 
     test("should clear state", () => {
@@ -918,7 +927,7 @@ suite("inline condition model", () => {
     beforeEach(() => {
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
@@ -926,7 +935,7 @@ suite("inline condition model", () => {
       underTest.add(new ConditionRef("under18", "Under 18", Coordinator.OR));
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -934,7 +943,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -942,7 +951,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -950,7 +959,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -983,7 +992,7 @@ suite("inline condition model", () => {
     });
 
     test("should move a condition group earlier and switch co-ordinators when becoming the first item", () => {
-      underTest.addGroups([new GroupDef(1, 2)]);
+      underTest.addGroups([new ConditionGroupDef(1, 2)]);
       underTest.moveEarlier(1);
 
       expect(underTest.toPresentationString()).to.equal(
@@ -1064,7 +1073,7 @@ suite("inline condition model", () => {
     });
 
     test("should move a condition group later and switch co-ordinators when moving the first item", () => {
-      underTest.addGroups([new GroupDef(0, 1)]);
+      underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.moveLater(0);
 
       expect(underTest.toPresentationString()).to.equal(
@@ -1079,7 +1088,7 @@ suite("inline condition model", () => {
         expect(
           () =>
             new Condition(
-              new Field("badger", "TextField", "Badger"),
+              new ConditionField("badger", "TextField", "Badger"),
               null,
               new ConditionValue("Monkeys")
             )
@@ -1090,7 +1099,7 @@ suite("inline condition model", () => {
         expect(
           () =>
             new Condition(
-              new Field("badger", "TextField", "Badger"),
+              new ConditionField("badger", "TextField", "Badger"),
               {} as string,
               new ConditionValue("Monkeys")
             )
@@ -1105,44 +1114,57 @@ suite("inline condition model", () => {
         ).to.throw(Error);
       });
 
-      test("should throw an error on condition creation if field is not a Field type", () => {
+      test("should throw an error on condition creation if field is not a ConditionField type", () => {
         expect(
-          () => new Condition({} as Field, "is", new ConditionValue("Monkeys"))
+          () =>
+            new Condition(
+              {} as ConditionField,
+              "is",
+              new ConditionValue("Monkeys")
+            )
         ).to.throw(Error);
       });
 
       test("should throw an error on field creation if no value provided", () => {
-        expect(() => new Field(null, "TextField", "Badger")).to.throw(Error);
+        expect(() => new ConditionField(null, "TextField", "Badger")).to.throw(
+          Error
+        );
       });
 
       test("should throw an error on field creation if no type provided", () => {
-        expect(() => new Field("badger", undefined, "Badger")).to.throw(Error);
+        expect(
+          () => new ConditionField("badger", undefined, "Badger")
+        ).to.throw(Error);
       });
 
       test("should throw an error on field creation if invalid type provided", () => {
         expect(
-          () => new Field("badger", "MadeUpType" as any, "Badger")
+          () => new ConditionField("badger", "MadeUpType" as any, "Badger")
         ).to.throw(Error);
       });
 
       test("should throw an error on field creation if invalid name value type provided", () => {
-        expect(() => new Field({} as string, "TextField", "Badger")).to.throw(
-          Error
-        );
+        expect(
+          () => new ConditionField({} as string, "TextField", "Badger")
+        ).to.throw(Error);
       });
 
       test("should throw an error on field creation if invalid display value type provided", () => {
-        expect(() => new Field("Badger", "TextField", {} as string)).to.throw(
+        expect(
+          () => new ConditionField("Badger", "TextField", {} as string)
+        ).to.throw(Error);
+      });
+
+      test("should throw an error on field creation if no display value provided", () => {
+        expect(() => new ConditionField("badger", "TextField", null)).to.throw(
           Error
         );
       });
 
-      test("should throw an error on field creation if no display value provided", () => {
-        expect(() => new Field("badger", "TextField", null)).to.throw(Error);
-      });
-
       test("should throw errors from factory method", () => {
-        expect(() => Field.from({ name: "badger" } as any)).to.throw(Error);
+        expect(() => ConditionField.from({ name: "badger" } as any)).to.throw(
+          Error
+        );
       });
     });
 
@@ -1151,7 +1173,7 @@ suite("inline condition model", () => {
         expect(
           () =>
             new Condition(
-              new Field("badger", "TextField", "Badger"),
+              new ConditionField("badger", "TextField", "Badger"),
               "is",
               undefined,
               undefined
@@ -1193,7 +1215,7 @@ suite("inline condition model", () => {
         expect(
           () =>
             new Condition(
-              new Field("badger", "TextField", "Badger"),
+              new ConditionField("badger", "TextField", "Badger"),
               "is",
               new ConditionValue("Monkeys"),
               "is" as Coordinator
@@ -1205,7 +1227,7 @@ suite("inline condition model", () => {
         expect(() =>
           underTest.add(
             new Condition(
-              new Field("badger", "TextField", "Badger"),
+              new ConditionField("badger", "TextField", "Badger"),
               "is",
               new ConditionValue("Monkeys"),
               Coordinator.OR
@@ -1217,7 +1239,7 @@ suite("inline condition model", () => {
       test("should throw an error on adding subsequent condition if no coordinator is provided", () => {
         underTest.add(
           new Condition(
-            new Field("badger", "TextField", "Badger"),
+            new ConditionField("badger", "TextField", "Badger"),
             "is",
             new ConditionValue("Monkeys")
           )
@@ -1225,7 +1247,7 @@ suite("inline condition model", () => {
         expect(() =>
           underTest.add(
             new Condition(
-              new Field("badger", "TextField", "Badger"),
+              new ConditionField("badger", "TextField", "Badger"),
               "is",
               new ConditionValue("Monkeys")
             )
@@ -1237,19 +1259,19 @@ suite("inline condition model", () => {
     describe("invalid group def", () => {
       test("should throw error if there is no last value", () => {
         // @ts-ignore
-        expect(() => new GroupDef(3)).to.throw(Error);
+        expect(() => new ConditionGroupDef(3)).to.throw(Error);
       });
 
       test("should throw error if there is no first value", () => {
-        expect(() => new GroupDef(null, 3)).to.throw(Error);
+        expect(() => new ConditionGroupDef(null, 3)).to.throw(Error);
       });
 
       test("should throw error if first > last", () => {
-        expect(() => new GroupDef(4, 3)).to.throw(Error);
+        expect(() => new ConditionGroupDef(4, 3)).to.throw(Error);
       });
 
       test("should throw error if first == last", () => {
-        expect(() => new GroupDef(4, 4)).to.throw(Error);
+        expect(() => new ConditionGroupDef(4, 4)).to.throw(Error);
       });
     });
   });
@@ -1259,14 +1281,14 @@ suite("inline condition model", () => {
       underTest.name = "some condition name";
       underTest.add(
         new Condition(
-          new Field("badger", "TextField", "Badger"),
+          new ConditionField("badger", "TextField", "Badger"),
           "is",
           new ConditionValue("Zebras")
         )
       );
       underTest.add(
         new Condition(
-          new Field("monkeys", "TextField", "Monkeys"),
+          new ConditionField("monkeys", "TextField", "Monkeys"),
           "is",
           new ConditionValue("giraffes", "Giraffes"),
           Coordinator.OR
@@ -1274,7 +1296,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -1282,7 +1304,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("duration", "NumberField", "Duration"),
+          new ConditionField("duration", "NumberField", "Duration"),
           "is at least",
           new ConditionValue("10"),
           Coordinator.OR
@@ -1290,7 +1312,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("birthday", "DateField", "Birthday"),
+          new ConditionField("birthday", "DateField", "Birthday"),
           "is",
           new ConditionValue("10/10/2019"),
           Coordinator.OR
@@ -1298,7 +1320,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("reported", "DateField", "Reported"),
+          new ConditionField("reported", "DateField", "Reported"),
           "is more than",
           new RelativeTimeValue(
             "10",
@@ -1310,7 +1332,7 @@ suite("inline condition model", () => {
       );
       underTest.add(
         new Condition(
-          new Field("squiffy", "TextField", "Squiffy"),
+          new ConditionField("squiffy", "TextField", "Squiffy"),
           "is not",
           new ConditionValue("Donkeys"),
           Coordinator.AND
@@ -1323,7 +1345,7 @@ suite("inline condition model", () => {
           Coordinator.OR
         )
       );
-      underTest.addGroups([new GroupDef(0, 2)]);
+      underTest.addGroups([new ConditionGroupDef(0, 2)]);
     });
 
     test("serialising to json returns the expected result", () => {

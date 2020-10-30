@@ -1,9 +1,9 @@
 import React from "react";
 import {
   Condition,
-  Field,
+  ConditionField,
   ConditionRef,
-  valueFrom,
+  conditionValueFrom,
   getOperatorNames,
   clone,
 } from "@xgovformbuilder/model";
@@ -64,9 +64,9 @@ class InlineConditionsDefinition extends React.Component {
     } else {
       this.props.saveCallback(
         new Condition(
-          Field.from(condition.field),
+          ConditionField.from(condition.field),
           condition.operator,
-          valueFrom(condition.value),
+          conditionValueFrom(condition.value),
           condition.coordinator
         )
       );

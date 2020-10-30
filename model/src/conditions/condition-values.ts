@@ -1,36 +1,8 @@
-const conditionValueFactories = {};
+import { ConditionValueAbstract } from "./condition-value-abstract";
+import { Registration } from "./condition-value-registration";
+import { DateTimeUnitValues, DateUnits, TimeUnits } from "./types";
 
-class Registration {
-  type: string;
-
-  constructor(type: string, factory) {
-    conditionValueFactories[type] = factory;
-    this.type = type;
-  }
-}
-
-export class AbstractConditionValue {
-  type: string;
-
-  constructor(registration) {
-    if (new.target === AbstractConditionValue) {
-      throw new TypeError("Cannot construct ConditionValue instances directly");
-    }
-
-    if (!(registration instanceof Registration)) {
-      throw new TypeError(
-        "You must register your value type! Call registerValueType!"
-      );
-    }
-
-    this.type = registration.type;
-  }
-
-  toPresentationString() {}
-  toExpression() {}
-}
-
-export class ConditionValue extends AbstractConditionValue {
+export class ConditionValue extends ConditionValueAbstract {
   value: string;
   display: string;
 
@@ -66,32 +38,14 @@ export class ConditionValue extends AbstractConditionValue {
   }
 }
 
-const valueType = registerValueType("Value", (obj) => ConditionValue.from(obj));
+const valueType = Registration.register("Value", (obj) =>
+  ConditionValue.from(obj)
+);
 
 export enum DateDirections {
   FUTURE = "in the future",
   PAST = "in the past",
 }
-
-type DateTimeUnitValues =
-  | "years"
-  | "months"
-  | "days"
-  | "hours"
-  | "minutes"
-  | "seconds";
-
-type DateUnits = {
-  YEARS: { display: "year(s)"; value: "years" };
-  MONTHS: { display: "month(s)"; value: "months" };
-  DAYS: { display: "day(s)"; value: "days" };
-};
-
-type TimeUnits = {
-  HOURS: { display: "hour(s)"; value: "hours" };
-  MINUTES: { display: "minute(s)"; value: "minutes" };
-  SECONDS: { display: "second(s)"; value: "seconds" };
-};
 
 export const dateUnits: DateUnits = {
   YEARS: { display: "year(s)", value: "years" },
@@ -111,7 +65,7 @@ export const dateTimeUnits: DateUnits & TimeUnits = Object.assign(
   timeUnits
 );
 
-export class RelativeTimeValue extends AbstractConditionValue {
+export class RelativeTimeValue extends ConditionValueAbstract {
   timePeriod: string;
   timeUnit: DateTimeUnitValues;
   direction: DateDirections;
@@ -175,22 +129,18 @@ export class RelativeTimeValue extends AbstractConditionValue {
   }
 }
 
-export const relativeTimeValueType = registerValueType(
+export const relativeTimeValueType = Registration.register(
   "RelativeTime",
   (obj): RelativeTimeValue => RelativeTimeValue.from(obj)
 );
 
-/**
- * All value types should call this, and should be located in this file.
- * Furthermore the types should be registered without the classes needing to be instantiated.
- *
- * Otherwise we can't guarantee they've been registered for deserialization before
- * valueFrom is called
- */
-function registerValueType(type: string, factory: (obj: any) => Registration) {
-  return new Registration(type, factory);
-}
+type ConditionValueFrom =
+  | Pick<ConditionValue, "type" | "value" | "display">
+  | Pick<
+      RelativeTimeValue,
+      "type" | "timePeriod" | "timeUnit" | "direction" | "timeOnly"
+    >;
 
-export function valueFrom(obj) {
-  return conditionValueFactories[obj.type](obj);
+export function conditionValueFrom(obj: ConditionValueFrom) {
+  return Registration.conditionValueFrom(obj);
 }

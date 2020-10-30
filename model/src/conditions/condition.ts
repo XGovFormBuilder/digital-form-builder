@@ -1,92 +1,30 @@
-import { getExpression } from "./inline-condition-operators";
-import {
-  ConditionValue,
-  AbstractConditionValue,
-  RelativeTimeValue,
-} from "./inline-condition-values";
-import { Coordinator } from "./helpers";
-import { Field } from "./field";
+import { ConditionField } from "./condition-field";
+import { ConditionAbstract } from "./condition-abstract";
+import { getExpression } from "./condition-operators";
+import { ConditionValue, RelativeTimeValue } from "./condition-values";
+import { ConditionValueAbstract } from "./condition-value-abstract";
+import { Coordinator } from "./types";
 
-export class AbstractCondition {
-  coordinator: Coordinator | undefined;
-
-  constructor(coordinator: Coordinator | undefined) {
-    if (coordinator && !Object.values(Coordinator).includes(coordinator)) {
-      throw Error(`coordinator ${coordinator} is not a valid coordinator`);
-    }
-
-    this.coordinator = coordinator;
-  }
-
-  coordinatorString() {
-    return this.coordinator ? `${this.coordinator} ` : "";
-  }
-
-  getCoordinator() {
-    return this.coordinator;
-  }
-
-  setCoordinator(coordinator: Coordinator | undefined) {
-    this.coordinator = coordinator;
-  }
-
-  isGroup() {
-    return false;
-  }
-
-  getGroupedConditions() {
-    return [this];
-  }
-
-  _asFirstCondition() {
-    delete this.coordinator;
-  }
-
-  asFirstCondition() {
-    throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
-    );
-  }
-
-  clone() {
-    throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
-    );
-  }
-
-  conditionString() {
-    throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
-    );
-  }
-
-  conditionExpression() {
-    throw Error(
-      "Implement on the subclass (Why do we have to have this method here at all?!)"
-    );
-  }
-}
-
-export class Condition extends AbstractCondition {
-  field: Field;
+export class Condition extends ConditionAbstract {
+  field: ConditionField;
   operator: string;
   value: ConditionValue | RelativeTimeValue;
 
   constructor(
-    field: Field,
+    field: ConditionField,
     operator: string,
     value: ConditionValue | RelativeTimeValue,
     coordinator?: Coordinator
   ) {
     super(coordinator);
 
-    if (!(field instanceof Field)) {
-      throw Error(`field ${field} is not a valid Field object`);
+    if (!(field instanceof ConditionField)) {
+      throw Error(`field ${field} is not a valid ConditionField object`);
     }
     if (typeof operator !== "string") {
       throw Error(`operator ${operator} is not a valid operator`);
     }
-    if (!(value instanceof AbstractConditionValue)) {
+    if (!(value instanceof ConditionValueAbstract)) {
       throw Error(`value ${value} is not a valid value type`);
     }
 
@@ -117,7 +55,7 @@ export class Condition extends AbstractCondition {
 
   clone() {
     return new Condition(
-      Field.from(this.field),
+      ConditionField.from(this.field),
       this.operator,
       this.value.clone(),
       this.coordinator
