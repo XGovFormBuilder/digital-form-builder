@@ -1,5 +1,5 @@
-import { Coordinator, toPresentationString, toExpression } from "./helpers";
-import { ConditionsArray } from "./types";
+import { toPresentationString, toExpression } from "./helpers";
+import { Coordinator, ConditionsArray } from "./types";
 
 export class ConditionGroup {
   conditions: ConditionsArray;

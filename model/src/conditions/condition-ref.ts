@@ -1,5 +1,5 @@
 import { ConditionAbstract } from "./condition-abstract";
-import { Coordinator } from "./helpers";
+import { Coordinator } from "./types";
 
 export class ConditionRef extends ConditionAbstract {
   conditionName: string;

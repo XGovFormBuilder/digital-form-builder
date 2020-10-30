@@ -1,4 +1,4 @@
-import { Coordinator } from "./helpers";
+import { Coordinator } from "./types";
 
 export class ConditionAbstract {
   coordinator: Coordinator | undefined;

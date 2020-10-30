@@ -1,12 +1,12 @@
 import { Field } from "./field";
-import { Coordinator } from "./helpers";
 import { ConditionAbstract } from "./condition-abstract";
-import { getExpression } from "./inline-condition-operators";
+import { getExpression } from "./condition-operators";
 import {
   ConditionValue,
   AbstractConditionValue,
   RelativeTimeValue,
-} from "./inline-condition-values";
+} from "./condition-values";
+import { Coordinator } from "./types";
 
 export class Condition extends ConditionAbstract {
   field: Field;
