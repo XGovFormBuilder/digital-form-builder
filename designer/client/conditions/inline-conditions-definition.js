@@ -3,7 +3,7 @@ import {
   Condition,
   ConditionField,
   ConditionRef,
-  valueFrom,
+  conditionValueFrom,
   getOperatorNames,
   clone,
 } from "@xgovformbuilder/model";
@@ -66,7 +66,7 @@ class InlineConditionsDefinition extends React.Component {
         new Condition(
           ConditionField.from(condition.field),
           condition.operator,
-          valueFrom(condition.value),
+          conditionValueFrom(condition.value),
           condition.coordinator
         )
       );

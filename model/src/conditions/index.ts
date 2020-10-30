@@ -10,10 +10,10 @@ export {
   timeUnits,
   dateUnits,
   dateTimeUnits,
-  valueFrom,
   ConditionValue,
   DateDirections,
   RelativeTimeValue,
+  conditionValueFrom,
 } from "./condition-values";
 
 export { ConditionField } from "./condition-field";

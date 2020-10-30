@@ -12,7 +12,7 @@ class Registration {
 export class AbstractConditionValue {
   type: string;
 
-  constructor(registration) {
+  constructor(registration: Registration) {
     if (new.target === AbstractConditionValue) {
       throw new TypeError("Cannot construct ConditionValue instances directly");
     }
@@ -191,6 +191,6 @@ function registerValueType(type: string, factory: (obj: any) => Registration) {
   return new Registration(type, factory);
 }
 
-export function valueFrom(obj) {
+export function conditionValueFrom(obj: { type: string }) {
   return conditionValueFactories[obj.type](obj);
 }

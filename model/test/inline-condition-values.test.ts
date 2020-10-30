@@ -1,7 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 
-import { ConditionValue, valueFrom } from "../src";
+import { ConditionValue, conditionValueFrom } from "../src";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -16,7 +16,7 @@ suite("inline condition values", () => {
       value: "badgers",
       display: "Badgers",
     };
-    const returned = valueFrom(value);
+    const returned = conditionValueFrom(value);
 
     expect(returned instanceof ConditionValue).to.equal(true);
     expect(returned).to.equal(new ConditionValue("badgers", "Badgers"));
@@ -28,7 +28,7 @@ suite("inline condition values", () => {
       value: "badgers",
       display: "Badgers",
     };
-    const returned = valueFrom(value);
+    const returned = conditionValueFrom(value);
 
     expect(returned instanceof ConditionValue).to.equal(true);
     expect(returned).to.equal(new ConditionValue("badgers", "Badgers"));
