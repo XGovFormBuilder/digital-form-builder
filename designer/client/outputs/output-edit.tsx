@@ -90,7 +90,7 @@ class OutputEdit extends Component<Props, State> {
 
     data
       .save(copy)
-      .then((data: Data) => {
+      .then((data) => {
         this.props.onEdit({ data });
       })
       .catch((err: Error) => {
@@ -117,7 +117,7 @@ class OutputEdit extends Component<Props, State> {
 
     data
       .save(copy)
-      .then((data: Data) => {
+      .then((data) => {
         this.props.onEdit({ data });
       })
       .catch((err: Error) => {
