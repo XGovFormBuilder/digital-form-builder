@@ -1,8 +1,11 @@
 const { Given, When, Then } = require("cucumber");
+const AddLinkSection = require("../pageobjects/sections/add-link.section");
 const AddPageSection = require("../pageobjects/sections/add-page.section");
 const ConfigPage = require("../pageobjects/pages/config.page");
 const FormDesignerPage = require("../pageobjects/pages/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
+const Actions = require("../actions/actions");
+const { acceptAlert } = require("../../support/testHelpers");
 
 Given("I have chosen to {string} to my form", (menuOption) => {
   ConfigPage.open();
@@ -26,4 +29,25 @@ Then("my page is created with a link to the page", () => {
     this.newPageName
   );
   expect(FormDesignerPage.linkLine).toExist();
+});
+
+Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
+  this.fromPage = fromPage;
+  this.toPage = toPage;
+  Actions.createNewConfig();
+  MenuSection.buttonByName("Add Link").click();
+  AddLinkSection.linkPages(this.fromPage, this.toPage);
+});
+
+When("I delete the link between the pages", () => {
+  FormDesignerPage.pagesLink.click();
+  // TODO:- Get an attributed for selected added
+  // expect(AddLinkSection.fromSelectList).toHaveText(this.fromPage);
+  // expect(AddLinkSection.toSelectList).toHaveText(this.toPage);
+  AddLinkSection.deleteBtn.click();
+  acceptAlert();
+});
+
+Then("the link is no longer displayed", () => {
+  expect(FormDesignerPage.linkLine).not.toExist();
 });

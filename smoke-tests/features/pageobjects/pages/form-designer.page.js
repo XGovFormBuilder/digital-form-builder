@@ -25,6 +25,10 @@ class FormDesignerPage extends Page {
     return $("polyline");
   }
 
+  get pagesLink() {
+    return browser.react$("bn");
+  }
+
   dateField(name) {
     return this.pageContainer(name).react$("DateField");
   }
