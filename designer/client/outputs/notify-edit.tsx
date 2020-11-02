@@ -85,7 +85,7 @@ class NotifyEdit extends Component<Props, State> {
             required
           >
             {this.usableKeys.map((value, i) => (
-              <option key={`${value.name}+${i}`} value={value.name}>
+              <option key={`${value.name}-${i}`} value={value.name}>
                 {value.display ?? value.name}
               </option>
             ))}
