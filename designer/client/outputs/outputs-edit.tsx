@@ -1,19 +1,28 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import OutputEdit from "./output-edit";
+import { Output } from "./types";
 
-class OutputsEdit extends React.Component {
-  state = {};
+type State = {
+  showAddOutput: boolean;
+  output: any; //TODO: type
+  id: string;
+};
 
-  onClickOutput = (e, output) => {
-    e.preventDefault();
+type Props = {
+  data: any; // TODO: type
+};
+
+class OutputsEdit extends React.Component<Props, State> {
+  onClickOutput = (event: MouseEvent, output) => {
+    event.preventDefault();
 
     this.setState({
       output,
     });
   };
 
-  onClickAddOutput = async (e) => {
-    e.preventDefault();
+  onClickAddOutput = async (event: MouseEvent) => {
+    event.preventDefault();
     const { data } = this.props;
     const id = await data.getId();
     this.setState({
@@ -25,16 +34,16 @@ class OutputsEdit extends React.Component {
   render() {
     const { data } = this.props;
     const { outputs } = data;
-    const { output, id } = this.state;
+    const { output, id, showAddOutput } = this.state;
 
     return (
       <div className="govuk-body">
         {!output ? (
           <div>
-            {this.state.showAddOutput ? (
+            {showAddOutput ? (
               <OutputEdit
                 data={data}
-                output={{ name: id }}
+                output={{ name: id } as Output}
                 onEdit={() => this.setState({ showAddOutput: false })}
                 onCancel={() => this.setState({ showAddOutput: false })}
               />
