@@ -1,5 +1,5 @@
 import { Migration } from "./schema-migrations";
-import { Logger } from "../logger";
+import { Logger } from "../utils/logger";
 
 const MIGRATABLE_COMPONENT_TYPES = [
   "RadiosField",
@@ -11,7 +11,7 @@ const MIGRATABLE_COMPONENT_TYPES = [
   "FlashCard",
 ];
 
-export default class ListItemReferencesToValueObjects implements Migration {
+export class ListItemReferencesToValueObjects implements Migration {
   logger: Logger;
 
   constructor(server) {

@@ -7,7 +7,7 @@ import sinon from "sinon";
 import InlineConditionsDefinition from "../client/conditions/inline-conditions-definition";
 import {
   Condition,
-  Field,
+  ConditionField,
   ConditionRef,
   ConditionValue,
   getOperatorNames,
@@ -246,7 +246,11 @@ suite("Inline conditions definition section", () => {
           expect(saveCallback.calledOnce).to.equal(true);
           expect(saveCallback.firstCall.args[0]).to.equal(
             new Condition(
-              new Field(fields[0].name, fields[0].type, fields[0].title),
+              new ConditionField(
+                fields[0].name,
+                fields[0].type,
+                fields[0].title
+              ),
               textFieldOperators[0],
               value
             )
@@ -396,7 +400,7 @@ suite("Inline conditions definition section", () => {
           expect(saveCallback.calledOnce).to.equal(true);
           expect(saveCallback.firstCall.args[0]).to.equal(
             new Condition(
-              new Field(field.name, field.type, field.title),
+              new ConditionField(field.name, field.type, field.title),
               selectFieldOperators[0],
               expectedValue
             )
@@ -629,7 +633,7 @@ suite("Inline conditions definition section", () => {
         expect(saveCallback.calledOnce).to.equal(true);
         expect(saveCallback.firstCall.args[0]).to.equal(
           new Condition(
-            new Field(fields[1].name, fields[1].type, fields[1].title),
+            new ConditionField(fields[1].name, fields[1].type, fields[1].title),
             textFieldOperators[1],
             value2,
             "and"
@@ -677,7 +681,7 @@ suite("Inline conditions definition section", () => {
 
       test("Amending the first condition ", () => {
         const condition = new Condition(
-          new Field(fields[1].name, fields[1].type, fields[1].title),
+          new ConditionField(fields[1].name, fields[1].type, fields[1].title),
           textFieldOperators[1],
           value2
         );
@@ -707,7 +711,7 @@ suite("Inline conditions definition section", () => {
 
       test("Amending a later condition ", () => {
         const condition = new Condition(
-          new Field(fields[1].name, fields[1].type, fields[1].title),
+          new ConditionField(fields[1].name, fields[1].type, fields[1].title),
           textFieldOperators[1],
           value2,
           "and"
@@ -775,7 +779,7 @@ function assertValueInputNotPresent(wrapper) {
   expect(wrapper.find("#cond-value").exists()).to.equal(false);
 }
 
-function assertFieldInputPresent(wrapper, fields, expectedField) {
+function assertFieldInputPresent(wrapper, fields, expectedField?) {
   const expectedFieldOptions = fields.map((field) => ({
     value: field.name,
     text: field.title,

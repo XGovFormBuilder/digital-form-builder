@@ -7,7 +7,7 @@ import InlineConditionHelpers from "./inline-condition-helpers";
 
 interface Props {
   path: string;
-  condition: any;
+  condition?: any;
   data: any;
   cancelCallback?: (event: MouseEvent) => void;
   conditionsChange?: (name: string) => void;

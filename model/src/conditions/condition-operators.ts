@@ -1,21 +1,23 @@
-import { ComponentName } from "../component-types";
-import { AbstractConditionValue } from "./inline-condition-values";
+import { ComponentType, Component } from "../components";
+import { ConditionValueAbstract } from "./condition-value-abstract";
 
 import {
+  timeUnits,
+  dateUnits,
+  dateTimeUnits,
   ConditionValue,
   DateDirections,
-  dateTimeUnits,
-  dateUnits,
   RelativeTimeValue,
-  timeUnits,
-} from "./inline-condition-values";
+} from "./condition-values";
+
+type Operator = "==" | "!=" | ">=" | "<=" | "<" | ">";
 
 const defaultOperators = {
   is: inline("=="),
   "is not": inline("!="),
 };
 
-function withDefaults(param) {
+function withDefaults<T>(param: T) {
   return Object.assign({}, param, defaultOperators);
 }
 
@@ -85,10 +87,10 @@ export function getOperatorNames(fieldType) {
 }
 
 export function getExpression(
-  fieldType: ComponentName,
+  fieldType: ComponentType,
   fieldName: string,
   operator: string,
-  value: AbstractConditionValue
+  value: ConditionValueAbstract
 ) {
   return getConditionals(fieldType)[operator].expression(
     { type: fieldType, name: fieldName },
@@ -96,43 +98,43 @@ export function getExpression(
   );
 }
 
-export function getOperatorConfig(fieldType, operator) {
+export function getOperatorConfig(fieldType: ComponentType, operator) {
   return getConditionals(fieldType)[operator];
 }
 
-function getConditionals(fieldType: ComponentName) {
+function getConditionals(fieldType: ComponentType) {
   return customOperators[fieldType] || defaultOperators;
 }
 
-function inline(operator) {
+function inline(operator: Operator) {
   return {
-    expression: (field, value) =>
+    expression: (field: Component, value) =>
       `${field.name} ${operator} ${formatValue(field.type, value.value)}`,
   };
 }
 
-function lengthIs(operator) {
+function lengthIs(operator: Operator) {
   return {
-    expression: (field, value) =>
+    expression: (field: Component, value) =>
       `length(${field.name}) ${operator} ${value.value}`,
   };
 }
 
-function reverseInline(operator) {
+function reverseInline(operator: "in") {
   return {
-    expression: (field, value) =>
+    expression: (field: Component, value) =>
       `${formatValue(field.type, value.value)} ${operator} ${field.name}`,
   };
 }
 
 function not(operatorDefinition) {
   return {
-    expression: (field, value) =>
+    expression: (field: Component, value) =>
       `not (${operatorDefinition.expression(field, value)})`,
   };
 }
 
-function formatValue(fieldType, value) {
+function formatValue(fieldType: ComponentType, value) {
   if (fieldType === "NumberField" || fieldType === "YesNoField") {
     return value;
   }
@@ -146,9 +148,9 @@ export const relativeDateOrTimeOperatorNames = Object.keys(
   relativeTimeOperators(dateTimeUnits)
 );
 
-function absoluteDateTime(operator) {
+function absoluteDateTime(operator: Operator) {
   return {
-    expression: (field, value) => {
+    expression: (field: Component, value) => {
       if (value instanceof ConditionValue) {
         return `${field.name} ${operator} '${value.toExpression()}'`;
       }
@@ -160,7 +162,7 @@ function absoluteDateTime(operator) {
 function relativeTime(pastOperator, futureOperator, units) {
   return {
     units: units,
-    expression: (field, value) => {
+    expression: (field: Component, value) => {
       if (value instanceof RelativeTimeValue) {
         const operator =
           value.direction === DateDirections.PAST

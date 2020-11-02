@@ -1,17 +1,15 @@
-export { default as ComponentTypes } from "./component-types";
-export { default as ConditionalComponentTypes } from "./conditional-component-types";
-export { default as Schema } from "./schema";
+export { Schema } from "./schema";
 export { Data } from "./data-model";
-export { FormConfiguration } from "./form-configuration";
-export { clone } from "./helpers";
-export { Logger } from "./logger";
-export { SchemaMigrationService } from "./migration/schema-migrations";
+export { Logger } from "./utils/logger";
+export { FormConfiguration } from "./form";
+export { SchemaMigrationService } from "./migration";
+export { ComponentTypes, ConditionalComponentTypes } from "./components";
 
 export {
-  StaticValues,
   valuesFrom,
   yesNoValues,
+  StaticValues,
   ComponentValues,
 } from "./values";
 export * from "./conditions";
-export * from "./helpers";
+export * from "./utils/helpers";

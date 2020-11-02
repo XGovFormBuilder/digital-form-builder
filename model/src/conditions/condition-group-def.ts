@@ -1,10 +1,6 @@
-import { Condition } from "./condition";
-import { ConditionRef } from "./condition-ref";
-import { ConditionGroup } from "./condition-group";
+import { ConditionsArray } from "./types";
 
-type ConditionsArray = (Condition | ConditionGroup | ConditionRef)[];
-
-export class GroupDef {
+export class ConditionGroupDef {
   first: number;
   last: number;
 
