@@ -10,14 +10,7 @@
     "resolveJsonModule": true,
     "lib": ["DOM"]
   },
-  "include": [
-    "server",
-    "client",
-    "package.json",
-    "config.ts",
-    "new-form.json",
-    "../node_modules/@xgovformbuilder"
-  ],
+  "include": ["server", "client", "package.json", "config.ts", "new-form.json"],
   "paths": {
     "*": ["node_modules/*", "../node_modules"]
   }
