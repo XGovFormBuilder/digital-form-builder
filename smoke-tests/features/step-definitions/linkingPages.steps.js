@@ -8,10 +8,7 @@ const Actions = require("../actions/actions");
 const { acceptAlert } = require("../../support/testHelpers");
 
 Given("I have chosen to {string} to my form", (menuOption) => {
-  ConfigPage.open();
-  const configRef = `smoke-testing ${Date.parse(Date())}`;
-  ConfigPage.newConfig(configRef);
-  expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));
+  Actions.createNewConfig();
   MenuSection.buttonByName(menuOption).click();
 });
 
@@ -41,7 +38,7 @@ Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
 
 When("I delete the link between the pages", () => {
   FormDesignerPage.pagesLink.click();
-  // TODO:- Get an attributed for selected added
+  // TODO:- Get an attribute for selected added
   // expect(AddLinkSection.fromSelectList).toHaveText(this.fromPage);
   // expect(AddLinkSection.toSelectList).toHaveText(this.toPage);
   AddLinkSection.deleteBtn.click();
