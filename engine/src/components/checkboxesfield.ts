@@ -62,39 +62,33 @@ export default class CheckboxesField extends ConditionalFormComponent {
         : formData[name].split(",");
     }
 
-    Object.assign(viewModel, {
-      fieldset: {
-        legend: viewModel.label,
-      },
-      items: values.items.map((item) => {
-        const itemModel: ItemModel = {
-          text: this.localisedString(item.label),
-          value: item.value,
-          // Do a loose string based check as state may or
-          // may not match the item value types.
-          checked: !!formDataItems.find((i) => "" + item.value === i),
-          condition: item.condition,
+    viewModel.fieldset = {
+      legend: viewModel.label,
+    };
+
+    viewModel.items = values.items.map((item) => {
+      const itemModel: ItemModel = {
+        text: this.localisedString(item.label),
+        value: item.value,
+        // Do a loose string based check as state may or
+        // may not match the item value types.
+        checked: !!formDataItems.find((i) => "" + item.value === i),
+        condition: item.condition,
+      };
+
+      if (this.options.bold) {
+        itemModel.label = {
+          classes: "govuk-label--s",
         };
+      }
 
-        if (this.options.bold) {
-          itemModel.label = {
-            classes: "govuk-label--s",
-          };
-        }
+      if (item.hint) {
+        itemModel.hint = {
+          html: this.localisedString(item.hint),
+        };
+      }
 
-        if (item.hint) {
-          itemModel.hint = {
-            html: this.localisedString(item.hint),
-          };
-        }
-
-        return super.addConditionalComponents(
-          item,
-          itemModel,
-          formData,
-          errors
-        );
-      }),
+      return super.addConditionalComponents(item, itemModel, formData, errors);
     });
 
     return viewModel;
