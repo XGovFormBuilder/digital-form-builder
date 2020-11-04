@@ -20,6 +20,7 @@ package-lock.json
 smoke-tests/reports/json/*json
 */dist/
 */.dist/
+tsconfig.tsbuildinfo
 
 .yarn/*
 !.yarn/releases
