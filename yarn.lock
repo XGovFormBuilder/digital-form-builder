@@ -2497,6 +2497,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/btoa@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@types/btoa@npm:1.2.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: ca30de4f7c3f18c6ed235d20f12f7e87a1cc2d1c883390a80aa1ff25a82641ecb137cc543547da2b40cf55b7dab4f8a40ebfdbcac2b41832cab351c8d005fb23
+  languageName: node
+  linkType: hard
+
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.1
   resolution: "@types/cacheable-request@npm:6.0.1"
@@ -3452,6 +3461,7 @@ __metadata:
     "@hapi/code": ^8.0.1
     "@hapi/hoek": ^9.0.4
     "@hapi/lab": ^24.0.0
+    "@types/btoa": ^1.2.3
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 2.0.0
     babel-eslint: ^10.1.0
