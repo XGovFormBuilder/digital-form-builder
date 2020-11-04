@@ -1,4 +1,4 @@
-export enum OutPutType {
+export enum OutputType {
   Email = "email",
   Notify = "notify",
   Webhook = "webhook",
@@ -27,6 +27,6 @@ export type OutputConfiguration =
 export type Output = {
   name: string;
   title: string;
-  type: OutPutType;
+  type: OutputType;
   outputConfiguration: OutputConfiguration;
 };

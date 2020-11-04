@@ -11,10 +11,10 @@ import NotifyEdit from "./notify-edit";
 import EmailEdit from "./email-edit";
 import WebhookEdit from "./webhook-edit";
 
-import { OutPutType, OutputConfiguration, Output } from "./types";
+import { OutputType, OutputConfiguration, Output } from "./types";
 
 type State = {
-  outputType: OutPutType;
+  outputType: OutputType;
 };
 
 type Props = {
@@ -27,7 +27,7 @@ type Props = {
 class OutputEdit extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { outputType: props.output?.type ?? OutPutType.Email };
+    this.state = { outputType: props.output?.type ?? OutputType.Email };
   }
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -37,8 +37,8 @@ class OutputEdit extends Component<Props, State> {
     const formData = new window.FormData(form);
     const { data } = this.props;
     const copy = clone(data);
-    const outputType: OutPutType =
-      (formData.get("output-type") as OutPutType) || output.type;
+    const outputType: OutputType =
+      (formData.get("output-type") as OutputType) || output.type;
     const outputName = formData.get("output-name") as string;
     const outputTitle = formData.get("output-title") as string;
 
@@ -52,12 +52,12 @@ class OutputEdit extends Component<Props, State> {
       output.outputConfiguration || {};
 
     switch (outputType) {
-      case OutPutType.Email:
+      case OutputType.Email:
         outputConfiguration = {
           emailAddress: formData.get("email-address") as string,
         };
         break;
-      case OutPutType.Notify:
+      case OutputType.Notify:
         outputConfiguration = {
           personalisation: formData
             .getAll("personalisation")
@@ -67,7 +67,7 @@ class OutputEdit extends Component<Props, State> {
           emailField: formData.get("email-field") as string,
         };
         break;
-      case OutPutType.Webhook:
+      case OutputType.Webhook:
         outputConfiguration = {
           url: formData.get("webhook-url") as string,
         };
@@ -99,7 +99,7 @@ class OutputEdit extends Component<Props, State> {
   };
 
   onChangeOutputType = (event: ChangeEvent<HTMLSelectElement>) => {
-    const outputType = event.currentTarget.value as OutPutType;
+    const outputType = event.currentTarget.value as OutputType;
     this.setState({ outputType });
   };
 
@@ -130,13 +130,13 @@ class OutputEdit extends Component<Props, State> {
     const { data, output } = this.props;
     let outputEdit: ReactNode;
 
-    if (state.outputType === OutPutType.Notify) {
+    if (state.outputType === OutputType.Notify) {
       outputEdit = (
         <NotifyEdit data={data} output={output} onEdit={this.props.onEdit} />
       );
-    } else if (state.outputType === OutPutType.Email) {
+    } else if (state.outputType === OutputType.Email) {
       outputEdit = <EmailEdit output={output} />;
-    } else if (state.outputType === OutPutType.Webhook) {
+    } else if (state.outputType === OutputType.Webhook) {
       outputEdit = <WebhookEdit url={output?.outputConfiguration?.["url"]} />;
     }
 
