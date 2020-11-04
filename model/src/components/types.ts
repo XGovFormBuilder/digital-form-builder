@@ -35,8 +35,10 @@ export type ConditionalComponent = {
   subType: "field";
 };
 
-export type AutocompleteFieldComponent = {
-  type: "AutocompleteField";
+// Types for Components JSON structure which are expected by engine and turned into
+// actual form input/content/lists
+interface TextFieldBase {
+  type: string;
   name: string;
   title: string;
   hint: string;
@@ -45,161 +47,95 @@ export type AutocompleteFieldComponent = {
     required?: boolean;
     optionalText?: boolean;
     classes?: string;
-  };
-  values: ComponentValues;
-};
-
-export type CheckboxesFieldComponent = {
-  type: "CheckboxesField";
-  name: string;
-  options: {
-    bold?: boolean;
-  };
-  values: ComponentValues;
-};
-
-export type DateFieldComponent = {
-  type: "DateField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
-
-export type DateTimeFieldComponent = {
-  type: "DateTimeField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
-
-export type DateTimePartsFieldComponent = {
-  type: "DateTimePartsField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
-
-export type DetailsComponent = {
-  type: "Details";
-  name: string;
-  title: string;
-  content: string;
-  options: {
-    //TODO
-  };
-  schema: {
-    //TODO
-  };
-};
-
-export type EmailAddressFieldComponent = {
-  type: "EmailAddressField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-    classes?: string;
+    allow?: string;
   };
   schema: {
     max?: number;
     min?: number;
     length?: number;
     regex?: string;
+    error?: any; // TODO: in same cases this is a function e.g. addressLine1 in ukaddress
   };
-};
+}
 
-export type FileUploadFieldComponent = {
-  type: "FileUploadField";
+interface NumberFieldBase {
+  type: string;
+  name: string;
+  title: string;
+  hint: string;
+  options: {};
+  schema: {
+    min: number;
+    max: number;
+    precision: number;
+  };
+}
+
+interface ListFieldBase {
+  type: string;
+  name: string;
+  options: {
+    type?: string;
+    hideTitle?: boolean;
+    required?: boolean;
+    optionalText?: boolean;
+    classes?: string;
+    bold?: boolean;
+  };
+  values: ComponentValues;
+  schema: {};
+}
+
+interface ContentFieldBase {
+  type: string;
+  name: string;
+  title: string;
+  content: string;
+  options: {
+    condition?: string;
+  };
+  schema: {};
+}
+
+interface DateFieldBase {
+  type: string;
   name: string;
   title: string;
   hint: string;
   options: {
-    required?: boolean;
     hideTitle?: boolean;
-    multiple?: boolean;
-    classes?: string;
+    required?: boolean;
+    optionalText?: boolean;
   };
-  schema: {
-    //TODO
-  };
-};
+  schema: {};
+}
 
-export type FlashCardComponent = {
-  type: "FlashCard";
-  name: string;
-  values: ComponentValues;
-  options: {
-    // TODO
-  };
-  schema: {
-    //TODO
-  };
-};
+// Text Fields
+export interface TextFieldComponent extends TextFieldBase {
+  type: "TextField";
+}
 
-export type HtmlComponent = {
-  type: "Html";
-  name: string;
-  options: {
-    condition: string;
-  };
-  schema: {
-    //TODO
-  };
-};
+export interface EmailAddressFieldComponent extends TextFieldBase {
+  type: "EmailAddressField";
+}
 
-export type InsetTextComponent = {
-  type: "InsetText";
-  name: string;
-  content: string;
-  options: {
-    // TODO
-    condition?: string;
-  };
-  schema: {
-    // TODO
-  };
-};
+export interface NumberFieldComponent extends NumberFieldBase {
+  type: "NumberField";
+}
 
-export type ListComponent = {
-  type: "List";
-  name: string;
-  options: {
-    type: "numbered";
-  };
-  values: ComponentValues;
-  schema: {
-    //TODO
-  };
-};
+export interface MultilineTextFieldComponent {
+  type: "MultilineTextField";
+}
 
-export type MultilineTextFieldComponent = {
+export interface TelephoneNumberFieldComponent extends TextFieldBase {
+  type: "TelephoneNumberField";
+}
+
+export interface YesNoFieldComponent extends TextFieldBase {
+  type: "YesNoField";
+}
+
+export interface MultilineTextFieldComponent {
   type: "MultilineTextField";
   name: string;
   title: string;
@@ -215,136 +151,84 @@ export type MultilineTextFieldComponent = {
     max: number;
     min: number;
   };
-};
+}
 
-export type NumberFieldComponent = {
-  type: "NumberField";
-  name: string;
-  title: string;
-  hint: string;
-  schema: {
-    min: number;
-    max: number;
-    precision: number;
-  };
-};
-
-export type ParaComponent = {
-  type: "Para";
-  name: string;
-  options: {
-    condition: string;
-  };
-  content: string;
-  schema: {
-    //TODO
-  };
-};
-
-export type RadiosFieldComponent = {
-  type: "RadiosField";
-  name: string;
-  values: ComponentValues;
-  options: {
-    bold: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
-
-export type SelectFieldComponent = {
-  type: "SelectField";
-  name: string;
-  options: { classes: string };
-  values: ComponentValues;
-  schema: {
-    //TODO
-  };
-};
-
-export type TelephoneNumberFieldComponent = {
-  type: "TelephoneNumberField";
-  name: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-    classes?: string;
-  };
-  schema: {
-    max?: number;
-    min?: number;
-    length?: number;
-    regex?: string;
-  };
-};
-
-export type TextFieldComponent = {
-  type: "TextField";
+export interface FileUploadFieldComponent {
+  type: "FileUploadField";
   name: string;
   title: string;
   hint: string;
   options: {
-    hideTitle?: boolean;
     required?: boolean;
-    optionalText?: boolean;
+    hideTitle?: boolean;
+    multiple?: boolean;
     classes?: string;
-    allow?: string; // TODO double check
   };
-  schema: {
-    max?: number;
-    min?: number;
-    length?: number;
-    regex?: string;
-    error?: any; // TODO: in same cases this is a function e.g. addressLine1 in ukaddress
-  };
-};
+  schema: {};
+}
 
-export type TimeFieldComponent = {
+// Date Fields
+export interface DateFieldComponent extends DateFieldBase {
+  type: "DateField";
+}
+
+export interface DateTimeFieldComponent extends DateFieldBase {
+  type: "DateTimeField";
+}
+
+export interface DateTimePartsFieldComponent extends DateFieldBase {
+  type: "DateTimePartsField";
+}
+
+export interface TimeFieldComponent extends DateFieldBase {
   type: "TimeField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
+}
 
-export type UkAddressFieldComponent = {
+// Content Fields
+export interface ParaComponent extends ContentFieldBase {
+  type: "Para";
+}
+
+export interface DetailsComponent extends ContentFieldBase {
+  type: "Details";
+}
+
+export interface HtmlComponent extends ContentFieldBase {
+  type: "Html";
+}
+
+export interface InsetTextComponent extends ContentFieldBase {
+  type: "InsetText";
+}
+
+export interface UkAddressFieldComponent extends TextFieldBase {
   type: "UkAddressField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
+}
 
-export type YesNoFieldComponent = {
-  type: "YesNoField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-  };
-  schema: {
-    //TODO
-  };
-};
+// List Fields
+export interface ListComponent extends ListFieldBase {
+  type: "List";
+}
+
+export interface AutocompleteFieldComponent extends ListFieldBase {
+  type: "AutocompleteField";
+}
+
+export interface CheckboxesFieldComponent extends ListFieldBase {
+  type: "CheckboxesField";
+}
+
+export interface FlashCardComponent extends ListFieldBase {
+  type: "FlashCard";
+}
+
+export interface RadiosFieldComponent extends ListFieldBase {
+  type: "RadiosField";
+}
+
+export interface SelectFieldComponent extends ListFieldBase {
+  type: "SelectField";
+}
 
 export type Component =
   | InsetTextComponent
@@ -369,3 +253,35 @@ export type Component =
   | TimeFieldComponent
   | UkAddressFieldComponent
   | YesNoFieldComponent;
+
+// Components that render inputs.
+export type InputFieldsComponents =
+  | TextFieldComponent
+  | EmailAddressFieldComponent
+  | NumberFieldComponent
+  | MultilineTextFieldComponent
+  | TelephoneNumberFieldComponent
+  | YesNoFieldComponent
+  | MultilineTextFieldComponent
+  | FileUploadFieldComponent
+  | DateFieldComponent
+  | DateTimeFieldComponent
+  | DateTimePartsFieldComponent
+  | TimeFieldComponent;
+
+// Components that render content.
+export type ContentComponents =
+  | ParaComponent
+  | DetailsComponent
+  | HtmlComponent
+  | InsetTextComponent
+  | UkAddressFieldComponent;
+
+// Components that render Lists
+export type ListComponents =
+  | ListComponent
+  | AutocompleteFieldComponent
+  | CheckboxesFieldComponent
+  | FlashCardComponent
+  | RadiosFieldComponent
+  | SelectFieldComponent;
