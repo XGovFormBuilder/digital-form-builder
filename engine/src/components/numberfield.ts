@@ -12,11 +12,14 @@ export default class NumberField extends FormComponent {
 
   getViewModel(formData, errors) {
     const viewModel = super.getViewModel(formData, errors);
+    const { precision } = this.schema;
+
     viewModel.type = "number";
-    if (this.schema.precision) {
-      (viewModel.attributes = viewModel.attributes || {}).step =
-        "0." + "1".padStart(this.schema.precision, "0");
+
+    if (precision) {
+      viewModel.attributes.step = "0." + "1".padStart(precision, "0");
     }
+
     return viewModel;
   }
 

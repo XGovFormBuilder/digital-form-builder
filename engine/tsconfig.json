@@ -6,6 +6,6 @@
     "composite": true,
     "declarationDir": "dist"
   },
-  "include": ["src"],
+  "include": ["src", "../node_modules/@xgovformbuilder"],
   "references": [{ "path": "../model" }]
 }

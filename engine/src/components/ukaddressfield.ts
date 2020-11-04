@@ -4,6 +4,9 @@ import ComponentCollection from "./componentcollection";
 import joi from "joi";
 
 export default class UkAddressField extends FormComponent {
+  formChildren: ComponentCollection;
+  stateChildren: ComponentCollection;
+
   constructor(def, model) {
     super(def, model);
     const { name, options } = this;
@@ -112,14 +115,14 @@ export default class UkAddressField extends FormComponent {
   getViewModel(formData, errors) {
     const viewModel = super.getViewModel(formData, errors);
 
-    Object.assign(viewModel, {
-      fieldset: {
-        legend: viewModel.label,
-      },
-      children: this.formChildren.getViewModel(formData, errors),
-    });
+    viewModel.fieldset = {
+      legend: viewModel.label,
+    };
+
+    viewModel.children = this.formChildren.getViewModel(formData, errors);
 
     const { disableLookup } = this.options;
+
     if (disableLookup !== undefined) {
       viewModel.disableLookup = disableLookup;
     } else {

@@ -1,7 +1,15 @@
 import { getType } from "./helpers";
 import joi from "joi";
 
+import { ComponentCollectionViewModel } from "./types";
+
 export default class ComponentCollection {
+  // TODO
+  items: any;
+  formItems: any;
+  formSchema: any;
+  stateSchema: any;
+
   constructor(items, model) {
     const itemTypes = items.map((def) => {
       const Type = getType(def.type).default;
@@ -63,7 +71,7 @@ export default class ComponentCollection {
     return state;
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors): ComponentCollectionViewModel {
     return this.items.map((item) => {
       return {
         type: item.type,

@@ -2,6 +2,20 @@ import ConditionalFormComponent from "./conditionalformcomponent";
 import * as helpers from "./helpers";
 import joi from "joi";
 
+type ItemModel = {
+  name?: string;
+  text: string;
+  value: any; // TODO
+  checked: boolean;
+  condition: any; // TODO
+  label?: {
+    classes: string;
+  };
+  hint?: {
+    html: string;
+  };
+};
+
 export default class CheckboxesField extends ConditionalFormComponent {
   constructor(def, model) {
     super(def, model);
@@ -33,6 +47,8 @@ export default class CheckboxesField extends ConditionalFormComponent {
         .map((check) => values.items.find((item) => item.value === check).label)
         .join(", ");
     }
+
+    return "";
   }
 
   getViewModel(formData, errors) {
@@ -51,7 +67,7 @@ export default class CheckboxesField extends ConditionalFormComponent {
         legend: viewModel.label,
       },
       items: values.items.map((item) => {
-        const itemModel = {
+        const itemModel: ItemModel = {
           text: this.localisedString(item.label),
           value: item.value,
           // Do a loose string based check as state may or

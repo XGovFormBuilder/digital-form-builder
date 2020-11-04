@@ -43,20 +43,17 @@ export default class YesNoField extends FormComponent {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    Object.assign(viewModel, {
-      fieldset: {
-        legend: viewModel.label,
-      },
-      items: values.items.map((item) => {
-        return {
-          text: item.label,
-          value: item.value,
-          // Do a loose string based check as state may or
-          // may not match the item value types.
-          checked: "" + item.value === "" + formData[name],
-        };
-      }),
-    });
+    viewModel.fieldset = {
+      legend: viewModel.label,
+    };
+
+    viewModel.items = values.items.map((item) => ({
+      text: item.label,
+      value: item.value,
+      // Do a loose string based check as state may or
+      // may not match the item value types.
+      checked: "" + item.value === "" + formData[name],
+    }));
 
     return viewModel;
   }
