@@ -1,6 +1,7 @@
 import React from "react";
 import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
+import { str2bool } from "./helpers";
 
 class FormDetails extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class FormDetails extends React.Component {
   }
 
   handleIsFeedbackFormRadio = (e) => {
-    const isFeedbackForm = e.target.value === "true";
+    const isFeedbackForm = str2bool(e.target.value);
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });

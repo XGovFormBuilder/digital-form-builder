@@ -1,3 +1,5 @@
+import { func } from "joi";
+
 export function getFormData(form) {
   const formData = new window.FormData(form);
   const data = {
@@ -67,4 +69,12 @@ export function camelCase(str) {
     .toLowerCase()
     .replace(/[\s-_]+(.)/g, (m, chr) => chr.toUpperCase())
     .replace(/[^a-zA-Z0-9]/g, "");
+}
+
+export function str2bool(value) {
+  if (value && typeof value === "string") {
+    if (value.toLowerCase() === "true") return true;
+    if (value.toLowerCase() === "false") return false;
+  }
+  return value;
 }
