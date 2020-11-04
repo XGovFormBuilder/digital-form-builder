@@ -3,6 +3,7 @@ export type Label = {
   classes: string;
 };
 
+// Break this down to each component.
 export type ViewModel = {
   label?: Label;
   type?: string;
