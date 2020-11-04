@@ -7,9 +7,9 @@ import ListsEdit from "./lists-edit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions-edit";
 import FeeEdit from "./fee-edit";
-import NotifyEdit from "./notify-edit";
+import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
-import OutputsEdit from "./outputs-edit";
+import OutputsEdit from "./outputs/outputs-edit";
 import FormDetails from "./form-details";
 
 export default class Menu extends React.Component {
