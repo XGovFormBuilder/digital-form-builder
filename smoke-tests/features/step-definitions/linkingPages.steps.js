@@ -1,7 +1,6 @@
 const { Given, When, Then } = require("cucumber");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
 const AddPageSection = require("../pageobjects/sections/add-page.section");
-const ConfigPage = require("../pageobjects/pages/config.page");
 const FormDesignerPage = require("../pageobjects/pages/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const Actions = require("../actions/actions");
@@ -38,7 +37,7 @@ Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
 
 When("I delete the link between the pages", () => {
   FormDesignerPage.pagesLink.click();
-  // TODO:- Get an attribute for selected added
+  // TODO:- Get an attribute for selected added to CSS
   // expect(AddLinkSection.fromSelectList).toHaveText(this.fromPage);
   // expect(AddLinkSection.toSelectList).toHaveText(this.toPage);
   AddLinkSection.deleteBtn.click();
