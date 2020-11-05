@@ -1,28 +1,39 @@
-import React from "react";
+import React, { MouseEvent, ChangeEvent } from "react";
 import { clone } from "@xgovformbuilder/model";
 
-class NotifyItems extends React.Component {
-  constructor(props) {
+type State = {
+  items: string[];
+};
+
+type Props = {
+  data: any; // TODO: type
+  items?: string[];
+  onEdit: ({ data: any }) => void;
+  values: { name: string; display: string }[];
+};
+
+class NotifyItems extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       items: props.items ? clone(props.items) : [],
     };
   }
 
-  onClickAddItem = (e) => {
+  onClickAddItem = (_event: MouseEvent) => {
+    this.setState((state) => ({
+      items: [...state.items, ""],
+    }));
+  };
+
+  removeItem = (idx: number) => {
     this.setState({
-      items: this.state.items.concat(""),
+      items: this.state.items.filter((_s, i) => i !== idx),
     });
   };
 
-  removeItem = (idx) => {
-    this.setState({
-      items: this.state.items.filter((s, i) => i !== idx),
-    });
-  };
-
-  onClickDelete = (e) => {
-    e.preventDefault();
+  onClickDelete = (event: MouseEvent) => {
+    event.preventDefault();
 
     if (!window.confirm("Confirm delete")) {
       return;
@@ -43,23 +54,23 @@ class NotifyItems extends React.Component {
       });
   };
 
-  onChangeItem = (e, index) => {
+  onChangeItem = (event: ChangeEvent<HTMLSelectElement>, index: number) => {
     const { items } = this.state;
-    items[index] = e.target.value;
+    items[index] = event.target.value;
     this.setState({
       items,
     });
 
     if (
       items.find(
-        (item, itemIndex) => item === e.target.value && itemIndex !== index
+        (item, itemIndex) => item === event.target.value && itemIndex !== index
       )
     ) {
-      e.target.setCustomValidity(
+      event.target.setCustomValidity(
         "Duplicate conditions found in the list items"
       );
     } else {
-      e.target.setCustomValidity("");
+      event.target.setCustomValidity("");
     }
   };
 
