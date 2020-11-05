@@ -15,7 +15,7 @@ suite("relative url", () => {
     });
 
     test("should throw error if the provided url is not relative when using the internal cheat url", () => {
-      expect(() => new RelativeUrl("http://www.example.com")).to.throw(Error);
+      expect(() => new RelativeUrl("http://www.fishing.com")).to.throw(Error);
     });
 
     test("should not throw an error when using a relative url", () => {

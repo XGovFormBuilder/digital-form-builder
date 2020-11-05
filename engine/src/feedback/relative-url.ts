@@ -25,20 +25,20 @@ export class RelativeUrl {
     return this;
   }
 
-  set feedbackReturnInfo(value: string) {
+  set feedbackReturnInfo(value: string | null) {
     this.setParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value);
   }
 
-  get feedbackReturnInfo() {
-    return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER) || "";
+  get feedbackReturnInfo(): string | null {
+    return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER) || null;
   }
 
-  set visitIdentifier(value: string) {
+  set visitIdentifier(value: string | null) {
     this.setParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER, value);
   }
 
-  get visitIdentifier() {
-    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER) || "";
+  get visitIdentifier(): string | null {
+    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER) || null;
   }
 
   setParam(name: string, value: string | null) {
