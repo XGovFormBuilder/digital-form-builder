@@ -1,6 +1,5 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
-import * as Model from "@xgovformbuilder/model";
 import { Request, ResponseToolkit, ResponseObject } from "hapi";
 
 import { proceed, redirectTo } from "./helpers";
@@ -20,17 +19,18 @@ export default class Page {
   };
   name: string;
   model: any; // TODO
-  pageDef: Model.Page;
+  pageDef: any; // TODO
   path: string;
   title: string;
   condition: any; // TODO
   repeatField: any; // TODO
-  section: Model.Section;
+  section: any; // TODO
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
 
-  constructor(model: any, pageDef: Model.Page) {
+  // TODO: types
+  constructor(model: any, pageDef: any) {
     const { def } = model;
 
     // Properties
@@ -62,9 +62,9 @@ export default class Page {
   }
 
   getViewModel(
-    formData: any,
-    iteration?: any,
-    errors?: any
+    formData: any, // TODO
+    iteration?: any, // TODO
+    errors?: any // TODO
   ): {
     page: Page;
     name: string;
@@ -146,6 +146,7 @@ export default class Page {
       .filter((v: {} | null) => !!v);
   }
 
+  // TODO: type
   getNextPage(state: any, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
@@ -185,6 +186,7 @@ export default class Page {
     return nextLink?.page ?? defaultLink?.page;
   }
 
+  // TODO: type
   getNext(state: any) {
     const nextPage = this.getNextPage(state);
     const query = { num: 0 };
@@ -215,6 +217,7 @@ export default class Page {
     return this.defaultNextPath;
   }
 
+  // TODO: type
   getFormDataFromState(state: any, atIndex: number) {
     const pageState = this.section ? state[this.section.name] : state;
 
@@ -289,6 +292,7 @@ export default class Page {
   }
 
   makeGetRouteHandler() {
+    // TODO: type
     return async (request: any, h: any) => {
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
@@ -372,6 +376,7 @@ export default class Page {
   }
 
   makePostRouteHandler() {
+    // TODO: type
     return async (request: any, h: any) => {
       const { cacheService } = request.services([]);
       const hasFilesizeError = request.payload === null;

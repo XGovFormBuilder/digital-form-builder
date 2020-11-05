@@ -5,7 +5,12 @@ import { Data } from "@xgovformbuilder/model";
 export default class YesNoField extends FormComponent {
   constructor(def, model) {
     super(def, model);
-    this.values = new Data(model.def).valuesFor(def).toStaticValues();
+    const data = new Data(model.def);
+    const valuesWrapper = data.valuesFor(def);
+
+    if (valuesWrapper) {
+      this.values = valuesWrapper.toStaticValues();
+    }
 
     const { options, values } = this;
 
