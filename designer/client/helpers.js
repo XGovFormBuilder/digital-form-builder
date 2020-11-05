@@ -1,5 +1,3 @@
-import { func } from "joi";
-
 export function getFormData(form) {
   const formData = new window.FormData(form);
   const data = {
