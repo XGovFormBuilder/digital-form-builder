@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow, mount, render } from "enzyme";
+import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data, FormConfiguration } from "@xgovformbuilder/model";
@@ -8,7 +8,6 @@ import {
   assertTextInput,
 } from "./helpers/element-assertions";
 import FormDetails from "../client/form-details";
-import { Radios } from "@govuk-jsx/radios";
 
 import sinon from "sinon";
 import formConfigurationsApi from "../client/load-form-configurations";
