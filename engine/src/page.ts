@@ -490,10 +490,13 @@ export default class Page {
 
   private getFeedbackContextInfo(request) {
     if (this.def.feedback?.feedbackForm) {
-      return decode(
-        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-          .feedbackReturnInfo
-      );
+      const feedbackReturnInfo = new RelativeUrl(
+        `${request.url.pathname}${request.url.search}`
+      ).feedbackReturnInfo;
+
+      if (feedbackReturnInfo) {
+        return decode(feedbackReturnInfo);
+      }
     }
   }
 
