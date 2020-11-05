@@ -5,7 +5,7 @@ export type Label = {
   isPageHeading?: boolean;
 };
 
-// Break this down to each component.
+// TODO: Break this down for each component (Same as model/Component).
 export type ViewModel = {
   label?: Label;
   type?: string;
