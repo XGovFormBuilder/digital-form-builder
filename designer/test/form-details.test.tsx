@@ -135,19 +135,6 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} />).instance();
       var spy = sinon.spy(wrapper, "setState");
 
-      //Test event handler with boolean values
-      wrapper.handleIsFeedbackFormRadio({ target: { value: true } });
-      expect(
-        spy.calledWith({ feedbackForm: true, selectedFeedbackForm: undefined })
-      ).to.equal(true);
-
-      spy.resetHistory();
-      wrapper.handleIsFeedbackFormRadio({ target: { value: false } });
-      expect(spy.calledWith({ feedbackForm: false })).to.equal(true);
-
-      spy.resetHistory();
-
-      //Test event handler with string values
       wrapper.handleIsFeedbackFormRadio({ target: { value: "true" } });
       expect(
         spy.calledWith({ feedbackForm: true, selectedFeedbackForm: undefined })

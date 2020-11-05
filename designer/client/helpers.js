@@ -68,11 +68,3 @@ export function camelCase(str) {
     .replace(/[\s-_]+(.)/g, (m, chr) => chr.toUpperCase())
     .replace(/[^a-zA-Z0-9]/g, "");
 }
-
-export function stringToBool(value) {
-  if (value && typeof value === "string") {
-    if (value.toLowerCase() === "true") return true;
-    if (value.toLowerCase() === "false") return false;
-  }
-  return value;
-}
