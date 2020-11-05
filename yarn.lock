@@ -2497,6 +2497,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/boom@npm:*":
+  version: 7.3.0
+  resolution: "@types/boom@npm:7.3.0"
+  checksum: b255d1cc254abce206cfecea7a39879a64d075ffa1bbf78f4a8a7e5782a34f541a615e7c5d21237397458440749ff5c08c2831095398ee56c61378137c09caa5
+  languageName: node
+  linkType: hard
+
 "@types/btoa@npm:^1.2.3":
   version: 1.2.3
   resolution: "@types/btoa@npm:1.2.3"
@@ -2515,6 +2522,13 @@ __metadata:
     "@types/node": "*"
     "@types/responselike": "*"
   checksum: 3dae802a0808573986c56b92bf16cd031a5b648b6c893d20c7ef6bfda3fc72a2107c7978697d2b27b14febc597162d6959985eeb5befc307a9f9f3c5081d4905
+  languageName: node
+  linkType: hard
+
+"@types/catbox@npm:*":
+  version: 10.0.6
+  resolution: "@types/catbox@npm:10.0.6"
+  checksum: 6e6ebb25d9a265301540de58aaa15ef21d7e2845453fa555e10b587ee99de868d39c175a639cc2707e33c835665efdec95fec77df41a4c4cc7a684e788fdb305
   languageName: node
   linkType: hard
 
@@ -2539,6 +2553,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/events@npm:*":
+  version: 3.0.0
+  resolution: "@types/events@npm:3.0.0"
+  checksum: 1407d79d6d5291caa89f27ef0f180eb133bc5a12f11886bd68f9ef9cffb962a575571d1b4d02d30a7329fe9b85d29b7c10543ed6dc516ad20f9a1e89c1e9c9b8
+  languageName: node
+  linkType: hard
+
 "@types/fs-extra@npm:^9.0.1":
   version: 9.0.2
   resolution: "@types/fs-extra@npm:9.0.2"
@@ -2558,6 +2579,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/hapi@npm:^18.0.4":
+  version: 18.0.4
+  resolution: "@types/hapi@npm:18.0.4"
+  dependencies:
+    "@types/boom": "*"
+    "@types/catbox": "*"
+    "@types/iron": "*"
+    "@types/joi": "*"
+    "@types/mimos": "*"
+    "@types/node": "*"
+    "@types/podium": "*"
+    "@types/shot": "*"
+  checksum: 5341e2bf080e3270ba3aa726ea9ae7ac5a42f92268a81941991434cd2600ffabb2762af8be2ac0dacaee9a566a98f727c4e9594965e20f6ce74757b335992dab
+  languageName: node
+  linkType: hard
+
 "@types/html-minifier-terser@npm:^5.0.0":
   version: 5.1.1
   resolution: "@types/html-minifier-terser@npm:5.1.1"
@@ -2569,6 +2606,15 @@ __metadata:
   version: 4.0.0
   resolution: "@types/http-cache-semantics@npm:4.0.0"
   checksum: e16fae56d4daea4ed678b4d5918b693b44ca12fb5e479b87d242d3a35bf3a014974dcf9ed7aba7e29149fdb6c3719f9987fca51b20ef10aa84b58f86553c2f74
+  languageName: node
+  linkType: hard
+
+"@types/iron@npm:*":
+  version: 5.0.1
+  resolution: "@types/iron@npm:5.0.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: de5a694cace5365e86118951335bfc4c916dd82d6b089c690e8155991fa58b5ae0bfbe523421d8c96f58802f8b04588d83a83e0ef5f49ad0907fe0a6378d23a3
   languageName: node
   linkType: hard
 
@@ -2594,6 +2640,13 @@ __metadata:
   dependencies:
     "@types/istanbul-lib-report": "*"
   checksum: 8aee794ea2e8065aa83e0a1017420068d10110f5e67f8473f5751e74462509306c451f79db3856e6848507519bf1d4de7d101daede6539701cc4d74b4646acd9
+  languageName: node
+  linkType: hard
+
+"@types/joi@npm:*":
+  version: 14.3.4
+  resolution: "@types/joi@npm:14.3.4"
+  checksum: bea51931b08e8ddc6b7612eb0d4a5d19b02157dea69ac6d7080789848218cb05a8f44a7e0ffb95f75b90f3feeb8314a5eed0f1ddd3369a5e6bbe4d7b4bfad0f1
   languageName: node
   linkType: hard
 
@@ -2643,6 +2696,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mime-db@npm:*":
+  version: 1.43.0
+  resolution: "@types/mime-db@npm:1.43.0"
+  checksum: fc11bbc547089727e96b034a94d056494df348b6e11fde15920bbba2e694bd92b90148c4e1d580521e761a629dfe150fd4b745c17b7668d6905ce59770f0e874
+  languageName: node
+  linkType: hard
+
+"@types/mimos@npm:*":
+  version: 3.0.2
+  resolution: "@types/mimos@npm:3.0.2"
+  dependencies:
+    "@types/mime-db": "*"
+  checksum: 95bb48b4a8d6b55f17bd3e422d9e03e9eb6f3de0c7fb07008ff535c7151def1134c808aeabc2e4913ae1235dc6cf6df146260745f59f69a7f80f02524d0a4581
+  languageName: node
+  linkType: hard
+
 "@types/minimatch@npm:*":
   version: 3.0.3
   resolution: "@types/minimatch@npm:3.0.3"
@@ -2675,6 +2744,13 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: 4a8f720afac47b474d3f2eece312340e72bc31bc9561cda37b596ce2ed218c0099765d302625bb67d659a8452a1f93d514f4863c11c7ebaf65430428687dc426
+  languageName: node
+  linkType: hard
+
+"@types/podium@npm:*":
+  version: 1.0.0
+  resolution: "@types/podium@npm:1.0.0"
+  checksum: 64bcd5b68b8b19aad99b4c799e8f153419dd090be39482bcd65b21b811f2aaa547b62d1561797a959ed638c48c4f2051c015560ac3d481df4526ca2eadd3b1ec
   languageName: node
   linkType: hard
 
@@ -2740,6 +2816,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/shot@npm:*":
+  version: 4.0.0
+  resolution: "@types/shot@npm:4.0.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: b827badb48c236b96abba6f5be022c2ff61c3e3db9590c2b00350df30ab6091ba2468e660d8fb09310bfccacc76371c671b4644f7c0b598dce8d13f14d5e5135
+  languageName: node
+  linkType: hard
+
 "@types/source-list-map@npm:*":
   version: 0.1.2
   resolution: "@types/source-list-map@npm:0.1.2"
@@ -2799,6 +2884,17 @@ __metadata:
     "@types/webpack-sources": "*"
     source-map: ^0.6.0
   checksum: 6d71714711143d6fae23e85e1b22e47959710cf86117050a61ff9e6b41430c8ddd8491269ddfa35fc5ccf8ffe13ed2bf2151682d357dc5aa56e2a38e70de2dba
+  languageName: node
+  linkType: hard
+
+"@types/wreck@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@types/wreck@npm:14.0.0"
+  dependencies:
+    "@types/boom": "*"
+    "@types/events": "*"
+    "@types/node": "*"
+  checksum: b093a05058ea2d9ce3661de81db9b917186202a41ca8f28d13a64d2dcd14c036ceb0f96ce36bba26928e55844d268bc49304b0790b5277adfd01ca4a4f697952
   languageName: node
   linkType: hard
 
@@ -3380,6 +3476,7 @@ __metadata:
     "@hapi/lab": ^24.0.0
     "@hapi/wreck": 17.0.0
     "@rollup/plugin-commonjs": 13.0.0
+    "@types/hapi": ^18.0.4
     "@types/node": ^14.11.8
     "@types/react": ^16.9.52
     "@types/react-dom": ^16.9.8
@@ -3462,6 +3559,8 @@ __metadata:
     "@hapi/hoek": ^9.0.4
     "@hapi/lab": ^24.0.0
     "@types/btoa": ^1.2.3
+    "@types/hapi": ^18.0.4
+    "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 2.0.0
     babel-eslint: ^10.1.0
@@ -3572,6 +3671,8 @@ __metadata:
     "@hapi/lab": 24.0.0
     "@hapi/scooter": 6.0.0
     "@hapi/wreck": 17.0.0
+    "@types/hapi": ^18.0.4
+    "@types/wreck": ^14.0.0
     "@xgovformbuilder/engine": 2.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     accept-language-parser: 1.5.0

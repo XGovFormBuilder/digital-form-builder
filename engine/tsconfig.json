@@ -4,8 +4,9 @@
     "rootDirs": ["src"],
     "outDir": "dist",
     "composite": true,
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "resolveJsonModule": true
   },
-  "include": ["src", "../node_modules/@xgovformbuilder"],
+  "include": ["src", "package.json", "../node_modules/@xgovformbuilder"],
   "references": [{ "path": "../model" }]
 }

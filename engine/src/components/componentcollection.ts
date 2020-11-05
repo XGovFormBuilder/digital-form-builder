@@ -51,7 +51,7 @@ export default class ComponentCollection {
     return keys;
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state): any {
     const formData = {};
 
     this.formItems.forEach((item) => {

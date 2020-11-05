@@ -1,6 +1,8 @@
 export type Label = {
   text: string;
   classes: string;
+  html?: string;
+  isPageHeading?: boolean;
 };
 
 // Break this down to each component.
