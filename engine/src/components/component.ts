@@ -25,7 +25,6 @@ export default class Component {
 
   constructor(def, model) {
     // TODO explicitly assign to proper initialize props expected
-    console.log("DEF", def);
     Object.assign(this, def);
     this.model = model;
     const data = new Data(model.def);
