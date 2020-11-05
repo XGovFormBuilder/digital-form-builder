@@ -38,6 +38,7 @@ export type ConditionalComponent = {
 // Types for Components JSON structure which are expected by engine and turned into
 // actual form input/content/lists
 interface TextFieldBase {
+  subType?: "field";
   type: string;
   name: string;
   title: string;
@@ -59,21 +60,24 @@ interface TextFieldBase {
 }
 
 interface NumberFieldBase {
+  subType?: "field";
   type: string;
   name: string;
   title: string;
   hint: string;
   options: {};
   schema: {
-    min: number;
-    max: number;
-    precision: number;
+    min?: number;
+    max?: number;
+    precision?: number;
   };
 }
 
 interface ListFieldBase {
+  subType?: "field" | "content";
   type: string;
   name: string;
+  title: string;
   options: {
     type?: string;
     hideTitle?: boolean;
@@ -82,11 +86,12 @@ interface ListFieldBase {
     classes?: string;
     bold?: boolean;
   };
-  values: ComponentValues;
+  values?: ComponentValues;
   schema: {};
 }
 
 interface ContentFieldBase {
+  subType?: "content";
   type: string;
   name: string;
   title: string;
@@ -98,6 +103,7 @@ interface ContentFieldBase {
 }
 
 interface DateFieldBase {
+  subType?: "field";
   type: string;
   name: string;
   title: string;
@@ -136,24 +142,26 @@ export interface YesNoFieldComponent extends TextFieldBase {
 }
 
 export interface MultilineTextFieldComponent {
+  subType?: "field";
   type: "MultilineTextField";
   name: string;
   title: string;
   hint: string;
   options: {
-    hideTitle: boolean;
-    required: boolean;
-    optionalText: boolean;
-    rows: number;
-    classes: string;
+    hideTitle?: boolean;
+    required?: boolean;
+    optionalText?: boolean;
+    rows?: number;
+    classes?: string;
   };
   schema: {
-    max: number;
-    min: number;
+    max?: number;
+    min?: number;
   };
 }
 
 export interface FileUploadFieldComponent {
+  subType?: "field";
   type: "FileUploadField";
   name: string;
   title: string;
@@ -174,6 +182,10 @@ export interface DateFieldComponent extends DateFieldBase {
 
 export interface DateTimeFieldComponent extends DateFieldBase {
   type: "DateTimeField";
+}
+
+export interface DatePartsFieldFieldComponent extends DateFieldBase {
+  type: "DatePartsField";
 }
 
 export interface DateTimePartsFieldComponent extends DateFieldBase {
@@ -235,6 +247,7 @@ export type Component =
   | AutocompleteFieldComponent
   | CheckboxesFieldComponent
   | DateFieldComponent
+  | DatePartsFieldFieldComponent
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
   | DetailsComponent
