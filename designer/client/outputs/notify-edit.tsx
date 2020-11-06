@@ -1,24 +1,40 @@
-import NotifyItems from "./notify-items";
-import React from "react";
+import React, { Component } from "react";
 
-class NotifyEdit extends React.Component {
-  constructor(props) {
+import NotifyEditItems from "./notify-edit-items";
+import { Output, NotifyOutputConfiguration } from "./types";
+
+type State = {};
+
+type Props = {
+  data: any; // TODO: type
+  output: Output;
+  onEdit: ({ data: any }) => void;
+};
+
+class NotifyEdit extends Component<Props, State> {
+  usableKeys: { name: string; display: string }[];
+
+  constructor(props: Props) {
     super(props);
     const { data } = this.props;
-    this.usableKeys = data
-      .allInputs()
-      .map((input) => ({ name: input.propertyPath, display: input.title }));
+    this.usableKeys = data.allInputs().map((input) => ({
+      name: input.propertyPath || "",
+      display: input.title || "",
+    }));
   }
 
   render() {
-    const { data, output } = this.props;
+    const { data, output, onEdit } = this.props;
     const { conditions } = data;
-    const outputConfiguration = output?.outputConfiguration ?? {
-      templateId: "",
-      apiKey: "",
-      emailField: "",
-      personalisation: [],
-    };
+    const outputConfiguration = (typeof output.outputConfiguration === "object"
+      ? output.outputConfiguration
+      : {
+          templateId: "",
+          apiKey: "",
+          emailField: "",
+          personalisation: [],
+        }) as NotifyOutputConfiguration;
+
     const { templateId, apiKey, emailField } = outputConfiguration;
     const personalisation = outputConfiguration.personalisation;
     const values = [
@@ -41,7 +57,6 @@ class NotifyEdit extends React.Component {
             type="text"
             required
             defaultValue={templateId}
-            onBlur={this.onBlur}
             step="any"
           />
         </div>
@@ -55,7 +70,6 @@ class NotifyEdit extends React.Component {
             type="text"
             required
             defaultValue={apiKey}
-            onBlur={this.onBlur}
             step="any"
           />
         </div>
@@ -71,14 +85,18 @@ class NotifyEdit extends React.Component {
             required
           >
             {this.usableKeys.map((value, i) => (
-              <option key={value + i} value={value.name} onBlur={this.onBlur}>
+              <option key={`${value.name}-${i}`} value={value.name}>
                 {value.display ?? value.name}
               </option>
             ))}
           </select>
         </div>
-
-        <NotifyItems items={personalisation} values={values} />
+        <NotifyEditItems
+          items={personalisation}
+          values={values}
+          data={data}
+          onEdit={onEdit}
+        />
       </div>
     );
   }

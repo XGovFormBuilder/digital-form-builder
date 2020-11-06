@@ -1,49 +1,75 @@
-import React from "react";
-import NotifyEdit from "./notify-edit";
-import EmailEdit from "./email-edit";
+import React, {
+  Component,
+  MouseEvent,
+  ChangeEvent,
+  FormEvent,
+  ReactNode,
+} from "react";
 import { clone } from "@xgovformbuilder/model";
 
-class OutputEdit extends React.Component {
-  constructor(props) {
+import NotifyEdit from "./notify-edit";
+import EmailEdit from "./email-edit";
+import WebhookEdit from "./webhook-edit";
+
+import { OutputType, OutputConfiguration, Output } from "./types";
+
+type State = {
+  outputType: OutputType;
+};
+
+type Props = {
+  onEdit: ({ data: any }) => void; // TODO: type
+  onCancel: (event: MouseEvent<HTMLAnchorElement>) => void;
+  data: any; // TODO: type
+  output: Output;
+};
+
+class OutputEdit extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
-    this.state = { outputType: props.output?.type ?? "notify" };
+    this.state = { outputType: props.output?.type ?? OutputType.Email };
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
+  onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     let output = this.props.output || { name: "", type: "" };
-    const form = e.target;
+    const form = event.currentTarget;
     const formData = new window.FormData(form);
     const { data } = this.props;
     const copy = clone(data);
-    const outputType = formData.get("output-type") || output.type;
-    const outputName = formData.get("output-name");
-    const outputTitle = formData.get("output-title");
-    let outputIndex;
+    const outputType: OutputType =
+      (formData.get("output-type") as OutputType) || output.type;
+    const outputName = formData.get("output-name") as string;
+    const outputTitle = formData.get("output-title") as string;
+
+    let outputIndex: number = -1;
+
     if (output.name) {
       outputIndex = data.outputs.indexOf(output);
     }
 
-    let outputConfiguration = output.outputConfiguration || {};
+    let outputConfiguration: OutputConfiguration =
+      output.outputConfiguration || {};
+
     switch (outputType) {
-      case "notify":
+      case OutputType.Email:
+        outputConfiguration = {
+          emailAddress: formData.get("email-address") as string,
+        };
+        break;
+      case OutputType.Notify:
         outputConfiguration = {
           personalisation: formData
             .getAll("personalisation")
-            .map((t) => t.trim()),
-          templateId: formData.get("template-id"),
-          apiKey: formData.get("api-key"),
-          emailField: formData.get("email-field"),
+            .map((t) => (t as string).trim()),
+          templateId: formData.get("template-id") as string,
+          apiKey: formData.get("api-key") as string,
+          emailField: formData.get("email-field") as string,
         };
         break;
-      case "email":
+      case OutputType.Webhook:
         outputConfiguration = {
-          emailAddress: formData.get("email-address"),
-        };
-        break;
-      case "webhook":
-        outputConfiguration = {
-          url: formData.get("webhook-url"),
+          url: formData.get("webhook-url") as string,
         };
         break;
     }
@@ -67,17 +93,18 @@ class OutputEdit extends React.Component {
       .then((data) => {
         this.props.onEdit({ data });
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.error(err);
       });
   };
 
-  onChangeOutputType = (e) => {
-    this.setState({ outputType: e.target.value });
+  onChangeOutputType = (event: ChangeEvent<HTMLSelectElement>) => {
+    const outputType = event.currentTarget.value as OutputType;
+    this.setState({ outputType });
   };
 
-  onClickDelete = (e) => {
-    e.preventDefault();
+  onClickDelete = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
 
     if (!window.confirm("Confirm delete")) {
       return;
@@ -93,40 +120,28 @@ class OutputEdit extends React.Component {
       .then((data) => {
         this.props.onEdit({ data });
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.error(err);
       });
   };
 
   render() {
-    const { data, output } = this.props;
     const state = this.state;
-    let outputEdit;
-    if (state.outputType === "notify") {
-      outputEdit = <NotifyEdit data={data} output={output} />;
-    } else if (state.outputType === "email") {
-      outputEdit = <EmailEdit output={output} />;
-    } else if (state.outputType === "webhook") {
+    const { data, output } = this.props;
+    let outputEdit: ReactNode;
+
+    if (state.outputType === OutputType.Notify) {
       outputEdit = (
-        <div className="govuk-form-group">
-          <label className="govuk-label govuk-label--s" htmlFor="webhook-url">
-            Webhook url
-          </label>
-          <input
-            className="govuk-input"
-            id="webhook-url"
-            name="webhook-url"
-            defaultValue={output?.outputConfiguration?.url ?? ""}
-            type="text"
-            required
-            pattern="^\S+"
-          />
-        </div>
+        <NotifyEdit data={data} output={output} onEdit={this.props.onEdit} />
       );
+    } else if (state.outputType === OutputType.Email) {
+      outputEdit = <EmailEdit output={output} />;
+    } else if (state.outputType === OutputType.Webhook) {
+      outputEdit = <WebhookEdit url={output?.outputConfiguration?.["url"]} />;
     }
 
     return (
-      <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
+      <form onSubmit={this.onSubmit} autoComplete="off">
         {this.props.onCancel && (
           <a
             className="govuk-back-link"
@@ -147,7 +162,6 @@ class OutputEdit extends React.Component {
             type="text"
             required
             defaultValue={output?.title ?? ""}
-            onBlur={this.onBlurName}
           />
         </div>
 
@@ -163,7 +177,6 @@ class OutputEdit extends React.Component {
             required
             pattern="^\S+"
             defaultValue={output?.name ?? ""}
-            onBlur={this.onBlurName}
           />
         </div>
 
@@ -175,12 +188,12 @@ class OutputEdit extends React.Component {
             className="govuk-select"
             id="output-type"
             name="output-type"
-            disabled={output?.type}
+            disabled={!!output?.type}
             value={state.outputType}
             onChange={this.onChangeOutputType}
           >
-            <option value="notify">Email via GOVUK Notify</option>
             <option value="email">Email</option>
+            <option value="notify">Email via GOVUK Notify</option>
             <option value="webhook">Webhook</option>
           </select>
         </div>
