@@ -29,7 +29,7 @@ export default class Component {
     this.model = model;
     const data = new Data(model.def);
     const values = data.valuesFor(def);
-    this.values = values ? values.toStaticValues() : undefined;
+    this.values = values?.toStaticValues();
     this.schema = def.schema || {};
   }
 

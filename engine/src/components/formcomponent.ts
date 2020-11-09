@@ -5,13 +5,11 @@ import joi from "joi";
 import { ViewModel } from "./types";
 
 export default class FormComponent extends Component {
-  isFormComponent: boolean;
-  __lang: string;
+  isFormComponent: boolean = true;
+  __lang: string = "en";
 
   constructor(def, model) {
     super(def, model);
-    this.isFormComponent = true;
-    this.__lang = "en"; // set default language
 
     const { schema } = this;
 
@@ -93,7 +91,7 @@ export default class FormComponent extends Component {
       };
     }
 
-    return null;
+    return undefined;
   }
 
   getFormValueFromState(state) {
