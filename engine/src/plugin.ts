@@ -1,3 +1,10 @@
+import {
+  Request,
+  ResponseObject,
+  ResponseToolkit,
+  Server,
+  Plugin,
+} from "@hapi/hapi";
 import nunjucks from "nunjucks";
 import { redirectTo } from "./helpers";
 import { RelativeUrl } from "./feedback";
@@ -6,12 +13,12 @@ import {
   SchemaMigrationService,
 } from "@xgovformbuilder/model";
 
-// Configure Nunjucks to allow rendering of content that is revealed conditionally.
 import Model from "./model";
 import { nanoid } from "nanoid";
 import Boom from "boom";
 import pkg from "../package.json";
 
+// Configure Nunjucks to allow rendering of content that is revealed conditionally.
 nunjucks.configure([
   "node_modules/govuk-frontend/govuk/",
   "node_modules/govuk-frontend/govuk/components/",
@@ -21,23 +28,34 @@ nunjucks.configure([
   "node_modules/hmpo-components/components",
 ]);
 
-function normalisePath(path) {
+function normalisePath(path: string) {
   return path.replace(/^\//, "").replace(/\/$/, "");
 }
 
-function getStartPageRedirect(request, h, id, model) {
+function getStartPageRedirect(
+  request: Request,
+  h: ResponseToolkit,
+  id: string,
+  model: Model
+) {
   const startPage = normalisePath(model.def.startPage);
   let startPageRedirect;
+
   if (startPage.startsWith("http")) {
     startPageRedirect = redirectTo(request, h, startPage);
   } else {
     startPageRedirect = redirectTo(request, h, `/${id}/${startPage}`);
   }
+
   return startPageRedirect;
 }
 
-function redirectWithVisitParameter(request, h) {
+function redirectWithVisitParameter(
+  request: Request,
+  h: ResponseToolkit
+): ResponseObject | void {
   const visitId = request.query[RelativeUrl.VISIT_IDENTIFIER_PARAMETER];
+
   if (!visitId) {
     const params = Object.assign({}, request.query);
     params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = nanoid(10);
@@ -45,12 +63,19 @@ function redirectWithVisitParameter(request, h) {
   }
 }
 
-export const plugin = {
+type PluginOptions = {
+  relativeTo?: string;
+  modelOptions: any;
+  configs: any[];
+  previewMode: boolean;
+};
+
+export const plugin: Plugin = {
   name: pkg.name,
   version: pkg.version,
   dependencies: "vision",
   multiple: true,
-  register: (server, options) => {
+  register: (server: Server, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
 
     const schemaMigrationService = new SchemaMigrationService(server, options);
@@ -78,7 +103,7 @@ export const plugin = {
       server.route({
         method: "post",
         path: "/publish",
-        handler: (request, h) => {
+        handler: (request: Request, h: ResponseToolkit) => {
           const { id, configuration } = request.payload;
           const parsedConfiguration =
             typeof configuration === "string"
@@ -93,7 +118,7 @@ export const plugin = {
       server.route({
         method: "get",
         path: "/published/{id}",
-        handler: (request, h) => {
+        handler: (request: Request, h: ResponseToolkit) => {
           const { id } = request.params;
           if (forms[id]) {
             const { values } = forms[id];
@@ -107,7 +132,7 @@ export const plugin = {
       server.route({
         method: "get",
         path: "/published",
-        handler: (request, h) => {
+        handler: (_request: Request, h: ResponseToolkit) => {
           return h
             .response(
               JSON.stringify(
@@ -130,7 +155,7 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/",
-      handler: (request, h) => {
+      handler: (request: Request, h: ResponseToolkit) => {
         function handle() {
           const keys = Object.keys(forms);
           let id = "";
@@ -151,7 +176,7 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}",
-      handler: (request, h) => {
+      handler: (request: Request, h: ResponseToolkit) => {
         function handle() {
           const { id } = request.params;
           const model = forms[id];
@@ -168,7 +193,7 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
-      handler: (request, h) => {
+      handler: (request: Request, h: ResponseToolkit) => {
         function handle() {
           const { path, id } = request.params;
           const model = forms[id];
@@ -192,11 +217,11 @@ export const plugin = {
 
     const { uploadService } = server.services([]);
 
-    const handleFiles = (request, h) => {
+    const handleFiles = (request: Request, h: ResponseToolkit) => {
       return uploadService.handleUploadRequest(request, h);
     };
 
-    const postHandler = async (request, h) => {
+    const postHandler = async (request: Request, h: ResponseToolkit) => {
       const { path, id } = request.params;
       const model = forms[id];
       if (model) {
@@ -224,7 +249,7 @@ export const plugin = {
           parse: true,
           multipart: true,
           maxBytes: uploadService.fileSizeLimit,
-          failAction: async (request, h) => {
+          failAction: async (request: Request, h: ResponseToolkit) => {
             if (
               request.server.plugins.crumb &&
               request.server.plugins.crumb.generate

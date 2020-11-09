@@ -73,8 +73,12 @@ class ConditionalFormComponent extends FormComponent {
         payload
       );
       Object.values(item.childrenCollection.items)
-        .filter((conditionalItem) => stateFromValidForm[conditionalItem.name])
-        .forEach((key) => {
+        .filter(
+          // TODO: type
+          (conditionalItem: any) => stateFromValidForm[conditionalItem.name]
+        )
+        // TODO: type
+        .forEach((key: any) => {
           const conditionalItemToNull = key.name;
           Object.assign(stateFromValidForm, { [conditionalItemToNull]: null });
         });
@@ -87,7 +91,7 @@ class ConditionalFormComponent extends FormComponent {
     return this[getSchemaKeys]("state");
   }
 
-  createConditionalComponents(def, model) {
+  createConditionalComponents(_def, model) {
     const { values } = this;
     const items = values.items;
 

@@ -6,11 +6,19 @@ export interface Migration {
   migrate(formDef: any): any;
 }
 
+type Options = {
+  // TODO: prove type
+  relativeTo?: string;
+  modelOptions: any;
+  configs: any;
+  previewMode: boolean;
+};
+
 export class SchemaMigrationService {
   logger: Logger;
   migrations: Array<Migration>;
 
-  constructor(server: any, _options: any) {
+  constructor(server: any, _options: Options) {
     this.logger = new Logger(server, "SchemaMigrationService");
     this.migrations = [new ListItemReferencesToValueObjects(server)];
   }

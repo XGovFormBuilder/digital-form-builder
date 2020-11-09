@@ -2,11 +2,14 @@ import Component from "./component";
 import { optionalText } from "./constants";
 import joi from "joi";
 
+import { ViewModel } from "./types";
+
 export default class FormComponent extends Component {
+  isFormComponent: boolean = true;
+  __lang: string = "en";
+
   constructor(def, model) {
     super(def, model);
-    this.isFormComponent = true;
-    this.__lang = "en"; // set default language
 
     const { schema } = this;
 
@@ -87,6 +90,8 @@ export default class FormComponent extends Component {
         [name]: this.getFormValueFromState(state),
       };
     }
+
+    return undefined;
   }
 
   getFormValueFromState(state) {
@@ -135,7 +140,8 @@ export default class FormComponent extends Component {
 
     const name = this.name;
 
-    const model = {
+    const viewModel: ViewModel = {
+      ...super.getViewModel(formData, errors),
       label: {
         text: label,
         classes: "govuk-label--s",
@@ -146,30 +152,30 @@ export default class FormComponent extends Component {
     };
 
     if (this.hint) {
-      model.hint = {
+      viewModel.hint = {
         html: this.localisedString(this.hint),
       };
     }
 
     if (options.classes) {
-      model.classes = options.classes;
+      viewModel.classes = options.classes;
     }
 
     if (options.condition) {
-      model.condition = options.condition;
+      viewModel.condition = options.condition;
     }
 
     if (errors) {
       errors.errorList.forEach((err) => {
         if (err.name === name) {
-          model.errorMessage = {
+          viewModel.errorMessage = {
             text: err.text,
           };
         }
       });
     }
 
-    return model;
+    return viewModel;
   }
 
   getFormSchemaKeys() {

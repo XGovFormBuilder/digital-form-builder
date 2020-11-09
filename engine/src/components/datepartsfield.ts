@@ -5,6 +5,8 @@ import { optionalText } from "./constants";
 import * as helpers from "./helpers";
 
 export default class DatePartsField extends FormComponent {
+  children: ComponentCollection;
+
   constructor(def, model) {
     super(def, model);
     const { name, options } = this;
@@ -120,12 +122,13 @@ export default class DatePartsField extends FormComponent {
       .getViewModel(formData, errors)
       .map((vm) => vm.model);
 
-    // Remove the labels and apply error classes to the items
     componentViewModels.forEach((componentViewModel) => {
-      componentViewModel.label = componentViewModel.label.text.replace(
+      // Nunjucks macro expects label to be a string for this component
+      componentViewModel.label = componentViewModel.label?.text?.replace(
         optionalText,
         ""
-      );
+      ) as any;
+
       if (componentViewModel.errorMessage) {
         componentViewModel.classes += " govuk-input--error";
       }

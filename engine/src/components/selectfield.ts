@@ -38,20 +38,16 @@ export default class SelectField extends FormComponent {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    Object.assign(viewModel, {
-      items: [{ text: "" }].concat(
-        values.items.map((item) => {
-          return {
-            text: this.localisedString(item.label),
-            value: item.value,
-            // Do a loose check as state may or
-            // may not match the item value types
-            selected: "" + item.value === "" + formData[name],
-            condition: item.condition,
-          };
-        })
-      ),
-    });
+    viewModel.items = [{ text: "" }].concat(
+      values.items.map((item) => ({
+        text: this.localisedString(item.label),
+        value: item.value,
+        // Do a loose check as state may or
+        // may not match the item value types
+        selected: "" + item.value === "" + formData[name],
+        condition: item.condition,
+      }))
+    );
 
     return viewModel;
   }
