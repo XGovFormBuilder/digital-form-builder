@@ -1,13 +1,36 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
+import { Request, ResponseToolkit, ResponseObject } from "hapi";
+
 import { proceed, redirectTo } from "./helpers";
 import ComponentCollection from "./components/componentcollection";
+import { decode, RelativeUrl, FeedbackContextInfo } from "./feedback";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
 
 export default class Page {
-  constructor(model, pageDef) {
+  def: {
+    name: string;
+    feedback?: {
+      url?: string;
+      feedbackForm?: boolean;
+    };
+  };
+  name: string;
+  model: any; // TODO
+  pageDef: any; // TODO
+  path: string;
+  title: string;
+  condition: any; // TODO
+  repeatField: any; // TODO
+  section: any; // TODO
+  components: ComponentCollection;
+  hasFormComponents: boolean;
+  hasConditionalFormComponents: boolean;
+
+  // TODO: types
+  constructor(model: any, pageDef: any) {
     const { def } = model;
 
     // Properties
@@ -38,7 +61,22 @@ export default class Page {
     this[STATE_SCHEMA] = this.components.stateSchema;
   }
 
-  getViewModel(formData, iteration, errors) {
+  getViewModel(
+    formData: any, // TODO
+    iteration?: any, // TODO
+    errors?: any // TODO
+  ): {
+    page: Page;
+    name: string;
+    pageTitle: string;
+    sectionTitle: string;
+    showTitle: boolean;
+    components: any; // TODO
+    errors: any; // TODO
+    isStartPage: boolean;
+    startPage?: ResponseObject;
+    backLink?: string;
+  } {
     let showTitle = true;
     let pageTitle = this.title;
     let sectionTitle = this.section && this.section.title;
@@ -49,12 +87,14 @@ export default class Page {
 
     const formComponents = components.filter((c) => c.isFormComponent);
     const hasSingleFormComponent = formComponents.length === 1;
-    const singleFormComponent = hasSingleFormComponent && formComponents[0];
+    const singleFormComponent = hasSingleFormComponent
+      ? formComponents[0]
+      : null;
     const singleFormComponentIsFirst =
       singleFormComponent && singleFormComponent === components[0];
 
-    if (hasSingleFormComponent && singleFormComponentIsFirst) {
-      const label = singleFormComponent.model.label;
+    if (singleFormComponent && singleFormComponentIsFirst) {
+      const label: any = singleFormComponent.model.label;
 
       if (pageTitle) {
         label.text = pageTitle;
@@ -69,6 +109,7 @@ export default class Page {
       pageTitle = pageTitle || label.text;
       showTitle = false;
     }
+
     return {
       page: this,
       name: this.name,
@@ -87,23 +128,26 @@ export default class Page {
 
   get next() {
     return (this.pageDef.next || [])
-      .map((next) => {
+      .map((next: { path: string }) => {
         const { path } = next;
-        const page = this.model.pages.find((page) => {
+        const page = this.model.pages.find((page: Page) => {
           return path === page.path;
         });
+
         if (!page) {
           return null;
         }
+
         return {
           ...next,
           page,
         };
       })
-      .filter((v) => !!v);
+      .filter((v: {} | null) => !!v);
   }
 
-  getNextPage(state, suppressRepetition = false) {
+  // TODO: type
+  getNextPage(state: any, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
       const otherRepeatPagesInSection = this.model.pages.filter(
@@ -117,7 +161,7 @@ export default class Page {
         // iterated all pages at least once
         const lastIteration = sectionState[sectionState.length - 1];
         if (
-          otherRepeatPagesInSection.length === this.#objLength(lastIteration)
+          otherRepeatPagesInSection.length === this.objLength(lastIteration)
         ) {
           // this iteration is 'complete'
           if (sectionState.length < requiredCount) {
@@ -142,7 +186,8 @@ export default class Page {
     return nextLink?.page ?? defaultLink?.page;
   }
 
-  getNext(state) {
+  // TODO: type
+  getNext(state: any) {
     const nextPage = this.getNextPage(state);
     const query = { num: 0 };
     let queryString = "";
@@ -157,8 +202,8 @@ export default class Page {
         Object.keys(lastInSection).length === otherRepeatPagesInSection.length;
       query.num = sectionState
         ? isLastComplete
-          ? this.#objLength(sectionState) + 1
-          : this.#objLength(sectionState)
+          ? this.objLength(sectionState) + 1
+          : this.objLength(sectionState)
         : 1;
 
       if (query.num <= requiredCount) {
@@ -172,14 +217,18 @@ export default class Page {
     return this.defaultNextPath;
   }
 
-  getFormDataFromState(state, atIndex) {
+  // TODO: type
+  getFormDataFromState(state: any, atIndex: number) {
     const pageState = this.section ? state[this.section.name] : state;
+
     if (this.repeatField) {
       const repeatedPageState =
         pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {};
       const values = Object.values(repeatedPageState);
       return this.components.getFormDataFromState(
-        values.length ? values.reduce((acc, page) => ({ ...acc, ...page })) : {}
+        values.length
+          ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
+          : {}
       );
     }
 
@@ -196,7 +245,9 @@ export default class Page {
         titleText: this.errorSummaryTitle,
         errorList: validationResult.error.details.map((err) => {
           const name = err.path
-            .map((name, index) => (index > 0 ? `__${name}` : name))
+            .map((name: string, index: number) =>
+              index > 0 ? `__${name}` : name
+            )
             .join("");
 
           return {
@@ -208,6 +259,8 @@ export default class Page {
         }),
       };
     }
+
+    return null;
   }
 
   validate(value, schema) {
@@ -234,13 +287,13 @@ export default class Page {
     return request.yar.get("lang");
   }
 
-  #objLength(object) {
-    /* eslint-disable-line */
-    return Object.keys(object).length ?? 0;
+  private objLength(object: {}) {
+    return Object.keys(object).length;
   }
 
   makeGetRouteHandler() {
-    return async (request, h) => {
+    // TODO: type
+    return async (request: any, h: any) => {
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);
@@ -274,7 +327,7 @@ export default class Page {
       viewModel.startPage = startPage.startsWith("http")
         ? redirectTo(request, h, startPage)
         : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
-      this.#setFeedbackDetails(viewModel, request);
+      this.setFeedbackDetails(viewModel, request);
       viewModel.components = viewModel.components.filter((component) => {
         if (
           (component.model.content || component.type === "Details") &&
@@ -323,12 +376,13 @@ export default class Page {
   }
 
   makePostRouteHandler() {
-    return async (request, h) => {
+    // TODO: type
+    return async (request: any, h: any) => {
       const { cacheService } = request.services([]);
       const hasFilesizeError = request.payload === null;
       const preHandlerErrors = request.pre.errors;
       const payload = request.payload || {};
-      const formResult = this.validateForm(payload);
+      const formResult: any = this.validateForm(payload);
       const state = await cacheService.getState(request);
       const originalFilenames = (state || {}).originalFilenames || {};
       const fileFields = this.getViewModel(formResult)
@@ -358,10 +412,11 @@ export default class Page {
        * @code other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
        */
       if (preHandlerErrors) {
-        const reformattedErrors = [];
+        const reformattedErrors: any[] = [];
         preHandlerErrors.forEach((error) => {
           const reformatted = error;
           const fieldMeta = fileFields.find((field) => field.id === error.name);
+
           if (typeof reformatted.text === "string") {
             /**
              * @code if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
@@ -389,7 +444,7 @@ export default class Page {
       if (formResult.errors) {
         const viewModel = this.getViewModel(payload, num, formResult.errors);
         viewModel.backLink = progress[progress.length - 2];
-        this.#setFeedbackDetails(viewModel, request);
+        this.setFeedbackDetails(viewModel, request);
         return h.view(this.viewName, viewModel);
       }
 
@@ -399,7 +454,7 @@ export default class Page {
       if (stateResult.errors) {
         const viewModel = this.getViewModel(payload, num, stateResult.errors);
         viewModel.backLink = progress[progress.length - 2];
-        this.#setFeedbackDetails(viewModel, request);
+        this.setFeedbackDetails(viewModel, request);
         return h.view(this.viewName, viewModel);
       }
 
@@ -429,28 +484,28 @@ export default class Page {
     };
   }
 
-  #setFeedbackDetails(viewModel, request) {
-    /* eslint-disable-line */
-    const feedbackContextInfo = this.#getFeedbackContextInfo(request);
+  private setFeedbackDetails(viewModel, request) {
+    const feedbackContextInfo = this.getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
       viewModel.name = feedbackContextInfo.formTitle;
     }
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
-    viewModel.feedbackLink = this.#feedbackUrlFromRequest(request);
+    viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  #getFeedbackContextInfo(request) {
-    /* eslint-disable-line */
+  private getFeedbackContextInfo(request) {
     if (this.def.feedback?.feedbackForm) {
-      return decode(
-        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-          .feedbackReturnInfo
-      );
+      const feedbackReturnInfo = new RelativeUrl(
+        `${request.url.pathname}${request.url.search}`
+      ).feedbackReturnInfo;
+
+      if (feedbackReturnInfo) {
+        return decode(feedbackReturnInfo);
+      }
     }
   }
 
-  #feedbackUrlFromRequest(request) {
-    /* eslint-disable-line */
+  private feedbackUrlFromRequest(request): string | void {
     if (this.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(
@@ -463,29 +518,29 @@ export default class Page {
     }
   }
 
-  makeGetRoute(getState) {
+  makeGetRoute() {
     return {
       method: "get",
       path: this.path,
       options: this.getRouteOptions,
-      handler: this.makeGetRouteHandler(getState),
+      handler: this.makeGetRouteHandler(),
     };
   }
 
-  makePostRoute(mergeState) {
+  makePostRoute() {
     return {
       method: "post",
       path: this.path,
       options: this.postRouteOptions,
-      handler: this.makePostRouteHandler(mergeState),
+      handler: this.makePostRouteHandler(),
     };
   }
 
-  findPageByPath(path) {
+  findPageByPath(path: string) {
     return this.model.pages.find((page) => page.path === path);
   }
 
-  proceed(request, h, state) {
+  proceed(request: Request, h: ResponseToolkit, state) {
     return proceed(request, h, this.getNext(state));
   }
 
@@ -493,7 +548,7 @@ export default class Page {
     return this.section ? { [this.section.name]: value } : value;
   }
 
-  localisedString(description, lang) {
+  localisedString(description, lang: string) {
     let string;
     if (typeof description === "string") {
       string = description;

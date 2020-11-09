@@ -11,7 +11,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { suite, test, beforeEach } = lab;
 
-suite.only("OutputEdit", () => {
+suite("OutputEdit", () => {
   let props;
 
   beforeEach(() => {

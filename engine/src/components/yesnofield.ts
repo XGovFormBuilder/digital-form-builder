@@ -5,7 +5,12 @@ import { Data } from "@xgovformbuilder/model";
 export default class YesNoField extends FormComponent {
   constructor(def, model) {
     super(def, model);
-    this.values = new Data(model.def).valuesFor(def).toStaticValues();
+    const data = new Data(model.def);
+    const valuesWrapper = data.valuesFor(def);
+
+    if (valuesWrapper) {
+      this.values = valuesWrapper.toStaticValues();
+    }
 
     const { options, values } = this;
 
@@ -43,20 +48,17 @@ export default class YesNoField extends FormComponent {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    Object.assign(viewModel, {
-      fieldset: {
-        legend: viewModel.label,
-      },
-      items: values.items.map((item) => {
-        return {
-          text: item.label,
-          value: item.value,
-          // Do a loose string based check as state may or
-          // may not match the item value types.
-          checked: "" + item.value === "" + formData[name],
-        };
-      }),
-    });
+    viewModel.fieldset = {
+      legend: viewModel.label,
+    };
+
+    viewModel.items = values.items.map((item) => ({
+      text: item.label,
+      value: item.value,
+      // Do a loose string based check as state may or
+      // may not match the item value types.
+      checked: "" + item.value === "" + formData[name],
+    }));
 
     return viewModel;
   }
