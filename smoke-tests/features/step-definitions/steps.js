@@ -22,11 +22,9 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   switch (componentName) {
     case "Paragraph":
       AddComponentPage.paragraphSetText(
-        "You need the vehicle’s number plate (registration number)." +
-          "\n" +
-          "You can see the results as soon as the MOT centre has recorded the test result." +
-          "\n" +
-          "You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location."
+        `You need the vehicle’s number plate (registration number).\n
+          You can see the results as soon as the MOT centre has recorded the test result.\n
+          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
       );
       AddComponentPage.saveBtn.click();
       break;
@@ -42,7 +40,6 @@ Then(
   "the {string} control is displayed in the {string}",
   (componentName, pageName) => {
     const pageComponent = toCamelCase(componentName);
-    console.log("PAGE COMPONENT IS: " + pageComponent);
     switch (pageComponent) {
       case "dateField":
         chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
@@ -59,7 +56,6 @@ Then(
         );
         break;
       default:
-        console.log(pageComponent + " " + pageName);
         chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
           .be.true;
         break;

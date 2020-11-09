@@ -4,7 +4,7 @@ const AddPageSection = require("../pageobjects/sections/add-page.section");
 const FormDesignerPage = require("../pageobjects/pages/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const Actions = require("../actions/actions");
-const { acceptAlert } = require("../../support/testHelpers");
+const { acceptAlert, toUrl } = require("../../support/testHelpers");
 
 Given("I have chosen to {string} to my form", (menuOption) => {
   Actions.createNewConfig();
