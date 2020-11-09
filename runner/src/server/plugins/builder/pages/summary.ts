@@ -1,11 +1,20 @@
 import { nanoid } from "nanoid";
 import { flatten } from "flat";
 import { clone, reach } from "hoek";
-import { redirectTo, redirectUrl } from "@xgovformbuilder/engine";
+
+import {
+  decode,
+  redirectTo,
+  redirectUrl,
+  RelativeUrl,
+  FeedbackContextInfo,
+} from "@xgovformbuilder/engine";
+import { Data } from "@xgovformbuilder/model";
 
 import Page from "./page";
-import { formSchema } from "../../../schemas/formSchema";
 import config from "../../../config";
+import { formSchema } from "../../../schemas/formSchema";
+import { HapiRequest, HapiResponseToolkit } from "../../../types";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 /**
@@ -22,11 +31,32 @@ const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
  * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
  */
 class SummaryViewModel {
-  constructor(pageTitle, model, state, request) {
+  pageTitle: string;
+  declaration: any; // TODO
+  skipSummary: any; // TODO
+  endPage: any; // TODO
+  result: any;
+  details: any;
+  state: any;
+  value: any;
+  fees: {
+    details: any[];
+    total: number;
+  };
+  errors: any; // TODO
+  name: string;
+  feedbackLink: string;
+  declarationError: any; // TODO
+
+  _outputs: any; // TODO
+  _payApiKey: string;
+  _webhookData: any; // TODO
+
+  constructor(pageTitle: string, model, state, request) {
     this.pageTitle = pageTitle;
 
-    const { relevantPages, endPage } = this.#getRelevantPages(model, state);
-    const details = this.#summaryDetails(request, model, state, relevantPages);
+    const { relevantPages, endPage } = this.getRelevantPages(model, state);
+    const details = this.summaryDetails(request, model, state, relevantPages);
 
     this.declaration = model.def.declaration;
     this.skipSummary = model.def.skipSummary;
@@ -38,7 +68,11 @@ class SummaryViewModel {
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
       if (Array.isArray(section)) {
         collatedRepeatPagesState[key] = section.map((pages) =>
-          Object.values(pages).reduce((acc, p) => ({ ...acc, ...p }), {})
+          // TODO: p type and improve naming
+          Object.values(pages).reduce(
+            (acc: {}, p: any) => ({ ...acc, ...p }),
+            {}
+          )
         );
       }
     });
@@ -49,11 +83,11 @@ class SummaryViewModel {
     });
 
     if (result.error) {
-      this.#processErrors(result, details);
+      this.processErrors(result, details);
     } else {
-      this.fees = this.#retrieveFees(model, state);
-      this.#parseDataForWebhook(model, relevantPages, details);
-      this._webhookData = this.#addFeedbackSourceDataToWebhook(
+      this.fees = this.retrieveFees(model, state);
+      this.parseDataForWebhook(model, relevantPages, details);
+      this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
         request
@@ -65,7 +99,7 @@ class SummaryViewModel {
             case "notify":
               return {
                 type: "notify",
-                outputData: this.#notifyModel(
+                outputData: this.notifyModel(
                   model,
                   output.outputConfiguration,
                   state
@@ -74,7 +108,7 @@ class SummaryViewModel {
             case "email":
               return {
                 type: "email",
-                outputData: this.#emailModel(model, output.outputConfiguration),
+                outputData: this.emailModel(model, output.outputConfiguration),
               };
             case "webhook":
               return {
@@ -84,7 +118,7 @@ class SummaryViewModel {
             case "sheets":
               return {
                 type: "sheets",
-                outputData: this.#sheetsModel(
+                outputData: this.sheetsModel(
                   model,
                   output.outputConfiguration,
                   state
@@ -101,8 +135,7 @@ class SummaryViewModel {
     this.value = result.value;
   }
 
-  #retrieveFees(model, state) {
-    //eslint-disable-line
+  private retrieveFees(model, state) {
     let applicableFees = [];
 
     if (model.def.fees) {
@@ -128,8 +161,7 @@ class SummaryViewModel {
     }
   }
 
-  #processErrors(result, details) {
-    //eslint-disable-line
+  private processErrors(result, details) {
     this.errors = result.error.details.map((err) => {
       const name = err.path[err.path.length - 1];
 
@@ -161,8 +193,7 @@ class SummaryViewModel {
     });
   }
 
-  #summaryDetails(request, model, state, relevantPages) {
-    //eslint-disable-line
+  private summaryDetails(request, model, state, relevantPages) {
     const details = [];
 
     [undefined, ...model.sections].forEach((section) => {
@@ -234,8 +265,7 @@ class SummaryViewModel {
     return details;
   }
 
-  #getRelevantPages(model, state) {
-    //eslint-disable-line
+  private getRelevantPages(model, state) {
     let nextPage = model.startPage;
     const relevantPages = [];
     let endPage = null;
@@ -251,8 +281,7 @@ class SummaryViewModel {
     return { relevantPages, endPage };
   }
 
-  #notifyModel(model, outputConfiguration, state) {
-    //eslint-disable-line
+  private notifyModel(model, outputConfiguration, state) {
     const flatState = flatten(state);
     const personalisation = {};
     outputConfiguration.personalisation.forEach((p) => {
@@ -273,7 +302,7 @@ class SummaryViewModel {
    * @param {*} model
    * @param {*} outputConfiguration
    */
-  #emailModel(model, outputConfiguration) {
+  private emailModel(model, outputConfiguration) {
     const data = [];
 
     this._webhookData.questions.forEach((question) => {
@@ -298,7 +327,7 @@ class SummaryViewModel {
     };
   }
 
-  #sheetsModel(model, outputConfiguration, state) {
+  private sheetsModel(model, outputConfiguration, state) {
     const flatState = flatten(state);
     const { credentials, project_id, scopes } = outputConfiguration;
     const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField];
@@ -317,7 +346,7 @@ class SummaryViewModel {
     };
   }
 
-  #toEnglish(localisableString) {
+  private toEnglish(localisableString) {
     let englishString = "";
     if (localisableString) {
       if (typeof localisableString === "string") {
@@ -329,7 +358,7 @@ class SummaryViewModel {
     return englishString;
   }
 
-  #parseDataForWebhook(model, relevantPages, details) {
+  private parseDataForWebhook(model, relevantPages, details) {
     const questions = [];
 
     for (const page of relevantPages) {
@@ -339,10 +368,10 @@ class SummaryViewModel {
 
       let question;
       if (page.title) {
-        question = this.#toEnglish(page.title);
+        question = this.toEnglish(page.title);
       } else {
         question = page.components.formItems
-          .map((item) => this.#toEnglish(item.title))
+          .map((item) => this.toEnglish(item.title))
           .join(", ");
       }
 
@@ -366,7 +395,7 @@ class SummaryViewModel {
               : detailItem.rawValue;
           fields.push({
             key: detailItem.name,
-            title: this.#toEnglish(detailItem.title),
+            title: this.toEnglish(detailItem.title),
             type: detailItem.dataType,
             answer,
           });
@@ -382,7 +411,7 @@ class SummaryViewModel {
                 );
                 fields.push({
                   key: cc.name,
-                  title: this.#toEnglish(cc.title),
+                  title: this.toEnglish(cc.title),
                   type: cc.dataType,
                   answer:
                     typeof itemDetailItem.rawValue === "object"
@@ -462,16 +491,23 @@ class SummaryViewModel {
     });
   }
 
-  Item(request, component, sectionState, page, model, params) {
-    params = params || {
+  Item(
+    request,
+    component,
+    sectionState,
+    page,
+    model,
+    params: { num?: number; returnUrl: string } = {
       returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
-    };
+    }
+  ) {
     const isRepeatable = !!page.repeatField;
 
     if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
         const collated = Object.values(state).reduce(
-          (acc, p) => ({ ...acc, ...p }),
+          // TODO: p type, improve var naming
+          (acc: {}, p: any) => ({ ...acc, ...p }),
           {}
         );
         return this.Item(request, component, collated, page, model, {
@@ -495,7 +531,7 @@ class SummaryViewModel {
     };
   }
 
-  #addFeedbackSourceDataToWebhook(webhookData, model, request) {
+  private addFeedbackSourceDataToWebhook(webhookData, model, request) {
     if (model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -524,7 +560,7 @@ class SummaryViewModel {
 
 export default class SummaryPage extends Page {
   makeGetRouteHandler() {
-    return async (request, h) => {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.langFromRequest(request);
 
       const { cacheService } = request.services([]);
@@ -536,7 +572,7 @@ export default class SummaryPage extends Page {
 
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
-      this.#setFeedbackDetails(viewModel, request);
+      this.setFeedbackDetails(viewModel, request);
 
       if (viewModel.endPage) {
         return redirectTo(
@@ -597,7 +633,7 @@ export default class SummaryPage extends Page {
   }
 
   makePostRouteHandler() {
-    return async (request, h) => {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { payService, cacheService } = request.services([]);
       const model = this.model;
       const state = await cacheService.getState(request);
@@ -607,7 +643,8 @@ export default class SummaryPage extends Page {
         state,
         request
       );
-      this.#setFeedbackDetails(summaryViewModel, request);
+      this.setFeedbackDetails(summaryViewModel, request);
+
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
         console.error(`SummaryPage Error`, summaryViewModel.result.error);
@@ -633,7 +670,8 @@ export default class SummaryPage extends Page {
 
       // request declaration
       if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
-        const { declaration } = request.payload;
+        const { declaration } = request.payload as { declaration?: any };
+
         if (!declaration) {
           request.yar.flash(
             "declarationError",
@@ -697,17 +735,20 @@ export default class SummaryPage extends Page {
     };
   }
 
-  #setFeedbackDetails(viewModel, request) {
-    const feedbackContextInfo = this.#getFeedbackContextInfo(request);
+  private setFeedbackDetails(
+    viewModel: SummaryViewModel,
+    request: HapiRequest
+  ) {
+    const feedbackContextInfo = this.getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
       // set the form name to the source form name if this is a feedback form
       viewModel.name = feedbackContextInfo.formTitle;
     }
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
-    viewModel.feedbackLink = this.#feedbackUrlFromRequest(request);
+    viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  #getFeedbackContextInfo(request) {
+  private getFeedbackContextInfo(request) {
     if (this.model.def.feedback?.feedbackForm) {
       return decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -716,7 +757,7 @@ export default class SummaryPage extends Page {
     }
   }
 
-  #feedbackUrlFromRequest(request) {
+  private feedbackUrlFromRequest(request) {
     if (this.model.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.model.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(
@@ -733,7 +774,7 @@ export default class SummaryPage extends Page {
     return {
       ext: {
         onPreHandler: {
-          method: async (request, h) => {
+          method: async (_request: HapiRequest, h: HapiResponseToolkit) => {
             return h.continue;
           },
         },

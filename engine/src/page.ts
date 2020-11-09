@@ -30,7 +30,11 @@ export default class Page {
   hasConditionalFormComponents: boolean;
 
   // TODO: types
-  constructor(model: any, pageDef: any) {
+  // TODO: should we have some validation, e.g: required name, path etc?
+  constructor(
+    model: { [prop: string]: any } = {},
+    pageDef: { [prop: string]: any } = {}
+  ) {
     const { def } = model;
 
     // Properties

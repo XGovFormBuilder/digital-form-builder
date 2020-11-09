@@ -2,6 +2,8 @@ import joi from "joi";
 import Page from "./page";
 
 export default class StartDatePage extends Page {
+  components: any;
+
   get stateSchema() {
     const keys = this.components.getStateSchemaKeys();
     const name = this.components.formItems[0].name;

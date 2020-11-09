@@ -1,11 +1,19 @@
 import { Page as PageBase } from "@xgovformbuilder/engine";
+import { HapiRequest, HapiResponseToolkit } from "../../../types";
 
 export default class Page extends PageBase {
-  get getRouteOptions() {
+  // TODO: improve type, see Page once types mature
+  constructor(model: any, pageDef: any) {
+    super(model, pageDef);
+  }
+
+  get getRouteOptions(): {
+    ext: any;
+  } {
     return {
       ext: {
         onPostHandler: {
-          method: (request, h) => {
+          method: (_request: HapiRequest, h: HapiResponseToolkit) => {
             console.log(`GET onPostHandler ${this.path}`);
             return h.continue;
           },
@@ -14,7 +22,10 @@ export default class Page extends PageBase {
     };
   }
 
-  get postRouteOptions() {
+  get postRouteOptions(): {
+    payload?: any;
+    ext: any;
+  } {
     return {
       payload: {
         output: "stream",
@@ -24,13 +35,13 @@ export default class Page extends PageBase {
       },
       ext: {
         onPreHandler: {
-          method: async (request, h) => {
+          method: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { uploadService } = request.services([]);
             return uploadService.handleUploadRequest(request, h);
           },
         },
         onPostHandler: {
-          method: async (request, h) => {
+          method: async (_request: HapiRequest, h: HapiResponseToolkit) => {
             return h.continue;
           },
         },

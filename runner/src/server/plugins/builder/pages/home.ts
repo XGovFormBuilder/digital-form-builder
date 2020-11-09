@@ -1,20 +1,12 @@
 import Page from "./page";
+import { HapiRequest, HapiResponseToolkit } from "../../../types";
 
 export default class HomePage extends Page {
-  constructor(defs, pageDef) {
-    super(defs, pageDef);
-    this.x = "";
-  }
-
   get getRouteOptions() {
     return {
-      // handler: (request, h) => {
-      //   return { ok: 200 }
-      // },
       ext: {
         onPostHandler: {
-          method: (request, h) => {
-            // Method must return a value, a promise, or throw an error
+          method: (_request: HapiRequest, h: HapiResponseToolkit) => {
             return h.continue;
           },
         },
@@ -24,12 +16,9 @@ export default class HomePage extends Page {
 
   get postRouteOptions() {
     return {
-      // handler: (request, h) => {
-      //   return { ok: 200 }
-      // },
       ext: {
         onPostHandler: {
-          method: (request, h) => {
+          method: (_request: HapiRequest, h: HapiResponseToolkit) => {
             // Method must return a value, a promise, or throw an error
             return h.continue;
           },
