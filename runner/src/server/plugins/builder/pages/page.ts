@@ -1,4 +1,4 @@
-import PageBase from "./page-base";
+import { Page as PageBase } from "@xgovformbuilder/engine";
 
 export default class Page extends PageBase {
   get getRouteOptions() {
