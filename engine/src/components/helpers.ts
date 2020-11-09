@@ -63,7 +63,7 @@ export function buildStateSchema(schemaType, component) {
   return schema;
 }
 
-export function getFormSchemaKeys(name, schemaType, component) {
+export function getFormSchemaKeys(_name, schemaType, component) {
   const schema = buildFormSchema(schemaType, component);
 
   return { [component.name]: schema };

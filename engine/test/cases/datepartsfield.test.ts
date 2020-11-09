@@ -62,5 +62,6 @@ function dateComponent(name, width) {
     value: undefined,
     classes: `govuk-input--width-${width}`,
     type: "number",
+    attributes: {},
   };
 }

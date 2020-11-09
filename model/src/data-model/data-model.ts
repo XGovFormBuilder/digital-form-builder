@@ -104,7 +104,14 @@ export class Data {
       Data.FEEDBACK_CONTEXT_ITEMS.forEach((it) => {
         inputs.push(
           new InputWrapper(
-            { type: "TextField", title: it.display, name: it.key },
+            {
+              type: "TextField",
+              title: it.display,
+              name: it.key,
+              hint: "",
+              options: {},
+              schema: {},
+            },
             startPage,
             options
           )
@@ -216,13 +223,17 @@ export class Data {
     return undefined;
   }
 
-  _valuesFor(component: Component): ComponentValues | null {
+  _valuesFor(
+    component: Component & { values?: ComponentValues }
+  ): ComponentValues | null {
     if (component.type === "YesNoField") {
       return yesNoValues;
     }
+
     if (component.values) {
       return valuesFrom(component.values);
     }
+
     return null;
   }
 
