@@ -1,0 +1,6 @@
+{% macro componentList(components) %}
+  {% for component in components %}
+    {% import "../components/" + component.type.toLowerCase() + ".html" as view %}
+    {{ view[component.type](component) }}
+  {% endfor %}
+{% endmacro %}

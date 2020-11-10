@@ -1,0 +1,12 @@
+{% from "button/macro.njk" import govukButton %}
+<form method="post" enctype="multipart/form-data" autocomplete="on">
+  <input type="hidden" name="crumb" value="{{crumb}}"/>
+  {{ componentList(components) }}
+  {% if not (components[0].type == "FlashCard") %}
+    {% if isStartPage %}
+      {{ govukButton({ attributes: { id: "submit" }, text: "Start now", isStartButton: true }) }}
+    {% else %}
+      {{ govukButton({ attributes: { id: "submit" }, text: "Continue" }) }}
+    {% endif %}
+  {% endif %}
+</form>
