@@ -45,8 +45,8 @@ export default {
       },
     },
     path: [
-      `${path.resolve(__dirname, "/../views")}`,
-      `${path.resolve(__dirname, "/../engine/views")}`,
+      `${path.join(__dirname, "/../views")}`,
+      `${path.join(__dirname, "/../engine/views")}`,
       // TODO cleanup
       // `${path.dirname(resolve.sync("@xgovformbuilder/engine"))}/views`,
       // `${path.dirname(resolve.sync("@xgovformbuilder/engine"))}/views/partials`,

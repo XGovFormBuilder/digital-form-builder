@@ -17,13 +17,9 @@ import {
 import Model from "./model";
 import { nanoid } from "nanoid";
 import Boom from "boom";
-import pkg from "../package.json";
 
 nunjucks.configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
-  // TODO cleanup
-  // "node_modules/@xgovformbuilder/engine/views",
-  // "node_modules/@xgovformbuilder/engine/views/partials",
   path.resolve(__dirname, "/views"),
   path.resolve(__dirname, "/views/partials"),
   "node_modules/govuk-frontend/govuk/",
@@ -75,8 +71,7 @@ type PluginOptions = {
 };
 
 export const plugin: Plugin = {
-  name: pkg.name,
-  version: pkg.version,
+  name: "@xgovformbuilder/runner/engine",
   dependencies: "vision",
   multiple: true,
   register: (server: Server, options: PluginOptions) => {
