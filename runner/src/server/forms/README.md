@@ -1,3 +1,4 @@
-# Sample form files
+# Pre-configured Forms
 
-Files here are used to simulate forms in pre-prod environments so user's can preview the runner.
+This folder holds JSON files for pre-configured forms, which are forms that are automatically loaded by the runner. Please see `test.json` file as an example.
+All JSON files inside this folder are loaded and added to the engine plugin, please see `server/plugins/build/index.ts`.
