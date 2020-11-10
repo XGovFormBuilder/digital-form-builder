@@ -239,7 +239,8 @@ export default class Page {
     return this.components.getFormDataFromState(pageState || {});
   }
 
-  getStateFromValidForm(formData) {
+  // TODO: type
+  getStateFromValidForm(formData): any {
     return this.components.getStateFromValidForm(formData);
   }
 
@@ -488,7 +489,7 @@ export default class Page {
     };
   }
 
-  private setFeedbackDetails(viewModel, request) {
+  setFeedbackDetails(viewModel, request) {
     const feedbackContextInfo = this.getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
       viewModel.name = feedbackContextInfo.formTitle;
@@ -497,7 +498,7 @@ export default class Page {
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  private getFeedbackContextInfo(request) {
+  getFeedbackContextInfo(request) {
     if (this.def.feedback?.feedbackForm) {
       const feedbackReturnInfo = new RelativeUrl(
         `${request.url.pathname}${request.url.search}`
@@ -509,7 +510,7 @@ export default class Page {
     }
   }
 
-  private feedbackUrlFromRequest(request): string | void {
+  feedbackUrlFromRequest(request): string | void {
     if (this.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(

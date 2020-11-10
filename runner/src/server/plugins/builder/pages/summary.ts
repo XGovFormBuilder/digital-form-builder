@@ -735,10 +735,7 @@ export default class SummaryPage extends Page {
     };
   }
 
-  private setFeedbackDetails(
-    viewModel: SummaryViewModel,
-    request: HapiRequest
-  ) {
+  setFeedbackDetails(viewModel: SummaryViewModel, request: HapiRequest) {
     const feedbackContextInfo = this.getFeedbackContextInfo(request);
     if (feedbackContextInfo) {
       // set the form name to the source form name if this is a feedback form
@@ -748,7 +745,7 @@ export default class SummaryPage extends Page {
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  private getFeedbackContextInfo(request) {
+  getFeedbackContextInfo(request) {
     if (this.model.def.feedback?.feedbackForm) {
       return decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -757,7 +754,7 @@ export default class SummaryPage extends Page {
     }
   }
 
-  private feedbackUrlFromRequest(request) {
+  feedbackUrlFromRequest(request) {
     if (this.model.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.model.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(

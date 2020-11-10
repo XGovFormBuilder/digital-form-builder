@@ -1,18 +1,19 @@
 import { redirectTo } from "../engine";
 import publicRoutes from "../routes/public";
+import { HapiRequest, HapiResponseToolkit } from "../types";
 
 const routes = [...publicRoutes];
 
 export default {
   plugin: {
     name: "router",
-    register: (server, options) => {
+    register: (server) => {
       server.route(routes);
 
       server.route({
         method: "get",
         path: "/help/cookies",
-        handler: async (request, h) => {
+        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
           return h.view("help/cookies");
         },
       });
@@ -20,7 +21,7 @@ export default {
       server.route({
         method: "get",
         path: "/help/terms-and-conditions",
-        handler: async (request, h) => {
+        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
           return h.view("help/terms-and-conditions");
         },
       });
@@ -28,19 +29,19 @@ export default {
       server.route({
         method: "get",
         path: "/clear-session",
-        handler: async (request, h) => {
+        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           if (request.yar) {
             request.yar.reset();
           }
           const { redirect } = request.query;
-          return redirectTo(request, h, redirect || "/");
+          return redirectTo(request, h, (redirect as string) || "/");
         },
       });
 
       server.route({
         method: "get",
         path: "/timeout",
-        handler: async (request, h) => {
+        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           if (request.yar) {
             request.yar.reset();
           }

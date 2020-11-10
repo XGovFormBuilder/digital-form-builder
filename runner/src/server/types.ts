@@ -1,7 +1,8 @@
 import { Request, ResponseToolkit } from "hapi";
-import {} from "@types/yar";
+// import {} from "@types/yar";
 
 export type HapiRequest = Request & {
+  isBoom: boolean;
   services: (
     services: string[]
   ) => {
@@ -16,5 +17,5 @@ export type HapiRequest = Request & {
   };
 };
 export type HapiResponseToolkit = ResponseToolkit & {
-  view: (viewName: string, data: { [prop: string]: any }) => any;
+  view: (viewName: string, data?: { [prop: string]: any }) => any;
 };

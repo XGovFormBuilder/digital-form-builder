@@ -47,12 +47,9 @@ export default {
     path: [
       `${path.join(__dirname, "/../views")}`,
       `${path.join(__dirname, "/../engine/views")}`,
-      // TODO cleanup
-      // `${path.dirname(resolve.sync("@xgovformbuilder/engine"))}/views`,
-      // `${path.dirname(resolve.sync("@xgovformbuilder/engine"))}/views/partials`,
       `${path.dirname(resolve.sync("govuk-frontend"))}`,
       `${path.dirname(resolve.sync("govuk-frontend"))}/components`,
-      `${path.dirname(resolve.sync("hmpo-components"))}/components`,
+      `${path.dirname(resolve.sync("hm≥po-components"))}/components`,
     ],
     isCached: !config.isDev,
     context: {

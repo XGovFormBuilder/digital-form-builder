@@ -2,7 +2,9 @@ import config from "../config";
 import { nanoid } from "nanoid";
 import { decode, redirectTo, redirectUrl, RelativeUrl } from "../engine";
 
-function getFeedbackContextInfo(request) {
+import { HapiRequest, HapiResponseToolkit } from "../types";
+
+function getFeedbackContextInfo(request: HapiRequest) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
     return decode(
       new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -11,11 +13,17 @@ function getFeedbackContextInfo(request) {
   }
 }
 
-function successfulOutcome(request, h, model) {
+function successfulOutcome(
+  request: HapiRequest,
+  h: HapiResponseToolkit,
+  model?: any
+) {
   const feedbackContextInfo = getFeedbackContextInfo(request);
+
   if (feedbackContextInfo) {
     return h.redirect(feedbackContextInfo.url);
   }
+
   return h.view("confirmation", model);
 }
 
@@ -28,12 +36,10 @@ const applicationStatus = {
       server.route({
         method: "get",
         path: "/status",
-        handler: async (request, h) => {
-          // eslint-disable-next-line no-unused-vars
+        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const {
             notifyService,
             payService,
-            emailService,
             webhookService,
             cacheService,
             sheetsService,
@@ -172,7 +178,7 @@ const applicationStatus = {
       server.route({
         method: "post",
         path: "/status",
-        handler: async (request, h) => {
+        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const { payService, cacheService } = request.services([]);
           const { pay } = await cacheService.getState(request);
           const { meta } = pay;

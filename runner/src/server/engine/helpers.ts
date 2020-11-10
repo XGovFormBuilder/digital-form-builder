@@ -19,11 +19,11 @@ export function proceed(request: Request, h: ResponseToolkit, nextUrl: string) {
 export function redirectUrl(
   request: Request,
   targetUrl: string,
-  params: { [name: string]: string } = {}
+  params: { [name: string]: string | number } = {}
 ) {
   const relativeUrl = new RelativeUrl(targetUrl);
   Object.entries(params).forEach(([name, value]) => {
-    relativeUrl.setParam(name, value);
+    relativeUrl.setParam(name, `${value}`);
   });
 
   paramsToCopy.forEach((key) => {
