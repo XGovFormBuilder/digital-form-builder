@@ -6,10 +6,36 @@ import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
 
 import Page from "./page";
 
+class EvaluationContext {
+  constructor(conditions, value) {
+    Object.assign(this, value);
+
+    for (const key in conditions) {
+      Object.defineProperty(this, key, {
+        get() {
+          return conditions[key].fn(value);
+        },
+      });
+    }
+  }
+}
+
 /**
  * TODO - convert references to this to using the shared Data class from the model library?
  */
 export default class Model {
+  def: any;
+  lists: any;
+  sections: any;
+  options: any;
+  name: any;
+  values: any;
+  DefaultPageController: any;
+  basePath: string;
+  conditions: any;
+  pages: any;
+  startPage: any;
+
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
 
@@ -97,13 +123,18 @@ export default class Model {
             (page) => page.pageDef.repeatField
           );
 
-          let sectionSchema = joi.object().required();
+          let sectionSchema:
+            | joi.ObjectSchema<any>
+            | joi.ArraySchema = joi.object().required();
+
           sectionPages.forEach((sectionPage) => {
             sectionSchema = sectionSchema.concat(sectionPage.stateSchema);
           });
+
           if (isRepeatable) {
             sectionSchema = joi.array().items(sectionSchema);
           }
+
           schema = schema.append({
             [section.name]: sectionSchema,
           });
@@ -140,6 +171,7 @@ export default class Model {
         logical: true,
       },
     });
+
     parser.functions.dateForComparison = function (timePeriod, timeUnit) {
       return moment().add(Number(timePeriod), timeUnit).toISOString();
     };
@@ -173,27 +205,13 @@ export default class Model {
   toConditionExpression(value, parser) {
     if (typeof value === "string") {
       return parser.parse(value);
-    } else {
-      const conditions = ConditionsModel.from(value);
-      return parser.parse(conditions.toExpression());
     }
+
+    const conditions = ConditionsModel.from(value);
+    return parser.parse(conditions.toExpression());
   }
 
   get conditionOptions() {
     return { allowUnknown: true, presence: "required" };
-  }
-}
-
-class EvaluationContext {
-  constructor(conditions, value) {
-    Object.assign(this, value);
-
-    for (const key in conditions) {
-      Object.defineProperty(this, key, {
-        get() {
-          return conditions[key].fn(value);
-        },
-      });
-    }
   }
 }
