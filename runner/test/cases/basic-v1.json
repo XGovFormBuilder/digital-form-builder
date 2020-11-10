@@ -70,7 +70,7 @@
     },
     {
       "path": "/summary",
-      "controller": "./../../plugins/builder/pages/summary.js",
+      "controller": "./../../plugins/builder/pages/summary.ts",
       "components": [],
       "title": "Summary"
     }
