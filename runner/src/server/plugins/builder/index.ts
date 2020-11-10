@@ -12,12 +12,34 @@ const configFiles = fs.readdirSync(configPath).filter((filename) => {
   }
 });
 
-const idFromFilename = (filename) => {
+const idFromFilename = (filename: string) => {
   return filename.replace(/govsite\.|\.json|/gi, "");
 };
 
-export const configurePlugins = (configFile, customPath) => {
-  let configs;
+type ConfigurePlugins = (
+  configFile: string,
+  customPath: string
+) => {
+  plugin: any;
+  options: {
+    modelOptions: {
+      relativeTo: string;
+      previewMode: any;
+    };
+    configs: {
+      configuration: any;
+      id: string;
+    }[];
+    previewMode: boolean;
+  };
+};
+
+export const configurePlugins: ConfigurePlugins = (configFile, customPath) => {
+  let configs: {
+    configuration: any;
+    id: string;
+  }[];
+
   if (configFile && customPath) {
     configs = [
       {
