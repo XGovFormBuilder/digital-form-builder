@@ -51,6 +51,11 @@ export default class Model {
         options.defaultPageController
       );
       this.DefaultPageController = require(defaultPageControllerPath);
+
+      // REFACTOR NOTE: below is from runner/server/plugin/builder/model, file is same as this but the lines below.
+      // if (options.defaultPageController) {
+      //   this.DefaultPageController = options.defaultPageController;
+      // }
     }
 
     this.basePath = options.basePath;
