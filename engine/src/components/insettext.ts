@@ -1,8 +1,9 @@
 import Component from "./component";
+
 export default class InsetText extends Component {
   getViewModel() {
-    return {
-      content: this.content,
-    };
+    const viewModel = super.getViewModel();
+    viewModel.content = this.content;
+    return viewModel;
   }
 }

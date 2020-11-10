@@ -23,6 +23,7 @@ export default class TimeField extends FormComponent {
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.type = "time";
+
     return viewModel;
   }
 }

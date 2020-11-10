@@ -1,6 +1,8 @@
 import FormComponent from "./formcomponent";
 import * as helpers from "./helpers";
 
+import { ViewModel } from "./types";
+
 export default class FileUploadField extends FormComponent {
   getFormSchemaKeys() {
     return helpers.getFormSchemaKeys(this.name, "string", this);
@@ -18,7 +20,7 @@ export default class FileUploadField extends FormComponent {
 
   getViewModel(formData, errors) {
     const { options } = this;
-    const viewModel = {
+    const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),
       attributes: this.attributes,
     };

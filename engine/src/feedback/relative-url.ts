@@ -1,51 +1,52 @@
+import { URL } from "url";
 /**
  * Enforces use of relative URL's, prevents someone maliciously causing a user to be directed to a phishing
  * site.
  **/
-export default class RelativeUrl {
+export class RelativeUrl {
   static FEEDBACK_RETURN_INFO_PARAMETER = "f_t";
   static VISIT_IDENTIFIER_PARAMETER = "visit";
+  url: URL;
+  originalUrlString: string;
 
-  constructor(urlString) {
+  constructor(urlString: string) {
     this.url = new URL(urlString, "http://www.example.com");
     this.originalUrlString = urlString;
-    if (
-      this.url.hostname !== "www.example.com" ||
-      urlString.includes("www.example.com")
-    ) {
+
+    if (this.url.hostname !== "www.example.com") {
       throw Error("Only relative URLs are allowed");
     }
   }
 
-  setParam(name, value) {
-    this.url.searchParams.set(name, value);
-    return this;
-  }
-
-  addParamIfNotPresent(name, value) {
+  addParamIfNotPresent(name: string, value: string) {
     if (!this.url.searchParams.get(name)) {
       this.url.searchParams.set(name, value);
     }
     return this;
   }
 
-  set feedbackReturnInfo(value) {
+  set feedbackReturnInfo(value: string | null) {
     this.setParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value);
   }
 
-  get feedbackReturnInfo() {
-    return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER);
+  get feedbackReturnInfo(): string | null {
+    return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER) || null;
   }
 
-  set visitIdentifier(value) {
+  set visitIdentifier(value: string | null) {
     this.setParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER, value);
   }
 
-  get visitIdentifier() {
-    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER);
+  get visitIdentifier(): string | null {
+    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER) || null;
   }
 
-  getParam(name) {
+  setParam(name: string, value: string | null) {
+    this.url.searchParams.set(name, value || "");
+    return this;
+  }
+
+  getParam(name: string) {
     return this.url.searchParams.get(name);
   }
 
