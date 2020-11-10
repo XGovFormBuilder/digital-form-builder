@@ -4,11 +4,11 @@ module.exports = class Section {
   }
 
   get pageTitle() {
-    return $('input#page-title')
+    return $("input#page-title");
   }
-  
+
   get sectionTitle() {
-    return $('input#section-title')
+    return $("input#section-title");
   }
 
   get saveBtn() {
@@ -16,6 +16,6 @@ module.exports = class Section {
   }
 
   get closeSection() {
-    return $('a.close')
+    return $("a.close");
   }
 };

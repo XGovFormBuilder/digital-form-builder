@@ -25,6 +25,10 @@ class FormDesignerPage extends Page {
     return $("polyline");
   }
 
+  get pagesLink() {
+    return browser.react$("bn");
+  }
+
   dateField(name) {
     return this.pageContainer(name).react$("DateField");
   }
@@ -39,6 +43,14 @@ class FormDesignerPage extends Page {
 
   emailAddressField(pageName) {
     return this.pageContainer(pageName).react$("EmailAddressField");
+  }
+
+  paragraph(pageName) {
+    return this.pageContainer(pageName).react$("Para");
+  }
+
+  textField(pageName) {
+    return this.pageContainer(pageName).react$("TextField");
   }
 
   pageContainer(elem) {
