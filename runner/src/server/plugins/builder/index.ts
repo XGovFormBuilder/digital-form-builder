@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { plugin } from "@xgovformbuilder/engine";
+import { plugin } from "../../engine";
 
 import config from "../../config";
 

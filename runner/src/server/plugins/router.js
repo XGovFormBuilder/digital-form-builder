@@ -1,4 +1,4 @@
-import { redirectTo } from "@xgovformbuilder/engine";
+import { redirectTo } from "../engine";
 import publicRoutes from "../routes/public";
 
 const routes = [...publicRoutes];

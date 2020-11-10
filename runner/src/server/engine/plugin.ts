@@ -1,3 +1,4 @@
+import path from "path";
 import {
   Request,
   ResponseObject,
@@ -18,12 +19,15 @@ import { nanoid } from "nanoid";
 import Boom from "boom";
 import pkg from "../package.json";
 
-// Configure Nunjucks to allow rendering of content that is revealed conditionally.
 nunjucks.configure([
+  // Configure Nunjucks to allow rendering of content that is revealed conditionally.
+  // TODO cleanup
+  // "node_modules/@xgovformbuilder/engine/views",
+  // "node_modules/@xgovformbuilder/engine/views/partials",
+  path.resolve(__dirname, "/views"),
+  path.resolve(__dirname, "/views/partials"),
   "node_modules/govuk-frontend/govuk/",
   "node_modules/govuk-frontend/govuk/components/",
-  "node_modules/@xgovformbuilder/engine/views",
-  "node_modules/@xgovformbuilder/engine/views/partials",
   "node_modules/@xgovformbuilder/designer/views",
   "node_modules/hmpo-components/components",
 ]);

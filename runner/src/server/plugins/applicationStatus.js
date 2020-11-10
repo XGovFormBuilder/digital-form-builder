@@ -1,11 +1,6 @@
 import config from "../config";
 import { nanoid } from "nanoid";
-import {
-  decode,
-  redirectTo,
-  redirectUrl,
-  RelativeUrl,
-} from "@xgovformbuilder/engine";
+import { decode, redirectTo, redirectUrl, RelativeUrl } from "../engine";
 
 function getFeedbackContextInfo(request) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {

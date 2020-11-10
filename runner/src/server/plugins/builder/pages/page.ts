@@ -1,4 +1,4 @@
-import { Page as PageBase } from "@xgovformbuilder/engine";
+import { Page as PageBase } from "../../../engine";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
 
 export default class Page extends PageBase {
