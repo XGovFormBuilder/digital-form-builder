@@ -3,16 +3,16 @@ import wreck from "wreck";
 type Method = "get" | "post" | "path" | "put" | "delete";
 type WreckParameters = Parameters<typeof wreck.get>;
 type Options = WreckParameters[1];
-type Response = ReturnType<typeof wreck.get>;
-
 type Get = typeof wreck.get;
 type Post = typeof wreck.post;
 
-export function request(
+type Request = (
   method: Method,
   url: string,
   options: Options
-): Response {
+) => ReturnType<typeof wreck.get>;
+
+export const request: Request = (method, url, options) => {
   return wreck[method](url, options).then((response) => {
     const res = response.res;
     const payload = response.payload;
@@ -24,7 +24,7 @@ export function request(
 
     return payload;
   });
-}
+};
 
 export const get: Get = (url, options) => {
   return request("get", url, options);

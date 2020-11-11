@@ -1,12 +1,13 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import DateTimePartsField from "../../../../src/server/engine/components/datetimepartsfield";
+import DatePartsField from "../../../../../src/server/plugins/engine/components/datepartsfield";
+
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;
 const { suite, test } = lab;
 
-suite("Date time parts field", () => {
+suite("Date parts field", () => {
   test("Should construct appropriate children when required", () => {
     const def = {
       name: "myComponent",
@@ -14,7 +15,7 @@ suite("Date time parts field", () => {
       options: {},
       schema: {},
     };
-    const underTest = new DateTimePartsField(def, {});
+    const underTest = new DatePartsField(def, {});
     const returned = underTest.getViewModel({ lang: "en" });
 
     expect(returned.fieldset).to.equal({
@@ -27,8 +28,6 @@ suite("Date time parts field", () => {
       dateComponent("Day", 2),
       dateComponent("Month", 2),
       dateComponent("Year", 4),
-      dateComponent("Hour", 2),
-      dateComponent("Minute", 2),
     ]);
   });
 
@@ -39,7 +38,7 @@ suite("Date time parts field", () => {
       options: { required: false },
       schema: {},
     };
-    const underTest = new DateTimePartsField(def, {});
+    const underTest = new DatePartsField(def, {});
     const returned = underTest.getViewModel({ lang: "en" });
 
     expect(returned.fieldset).to.equal({
@@ -52,8 +51,6 @@ suite("Date time parts field", () => {
       dateComponent("Day", 2),
       dateComponent("Month", 2),
       dateComponent("Year", 4),
-      dateComponent("Hour", 2),
-      dateComponent("Minute", 2),
     ]);
   });
 });

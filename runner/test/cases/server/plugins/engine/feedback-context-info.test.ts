@@ -3,7 +3,8 @@ import * as Lab from "@hapi/lab";
 import {
   FeedbackContextInfo,
   decode,
-} from "../../../../src/server/engine/feedback";
+} from "../../../../../src/server/plugins/engine/feedback";
+
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;

@@ -1,4 +1,4 @@
-import { Page as PageBase } from "../../../engine";
+import { Page as PageBase } from "../";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
 
 export default class Page extends PageBase {

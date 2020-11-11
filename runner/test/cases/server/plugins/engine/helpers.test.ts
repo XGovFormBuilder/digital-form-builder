@@ -4,7 +4,7 @@ import {
   proceed,
   redirectTo,
   redirectUrl,
-} from "../../../../src/server/engine/helpers";
+} from "../../../../../src/server/plugins/engine/helpers";
 import sinon from "sinon";
 const lab = Lab.script();
 exports.lab = lab;

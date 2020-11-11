@@ -1,6 +1,6 @@
 import config from "../config";
 import { nanoid } from "nanoid";
-import { decode, redirectTo, redirectUrl, RelativeUrl } from "../engine";
+import { decode, redirectTo, redirectUrl, RelativeUrl } from "./engine";
 
 import { HapiRequest, HapiResponseToolkit } from "../types";
 

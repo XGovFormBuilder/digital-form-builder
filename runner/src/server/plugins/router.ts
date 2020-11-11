@@ -1,4 +1,4 @@
-import { redirectTo } from "../engine";
+import { redirectTo } from "./engine";
 import publicRoutes from "../routes/public";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 

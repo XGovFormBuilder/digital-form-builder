@@ -1,4 +1,4 @@
-import { getJson } from "./util";
+import { getJson } from "./http-service";
 
 async function findByPostcode(key, postcode) {
   const findByPostcodeUrl = `https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?lr=EN&fq=logical_status_code:1&dataset=DPA&postcode=${postcode}&key=${key}`;

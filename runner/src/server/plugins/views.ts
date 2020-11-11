@@ -45,11 +45,11 @@ export default {
       },
     },
     path: [
-      `${path.join(__dirname, "/../views")}`,
-      `${path.join(__dirname, "/../engine/views")}`,
+      `${path.join(__dirname, "..", "views")}`,
+      `${path.join(__dirname, "engine", "views")}`,
       `${path.dirname(resolve.sync("govuk-frontend"))}`,
       `${path.dirname(resolve.sync("govuk-frontend"))}/components`,
-      `${path.dirname(resolve.sync("hm≥po-components"))}/components`,
+      `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
     context: {

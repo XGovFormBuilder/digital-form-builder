@@ -1,4 +1,3 @@
-import { configurePlugins } from "./plugins/builder";
 import fs from "fs";
 import hapi from "@hapi/hapi";
 import Blankie from "blankie";
@@ -10,6 +9,7 @@ import crumb from "@hapi/crumb";
 import Schmervice from "schmervice";
 import blipp from "blipp";
 
+import { configureEnginePlugin } from "./plugins/engine";
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
 import pluginViews from "./plugins/views";
@@ -171,14 +171,9 @@ async function createServer(routeConfig) {
   await server.register(pluginLocale);
   await server.register(pluginSession);
   await server.register(pluginViews);
-
-  if (routeConfig) {
-    await server.register(
-      configurePlugins(routeConfig.data, routeConfig.customPath)
-    );
-  } else {
-    await server.register(configurePlugins());
-  }
+  await server.register(
+    configureEnginePlugin(routeConfig?.data, routeConfig?.customPath)
+  );
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);

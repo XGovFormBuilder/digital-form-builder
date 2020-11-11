@@ -49,3 +49,7 @@ export function redirectTo(
   const url = redirectUrl(request, targetUrl, params);
   return h.redirect(url);
 }
+
+export const idFromFilename = (filename: string) => {
+  return filename.replace(/govsite\.|\.json|/gi, "");
+};
