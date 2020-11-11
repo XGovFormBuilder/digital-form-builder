@@ -18,11 +18,11 @@ class AddComponentPage extends Page {
   }
 
   get fromAList() {
-    return this.parent.$('input#definitionType');
+    return this.parent.$("input#definitionType");
   }
 
   get listOptions() {
-    return this.parent.$('select#field-options-list')
+    return this.parent.$("select#field-options-list");
   }
 
   get saveBtn() {
@@ -30,11 +30,16 @@ class AddComponentPage extends Page {
   }
 
   get deleteBtn() {
-    return this.parent.$(".govuk-button=Delete")
+    return this.parent.$(".govuk-button=Delete");
   }
 
   selectComponentByName(name) {
+    this.selectList.waitForDisplayed();
     this.selectList.selectByVisibleText(name);
+  }
+
+  paragraphSetText(text) {
+    $("[name='content']").setValue(text);
   }
 
   completeCommonFields(dataObject) {

@@ -8,7 +8,7 @@ module.exports = {
   dateTimeField: {
     title: "Date Time",
     name: "dateTime",
-    hint: "Please enter the date and time of your purchase"
+    hint: "Please enter the date and time of your purchase",
   },
   emailAddressField: {
     title: "Your Email Address",
@@ -19,5 +19,10 @@ module.exports = {
     title: "Your Import",
     name: "importDate",
     hint: "Please enter the estimated date of arrival of your goods",
-  }
+  },
+  textField: {
+    title: "Your Vehicle Make and Model",
+    name: "vehicleMakeAndModel",
+    hint: "Please enter your vehicle using the format: BMW, 3 Series",
+  },
 };
