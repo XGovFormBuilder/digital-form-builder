@@ -5,11 +5,7 @@ npm-debug.log
 .idea
 .nyc_output
 unit-test.html
-/engine/lib
-/model/lib
 package-lock.json
-*/flow-typed/*
-/flow-typed/
 /.yarn/cache/
 */.env
 */test-results/*
