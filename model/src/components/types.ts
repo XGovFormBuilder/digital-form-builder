@@ -14,7 +14,6 @@ export type ComponentType =
   | "RadiosField"
   | "RadiosField"
   | "CheckboxesField"
-  | "CheckboxesField"
   | "NumberField"
   | "UkAddressField"
   | "TelephoneNumberField"
