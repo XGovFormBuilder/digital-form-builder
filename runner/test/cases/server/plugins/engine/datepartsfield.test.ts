@@ -1,6 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import DatePartsField from "../../../../../src/server/plugins/engine/components/datepartsfield";
+import { DatePartsField } from "../../../../../src/server/plugins/engine/components/DatePartsField";
 
 const lab = Lab.script();
 exports.lab = lab;

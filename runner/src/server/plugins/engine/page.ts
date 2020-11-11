@@ -3,7 +3,7 @@ import * as querystring from "querystring";
 import { Request, ResponseToolkit, ResponseObject } from "hapi";
 
 import { proceed, redirectTo } from "./helpers";
-import ComponentCollection from "./components/componentcollection";
+import { ComponentCollection } from "./components/ComponentCollection";
 import { decode, RelativeUrl, FeedbackContextInfo } from "./feedback";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");

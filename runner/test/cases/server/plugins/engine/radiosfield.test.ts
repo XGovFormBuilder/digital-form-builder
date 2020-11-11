@@ -1,6 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import RadiosField from "../../../../../src/server/plugins/engine/components/radiosfield";
+import { RadiosField } from "../../../../../src/server/plugins/engine/components/RadiosField";
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;
