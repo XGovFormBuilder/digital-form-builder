@@ -6,7 +6,7 @@ import { idFromFilename } from "./helpers";
 import {
   loadPreConfiguredForms,
   FormConfiguration,
-} from "./services/configuration-service";
+} from "./services/configurationService";
 
 type ConfigureEnginePlugin = (
   configFile?: string,
