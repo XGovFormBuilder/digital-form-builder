@@ -1,6 +1,6 @@
 import atob from "atob";
 import btoa from "btoa";
-import { RelativeUrl } from "./relative-url";
+import { RelativeUrl } from "./relativeUrl";
 
 export class FeedbackContextInfo {
   formTitle: string;

@@ -1,2 +1,2 @@
-export { RelativeUrl } from "./relative-url";
-export { decode, FeedbackContextInfo } from "./feedback-context-info";
+export { RelativeUrl } from "./relativeUrl";
+export { decode, FeedbackContextInfo } from "./feedbackContextInfo";
