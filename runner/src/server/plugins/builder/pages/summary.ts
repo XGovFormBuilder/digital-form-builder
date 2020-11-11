@@ -8,6 +8,7 @@ import {
   redirectUrl,
   RelativeUrl,
   FeedbackContextInfo,
+  Model,
 } from "../../../engine";
 import { Data } from "@xgovformbuilder/model";
 
@@ -15,8 +16,10 @@ import Page from "./page";
 import config from "../../../config";
 import { formSchema } from "../../../schemas/formSchema";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
+import type { Fees } from "../../../services/payService";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
+
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
  * Webhookdata
@@ -30,6 +33,7 @@ const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
  * TODO - Move outputs conversion to an outputs service?
  * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
  */
+
 class SummaryViewModel {
   pageTitle: string;
   declaration: any; // TODO
@@ -39,10 +43,7 @@ class SummaryViewModel {
   details: any;
   state: any;
   value: any;
-  fees: {
-    details: any[];
-    total: number;
-  };
+  fees: Fees;
   errors: any; // TODO
   name: string;
   feedbackLink: string;
@@ -50,9 +51,14 @@ class SummaryViewModel {
 
   _outputs: any; // TODO
   _payApiKey: string;
-  _webhookData: any; // TODO
+  _webhookData: {
+    metadata: any;
+    name: string;
+    fees?: Fees;
+    questions?: any[];
+  };
 
-  constructor(pageTitle: string, model, state, request) {
+  constructor(pageTitle: string, model: Model, state, request) {
     this.pageTitle = pageTitle;
 
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
@@ -135,7 +141,7 @@ class SummaryViewModel {
     this.value = result.value;
   }
 
-  private retrieveFees(model, state) {
+  private retrieveFees(model: Model, state): Fees {
     let applicableFees = [];
 
     if (model.def.fees) {
@@ -145,6 +151,7 @@ class SummaryViewModel {
 
       this._payApiKey = model.def.payApiKey;
       const flatState = flatten(state);
+
       return {
         details: applicableFees,
         total: Object.values(applicableFees)
@@ -193,7 +200,7 @@ class SummaryViewModel {
     });
   }
 
-  private summaryDetails(request, model, state, relevantPages) {
+  private summaryDetails(request, model: Model, state, relevantPages) {
     const details = [];
 
     [undefined, ...model.sections].forEach((section) => {
@@ -265,7 +272,7 @@ class SummaryViewModel {
     return details;
   }
 
-  private getRelevantPages(model, state) {
+  private getRelevantPages(model: Model, state) {
     let nextPage = model.startPage;
     const relevantPages = [];
     let endPage = null;
@@ -281,7 +288,7 @@ class SummaryViewModel {
     return { relevantPages, endPage };
   }
 
-  private notifyModel(model, outputConfiguration, state) {
+  private notifyModel(model: Model, outputConfiguration, state) {
     const flatState = flatten(state);
     const personalisation = {};
     outputConfiguration.personalisation.forEach((p) => {
@@ -296,16 +303,10 @@ class SummaryViewModel {
     };
   }
 
-  /**
-   * Builds an object with all parameters needed to send an email via GovUK Notify
-   * using our default TemplateID and API Key.
-   * @param {*} model
-   * @param {*} outputConfiguration
-   */
-  private emailModel(model, outputConfiguration) {
+  private emailModel(model: Model, outputConfiguration) {
     const data = [];
 
-    this._webhookData.questions.forEach((question) => {
+    this._webhookData.questions?.forEach((question) => {
       data.push("---");
       data.push(`Page: ${question.question}\n`);
       question.fields.forEach((field) =>
@@ -327,7 +328,7 @@ class SummaryViewModel {
     };
   }
 
-  private sheetsModel(model, outputConfiguration, state) {
+  private sheetsModel(_model: Model, outputConfiguration, state) {
     const flatState = flatten(state);
     const { credentials, project_id, scopes } = outputConfiguration;
     const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField];
@@ -358,7 +359,7 @@ class SummaryViewModel {
     return englishString;
   }
 
-  private parseDataForWebhook(model, relevantPages, details) {
+  private parseDataForWebhook(model: Model, relevantPages, details) {
     const questions = [];
 
     for (const page of relevantPages) {
@@ -496,7 +497,7 @@ class SummaryViewModel {
     component,
     sectionState,
     page,
-    model,
+    model: Model,
     params: { num?: number; returnUrl: string } = {
       returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
     }
@@ -531,7 +532,7 @@ class SummaryViewModel {
     };
   }
 
-  private addFeedbackSourceDataToWebhook(webhookData, model, request) {
+  private addFeedbackSourceDataToWebhook(webhookData, model: Model, request) {
     if (model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -655,6 +656,7 @@ export default class SummaryPage extends Page {
           `/${model.basePath}${model.def.pages[0].path}`
         );
         const startPage = model.def.startPage;
+
         if (startPage.startsWith("http")) {
           startPageRedirect = redirectTo(request, h, startPage);
         } else if (model.def.pages.find((page) => page.path === startPage)) {
@@ -745,7 +747,7 @@ export default class SummaryPage extends Page {
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  getFeedbackContextInfo(request) {
+  getFeedbackContextInfo(request: HapiRequest) {
     if (this.model.def.feedback?.feedbackForm) {
       return decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -754,7 +756,7 @@ export default class SummaryPage extends Page {
     }
   }
 
-  feedbackUrlFromRequest(request) {
+  feedbackUrlFromRequest(request: HapiRequest) {
     if (this.model.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.model.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(

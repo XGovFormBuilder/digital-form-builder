@@ -17,8 +17,8 @@ const idFromFilename = (filename: string) => {
 };
 
 type ConfigurePlugins = (
-  configFile: string,
-  customPath: string
+  configFile?: string,
+  customPath?: string
 ) => {
   plugin: any;
   options: {
