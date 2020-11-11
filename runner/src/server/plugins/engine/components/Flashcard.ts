@@ -1,6 +1,6 @@
-import Component from "./component";
+import { Component } from "./Component";
 
-export default class Flashcard extends Component {
+export class FlashCard extends Component {
   getViewModel() {
     const { values } = this;
     const viewModel = super.getViewModel();

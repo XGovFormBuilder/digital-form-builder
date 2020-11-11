@@ -1,7 +1,7 @@
-import FormComponent from "./formcomponent";
+import { FormComponent } from "./FormComponent";
 import { getFormSchemaKeys, getStateSchemaKeys } from "./helpers";
 
-export default class NumberField extends FormComponent {
+export class NumberField extends FormComponent {
   getFormSchemaKeys() {
     return getFormSchemaKeys(this.name, "number", this);
   }

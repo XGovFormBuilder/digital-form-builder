@@ -1,8 +1,9 @@
-import FormComponent from "./formcomponent";
-import * as helpers from "./helpers";
 import moment from "moment";
+import * as helpers from "./helpers";
 
-export default class DateField extends FormComponent {
+import { FormComponent } from "./FormComponent";
+
+export class DateField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const { options } = this;

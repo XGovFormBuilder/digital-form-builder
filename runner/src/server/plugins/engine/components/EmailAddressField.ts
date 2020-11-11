@@ -1,7 +1,7 @@
-import FormComponent from "./formcomponent";
+import { FormComponent } from "./FormComponent";
 import { getStateSchemaKeys, getFormSchemaKeys } from "./helpers";
 
-export default class EmailAddressField extends FormComponent {
+export class EmailAddressField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const { options, schema } = this;

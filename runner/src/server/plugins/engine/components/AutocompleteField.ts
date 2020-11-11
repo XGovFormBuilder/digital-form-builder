@@ -1,6 +1,6 @@
-import SelectField from "./selectfield";
+import { SelectField } from "./SelectField";
 
-export default class AutocompleteField extends SelectField {
+export class AutocompleteField extends SelectField {
   constructor(def, model) {
     super(def, model);
     const { options } = this;

@@ -1,9 +1,9 @@
-import { getType } from "./helpers";
 import joi from "joi";
 
+import { getType } from "./helpers";
 import { ComponentCollectionViewModel } from "./types";
 
-export default class ComponentCollection {
+export class ComponentCollection {
   // TODO
   items: any;
   formItems: any;

@@ -1,6 +1,6 @@
-import Component from "./component";
+import { Component } from "./Component";
 
-export default class List extends Component {
+export class List extends Component {
   getViewModel() {
     const { values } = this;
     const viewModel = super.getViewModel();

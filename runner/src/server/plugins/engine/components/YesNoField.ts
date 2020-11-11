@@ -1,8 +1,9 @@
-import FormComponent from "./formcomponent";
-import * as helpers from "./helpers";
 import { Data } from "@xgovformbuilder/model";
 
-export default class YesNoField extends FormComponent {
+import * as helpers from "./helpers";
+import { FormComponent } from "./FormComponent";
+
+export class YesNoField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const data = new Data(model.def);

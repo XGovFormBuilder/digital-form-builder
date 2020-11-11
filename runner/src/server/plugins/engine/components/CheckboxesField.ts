@@ -1,6 +1,7 @@
-import ConditionalFormComponent from "./conditionalformcomponent";
-import * as helpers from "./helpers";
 import joi from "joi";
+import * as helpers from "./helpers";
+
+import { ConditionalFormComponent } from "./ConditionalFormComponent";
 
 type ItemModel = {
   name?: string;
@@ -16,7 +17,7 @@ type ItemModel = {
   };
 };
 
-export default class CheckboxesField extends ConditionalFormComponent {
+export class CheckboxesField extends ConditionalFormComponent {
   constructor(def, model) {
     super(def, model);
     const { options, values, itemValues } = this;

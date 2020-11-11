@@ -1,7 +1,7 @@
-import FormComponent from "./formcomponent";
 import * as helpers from "./helpers";
+import { FormComponent } from "./FormComponent";
 
-export default class TimeField extends FormComponent {
+export class TimeField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const { options } = this;

@@ -1,10 +1,11 @@
 import moment from "moment";
-import FormComponent from "./formcomponent";
-import ComponentCollection from "./componentcollection";
-import { optionalText } from "./constants";
-import * as helpers from "./helpers";
 
-export default class DateTimePartsField extends FormComponent {
+import * as helpers from "./helpers";
+import { optionalText } from "./constants";
+import { FormComponent } from "./FormComponent";
+import { ComponentCollection } from "./ComponentCollection";
+
+export class DateTimePartsField extends FormComponent {
   children: ComponentCollection;
 
   constructor(def, model) {

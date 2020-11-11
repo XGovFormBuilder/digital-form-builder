@@ -1,6 +1,6 @@
-import Component from "./component";
+import { Component } from "./Component";
 
-export default class Html extends Component {
+export class Html extends Component {
   getViewModel() {
     const viewModel = super.getViewModel();
 

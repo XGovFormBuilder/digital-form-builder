@@ -1,5 +1,6 @@
-import Component from "./component";
-export default class Para extends Component {
+import { Component } from "./Component";
+
+export class Para extends Component {
   getViewModel() {
     const viewModel = super.getViewModel();
 

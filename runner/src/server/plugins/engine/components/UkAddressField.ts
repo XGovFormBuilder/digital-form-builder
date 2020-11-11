@@ -1,9 +1,10 @@
-import * as helpers from "./helpers";
-import FormComponent from "./formcomponent";
-import ComponentCollection from "./componentcollection";
 import joi from "joi";
 
-export default class UkAddressField extends FormComponent {
+import * as helpers from "./helpers";
+import { FormComponent } from "./FormComponent";
+import { ComponentCollection } from "./ComponentCollection";
+
+export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
   stateChildren: ComponentCollection;
 

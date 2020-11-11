@@ -1,11 +1,12 @@
-import nunjucks from "nunjucks";
-import FormComponent from "./formcomponent";
-import ComponentCollection from "./componentcollection";
 import joi from "joi";
+import nunjucks from "nunjucks";
+
+import { FormComponent } from "./FormComponent";
+import { ComponentCollection } from "./ComponentCollection";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
 
-class ConditionalFormComponent extends FormComponent {
+export class ConditionalFormComponent extends FormComponent {
   constructor(def, model) {
     super(def, model);
     this.itemValues = this.values.items.map((item) => item.value);
@@ -167,5 +168,3 @@ class ConditionalFormComponent extends FormComponent {
     return schemaKeys;
   }
 }
-
-export default ConditionalFormComponent;

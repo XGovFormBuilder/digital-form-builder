@@ -1,10 +1,11 @@
-import Component from "./component";
-import { optionalText } from "./constants";
 import joi from "joi";
+
+import { Component } from "./Component";
+import { optionalText } from "./constants";
 
 import { ViewModel } from "./types";
 
-export default class FormComponent extends Component {
+export class FormComponent extends Component {
   isFormComponent: boolean = true;
   __lang: string = "en";
 

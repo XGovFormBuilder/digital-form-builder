@@ -1,9 +1,9 @@
-import FormComponent from "./formcomponent";
+import { FormComponent } from "./FormComponent";
 import * as helpers from "./helpers";
 
 import { ViewModel } from "./types";
 
-export default class FileUploadField extends FormComponent {
+export class FileUploadField extends FormComponent {
   getFormSchemaKeys() {
     return helpers.getFormSchemaKeys(this.name, "string", this);
   }

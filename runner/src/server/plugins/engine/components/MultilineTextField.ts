@@ -1,7 +1,7 @@
-import FormComponent from "./formcomponent";
 import * as helpers from "./helpers";
+import { FormComponent } from "./FormComponent";
 
-export default class MultilineTextField extends FormComponent {
+export class MultilineTextField extends FormComponent {
   getFormSchemaKeys() {
     return helpers.getFormSchemaKeys(this.name, "string", this);
   }

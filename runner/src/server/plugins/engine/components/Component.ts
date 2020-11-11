@@ -2,7 +2,7 @@ import { Data } from "@xgovformbuilder/model";
 
 import { ViewModel } from "./types";
 
-export default class Component {
+export class Component {
   // TODO: types
   name: any;
   title: string | undefined; // TODO: remove undefined fix in constructor (remove code smell Object.assign(this, def))

@@ -1,9 +1,9 @@
-import FormComponent from "./formcomponent";
 import * as helpers from "./helpers";
+import { FormComponent } from "./FormComponent";
 
 const PATTERN = "^[0-9\\s\\+\\(\\)]*$";
 
-export default class TelephoneNumberField extends FormComponent {
+export class TelephoneNumberField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const { options, schema } = this;

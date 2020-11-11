@@ -1,6 +1,6 @@
-import Component from "./component";
+import { Component } from "./Component";
 
-export default class InsetText extends Component {
+export class InsetText extends Component {
   getViewModel() {
     const viewModel = super.getViewModel();
     viewModel.content = this.content;

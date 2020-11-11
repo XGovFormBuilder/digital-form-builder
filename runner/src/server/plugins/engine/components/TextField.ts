@@ -1,7 +1,7 @@
-import FormComponent from "./formcomponent";
 import * as helpers from "./helpers";
+import { FormComponent } from "./FormComponent";
 
-export default class TextField extends FormComponent {
+export class TextField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const { options, schema } = this;
