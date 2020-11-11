@@ -1,5 +1,6 @@
-// TODO:- resolution is buggered here. don't use this yet.
-// TODO:- Ideally @model/types map EXACTLY to @engine/components. at the moment they're being required by using str.toLowerCase().
+// IMPORTANT: Exported Components must follow the naming convention implemented in @xgovformbuilder/model/components ComponentType.
+// In the Form JSON, components have a type property which is the name of the components, e.g. DateField.
+// Components are loaded in the ComponentsCollection constructor.
 
 export { AutocompleteField } from "./AutocompleteField";
 export { CheckboxesField } from "./CheckboxesField";
