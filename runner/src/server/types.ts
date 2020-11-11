@@ -1,20 +1,27 @@
 import { Request, ResponseToolkit, Server as HapiServer } from "hapi";
 import type {} from "wreck";
-// import {} from "@types/yar";
+import {
+  CacheService,
+  EmailService,
+  NotifyService,
+  PayService,
+  SheetsService,
+  UploadService,
+  WebhookService,
+} from "./services";
 
 export type HapiRequest = Request & {
   isBoom: boolean;
   services: (
     services: string[]
   ) => {
-    // TODO: add service types once converted to TS
-    cacheService: any;
-    notifyService: any;
-    payService: any;
-    uploadService: any;
-    emailService: any;
-    webhookService: any;
-    sheetsService: any;
+    cacheService: CacheService;
+    emailService: EmailService;
+    notifyService: NotifyService;
+    payService: PayService;
+    sheetsService: SheetsService;
+    uploadService: UploadService;
+    webhookService: WebhookService;
   };
 };
 export type HapiResponseToolkit = ResponseToolkit & {
