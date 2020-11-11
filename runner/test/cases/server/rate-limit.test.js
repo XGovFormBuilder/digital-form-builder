@@ -1,6 +1,7 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
-import createServer from "../../src/server/index";
+
+import createServer from "../../../src/server/index";
 
 const { suite, before, test, after } = (exports.lab = Lab.script());
 

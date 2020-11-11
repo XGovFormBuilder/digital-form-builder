@@ -1,10 +1,11 @@
-import { CacheService } from "../../src/server/services/cacheService";
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import cheerio from "cheerio";
 import FormData from "form-data";
-import createServer from "../../src/server/index";
 import { stub, restore } from "sinon";
+
+import createServer from "../../../src/server/index";
+import { CacheService } from "../../../src/server/services/cacheService";
 
 const { before, afterEach, test, suite, after } = (exports.lab = Lab.script());
 
