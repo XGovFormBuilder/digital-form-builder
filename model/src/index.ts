@@ -3,7 +3,11 @@ export { Data, InputWrapper, ConditionsWrapper } from "./data-model";
 export { Logger } from "./utils/logger";
 export { FormConfiguration } from "./form";
 export { SchemaMigrationService } from "./migration";
-export { ComponentTypes, ConditionalComponentTypes } from "./components";
+export {
+  ComponentType,
+  ComponentTypes,
+  ConditionalComponentTypes,
+} from "./components";
 
 export {
   valuesFrom,
