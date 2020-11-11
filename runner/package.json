@@ -55,7 +55,7 @@
     "dotenv": "8.2.0",
     "flat": "5.0.0",
     "form-data": "3.0.0",
-    "googleapis": "48.0.0",
+    "googleapis": "64.0.0",
     "govuk-frontend": "3.6.0",
     "hapi-pino": "8.0.0",
     "hapi-pulse": "3.0.0",
