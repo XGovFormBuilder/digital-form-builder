@@ -7,10 +7,11 @@ exports.lab = lab;
 const { expect } = Code;
 const { suite, test } = lab;
 
-suite("Plugins/Engine/Services/ConfigurationService", () => {
-  test("it loads pre-configured forms correctly ", () => {
+suite("Engine Plugin ConfigurationService", () => {
+  test("it loads pre-configured forms configuration correctly ", () => {
     const testFormJSON = require("../../../../../../src/server/forms/test.json");
     const result = loadPreConfiguredForms();
+
     expect(result).to.equal([
       {
         configuration: testFormJSON,
