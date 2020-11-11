@@ -15,7 +15,7 @@ import pluginSession from "./plugins/session";
 import pluginViews from "./plugins/views";
 import pluginApplicationStatus from "./plugins/applicationStatus";
 import pluginRouter from "./plugins/router";
-import pluginErrorPages from "./plugins/error-pages";
+import pluginErrorPages from "./plugins/errorPages";
 import pluginLogging from "./plugins/logging";
 
 import config from "./config";
