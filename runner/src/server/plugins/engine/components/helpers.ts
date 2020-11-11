@@ -74,6 +74,3 @@ export function getStateSchemaKeys(name, schemaType, component) {
 
   return { [name]: schema };
 }
-export function getType(name) {
-  return require(path.join(__dirname, name.toLowerCase()));
-}

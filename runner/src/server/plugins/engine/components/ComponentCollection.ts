@@ -1,7 +1,8 @@
 import joi from "joi";
 
-import { getType } from "./helpers";
 import { ComponentCollectionViewModel } from "./types";
+
+import * as Components from "./index";
 
 export class ComponentCollection {
   // TODO
@@ -12,7 +13,12 @@ export class ComponentCollection {
 
   constructor(items, model) {
     const itemTypes = items.map((def) => {
-      const Type = getType(def.type).default;
+      const Type = Components[def.type];
+
+      if (typeof Type !== "function") {
+        throw new Error(`Component type ${def.type} doesn't exist`);
+      }
+
       return new Type(def, model);
     });
 
