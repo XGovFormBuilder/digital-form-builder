@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google, GoogleAuth } from "googleapis";
 
 export class SheetsService {
   /**
@@ -24,7 +24,7 @@ export class SheetsService {
     return new google.auth.GoogleAuth({
       // Scopes can be specified either as an array or as a single, space-delimited string.
       credentials,
-      project_id,
+      projectId: project_id,
       scopes,
     });
   }
@@ -37,8 +37,8 @@ export class SheetsService {
    * @params { string } [range='Sheet1'] which range ('tab', colloquially) to append to.
    * @returns { promise }
    */
-  async appendTo(spreadsheetId, data, authOptions, range = "Sheet1") {
-    const auth = this.googleAuthClient(authOptions);
+  async appendTo(spreadsheetId: string, data, authOptions, range = "Sheet1") {
+    const auth: GoogleAuth = this.googleAuthClient(authOptions);
     const sheets = google.sheets({ version: "v4", auth });
 
     return sheets.spreadsheets.values.append({

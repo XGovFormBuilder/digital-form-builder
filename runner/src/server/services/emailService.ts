@@ -3,7 +3,9 @@ import MailComposer from "nodemailer/lib/mail-composer";
 import config from "../config";
 
 export class EmailService {
-  constructor(server, options) {
+  documentService: any;
+
+  constructor(server) {
     this.documentService = server.services([]);
   }
 
@@ -16,13 +18,24 @@ export class EmailService {
    * @param [options.attachments] {string[]} - url(s) of the attachments
    * @param [options.message] {string} - Message to be sent in email body
    */
-  async sendEmail(emailAddress, subject, options = {}) {
-    const mailOptions = {
+  async sendEmail(
+    emailAddress: string,
+    subject: string,
+    options: { message?: string; attachments?: any } = {}
+  ) {
+    const mailOptions: {
+      from: any;
+      to: string;
+      subject: string;
+      text: string;
+      attachments?: any;
+    } = {
       from: config.fromEmailAddress,
       to: emailAddress,
       subject,
       text: options.message || "",
     };
+
     if (options.attachments) {
       mailOptions.attachments = await Promise.all(
         this.documentService.downloadDocuments(options.attachments)
@@ -31,6 +44,7 @@ export class EmailService {
 
     const mailComposer = new MailComposer(mailOptions);
     const message = await mailComposer.compile().build();
+
     // SES is not available in eu-west-2
     return new AWS.SES({ apiVersion: "2010-12-01", region: "eu-west-1" })
       .sendRawEmail({ RawMessage: { Data: message } })

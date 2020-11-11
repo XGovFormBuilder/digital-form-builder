@@ -4,6 +4,7 @@ import CatboxMemory from "@hapi/catbox-memory";
 import Redis from "ioredis";
 
 import config from "../config";
+import { HapiRequest, Server } from "../types";
 
 const {
   redisHost,
@@ -16,18 +17,25 @@ const {
 const partition = "cache";
 
 export class CacheService {
-  constructor(server) {
+  cache: any;
+
+  constructor(server: Server) {
     this.cache = server.cache({ segment: "cache" });
   }
 
-  async getState(request) {
+  async getState(request: HapiRequest) {
     const cached = await this.cache.get(
       this.Key(request.yar.id, request.query.visit)
     );
     return cached || {};
   }
 
-  async mergeState(request, value, nullOverride = true, arrayMerge = false) {
+  async mergeState(
+    request: HapiRequest,
+    value,
+    nullOverride = true,
+    arrayMerge = false
+  ) {
     const key = this.Key(request.yar.id, request.query.visit);
     const state = await this.getState(request);
     hoek.merge(state, value, nullOverride, arrayMerge);
@@ -35,13 +43,13 @@ export class CacheService {
     return this.cache.get(key);
   }
 
-  async clearState(request) {
+  async clearState(request: HapiRequest) {
     if (request.yar && request.yar.id) {
       this.cache.drop(this.Key(request.yar.id, request.query.visit));
     }
   }
 
-  Key(sessionId, visitId) {
+  Key(sessionId: string, visitId: string | string[]) {
     return {
       segment: partition,
       id: `${sessionId}:${visitId}`,
@@ -56,10 +64,15 @@ export const catboxProvider = () => {
   };
 
   if (redisHost) {
-    const redisOptions = {};
+    const redisOptions: {
+      password?: string;
+      tls?: {};
+    } = {};
+
     if (redisPassword) {
       redisOptions.password = redisPassword;
     }
+
     if (redisTls) {
       redisOptions.tls = {};
     }

@@ -1,6 +1,6 @@
 import Wreck from "@hapi/wreck";
 
-const options = {
+const DEFAULT_OPTIONS = {
   headers: {
     "content-type": "application/json",
   },
@@ -14,18 +14,21 @@ export class WebhookService {
    * @returns { object } webhookResponse
    * @returns { string } webhookResponse.reference webhook should return with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
-  async postRequest(url, data) {
+  async postRequest(url: string, data: object) {
     const { payload, res } = await Wreck.post(url, {
-      ...options,
+      ...DEFAULT_OPTIONS,
       payload: JSON.stringify(data),
     });
+
     if (payload && payload.toString()) {
       const { reference } = JSON.parse(payload.toString());
       return reference;
     }
+
     if (res.statusCode === 202) {
       // send dead letter queue message
     }
+
     return "UNKNOWN";
   }
 }

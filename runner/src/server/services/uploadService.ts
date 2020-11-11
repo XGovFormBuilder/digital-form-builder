@@ -2,7 +2,10 @@ import FormData from "form-data";
 import Wreck from "@hapi/wreck";
 import config from "../config";
 
-const parsedError = (key, error) => {
+import { HapiRequest, HapiResponseToolkit } from "../types";
+import { IncomingMessage } from "http";
+
+const parsedError = (key: string, error: string) => {
   return {
     path: key,
     href: `#${key}`,
@@ -16,12 +19,12 @@ export class UploadService {
     return 5 * 1024 * 1024; // 5mb
   }
 
-  get validFiletypes() {
+  get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {
     return ["jpg", "jpeg", "png", "pdf"];
   }
 
   fileStreamsFromPayload(payload) {
-    return Object.entries(payload).filter(([key, value]) => {
+    return Object.entries(payload).filter(([_key, value]: [string, any]) => {
       if (value) {
         if (Array.isArray(value)) {
           return value.every((nv) => !!nv._data && nv._data.length > 1);
@@ -49,9 +52,9 @@ export class UploadService {
     return this.parsedDocumentUploadResponse(res);
   }
 
-  parsedDocumentUploadResponse(res) {
-    let error;
-    let location;
+  parsedDocumentUploadResponse(res: IncomingMessage) {
+    let error: string;
+    let location: string;
 
     switch (res.statusCode) {
       case 201:
@@ -76,17 +79,18 @@ export class UploadService {
     };
   }
 
-  async failAction(request, h, err) {
+  async failAction(_request: HapiRequest, h: HapiResponseToolkit) {
     h.request.pre.filesizeError = true;
     return h.continue;
   }
 
-  async handleUploadRequest(request, h) {
+  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = (state || {}).originalFilenames || {};
 
     let files = [];
+
     if (request.payload !== null) {
       files = this.fileStreamsFromPayload(request.payload);
     }
@@ -97,6 +101,7 @@ export class UploadService {
      */
     if (!files.length && request.payload) {
       const fields = Object.entries(request.payload);
+
       for (const [key, value] of fields) {
         if (value._data) {
           const originalFilename = originalFilenames[key];
@@ -104,6 +109,7 @@ export class UploadService {
             (originalFilename && originalFilename.location) || "";
         }
       }
+
       return h.continue;
     }
 
@@ -114,6 +120,7 @@ export class UploadService {
       const previousUpload = originalFilenames[key] || {};
 
       let values;
+
       if (Array.isArray(file[1])) {
         values = file[1];
       } else {
@@ -196,11 +203,13 @@ export class UploadService {
         delete request.payload[key];
       }
     }
+
     await cacheService.mergeState(request, { originalFilenames });
+
     return h.continue;
   }
 
-  async downloadDocuments(paths) {
+  async downloadDocuments(paths: string[]) {
     return paths.map((path) => {
       return Wreck.get(path);
     });
