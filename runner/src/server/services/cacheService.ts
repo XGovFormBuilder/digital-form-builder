@@ -87,7 +87,7 @@ export const catboxProvider = () => {
             },
           ],
           {
-            dnsLookup: (address, callback) => callback(null, address),
+            dnsLookup: (address, callback) => callback(null, address, 4),
             redisOptions,
           }
         );
