@@ -2,10 +2,10 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src",
     "outDir": "dist",
     "paths": {
-      "src/*": ["src/*"] // this mapping is relative to "baseUrl"
+      "src/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src", "test"]
 }
