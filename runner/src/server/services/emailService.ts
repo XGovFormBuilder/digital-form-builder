@@ -2,11 +2,15 @@ import AWS from "aws-sdk";
 import MailComposer from "nodemailer/lib/mail-composer";
 import config from "../config";
 
-export class EmailService {
-  documentService: any;
+import { Server } from "../types";
+import { UploadService } from "./uploadService";
 
-  constructor(server) {
-    this.documentService = server.services([]);
+export class EmailService {
+  uploadService: UploadService;
+
+  constructor(server: Server) {
+    const { uploadService } = server.services([]);
+    this.uploadService = uploadService;
   }
 
   /**
@@ -37,8 +41,8 @@ export class EmailService {
     };
 
     if (options.attachments) {
-      mailOptions.attachments = await Promise.all(
-        this.documentService.downloadDocuments(options.attachments)
+      mailOptions.attachments = await this.uploadService.downloadDocuments(
+        options.attachments
       );
     }
 

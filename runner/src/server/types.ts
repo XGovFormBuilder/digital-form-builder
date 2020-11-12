@@ -10,22 +10,26 @@ import {
   WebhookService,
 } from "./services";
 
+type Services = (
+  services: string[]
+) => {
+  cacheService: CacheService;
+  emailService: EmailService;
+  notifyService: NotifyService;
+  payService: PayService;
+  sheetsService: SheetsService;
+  uploadService: UploadService;
+  webhookService: WebhookService;
+};
+
 export type HapiRequest = Request & {
   isBoom: boolean;
-  services: (
-    services: string[]
-  ) => {
-    cacheService: CacheService;
-    emailService: EmailService;
-    notifyService: NotifyService;
-    payService: PayService;
-    sheetsService: SheetsService;
-    uploadService: UploadService;
-    webhookService: WebhookService;
-  };
+  services: Services;
 };
 export type HapiResponseToolkit = ResponseToolkit & {
   view: (viewName: string, data?: { [prop: string]: any }) => any;
 };
 
-export type Server = HapiServer & {};
+export type Server = HapiServer & {
+  services: Services;
+};

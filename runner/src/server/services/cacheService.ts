@@ -32,7 +32,7 @@ export class CacheService {
 
   async mergeState(
     request: HapiRequest,
-    value,
+    value: object,
     nullOverride = true,
     arrayMerge = false
   ) {
