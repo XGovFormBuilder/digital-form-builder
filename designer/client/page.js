@@ -143,7 +143,8 @@ export class Page extends React.Component {
             target="_blank"
             rel="noreferrer"
           >
-            {i18n("Preview")}
+            {i18n("Preview")}{" "}
+            <span className="govuk-visually-hidden">{pageTitle}</span>
           </a>
         </div>
         {this.state.showEditor && (

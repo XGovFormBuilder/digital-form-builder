@@ -84,7 +84,7 @@ export default class Menu extends React.Component {
     const { tab } = this.state;
 
     return (
-      <div className="menu">
+      <nav className="menu">
         <div className="menu__row">
           <button onClick={() => this.setState({ showFormConfig: true })}>
             Form Details
@@ -361,7 +361,7 @@ export default class Menu extends React.Component {
             </div>
           </Flyout>
         )}
-      </div>
+      </nav>
     );
   }
 }
