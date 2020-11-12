@@ -1,61 +1,82 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
-const AddComponentPage = require("../pageobjects/add-component.page");
+const AddComponentPage = require("../pageobjects/pages/add-component.page");
 const AddLinkSection = require("../pageobjects/sections/add-link.section");
-const ConfigPage = require("../pageobjects/config.page");
 const EditListSection = require("../pageobjects/sections/edit-lists.section");
 const EditPageSection = require("../pageobjects/sections/edit-page.section");
 const EditSection = require("../pageobjects/sections/edit-section.section");
-const FormDesignerPage = require("../pageobjects/form-designer.page");
+const FormDesignerPage = require("../pageobjects/pages/form-designer.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
-
 const FieldData = require("../../data/componentFieldData");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
-
-const pages = {
-  start: ConfigPage,
-};
+const Actions = require("../actions/actions");
 
 Given("I have created a new form configuration", () => {
-  pages["start"].open();
-  const configRef = `smoke-testing ${Date.parse(Date())}`;
-  ConfigPage.newConfig(configRef);
-  expect(browser).toHaveUrlContaining(configRef.replace(" ", "-"));
+  Actions.createNewConfig();
 });
 
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.completeCommonFields(FieldData[toCamelCase(componentName)]);
-});
-
-Then("the {string} control is displayed in the page", (componentName) => {
-  const pageComponent = toCamelCase(componentName);
-  switch (pageComponent) {
-    case "DateField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy"
+  switch (componentName) {
+    case "Paragraph":
+      AddComponentPage.paragraphSetText(
+        `You need the vehicle’s number plate (registration number).\n
+          You can see the results as soon as the MOT centre has recorded the test result.\n
+          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
       );
+      AddComponentPage.saveBtn.click();
       break;
-    case "EmailAddressField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      break;
-    case "DateTimeField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy hh:mm"
+    default:
+      AddComponentPage.completeCommonFields(
+        FieldData[toCamelCase(componentName)]
       );
-      break;
-    case "DatePartsField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
       break;
   }
+});
+
+Then(
+  "the {string} control is displayed in the {string}",
+  (componentName, pageName) => {
+    const pageComponent = toCamelCase(componentName);
+    switch (pageComponent) {
+      case "dateField":
+        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
+          .be.true;
+        expect(FormDesignerPage[pageComponent](pageName)).toHaveText(
+          "dd/mm/yyyy"
+        );
+        break;
+      case "dateTimeField":
+        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
+          .be.true;
+        expect(FormDesignerPage[pageComponent](pageName)).toHaveText(
+          "dd/mm/yyyy hh:mm"
+        );
+        break;
+      default:
+        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
+          .be.true;
+        break;
+    }
+  }
+);
+
+When("I add multiple components to the {string}", (pageName) => {
+  this.pageComponents = ["Email address field", "Date field"];
+  this.pageComponents.forEach((component) =>
+    Actions.createComponentForPage(component, pageName)
+  );
+});
+
+Then("all the components are displayed in the {string}", (pageName) => {
+  this.pageComponents.forEach(
+    (component) =>
+      chai.expect(
+        FormDesignerPage[toCamelCase(component)](pageName).isDisplayed()
+      ).to.be.true
+  );
 });
 
 When(
@@ -128,7 +149,7 @@ When("I add a new section", () => {
 });
 
 Then("the section should be available when I edit the Question page", () => {
-  FormDesignerPage.editPageForPageName("Question page").click();
+  FormDesignerPage.editPageForPageName("First page").click();
   expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
 });
 
