@@ -2,7 +2,7 @@ import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import cheerio from "cheerio";
 import FormData from "form-data";
-import createServer from "../../../src/server";
+import createServer from "src/server";
 
 const { before, test, suite, after } = (exports.lab = Lab.script());
 

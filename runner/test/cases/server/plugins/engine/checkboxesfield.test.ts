@@ -1,6 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { CheckboxesField } from "../../../../../src/server/plugins/engine/components/CheckboxesField";
+import { CheckboxesField } from "src/server/plugins/engine/components/CheckboxesField";
 
 const lab = Lab.script();
 exports.lab = lab;

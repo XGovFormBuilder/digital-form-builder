@@ -3,7 +3,7 @@ import { expect } from "@hapi/code";
 import cheerio from "cheerio";
 import FormData from "form-data";
 import cookie from "cookie";
-import createServer from "../../../src/server";
+import createServer from "src/server";
 
 const { suite, before, test, after } = (exports.lab = Lab.script());
 

@@ -1,7 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 
-import { RelativeUrl } from "../../../../../src/server/plugins/engine/feedback";
+import { RelativeUrl } from "src/server/plugins/engine/feedback";
 
 const { expect } = Code;
 const lab = Lab.script();

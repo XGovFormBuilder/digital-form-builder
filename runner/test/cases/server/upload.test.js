@@ -6,8 +6,8 @@ import FormData from "form-data";
 import { expect } from "@hapi/code";
 import { stub, restore } from "sinon";
 
-import createServer from "../../../src/server/index";
-import { UploadService } from "../../../src/server/services/uploadService";
+import createServer from "src/server/index";
+import { UploadService } from "src/server/services/uploadService";
 
 const { before, test, suite, after } = (exports.lab = Lab.script());
 
