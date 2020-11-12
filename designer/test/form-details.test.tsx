@@ -131,6 +131,20 @@ suite("Form details", () => {
       expect(radios.prop("value")).to.equal(false);
     });
 
+    test("handleIsFeedbackFormRadio should update state values correctly", () => {
+      const wrapper = shallow(<FormDetails data={data} />).instance();
+      var spy = sinon.spy(wrapper, "setState");
+
+      wrapper.handleIsFeedbackFormRadio({ target: { value: "true" } });
+      expect(
+        spy.calledWith({ feedbackForm: true, selectedFeedbackForm: undefined })
+      ).to.equal(true);
+
+      spy.resetHistory();
+      wrapper.handleIsFeedbackFormRadio({ target: { value: "false" } });
+      expect(spy.calledWith({ feedbackForm: false })).to.equal(true);
+    });
+
     test("Renders Feedback form input when form is not a feedback form", async () => {
       const wrapper = shallow(<FormDetails data={data} />);
       await wrapper.instance().componentDidMount();
