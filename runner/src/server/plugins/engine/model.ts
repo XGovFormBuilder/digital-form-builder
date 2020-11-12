@@ -20,11 +20,6 @@ class EvaluationContext {
   }
 }
 
-// TODO: What is the difference between this model and @xgovformbuilder/model data-model?
-
-/**
- * TODO - convert references to this to using the shared Data class from the model library?
- */
 export default class Model {
   def: any;
   lists: any;
