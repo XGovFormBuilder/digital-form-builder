@@ -342,7 +342,7 @@ class SummaryViewModel {
           question.fields.map((field) => field.answer)
         )
       ),
-      authOptions: { credentials, project_id, scopes },
+      authOptions: { credentials, projectId: project_id, scopes },
       spreadsheetId,
     };
   }
