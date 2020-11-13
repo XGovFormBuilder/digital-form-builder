@@ -24,8 +24,8 @@ suite("CSRF", () => {
   // Create server before each test
   before(async () => {
     server = await createServer({
-      data: "basic-v0.json",
-      customPath: __dirname,
+      formFileName: "basic-v0.json",
+      formFilePath: __dirname,
       enforceCsrf: true,
     });
     await server.start();

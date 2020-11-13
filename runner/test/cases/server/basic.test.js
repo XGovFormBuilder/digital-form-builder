@@ -15,8 +15,8 @@ configs.forEach((config) => {
     // Create server before each test
     before(async () => {
       server = await createServer({
-        data: `${config}.json`,
-        customPath: __dirname,
+        formFileName: `${config}.json`,
+        formFilePath: __dirname,
       });
       await server.start();
     });

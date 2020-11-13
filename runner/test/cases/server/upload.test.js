@@ -16,7 +16,10 @@ suite("uploads", () => {
 
   // Create server before each test
   before(async () => {
-    server = await createServer({ data: "upload.json", customPath: __dirname });
+    server = await createServer({
+      formFilePath: "upload.json",
+      formFilePath: __dirname,
+    });
     await server.start();
   });
 

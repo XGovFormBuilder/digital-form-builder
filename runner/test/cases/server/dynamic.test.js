@@ -89,8 +89,8 @@ suite("Dynamic pages", { skip: true }, () => {
   // Create server before each test
   before(async () => {
     server = await createServer({
-      data: "dynamic.json",
-      customPath: __dirname,
+      formFileName: "dynamic.json",
+      formFilePath: __dirname,
     });
     await server.start();
   });

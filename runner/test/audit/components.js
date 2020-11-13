@@ -8,7 +8,7 @@ const opts = {
   onlyCategories: ["accessibility"],
 };
 
-createServer({ data: "components.json", customPath: __dirname })
+createServer({ formFileName: "components.json", formFilePath: __dirname })
   .then((server) => server.start())
   .then(() => {
     launchChromeAndRunLighthouse(

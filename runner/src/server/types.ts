@@ -1,5 +1,6 @@
-import { Request, ResponseToolkit, Server as HapiServer } from "hapi";
-import type {} from "wreck";
+import { Request, ResponseToolkit, Server } from "@hapi/hapi";
+
+import { RateOptions } from "./plugins/rateLimit";
 import {
   CacheService,
   EmailService,
@@ -22,14 +23,32 @@ type Services = (
   webhookService: WebhookService;
 };
 
-export type HapiRequest = Request & {
-  isBoom: boolean;
-  services: Services;
-};
-export type HapiResponseToolkit = ResponseToolkit & {
-  view: (viewName: string, data?: { [prop: string]: any }) => any;
+export type RouteConfig = {
+  rateOptions?: RateOptions;
+  formFileName?: string;
+  formFilePath?: string;
+  enforceCsrf?: boolean;
 };
 
-export type Server = HapiServer & {
-  services: Services;
-};
+declare module "@hapi/hapi" {
+  // Here we are decorating Hapi interface types with
+  // props from plugins which doesn't export @types
+  interface Request {
+    services: Services; // plugin schmervice
+  }
+
+  interface Response {}
+
+  interface Server {
+    services: Services; // plugin schmervice
+    registerService: (services: any[]) => void; // plugin schmervice
+  }
+
+  interface ResponseToolkit {
+    view: (viewName: string, data?: { [prop: string]: any }) => any; // plugin view
+  }
+}
+
+export type HapiRequest = Request;
+export type HapiResponseToolkit = ResponseToolkit;
+export type HapiServer = Server;

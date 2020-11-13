@@ -2,13 +2,13 @@ import AWS from "aws-sdk";
 import MailComposer from "nodemailer/lib/mail-composer";
 import config from "../config";
 
-import { Server } from "../types";
+import { HapiServer } from "../types";
 import { UploadService } from "./uploadService";
 
 export class EmailService {
   uploadService: UploadService;
 
-  constructor(server: Server) {
+  constructor(server: HapiServer) {
     const { uploadService } = server.services([]);
     this.uploadService = uploadService;
   }
