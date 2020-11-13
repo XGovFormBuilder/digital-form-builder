@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "post": "Paris",
+    "caseType": "Consular Marriage",
+    "summary": "Certificate of Custom/Law for PACS (Fee 11ii)"
+  },
+  "conditions": [
+    {
+      "name": "isOneDay",
+      "value": "licenceDetails.licenceLength == 1"
+    },
+    {
+      "name": "isEightDay",
+      "value": "licenceDetails.licenceLength == 8"
+    },
+    {
+      "name": "nameIsName",
+      "value": "personalDetails.fullName == 'test'"
+    }
+  ],
+  "startPage": "/upload-file",
+  "pages": [
+    {
+      "path": "/upload-file",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport",
+          "options": {},
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "fullName",
+          "title": {
+            "en": "What's your name?"
+          }
+        },
+        {
+          "type": "FileUploadField",
+          "name": "file1",
+          "title": "Passport photo",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.ts",
+      "components": [],
+      "title": "Summary",
+      "next": [
+        {
+          "path": "/confirmation"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "personalDetails",
+      "title": "Personal details"
+    },
+    {
+      "name": "licenceDetails",
+      "title": "Licence details"
+    }
+  ],
+  "lists": [
+    {
+      "name": "licenceLengthDays",
+      "title": "Licence length (days)",
+      "type": "number",
+      "items": [
+        {
+          "text": "1 day",
+          "value": 1,
+          "description": "Valid for 24 hours from the start time that you select"
+        },
+        {
+          "text": "8 day",
+          "value": 8,
+          "description": "Valid for 8 consecutive days from the start time that you select"
+        },
+        {
+          "text": "12 months",
+          "value": 365,
+          "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
+        }
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "description": "1 day license",
+      "amount": 10,
+      "condition": "isOneDay"
+    },
+    {
+      "description": "8 day license",
+      "amount": 20,
+      "condition": "isEightDay"
+    },
+    {
+      "description": "expensive name",
+      "amount": 73572,
+      "condition": "nameIsName"
+    }
+  ]
+}

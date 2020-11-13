@@ -12,8 +12,6 @@ export type ComponentType =
   | "SelectField"
   | "AutocompleteField"
   | "RadiosField"
-  | "RadiosField"
-  | "CheckboxesField"
   | "CheckboxesField"
   | "NumberField"
   | "UkAddressField"

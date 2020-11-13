@@ -19,9 +19,6 @@ parameters:
   model:
     type: boolean
     default: false
-  engine:
-    type: boolean
-    default: false
   designer:
     type: boolean
     default: false
@@ -70,8 +67,7 @@ jobs:
       - save_cache:
           paths:
             - .yarn
-            - model/lib
-            - engine/lib
+            - model/dist
           key: all-dependencies-{{ checksum "yarn.lock" }}
       - persist_to_workspace:
           root: ~/project
@@ -97,16 +93,10 @@ jobs:
               # force flag
               - << pipeline.parameters.force-build-all >>
 
-              # if the upstream dependencies (model or engine) have changed, this package must be rebuilt.
-              - and:
-                  - equal: ["engine", << parameters.package_name >>]
-                  - << pipeline.parameters.model >>
+              # if the upstream dependencies (model) have changed, this package must be rebuilt.
               - and:
                   - equal: ["runner", << parameters.package_name >>]
                   - << pipeline.parameters.model >>
-              - and:
-                  - equal: ["runner", << parameters.package_name >>]
-                  - << pipeline.parameters.engine >>
               - and:
                   - equal: ["designer", << parameters.package_name >>]
                   - << pipeline.parameters.model >>
@@ -120,7 +110,6 @@ jobs:
                     - and:
                         - equal: ["runner", << parameters.package_name >>]
                         - or:
-                            - not: << pipeline.parameters.engine >>
                             - not: << pipeline.parameters.model >>
                     - and:
                         - equal: ["designer", << parameters.package_name >>]
@@ -130,18 +119,6 @@ jobs:
                       name: Build dependencies
                       command: |
                         yarn build:dependencies
-
-            - when:
-                condition:
-                  or:
-                    - and:
-                        - equal: ["engine", << parameters.package_name >>]
-                        - not: << pipeline.parameters.model >>
-                steps:
-                  - run:
-                      name: Build model
-                      command: |
-                        yarn model build
 
             - run:
                 name: Build
@@ -185,19 +162,13 @@ workflows:
           should_build: << pipeline.parameters.model >>
           requires:
             - install-yarn
-      - build-lint-test:
-          name: engine-build-lint-test
-          package_name: engine
-          should_build: << pipeline.parameters.engine >>
-          requires:
-            - model-build-lint-test
 
       - build-lint-test:
           name: runner-build-lint-test
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
-            - engine-build-lint-test
+            - model-build-lint-test
 
       - build-lint-test:
           name: designer-build-lint-test
