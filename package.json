@@ -1,14 +1,13 @@
 {
   "name": "digital-form-builder-mono",
   "version": "2.0.0",
-  "description": "Mono repo for xgovformbuilder's designer, engine, model and runner",
+  "description": "Mono repo for xgovformbuilder's designer, model and runner",
   "repository": "https://github.com/XGovFormBuilder/digital-form-builder.git",
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
   "workspaces": [
     "model",
-    "engine",
     "runner",
     "designer",
     "smoke-tests"
@@ -16,14 +15,13 @@
   "scripts": {
     "setup": "yarn && yarn build",
     "build": "yarn workspaces foreach run build",
-    "build:dependencies": "yarn model build && yarn engine build",
+    "build:dependencies": "yarn model build",
     "lint": "yarn workspaces foreach run lint",
     "test": "yarn workspaces foreach run test",
     "fix-lint": "yarn workspaces foreach run fix-lint",
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
-    "engine": "yarn workspace @xgovformbuilder/engine",
     "model": "yarn workspace @xgovformbuilder/model",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
