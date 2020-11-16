@@ -19,7 +19,7 @@ class EvaluationContext {
   }
 }
 
-export class Model {
+export class FormModel {
   def: any;
   lists: any;
   sections: any;

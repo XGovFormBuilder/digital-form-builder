@@ -9,7 +9,7 @@ import {
 
 import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 
-import { Model } from "./model";
+import { FormModel } from "./formModel";
 import { nanoid } from "nanoid";
 import Boom from "boom";
 
@@ -31,7 +31,7 @@ function getStartPageRedirect(
   request: HapiRequest,
   h: HapiResponseToolkit,
   id: string,
-  model: Model
+  model: FormModel
 ) {
   const startPage = normalisePath(model.def.startPage);
   let startPageRedirect;
@@ -82,7 +82,7 @@ export const plugin = {
      **/
     const forms = {};
     configs.forEach((config) => {
-      forms[config.id] = new Model(
+      forms[config.id] = new FormModel(
         schemaMigrationService.migrate(config.configuration),
         { ...modelOptions, basePath: config.id }
       );
@@ -108,7 +108,7 @@ export const plugin = {
               ? JSON.parse(configuration)
               : configuration;
           const def = schemaMigrationService.migrate(parsedConfiguration);
-          forms[id] = new Model(def, { ...modelOptions, basePath: id });
+          forms[id] = new FormModel(def, { ...modelOptions, basePath: id });
           return h.response({}).code(204);
         },
       });
