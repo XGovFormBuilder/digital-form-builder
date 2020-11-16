@@ -1,12 +1,16 @@
 import { RelativeUrl } from "./feedback";
-import { Request, ResponseToolkit } from "hapi";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
 
 const paramsToCopy = [
   RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER,
   RelativeUrl.VISIT_IDENTIFIER_PARAMETER,
 ];
 
-export function proceed(request: Request, h: ResponseToolkit, nextUrl: string) {
+export function proceed(
+  request: HapiRequest,
+  h: HapiResponseToolkit,
+  nextUrl: string
+) {
   const returnUrl = request.query.returnUrl;
 
   if (typeof returnUrl === "string" && returnUrl.startsWith("/")) {
@@ -17,7 +21,7 @@ export function proceed(request: Request, h: ResponseToolkit, nextUrl: string) {
 }
 
 export function redirectUrl(
-  request: Request,
+  request: HapiRequest,
   targetUrl: string,
   params: { [name: string]: string | number } = {}
 ) {
@@ -37,8 +41,8 @@ export function redirectUrl(
 }
 
 export function redirectTo(
-  request: Request,
-  h: ResponseToolkit,
+  request: HapiRequest,
+  h: HapiResponseToolkit,
   targetUrl: string,
   params = {}
 ) {
