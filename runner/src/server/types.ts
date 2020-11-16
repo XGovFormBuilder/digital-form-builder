@@ -1,4 +1,4 @@
-import { Request, ResponseToolkit, Server } from "@hapi/hapi";
+import { Request, ResponseToolkit, Server, ResponseObject } from "@hapi/hapi";
 
 import { RateOptions } from "./plugins/rateLimit";
 import {
@@ -35,6 +35,13 @@ declare module "@hapi/hapi" {
   // props from plugins which doesn't export @types
   interface Request {
     services: Services; // plugin schmervice
+    i18n: {
+      // plugin locale
+      setLocale(lang: string): void;
+      getLocale(request: Request): void;
+      getDefaultLocale(): string;
+      getLocales(): string[];
+    };
   }
 
   interface Response {}
@@ -52,3 +59,4 @@ declare module "@hapi/hapi" {
 export type HapiRequest = Request;
 export type HapiResponseToolkit = ResponseToolkit;
 export type HapiServer = Server;
+export type HapiResponseObject = ResponseObject;
