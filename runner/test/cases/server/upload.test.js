@@ -17,7 +17,7 @@ suite("uploads", () => {
   // Create server before each test
   before(async () => {
     server = await createServer({
-      formFilePath: "upload.json",
+      formFileName: "upload.json",
       formFilePath: __dirname,
     });
     await server.start();
@@ -101,6 +101,7 @@ suite("uploads", () => {
     const response = await server.inject(options);
 
     const $ = cheerio.load(response.payload);
+
     expect($("[href='#file1']").text().trim()).to.equal(
       "The file you uploaded was too big"
     );
