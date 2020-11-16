@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["src/*"],
+      "server/*": ["src/server/*"]
     }
   },
   "include": ["src", "test"]
