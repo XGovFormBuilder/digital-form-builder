@@ -8,5 +8,5 @@
       "server/*": ["src/server/*"]
     }
   },
-  "include": ["src", "test"]
+  "include": ["src", "test", "package.json"]
 }
