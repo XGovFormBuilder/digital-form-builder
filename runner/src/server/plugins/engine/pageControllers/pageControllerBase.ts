@@ -1,15 +1,19 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
-import { Request, ResponseToolkit, ResponseObject } from "hapi";
 
-import { proceed, redirectTo } from "./helpers";
-import { ComponentCollection } from "./components/ComponentCollection";
-import { decode, RelativeUrl, FeedbackContextInfo } from "./feedback";
+import { proceed, redirectTo } from "../helpers";
+import { ComponentCollection } from "../components/ComponentCollection";
+import { decode, RelativeUrl, FeedbackContextInfo } from "../feedback";
+import {
+  HapiRequest,
+  HapiResponseToolkit,
+  HapiResponseObject,
+} from "server/types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
 
-export default class Page {
+export class PageControllerBase {
   def: {
     name: string;
     feedback?: {
@@ -70,7 +74,7 @@ export default class Page {
     iteration?: any, // TODO
     errors?: any // TODO
   ): {
-    page: Page;
+    page: PageControllerBase;
     name: string;
     pageTitle: string;
     sectionTitle: string;
@@ -78,7 +82,7 @@ export default class Page {
     components: any; // TODO
     errors: any; // TODO
     isStartPage: boolean;
-    startPage?: ResponseObject;
+    startPage?: HapiResponseObject;
     backLink?: string;
   } {
     let showTitle = true;
@@ -134,7 +138,7 @@ export default class Page {
     return (this.pageDef.next || [])
       .map((next: { path: string }) => {
         const { path } = next;
-        const page = this.model.pages.find((page: Page) => {
+        const page = this.model.pages.find((page: PageControllerBase) => {
           return path === page.path;
         });
 
@@ -283,7 +287,7 @@ export default class Page {
     return this.validate(newState, this.stateSchema);
   }
 
-  langFromRequest(request) {
+  langFromRequest(request: HapiRequest) {
     const lang = request.query.lang || request.yar.get("lang") || "en";
     if (lang !== request.yar.get("lang")) {
       request.i18n.setLocale(lang);
@@ -292,13 +296,8 @@ export default class Page {
     return request.yar.get("lang");
   }
 
-  private objLength(object: {}) {
-    return Object.keys(object).length;
-  }
-
   makeGetRouteHandler() {
-    // TODO: type
-    return async (request: any, h: any) => {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);
@@ -381,8 +380,7 @@ export default class Page {
   }
 
   makePostRouteHandler() {
-    // TODO: type
-    return async (request: any, h: any) => {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
       const hasFilesizeError = request.payload === null;
       const preHandlerErrors = request.pre.errors;
@@ -498,7 +496,7 @@ export default class Page {
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  getFeedbackContextInfo(request) {
+  getFeedbackContextInfo(request: HapiRequest) {
     if (this.def.feedback?.feedbackForm) {
       const feedbackReturnInfo = new RelativeUrl(
         `${request.url.pathname}${request.url.search}`
@@ -510,7 +508,7 @@ export default class Page {
     }
   }
 
-  feedbackUrlFromRequest(request): string | void {
+  feedbackUrlFromRequest(request: HapiRequest): string | void {
     if (this.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(
@@ -545,7 +543,7 @@ export default class Page {
     return this.model.pages.find((page) => page.path === path);
   }
 
-  proceed(request: Request, h: ResponseToolkit, state) {
+  proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
     return proceed(request, h, this.getNext(state));
   }
 
@@ -605,5 +603,9 @@ export default class Page {
 
   set stateSchema(value) {
     this[STATE_SCHEMA] = value;
+  }
+
+  private objLength(object: {}) {
+    return Object.keys(object).length;
   }
 }

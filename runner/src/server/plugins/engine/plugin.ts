@@ -1,11 +1,4 @@
 import path from "path";
-import {
-  Request,
-  ResponseObject,
-  ResponseToolkit,
-  Server,
-  Plugin,
-} from "@hapi/hapi";
 import nunjucks from "nunjucks";
 import { redirectTo } from "./helpers";
 import { RelativeUrl } from "./feedback";
@@ -14,7 +7,9 @@ import {
   SchemaMigrationService,
 } from "@xgovformbuilder/model";
 
-import Model from "./model";
+import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
+
+import { Model } from "./model";
 import { nanoid } from "nanoid";
 import Boom from "boom";
 
@@ -33,8 +28,8 @@ function normalisePath(path: string) {
 }
 
 function getStartPageRedirect(
-  request: Request,
-  h: ResponseToolkit,
+  request: HapiRequest,
+  h: HapiResponseToolkit,
   id: string,
   model: Model
 ) {
@@ -51,9 +46,9 @@ function getStartPageRedirect(
 }
 
 function redirectWithVisitParameter(
-  request: Request,
-  h: ResponseToolkit
-): ResponseObject | void {
+  request: HapiRequest,
+  h: HapiResponseToolkit
+) {
   const visitId = request.query[RelativeUrl.VISIT_IDENTIFIER_PARAMETER];
 
   if (!visitId) {
@@ -61,6 +56,8 @@ function redirectWithVisitParameter(
     params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = nanoid(10);
     return redirectTo(request, h, request.url.pathname, params);
   }
+
+  return undefined;
 }
 
 type PluginOptions = {
@@ -70,11 +67,11 @@ type PluginOptions = {
   previewMode: boolean;
 };
 
-export const plugin: Plugin = {
+export const plugin = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "vision",
   multiple: true,
-  register: (server: Server, options: PluginOptions) => {
+  register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
 
     const schemaMigrationService = new SchemaMigrationService(server, options);
@@ -102,8 +99,10 @@ export const plugin: Plugin = {
       server.route({
         method: "post",
         path: "/publish",
-        handler: (request: Request, h: ResponseToolkit) => {
-          const { id, configuration } = request.payload;
+        handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+          const payload = request.payload as any;
+          const { id, configuration } = payload;
+
           const parsedConfiguration =
             typeof configuration === "string"
               ? JSON.parse(configuration)
@@ -117,7 +116,7 @@ export const plugin: Plugin = {
       server.route({
         method: "get",
         path: "/published/{id}",
-        handler: (request: Request, h: ResponseToolkit) => {
+        handler: (request: HapiRequest, h: HapiResponseToolkit) => {
           const { id } = request.params;
           if (forms[id]) {
             const { values } = forms[id];
@@ -131,7 +130,7 @@ export const plugin: Plugin = {
       server.route({
         method: "get",
         path: "/published",
-        handler: (_request: Request, h: ResponseToolkit) => {
+        handler: (_request: HapiRequest, h: HapiResponseToolkit) => {
           return h
             .response(
               JSON.stringify(
@@ -154,7 +153,7 @@ export const plugin: Plugin = {
     server.route({
       method: "get",
       path: "/",
-      handler: (request: Request, h: ResponseToolkit) => {
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         function handle() {
           const keys = Object.keys(forms);
           let id = "";
@@ -175,7 +174,7 @@ export const plugin: Plugin = {
     server.route({
       method: "get",
       path: "/{id}",
-      handler: (request: Request, h: ResponseToolkit) => {
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         function handle() {
           const { id } = request.params;
           const model = forms[id];
@@ -192,7 +191,7 @@ export const plugin: Plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
-      handler: (request: Request, h: ResponseToolkit) => {
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         function handle() {
           const { path, id } = request.params;
           const model = forms[id];
@@ -216,21 +215,27 @@ export const plugin: Plugin = {
 
     const { uploadService } = server.services([]);
 
-    const handleFiles = (request: Request, h: ResponseToolkit) => {
+    const handleFiles = (request: HapiRequest, h: HapiResponseToolkit) => {
       return uploadService.handleUploadRequest(request, h);
     };
 
-    const postHandler = async (request: Request, h: ResponseToolkit) => {
+    const postHandler = async (
+      request: HapiRequest,
+      h: HapiResponseToolkit
+    ) => {
       const { path, id } = request.params;
       const model = forms[id];
+
       if (model) {
         const page = model.pages.find(
           (page) => page.path.replace(/^\//, "") === path
         );
+
         if (page) {
           return page.makePostRouteHandler()(request, h);
         }
       }
+
       throw Boom.notFound("No form of path found");
     };
 
@@ -248,7 +253,7 @@ export const plugin: Plugin = {
           parse: true,
           multipart: true,
           maxBytes: uploadService.fileSizeLimit,
-          failAction: async (request: Request, h: ResponseToolkit) => {
+          failAction: async (request: any, h: HapiResponseToolkit) => {
             if (
               request.server.plugins.crumb &&
               request.server.plugins.crumb.generate

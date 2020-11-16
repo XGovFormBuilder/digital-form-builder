@@ -1,10 +1,9 @@
-import path from "path";
 import joi from "joi";
 import moment from "moment";
 import { Parser } from "expr-eval";
 import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
 
-import Page from "./page";
+import { PageControllerBase, getPageController } from "./pageControllers";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -20,7 +19,7 @@ class EvaluationContext {
   }
 }
 
-export default class Model {
+export class Model {
   def: any;
   lists: any;
   sections: any;
@@ -69,16 +68,9 @@ export default class Model {
     this.values = result.value;
 
     if (options.defaultPageController) {
-      const defaultPageControllerPath = path.resolve(
-        options.relativeTo,
+      this.DefaultPageController = getPageController(
         options.defaultPageController
       );
-      this.DefaultPageController = require(defaultPageControllerPath);
-
-      // REFACTOR NOTE: below is from runner/server/plugin/builder/model, file is same as this but the lines below.
-      // if (options.defaultPageController) {
-      //   this.DefaultPageController = options.defaultPageController;
-      // }
     }
 
     this.basePath = options.basePath;
@@ -88,12 +80,6 @@ export default class Model {
       const condition = this.makeCondition(conditionDef);
       this.conditions[condition.name] = condition;
     });
-
-    // this.expressions = {}
-    // def.expressions.forEach(expressionDef => {
-    //   const expression = this.makeExpression(expressionDef)
-    //   this.expressions[expression.name] = expression
-    // })
 
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
@@ -133,6 +119,7 @@ export default class Model {
           }
 
           schema = schema.append({
+            // @ts-ignore
             [section.name]: sectionSchema,
           });
         } else {
@@ -148,18 +135,21 @@ export default class Model {
 
   makePage(pageDef) {
     if (pageDef.controller) {
-      const pageControllerPath = path.resolve(
-        this.options.relativeTo,
-        pageDef.controller
-      );
-      const PageController = require(pageControllerPath);
+      const PageController = getPageController(pageDef.controller);
+
+      if (!PageController) {
+        throw new Error(`PageController for ${pageDef.controller} not found`);
+      }
+
       return new PageController(this, pageDef);
     }
+
     if (this.DefaultPageController) {
       const DefaultPageController = this.DefaultPageController;
       return new DefaultPageController(this, pageDef);
     }
-    return new Page(this, pageDef);
+
+    return new PageControllerBase(this, pageDef);
   }
 
   makeCondition(condition) {

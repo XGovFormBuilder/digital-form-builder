@@ -9,10 +9,10 @@ import {
   RelativeUrl,
   FeedbackContextInfo,
   Model,
-} from "../";
+} from "..";
 import { Data } from "@xgovformbuilder/model";
 
-import Page from "./page";
+import { PageController } from "./pageController";
 import config from "../../../config";
 import { formSchema } from "../../../schemas/formSchema";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
@@ -60,15 +60,12 @@ class SummaryViewModel {
 
   constructor(pageTitle: string, model: Model, state, request) {
     this.pageTitle = pageTitle;
-
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
-
     this.declaration = model.def.declaration;
     this.skipSummary = model.def.skipSummary;
     this.endPage = endPage;
     const schema = model.makeFilteredSchema(state, relevantPages);
-
     const collatedRepeatPagesState = clone(state);
     delete collatedRepeatPagesState.progress;
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
@@ -280,11 +277,15 @@ class SummaryViewModel {
     while (nextPage != null) {
       if (nextPage.hasFormComponents) {
         relevantPages.push(nextPage);
-      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
+      } else if (
+        !nextPage.hasNext &&
+        !(nextPage instanceof SummaryPageController)
+      ) {
         endPage = nextPage;
       }
       nextPage = nextPage.getNextPage(state, true);
     }
+
     return { relevantPages, endPage };
   }
 
@@ -559,7 +560,7 @@ class SummaryViewModel {
   }
 }
 
-export default class SummaryPage extends Page {
+export class SummaryPageController extends PageController {
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.langFromRequest(request);
@@ -570,7 +571,6 @@ export default class SummaryPage extends Page {
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h);
       }
-
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
       this.setFeedbackDetails(viewModel, request);
@@ -629,6 +629,7 @@ export default class SummaryPage extends Page {
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0];
       }
+
       return h.view("summary", viewModel);
     };
   }
@@ -781,6 +782,3 @@ export default class SummaryPage extends Page {
     };
   }
 }
-
-// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = SummaryPage;

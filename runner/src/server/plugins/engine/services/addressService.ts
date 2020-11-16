@@ -1,6 +1,6 @@
 import { getJson } from "../../../services/httpService";
 
-async function findByPostcode(key, postcode) {
+export async function findByPostcode(key, postcode) {
   const findByPostcodeUrl = `https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?lr=EN&fq=logical_status_code:1&dataset=DPA&postcode=${postcode}&key=${key}`;
 
   const { payload, error } = await getJson(findByPostcodeUrl);
@@ -28,5 +28,3 @@ async function findByPostcode(key, postcode) {
     return [];
   }
 }
-
-export default findByPostcode;
