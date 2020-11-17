@@ -38,3 +38,13 @@ export type FormSubmissionState = {
   progress: string[];
   [propName: string]: any;
 };
+
+export type PageErrors = {
+  titleText: string; // e.b: "Fix the following errors"
+  errorList: {
+    path: string; // e.g: "firstName"
+    href: string; // e.g: "#firstName"
+    name: string; // e.g: "firstName"
+    text: string; // e.g: '"First name" is not allowed to be empty'
+  }[];
+};

@@ -8,7 +8,7 @@ import {
   redirectUrl,
   RelativeUrl,
   FeedbackContextInfo,
-  Model,
+  FormModel,
 } from "..";
 import { Data } from "@xgovformbuilder/model";
 
@@ -17,7 +17,7 @@ import config from "../../../config";
 import { formSchema } from "../../../schemas/formSchema";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
 import type { Fees } from "../../../services/payService";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionState, PageErrors } from "../types";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 
@@ -45,7 +45,7 @@ class SummaryViewModel {
   state: any;
   value: any;
   fees: Fees;
-  errors: any; // TODO
+  errors: PageErrors | undefined;
   name: string;
   feedbackLink: string;
   declarationError: any; // TODO
@@ -61,7 +61,7 @@ class SummaryViewModel {
 
   constructor(
     pageTitle: string,
-    model: Model,
+    model: FormModel,
     state: FormSubmissionState,
     request
   ) {
@@ -144,7 +144,7 @@ class SummaryViewModel {
     this.value = result.value;
   }
 
-  private retrieveFees(model: Model, state: FormSubmissionState): Fees {
+  private retrieveFees(model: FormModel, state: FormSubmissionState): Fees {
     let applicableFees = [];
 
     if (model.def.fees) {
@@ -280,7 +280,7 @@ class SummaryViewModel {
     return details;
   }
 
-  private getRelevantPages(model: Model, state: FormSubmissionState) {
+  private getRelevantPages(model: FormModel, state: FormSubmissionState) {
     let nextPage = model.startPage;
     const relevantPages = [];
     let endPage = null;
@@ -319,7 +319,7 @@ class SummaryViewModel {
     };
   }
 
-  private emailModel(model: Model, outputConfiguration) {
+  private emailModel(model: FormModel, outputConfiguration) {
     const data: string[] = [];
 
     this._webhookData.questions?.forEach((question) => {
@@ -345,7 +345,7 @@ class SummaryViewModel {
   }
 
   private sheetsModel(
-    _model: Model,
+    _model: FormModel,
     outputConfiguration,
     state: FormSubmissionState
   ) {
@@ -379,7 +379,7 @@ class SummaryViewModel {
     return englishString;
   }
 
-  private parseDataForWebhook(model: Model, relevantPages, details) {
+  private parseDataForWebhook(model: FormModel, relevantPages, details) {
     const questions = [];
 
     for (const page of relevantPages) {
@@ -517,7 +517,7 @@ class SummaryViewModel {
     component,
     sectionState,
     page,
-    model: Model,
+    model: FormModel,
     params: { num?: number; returnUrl: string } = {
       returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
     }
@@ -552,7 +552,11 @@ class SummaryViewModel {
     };
   }
 
-  private addFeedbackSourceDataToWebhook(webhookData, model: Model, request) {
+  private addFeedbackSourceDataToWebhook(
+    webhookData,
+    model: FormModel,
+    request
+  ) {
     if (model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decode(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
@@ -769,10 +773,13 @@ export class SummaryPageController extends PageController {
 
   getFeedbackContextInfo(request: HapiRequest) {
     if (this.model.def.feedback?.feedbackForm) {
-      return decode(
-        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-          .feedbackReturnInfo
-      );
+      const feedbackReturnInfo = new RelativeUrl(
+        `${request.url.pathname}${request.url.search}`
+      ).feedbackReturnInfo;
+
+      if (feedbackReturnInfo) {
+        return decode(feedbackReturnInfo);
+      }
     }
   }
 
@@ -787,6 +794,8 @@ export class SummaryPageController extends PageController {
       feedbackLink.feedbackReturnInfo = returnInfo.toString();
       return feedbackLink.toString();
     }
+
+    return undefined;
   }
 
   get postRouteOptions() {

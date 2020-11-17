@@ -3,7 +3,7 @@ import joi from "joi";
 import { Component } from "./Component";
 import { optionalText } from "./constants";
 
-import { FormSubmissionState } from "../types";
+import { FormSubmissionState, PageErrors } from "../types";
 import { ViewModel } from "./types";
 
 export class FormComponent extends Component {
@@ -130,7 +130,7 @@ export class FormComponent extends Component {
     return string;
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: PageErrors) {
     const options = this.options;
     const isOptional = options.required === false;
     const optionalPostfix =

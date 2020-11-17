@@ -1,5 +1,6 @@
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
+import { PageErrors } from "../types";
 
 export class TextField extends FormComponent {
   constructor(def, model) {
@@ -23,7 +24,7 @@ export class TextField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: PageErrors) {
     const { schema } = this;
     const viewModel = super.getViewModel(formData, errors);
 

@@ -1,6 +1,6 @@
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionState, PageErrors } from "../types";
 
 export class SelectField extends FormComponent {
   constructor(def, model) {
@@ -35,7 +35,7 @@ export class SelectField extends FormComponent {
     return item ? item.text : "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: PageErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
