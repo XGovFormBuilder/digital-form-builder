@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
+import { FormSubmissionState } from "../types";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
 
@@ -13,7 +14,7 @@ export class ConditionalFormComponent extends FormComponent {
     this.createConditionalComponents(def, model);
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const formData = super.getFormDataFromState(state);
     if (formData) {
       const itemsWithConditionalComponents = this.values.items.filter(

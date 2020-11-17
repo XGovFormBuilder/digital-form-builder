@@ -1,5 +1,6 @@
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
+import { FormSubmissionState } from "../types";
 
 export class SelectField extends FormComponent {
   constructor(def, model) {
@@ -27,7 +28,7 @@ export class SelectField extends FormComponent {
     return { [this.name]: this.stateSchema };
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
     const value = state[name];
     const item = values.items.find((item) => item.value === value);

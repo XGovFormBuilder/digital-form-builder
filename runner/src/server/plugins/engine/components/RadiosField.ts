@@ -1,5 +1,6 @@
 import * as helpers from "./helpers";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
+import { FormSubmissionState } from "../types";
 
 export class RadiosField extends ConditionalFormComponent {
   constructor(def, model) {
@@ -19,7 +20,7 @@ export class RadiosField extends ConditionalFormComponent {
     this.stateSchema = stateSchema;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
     const value = state[name];
     const item = values.items.find((item) => item.value === value);

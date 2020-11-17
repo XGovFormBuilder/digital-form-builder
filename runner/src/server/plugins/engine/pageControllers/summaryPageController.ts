@@ -17,6 +17,7 @@ import config from "../../../config";
 import { formSchema } from "../../../schemas/formSchema";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
 import type { Fees } from "../../../services/payService";
+import { FormSubmissionState } from "../types";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 
@@ -58,7 +59,12 @@ class SummaryViewModel {
     questions?: any[];
   };
 
-  constructor(pageTitle: string, model: Model, state, request) {
+  constructor(
+    pageTitle: string,
+    model: Model,
+    state: FormSubmissionState,
+    request
+  ) {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
@@ -138,7 +144,7 @@ class SummaryViewModel {
     this.value = result.value;
   }
 
-  private retrieveFees(model: Model, state): Fees {
+  private retrieveFees(model: Model, state: FormSubmissionState): Fees {
     let applicableFees = [];
 
     if (model.def.fees) {
@@ -197,7 +203,12 @@ class SummaryViewModel {
     });
   }
 
-  private summaryDetails(request, model: Model, state, relevantPages) {
+  private summaryDetails(
+    request,
+    model: Model,
+    state: FormSubmissionState,
+    relevantPages
+  ) {
     const details = [];
 
     [undefined, ...model.sections].forEach((section) => {
@@ -269,7 +280,7 @@ class SummaryViewModel {
     return details;
   }
 
-  private getRelevantPages(model: Model, state) {
+  private getRelevantPages(model: Model, state: FormSubmissionState) {
     let nextPage = model.startPage;
     const relevantPages = [];
     let endPage = null;
@@ -289,7 +300,11 @@ class SummaryViewModel {
     return { relevantPages, endPage };
   }
 
-  private notifyModel(model: Model, outputConfiguration, state) {
+  private notifyModel(
+    model: Model,
+    outputConfiguration,
+    state: FormSubmissionState
+  ) {
     const flatState = flatten(state);
     const personalisation = {};
     outputConfiguration.personalisation.forEach((p) => {
@@ -305,7 +320,7 @@ class SummaryViewModel {
   }
 
   private emailModel(model: Model, outputConfiguration) {
-    const data = [];
+    const data: string[] = [];
 
     this._webhookData.questions?.forEach((question) => {
       data.push("---");
@@ -329,7 +344,11 @@ class SummaryViewModel {
     };
   }
 
-  private sheetsModel(_model: Model, outputConfiguration, state) {
+  private sheetsModel(
+    _model: Model,
+    outputConfiguration,
+    state: FormSubmissionState
+  ) {
     const flatState = flatten(state);
     const { credentials, project_id, scopes } = outputConfiguration;
     const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField];

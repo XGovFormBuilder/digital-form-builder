@@ -4,7 +4,8 @@ import CatboxMemory from "@hapi/catbox-memory";
 import Redis from "ioredis";
 
 import config from "../config";
-import { HapiRequest, Server } from "../types";
+import { HapiRequest, HapiServer } from "../types";
+import { FormSubmissionState } from "../plugins/engine/types";
 
 const {
   redisHost,
@@ -19,11 +20,11 @@ const partition = "cache";
 export class CacheService {
   cache: any;
 
-  constructor(server: Server) {
+  constructor(server: HapiServer) {
     this.cache = server.cache({ segment: "cache" });
   }
 
-  async getState(request: HapiRequest) {
+  async getState(request: HapiRequest): Promise<FormSubmissionState> {
     const cached = await this.cache.get(
       this.Key(request.yar.id, request.query.visit)
     );

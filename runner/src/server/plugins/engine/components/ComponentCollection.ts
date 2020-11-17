@@ -1,5 +1,6 @@
 import joi from "joi";
 
+import { FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
 
 import * as Components from "./index";
@@ -57,7 +58,7 @@ export class ComponentCollection {
     return keys;
   }
 
-  getFormDataFromState(state): any {
+  getFormDataFromState(state: FormSubmissionState): any {
     const formData = {};
 
     this.formItems.forEach((item) => {

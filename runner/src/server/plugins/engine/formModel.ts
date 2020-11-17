@@ -4,6 +4,7 @@ import { Parser } from "expr-eval";
 import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
 
 import { PageControllerBase, getPageController } from "./pageControllers";
+import { FormSubmissionState } from "./types";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -85,13 +86,14 @@ export class FormModel {
     this.startPage = this.pages.find((page) => page.path === def.startPage);
   }
 
-  makeSchema(state) {
+  makeSchema(state: FormSubmissionState) {
     // Build the entire model schema
     // from the individual pages/sections
     return this.makeFilteredSchema(state, this.pages);
   }
 
-  makeFilteredSchema(state, relevantPages) {
+  makeFilteredSchema(state: FormSubmissionState, relevantPages) {
+    console.log("STATE", state);
     // Build the entire model schema
     // from the individual pages/sections
     let schema = joi.object().required();

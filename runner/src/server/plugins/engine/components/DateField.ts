@@ -2,6 +2,7 @@ import moment from "moment";
 import * as helpers from "./helpers";
 
 import { FormComponent } from "./FormComponent";
+import { FormSubmissionState } from "../types";
 
 export class DateField extends FormComponent {
   constructor(def, model) {
@@ -21,13 +22,13 @@ export class DateField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "date", this);
   }
 
-  getFormValueFromState(state) {
+  getFormValueFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("YYYY-MM-DD") : value;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("D MMMM YYYY") : "";

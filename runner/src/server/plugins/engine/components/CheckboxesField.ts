@@ -2,6 +2,7 @@ import joi from "joi";
 import * as helpers from "./helpers";
 
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
+import { FormSubmissionState } from "../types";
 
 type ItemModel = {
   name?: string;
@@ -33,7 +34,7 @@ export class CheckboxesField extends ConditionalFormComponent {
     this.stateSchema = helpers.buildStateSchema(alternatives, this);
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
 
     if (name in state) {

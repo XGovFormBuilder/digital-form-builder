@@ -3,6 +3,7 @@ import joi from "joi";
 import { Component } from "./Component";
 import { optionalText } from "./constants";
 
+import { FormSubmissionState } from "../types";
 import { ViewModel } from "./types";
 
 export class FormComponent extends Component {
@@ -83,7 +84,7 @@ export class FormComponent extends Component {
     }
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
 
     if (name in state) {
@@ -95,7 +96,7 @@ export class FormComponent extends Component {
     return undefined;
   }
 
-  getFormValueFromState(state) {
+  getFormValueFromState(state: FormSubmissionState) {
     const name = this.name;
 
     if (name in state) {

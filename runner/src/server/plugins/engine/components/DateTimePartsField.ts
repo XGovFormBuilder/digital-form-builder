@@ -4,6 +4,7 @@ import * as helpers from "./helpers";
 import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
+import { FormSubmissionState } from "../types";
 
 export class DateTimePartsField extends FormComponent {
   children: ComponentCollection;
@@ -78,7 +79,7 @@ export class DateTimePartsField extends FormComponent {
     return { [this.name]: this.stateSchema };
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
     const value =
       typeof state[name] === "string" ? new Date(state[name]) : state[name];
@@ -109,7 +110,7 @@ export class DateTimePartsField extends FormComponent {
       : null;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("D MMMM YYYY h:mma") : "";

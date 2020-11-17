@@ -9,6 +9,7 @@ import {
   HapiResponseToolkit,
   HapiResponseObject,
 } from "server/types";
+import { FormSubmissionState } from "../types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -155,7 +156,7 @@ export class PageControllerBase {
   }
 
   // TODO: type
-  getNextPage(state: any, suppressRepetition = false) {
+  getNextPage(state: FormSubmissionState, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
       const otherRepeatPagesInSection = this.model.pages.filter(

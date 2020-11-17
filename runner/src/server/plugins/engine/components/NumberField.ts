@@ -1,3 +1,4 @@
+import { FormSubmissionState } from "../types";
 import { FormComponent } from "./FormComponent";
 import { getFormSchemaKeys, getStateSchemaKeys } from "./helpers";
 
@@ -23,7 +24,7 @@ export class NumberField extends FormComponent {
     return viewModel;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     return state[this.name] || state[this.name] === 0
       ? state[this.name].toString()
       : undefined;

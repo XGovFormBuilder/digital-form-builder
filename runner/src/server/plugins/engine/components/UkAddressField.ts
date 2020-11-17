@@ -3,6 +3,7 @@ import joi from "joi";
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
+import { FormSubmissionState } from "../types";
 
 export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
@@ -77,7 +78,7 @@ export class UkAddressField extends FormComponent {
     };
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     return {
@@ -100,7 +101,7 @@ export class UkAddressField extends FormComponent {
       : null;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
 
