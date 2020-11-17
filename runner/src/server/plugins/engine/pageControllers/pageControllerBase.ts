@@ -9,6 +9,7 @@ import {
   HapiResponseToolkit,
   HapiResponseObject,
 } from "server/types";
+import { FormModel } from "../formModel";
 import { FormSubmissionState, FormSubmissionErrors } from "../types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
@@ -23,7 +24,7 @@ export class PageControllerBase {
     };
   };
   name: string;
-  model: any; // TODO
+  model: FormModel;
   pageDef: any; // TODO
   path: string;
   title: string;
@@ -36,10 +37,7 @@ export class PageControllerBase {
 
   // TODO: types
   // TODO: should we have some validation, e.g: required name, path etc?
-  constructor(
-    model: { [prop: string]: any } = {},
-    pageDef: { [prop: string]: any } = {}
-  ) {
+  constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
 
     // Properties
@@ -228,16 +226,20 @@ export class PageControllerBase {
 
   // TODO: type
   getFormDataFromState(state: any, atIndex: number) {
+    console.log("XXXXX", state);
     const pageState = this.section ? state[this.section.name] : state;
 
     if (this.repeatField) {
       const repeatedPageState =
         pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {};
       const values = Object.values(repeatedPageState);
+
+      const newState = values.length
+        ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
+        : {};
+
       return this.components.getFormDataFromState(
-        values.length
-          ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
-          : {}
+        newState as FormSubmissionState
       );
     }
 

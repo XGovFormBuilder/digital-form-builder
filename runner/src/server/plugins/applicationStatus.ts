@@ -146,6 +146,8 @@ const applicationStatus = {
                       authOptions
                     );
                   }
+                  default:
+                    return {};
                 }
               });
 

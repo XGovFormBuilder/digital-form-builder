@@ -30,7 +30,7 @@ export class FormModel {
   DefaultPageController: any;
   basePath: string;
   conditions: any;
-  pages: any;
+  pages: PageControllerBase[];
   startPage: any;
 
   constructor(def, options) {

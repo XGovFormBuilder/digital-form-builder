@@ -20,10 +20,12 @@ export function proceed(
   }
 }
 
+type Params = { num?: number; returnUrl: string } | {};
+
 export function redirectUrl(
   request: HapiRequest,
   targetUrl: string,
-  params: { [name: string]: string | number } = {}
+  params: Params = {}
 ) {
   const relativeUrl = new RelativeUrl(targetUrl);
   Object.entries(params).forEach(([name, value]) => {

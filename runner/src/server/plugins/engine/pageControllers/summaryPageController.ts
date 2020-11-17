@@ -16,8 +16,9 @@ import { PageController } from "./pageController";
 import config from "../../../config";
 import { formSchema } from "../../../schemas/formSchema";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
-import type { Fees } from "../../../services/payService";
-import { FormSubmissionState, FormSubmissionErrors } from "../types";
+import type { Fees, FeeDetails } from "../../../services/payService";
+import { FormSubmissionState } from "../types";
+import { Fields, Questions, WebhookData } from "./types";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 
@@ -38,26 +39,27 @@ const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 class SummaryViewModel {
   pageTitle: string;
   declaration: any; // TODO
-  skipSummary: any; // TODO
+  skipSummary: boolean;
   endPage: any; // TODO
   result: any;
   details: any;
   state: any;
   value: any;
-  fees: Fees;
-  errors: FormSubmissionErrors | undefined;
-  name: string;
+  fees: Fees | undefined;
+  name: string | undefined;
   feedbackLink: string | undefined;
   declarationError: any; // TODO
+  errors:
+    | {
+        path: string;
+        name: string;
+        message: string;
+      }[]
+    | undefined;
 
   _outputs: any; // TODO
-  _payApiKey: string;
-  _webhookData: {
-    metadata: any;
-    name: string;
-    fees?: Fees;
-    questions?: any[];
-  };
+  _payApiKey: string | undefined;
+  _webhookData: WebhookData | undefined;
 
   constructor(
     pageTitle: string,
@@ -73,11 +75,13 @@ class SummaryViewModel {
     this.endPage = endPage;
     const schema = model.makeFilteredSchema(state, relevantPages);
     const collatedRepeatPagesState = clone(state);
-    delete collatedRepeatPagesState.progress;
+
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+      if (key === "progress") {
+        return;
+      }
       if (Array.isArray(section)) {
         collatedRepeatPagesState[key] = section.map((pages) =>
-          // TODO: p type and improve naming
           Object.values(pages).reduce(
             (acc: {}, p: any) => ({ ...acc, ...p }),
             {}
@@ -133,6 +137,8 @@ class SummaryViewModel {
                   state
                 ),
               };
+            default:
+              return {};
           }
         });
       }
@@ -144,8 +150,11 @@ class SummaryViewModel {
     this.value = result.value;
   }
 
-  private retrieveFees(model: FormModel, state: FormSubmissionState): Fees {
-    let applicableFees = [];
+  private retrieveFees(
+    model: FormModel,
+    state: FormSubmissionState
+  ): Fees | undefined {
+    let applicableFees: FeeDetails[] = [];
 
     if (model.def.fees) {
       applicableFees = model.def.fees.filter((fee) => {
@@ -169,6 +178,8 @@ class SummaryViewModel {
           .reduce((a, b) => a + b, 0),
       };
     }
+
+    return undefined;
   }
 
   private processErrors(result, details) {
@@ -183,7 +194,7 @@ class SummaryViewModel {
     });
 
     details.forEach((detail) => {
-      const sectionErr = this.errors.find((err) => err.path === detail.name);
+      const sectionErr = this.errors?.find((err) => err.path === detail.name);
 
       detail.items.forEach((item) => {
         if (sectionErr) {
@@ -191,7 +202,7 @@ class SummaryViewModel {
           return;
         }
 
-        const err = this.errors.find(
+        const err = this.errors?.find(
           (err) =>
             err.path ===
             (detail.name ? detail.name + "." + item.name : item.name)
@@ -205,14 +216,14 @@ class SummaryViewModel {
 
   private summaryDetails(
     request,
-    model: Model,
+    model: FormModel,
     state: FormSubmissionState,
     relevantPages
   ) {
-    const details = [];
+    const details: object[] = [];
 
     [undefined, ...model.sections].forEach((section) => {
-      const items = [];
+      const items: any[] = [];
       let sectionState = section ? state[section.name] || {} : state;
 
       const sectionPages = relevantPages.filter(
@@ -263,7 +274,7 @@ class SummaryViewModel {
             name: section?.name,
             title: section?.title,
             items: [...Array(reach(state, repeatablePage.repeatField))].map(
-              (x, i) => {
+              (_x, i) => {
                 return items.map((item) => item[i]);
               }
             ),
@@ -282,7 +293,7 @@ class SummaryViewModel {
 
   private getRelevantPages(model: FormModel, state: FormSubmissionState) {
     let nextPage = model.startPage;
-    const relevantPages = [];
+    const relevantPages: any[] = [];
     let endPage = null;
 
     while (nextPage != null) {
@@ -301,7 +312,7 @@ class SummaryViewModel {
   }
 
   private notifyModel(
-    model: Model,
+    model: FormModel,
     outputConfiguration,
     state: FormSubmissionState
   ) {
@@ -322,7 +333,7 @@ class SummaryViewModel {
   private emailModel(model: FormModel, outputConfiguration) {
     const data: string[] = [];
 
-    this._webhookData.questions?.forEach((question) => {
+    this._webhookData?.questions?.forEach((question) => {
       data.push("---");
       data.push(`Page: ${question.question}\n`);
       question.fields.forEach((field) =>
@@ -355,13 +366,14 @@ class SummaryViewModel {
     const spreadsheetId = outputConfiguration.sheets.find(
       (sheet) => sheet.name === spreadsheetName
     ).id;
+
+    const data =
+      this._webhookData?.questions?.map((question) =>
+        question.fields.map((field) => field.answer)
+      ) ?? [];
+
     return {
-      data: [].concat.apply(
-        [],
-        this._webhookData.questions.map((question) =>
-          question.fields.map((field) => field.answer)
-        )
-      ),
+      data,
       authOptions: { credentials, projectId: project_id, scopes },
       spreadsheetId,
     };
@@ -380,7 +392,7 @@ class SummaryViewModel {
   }
 
   private parseDataForWebhook(model: FormModel, relevantPages, details) {
-    const questions = [];
+    const questions: Questions = [];
 
     for (const page of relevantPages) {
       const category = page.section?.name;
@@ -407,7 +419,7 @@ class SummaryViewModel {
         const item = items[index].filter(
           (detailItem) => detailItem.pageId === `/${model.basePath}${page.path}`
         );
-        const fields = [];
+        const fields: Fields = [];
 
         for (const detailItem of item) {
           const answer =
@@ -478,11 +490,20 @@ class SummaryViewModel {
   }
 
   get webhookDataPaymentReference() {
-    return this._webhookData.fees.paymentReference ?? "";
+    const fees = this._webhookData?.fees;
+
+    if (fees && fees.paymentReference) {
+      return fees.paymentReference;
+    }
+
+    return "";
   }
 
-  set webhookDataPaymentReference(paymentReference) {
-    this._webhookData.fees.paymentReference = paymentReference;
+  set webhookDataPaymentReference(paymentReference: string) {
+    const fees = this._webhookData?.fees;
+    if (fees && fees.paymentReference) {
+      fees.paymentReference = paymentReference;
+    }
   }
 
   get outputs() {
@@ -498,7 +519,7 @@ class SummaryViewModel {
   }
 
   addDeclarationAsQuestion() {
-    this._webhookData.questions.push({
+    this._webhookData?.questions?.push({
       category: null,
       question: "Declaration",
       fields: [
@@ -527,7 +548,6 @@ class SummaryViewModel {
     if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
         const collated = Object.values(state).reduce(
-          // TODO: p type, improve var naming
           (acc: {}, p: any) => ({ ...acc, ...p }),
           {}
         );
@@ -735,7 +755,7 @@ export class SummaryPageController extends PageController {
         summaryViewModel.fees.total,
         paymentReference,
         description,
-        summaryViewModel.payApiKey,
+        summaryViewModel.payApiKey || "",
         redirectUrl(request, payReturnUrl)
       );
 
