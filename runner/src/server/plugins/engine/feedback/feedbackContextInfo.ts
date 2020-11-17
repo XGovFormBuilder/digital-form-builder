@@ -19,7 +19,9 @@ export class FeedbackContextInfo {
   }
 }
 
-export function decode(encoded: string | Buffer): FeedbackContextInfo | void {
+export function decode(
+  encoded: string | Buffer | undefined
+): FeedbackContextInfo | void {
   if (encoded) {
     const decoded = JSON.parse(atob(encoded));
 

@@ -12,6 +12,7 @@ import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 import { FormModel } from "./formModel";
 import { nanoid } from "nanoid";
 import Boom from "boom";
+import { PluginSpecificConfiguration } from "@hapi/hapi";
 
 nunjucks.configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -243,7 +244,7 @@ export const plugin = {
       method: "post",
       path: "/{id}/{path*}",
       options: {
-        plugins: {
+        plugins: <PluginSpecificConfiguration>{
           "hapi-rate-limit": {
             userPathLimit: 10,
           },
@@ -251,7 +252,7 @@ export const plugin = {
         payload: {
           output: "stream",
           parse: true,
-          multipart: true,
+          multipart: { output: "stream" },
           maxBytes: uploadService.fileSizeLimit,
           failAction: async (request: any, h: HapiResponseToolkit) => {
             if (

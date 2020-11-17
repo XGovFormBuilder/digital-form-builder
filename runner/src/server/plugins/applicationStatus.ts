@@ -6,13 +6,10 @@ import { HapiRequest, HapiResponseToolkit } from "../types";
 
 function getFeedbackContextInfo(request: HapiRequest) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
-    const feedbackReturnInfo = new RelativeUrl(
-      `${request.url.pathname}${request.url.search}`
-    ).feedbackReturnInfo;
-
-    if (feedbackReturnInfo) {
-      return decode(feedbackReturnInfo);
-    }
+    return decode(
+      new RelativeUrl(`${request.url.pathname}${request.url.search}`)
+        .feedbackReturnInfo
+    );
   }
 }
 

@@ -499,13 +499,10 @@ export class PageControllerBase {
 
   getFeedbackContextInfo(request: HapiRequest) {
     if (this.def.feedback?.feedbackForm) {
-      const feedbackReturnInfo = new RelativeUrl(
-        `${request.url.pathname}${request.url.search}`
-      ).feedbackReturnInfo;
-
-      if (feedbackReturnInfo) {
-        return decode(feedbackReturnInfo);
-      }
+      return decode(
+        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
+          .feedbackReturnInfo
+      );
     }
   }
 

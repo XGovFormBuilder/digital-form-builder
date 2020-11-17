@@ -47,7 +47,7 @@ class SummaryViewModel {
   fees: Fees;
   errors: FormSubmissionErrors | undefined;
   name: string;
-  feedbackLink: string;
+  feedbackLink: string | undefined;
   declarationError: any; // TODO
 
   _outputs: any; // TODO
@@ -562,6 +562,7 @@ class SummaryViewModel {
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
           .feedbackReturnInfo
       );
+
       if (feedbackContextInfo) {
         webhookData.questions.push(
           ...Data.FEEDBACK_CONTEXT_ITEMS.map((item) => ({

@@ -112,9 +112,9 @@ suite("relative url", () => {
       expect(underTest.feedbackReturnInfo).to.equal("myBadger2");
     });
 
-    test("should return null if no feedback return info", () => {
+    test("should return undefined if no feedback return info", () => {
       const underTest = new RelativeUrl("bob");
-      expect(underTest.feedbackReturnInfo).to.equal(null);
+      expect(underTest.feedbackReturnInfo).to.equal(undefined);
     });
   });
 
@@ -139,9 +139,9 @@ suite("relative url", () => {
       expect(underTest.visitIdentifier).to.equal("myBadger2");
     });
 
-    test("should return null if no visit identifier", () => {
+    test("should return undefined if no visit identifier", () => {
       const underTest = new RelativeUrl("bob");
-      expect(underTest.visitIdentifier).to.equal(null);
+      expect(underTest.visitIdentifier).to.equal(undefined);
     });
   });
 
