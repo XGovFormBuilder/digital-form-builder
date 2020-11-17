@@ -1,4 +1,3 @@
-import path from "path";
 import joi from "joi";
 
 export function buildSchema(type, keys) {
