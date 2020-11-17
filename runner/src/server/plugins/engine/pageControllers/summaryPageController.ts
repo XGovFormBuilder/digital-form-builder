@@ -17,7 +17,7 @@ import config from "../../../config";
 import { formSchema } from "../../../schemas/formSchema";
 import { HapiRequest, HapiResponseToolkit } from "../../../types";
 import type { Fees } from "../../../services/payService";
-import { FormSubmissionState, PageErrors } from "../types";
+import { FormSubmissionState, FormSubmissionErrors } from "../types";
 
 const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
 
@@ -45,7 +45,7 @@ class SummaryViewModel {
   state: any;
   value: any;
   fees: Fees;
-  errors: PageErrors | undefined;
+  errors: FormSubmissionErrors | undefined;
   name: string;
   feedbackLink: string;
   declarationError: any; // TODO

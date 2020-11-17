@@ -1,6 +1,6 @@
 import * as helpers from "./helpers";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 
 export class RadiosField extends ConditionalFormComponent {
   constructor(def, model) {
@@ -27,7 +27,7 @@ export class RadiosField extends ConditionalFormComponent {
     return item ? item.label : value;
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors?: FormSubmissionErrors) {
     const { name, values, options } = this;
     const viewModel = super.getViewModel(formData, errors);
 

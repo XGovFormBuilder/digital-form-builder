@@ -9,7 +9,7 @@ import {
   HapiResponseToolkit,
   HapiResponseObject,
 } from "server/types";
-import { FormSubmissionState, PageErrors } from "../types";
+import { FormSubmissionState, FormSubmissionErrors } from "../types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -81,7 +81,7 @@ export class PageControllerBase {
     sectionTitle: string;
     showTitle: boolean;
     components: any; // TODO
-    errors: PageErrors; // TODO
+    errors: FormSubmissionErrors;
     isStartPage: boolean;
     startPage?: HapiResponseObject;
     backLink?: string;
@@ -249,7 +249,7 @@ export class PageControllerBase {
     return this.components.getStateFromValidForm(formData);
   }
 
-  getErrors(validationResult): PageErrors {
+  getErrors(validationResult): FormSubmissionErrors | undefined {
     if (validationResult && validationResult.error) {
       return {
         titleText: this.errorSummaryTitle,
@@ -270,7 +270,7 @@ export class PageControllerBase {
       };
     }
 
-    return null;
+    return undefined;
   }
 
   validate(value, schema) {

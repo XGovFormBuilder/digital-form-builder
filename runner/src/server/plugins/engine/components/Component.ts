@@ -1,5 +1,5 @@
 import { Data } from "@xgovformbuilder/model";
-import { PageErrors } from "../types";
+import { FormSubmissionErrors } from "../types";
 
 import { ViewModel } from "./types";
 
@@ -34,7 +34,7 @@ export class Component {
     this.schema = def.schema || {};
   }
 
-  getViewModel(_formData?: any, _errors?: PageErrors): ViewModel {
+  getViewModel(_formData?: any, _errors?: FormSubmissionErrors): ViewModel {
     return {
       attributes: {},
     };

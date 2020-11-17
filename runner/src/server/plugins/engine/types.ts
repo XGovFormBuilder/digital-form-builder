@@ -39,7 +39,7 @@ export type FormSubmissionState = {
   [propName: string]: any;
 };
 
-export type PageErrors = {
+export type FormSubmissionErrors = {
   titleText: string; // e.b: "Fix the following errors"
   errorList: {
     path: string; // e.g: "firstName"
