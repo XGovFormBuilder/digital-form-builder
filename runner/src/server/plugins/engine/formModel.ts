@@ -92,8 +92,7 @@ export class FormModel {
     return this.makeFilteredSchema(state, this.pages);
   }
 
-  makeFilteredSchema(state: FormSubmissionState, relevantPages) {
-    console.log("STATE", state);
+  makeFilteredSchema(_state: FormSubmissionState, relevantPages) {
     // Build the entire model schema
     // from the individual pages/sections
     let schema = joi.object().required();
