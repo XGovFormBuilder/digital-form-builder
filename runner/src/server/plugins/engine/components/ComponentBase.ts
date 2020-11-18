@@ -10,11 +10,6 @@ import {
 import { FormModel } from "../formModel";
 import { FormSubmissionErrors } from "../types";
 import { ViewModel } from "./types";
-import { ComponentCollection } from "./ComponentCollection";
-
-interface Values extends StaticValues {
-  childrenCollection?: ComponentCollection;
-}
 
 export class ComponentBase {
   type: ComponentType["type"];
@@ -32,13 +27,12 @@ export class ComponentBase {
     | ContentComponents["content"];
 
   model: FormModel;
-  values?: Values;
+  values?: StaticValues;
 
   formSchema?: JoiSchema;
   stateSchema?: JoiSchema;
 
   constructor(def: ComponentType, model: FormModel) {
-    console.log("DEF", def);
     // component definition properties
     this.type = def.type;
     this.name = def.name;

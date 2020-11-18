@@ -226,7 +226,6 @@ export class PageControllerBase {
 
   // TODO: type
   getFormDataFromState(state: any, atIndex: number) {
-    console.log("XXXXX", state);
     const pageState = this.section ? state[this.section.name] : state;
 
     if (this.repeatField) {

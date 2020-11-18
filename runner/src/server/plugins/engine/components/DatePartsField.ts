@@ -13,7 +13,11 @@ export class DatePartsField extends FormComponent {
 
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
+
     const { name, options } = this;
+    const isRequired = "required" in options && options.required !== false;
+    const optionalText = "optionalText" in options && options.optionalText;
+
     this.children = new ComponentCollection(
       [
         {
@@ -22,10 +26,11 @@ export class DatePartsField extends FormComponent {
           title: "Day",
           schema: { min: 1, max: 31 },
           options: {
-            required: options?.required,
-            optionalText: options?.optionalText,
+            required: isRequired,
+            optionalText: optionalText,
             classes: "govuk-input--width-2",
           },
+          hint: "",
         },
         {
           type: "NumberField",
@@ -33,10 +38,11 @@ export class DatePartsField extends FormComponent {
           title: "Month",
           schema: { min: 1, max: 12 },
           options: {
-            required: options?.required,
-            optionalText: options?.optionalText,
+            required: isRequired,
+            optionalText: optionalText,
             classes: "govuk-input--width-2",
           },
+          hint: "",
         },
         {
           type: "NumberField",
@@ -44,13 +50,14 @@ export class DatePartsField extends FormComponent {
           title: "Year",
           schema: { min: 1000, max: 3000 },
           options: {
-            required: options?.required,
-            optionalText: options?.optionalText,
+            required: isRequired,
+            optionalText: optionalText,
             classes: "govuk-input--width-4",
           },
+          hint: "",
         },
       ],
-      def
+      model
     );
 
     this.stateSchema = helpers.buildStateSchema("date", this);
@@ -64,7 +71,7 @@ export class DatePartsField extends FormComponent {
     const { options } = this;
     const { maxDaysInPast, maxDaysInFuture } = options;
 
-    let schema = this.stateSchema;
+    let schema: any = this.stateSchema;
 
     if (maxDaysInPast !== undefined) {
       const d = new Date();

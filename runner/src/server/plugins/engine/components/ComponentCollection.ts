@@ -5,7 +5,6 @@ import * as Components from "./index";
 import { FormModel } from "../formModel";
 import { FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
-import { ComponentBase } from "./ComponentBase";
 
 export class ComponentCollection {
   items: Array<StaticValue> | undefined;
@@ -16,7 +15,7 @@ export class ComponentCollection {
 
   constructor(items: Component[], model: FormModel) {
     const itemTypes = items.map((def) => {
-      const Type = Components[def.type];
+      const Type: any = Components[def.type];
 
       if (typeof Type !== "function") {
         throw new Error(`Component type ${def.type} doesn't exist`);
@@ -81,12 +80,14 @@ export class ComponentCollection {
   }
 
   getViewModel(formData, errors): ComponentCollectionViewModel {
-    return this.items.map((item) => {
+    const result = this.items?.map((item: any) => {
       return {
         type: item.type,
         isFormComponent: item.isFormComponent,
         model: item.getViewModel(formData, errors),
       };
     });
+
+    return result || [];
   }
 }
