@@ -3678,9 +3678,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xgovformbuilder/test@workspace:smoke-tests":
+"@xgovformbuilder/test@workspace:smoke-tests/designer":
   version: 0.0.0-use.local
-  resolution: "@xgovformbuilder/test@workspace:smoke-tests"
+  resolution: "@xgovformbuilder/test@workspace:smoke-tests/designer"
   dependencies:
     "@wdio/cli": ^6.6.0
     "@wdio/cucumber-framework": ^6.6.0

@@ -1,4 +1,4 @@
-const Page = require("./page");
+const Page = require("./basePage");
 
 class AddComponentPage extends Page {
   get parent() {

@@ -10,7 +10,7 @@
     "model",
     "runner",
     "designer",
-    "smoke-tests"
+    "smoke-tests/designer"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
