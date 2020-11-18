@@ -1,34 +1,32 @@
-import { Data } from "@xgovformbuilder/model";
+import { Data, InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { addClassOptionIfNone } from "./helpers";
+import { FormModel } from "..";
 
 export class YesNoField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
     const data = new Data(model.def);
-    const valuesWrapper = data.valuesFor(def);
-
-    if (valuesWrapper) {
-      this.values = valuesWrapper.toStaticValues();
-    }
-
     const { options, values } = this;
 
-    if (!options.classes) {
-      options.classes = "govuk-radios--inline";
-    }
-    const validValues = values.items.map((item) => item.value);
+    this.values = data.valuesFor(def)?.toStaticValues();
+    const isRequired = "required" in options && options.required !== false;
+
+    const validValues = values?.items.map((item) => item.value) || [];
     const formSchema = helpers
-      .buildFormSchema(values.valueType, this, options.required !== false)
+      .buildFormSchema(values?.valueType, this, isRequired)
       .valid(...validValues);
     const stateSchema = helpers
-      .buildStateSchema(values.valueType, this)
+      .buildStateSchema(values?.valueType, this)
       .valid(...validValues);
 
     this.formSchema = formSchema;
     this.stateSchema = stateSchema;
+
+    addClassOptionIfNone(this.options, "govuk-radios--inline");
   }
 
   getFormSchemaKeys() {
@@ -42,11 +40,11 @@ export class YesNoField extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
     const value = state[name];
-    const item = values.items.find((item) => item.value === value);
+    const item = values?.items.find((item) => item.value === value);
     return item ? item.label : "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
@@ -54,7 +52,7 @@ export class YesNoField extends FormComponent {
       legend: viewModel.label,
     };
 
-    viewModel.items = values.items.map((item) => ({
+    viewModel.items = values?.items.map((item) => ({
       text: item.label,
       value: item.value,
       // Do a loose string based check as state may or

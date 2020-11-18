@@ -5,7 +5,7 @@ import { InputFieldsComponents } from "@xgovformbuilder/model";
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 export class UkAddressField extends FormComponent {
@@ -118,7 +118,7 @@ export class UkAddressField extends FormComponent {
       : "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {

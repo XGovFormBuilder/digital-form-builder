@@ -1,5 +1,6 @@
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
+import { FormSubmissionErrors } from "../types";
 
 export class MultilineTextField extends FormComponent {
   getFormSchemaKeys() {
@@ -10,7 +11,7 @@ export class MultilineTextField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const { schema, options } = this;
     const viewModel = super.getViewModel(formData, errors);
 

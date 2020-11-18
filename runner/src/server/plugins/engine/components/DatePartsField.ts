@@ -69,7 +69,7 @@ export class DatePartsField extends FormComponent {
 
   getStateSchemaKeys() {
     const { options } = this;
-    const { maxDaysInPast, maxDaysInFuture } = options;
+    const { maxDaysInPast, maxDaysInFuture } = options as any;
 
     let schema: any = this.stateSchema;
 
@@ -79,12 +79,14 @@ export class DatePartsField extends FormComponent {
       const min = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
       schema = schema.min(min);
     }
+
     if (maxDaysInFuture !== undefined) {
       const d = new Date();
       d.setDate(d.getDate() + maxDaysInFuture);
       const max = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
       schema = schema.max(max);
     }
+
     return { [this.name]: schema };
   }
 
@@ -92,6 +94,7 @@ export class DatePartsField extends FormComponent {
     const name = this.name;
     const value = state[name];
     const dateValue = new Date(value);
+
     return {
       [`${name}__day`]: value && dateValue.getDate(),
       [`${name}__month`]: value && dateValue.getMonth() + 1,

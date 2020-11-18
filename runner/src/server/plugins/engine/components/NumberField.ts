@@ -1,4 +1,4 @@
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormComponent } from "./FormComponent";
 import { getFormSchemaKeys, getStateSchemaKeys } from "./helpers";
 
@@ -11,7 +11,7 @@ export class NumberField extends FormComponent {
     return getStateSchemaKeys(this.name, "number", this);
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
     const { precision } = this.schema;
 

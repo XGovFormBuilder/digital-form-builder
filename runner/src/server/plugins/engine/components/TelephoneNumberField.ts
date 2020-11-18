@@ -4,6 +4,7 @@ import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormModel } from "../formModel";
 import { addClassOptionIfNone } from "./helpers";
+import { FormSubmissionErrors } from "../types";
 
 const PATTERN = "^[0-9\\s\\+\\(\\)]*$";
 
@@ -22,7 +23,7 @@ export class TelephoneNumberField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const { schema } = this;
     const viewModel = super.getViewModel(formData, errors);
 

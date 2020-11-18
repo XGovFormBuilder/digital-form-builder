@@ -4,6 +4,7 @@ import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormModel } from "../formModel";
 import { addClassOptionIfNone } from "./helpers";
+import { FormSubmissionErrors } from "../types";
 
 export class TimeField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
@@ -19,7 +20,7 @@ export class TimeField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.type = "time";

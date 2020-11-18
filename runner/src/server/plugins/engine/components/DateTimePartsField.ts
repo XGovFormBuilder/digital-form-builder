@@ -6,7 +6,7 @@ import * as helpers from "./helpers";
 import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 export class DateTimePartsField extends FormComponent {
@@ -119,7 +119,7 @@ export class DateTimePartsField extends FormComponent {
     return value ? moment(value).format("D MMMM YYYY h:mma") : "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
 
     // Todo: Remove after next
