@@ -1,13 +1,14 @@
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
 
-export class Para extends Component {
+export class Para extends ComponentBase {
   getViewModel() {
+    const { options } = this;
     const viewModel = super.getViewModel();
 
     viewModel.content = this.content;
 
-    if (this.options.condition) {
-      viewModel.condition = this.options.condition;
+    if ("condition" in options && options.condition) {
+      viewModel.condition = options.condition;
     }
 
     return viewModel;

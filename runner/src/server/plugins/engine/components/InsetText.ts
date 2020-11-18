@@ -1,9 +1,11 @@
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
+import { ViewModel } from "./types";
 
-export class InsetText extends Component {
-  getViewModel() {
-    const viewModel = super.getViewModel();
-    viewModel.content = this.content;
-    return viewModel;
+export class InsetText extends ComponentBase {
+  getViewModel(): ViewModel {
+    return {
+      ...super.getViewModel(),
+      content: this.content,
+    };
   }
 }

@@ -2,17 +2,17 @@ import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import { FormModel } from "../formModel";
 import { FormComponent } from "./FormComponent";
-import { getStateSchemaKeys, getFormSchemaKeys } from "./helpers";
+import {
+  getStateSchemaKeys,
+  getFormSchemaKeys,
+  addClassOptionIfNone,
+} from "./helpers";
 
 export class EmailAddressField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    const { options, schema } = this;
-
-    schema.email = true;
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
-    }
+    this.schema.email = true;
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 
   getFormSchemaKeys() {

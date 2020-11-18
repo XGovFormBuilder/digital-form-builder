@@ -16,6 +16,7 @@ export class UkAddressField extends FormComponent {
     super(def, model);
     const { name, options } = this;
     const stateSchema = helpers.buildStateSchema("date", this);
+    const isRequired = "required" in options && options.required !== false;
 
     const childrenList = [
       {
@@ -23,7 +24,7 @@ export class UkAddressField extends FormComponent {
         name: "addressLine1",
         title: "Address line 1",
         schema: { max: 100 },
-        options: { required: options.required },
+        options: { required: isRequired },
       },
       {
         type: "TextField",
@@ -37,14 +38,14 @@ export class UkAddressField extends FormComponent {
         name: "town",
         title: "Town or city",
         schema: { max: 100 },
-        options: { required: options.required },
+        options: { required: isRequired },
       },
       {
         type: "TextField",
         name: "postcode",
         title: "Postcode",
         schema: { max: 10 },
-        options: { required: options.required },
+        options: { required: isRequired },
       },
     ];
 

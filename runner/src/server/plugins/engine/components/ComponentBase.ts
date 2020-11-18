@@ -16,14 +16,20 @@ interface Values extends StaticValues {
   childrenCollection?: ComponentCollection;
 }
 
-export class Component {
+export class ComponentBase {
   type: ComponentType["type"];
   name: ComponentType["name"];
   title: ComponentType["title"];
   schema: ComponentType["schema"];
   options: ComponentType["options"];
   hint?: InputFieldsComponents["hint"];
-  content?: ContentComponents["content"];
+  content?:
+    | {
+        title: string;
+        text: string;
+        condition?: any;
+      }
+    | ContentComponents["content"];
 
   model: FormModel;
   values?: Values;
@@ -32,6 +38,7 @@ export class Component {
   stateSchema?: JoiSchema;
 
   constructor(def: ComponentType, model: FormModel) {
+    console.log("DEF", def);
     // component definition properties
     this.type = def.type;
     this.name = def.name;
@@ -39,7 +46,7 @@ export class Component {
     this.schema = def.schema || {};
     this.options = def.options;
     this.hint = "hint" in def ? def.hint : undefined;
-    this.content = "content" in def ? def.content : undefined;
+    // this.content = "content" in def ? def.content : undefined;
 
     // model values
     this.model = model;

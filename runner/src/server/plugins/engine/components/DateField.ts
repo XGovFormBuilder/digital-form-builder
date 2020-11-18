@@ -1,5 +1,9 @@
 import moment from "moment";
-import * as helpers from "./helpers";
+import {
+  getFormSchemaKeys,
+  getStateSchemaKeys,
+  addClassOptionIfNone,
+} from "./helpers";
 import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
@@ -9,19 +13,15 @@ import { FormModel } from "../formModel";
 export class DateField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    const { options } = this;
-
-    if (!options.classes) {
-      options.classes = "govuk-input--width-10";
-    }
+    addClassOptionIfNone(this.options, "govuk-input--width-10");
   }
 
   getFormSchemaKeys() {
-    return helpers.getFormSchemaKeys(this.name, "date", this);
+    return getFormSchemaKeys(this.name, "date", this);
   }
 
   getStateSchemaKeys() {
-    return helpers.getStateSchemaKeys(this.name, "date", this);
+    return getStateSchemaKeys(this.name, "date", this);
   }
 
   getFormValueFromState(state: FormSubmissionState) {

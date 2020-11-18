@@ -6,9 +6,14 @@ import { FormModel } from "../formModel";
 export class AutocompleteField extends SelectField {
   constructor(def: ListComponents, model: FormModel) {
     super(def, model);
+
     const { options } = this;
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
+
+    if (!("classes" in options) || !options.classes) {
+      this.options = {
+        ...options,
+        classes: "govuk-input--width-20",
+      };
     }
   }
 }

@@ -6,33 +6,21 @@ import { FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 import { ListComponents } from "@xgovformbuilder/model";
 
-type ItemModel = {
-  name?: string;
-  text: string;
-  value: any; // TODO
-  checked: boolean;
-  condition: any; // TODO
-  label?: {
-    classes: string;
-  };
-  hint?: {
-    html: string;
-  };
-};
-
 export class CheckboxesField extends ConditionalFormComponent {
   constructor(def: ListComponents, model: FormModel) {
     super(def, model);
     const { options, values, itemValues } = this;
+
+    if (!values?.valueType) {
+      throw new Error("Component valueType is missing");
+    }
+
     const itemSchema = joi[values.valueType]().valid(...itemValues);
     const itemsSchema = joi.array().items(itemSchema);
     const alternatives = joi.alternatives([itemSchema, itemsSchema]);
+    const isRequired = "required" in options && options.required !== false;
 
-    this.formSchema = helpers.buildFormSchema(
-      alternatives,
-      this,
-      options.required !== false
-    );
+    this.formSchema = helpers.buildFormSchema(alternatives, this, isRequired);
     this.stateSchema = helpers.buildStateSchema(alternatives, this);
   }
 
@@ -48,7 +36,10 @@ export class CheckboxesField extends ConditionalFormComponent {
 
       const checked = Array.isArray(value) ? value : [value];
       return checked
-        .map((check) => values.items.find((item) => item.value === check).label)
+        .map((check) => {
+          const item = values?.items.find((item) => item.value === check);
+          return item?.label;
+        })
         .join(", ");
     }
 
@@ -70,8 +61,8 @@ export class CheckboxesField extends ConditionalFormComponent {
       legend: viewModel.label,
     };
 
-    viewModel.items = values.items.map((item) => {
-      const itemModel: ItemModel = {
+    viewModel.items = values?.items.map((item) => {
+      const itemModel: any = {
         text: this.localisedString(item.label),
         value: item.value,
         // Do a loose string based check as state may or
@@ -80,7 +71,7 @@ export class CheckboxesField extends ConditionalFormComponent {
         condition: item.condition,
       };
 
-      if (this.options.bold) {
+      if ("bold" in this.options && this.options.bold) {
         itemModel.label = {
           classes: "govuk-label--s",
         };

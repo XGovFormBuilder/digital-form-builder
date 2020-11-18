@@ -1,15 +1,17 @@
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
 
-export class Details extends Component {
+export class Details extends ComponentBase {
   getViewModel() {
+    const { options } = this;
+
     const viewModel = {
       ...super.getViewModel(),
       summaryHtml: this.title,
       html: this.content,
     };
 
-    if (this.options.condition) {
-      viewModel.condition = this.options.condition;
+    if ("condition" in options && options.condition) {
+      viewModel.condition = options.condition;
     }
 
     return viewModel;

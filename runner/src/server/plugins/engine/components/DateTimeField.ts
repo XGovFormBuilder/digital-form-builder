@@ -5,15 +5,12 @@ import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
+import { addClassOptionIfNone } from "./helpers";
 
 export class DateTimeField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    const { options } = this;
-
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
-    }
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 
   getFormSchemaKeys() {

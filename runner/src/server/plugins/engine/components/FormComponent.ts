@@ -1,12 +1,12 @@
 import joi from "joi";
 
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
 import { optionalText } from "./constants";
 
 import { FormSubmissionState, FormSubmissionErrors } from "../types";
 import { ViewModel } from "./types";
 
-export class FormComponent extends Component {
+export class FormComponent extends ComponentBase {
   isFormComponent: boolean = true;
   __lang: string = "en";
 

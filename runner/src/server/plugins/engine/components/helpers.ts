@@ -73,3 +73,12 @@ export function getStateSchemaKeys(name, schemaType, component) {
 
   return { [name]: schema };
 }
+
+export const addClassOptionIfNone = (
+  options: { classes?: string; [prop: string]: any },
+  className: string
+) => {
+  if (!options.classes) {
+    options.classes = className;
+  }
+};

@@ -4,15 +4,14 @@ import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionErrors } from "../types";
 import { FormModel } from "../formModel";
+import { addClassOptionIfNone } from "./helpers";
 
 export class TextField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    const { options, schema } = this;
+    const { schema } = this;
 
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
-    }
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
 
     if (!schema.regex) {
       schema.regex = '^[^"\\/\\#;]*$';

@@ -1,10 +1,11 @@
 import joi, { Schema as JoiSchema } from "joi";
-import { StaticValue } from "@xgovformbuilder/model";
+import { Component, StaticValue } from "@xgovformbuilder/model";
 
 import * as Components from "./index";
 import { FormModel } from "../formModel";
 import { FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
+import { ComponentBase } from "./ComponentBase";
 
 export class ComponentCollection {
   items: Array<StaticValue> | undefined;
@@ -13,7 +14,7 @@ export class ComponentCollection {
 
   formItems: any; // TODO
 
-  constructor(items, model: FormModel) {
+  constructor(items: Component[], model: FormModel) {
     const itemTypes = items.map((def) => {
       const Type = Components[def.type];
 
