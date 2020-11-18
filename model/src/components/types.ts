@@ -173,6 +173,10 @@ export interface FileUploadFieldComponent {
   schema: {};
 }
 
+export interface UkAddressFieldComponent extends TextFieldBase {
+  type: "UkAddressField";
+}
+
 // Date Fields
 export interface DateFieldComponent extends DateFieldBase {
   type: "DateField";
@@ -209,10 +213,6 @@ export interface HtmlComponent extends ContentFieldBase {
 
 export interface InsetTextComponent extends ContentFieldBase {
   type: "InsetText";
-}
-
-export interface UkAddressFieldComponent extends TextFieldBase {
-  type: "UkAddressField";
 }
 
 // List Fields
@@ -278,15 +278,15 @@ export type InputFieldsComponents =
   | DateFieldComponent
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
-  | TimeFieldComponent;
+  | TimeFieldComponent
+  | UkAddressFieldComponent;
 
 // Components that render content.
 export type ContentComponents =
   | ParaComponent
   | DetailsComponent
   | HtmlComponent
-  | InsetTextComponent
-  | UkAddressFieldComponent;
+  | InsetTextComponent;
 
 // Components that render Lists
 export type ListComponents =
