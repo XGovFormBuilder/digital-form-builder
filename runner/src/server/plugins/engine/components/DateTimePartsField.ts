@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Schema } from "joi";
 
 import { InputFieldsComponents } from "@xgovformbuilder/model";
 
@@ -14,7 +15,8 @@ export class DateTimePartsField extends FormComponent {
 
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    const { name, options } = this;
+    const { name } = this;
+    const options: any = this.options;
 
     this.children = new ComponentCollection(
       [
@@ -68,9 +70,10 @@ export class DateTimePartsField extends FormComponent {
             classes: "govuk-input--width-2",
           },
         },
-      ],
-      def
+      ] as any,
+      model
     );
+
     this.stateSchema = helpers.buildStateSchema("date", this);
   }
 
@@ -79,7 +82,7 @@ export class DateTimePartsField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema };
+    return { [this.name]: this.stateSchema as Schema };
   }
 
   getFormDataFromState(state: FormSubmissionState) {

@@ -1,3 +1,4 @@
+import { Schema } from "joi";
 import { Data, InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
@@ -30,11 +31,11 @@ export class YesNoField extends FormComponent {
   }
 
   getFormSchemaKeys() {
-    return { [this.name]: this.formSchema };
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema };
+    return { [this.name]: this.stateSchema as Schema };
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {

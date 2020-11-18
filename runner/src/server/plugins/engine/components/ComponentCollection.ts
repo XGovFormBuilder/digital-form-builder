@@ -3,14 +3,13 @@ import { Component, StaticValue } from "@xgovformbuilder/model";
 
 import * as Components from "./index";
 import { FormModel } from "../formModel";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
 
 export class ComponentCollection {
   items: Array<StaticValue> | undefined;
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
-
   formItems: any; // TODO
 
   constructor(items: Component[], model: FormModel) {
@@ -79,7 +78,10 @@ export class ComponentCollection {
     return state;
   }
 
-  getViewModel(formData, errors): ComponentCollectionViewModel {
+  getViewModel(
+    formData,
+    errors: FormSubmissionErrors
+  ): ComponentCollectionViewModel {
     const result = this.items?.map((item: any) => {
       return {
         type: item.type,

@@ -11,7 +11,7 @@ const PATTERN = "^[0-9\\s\\+\\(\\)]*$";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    this.schema.regex = PATTERN;
+    this.schema["regex"] = PATTERN;
     addClassOptionIfNone(this.options, "govuk-input--width-10");
   }
 
@@ -24,7 +24,7 @@ export class TelephoneNumberField extends FormComponent {
   }
 
   getViewModel(formData, errors: FormSubmissionErrors) {
-    const { schema } = this;
+    const schema: any = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 
     if (typeof schema.max === "number") {

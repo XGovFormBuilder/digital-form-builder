@@ -10,10 +10,11 @@ export class RadiosField extends ConditionalFormComponent {
     super(def, model);
 
     const { options, values, itemValues } = this;
+    const isRequired = "required" in options && options.required !== false;
 
-    const valueType = values.valueType;
+    const valueType = values?.valueType;
     const formSchema = helpers
-      .buildFormSchema(valueType, this, options.required !== false)
+      .buildFormSchema(valueType, this, isRequired)
       .valid(...itemValues);
     const stateSchema = helpers
       .buildStateSchema(valueType, this)
@@ -26,7 +27,7 @@ export class RadiosField extends ConditionalFormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
     const value = state[name];
-    const item = values.items.find((item) => item.value === value);
+    const item = values?.items.find((item) => item.value === value);
     return item ? item.label : value;
   }
 
@@ -38,7 +39,7 @@ export class RadiosField extends ConditionalFormComponent {
       legend: viewModel.label,
     };
 
-    viewModel.items = values.items.map((item) => {
+    viewModel.items = values?.items.map((item) => {
       // TODO use itemModel type? Same as checkbox field
       const itemModel: any = {
         html: this.localisedString(item.label),
@@ -49,7 +50,7 @@ export class RadiosField extends ConditionalFormComponent {
         condition: item.condition,
       };
 
-      if (options.bold) {
+      if ("bold" in options && options.bold) {
         itemModel.label = {
           classes: "govuk-label--s",
         };

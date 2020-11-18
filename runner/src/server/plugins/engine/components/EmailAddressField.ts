@@ -12,7 +12,7 @@ import {
 export class EmailAddressField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
-    this.schema.email = true;
+    this.schema["email"] = true;
     addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 
@@ -28,7 +28,7 @@ export class EmailAddressField extends FormComponent {
     const schema = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 
-    if (typeof schema.max === "number") {
+    if ("max" in schema && schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,
       };

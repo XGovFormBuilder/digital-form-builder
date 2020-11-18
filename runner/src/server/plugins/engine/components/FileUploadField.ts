@@ -26,7 +26,7 @@ export class FileUploadField extends FormComponent {
       attributes: this.attributes,
     };
 
-    if (options.multiple) {
+    if ("multiple" in options && options.multiple) {
       viewModel.attributes.multiple = "multiple";
     }
 

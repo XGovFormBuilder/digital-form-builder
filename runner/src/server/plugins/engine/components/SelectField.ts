@@ -1,3 +1,4 @@
+import { Schema } from "joi";
 import { ListComponents, StaticValue } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
@@ -25,17 +26,17 @@ export class SelectField extends FormComponent {
   }
 
   getFormSchemaKeys() {
-    return { [this.name]: this.formSchema };
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema };
+    return { [this.name]: this.stateSchema as Schema };
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
     const value = state[name];
-    const item = values?.items.find((item) => item.value === value);
+    const item: any = values?.items.find((item) => item.value === value);
     return item ? item?.text : "";
   }
 
@@ -43,16 +44,17 @@ export class SelectField extends FormComponent {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    viewModel.items = [{ text: "" }].concat(
-      values.items.map((item) => ({
+    const items =
+      values?.items.map((item) => ({
         text: this.localisedString(item.label),
         value: item.value,
         // Do a loose check as state may or
         // may not match the item value types
         selected: "" + item.value === "" + formData[name],
         condition: item.condition,
-      }))
-    );
+      })) ?? [];
+
+    viewModel.items = [{ text: "" }, ...items];
 
     return viewModel;
   }

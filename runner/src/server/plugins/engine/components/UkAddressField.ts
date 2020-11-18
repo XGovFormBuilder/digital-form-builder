@@ -18,7 +18,7 @@ export class UkAddressField extends FormComponent {
     const stateSchema = helpers.buildStateSchema("date", this);
     const isRequired = "required" in options && options.required !== false;
 
-    const childrenList = [
+    const childrenList: any = [
       {
         type: "TextField",
         name: "addressLine1",
@@ -67,7 +67,9 @@ export class UkAddressField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    const { name, options } = this;
+    const { name } = this;
+    const options: any = this.options;
+
     return {
       [name]:
         options.required === false
@@ -85,6 +87,7 @@ export class UkAddressField extends FormComponent {
   getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
+
     return {
       [`${name}__addressLine1`]: value && value.addressLine1,
       [`${name}__addressLine2`]: value && value.addressLine2,
@@ -119,6 +122,7 @@ export class UkAddressField extends FormComponent {
   }
 
   getViewModel(formData, errors: FormSubmissionErrors) {
+    const options: any = this.options;
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {
@@ -127,7 +131,7 @@ export class UkAddressField extends FormComponent {
 
     viewModel.children = this.formChildren.getViewModel(formData, errors);
 
-    const { disableLookup } = this.options;
+    const { disableLookup } = options;
 
     if (disableLookup !== undefined) {
       viewModel.disableLookup = disableLookup;

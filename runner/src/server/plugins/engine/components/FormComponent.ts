@@ -1,4 +1,4 @@
-import joi from "joi";
+import joi, { Schema } from "joi";
 
 import { ComponentBase } from "./ComponentBase";
 import { optionalText } from "./constants";
@@ -13,12 +13,13 @@ export class FormComponent extends ComponentBase {
   constructor(def, model) {
     super(def, model);
 
-    const { schema } = this;
+    const schema: any = this.schema;
 
     schema.error = (errors) => {
       errors.forEach((err) => {
         let limit;
         const today = new Date().setUTCHours(0, 0, 0);
+
         if (err.context?.limit) {
           limit = err.context.limit.setUTCHours(0, 0, 0);
         }
@@ -131,7 +132,7 @@ export class FormComponent extends ComponentBase {
   }
 
   getViewModel(formData, errors?: FormSubmissionErrors) {
-    const options = this.options;
+    const options: any = this.options;
     const isOptional = options.required === false;
     const optionalPostfix =
       isOptional && options.optionalText !== false ? optionalText : "";
@@ -184,7 +185,7 @@ export class FormComponent extends ComponentBase {
     return { [this.name]: joi.any() };
   }
 
-  getStateSchemaKeys() {
+  getStateSchemaKeys(): { [k: string]: Schema } {
     return { [this.name]: joi.any() };
   }
 

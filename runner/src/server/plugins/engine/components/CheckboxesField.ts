@@ -2,7 +2,7 @@ import joi from "joi";
 import * as helpers from "./helpers";
 
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 import { ListComponents } from "@xgovformbuilder/model";
 
@@ -46,7 +46,7 @@ export class CheckboxesField extends ConditionalFormComponent {
     return "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData, errors?: FormSubmissionErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
     let formDataItems = [];

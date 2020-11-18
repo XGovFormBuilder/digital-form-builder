@@ -15,13 +15,13 @@ export class MultilineTextField extends FormComponent {
     const { schema, options } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    if (typeof schema.max === "number") {
+    if ("max" in schema && schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,
       };
     }
 
-    if (options.rows) {
+    if ("rows" in options && options.rows) {
       viewModel.rows = options.rows;
     }
 

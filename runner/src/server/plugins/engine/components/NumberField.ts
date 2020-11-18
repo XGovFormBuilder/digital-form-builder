@@ -13,7 +13,7 @@ export class NumberField extends FormComponent {
 
   getViewModel(formData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
-    const { precision } = this.schema;
+    const { precision } = this.schema as any;
 
     viewModel.type = "number";
 

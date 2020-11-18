@@ -13,8 +13,8 @@ export class TextField extends FormComponent {
 
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
-    if (!schema.regex) {
-      schema.regex = '^[^"\\/\\#;]*$';
+    if (!schema["regex"]) {
+      schema["regex"] = '^[^"\\/\\#;]*$';
     }
   }
 
@@ -27,14 +27,15 @@ export class TextField extends FormComponent {
   }
 
   getViewModel(formData, errors?: FormSubmissionErrors) {
-    const { schema } = this;
+    const schema: any = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 
-    if (typeof schema.max === "number") {
+    if (schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,
       };
     }
+
     return viewModel;
   }
 }

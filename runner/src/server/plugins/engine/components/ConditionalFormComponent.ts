@@ -3,7 +3,7 @@ import nunjucks from "nunjucks";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormSubmissionState } from "../types";
+import { FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
@@ -111,7 +111,12 @@ export class ConditionalFormComponent extends FormComponent {
     });
   }
 
-  addConditionalComponents(item, itemModel, formData, errors) {
+  addConditionalComponents(
+    item,
+    itemModel,
+    formData,
+    errors?: FormSubmissionErrors
+  ) {
     // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to
     // to be a way to do this in JavaScript. As such, render the conditional components with Nunjucks before the main view is rendered.
     // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
