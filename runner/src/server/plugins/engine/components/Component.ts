@@ -1,37 +1,52 @@
-import { Data } from "@xgovformbuilder/model";
-import { FormSubmissionErrors } from "../types";
+import { Schema as JoiSchema } from "joi";
+import {
+  Data,
+  Component as ComponentType,
+  ContentComponents,
+  InputFieldsComponents,
+  StaticValues,
+} from "@xgovformbuilder/model";
 
+import { FormModel } from "../formModel";
+import { FormSubmissionErrors } from "../types";
 import { ViewModel } from "./types";
+import { ComponentCollection } from "./ComponentCollection";
+
+interface Values extends StaticValues {
+  childrenCollection?: ComponentCollection;
+}
 
 export class Component {
-  // TODO: types
-  name: any;
-  title: string | undefined; // TODO: remove undefined fix in constructor (remove code smell Object.assign(this, def))
-  values: any;
-  model: any;
-  options: any;
-  itemValues: any;
-  formSchema: any;
-  stateSchema: any;
-  hint: string | undefined;
-  schema: {
-    max?: number | string;
-    error?: any;
-    regex?: string;
-    precision?: number;
-    email?: boolean;
-  };
-  content: any;
-  items: any;
+  type: ComponentType["type"];
+  name: ComponentType["name"];
+  title: ComponentType["title"];
+  schema: ComponentType["schema"];
+  options: ComponentType["options"];
+  hint?: InputFieldsComponents["hint"];
+  content?: ContentComponents["content"];
 
-  constructor(def, model) {
-    // TODO explicitly assign to proper initialize props expected
-    Object.assign(this, def);
-    this.model = model;
-    const data = new Data(model.def);
-    const values = data.valuesFor(def);
-    this.values = values?.toStaticValues();
+  model: FormModel;
+  values?: Values;
+
+  formSchema?: JoiSchema;
+  stateSchema?: JoiSchema;
+
+  constructor(def: ComponentType, model: FormModel) {
+    // component definition properties
+    this.type = def.type;
+    this.name = def.name;
+    this.title = def.title;
     this.schema = def.schema || {};
+    this.options = def.options;
+    this.hint = "hint" in def ? def.hint : undefined;
+    this.content = "content" in def ? def.content : undefined;
+
+    // model values
+    this.model = model;
+
+    // static values
+    const data = new Data(model.def);
+    this.values = data.valuesFor(def)?.toStaticValues();
   }
 
   getViewModel(_formData?: any, _errors?: FormSubmissionErrors): ViewModel {

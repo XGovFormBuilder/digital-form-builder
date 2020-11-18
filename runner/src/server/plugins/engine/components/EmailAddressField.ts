@@ -1,8 +1,11 @@
+import { InputFieldsComponents } from "@xgovformbuilder/model";
+
+import { FormModel } from "../formModel";
 import { FormComponent } from "./FormComponent";
 import { getStateSchemaKeys, getFormSchemaKeys } from "./helpers";
 
 export class EmailAddressField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
     const { options, schema } = this;
 

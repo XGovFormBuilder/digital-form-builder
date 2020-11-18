@@ -1,10 +1,13 @@
+import { InputFieldsComponents } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
+import { FormModel } from "../formModel";
 
 const PATTERN = "^[0-9\\s\\+\\(\\)]*$";
 
 export class TelephoneNumberField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
     const { options, schema } = this;
 

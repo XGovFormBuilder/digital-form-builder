@@ -1,21 +1,25 @@
+import { ListComponents, StaticValue } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionState, FormSubmissionErrors } from "../types";
+import { FormModel } from "../formModel";
 
 export class SelectField extends FormComponent {
-  constructor(def, model) {
+  items: Array<StaticValue> | undefined;
+
+  constructor(def: ListComponents, model: FormModel) {
     super(def, model);
 
     const { values } = this;
-    const formSchema = helpers.buildFormSchema(
-      "string" /* values.valueType */,
-      this
-    ); // .valid(values.items.map(item => item.value))
-    const stateSchema = helpers
-      .buildStateSchema(values.valueType, this)
-      .valid(...values.items.map((item) => item.value));
+    const formSchema = helpers.buildFormSchema("string", this);
+    const itemValues = values?.items.map((item) => item.value) ?? [];
 
-    this.items = values.items;
+    const stateSchema = helpers
+      .buildStateSchema(values?.valueType, this)
+      .valid(...itemValues);
+
+    this.items = values?.items;
     this.formSchema = formSchema;
     this.stateSchema = stateSchema;
   }

@@ -4,20 +4,24 @@ import nunjucks from "nunjucks";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import { FormSubmissionState } from "../types";
+import { FormModel } from "../formModel";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
 
 export class ConditionalFormComponent extends FormComponent {
-  constructor(def, model) {
+  itemValues: any;
+
+  constructor(def, model: FormModel) {
     super(def, model);
-    this.itemValues = this.values.items.map((item) => item.value);
+
+    this.itemValues = this.values?.items.map((item) => item.value);
     this.createConditionalComponents(def, model);
   }
 
   getFormDataFromState(state: FormSubmissionState) {
     const formData = super.getFormDataFromState(state);
     if (formData) {
-      const itemsWithConditionalComponents = this.values.items.filter(
+      const itemsWithConditionalComponents = this.values?.items.filter(
         (item) => item.childrenCollection
       );
       itemsWithConditionalComponents.forEach((item) => {
@@ -95,14 +99,14 @@ export class ConditionalFormComponent extends FormComponent {
 
   createConditionalComponents(_def, model) {
     const { values } = this;
-    const items = values.items;
+    const items = values?.items;
 
-    const filteredItems = items.filter(
+    const filteredItems = items?.filter(
       (item) => item.children && item.children.length > 0
     );
     // Create a collection of conditional components that can be converted to a view model and rendered by Nunjucks
     // before primary view model rendering takes place.
-    filteredItems.map((item) => {
+    filteredItems?.map((item) => {
       item.childrenCollection = new ComponentCollection(item.children, model);
     });
   }

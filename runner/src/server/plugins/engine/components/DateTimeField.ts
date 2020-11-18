@@ -1,11 +1,13 @@
 import moment from "moment";
+import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionState } from "../types";
+import { FormModel } from "../formModel";
 
 export class DateTimeField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
     const { options } = this;
 

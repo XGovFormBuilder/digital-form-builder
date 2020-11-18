@@ -1,9 +1,12 @@
+import { InputFieldsComponents } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionErrors } from "../types";
+import { FormModel } from "../formModel";
 
 export class TextField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
     const { options, schema } = this;
 

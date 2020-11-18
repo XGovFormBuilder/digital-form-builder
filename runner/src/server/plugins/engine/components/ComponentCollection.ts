@@ -1,18 +1,19 @@
-import joi from "joi";
+import joi, { Schema as JoiSchema } from "joi";
+import { StaticValue } from "@xgovformbuilder/model";
 
+import * as Components from "./index";
+import { FormModel } from "../formModel";
 import { FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
 
-import * as Components from "./index";
-
 export class ComponentCollection {
-  // TODO
-  items: any;
-  formItems: any;
-  formSchema: any;
-  stateSchema: any;
+  items: Array<StaticValue> | undefined;
+  formSchema: JoiSchema;
+  stateSchema: JoiSchema;
 
-  constructor(items, model) {
+  formItems: any; // TODO
+
+  constructor(items, model: FormModel) {
     const itemTypes = items.map((def) => {
       const Type = Components[def.type];
 

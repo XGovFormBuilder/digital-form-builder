@@ -1,15 +1,18 @@
 import joi from "joi";
 
+import { InputFieldsComponents } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import { FormSubmissionState } from "../types";
+import { FormModel } from "../formModel";
 
 export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
   stateChildren: ComponentCollection;
 
-  constructor(def, model) {
+  constructor(def: InputFieldsComponents, model: FormModel) {
     super(def, model);
     const { name, options } = this;
     const stateSchema = helpers.buildStateSchema("date", this);
