@@ -40,7 +40,7 @@ interface TextFieldBase {
   type: string;
   name: string;
   title: string;
-  hint: string;
+  hint?: string;
   options: {
     hideTitle?: boolean;
     required?: boolean;
