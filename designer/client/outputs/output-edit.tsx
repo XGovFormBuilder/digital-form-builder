@@ -10,11 +10,19 @@ import { clone } from "@xgovformbuilder/model";
 import NotifyEdit from "./notify-edit";
 import EmailEdit from "./email-edit";
 import WebhookEdit from "./webhook-edit";
-
-import { OutputType, OutputConfiguration, Output } from "./types";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
+import {
+  OutputType,
+  OutputConfiguration,
+  Output,
+  ValidationErrors,
+} from "./types";
+import { isEmpty } from "../helpers";
 
 type State = {
   outputType: OutputType;
+  errors: ValidationErrors;
 };
 
 type Props = {
@@ -27,7 +35,10 @@ type Props = {
 class OutputEdit extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { outputType: props.output?.type ?? OutputType.Email };
+    this.state = {
+      outputType: props.output?.type ?? OutputType.Email,
+      errors: {},
+    };
   }
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -41,6 +52,8 @@ class OutputEdit extends Component<Props, State> {
       (formData.get("output-type") as OutputType) || output.type;
     const outputName = formData.get("output-name") as string;
     const outputTitle = formData.get("output-title") as string;
+    let hasValidationErrors = this.validate(formData, outputType);
+    if (hasValidationErrors) return;
 
     let outputIndex: number = -1;
 
@@ -75,8 +88,8 @@ class OutputEdit extends Component<Props, State> {
     }
 
     output = {
-      name: outputName,
-      title: outputTitle,
+      name: outputName.trim(),
+      title: outputTitle.trim(),
       type: outputType,
       outputConfiguration,
     };
@@ -96,6 +109,63 @@ class OutputEdit extends Component<Props, State> {
       .catch((err: Error) => {
         console.error(err);
       });
+  };
+
+  validate = (formData: FormData, outputType: OutputType) => {
+    let validationErrors = false;
+    const outputName = formData.get("output-name") as string;
+    const outputTitle = formData.get("output-title") as string;
+    let errors: ValidationErrors = {};
+
+    if (isEmpty(outputTitle)) {
+      validationErrors = true;
+      errors.title = true;
+    }
+
+    if (isEmpty(outputName)) {
+      validationErrors = true;
+      errors.name = true;
+    }
+
+    switch (outputType) {
+      case OutputType.Email:
+        let emailAddress = formData.get("email-address") as string;
+        if (isEmpty(emailAddress)) {
+          validationErrors = true;
+          errors.email = true;
+        }
+        break;
+      case OutputType.Notify:
+        let templateId = formData.get("template-id") as string;
+        let apiKey = formData.get("api-key") as string;
+        let emailField = formData.get("email-field") as string;
+        if (isEmpty(templateId)) {
+          validationErrors = true;
+          errors.templateId = true;
+        }
+        if (isEmpty(apiKey)) {
+          validationErrors = true;
+          errors.apiKey = true;
+        }
+        if (isEmpty(emailField)) {
+          validationErrors = true;
+          errors.email = true;
+        }
+        break;
+      case OutputType.Webhook:
+        let url = formData.get("webhook-url") as string;
+        if (!url) {
+          validationErrors = true;
+          errors.url = true;
+        }
+        break;
+    }
+
+    this.setState({
+      errors: errors,
+    });
+
+    return validationErrors;
   };
 
   onChangeOutputType = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -126,18 +196,28 @@ class OutputEdit extends Component<Props, State> {
   };
 
   render() {
-    const state = this.state;
+    const { outputType, errors } = this.state;
     const { data, output } = this.props;
     let outputEdit: ReactNode;
 
-    if (state.outputType === OutputType.Notify) {
+    if (outputType === OutputType.Notify) {
       outputEdit = (
-        <NotifyEdit data={data} output={output} onEdit={this.props.onEdit} />
+        <NotifyEdit
+          data={data}
+          output={output}
+          onEdit={this.props.onEdit}
+          errors={errors}
+        />
       );
-    } else if (state.outputType === OutputType.Email) {
-      outputEdit = <EmailEdit output={output} />;
-    } else if (state.outputType === OutputType.Webhook) {
-      outputEdit = <WebhookEdit url={output?.outputConfiguration?.["url"]} />;
+    } else if (outputType === OutputType.Email) {
+      outputEdit = <EmailEdit output={output} errors={errors} />;
+    } else if (outputType === OutputType.Webhook) {
+      outputEdit = (
+        <WebhookEdit
+          url={output?.outputConfiguration?.["url"]}
+          errors={errors}
+        />
+      );
     }
 
     return (
@@ -151,30 +231,46 @@ class OutputEdit extends Component<Props, State> {
             Back
           </a>
         )}
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.title,
+          })}
+        >
           <label className="govuk-label govuk-label--s" htmlFor="output-title">
             Title
           </label>
+          {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
           <input
-            className="govuk-input"
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.title,
+            })}
             id="output-name"
             name="output-title"
             type="text"
-            required
             defaultValue={output?.title ?? ""}
           />
         </div>
 
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.name,
+          })}
+        >
           <label className="govuk-label govuk-label--s" htmlFor="output-name">
             Name
           </label>
+          {errors.name && <ErrorMessage>This field is required</ErrorMessage>}
           <input
-            className="govuk-input"
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.name,
+            })}
             id="output-name"
             name="output-name"
             type="text"
-            required
             pattern="^\S+"
             defaultValue={output?.name ?? ""}
           />
@@ -189,7 +285,7 @@ class OutputEdit extends Component<Props, State> {
             id="output-type"
             name="output-type"
             disabled={!!output?.type}
-            value={state.outputType}
+            value={outputType}
             onChange={this.onChangeOutputType}
           >
             <option value="email">Email</option>

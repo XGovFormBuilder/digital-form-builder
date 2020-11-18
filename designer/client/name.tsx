@@ -29,10 +29,11 @@ export class Name extends React.Component<Props, State> {
 
   onChangeName = (event: any) => {
     const inputValue = event.target.value;
+    let nameHasError = !inputValue || /\s/g.test(inputValue);
     this.setState(
       {
         name: inputValue,
-        nameHasError: /\s/g.test(inputValue),
+        nameHasError,
       },
       () => this.updateGlobalState()
     );

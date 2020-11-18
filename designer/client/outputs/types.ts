@@ -30,3 +30,12 @@ export type Output = {
   type: OutputType;
   outputConfiguration: OutputConfiguration;
 };
+
+export type ValidationErrors = {
+  title?: boolean;
+  name?: boolean;
+  email?: boolean;
+  templateId?: boolean;
+  apiKey?: boolean;
+  url?: boolean;
+};

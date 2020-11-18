@@ -105,6 +105,7 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       wrapper
         .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       assertTextInput({
         wrapper: wrapper.find("#form-title"),
@@ -233,6 +234,7 @@ suite("Form details", () => {
     let data;
     beforeEach(() => {
       data = new Data({});
+      data.name = "My New Form";
       data.clone = sinon.stub().returns(data);
       data.save = sinon.stub().resolves(data);
     });
@@ -251,6 +253,7 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       wrapper
         .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
 
@@ -338,6 +341,7 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} onCreate={onCreate} />);
       wrapper
         .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
 

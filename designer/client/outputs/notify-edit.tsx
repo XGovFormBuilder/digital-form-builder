@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 
 import NotifyEditItems from "./notify-edit-items";
-import { Output, NotifyOutputConfiguration } from "./types";
+import { Output, NotifyOutputConfiguration, ValidationErrors } from "./types";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 type State = {};
 
@@ -9,6 +11,7 @@ type Props = {
   data: any; // TODO: type
   output: Output;
   onEdit: ({ data: any }) => void;
+  errors: ValidationErrors;
 };
 
 class NotifyEdit extends Component<Props, State> {
@@ -24,7 +27,7 @@ class NotifyEdit extends Component<Props, State> {
   }
 
   render() {
-    const { data, output, onEdit } = this.props;
+    const { data, output, onEdit, errors } = this.props;
     const { conditions } = data;
     const outputConfiguration = (typeof output.outputConfiguration === "object"
       ? output.outputConfiguration
@@ -47,28 +50,46 @@ class NotifyEdit extends Component<Props, State> {
 
     return (
       <div className="govuk-body">
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.templateId,
+          })}
+        >
           <label className="govuk-label" htmlFor="template-id">
             Template ID
           </label>
+          {errors.templateId && (
+            <ErrorMessage>This field is required</ErrorMessage>
+          )}
           <input
-            className="govuk-input"
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.templateId,
+            })}
             name="template-id"
             type="text"
-            required
             defaultValue={templateId}
             step="any"
           />
         </div>
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.apiKey,
+          })}
+        >
           <label className="govuk-label" htmlFor="api-key">
             API Key
           </label>
+          {errors.apiKey && <ErrorMessage>This field is required</ErrorMessage>}
           <input
-            className="govuk-input"
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.apiKey,
+            })}
             name="api-key"
             type="text"
-            required
             defaultValue={apiKey}
             step="any"
           />

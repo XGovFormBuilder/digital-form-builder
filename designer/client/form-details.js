@@ -1,6 +1,9 @@
 import React from "react";
 import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
+import { validate } from "joi";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 class FormDetails extends React.Component {
   constructor(props) {
@@ -12,6 +15,7 @@ class FormDetails extends React.Component {
       feedbackForm: feedbackForm,
       formConfigurations: [],
       selectedFeedbackForm,
+      errors: {},
     };
     this.onSelectFeedbackForm = this.onSelectFeedbackForm.bind(this);
   }
@@ -25,6 +29,8 @@ class FormDetails extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
+    let hasValidationErrors = this.validate();
+    if (hasValidationErrors) return;
     const { data } = this.props;
     const { title, feedbackForm, selectedFeedbackForm } = this.state;
 
@@ -43,6 +49,23 @@ class FormDetails extends React.Component {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  validate = () => {
+    let validationErrors = false;
+    const { data } = this.props;
+    const { title, feedbackForm, selectedFeedbackForm } = this.state;
+
+    let titleHasErrors = !title || title.trim().length < 1;
+    this.setState((prevState, props) => ({
+      errors: {
+        ...prevState.errors,
+        title: titleHasErrors,
+      },
+    }));
+
+    validationErrors = titleHasErrors;
+    return validationErrors;
   };
 
   onSelectFeedbackForm(e) {
@@ -66,6 +89,7 @@ class FormDetails extends React.Component {
       feedbackForm,
       selectedFeedbackForm,
       formConfigurations,
+      errors,
     } = this.state;
 
     return (
@@ -96,7 +120,12 @@ class FormDetails extends React.Component {
             },
           ]}
         />
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.title,
+          })}
+        >
           <label
             className="govuk-label govuk-label--s"
             htmlFor="form-title"
@@ -104,12 +133,15 @@ class FormDetails extends React.Component {
           >
             Title
           </label>
+          {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
           <input
-            className="govuk-input"
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.title,
+            })}
             id="form-title"
             name="title"
             type="text"
-            required
             onBlur={(e) => this.setState({ title: e.target.value })}
             defaultValue={title}
           />

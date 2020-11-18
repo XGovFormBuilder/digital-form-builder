@@ -3,6 +3,8 @@ import { clone } from "@xgovformbuilder/model";
 import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 class SectionEdit extends React.Component {
   constructor(props) {
@@ -14,12 +16,15 @@ class SectionEdit extends React.Component {
     this.state = {
       name: section?.name ?? nanoid(6),
       title: section?.title ?? "",
+      errors: {},
     };
   }
 
   async onSubmit(e) {
     e.preventDefault();
     const { name, title } = this.state;
+    let hasErrors = this.validate(title);
+    if (hasErrors) return;
     const { data } = this.props;
     const copy = clone(data);
     if (this.isNewSection) {
@@ -59,6 +64,17 @@ class SectionEdit extends React.Component {
     });
   };
 
+  validate = (title) => {
+    let titleHasErrors = !title || title.trim().length < 1;
+    this.setState((prevState, props) => ({
+      errors: {
+        ...prevState.errors,
+        title: titleHasErrors,
+      },
+    }));
+    return titleHasErrors;
+  };
+
   onClickDelete = async (e) => {
     e.preventDefault();
     if (!window.confirm("Confirm delete")) {
@@ -89,22 +105,32 @@ class SectionEdit extends React.Component {
 
   render() {
     const { i18n } = this.props;
-    const { title, name } = this.state;
+    const { title, name, errors } = this.state;
 
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.title,
+          })}
+        >
           <label className="govuk-label govuk-label--s" htmlFor="section-title">
             {i18n("title")}
           </label>
+          {errors.title && (
+            <ErrorMessage>{i18n("errors.required")}</ErrorMessage>
+          )}
           <input
-            className="govuk-input"
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.title,
+            })}
             id="section-title"
             name="title"
             type="text"
             value={title}
             onChange={this.onChangeTitle}
-            required
           />
         </div>
         <Name id="section-name" labelText="Section name" name={name} />

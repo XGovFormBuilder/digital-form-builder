@@ -40,5 +40,8 @@
   },
   "error": "Error:",
   "title": "Title",
-  "close": "Close"
+  "close": "Close",
+  "errors": {
+    "required": "This field is required"
+  }
 }

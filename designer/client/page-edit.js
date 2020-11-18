@@ -6,6 +6,8 @@ import SectionEdit from "./section/section-edit";
 import { nanoid } from "nanoid";
 import Flyout from "./flyout";
 import { withI18n } from "./i18n";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 export class PageEdit extends React.Component {
   constructor(props) {
@@ -17,6 +19,7 @@ export class PageEdit extends React.Component {
       title: page?.title,
       section: page?.section ?? {},
       isEditingSection: false,
+      errors: {},
     };
     this.formEditSection = React.createRef();
   }
@@ -27,18 +30,15 @@ export class PageEdit extends React.Component {
     const { title, path, section, controller } = this.state;
     const { data, page } = this.props;
 
+    let hasValidationErrors = this.validate(title, path);
+    if (hasValidationErrors) return;
+
     const copy = clone(data);
     const pageIndex = data.pages.indexOf(page);
     const copyPage = copy.pages[pageIndex];
     const pathChanged = path !== page.path;
 
     if (pathChanged) {
-      // `path` has changed - validate it is unique
-      if (data.findPage(path)) {
-        form.elements.path.setCustomValidity(`Path '${path}' already exists`);
-        form.reportValidity();
-        return;
-      }
       data.updateLinksTo(page.path, path);
       copyPage.path = path;
       if (pageIndex === 0) {
@@ -59,6 +59,28 @@ export class PageEdit extends React.Component {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  validate = (title, path) => {
+    const { data, page } = this.props;
+
+    let validationErrors = false;
+    let errors = {};
+
+    let titleHasErrors = !title || title.trim().length < 1;
+    errors.title = titleHasErrors;
+
+    let pathHasErrors = false;
+    if (path !== page.path) pathHasErrors = data.findPage(path);
+    if (pathHasErrors)
+      errors.path = { message: `Path '${path}' already exists` };
+
+    this.setState((prevState, props) => ({
+      errors: errors,
+    }));
+
+    validationErrors = titleHasErrors || pathHasErrors;
+    return validationErrors;
   };
 
   onClickDelete = async (e) => {
@@ -176,6 +198,7 @@ export class PageEdit extends React.Component {
       section,
       isEditingSection,
       isNewSection,
+      errors,
     } = this.state;
 
     return (
@@ -201,33 +224,51 @@ export class PageEdit extends React.Component {
               </option>
             </select>
           </div>
-          <div className="govuk-form-group">
+          <div
+            className={classNames({
+              "govuk-form-group": true,
+              "govuk-form-group--error": errors.title,
+            })}
+          >
             <label className="govuk-label govuk-label--s" htmlFor="page-title">
               {i18n("page.title")}
             </label>
+            {errors.title && (
+              <ErrorMessage>{i18n("errors.required")}</ErrorMessage>
+            )}
             <input
-              className="govuk-input"
+              className={classNames({
+                "govuk-input": true,
+                "govuk-input--error": errors.title,
+              })}
               id="page-title"
               name="title"
               type="text"
               value={title}
               aria-describedby="page-title-hint"
-              required
               onChange={this.onChangeTitle}
             />
           </div>
-          <div className="govuk-form-group">
+          <div
+            className={classNames({
+              "govuk-form-group": true,
+              "govuk-form-group--error": errors.path,
+            })}
+          >
             <label className="govuk-label govuk-label--s" htmlFor="page-path">
               {i18n("page.path")}
             </label>
             <span className="govuk-hint">{i18n("page.pathHint")}</span>
+            {errors.path && <ErrorMessage>{errors.path?.message}</ErrorMessage>}
             <input
-              className="govuk-input"
+              className={classNames({
+                "govuk-input": true,
+                "govuk-input--error": errors.path,
+              })}
               id="page-path"
               name="path"
               type="text"
               aria-describedby="page-path-hint"
-              required
               value={path}
               onChange={this.onChangePath}
             />

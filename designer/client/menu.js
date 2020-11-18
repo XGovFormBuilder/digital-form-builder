@@ -228,7 +228,7 @@ export default class Menu extends React.Component {
           >
             <FeeEdit
               data={data}
-              onCreate={() => this.setState({ showEditFees: false })}
+              onEdit={() => this.setState({ showEditFees: false })}
             />
           </Flyout>
         )}

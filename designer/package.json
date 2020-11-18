@@ -33,6 +33,7 @@
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
     "aws-sdk": "^2.723.0",
+    "classnames": "^2.2.6",
     "flat": "5.0.0",
     "hapi-pino": "^8.0.1",
     "hoek": "^6.1.3",

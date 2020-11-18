@@ -1,12 +1,15 @@
 import React from "react";
 import SelectConditions from "./conditions/select-conditions";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 class LinkCreate extends React.Component {
-  state = {};
+  state = { errors: {} };
 
   onSubmit = async (e) => {
     e.preventDefault();
     const { from, to, selectedCondition } = this.state;
+    if (this.hasValidationErrors()) return;
     // Apply
     const { data } = this.props;
     const copy = data.clone();
@@ -28,23 +31,43 @@ class LinkCreate extends React.Component {
     this.setState(stateUpdate);
   };
 
+  hasValidationErrors = () => {
+    const { from, to, selectedCondition } = this.state;
+    this.setState((prevState, props) => ({
+      errors: {
+        ...prevState.errors,
+        from: !from,
+        to: !to,
+      },
+    }));
+    return !from || !to;
+  };
+
   render() {
     const { data } = this.props;
     const { pages } = data;
-    const { from } = this.state;
+    const { from, errors } = this.state;
 
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.from,
+          })}
+        >
           <label className="govuk-label govuk-label--s" htmlFor="link-source">
             From
           </label>
+          {errors.from && <ErrorMessage>This field is required</ErrorMessage>}
           <select
-            className="govuk-select"
+            className={classNames({
+              "govuk-select": true,
+              "govuk-input--error": errors.from,
+            })}
             id="link-source"
             name="path"
             onChange={(e) => this.storeValue(e, "from")}
-            required
           >
             <option />
             {pages.map((page) => (
@@ -55,16 +78,24 @@ class LinkCreate extends React.Component {
           </select>
         </div>
 
-        <div className="govuk-form-group">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.to,
+          })}
+        >
           <label className="govuk-label govuk-label--s" htmlFor="link-target">
             To
           </label>
+          {errors.to && <ErrorMessage>This field is required</ErrorMessage>}
           <select
-            className="govuk-select"
+            className={classNames({
+              "govuk-select": true,
+              "govuk-input--error": errors.to,
+            })}
             id="link-target"
             name="page"
             onChange={(e) => this.storeValue(e, "to")}
-            required
           >
             <option />
             {pages.map((page) => (

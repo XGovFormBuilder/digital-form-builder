@@ -4,8 +4,9 @@ import { Output } from "./types";
 
 type State = {
   showAddOutput: boolean;
-  output: any; //TODO: type
-  id: string;
+  output?: any; //TODO: type
+  id?: string;
+  errors: any;
 };
 
 type Props = {
@@ -13,6 +14,14 @@ type Props = {
 };
 
 class OutputsEdit extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAddOutput: false,
+      errors: {},
+    };
+  }
+
   onClickOutput = (event: MouseEvent, output) => {
     event.preventDefault();
 
