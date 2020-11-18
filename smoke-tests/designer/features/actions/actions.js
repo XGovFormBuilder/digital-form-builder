@@ -1,6 +1,6 @@
-const AddComponent = require("../pageobjects/pages/add-component.page");
+const AddComponent = require("../pageobjects/pages/addComponent.page");
 const ConfigPage = require("../pageobjects/pages/config.page");
-const FormDesigner = require("../pageobjects/pages/form-designer.page");
+const FormDesigner = require("../pageobjects/pages/formDesigner.page");
 const FieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 

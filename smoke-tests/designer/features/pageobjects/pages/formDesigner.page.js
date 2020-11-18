@@ -1,8 +1,8 @@
-const Page = require("./page");
+const Page = require("./basePage");
 
 class FormDesignerPage extends Page {
   get designerMenu() {
-    return $("div.menu");
+    return $("nav.menu");
   }
 
   get addComponentToPage() {
@@ -26,7 +26,7 @@ class FormDesignerPage extends Page {
   }
 
   get pagesLink() {
-    return browser.react$("bn");
+    return browser.react$("gn");
   }
 
   dateField(name) {

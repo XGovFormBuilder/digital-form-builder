@@ -2,7 +2,7 @@ const Section = require("./section");
 
 class AddLinkSection extends Section {
   get parent() {
-    return $(".flyout-menu-container");
+    return browser.$(".flyout-menu-container");
   }
 
   get fromSelectList() {
@@ -14,7 +14,7 @@ class AddLinkSection extends Section {
   }
 
   get deleteBtn() {
-    return $(".govuk-button=Delete");
+    return browser.$(".govuk-button=Delete");
   }
 
   selectFromByName(name) {

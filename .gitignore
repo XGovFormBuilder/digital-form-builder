@@ -13,7 +13,7 @@ package-lock.json
 /runner/tmp.pdf
 /model/module/
 /model/dist/
-smoke-tests/reports/
+smoke-tests/designer/reports/
 */dist/
 */.dist/
 tsconfig.tsbuildinfo

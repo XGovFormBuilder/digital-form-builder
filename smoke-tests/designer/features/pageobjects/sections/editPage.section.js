@@ -2,11 +2,11 @@ const Section = require("./section");
 
 class EditPageSection extends Section {
   get parentElement() {
-    return $(".flyout-menu-container");
+    return browser.$(".flyout-menu-container");
   }
 
   get sectionDropdown() {
-    return this.parentElement.$('select#page-section')
+    return this.parentElement.$("select#page-section");
   }
 
   get duplicateBtn() {
