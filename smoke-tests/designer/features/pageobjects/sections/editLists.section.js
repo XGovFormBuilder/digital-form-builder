@@ -6,21 +6,23 @@ class EditListsSection extends Section {
   }
 
   get listTitle() {
-    return this.parentElement.$('input#list-title');
+    return this.parentElement.$("input#list-title");
   }
 
   get add() {
-    return this.parentElement.$('a=Add')
+    return this.parentElement.$("a=Add");
   }
 
   items(index) {
-    return this.parentElement.$$("td.govuk-table__cell input.govuk-input")[index]
+    return this.parentElement.$$("td.govuk-table__cell input.govuk-input")[
+      index
+    ];
   }
 
   fillOutItems(text, value, description) {
-    this.items(0).setValue(text)
-    this.items(1).setValue(value)
-    this.items(2).setValue(description)
+    this.items(0).setValue(text);
+    this.items(1).setValue(value);
+    this.items(2).setValue(description);
     this.saveBtn.click();
   }
 }

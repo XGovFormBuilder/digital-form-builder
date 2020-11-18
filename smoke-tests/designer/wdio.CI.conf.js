@@ -19,4 +19,15 @@ const { config } = require("./wdio.conf.js");
     },
   ]);
 
+config.reporters = [
+  "spec",
+  [
+    "cucumberjs-json",
+    {
+      jsonFolder: "./reports/ci/",
+      language: "en",
+    },
+  ],
+];
+
 exports.config = config;

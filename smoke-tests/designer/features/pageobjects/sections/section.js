@@ -1,14 +1,14 @@
 module.exports = class Section {
   get parentElement() {
-    return $(".flyout-menu-container div.panel");
+    return browser.$(".flyout-menu-container div.panel");
   }
 
   get pageTitle() {
-    return $("input#page-title");
+    return browser.$("input#page-title");
   }
 
   get sectionTitle() {
-    return $("input#section-title");
+    return browser.$("input#section-title");
   }
 
   get saveBtn() {
@@ -16,6 +16,6 @@ module.exports = class Section {
   }
 
   get closeSection() {
-    return $("a.close");
+    return browser.$("a.close");
   }
 };
