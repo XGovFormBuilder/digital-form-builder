@@ -10,7 +10,7 @@ import {
   HapiResponseObject,
 } from "server/types";
 import { FormModel } from "../formModel";
-import { FormSubmissionState, FormSubmissionErrors } from "../types";
+import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -224,8 +224,7 @@ export class PageControllerBase {
     return this.defaultNextPath;
   }
 
-  // TODO: type
-  getFormDataFromState(state: any, atIndex: number) {
+  getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
 
     if (this.repeatField) {

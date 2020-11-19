@@ -1,9 +1,10 @@
 import { ComponentBase } from "./ComponentBase";
+import { FormData, FormSubmissionErrors } from "../types";
 
 export class List extends ComponentBase {
-  getViewModel() {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { values, options } = this;
-    const viewModel = super.getViewModel();
+    const viewModel = super.getViewModel(formData, errors);
 
     if ("type" in options && options.type) {
       viewModel.type = options.type;

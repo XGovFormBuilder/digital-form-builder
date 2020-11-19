@@ -1,7 +1,7 @@
 import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import { FormModel } from "../formModel";
-import { FormSubmissionErrors } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
 import {
   getStateSchemaKeys,
@@ -24,7 +24,7 @@ export class EmailAddressField extends FormComponent {
     return getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const schema = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 

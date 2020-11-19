@@ -3,7 +3,7 @@ import nunjucks from "nunjucks";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
@@ -114,7 +114,7 @@ export class ConditionalFormComponent extends FormComponent {
   addConditionalComponents(
     item,
     itemModel,
-    formData,
+    formData: FormData,
     errors?: FormSubmissionErrors
   ) {
     // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to

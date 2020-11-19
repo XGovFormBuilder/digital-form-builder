@@ -8,7 +8,7 @@ import {
 } from "@xgovformbuilder/model";
 
 import { FormModel } from "../formModel";
-import { FormSubmissionErrors } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 import { ViewModel } from "./types";
 
 export class ComponentBase {
@@ -50,7 +50,7 @@ export class ComponentBase {
     this.values = data.valuesFor(def)?.toStaticValues();
   }
 
-  getViewModel(_formData?: any, _errors?: FormSubmissionErrors): ViewModel {
+  getViewModel(_formData: FormData, _errors?: FormSubmissionErrors): ViewModel {
     return {
       attributes: {},
     };

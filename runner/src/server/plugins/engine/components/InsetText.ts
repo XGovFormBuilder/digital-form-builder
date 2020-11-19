@@ -1,10 +1,11 @@
 import { ComponentBase } from "./ComponentBase";
 import { ViewModel } from "./types";
+import { FormData, FormSubmissionErrors } from "../types";
 
 export class InsetText extends ComponentBase {
-  getViewModel(): ViewModel {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors): ViewModel {
     return {
-      ...super.getViewModel(),
+      ...super.getViewModel(formData, errors),
       content: this.content,
     };
   }

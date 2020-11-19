@@ -2,7 +2,7 @@ import joi from "joi";
 import * as helpers from "./helpers";
 
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 import { ListComponents } from "@xgovformbuilder/model";
 
@@ -46,7 +46,7 @@ export class CheckboxesField extends ConditionalFormComponent {
     return "";
   }
 
-  getViewModel(formData, errors?: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
     let formDataItems = [];
@@ -65,9 +65,7 @@ export class CheckboxesField extends ConditionalFormComponent {
       const itemModel: any = {
         text: this.localisedString(item.label),
         value: item.value,
-        // Do a loose string based check as state may or
-        // may not match the item value types.
-        checked: !!formDataItems.find((i) => "" + item.value === i),
+        checked: !!formDataItems.find((i) => `${item.value}` === i),
         condition: item.condition,
       };
 

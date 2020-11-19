@@ -2,7 +2,7 @@ import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionErrors } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 import { FormModel } from "../formModel";
 import { addClassOptionIfNone } from "./helpers";
 
@@ -26,7 +26,7 @@ export class TextField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors?: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const schema: any = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 

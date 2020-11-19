@@ -7,7 +7,7 @@ import * as helpers from "./helpers";
 import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 export class DateTimePartsField extends FormComponent {
@@ -122,12 +122,8 @@ export class DateTimePartsField extends FormComponent {
     return value ? moment(value).format("D MMMM YYYY h:mma") : "";
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
-
-    // Todo: Remove after next
-    // release on govuk-frontend
-    viewModel.name = undefined;
 
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
@@ -146,13 +142,12 @@ export class DateTimePartsField extends FormComponent {
       }
     });
 
-    Object.assign(viewModel, {
+    return {
+      ...viewModel,
       fieldset: {
         legend: viewModel.label,
       },
       items: componentViewModels,
-    });
-
-    return viewModel;
+    };
   }
 }

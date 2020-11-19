@@ -1,9 +1,10 @@
+import { FormData, FormSubmissionErrors } from "../types";
 import { ComponentBase } from "./ComponentBase";
 
 export class FlashCard extends ComponentBase {
-  getViewModel() {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { values } = this;
-    const viewModel = super.getViewModel();
+    const viewModel = super.getViewModel(formData, errors);
 
     viewModel.content = values?.items.map((item) => {
       const contentItem: { title: string; text: string; condition?: any } = {

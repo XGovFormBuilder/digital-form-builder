@@ -1,4 +1,4 @@
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormComponent } from "./FormComponent";
 import { getFormSchemaKeys, getStateSchemaKeys } from "./helpers";
 
@@ -11,14 +11,15 @@ export class NumberField extends FormComponent {
     return getStateSchemaKeys(this.name, "number", this);
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
-    const viewModel = super.getViewModel(formData, errors);
-    const { precision } = this.schema as any;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const schema: any = this.schema;
+    const viewModel = {
+      ...super.getViewModel(formData, errors),
+      type: "number",
+    };
 
-    viewModel.type = "number";
-
-    if (precision) {
-      viewModel.attributes.step = "0." + "1".padStart(precision, "0");
+    if (schema.precision) {
+      viewModel.attributes.step = "0." + "1".padStart(schema.precision, "0");
     }
 
     return viewModel;

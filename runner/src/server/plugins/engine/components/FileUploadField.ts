@@ -1,4 +1,4 @@
-import { FormSubmissionErrors } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
 import * as helpers from "./helpers";
 
@@ -19,7 +19,7 @@ export class FileUploadField extends FormComponent {
     };
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { options } = this;
     const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),

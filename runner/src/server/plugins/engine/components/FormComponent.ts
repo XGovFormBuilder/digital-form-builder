@@ -3,7 +3,7 @@ import joi, { Schema } from "joi";
 import { ComponentBase } from "./ComponentBase";
 import { optionalText } from "./constants";
 
-import { FormSubmissionState, FormSubmissionErrors } from "../types";
+import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 import { ViewModel } from "./types";
 
 export class FormComponent extends ComponentBase {
@@ -131,7 +131,7 @@ export class FormComponent extends ComponentBase {
     return string;
   }
 
-  getViewModel(formData, errors?: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const options: any = this.options;
     const isOptional = options.required === false;
     const optionalPostfix =
@@ -168,15 +168,13 @@ export class FormComponent extends ComponentBase {
       viewModel.condition = options.condition;
     }
 
-    if (errors) {
-      errors.errorList.forEach((err) => {
-        if (err.name === name) {
-          viewModel.errorMessage = {
-            text: err.text,
-          };
-        }
-      });
-    }
+    errors?.errorList?.forEach((err) => {
+      if (err.name === name) {
+        viewModel.errorMessage = {
+          text: err.text,
+        };
+      }
+    });
 
     return viewModel;
   }

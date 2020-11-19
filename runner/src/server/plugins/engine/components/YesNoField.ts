@@ -3,7 +3,7 @@ import { Data, InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
 import { FormModel } from "..";
 
@@ -45,7 +45,7 @@ export class YesNoField extends FormComponent {
     return item ? item.label : "";
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 

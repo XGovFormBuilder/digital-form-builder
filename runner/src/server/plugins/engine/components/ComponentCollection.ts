@@ -3,7 +3,7 @@ import { Component, StaticValue } from "@xgovformbuilder/model";
 
 import * as Components from "./index";
 import { FormModel } from "../formModel";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
 
 export class ComponentCollection {
@@ -79,7 +79,7 @@ export class ComponentCollection {
   }
 
   getViewModel(
-    formData,
+    formData: FormData,
     errors: FormSubmissionErrors
   ): ComponentCollectionViewModel {
     const result = this.items?.map((item: any) => {

@@ -3,7 +3,7 @@ import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 import { addClassOptionIfNone } from "./helpers";
 
@@ -33,9 +33,10 @@ export class DateTimeField extends FormComponent {
     return value ? moment(value).format("D MMMM YYYY h:mma") : "";
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
-    const viewModel = super.getViewModel(formData, errors);
-    viewModel.type = "datetime-local";
-    return viewModel;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    return {
+      ...super.getViewModel(formData, errors),
+      type: "datetime-local",
+    };
   }
 }

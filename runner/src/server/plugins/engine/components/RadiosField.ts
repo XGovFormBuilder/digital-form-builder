@@ -2,7 +2,7 @@ import { ListComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 export class RadiosField extends ConditionalFormComponent {
@@ -31,8 +31,9 @@ export class RadiosField extends ConditionalFormComponent {
     return item ? item.label : value;
   }
 
-  getViewModel(formData, errors?: FormSubmissionErrors) {
-    const { name, values, options } = this;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const { name, values } = this;
+    const options: any = this.options;
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {
@@ -40,17 +41,14 @@ export class RadiosField extends ConditionalFormComponent {
     };
 
     viewModel.items = values?.items.map((item) => {
-      // TODO use itemModel type? Same as checkbox field
       const itemModel: any = {
         html: this.localisedString(item.label),
         value: item.value,
-        // Do a loose string based check as state may or
-        // may not match the item item types.
-        checked: "" + item.value === "" + formData[name],
+        checked: `${item.value}` === `${formData[name]}`,
         condition: item.condition,
       };
 
-      if ("bold" in options && options.bold) {
+      if (options.bold) {
         itemModel.label = {
           classes: "govuk-label--s",
         };

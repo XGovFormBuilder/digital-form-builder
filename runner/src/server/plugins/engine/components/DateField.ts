@@ -7,7 +7,7 @@ import {
 import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../formModel";
 
 export class DateField extends FormComponent {
@@ -36,7 +36,7 @@ export class DateField extends FormComponent {
     return value ? moment(value).format("D MMMM YYYY") : "";
   }
 
-  getViewModel(formData: any, errors: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     return {
       ...super.getViewModel(formData, errors),
       type: "date",

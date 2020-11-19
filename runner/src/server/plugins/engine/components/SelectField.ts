@@ -3,7 +3,7 @@ import { ListComponents, StaticValue } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionState, FormSubmissionErrors } from "../types";
+import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 import { FormModel } from "../formModel";
 
 export class SelectField extends FormComponent {
@@ -40,7 +40,7 @@ export class SelectField extends FormComponent {
     return item ? item?.text : "";
   }
 
-  getViewModel(formData, errors?: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
@@ -48,9 +48,7 @@ export class SelectField extends FormComponent {
       values?.items.map((item) => ({
         text: this.localisedString(item.label),
         value: item.value,
-        // Do a loose check as state may or
-        // may not match the item value types
-        selected: "" + item.value === "" + formData[name],
+        selected: `${item.value}` === `${formData[name]}`,
         condition: item.condition,
       })) ?? [];
 

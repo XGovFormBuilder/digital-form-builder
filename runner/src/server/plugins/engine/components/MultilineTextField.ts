@@ -1,6 +1,6 @@
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormSubmissionErrors } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 
 export class MultilineTextField extends FormComponent {
   getFormSchemaKeys() {
@@ -11,17 +11,18 @@ export class MultilineTextField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors: FormSubmissionErrors) {
-    const { schema, options } = this;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const schema: any = this.schema;
+    const options: any = this.options;
     const viewModel = super.getViewModel(formData, errors);
 
-    if ("max" in schema && schema.max) {
+    if (schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,
       };
     }
 
-    if ("rows" in options && options.rows) {
+    if (options.rows) {
       viewModel.rows = options.rows;
     }
 
