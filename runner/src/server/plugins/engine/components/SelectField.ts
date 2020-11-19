@@ -37,7 +37,7 @@ export class SelectField extends FormComponent {
     const { name, values } = this;
     const value = state[name];
     const item: any = values?.items.find((item) => item.value === value);
-    return item ? item?.text : "";
+    return item?.value;
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
