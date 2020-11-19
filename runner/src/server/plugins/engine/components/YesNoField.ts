@@ -5,7 +5,7 @@ import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
-import { FormModel } from "..";
+import { FormModel } from "../models";
 
 export class YesNoField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {

@@ -40,8 +40,7 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
 
-  // TODO: types
-  // TODO: should we have some validation, e.g: required name, path etc?
+  // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
     // Properties
@@ -56,7 +55,8 @@ export class PageControllerBase {
 
     // Resolve section
     this.section =
-      pageDef.section && model.sections.find((s) => s.name === pageDef.section);
+      pageDef.section &&
+      model.sections.find((section) => section.name === pageDef.section);
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
@@ -388,7 +388,7 @@ export class PageControllerBase {
       const { cacheService } = request.services([]);
       const hasFilesizeError = request.payload === null;
       const preHandlerErrors = request.pre.errors;
-      const payload = request.payload || {};
+      const payload = (request.payload || {}) as FormData;
       const formResult: any = this.validateForm(payload);
       const state = await cacheService.getState(request);
       const originalFilenames = (state || {}).originalFilenames || {};
