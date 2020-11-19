@@ -240,7 +240,7 @@ export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
 }
 
-export type Component =
+export type ComponentDef =
   | InsetTextComponent
   | AutocompleteFieldComponent
   | CheckboxesFieldComponent
@@ -266,7 +266,7 @@ export type Component =
   | YesNoFieldComponent;
 
 // Components that render inputs.
-export type InputFieldsComponents =
+export type InputFieldsComponentsDef =
   | TextFieldComponent
   | EmailAddressFieldComponent
   | NumberFieldComponent
@@ -282,14 +282,14 @@ export type InputFieldsComponents =
   | UkAddressFieldComponent;
 
 // Components that render content.
-export type ContentComponents =
+export type ContentComponentsDef =
   | ParaComponent
   | DetailsComponent
   | HtmlComponent
   | InsetTextComponent;
 
 // Components that render Lists
-export type ListComponents =
+export type ListComponentsDef =
   | ListComponent
   | AutocompleteFieldComponent
   | CheckboxesFieldComponent

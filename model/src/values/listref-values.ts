@@ -1,11 +1,11 @@
 import { Data } from "../data-model/data-model";
 import { ConcreteValueTypes } from "./types";
 import { StaticValue, StaticValues } from "./static-values";
-import { Component } from "../components/types";
+import { ComponentDef } from "../components/types";
 
 export class ValueChildren {
   value: ConcreteValueTypes;
-  children: Array<Component>;
+  children: Array<ComponentDef>;
 
   constructor(value: ConcreteValueTypes, children: Array<any>) {
     this.value = value;

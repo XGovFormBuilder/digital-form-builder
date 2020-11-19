@@ -1,6 +1,6 @@
-import { Component } from "./types";
+import { ComponentDef } from "./types";
 
-export const ComponentTypes: Component[] = [
+export const ComponentTypes: ComponentDef[] = [
   {
     name: "TextField",
     type: "TextField",

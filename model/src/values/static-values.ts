@@ -1,13 +1,13 @@
 import { Data } from "../data-model/data-model";
 import { ConcreteValueTypes, ValueTypes } from "./types";
-import { Component } from "../components/types";
+import { ComponentDef } from "../components/types";
 
 export class StaticValue {
   label: string;
   value: ConcreteValueTypes;
   hint: string | undefined;
   condition: string | undefined;
-  children: Array<Component>;
+  children: Array<ComponentDef>;
 
   constructor(
     label: string,

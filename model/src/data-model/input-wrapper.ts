@@ -1,5 +1,5 @@
 import { clone } from "../utils/helpers";
-import { Component } from "../components/types";
+import { ComponentDef } from "../components/types";
 import { Page } from "./types";
 
 export class InputWrapper {
@@ -10,7 +10,7 @@ export class InputWrapper {
   page: Page;
 
   constructor(
-    rawData: Component,
+    rawData: ComponentDef,
     page: Page,
     options: { ignoreSection?: boolean; parentItemName?: string }
   ) {
