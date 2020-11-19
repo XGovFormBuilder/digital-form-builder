@@ -1,10 +1,10 @@
 import { nanoid } from "nanoid";
 
-import config from "../../../config";
+import config from "server/config";
 import { SummaryViewModel } from "../models";
 import { PageController } from "./pageController";
 import { redirectTo, redirectUrl } from "../helpers";
-import { HapiRequest, HapiResponseToolkit } from "../../../types";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {
   RelativeUrl,
   FeedbackContextInfo,

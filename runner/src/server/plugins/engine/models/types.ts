@@ -1,4 +1,4 @@
-import type { Fees } from "../../../services/payService";
+import type { Fees } from "server/services/payService";
 
 export type Fields = {
   key: string;

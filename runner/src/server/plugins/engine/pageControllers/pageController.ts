@@ -1,5 +1,5 @@
 import { PageControllerBase } from "./pageControllerBase";
-import { HapiRequest, HapiResponseToolkit } from "../../../types";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
 
 export class PageController extends PageControllerBase {
   // TODO: improve type, see Page once types mature
