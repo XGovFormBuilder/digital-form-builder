@@ -288,6 +288,7 @@ class SummaryViewModel {
         }
       }
     });
+
     return details;
   }
 
@@ -560,7 +561,7 @@ class SummaryViewModel {
 
     return {
       name: component.name,
-      path: component.path,
+      path: component.path, // TODO: Why is this always undefined?
       label: component.localisedString(component.title),
       value: component.getDisplayStringFromState(sectionState),
       rawValue: sectionState[component.name],
@@ -615,8 +616,10 @@ export class SummaryPageController extends PageController {
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h);
       }
+
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
+
       this.setFeedbackDetails(viewModel, request);
 
       if (viewModel.endPage) {
@@ -784,10 +787,12 @@ export class SummaryPageController extends PageController {
 
   setFeedbackDetails(viewModel: SummaryViewModel, request: HapiRequest) {
     const feedbackContextInfo = this.getFeedbackContextInfo(request);
+
     if (feedbackContextInfo) {
       // set the form name to the source form name if this is a feedback form
       viewModel.name = feedbackContextInfo.formTitle;
     }
+
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }

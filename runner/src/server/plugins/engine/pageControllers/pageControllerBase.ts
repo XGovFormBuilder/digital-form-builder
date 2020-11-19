@@ -11,6 +11,7 @@ import {
 } from "server/types";
 import { FormModel } from "../formModel";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
+import { ComponentCollectionViewModel } from "../components/types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -39,7 +40,6 @@ export class PageControllerBase {
   // TODO: should we have some validation, e.g: required name, path etc?
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
-
     // Properties
     this.def = def;
     this.name = def.name;
@@ -69,7 +69,7 @@ export class PageControllerBase {
   }
 
   getViewModel(
-    formData: any, // TODO
+    formData: FormData,
     iteration?: any, // TODO
     errors?: any // TODO
   ): {
@@ -78,7 +78,7 @@ export class PageControllerBase {
     pageTitle: string;
     sectionTitle: string;
     showTitle: boolean;
-    components: any; // TODO
+    components: ComponentCollectionViewModel;
     errors: FormSubmissionErrors;
     isStartPage: boolean;
     startPage?: HapiResponseObject;
@@ -153,7 +153,6 @@ export class PageControllerBase {
       .filter((v: {} | null) => !!v);
   }
 
-  // TODO: type
   getNextPage(state: FormSubmissionState, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
@@ -427,7 +426,7 @@ export class PageControllerBase {
              */
             reformatted.text = reformatted.text.replace(
               /%s/,
-              fieldMeta ? fieldMeta.label.text.trim() : "the file"
+              fieldMeta?.label?.text.trim() ?? "the file"
             );
             reformattedErrors.push(reformatted);
           }
