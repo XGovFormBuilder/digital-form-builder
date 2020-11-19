@@ -2,7 +2,7 @@ import joi, { Schema as JoiSchema } from "joi";
 import { Component, StaticValue } from "@xgovformbuilder/model";
 
 import * as Components from "./index";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { ComponentCollectionViewModel } from "./types";
 

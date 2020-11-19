@@ -8,7 +8,7 @@ import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 
 export class DateField extends FormComponent {
   constructor(def: InputFieldsComponents, model: FormModel) {

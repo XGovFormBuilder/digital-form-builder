@@ -1,11 +1,11 @@
+import type { Fees } from "../../../services/payService";
+
 export type Fields = {
   key: string;
   title: string;
   type: string;
   answer: string | number | boolean;
 }[];
-
-import type { Fees } from "../../../services/payService";
 
 export type Questions = {
   category: string | null;

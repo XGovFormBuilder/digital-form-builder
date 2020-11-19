@@ -1,7 +1,7 @@
 import { ListComponents } from "@xgovformbuilder/model";
 
 import { SelectField } from "./SelectField";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { addClassOptionIfNone } from "./helpers";
 
 export class AutocompleteField extends SelectField {

@@ -4,7 +4,7 @@ import { ListComponents, StaticValue } from "@xgovformbuilder/model";
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 
 export class SelectField extends FormComponent {
   items: Array<StaticValue> | undefined;

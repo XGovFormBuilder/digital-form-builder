@@ -1,5 +1,5 @@
 import path from "path";
-import { plugin } from ".";
+import { plugin } from "./plugin";
 
 import {
   loadPreConfiguredForms,

@@ -7,7 +7,7 @@ import {
   StaticValues,
 } from "@xgovformbuilder/model";
 
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors } from "../types";
 import { ViewModel } from "./types";
 

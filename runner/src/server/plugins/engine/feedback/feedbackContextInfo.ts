@@ -19,7 +19,7 @@ export class FeedbackContextInfo {
   }
 }
 
-export function decode(
+export function decodeFeedbackContextInfo(
   encoded: string | Buffer | undefined
 ): FeedbackContextInfo | void {
   if (encoded) {

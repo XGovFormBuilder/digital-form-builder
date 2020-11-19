@@ -1,6 +1,6 @@
 import { InputFieldsComponents } from "@xgovformbuilder/model";
 
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
 import {

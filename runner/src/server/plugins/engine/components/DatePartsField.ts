@@ -6,7 +6,7 @@ import { ComponentCollection } from "./ComponentCollection";
 import { optionalText } from "./constants";
 import * as helpers from "./helpers";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 
 export class DatePartsField extends FormComponent {
   children: ComponentCollection;

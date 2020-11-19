@@ -2,7 +2,7 @@ import { InputFieldsComponents } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 

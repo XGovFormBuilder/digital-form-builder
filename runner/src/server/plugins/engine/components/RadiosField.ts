@@ -3,7 +3,7 @@ import { ListComponents } from "@xgovformbuilder/model";
 import * as helpers from "./helpers";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 
 export class RadiosField extends ConditionalFormComponent {
   constructor(def: ListComponents, model: FormModel) {

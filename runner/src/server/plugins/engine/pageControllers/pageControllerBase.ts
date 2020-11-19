@@ -3,13 +3,17 @@ import * as querystring from "querystring";
 
 import { proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
-import { decode, RelativeUrl, FeedbackContextInfo } from "../feedback";
+import {
+  RelativeUrl,
+  decodeFeedbackContextInfo,
+  FeedbackContextInfo,
+} from "../feedback";
 import {
   HapiRequest,
   HapiResponseToolkit,
   HapiResponseObject,
 } from "server/types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 
@@ -498,7 +502,7 @@ export class PageControllerBase {
 
   getFeedbackContextInfo(request: HapiRequest) {
     if (this.def.feedback?.feedbackForm) {
-      return decode(
+      return decodeFeedbackContextInfo(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
           .feedbackReturnInfo
       );

@@ -3,7 +3,7 @@ import * as helpers from "./helpers";
 
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 import { ListComponents } from "@xgovformbuilder/model";
 
 export class CheckboxesField extends ConditionalFormComponent {

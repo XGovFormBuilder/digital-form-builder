@@ -8,7 +8,7 @@ import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../formModel";
+import { FormModel } from "../models";
 
 export class DateTimePartsField extends FormComponent {
   children: ComponentCollection;

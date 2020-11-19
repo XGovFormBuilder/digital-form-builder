@@ -3,8 +3,8 @@ import moment from "moment";
 import { Parser } from "expr-eval";
 import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
 
-import { PageControllerBase, getPageController } from "./pageControllers";
-import { FormSubmissionState } from "./types";
+import { FormSubmissionState } from "../types";
+import { PageControllerBase, getPageController } from "../pageControllers";
 
 class EvaluationContext {
   constructor(conditions, value) {
