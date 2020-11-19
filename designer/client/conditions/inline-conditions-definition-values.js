@@ -110,9 +110,9 @@ class InlineConditionsDefinitionValue extends React.Component {
   render() {
     const { fieldDef, operator, value, updateValue } = this.props;
 
-    const customRendering = customValueComponent(fieldDef.type, operator);
-    if (customRendering) {
-      return customRendering(value, updateValue);
+    const CustomRendering = customValueComponent(fieldDef.type, operator);
+    if (CustomRendering) {
+      return <CustomRendering value={value} updateValue={updateValue} />;
     }
     return (fieldDef?.values?.length ?? 0) > 0
       ? SelectValues(this.props)

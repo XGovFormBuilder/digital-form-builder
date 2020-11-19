@@ -80,28 +80,6 @@ class FeeItems extends React.Component {
       });
   };
 
-  /*onBlur = (e) => {
-    const form = e.target.form;
-    const formData = new window.FormData(form);
-    const descriptions = formData.getAll("description").map((t) => t.trim());
-    const conditions = formData.getAll("condition").map((t) => t.trim());
-
-    // Only validate dupes if there is more than one item
-    if (descriptions.length < 2) {
-      return;
-    }
-
-    form.elements.condition.forEach((el) => el.setCustomValidity(""));
-
-    // Validate uniqueness
-    const dupeCondition = headDuplicate(conditions);
-    if (dupeCondition) {
-      form.elements.condition[dupeCondition].setCustomValidity(
-        "Duplicate conditions found in the list items"
-      );
-    }
-  };*/
-
   render() {
     const { items, errors } = this.state;
     const { conditions } = this.props;
