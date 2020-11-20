@@ -1,15 +1,15 @@
 import fs from "fs";
-import hapi from "@hapi/hapi";
-import Blankie from "blankie";
+import hapi, { ServerOptions } from "@hapi/hapi";
+
 import Scooter from "@hapi/scooter";
-import rateLimit from "hapi-rate-limit";
-import pulse from "hapi-pulse";
 import inert from "inert";
-import crumb from "@hapi/crumb";
 import Schmervice from "schmervice";
 import blipp from "blipp";
 
 import { configureEnginePlugin } from "./plugins/engine";
+import { configureRateLimitPlugin } from "./plugins/rateLimit";
+import { configureBlankiePlugin } from "./plugins/blankie";
+import { configureCrumbPlugin } from "./plugins/crumb";
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
 import pluginViews from "./plugins/views";
@@ -17,8 +17,7 @@ import pluginApplicationStatus from "./plugins/applicationStatus";
 import pluginRouter from "./plugins/router";
 import pluginErrorPages from "./plugins/errorPages";
 import pluginLogging from "./plugins/logging";
-
-import config from "./config";
+import pluginPulse from "./plugins/pulse";
 import {
   CacheService,
   catboxProvider,
@@ -29,10 +28,14 @@ import {
   UploadService,
   WebhookService,
 } from "./services";
+import config from "./config";
+import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 
-const serverOptions = () => {
-  const defaultOptions = {
-    debug: { request: `${config.isDev}` },
+const serverOptions = (): ServerOptions => {
+  const hasCertificate = config.sslKey && config.sslCert;
+
+  const serverOptions: ServerOptions = {
+    debug: { request: [`${config.isDev}`] },
     port: config.port,
     routes: {
       validate: {
@@ -50,88 +53,36 @@ const serverOptions = () => {
     cache: [{ provider: catboxProvider() }],
   };
 
-  return config.sslKey && config.sslCert
+  const httpsOptions = hasCertificate
     ? {
-        ...defaultOptions,
         tls: {
           key: fs.readFileSync(config.sslKey),
           cert: fs.readFileSync(config.sslCert),
         },
       }
-    : defaultOptions;
+    : {};
+
+  return {
+    ...serverOptions,
+    ...httpsOptions,
+  };
 };
 
-/**
- * Create a server with the default configurations
- * @param {Object} [routeConfig] - Alternative configuration. Use ful for testing or running a specific route only.
- * @param {Object} [routeConfig.rateOptions] - Options object for the plugin 'hapi-rate-limit'.
- * @param {string} [routeConfig.data] - The filename of a form configuration.
- * @param {string} [routeConfig.customPath] - The path to routeConfig.data.
- */
-async function createServer(routeConfig) {
+async function createServer(routeConfig: RouteConfig) {
   const server = hapi.server(serverOptions());
+  const { formFileName, formFilePath } = routeConfig;
 
   if (config.rateLimit) {
-    await server.register({
-      plugin: rateLimit,
-      options: routeConfig
-        ? routeConfig.rateOptions || { enabled: false }
-        : {
-            trustProxy: true,
-            pathLimit: false,
-            userLimit: false,
-            getIpFromProxyHeader: (header) => {
-              // use the last in the list as this will be the 'real' ELB header
-              const ips = header.split(",");
-              return ips[ips.length - 1];
-            },
-          },
-    });
+    await server.register(configureRateLimitPlugin(routeConfig));
   }
 
-  await server.register({
-    plugin: pulse,
-    options: {
-      timeout: 800,
-    },
-  });
+  await server.register(pluginPulse);
   await server.register(inert);
-  await server.register([
-    Scooter,
-    {
-      plugin: Blankie,
-      options: {
-        fontSrc: ["self", "data:"],
-        scriptSrc: (() =>
-          ["self", "unsafe-inline"].concat(
-            config.matomoUrl ? [config.matomoUrl] : []
-          ))(),
-        styleSrc: ["self", "unsafe-inline"],
-        imgSrc: (() =>
-          ["self"].concat(config.matomoUrl ? [config.matomoUrl] : []))(),
-        generateNonces: false,
-      },
-    },
-  ]);
-  await server.register({
-    plugin: crumb,
-    options: {
-      logUnauthorized: true,
-      enforce: routeConfig
-        ? routeConfig.enforceCsrf || false
-        : !config.previewMode,
-      cookieOptions: {
-        path: "/",
-        isSecure: !!config.sslKey,
-      },
-      skip: (request) => {
-        // skip crumb validation if error parsing payload
-        return request.method === "post" && request.payload == null;
-      },
-    },
-  });
-
+  await server.register(Scooter);
+  await server.register(configureBlankiePlugin(config));
+  await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(Schmervice);
+
   server.registerService([
     CacheService,
     NotifyService,
@@ -142,45 +93,45 @@ async function createServer(routeConfig) {
     SheetsService,
   ]);
 
-  server.ext("onPreResponse", (request, h) => {
-    if (request.response.isBoom) {
+  server.ext(
+    "onPreResponse",
+    (request: HapiRequest, h: HapiResponseToolkit) => {
+      const { response } = request;
+
+      if ("isBoom" in response && response.isBoom) {
+        return h.continue;
+      }
+
+      if ("header" in response && response.header) {
+        response.header("X-Robots-Tag", "noindex, nofollow");
+
+        const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
+        if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {
+          response.header(
+            "cache-control",
+            "private, no-cache, no-store, must-revalidate, max-age=0"
+          );
+          response.header("pragma", "no-cache");
+          response.header("expires", "0");
+        } else {
+          response.header("cache-control", "public, max-age=604800, immutable");
+        }
+      }
       return h.continue;
     }
-
-    if (request.response && request.response.header) {
-      request.response.header("X-Robots-Tag", "noindex, nofollow");
-
-      const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
-      if (!WEBFONT_EXTENSIONS.test(request.url)) {
-        request.response.header(
-          "cache-control",
-          "private, no-cache, no-store, must-revalidate, max-age=0"
-        );
-        request.response.header("pragma", "no-cache");
-        request.response.header("expires", "0");
-      } else {
-        request.response.header(
-          "cache-control",
-          "public, max-age=604800, immutable"
-        );
-      }
-    }
-    return h.continue;
-  });
+  );
 
   await server.register(pluginLocale);
   await server.register(pluginSession);
   await server.register(pluginViews);
-  await server.register(
-    configureEnginePlugin(routeConfig?.data, routeConfig?.customPath)
-  );
+  await server.register(configureEnginePlugin(formFileName, formFilePath));
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
 
   if (!config.isTest) {
     await server.register(blipp);
-    // await server.register(pluginLogging);
+    await server.register(pluginLogging);
   }
 
   return server;
