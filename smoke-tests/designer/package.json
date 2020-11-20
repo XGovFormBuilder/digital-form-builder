@@ -4,7 +4,8 @@
   "description": "Digital forms smoke tests",
   "main": "index.js",
   "scripts": {
-    "smoke-test": "yarn exec wdio"
+    "smoke-test": "yarn exec wdio",
+    "ci-test": "yarn exec wdio wdio.CI.conf.js"
   },
   "author": "Carlos Gutierrez",
   "license": "MIT",

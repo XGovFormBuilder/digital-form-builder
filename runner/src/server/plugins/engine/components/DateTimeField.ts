@@ -1,16 +1,16 @@
 import moment from "moment";
-import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../models";
-import { addClassOptionIfNone } from "./helpers";
 
 export class DateTimeField extends FormComponent {
-  constructor(def: InputFieldsComponentsDef, model: FormModel) {
+  constructor(def, model) {
     super(def, model);
-    addClassOptionIfNone(this.options, "govuk-input--width-20");
+    const { options } = this;
+
+    if (!options.classes) {
+      options.classes = "govuk-input--width-20";
+    }
   }
 
   getFormSchemaKeys() {
@@ -21,22 +21,21 @@ export class DateTimeField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "date", this);
   }
 
-  getFormValueFromState(state: FormSubmissionState) {
+  getFormValueFromState(state) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("YYYY-MM-DDTHH:mm") : value;
   }
 
-  getDisplayStringFromState(state: FormSubmissionState) {
+  getDisplayStringFromState(state) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("D MMMM YYYY h:mma") : "";
   }
 
-  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    return {
-      ...super.getViewModel(formData, errors),
-      type: "datetime-local",
-    };
+  getViewModel(formData, errors) {
+    const viewModel = super.getViewModel(formData, errors);
+    viewModel.type = "datetime-local";
+    return viewModel;
   }
 }

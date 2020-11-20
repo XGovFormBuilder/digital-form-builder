@@ -2,15 +2,15 @@ const Section = require("./section");
 
 class EditSections extends Section {
   get addSection() {
-    return $("a=Add section");
+    return browser.$("a=Add section");
   }
 
   get sectionLinks() {
-    return $$('ul li a')
+    return browser.$$("ul li a");
   }
 
   get sectionSaveBtn() {
-    return $(".govuk-button=Save");
+    return browser.$(".govuk-button=Save");
   }
 }
 

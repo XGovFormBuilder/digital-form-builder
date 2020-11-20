@@ -2,7 +2,7 @@ exports.config = {
   runner: "local",
   specs: ["./features/**/*.feature"],
   exclude: [],
-  maxInstances: 10,
+  maxInstances: 5,
   capabilities: [
     {
       maxInstances: 5,
@@ -20,7 +20,7 @@ exports.config = {
   baseUrl: "http://localhost:3000",
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 5000,
+  waitforTimeout: 10000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
@@ -51,7 +51,7 @@ exports.config = {
     source: true,
     profile: [],
     strict: false,
-    tagExpression: "not @pending",
+    tagExpression: "not @flaky",
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
   },

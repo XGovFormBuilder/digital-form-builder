@@ -1,18 +1,15 @@
-import { FormData, FormSubmissionErrors } from "../types";
-import { ComponentBase } from "./ComponentBase";
+import { Component } from "./Component";
 
-export class Details extends ComponentBase {
-  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const { options } = this;
-
+export class Details extends Component {
+  getViewModel() {
     const viewModel = {
-      ...super.getViewModel(formData, errors),
+      ...super.getViewModel(),
       summaryHtml: this.title,
       html: this.content,
     };
 
-    if ("condition" in options && options.condition) {
-      viewModel.condition = options.condition;
+    if (this.options.condition) {
+      viewModel.condition = this.options.condition;
     }
 
     return viewModel;

@@ -51,7 +51,7 @@ class FormDetails extends React.Component {
   }
 
   handleIsFeedbackFormRadio = (e) => {
-    const isFeedbackForm = e.target.value;
+    const isFeedbackForm = e.target.value === "true";
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });

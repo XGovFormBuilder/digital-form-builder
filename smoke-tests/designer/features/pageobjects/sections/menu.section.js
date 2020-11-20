@@ -1,8 +1,8 @@
-const Page = require("../pages/page");
+const Page = require("../pages/basePage");
 
 class MenuSection extends Page {
   get menuContainer() {
-    return $("div.menu");
+    return browser.$("nav.menu");
   }
 
   buttonByName(name) {

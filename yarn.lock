@@ -2570,7 +2570,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hapi@npm:^18.0.4":
+"@types/hapi@npm:*, @types/hapi@npm:^18.0.4":
   version: 18.0.4
   resolution: "@types/hapi@npm:18.0.4"
   dependencies:
@@ -3006,6 +3006,16 @@ __metadata:
     "@types/events": "*"
     "@types/node": "*"
   checksum: b093a05058ea2d9ce3661de81db9b917186202a41ca8f28d13a64d2dcd14c036ceb0f96ce36bba26928e55844d268bc49304b0790b5277adfd01ca4a4f697952
+  languageName: node
+  linkType: hard
+
+"@types/yar@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "@types/yar@npm:9.1.0"
+  dependencies:
+    "@types/catbox": "*"
+    "@types/hapi": "*"
+  checksum: cd64b6834056241e1c9be3b3f5890e23d15bf0d025cbc9ebbf90a4a85e41aa50501fe30fcdd6339ac752f691d44795f5cdeb180996ca3592b3e8907374841a9f
   languageName: node
   linkType: hard
 
@@ -3746,6 +3756,10 @@ __metadata:
     "@types/hoek": ^4.1.3
     "@types/nodemailer": ^6.4.0
     "@types/wreck": ^14.0.0
+<<<<<<< HEAD
+=======
+    "@types/yar": ^9.1.0
+>>>>>>> fee795d5d726486bc73176009a7726d85fd496e0
     "@xgovformbuilder/lab-babel": 2.1.2
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
@@ -3794,9 +3808,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xgovformbuilder/test@workspace:smoke-tests":
+"@xgovformbuilder/test@workspace:smoke-tests/designer":
   version: 0.0.0-use.local
-  resolution: "@xgovformbuilder/test@workspace:smoke-tests"
+  resolution: "@xgovformbuilder/test@workspace:smoke-tests/designer"
   dependencies:
     "@wdio/cli": ^6.6.0
     "@wdio/cucumber-framework": ^6.6.0
