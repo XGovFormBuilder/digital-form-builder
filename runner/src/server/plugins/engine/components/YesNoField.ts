@@ -1,5 +1,5 @@
 import { Schema } from "joi";
-import { Data, InputFieldsComponents } from "@xgovformbuilder/model";
+import { Data, InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
@@ -8,7 +8,7 @@ import { addClassOptionIfNone } from "./helpers";
 import { FormModel } from "../models";
 
 export class YesNoField extends FormComponent {
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     const data = new Data(model.def);
     const { options, values } = this;

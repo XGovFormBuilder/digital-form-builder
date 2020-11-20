@@ -1,17 +1,22 @@
 import moment from "moment";
-import { InputFieldsComponents } from "@xgovformbuilder/model";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import { optionalText } from "./constants";
 import * as helpers from "./helpers";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
 import { FormModel } from "../models";
 
 export class DatePartsField extends FormComponent {
   children: ComponentCollection;
 
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
 
     const { name, options } = this;
@@ -102,7 +107,7 @@ export class DatePartsField extends FormComponent {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload) {
     // Use `moment` to parse the date as
     // opposed to the Date constructor.
     // `moment` will check that the individual date

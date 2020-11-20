@@ -1,13 +1,13 @@
 import joi from "joi";
 import * as helpers from "./helpers";
 
+import { FormModel } from "../models";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../models";
-import { ListComponents } from "@xgovformbuilder/model";
+import { ListComponentsDef } from "@xgovformbuilder/model";
 
 export class CheckboxesField extends ConditionalFormComponent {
-  constructor(def: ListComponents, model: FormModel) {
+  constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
     const { options, values, itemValues } = this;
 

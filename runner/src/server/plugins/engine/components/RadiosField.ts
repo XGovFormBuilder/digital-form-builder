@@ -1,4 +1,4 @@
-import { ListComponents } from "@xgovformbuilder/model";
+import { ListComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
@@ -6,7 +6,7 @@ import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../models";
 
 export class RadiosField extends ConditionalFormComponent {
-  constructor(def: ListComponents, model: FormModel) {
+  constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
     const { options, values, itemValues } = this;

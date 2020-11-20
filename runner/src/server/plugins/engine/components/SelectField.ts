@@ -1,5 +1,5 @@
 import { Schema } from "joi";
-import { ListComponents, StaticValue } from "@xgovformbuilder/model";
+import { ListComponentsDef, StaticValue } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
@@ -9,7 +9,7 @@ import { FormModel } from "../models";
 export class SelectField extends FormComponent {
   items: Array<StaticValue> | undefined;
 
-  constructor(def: ListComponents, model: FormModel) {
+  constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
     const { values } = this;

@@ -1,8 +1,8 @@
-import { FormSubmissionErrors } from "../types";
+import { FormData, FormSubmissionErrors } from "../types";
 import { PageController } from "./pageController";
 
 export class StartPageController extends PageController {
-  getViewModel(formData, errors?: FormSubmissionErrors) {
+  getViewModel(formData: FormData, errors?: FormSubmissionErrors) {
     return {
       ...super.getViewModel(formData, errors),
       isStartPage: true,

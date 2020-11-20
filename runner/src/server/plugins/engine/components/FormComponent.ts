@@ -3,14 +3,21 @@ import joi, { Schema } from "joi";
 import { ComponentBase } from "./ComponentBase";
 import { optionalText } from "./constants";
 
-import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
+import {
+  FormSubmissionState,
+  FormSubmissionErrors,
+  FormData,
+  FormPayload,
+} from "../types";
 import { ViewModel } from "./types";
+import { FormModel } from "../models";
+import { ComponentDef } from "@xgovformbuilder/model";
 
 export class FormComponent extends ComponentBase {
   isFormComponent: boolean = true;
   __lang: string = "en";
 
-  constructor(def, model) {
+  constructor(def: ComponentDef, model: FormModel) {
     super(def, model);
 
     const schema: any = this.schema;
@@ -105,7 +112,7 @@ export class FormComponent extends ComponentBase {
     }
   }
 
-  getStateFromValidForm(payload) {
+  getStateFromValidForm(payload: FormPayload) {
     const name = this.name;
 
     return {
@@ -113,7 +120,7 @@ export class FormComponent extends ComponentBase {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload): any {
     const name = this.name;
 
     return name in payload && payload[name] !== "" ? payload[name] : null;

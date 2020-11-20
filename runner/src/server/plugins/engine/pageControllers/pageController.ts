@@ -1,9 +1,9 @@
 import { PageControllerBase } from "./pageControllerBase";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
+import { FormModel } from "../models";
 
 export class PageController extends PageControllerBase {
-  // TODO: improve type, see Page once types mature
-  constructor(model: any, pageDef: any) {
+  constructor(model: FormModel, pageDef: any) {
     super(model, pageDef);
   }
 

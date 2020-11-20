@@ -1,4 +1,5 @@
 import joi from "joi";
+import { FormPayload } from "../types";
 import { PageController } from "./pageController";
 
 export class DobPageController extends PageController {
@@ -11,7 +12,7 @@ export class DobPageController extends PageController {
     });
   }
 
-  getStateFromValidForm(formData) {
+  getStateFromValidForm(formData: FormPayload) {
     const state = super.getStateFromValidForm(formData);
     const age = Math.floor((Date.now() - state.dob) / 31557600000);
 

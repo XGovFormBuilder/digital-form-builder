@@ -4,14 +4,14 @@ import {
   getStateSchemaKeys,
   addClassOptionIfNone,
 } from "./helpers";
-import { InputFieldsComponents } from "@xgovformbuilder/model";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../models";
 
 export class DateField extends FormComponent {
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     addClassOptionIfNone(this.options, "govuk-input--width-10");
   }

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { InputFieldsComponents } from "@xgovformbuilder/model";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
@@ -8,7 +8,7 @@ import { FormModel } from "../models";
 import { addClassOptionIfNone } from "./helpers";
 
 export class DateTimeField extends FormComponent {
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     addClassOptionIfNone(this.options, "govuk-input--width-20");
   }

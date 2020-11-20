@@ -1,9 +1,9 @@
 import { Schema as JoiSchema } from "joi";
 import {
   Data,
-  Component as ComponentType,
-  ContentComponents,
-  InputFieldsComponents,
+  ComponentDef,
+  ContentComponentsDef,
+  InputFieldsComponentsDef,
   StaticValues,
 } from "@xgovformbuilder/model";
 
@@ -12,19 +12,19 @@ import { FormData, FormSubmissionErrors } from "../types";
 import { ViewModel } from "./types";
 
 export class ComponentBase {
-  type: ComponentType["type"];
-  name: ComponentType["name"];
-  title: ComponentType["title"];
-  schema: ComponentType["schema"];
-  options: ComponentType["options"];
-  hint?: InputFieldsComponents["hint"];
+  type: ComponentDef["type"];
+  name: ComponentDef["name"];
+  title: ComponentDef["title"];
+  schema: ComponentDef["schema"];
+  options: ComponentDef["options"];
+  hint?: InputFieldsComponentsDef["hint"];
   content?:
     | {
         title: string;
         text: string;
         condition?: any;
       }
-    | ContentComponents["content"];
+    | ContentComponentsDef["content"];
 
   model: FormModel;
   values?: StaticValues;
@@ -32,7 +32,7 @@ export class ComponentBase {
   formSchema?: JoiSchema;
   stateSchema?: JoiSchema;
 
-  constructor(def: ComponentType, model: FormModel) {
+  constructor(def: ComponentDef, model: FormModel) {
     // component definition properties
     this.type = def.type;
     this.name = def.name;

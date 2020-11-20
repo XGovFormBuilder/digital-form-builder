@@ -3,7 +3,12 @@ import nunjucks from "nunjucks";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
 import { FormModel } from "../models";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
@@ -43,7 +48,7 @@ export class ConditionalFormComponent extends FormComponent {
     return this[getSchemaKeys]("form");
   }
 
-  getStateFromValidForm(payload) {
+  getStateFromValidForm(payload: FormPayload) {
     const state = super.getStateFromValidForm(payload);
     const itemsWithConditionalComponents = this.values?.items.filter(
       (item: any) => item.childrenCollection
@@ -70,7 +75,7 @@ export class ConditionalFormComponent extends FormComponent {
     );
 
     // Add null values to the state for unselected form data associated with conditionally revealed content.
-    // This will allow changes in the visibility of onditionally revealed content to be reflected in state correctly.
+    // This will allow changes in the visibility of conditionally revealed content to be reflected in state correctly.
     const unselectedItemsWithConditionalComponents = itemsWithConditionalComponents?.filter(
       (item) => !selectedItemsWithConditionalComponents?.includes(item)
     );
@@ -90,6 +95,7 @@ export class ConditionalFormComponent extends FormComponent {
         });
       Object.assign(state, stateFromValidForm);
     });
+
     return state;
   }
 

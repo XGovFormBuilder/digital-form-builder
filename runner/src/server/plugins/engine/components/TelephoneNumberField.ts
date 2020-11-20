@@ -1,4 +1,4 @@
-import { InputFieldsComponents } from "@xgovformbuilder/model";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
@@ -9,7 +9,7 @@ import { FormData, FormSubmissionErrors } from "../types";
 const PATTERN = "^[0-9\\s\\+\\(\\)]*$";
 
 export class TelephoneNumberField extends FormComponent {
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     this.schema["regex"] = PATTERN;
     addClassOptionIfNone(this.options, "govuk-input--width-10");

@@ -1,4 +1,4 @@
-import { InputFieldsComponents } from "@xgovformbuilder/model";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
@@ -7,7 +7,7 @@ import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 
 export class TimeField extends FormComponent {
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     addClassOptionIfNone(this.options, "govuk-input--width-4");
   }

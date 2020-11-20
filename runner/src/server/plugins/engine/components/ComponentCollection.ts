@@ -1,34 +1,42 @@
 import joi, { Schema as JoiSchema } from "joi";
-import { Component, StaticValue } from "@xgovformbuilder/model";
+import { ComponentDef } from "@xgovformbuilder/model";
 
 import * as Components from "./index";
 import { FormModel } from "../models";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
 import { ComponentCollectionViewModel } from "./types";
+import { ComponentBase } from "./ComponentBase";
+import { FormComponent } from "./FormComponent";
+import { ConditionalFormComponent } from "./ConditionalFormComponent";
 
 export class ComponentCollection {
-  items: Array<StaticValue> | undefined;
+  items: (ComponentBase | ComponentCollection | FormComponent)[];
+  formItems: (FormComponent | ConditionalFormComponent)[];
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
-  formItems: any; // TODO
 
-  constructor(items: Component[], model: FormModel) {
-    const itemTypes = items.map((def) => {
-      const Type: any = Components[def.type];
+  constructor(componentDefs: ComponentDef[], model: FormModel) {
+    const components = componentDefs.map((def) => {
+      const Comp: any = Components[def.type];
 
-      if (typeof Type !== "function") {
+      if (typeof Comp !== "function") {
         throw new Error(`Component type ${def.type} doesn't exist`);
       }
 
-      return new Type(def, model);
+      return new Comp(def, model);
     });
 
-    const formItems = itemTypes.filter(
+    const formComponents = components.filter(
       (component) => component.isFormComponent
     );
 
-    this.items = itemTypes;
-    this.formItems = formItems;
+    this.items = components;
+    this.formItems = formComponents;
     this.formSchema = joi
       .object()
       .keys(this.getFormSchemaKeys())
@@ -68,7 +76,7 @@ export class ComponentCollection {
     return formData;
   }
 
-  getStateFromValidForm(payload) {
+  getStateFromValidForm(payload: FormPayload): { [key: string]: any } {
     const state = {};
 
     this.formItems.forEach((item) => {

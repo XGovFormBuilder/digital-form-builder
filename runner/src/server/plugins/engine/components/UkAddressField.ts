@@ -1,18 +1,23 @@
 import joi from "joi";
 
-import { InputFieldsComponents } from "@xgovformbuilder/model";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
 import { FormModel } from "../models";
 
 export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
   stateChildren: ComponentCollection;
 
-  constructor(def: InputFieldsComponents, model: FormModel) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     const { name, options } = this;
     const stateSchema = helpers.buildStateSchema("date", this);
@@ -96,7 +101,7 @@ export class UkAddressField extends FormComponent {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
     return payload[`${name}__addressLine1`]
       ? {

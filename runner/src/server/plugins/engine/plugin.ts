@@ -13,6 +13,7 @@ import { FormModel } from "./models/formModel";
 import { nanoid } from "nanoid";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
+import { FormPayload } from "./types";
 
 nunjucks.configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -101,7 +102,7 @@ export const plugin = {
         method: "post",
         path: "/publish",
         handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-          const payload = request.payload as any;
+          const payload = request.payload as FormPayload;
           const { id, configuration } = payload;
 
           const parsedConfiguration =

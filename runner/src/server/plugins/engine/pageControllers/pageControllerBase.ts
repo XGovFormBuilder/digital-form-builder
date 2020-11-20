@@ -14,7 +14,12 @@ import {
   HapiResponseObject,
 } from "server/types";
 import { FormModel } from "../models";
-import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
+import {
+  FormSubmissionState,
+  FormSubmissionErrors,
+  FormData,
+  FormPayload,
+} from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
@@ -227,6 +232,7 @@ export class PageControllerBase {
     return this.defaultNextPath;
   }
 
+  // TODO: types
   getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
 
@@ -247,8 +253,7 @@ export class PageControllerBase {
     return this.components.getFormDataFromState(pageState || {});
   }
 
-  // TODO: type
-  getStateFromValidForm(formData): any {
+  getStateFromValidForm(formData: FormPayload) {
     return this.components.getStateFromValidForm(formData);
   }
 
