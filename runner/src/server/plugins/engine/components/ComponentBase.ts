@@ -40,7 +40,7 @@ export class ComponentBase {
     this.schema = def.schema || {};
     this.options = def.options;
     this.hint = "hint" in def ? def.hint : undefined;
-    // this.content = "content" in def ? def.content : undefined;
+    this.content = "content" in def ? def.content : undefined;
 
     // model values
     this.model = model;
