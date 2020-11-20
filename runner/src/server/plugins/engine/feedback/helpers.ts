@@ -1,6 +1,5 @@
 import atob from "atob";
-
-import { FeedbackContextInfo } from "./feedbackContextInfo";
+import { FeedbackContextInfo } from "./FeedbackContextInfo";
 
 export function decodeFeedbackContextInfo(
   encoded: string | Buffer | undefined

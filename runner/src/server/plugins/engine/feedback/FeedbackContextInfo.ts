@@ -1,5 +1,5 @@
 import btoa from "btoa";
-import { RelativeUrl } from "./relativeUrl";
+import { RelativeUrl } from "./RelativeUrl";
 
 export class FeedbackContextInfo {
   formTitle: string;
