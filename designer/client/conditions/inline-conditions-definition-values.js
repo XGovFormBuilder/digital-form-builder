@@ -89,7 +89,11 @@ function customValueComponent(fieldType, operator) {
   };
   if (fieldType in absoluteDateTimeRenderFunctions) {
     if (absoluteDateOrTimeOperatorNames.includes(operator)) {
-      return absoluteDateTimeRenderFunctions[fieldType];
+      //since these are all classes return a function which creates new class comp
+      let CustomRendering = absoluteDateTimeRenderFunctions[fieldType];
+      return function CustomRenderingWrapper(value, updateValue) {
+        return <CustomRendering value={value} updateValue={updateValue} />;
+      };
     } else if (relativeDateOrTimeOperatorNames.includes(operator)) {
       const units = operatorConfig.units;
       return function RelativeTimeValuesWrapper(value, updateValue) {
@@ -110,9 +114,9 @@ class InlineConditionsDefinitionValue extends React.Component {
   render() {
     const { fieldDef, operator, value, updateValue } = this.props;
 
-    const CustomRendering = customValueComponent(fieldDef.type, operator);
-    if (CustomRendering) {
-      return <CustomRendering value={value} updateValue={updateValue} />;
+    const customRendering = customValueComponent(fieldDef.type, operator);
+    if (customRendering) {
+      return customRendering(value, updateValue);
     }
     return (fieldDef?.values?.length ?? 0) > 0
       ? SelectValues(this.props)
