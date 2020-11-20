@@ -66,7 +66,7 @@ export class PageControllerBase {
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
     const conditionalFormComponents = components.formItems.filter(
-      (c) => c.conditionalComponents
+      (c: any) => c.conditionalComponents
     );
 
     this.components = components;
