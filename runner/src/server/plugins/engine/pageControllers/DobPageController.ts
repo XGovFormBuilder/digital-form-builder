@@ -1,6 +1,6 @@
 import joi from "joi";
 import { FormPayload } from "../types";
-import { PageController } from "./pageController";
+import { PageController } from "./PageController";
 
 export class DobPageController extends PageController {
   // TODO: improve type, see Page once types mature

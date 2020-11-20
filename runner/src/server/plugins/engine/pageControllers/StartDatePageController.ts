@@ -1,5 +1,5 @@
 import joi from "joi";
-import { PageController } from "./pageController";
+import { PageController } from "./PageController";
 
 export class StartDatePageController extends PageController {
   components: any;

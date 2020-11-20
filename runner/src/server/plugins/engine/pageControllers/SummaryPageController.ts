@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 
 import config from "server/config";
 import { SummaryViewModel } from "../models";
-import { PageController } from "./pageController";
+import { PageController } from "./PageController";
 import { redirectTo, redirectUrl } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {

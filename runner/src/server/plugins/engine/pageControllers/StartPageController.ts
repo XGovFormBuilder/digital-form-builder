@@ -1,5 +1,5 @@
 import { FormData, FormSubmissionErrors } from "../types";
-import { PageController } from "./pageController";
+import { PageController } from "./PageController";
 
 export class StartPageController extends PageController {
   getViewModel(formData: FormData, errors?: FormSubmissionErrors) {

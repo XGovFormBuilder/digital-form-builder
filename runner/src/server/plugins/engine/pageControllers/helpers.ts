@@ -1,12 +1,12 @@
 import path from "path";
 import { camelCase, upperFirst } from "lodash";
-import { DobPageController } from "./dobPageController";
-import { HomePageController } from "./homePageController";
-import { PageController } from "./pageController";
-import { StartDatePageController } from "./startDatePageController";
-import { StartPageController } from "./startPageController";
-import { SummaryPageController } from "./summaryPageController";
-import { PageControllerBase } from "./pageControllerBase";
+import { DobPageController } from "./DobPageController";
+import { HomePageController } from "./HomePageController";
+import { PageController } from "./PageController";
+import { StartDatePageController } from "./StartDatePageController";
+import { StartPageController } from "./StartPageController";
+import { SummaryPageController } from "./SummaryPageController";
+import { PageControllerBase } from "./PageControllerBase";
 
 const PageControllers = {
   DobPageController,

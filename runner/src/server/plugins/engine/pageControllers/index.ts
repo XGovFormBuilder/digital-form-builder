@@ -1,8 +1,8 @@
-export { DobPageController } from "./dobPageController";
-export { HomePageController } from "./homePageController";
-export { PageController } from "./pageController";
-export { StartDatePageController } from "./startDatePageController";
-export { StartPageController } from "./startPageController";
-export { SummaryPageController } from "./summaryPageController";
-export { PageControllerBase } from "./pageControllerBase";
+export { DobPageController } from "./DobPageController";
+export { HomePageController } from "./HomePageController";
+export { PageController } from "./PageController";
+export { StartDatePageController } from "./StartDatePageController";
+export { StartPageController } from "./StartPageController";
+export { SummaryPageController } from "./SummaryPageController";
+export { PageControllerBase } from "./PageControllerBase";
 export { getPageController, controllerNameFromPath } from "./helpers";

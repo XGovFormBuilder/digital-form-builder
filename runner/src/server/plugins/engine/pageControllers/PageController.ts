@@ -1,9 +1,9 @@
-import { Page as PageBase } from "../";
-import { HapiRequest, HapiResponseToolkit } from "../../../types";
+import { PageControllerBase } from "./PageControllerBase";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
+import { FormModel } from "../models";
 
-export default class Page extends PageBase {
-  // TODO: improve type, see Page once types mature
-  constructor(model: any, pageDef: any) {
+export class PageController extends PageControllerBase {
+  constructor(model: FormModel, pageDef: any) {
     super(model, pageDef);
   }
 
@@ -14,7 +14,6 @@ export default class Page extends PageBase {
       ext: {
         onPostHandler: {
           method: (_request: HapiRequest, h: HapiResponseToolkit) => {
-            console.log(`GET onPostHandler ${this.path}`);
             return h.continue;
           },
         },
@@ -49,6 +48,3 @@ export default class Page extends PageBase {
     };
   }
 }
-
-// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = Page;
