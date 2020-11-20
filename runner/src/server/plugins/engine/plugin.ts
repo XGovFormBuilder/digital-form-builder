@@ -9,7 +9,7 @@ import {
 
 import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 
-import { FormModel } from "./models/formModel";
+import { FormModel } from "./models/FormModel";
 import { nanoid } from "nanoid";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";

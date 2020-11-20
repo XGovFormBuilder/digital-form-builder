@@ -1,2 +1,2 @@
-export { FormModel } from "./formModel";
-export { SummaryViewModel } from "./summaryViewModel";
+export { FormModel } from "./FormModel";
+export { SummaryViewModel } from "./SummaryViewModel";

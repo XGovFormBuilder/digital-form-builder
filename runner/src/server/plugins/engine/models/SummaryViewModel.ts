@@ -4,7 +4,7 @@ import { clone, reach } from "hoek";
 import { Data } from "@xgovformbuilder/model";
 
 import config from "server/config";
-import { FormModel } from "./formModel";
+import { FormModel } from "./FormModel";
 import { redirectUrl } from "../helpers";
 import { decodeFeedbackContextInfo, RelativeUrl } from "../feedback";
 import { formSchema } from "server/schemas/formSchema";
