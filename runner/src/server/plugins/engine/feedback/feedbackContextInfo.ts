@@ -1,4 +1,3 @@
-import atob from "atob";
 import btoa from "btoa";
 import { RelativeUrl } from "./relativeUrl";
 
@@ -16,19 +15,5 @@ export class FeedbackContextInfo {
 
   toString() {
     return btoa(JSON.stringify(this));
-  }
-}
-
-export function decodeFeedbackContextInfo(
-  encoded: string | Buffer | undefined
-): FeedbackContextInfo | void {
-  if (encoded) {
-    const decoded = JSON.parse(atob(encoded));
-
-    return new FeedbackContextInfo(
-      decoded.formTitle,
-      decoded.pageTitle,
-      decoded.url
-    );
   }
 }
