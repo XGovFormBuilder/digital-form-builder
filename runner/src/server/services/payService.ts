@@ -50,7 +50,6 @@ export class PayService {
       ...this.options(apiKey),
       payload: this.payRequestData(amount, reference, description, returnUrl),
     };
-<<<<<<< HEAD
     const { payload } = await postJson(`${config.payApiUrl}/payments`, data);
     return payload;
   }
@@ -58,15 +57,6 @@ export class PayService {
   async payStatus(url: string, apiKey: string) {
     const { payload } = await get(url, this.options(apiKey));
     return payload;
-=======
-    const { payload } = await Wreck.post(`${config.payApiUrl}/payments`, data);
-    return JSON.parse(payload.toString());
-  }
-
-  async payStatus(url: string, apiKey: string) {
-    const { payload } = await Wreck.get(url, this.options(apiKey));
-    return JSON.parse(payload.toString());
->>>>>>> fee795d5d726486bc73176009a7726d85fd496e0
   }
 
   descriptionFromFees(fees: Fees): string {
