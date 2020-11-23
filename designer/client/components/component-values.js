@@ -5,6 +5,8 @@ import DefineComponentValue from "./define-component-value";
 import { clone } from "@xgovformbuilder/model";
 import { RenderInPortal } from "./render-in-portal";
 import { Radios } from "@govuk-jsx/radios";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 function updateComponent(component, modifier, updateModel) {
   modifier(component);
@@ -64,11 +66,29 @@ export default class ComponentValues extends React.Component {
     this.state = {
       component: clone(props.component),
       listName: values?.list,
+      errors: {},
     };
 
     this.formAddItem = React.createRef();
     this.formEditItem = React.createRef();
   }
+
+  validate = () => {
+    const { listName, component } = this.state;
+
+    let typeHasError = component.values?.type === undefined;
+    let listNameHasError =
+      component.values?.type === "listRef" && listName === undefined;
+
+    this.setState({
+      errors: {
+        type: typeHasError,
+        listName: listNameHasError,
+      },
+    });
+
+    return typeHasError || listNameHasError;
+  };
 
   showAddItem = () => this.setState({ showAddItem: true });
 
@@ -140,7 +160,13 @@ export default class ComponentValues extends React.Component {
   render() {
     const { data, updateModel, page } = this.props;
     const { lists } = data;
-    const { listName, showAddItem, editingIndex, component } = this.state;
+    const {
+      listName,
+      showAddItem,
+      editingIndex,
+      component,
+      errors,
+    } = this.state;
     const staticValues = data.valuesFor(component)?.toStaticValues();
     const type = component.values?.type;
 
@@ -176,6 +202,9 @@ export default class ComponentValues extends React.Component {
               children: ["How would you like to populate the options?"],
             },
           }}
+          errorMessage={
+            errors?.type ? { children: ["This field is required"] } : undefined
+          }
           items={[
             {
               children: ["From a list"],
@@ -199,13 +228,22 @@ export default class ComponentValues extends React.Component {
         />
         {type && (
           <div>
-            <div className="govuk-form-group">
+            <div
+              className={classNames({
+                "govuk-form-group": true,
+                "govuk-form-group--error": errors.listRef,
+              })}
+            >
               <label
                 className="govuk-label govuk-label--s"
                 htmlFor="field-options-list"
               >
                 List
               </label>
+              {errors.listRef && (
+                <ErrorMessage>This field is required</ErrorMessage>
+              )}
+
               <select
                 className="govuk-select govuk-input--width-10"
                 id="field-options-list"

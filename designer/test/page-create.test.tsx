@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import PageCreate from "../client/page-create";
@@ -8,14 +8,16 @@ import sinon from "sinon";
 import {
   assertTextInput,
   assertSelectInput,
+  assertClasses,
 } from "./helpers/element-assertions";
+import initI18n from "./i18nForTest";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, test, describe } = lab;
+const { suite, test, describe, before } = lab;
 
-suite.skip("Page create", () => {
+suite("Page create", () => {
   const data = new Data({
     pages: [{ path: "/1" }, { path: "/2" }],
     sections: [
@@ -30,8 +32,12 @@ suite.skip("Page create", () => {
     ],
   });
 
+  before(() => {
+    initI18n();
+  });
+
   test("Renders a form with the appropriate initial inputs", () => {
-    const wrapper = shallow(<PageCreate data={data} />);
+    const wrapper = mount(<PageCreate data={data} />);
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
@@ -52,7 +58,7 @@ suite.skip("Page create", () => {
     assertTextInput({
       wrapper: wrapper.find("#page-path"),
       id: "page-path",
-      expectedValue: "",
+      expectedValue: "/",
     });
 
     assertSelectInput({
@@ -79,7 +85,7 @@ suite.skip("Page create", () => {
   });
 
   test("Inputs remain populated when amending other fields", () => {
-    const wrapper = shallow(<PageCreate data={data} />);
+    const wrapper = mount(<PageCreate data={data} />);
     wrapper
       .find("#page-type")
       .simulate("change", { target: { value: "./pages/start.js" } });
@@ -134,16 +140,34 @@ suite.skip("Page create", () => {
   });
 
   test("Selecting a link from displays the conditions section", () => {
-    const wrapper = shallow(<PageCreate data={data} />);
+    const wrapper = mount(<PageCreate data={data} />);
     wrapper.find("#link-from").simulate("change", { target: { value: "/2" } });
 
     const SelectConditions = wrapper.find("SelectConditions");
     expect(SelectConditions.exists()).to.equal(true);
     expect(SelectConditions.prop("data")).to.equal(data);
     expect(SelectConditions.prop("path")).to.equal("/2");
-    expect(SelectConditions.prop("conditionsChange")).to.equal(
-      wrapper.instance().conditionSelected
-    );
+  });
+
+  test("Page title will have error if the value is removed", () => {
+    const wrapper = mount(<PageCreate data={data} />);
+
+    wrapper.find("#page-title").simulate("change", { target: { value: "" } });
+
+    const form = wrapper.find("form").first();
+    form.simulate("submit");
+
+    assertClasses(wrapper.find("#page-title"), [
+      "govuk-input",
+      "govuk-input--error",
+    ]);
+
+    assertClasses(wrapper.find("#page-title").parent(), [
+      "govuk-form-group",
+      "govuk-form-group--error",
+    ]);
+
+    expect(wrapper.find("span.govuk-error-message")).to.exist();
   });
 
   describe("Submitting the form", () => {
@@ -167,9 +191,12 @@ suite.skip("Page create", () => {
       data.save.resolves(clonedData);
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
+      const wrapperWithi18n = mount(
         <PageCreate data={data} onCreate={wrappedOnCreate} />
       );
+
+      const wrapper = wrapperWithi18n.childAt(0);
+
       const preventDefault = sinon.spy();
       wrapper
         .find("#page-type")
@@ -225,9 +252,12 @@ suite.skip("Page create", () => {
       data.save.resolves(clonedData);
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
+      const wrapperWithi18n = mount(
         <PageCreate data={data} onCreate={wrappedOnCreate} />
       );
+
+      const wrapper = wrapperWithi18n.childAt(0);
+
       const preventDefault = sinon.spy();
       wrapper
         .find("#page-type")
@@ -278,9 +308,12 @@ suite.skip("Page create", () => {
       data.save.resolves(clonedData);
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
+      const wrapperWithi18n = mount(
         <PageCreate data={data} onCreate={wrappedOnCreate} />
       );
+
+      const wrapper = wrapperWithi18n.childAt(0);
+
       const preventDefault = sinon.spy();
       wrapper
         .find("#page-type")
@@ -319,9 +352,12 @@ suite.skip("Page create", () => {
       data.save.resolves(clonedData);
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
+      const wrapperWithi18n = mount(
         <PageCreate data={data} onCreate={wrappedOnCreate} />
       );
+
+      const wrapper = wrapperWithi18n.childAt(0);
+
       const preventDefault = sinon.spy();
       wrapper
         .find("#page-type")
@@ -339,96 +375,9 @@ suite.skip("Page create", () => {
       expect(clonedData.addPage.calledOnce).to.equal(true);
       expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage);
     });
-
-    test("Generated path ignored when a path is provided", async (flags) => {
-      const expectedPage = {
-        path: "/dancing-badgers",
-        title: "My New    Page 23?!¢#",
-        controller: "./pages/start.js",
-        next: [],
-        components: [],
-      };
-      const onCreate = (data) => {
-        expect(data.value).to.equal(expectedPage);
-      };
-      const clonedData = {
-        addPage: sinon.stub(),
-        addLink: sinon.stub(),
-      };
-      data.save = sinon.stub();
-      data.save.resolves(clonedData);
-      const wrappedOnCreate = flags.mustCall(onCreate, 1);
-
-      const wrapper = shallow(
-        <PageCreate data={data} onCreate={wrappedOnCreate} />
-      );
-      const preventDefault = sinon.spy();
-      wrapper
-        .find("#page-type")
-        .simulate("change", { target: { value: "./pages/start.js" } });
-      wrapper
-        .find("#page-path")
-        .simulate("change", { target: { value: "dancing-badgers" } });
-      wrapper
-        .find("#page-title")
-        .simulate("change", { target: { value: "My New    Page 23?!¢#" } });
-
-      data.clone = sinon.stub();
-      data.clone.returns(clonedData);
-      clonedData.addLink.returns(clonedData);
-      clonedData.addPage.returns(clonedData);
-
-      await wrapper.instance().onSubmit({ preventDefault: preventDefault });
-      expect(clonedData.addPage.calledOnce).to.equal(true);
-      expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage);
-    });
-
-    test("Generated path ignored when a path is provided with a leading /", async (flags) => {
-      const expectedPage = {
-        path: "/dancing-badgers",
-        title: "My New    Page 23?!¢#",
-        controller: "./pages/start.js",
-        next: [],
-        components: [],
-      };
-      const onCreate = (data) => {
-        expect(data.value).to.equal(expectedPage);
-      };
-      const clonedData = {
-        addPage: sinon.stub(),
-        addLink: sinon.stub(),
-      };
-      data.save = sinon.stub();
-      data.save.resolves(clonedData);
-      const wrappedOnCreate = flags.mustCall(onCreate, 1);
-
-      const wrapper = shallow(
-        <PageCreate data={data} onCreate={wrappedOnCreate} />
-      );
-      const preventDefault = sinon.spy();
-      wrapper
-        .find("#page-type")
-        .simulate("change", { target: { value: "./pages/start.js" } });
-      wrapper
-        .find("#page-path")
-        .simulate("change", { target: { value: "/dancing-badgers" } });
-      wrapper
-        .find("#page-title")
-        .simulate("change", { target: { value: "My New    Page 23?!¢#" } });
-
-      data.clone = sinon.stub();
-      data.clone.returns(clonedData);
-      clonedData.addLink.returns(clonedData);
-      clonedData.addPage.returns(clonedData);
-
-      await wrapper.instance().onSubmit({ preventDefault: preventDefault });
-      expect(clonedData.addPage.calledOnce).to.equal(true);
-      expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage);
-    });
-
     test("Whitespace in paths is replaced with hyphens", async (flags) => {
       const expectedPage = {
-        path: "/dancing--badger-s",
+        path: "/my-new-page-23",
         title: "My New    Page 23?!¢#",
         controller: "./pages/start.js",
         next: [],
@@ -445,9 +394,11 @@ suite.skip("Page create", () => {
       data.save.resolves(clonedData);
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
+      const wrapperWithi18n = mount(
         <PageCreate data={data} onCreate={wrappedOnCreate} />
       );
+      const wrapper = wrapperWithi18n.childAt(0);
+
       const preventDefault = sinon.spy();
       wrapper
         .find("#page-type")
@@ -467,6 +418,42 @@ suite.skip("Page create", () => {
       await wrapper.instance().onSubmit({ preventDefault: preventDefault });
       expect(clonedData.addPage.calledOnce).to.equal(true);
       expect(clonedData.addPage.firstCall.args[0]).to.equal(expectedPage);
+    });
+
+    test("Whitespace in page title will not submit form", async (flags) => {
+      const wrappedOnCreate = sinon.spy();
+
+      const wrapperWithi18n = mount(
+        <PageCreate data={data} onCreate={wrappedOnCreate} />
+      );
+      const wrapper = wrapperWithi18n.childAt(0);
+
+      const preventDefault = sinon.spy();
+      //wrapper.find("#page-type").simulate("change", { target: { value: "" } });
+
+      await wrapper.instance().onSubmit({ preventDefault: preventDefault });
+      expect(wrappedOnCreate.notCalled).to.equal(true);
+    });
+
+    test("Duplicate page path will not submit form", async (flags) => {
+      const wrappedOnCreate = sinon.spy();
+
+      const wrapperWithi18n = mount(
+        <PageCreate data={data} onCreate={wrappedOnCreate} />
+      );
+      const wrapper = wrapperWithi18n.childAt(0);
+
+      const preventDefault = sinon.spy();
+      wrapper
+        .find("#page-title")
+        .simulate("change", { target: { value: "My New    Page 23?!¢#" } });
+
+      wrapper
+        .find("#page-path")
+        .simulate("change", { target: { value: "/1" } });
+
+      await wrapper.instance().onSubmit({ preventDefault: preventDefault });
+      expect(wrappedOnCreate.notCalled).to.equal(true);
     });
   });
 });

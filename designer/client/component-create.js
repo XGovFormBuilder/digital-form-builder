@@ -3,9 +3,13 @@ import ComponentTypeEdit from "./component-type-edit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 
 class ComponentCreate extends React.Component {
-  state = {
-    isSaving: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSaving: false,
+    };
+    this.typeEditRef = React.createRef();
+  }
 
   async componentDidMount() {
     const { data } = this.props;
@@ -20,6 +24,9 @@ class ComponentCreate extends React.Component {
       return;
     }
 
+    let validationErrors = this.validate();
+    if (validationErrors) return false;
+
     this.setState({ isSaving: true });
 
     const { page, data } = this.props;
@@ -31,6 +38,11 @@ class ComponentCreate extends React.Component {
     const saved = await data.save(updated);
     this.props.onCreate({ data: saved });
   }
+
+  validate = () => {
+    if (this.typeEditRef.current) return this.typeEditRef.current.validate();
+    return false;
+  };
 
   storeComponent = (component) => {
     this.setState({ component });
@@ -76,6 +88,7 @@ class ComponentCreate extends React.Component {
                 data={data}
                 component={this.state.component}
                 updateModel={this.storeComponent}
+                ref={this.typeEditRef}
               />
               <button
                 type="submit"

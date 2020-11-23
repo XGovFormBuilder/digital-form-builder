@@ -2,6 +2,7 @@ import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
+import { isEmpty } from "./helpers";
 
 function headDuplicate(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -24,19 +25,47 @@ class FeeItems extends React.Component {
 
   validate = (form) => {
     let validationErrors = false;
+    let errors = {};
     const formData = new window.FormData(form);
+    let missingRequiredFields = false;
+    formData.getAll("description").forEach((d, i) => {
+      if (isEmpty(d)) {
+        errors["description" + i] = true;
+        missingRequiredFields = true;
+      }
+    });
+
+    formData.getAll("condition").forEach((d, i) => {
+      if (isEmpty(d)) {
+        errors["condition" + i] = true;
+        missingRequiredFields = true;
+      }
+    });
+
+    formData.getAll("amount").forEach((d, i) => {
+      if (d <= 0) {
+        errors["amount" + i] = true;
+        missingRequiredFields = true;
+      }
+    });
+
+    if (missingRequiredFields) {
+      errors.missingRequiredFields = true;
+      validationErrors = true;
+    }
+
     const descriptions = formData.getAll("description").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
 
     // Only validate dupes if there is more than one item
     if (descriptions.length >= 2 && headDuplicate(conditions)) {
-      this.setState((prevState, props) => ({
-        errors: {
-          dupConditions: true,
-        },
-      }));
+      errors.dupConditions = true;
       validationErrors = true;
     }
+    this.setState((prevState, props) => ({
+      errors,
+    }));
+
     return validationErrors;
   };
 
@@ -51,9 +80,10 @@ class FeeItems extends React.Component {
   };
 
   removeItem = (idx) => {
-    this.setState({
+    this.setState((prevState, props) => ({
       items: this.state.items.filter((s, i) => i !== idx),
-    });
+      errors: {},
+    }));
   };
 
   onClickDelete = (e) => {
@@ -96,6 +126,10 @@ class FeeItems extends React.Component {
             Duplicate conditions found in the list items
           </ErrorMessage>
         )}
+        {errors.missingRequiredFields && (
+          <ErrorMessage>This field is required</ErrorMessage>
+        )}
+
         <table className="govuk-table">
           <caption className="govuk-table__caption">Items</caption>
           <thead className="govuk-table__head">
@@ -129,30 +163,36 @@ class FeeItems extends React.Component {
               >
                 <td className="govuk-table__cell">
                   <input
-                    className="govuk-input"
+                    className={classNames({
+                      "govuk-input": true,
+                      "govuk-input--error": errors["description" + index],
+                    })}
                     name="description"
                     type="text"
-                    required
                     defaultValue={item.description}
                   />
                 </td>
                 <td className="govuk-table__cell">
                   <input
-                    className="govuk-input"
+                    className={classNames({
+                      "govuk-input": true,
+                      "govuk-input--error": errors["amount" + index],
+                    })}
                     name="amount"
                     type="number"
-                    required
                     defaultValue={item.amount}
                     step="any"
                   />
                 </td>
                 <td className="govuk-table__cell">
                   <select
-                    className="govuk-select"
+                    className={classNames({
+                      "govuk-select": true,
+                      "govuk-input--error": errors["condition" + index],
+                    })}
                     id="link-source"
                     name="condition"
                     defaultValue={item.condition}
-                    required
                   >
                     {conditions.map((condition, i) => (
                       <option key={condition.name + i} value={condition.name}>

@@ -4,6 +4,9 @@ import { ComponentTypes } from "@xgovformbuilder/model";
 import ComponentValues from "./components/component-values";
 import { Textarea } from "@govuk-jsx/textarea";
 import Name from "./name";
+import { isEmpty } from "./helpers";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 function updateComponent(component, modifier, updateModel) {
   modifier(component);
@@ -49,6 +52,8 @@ function Classes(props) {
 }
 
 class FieldEdit extends React.Component {
+  static supportsValidation = true;
+
   constructor(props) {
     super(props);
     const { component } = this.props;
@@ -58,8 +63,21 @@ class FieldEdit extends React.Component {
     this.state = {
       hidden: options.required !== false,
       name: component.name,
+      errors: {},
     };
   }
+
+  validate = () => {
+    const { component } = this.props;
+    let titleHasError = isEmpty(component.title);
+    this.setState({
+      errors: {
+        title: titleHasError,
+      },
+    });
+
+    return titleHasError;
+  };
 
   checkOptionalBox() {
     if (this.isFileUploadField) {
@@ -79,6 +97,7 @@ class FieldEdit extends React.Component {
   render() {
     // FIXME:- We need to refactor so this is not being driven off mutating the props.
     const { component, updateModel } = this.props;
+    const { errors } = this.state;
     component.options = component.options || {};
 
     if (this.isFileUploadField) {
@@ -88,20 +107,30 @@ class FieldEdit extends React.Component {
     return (
       <div>
         <div data-test-id="standard-inputs">
-          <div className="govuk-form-group">
+          <div
+            className={classNames({
+              "govuk-form-group": true,
+              "govuk-form-group--error": errors.path,
+            })}
+          >
             <label className="govuk-label govuk-label--s" htmlFor="field-title">
               Title
             </label>
             <span className="govuk-hint">
               This is the title text displayed on the page
             </span>
+            {errors.title && (
+              <ErrorMessage>This field is required</ErrorMessage>
+            )}
             <input
-              className="govuk-input"
+              className={classNames({
+                "govuk-input": true,
+                "govuk-input--error": errors.title,
+              })}
               id="field-title"
               name="title"
               type="text"
               defaultValue={component.title}
-              required
               onBlur={(e) =>
                 updateComponent(
                   component,
@@ -711,115 +740,178 @@ function DateFieldEdit(props) {
   );
 }
 
-function SelectFieldEdit(props) {
-  const { component, data, updateModel, page } = props;
-  component.options = component.options || {};
+class SelectFieldEdit extends React.Component {
+  static supportsValidation = true;
 
-  return (
-    <FieldEdit component={component} updateModel={updateModel}>
-      <div>
+  constructor(props) {
+    super(props);
+    this.compValuesRef = React.createRef();
+    this.fieldEditorRef = React.createRef();
+  }
+
+  validate = () => {
+    let fieldEditHasErrors = this.fieldEditorRef.current.validate();
+    let componentValHasErrors = this.compValuesRef.current.validate();
+    return fieldEditHasErrors || componentValHasErrors;
+  };
+
+  render() {
+    const { component, data, updateModel, page } = this.props;
+    component.options = component.options || {};
+
+    return (
+      <FieldEdit
+        component={component}
+        updateModel={updateModel}
+        ref={this.fieldEditorRef}
+      >
+        <div>
+          <ComponentValues
+            data={data}
+            component={component}
+            updateModel={updateModel}
+            page={page}
+            EditComponentView={ComponentTypeEdit}
+            ref={this.compValuesRef}
+          />
+
+          <Classes component={component} updateModel={updateModel} />
+        </div>
+      </FieldEdit>
+    );
+  }
+}
+
+class RadiosFieldEdit extends React.Component {
+  static supportsValidation = true;
+
+  constructor(props) {
+    super(props);
+    this.compValuesRef = React.createRef();
+    this.fieldEditorRef = React.createRef();
+  }
+
+  validate = () => {
+    let fieldEditHasErrors = this.fieldEditorRef.current.validate();
+    let componentValHasErrors = this.compValuesRef.current.validate();
+    return fieldEditHasErrors || componentValHasErrors;
+  };
+
+  render() {
+    const { component, data, updateModel, page } = this.props;
+    component.options = component.options || {};
+
+    return (
+      <FieldEdit
+        component={component}
+        updateModel={updateModel}
+        ref={this.fieldEditorRef}
+      >
         <ComponentValues
           data={data}
           component={component}
           updateModel={updateModel}
           page={page}
           EditComponentView={ComponentTypeEdit}
+          ref={this.compValuesRef}
         />
 
-        <Classes component={component} updateModel={updateModel} />
-      </div>
-    </FieldEdit>
-  );
+        <div className="govuk-checkboxes govuk-form-group">
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-bold"
+              data-cast="boolean"
+              name="options.bold"
+              type="checkbox"
+              checked={component.options.bold === true}
+              onChange={() =>
+                updateComponent(
+                  component,
+                  (component) => {
+                    component.options.bold = !component.options.bold;
+                  },
+                  updateModel
+                )
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-bold"
+            >
+              Bold labels
+            </label>
+          </div>
+        </div>
+      </FieldEdit>
+    );
+  }
 }
 
-function RadiosFieldEdit(props) {
-  const { component, data, updateModel, page } = props;
-  component.options = component.options || {};
+class CheckboxesFieldEdit extends React.Component {
+  static supportsValidation = true;
 
-  return (
-    <FieldEdit component={component} updateModel={updateModel}>
-      <ComponentValues
-        data={data}
+  constructor(props) {
+    super(props);
+    this.compValuesRef = React.createRef();
+    this.fieldEditorRef = React.createRef();
+  }
+
+  validate = () => {
+    let fieldEditHasErrors = this.fieldEditorRef.current.validate();
+    let componentValHasErrors = this.compValuesRef.current.validate();
+    return fieldEditHasErrors || componentValHasErrors;
+  };
+
+  render() {
+    const { component, data, updateModel, page } = this.props;
+    component.options = component.options || {};
+
+    return (
+      <FieldEdit
         component={component}
         updateModel={updateModel}
-        page={page}
-        EditComponentView={ComponentTypeEdit}
-      />
+        ref={this.fieldEditorRef}
+      >
+        <ComponentValues
+          data={data}
+          component={component}
+          updateModel={updateModel}
+          page={page}
+          EditComponentView={ComponentTypeEdit}
+          ref={this.compValuesRef}
+        />
 
-      <div className="govuk-checkboxes govuk-form-group">
-        <div className="govuk-checkboxes__item">
-          <input
-            className="govuk-checkboxes__input"
-            id="field-options-bold"
-            data-cast="boolean"
-            name="options.bold"
-            type="checkbox"
-            checked={component.options.bold === true}
-            onChange={() =>
-              updateComponent(
-                component,
-                (component) => {
-                  component.options.bold = !component.options.bold;
-                },
-                updateModel
-              )
-            }
-          />
-          <label
-            className="govuk-label govuk-checkboxes__label"
-            htmlFor="field-options-bold"
-          >
-            Bold labels
-          </label>
+        <div className="govuk-checkboxes govuk-form-group">
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-bold"
+              data-cast="boolean"
+              name="options.bold"
+              type="checkbox"
+              checked={component.options.bold === true}
+              onChange={() =>
+                updateComponent(
+                  component,
+                  (component) => {
+                    component.options.bold = !component.options.bold;
+                  },
+                  updateModel
+                )
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-bold"
+            >
+              Bold labels
+            </label>
+          </div>
         </div>
-      </div>
-    </FieldEdit>
-  );
-}
-
-function CheckboxesFieldEdit(props) {
-  const { component, data, updateModel, page } = props;
-  component.options = component.options || {};
-
-  return (
-    <FieldEdit component={component} updateModel={updateModel}>
-      <ComponentValues
-        data={data}
-        component={component}
-        updateModel={updateModel}
-        page={page}
-        EditComponentView={ComponentTypeEdit}
-      />
-
-      <div className="govuk-checkboxes govuk-form-group">
-        <div className="govuk-checkboxes__item">
-          <input
-            className="govuk-checkboxes__input"
-            id="field-options-bold"
-            data-cast="boolean"
-            name="options.bold"
-            type="checkbox"
-            checked={component.options.bold === true}
-            onChange={() =>
-              updateComponent(
-                component,
-                (component) => {
-                  component.options.bold = !component.options.bold;
-                },
-                updateModel
-              )
-            }
-          />
-          <label
-            className="govuk-label govuk-checkboxes__label"
-            htmlFor="field-options-bold"
-          >
-            Bold labels
-          </label>
-        </div>
-      </div>
-    </FieldEdit>
-  );
+      </FieldEdit>
+    );
+  }
 }
 
 function ParaEdit(props) {
@@ -887,129 +979,199 @@ function ParaEdit(props) {
   );
 }
 
-function ListContentEdit(props) {
-  const { component, data, updateModel, page } = props;
-  component.options = component.options || {};
+class ListContentEdit extends React.Component {
+  static supportsValidation = true;
 
-  return (
-    <div>
+  constructor(props) {
+    super(props);
+    this.compValuesRef = React.createRef();
+  }
+
+  validate = () => {
+    let componentValHasErrors = this.compValuesRef.current.validate();
+    return componentValHasErrors;
+  };
+
+  render() {
+    const { component, data, updateModel, page } = this.props;
+    component.options = component.options || {};
+
+    return (
+      <div>
+        <ComponentValues
+          data={data}
+          component={component}
+          updateModel={updateModel}
+          page={page}
+          EditComponentView={ComponentTypeEdit}
+          ref={this.compValuesRef}
+        />
+
+        <div className="govuk-checkboxes govuk-form-group">
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-type"
+              name="options.type"
+              value="numbered"
+              type="checkbox"
+              checked={component.options.type === "numbered"}
+              onChange={() =>
+                updateComponent(
+                  component,
+                  (component) => {
+                    component.options.type =
+                      component.options.type === "numbered"
+                        ? undefined
+                        : "numbered";
+                  },
+                  updateModel
+                )
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-type"
+            >
+              Numbered
+            </label>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+class FlashCardEdit extends React.Component {
+  static supportsValidation = true;
+
+  constructor(props) {
+    super(props);
+    this.compValuesRef = React.createRef();
+  }
+
+  validate = () => {
+    let componentValHasErrors = this.compValuesRef.current.validate();
+    return componentValHasErrors;
+  };
+
+  render() {
+    const { component, data, updateModel, page } = this.props;
+    component.options = component.options || {};
+
+    return (
       <ComponentValues
         data={data}
         component={component}
         updateModel={updateModel}
         page={page}
         EditComponentView={ComponentTypeEdit}
+        ref={this.compValuesRef}
       />
-
-      <div className="govuk-checkboxes govuk-form-group">
-        <div className="govuk-checkboxes__item">
-          <input
-            className="govuk-checkboxes__input"
-            id="field-options-type"
-            name="options.type"
-            value="numbered"
-            type="checkbox"
-            checked={component.options.type === "numbered"}
-            onChange={() =>
-              updateComponent(
-                component,
-                (component) => {
-                  component.options.type =
-                    component.options.type === "numbered"
-                      ? undefined
-                      : "numbered";
-                },
-                updateModel
-              )
-            }
-          />
-          <label
-            className="govuk-label govuk-checkboxes__label"
-            htmlFor="field-options-type"
-          >
-            Numbered
-          </label>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FlashCardEdit(props) {
-  const { component, data, updateModel, page } = props;
-  component.options = component.options || {};
-
-  return (
-    <ComponentValues
-      data={data}
-      component={component}
-      updateModel={updateModel}
-      page={page}
-      EditComponentView={ComponentTypeEdit}
-    />
-  );
+    );
+  }
 }
 
 const InsetTextEdit = ParaEdit;
 const WarningTextEdit = ParaEdit;
 const HtmlEdit = ParaEdit;
 
-function DetailsEdit(props) {
-  const { component, updateModel } = props;
+class DetailsEdit extends React.Component {
+  static supportsValidation = true;
 
-  return (
-    <div>
-      <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="details-title">
-          Title
-        </label>
-        <input
-          className="govuk-input"
-          id="details-title"
-          name="title"
-          defaultValue={component.title}
-          required
-          onBlur={(e) =>
-            updateComponent(
-              component,
-              (component) => {
-                component.title = e.target.value;
-              },
-              updateModel
-            )
-          }
-        />
-      </div>
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: {},
+    };
+  }
 
-      <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="details-content">
-          Content
-        </label>
-        <span className="govuk-hint">
-          The content can include HTML and the `govuk-prose-scope` css class is
-          available. Use this on a wrapping element to apply default govuk
-          styles.
-        </span>
-        <textarea
-          className="govuk-textarea"
-          id="details-content"
-          name="content"
-          defaultValue={component.content}
-          rows="10"
-          required
-          onBlur={(e) =>
-            updateComponent(
-              component,
-              (component) => {
-                component.content = e.target.value;
-              },
-              updateModel
-            )
-          }
-        />
+  validate = () => {
+    const { component } = this.props;
+    let titleHasError = isEmpty(component.title);
+    let contentHasError = isEmpty(component.content);
+    this.setState({
+      errors: {
+        title: titleHasError,
+        content: contentHasError,
+      },
+    });
+
+    return titleHasError | contentHasError;
+  };
+
+  render() {
+    const { component, updateModel } = this.props;
+    const { errors } = this.state;
+    return (
+      <div>
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.title,
+          })}
+        >
+          <label className="govuk-label" htmlFor="details-title">
+            Title
+          </label>
+          {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
+          <input
+            className={classNames({
+              "govuk-input": true,
+              "govuk-input--error": errors.title,
+            })}
+            id="details-title"
+            name="title"
+            defaultValue={component.title}
+            onBlur={(e) =>
+              updateComponent(
+                component,
+                (component) => {
+                  component.title = e.target.value;
+                },
+                updateModel
+              )
+            }
+          />
+        </div>
+
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors.content,
+          })}
+        >
+          <label className="govuk-label" htmlFor="details-content">
+            Content
+          </label>
+          <span className="govuk-hint">
+            The content can include HTML and the `govuk-prose-scope` css class
+            is available. Use this on a wrapping element to apply default govuk
+            styles.
+          </span>
+          {errors.content && (
+            <ErrorMessage>This field is required</ErrorMessage>
+          )}
+          <textarea
+            className="govuk-textarea"
+            id="details-content"
+            name="content"
+            defaultValue={component.content}
+            rows="10"
+            onBlur={(e) =>
+              updateComponent(
+                component,
+                (component) => {
+                  component.content = e.target.value;
+                },
+                updateModel
+              )
+            }
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const componentTypeEditors = {
@@ -1034,23 +1196,48 @@ const componentTypeEditors = {
 };
 
 class ComponentTypeEdit extends React.Component {
+  constructor(props) {
+    super(props);
+    this.typeEditorRef = React.createRef();
+  }
+
+  validate = () => {
+    if (this.typeEditorRef.current) {
+      return this.typeEditorRef.current.validate();
+    }
+    return false;
+  };
+
   render() {
     const { component, data, updateModel, page } = this.props;
 
     const type = ComponentTypes.find((t) => t.name === component.type);
     if (!type) {
-      return "";
+      return null;
     } else {
       const TagName =
         componentTypeEditors[`${component.type}Edit`] || FieldEdit;
-      return (
-        <TagName
-          component={component}
-          data={data}
-          updateModel={updateModel}
-          page={page}
-        />
-      );
+
+      if (TagName.supportsValidation) {
+        return (
+          <TagName
+            component={component}
+            data={data}
+            updateModel={updateModel}
+            page={page}
+            ref={this.typeEditorRef}
+          />
+        );
+      } else {
+        return (
+          <TagName
+            component={component}
+            data={data}
+            updateModel={updateModel}
+            page={page}
+          />
+        );
+      }
     }
   }
 }

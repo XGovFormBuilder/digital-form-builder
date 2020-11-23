@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import PageEdit from "../client/page-edit";
@@ -7,16 +7,19 @@ import { Data } from "@xgovformbuilder/model";
 import {
   assertTextInput,
   assertSelectInput,
+  assertClasses,
 } from "./helpers/element-assertions";
-
+import initI18n from "./i18nForTest";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, test } = lab;
+const { suite, test, before } = lab;
 
-// FIXME: they're all bust.
+suite("Page edit", () => {
+  before(() => {
+    initI18n();
+  });
 
-suite.skip("Page edit", () => {
   test("Renders a form with the appropriate initial inputs", () => {
     const data = new Data({
       pages: [
@@ -39,15 +42,17 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const page = Object.assign(data.pages[0], { section: data.sections[0] });
+
+    const wrapper = mount(<PageEdit data={data} page={page} />);
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
       id: "page-type",
       expectedFieldOptions: [
-        { value: "", text: "Question Page" },
-        { value: "./pages/start.js", text: "Start Page" },
-        { value: "./pages/summary.js", text: "Summary Page" },
+        { value: "", text: "Question page" },
+        { value: "./pages/start.js", text: "Start page" },
+        { value: "./pages/summary.js", text: "Summary page" },
       ],
       expectedValue: "./pages/start.js",
     });
@@ -96,15 +101,15 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
       id: "page-type",
       expectedFieldOptions: [
-        { value: "", text: "Question Page" },
-        { value: "./pages/start.js", text: "Start Page" },
-        { value: "./pages/summary.js", text: "Summary Page" },
+        { value: "", text: "Question page" },
+        { value: "./pages/start.js", text: "Start page" },
+        { value: "./pages/summary.js", text: "Summary page" },
       ],
       expectedValue: "",
     });
@@ -129,7 +134,7 @@ suite.skip("Page edit", () => {
         { value: "badger", text: "Badger" },
         { value: "personalDetails", text: "Personal Details" },
       ],
-      expectedValue: "",
+      expectedValue: undefined,
     });
     const buttons = wrapper.find("button");
     expect(buttons.length).to.equal(3);
@@ -153,7 +158,7 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
     wrapper
       .find("#page-title")
       .simulate("change", { target: { value: "New Page" } });
@@ -173,7 +178,7 @@ suite.skip("Page edit", () => {
 
   test("Updating the title changes the path if the path is the auto-generated one for no title", () => {
     const data = new Data({
-      pages: [{ path: "/" }],
+      pages: [{ path: "/", title: "My first page" }],
       sections: [
         {
           name: "badger",
@@ -186,7 +191,7 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
     wrapper
       .find("#page-title")
       .simulate("change", { target: { value: "New Page" } });
@@ -204,7 +209,7 @@ suite.skip("Page edit", () => {
     });
   });
 
-  test("Updating the title does not change the path if the path is not the auto-generated one", () => {
+  test.skip("Updating the title does not change the path if the path is not the auto-generated one", () => {
     const data = new Data({
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
@@ -219,7 +224,7 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
     wrapper
       .find("#page-title")
       .simulate("change", { target: { value: "New Page" } });
@@ -252,7 +257,7 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
     wrapper
       .find("#page-section")
       .simulate("change", { target: { value: "badger" } });
@@ -284,7 +289,7 @@ suite.skip("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
     wrapper
       .find("#page-type")
       .simulate("change", { target: { value: "./pages/summary.js" } });
@@ -293,11 +298,104 @@ suite.skip("Page edit", () => {
       wrapper: wrapper.find("#page-type"),
       id: "page-type",
       expectedFieldOptions: [
-        { value: "", text: "Question Page" },
-        { value: "./pages/start.js", text: "Start Page" },
-        { value: "./pages/summary.js", text: "Summary Page" },
+        { value: "", text: "Question page" },
+        { value: "./pages/start.js", text: "Start page" },
+        { value: "./pages/summary.js", text: "Summary page" },
       ],
       expectedValue: "./pages/summary.js",
     });
+  });
+
+  test("Duplicate page path will not submit", () => {
+    const data = new Data({
+      pages: [
+        {
+          path: "/first-page",
+          title: "My first page",
+          section: "badger",
+          controller: "./pages/start.js",
+        },
+        {
+          path: "/second-page",
+          title: "My second page",
+          section: "badger",
+        },
+      ],
+      sections: [
+        {
+          name: "badger",
+          title: "Badger",
+        },
+        {
+          name: "personalDetails",
+          title: "Personal Details",
+        },
+      ],
+    });
+
+    const page = Object.assign(data.pages[0], { section: data.sections[0] });
+
+    const wrapper = mount(<PageEdit data={data} page={page} />);
+
+    wrapper
+      .find("#page-path")
+      .simulate("change", { target: { value: "/second-page" } });
+
+    const form = wrapper.find("form").first();
+    form.simulate("submit");
+
+    assertClasses(wrapper.find("#page-path"), [
+      "govuk-input",
+      "govuk-input--error",
+    ]);
+
+    expect(wrapper.find("span.govuk-error-message").text()).to.have.string(
+      "Path '/second-page' already exists"
+    );
+  });
+
+  test("Page title will have error if the value is removed", () => {
+    const data = new Data({
+      pages: [
+        {
+          path: "/1",
+          title: "My first page",
+          section: "badger",
+          controller: "./pages/start.js",
+        },
+      ],
+      sections: [
+        {
+          name: "badger",
+          title: "Badger",
+        },
+        {
+          name: "personalDetails",
+          title: "Personal Details",
+        },
+      ],
+    });
+
+    const page = Object.assign(data.pages[0], { section: data.sections[0] });
+
+    const wrapper = mount(<PageEdit data={data} page={page} />);
+
+    let pageTitleInpt = wrapper.find("#page-title");
+    pageTitleInpt.simulate("change", { target: { value: "" } });
+
+    const form = wrapper.find("form").first();
+    form.simulate("submit");
+
+    assertClasses(wrapper.find("#page-title"), [
+      "govuk-input",
+      "govuk-input--error",
+    ]);
+
+    assertClasses(wrapper.find("#page-title").parent(), [
+      "govuk-form-group",
+      "govuk-form-group--error",
+    ]);
+
+    expect(wrapper.find("span.govuk-error-message")).to.exist();
   });
 });

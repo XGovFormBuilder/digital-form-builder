@@ -8,10 +8,14 @@ class ComponentEdit extends React.Component {
     this.state = {
       component: props.component,
     };
+    this.typeEditRef = React.createRef();
   }
 
   async onSubmit(e) {
     e.preventDefault();
+    let validationErrors = this.validate();
+    if (validationErrors) return false;
+
     const { data, page, component } = this.props;
     const copy = clone(data);
     const updatedComponent = this.state.component;
@@ -24,6 +28,11 @@ class ComponentEdit extends React.Component {
     const savedData = await data.save(updatedData);
     this.props.onEdit({ data: savedData });
   }
+
+  validate = () => {
+    if (this.typeEditRef.current) return this.typeEditRef.current.validate();
+    return false;
+  };
 
   onClickDelete = (e) => {
     e.preventDefault();
@@ -77,6 +86,7 @@ class ComponentEdit extends React.Component {
             component={copyComp}
             data={data}
             updateModel={this.storeComponent}
+            ref={this.typeEditRef}
           />
           <button className="govuk-button" type="submit">
             Save
