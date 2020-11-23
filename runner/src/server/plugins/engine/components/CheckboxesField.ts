@@ -18,7 +18,8 @@ export class CheckboxesField extends ConditionalFormComponent {
     const itemSchema = joi[values.valueType]().valid(...itemValues);
     const itemsSchema = joi.array().items(itemSchema);
     const alternatives = joi.alternatives([itemSchema, itemsSchema]);
-    const isRequired = "required" in options && options.required !== false;
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
     this.formSchema = helpers.buildFormSchema(alternatives, this, isRequired);
     this.stateSchema = helpers.buildStateSchema(alternatives, this);

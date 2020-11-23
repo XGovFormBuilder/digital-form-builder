@@ -14,7 +14,8 @@ export class YesNoField extends FormComponent {
     const { options, values } = this;
 
     this.values = data.valuesFor(def)?.toStaticValues();
-    const isRequired = "required" in options && options.required !== false;
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
     const validValues = values?.items.map((item) => item.value) || [];
     const formSchema = helpers

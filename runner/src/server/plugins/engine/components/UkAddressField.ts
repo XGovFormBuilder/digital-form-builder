@@ -21,7 +21,8 @@ export class UkAddressField extends FormComponent {
     super(def, model);
     const { name, options } = this;
     const stateSchema = helpers.buildStateSchema("date", this);
-    const isRequired = "required" in options && options.required !== false;
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
     const childrenList: any = [
       {

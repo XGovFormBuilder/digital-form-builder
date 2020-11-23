@@ -10,7 +10,8 @@ export class RadiosField extends ConditionalFormComponent {
     super(def, model);
 
     const { options, values, itemValues } = this;
-    const isRequired = "required" in options && options.required !== false;
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
     const valueType = values?.valueType;
     const formSchema = helpers
