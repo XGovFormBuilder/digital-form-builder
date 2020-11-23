@@ -18,13 +18,7 @@ export class ComponentBase {
   schema: ComponentDef["schema"];
   options: ComponentDef["options"];
   hint?: InputFieldsComponentsDef["hint"];
-  content?:
-    | {
-        title: string;
-        text: string;
-        condition?: any;
-      }
-    | ContentComponentsDef["content"];
+  content?: ContentComponentsDef["content"];
 
   model: FormModel;
   values?: StaticValues;
