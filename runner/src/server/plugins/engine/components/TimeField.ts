@@ -1,14 +1,15 @@
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
+import { FormModel } from "../models";
+import { addClassOptionIfNone } from "./helpers";
+import { FormData, FormSubmissionErrors } from "../types";
 
 export class TimeField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
-    const { options } = this;
-
-    if (!options.classes) {
-      options.classes = "govuk-input--width-4";
-    }
+    addClassOptionIfNone(this.options, "govuk-input--width-4");
   }
 
   getFormSchemaKeys() {
@@ -19,10 +20,11 @@ export class TimeField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
-    const viewModel = super.getViewModel(formData, errors);
-
-    viewModel.type = "time";
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const viewModel = {
+      ...super.getViewModel(formData, errors),
+      type: "time",
+    };
 
     return viewModel;
   }

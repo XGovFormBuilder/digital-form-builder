@@ -3,15 +3,13 @@ export { Data, InputWrapper, ConditionsWrapper } from "./data-model";
 export { Logger } from "./utils/logger";
 export { FormConfiguration } from "./form";
 export { SchemaMigrationService } from "./migration";
-export {
-  ComponentType,
-  ComponentTypes,
-  ConditionalComponentTypes,
-} from "./components";
+export { ComponentTypes, ConditionalComponentTypes } from "./components";
+export * from "./components/types";
 
 export {
   valuesFrom,
   yesNoValues,
+  StaticValue,
   StaticValues,
   ComponentValues,
 } from "./values";

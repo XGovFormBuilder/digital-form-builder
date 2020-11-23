@@ -8,7 +8,7 @@ import {
 import { InputWrapper } from "./input-wrapper";
 import { ValuesWrapper } from "./values-wrapper";
 import { clone, filter } from "../utils/helpers";
-import { Component } from "../components/types";
+import { ComponentDef } from "../components/types";
 import { Page, Section, List, Feedback } from "./types";
 
 type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
@@ -69,7 +69,7 @@ export class Data {
     Object.assign(this, rawDataClone);
   }
 
-  _listInputsFor(page: Page, input: Component): Array<InputWrapper> {
+  _listInputsFor(page: Page, input: ComponentDef): Array<InputWrapper> {
     const values = this.valuesFor(input)?.toStaticValues();
     return values
       ? values.items.flatMap(
@@ -215,7 +215,7 @@ export class Data {
     return this.pages;
   }
 
-  valuesFor(component: Component): ValuesWrapper | undefined {
+  valuesFor(component: ComponentDef): ValuesWrapper | undefined {
     const values = this._valuesFor(component);
     if (values) {
       return new ValuesWrapper(values, this);
@@ -224,7 +224,7 @@ export class Data {
   }
 
   _valuesFor(
-    component: Component & { values?: ComponentValues }
+    component: ComponentDef & { values?: ComponentValues }
   ): ComponentValues | null {
     if (component.type === "YesNoField") {
       return yesNoValues;
@@ -262,7 +262,7 @@ export class Data {
     return this;
   }
 
-  addComponent(pagePath: string, component: Component): Data {
+  addComponent(pagePath: string, component: ComponentDef): Data {
     const page = this.findPage(pagePath);
     if (page) {
       page.components = page.components || [];
@@ -276,7 +276,7 @@ export class Data {
   updateComponent(
     pagePath: string,
     componentName: string,
-    component: Component
+    component: ComponentDef
   ): Data {
     const page = this.findPage(pagePath);
 
@@ -284,7 +284,7 @@ export class Data {
       page.components = page.components || [];
 
       const index = page.components.findIndex(
-        (component: Component) => component.name === componentName
+        (component: ComponentDef) => component.name === componentName
       );
 
       if (index < 0) {

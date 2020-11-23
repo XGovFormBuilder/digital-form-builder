@@ -1,11 +1,13 @@
+import http from "http";
 import FormData from "form-data";
-import Wreck from "@hapi/wreck";
+
 import config from "../config";
-
+import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit } from "../types";
-import { IncomingMessage } from "http";
 
-const parsedError = (key: string, error: string) => {
+type Payload = HapiRequest["payload"];
+
+const parsedError = (key: string, error?: string) => {
   return {
     path: key,
     href: `#${key}`,
@@ -23,7 +25,7 @@ export class UploadService {
     return ["jpg", "jpeg", "png", "pdf"];
   }
 
-  fileStreamsFromPayload(payload) {
+  fileStreamsFromPayload(payload: Payload) {
     return Object.entries(payload).filter(([_key, value]: [string, any]) => {
       if (value) {
         if (Array.isArray(value)) {
@@ -35,7 +37,7 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(locations) {
+  async uploadDocuments(locations: any[]) {
     const form = new FormData();
     for (const location of locations) {
       form.append("files", location, {
@@ -45,16 +47,13 @@ export class UploadService {
     }
 
     const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await Wreck.post(
-      `${config.documentUploadApiUrl}/v1/files`,
-      data
-    );
+    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
     return this.parsedDocumentUploadResponse(res);
   }
 
-  parsedDocumentUploadResponse(res: IncomingMessage) {
-    let error: string;
-    let location: string;
+  parsedDocumentUploadResponse(res: http.IncomingMessage) {
+    let error: string | undefined;
+    let location: string | undefined;
 
     switch (res.statusCode) {
       case 201:
@@ -89,7 +88,7 @@ export class UploadService {
     const state = await cacheService.getState(request);
     const originalFilenames = (state || {}).originalFilenames || {};
 
-    let files = [];
+    let files: [string, any][] = [];
 
     if (request.payload !== null) {
       files = this.fileStreamsFromPayload(request.payload);
@@ -119,7 +118,7 @@ export class UploadService {
       const key = file[0];
       const previousUpload = originalFilenames[key] || {};
 
-      let values;
+      let values: any;
 
       if (Array.isArray(file[1])) {
         values = file[1];
@@ -209,9 +208,8 @@ export class UploadService {
     return h.continue;
   }
 
-  async downloadDocuments(paths: string[]) {
-    return paths.map((path) => {
-      return Wreck.get(path);
-    });
+  downloadDocuments(paths: string[]) {
+    const promises = paths.map((path) => get<string>(path, {}));
+    return Promise.all(promises);
   }
 }

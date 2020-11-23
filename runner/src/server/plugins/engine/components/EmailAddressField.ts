@@ -1,15 +1,19 @@
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
+
+import { FormModel } from "../models";
+import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
-import { getStateSchemaKeys, getFormSchemaKeys } from "./helpers";
+import {
+  getStateSchemaKeys,
+  getFormSchemaKeys,
+  addClassOptionIfNone,
+} from "./helpers";
 
 export class EmailAddressField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
-    const { options, schema } = this;
-
-    schema.email = true;
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
-    }
+    this.schema["email"] = true;
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 
   getFormSchemaKeys() {
@@ -20,11 +24,11 @@ export class EmailAddressField extends FormComponent {
     return getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const schema = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 
-    if (typeof schema.max === "number") {
+    if ("max" in schema && schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,
       };

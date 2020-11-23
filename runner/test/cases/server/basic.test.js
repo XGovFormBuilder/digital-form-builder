@@ -2,7 +2,7 @@ import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import cheerio from "cheerio";
 import FormData from "form-data";
-import createServer from "../../../src/server";
+import createServer from "src/server";
 
 const { before, test, suite, after } = (exports.lab = Lab.script());
 
@@ -15,8 +15,8 @@ configs.forEach((config) => {
     // Create server before each test
     before(async () => {
       server = await createServer({
-        data: `${config}.json`,
-        customPath: __dirname,
+        formFileName: `${config}.json`,
+        formFilePath: __dirname,
       });
       await server.start();
     });

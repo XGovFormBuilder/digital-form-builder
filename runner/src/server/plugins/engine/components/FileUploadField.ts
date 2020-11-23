@@ -1,3 +1,4 @@
+import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
 import * as helpers from "./helpers";
 
@@ -18,14 +19,14 @@ export class FileUploadField extends FormComponent {
     };
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { options } = this;
     const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),
       attributes: this.attributes,
     };
 
-    if (options.multiple) {
+    if ("multiple" in options && options.multiple) {
       viewModel.attributes.multiple = "multiple";
     }
 

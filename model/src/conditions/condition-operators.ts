@@ -1,4 +1,4 @@
-import { ComponentType, Component } from "../components";
+import { ComponentType, ComponentDef } from "../components";
 import { ConditionValueAbstract } from "./condition-value-abstract";
 
 import {
@@ -108,28 +108,28 @@ function getConditionals(fieldType: ComponentType) {
 
 function inline(operator: Operator) {
   return {
-    expression: (field: Component, value) =>
+    expression: (field: ComponentDef, value) =>
       `${field.name} ${operator} ${formatValue(field.type, value.value)}`,
   };
 }
 
 function lengthIs(operator: Operator) {
   return {
-    expression: (field: Component, value) =>
+    expression: (field: ComponentDef, value) =>
       `length(${field.name}) ${operator} ${value.value}`,
   };
 }
 
 function reverseInline(operator: "in") {
   return {
-    expression: (field: Component, value) =>
+    expression: (field: ComponentDef, value) =>
       `${formatValue(field.type, value.value)} ${operator} ${field.name}`,
   };
 }
 
 function not(operatorDefinition) {
   return {
-    expression: (field: Component, value) =>
+    expression: (field: ComponentDef, value) =>
       `not (${operatorDefinition.expression(field, value)})`,
   };
 }
@@ -150,7 +150,7 @@ export const relativeDateOrTimeOperatorNames = Object.keys(
 
 function absoluteDateTime(operator: Operator) {
   return {
-    expression: (field: Component, value) => {
+    expression: (field: ComponentDef, value) => {
       if (value instanceof ConditionValue) {
         return `${field.name} ${operator} '${value.toExpression()}'`;
       }
@@ -162,7 +162,7 @@ function absoluteDateTime(operator: Operator) {
 function relativeTime(pastOperator, futureOperator, units) {
   return {
     units: units,
-    expression: (field: Component, value) => {
+    expression: (field: ComponentDef, value) => {
       if (value instanceof RelativeTimeValue) {
         const operator =
           value.direction === DateDirections.PAST

@@ -1,7 +1,7 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 
-import createServer from "../../../src/server/index";
+import createServer from "src/server/index";
 
 const { suite, before, test, after } = (exports.lab = Lab.script());
 
@@ -11,8 +11,8 @@ suite("Rate limit", () => {
   // Create server before each test
   before(async () => {
     server = await createServer({
-      data: "basic-v1.json",
-      customPath: __dirname,
+      formFileName: "basic-v1.json",
+      formFilePath: __dirname,
       rateOptions: { userLimit: 1, userCache: { expiresIn: 5000 } },
     });
     server.route({

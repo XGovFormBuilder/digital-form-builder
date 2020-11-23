@@ -17,6 +17,15 @@
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-private-property-in-object",
     "@babel/plugin-proposal-private-methods",
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    [
+      "module-name-mapper",
+      {
+        "moduleNameMapper": {
+          "^src/(.*)": "<pkgDir>/src/$1",
+          "^server/(.*)": "<pkgDir>/src/server/$1"
+        }
+      }
+    ]
   ]
 }

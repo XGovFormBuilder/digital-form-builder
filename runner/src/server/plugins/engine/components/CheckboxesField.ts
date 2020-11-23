@@ -1,39 +1,31 @@
 import joi from "joi";
 import * as helpers from "./helpers";
 
+import { FormModel } from "../models";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
-
-type ItemModel = {
-  name?: string;
-  text: string;
-  value: any; // TODO
-  checked: boolean;
-  condition: any; // TODO
-  label?: {
-    classes: string;
-  };
-  hint?: {
-    html: string;
-  };
-};
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import { ListComponentsDef } from "@xgovformbuilder/model";
 
 export class CheckboxesField extends ConditionalFormComponent {
-  constructor(def, model) {
+  constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
     const { options, values, itemValues } = this;
+
+    if (!values?.valueType) {
+      throw new Error("Component valueType is missing");
+    }
+
     const itemSchema = joi[values.valueType]().valid(...itemValues);
     const itemsSchema = joi.array().items(itemSchema);
     const alternatives = joi.alternatives([itemSchema, itemsSchema]);
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
-    this.formSchema = helpers.buildFormSchema(
-      alternatives,
-      this,
-      options.required !== false
-    );
+    this.formSchema = helpers.buildFormSchema(alternatives, this, isRequired);
     this.stateSchema = helpers.buildStateSchema(alternatives, this);
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
 
     if (name in state) {
@@ -45,14 +37,17 @@ export class CheckboxesField extends ConditionalFormComponent {
 
       const checked = Array.isArray(value) ? value : [value];
       return checked
-        .map((check) => values.items.find((item) => item.value === check).label)
+        .map((check) => {
+          const item = values?.items.find((item) => item.value === check);
+          return item?.label;
+        })
         .join(", ");
     }
 
     return "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
     let formDataItems = [];
@@ -67,17 +62,15 @@ export class CheckboxesField extends ConditionalFormComponent {
       legend: viewModel.label,
     };
 
-    viewModel.items = values.items.map((item) => {
-      const itemModel: ItemModel = {
+    viewModel.items = values?.items.map((item) => {
+      const itemModel: any = {
         text: this.localisedString(item.label),
         value: item.value,
-        // Do a loose string based check as state may or
-        // may not match the item value types.
-        checked: !!formDataItems.find((i) => "" + item.value === i),
+        checked: !!formDataItems.find((i) => `${item.value}` === i),
         condition: item.condition,
       };
 
-      if (this.options.bold) {
+      if ("bold" in this.options && this.options.bold) {
         itemModel.label = {
           classes: "govuk-label--s",
         };

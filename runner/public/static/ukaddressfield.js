@@ -64,7 +64,6 @@ $components.forEach(function (component) {
     var results = selector._results;
     var value = selector.value;
     var result = results.find((result) => result.uprn === value).item;
-    // console.log(result)
     form.querySelector('[name$="premises"]').value =
       result.BUILDING_NUMBER || result.BUILDING_NAME || "";
     form.querySelector('[name$="street"]').value =

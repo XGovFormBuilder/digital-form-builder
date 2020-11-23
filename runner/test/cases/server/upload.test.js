@@ -6,8 +6,8 @@ import FormData from "form-data";
 import { expect } from "@hapi/code";
 import { stub, restore } from "sinon";
 
-import createServer from "../../../src/server/index";
-import { UploadService } from "../../../src/server/services/uploadService";
+import createServer from "src/server/index";
+import { UploadService } from "src/server/services/uploadService";
 
 const { before, test, suite, after } = (exports.lab = Lab.script());
 
@@ -16,7 +16,10 @@ suite("uploads", () => {
 
   // Create server before each test
   before(async () => {
-    server = await createServer({ data: "upload.json", customPath: __dirname });
+    server = await createServer({
+      formFileName: "upload.json",
+      formFilePath: __dirname,
+    });
     await server.start();
   });
 
@@ -98,6 +101,7 @@ suite("uploads", () => {
     const response = await server.inject(options);
 
     const $ = cheerio.load(response.payload);
+
     expect($("[href='#file1']").text().trim()).to.equal(
       "The file you uploaded was too big"
     );

@@ -5,6 +5,12 @@ export type Label = {
   isPageHeading?: boolean;
 };
 
+export type Content = {
+  title?: string;
+  text: string;
+  condition?: any; // TODO
+};
+
 // TODO: Break this down for each component (Same as model/Component).
 export type ViewModel = {
   label?: Label;
@@ -28,11 +34,7 @@ export type ViewModel = {
     accept?: string;
     step?: string;
   };
-  content?: {
-    title: string;
-    text: string;
-    condition?: any; // TODO
-  }[];
+  content?: Content | Content[] | string;
   rows?: number;
   items?: any;
   disableLookup?: boolean;

@@ -1,16 +1,27 @@
 import moment from "moment";
+import { Schema } from "joi";
+
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
+import { FormModel } from "../models";
 
 export class DateTimePartsField extends FormComponent {
   children: ComponentCollection;
 
-  constructor(def, model) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
-    const { name, options } = this;
+    const { name } = this;
+    const options: any = this.options;
 
     this.children = new ComponentCollection(
       [
@@ -64,9 +75,10 @@ export class DateTimePartsField extends FormComponent {
             classes: "govuk-input--width-2",
           },
         },
-      ],
-      def
+      ] as any,
+      model
     );
+
     this.stateSchema = helpers.buildStateSchema("date", this);
   }
 
@@ -75,10 +87,10 @@ export class DateTimePartsField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema };
+    return { [this.name]: this.stateSchema as Schema };
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
     const value =
       typeof state[name] === "string" ? new Date(state[name]) : state[name];
@@ -91,7 +103,7 @@ export class DateTimePartsField extends FormComponent {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
     // Use `moment` to parse the date as
     // opposed to the Date constructor.
@@ -109,18 +121,14 @@ export class DateTimePartsField extends FormComponent {
       : null;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("D MMMM YYYY h:mma") : "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
-
-    // Todo: Remove after next
-    // release on govuk-frontend
-    viewModel.name = undefined;
 
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
@@ -139,13 +147,12 @@ export class DateTimePartsField extends FormComponent {
       }
     });
 
-    Object.assign(viewModel, {
+    return {
+      ...viewModel,
       fieldset: {
         legend: viewModel.label,
       },
       items: componentViewModels,
-    });
-
-    return viewModel;
+    };
   }
 }

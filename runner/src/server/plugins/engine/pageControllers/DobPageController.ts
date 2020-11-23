@@ -1,7 +1,8 @@
 import joi from "joi";
-import Page from "./page";
+import { FormPayload } from "../types";
+import { PageController } from "./PageController";
 
-class DobPage extends Page {
+export class DobPageController extends PageController {
   // TODO: improve type, see Page once types mature
   constructor(model: any = {}, pageDef: any = {}) {
     super(model, pageDef);
@@ -11,7 +12,7 @@ class DobPage extends Page {
     });
   }
 
-  getStateFromValidForm(formData) {
+  getStateFromValidForm(formData: FormPayload) {
     const state = super.getStateFromValidForm(formData);
     const age = Math.floor((Date.now() - state.dob) / 31557600000);
 
@@ -20,8 +21,3 @@ class DobPage extends Page {
     return state;
   }
 }
-
-export default DobPage;
-
-// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = DobPage;

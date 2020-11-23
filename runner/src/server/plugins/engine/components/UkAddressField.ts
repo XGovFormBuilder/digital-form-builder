@@ -1,25 +1,36 @@
 import joi from "joi";
 
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
+import { FormModel } from "../models";
 
 export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
   stateChildren: ComponentCollection;
 
-  constructor(def, model) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     const { name, options } = this;
     const stateSchema = helpers.buildStateSchema("date", this);
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
-    const childrenList = [
+    const childrenList: any = [
       {
         type: "TextField",
         name: "addressLine1",
         title: "Address line 1",
         schema: { max: 100 },
-        options: { required: options.required },
+        options: { required: isRequired },
       },
       {
         type: "TextField",
@@ -33,14 +44,14 @@ export class UkAddressField extends FormComponent {
         name: "town",
         title: "Town or city",
         schema: { max: 100 },
-        options: { required: options.required },
+        options: { required: isRequired },
       },
       {
         type: "TextField",
         name: "postcode",
         title: "Postcode",
         schema: { max: 10 },
-        options: { required: options.required },
+        options: { required: isRequired },
       },
     ];
 
@@ -62,7 +73,9 @@ export class UkAddressField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    const { name, options } = this;
+    const { name } = this;
+    const options: any = this.options;
+
     return {
       [name]:
         options.required === false
@@ -77,9 +90,10 @@ export class UkAddressField extends FormComponent {
     };
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
+
     return {
       [`${name}__addressLine1`]: value && value.addressLine1,
       [`${name}__addressLine2`]: value && value.addressLine2,
@@ -88,7 +102,7 @@ export class UkAddressField extends FormComponent {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
     return payload[`${name}__addressLine1`]
       ? {
@@ -100,7 +114,7 @@ export class UkAddressField extends FormComponent {
       : null;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
 
@@ -113,16 +127,18 @@ export class UkAddressField extends FormComponent {
       : "";
   }
 
-  getViewModel(formData, errors) {
-    const viewModel = super.getViewModel(formData, errors);
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const options: any = this.options;
+    const viewModel = {
+      ...super.getViewModel(formData, errors),
+      children: this.formChildren.getViewModel(formData, errors),
+    };
 
     viewModel.fieldset = {
       legend: viewModel.label,
     };
 
-    viewModel.children = this.formChildren.getViewModel(formData, errors);
-
-    const { disableLookup } = this.options;
+    const { disableLookup } = options;
 
     if (disableLookup !== undefined) {
       viewModel.disableLookup = disableLookup;

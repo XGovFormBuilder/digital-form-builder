@@ -1,13 +1,16 @@
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
+import { FormData, FormSubmissionErrors } from "../types";
 
-export class Para extends Component {
-  getViewModel() {
-    const viewModel = super.getViewModel();
+export class Para extends ComponentBase {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const options: any = this.options;
+    const viewModel = {
+      ...super.getViewModel(formData, errors),
+      content: this.content,
+    };
 
-    viewModel.content = this.content;
-
-    if (this.options.condition) {
-      viewModel.condition = this.options.condition;
+    if (options.condition) {
+      viewModel.condition = options.condition;
     }
 
     return viewModel;

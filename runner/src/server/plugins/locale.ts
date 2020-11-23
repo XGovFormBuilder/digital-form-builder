@@ -116,7 +116,7 @@ var optionsSchema = Joi.object({
  * @constructor
  * @private
  */
-var Internal = function (options) {
+function Internal(options) {
   if (
     (options.setter && options.setter.indexOf(".") > -1) ||
     (options.getter && options.getter.indexOf(".") > -1)
@@ -130,8 +130,9 @@ var Internal = function (options) {
     );
   }
 
+  // @ts-ignore
   this.options = Joi.attempt(options, optionsSchema);
-};
+}
 
 /**
  * Returns requested languages as an array by looking url part.
@@ -263,7 +264,7 @@ Internal.prototype.scan = function scan() {
 
   const files = fs.readdirSync(dir);
 
-  const locales = [];
+  const locales: string[] = [];
 
   for (const file of files) {
     const fullPath = path.join(dir, file);

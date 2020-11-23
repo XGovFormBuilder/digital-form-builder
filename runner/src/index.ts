@@ -1,6 +1,6 @@
 import createServer from "./server";
 
-createServer()
+createServer({})
   .then((server) => server.start())
   .then(() => process.send && process.send("online"))
   .catch((err) => {
