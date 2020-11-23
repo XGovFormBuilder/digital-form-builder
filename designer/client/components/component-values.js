@@ -68,9 +68,6 @@ export default class ComponentValues extends React.Component {
       listName: values?.list,
       errors: {},
     };
-
-    this.formAddItem = React.createRef();
-    this.formEditItem = React.createRef();
   }
 
   validate = () => {
@@ -110,39 +107,33 @@ export default class ComponentValues extends React.Component {
   addItem = (item) => {
     const { updateModel } = this.props;
     const { component } = this.state;
-    const isFormValid = this.formAddItem.current.reportValidity();
 
-    if (isFormValid) {
-      updateComponent(
-        component,
-        (component) => {
-          component.values.items = component.values.items || [];
-          component.values.items.push(item);
-        },
-        updateModel
-      );
-      this.setState({
-        showAddItem: false,
-      });
-    }
+    updateComponent(
+      component,
+      (component) => {
+        component.values.items = component.values.items || [];
+        component.values.items.push(item);
+      },
+      updateModel
+    );
+    this.setState({
+      showAddItem: false,
+    });
   };
 
   updateItem = (item) => {
     const { updateModel } = this.props;
     const { component, editingIndex } = this.state;
-    const isFormValid = this.formEditItem.current.reportValidity();
 
-    if (isFormValid) {
-      updateComponent(
-        component,
-        (component) => {
-          component.values.items = component.values.items || [];
-          component.values.items[editingIndex] = item;
-        },
-        updateModel
-      );
-      this.setState({ editingIndex: undefined });
-    }
+    updateComponent(
+      component,
+      (component) => {
+        component.values.items = component.values.items || [];
+        component.values.items[editingIndex] = item;
+      },
+      updateModel
+    );
+    this.setState({ editingIndex: undefined });
   };
 
   initialiseValues = (e) => {
@@ -342,7 +333,7 @@ export default class ComponentValues extends React.Component {
                     show={!!showAddItem}
                     onHide={this.cancelAddItem}
                   >
-                    <form ref={this.formAddItem}>
+                    <form>
                       <DefineComponentValue
                         data={data}
                         page={page}
@@ -361,7 +352,7 @@ export default class ComponentValues extends React.Component {
                     show={editingIndex !== undefined}
                     onHide={this.cancelEditItem}
                   >
-                    <form ref={this.formEditItem}>
+                    <form>
                       <DefineComponentValue
                         data={data}
                         value={staticValues.items[editingIndex]}
