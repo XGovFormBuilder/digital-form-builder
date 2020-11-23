@@ -1,4 +1,3 @@
-import path from "path";
 import joi from "joi";
 
 export function buildSchema(type, keys) {
@@ -74,3 +73,12 @@ export function getStateSchemaKeys(name, schemaType, component) {
 
   return { [name]: schema };
 }
+
+export const addClassOptionIfNone = (
+  options: { classes?: string; [prop: string]: any },
+  className: string
+) => {
+  if (!options.classes) {
+    options.classes = className;
+  }
+};

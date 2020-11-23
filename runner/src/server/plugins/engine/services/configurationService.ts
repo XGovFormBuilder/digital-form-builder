@@ -11,11 +11,9 @@ export type FormConfiguration = {
 };
 
 export const loadPreConfiguredForms = (): FormConfiguration[] => {
-  const configFiles = fs.readdirSync(FORMS_FOLDER).filter((filename) => {
-    if (filename.indexOf(".json") >= 0) {
-      return filename;
-    }
-  });
+  const configFiles = fs
+    .readdirSync(FORMS_FOLDER)
+    .filter((filename: string) => filename.indexOf(".json") >= 0);
 
   return configFiles.map((configFile) => {
     const dataFilePath = path.join(FORMS_FOLDER, configFile);

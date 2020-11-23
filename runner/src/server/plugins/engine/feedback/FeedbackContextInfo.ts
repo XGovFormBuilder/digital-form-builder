@@ -1,6 +1,5 @@
-import atob from "atob";
 import btoa from "btoa";
-import { RelativeUrl } from "./relativeUrl";
+import { RelativeUrl } from "./RelativeUrl";
 
 export class FeedbackContextInfo {
   formTitle: string;
@@ -16,17 +15,5 @@ export class FeedbackContextInfo {
 
   toString() {
     return btoa(JSON.stringify(this));
-  }
-}
-
-export function decode(encoded: string | Buffer): FeedbackContextInfo | void {
-  if (encoded) {
-    const decoded = JSON.parse(atob(encoded));
-
-    return new FeedbackContextInfo(
-      decoded.formTitle,
-      decoded.pageTitle,
-      decoded.url
-    );
   }
 }

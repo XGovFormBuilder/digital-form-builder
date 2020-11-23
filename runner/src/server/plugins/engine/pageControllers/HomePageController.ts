@@ -1,7 +1,7 @@
-import Page from "./page";
-import { HapiRequest, HapiResponseToolkit } from "../../../types";
+import { PageController } from "./PageController";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
 
-export default class HomePage extends Page {
+export class HomePageController extends PageController {
   get getRouteOptions() {
     return {
       ext: {
@@ -19,7 +19,6 @@ export default class HomePage extends Page {
       ext: {
         onPostHandler: {
           method: (_request: HapiRequest, h: HapiResponseToolkit) => {
-            // Method must return a value, a promise, or throw an error
             return h.continue;
           },
         },
@@ -27,6 +26,3 @@ export default class HomePage extends Page {
     };
   }
 }
-
-// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = HomePage;

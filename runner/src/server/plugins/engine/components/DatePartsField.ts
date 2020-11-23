@@ -1,16 +1,29 @@
 import moment from "moment";
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import { optionalText } from "./constants";
 import * as helpers from "./helpers";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
+import { FormModel } from "../models";
 
 export class DatePartsField extends FormComponent {
   children: ComponentCollection;
 
-  constructor(def, model) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
+
     const { name, options } = this;
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
+    const optionalText = "optionalText" in options && options.optionalText;
+
     this.children = new ComponentCollection(
       [
         {
@@ -19,10 +32,11 @@ export class DatePartsField extends FormComponent {
           title: "Day",
           schema: { min: 1, max: 31 },
           options: {
-            required: options?.required,
-            optionalText: options?.optionalText,
+            required: isRequired,
+            optionalText: optionalText,
             classes: "govuk-input--width-2",
           },
+          hint: "",
         },
         {
           type: "NumberField",
@@ -30,10 +44,11 @@ export class DatePartsField extends FormComponent {
           title: "Month",
           schema: { min: 1, max: 12 },
           options: {
-            required: options?.required,
-            optionalText: options?.optionalText,
+            required: isRequired,
+            optionalText: optionalText,
             classes: "govuk-input--width-2",
           },
+          hint: "",
         },
         {
           type: "NumberField",
@@ -41,13 +56,14 @@ export class DatePartsField extends FormComponent {
           title: "Year",
           schema: { min: 1000, max: 3000 },
           options: {
-            required: options?.required,
-            optionalText: options?.optionalText,
+            required: isRequired,
+            optionalText: optionalText,
             classes: "govuk-input--width-4",
           },
+          hint: "",
         },
       ],
-      def
+      model
     );
 
     this.stateSchema = helpers.buildStateSchema("date", this);
@@ -59,9 +75,9 @@ export class DatePartsField extends FormComponent {
 
   getStateSchemaKeys() {
     const { options } = this;
-    const { maxDaysInPast, maxDaysInFuture } = options;
+    const { maxDaysInPast, maxDaysInFuture } = options as any;
 
-    let schema = this.stateSchema;
+    let schema: any = this.stateSchema;
 
     if (maxDaysInPast !== undefined) {
       const d = new Date();
@@ -69,19 +85,22 @@ export class DatePartsField extends FormComponent {
       const min = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
       schema = schema.min(min);
     }
+
     if (maxDaysInFuture !== undefined) {
       const d = new Date();
       d.setDate(d.getDate() + maxDaysInFuture);
       const max = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
       schema = schema.max(max);
     }
+
     return { [this.name]: schema };
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     const dateValue = new Date(value);
+
     return {
       [`${name}__day`]: value && dateValue.getDate(),
       [`${name}__month`]: value && dateValue.getMonth() + 1,
@@ -89,7 +108,7 @@ export class DatePartsField extends FormComponent {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload) {
     // Use `moment` to parse the date as
     // opposed to the Date constructor.
     // `moment` will check that the individual date
@@ -105,18 +124,14 @@ export class DatePartsField extends FormComponent {
       : null;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
     return value ? moment(value).format("D MMMM YYYY") : "";
   }
 
-  getViewModel(formData, errors) {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
-
-    // Todo: Remove after next
-    // release on govuk-frontend
-    viewModel.name = undefined;
 
     // Use the component collection to generate the subitems
     const componentViewModels = this.children
@@ -135,14 +150,13 @@ export class DatePartsField extends FormComponent {
       }
     });
 
-    Object.assign(viewModel, {
+    return {
+      ...viewModel,
       fieldset: {
         legend: viewModel.label,
       },
       items: componentViewModels,
-    });
-
-    return viewModel;
+    };
   }
 
   get dataType() {

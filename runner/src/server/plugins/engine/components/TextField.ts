@@ -1,17 +1,20 @@
+import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
+import { FormData, FormSubmissionErrors } from "../types";
+import { FormModel } from "../models";
+import { addClassOptionIfNone } from "./helpers";
 
 export class TextField extends FormComponent {
-  constructor(def, model) {
+  constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
-    const { options, schema } = this;
+    const { schema } = this;
 
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
-    }
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
 
-    if (!schema.regex) {
-      schema.regex = '^[^"\\/\\#;]*$';
+    if (!schema["regex"]) {
+      schema["regex"] = '^[^"\\/\\#;]*$';
     }
   }
 
@@ -23,15 +26,16 @@ export class TextField extends FormComponent {
     return helpers.getStateSchemaKeys(this.name, "string", this);
   }
 
-  getViewModel(formData, errors) {
-    const { schema } = this;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const schema: any = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 
-    if (typeof schema.max === "number") {
+    if (schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,
       };
     }
+
     return viewModel;
   }
 }

@@ -3,7 +3,7 @@ import { expect } from "@hapi/code";
 import cheerio from "cheerio";
 import FormData from "form-data";
 import cookie from "cookie";
-import createServer from "../../../src/server";
+import createServer from "src/server";
 
 const { suite, before, test, after } = (exports.lab = Lab.script());
 
@@ -24,8 +24,8 @@ suite("CSRF", () => {
   // Create server before each test
   before(async () => {
     server = await createServer({
-      data: "basic-v0.json",
-      customPath: __dirname,
+      formFileName: "basic-v0.json",
+      formFilePath: __dirname,
       enforceCsrf: true,
     });
     await server.start();

@@ -1,23 +1,32 @@
-import joi from "joi";
+import joi, { Schema } from "joi";
 
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
 import { optionalText } from "./constants";
 
+import {
+  FormSubmissionState,
+  FormSubmissionErrors,
+  FormData,
+  FormPayload,
+} from "../types";
 import { ViewModel } from "./types";
+import { FormModel } from "../models";
+import { ComponentDef } from "@xgovformbuilder/model";
 
-export class FormComponent extends Component {
+export class FormComponent extends ComponentBase {
   isFormComponent: boolean = true;
   __lang: string = "en";
 
-  constructor(def, model) {
+  constructor(def: ComponentDef, model: FormModel) {
     super(def, model);
 
-    const { schema } = this;
+    const schema: any = this.schema;
 
     schema.error = (errors) => {
       errors.forEach((err) => {
         let limit;
         const today = new Date().setUTCHours(0, 0, 0);
+
         if (err.context?.limit) {
           limit = err.context.limit.setUTCHours(0, 0, 0);
         }
@@ -83,7 +92,7 @@ export class FormComponent extends Component {
     }
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const name = this.name;
 
     if (name in state) {
@@ -95,7 +104,7 @@ export class FormComponent extends Component {
     return undefined;
   }
 
-  getFormValueFromState(state) {
+  getFormValueFromState(state: FormSubmissionState) {
     const name = this.name;
 
     if (name in state) {
@@ -103,7 +112,7 @@ export class FormComponent extends Component {
     }
   }
 
-  getStateFromValidForm(payload) {
+  getStateFromValidForm(payload: FormPayload) {
     const name = this.name;
 
     return {
@@ -111,7 +120,7 @@ export class FormComponent extends Component {
     };
   }
 
-  getStateValueFromValidForm(payload) {
+  getStateValueFromValidForm(payload: FormPayload): any {
     const name = this.name;
 
     return name in payload && payload[name] !== "" ? payload[name] : null;
@@ -129,8 +138,8 @@ export class FormComponent extends Component {
     return string;
   }
 
-  getViewModel(formData, errors) {
-    const options = this.options;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const options: any = this.options;
     const isOptional = options.required === false;
     const optionalPostfix =
       isOptional && options.optionalText !== false ? optionalText : "";
@@ -166,15 +175,13 @@ export class FormComponent extends Component {
       viewModel.condition = options.condition;
     }
 
-    if (errors) {
-      errors.errorList.forEach((err) => {
-        if (err.name === name) {
-          viewModel.errorMessage = {
-            text: err.text,
-          };
-        }
-      });
-    }
+    errors?.errorList?.forEach((err) => {
+      if (err.name === name) {
+        viewModel.errorMessage = {
+          text: err.text,
+        };
+      }
+    });
 
     return viewModel;
   }
@@ -183,7 +190,7 @@ export class FormComponent extends Component {
     return { [this.name]: joi.any() };
   }
 
-  getStateSchemaKeys() {
+  getStateSchemaKeys(): { [k: string]: Schema } {
     return { [this.name]: joi.any() };
   }
 

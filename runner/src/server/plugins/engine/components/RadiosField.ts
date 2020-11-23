@@ -1,15 +1,21 @@
+import { ListComponentsDef } from "@xgovformbuilder/model";
+
 import * as helpers from "./helpers";
 import { ConditionalFormComponent } from "./ConditionalFormComponent";
+import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import { FormModel } from "../models";
 
 export class RadiosField extends ConditionalFormComponent {
-  constructor(def, model) {
+  constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
     const { options, values, itemValues } = this;
+    const isRequired =
+      "required" in options && options.required === false ? false : true;
 
-    const valueType = values.valueType;
+    const valueType = values?.valueType;
     const formSchema = helpers
-      .buildFormSchema(valueType, this, options.required !== false)
+      .buildFormSchema(valueType, this, isRequired)
       .valid(...itemValues);
     const stateSchema = helpers
       .buildStateSchema(valueType, this)
@@ -19,29 +25,27 @@ export class RadiosField extends ConditionalFormComponent {
     this.stateSchema = stateSchema;
   }
 
-  getDisplayStringFromState(state) {
+  getDisplayStringFromState(state: FormSubmissionState) {
     const { name, values } = this;
     const value = state[name];
-    const item = values.items.find((item) => item.value === value);
+    const item = values?.items.find((item) => item.value === value);
     return item ? item.label : value;
   }
 
-  getViewModel(formData, errors) {
-    const { name, values, options } = this;
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const { name, values } = this;
+    const options: any = this.options;
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {
       legend: viewModel.label,
     };
 
-    viewModel.items = values.items.map((item) => {
-      // TODO use itemModel type? Same as checkbox field
+    viewModel.items = values?.items.map((item) => {
       const itemModel: any = {
         html: this.localisedString(item.label),
         value: item.value,
-        // Do a loose string based check as state may or
-        // may not match the item item types.
-        checked: "" + item.value === "" + formData[name],
+        checked: `${item.value}` === `${formData[name]}`,
         condition: item.condition,
       };
 

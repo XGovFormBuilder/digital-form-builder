@@ -1,11 +1,12 @@
+import { ListComponentsDef } from "@xgovformbuilder/model";
+
 import { SelectField } from "./SelectField";
+import { FormModel } from "../models";
+import { addClassOptionIfNone } from "./helpers";
 
 export class AutocompleteField extends SelectField {
-  constructor(def, model) {
+  constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
-    const { options } = this;
-    if (!options.classes) {
-      options.classes = "govuk-input--width-20";
-    }
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
   }
 }

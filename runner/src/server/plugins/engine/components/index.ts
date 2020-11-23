@@ -4,7 +4,7 @@
 
 export { AutocompleteField } from "./AutocompleteField";
 export { CheckboxesField } from "./CheckboxesField";
-export { Component } from "./Component";
+export { ComponentBase as Component } from "./ComponentBase";
 export { ComponentCollection } from "./ComponentCollection";
 export { ConditionalFormComponent } from "./ConditionalFormComponent";
 export { DateField } from "./DateField";

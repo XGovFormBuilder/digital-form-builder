@@ -1,6 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { SelectField } from "../../../../../src/server/plugins/engine/components/SelectField";
+import { SelectField } from "src/server/plugins/engine/components/SelectField";
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;

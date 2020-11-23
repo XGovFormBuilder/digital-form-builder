@@ -12,10 +12,7 @@
           },
           "type": "RadiosField",
           "name": "licenceLength",
-          "title": {
-            "en": "Which fishing licence do you want to get?",
-            "fr": "some french"
-          },
+          "title": "Which fishing licence do you want to get?",
           "schema": {}
         }
       ],
@@ -35,10 +32,7 @@
           },
           "type": "TextField",
           "name": "fullName",
-          "title": {
-            "en": "What's your name?",
-            "fr": "some french"
-          }
+          "title": "What's your name?"
         }
       ],
       "section": "personalDetails",

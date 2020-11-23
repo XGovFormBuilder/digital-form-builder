@@ -25,23 +25,25 @@ export class RelativeUrl {
     return this;
   }
 
-  set feedbackReturnInfo(value: string | null) {
+  set feedbackReturnInfo(value: string | undefined) {
     this.setParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value);
   }
 
-  get feedbackReturnInfo(): string | null {
-    return this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER) || null;
+  get feedbackReturnInfo(): string | undefined {
+    return (
+      this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER) || undefined
+    );
   }
 
-  set visitIdentifier(value: string | null) {
+  set visitIdentifier(value: string | undefined) {
     this.setParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER, value);
   }
 
-  get visitIdentifier(): string | null {
-    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER) || null;
+  get visitIdentifier(): string | undefined {
+    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER) || undefined;
   }
 
-  setParam(name: string, value: string | null) {
+  setParam(name: string, value: string | undefined) {
     this.url.searchParams.set(name, value || "");
     return this;
   }

@@ -1,24 +1,19 @@
-import { nanoid } from "nanoid";
+// import { decode, redirectUrl, RelativeUrl, FormModel } from "..";
 import { flatten } from "flat";
 import { clone, reach } from "hoek";
-
-import {
-  decode,
-  redirectTo,
-  redirectUrl,
-  RelativeUrl,
-  FeedbackContextInfo,
-  Model,
-} from "../";
 import { Data } from "@xgovformbuilder/model";
 
-import Page from "./page";
-import config from "../../../config";
-import { formSchema } from "../../../schemas/formSchema";
-import { HapiRequest, HapiResponseToolkit } from "../../../types";
-import type { Fees } from "../../../services/payService";
+import config from "server/config";
+import { FormModel } from "./FormModel";
+import { redirectUrl } from "../helpers";
+import { decodeFeedbackContextInfo, RelativeUrl } from "../feedback";
+import { formSchema } from "server/schemas/formSchema";
+import { SummaryPageController } from "../pageControllers";
+import type { Fees, FeeDetails } from "server/services/payService";
+import { FormSubmissionState } from "../types";
+import { Fields, Questions, WebhookData } from "./types";
 
-const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
+const { serviceName, notifyTemplateId, notifyAPIKey } = config;
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -34,47 +29,52 @@ const { serviceName, payReturnUrl, notifyTemplateId, notifyAPIKey } = config;
  * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
  */
 
-class SummaryViewModel {
+export class SummaryViewModel {
   pageTitle: string;
   declaration: any; // TODO
-  skipSummary: any; // TODO
+  skipSummary: boolean;
   endPage: any; // TODO
   result: any;
   details: any;
   state: any;
   value: any;
-  fees: Fees;
-  errors: any; // TODO
-  name: string;
-  feedbackLink: string;
+  fees: Fees | undefined;
+  name: string | undefined;
+  feedbackLink: string | undefined;
   declarationError: any; // TODO
+  errors:
+    | {
+        path: string;
+        name: string;
+        message: string;
+      }[]
+    | undefined;
 
   _outputs: any; // TODO
-  _payApiKey: string;
-  _webhookData: {
-    metadata: any;
-    name: string;
-    fees?: Fees;
-    questions?: any[];
-  };
+  _payApiKey: string | undefined;
+  _webhookData: WebhookData | undefined;
 
-  constructor(pageTitle: string, model: Model, state, request) {
+  constructor(
+    pageTitle: string,
+    model: FormModel,
+    state: FormSubmissionState,
+    request
+  ) {
     this.pageTitle = pageTitle;
-
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
-
     this.declaration = model.def.declaration;
     this.skipSummary = model.def.skipSummary;
     this.endPage = endPage;
     const schema = model.makeFilteredSchema(state, relevantPages);
-
     const collatedRepeatPagesState = clone(state);
-    delete collatedRepeatPagesState.progress;
+
     Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
+      if (key === "progress") {
+        return;
+      }
       if (Array.isArray(section)) {
         collatedRepeatPagesState[key] = section.map((pages) =>
-          // TODO: p type and improve naming
           Object.values(pages).reduce(
             (acc: {}, p: any) => ({ ...acc, ...p }),
             {}
@@ -130,6 +130,8 @@ class SummaryViewModel {
                   state
                 ),
               };
+            default:
+              return {};
           }
         });
       }
@@ -141,8 +143,11 @@ class SummaryViewModel {
     this.value = result.value;
   }
 
-  private retrieveFees(model: Model, state): Fees {
-    let applicableFees = [];
+  private retrieveFees(
+    model: FormModel,
+    state: FormSubmissionState
+  ): Fees | undefined {
+    let applicableFees: FeeDetails[] = [];
 
     if (model.def.fees) {
       applicableFees = model.def.fees.filter((fee) => {
@@ -166,6 +171,8 @@ class SummaryViewModel {
           .reduce((a, b) => a + b, 0),
       };
     }
+
+    return undefined;
   }
 
   private processErrors(result, details) {
@@ -180,7 +187,7 @@ class SummaryViewModel {
     });
 
     details.forEach((detail) => {
-      const sectionErr = this.errors.find((err) => err.path === detail.name);
+      const sectionErr = this.errors?.find((err) => err.path === detail.name);
 
       detail.items.forEach((item) => {
         if (sectionErr) {
@@ -188,7 +195,7 @@ class SummaryViewModel {
           return;
         }
 
-        const err = this.errors.find(
+        const err = this.errors?.find(
           (err) =>
             err.path ===
             (detail.name ? detail.name + "." + item.name : item.name)
@@ -200,11 +207,16 @@ class SummaryViewModel {
     });
   }
 
-  private summaryDetails(request, model: Model, state, relevantPages) {
-    const details = [];
+  private summaryDetails(
+    request,
+    model: FormModel,
+    state: FormSubmissionState,
+    relevantPages
+  ) {
+    const details: object[] = [];
 
     [undefined, ...model.sections].forEach((section) => {
-      const items = [];
+      const items: any[] = [];
       let sectionState = section ? state[section.name] || {} : state;
 
       const sectionPages = relevantPages.filter(
@@ -255,7 +267,7 @@ class SummaryViewModel {
             name: section?.name,
             title: section?.title,
             items: [...Array(reach(state, repeatablePage.repeatField))].map(
-              (x, i) => {
+              (_x, i) => {
                 return items.map((item) => item[i]);
               }
             ),
@@ -269,26 +281,35 @@ class SummaryViewModel {
         }
       }
     });
+
     return details;
   }
 
-  private getRelevantPages(model: Model, state) {
+  private getRelevantPages(model: FormModel, state: FormSubmissionState) {
     let nextPage = model.startPage;
-    const relevantPages = [];
+    const relevantPages: any[] = [];
     let endPage = null;
 
     while (nextPage != null) {
       if (nextPage.hasFormComponents) {
         relevantPages.push(nextPage);
-      } else if (!nextPage.hasNext && !(nextPage instanceof SummaryPage)) {
+      } else if (
+        !nextPage.hasNext &&
+        !(nextPage instanceof SummaryPageController)
+      ) {
         endPage = nextPage;
       }
       nextPage = nextPage.getNextPage(state, true);
     }
+
     return { relevantPages, endPage };
   }
 
-  private notifyModel(model: Model, outputConfiguration, state) {
+  private notifyModel(
+    model: FormModel,
+    outputConfiguration,
+    state: FormSubmissionState
+  ) {
     const flatState = flatten(state);
     const personalisation = {};
     outputConfiguration.personalisation.forEach((p) => {
@@ -303,10 +324,10 @@ class SummaryViewModel {
     };
   }
 
-  private emailModel(model: Model, outputConfiguration) {
-    const data = [];
+  private emailModel(model: FormModel, outputConfiguration) {
+    const data: string[] = [];
 
-    this._webhookData.questions?.forEach((question) => {
+    this._webhookData?.questions?.forEach((question) => {
       data.push("---");
       data.push(`Page: ${question.question}\n`);
       question.fields.forEach((field) =>
@@ -328,21 +349,26 @@ class SummaryViewModel {
     };
   }
 
-  private sheetsModel(_model: Model, outputConfiguration, state) {
+  private sheetsModel(
+    _model: FormModel,
+    outputConfiguration,
+    state: FormSubmissionState
+  ) {
     const flatState = flatten(state);
     const { credentials, project_id, scopes } = outputConfiguration;
     const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField];
     const spreadsheetId = outputConfiguration.sheets.find(
       (sheet) => sheet.name === spreadsheetName
     ).id;
+
+    const data =
+      this._webhookData?.questions?.map((question) =>
+        question.fields.map((field) => field.answer)
+      ) ?? [];
+
     return {
-      data: [].concat.apply(
-        [],
-        this._webhookData.questions.map((question) =>
-          question.fields.map((field) => field.answer)
-        )
-      ),
-      authOptions: { credentials, project_id, scopes },
+      data,
+      authOptions: { credentials, projectId: project_id, scopes },
       spreadsheetId,
     };
   }
@@ -359,8 +385,8 @@ class SummaryViewModel {
     return englishString;
   }
 
-  private parseDataForWebhook(model: Model, relevantPages, details) {
-    const questions = [];
+  private parseDataForWebhook(model: FormModel, relevantPages, details) {
+    const questions: Questions = [];
 
     for (const page of relevantPages) {
       const category = page.section?.name;
@@ -387,7 +413,7 @@ class SummaryViewModel {
         const item = items[index].filter(
           (detailItem) => detailItem.pageId === `/${model.basePath}${page.path}`
         );
-        const fields = [];
+        const fields: Fields = [];
 
         for (const detailItem of item) {
           const answer =
@@ -458,11 +484,20 @@ class SummaryViewModel {
   }
 
   get webhookDataPaymentReference() {
-    return this._webhookData.fees.paymentReference ?? "";
+    const fees = this._webhookData?.fees;
+
+    if (fees && fees.paymentReference) {
+      return fees.paymentReference;
+    }
+
+    return "";
   }
 
-  set webhookDataPaymentReference(paymentReference) {
-    this._webhookData.fees.paymentReference = paymentReference;
+  set webhookDataPaymentReference(paymentReference: string) {
+    const fees = this._webhookData?.fees;
+    if (fees && fees.paymentReference) {
+      fees.paymentReference = paymentReference;
+    }
   }
 
   get outputs() {
@@ -478,7 +513,7 @@ class SummaryViewModel {
   }
 
   addDeclarationAsQuestion() {
-    this._webhookData.questions.push({
+    this._webhookData?.questions?.push({
       category: null,
       question: "Declaration",
       fields: [
@@ -497,7 +532,7 @@ class SummaryViewModel {
     component,
     sectionState,
     page,
-    model: Model,
+    model: FormModel,
     params: { num?: number; returnUrl: string } = {
       returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
     }
@@ -507,7 +542,6 @@ class SummaryViewModel {
     if (isRepeatable && Array.isArray(sectionState)) {
       return sectionState.map((state, i) => {
         const collated = Object.values(state).reduce(
-          // TODO: p type, improve var naming
           (acc: {}, p: any) => ({ ...acc, ...p }),
           {}
         );
@@ -520,7 +554,7 @@ class SummaryViewModel {
 
     return {
       name: component.name,
-      path: component.path,
+      path: component.path, // TODO: Why is this always undefined?
       label: component.localisedString(component.title),
       value: component.getDisplayStringFromState(sectionState),
       rawValue: sectionState[component.name],
@@ -532,12 +566,17 @@ class SummaryViewModel {
     };
   }
 
-  private addFeedbackSourceDataToWebhook(webhookData, model: Model, request) {
+  private addFeedbackSourceDataToWebhook(
+    webhookData,
+    model: FormModel,
+    request
+  ) {
     if (model.def.feedback?.feedbackForm) {
-      const feedbackContextInfo = decode(
+      const feedbackContextInfo = decodeFeedbackContextInfo(
         new RelativeUrl(`${request.url.pathname}${request.url.search}`)
           .feedbackReturnInfo
       );
+
       if (feedbackContextInfo) {
         webhookData.questions.push(
           ...Data.FEEDBACK_CONTEXT_ITEMS.map((item) => ({
@@ -558,229 +597,3 @@ class SummaryViewModel {
     return webhookData;
   }
 }
-
-export default class SummaryPage extends Page {
-  makeGetRouteHandler() {
-    return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      this.langFromRequest(request);
-
-      const { cacheService } = request.services([]);
-      const model = this.model;
-
-      if (this.model.def.skipSummary) {
-        return this.makePostRouteHandler()(request, h);
-      }
-
-      const state = await cacheService.getState(request);
-      const viewModel = new SummaryViewModel(this.title, model, state, request);
-      this.setFeedbackDetails(viewModel, request);
-
-      if (viewModel.endPage) {
-        return redirectTo(
-          request,
-          h,
-          `/${model.basePath}${viewModel.endPage.path}`
-        );
-      }
-
-      if (viewModel.errors) {
-        const errorToFix = viewModel.errors[0];
-        const { path } = errorToFix;
-        const parts = path.split(".");
-        const section = parts[0];
-        const property = parts.length > 1 ? parts[parts.length - 1] : null;
-        const iteration = parts.length === 3 ? Number(parts[1]) + 1 : null;
-        const pageWithError = model.pages.filter((page) => {
-          if (page.section && page.section.name === section) {
-            let propertyMatches = true;
-            let conditionMatches = true;
-            if (property) {
-              propertyMatches =
-                page.components.formItems.filter(
-                  (item) => item.name === property
-                ).length > 0;
-            }
-            if (
-              propertyMatches &&
-              page.condition &&
-              model.conditions[page.condition]
-            ) {
-              conditionMatches = model.conditions[page.condition].fn(state);
-            }
-            return propertyMatches && conditionMatches;
-          }
-          return false;
-        })[0];
-        if (pageWithError) {
-          const params = {
-            returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
-            num: iteration && pageWithError.repeatField ? iteration : null,
-          };
-          return redirectTo(
-            request,
-            h,
-            `/${model.basePath}${pageWithError.path}`,
-            params
-          );
-        }
-      }
-
-      const declarationError = request.yar.flash("declarationError");
-      if (declarationError.length) {
-        viewModel.declarationError = declarationError[0];
-      }
-      return h.view("summary", viewModel);
-    };
-  }
-
-  makePostRouteHandler() {
-    return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { payService, cacheService } = request.services([]);
-      const model = this.model;
-      const state = await cacheService.getState(request);
-      const summaryViewModel = new SummaryViewModel(
-        this.title,
-        model,
-        state,
-        request
-      );
-      this.setFeedbackDetails(summaryViewModel, request);
-
-      // redirect user to start page if there are incomplete form errors
-      if (summaryViewModel.result.error) {
-        console.error(`SummaryPage Error`, summaryViewModel.result.error);
-        // default to first defined page
-        let startPageRedirect = redirectTo(
-          request,
-          h,
-          `/${model.basePath}${model.def.pages[0].path}`
-        );
-        const startPage = model.def.startPage;
-
-        if (startPage.startsWith("http")) {
-          startPageRedirect = redirectTo(request, h, startPage);
-        } else if (model.def.pages.find((page) => page.path === startPage)) {
-          startPageRedirect = redirectTo(
-            request,
-            h,
-            `/${model.basePath}${startPage}`
-          );
-        }
-
-        return startPageRedirect;
-      }
-
-      // request declaration
-      if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
-        const { declaration } = request.payload as { declaration?: any };
-
-        if (!declaration) {
-          request.yar.flash(
-            "declarationError",
-            "You must declare to be able to submit this application"
-          );
-          return redirectTo(
-            request,
-            h,
-            `${request.headers.referer}#declaration`
-          );
-        }
-        summaryViewModel.addDeclarationAsQuestion();
-      }
-
-      await cacheService.mergeState(request, {
-        outputs: summaryViewModel.outputs,
-      });
-      await cacheService.mergeState(request, {
-        webhookData: summaryViewModel.validatedWebhookData,
-      });
-
-      // no need to pay, redirect to status
-      if (
-        !summaryViewModel.fees ||
-        (summaryViewModel.fees.details ?? []).length === 0
-      ) {
-        return redirectTo(request, h, "/status");
-      }
-
-      // user must pay for service
-      const paymentReference = `FCO-${nanoid(10)}`;
-      const description = payService.descriptionFromFees(summaryViewModel.fees);
-      const res = await payService.payRequest(
-        summaryViewModel.fees.total,
-        paymentReference,
-        description,
-        summaryViewModel.payApiKey,
-        redirectUrl(request, payReturnUrl)
-      );
-
-      request.yar.set("basePath", model.basePath);
-      await cacheService.mergeState(request, {
-        pay: {
-          payId: res.payment_id,
-          reference: paymentReference,
-          self: res._links.self.href,
-          meta: {
-            amount: summaryViewModel.fees.total,
-            description,
-            attempts: 1,
-            payApiKey: summaryViewModel.payApiKey,
-          },
-        },
-      });
-      summaryViewModel.webhookDataPaymentReference = paymentReference;
-      await cacheService.mergeState(request, {
-        webhookData: summaryViewModel.validatedWebhookData,
-      });
-
-      return redirectTo(request, h, res._links.next_url.href);
-    };
-  }
-
-  setFeedbackDetails(viewModel: SummaryViewModel, request: HapiRequest) {
-    const feedbackContextInfo = this.getFeedbackContextInfo(request);
-    if (feedbackContextInfo) {
-      // set the form name to the source form name if this is a feedback form
-      viewModel.name = feedbackContextInfo.formTitle;
-    }
-    // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
-    viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
-  }
-
-  getFeedbackContextInfo(request: HapiRequest) {
-    if (this.model.def.feedback?.feedbackForm) {
-      return decode(
-        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-          .feedbackReturnInfo
-      );
-    }
-  }
-
-  feedbackUrlFromRequest(request: HapiRequest) {
-    if (this.model.def.feedback?.url) {
-      let feedbackLink = new RelativeUrl(this.model.def.feedback.url);
-      const returnInfo = new FeedbackContextInfo(
-        this.model.name,
-        "Summary",
-        `${request.url.pathname}${request.url.search}`
-      );
-      feedbackLink.feedbackReturnInfo = returnInfo.toString();
-      return feedbackLink.toString();
-    }
-  }
-
-  get postRouteOptions() {
-    return {
-      ext: {
-        onPreHandler: {
-          method: async (_request: HapiRequest, h: HapiResponseToolkit) => {
-            return h.continue;
-          },
-        },
-      },
-    };
-  }
-}
-
-// Keep module.exports until https://github.com/XGovFormBuilder/digital-form-builder/issues/162
-module.exports = SummaryPage;

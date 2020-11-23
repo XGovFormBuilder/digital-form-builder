@@ -40,7 +40,7 @@ interface TextFieldBase {
   type: string;
   name: string;
   title: string;
-  hint: string;
+  hint?: string;
   options: {
     hideTitle?: boolean;
     required?: boolean;
@@ -173,6 +173,10 @@ export interface FileUploadFieldComponent {
   schema: {};
 }
 
+export interface UkAddressFieldComponent extends TextFieldBase {
+  type: "UkAddressField";
+}
+
 // Date Fields
 export interface DateFieldComponent extends DateFieldBase {
   type: "DateField";
@@ -211,10 +215,6 @@ export interface InsetTextComponent extends ContentFieldBase {
   type: "InsetText";
 }
 
-export interface UkAddressFieldComponent extends TextFieldBase {
-  type: "UkAddressField";
-}
-
 // List Fields
 export interface ListComponent extends ListFieldBase {
   type: "List";
@@ -240,7 +240,7 @@ export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
 }
 
-export type Component =
+export type ComponentDef =
   | InsetTextComponent
   | AutocompleteFieldComponent
   | CheckboxesFieldComponent
@@ -266,7 +266,7 @@ export type Component =
   | YesNoFieldComponent;
 
 // Components that render inputs.
-export type InputFieldsComponents =
+export type InputFieldsComponentsDef =
   | TextFieldComponent
   | EmailAddressFieldComponent
   | NumberFieldComponent
@@ -278,18 +278,18 @@ export type InputFieldsComponents =
   | DateFieldComponent
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
-  | TimeFieldComponent;
+  | TimeFieldComponent
+  | UkAddressFieldComponent;
 
 // Components that render content.
-export type ContentComponents =
+export type ContentComponentsDef =
   | ParaComponent
   | DetailsComponent
   | HtmlComponent
-  | InsetTextComponent
-  | UkAddressFieldComponent;
+  | InsetTextComponent;
 
 // Components that render Lists
-export type ListComponents =
+export type ListComponentsDef =
   | ListComponent
   | AutocompleteFieldComponent
   | CheckboxesFieldComponent

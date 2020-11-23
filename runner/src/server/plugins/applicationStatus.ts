@@ -1,12 +1,17 @@
 import config from "../config";
 import { nanoid } from "nanoid";
-import { decode, redirectTo, redirectUrl, RelativeUrl } from "./engine";
+import {
+  decodeFeedbackContextInfo,
+  redirectTo,
+  redirectUrl,
+  RelativeUrl,
+} from "./engine";
 
 import { HapiRequest, HapiResponseToolkit } from "../types";
 
 function getFeedbackContextInfo(request: HapiRequest) {
   if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
-    return decode(
+    return decodeFeedbackContextInfo(
       new RelativeUrl(`${request.url.pathname}${request.url.search}`)
         .feedbackReturnInfo
     );
@@ -146,6 +151,8 @@ const applicationStatus = {
                       authOptions
                     );
                   }
+                  default:
+                    return {};
                 }
               });
 

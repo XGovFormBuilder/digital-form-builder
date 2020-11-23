@@ -1,15 +1,31 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
-import { Request, ResponseToolkit, ResponseObject } from "hapi";
 
-import { proceed, redirectTo } from "./helpers";
-import { ComponentCollection } from "./components/ComponentCollection";
-import { decode, RelativeUrl, FeedbackContextInfo } from "./feedback";
+import { proceed, redirectTo } from "../helpers";
+import { ComponentCollection } from "../components/ComponentCollection";
+import {
+  RelativeUrl,
+  decodeFeedbackContextInfo,
+  FeedbackContextInfo,
+} from "../feedback";
+import {
+  HapiRequest,
+  HapiResponseToolkit,
+  HapiResponseObject,
+} from "server/types";
+import { FormModel } from "../models";
+import {
+  FormSubmissionState,
+  FormSubmissionErrors,
+  FormData,
+  FormPayload,
+} from "../types";
+import { ComponentCollectionViewModel } from "../components/types";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
 
-export default class Page {
+export class PageControllerBase {
   def: {
     name: string;
     feedback?: {
@@ -18,7 +34,7 @@ export default class Page {
     };
   };
   name: string;
-  model: any; // TODO
+  model: FormModel;
   pageDef: any; // TODO
   path: string;
   title: string;
@@ -29,14 +45,9 @@ export default class Page {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
 
-  // TODO: types
-  // TODO: should we have some validation, e.g: required name, path etc?
-  constructor(
-    model: { [prop: string]: any } = {},
-    pageDef: { [prop: string]: any } = {}
-  ) {
+  // TODO: pageDef type
+  constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
-
     // Properties
     this.def = def;
     this.name = def.name;
@@ -49,12 +60,13 @@ export default class Page {
 
     // Resolve section
     this.section =
-      pageDef.section && model.sections.find((s) => s.name === pageDef.section);
+      pageDef.section &&
+      model.sections.find((section) => section.name === pageDef.section);
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
     const conditionalFormComponents = components.formItems.filter(
-      (c) => c.conditionalComponents
+      (c: any) => c.conditionalComponents
     );
 
     this.components = components;
@@ -66,19 +78,19 @@ export default class Page {
   }
 
   getViewModel(
-    formData: any, // TODO
+    formData: FormData,
     iteration?: any, // TODO
     errors?: any // TODO
   ): {
-    page: Page;
+    page: PageControllerBase;
     name: string;
     pageTitle: string;
     sectionTitle: string;
     showTitle: boolean;
-    components: any; // TODO
-    errors: any; // TODO
+    components: ComponentCollectionViewModel;
+    errors: FormSubmissionErrors;
     isStartPage: boolean;
-    startPage?: ResponseObject;
+    startPage?: HapiResponseObject;
     backLink?: string;
   } {
     let showTitle = true;
@@ -134,7 +146,7 @@ export default class Page {
     return (this.pageDef.next || [])
       .map((next: { path: string }) => {
         const { path } = next;
-        const page = this.model.pages.find((page: Page) => {
+        const page = this.model.pages.find((page: PageControllerBase) => {
           return path === page.path;
         });
 
@@ -150,8 +162,7 @@ export default class Page {
       .filter((v: {} | null) => !!v);
   }
 
-  // TODO: type
-  getNextPage(state: any, suppressRepetition = false) {
+  getNextPage(state: FormSubmissionState, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
       const otherRepeatPagesInSection = this.model.pages.filter(
@@ -221,30 +232,32 @@ export default class Page {
     return this.defaultNextPath;
   }
 
-  // TODO: type
-  getFormDataFromState(state: any, atIndex: number) {
+  // TODO: types
+  getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
 
     if (this.repeatField) {
       const repeatedPageState =
         pageState?.[atIndex ?? (pageState.length - 1 || 0)] ?? {};
       const values = Object.values(repeatedPageState);
+
+      const newState = values.length
+        ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
+        : {};
+
       return this.components.getFormDataFromState(
-        values.length
-          ? values.reduce((acc: any, page: any) => ({ ...acc, ...page }), {})
-          : {}
+        newState as FormSubmissionState
       );
     }
 
     return this.components.getFormDataFromState(pageState || {});
   }
 
-  // TODO: type
-  getStateFromValidForm(formData): any {
+  getStateFromValidForm(formData: FormPayload) {
     return this.components.getStateFromValidForm(formData);
   }
 
-  getErrors(validationResult) {
+  getErrors(validationResult): FormSubmissionErrors | undefined {
     if (validationResult && validationResult.error) {
       return {
         titleText: this.errorSummaryTitle,
@@ -265,7 +278,7 @@ export default class Page {
       };
     }
 
-    return null;
+    return undefined;
   }
 
   validate(value, schema) {
@@ -283,7 +296,7 @@ export default class Page {
     return this.validate(newState, this.stateSchema);
   }
 
-  langFromRequest(request) {
+  langFromRequest(request: HapiRequest) {
     const lang = request.query.lang || request.yar.get("lang") || "en";
     if (lang !== request.yar.get("lang")) {
       request.i18n.setLocale(lang);
@@ -292,13 +305,8 @@ export default class Page {
     return request.yar.get("lang");
   }
 
-  private objLength(object: {}) {
-    return Object.keys(object).length;
-  }
-
   makeGetRouteHandler() {
-    // TODO: type
-    return async (request: any, h: any) => {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);
@@ -381,12 +389,11 @@ export default class Page {
   }
 
   makePostRouteHandler() {
-    // TODO: type
-    return async (request: any, h: any) => {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
       const hasFilesizeError = request.payload === null;
       const preHandlerErrors = request.pre.errors;
-      const payload = request.payload || {};
+      const payload = (request.payload || {}) as FormData;
       const formResult: any = this.validateForm(payload);
       const state = await cacheService.getState(request);
       const originalFilenames = (state || {}).originalFilenames || {};
@@ -428,7 +435,7 @@ export default class Page {
              */
             reformatted.text = reformatted.text.replace(
               /%s/,
-              fieldMeta ? fieldMeta.label.text.trim() : "the file"
+              fieldMeta?.label?.text.trim() ?? "the file"
             );
             reformattedErrors.push(reformatted);
           }
@@ -498,19 +505,16 @@ export default class Page {
     viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
   }
 
-  getFeedbackContextInfo(request) {
+  getFeedbackContextInfo(request: HapiRequest) {
     if (this.def.feedback?.feedbackForm) {
-      const feedbackReturnInfo = new RelativeUrl(
-        `${request.url.pathname}${request.url.search}`
-      ).feedbackReturnInfo;
-
-      if (feedbackReturnInfo) {
-        return decode(feedbackReturnInfo);
-      }
+      return decodeFeedbackContextInfo(
+        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
+          .feedbackReturnInfo
+      );
     }
   }
 
-  feedbackUrlFromRequest(request): string | void {
+  feedbackUrlFromRequest(request: HapiRequest): string | void {
     if (this.def.feedback?.url) {
       let feedbackLink = new RelativeUrl(this.def.feedback.url);
       const returnInfo = new FeedbackContextInfo(
@@ -545,7 +549,7 @@ export default class Page {
     return this.model.pages.find((page) => page.path === path);
   }
 
-  proceed(request: Request, h: ResponseToolkit, state) {
+  proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
     return proceed(request, h, this.getNext(state));
   }
 
@@ -605,5 +609,9 @@ export default class Page {
 
   set stateSchema(value) {
     this[STATE_SCHEMA] = value;
+  }
+
+  private objLength(object: {}) {
+    return Object.keys(object).length;
   }
 }
