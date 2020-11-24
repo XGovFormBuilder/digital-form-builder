@@ -1,6 +1,9 @@
-import pkg from "../../package.json";
+import path from "path";
+import resolve from "resolve";
 import nunjucks from "nunjucks";
 import vision from "vision";
+
+import pkg from "../../package.json";
 
 export const viewPlugin = {
   plugin: vision,
@@ -40,7 +43,12 @@ export const viewPlugin = {
         },
       },
     },
-    path: ["designer/dist/client", "dist/client"],
+    path: [
+      "designer/dist/client/views",
+      "dist/client/views",
+      `${path.dirname(resolve.sync("govuk-frontend"))}`,
+      `${path.dirname(resolve.sync("govuk-frontend"))}/components`,
+    ],
     context: {
       appVersion: pkg.version,
       assetPath: "/assets",
