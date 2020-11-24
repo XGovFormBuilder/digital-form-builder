@@ -44,6 +44,7 @@ export const viewPlugin = {
       },
     },
     path: [
+      `${path.join("dist", "client", "views")}`,
       `${path.join(__dirname, "..", "views")}`,
       `${path.dirname(resolve.sync("govuk-frontend"))}`,
       `${path.dirname(resolve.sync("govuk-frontend"))}/components`,
