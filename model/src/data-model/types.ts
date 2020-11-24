@@ -6,7 +6,7 @@ export interface Page {
   controller: string;
   components?: ComponentDef[];
   section: string; // the section ID
-  next?: { path: string }[];
+  next?: { path: string; condition?: string }[];
 }
 
 export interface Section {
