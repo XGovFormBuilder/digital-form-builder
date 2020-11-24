@@ -1,7 +1,6 @@
 import React from "react";
 import { Output, EmailOutputConfiguration, ValidationErrors } from "./types";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
+import { Input } from "@govuk-jsx/input";
 
 type Props = {
   output: Output;
@@ -17,26 +16,18 @@ const EmailEdit = ({ output, errors = {} }: Props) => {
 
   return (
     <div className="govuk-body email-edit">
-      <div
-        className={classNames({
-          "govuk-form-group": true,
-          "govuk-form-group--error": errors.email,
-        })}
-      >
-        <label className="govuk-label" htmlFor="email-address">
-          Email Address
-        </label>
-        {errors.email && <ErrorMessage>This field is required</ErrorMessage>}
-        <input
-          className={classNames({
-            "govuk-input": true,
-            "govuk-input--error": errors.email,
-          })}
-          name="email-address"
-          type="text"
-          defaultValue={outputConfiguration.emailAddress}
-        />
-      </div>
+      <Input
+        id="email-address"
+        name="email-address"
+        label={{
+          className: "govuk-label--s",
+          children: ["Email Address"],
+        }}
+        defaultValue={outputConfiguration.emailAddress}
+        errorMessage={
+          errors?.email ? { children: ["This field is required"] } : undefined
+        }
+      />
     </div>
   );
 };

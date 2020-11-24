@@ -1,8 +1,7 @@
 import FeeItems from "./fee-items";
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
+import { Input } from "@govuk-jsx/input";
 
 class FeeEdit extends React.Component {
   constructor(props) {
@@ -90,29 +89,20 @@ class FeeEdit extends React.Component {
     return (
       <div className="govuk-body">
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors.payapi,
-            })}
-          >
-            <label htmlFor="pay-api-key">Pay API Key</label>
-            {errors.payapi && (
-              <ErrorMessage>This field is required</ErrorMessage>
-            )}
-
-            <input
-              className={classNames({
-                "govuk-input": true,
-                "govuk-input--error": errors.payapi,
-              })}
-              id="pay-api-key"
-              name="pay-api-key"
-              type="text"
-              defaultValue={payApiKey}
-            />
-          </div>
-
+          <Input
+            id="pay-api-key"
+            name="pay-api-key"
+            label={{
+              className: "govuk-label--s",
+              children: ["Pay API Key"],
+            }}
+            defaultValue={payApiKey}
+            errorMessage={
+              errors?.payapi
+                ? { children: ["This field is required"] }
+                : undefined
+            }
+          />
           <FeeItems
             items={fees}
             conditions={conditions}

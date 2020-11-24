@@ -5,7 +5,8 @@ import * as Lab from "@hapi/lab";
 import LinkCreate from "../client/link-create";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
-import { assertSelectInput } from "./helpers/element-assertions";
+import { assertSelectInput, assertClasses } from "./helpers/element-assertions";
+import { ErrorMessage } from "@govuk-jsx/error-message";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -154,5 +155,41 @@ suite("Link create", () => {
       expect(clonedData.addLink.firstCall.args[1]).to.equal("/2");
       expect(clonedData.addLink.firstCall.args[2]).to.equal(undefined);
     });
+  });
+
+  test("with no from and to should not call callback function", async (flags) => {
+    const wrappedOnCreate = sinon.spy();
+
+    const wrapper = shallow(
+      <LinkCreate data={data} onCreate={wrappedOnCreate} />
+    );
+    const preventDefault = sinon.spy();
+    await wrapper.simulate("submit", { preventDefault: preventDefault });
+
+    expect(wrappedOnCreate.notCalled).to.equal(true);
+
+    assertClasses(wrapper.find("#link-source"), [
+      "govuk-select",
+      "govuk-input--error",
+    ]);
+    assertClasses(wrapper.find("#link-source").parent(), [
+      "govuk-form-group",
+      "govuk-form-group--error",
+    ]);
+    expect(wrapper.find(ErrorMessage).at(0).childAt(0).text()).to.equal(
+      "This field is required"
+    );
+
+    assertClasses(wrapper.find("#link-target"), [
+      "govuk-select",
+      "govuk-input--error",
+    ]);
+    assertClasses(wrapper.find("#link-target").parent(), [
+      "govuk-form-group",
+      "govuk-form-group--error",
+    ]);
+    expect(wrapper.find(ErrorMessage).at(1).childAt(0).text()).to.equal(
+      "This field is required"
+    );
   });
 });

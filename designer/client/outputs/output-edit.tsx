@@ -9,9 +9,8 @@ import { clone } from "@xgovformbuilder/model";
 
 import NotifyEdit from "./notify-edit";
 import EmailEdit from "./email-edit";
+import { Input } from "@govuk-jsx/input";
 import WebhookEdit from "./webhook-edit";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
 import {
   OutputType,
   OutputConfiguration,
@@ -231,50 +230,31 @@ class OutputEdit extends Component<Props, State> {
             Back
           </a>
         )}
-        <div
-          className={classNames({
-            "govuk-form-group": true,
-            "govuk-form-group--error": errors.title,
-          })}
-        >
-          <label className="govuk-label govuk-label--s" htmlFor="output-title">
-            Title
-          </label>
-          {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
-          <input
-            className={classNames({
-              "govuk-input": true,
-              "govuk-input--error": errors.title,
-            })}
-            id="output-name"
-            name="output-title"
-            type="text"
-            defaultValue={output?.title ?? ""}
-          />
-        </div>
-
-        <div
-          className={classNames({
-            "govuk-form-group": true,
-            "govuk-form-group--error": errors.name,
-          })}
-        >
-          <label className="govuk-label govuk-label--s" htmlFor="output-name">
-            Name
-          </label>
-          {errors.name && <ErrorMessage>This field is required</ErrorMessage>}
-          <input
-            className={classNames({
-              "govuk-input": true,
-              "govuk-input--error": errors.name,
-            })}
-            id="output-name"
-            name="output-name"
-            type="text"
-            pattern="^\S+"
-            defaultValue={output?.name ?? ""}
-          />
-        </div>
+        <Input
+          id="output-title"
+          name="output-title"
+          label={{
+            className: "govuk-label--s",
+            children: ["Title"],
+          }}
+          defaultValue={output?.title ?? ""}
+          errorMessage={
+            errors?.title ? { children: ["This field is required"] } : undefined
+          }
+        />
+        <Input
+          id="output-name"
+          name="output-name"
+          label={{
+            className: "govuk-label--s",
+            children: ["Name"],
+          }}
+          pattern="^\S+"
+          defaultValue={output?.name ?? ""}
+          errorMessage={
+            errors?.name ? { children: ["This field is required"] } : undefined
+          }
+        />
 
         <div className="govuk-form-group">
           <label className="govuk-label govuk-label--s" htmlFor="output-type">

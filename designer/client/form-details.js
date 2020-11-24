@@ -1,9 +1,8 @@
 import React from "react";
 import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
+import { Input } from "@govuk-jsx/input";
 import { validate } from "joi";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
 
 class FormDetails extends React.Component {
   constructor(props) {
@@ -120,32 +119,19 @@ class FormDetails extends React.Component {
             },
           ]}
         />
-        <div
-          className={classNames({
-            "govuk-form-group": true,
-            "govuk-form-group--error": errors.title,
-          })}
-        >
-          <label
-            className="govuk-label govuk-label--s"
-            htmlFor="form-title"
-            aria-describedby="feedback-form-hint"
-          >
-            Title
-          </label>
-          {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
-          <input
-            className={classNames({
-              "govuk-input": true,
-              "govuk-input--error": errors.title,
-            })}
-            id="form-title"
-            name="title"
-            type="text"
-            onBlur={(e) => this.setState({ title: e.target.value })}
-            defaultValue={title}
-          />
-        </div>
+        <Input
+          id="form-title"
+          name="title"
+          label={{
+            className: "govuk-label--s",
+            children: ["Title"],
+          }}
+          onBlur={(e) => this.setState({ title: e.target.value })}
+          defaultValue={title}
+          errorMessage={
+            errors?.title ? { children: ["This field is required"] } : undefined
+          }
+        />
         {!feedbackForm && (
           <div className="govuk-form-group">
             <label

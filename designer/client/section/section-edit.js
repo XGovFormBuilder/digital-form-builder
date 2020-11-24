@@ -3,8 +3,7 @@ import { clone } from "@xgovformbuilder/model";
 import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
+import { Input } from "@govuk-jsx/input";
 
 class SectionEdit extends React.Component {
   constructor(props) {
@@ -109,30 +108,19 @@ class SectionEdit extends React.Component {
 
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-        <div
-          className={classNames({
-            "govuk-form-group": true,
-            "govuk-form-group--error": errors.title,
-          })}
-        >
-          <label className="govuk-label govuk-label--s" htmlFor="section-title">
-            {i18n("title")}
-          </label>
-          {errors.title && (
-            <ErrorMessage>{i18n("errors.required")}</ErrorMessage>
-          )}
-          <input
-            className={classNames({
-              "govuk-input": true,
-              "govuk-input--error": errors.title,
-            })}
-            id="section-title"
-            name="title"
-            type="text"
-            value={title}
-            onChange={this.onChangeTitle}
-          />
-        </div>
+        <Input
+          id="section-title"
+          name="title"
+          label={{
+            className: "govuk-label--s",
+            children: [i18n("title")],
+          }}
+          value={title}
+          onChange={this.onChangeTitle}
+          errorMessage={
+            errors?.title ? { children: [i18n("errors.required")] } : undefined
+          }
+        />
         <Name id="section-name" labelText="Section name" name={name} />
         <button className="govuk-button" type="submit">
           Save

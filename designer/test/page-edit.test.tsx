@@ -1,7 +1,8 @@
 import React from "react";
-import { mount } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
+import sinon from "sinon";
 import PageEdit from "../client/page-edit";
 import { Data } from "@xgovformbuilder/model";
 import {
@@ -9,7 +10,13 @@ import {
   assertSelectInput,
   assertClasses,
 } from "./helpers/element-assertions";
+import {
+  assertInputControlValue,
+  assertInputControlProp,
+} from "./helpers/sub-component-assertions";
+import { Input } from "@govuk-jsx/input";
 import initI18n from "./i18nForTest";
+
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
@@ -44,7 +51,7 @@ suite("Page edit", () => {
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
-    const wrapper = mount(<PageEdit data={data} page={page} />);
+    const wrapper = shallow(<PageEdit data={data} page={page} />).dive();
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
@@ -57,14 +64,14 @@ suite("Page edit", () => {
       expectedValue: "./pages/start.js",
     });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-title"),
+    assertInputControlValue({
+      wrapper,
       id: "page-title",
       expectedValue: "My first page",
     });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-path"),
+    assertInputControlValue({
+      wrapper,
       id: "page-path",
       expectedValue: "/1",
     });
@@ -101,7 +108,9 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = shallow(
+      <PageEdit data={data} page={data.pages[0]} />
+    ).dive();
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
@@ -114,14 +123,14 @@ suite("Page edit", () => {
       expectedValue: "",
     });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-title"),
+    assertInputControlValue({
+      wrapper,
       id: "page-title",
       expectedValue: "My first page",
     });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-path"),
+    assertInputControlValue({
+      wrapper,
       id: "page-path",
       expectedValue: "/1",
     });
@@ -158,19 +167,23 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = shallow(
+      <PageEdit data={data} page={data.pages[0]} />
+    ).dive();
+
     wrapper
-      .find("#page-title")
+      .find(Input)
+      .filter("#page-title")
       .simulate("change", { target: { value: "New Page" } });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-title"),
+    assertInputControlValue({
+      wrapper,
       id: "page-title",
       expectedValue: "New Page",
     });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-path"),
+    assertInputControlValue({
+      wrapper,
       id: "page-path",
       expectedValue: "/new-page",
     });
@@ -191,19 +204,23 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = shallow(
+      <PageEdit data={data} page={data.pages[0]} />
+    ).dive();
+
     wrapper
-      .find("#page-title")
+      .find(Input)
+      .filter("#page-title")
       .simulate("change", { target: { value: "New Page" } });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-title"),
+    assertInputControlValue({
+      wrapper,
       id: "page-title",
       expectedValue: "New Page",
     });
 
-    assertTextInput({
-      wrapper: wrapper.find("#page-path"),
+    assertInputControlValue({
+      wrapper,
       id: "page-path",
       expectedValue: "/new-page",
     });
@@ -257,7 +274,10 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = shallow(
+      <PageEdit data={data} page={data.pages[0]} />
+    ).dive();
+
     wrapper
       .find("#page-section")
       .simulate("change", { target: { value: "badger" } });
@@ -289,7 +309,10 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
+    const wrapper = shallow(
+      <PageEdit data={data} page={data.pages[0]} />
+    ).dive();
+
     wrapper
       .find("#page-type")
       .simulate("change", { target: { value: "./pages/summary.js" } });
@@ -335,23 +358,23 @@ suite("Page edit", () => {
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
-    const wrapper = mount(<PageEdit data={data} page={page} />);
+    const wrapper = shallow(<PageEdit data={data} page={page} />).dive();
 
     wrapper
-      .find("#page-path")
+      .find(Input)
+      .filter("#page-path")
       .simulate("change", { target: { value: "/second-page" } });
 
     const form = wrapper.find("form").first();
-    form.simulate("submit");
+    form.simulate("submit", { preventDefault: sinon.spy() });
+    wrapper.update();
 
-    assertClasses(wrapper.find("#page-path"), [
-      "govuk-input",
-      "govuk-input--error",
-    ]);
-
-    expect(wrapper.find("span.govuk-error-message").text()).to.have.string(
-      "Path '/second-page' already exists"
-    );
+    assertInputControlProp({
+      wrapper,
+      id: "page-path",
+      expectedValue: { children: ["Path '/second-page' already exists"] },
+      prop: "errorMessage",
+    });
   });
 
   test("Page title will have error if the value is removed", () => {
@@ -378,24 +401,19 @@ suite("Page edit", () => {
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
-    const wrapper = mount(<PageEdit data={data} page={page} />);
+    const wrapper = shallow(<PageEdit data={data} page={page} />).dive();
 
-    let pageTitleInpt = wrapper.find("#page-title");
+    let pageTitleInpt = wrapper.find(Input).filter("#page-title");
     pageTitleInpt.simulate("change", { target: { value: "" } });
 
     const form = wrapper.find("form").first();
-    form.simulate("submit");
-
-    assertClasses(wrapper.find("#page-title"), [
-      "govuk-input",
-      "govuk-input--error",
-    ]);
-
-    assertClasses(wrapper.find("#page-title").parent(), [
-      "govuk-form-group",
-      "govuk-form-group--error",
-    ]);
-
-    expect(wrapper.find("span.govuk-error-message")).to.exist();
+    form.simulate("submit", { preventDefault: sinon.spy() });
+    wrapper.update();
+    assertInputControlProp({
+      wrapper,
+      id: "page-title",
+      expectedValue: { children: ["This field is required"] },
+      prop: "errorMessage",
+    });
   });
 });

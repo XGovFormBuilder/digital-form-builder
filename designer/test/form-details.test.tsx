@@ -1,13 +1,15 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data, FormConfiguration } from "@xgovformbuilder/model";
 import {
   assertSelectInput,
   assertTextInput,
+  assertClasses,
 } from "./helpers/element-assertions";
 import FormDetails from "../client/form-details";
+import { Input } from "@govuk-jsx/input";
 
 import sinon from "sinon";
 import formConfigurationsApi from "../client/load-form-configurations";
@@ -94,7 +96,7 @@ suite("Form details", () => {
       data.name = "My form";
       const wrapper = shallow(<FormDetails data={data} />);
       assertTextInput({
-        wrapper: wrapper.find("#form-title"),
+        wrapper: wrapper.find(Input).dive().find("#form-title"),
         id: "form-title",
         expectedValue: "My form",
       });
@@ -104,11 +106,13 @@ suite("Form details", () => {
       data.name = "My form";
       const wrapper = shallow(<FormDetails data={data} />);
       wrapper
+        .find(Input)
+        .dive()
         .find("#form-title")
         .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       assertTextInput({
-        wrapper: wrapper.find("#form-title"),
+        wrapper: wrapper.find(Input).dive().find("#form-title"),
         id: "form-title",
         expectedValue: "New name",
       });
@@ -239,6 +243,27 @@ suite("Form details", () => {
       data.save = sinon.stub().resolves(data);
     });
 
+    test("required error when title is not set", async () => {
+      data.name = undefined;
+      const wrapper = shallow(<FormDetails data={data} />);
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
+      wrapper.update();
+
+      expect(data.save.callCount).to.equal(0);
+      expect(wrapper.find(Input)).to.exist();
+      assertClasses(wrapper.find(Input).dive().find("#form-title"), [
+        "govuk-input",
+        "govuk-input--error",
+      ]);
+      assertClasses(wrapper.find(Input).dive().find("div"), [
+        "govuk-form-group",
+        "govuk-form-group--error",
+      ]);
+      expect(
+        wrapper.find(Input).dive().find("ErrorMessage").childAt(0).text()
+      ).to.equal("This field is required");
+    });
+
     test("name should be set correctly when unchanged", async () => {
       data.name = "My form";
       const wrapper = shallow(<FormDetails data={data} />);
@@ -246,6 +271,19 @@ suite("Form details", () => {
 
       expect(data.save.callCount).to.equal(1);
       expect(data.save.firstCall.args[0].name).to.equal("My form");
+    });
+
+    test("name should be set correctly when changed", async () => {
+      data.name = "My form";
+      const wrapper = shallow(<FormDetails data={data} />);
+      wrapper
+        .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
+        .simulate("blur", { target: { value: "New name" } });
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
+
+      expect(data.save.callCount).to.equal(1);
+      expect(data.save.firstCall.args[0].name).to.equal("New name");
     });
 
     test("name should be set correctly when changed", async () => {

@@ -6,8 +6,7 @@ import SectionEdit from "./section/section-edit";
 import { nanoid } from "nanoid";
 import Flyout from "./flyout";
 import { withI18n } from "./i18n";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
+import { Input } from "@govuk-jsx/input";
 
 export class PageEdit extends React.Component {
   constructor(props) {
@@ -224,55 +223,37 @@ export class PageEdit extends React.Component {
               </option>
             </select>
           </div>
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors.title,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="page-title">
-              {i18n("page.title")}
-            </label>
-            {errors.title && (
-              <ErrorMessage>{i18n("errors.required")}</ErrorMessage>
-            )}
-            <input
-              className={classNames({
-                "govuk-input": true,
-                "govuk-input--error": errors.title,
-              })}
-              id="page-title"
-              name="title"
-              type="text"
-              value={title}
-              aria-describedby="page-title-hint"
-              onChange={this.onChangeTitle}
-            />
-          </div>
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors.path,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="page-path">
-              {i18n("page.path")}
-            </label>
-            <span className="govuk-hint">{i18n("page.pathHint")}</span>
-            {errors.path && <ErrorMessage>{errors.path?.message}</ErrorMessage>}
-            <input
-              className={classNames({
-                "govuk-input": true,
-                "govuk-input--error": errors.path,
-              })}
-              id="page-path"
-              name="path"
-              type="text"
-              aria-describedby="page-path-hint"
-              value={path}
-              onChange={this.onChangePath}
-            />
-          </div>
+          <Input
+            id="page-title"
+            name="title"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("page.title")],
+            }}
+            value={title}
+            onChange={this.onChangeTitle}
+            errorMessage={
+              errors?.title
+                ? { children: [i18n("errors.required")] }
+                : undefined
+            }
+          />
+          <Input
+            id="page-path"
+            name="path"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("page.path")],
+            }}
+            hint={{
+              children: [i18n("page.pathHint")],
+            }}
+            value={path}
+            onChange={this.onChangePath}
+            errorMessage={
+              errors?.path ? { children: [errors.path?.message] } : undefined
+            }
+          />
           <div className="govuk-form-group">
             <label
               className="govuk-label govuk-label--s"

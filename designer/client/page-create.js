@@ -5,8 +5,7 @@ import { RenderInPortal } from "./components/render-in-portal";
 import Flyout from "./flyout";
 import SectionEdit from "./section/section-edit";
 import { withI18n } from "./i18n";
-import { ErrorMessage } from "@govuk-jsx/error-message";
-import classNames from "classnames";
+import { Input } from "@govuk-jsx/input";
 
 class PageCreate extends React.Component {
   constructor(props) {
@@ -229,58 +228,38 @@ class PageCreate extends React.Component {
             />
           )}
 
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors.title,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="page-title">
-              Title
-            </label>
-            {errors.title && (
-              <ErrorMessage>{i18n("errors.required")}</ErrorMessage>
-            )}
-            <input
-              className={classNames({
-                "govuk-input": true,
-                "govuk-input--error": errors.title,
-              })}
-              id="page-title"
-              name="title"
-              type="text"
-              aria-describedby="page-title-hint"
-              onChange={this.onChangeTitle}
-              value={title || ""}
-            />
-          </div>
+          <Input
+            id="page-title"
+            name="title"
+            label={{
+              className: "govuk-label--s",
+              children: ["Title"],
+            }}
+            value={title || ""}
+            onChange={this.onChangeTitle}
+            errorMessage={
+              errors?.title
+                ? { children: [i18n("errors.required")] }
+                : undefined
+            }
+          />
 
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors.path,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="page-path">
-              Path
-            </label>
-            <span className="govuk-hint">
-              The path of this page e.g. &apos;/personal-details&apos;.
-            </span>
-            {errors.path && <ErrorMessage>{errors.path?.message}</ErrorMessage>}
-            <input
-              className={classNames({
-                "govuk-input": true,
-                "govuk-input--error": errors.path,
-              })}
-              id="page-path"
-              name="path"
-              type="text"
-              aria-describedby="page-path-hint"
-              value={path}
-              onChange={this.onChangePath}
-            />
-          </div>
+          <Input
+            id="page-path"
+            name="path"
+            label={{
+              className: "govuk-label--s",
+              children: ["Path"],
+            }}
+            hint={{
+              children: ["The path of this page e.g. '/personal-details'."],
+            }}
+            value={path}
+            onChange={this.onChangePath}
+            errorMessage={
+              errors?.path ? { children: [errors.path?.message] } : undefined
+            }
+          />
 
           <div className="govuk-form-group">
             <label
