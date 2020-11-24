@@ -8,6 +8,22 @@ $color-orange: #ffbf47;
   box-sizing: border-box;
 }
 
+// html,
+// body {
+//   height: 100%;
+//   min-height: 100%;
+// }
+
+body {
+  margin: 0;
+  padding: 0;
+  // min-height: 100%;
+}
+
+.main {
+  padding: 8px;
+}
+
 .pull-right {
   float: right;
 }
@@ -36,7 +52,6 @@ $color-orange: #ffbf47;
   }
 }
 
-// Visualisation
 #app {
   .menu {
     &__row:not(:first-child) {
@@ -64,102 +79,6 @@ $color-orange: #ffbf47;
       button {
         margin-bottom: 0;
       }
-    }
-  }
-
-  .visualisation {
-    position: relative;
-
-    .page {
-      position: absolute;
-      width: 240px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-      border-top: solid 2px #000;
-      border-right: solid 2px #000;
-      border-bottom: solid 2px #000;
-      border-left: solid 2px #000;
-
-      &--selected {
-        -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
-        -moz-box-shadow: 0px 0px 0px 6px $color-orange;
-        box-shadow: 0px 0px 0px 6px $color-orange;
-      }
-
-      &:hover {
-        -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
-        -moz-box-shadow: 0px 0px 0px 6px $color-orange;
-        box-shadow: 0px 0px 0px 6px $color-orange;
-      }
-
-      &__heading {
-        position: relative;
-        min-height: 2.8em;
-        @extend .govuk-\!-padding-2;
-
-        h3 {
-          @extend .govuk-heading-s;
-        }
-
-        span {
-          @extend .govuk-caption-m, .govuk-\!-font-size-14;
-        }
-      }
-
-      &__actions {
-        display: flex;
-        flex-direction: column;
-
-        & > * {
-          width: 100%;
-          @include govuk-font(14);
-          @extend .govuk-\!-padding-top-1,
-            .govuk-\!-padding-bottom-1,
-            .govuk-\!-padding-left-2,
-            .govuk-\!-padding-right-2;
-          border: none;
-          box-shadow: none;
-          text-decoration: none;
-          text-align: left;
-          background-color: govuk-colour("black");
-          color: govuk-colour("white");
-
-          &:hover {
-            background-color: $color-orange;
-            color: govuk-colour("black");
-            cursor: pointer;
-          }
-        }
-
-        & > *:not(:last-child) {
-          border-bottom: 1px solid #ffffff;
-        }
-      }
-
-      h3.govuk-heading-s {
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  .minimap {
-    right: 0;
-    bottom: 0;
-    position: fixed;
-    z-index: 998;
-    background: lightgray;
-    padding: 5px;
-    max-width: 50%;
-    max-height: 25%;
-    overflow: auto;
-    border-top: solid 1px #000;
-    border-left: solid 1px #000;
-
-    polyline {
-      stroke-width: 1;
-    }
-    rect:hover {
-      fill: $color-orange;
     }
   }
 }
