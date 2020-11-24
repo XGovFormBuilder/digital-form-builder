@@ -8,20 +8,9 @@ $color-orange: #ffbf47;
   box-sizing: border-box;
 }
 
-// html,
-// body {
-//   height: 100%;
-//   min-height: 100%;
-// }
-
 body {
   margin: 0;
   padding: 0;
-  // min-height: 100%;
-}
-
-.main {
-  padding: 8px;
 }
 
 .pull-right {
@@ -54,6 +43,10 @@ body {
 
 #app {
   .menu {
+    background-color: #ffffff;
+    padding: 8px;
+    width: 100%;
+
     &__row:not(:first-child) {
       @extend .govuk-\!-margin-top-4;
     }
@@ -72,7 +65,7 @@ body {
 
   @include govuk-media-query($from: tablet) {
     .menu {
-      padding: 3px;
+      padding: 8px;
       position: fixed;
       z-index: 999;
       background-color: #fff;
