@@ -41,6 +41,10 @@ body {
   }
 }
 
+#root {
+  min-height: 89vh;
+}
+
 #app {
   .menu {
     background-color: #ffffff;
