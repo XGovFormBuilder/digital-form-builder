@@ -12,7 +12,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { suite, test, after, before, beforeEach } = lab;
 
-suite.only("Page Linkage", () => {
+suite("Page Linkage", () => {
   let page;
   let data;
   let layout;
