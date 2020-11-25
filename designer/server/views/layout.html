@@ -5,7 +5,12 @@
 <html lang="{{ htmlLang | default('en') }}" class="{{ htmlClasses }}">
   <head>
     <meta charset="utf-8" />
-    <title>GOV.UK Site - Designer</title>
+    <title>
+      {% block pageTitle %}
+        GOV.UK Site - Designer
+      {% endblock %}
+    </title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}" /> {# Hardcoded value of $govuk-black #}
 
@@ -30,14 +35,13 @@
           window.newConfig = {{ newConfig }}
       {% endif %}
     </script>
+
     {% block header %}
-      {{ govukHeader({
-          homepageUrl: "https://gov.uk",
-          containerClasses: "govuk-width-container",
-          serviceName: name if name else serviceName,
-          serviceUrl: serviceStartPage
-        })
-      }}    
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          {% include "includes/home-office-header.html" %}
+        </div>
+      </div>
     {% endblock %}
     
     {% block content %}
@@ -45,21 +49,11 @@
     {% endblock %}
 
     {% block footer %}
-      {{ govukFooter({
-          meta: {
-              items: [{
-                  href: '/help/cookies',
-                  text: 'Cookies'
-              },
-              {
-                href: '/help/accessibility-statement',
-                text: 'Accessibility Statement'
-              }, {
-                  href: '/help/terms-and-conditions',
-                  text: 'Terms and Conditions'
-              }]
-          }
-      }) }}
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          {% include "includes/home-office-footer.html" %}
+        </div>
+      </div>
     {% endblock %}
     
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>

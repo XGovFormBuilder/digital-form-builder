@@ -1,10 +1,22 @@
 {% extends 'layout.html' %}
 
-{% block header %}
+{% block pageTitle %}
+    GOV.UK Site - Designer
+{% endblock %}
 
+{% block header %}
+    <!-- no header -->
 {% endblock %}
 
 {% block content %}
     <main id="root"></main>
     <div id="portal-root"></div>
+{% endblock %}
+
+{% block footer %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            {% include "includes/home-office-footer.html" %}
+        </div>
+    </div>
 {% endblock %}
