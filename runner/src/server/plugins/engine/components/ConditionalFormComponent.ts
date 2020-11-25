@@ -3,23 +3,33 @@ import nunjucks from "nunjucks";
 
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
+import { FormModel } from "../models";
 
 const getSchemaKeys = Symbol("getSchemaKeys");
 
 export class ConditionalFormComponent extends FormComponent {
-  constructor(def, model) {
+  itemValues: any;
+
+  constructor(def, model: FormModel) {
     super(def, model);
-    this.itemValues = this.values.items.map((item) => item.value);
+
+    this.itemValues = this.values?.items.map((item) => item.value);
     this.createConditionalComponents(def, model);
   }
 
-  getFormDataFromState(state) {
+  getFormDataFromState(state: FormSubmissionState) {
     const formData = super.getFormDataFromState(state);
     if (formData) {
-      const itemsWithConditionalComponents = this.values.items.filter(
-        (item) => item.childrenCollection
+      const itemsWithConditionalComponents = this.values?.items.filter(
+        (item: any) => item.childrenCollection
       );
-      itemsWithConditionalComponents.forEach((item) => {
+      itemsWithConditionalComponents?.forEach((item: any) => {
         const itemFormDataFromState = item.childrenCollection.getFormDataFromState(
           state
         );
@@ -38,13 +48,13 @@ export class ConditionalFormComponent extends FormComponent {
     return this[getSchemaKeys]("form");
   }
 
-  getStateFromValidForm(payload) {
+  getStateFromValidForm(payload: FormPayload) {
     const state = super.getStateFromValidForm(payload);
-    const itemsWithConditionalComponents = this.values.items.filter(
-      (item) => item.childrenCollection
+    const itemsWithConditionalComponents = this.values?.items.filter(
+      (item: any) => item.childrenCollection
     );
 
-    const selectedItemsWithConditionalComponents = itemsWithConditionalComponents.filter(
+    const selectedItemsWithConditionalComponents = itemsWithConditionalComponents?.filter(
       (item) => {
         if (payload[this.name] && Array.isArray(payload[this.name])) {
           return payload[this.name].find(
@@ -57,7 +67,7 @@ export class ConditionalFormComponent extends FormComponent {
     );
 
     // Add selected form data associated with conditionally revealed content to the state.
-    selectedItemsWithConditionalComponents.forEach((item) =>
+    selectedItemsWithConditionalComponents?.forEach((item: any) =>
       Object.assign(
         state,
         item.childrenCollection.getStateFromValidForm(payload)
@@ -65,11 +75,11 @@ export class ConditionalFormComponent extends FormComponent {
     );
 
     // Add null values to the state for unselected form data associated with conditionally revealed content.
-    // This will allow changes in the visibility of onditionally revealed content to be reflected in state correctly.
-    const unselectedItemsWithConditionalComponents = itemsWithConditionalComponents.filter(
-      (item) => !selectedItemsWithConditionalComponents.includes(item)
+    // This will allow changes in the visibility of conditionally revealed content to be reflected in state correctly.
+    const unselectedItemsWithConditionalComponents = itemsWithConditionalComponents?.filter(
+      (item) => !selectedItemsWithConditionalComponents?.includes(item)
     );
-    unselectedItemsWithConditionalComponents.forEach((item) => {
+    unselectedItemsWithConditionalComponents?.forEach((item: any) => {
       const stateFromValidForm = item.childrenCollection.getStateFromValidForm(
         payload
       );
@@ -85,6 +95,7 @@ export class ConditionalFormComponent extends FormComponent {
         });
       Object.assign(state, stateFromValidForm);
     });
+
     return state;
   }
 
@@ -94,19 +105,24 @@ export class ConditionalFormComponent extends FormComponent {
 
   createConditionalComponents(_def, model) {
     const { values } = this;
-    const items = values.items;
+    const items = values?.items;
 
-    const filteredItems = items.filter(
+    const filteredItems = items?.filter(
       (item) => item.children && item.children.length > 0
     );
     // Create a collection of conditional components that can be converted to a view model and rendered by Nunjucks
     // before primary view model rendering takes place.
-    filteredItems.map((item) => {
+    filteredItems?.map((item: any) => {
       item.childrenCollection = new ComponentCollection(item.children, model);
     });
   }
 
-  addConditionalComponents(item, itemModel, formData, errors) {
+  addConditionalComponents(
+    item,
+    itemModel,
+    formData: FormData,
+    errors?: FormSubmissionErrors
+  ) {
     // The gov.uk design system Nunjucks examples for conditional reveal reference variables from macros. There does not appear to
     // to be a way to do this in JavaScript. As such, render the conditional components with Nunjucks before the main view is rendered.
     // The conditional html tag used by the gov.uk design system macro will reference HTML rarther than one or more additional
@@ -126,8 +142,8 @@ export class ConditionalFormComponent extends FormComponent {
     const schemaKeysFunctionName = `get${schemaType
       .substring(0, 1)
       .toUpperCase()}${schemaType.substring(1)}SchemaKeys`;
-    const filteredItems = this.values.items.filter(
-      (item) => item.childrenCollection
+    const filteredItems = this.values?.items.filter(
+      (item: any) => item.childrenCollection
     );
     const conditionalName = this.name;
     const schemaKeys = { [conditionalName]: this[schemaName] };
@@ -136,7 +152,7 @@ export class ConditionalFormComponent extends FormComponent {
     // As such create Joi validation rules such that:
     // a) When a conditional component is visible it is required.
     // b) When a conditional component is not visible it is optional.
-    filteredItems.forEach((item) => {
+    filteredItems?.forEach((item: any) => {
       const conditionalSchemaKeys = item.childrenCollection[
         schemaKeysFunctionName
       ]();

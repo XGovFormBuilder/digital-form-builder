@@ -1,16 +1,16 @@
 import path from "path";
-import { plugin } from ".";
+import { plugin } from "./plugin";
 
-import config from "../../config";
-import { idFromFilename } from "./helpers";
 import {
   loadPreConfiguredForms,
   FormConfiguration,
 } from "./services/configurationService";
+import { idFromFilename } from "./helpers";
+import config from "../../config";
 
 type ConfigureEnginePlugin = (
-  configFile?: string,
-  customPath?: string
+  formFileName?: string,
+  formFilePath?: string
 ) => {
   plugin: any;
   options: {
@@ -29,16 +29,16 @@ type ConfigureEnginePlugin = (
 const relativeTo = __dirname;
 
 export const configureEnginePlugin: ConfigureEnginePlugin = (
-  configFile,
-  customPath
+  formFileName,
+  formFilePath
 ) => {
   let configs: FormConfiguration[];
 
-  if (configFile && customPath) {
+  if (formFileName && formFilePath) {
     configs = [
       {
-        configuration: require(path.join(customPath, configFile)),
-        id: idFromFilename(configFile),
+        configuration: require(path.join(formFilePath, formFileName)),
+        id: idFromFilename(formFileName),
       },
     ];
   } else {

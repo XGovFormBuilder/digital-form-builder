@@ -1,15 +1,16 @@
-import { Component } from "./Component";
+import { ComponentBase } from "./ComponentBase";
+import { FormData, FormSubmissionErrors } from "../types";
 
-export class List extends Component {
-  getViewModel() {
-    const { values } = this;
-    const viewModel = super.getViewModel();
+export class List extends ComponentBase {
+  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    const { values, options } = this;
+    const viewModel = super.getViewModel(formData, errors);
 
-    if (this.options.type) {
-      viewModel.type = this.options.type;
+    if ("type" in options && options.type) {
+      viewModel.type = options.type;
     }
 
-    viewModel.content = values.items.map((item) => {
+    viewModel.content = values?.items.map((item) => {
       const contentItem: { text: string; condition?: any } = {
         text: item.hint || item.label,
       };

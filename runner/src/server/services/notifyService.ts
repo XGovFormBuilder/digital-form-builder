@@ -14,7 +14,7 @@ type SendNotificationArgs = {
   apiKey: string;
   templateId: string;
   emailAddress: string;
-  personalisation?: Personalisation;
+  personalisation: Personalisation;
   reference: string;
 };
 

@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
-    "test": "yarn lint &&  yarn test-lab-cov",
+    "test": "yarn lint && yarn type-check &&  yarn test-lab-cov",
     "test:dev": "yarn test-lab",
     "test-cov": "yarn test-lab-cov",
     "test-lab": "lab -T test/.transform.js test/*.test.ts -S -v test -r console -o stdout -r html -o unit-test.html -I version --coverage-exclude src",

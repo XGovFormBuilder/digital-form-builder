@@ -43,11 +43,3 @@ export const postJson: Post = (url, options) => {
 export const getJson = (url: string): ReturnType<Get> => {
   return get(url, { json: true });
 };
-
-module.exports = {
-  get: get,
-  post: post,
-  getJson: getJson,
-  postJson: postJson,
-  request: request,
-};

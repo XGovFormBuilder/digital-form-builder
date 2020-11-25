@@ -1,5 +1,5 @@
 import config from "../config";
-import Wreck from "@hapi/wreck";
+import { get, postJson } from "./httpService";
 
 export type FeeDetails = {
   description: string;
@@ -50,13 +50,13 @@ export class PayService {
       ...this.options(apiKey),
       payload: this.payRequestData(amount, reference, description, returnUrl),
     };
-    const { payload } = await Wreck.post(`${config.payApiUrl}/payments`, data);
-    return JSON.parse(payload.toString());
+    const { payload } = await postJson(`${config.payApiUrl}/payments`, data);
+    return payload;
   }
 
   async payStatus(url: string, apiKey: string) {
-    const { payload } = await Wreck.get(url, this.options(apiKey));
-    return JSON.parse(payload.toString());
+    const { payload } = await get(url, this.options(apiKey));
+    return payload;
   }
 
   descriptionFromFees(fees: Fees): string {

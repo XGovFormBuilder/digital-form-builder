@@ -30,6 +30,7 @@ internals.transform = function (content, filename) {
         {
           moduleNameMapper: {
             "^src/(.*)": "<pkgDir>/src/$1",
+            "^server/(.*)": "<pkgDir>/src/server/$1",
           },
         },
       ],

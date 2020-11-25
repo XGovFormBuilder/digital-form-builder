@@ -1,6 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { loadPreConfiguredForms } from "../../../../../../src/server/plugins/engine/services/configurationService";
+import { loadPreConfiguredForms } from "src/server/plugins/engine/services/configurationService";
 
 const lab = Lab.script();
 exports.lab = lab;

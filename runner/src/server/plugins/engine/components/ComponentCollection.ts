@@ -1,33 +1,42 @@
-import joi from "joi";
-
-import { ComponentCollectionViewModel } from "./types";
+import joi, { Schema as JoiSchema } from "joi";
+import { ComponentDef } from "@xgovformbuilder/model";
 
 import * as Components from "./index";
+import { FormModel } from "../models";
+import {
+  FormData,
+  FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
+} from "../types";
+import { ComponentCollectionViewModel } from "./types";
+import { ComponentBase } from "./ComponentBase";
+import { FormComponent } from "./FormComponent";
+import { ConditionalFormComponent } from "./ConditionalFormComponent";
 
 export class ComponentCollection {
-  // TODO
-  items: any;
-  formItems: any;
-  formSchema: any;
-  stateSchema: any;
+  items: (ComponentBase | ComponentCollection | FormComponent)[];
+  formItems: (FormComponent | ConditionalFormComponent)[];
+  formSchema: JoiSchema;
+  stateSchema: JoiSchema;
 
-  constructor(items, model) {
-    const itemTypes = items.map((def) => {
-      const Type = Components[def.type];
+  constructor(componentDefs: ComponentDef[], model: FormModel) {
+    const components = componentDefs.map((def) => {
+      const Comp: any = Components[def.type];
 
-      if (typeof Type !== "function") {
+      if (typeof Comp !== "function") {
         throw new Error(`Component type ${def.type} doesn't exist`);
       }
 
-      return new Type(def, model);
+      return new Comp(def, model);
     });
 
-    const formItems = itemTypes.filter(
+    const formComponents = components.filter(
       (component) => component.isFormComponent
     );
 
-    this.items = itemTypes;
-    this.formItems = formItems;
+    this.items = components;
+    this.formItems = formComponents;
     this.formSchema = joi
       .object()
       .keys(this.getFormSchemaKeys())
@@ -57,7 +66,7 @@ export class ComponentCollection {
     return keys;
   }
 
-  getFormDataFromState(state): any {
+  getFormDataFromState(state: FormSubmissionState): any {
     const formData = {};
 
     this.formItems.forEach((item) => {
@@ -67,7 +76,7 @@ export class ComponentCollection {
     return formData;
   }
 
-  getStateFromValidForm(payload) {
+  getStateFromValidForm(payload: FormPayload): { [key: string]: any } {
     const state = {};
 
     this.formItems.forEach((item) => {
@@ -77,13 +86,18 @@ export class ComponentCollection {
     return state;
   }
 
-  getViewModel(formData, errors): ComponentCollectionViewModel {
-    return this.items.map((item) => {
+  getViewModel(
+    formData: FormData,
+    errors: FormSubmissionErrors
+  ): ComponentCollectionViewModel {
+    const result = this.items?.map((item: any) => {
       return {
         type: item.type,
         isFormComponent: item.isFormComponent,
         model: item.getViewModel(formData, errors),
       };
     });
+
+    return result || [];
   }
 }
