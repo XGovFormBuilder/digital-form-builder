@@ -10,14 +10,18 @@ import { PageLinkage } from "../client/components/page-linkage";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, test, beforeEach } = lab;
+const { suite, test, after, before, beforeEach } = lab;
 
-suite("Page Linkage", () => {
+suite.only("Page Linkage", () => {
   let page;
   let data;
   let layout;
   let props;
   let event;
+
+  before(() => {
+    window.pageYOffset = 10;
+  });
 
   beforeEach(() => {
     page = {
@@ -56,6 +60,10 @@ suite("Page Linkage", () => {
     };
 
     props = { page, data, layout };
+  });
+
+  after(() => {
+    window.pageYOffset = 0;
   });
 
   test("Drag area is rendered", () => {
@@ -139,9 +147,9 @@ suite("Page Linkage", () => {
 
     expect(line.props()).to.include({
       x1: event.clientX,
-      y1: event.clientY,
+      y1: event.clientY + window.pageYOffset,
       x2: event.clientX,
-      y2: event.clientY,
+      y2: event.clientY + window.pageYOffset,
     });
   });
 
@@ -155,9 +163,9 @@ suite("Page Linkage", () => {
 
     expect(line.props()).to.include({
       x1: event.clientX,
-      y1: event.clientY,
+      y1: event.clientY + window.pageYOffset,
       x2: event.clientX,
-      y2: event.clientY,
+      y2: event.clientY + window.pageYOffset,
     });
 
     dragArea.prop("onDrag")({ clientX: 200, clientY: 200 });
@@ -166,9 +174,9 @@ suite("Page Linkage", () => {
 
     expect(line.props()).to.include({
       x1: event.clientX,
-      y1: event.clientY,
+      y1: event.clientY + window.pageYOffset,
       x2: 200,
-      y2: 200,
+      y2: 200 + window.pageYOffset,
     });
   });
 
