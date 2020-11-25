@@ -62,10 +62,21 @@ class FieldEdit extends React.Component {
     this.isFileUploadField = component.type === "FileUploadField";
 
     this.state = {
+      type: component.type,
       hidden: options.required !== false,
       name: component.name,
       errors: {},
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.type !== nextProps.component.type) {
+      return {
+        type: nextProps.component.type,
+        errors: {},
+      };
+    }
+    return null;
   }
 
   validate = () => {
