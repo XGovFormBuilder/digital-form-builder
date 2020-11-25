@@ -285,12 +285,12 @@ class FieldEdit extends React.Component {
   }
 }
 
-function FileUploadFieldEdit(props) {
+const FileUploadFieldEdit = React.forwardRef((props, ref) => {
   const { component, updateModel } = props;
   component.options = component.options || {};
 
   return (
-    <FieldEdit component={component} updateModel={updateModel}>
+    <FieldEdit component={component} updateModel={updateModel} ref={ref}>
       <details className="govuk-details">
         <summary className="govuk-details__summary">
           <span className="govuk-details__summary-text">more</span>
@@ -327,14 +327,15 @@ function FileUploadFieldEdit(props) {
       </details>
     </FieldEdit>
   );
-}
+});
+FileUploadFieldEdit.supportsValidation = true;
 
-function TextFieldEdit(props) {
+const TextFieldEdit = React.forwardRef((props, ref) => {
   const { component, updateModel } = props;
   component.schema = component.schema || {};
 
   return (
-    <FieldEdit component={component} updateModel={updateModel}>
+    <FieldEdit component={component} updateModel={updateModel} ref={ref}>
       <details className="govuk-details">
         <summary className="govuk-details__summary">
           <span className="govuk-details__summary-text">more</span>
@@ -456,15 +457,16 @@ function TextFieldEdit(props) {
       </details>
     </FieldEdit>
   );
-}
+});
+TextFieldEdit.supportsValidation = true;
 
-function MultilineTextFieldEdit(props) {
+const MultilineTextFieldEdit = React.forwardRef((props, ref) => {
   const { component, updateModel } = props;
   component.schema = component.schema || {};
   component.options = component.options || {};
 
   return (
-    <FieldEdit component={component} updateModel={updateModel}>
+    <FieldEdit component={component} updateModel={updateModel} ref={ref}>
       <details className="govuk-details">
         <summary className="govuk-details__summary">
           <span className="govuk-details__summary-text">more</span>
@@ -558,14 +560,15 @@ function MultilineTextFieldEdit(props) {
       </details>
     </FieldEdit>
   );
-}
+});
+MultilineTextFieldEdit.supportsValidation = true;
 
-function NumberFieldEdit(props) {
+const NumberFieldEdit = React.forwardRef((props, ref) => {
   const { component, updateModel } = props;
   component.schema = component.schema || {};
 
   return (
-    <FieldEdit component={component} updateModel={updateModel}>
+    <FieldEdit component={component} updateModel={updateModel} ref={ref}>
       <details className="govuk-details">
         <summary className="govuk-details__summary">
           <span className="govuk-details__summary-text">more</span>
@@ -658,14 +661,15 @@ function NumberFieldEdit(props) {
       </details>
     </FieldEdit>
   );
-}
+});
+NumberFieldEdit.supportsValidation = true;
 
-function DateFieldEdit(props) {
+const DateFieldEdit = React.forwardRef((props, ref) => {
   const { component, updateModel } = props;
   component.options = component.options || {};
 
   return (
-    <FieldEdit component={component} updateModel={updateModel}>
+    <FieldEdit component={component} updateModel={updateModel} ref={ref}>
       <details className="govuk-details">
         <summary className="govuk-details__summary">
           <span className="govuk-details__summary-text">more</span>
@@ -727,7 +731,8 @@ function DateFieldEdit(props) {
       </details>
     </FieldEdit>
   );
-}
+});
+DateFieldEdit.supportsValidation = true;
 
 class SelectFieldEdit extends React.Component {
   static supportsValidation = true;
