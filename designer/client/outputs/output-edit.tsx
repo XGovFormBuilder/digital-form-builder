@@ -239,7 +239,7 @@ class OutputEdit extends Component<Props, State> {
           }}
           defaultValue={output?.title ?? ""}
           errorMessage={
-            errors?.title ? { children: ["This field is required"] } : undefined
+            errors?.title ? { children: ["Enter output title"] } : undefined
           }
         />
         <Input
@@ -252,7 +252,7 @@ class OutputEdit extends Component<Props, State> {
           pattern="^\S+"
           defaultValue={output?.name ?? ""}
           errorMessage={
-            errors?.name ? { children: ["This field is required"] } : undefined
+            errors?.name ? { children: ["Enter output name"] } : undefined
           }
         />
 

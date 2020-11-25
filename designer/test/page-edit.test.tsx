@@ -412,7 +412,7 @@ suite("Page edit", () => {
     assertInputControlProp({
       wrapper,
       id: "page-title",
-      expectedValue: { children: ["This field is required"] },
+      expectedValue: { children: ["Enter title"] },
       prop: "errorMessage",
     });
   });

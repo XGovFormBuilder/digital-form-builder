@@ -121,7 +121,7 @@ export default class DefineComponentValue extends React.Component {
           value={label}
           onChange={(e) => this.setState({ label: e.target.value })}
           errorMessage={
-            errors?.label ? { children: ["This field is required"] } : undefined
+            errors?.label ? { children: ["Enter label"] } : undefined
           }
         />
         <Input
@@ -137,7 +137,7 @@ export default class DefineComponentValue extends React.Component {
           value={value}
           onChange={(e) => this.setState({ value: e.target.value })}
           errorMessage={
-            errors?.value ? { children: ["This field is required"] } : undefined
+            errors?.value ? { children: ["Enter value"] } : undefined
           }
         />
         <Textarea

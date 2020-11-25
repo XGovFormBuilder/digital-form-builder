@@ -129,7 +129,7 @@ class FormDetails extends React.Component {
           onBlur={(e) => this.setState({ title: e.target.value })}
           defaultValue={title}
           errorMessage={
-            errors?.title ? { children: ["This field is required"] } : undefined
+            errors?.title ? { children: ["Enter title"] } : undefined
           }
         />
         {!feedbackForm && (

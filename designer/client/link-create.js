@@ -59,7 +59,7 @@ class LinkCreate extends React.Component {
           <label className="govuk-label govuk-label--s" htmlFor="link-source">
             From
           </label>
-          {errors.from && <ErrorMessage>This field is required</ErrorMessage>}
+          {errors.from && <ErrorMessage>Enter from</ErrorMessage>}
           <select
             className={classNames({
               "govuk-select": true,
@@ -87,7 +87,7 @@ class LinkCreate extends React.Component {
           <label className="govuk-label govuk-label--s" htmlFor="link-target">
             To
           </label>
-          {errors.to && <ErrorMessage>This field is required</ErrorMessage>}
+          {errors.to && <ErrorMessage>Enter to</ErrorMessage>}
           <select
             className={classNames({
               "govuk-select": true,

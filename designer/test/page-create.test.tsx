@@ -410,7 +410,7 @@ suite("Page create", () => {
 
       expect(
         wrapper.find(Input).filter("#page-title").prop("errorMessage")
-      ).to.equal({ children: ["This field is required"] });
+      ).to.equal({ children: ["Enter title"] });
     });
 
     test("Duplicate page path will not submit form", async (flags) => {

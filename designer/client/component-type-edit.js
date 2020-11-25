@@ -3,6 +3,7 @@ import Editor from "./editor";
 import { ComponentTypes } from "@xgovformbuilder/model";
 import ComponentValues from "./components/component-values";
 import { Textarea } from "@govuk-jsx/textarea";
+import { Input } from "@govuk-jsx/input";
 import Name from "./name";
 import { isEmpty } from "./helpers";
 import { ErrorMessage } from "@govuk-jsx/error-message";
@@ -107,42 +108,30 @@ class FieldEdit extends React.Component {
     return (
       <div>
         <div data-test-id="standard-inputs">
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors.path,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="field-title">
-              Title
-            </label>
-            <span className="govuk-hint">
-              This is the title text displayed on the page
-            </span>
-            {errors.title && (
-              <ErrorMessage>This field is required</ErrorMessage>
-            )}
-            <input
-              className={classNames({
-                "govuk-input": true,
-                "govuk-input--error": errors.title,
-              })}
-              id="field-title"
-              name="title"
-              type="text"
-              defaultValue={component.title}
-              onBlur={(e) =>
-                updateComponent(
-                  component,
-                  (component) => {
-                    component.title = e.target.value;
-                  },
-                  updateModel
-                )
-              }
-            />
-          </div>
-
+          <Input
+            id="field-title"
+            name="title"
+            label={{
+              className: "govuk-label--s",
+              children: ["Title"],
+            }}
+            hint={{
+              children: ["This is the title text displayed on the page"],
+            }}
+            defaultValue={component.title}
+            onBlur={(e) =>
+              updateComponent(
+                component,
+                (component) => {
+                  component.title = e.target.value;
+                },
+                updateModel
+              )
+            }
+            errorMessage={
+              errors?.title ? { children: ["Enter title"] } : undefined
+            }
+          />
           <Textarea
             id="field-hint"
             name="hint"
@@ -1105,36 +1094,27 @@ class DetailsEdit extends React.Component {
     const { errors } = this.state;
     return (
       <div>
-        <div
-          className={classNames({
-            "govuk-form-group": true,
-            "govuk-form-group--error": errors.title,
-          })}
-        >
-          <label className="govuk-label" htmlFor="details-title">
-            Title
-          </label>
-          {errors.title && <ErrorMessage>This field is required</ErrorMessage>}
-          <input
-            className={classNames({
-              "govuk-input": true,
-              "govuk-input--error": errors.title,
-            })}
-            id="details-title"
-            name="title"
-            defaultValue={component.title}
-            onBlur={(e) =>
-              updateComponent(
-                component,
-                (component) => {
-                  component.title = e.target.value;
-                },
-                updateModel
-              )
-            }
-          />
-        </div>
-
+        <Input
+          id="details-title"
+          name="title"
+          label={{
+            className: "govuk-label--s",
+            children: ["Title"],
+          }}
+          defaultValue={component.title}
+          onBlur={(e) =>
+            updateComponent(
+              component,
+              (component) => {
+                component.title = e.target.value;
+              },
+              updateModel
+            )
+          }
+          errorMessage={
+            errors?.title ? { children: ["Enter title"] } : undefined
+          }
+        />
         <div
           className={classNames({
             "govuk-form-group": true,
@@ -1149,9 +1129,7 @@ class DetailsEdit extends React.Component {
             is available. Use this on a wrapping element to apply default govuk
             styles.
           </span>
-          {errors.content && (
-            <ErrorMessage>This field is required</ErrorMessage>
-          )}
+          {errors.content && <ErrorMessage>Enter the content</ErrorMessage>}
           <textarea
             className="govuk-textarea"
             id="details-content"

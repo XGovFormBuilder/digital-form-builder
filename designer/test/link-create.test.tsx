@@ -177,7 +177,7 @@ suite("Link create", () => {
       "govuk-form-group--error",
     ]);
     expect(wrapper.find(ErrorMessage).at(0).childAt(0).text()).to.equal(
-      "This field is required"
+      "Enter from"
     );
 
     assertClasses(wrapper.find("#link-target"), [
@@ -189,7 +189,7 @@ suite("Link create", () => {
       "govuk-form-group--error",
     ]);
     expect(wrapper.find(ErrorMessage).at(1).childAt(0).text()).to.equal(
-      "This field is required"
+      "Enter to"
     );
   });
 });

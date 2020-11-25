@@ -261,7 +261,7 @@ suite("Form details", () => {
       ]);
       expect(
         wrapper.find(Input).dive().find("ErrorMessage").childAt(0).text()
-      ).to.equal("This field is required");
+      ).to.equal("Enter title");
     });
 
     test("name should be set correctly when unchanged", async () => {

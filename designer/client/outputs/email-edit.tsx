@@ -25,7 +25,7 @@ const EmailEdit = ({ output, errors = {} }: Props) => {
         }}
         defaultValue={outputConfiguration.emailAddress}
         errorMessage={
-          errors?.email ? { children: ["This field is required"] } : undefined
+          errors?.email ? { children: ["Enter email address"] } : undefined
         }
       />
     </div>

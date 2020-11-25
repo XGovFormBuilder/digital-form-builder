@@ -98,9 +98,7 @@ class FeeEdit extends React.Component {
             }}
             defaultValue={payApiKey}
             errorMessage={
-              errors?.payapi
-                ? { children: ["This field is required"] }
-                : undefined
+              errors?.payapi ? { children: ["Enter Pay API key"] } : undefined
             }
           />
           <FeeItems

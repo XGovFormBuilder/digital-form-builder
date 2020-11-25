@@ -118,7 +118,7 @@ class SectionEdit extends React.Component {
           value={title}
           onChange={this.onChangeTitle}
           errorMessage={
-            errors?.title ? { children: [i18n("errors.required")] } : undefined
+            errors?.title ? { children: ["Enter title"] } : undefined
           }
         />
         <Name id="section-name" labelText="Section name" name={name} />
