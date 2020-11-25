@@ -1,3 +1,8 @@
+const drivers = {
+  chrome: { version: "86.0.4240.22" }, // https://chromedriver.chromium.org/
+  firefox: { version: "0.27.0" }, // https://github.com/mozilla/geckodriver/releases
+};
+
 exports.config = {
   runner: "local",
   specs: ["./features/**/*.feature"],
@@ -28,7 +33,15 @@ exports.config = {
   //
   // Default request retries count
   connectionRetryCount: 3,
-  services: ["selenium-standalone"],
+  services: [
+    [
+      "selenium-standalone",
+      {
+        installArgs: { drivers },
+        args: { drivers },
+      },
+    ],
+  ],
   framework: "cucumber",
   reporters: [
     "spec",

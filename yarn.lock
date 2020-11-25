@@ -3191,6 +3191,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@wdio/config@npm:6.9.0":
+  version: 6.9.0
+  resolution: "@wdio/config@npm:6.9.0"
+  dependencies:
+    "@wdio/logger": 6.8.0
+    deepmerge: ^4.0.0
+    glob: ^7.1.2
+  checksum: 78e597e5cad07cf885811ec1700939252e1c3cae659aa04505fe765fbd04f5c20e7ae059e7676105c9800aaccd86fa9ed758045947b396cfea8df0f2d1dc8d4a
+  languageName: node
+  linkType: hard
+
 "@wdio/cucumber-framework@npm:^6.6.0":
   version: 6.6.6
   resolution: "@wdio/cucumber-framework@npm:6.6.6"
@@ -3232,6 +3243,18 @@ __metadata:
     loglevel-plugin-prefix: ^0.8.4
     strip-ansi: ^6.0.0
   checksum: fdf33ef23171c85beecad6f50a17642bd9609326c7ee78a14847b1adefd5c3b46255ac4576a6c7427a69c29179966b330ee0f043a8b94bbac749d1eb7d4856bf
+  languageName: node
+  linkType: hard
+
+"@wdio/logger@npm:6.8.0":
+  version: 6.8.0
+  resolution: "@wdio/logger@npm:6.8.0"
+  dependencies:
+    chalk: ^4.0.0
+    loglevel: ^1.6.0
+    loglevel-plugin-prefix: ^0.8.4
+    strip-ansi: ^6.0.0
+  checksum: a5bc2cc69636cd283ec8ed2d7b1fa8892ace0af780ddac58928c767769ade6561cb7e26190a3313d2c762614d533f038c140461c9f0d82b904e0e97e2b05dbc9
   languageName: node
   linkType: hard
 
@@ -3307,19 +3330,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/selenium-standalone-service@npm:^6.6.0":
-  version: 6.6.5
-  resolution: "@wdio/selenium-standalone-service@npm:6.6.5"
+"@wdio/selenium-standalone-service@npm:^6.9.0":
+  version: 6.9.0
+  resolution: "@wdio/selenium-standalone-service@npm:6.9.0"
   dependencies:
     "@types/fs-extra": ^9.0.1
     "@types/selenium-standalone": ^6.15.2
-    "@wdio/config": 6.6.3
-    "@wdio/logger": 6.6.0
+    "@wdio/config": 6.9.0
+    "@wdio/logger": 6.8.0
     fs-extra: ^9.0.1
     selenium-standalone: ^6.20.1
   peerDependencies:
     "@wdio/cli": ^6.0.1
-  checksum: c4ebcacdcae288481bf33c93702085a39a98768c2dd7aa6c7facca48e6506da53d6da9b91ffe20e2e21880756b20d9f510ec5b004e54240d1b683d0c640375f2
+  checksum: bbaf6d4d91502b7c88706ebe5d1b73719ffd6cf2cf097503495be1b3a7744c3cfb061934cee696fda8be3d7647ac40f7cf0b0c6245b48a9757274e5312394ff4
   languageName: node
   linkType: hard
 
@@ -3810,7 +3833,7 @@ __metadata:
     "@wdio/cucumber-framework": ^6.6.0
     "@wdio/local-runner": ^6.6.0
     "@wdio/mocha-framework": ^6.6.0
-    "@wdio/selenium-standalone-service": ^6.6.0
+    "@wdio/selenium-standalone-service": ^6.9.0
     "@wdio/spec-reporter": ^6.6.0
     "@wdio/sync": ^6.6.0
     wdio-config: ^5.0.0-alpha.7
