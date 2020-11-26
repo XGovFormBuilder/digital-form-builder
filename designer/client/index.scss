@@ -13,6 +13,10 @@ body {
   padding: 0;
 }
 
+#app {
+  padding: 8px;
+}
+
 .pull-right {
   float: right;
 }
@@ -48,7 +52,6 @@ body {
 #app {
   .menu {
     background-color: #ffffff;
-    padding: 8px;
 
     &__row:not(:first-child) {
       @extend .govuk-\!-margin-top-4;
@@ -68,7 +71,6 @@ body {
 
   @include govuk-media-query($from: tablet) {
     .menu {
-      padding: 8px;
       position: fixed;
       z-index: 999;
       background-color: #fff;
