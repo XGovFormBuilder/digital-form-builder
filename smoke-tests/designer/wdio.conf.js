@@ -64,7 +64,7 @@ exports.config = {
     source: true,
     profile: [],
     strict: false,
-    tagExpression: "not @flaky",
+    tagExpression: "not @flaky or not @wip",
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
   },
