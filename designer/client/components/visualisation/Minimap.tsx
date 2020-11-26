@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./minimap.scss";
-
 type Props = {
   layout: any;
   scale?: number;

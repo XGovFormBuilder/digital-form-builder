@@ -6,6 +6,7 @@ import { Lines } from "./Lines";
 import { Minimap } from "./Minimap";
 import { Info } from "./Info";
 import { getLayout, Layout } from "./getLayout";
+import "./visualisation.scss";
 
 type Props = {
   data: Data;
