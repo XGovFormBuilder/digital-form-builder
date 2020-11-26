@@ -15,11 +15,16 @@ Given("I am on the form designer page", function () {
   actions.createNewConfig();
 });
 
-When("I scroll down to the end of the page", function () {
-  formDesigner.govFooter.scrollIntoView();
-  browser.debug();
+When("I select the {string} in the footer", function (footerLink) {
+  Config.footerLinks(footerLink).click();
 });
 
-Then("I can see the footer element", function () {
-  Config.verifyFooter();
-});
+Then(
+  "I can see a new tab is opened with the {string} information page",
+  function (pageTitle) {
+    this.pageTitle = pageTitle.toLowerCase().replace(/\s+/g, "-");
+    browser.switchWindow(`GOV.UK - ${pageTitle}`);
+    expect(browser).toHaveUrlContaining(`/help/${this.pageTitle}`);
+    expect(browser.$("h1")).toHaveText(`${pageTitle}`);
+  }
+);
