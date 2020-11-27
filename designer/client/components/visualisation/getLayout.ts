@@ -44,7 +44,7 @@ export type Layout = {
 
 type GetLayout = (data: Data, el: HTMLDivElement) => Layout;
 
-export const getLayout: GetLayout = (data, el): Layout => {
+export const getLayout: GetLayout = (data, el) => {
   // Create a new directed graph
   var g = new dagre.graphlib.Graph();
 
