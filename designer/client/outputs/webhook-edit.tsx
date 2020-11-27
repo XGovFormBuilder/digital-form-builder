@@ -17,7 +17,7 @@ const WebhookEdit = ({ url = "", errors }: Props) => (
     }}
     defaultValue={url}
     pattern="^\S+"
-    errorMessage={errors?.url ? { children: ["Not a valid url"] } : undefined}
+    errorMessage={errors?.url ? { children: errors?.url.children } : undefined}
   />
 );
 

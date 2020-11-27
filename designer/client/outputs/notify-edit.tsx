@@ -62,7 +62,7 @@ class NotifyEdit extends Component<Props, State> {
           step="any"
           errorMessage={
             errors?.templateId
-              ? { children: ["This field is required"] }
+              ? { children: errors?.templateId.children }
               : undefined
           }
         />
@@ -76,9 +76,7 @@ class NotifyEdit extends Component<Props, State> {
           defaultValue={apiKey}
           step="any"
           errorMessage={
-            errors?.apiKey
-              ? { children: ["This field is required"] }
-              : undefined
+            errors?.apiKey ? { children: errors?.apiKey.children } : undefined
           }
         />
         <div
@@ -90,7 +88,9 @@ class NotifyEdit extends Component<Props, State> {
           <label className="govuk-label" htmlFor="email-field">
             Email field
           </label>
-          {errors?.email && <ErrorMessage>This field is required</ErrorMessage>}
+          {errors?.email && (
+            <ErrorMessage>{errors?.email.children}</ErrorMessage>
+          )}
           <select
             className={classNames({
               "govuk-select": true,

@@ -2,6 +2,7 @@ import FeeItems from "./fee-items";
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { Input } from "@govuk-jsx/input";
+import { ErrorSummary } from "./error-summary";
 
 class FeeEdit extends React.Component {
   constructor(props) {
@@ -46,17 +47,23 @@ class FeeEdit extends React.Component {
   };
 
   validate = (payApiKey, form) => {
-    let validationErrors = false;
     let apiKeyHasErrors = !payApiKey || payApiKey.length < 1;
-    this.setState((prevState, props) => ({
-      errors: {
-        ...prevState.errors,
-        payapi: apiKeyHasErrors,
-      },
-    }));
     let itemValidationErrors = this.feeItemsRef.current.validate(form);
-    validationErrors = apiKeyHasErrors || itemValidationErrors;
-    return validationErrors;
+    let hasValidationErrors =
+      apiKeyHasErrors || Object.keys(itemValidationErrors).length > 0;
+    let errors = {};
+    if (apiKeyHasErrors) {
+      errors.payapi = { href: "#pay-api-key", children: "Enter Pay API key" };
+    }
+    this.setState({
+      errors: {
+        ...itemValidationErrors,
+        ...errors,
+      },
+      hasValidationErrors,
+    });
+
+    return hasValidationErrors;
   };
 
   onClickDelete = (e) => {
@@ -85,10 +92,16 @@ class FeeEdit extends React.Component {
   render() {
     const { data } = this.props;
     const { fees, conditions, payApiKey } = data;
-    const { errors } = this.state;
+    const { errors, hasValidationErrors } = this.state;
     return (
       <div className="govuk-body">
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
+          {hasValidationErrors && (
+            <ErrorSummary
+              titleChildren="There is a problem"
+              errorList={Object.values(errors)}
+            />
+          )}
           <Input
             id="pay-api-key"
             name="pay-api-key"
@@ -98,7 +111,9 @@ class FeeEdit extends React.Component {
             }}
             defaultValue={payApiKey}
             errorMessage={
-              errors?.payapi ? { children: ["Enter Pay API key"] } : undefined
+              errors?.payapi
+                ? { children: errors?.payapi?.children }
+                : undefined
             }
           />
           <FeeItems

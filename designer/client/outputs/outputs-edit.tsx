@@ -6,7 +6,6 @@ type State = {
   showAddOutput: boolean;
   output?: any; //TODO: type
   id?: string;
-  errors: any;
 };
 
 type Props = {
@@ -18,7 +17,6 @@ class OutputsEdit extends React.Component<Props, State> {
     super(props);
     this.state = {
       showAddOutput: false,
-      errors: {},
     };
   }
 

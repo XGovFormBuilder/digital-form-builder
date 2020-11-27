@@ -6,7 +6,6 @@ import React, {
   ReactNode,
 } from "react";
 import { clone } from "@xgovformbuilder/model";
-
 import NotifyEdit from "./notify-edit";
 import EmailEdit from "./email-edit";
 import { Input } from "@govuk-jsx/input";
@@ -18,6 +17,7 @@ import {
   ValidationErrors,
 } from "./types";
 import { isEmpty } from "../helpers";
+import { ErrorSummary } from "../error-summary";
 
 type State = {
   outputType: OutputType;
@@ -118,12 +118,12 @@ class OutputEdit extends Component<Props, State> {
 
     if (isEmpty(outputTitle)) {
       validationErrors = true;
-      errors.title = true;
+      errors.title = { href: "#output-title", children: "Enter output title" };
     }
 
     if (isEmpty(outputName)) {
       validationErrors = true;
-      errors.name = true;
+      errors.name = { href: "#output-name", children: "Enter output name" };
     }
 
     switch (outputType) {
@@ -131,7 +131,10 @@ class OutputEdit extends Component<Props, State> {
         let emailAddress = formData.get("email-address") as string;
         if (isEmpty(emailAddress)) {
           validationErrors = true;
-          errors.email = true;
+          errors.email = {
+            href: "#email-address",
+            children: "Enter email address",
+          };
         }
         break;
       case OutputType.Notify:
@@ -140,22 +143,34 @@ class OutputEdit extends Component<Props, State> {
         let emailField = formData.get("email-field") as string;
         if (isEmpty(templateId)) {
           validationErrors = true;
-          errors.templateId = true;
+          errors.templateId = {
+            href: "#template-id",
+            children: "Enter template id",
+          };
         }
         if (isEmpty(apiKey)) {
           validationErrors = true;
-          errors.apiKey = true;
+          errors.apiKey = {
+            href: "#api-key",
+            children: "Enter API key",
+          };
         }
         if (isEmpty(emailField)) {
           validationErrors = true;
-          errors.email = true;
+          errors.email = {
+            href: "#email-field",
+            children: "Enter email address",
+          };
         }
         break;
       case OutputType.Webhook:
         let url = formData.get("webhook-url") as string;
         if (!url) {
           validationErrors = true;
-          errors.url = true;
+          errors.url = {
+            href: "#webhook-url",
+            children: "Not a valid url",
+          };
         }
         break;
     }
@@ -169,7 +184,7 @@ class OutputEdit extends Component<Props, State> {
 
   onChangeOutputType = (event: ChangeEvent<HTMLSelectElement>) => {
     const outputType = event.currentTarget.value as OutputType;
-    this.setState({ outputType });
+    this.setState({ outputType, errors: {} });
   };
 
   onClickDelete = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -218,76 +233,81 @@ class OutputEdit extends Component<Props, State> {
         />
       );
     }
-
+    let hasValidationErrors = Object.keys(errors).length > 0;
     return (
-      <form onSubmit={this.onSubmit} autoComplete="off">
-        {this.props.onCancel && (
-          <a
-            className="govuk-back-link"
-            href="#"
-            onClick={(e) => this.props.onCancel(e)}
-          >
-            Back
-          </a>
+      <>
+        {hasValidationErrors && (
+          <ErrorSummary errorList={Object.values(errors)} />
         )}
-        <Input
-          id="output-title"
-          name="output-title"
-          label={{
-            className: "govuk-label--s",
-            children: ["Title"],
-          }}
-          defaultValue={output?.title ?? ""}
-          errorMessage={
-            errors?.title ? { children: ["Enter output title"] } : undefined
-          }
-        />
-        <Input
-          id="output-name"
-          name="output-name"
-          label={{
-            className: "govuk-label--s",
-            children: ["Name"],
-          }}
-          pattern="^\S+"
-          defaultValue={output?.name ?? ""}
-          errorMessage={
-            errors?.name ? { children: ["Enter output name"] } : undefined
-          }
-        />
-
-        <div className="govuk-form-group">
-          <label className="govuk-label govuk-label--s" htmlFor="output-type">
-            Output type
-          </label>
-          <select
-            className="govuk-select"
-            id="output-type"
-            name="output-type"
-            disabled={!!output?.type}
-            value={outputType}
-            onChange={this.onChangeOutputType}
-          >
-            <option value="email">Email</option>
-            <option value="notify">Email via GOVUK Notify</option>
-            <option value="webhook">Webhook</option>
-          </select>
-        </div>
-
-        {outputEdit}
-        <div className="govuk-form-group">
-          <button className="govuk-button" type="submit">
-            Save
-          </button>
-        </div>
-        {output && (
-          <div className="govuk-form-group">
-            <a onClick={this.onClickDelete} href="#">
-              Delete
+        <form onSubmit={this.onSubmit} autoComplete="off">
+          {this.props.onCancel && (
+            <a
+              className="govuk-back-link"
+              href="#"
+              onClick={(e) => this.props.onCancel(e)}
+            >
+              Back
             </a>
+          )}
+          <Input
+            id="output-title"
+            name="output-title"
+            label={{
+              className: "govuk-label--s",
+              children: ["Title"],
+            }}
+            defaultValue={output?.title ?? ""}
+            errorMessage={
+              errors?.title ? { children: errors?.title.children } : undefined
+            }
+          />
+          <Input
+            id="output-name"
+            name="output-name"
+            label={{
+              className: "govuk-label--s",
+              children: ["Name"],
+            }}
+            pattern="^\S+"
+            defaultValue={output?.name ?? ""}
+            errorMessage={
+              errors?.name ? { children: errors?.name.children } : undefined
+            }
+          />
+
+          <div className="govuk-form-group">
+            <label className="govuk-label govuk-label--s" htmlFor="output-type">
+              Output type
+            </label>
+            <select
+              className="govuk-select"
+              id="output-type"
+              name="output-type"
+              disabled={!!output?.type}
+              value={outputType}
+              onChange={this.onChangeOutputType}
+            >
+              <option value="email">Email</option>
+              <option value="notify">Email via GOVUK Notify</option>
+              <option value="webhook">Webhook</option>
+            </select>
           </div>
-        )}
-      </form>
+
+          {outputEdit}
+          <div className="govuk-form-group">
+            <button className="govuk-button" type="submit">
+              Save
+            </button>
+          </div>
+          {output && (
+            <div className="govuk-form-group">
+              <a onClick={this.onClickDelete} href="#">
+                Delete
+              </a>
+            </div>
+          )}
+        </form>
+      </>
     );
   }
 }

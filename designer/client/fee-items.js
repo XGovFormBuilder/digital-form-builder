@@ -14,6 +14,11 @@ function headDuplicate(arr) {
   }
 }
 
+const MISSING_DESC = "missingDescription";
+const INVALID_AMOUNT = "invalidAmount";
+const MISSING_COND = "missingCondition";
+const DUP_CONDITIONS = "dupConditions";
+
 class FeeItems extends React.Component {
   constructor(props) {
     super(props);
@@ -24,34 +29,48 @@ class FeeItems extends React.Component {
   }
 
   validate = (form) => {
-    let validationErrors = false;
     let errors = {};
     const formData = new window.FormData(form);
-    let missingRequiredFields = false;
+    let missingDescription = false;
+    let missingDescriptions = {};
+    let amountInvalid = false;
+    let amountsInvalid = {};
+    let missingCondition = false;
+    let missingConditions = {};
     formData.getAll("description").forEach((d, i) => {
       if (isEmpty(d)) {
-        errors["description" + i] = true;
-        missingRequiredFields = true;
+        missingDescriptions[i] = true;
+        missingDescription = true;
       }
     });
+    if (missingDescription) {
+      missingDescriptions.href = "#items-table";
+      missingDescriptions.children = "Enter description";
+      errors[MISSING_DESC] = missingDescriptions;
+    }
 
     formData.getAll("condition").forEach((d, i) => {
       if (isEmpty(d)) {
-        errors["condition" + i] = true;
-        missingRequiredFields = true;
+        missingDescriptions[i] = true;
+        missingCondition = true;
       }
     });
+    if (missingCondition) {
+      missingConditions.href = "#items-table";
+      missingConditions.children = "Select a condition";
+      errors[MISSING_COND] = missingConditions;
+    }
 
     formData.getAll("amount").forEach((d, i) => {
-      if (d <= 0) {
-        errors["amount" + i] = true;
-        missingRequiredFields = true;
+      if (d < 0) {
+        amountsInvalid[i] = true;
+        amountInvalid = true;
       }
     });
-
-    if (missingRequiredFields) {
-      errors.missingRequiredFields = true;
-      validationErrors = true;
+    if (amountInvalid) {
+      amountsInvalid.href = "#items-table";
+      amountsInvalid.children = "Enter a valid amount";
+      errors[INVALID_AMOUNT] = amountsInvalid;
     }
 
     const descriptions = formData.getAll("description").map((t) => t.trim());
@@ -59,14 +78,17 @@ class FeeItems extends React.Component {
 
     // Only validate dupes if there is more than one item
     if (descriptions.length >= 2 && headDuplicate(conditions)) {
-      errors.dupConditions = true;
-      validationErrors = true;
+      errors[DUP_CONDITIONS] = {
+        href: "#items-table",
+        children: "Duplicate conditions found in the list items",
+      };
     }
-    this.setState((prevState, props) => ({
-      errors,
-    }));
 
-    return validationErrors;
+    this.setState({
+      errors,
+    });
+
+    return errors;
   };
 
   onClickAddItem = (e) => {
@@ -114,23 +136,22 @@ class FeeItems extends React.Component {
     const { items, errors } = this.state;
     const { conditions } = this.props;
 
+    let hasValidationErrors = Object.keys(errors).length > 0;
+
+    const errorMessages = Object.entries(errors).map(([key, value]) => {
+      return <ErrorMessage key={key}>{value?.children}</ErrorMessage>;
+    });
+
     return (
       <div
         className={classNames({
           "govuk-form-group": true,
-          "govuk-form-group--error": errors.dupConditions,
+          "govuk-form-group--error": hasValidationErrors,
         })}
       >
-        {errors.dupConditions && (
-          <ErrorMessage>
-            Duplicate conditions found in the list items
-          </ErrorMessage>
-        )}
-        {errors.missingRequiredFields && (
-          <ErrorMessage>This field is required</ErrorMessage>
-        )}
+        {errorMessages}
 
-        <table className="govuk-table">
+        <table className="govuk-table" id="items-table">
           <caption className="govuk-table__caption">Items</caption>
           <thead className="govuk-table__head">
             <tr className="govuk-table__row">
@@ -165,7 +186,7 @@ class FeeItems extends React.Component {
                   <input
                     className={classNames({
                       "govuk-input": true,
-                      "govuk-input--error": errors["description" + index],
+                      "govuk-input--error": errors?.[MISSING_DESC]?.[index],
                     })}
                     name="description"
                     type="text"
@@ -176,7 +197,7 @@ class FeeItems extends React.Component {
                   <input
                     className={classNames({
                       "govuk-input": true,
-                      "govuk-input--error": errors["amount" + index],
+                      "govuk-input--error": errors?.[INVALID_AMOUNT]?.[index],
                     })}
                     name="amount"
                     type="number"
@@ -188,7 +209,7 @@ class FeeItems extends React.Component {
                   <select
                     className={classNames({
                       "govuk-select": true,
-                      "govuk-input--error": errors["condition" + index],
+                      "govuk-input--error": errors?.[MISSING_COND]?.[index],
                     })}
                     id="link-source"
                     name="condition"

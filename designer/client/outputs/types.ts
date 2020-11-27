@@ -31,11 +31,16 @@ export type Output = {
   outputConfiguration: OutputConfiguration;
 };
 
+export interface ValidationError {
+  href?: string;
+  children: string;
+}
+
 export type ValidationErrors = {
-  title?: boolean;
-  name?: boolean;
-  email?: boolean;
-  templateId?: boolean;
-  apiKey?: boolean;
-  url?: boolean;
+  title?: ValidationError;
+  name?: ValidationError;
+  email?: ValidationError;
+  templateId?: ValidationError;
+  apiKey?: ValidationError;
+  url?: ValidationError;
 };

@@ -7,6 +7,7 @@ import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 import { assertSelectInput, assertClasses } from "./helpers/element-assertions";
 import { ErrorMessage } from "@govuk-jsx/error-message";
+import { ErrorSummary } from "../client/error-summary";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -103,7 +104,7 @@ suite("Link create", () => {
       data.save = flags.mustCall(save, 1);
       clonedData.addLink.returns(updatedData);
 
-      await wrapper.simulate("submit", { preventDefault: preventDefault });
+      await form.simulate("submit", { preventDefault: preventDefault });
 
       expect(preventDefault.calledOnce).to.equal(true);
 
@@ -146,7 +147,7 @@ suite("Link create", () => {
       data.save = flags.mustCall(save, 1);
       clonedData.addLink.returns(updatedData);
 
-      await wrapper.simulate("submit", { preventDefault: preventDefault });
+      await form.simulate("submit", { preventDefault: preventDefault });
 
       expect(preventDefault.calledOnce).to.equal(true);
 
@@ -163,10 +164,15 @@ suite("Link create", () => {
     const wrapper = shallow(
       <LinkCreate data={data} onCreate={wrappedOnCreate} />
     );
-    const preventDefault = sinon.spy();
-    await wrapper.simulate("submit", { preventDefault: preventDefault });
+
+    const form = wrapper.find("form").first();
+    await form.simulate("submit", { preventDefault: sinon.spy() });
+    wrapper.update();
 
     expect(wrappedOnCreate.notCalled).to.equal(true);
+
+    expect(wrapper.find(ErrorSummary)).to.exists();
+    expect(wrapper.find(ErrorSummary).prop("errorList").length).to.be.equal(2);
 
     assertClasses(wrapper.find("#link-source"), [
       "govuk-select",
