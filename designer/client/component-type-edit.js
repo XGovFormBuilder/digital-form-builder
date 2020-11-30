@@ -62,21 +62,10 @@ class FieldEdit extends React.Component {
     this.isFileUploadField = component.type === "FileUploadField";
 
     this.state = {
-      type: component.type,
       hidden: options.required !== false,
       name: component.name,
       errors: {},
     };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.type !== nextProps.component.type) {
-      return {
-        type: nextProps.component.type,
-        errors: {},
-      };
-    }
-    return null;
   }
 
   validate = () => {
@@ -105,6 +94,12 @@ class FieldEdit extends React.Component {
       nameHasError: /\s/g.test(inputValue),
     });
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.component.type !== prevProps.component.type) {
+      this.setState({ errors: {} });
+    }
+  }
 
   render() {
     // FIXME:- We need to refactor so this is not being driven off mutating the props.
@@ -1220,6 +1215,7 @@ class ComponentTypeEdit extends React.Component {
             updateModel={updateModel}
             page={page}
             ref={this.typeEditorRef}
+            key={`${component.type}Edit`}
           />
         );
       } else {
@@ -1229,6 +1225,7 @@ class ComponentTypeEdit extends React.Component {
             data={data}
             updateModel={updateModel}
             page={page}
+            key={`${component.type}Edit`}
           />
         );
       }
