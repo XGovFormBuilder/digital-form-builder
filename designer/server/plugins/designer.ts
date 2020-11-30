@@ -2,7 +2,7 @@ import { Schema } from "@xgovformbuilder/model";
 import { nanoid } from "nanoid";
 import Wreck from "@hapi/wreck";
 import pkg from "../../package.json";
-import config from "../../config";
+import config from "../config";
 import newFormJson from "../../new-form.json";
 
 const publish = async function (id, configuration) {

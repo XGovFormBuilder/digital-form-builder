@@ -1,0 +1,62 @@
+{% from "header/macro.njk" import govukHeader -%}
+{% from "footer/macro.njk" import govukFooter -%}
+
+<!DOCTYPE html>
+<html lang="{{ htmlLang | default('en') }}" class="{{ htmlClasses }}">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% block pageTitle %}
+        GOV.UK Site - Designer
+      {% endblock %}
+    </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}" /> {# Hardcoded value of $govuk-black #}
+
+    <link rel="shortcut icon" href="{{ assetPath | default('/assets') }}/images/favicon.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="{{ assetPath | default('/assets') }}/images/govuk-mask-icon.svg" color="{{ themeColor | default('#0b0c0c') }}"> {# Hardcoded value of $govuk-black #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-167x167.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon.png">
+
+    {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
+    <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
+  </head>
+  <body>
+    <script>
+      window.previewUrl = '{{previewUrl}}'
+      {% if (id) %}
+          window.id = '{{ id }}'
+          window.playgroundMode = true
+      {% endif %}
+      {% if (newConfig) %}
+          window.newConfig = {{ newConfig }}
+      {% endif %}
+    </script>
+
+    {% block header %}
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          {% include "includes/home-office-header.html" %}
+        </div>
+      </div>
+    {% endblock %}
+    
+    {% block content %}
+      <h1 class="govuk-heading-xl">Default page template</h1>
+    {% endblock %}
+
+    {% block footer %}
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          {% include "includes/home-office-footer.html" %}
+        </div>
+      </div>
+    {% endblock %}
+    
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  </body>
+</html>

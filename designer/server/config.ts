@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
 
-dotenv.config({ path: "./../env" });
+dotenv.config({ path: "./../.env" });
 
 // Define config schema
 const schema = joi.object({
@@ -48,5 +48,6 @@ const value = result.value;
 
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;
+value.isTest = value.env === "test";
 
 export default value;

@@ -2,17 +2,23 @@ import React, { MouseEvent } from "react";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
+type Props = {
+  data: any; // TODO: type
+};
+
 type State = {
   showAddOutput: boolean;
   output: any; //TODO: type
   id: string;
 };
 
-type Props = {
-  data: any; // TODO: type
-};
-
 class OutputsEdit extends React.Component<Props, State> {
+  state = {
+    showAddOutput: false,
+    output: undefined,
+    id: "",
+  };
+
   onClickOutput = (event: MouseEvent, output) => {
     event.preventDefault();
 
