@@ -43,6 +43,7 @@
   "title": "Title",
   "close": "Close",
   "errors": {
-    "required": "This field is required"
+    "required": "This field is required",
+    "field": "Enter {{field}}"
   }
 }

@@ -6,6 +6,8 @@ import Flyout from "./flyout";
 import SectionEdit from "./section/section-edit";
 import { withI18n } from "./i18n";
 import { Input } from "@govuk-jsx/input";
+import { ErrorSummary } from "./error-summary";
+import { isEmpty } from "./helpers";
 
 class PageCreate extends React.Component {
   constructor(props) {
@@ -64,21 +66,30 @@ class PageCreate extends React.Component {
   };
 
   validate = (title, path) => {
-    const { data } = this.props;
+    const { data, i18n } = this.props;
 
     let validationErrors = false;
-    let errors = {};
+    const errors = {};
 
-    let titleHasErrors = !title || title.length < 1;
-    errors.title = titleHasErrors;
+    const titleHasErrors = isEmpty(title);
+    if (titleHasErrors) {
+      errors.title = {
+        href: "#page-title",
+        children: i18n("errors.field", { field: "$t(title)" }),
+      };
+    }
 
-    let pathHasErrors = data.findPage(path);
-    if (pathHasErrors)
-      errors.path = { message: `Path '${path}' already exists` };
+    const pathHasErrors = data.findPage(path);
+    if (pathHasErrors) {
+      errors.path = {
+        href: "#page-path",
+        children: `Path '${path}' already exists`,
+      };
+    }
 
-    this.setState((prevState, props) => ({
-      errors: errors,
-    }));
+    this.setState({
+      errors,
+    });
 
     validationErrors = titleHasErrors || pathHasErrors;
     return validationErrors;
@@ -182,6 +193,9 @@ class PageCreate extends React.Component {
 
     return (
       <div>
+        {Object.keys(errors).length > 0 && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="page-type">
@@ -238,7 +252,7 @@ class PageCreate extends React.Component {
             value={title || ""}
             onChange={this.onChangeTitle}
             errorMessage={
-              errors?.title ? { children: ["Enter title"] } : undefined
+              errors?.title ? { children: errors?.title.children } : undefined
             }
           />
 
@@ -255,7 +269,7 @@ class PageCreate extends React.Component {
             value={path}
             onChange={this.onChangePath}
             errorMessage={
-              errors?.path ? { children: [errors.path?.message] } : undefined
+              errors?.path ? { children: errors?.path?.children } : undefined
             }
           />
 

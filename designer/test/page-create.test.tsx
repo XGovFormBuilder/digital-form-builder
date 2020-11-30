@@ -9,6 +9,7 @@ import { assertSelectInput } from "./helpers/element-assertions";
 import { assertInputControlValue } from "./helpers/sub-component-assertions";
 import initI18n from "./i18nForTest";
 import { Input } from "@govuk-jsx/input";
+import { ErrorSummary } from "../client/error-summary";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -80,6 +81,7 @@ suite("Page create", () => {
     });
 
     expect(wrapper.find("SelectConditions").exists()).to.equal(false);
+    expect(wrapper.find(ErrorSummary).exists()).to.equal(false);
   });
 
   test("Inputs remain populated when amending other fields", () => {
@@ -410,7 +412,15 @@ suite("Page create", () => {
 
       expect(
         wrapper.find(Input).filter("#page-title").prop("errorMessage")
-      ).to.equal({ children: ["Enter title"] });
+      ).to.equal({ children: "Enter Title" });
+      expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
+      const errorList: Array<any> = wrapper
+        .find(ErrorSummary)
+        .prop("errorList");
+      expect(errorList[0]).to.equal({
+        children: "Enter Title",
+        href: "#page-title",
+      });
     });
 
     test("Duplicate page path will not submit form", async (flags) => {
@@ -434,7 +444,9 @@ suite("Page create", () => {
 
       expect(
         wrapper.find(Input).filter("#page-path").prop("errorMessage")
-      ).to.equal({ children: ["Path '/1' already exists"] });
+      ).to.equal({ children: "Path '/1' already exists" });
+
+      expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
     });
   });
 });

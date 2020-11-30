@@ -4,11 +4,11 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import PageEdit from "../client/page-edit";
+import { ErrorSummary } from "../client/error-summary";
 import { Data } from "@xgovformbuilder/model";
 import {
   assertTextInput,
   assertSelectInput,
-  assertClasses,
 } from "./helpers/element-assertions";
 import {
   assertInputControlValue,
@@ -372,9 +372,10 @@ suite("Page edit", () => {
     assertInputControlProp({
       wrapper,
       id: "page-path",
-      expectedValue: { children: ["Path '/second-page' already exists"] },
+      expectedValue: { children: "Path '/second-page' already exists" },
       prop: "errorMessage",
     });
+    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
   });
 
   test("Page title will have error if the value is removed", () => {
@@ -412,8 +413,9 @@ suite("Page edit", () => {
     assertInputControlProp({
       wrapper,
       id: "page-title",
-      expectedValue: { children: ["Enter title"] },
+      expectedValue: { children: "Enter Title" },
       prop: "errorMessage",
     });
+    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
   });
 });

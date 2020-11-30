@@ -16,7 +16,8 @@ const initI18n = (i18next: typeof i18n): void => {
   });
 };
 
-const translate = (text: string): string => i18n.t(text);
+const translate = (text: string, options?: string): string =>
+  i18n.t(text, options);
 
 interface WithI18nProps {
   i18n: (text: string) => string;

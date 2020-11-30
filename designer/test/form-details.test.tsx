@@ -9,10 +9,12 @@ import {
   assertClasses,
 } from "./helpers/element-assertions";
 import FormDetails from "../client/form-details";
+import { ErrorSummary } from "../client/error-summary";
 import { Input } from "@govuk-jsx/input";
 
 import sinon from "sinon";
 import formConfigurationsApi from "../client/load-form-configurations";
+import { assertInputControlProp } from "./helpers/sub-component-assertions";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -56,13 +58,15 @@ suite("Form details", () => {
       data.name = undefined;
     });
 
-    test.skip("Renders a form with the appropriate initial inputs", () => {
+    test("Renders a form with the appropriate initial inputs", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
 
-      assertTextInput({
-        wrapper: wrapper.find("#form-title"),
+      assertInputControlProp({
+        wrapper,
         id: "form-title",
+        prop: "defaultValue",
+        expectedValue: "",
       });
       expect(radios.props()).to.equal({
         name: "feedbackForm",
@@ -90,6 +94,7 @@ suite("Form details", () => {
           },
         ],
       });
+      expect(wrapper.find(ErrorSummary).exists()).to.equal(false);
     });
 
     test("Renders pre-populated name input when form already has a name", () => {
@@ -118,19 +123,14 @@ suite("Form details", () => {
       });
     });
 
-    test.skip("Renders Feedback form 'yes' checked when form is a feedback form", () => {
+    test("Renders Feedback form 'yes' checked when form is a feedback form", () => {
       data.feedbackForm = true;
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
-      assertTextInput({
-        wrapper: wrapper.find("#form-title"),
-        id: "form-title",
-      });
-
       expect(radios.prop("value")).to.equal(true);
     });
 
-    test.skip("Renders Feedback 'no' checked when form is not a feedback form", () => {
+    test("Renders Feedback 'no' checked when form is not a feedback form", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
       expect(radios.prop("value")).to.equal(false);
@@ -248,7 +248,6 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
       wrapper.update();
-
       expect(data.save.callCount).to.equal(0);
       expect(wrapper.find(Input)).to.exist();
       assertClasses(wrapper.find(Input).dive().find("#form-title"), [
@@ -260,8 +259,17 @@ suite("Form details", () => {
         "govuk-form-group--error",
       ]);
       expect(
-        wrapper.find(Input).dive().find("ErrorMessage").childAt(0).text()
+        wrapper.find(Input).dive().find("ErrorMessage").dive().childAt(1).text()
       ).to.equal("Enter title");
+      expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
+      const errorList: Array<any> = wrapper
+        .find(ErrorSummary)
+        .prop("errorList");
+      expect(errorList.length).to.equal(1);
+      expect(errorList[0]).to.equal({
+        children: "Enter title",
+        href: "#form-title",
+      });
     });
 
     test("name should be set correctly when unchanged", async () => {

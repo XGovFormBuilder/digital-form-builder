@@ -10,7 +10,7 @@ class LinkCreate extends React.Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const { from, to, selectedCondition } = this.state;
-    let hasValidationErrors = this.validate();
+    const hasValidationErrors = this.validate();
     if (hasValidationErrors) return;
     // Apply
     const { data } = this.props;
