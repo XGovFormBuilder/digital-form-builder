@@ -37,11 +37,7 @@
     </script>
 
     {% block header %}
-      <div class="govuk-width-container">
-        <div class="govuk-grid-row">
-          {% include "includes/home-office-header.html" %}
-        </div>
-      </div>
+      {% include "includes/home-office-header.html" %}
     {% endblock %}
     
     {% block content %}
@@ -49,11 +45,7 @@
     {% endblock %}
 
     {% block footer %}
-      <div class="govuk-width-container">
-        <div class="govuk-grid-row">
-          {% include "includes/home-office-footer.html" %}
-        </div>
-      </div>
+      {% include "includes/home-office-footer.html" %}
     {% endblock %}
     
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
