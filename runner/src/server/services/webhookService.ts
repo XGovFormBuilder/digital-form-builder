@@ -15,14 +15,10 @@ export class WebhookService {
    * @returns { string } webhookResponse.reference webhook should return with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
   async postRequest(url: string, data: object) {
-    const { payload, res } = await post(url, {
+    const { payload } = await post(url, {
       ...DEFAULT_OPTIONS,
       payload: JSON.stringify(data),
     });
-
-    if (res.statusCode === 202) {
-      // send dead letter queue message
-    }
 
     if (typeof payload === "object") {
       return payload.reference;
