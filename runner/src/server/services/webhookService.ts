@@ -20,15 +20,20 @@ export class WebhookService {
       payload: JSON.stringify(data),
     });
 
-    if (typeof payload === "object") {
-      const { reference } = payload;
-      return reference;
-    }
-
     if (res.statusCode === 202) {
       // send dead letter queue message
     }
 
-    return "UNKNOWN";
+    if (typeof payload === "object") {
+      return payload.reference;
+    }
+
+    try {
+      const { reference } = JSON.parse(payload);
+      return reference;
+    } catch (error) {
+      console.error(error);
+      return "UNKNOWN";
+    }
   }
 }
