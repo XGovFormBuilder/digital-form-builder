@@ -4,7 +4,7 @@
   "description": "Cross government digital form builder (designer)",
   "main": "server/index.js",
   "scripts": {
-    "watch": "NODE_ENV=development webpack --mode development --watch",
+    "watch": "NODE_ENV=development webpack --mode production --watch",
     "build": "NODE_ENV=production webpack --mode production",
     "start": "NODE_ENV=production nodemon dist/server.js",
     "start:local": "NODE_ENV=development PERSISTENT_BACKEND=preview nodemon dist/server.js",

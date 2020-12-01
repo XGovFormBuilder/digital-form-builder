@@ -7,7 +7,7 @@ import SectionEdit from "./section/section-edit";
 import { withI18n } from "./i18n";
 import { Input } from "@govuk-jsx/input";
 import { ErrorSummary } from "./error-summary";
-import { isEmpty } from "./helpers";
+import { validateTitle, hasValidationErrors } from "./validations";
 
 class PageCreate extends React.Component {
   constructor(props) {
@@ -34,8 +34,8 @@ class PageCreate extends React.Component {
     const selectedCondition = this.state.selectedCondition?.trim();
     const path = this.state.path || this.state.path;
 
-    let hasValidationErrors = this.validate(title, path);
-    if (hasValidationErrors) return;
+    let validationErrors = this.validate(title, path);
+    if (hasValidationErrors(validationErrors)) return;
 
     const value = {
       path,
@@ -67,18 +67,8 @@ class PageCreate extends React.Component {
 
   validate = (title, path) => {
     const { data, i18n } = this.props;
-
-    let validationErrors = false;
-    const errors = {};
-
-    const titleHasErrors = isEmpty(title);
-    if (titleHasErrors) {
-      errors.title = {
-        href: "#page-title",
-        children: i18n("errors.field", { field: "$t(title)" }),
-      };
-    }
-
+    const titleErrors = validateTitle("page-title", title, i18n);
+    const errors = { ...titleErrors };
     const pathHasErrors = data.findPage(path);
     if (pathHasErrors) {
       errors.path = {
@@ -91,8 +81,7 @@ class PageCreate extends React.Component {
       errors,
     });
 
-    validationErrors = titleHasErrors || pathHasErrors;
-    return validationErrors;
+    return errors;
   };
 
   generatePath(title, data) {
@@ -193,7 +182,7 @@ class PageCreate extends React.Component {
 
     return (
       <div>
-        {Object.keys(errors).length > 0 && (
+        {hasValidationErrors(errors) > 0 && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">

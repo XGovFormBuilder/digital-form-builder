@@ -5,9 +5,9 @@ export function hasValidationErrors(errors) {
   return false;
 }
 
-export function validateNotEmpty(id, fieldName, key, value) {
+export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
   const hasErrors = isEmpty(value);
-  const errors = {};
+  const errors = existingErrors ? existingErrors : {};
   if (hasErrors) {
     errors[key] = {
       href: `#${id}`,

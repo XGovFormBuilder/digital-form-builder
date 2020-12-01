@@ -8,7 +8,7 @@ import Flyout from "./flyout";
 import { withI18n } from "./i18n";
 import { Input } from "@govuk-jsx/input";
 import { ErrorSummary } from "./error-summary";
-import { isEmpty } from "./helpers";
+import { validateTitle, hasValidationErrors } from "./validations";
 
 export class PageEdit extends React.Component {
   constructor(props) {
@@ -31,8 +31,8 @@ export class PageEdit extends React.Component {
     const { title, path, section, controller } = this.state;
     const { data, page } = this.props;
 
-    let hasValidationErrors = this.validate(title, path);
-    if (hasValidationErrors) return;
+    let validationErrors = this.validate(title, path);
+    if (hasValidationErrors(validationErrors)) return;
 
     const copy = clone(data);
     const pageIndex = data.pages.indexOf(page);
@@ -64,17 +64,8 @@ export class PageEdit extends React.Component {
 
   validate = (title, path) => {
     const { data, page, i18n } = this.props;
-
-    let validationErrors = false;
-    const errors = {};
-
-    const titleHasErrors = isEmpty(title);
-    if (titleHasErrors) {
-      errors.title = {
-        href: "#page-title",
-        children: i18n("errors.field", { field: "$t(title)" }),
-      };
-    }
+    const titleErrors = validateTitle("page-title", title, i18n);
+    const errors = { ...titleErrors };
 
     let pathHasErrors = false;
     if (path !== page.path) pathHasErrors = data.findPage(path);
@@ -85,12 +76,11 @@ export class PageEdit extends React.Component {
       };
     }
 
-    this.setState((prevState, props) => ({
-      errors: errors,
-    }));
+    this.setState({
+      errors,
+    });
 
-    validationErrors = titleHasErrors || pathHasErrors;
-    return validationErrors;
+    return errors;
   };
 
   onClickDelete = async (e) => {

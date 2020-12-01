@@ -2,7 +2,6 @@ import React from "react";
 import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
 import { Input } from "@govuk-jsx/input";
-import { isEmpty } from "./helpers";
 import { validateTitle, hasValidationErrors } from "./validations";
 import { ErrorSummary } from "./error-summary";
 

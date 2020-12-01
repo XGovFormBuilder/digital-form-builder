@@ -16,7 +16,7 @@ import {
   Output,
   ValidationErrors,
 } from "./types";
-import { isEmpty } from "../helpers";
+import { validateNotEmpty, hasValidationErrors } from "../validations";
 import { ErrorSummary } from "../error-summary";
 
 type State = {
@@ -51,8 +51,8 @@ class OutputEdit extends Component<Props, State> {
       (formData.get("output-type") as OutputType) || output.type;
     const outputName = formData.get("output-name") as string;
     const outputTitle = formData.get("output-title") as string;
-    let hasValidationErrors = this.validate(formData, outputType);
-    if (hasValidationErrors) return;
+    let validationErrors = this.validate(formData, outputType);
+    if (hasValidationErrors(validationErrors)) return;
 
     let outputIndex: number = -1;
 
@@ -111,62 +111,54 @@ class OutputEdit extends Component<Props, State> {
   };
 
   validate = (formData: FormData, outputType: OutputType) => {
-    let validationErrors = false;
     const outputName = formData.get("output-name") as string;
     const outputTitle = formData.get("output-title") as string;
-    let errors: ValidationErrors = {};
+    const errors: ValidationErrors = {};
 
-    if (isEmpty(outputTitle)) {
-      validationErrors = true;
-      errors.title = { href: "#output-title", children: "Enter output title" };
-    }
+    validateNotEmpty(
+      "output-title",
+      "output title",
+      "title",
+      outputTitle,
+      errors
+    );
 
-    if (isEmpty(outputName)) {
-      validationErrors = true;
-      errors.name = { href: "#output-name", children: "Enter output name" };
-    }
+    validateNotEmpty("output-name", "output name", "name", outputName, errors);
 
     switch (outputType) {
       case OutputType.Email:
         let emailAddress = formData.get("email-address") as string;
-        if (isEmpty(emailAddress)) {
-          validationErrors = true;
-          errors.email = {
-            href: "#email-address",
-            children: "Enter email address",
-          };
-        }
+        validateNotEmpty(
+          "email-address",
+          "email address",
+          "email",
+          emailAddress,
+          errors
+        );
         break;
       case OutputType.Notify:
         let templateId = formData.get("template-id") as string;
         let apiKey = formData.get("api-key") as string;
         let emailField = formData.get("email-field") as string;
-        if (isEmpty(templateId)) {
-          validationErrors = true;
-          errors.templateId = {
-            href: "#template-id",
-            children: "Enter template id",
-          };
-        }
-        if (isEmpty(apiKey)) {
-          validationErrors = true;
-          errors.apiKey = {
-            href: "#api-key",
-            children: "Enter API key",
-          };
-        }
-        if (isEmpty(emailField)) {
-          validationErrors = true;
-          errors.email = {
-            href: "#email-field",
-            children: "Enter email address",
-          };
-        }
+        validateNotEmpty(
+          "template-id",
+          "template id",
+          "templateId",
+          templateId,
+          errors
+        );
+        validateNotEmpty("api-key", "API key", "apiKey", apiKey, errors);
+        validateNotEmpty(
+          "email-field",
+          "email address",
+          "email",
+          emailField,
+          errors
+        );
         break;
       case OutputType.Webhook:
         let url = formData.get("webhook-url") as string;
         if (!url) {
-          validationErrors = true;
           errors.url = {
             href: "#webhook-url",
             children: "Not a valid url",
@@ -179,7 +171,7 @@ class OutputEdit extends Component<Props, State> {
       errors: errors,
     });
 
-    return validationErrors;
+    return errors;
   };
 
   onChangeOutputType = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -233,10 +225,9 @@ class OutputEdit extends Component<Props, State> {
         />
       );
     }
-    let hasValidationErrors = Object.keys(errors).length > 0;
     return (
       <>
-        {hasValidationErrors && (
+        {hasValidationErrors(errors) && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
         <form onSubmit={this.onSubmit} autoComplete="off">
