@@ -101,14 +101,14 @@ suite("Output edit", () => {
   });
 
   describe("Validation", () => {
-    test.skip("email output", () => {
+    test("email output", () => {
       const output = {
         name: "emailme",
       };
 
       const onEdit = sinon.spy();
       const onCancel = sinon.spy();
-      const wrapper = shallow(
+      const wrapper = mount(
         <OutputEdit
           data={data}
           output={output as Output}
@@ -119,7 +119,6 @@ suite("Output edit", () => {
       const form = wrapper.find("form").first();
       form.simulate("submit", { preventDefault: sinon.spy() });
       wrapper.update();
-
       expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
       const errorList: Array<any> = wrapper
         .find(ErrorSummary)
@@ -130,11 +129,9 @@ suite("Output edit", () => {
         href: "#output-title",
       });
       expect(errorList[1]).to.equal({
-        children: "Enter email",
+        children: "Enter email address",
         href: "#email-address",
       });
-
-      //const emailWrapper = wrapper.find("EmailEdit").dive();
     });
   });
 });
