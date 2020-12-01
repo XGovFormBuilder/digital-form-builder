@@ -8,6 +8,20 @@ $color-orange: #ffbf47;
   box-sizing: border-box;
 }
 
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+}
+
 .pull-right {
   float: right;
 }
@@ -36,9 +50,14 @@ $color-orange: #ffbf47;
   }
 }
 
-// Visualisation
 #app {
+  flex: 1;
+  display: flex;
+
   .menu {
+    padding: 8px;
+    background-color: #ffffff;
+
     &__row:not(:first-child) {
       @extend .govuk-\!-margin-top-4;
     }
@@ -57,8 +76,8 @@ $color-orange: #ffbf47;
 
   @include govuk-media-query($from: tablet) {
     .menu {
-      padding: 3px;
       position: fixed;
+      padding: 8px;
       z-index: 999;
       background-color: #fff;
       button {
@@ -66,102 +85,11 @@ $color-orange: #ffbf47;
       }
     }
   }
+}
 
-  .visualisation {
-    position: relative;
-
-    .page {
-      position: absolute;
-      width: 240px;
-      margin-bottom: 10px;
-      box-sizing: border-box;
-      border-top: solid 2px #000;
-      border-right: solid 2px #000;
-      border-bottom: solid 2px #000;
-      border-left: solid 2px #000;
-
-      &--selected {
-        -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
-        -moz-box-shadow: 0px 0px 0px 6px $color-orange;
-        box-shadow: 0px 0px 0px 6px $color-orange;
-      }
-
-      &:hover {
-        -webkit-box-shadow: 0px 0px 0px 6px $color-orange;
-        -moz-box-shadow: 0px 0px 0px 6px $color-orange;
-        box-shadow: 0px 0px 0px 6px $color-orange;
-      }
-
-      &__heading {
-        position: relative;
-        min-height: 2.8em;
-        @extend .govuk-\!-padding-2;
-
-        h3 {
-          @extend .govuk-heading-s;
-        }
-
-        span {
-          @extend .govuk-caption-m, .govuk-\!-font-size-14;
-        }
-      }
-
-      &__actions {
-        display: flex;
-        flex-direction: column;
-
-        & > * {
-          width: 100%;
-          @include govuk-font(14);
-          @extend .govuk-\!-padding-top-1,
-            .govuk-\!-padding-bottom-1,
-            .govuk-\!-padding-left-2,
-            .govuk-\!-padding-right-2;
-          border: none;
-          box-shadow: none;
-          text-decoration: none;
-          text-align: left;
-          background-color: govuk-colour("black");
-          color: govuk-colour("white");
-
-          &:hover {
-            background-color: $color-orange;
-            color: govuk-colour("black");
-            cursor: pointer;
-          }
-        }
-
-        & > *:not(:last-child) {
-          border-bottom: 1px solid #ffffff;
-        }
-      }
-
-      h3.govuk-heading-s {
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  .minimap {
-    right: 0;
-    bottom: 0;
-    position: fixed;
-    z-index: 998;
-    background: lightgray;
-    padding: 5px;
-    max-width: 50%;
-    max-height: 25%;
-    overflow: auto;
-    border-top: solid 1px #000;
-    border-left: solid 1px #000;
-
-    polyline {
-      stroke-width: 1;
-    }
-    rect:hover {
-      fill: $color-orange;
-    }
-  }
+// new-config page
+.new-config {
+  padding: 8px;
 }
 
 .component {
@@ -625,5 +553,219 @@ polyline {
     z-index: 50;
 
     pointer-events: none;
+  }
+}
+
+// Header
+header {
+  background-color: #fff;
+}
+
+.wrapper-header {
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto;
+  font-family: "Inter UI", sans-serif !important;
+}
+
+.wrapper-header,
+.wrapper-header__library,
+.header-menu ul {
+  display: flex;
+  color: #000;
+
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  a:hover {
+    text-decoration: underline !important;
+  }
+}
+
+.header-logo {
+  display: block;
+  position: relative;
+  width: 150px;
+  height: auto;
+  margin-left: -34px;
+  margin-right: 25%;
+  line-height: 0;
+}
+
+.header-title {
+  margin-right: auto;
+  align-self: center;
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.header-name {
+  font-size: 21px;
+  font-weight: 400;
+}
+
+.wrapper-header a:hover {
+  text-decoration: none;
+}
+
+.header-menu {
+  font-size: 17px;
+
+  li {
+    padding-left: 1.5em;
+  }
+}
+
+#global-header-bar-internal {
+  margin: 0;
+  background-color: #7f3f98;
+  height: 3px;
+  max-width: 100%;
+}
+
+.section-heading {
+  background-color: #f2f2f2;
+  padding: 10px 20px;
+}
+
+@media (max-width: 1100px) {
+  .header-logo {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1020px) {
+  .wrapper-header,
+  .wrapper-header__library {
+    margin: 0 15px;
+  }
+}
+
+@media (max-width: 890px) {
+  .header-logo {
+    margin-right: 10%;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-name {
+    font-size: 20px;
+  }
+
+  .header-title {
+    margin-bottom: 5px;
+  }
+
+  .header-logo {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 110px;
+  }
+
+  .wrapper-header,
+  .wrapper-header__library {
+    display: inherit;
+    margin: 0 15px;
+    padding: 10px 0;
+  }
+
+  .header-menu {
+    li:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+// Footer
+.designer-footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.wrapper-footer {
+  padding: 30px 20px;
+  display: flex;
+  max-width: 960px;
+  margin: 0 auto;
+  justify-content: space-between;
+  font-size: 14px;
+  display: flex;
+  align-items: baseline;
+  font-family: "Inter UI", sans-serif !important;
+
+  .footer-message {
+    p {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+  }
+}
+
+footer {
+  border-top: 1px #aaa solid;
+  background-color: #fff;
+}
+
+.footer-menu {
+  align-items: flex-end;
+  display: flex;
+}
+
+.footer-menu ul {
+  display: flex;
+
+  li {
+    padding-left: 1.5em;
+    list-style: none;
+  }
+
+  li a {
+    color: #3b3b3b;
+  }
+
+  li:first-child {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 1020px) {
+  .wrapper-footer__library {
+    margin: 0 30px;
+    padding: 15px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrapper-footer__library {
+    margin: 0 15px;
+    padding: 15px 0;
+  }
+}
+
+@media (max-width: 690px) {
+  .wrapper-footer {
+    padding: 20px 15px;
+    display: inherit;
+    font-size: 0.8em;
+
+    .footer-message {
+      margin-top: 10px;
+    }
+  }
+
+  .footer-menu {
+    margin-top: 20px;
+  }
+
+  .footer-menu ul {
+    padding-left: 0;
   }
 }

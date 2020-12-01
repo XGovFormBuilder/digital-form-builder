@@ -66,8 +66,9 @@ const client = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "server", "views", "designer.html"),
-      filename: "designer.html",
+      template: path.resolve(__dirname, "server", "views", "layout.html"),
+      filename: "views/layout.html",
+      minify: false,
     }),
     new MiniCssExtractPlugin({
       filename: devMode
@@ -80,6 +81,7 @@ const client = {
     new CopyPlugin({
       patterns: [
         { from: "client/i18n/translations", to: "assets/translations" },
+        { from: "server/views", to: "views" },
       ],
     }),
   ],

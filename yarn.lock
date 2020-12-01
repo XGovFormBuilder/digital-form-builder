@@ -2530,6 +2530,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dagre@npm:^0.7.44":
+  version: 0.7.44
+  resolution: "@types/dagre@npm:0.7.44"
+  checksum: ee5a5017b188844cb83b5cf7264c3263fe449887de254a8bc1da976e32ca04120ab6e6aeb65083a15bf50ff7cc386c757420734ea21123131400d6d159526862
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:*":
   version: 0.0.45
   resolution: "@types/estree@npm:0.0.45"
@@ -3610,6 +3617,7 @@ __metadata:
     "@hapi/lab": ^24.0.0
     "@hapi/wreck": 17.0.0
     "@rollup/plugin-commonjs": 13.0.0
+    "@types/dagre": ^0.7.44
     "@types/hapi": ^18.0.4
     "@types/node": ^14.11.8
     "@types/react": ^16.9.52

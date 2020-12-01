@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Menu from "./menu";
-import Visualisation from "./visualisation";
+import { Visualisation } from "./components/visualisation";
 import NewConfig from "./new-config";
 import { Data } from "@xgovformbuilder/model";
 import { customAlphabet } from "nanoid";

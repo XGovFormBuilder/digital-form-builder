@@ -65,7 +65,7 @@ export default class NewConfig extends React.Component {
     const { selected, configs, newName, alreadyExistsError } = this.state;
 
     return (
-      <div>
+      <div className="new-config">
         <label className="govuk-label govuk-label--s" htmlFor="configuration">
           Start a new configuration or select from a previous configuration
         </label>
