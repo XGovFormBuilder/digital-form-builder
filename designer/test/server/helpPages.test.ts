@@ -53,12 +53,10 @@ suite("Server Help Pages", () => {
 
     const res = await server.inject(options);
 
-    console.log(res);
-
     expect(res.statusCode).to.equal(200);
     expect(
       res.result.indexOf(
-        '<h1 class="govuk-heading-xl">Terms and Conditions</h1>'
+        '<h1 class="govuk-heading-xl">Terms and conditions</h1>'
       ) > -1
     ).to.equal(true);
   });
