@@ -1,80 +1,105 @@
 import React from "react";
-import { withI18n } from "./i18n";
+import { isEmpty } from "./helpers";
+import { withI18nRef } from "./i18n";
 
 type Props = {
-  updateModel: (arg0: any) => {} | null | undefined;
-  component: any | null | undefined;
+  updateModel?: (arg0: any) => {} | null | undefined;
   hint: string | null | undefined;
   name: string;
   id: string;
   labelText: string;
-  i18n: (arg0: string) => any;
+  i18n: (arg0: string, arg1?: any) => any;
 };
 
 type State = {
   name: string | undefined;
-  nameHasError: boolean;
+  errors: any;
 };
 
 export class Name extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const { name, component } = props;
+    const { name } = props;
 
     this.state = {
-      name: component?.name ?? name,
-      nameHasError: false,
+      name: name,
+      errors: {},
     };
   }
 
+  validate = () => {
+    const name = this.state.name || "";
+    const errors = this.validateName(name);
+    this.setState({ errors });
+    return errors;
+  };
+
+  validateName = (name) => {
+    const { id, i18n, labelText } = this.props;
+    const errors: any = {};
+    const nameIsEmpty = isEmpty(name);
+    const nameHasSpace = /\s/g.test(name);
+    if (nameHasSpace) {
+      errors.name = {
+        href: `#${id}`,
+        children: i18n("name.errors.whitespace"),
+      };
+    } else if (nameIsEmpty) {
+      errors.name = {
+        href: `#${id}`,
+        children: i18n("errors.field", { field: labelText }),
+      };
+    }
+    return errors;
+  };
+
   onChangeName = (event: any) => {
     const inputValue = event.target.value;
-    let nameHasError = !inputValue || /\s/g.test(inputValue);
+    const errors = this.validateName(inputValue);
     this.setState(
       {
         name: inputValue,
-        nameHasError,
+        errors,
       },
       () => this.updateGlobalState()
     );
   };
 
   updateGlobalState = () => {
-    const { updateModel, component } = this.props;
-    const { name, nameHasError } = this.state;
-    if (updateModel && !nameHasError) {
-      updateModel({ ...component, name });
+    const { updateModel } = this.props;
+    const { name, errors } = this.state;
+    if (updateModel && !errors?.name) {
+      updateModel(name);
     }
   };
 
   render() {
     const { id, labelText, hint, i18n } = this.props;
-    const { name, nameHasError } = this.state;
+    const { name, errors } = this.state;
 
     return (
       <div
         className={`govuk-form-group ${
-          nameHasError ? "govuk-form-group--error" : ""
+          errors?.name ? "govuk-form-group--error" : ""
         }`}
       >
         <label className="govuk-label govuk-label--s" htmlFor={id}>
           {labelText}
         </label>
         <span className="govuk-hint">{hint || i18n("name.hint")}</span>
-        {nameHasError && (
+        {errors?.name && (
           <span className="govuk-error-message">
             <span className="govuk-visually-hidden">{i18n("error")}</span>{" "}
-            {i18n("name.errors.whitespace")}
+            {errors?.name.children}
           </span>
         )}
         <input
           className={`govuk-input govuk-input--width-20 ${
-            nameHasError ? "govuk-input--error" : ""
+            errors?.name ? "govuk-input--error" : ""
           }`}
           id={id}
           name="name"
           type="text"
-          required
           pattern="^\S+"
           value={name}
           onChange={this.onChangeName}
@@ -84,4 +109,4 @@ export class Name extends React.Component<Props, State> {
   }
 }
 
-export default withI18n(Name);
+export default withI18nRef(Name);

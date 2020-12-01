@@ -3,6 +3,7 @@ import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
 import { Input } from "@govuk-jsx/input";
 import { isEmpty } from "./helpers";
+import { validateTitle, hasValidationErrors } from "./validations";
 import { ErrorSummary } from "./error-summary";
 
 class FormDetails extends React.Component {
@@ -29,11 +30,10 @@ class FormDetails extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const hasValidationErrors = this.validate();
-    if (hasValidationErrors) return;
+    const validationErrors = this.validate();
+    if (hasValidationErrors(validationErrors)) return;
     const { data } = this.props;
     const { title, feedbackForm, selectedFeedbackForm } = this.state;
-
     const copy = data.clone();
     copy.name = title;
     copy.feedbackForm = feedbackForm;
@@ -53,15 +53,11 @@ class FormDetails extends React.Component {
 
   validate = () => {
     const { title } = this.state;
-    const titleHasErrors = isEmpty(title);
-    const errors = {};
-    if (titleHasErrors) {
-      errors.title = { href: "#form-title", children: "Enter title" };
-    }
+    const errors = validateTitle("form-title", title);
     this.setState({
       errors,
     });
-    return titleHasErrors;
+    return errors;
   };
 
   onSelectFeedbackForm(e) {

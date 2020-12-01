@@ -1,12 +1,15 @@
 import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone } from "@xgovformbuilder/model";
+import { hasValidationErrors } from "./validations";
+import { ErrorSummary } from "./error-summary";
 
 class ComponentEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       component: props.component,
+      errors: {},
     };
     this.typeEditRef = React.createRef();
   }
@@ -14,7 +17,7 @@ class ComponentEdit extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     let validationErrors = this.validate();
-    if (validationErrors) return false;
+    if (hasValidationErrors(validationErrors)) return;
 
     const { data, page, component } = this.props;
     const copy = clone(data);
@@ -30,8 +33,12 @@ class ComponentEdit extends React.Component {
   }
 
   validate = () => {
-    if (this.typeEditRef.current) return this.typeEditRef.current.validate();
-    return false;
+    if (this.typeEditRef.current) {
+      const errors = this.typeEditRef.current.validate();
+      this.setState({ errors });
+      return errors;
+    }
+    return {};
   };
 
   onClickDelete = (e) => {
@@ -68,12 +75,15 @@ class ComponentEdit extends React.Component {
 
   render() {
     const { page, data } = this.props;
-    const { component } = this.state;
+    const { component, errors } = this.state;
 
     const copyComp = JSON.parse(JSON.stringify(component));
 
     return (
       <div>
+        {hasValidationErrors(errors) && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
         <form autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
           <div className="govuk-form-group">
             <span className="govuk-label govuk-label--s" htmlFor="type">

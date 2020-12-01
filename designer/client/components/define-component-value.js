@@ -7,7 +7,7 @@ import Flyout from "../flyout";
 import { clone } from "@xgovformbuilder/model";
 import DefineChildComponent from "./define-child-component";
 import { RenderInPortal } from "./render-in-portal";
-import { isEmpty } from "../helpers";
+import { validateNotEmpty, hasValidationErrors } from "../validations";
 
 export default class DefineComponentValue extends React.Component {
   constructor(props) {
@@ -23,8 +23,8 @@ export default class DefineComponentValue extends React.Component {
   saveItem = () => {
     const { label, value, hint, condition, children } = this.state;
 
-    let compHasErrors = this.validate();
-    if (compHasErrors) return;
+    let compErrors = this.validate();
+    if (hasValidationErrors(compErrors)) return;
 
     this.props.saveCallback({
       label,
@@ -38,16 +38,17 @@ export default class DefineComponentValue extends React.Component {
   validate = () => {
     const { label, value } = this.state;
 
-    let labelHasError = isEmpty(label);
-    let valueHasError = isEmpty(value);
-
+    let labelError = validateNotEmpty("item-label", "Label", "label", label);
+    let valueError = validateNotEmpty("item-value", "Value", "value", value);
+    const errors = {
+      ...labelError,
+      ...valueError,
+    };
     this.setState({
-      errors: {
-        label: labelHasError,
-        value: valueHasError,
-      },
+      errors,
     });
-    return labelHasError || valueHasError;
+
+    return errors;
   };
 
   onClickCancel = () => {

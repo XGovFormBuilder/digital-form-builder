@@ -73,18 +73,29 @@ export default class ComponentValues extends React.Component {
   validate = () => {
     const { listName, component } = this.state;
 
-    let typeHasError = component.values?.type === undefined;
-    let listNameHasError =
+    const typeHasError = component.values?.type === undefined;
+    const listNameHasError =
       component.values?.type === "listRef" && listName === undefined;
 
+    const errors = {};
+    if (typeHasError) {
+      errors.type = {
+        href: "#population-type-list",
+        children: "Enter population type",
+      };
+    }
+    if (listNameHasError) {
+      errors.listRef = {
+        href: "#field-options-list",
+        children: "Select a List",
+      };
+    }
+
     this.setState({
-      errors: {
-        type: typeHasError,
-        listName: listNameHasError,
-      },
+      errors,
     });
 
-    return typeHasError || listNameHasError;
+    return errors;
   };
 
   showAddItem = () => this.setState({ showAddItem: true });
@@ -194,7 +205,7 @@ export default class ComponentValues extends React.Component {
             },
           }}
           errorMessage={
-            errors?.type ? { children: ["This field is required"] } : undefined
+            errors?.type ? { children: errors?.type.children } : undefined
           }
           items={[
             {
@@ -222,7 +233,7 @@ export default class ComponentValues extends React.Component {
             <div
               className={classNames({
                 "govuk-form-group": true,
-                "govuk-form-group--error": errors.listRef,
+                "govuk-form-group--error": errors?.listRef,
               })}
             >
               <label
@@ -231,8 +242,8 @@ export default class ComponentValues extends React.Component {
               >
                 List
               </label>
-              {errors.listRef && (
-                <ErrorMessage>This field is required</ErrorMessage>
+              {errors?.listRef && (
+                <ErrorMessage>errors.listRef.children</ErrorMessage>
               )}
 
               <select

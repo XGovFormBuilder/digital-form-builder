@@ -4,6 +4,12 @@ import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
+import { isEmpty } from "../helpers";
+import {
+  validateName,
+  validateTitle,
+  hasValidationErrors,
+} from "../validations";
 
 class SectionEdit extends React.Component {
   constructor(props) {
@@ -11,7 +17,7 @@ class SectionEdit extends React.Component {
     this.closeFlyout = props.closeFlyout;
     const { section } = props;
     this.isNewSection = !section?.name;
-
+    this.nameRef = React.createRef();
     this.state = {
       name: section?.name ?? nanoid(6),
       title: section?.title ?? "",
@@ -21,9 +27,9 @@ class SectionEdit extends React.Component {
 
   async onSubmit(e) {
     e.preventDefault();
+    let validationErrors = this.validate();
+    if (hasValidationErrors(validationErrors)) return;
     const { name, title } = this.state;
-    let hasErrors = this.validate(title);
-    if (hasErrors) return;
     const { data } = this.props;
     const copy = clone(data);
     if (this.isNewSection) {
@@ -57,21 +63,16 @@ class SectionEdit extends React.Component {
     }
   }
 
-  onChangeTitle = (e) => {
+  validate = () => {
+    const { i18n } = this.props;
+    const { name, title } = this.state;
+    const titleErrors = validateTitle("section-title", title, i18n);
+    const nameErrors = validateName("section-name", "section name", name, i18n);
+    const errors = { ...titleErrors, ...nameErrors };
     this.setState({
-      title: e.target.value,
+      errors,
     });
-  };
-
-  validate = (title) => {
-    let titleHasErrors = !title || title.trim().length < 1;
-    this.setState((prevState, props) => ({
-      errors: {
-        ...prevState.errors,
-        title: titleHasErrors,
-      },
-    }));
-    return titleHasErrors;
+    return errors;
   };
 
   onClickDelete = async (e) => {
@@ -116,12 +117,28 @@ class SectionEdit extends React.Component {
             children: [i18n("title")],
           }}
           value={title}
-          onChange={this.onChangeTitle}
+          onChange={(e) => this.setState({ title: e.target.value })}
           errorMessage={
-            errors?.title ? { children: ["Enter title"] } : undefined
+            errors?.title ? { children: errors?.title.children } : undefined
           }
         />
-        <Name id="section-name" labelText="Section name" name={name} />
+        <Input
+          id="section-name"
+          name="name"
+          className="govuk-input--width-20"
+          label={{
+            className: "govuk-label--s",
+            children: ["Section name"],
+          }}
+          hint={{
+            children: [i18n("name.hint")],
+          }}
+          value={name}
+          onChange={(e) => this.setState({ name: e.target.value })}
+          errorMessage={
+            errors?.name ? { children: errors?.name.children } : undefined
+          }
+        />
         <button className="govuk-button" type="submit">
           Save
         </button>{" "}

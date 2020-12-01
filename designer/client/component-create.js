@@ -1,12 +1,15 @@
 import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
+import { hasValidationErrors } from "./validations";
+import { ErrorSummary } from "./error-summary";
 
 class ComponentCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isSaving: false,
+      errors: {},
     };
     this.typeEditRef = React.createRef();
   }
@@ -25,7 +28,7 @@ class ComponentCreate extends React.Component {
     }
 
     let validationErrors = this.validate();
-    if (validationErrors) return false;
+    if (hasValidationErrors(validationErrors)) return false;
 
     this.setState({ isSaving: true });
 
@@ -40,8 +43,12 @@ class ComponentCreate extends React.Component {
   }
 
   validate = () => {
-    if (this.typeEditRef.current) return this.typeEditRef.current.validate();
-    return false;
+    if (this.typeEditRef.current) {
+      const errors = this.typeEditRef.current.validate();
+      this.setState({ errors });
+      return errors;
+    }
+    return {};
   };
 
   storeComponent = (component) => {
@@ -50,10 +57,13 @@ class ComponentCreate extends React.Component {
 
   render() {
     const { page, data } = this.props;
-    const { id, isSaving } = this.state;
+    const { id, isSaving, errors } = this.state;
 
     return (
       <div>
+        {hasValidationErrors(errors) && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="type">

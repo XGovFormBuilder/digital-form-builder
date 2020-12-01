@@ -21,9 +21,9 @@ function ErrorSummary({
 }: ErrorSummaryProps) {
   const errorSummaryRef = useRef();
 
-  useEffect(() => {
+  /*useEffect(() => {
     errorSummaryRef.current.focus();
-  }, [errorList]);
+  }, [errorList]);*/
 
   let description;
   if (descriptionChildren) {

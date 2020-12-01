@@ -6,6 +6,7 @@ import { Textarea } from "@govuk-jsx/textarea";
 import { Input } from "@govuk-jsx/input";
 import Name from "./name";
 import { isEmpty } from "./helpers";
+import { validateTitle, validateNotEmpty } from "./validations";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
 
@@ -60,7 +61,7 @@ class FieldEdit extends React.Component {
     const { component } = this.props;
     const options = component.options || {};
     this.isFileUploadField = component.type === "FileUploadField";
-
+    this.nameRef = React.createRef();
     this.state = {
       hidden: options.required !== false,
       name: component.name,
@@ -70,14 +71,12 @@ class FieldEdit extends React.Component {
 
   validate = () => {
     const { component } = this.props;
-    let titleHasError = isEmpty(component.title);
+    const nameErrors = this.nameRef.current.validate();
+    const titleErrors = validateTitle("field-title", component.title);
     this.setState({
-      errors: {
-        title: titleHasError,
-      },
+      errors: titleErrors,
     });
-
-    return titleHasError;
+    return { ...nameErrors, ...titleErrors };
   };
 
   checkOptionalBox() {
@@ -86,14 +85,6 @@ class FieldEdit extends React.Component {
     }
     this.setState({ hidden: !this.state.hidden });
   }
-
-  onChangeName = (event) => {
-    const inputValue = event.target.value;
-    this.setState({
-      name: inputValue,
-      nameHasError: /\s/g.test(inputValue),
-    });
-  };
 
   componentDidUpdate(prevProps) {
     if (this.props.component.type !== prevProps.component.type) {
@@ -135,7 +126,7 @@ class FieldEdit extends React.Component {
               )
             }
             errorMessage={
-              errors?.title ? { children: ["Enter title"] } : undefined
+              errors?.title ? { children: errors?.title.children } : undefined
             }
           />
           <Textarea
@@ -196,11 +187,19 @@ class FieldEdit extends React.Component {
           </div>
 
           <Name
-            component={component}
+            name={component.name}
             id="field-name"
             labelText="Component name"
-            updateComponent={updateComponent}
-            updateModel={updateModel}
+            ref={this.nameRef}
+            updateModel={(name) =>
+              updateComponent(
+                component,
+                (component) => {
+                  component.name = name;
+                },
+                updateModel
+              )
+            }
           />
 
           <div className="govuk-checkboxes govuk-form-group">
@@ -750,9 +749,9 @@ class SelectFieldEdit extends React.Component {
   }
 
   validate = () => {
-    let fieldEditHasErrors = this.fieldEditorRef.current.validate();
-    let componentValHasErrors = this.compValuesRef.current.validate();
-    return fieldEditHasErrors || componentValHasErrors;
+    let fieldEditErrors = this.fieldEditorRef.current.validate();
+    let componentValErrors = this.compValuesRef.current.validate();
+    return { ...fieldEditErrors, ...componentValErrors };
   };
 
   render() {
@@ -792,9 +791,9 @@ class RadiosFieldEdit extends React.Component {
   }
 
   validate = () => {
-    let fieldEditHasErrors = this.fieldEditorRef.current.validate();
-    let componentValHasErrors = this.compValuesRef.current.validate();
-    return fieldEditHasErrors || componentValHasErrors;
+    const fieldEditErrors = this.fieldEditorRef.current.validate();
+    const componentValErrors = this.compValuesRef.current.validate();
+    return { ...fieldEditErrors, ...componentValErrors };
   };
 
   render() {
@@ -858,9 +857,9 @@ class CheckboxesFieldEdit extends React.Component {
   }
 
   validate = () => {
-    let fieldEditHasErrors = this.fieldEditorRef.current.validate();
-    let componentValHasErrors = this.compValuesRef.current.validate();
-    return fieldEditHasErrors || componentValHasErrors;
+    const fieldEditErrors = this.fieldEditorRef.current.validate();
+    const componentValErrors = this.compValuesRef.current.validate();
+    return { ...fieldEditErrors, ...componentValErrors };
   };
 
   render() {
@@ -988,8 +987,7 @@ class ListContentEdit extends React.Component {
   }
 
   validate = () => {
-    let componentValHasErrors = this.compValuesRef.current.validate();
-    return componentValHasErrors;
+    return this.compValuesRef.current.validate();
   };
 
   render() {
@@ -1051,8 +1049,7 @@ class FlashCardEdit extends React.Component {
   }
 
   validate = () => {
-    let componentValHasErrors = this.compValuesRef.current.validate();
-    return componentValHasErrors;
+    return this.compValuesRef.current.validate();
   };
 
   render() {
@@ -1088,16 +1085,24 @@ class DetailsEdit extends React.Component {
 
   validate = () => {
     const { component } = this.props;
-    let titleHasError = isEmpty(component.title);
-    let contentHasError = isEmpty(component.content);
+    const titleError = validateNotEmpty(
+      "details-title",
+      "Title",
+      "title",
+      component.title
+    );
+    const contentError = validateNotEmpty(
+      "details-content",
+      "Content",
+      "content",
+      component.content
+    );
+    const errors = { ...titleError, ...contentError };
     this.setState({
-      errors: {
-        title: titleHasError,
-        content: contentHasError,
-      },
+      errors,
     });
 
-    return titleHasError | contentHasError;
+    return errors;
   };
 
   render() {
@@ -1123,13 +1128,13 @@ class DetailsEdit extends React.Component {
             )
           }
           errorMessage={
-            errors?.title ? { children: ["Enter title"] } : undefined
+            errors?.title ? { children: errors?.title.children } : undefined
           }
         />
         <div
           className={classNames({
             "govuk-form-group": true,
-            "govuk-form-group--error": errors.content,
+            "govuk-form-group--error": errors?.content,
           })}
         >
           <label className="govuk-label" htmlFor="details-content">
@@ -1140,7 +1145,9 @@ class DetailsEdit extends React.Component {
             is available. Use this on a wrapping element to apply default govuk
             styles.
           </span>
-          {errors.content && <ErrorMessage>Enter the content</ErrorMessage>}
+          {errors?.content && (
+            <ErrorMessage>{errors?.content.children}</ErrorMessage>
+          )}
           <textarea
             className="govuk-textarea"
             id="details-content"
@@ -1192,9 +1199,10 @@ class ComponentTypeEdit extends React.Component {
 
   validate = () => {
     if (this.typeEditorRef.current) {
-      return this.typeEditorRef.current.validate();
+      const errors = this.typeEditorRef.current.validate();
+      return errors;
     }
-    return false;
+    return {};
   };
 
   render() {
