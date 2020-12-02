@@ -17,7 +17,7 @@ export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
   return errors;
 }
 
-export function validateName(id, value, i18n) {
+export function validateName(id, fieldName, value, i18n) {
   const namesIsEmpty = isEmpty(value);
   const nameHasErrors = /\s/g.test(value);
   const errors = {};
@@ -31,7 +31,7 @@ export function validateName(id, value, i18n) {
     };
   } else if (namesIsEmpty) {
     const message = i18n
-      ? i18n("errors.field", { field: "Name" })
+      ? i18n("errors.field", { field: fieldName })
       : "Enter Name";
     errors.name = {
       href: `#${id}`,
