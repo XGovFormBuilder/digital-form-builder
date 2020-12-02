@@ -8,6 +8,10 @@ $color-orange: #ffbf47;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -272,6 +276,8 @@ main {
   .flyout-menu-container {
     width: 50%;
     height: 100%;
+    overflow: auto;
+
     // padding: 20px;
     min-width: 300px;
     // max-width: 600px;
@@ -312,8 +318,7 @@ main {
     }
     .panel-body {
       flex: 1;
-      overflow: auto;
-
+      
       .govuk-button {
         margin-bottom: 0;
       }

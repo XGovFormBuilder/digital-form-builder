@@ -55,6 +55,13 @@ class ComponentCreate extends React.Component {
     this.setState({ component });
   };
 
+  onChangeComponentType = (e) => {
+    this.setState({
+      component: { type: e.target.value, name: id },
+      errors: {},
+    });
+  };
+
   render() {
     const { page, data } = this.props;
     const { id, isSaving, errors } = this.state;
@@ -74,9 +81,7 @@ class ComponentCreate extends React.Component {
               id="type"
               name="type"
               required
-              onChange={(e) =>
-                this.setState({ component: { type: e.target.value, name: id } })
-              }
+              onChange={this.onChangeComponentType}
             >
               <option />
               {ComponentTypes.sort((a, b) =>

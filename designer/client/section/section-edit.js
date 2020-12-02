@@ -4,12 +4,12 @@ import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
-import { isEmpty } from "../helpers";
 import {
   validateName,
   validateTitle,
   hasValidationErrors,
 } from "../validations";
+import { ErrorSummary } from "../error-summary";
 
 class SectionEdit extends React.Component {
   constructor(props) {
@@ -108,50 +108,55 @@ class SectionEdit extends React.Component {
     const { title, name, errors } = this.state;
 
     return (
-      <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-        <Input
-          id="section-title"
-          name="title"
-          label={{
-            className: "govuk-label--s",
-            children: [i18n("title")],
-          }}
-          value={title}
-          onChange={(e) => this.setState({ title: e.target.value })}
-          errorMessage={
-            errors?.title ? { children: errors?.title.children } : undefined
-          }
-        />
-        <Input
-          id="section-name"
-          name="name"
-          className="govuk-input--width-20"
-          label={{
-            className: "govuk-label--s",
-            children: ["Section name"],
-          }}
-          hint={{
-            children: [i18n("name.hint")],
-          }}
-          value={name}
-          onChange={(e) => this.setState({ name: e.target.value })}
-          errorMessage={
-            errors?.name ? { children: errors?.name.children } : undefined
-          }
-        />
-        <button className="govuk-button" type="submit">
-          Save
-        </button>{" "}
-        {!this.isNewSection && (
-          <button
-            className="govuk-button"
-            type="button"
-            onClick={this.onClickDelete}
-          >
-            {i18n("delete")}
-          </button>
+      <>
+        {Object.keys(errors).length > 0 && (
+          <ErrorSummary errorList={Object.values(errors)} />
         )}
-      </form>
+        <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
+          <Input
+            id="section-title"
+            name="title"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("title")],
+            }}
+            value={title}
+            onChange={(e) => this.setState({ title: e.target.value })}
+            errorMessage={
+              errors?.title ? { children: errors?.title.children } : undefined
+            }
+          />
+          <Input
+            id="section-name"
+            name="name"
+            className="govuk-input--width-20"
+            label={{
+              className: "govuk-label--s",
+              children: ["Section name"],
+            }}
+            hint={{
+              children: [i18n("name.hint")],
+            }}
+            value={name}
+            onChange={(e) => this.setState({ name: e.target.value })}
+            errorMessage={
+              errors?.name ? { children: errors?.name.children } : undefined
+            }
+          />
+          <button className="govuk-button" type="submit">
+            Save
+          </button>{" "}
+          {!this.isNewSection && (
+            <button
+              className="govuk-button"
+              type="button"
+              onClick={this.onClickDelete}
+            >
+              {i18n("delete")}
+            </button>
+          )}
+        </form>
+      </>
     );
   }
 }
