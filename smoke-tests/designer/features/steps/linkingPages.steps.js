@@ -30,6 +30,7 @@ Then("my page is created with a link to the page", () => {
 Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
   this.fromPage = fromPage;
   this.toPage = toPage;
+  browser.reloadSession();
   Actions.createNewConfig();
   MenuSection.buttonByName("Add Link").click();
   AddLinkSection.linkPages(this.fromPage, this.toPage);

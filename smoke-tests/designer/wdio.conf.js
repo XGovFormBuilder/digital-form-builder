@@ -54,7 +54,7 @@ exports.config = {
     ],
   ],
   cucumberOpts: {
-    require: ["./features/step-definitions/*steps.js"],
+    require: ["./features/steps/*steps.js"],
     backtrace: false,
     requireModule: [],
     dryRun: false,
@@ -64,7 +64,7 @@ exports.config = {
     source: true,
     profile: [],
     strict: false,
-    tagExpression: "not @flaky",
+    tagExpression: "not @wip",
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
   },

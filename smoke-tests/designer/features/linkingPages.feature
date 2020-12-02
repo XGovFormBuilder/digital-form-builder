@@ -14,7 +14,6 @@ Feature: Linking Pages
     When I link ths page to link from the "/first-page"
     Then my page is created with a link to the page
 
-  @flaky
   Scenario: Deleting a link between two pages
     Given I have linked the "First page" to the the "Summary"
     When I delete the link between the pages
