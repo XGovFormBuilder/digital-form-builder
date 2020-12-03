@@ -7,6 +7,7 @@ import Flyout from "../flyout";
 import { clone } from "@xgovformbuilder/model";
 import DefineChildComponent from "./define-child-component";
 import { RenderInPortal } from "./render-in-portal";
+import { validateNotEmpty, hasValidationErrors } from "../validations";
 
 export default class DefineComponentValue extends React.Component {
   constructor(props) {
@@ -16,13 +17,14 @@ export default class DefineComponentValue extends React.Component {
     if (!this.state.children) {
       this.state.children = [];
     }
-
-    this.formAddItem = React.createRef();
-    this.formEditItem = React.createRef();
+    this.state.errors = {};
   }
 
   saveItem = () => {
     const { label, value, hint, condition, children } = this.state;
+
+    let compErrors = this.validate();
+    if (hasValidationErrors(compErrors)) return;
 
     this.props.saveCallback({
       label,
@@ -31,6 +33,22 @@ export default class DefineComponentValue extends React.Component {
       condition,
       children,
     });
+  };
+
+  validate = () => {
+    const { label, value } = this.state;
+
+    let labelError = validateNotEmpty("item-label", "Label", "label", label);
+    let valueError = validateNotEmpty("item-value", "Value", "value", value);
+    const errors = {
+      ...labelError,
+      ...valueError,
+    };
+    this.setState({
+      errors,
+    });
+
+    return errors;
   };
 
   onClickCancel = () => {
@@ -47,28 +65,20 @@ export default class DefineComponentValue extends React.Component {
 
   addChild = (component) => {
     const { children } = this.state;
-    const isFormValid = this.formAddItem.current.reportValidity();
-
-    if (isFormValid) {
-      children.push(component);
-      this.setState({
-        children: children,
-        showAddChild: false,
-      });
-    }
+    children.push(component);
+    this.setState({
+      children: children,
+      showAddChild: false,
+    });
   };
 
   updateChild = (component) => {
     const { children, editingIndex } = this.state;
-    const isFormValid = this.formAddItem.current.reportValidity();
-
-    if (isFormValid) {
-      children[editingIndex] = component;
-      this.setState({
-        children,
-        editingIndex: undefined,
-      });
-    }
+    children[editingIndex] = component;
+    this.setState({
+      children,
+      editingIndex: undefined,
+    });
   };
 
   removeChild = (index) => {
@@ -92,6 +102,7 @@ export default class DefineComponentValue extends React.Component {
       children,
       showAddChild,
       editingIndex,
+      errors,
     } = this.state;
     const { data, page } = this.props;
     const child = children[editingIndex];
@@ -108,9 +119,11 @@ export default class DefineComponentValue extends React.Component {
           hint={{
             children: ["Text can include HTML"],
           }}
-          required={true}
           value={label}
           onChange={(e) => this.setState({ label: e.target.value })}
+          errorMessage={
+            errors?.label ? { children: ["Enter label"] } : undefined
+          }
         />
         <Input
           id="item-value"
@@ -122,9 +135,11 @@ export default class DefineComponentValue extends React.Component {
           hint={{
             children: ["Text can include HTML"],
           }}
-          required={true}
           value={value}
           onChange={(e) => this.setState({ value: e.target.value })}
+          errorMessage={
+            errors?.value ? { children: ["Enter value"] } : undefined
+          }
         />
         <Textarea
           id="item-hint"
@@ -137,7 +152,6 @@ export default class DefineComponentValue extends React.Component {
           hint={{
             children: ["Text can include HTML"],
           }}
-          required={false}
           value={hint}
           onChange={(e) => this.setState({ hint: e.target.value })}
         />
@@ -213,11 +227,11 @@ export default class DefineComponentValue extends React.Component {
             onClick={this.saveItem}
           >
             Add Item
-          </a>
+          </a>{" "}
           <a
             href="#"
             id="cancel-add-component-value-link"
-            className="govuk-link"
+            className="govuk-button"
             onClick={this.onClickCancel}
           >
             Cancel
@@ -229,7 +243,7 @@ export default class DefineComponentValue extends React.Component {
                 show={!!showAddChild}
                 onHide={this.cancelAddChild}
               >
-                <form ref={this.formAddItem}>
+                <form>
                   <DefineChildComponent
                     data={data}
                     page={page}
@@ -241,7 +255,6 @@ export default class DefineComponentValue extends React.Component {
               </Flyout>
             </RenderInPortal>
           )}
-
           {editingIndex !== undefined && (
             <RenderInPortal>
               <Flyout
@@ -249,7 +262,7 @@ export default class DefineComponentValue extends React.Component {
                 show={editingIndex !== undefined}
                 onHide={this.cancelEditChild}
               >
-                <form ref={this.formEditItem}>
+                <form>
                   <DefineChildComponent
                     data={data}
                     component={child}

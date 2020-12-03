@@ -4,6 +4,10 @@ import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/render-in-portal";
 import Flyout from "./flyout";
 import SectionEdit from "./section/section-edit";
+import { withI18n } from "./i18n";
+import { Input } from "@govuk-jsx/input";
+import { ErrorSummary } from "./error-summary";
+import { validateTitle, hasValidationErrors } from "./validations";
 
 class PageCreate extends React.Component {
   constructor(props) {
@@ -15,19 +19,23 @@ class PageCreate extends React.Component {
       title: page?.title,
       section: page?.section ?? {},
       isEditingSection: false,
+      errors: {},
     };
   }
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const { data } = this.props;
 
+    const { data } = this.props;
     const title = this.state.title?.trim();
     const linkFrom = this.state.linkFrom?.trim();
     const section = this.state.section?.name?.trim();
     const pageType = this.state.pageType?.trim();
     const selectedCondition = this.state.selectedCondition?.trim();
     const path = this.state.path || this.state.path;
+
+    let validationErrors = this.validate(title, path);
+    if (hasValidationErrors(validationErrors)) return;
 
     const value = {
       path,
@@ -55,6 +63,23 @@ class PageCreate extends React.Component {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  validate = (title, path) => {
+    const { data, i18n } = this.props;
+    const titleErrors = validateTitle("page-title", title, i18n);
+    const errors = { ...titleErrors };
+    const pathHasErrors = data.findPage(path);
+    if (pathHasErrors) {
+      errors.path = {
+        href: "#page-path",
+        children: `Path '${path}' already exists`,
+      };
+    }
+
+    this.setState({ errors });
+
+    return errors;
   };
 
   generatePath(title, data) {
@@ -141,7 +166,7 @@ class PageCreate extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, i18n } = this.props;
     const { sections, pages } = data;
     const {
       pageType,
@@ -150,10 +175,14 @@ class PageCreate extends React.Component {
       section,
       path,
       isEditingSection,
+      errors,
     } = this.state;
 
     return (
       <div>
+        {hasValidationErrors(errors) > 0 && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="page-type">
@@ -200,40 +229,36 @@ class PageCreate extends React.Component {
             />
           )}
 
-          <div className="govuk-form-group">
-            <label className="govuk-label govuk-label--s" htmlFor="page-title">
-              Title
-            </label>
-            <input
-              className="govuk-input"
-              id="page-title"
-              name="title"
-              type="text"
-              aria-describedby="page-title-hint"
-              required
-              onChange={this.onChangeTitle}
-              value={title || ""}
-            />
-          </div>
+          <Input
+            id="page-title"
+            name="title"
+            label={{
+              className: "govuk-label--s",
+              children: ["Title"],
+            }}
+            value={title || ""}
+            onChange={this.onChangeTitle}
+            errorMessage={
+              errors?.title ? { children: errors?.title.children } : undefined
+            }
+          />
 
-          <div className="govuk-form-group">
-            <label className="govuk-label govuk-label--s" htmlFor="page-path">
-              Path
-            </label>
-            <span className="govuk-hint">
-              The path of this page e.g. &apos;/personal-details&apos;.
-            </span>
-            <input
-              className="govuk-input"
-              id="page-path"
-              name="path"
-              type="text"
-              aria-describedby="page-path-hint"
-              required
-              value={path}
-              onChange={this.onChangePath}
-            />
-          </div>
+          <Input
+            id="page-path"
+            name="path"
+            label={{
+              className: "govuk-label--s",
+              children: ["Path"],
+            }}
+            hint={{
+              children: ["The path of this page e.g. '/personal-details'."],
+            }}
+            value={path}
+            onChange={this.onChangePath}
+            errorMessage={
+              errors?.path ? { children: errors?.path?.children } : undefined
+            }
+          />
 
           <div className="govuk-form-group">
             <label
@@ -306,4 +331,4 @@ class PageCreate extends React.Component {
   }
 }
 
-export default PageCreate;
+export default withI18n(PageCreate);

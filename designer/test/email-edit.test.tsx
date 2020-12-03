@@ -12,4 +12,10 @@ suite("Email edit", () => {
   test("renders with correct class", () => {
     expect(shallow(<EmailEdit />).is(".email-edit")).to.equal(true);
   });
+  test("renders with correct class when required field error", () => {
+    let errors = { email: true };
+    let wrapper = shallow(<EmailEdit errors={errors} />);
+
+    expect(wrapper.find("div.govuk-form-group--error")).to.exist();
+  });
 });

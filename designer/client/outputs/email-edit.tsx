@@ -1,11 +1,13 @@
 import React from "react";
-import { Output, EmailOutputConfiguration } from "./types";
+import { Output, EmailOutputConfiguration, ValidationErrors } from "./types";
+import { Input } from "@govuk-jsx/input";
 
 type Props = {
   output: Output;
+  errors: ValidationErrors;
 };
 
-const EmailEdit = ({ output }: Props) => {
+const EmailEdit = ({ output, errors = {} }: Props) => {
   const outputConfiguration = (typeof output?.outputConfiguration === "object"
     ? output?.outputConfiguration
     : {
@@ -14,18 +16,18 @@ const EmailEdit = ({ output }: Props) => {
 
   return (
     <div className="govuk-body email-edit">
-      <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="email-address">
-          Email Address
-        </label>
-        <input
-          className="govuk-input"
-          name="email-address"
-          type="text"
-          required
-          defaultValue={outputConfiguration.emailAddress}
-        />
-      </div>
+      <Input
+        id="email-address"
+        name="email-address"
+        label={{
+          className: "govuk-label--s",
+          children: ["Email Address"],
+        }}
+        defaultValue={outputConfiguration.emailAddress}
+        errorMessage={
+          errors?.email ? { children: errors?.email.children } : undefined
+        }
+      />
     </div>
   );
 };

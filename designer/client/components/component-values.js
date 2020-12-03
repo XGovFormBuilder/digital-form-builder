@@ -5,6 +5,8 @@ import DefineComponentValue from "./define-component-value";
 import { clone } from "@xgovformbuilder/model";
 import { RenderInPortal } from "./render-in-portal";
 import { Radios } from "@govuk-jsx/radios";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 function updateComponent(component, modifier, updateModel) {
   modifier(component);
@@ -64,11 +66,37 @@ export default class ComponentValues extends React.Component {
     this.state = {
       component: clone(props.component),
       listName: values?.list,
+      errors: {},
     };
-
-    this.formAddItem = React.createRef();
-    this.formEditItem = React.createRef();
   }
+
+  validate = () => {
+    const { listName, component } = this.state;
+
+    const typeHasError = component.values?.type === undefined;
+    const listNameHasError =
+      component.values?.type === "listRef" && listName === undefined;
+
+    const errors = {};
+    if (typeHasError) {
+      errors.type = {
+        href: "#population-type-list",
+        children: "Enter population type",
+      };
+    }
+    if (listNameHasError) {
+      errors.listRef = {
+        href: "#field-options-list",
+        children: "Select a List",
+      };
+    }
+
+    this.setState({
+      errors,
+    });
+
+    return errors;
+  };
 
   showAddItem = () => this.setState({ showAddItem: true });
 
@@ -90,39 +118,33 @@ export default class ComponentValues extends React.Component {
   addItem = (item) => {
     const { updateModel } = this.props;
     const { component } = this.state;
-    const isFormValid = this.formAddItem.current.reportValidity();
 
-    if (isFormValid) {
-      updateComponent(
-        component,
-        (component) => {
-          component.values.items = component.values.items || [];
-          component.values.items.push(item);
-        },
-        updateModel
-      );
-      this.setState({
-        showAddItem: false,
-      });
-    }
+    updateComponent(
+      component,
+      (component) => {
+        component.values.items = component.values.items || [];
+        component.values.items.push(item);
+      },
+      updateModel
+    );
+    this.setState({
+      showAddItem: false,
+    });
   };
 
   updateItem = (item) => {
     const { updateModel } = this.props;
     const { component, editingIndex } = this.state;
-    const isFormValid = this.formEditItem.current.reportValidity();
 
-    if (isFormValid) {
-      updateComponent(
-        component,
-        (component) => {
-          component.values.items = component.values.items || [];
-          component.values.items[editingIndex] = item;
-        },
-        updateModel
-      );
-      this.setState({ editingIndex: undefined });
-    }
+    updateComponent(
+      component,
+      (component) => {
+        component.values.items = component.values.items || [];
+        component.values.items[editingIndex] = item;
+      },
+      updateModel
+    );
+    this.setState({ editingIndex: undefined });
   };
 
   initialiseValues = (e) => {
@@ -140,7 +162,13 @@ export default class ComponentValues extends React.Component {
   render() {
     const { data, updateModel, page } = this.props;
     const { lists } = data;
-    const { listName, showAddItem, editingIndex, component } = this.state;
+    const {
+      listName,
+      showAddItem,
+      editingIndex,
+      component,
+      errors,
+    } = this.state;
     const staticValues = data.valuesFor(component)?.toStaticValues();
     const type = component.values?.type;
 
@@ -176,6 +204,9 @@ export default class ComponentValues extends React.Component {
               children: ["How would you like to populate the options?"],
             },
           }}
+          errorMessage={
+            errors?.type ? { children: errors?.type.children } : undefined
+          }
           items={[
             {
               children: ["From a list"],
@@ -199,13 +230,22 @@ export default class ComponentValues extends React.Component {
         />
         {type && (
           <div>
-            <div className="govuk-form-group">
+            <div
+              className={classNames({
+                "govuk-form-group": true,
+                "govuk-form-group--error": errors?.listRef,
+              })}
+            >
               <label
                 className="govuk-label govuk-label--s"
                 htmlFor="field-options-list"
               >
                 List
               </label>
+              {errors?.listRef && (
+                <ErrorMessage>errors.listRef.children</ErrorMessage>
+              )}
+
               <select
                 className="govuk-select govuk-input--width-10"
                 id="field-options-list"
@@ -304,7 +344,7 @@ export default class ComponentValues extends React.Component {
                     show={!!showAddItem}
                     onHide={this.cancelAddItem}
                   >
-                    <form ref={this.formAddItem}>
+                    <form>
                       <DefineComponentValue
                         data={data}
                         page={page}
@@ -323,7 +363,7 @@ export default class ComponentValues extends React.Component {
                     show={editingIndex !== undefined}
                     onHide={this.cancelEditItem}
                   >
-                    <form ref={this.formEditItem}>
+                    <form>
                       <DefineComponentValue
                         data={data}
                         value={staticValues.items[editingIndex]}

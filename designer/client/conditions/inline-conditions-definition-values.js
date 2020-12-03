@@ -89,7 +89,11 @@ function customValueComponent(fieldType, operator) {
   };
   if (fieldType in absoluteDateTimeRenderFunctions) {
     if (absoluteDateOrTimeOperatorNames.includes(operator)) {
-      return absoluteDateTimeRenderFunctions[fieldType];
+      //since these are all classes return a function which creates new class comp
+      let CustomRendering = absoluteDateTimeRenderFunctions[fieldType];
+      return function CustomRenderingWrapper(value, updateValue) {
+        return <CustomRendering value={value} updateValue={updateValue} />;
+      };
     } else if (relativeDateOrTimeOperatorNames.includes(operator)) {
       const units = operatorConfig.units;
       return function RelativeTimeValuesWrapper(value, updateValue) {
