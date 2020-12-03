@@ -1,6 +1,8 @@
 import React from "react";
 import formConfigurationApi from "./load-form-configurations";
 
+import { ChevronRight } from "./components/icons";
+
 export default class NewConfig extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +10,7 @@ export default class NewConfig extends React.Component {
       configs: [],
       selected: { Key: "New" },
       newName: "",
-      alreadyExistsError: false,
+      alreadyExistsError: true,
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -27,7 +29,7 @@ export default class NewConfig extends React.Component {
     const { value } = e.target;
 
     if (value === "New") {
-      this.setState({ selected: { Key: "New" } });
+      this.setState({ selected: { Key: "" } });
     } else {
       const selected = configs.find((config) => config.Key === value);
       this.setState({ selected });
@@ -66,73 +68,71 @@ export default class NewConfig extends React.Component {
 
     return (
       <div className="new-config">
-        <label className="govuk-label govuk-label--s" htmlFor="configuration">
-          Start a new configuration or select from a previous configuration
-        </label>
-        {!configs.length && (
-          <span className="govuk-hint" id="hint-none-found">
-            No existing configurations found
-          </span>
-        )}
-        <select
-          className="govuk-select"
-          id="link-source"
-          name="configuration"
-          value={selected.Key}
-          required
-          onChange={this.onSelect}
-        >
-          <option key={0} value="New">
-            New
-          </option>
-          {configs.length &&
-            configs.map((config, i) => (
-              <option key={config.Key + i} value={config.Key}>
-                {config.DisplayName}
-              </option>
-            ))}
-        </select>
-        {selected.Key !== "New" && (
-          <div>
-            <p className="govuk-body govuk-!-margin-0">name: {selected.Key} </p>
-            <p className="govuk-body">
-              {selected.LastModified
-                ? `last modified at ${new Date(
-                    selected.LastModified
-                  ).toLocaleDateString()}`
-                : ""}
-            </p>
+        <div>
+          <h1 className="govuk-heading-l">
+            Create a new form or edit an existing form
+          </h1>
+          <div
+            className={`govuk-form-group ${
+              alreadyExistsError ? "govuk-form-group--error" : ""
+            }`}
+          >
+            <label className="govuk-label govuk-label--m" htmlFor="formName">
+              Create a new form
+            </label>
+            <div className="govuk-hint">
+              Enter the name for your form, for example Applying for visitors
+              pass
+            </div>
+            {alreadyExistsError && (
+              <span className="govuk-error-message">
+                <span id="error-already-exists" className="govuk-error-message">
+                  A configuration with this name already exists.
+                </span>
+              </span>
+            )}
+            <input
+              type="text"
+              name="formName"
+              className={`govuk-input govuk-input--width-10 ${
+                alreadyExistsError ? "govuk-input--error" : ""
+              }`}
+              value={newName}
+              onChange={this.onNewNameChange}
+            />
           </div>
-        )}{" "}
-        <div className="govuk-form-group govuk-body" style={{ marginTop: 20 }}>
-          <label htmlFor="formName" className="govuk-label govuk-label--s">
-            New name (Optional)
-          </label>
-          <span className="govuk-hint">
-            If no name is provided, one will be generated
-          </span>
-          <input
-            type="text"
-            name="formName"
-            className="govuk-input govuk-input--width-10"
-            value={newName}
-            onChange={this.onNewNameChange}
-          />
-          .json
+          <div className="govuk-form-group">
+            <label
+              className="govuk-label govuk-label--m"
+              htmlFor="configuration"
+            >
+              Select an existing form to edit
+            </label>
+            <select
+              className="govuk-select"
+              id="link-source"
+              name="configuration"
+              value={selected.Key}
+              required
+              onChange={this.onSelect}
+            >
+              {configs.length === 0 && <option>No existing forms found</option>}
+              {configs.length &&
+                configs.map((config, i) => (
+                  <option key={config.Key + i} value={config.Key}>
+                    {config.DisplayName}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <button
+            className="govuk-button govuk-button--start"
+            onClick={this.onSubmit}
+            disabled={alreadyExistsError}
+          >
+            Start <ChevronRight />
+          </button>
         </div>
-        {alreadyExistsError && (
-          <span id="error-already-exists" className="govuk-error-message">
-            A configuration with the name {newName} already exists.
-          </span>
-        )}
-        <button
-          className="govuk-button"
-          style={{ marginTop: 20 }}
-          onClick={this.onSubmit}
-          disabled={alreadyExistsError}
-        >
-          Start
-        </button>
       </div>
     );
   }
