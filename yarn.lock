@@ -3632,6 +3632,7 @@ __metadata:
     babel-loader: ^8.1.0
     babel-plugin-module-name-mapper: ^1.2.0
     babel-plugin-module-resolver: ^4.0.0
+    babel-plugin-transform-import-ignore: ^1.1.0
     clean-webpack-plugin: ^3.0.0
     copy-webpack-plugin: ^6.1.1
     cross-env: ^7.0.2
@@ -4861,6 +4862,13 @@ __metadata:
     reselect: ^4.0.0
     resolve: ^1.13.1
   checksum: ac50e01ef09f1dc506e250e852dcfb49c0cd0e7e5bf02b3f3d1de7c51ccda8bf34fa63bc9a698c098004a15d91efcc65517397ae90209c9c23b7778b83235ce3
+  languageName: node
+  linkType: hard
+
+"babel-plugin-transform-import-ignore@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "babel-plugin-transform-import-ignore@npm:1.1.0"
+  checksum: 75320a68ca3ff455a567e5010135dd65ae9d49de6d441014d884da2c1d8823c87c5ebb7504bb9a8b328eb0dc6074c77f129c364ece4994217a392b9e27dab5eb
   languageName: node
   linkType: hard
 
