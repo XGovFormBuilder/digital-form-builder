@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
 import NotifyEditItems from "./notify-edit-items";
-import { Output, NotifyOutputConfiguration } from "./types";
+import { Output, NotifyOutputConfiguration, ValidationErrors } from "./types";
+import { Input } from "@govuk-jsx/input";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
 
 type State = {};
 
@@ -9,6 +12,7 @@ type Props = {
   data: any; // TODO: type
   output: Output;
   onEdit: ({ data: any }) => void;
+  errors: ValidationErrors;
 };
 
 class NotifyEdit extends Component<Props, State> {
@@ -24,7 +28,7 @@ class NotifyEdit extends Component<Props, State> {
   }
 
   render() {
-    const { data, output, onEdit } = this.props;
+    const { data, output, onEdit, errors } = this.props;
     const { conditions } = data;
     const outputConfiguration = (typeof output.outputConfiguration === "object"
       ? output.outputConfiguration
@@ -47,42 +51,54 @@ class NotifyEdit extends Component<Props, State> {
 
     return (
       <div className="govuk-body">
-        <div className="govuk-form-group">
-          <label className="govuk-label" htmlFor="template-id">
-            Template ID
-          </label>
-          <input
-            className="govuk-input"
-            name="template-id"
-            type="text"
-            required
-            defaultValue={templateId}
-            step="any"
-          />
-        </div>
-        <div className="govuk-form-group">
-          <label className="govuk-label" htmlFor="api-key">
-            API Key
-          </label>
-          <input
-            className="govuk-input"
-            name="api-key"
-            type="text"
-            required
-            defaultValue={apiKey}
-            step="any"
-          />
-        </div>
-        <div className="govuk-form-group">
+        <Input
+          id="template-id"
+          name="template-id"
+          label={{
+            className: "govuk-label--s",
+            children: ["Template ID"],
+          }}
+          defaultValue={templateId}
+          step="any"
+          errorMessage={
+            errors?.templateId
+              ? { children: errors?.templateId.children }
+              : undefined
+          }
+        />
+        <Input
+          id="api-key"
+          name="api-key"
+          label={{
+            className: "govuk-label--s",
+            children: ["API Key"],
+          }}
+          defaultValue={apiKey}
+          step="any"
+          errorMessage={
+            errors?.apiKey ? { children: errors?.apiKey.children } : undefined
+          }
+        />
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors?.email,
+          })}
+        >
           <label className="govuk-label" htmlFor="email-field">
             Email field
           </label>
+          {errors?.email && (
+            <ErrorMessage>{errors?.email.children}</ErrorMessage>
+          )}
           <select
-            className="govuk-select"
+            className={classNames({
+              "govuk-select": true,
+              "govuk-input--error": errors?.email,
+            })}
             id="email-field"
             name="email-field"
             defaultValue={emailField}
-            required
           >
             {this.usableKeys.map((value, i) => (
               <option key={`${value.name}-${i}`} value={value.name}>

@@ -30,3 +30,17 @@ export type Output = {
   type: OutputType;
   outputConfiguration: OutputConfiguration;
 };
+
+export interface ValidationError {
+  href?: string;
+  children: string;
+}
+
+export type ValidationErrors = {
+  title?: ValidationError;
+  name?: ValidationError;
+  email?: ValidationError;
+  templateId?: ValidationError;
+  apiKey?: ValidationError;
+  url?: ValidationError;
+};

@@ -16,10 +16,11 @@ const initI18n = (i18next: typeof i18n): void => {
   });
 };
 
-const translate = (text: string): string => i18n.t(text);
+const translate = (text: string, options?: any): string =>
+  i18n.t(text, options);
 
 interface WithI18nProps {
-  i18n: (text: string) => string;
+  i18n: (text: string, options?: any) => string;
 }
 
 const withI18n = <P extends WithI18nProps>(
@@ -30,4 +31,17 @@ const withI18n = <P extends WithI18nProps>(
   };
 };
 
-export { i18n, initI18n, withI18n };
+const withI18nRef = (WrappedComponent) => {
+  function WithI18n({ forwardedRef, ...rest }) {
+    return <WrappedComponent {...rest} i18n={translate} ref={forwardedRef} />;
+  }
+
+  const forwardRef = (props, ref) =>
+    React.createElement(
+      WithI18n,
+      Object.assign({}, props, { forwardedRef: ref })
+    );
+  return React.forwardRef(forwardRef);
+};
+
+export { i18n, initI18n, withI18n, withI18nRef };
