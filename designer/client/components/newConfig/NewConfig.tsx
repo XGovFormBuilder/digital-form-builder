@@ -1,81 +1,129 @@
-import React from "react";
-import formConfigurationApi from "../../load-form-configurations";
+import React, { Component, ChangeEvent, MouseEvent } from "react";
+import startCase from "lodash/startCase";
 
+import formConfigurationApi from "../../load-form-configurations";
 import { ChevronRight } from "../icons";
 import "./NewConfig.scss";
 
-export class NewConfig extends React.Component {
-  constructor(props) {
+type Props = {};
+
+type State = {
+  configs: { Key: string; DisplayName: string }[];
+  selected: { Key: string };
+  newName: string;
+  alreadyExistsError: boolean;
+};
+
+const parseNewName = (name: string) => {
+  return name.toLowerCase().replace(/\s+/g, "-");
+};
+
+export class NewConfig extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
+
     this.state = {
       configs: [],
       selected: { Key: "New" },
       newName: "",
-      alreadyExistsError: true,
+      alreadyExistsError: false,
     };
-
-    this.onSelect = this.onSelect.bind(this);
-    this.onNewNameChange = this.onNewNameChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
     formConfigurationApi.loadConfigurations().then((configs) => {
-      this.setState({ configs });
+      this.setState({
+        configs,
+      });
     });
   }
 
-  onSelect(e) {
+  onSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     const { configs } = this.state;
-    const { value } = e.target;
+    const { value } = event.target;
+    const selected = configs.find((config) => config.Key === value)!;
+    this.setState({ selected, newName: "", alreadyExistsError: false });
+  };
 
-    if (value === "New") {
-      this.setState({ selected: { Key: "" } });
-    } else {
-      const selected = configs.find((config) => config.Key === value);
-      this.setState({ selected });
-    }
-  }
-
-  onNewNameChange(e) {
+  onNewNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { configs } = this.state;
-    const parsed = e.target.value.replace(/\s+/g, "-");
+    const newName = event.target.value;
+    const parsedName = parseNewName(newName);
+
     const alreadyExists =
       configs.find((config) => {
-        const fileName = config.Key.replace(".json", "");
-        return fileName === parsed;
+        const fileName = config.Key.toLowerCase().replace(".json", "");
+        return fileName === parsedName;
       }) ?? false;
-    this.setState({
-      alreadyExistsError: alreadyExists,
-      newName: parsed.replace(".json", ""),
-    });
-  }
 
-  async onSubmit(e) {
-    const { selected, newName } = this.state;
+    this.setState({
+      newName,
+      alreadyExistsError: !!alreadyExists,
+      selected: { Key: "New" },
+    });
+  };
+
+  onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const { selected, newName, alreadyExistsError } = this.state;
+    const selectedConfig = selected || { Key: "New" };
+
+    if (alreadyExistsError) {
+      return;
+    }
+
     const newResponse = await window.fetch("/new", {
       method: "POST",
-      body: JSON.stringify({ selected, name: newName }),
+      body: JSON.stringify({
+        selected: selectedConfig,
+        name: parseNewName(newName),
+      }),
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-    window.location.replace(newResponse.url);
-  }
+
+    window.location.href = newResponse.url;
+  };
 
   render() {
     const { selected, configs, newName, alreadyExistsError } = this.state;
+    const hasError = alreadyExistsError;
 
     return (
       <div className="new-config">
         <div>
+          {hasError && (
+            <div
+              className="govuk-error-summary"
+              aria-labelledby="error-summary-title"
+              role="alert"
+              tabIndex={-1}
+              data-module="govuk-error-summary"
+            >
+              <h2
+                className="govuk-error-summary__title"
+                id="error-summary-title"
+              >
+                There is a problem
+              </h2>
+              <div className="govuk-error-summary__body">
+                <ul className="govuk-list govuk-error-summary__list">
+                  <li>
+                    <a href="#formName">A form with this name already exists</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
           <h1 className="govuk-heading-l">
             Create a new form or edit an existing form
           </h1>
           <div
             className={`govuk-form-group ${
-              alreadyExistsError ? "govuk-form-group--error" : ""
+              hasError ? "govuk-form-group--error" : ""
             }`}
           >
             <label className="govuk-label govuk-label--m" htmlFor="formName">
@@ -85,18 +133,19 @@ export class NewConfig extends React.Component {
               Enter the name for your form, for example Applying for visitors
               pass
             </div>
-            {alreadyExistsError && (
+            {hasError && (
               <span className="govuk-error-message">
                 <span id="error-already-exists" className="govuk-error-message">
-                  A configuration with this name already exists.
+                  A form with this name already exists
                 </span>
               </span>
             )}
             <input
               type="text"
+              id="formName"
               name="formName"
               className={`govuk-input govuk-input--width-10 ${
-                alreadyExistsError ? "govuk-input--error" : ""
+                hasError ? "govuk-input--error" : ""
               }`}
               value={newName}
               onChange={this.onNewNameChange}
@@ -117,11 +166,11 @@ export class NewConfig extends React.Component {
               required
               onChange={this.onSelect}
             >
-              {configs.length === 0 && <option>No existing forms found</option>}
+              <option>{configs.length ? "" : "No existing forms found"}</option>
               {configs.length &&
                 configs.map((config, i) => (
                   <option key={config.Key + i} value={config.Key}>
-                    {config.DisplayName}
+                    {startCase(config.DisplayName)}
                   </option>
                 ))}
             </select>
@@ -129,7 +178,6 @@ export class NewConfig extends React.Component {
           <button
             className="govuk-button govuk-button--start"
             onClick={this.onSubmit}
-            disabled={alreadyExistsError}
           >
             Start <ChevronRight />
           </button>
