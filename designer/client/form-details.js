@@ -53,9 +53,7 @@ class FormDetails extends React.Component {
   validate = () => {
     const { title } = this.state;
     const errors = validateTitle("form-title", title);
-    this.setState({
-      errors,
-    });
+    this.setState({ errors });
     return errors;
   };
 

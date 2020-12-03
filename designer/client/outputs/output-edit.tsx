@@ -167,9 +167,7 @@ class OutputEdit extends Component<Props, State> {
         break;
     }
 
-    this.setState({
-      errors: errors,
-    });
+    this.setState({ errors: errors });
 
     return errors;
   };

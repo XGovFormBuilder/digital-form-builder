@@ -77,9 +77,7 @@ class PageCreate extends React.Component {
       };
     }
 
-    this.setState({
-      errors,
-    });
+    this.setState({ errors });
 
     return errors;
   };

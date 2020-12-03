@@ -21,10 +21,6 @@ function ErrorSummary({
 }: ErrorSummaryProps) {
   const errorSummaryRef = useRef();
 
-  /*useEffect(() => {
-    errorSummaryRef.current.focus();
-  }, [errorList]);*/
-
   let description;
   if (descriptionChildren) {
     description = <p>{descriptionChildren}</p>;

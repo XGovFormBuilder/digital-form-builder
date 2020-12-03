@@ -69,9 +69,7 @@ class SectionEdit extends React.Component {
     const titleErrors = validateTitle("section-title", title, i18n);
     const nameErrors = validateName("section-name", "section name", name, i18n);
     const errors = { ...titleErrors, ...nameErrors };
-    this.setState({
-      errors,
-    });
+    this.setState({ errors });
     return errors;
   };
 
