@@ -1,0 +1,1 @@
+export { NewConfig } from "./NewConfig";

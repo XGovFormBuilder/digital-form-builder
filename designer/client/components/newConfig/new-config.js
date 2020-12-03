@@ -1,16 +1,18 @@
 import React from "react";
-import formConfigurationApi from "./load-form-configurations";
+import formConfigurationApi from "../../load-form-configurations";
 
-import { ChevronRight } from "./components/icons";
+import { ChevronRight } from "../icons";
 
-export default class NewConfig extends React.Component {
+type Props = {};
+
+export class NewConfig extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       configs: [],
       selected: { Key: "New" },
       newName: "",
-      alreadyExistsError: true,
+      alreadyExistsError: false,
     };
 
     this.onSelect = this.onSelect.bind(this);
