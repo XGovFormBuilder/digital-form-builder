@@ -28,7 +28,7 @@ const config = {
   env: process.env.NODE_ENV,
   previewUrl: process.env.PREVIEW_URL || "http://localhost:3009",
   publishUrl: process.env.PUBLISH_URL || "http://localhost:3009",
-  persistentBackend: process.env.PERSISTENT_BACKEND,
+  persistentBackend: process.env.PERSISTENT_BACKEND || "preview",
   persistentKeyId: process.env.PERSISTENT_KEY_ID,
   persistentAccessKey: process.env.PERSISTENT_ACCESS_KEY,
   s3Bucket: process.env.S3_BUCKET,

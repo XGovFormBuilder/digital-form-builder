@@ -71,6 +71,12 @@ internals.transform = function (content, filename) {
           },
         },
       ],
+      [
+        "babel-plugin-transform-import-ignore",
+        {
+          patterns: [".css", ".scss", "wildcard/*/match.css"],
+        },
+      ],
     ],
     exclude: ["node_modules/**"],
     ignore: ["../node_modules", "node_modules"],

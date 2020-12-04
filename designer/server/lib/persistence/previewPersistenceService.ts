@@ -11,10 +11,8 @@ import config from "../../config";
 export class PreviewPersistenceService implements PersistenceService {
   logger: any;
 
-  async uploadConfiguration(id: string, configuration: string) {
-    return Wreck.post(`${config.previewUrl}/publish`, {
-      payload: JSON.stringify({ id, configuration }),
-    });
+  async uploadConfiguration(_id: string, _configuration: string) {
+    return Promise.resolve("OK");
   }
 
   async copyConfiguration(configurationId: string, newName: string) {
