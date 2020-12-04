@@ -1,18 +1,37 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { createServer } from "../../server/createServer";
+
+import createServer from "src/server";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { before, suite, test } = lab;
+const { after, before, suite, test } = lab;
 
-suite("Server Help Pages", () => {
+suite("Server Router", () => {
   let server;
 
   before(async () => {
-    server = await createServer();
+    server = await createServer({});
     await server.start();
+  });
+
+  after(async () => {
+    await server.stop();
+  });
+
+  test("cookies page is served", async () => {
+    const options = {
+      method: "GET",
+      url: `/help/cookies`,
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.statusCode).to.equal(200);
+    expect(
+      res.result.indexOf('<h1 class="govuk-heading-xl">Cookies on </h1>') > -1
+    ).to.equal(true);
   });
 
   test("accessibility statement page is served", async () => {
@@ -28,20 +47,6 @@ suite("Server Help Pages", () => {
       res.result.indexOf(
         '<h1 class="govuk-heading-xl">Accessibility Statement</h1>'
       ) > -1
-    ).to.equal(true);
-  });
-
-  test("cookies page is served", async () => {
-    const options = {
-      method: "GET",
-      url: `/help/cookies`,
-    };
-
-    const res = await server.inject(options);
-
-    expect(res.statusCode).to.equal(200);
-    expect(
-      res.result.indexOf('<h1 class="govuk-heading-xl">Cookies</h1>') > -1
     ).to.equal(true);
   });
 
