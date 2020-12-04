@@ -28,6 +28,14 @@ export default {
 
       server.route({
         method: "get",
+        path: "/help/accessibility-statement",
+        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
+          return h.view("help/accessibility-statement");
+        },
+      });
+
+      server.route({
+        method: "get",
         path: "/clear-session",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           if (request.yar) {
