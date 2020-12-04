@@ -6,6 +6,9 @@ import SectionEdit from "./section/section-edit";
 import { nanoid } from "nanoid";
 import Flyout from "./flyout";
 import { withI18n } from "./i18n";
+import { Input } from "@govuk-jsx/input";
+import { ErrorSummary } from "./error-summary";
+import { validateTitle, hasValidationErrors } from "./validations";
 
 export class PageEdit extends React.Component {
   constructor(props) {
@@ -17,6 +20,7 @@ export class PageEdit extends React.Component {
       title: page?.title,
       section: page?.section ?? {},
       isEditingSection: false,
+      errors: {},
     };
     this.formEditSection = React.createRef();
   }
@@ -27,18 +31,15 @@ export class PageEdit extends React.Component {
     const { title, path, section, controller } = this.state;
     const { data, page } = this.props;
 
+    let validationErrors = this.validate(title, path);
+    if (hasValidationErrors(validationErrors)) return;
+
     const copy = clone(data);
     const pageIndex = data.pages.indexOf(page);
     const copyPage = copy.pages[pageIndex];
     const pathChanged = path !== page.path;
 
     if (pathChanged) {
-      // `path` has changed - validate it is unique
-      if (data.findPage(path)) {
-        form.elements.path.setCustomValidity(`Path '${path}' already exists`);
-        form.reportValidity();
-        return;
-      }
       data.updateLinksTo(page.path, path);
       copyPage.path = path;
       if (pageIndex === 0) {
@@ -59,6 +60,25 @@ export class PageEdit extends React.Component {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  validate = (title, path) => {
+    const { data, page, i18n } = this.props;
+    const titleErrors = validateTitle("page-title", title, i18n);
+    const errors = { ...titleErrors };
+
+    let pathHasErrors = false;
+    if (path !== page.path) pathHasErrors = data.findPage(path);
+    if (pathHasErrors) {
+      errors.path = {
+        href: "#page-path",
+        children: `Path '${path}' already exists`,
+      };
+    }
+
+    this.setState({ errors });
+
+    return errors;
   };
 
   onClickDelete = async (e) => {
@@ -176,10 +196,14 @@ export class PageEdit extends React.Component {
       section,
       isEditingSection,
       isNewSection,
+      errors,
     } = this.state;
 
     return (
       <div>
+        {Object.keys(errors).length > 0 && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
         <form onSubmit={this.onSubmit} autoComplete="off">
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="page-type">
@@ -201,37 +225,35 @@ export class PageEdit extends React.Component {
               </option>
             </select>
           </div>
-          <div className="govuk-form-group">
-            <label className="govuk-label govuk-label--s" htmlFor="page-title">
-              {i18n("page.title")}
-            </label>
-            <input
-              className="govuk-input"
-              id="page-title"
-              name="title"
-              type="text"
-              value={title}
-              aria-describedby="page-title-hint"
-              required
-              onChange={this.onChangeTitle}
-            />
-          </div>
-          <div className="govuk-form-group">
-            <label className="govuk-label govuk-label--s" htmlFor="page-path">
-              {i18n("page.path")}
-            </label>
-            <span className="govuk-hint">{i18n("page.pathHint")}</span>
-            <input
-              className="govuk-input"
-              id="page-path"
-              name="path"
-              type="text"
-              aria-describedby="page-path-hint"
-              required
-              value={path}
-              onChange={this.onChangePath}
-            />
-          </div>
+          <Input
+            id="page-title"
+            name="title"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("page.title")],
+            }}
+            value={title}
+            onChange={this.onChangeTitle}
+            errorMessage={
+              errors?.title ? { children: errors?.title.children } : undefined
+            }
+          />
+          <Input
+            id="page-path"
+            name="path"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("page.path")],
+            }}
+            hint={{
+              children: [i18n("page.pathHint")],
+            }}
+            value={path}
+            onChange={this.onChangePath}
+            errorMessage={
+              errors?.path ? { children: errors.path?.children } : undefined
+            }
+          />
           <div className="govuk-form-group">
             <label
               className="govuk-label govuk-label--s"

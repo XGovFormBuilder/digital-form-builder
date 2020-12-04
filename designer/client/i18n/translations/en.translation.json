@@ -31,6 +31,7 @@
   "create": "create {{noun}}",
   "save": "Save",
   "duplicate": "Duplicate",
+  "delete": "Delete",
   "optional": "{{noun}} (optional)",
   "name": {
     "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.",
@@ -40,5 +41,9 @@
   },
   "error": "Error:",
   "title": "Title",
-  "close": "Close"
+  "close": "Close",
+  "errors": {
+    "required": "This field is required",
+    "field": "Enter {{field}}"
+  }
 }

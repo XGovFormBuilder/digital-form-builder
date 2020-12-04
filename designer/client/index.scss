@@ -8,6 +8,10 @@ $color-orange: #ffbf47;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -58,6 +62,13 @@ main {
     padding: 8px;
     background-color: #ffffff;
 
+    &__row {
+      a {
+        @extend .govuk-body-s;
+        @extend .govuk-\!-margin-right-4;
+      }
+    }
+
     &__row:not(:first-child) {
       @extend .govuk-\!-margin-top-4;
     }
@@ -67,11 +78,7 @@ main {
       @extend .govuk-\!-font-size-14;
       @extend .govuk-\!-margin-bottom-1, .govuk-\!-margin-right-1;
     }
-
-    a {
-      @extend .govuk-body-s;
-      @extend .govuk-\!-margin-right-4;
-    }
+    
   }
 
   @include govuk-media-query($from: tablet) {
@@ -272,6 +279,8 @@ main {
   .flyout-menu-container {
     width: 50%;
     height: 100%;
+    overflow: auto;
+
     // padding: 20px;
     min-width: 300px;
     // max-width: 600px;
@@ -312,8 +321,7 @@ main {
     }
     .panel-body {
       flex: 1;
-      overflow: auto;
-
+      
       .govuk-button {
         margin-bottom: 0;
       }

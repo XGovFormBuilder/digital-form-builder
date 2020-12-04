@@ -8,16 +8,19 @@ type Props = {
 
 type State = {
   showAddOutput: boolean;
-  output: any; //TODO: type
-  id: string;
+  output?: any; //TODO: type
+  id?: string;
 };
 
 class OutputsEdit extends React.Component<Props, State> {
-  state = {
-    showAddOutput: false,
-    output: undefined,
-    id: "",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAddOutput: false,
+      output: undefined,
+      id: "",
+    };
+  }
 
   onClickOutput = (event: MouseEvent, output) => {
     event.preventDefault();

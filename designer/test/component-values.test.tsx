@@ -527,11 +527,6 @@ suite("Component values", () => {
       const item = { label: "My item", value: "12", children: [] };
       expect(updateModel.callCount).to.equal(0);
 
-      sinon.stub(wrapper.instance(), "formAddItem").value({
-        current: {
-          reportValidity: () => true,
-        },
-      });
       wrapper.instance().addItem(item);
       wrapper.update();
 
@@ -629,11 +624,6 @@ suite("Component values", () => {
       const updatedItem = clone(item2);
       updatedItem.label = "My new item name";
 
-      sinon.stub(wrapper.instance(), "formEditItem").value({
-        current: {
-          reportValidity: () => true,
-        },
-      });
       wrapper.instance().updateItem(updatedItem);
 
       const expected = {

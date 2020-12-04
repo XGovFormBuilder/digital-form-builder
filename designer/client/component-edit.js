@@ -1,17 +1,24 @@
 import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone } from "@xgovformbuilder/model";
+import { hasValidationErrors } from "./validations";
+import { ErrorSummary } from "./error-summary";
 
 class ComponentEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       component: props.component,
+      errors: {},
     };
+    this.typeEditRef = React.createRef();
   }
 
   async onSubmit(e) {
     e.preventDefault();
+    let validationErrors = this.validate();
+    if (hasValidationErrors(validationErrors)) return;
+
     const { data, page, component } = this.props;
     const copy = clone(data);
     const updatedComponent = this.state.component;
@@ -24,6 +31,15 @@ class ComponentEdit extends React.Component {
     const savedData = await data.save(updatedData);
     this.props.onEdit({ data: savedData });
   }
+
+  validate = () => {
+    if (this.typeEditRef.current) {
+      const errors = this.typeEditRef.current.validate();
+      this.setState({ errors });
+      return errors;
+    }
+    return {};
+  };
 
   onClickDelete = (e) => {
     e.preventDefault();
@@ -59,12 +75,15 @@ class ComponentEdit extends React.Component {
 
   render() {
     const { page, data } = this.props;
-    const { component } = this.state;
+    const { component, errors } = this.state;
 
     const copyComp = JSON.parse(JSON.stringify(component));
 
     return (
       <div>
+        {hasValidationErrors(errors) && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
         <form autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
           <div className="govuk-form-group">
             <span className="govuk-label govuk-label--s" htmlFor="type">
@@ -77,6 +96,7 @@ class ComponentEdit extends React.Component {
             component={copyComp}
             data={data}
             updateModel={this.storeComponent}
+            ref={this.typeEditRef}
           />
           <button className="govuk-button" type="submit">
             Save

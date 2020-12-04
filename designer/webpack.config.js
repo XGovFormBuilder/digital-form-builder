@@ -22,6 +22,9 @@ const client = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname, "../node_modules")],
   },
+  node: {
+    __dirname: false,
+  },
   devtool: "source-map",
   module: {
     rules: [
@@ -103,6 +106,9 @@ const server = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname, "../node_modules")],
+  },
+  node: {
+    __dirname: false,
   },
   module: {
     rules: [

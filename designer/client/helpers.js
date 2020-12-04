@@ -68,3 +68,7 @@ export function camelCase(str) {
     .replace(/[\s-_]+(.)/g, (m, chr) => chr.toUpperCase())
     .replace(/[^a-zA-Z0-9]/g, "");
 }
+
+export function isEmpty(str) {
+  return !str || str.trim().length < 1;
+}
