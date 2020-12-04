@@ -4,7 +4,7 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
-import { NewConfig } from "../client/components/newConfig";
+import { NewConfig } from "../client/components/newConfig/NewConfig";
 import { stubFetchJson, restoreWindowMethods } from "./helpers/window-stubbing";
 
 import formConfigurationsApi from "../client/load-form-configurations";
@@ -35,6 +35,7 @@ const configurations = [
 const wait = () => new Promise((resolve) => setTimeout(resolve));
 
 suite.only("New configuration screen", () => {
+  const mockI18n = (text: string) => text;
   let formConfigurationApiStub;
 
   afterEach(() => {
@@ -45,7 +46,7 @@ suite.only("New configuration screen", () => {
     formConfigurationApiStub = sinon
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves([]);
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
     const select = wrapper.find("select");
 
     expect(select.find("option").first().text()).to.equal(
@@ -57,7 +58,7 @@ suite.only("New configuration screen", () => {
     formConfigurationApiStub = sinon
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves(configurations);
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
 
     return wait().then(() => {
       wrapper.update();
@@ -72,7 +73,7 @@ suite.only("New configuration screen", () => {
       .resolves(configurations);
     stubFetchJson(200, { url: "configUrl" });
 
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -101,7 +102,7 @@ suite.only("New configuration screen", () => {
       ]);
     stubFetchJson(200, { url: "configUrl" });
 
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -122,7 +123,7 @@ suite.only("New configuration screen", () => {
       .resolves(configurations);
     stubFetchJson(200, { url: "configUrl" });
 
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
     await wait();
 
     wrapper.setState({ newName: "Test", alreadyExistsError: true });
@@ -137,7 +138,7 @@ suite.only("New configuration screen", () => {
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves(configurations);
 
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
     await wait();
 
     const options = wrapper.find("option");
@@ -161,7 +162,7 @@ suite.only("New configuration screen", () => {
         },
       ]);
 
-    const wrapper = shallow(<NewConfig />);
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -169,10 +170,33 @@ suite.only("New configuration screen", () => {
       preventDefault: sinon.stub(),
     });
 
-    const summaryError = wrapper.find("#error-summary-title");
+    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
+    const summaryErrorTitle = wrapper.find("#error-summary-title");
     const inputError = wrapper.find("#error-already-exists");
 
-    expect(summaryError.text()).to.equal("There is a problem");
+    expect(summaryErrorList.text()).to.equal(
+      "A form with this name already exists"
+    );
+    expect(summaryErrorTitle.text()).to.equal("There is a problem");
     expect(inputError.text()).to.equal("A form with this name already exists");
+  });
+
+  test("Enter form name error shown correctly", async () => {
+    formConfigurationApiStub = sinon
+      .stub(formConfigurationsApi, "loadConfigurations")
+      .resolves(configurations);
+
+    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    await wait();
+
+    wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
+
+    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
+    const summaryErrorTitle = wrapper.find("#error-summary-title");
+    const inputError = wrapper.find("#error-name-required");
+
+    expect(summaryErrorList.text()).to.equal("Enter form name");
+    expect(summaryErrorTitle.text()).to.equal("There is a problem");
+    expect(inputError.text()).to.equal("Enter form name");
   });
 });

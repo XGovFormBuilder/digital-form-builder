@@ -1,1 +1,1 @@
-export { NewConfig } from "./NewConfig";
+export { default as NewConfig } from "./NewConfig";

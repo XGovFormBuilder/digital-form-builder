@@ -45,7 +45,7 @@ suite("Server Help Pages", () => {
     ).to.equal(true);
   });
 
-  test.only("terms and conditions page is served", async () => {
+  test("terms and conditions page is served", async () => {
     const options = {
       method: "GET",
       url: `/help/terms-and-conditions`,

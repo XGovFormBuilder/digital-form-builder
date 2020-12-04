@@ -3,15 +3,19 @@ import startCase from "lodash/startCase";
 
 import formConfigurationApi from "../../load-form-configurations";
 import { ChevronRight } from "../icons";
+import { withI18n } from "../../i18n";
 import "./NewConfig.scss";
 
-type Props = {};
+type Props = {
+  i18n(text: string): string;
+};
 
 type State = {
   configs: { Key: string; DisplayName: string }[];
   selected: { Key: string };
   newName: string;
   alreadyExistsError: boolean;
+  nameIsRequiredError: boolean;
 };
 
 const parseNewName = (name: string) => {
@@ -27,6 +31,7 @@ export class NewConfig extends Component<Props, State> {
       selected: { Key: "New" },
       newName: "",
       alreadyExistsError: false,
+      nameIsRequiredError: false,
     };
   }
 
@@ -73,6 +78,12 @@ export class NewConfig extends Component<Props, State> {
       return;
     }
 
+    if (selectedConfig.Key === "New" && !newName) {
+      return this.setState({
+        nameIsRequiredError: true,
+      });
+    }
+
     const newResponse = await window.fetch("/new", {
       method: "POST",
       body: JSON.stringify({
@@ -89,8 +100,16 @@ export class NewConfig extends Component<Props, State> {
   };
 
   render() {
-    const { selected, configs, newName, alreadyExistsError } = this.state;
-    const hasError = alreadyExistsError;
+    const { i18n } = this.props;
+    const {
+      selected,
+      configs,
+      newName,
+      alreadyExistsError,
+      nameIsRequiredError,
+    } = this.state;
+
+    const hasError = alreadyExistsError || nameIsRequiredError;
 
     return (
       <div className="new-config">
@@ -107,19 +126,28 @@ export class NewConfig extends Component<Props, State> {
                 className="govuk-error-summary__title"
                 id="error-summary-title"
               >
-                There is a problem
+                {i18n("There is a problem")}
               </h2>
               <div className="govuk-error-summary__body">
                 <ul className="govuk-list govuk-error-summary__list">
-                  <li>
-                    <a href="#formName">A form with this name already exists</a>
-                  </li>
+                  {alreadyExistsError && (
+                    <li>
+                      <a href="#formName">
+                        {i18n("A form with this name already exists")}
+                      </a>
+                    </li>
+                  )}
+                  {nameIsRequiredError && (
+                    <li>
+                      <a href="#formName">{i18n("Enter form name")}</a>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
           )}
           <h1 className="govuk-heading-l">
-            Create a new form or edit an existing form
+            {i18n("Create a new form or edit an existing form")}
           </h1>
           <div
             className={`govuk-form-group ${
@@ -127,16 +155,24 @@ export class NewConfig extends Component<Props, State> {
             }`}
           >
             <label className="govuk-label govuk-label--m" htmlFor="formName">
-              Create a new form
+              {i18n("Create a new form")}
             </label>
             <div className="govuk-hint">
-              Enter the name for your form, for example Applying for visitors
-              pass
+              {i18n(
+                "Enter the name for your form, for example Applying for visitors pass"
+              )}
             </div>
-            {hasError && (
+            {alreadyExistsError && (
               <span className="govuk-error-message">
                 <span id="error-already-exists" className="govuk-error-message">
-                  A form with this name already exists
+                  {i18n("A form with this name already exists")}
+                </span>
+              </span>
+            )}
+            {nameIsRequiredError && (
+              <span className="govuk-error-message">
+                <span id="error-name-required" className="govuk-error-message">
+                  {i18n("Enter form name")}
                 </span>
               </span>
             )}
@@ -156,7 +192,7 @@ export class NewConfig extends Component<Props, State> {
               className="govuk-label govuk-label--m"
               htmlFor="configuration"
             >
-              Select an existing form to edit
+              {i18n("Select an existing form to edit")}
             </label>
             <select
               className="govuk-select"
@@ -179,10 +215,12 @@ export class NewConfig extends Component<Props, State> {
             className="govuk-button govuk-button--start"
             onClick={this.onSubmit}
           >
-            Start <ChevronRight />
+            {i18n("Start")} <ChevronRight />
           </button>
         </div>
       </div>
     );
   }
 }
+
+export default withI18n(NewConfig);
