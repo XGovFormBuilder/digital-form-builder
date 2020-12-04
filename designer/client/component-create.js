@@ -57,7 +57,7 @@ class ComponentCreate extends React.Component {
 
   onChangeComponentType = (e) => {
     this.setState({
-      component: { type: e.target.value, name: id },
+      component: { type: e.target.value, name: this.state.id },
       errors: {},
     });
   };
