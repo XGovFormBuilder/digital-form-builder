@@ -74,10 +74,12 @@ export const designerPlugin = {
             const newName = name === "" ? nanoid(10) : name;
             try {
               if (selected.Key === "New") {
-                await persistenceService.uploadConfiguration(
-                  `${newName}.json`,
-                  JSON.stringify(newFormJson)
-                );
+                if (config.persistentBackend !== "preview") {
+                  await persistenceService.uploadConfiguration(
+                    `${newName}.json`,
+                    JSON.stringify(newFormJson)
+                  );
+                }
                 await publish(newName, newFormJson);
               } else {
                 await persistenceService.copyConfiguration(
