@@ -22,6 +22,9 @@ const client = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname, "../node_modules")],
   },
+  node: {
+    __dirname: false,
+  },
   devtool: "source-map",
   module: {
     rules: [
@@ -66,8 +69,9 @@ const client = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "server", "views", "designer.html"),
-      filename: "designer.html",
+      template: path.resolve(__dirname, "server", "views", "layout.html"),
+      filename: "views/layout.html",
+      minify: false,
     }),
     new MiniCssExtractPlugin({
       filename: devMode
@@ -80,6 +84,7 @@ const client = {
     new CopyPlugin({
       patterns: [
         { from: "client/i18n/translations", to: "assets/translations" },
+        { from: "server/views", to: "views" },
       ],
     }),
   ],
@@ -101,6 +106,9 @@ const server = {
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
     modules: [path.resolve(__dirname, "../node_modules")],
+  },
+  node: {
+    __dirname: false,
   },
   module: {
     rules: [

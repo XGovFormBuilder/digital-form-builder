@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
 
-dotenv.config({ path: "./../env" });
+dotenv.config({ path: "./../.env" });
 
 // Define config schema
 const schema = joi.object({
@@ -28,7 +28,7 @@ const config = {
   env: process.env.NODE_ENV,
   previewUrl: process.env.PREVIEW_URL || "http://localhost:3009",
   publishUrl: process.env.PUBLISH_URL || "http://localhost:3009",
-  persistentBackend: process.env.PERSISTENT_BACKEND,
+  persistentBackend: process.env.PERSISTENT_BACKEND || "preview",
   persistentKeyId: process.env.PERSISTENT_KEY_ID,
   persistentAccessKey: process.env.PERSISTENT_ACCESS_KEY,
   s3Bucket: process.env.S3_BUCKET,
@@ -48,5 +48,6 @@ const value = result.value;
 
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;
+value.isTest = value.env === "test";
 
 export default value;

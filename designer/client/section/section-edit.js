@@ -3,6 +3,13 @@ import { clone } from "@xgovformbuilder/model";
 import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
+import { Input } from "@govuk-jsx/input";
+import {
+  validateName,
+  validateTitle,
+  hasValidationErrors,
+} from "../validations";
+import { ErrorSummary } from "../error-summary";
 
 class SectionEdit extends React.Component {
   constructor(props) {
@@ -10,15 +17,18 @@ class SectionEdit extends React.Component {
     this.closeFlyout = props.closeFlyout;
     const { section } = props;
     this.isNewSection = !section?.name;
-
+    this.nameRef = React.createRef();
     this.state = {
       name: section?.name ?? nanoid(6),
       title: section?.title ?? "",
+      errors: {},
     };
   }
 
   async onSubmit(e) {
     e.preventDefault();
+    let validationErrors = this.validate();
+    if (hasValidationErrors(validationErrors)) return;
     const { name, title } = this.state;
     const { data } = this.props;
     const copy = clone(data);
@@ -53,10 +63,14 @@ class SectionEdit extends React.Component {
     }
   }
 
-  onChangeTitle = (e) => {
-    this.setState({
-      title: e.target.value,
-    });
+  validate = () => {
+    const { i18n } = this.props;
+    const { name, title } = this.state;
+    const titleErrors = validateTitle("section-title", title, i18n);
+    const nameErrors = validateName("section-name", "section name", name, i18n);
+    const errors = { ...titleErrors, ...nameErrors };
+    this.setState({ errors });
+    return errors;
   };
 
   onClickDelete = async (e) => {
@@ -89,38 +103,58 @@ class SectionEdit extends React.Component {
 
   render() {
     const { i18n } = this.props;
-    const { title, name } = this.state;
+    const { title, name, errors } = this.state;
 
     return (
-      <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-        <div className="govuk-form-group">
-          <label className="govuk-label govuk-label--s" htmlFor="section-title">
-            {i18n("title")}
-          </label>
-          <input
-            className="govuk-input"
+      <>
+        {Object.keys(errors).length > 0 && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
+        <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
+          <Input
             id="section-title"
             name="title"
-            type="text"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("title")],
+            }}
             value={title}
-            onChange={this.onChangeTitle}
-            required
+            onChange={(e) => this.setState({ title: e.target.value })}
+            errorMessage={
+              errors?.title ? { children: errors?.title.children } : undefined
+            }
           />
-        </div>
-        <Name id="section-name" labelText="Section name" name={name} />
-        <button className="govuk-button" type="submit">
-          Save
-        </button>{" "}
-        {!this.isNewSection && (
-          <button
-            className="govuk-button"
-            type="button"
-            onClick={this.onClickDelete}
-          >
-            {i18n("delete")}
-          </button>
-        )}
-      </form>
+          <Input
+            id="section-name"
+            name="name"
+            className="govuk-input--width-20"
+            label={{
+              className: "govuk-label--s",
+              children: ["Section name"],
+            }}
+            hint={{
+              children: [i18n("name.hint")],
+            }}
+            value={name}
+            onChange={(e) => this.setState({ name: e.target.value })}
+            errorMessage={
+              errors?.name ? { children: errors?.name.children } : undefined
+            }
+          />
+          <button className="govuk-button" type="submit">
+            Save
+          </button>{" "}
+          {!this.isNewSection && (
+            <button
+              className="govuk-button"
+              type="button"
+              onClick={this.onClickDelete}
+            >
+              {i18n("delete")}
+            </button>
+          )}
+        </form>
+      </>
     );
   }
 }

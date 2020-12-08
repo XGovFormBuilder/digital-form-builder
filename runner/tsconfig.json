@@ -2,11 +2,12 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "src",
     "outDir": "dist",
     "paths": {
-      "src/*": ["src/*"] // this mapping is relative to "baseUrl"
-    }
+      "src/*": ["src/*"],
+      "server/*": ["src/server/*"]
+    },
+    "resolveJsonModule": true
   },
-  "references": [{ "path": "../engine" }]
+  "include": ["src", "package.json"]
 }

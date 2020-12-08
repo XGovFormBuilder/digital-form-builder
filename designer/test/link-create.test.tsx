@@ -5,7 +5,9 @@ import * as Lab from "@hapi/lab";
 import LinkCreate from "../client/link-create";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
-import { assertSelectInput } from "./helpers/element-assertions";
+import { assertSelectInput, assertClasses } from "./helpers/element-assertions";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import { ErrorSummary } from "../client/error-summary";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -102,7 +104,7 @@ suite("Link create", () => {
       data.save = flags.mustCall(save, 1);
       clonedData.addLink.returns(updatedData);
 
-      await wrapper.simulate("submit", { preventDefault: preventDefault });
+      await form.simulate("submit", { preventDefault: preventDefault });
 
       expect(preventDefault.calledOnce).to.equal(true);
 
@@ -145,7 +147,7 @@ suite("Link create", () => {
       data.save = flags.mustCall(save, 1);
       clonedData.addLink.returns(updatedData);
 
-      await wrapper.simulate("submit", { preventDefault: preventDefault });
+      await form.simulate("submit", { preventDefault: preventDefault });
 
       expect(preventDefault.calledOnce).to.equal(true);
 
@@ -154,5 +156,46 @@ suite("Link create", () => {
       expect(clonedData.addLink.firstCall.args[1]).to.equal("/2");
       expect(clonedData.addLink.firstCall.args[2]).to.equal(undefined);
     });
+  });
+
+  test("with no from and to should not call callback function", async (flags) => {
+    const wrappedOnCreate = sinon.spy();
+
+    const wrapper = shallow(
+      <LinkCreate data={data} onCreate={wrappedOnCreate} />
+    );
+
+    const form = wrapper.find("form").first();
+    await form.simulate("submit", { preventDefault: sinon.spy() });
+    wrapper.update();
+
+    expect(wrappedOnCreate.notCalled).to.equal(true);
+
+    expect(wrapper.find(ErrorSummary)).to.exists();
+    expect(wrapper.find(ErrorSummary).prop("errorList").length).to.be.equal(2);
+
+    assertClasses(wrapper.find("#link-source"), [
+      "govuk-select",
+      "govuk-input--error",
+    ]);
+    assertClasses(wrapper.find("#link-source").parent(), [
+      "govuk-form-group",
+      "govuk-form-group--error",
+    ]);
+    expect(wrapper.find(ErrorMessage).at(0).childAt(0).text()).to.equal(
+      "Enter from"
+    );
+
+    assertClasses(wrapper.find("#link-target"), [
+      "govuk-select",
+      "govuk-input--error",
+    ]);
+    assertClasses(wrapper.find("#link-target").parent(), [
+      "govuk-form-group",
+      "govuk-form-group--error",
+    ]);
+    expect(wrapper.find(ErrorMessage).at(1).childAt(0).text()).to.equal(
+      "Enter to"
+    );
   });
 });

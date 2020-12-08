@@ -5,7 +5,6 @@
 This repository is a mono repo for
 
 - @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/runner) - Hapi server which can 'run' a form from a JSON file
-- @xgovformbuilder/[engine](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/engine) - Plugin for the above hapi server which serves a schema and the components
 - @xgovformbuilder/[designer](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/designer) - A React app to aide in form building
 - @xgovformbuilder/[model](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/model) - Serves the data model and other helpers
 
@@ -36,7 +35,7 @@ To learn more about workspaces, check these links:
 
 #### run a specific workspaces' script
 
-`$ yarn [runner|designer|engine|model] name-of-script`
+`$ yarn [runner|designer|model] name-of-script`
 
 eg.: `yarn desginer start` or `yarn runner add babel-core --dev`
 
@@ -79,10 +78,10 @@ If you have any problems, submit an issue or send a message via gitter.
 
 1. Pushes to any branch will start the build process
 2. `.circleci/circle_trigger.sh` will check for any changes in our packages, and if builds have failed previously
-3. `circle_trigger.sh` will trigger a workflow via the API. It will pass the parameters model, engine, runner, designer (bool) to the workflow.
+3. `circle_trigger.sh` will trigger a workflow via the API. It will pass the parameters model, runner, designer (bool) to the workflow.
 4. If there are any changes to a workspace, it will be built and tested.
 
-- If an upstream dependency, like model or engine has changed, the downstream dependencies (engine, runner, designer) will also be built and tested.
+- If an upstream dependency, like model has changed, the downstream dependencies (runner, designer) will also be built and tested.
 
 #### Development environment
 

@@ -9,6 +9,7 @@ import ComponentTypeEdit from "../client/component-type-edit";
 import {
   assertCheckboxInput,
   assertRequiredTextInput,
+  assertTextInput,
   assertTextArea,
 } from "./helpers/element-assertions";
 import { componentCases } from "./component-type-edit.cases";
@@ -84,10 +85,11 @@ suite("Component type edit", () => {
         const inputs = standardInputs.find("input");
         expect(inputs.length).to.equal(5);
 
-        assertRequiredTextInput({
+        assertTextInput({
           wrapper: inputs.at(0),
           id: "field-title",
           expectedValue: "My component",
+          attrs: {},
         });
 
         assertCheckboxInput({
@@ -98,10 +100,11 @@ suite("Component type edit", () => {
           attrs: { name: "options.hideTitle" },
         });
 
-        assertRequiredTextInput({
+        assertTextInput({
           wrapper: inputs.at(2),
           id: "field-name",
           expectedValue: "myComponent",
+          attrs: {},
         });
 
         assertCheckboxInput({
@@ -231,10 +234,11 @@ suite("Component type edit", () => {
       const inputs = standardInputs.find("input");
       expect(inputs.length).to.equal(5);
 
-      assertRequiredTextInput({
+      assertTextInput({
         wrapper: inputs.at(0),
         id: "field-title",
         expectedValue: "My component",
+        attrs: {},
       });
 
       assertCheckboxInput({
@@ -245,7 +249,7 @@ suite("Component type edit", () => {
         attrs: { name: "options.hideTitle" },
       });
 
-      assertRequiredTextInput({
+      assertTextInput({
         wrapper: inputs.at(2),
         id: "field-name",
         expectedValue: "myComponent",
@@ -333,10 +337,11 @@ suite("Component type edit", () => {
           const inputs = standardInputs.find("input");
           expect(inputs.length).to.equal(5);
 
-          assertRequiredTextInput({
+          assertTextInput({
             wrapper: inputs.at(0),
             id: "field-title",
             expectedValue: "My component",
+            attrs: {},
           });
 
           assertCheckboxInput({
@@ -346,10 +351,11 @@ suite("Component type edit", () => {
             checked: testCase.options?.hideTitle || false,
           });
 
-          assertRequiredTextInput({
+          assertTextInput({
             wrapper: inputs.at(2),
             id: "field-name",
             expectedValue: "myComponent",
+            attrs: {},
           });
 
           assertCheckboxInput({
@@ -420,10 +426,11 @@ suite("Component type edit", () => {
 
           expect(inputs.length).to.equal(5);
 
-          assertRequiredTextInput({
+          assertTextInput({
             wrapper: inputs.at(0),
             id: "field-title",
             expectedValue: "My component",
+            attrs: {},
           });
 
           assertCheckboxInput({
@@ -433,10 +440,11 @@ suite("Component type edit", () => {
             checked: testCase.options?.hideTitle || false,
           });
 
-          assertRequiredTextInput({
+          assertTextInput({
             wrapper: inputs.at(2),
             id: "field-name",
             expectedValue: "myComponent",
+            attrs: {},
           });
 
           assertCheckboxInput({

@@ -37,6 +37,7 @@
   "create": "create {{noun}}",
   "save": "Save",
   "duplicate": "Duplicate",
+  "delete": "Delete",
   "optional": "{{noun}} (optional)",
   "delete": "Delete",
   "name": {
@@ -47,6 +48,19 @@
   },
   "error": "Error:",
   "title": "Title",
+  "close": "Close",
+  "errors": {
+    "required": "This field is required",
+    "field": "Enter {{field}}"
+  },
+  "Start": "Start",
+  "Select an existing form to edit": "Select an existing form to edit",
+  "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
+  "Create a new form": "Create a new form",
+  "Create a new form or edit an existing form": "Create a new form or edit an existing form",
+  "A form with this name already exists": "A form with this name already exists",
+  "There is a problem": "There is a problem",
+  "Enter form name": "Enter form name"
   "close": "Close",
   "list": {
     "select": "Select list",
@@ -86,7 +100,4 @@
 
   "conditions": {},
   "wontShow": "This will not show on the page.",
-  "errors": {
-    "required": "This field is required"
-  }
 }

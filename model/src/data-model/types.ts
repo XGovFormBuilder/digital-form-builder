@@ -1,12 +1,12 @@
-import { Component } from "../components/types";
+import { ComponentDef } from "../components/types";
 
 export interface Page {
   title: string;
   path: string;
   controller: string;
-  components?: Component[];
+  components?: ComponentDef[];
   section: string; // the section ID
-  next?: { path: string }[];
+  next?: { path: string; condition?: string }[];
 }
 
 export interface Section {

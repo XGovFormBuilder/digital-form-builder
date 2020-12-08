@@ -12,35 +12,7 @@ const { suite, test, describe } = lab;
 suite("Name component", () => {
   const i18n = sinon.stub().returns("mockTranslation");
 
-  describe("with component prop", () => {
-    test("renders with correct values", () => {
-      const component = {
-        type: "TextField",
-        name: "myComponent",
-        title: "My component",
-      };
-      const wrapper = mount(
-        <Name
-          component={component}
-          id={"an-id"}
-          labelText={"label text"}
-          i18n={i18n}
-        />
-      );
-      expect(wrapper.state()).to.include({
-        name: "myComponent",
-        nameHasError: false,
-      });
-      const field = wrapper.find("#an-id").hostNodes();
-      expect(field.exists()).to.equal(true);
-      expect(field.props().value).to.equal(component.name);
-      expect(wrapper.find(".govuk-label").text()).to.equal("label text");
-      expect(wrapper.find(".govuk-hint").text()).to.equal("mockTranslation");
-      expect(wrapper.state()).to.equal({
-        name: component.name,
-        nameHasError: false,
-      });
-    });
+  describe("update method", () => {
     test("update method is called with correct param", () => {
       const component = {
         type: "TextField",
@@ -50,7 +22,7 @@ suite("Name component", () => {
       const updateModelSpy = sinon.spy();
       const wrapper = mount(
         <Name
-          component={component}
+          name="myComponent"
           id={"an-id"}
           labelText={"label text"}
           updateModel={updateModelSpy}
@@ -60,11 +32,7 @@ suite("Name component", () => {
       const field = wrapper.find("#an-id").hostNodes();
       field.simulate("change", { target: { value: "beepboop" } });
       expect(updateModelSpy.calledOnce).to.equal(true);
-      expect(updateModelSpy.firstCall.firstArg).to.include({
-        type: "TextField",
-        name: "beepboop",
-        title: "My component",
-      });
+      expect(updateModelSpy.firstCall.firstArg).to.equal("beepboop");
     });
     test("update method is not called when there is an error", () => {
       const component = {
@@ -75,7 +43,7 @@ suite("Name component", () => {
       const updateModelSpy = sinon.spy();
       const wrapper = mount(
         <Name
-          component={component}
+          name="myComponent"
           id={"an-id"}
           labelText={"label text"}
           updateModel={updateModelSpy}
@@ -87,7 +55,7 @@ suite("Name component", () => {
       expect(updateModelSpy.callCount).to.equal(0);
     });
   });
-  describe("Without component prop", () => {
+  describe("Without update method", () => {
     test("renders correctly with all props provided", () => {
       const wrapper = mount(
         <Name
@@ -105,18 +73,14 @@ suite("Name component", () => {
       expect(wrapper.find(".govuk-hint").text()).to.equal("a hint");
       expect(wrapper.state()).to.equal({
         name: "myComponent",
-        nameHasError: false,
+        errors: {},
       });
     });
   });
   test("Error message shows up when whitespaces are entered", () => {
     const wrapper = mount(
       <Name
-        component={{
-          type: "TextField",
-          name: "myComponent",
-          title: "My component",
-        }}
+        name="myComponent"
         id={"an-id"}
         labelText={"label text"}
         i18n={i18n}

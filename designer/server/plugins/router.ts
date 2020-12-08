@@ -19,6 +19,13 @@ const routes = [
       },
     },
   },
+  {
+    method: "GET",
+    path: "/help/{filename}",
+    handler: function (request, h) {
+      return h.view(`help/${request.params.filename}`);
+    },
+  },
 ];
 
 export default {

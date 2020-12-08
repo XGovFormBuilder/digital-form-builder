@@ -5,11 +5,7 @@ npm-debug.log
 .idea
 .nyc_output
 unit-test.html
-/engine/lib
-/model/lib
 package-lock.json
-*/flow-typed/*
-/flow-typed/
 /.yarn/cache/
 */.env
 */test-results/*
@@ -17,9 +13,10 @@ package-lock.json
 /runner/tmp.pdf
 /model/module/
 /model/dist/
-smoke-tests/reports/json/*json
+smoke-tests/designer/reports/
 */dist/
 */.dist/
+tsconfig.tsbuildinfo
 
 .yarn/*
 !.yarn/releases

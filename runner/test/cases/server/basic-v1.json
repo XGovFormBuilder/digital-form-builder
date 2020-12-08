@@ -1,0 +1,107 @@
+{
+  "conditions": [],
+  "startPage": "/start",
+  "pages": [
+    {
+      "path": "/start",
+      "components": [
+        {
+          "options": {
+            "bold": true
+          },
+          "type": "RadiosField",
+          "name": "licenceLength",
+          "title": "Which fishing licence do you want to get?",
+          "schema": {},
+          "values": {
+            "type": "static",
+            "valueType": "number",
+            "items": [
+              {
+                "label": "1 day",
+                "value": 1,
+                "hint": "Valid for 24 hours from the start time that you select"
+              },
+              {
+                "label": "8 day",
+                "value": 8,
+                "hint": "Valid for 8 consecutive days from the start time that you select"
+              },
+              {
+                "label": "12 months",
+                "value": 365,
+                "hint": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
+              }
+            ]
+          }
+        }
+      ],
+      "section": "licenceDetails",
+      "next": [
+        {
+          "path": "/full-name"
+        }
+      ]
+    },
+    {
+      "path": "/full-name",
+      "components": [
+        {
+          "schema": {
+            "max": 70
+          },
+          "type": "TextField",
+          "name": "fullName",
+          "title": "What's your name?"
+        }
+      ],
+      "section": "personalDetails",
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.ts",
+      "components": [],
+      "title": "Summary"
+    }
+  ],
+  "sections": [
+    {
+      "name": "personalDetails",
+      "title": "Personal details"
+    },
+    {
+      "name": "licenceDetails",
+      "title": "Licence details"
+    }
+  ],
+  "lists": [
+    {
+      "name": "licenceLengthDays",
+      "title": "Licence length (days)",
+      "type": "number",
+      "items": [
+        {
+          "text": "1 day",
+          "value": 1,
+          "description": "Valid for 24 hours from the start time that you select"
+        },
+        {
+          "text": "8 day",
+          "value": 8,
+          "description": "Valid for 8 consecutive days from the start time that you select"
+        },
+        {
+          "text": "12 months",
+          "value": 365,
+          "description": "12-month licences are now valid for 365 days from their start date and can be purchased at any time during the year"
+        }
+      ]
+    }
+  ],
+  "version": 1
+}

@@ -1,16 +1,20 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data, FormConfiguration } from "@xgovformbuilder/model";
 import {
   assertSelectInput,
   assertTextInput,
+  assertClasses,
 } from "./helpers/element-assertions";
 import FormDetails from "../client/form-details";
+import { ErrorSummary } from "../client/error-summary";
+import { Input } from "@govuk-jsx/input";
 
 import sinon from "sinon";
 import formConfigurationsApi from "../client/load-form-configurations";
+import { assertInputControlProp } from "./helpers/sub-component-assertions";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -54,13 +58,15 @@ suite("Form details", () => {
       data.name = undefined;
     });
 
-    test.skip("Renders a form with the appropriate initial inputs", () => {
+    test("Renders a form with the appropriate initial inputs", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
 
-      assertTextInput({
-        wrapper: wrapper.find("#form-title"),
+      assertInputControlProp({
+        wrapper,
         id: "form-title",
+        prop: "defaultValue",
+        expectedValue: "",
       });
       expect(radios.props()).to.equal({
         name: "feedbackForm",
@@ -88,13 +94,14 @@ suite("Form details", () => {
           },
         ],
       });
+      expect(wrapper.find(ErrorSummary).exists()).to.equal(false);
     });
 
     test("Renders pre-populated name input when form already has a name", () => {
       data.name = "My form";
       const wrapper = shallow(<FormDetails data={data} />);
       assertTextInput({
-        wrapper: wrapper.find("#form-title"),
+        wrapper: wrapper.find(Input).dive().find("#form-title"),
         id: "form-title",
         expectedValue: "My form",
       });
@@ -104,31 +111,43 @@ suite("Form details", () => {
       data.name = "My form";
       const wrapper = shallow(<FormDetails data={data} />);
       wrapper
+        .find(Input)
+        .dive()
         .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       assertTextInput({
-        wrapper: wrapper.find("#form-title"),
+        wrapper: wrapper.find(Input).dive().find("#form-title"),
         id: "form-title",
         expectedValue: "New name",
       });
     });
 
-    test.skip("Renders Feedback form 'yes' checked when form is a feedback form", () => {
+    test("Renders Feedback form 'yes' checked when form is a feedback form", () => {
       data.feedbackForm = true;
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
-      assertTextInput({
-        wrapper: wrapper.find("#form-title"),
-        id: "form-title",
-      });
-
       expect(radios.prop("value")).to.equal(true);
     });
 
-    test.skip("Renders Feedback 'no' checked when form is not a feedback form", () => {
+    test("Renders Feedback 'no' checked when form is not a feedback form", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
       expect(radios.prop("value")).to.equal(false);
+    });
+
+    test("handleIsFeedbackFormRadio should update state values correctly", () => {
+      const wrapper = shallow(<FormDetails data={data} />).instance();
+      var spy = sinon.spy(wrapper, "setState");
+
+      wrapper.handleIsFeedbackFormRadio({ target: { value: "true" } });
+      expect(
+        spy.calledWith({ feedbackForm: true, selectedFeedbackForm: undefined })
+      ).to.equal(true);
+
+      spy.resetHistory();
+      wrapper.handleIsFeedbackFormRadio({ target: { value: "false" } });
+      expect(spy.calledWith({ feedbackForm: false })).to.equal(true);
     });
 
     test("Renders Feedback form input when form is not a feedback form", async () => {
@@ -219,8 +238,38 @@ suite("Form details", () => {
     let data;
     beforeEach(() => {
       data = new Data({});
+      data.name = "My New Form";
       data.clone = sinon.stub().returns(data);
       data.save = sinon.stub().resolves(data);
+    });
+
+    test("required error when title is not set", async () => {
+      data.name = undefined;
+      const wrapper = shallow(<FormDetails data={data} />);
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
+      wrapper.update();
+      expect(data.save.callCount).to.equal(0);
+      expect(wrapper.find(Input)).to.exist();
+      assertClasses(wrapper.find(Input).dive().find("#form-title"), [
+        "govuk-input",
+        "govuk-input--error",
+      ]);
+      assertClasses(wrapper.find(Input).dive().find("div"), [
+        "govuk-form-group",
+        "govuk-form-group--error",
+      ]);
+      expect(
+        wrapper.find(Input).dive().find("ErrorMessage").dive().childAt(1).text()
+      ).to.equal("Enter title");
+      expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
+      const errorList: Array<any> = wrapper
+        .find(ErrorSummary)
+        .prop("errorList");
+      expect(errorList.length).to.equal(1);
+      expect(errorList[0]).to.equal({
+        children: "Enter title",
+        href: "#form-title",
+      });
     });
 
     test("name should be set correctly when unchanged", async () => {
@@ -237,6 +286,20 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       wrapper
         .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
+        .simulate("blur", { target: { value: "New name" } });
+      await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
+
+      expect(data.save.callCount).to.equal(1);
+      expect(data.save.firstCall.args[0].name).to.equal("New name");
+    });
+
+    test("name should be set correctly when changed", async () => {
+      data.name = "My form";
+      const wrapper = shallow(<FormDetails data={data} />);
+      wrapper
+        .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
 
@@ -324,6 +387,7 @@ suite("Form details", () => {
       const wrapper = shallow(<FormDetails data={data} onCreate={onCreate} />);
       wrapper
         .find("#form-title")
+        .simulate("change", { target: { value: "New name" } })
         .simulate("blur", { target: { value: "New name" } });
       await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
 

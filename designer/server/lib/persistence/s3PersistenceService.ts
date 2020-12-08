@@ -1,5 +1,5 @@
 import S3 from "aws-sdk/clients/s3";
-import config from "../../../config";
+import config from "../../config";
 import { PersistenceService } from "./persistenceService";
 import { Logger, FormConfiguration } from "@xgovformbuilder/model";
 

@@ -17,7 +17,11 @@ Please delete options that are not relevant.
 
 # How Has This Been Tested?
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce.
+Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce
+the testing if necessary. 
+
+Before PR's can be merged they will need to be tested by QA and approved where
+applicable. To flag the change to QA assign **@XGovFormBuilder/qa** as one of the reviewers.
 
 - [ ] Test A
 - [ ] Test B

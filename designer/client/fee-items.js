@@ -1,5 +1,8 @@
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
+import { ErrorMessage } from "@govuk-jsx/error-message";
+import classNames from "classnames";
+import { isEmpty } from "./helpers";
 
 function headDuplicate(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -11,13 +14,82 @@ function headDuplicate(arr) {
   }
 }
 
+const MISSING_DESC = "missingDescription";
+const INVALID_AMOUNT = "invalidAmount";
+const MISSING_COND = "missingCondition";
+const DUP_CONDITIONS = "dupConditions";
+
 class FeeItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: props.items ? clone(props.items) : [],
+      errors: {},
     };
   }
+
+  validate = (form) => {
+    let errors = {};
+    const formData = new window.FormData(form);
+    let missingDescription = false;
+    let missingDescriptions = {};
+    let amountInvalid = false;
+    let amountsInvalid = {};
+    let missingCondition = false;
+    let missingConditions = {};
+    formData.getAll("description").forEach((d, i) => {
+      if (isEmpty(d)) {
+        missingDescriptions[i] = true;
+        missingDescription = true;
+      }
+    });
+    if (missingDescription) {
+      missingDescriptions.href = "#items-table";
+      missingDescriptions.children = "Enter description";
+      errors[MISSING_DESC] = missingDescriptions;
+    }
+
+    formData.getAll("condition").forEach((d, i) => {
+      if (isEmpty(d)) {
+        missingDescriptions[i] = true;
+        missingCondition = true;
+      }
+    });
+    if (missingCondition) {
+      missingConditions.href = "#items-table";
+      missingConditions.children = "Select a condition";
+      errors[MISSING_COND] = missingConditions;
+    }
+
+    formData.getAll("amount").forEach((d, i) => {
+      if (d < 0) {
+        amountsInvalid[i] = true;
+        amountInvalid = true;
+      }
+    });
+    if (amountInvalid) {
+      amountsInvalid.href = "#items-table";
+      amountsInvalid.children = "Enter a valid amount";
+      errors[INVALID_AMOUNT] = amountsInvalid;
+    }
+
+    const descriptions = formData.getAll("description").map((t) => t.trim());
+    const conditions = formData.getAll("condition").map((t) => t.trim());
+
+    // Only validate dupes if there is more than one item
+    if (descriptions.length >= 2 && headDuplicate(conditions)) {
+      errors[DUP_CONDITIONS] = {
+        href: "#items-table",
+        children: "Duplicate conditions found in the list items",
+      };
+    }
+
+    this.setState({
+      errors,
+    });
+
+    return errors;
+  };
 
   onClickAddItem = (e) => {
     this.setState({
@@ -30,9 +102,10 @@ class FeeItems extends React.Component {
   };
 
   removeItem = (idx) => {
-    this.setState({
+    this.setState((prevState, props) => ({
       items: this.state.items.filter((s, i) => i !== idx),
-    });
+      errors: {},
+    }));
   };
 
   onClickDelete = (e) => {
@@ -58,112 +131,109 @@ class FeeItems extends React.Component {
       });
   };
 
-  onBlur = (e) => {
-    const form = e.target.form;
-    const formData = new window.FormData(form);
-    const descriptions = formData.getAll("description").map((t) => t.trim());
-    const conditions = formData.getAll("condition").map((t) => t.trim());
-
-    // Only validate dupes if there is more than one item
-    if (descriptions.length < 2) {
-      return;
-    }
-
-    form.elements.condition.forEach((el) => el.setCustomValidity(""));
-
-    // Validate uniqueness
-    const dupeCondition = headDuplicate(conditions);
-    if (dupeCondition) {
-      form.elements.condition[dupeCondition].setCustomValidity(
-        "Duplicate conditions found in the list items"
-      );
-    }
-  };
-
   render() {
-    const { items } = this.state;
+    const { items, errors } = this.state;
     const { conditions } = this.props;
 
+    let hasValidationErrors = Object.keys(errors).length > 0;
+
+    const errorMessages = Object.entries(errors).map(([key, value]) => {
+      return <ErrorMessage key={key}>{value?.children}</ErrorMessage>;
+    });
+
     return (
-      <table className="govuk-table">
-        <caption className="govuk-table__caption">Items</caption>
-        <thead className="govuk-table__head">
-          <tr className="govuk-table__row">
-            <th className="govuk-table__header" scope="col">
-              Description
-            </th>
-            <th className="govuk-table__header" scope="col">
-              Cost
-            </th>
-            <th className="govuk-table__header" scope="col">
-              Condition
-            </th>
-            <th className="govuk-table__header" scope="col">
-              <a className="pull-right" href="#" onClick={this.onClickAddItem}>
-                Add
-              </a>
-            </th>
-          </tr>
-        </thead>
-        <tbody className="govuk-table__body">
-          {items.map((item, index) => (
-            <tr
-              key={item.description + index}
-              className="govuk-table__row"
-              scope="row"
-            >
-              <td className="govuk-table__cell">
-                <input
-                  className="govuk-input"
-                  name="description"
-                  type="text"
-                  required
-                  defaultValue={item.description}
-                  onBlur={this.onBlur}
-                />
-              </td>
-              <td className="govuk-table__cell">
-                <input
-                  className="govuk-input"
-                  name="amount"
-                  type="number"
-                  required
-                  defaultValue={item.amount}
-                  onBlur={this.onBlur}
-                  step="any"
-                />
-              </td>
-              <td className="govuk-table__cell">
-                <select
-                  className="govuk-select"
-                  id="link-source"
-                  name="condition"
-                  defaultValue={item.condition}
-                  required
-                >
-                  {conditions.map((condition, i) => (
-                    <option
-                      key={condition.name + i}
-                      value={condition.name}
-                      onBlur={this.onBlur}
-                    >
-                      {condition.displayName}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td className="govuk-table__cell" width="20px">
+      <div
+        className={classNames({
+          "govuk-form-group": true,
+          "govuk-form-group--error": hasValidationErrors,
+        })}
+      >
+        {errorMessages}
+
+        <table className="govuk-table" id="items-table">
+          <caption className="govuk-table__caption">Items</caption>
+          <thead className="govuk-table__head">
+            <tr className="govuk-table__row">
+              <th className="govuk-table__header" scope="col">
+                Description
+              </th>
+              <th className="govuk-table__header" scope="col">
+                Cost
+              </th>
+              <th className="govuk-table__header" scope="col">
+                Condition
+              </th>
+              <th className="govuk-table__header" scope="col">
                 <a
-                  className="list-item-delete"
-                  onClick={() => this.removeItem(index)}
+                  className="pull-right"
+                  href="#"
+                  onClick={this.onClickAddItem}
                 >
-                  &#128465;
+                  Add
                 </a>
-              </td>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="govuk-table__body">
+            {items.map((item, index) => (
+              <tr
+                key={item.description + index}
+                className="govuk-table__row"
+                scope="row"
+              >
+                <td className="govuk-table__cell">
+                  <input
+                    className={classNames({
+                      "govuk-input": true,
+                      "govuk-input--error": errors?.[MISSING_DESC]?.[index],
+                    })}
+                    name="description"
+                    type="text"
+                    defaultValue={item.description}
+                  />
+                </td>
+                <td className="govuk-table__cell">
+                  <input
+                    className={classNames({
+                      "govuk-input": true,
+                      "govuk-input--error": errors?.[INVALID_AMOUNT]?.[index],
+                    })}
+                    name="amount"
+                    type="number"
+                    defaultValue={item.amount}
+                    step="any"
+                  />
+                </td>
+                <td className="govuk-table__cell">
+                  <select
+                    className={classNames({
+                      "govuk-select": true,
+                      "govuk-input--error": errors?.[MISSING_COND]?.[index],
+                    })}
+                    id="link-source"
+                    name="condition"
+                    defaultValue={item.condition}
+                  >
+                    {conditions.map((condition, i) => (
+                      <option key={condition.name + i} value={condition.name}>
+                        {condition.displayName}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td className="govuk-table__cell" width="20px">
+                  <a
+                    className="list-item-delete"
+                    onClick={() => this.removeItem(index)}
+                  >
+                    &#128465;
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

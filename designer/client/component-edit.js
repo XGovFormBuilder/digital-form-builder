@@ -1,57 +1,121 @@
-import React, { memo, useContext } from "react";
+import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone } from "@xgovformbuilder/model";
-import { DataContext } from "./context";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { hasValidationErrors } from "./validations";
+import { ErrorSummary } from "./error-summary";
 
-export function ComponentEdit(props) {
-  const { data, save } = useContext(DataContext);
-  const [{ selectedComponent, initialName }, dispatch] = useContext(
-    props.context || ComponentContext
-  );
-  const { page, toggleShowEditor } = props;
+class ComponentEdit extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      component: props.component,
+      errors: {},
+    };
+    this.typeEditRef = React.createRef();
+  }
 
-  const handleSubmit = async (e) => {
+  async onSubmit(e) {
     e.preventDefault();
-    const updatedData = data.updateComponent(
+    let validationErrors = this.validate();
+    if (hasValidationErrors(validationErrors)) return;
+
+    const { data, page, component } = this.props;
+    const copy = clone(data);
+    const updatedComponent = this.state.component;
+
+    const updatedData = copy.updateComponent(
       page.path,
-      initialName,
-      selectedComponent
+      component.name,
+      updatedComponent
     );
-    await save(updatedData.toJSON());
-    toggleShowEditor();
+    const savedData = await data.save(updatedData);
+    this.props.onEdit({ data: savedData });
+  }
+
+  validate = () => {
+    if (this.typeEditRef.current) {
+      const errors = this.typeEditRef.current.validate();
+      this.setState({ errors });
+      return errors;
+    }
+    return {};
   };
 
-  const handleDelete = async (e) => {
+  onClickDelete = (e) => {
     e.preventDefault();
 
-    dispatch({ action: ComponentActions.DELETE });
+    if (!window.confirm("Confirm delete")) {
+      return;
+    }
+
+    const { data, page, component } = this.props;
+    const componentIdx = page.components.findIndex((c) => c === component);
+    const copy = clone(data);
+
+    const copyPage = copy.findPage(page.path);
+    const isLast = componentIdx === page.components.length - 1;
+
+    // Remove the component
+    copyPage.components.splice(componentIdx, 1);
+
+    data
+      .save(copy)
+      .then((data) => {
+        console.log(data);
+        if (!isLast) {
+          // We dont have an id we can use for `key`-ing react <Component />'s
+          // We therefore need to conditionally report `onEdit` changes.
+          this.props.onEdit({ data });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
-  return (
-    <form autoComplete="off" onSubmit={handleSubmit}>
-      <div className="govuk-form-group">
-        <span className="govuk-label govuk-label--s" htmlFor="type">
-          Type
-        </span>
-        <span className="govuk-body">{selectedComponent.type}</span>
+  render() {
+    const { page, data } = this.props;
+    const { component, errors } = this.state;
+
+    const copyComp = JSON.parse(JSON.stringify(component));
+
+    return (
+      <div>
+        {hasValidationErrors(errors) && (
+          <ErrorSummary errorList={Object.values(errors)} />
+        )}
+        <form autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
+          <div className="govuk-form-group">
+            <span className="govuk-label govuk-label--s" htmlFor="type">
+              Type
+            </span>
+            <span className="govuk-body">{component.type}</span>
+          </div>
+          <ComponentTypeEdit
+            page={page}
+            component={copyComp}
+            data={data}
+            updateModel={this.storeComponent}
+            ref={this.typeEditRef}
+          />
+          <button className="govuk-button" type="submit">
+            Save
+          </button>{" "}
+          <button
+            className="govuk-button"
+            type="button"
+            onClick={this.onClickDelete}
+          >
+            Delete
+          </button>
+        </form>
       </div>
-      <ComponentTypeEdit context={props.context} page={page} />
-      <button className="govuk-button" type="submit">
-        Save
-      </button>{" "}
-      <a
-        href="#"
-        onClick={(event) => event.preventDefault()}
-        className="govuk-link"
-      >
-        Delete
-      </a>
-    </form>
-  );
+    );
+  }
+
+  storeComponent = (component) => {
+    this.setState({ component });
+  };
 }
 
-export default memo(ComponentEdit);
+export default ComponentEdit;

@@ -4,11 +4,13 @@
   "compilerOptions": {
     "outDir": "dist",
     "composite": true,
+    "declaration": true,
     "declarationDir": "dist/types",
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["DOM"]
   },
-  "include": ["server", "client", "package.json", "config.ts", "new-form.json"],
+  "include": ["server", "client", "package.json", "new-form.json"],
   "paths": {
     "*": ["node_modules/*", "../node_modules"]
   }
