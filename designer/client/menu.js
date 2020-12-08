@@ -213,12 +213,13 @@ export default class Menu extends React.Component {
             title="Edit Lists"
             show={this.state.showEditLists}
             onHide={() => this.setState({ showEditLists: false })}
-            width="xlarge"
+            width={""}
           >
-            <ListsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditLists: false })}
-            />
+            <ListsEditorContextProvider>
+              <ListContextProvider>
+                <ListsEdit data={data} context={ListContext} />
+              </ListContextProvider>
+            </ListsEditorContextProvider>
           </Flyout>
         )}
 
