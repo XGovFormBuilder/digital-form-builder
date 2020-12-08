@@ -19,7 +19,8 @@
     "test-lab-cov": "lab -T test/.transform.js test/.setup.js test/**/*.test.* -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "audit": "npm audit --audit-level=high",
     "i18n-parse": "i18next --config 'client/i18n/i18next-parser.config.js' 'client/**/*.js'",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate-architecture-diagram": "arkit -c ./docs/arkit.json"
   },
   "workspace-builder": "@workspace-builder/rollup",
   "repository": {
@@ -32,6 +33,7 @@
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
+    "arkit": "^1.6.4",
     "aws-sdk": "^2.723.0",
     "classnames": "^2.2.6",
     "flat": "5.0.0",

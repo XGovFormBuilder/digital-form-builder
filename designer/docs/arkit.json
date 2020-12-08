@@ -1,0 +1,49 @@
+{
+  "$schema": "https://arkit.pro/schema.json",
+  "excludePatterns": [
+    "test/**",
+    "tests/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "webpack.config*"
+  ],
+  "components": [
+    {
+      "type": "Dependency",
+      "patterns": ["node_modules/*"]
+    },
+    {
+      "type": "Designer",
+      "patterns": [
+        "client/**/*.ts",
+        "client/**/*.tsx",
+        "client/**/*.js",
+        "client/**/*.jsx",
+        "server/**/*.ts",
+        "server/**/*.tsx",
+        "server/**/*.js",
+        "server/**/*.jsx"
+      ],
+      "format": "full"
+    }
+  ],
+  "output": [
+    {
+      "path": "docs/architecture-diagram.svg",
+      "groups": [
+        {
+          "type": "Designer - Client",
+          "patterns": ["client/**"]
+        },
+        {
+          "type": "Designer - Server",
+          "patterns": ["server/**"]
+        },
+        {
+          "type": "Dependencies",
+          "components": ["Dependency"]
+        }
+      ]
+    }
+  ]
+}

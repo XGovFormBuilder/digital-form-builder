@@ -1,0 +1,48 @@
+{
+  "$schema": "https://arkit.pro/schema.json",
+  "excludePatterns": [
+    "test/**",
+    "tests/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "webpack.config*"
+  ],
+  "components": [
+    {
+      "type": "Dependency",
+      "patterns": ["node_modules/*"]
+    },
+    {
+      "type": "Runner",
+      "patterns": ["src/server/**/*.ts"],
+      "excludePatterns": ["src/server/plugins/engine/**"]
+    },
+    {
+      "type": "Engine",
+      "patterns": ["src/server/plugins/engine/**/*.ts"]
+    }
+  ],
+  "output": [
+    {
+      "path": "docs/architecture-diagram-server.svg",
+      "groups": [
+        {
+          "first": true,
+          "type": "Engine",
+          "components": ["Engine"]
+        },
+        {
+          "type": "Server",
+          "components": ["Runner"]
+        },
+        {
+          "type": "Dependencies",
+          "components": ["Dependency"]
+        },
+        {
+          "components": ["Runner", "Engine", "Dependency"]
+        }
+      ]
+    }
+  ]
+}

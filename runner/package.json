@@ -20,7 +20,8 @@
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
     "watch": "bash -c 'yarn run babel src -d dist --copy-files --watch -s inline'",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate-architecture-diagram": "arkit -c ./docs/arkit-server.json && arkit -c ./docs/arkit-engine.json"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "accept-language-parser": "1.5.0",
     "accessible-autocomplete": "^2.0.2",
     "acorn": "7.1.1",
+    "arkit": "^1.6.4",
     "aws-sdk": "2.655.0",
     "blankie": "5.0.0",
     "blipp": "4.0.1",

@@ -71,6 +71,7 @@
   "dependencies": {
     "@babel/runtime": "^7.11.2",
     "@rollup/plugin-node-resolve": "^9.0.0",
+    "arkit": "^1.6.4",
     "chai": "^4.2.0",
     "chai-webdriverio": "^1.0.0",
     "cucumber-html-reporter": "^5.2.0",

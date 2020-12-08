@@ -1658,6 +1658,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@dsherret/to-absolute-glob@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@dsherret/to-absolute-glob@npm:2.0.2"
+  dependencies:
+    is-absolute: ^1.0.0
+    is-negated-glob: ^1.0.0
+  checksum: 0311c70d93e46f3e078ae0c89c7cc03e9859fe017aa7a116e43435b93ed1b17fe16aa9153058cb3f69a39220584ff851c3dbff5d4d223346229667d2d2cef2f1
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^0.1.3":
   version: 0.1.3
   resolution: "@eslint/eslintrc@npm:0.1.3"
@@ -1759,7 +1769,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/bourne@npm:1.x.x":
+"@hapi/bourne@npm:1.x.x, @hapi/bourne@npm:^1.3.2":
   version: 1.3.2
   resolution: "@hapi/bourne@npm:1.3.2"
   checksum: bc23796d94afbca6bf691161d181bf005e86eac3f16fa4a11c38ca1acc9ffabf4e83791a98e9234bd09539ac013675bb53ea2de119373f9e9349f3b94312b76d
@@ -2490,6 +2500,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ts-morph/common@npm:~0.5.2":
+  version: 0.5.2
+  resolution: "@ts-morph/common@npm:0.5.2"
+  dependencies:
+    "@dsherret/to-absolute-glob": ^2.0.2
+    fast-glob: ^3.2.2
+    fs-extra: ^9.0.0
+    is-negated-glob: ^1.0.0
+    multimatch: ^4.0.0
+    typescript: ~3.9.7
+  checksum: c7bc650a2fd602efa611ab91714a3417eb65b77cdfcc624a730f14404930d2c4d7b21588bf6b28830e5f5e7c0e8deeca9d85639ed5e9fff1bd1e294390472f0e
+  languageName: node
+  linkType: hard
+
 "@types/anymatch@npm:*":
   version: 1.3.1
   resolution: "@types/anymatch@npm:1.3.1"
@@ -2821,7 +2845,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimatch@npm:*":
+"@types/minimatch@npm:*, @types/minimatch@npm:^3.0.3":
   version: 3.0.3
   resolution: "@types/minimatch@npm:3.0.3"
   checksum: 672ccdac197e8176eed1a9441d0caf8a29a90eb139b1cefdd4c9e71b1c48f5c749f5d101a2d85da15c6259214ebda95072835021407d60330a731a2672964b82
@@ -3627,6 +3651,7 @@ __metadata:
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 2.0.0
     acorn: 7.2.0
+    arkit: ^1.6.4
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.1.0
@@ -3724,6 +3749,7 @@ __metadata:
     "@hapi/hoek": ^9.0.4
     "@hapi/lab": ^24.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
+    arkit: ^1.6.4
     babel-eslint: ^10.1.0
     boom: 7.3.0
     btoa: ^1.2.1
@@ -3783,6 +3809,7 @@ __metadata:
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: 7.1.1
+    arkit: ^1.6.4
     aws-sdk: 2.655.0
     babel-eslint: ^10.1.0
     blankie: 5.0.0
@@ -3838,6 +3865,7 @@ __metadata:
     "@wdio/selenium-standalone-service": ^6.9.0
     "@wdio/spec-reporter": ^6.6.0
     "@wdio/sync": ^6.6.0
+    arkit: ^1.6.4
     wdio-config: ^5.0.0-alpha.7
     wdio-cucumberjs-json-reporter: ^2.0.2
   languageName: unknown
@@ -4350,6 +4378,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"arkit@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "arkit@npm:1.6.4"
+  dependencies:
+    nanomatch: ^1.2.13
+    pino: ^5.17.0
+    pino-pretty: ^3.6.0
+    progress: ^2.0.3
+    resolve: ^1.15.1
+    ts-morph: ^7.0.0
+    tsconfig-paths: ^3.9.0
+    yargs: ^15.1.0
+  bin:
+    arkit: index.js
+  checksum: 53fec4104af3e6061da1e4c669b5de2da684113b5893e8f00725dc11b521ec795f38c703fe3957fe27a2152170f0e3c70a3dd7dce8fa26a4f83d14fcd1758b9f
+  languageName: node
+  linkType: hard
+
 "arr-diff@npm:^2.0.0":
   version: 2.0.0
   resolution: "arr-diff@npm:2.0.0"
@@ -4377,6 +4423,13 @@ __metadata:
   version: 3.1.0
   resolution: "arr-union@npm:3.1.0"
   checksum: 78f0f75c4778283023b723152bf12be65773ab3628e21493e1a1d3c316d472af9053d9b3dec4d814a130ad4f8ba45ae79b0f33d270a4ae0b0ff41eb743461aa8
+  languageName: node
+  linkType: hard
+
+"array-differ@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "array-differ@npm:3.0.0"
+  checksum: 6d87a752b56b9e9b29b617d7092173ac3b418d77621077eb7d7637a143b8df6019d59fe98cb3ba8ceba2677ad9904220dabd816f762c1cd5afaa3eec14db3b92
   languageName: node
   linkType: hard
 
@@ -4506,7 +4559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"arrify@npm:^2.0.0":
+"arrify@npm:^2.0.0, arrify@npm:^2.0.1":
   version: 2.0.1
   resolution: "arrify@npm:2.0.1"
   checksum: 2a19726815590d829e07998aefa2c352bd9061e58bf4391ffffa227129995841a710bef2d8b4c9408a6b0679d96c96bd23764bdbcc29bb21666c976816093972
@@ -6169,6 +6222,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cliui@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "cliui@npm:6.0.0"
+  dependencies:
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+    wrap-ansi: ^6.2.0
+  checksum: e59d0642946dd300b1b002e69f43b32d55e682c84f6f2073705ffe77477b400aeabd4f4795467db0771a21d35ee070071f6a31925e4f83b52a7fe1f5c8e6e860
+  languageName: node
+  linkType: hard
+
 "cliui@npm:^7.0.2":
   version: 7.0.2
   resolution: "cliui@npm:7.0.2"
@@ -6239,6 +6303,13 @@ __metadata:
   version: 4.6.0
   resolution: "co@npm:4.6.0"
   checksum: 3f22dbbe0f413ff72831d087d853a81d1137093e12e8ec90b4da2bde5c67bc6bff11b6adeb38ca9fa8704b8cd40dba294948bda3c271bccb74669972b840cc1a
+  languageName: node
+  linkType: hard
+
+"code-block-writer@npm:^10.1.0":
+  version: 10.1.1
+  resolution: "code-block-writer@npm:10.1.1"
+  checksum: 3e04b80dce76927072f96ad8215936a550ba39db5e13f17f455652534e7cd120dceb52b8521a81981edfbc7fbe5410511d6253fd718f0f0e33ea33eceb66dab2
   languageName: node
   linkType: hard
 
@@ -7622,6 +7693,7 @@ __metadata:
     "@rollup/plugin-node-resolve": ^9.0.0
     "@typescript-eslint/eslint-plugin": ^4.5.0
     "@typescript-eslint/parser": ^4.5.0
+    arkit: ^1.6.4
     babel-eslint: ^11.0.0-beta.2
     chai: ^4.2.0
     chai-webdriverio: ^1.0.0
@@ -9480,7 +9552,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.0.3, fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.4":
+"fast-glob@npm:^3.0.3, fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.2, fast-glob@npm:^3.2.4":
   version: 3.2.4
   resolution: "fast-glob@npm:3.2.4"
   dependencies:
@@ -9786,7 +9858,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-up@npm:^4.0.0":
+"find-up@npm:^4.0.0, find-up@npm:^4.1.0":
   version: 4.1.0
   resolution: "find-up@npm:4.1.0"
   dependencies:
@@ -14614,6 +14686,19 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"multimatch@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "multimatch@npm:4.0.0"
+  dependencies:
+    "@types/minimatch": ^3.0.3
+    array-differ: ^3.0.0
+    array-union: ^2.1.0
+    arrify: ^2.0.1
+    minimatch: ^3.0.4
+  checksum: c1ba3c9b68e7840cdb4d5d2998eeb68a88ef14a09ce03bd392738529665147a6ec6970d8bf9e7fbac618bb58c2a615f190c048f97c290e36fb4890a3ef78991e
+  languageName: node
+  linkType: hard
+
 "mute-stream@npm:0.0.7":
   version: 0.0.7
   resolution: "mute-stream@npm:0.0.7"
@@ -14657,7 +14742,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nanomatch@npm:^1.2.9":
+"nanomatch@npm:^1.2.13, nanomatch@npm:^1.2.9":
   version: 1.2.13
   resolution: "nanomatch@npm:1.2.13"
   dependencies:
@@ -16042,6 +16127,27 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"pino-pretty@npm:^3.6.0":
+  version: 3.6.1
+  resolution: "pino-pretty@npm:3.6.1"
+  dependencies:
+    "@hapi/bourne": ^1.3.2
+    args: ^5.0.1
+    chalk: ^2.4.2
+    dateformat: ^3.0.3
+    fast-safe-stringify: ^2.0.7
+    jmespath: ^0.15.0
+    joycon: ^2.2.5
+    pump: ^3.0.0
+    readable-stream: ^3.4.0
+    split2: ^3.1.1
+    strip-json-comments: ^3.0.1
+  bin:
+    pino-pretty: bin.js
+  checksum: a464f43a14fa326daace59b1e8b297c1a681b3345665ee766543fc7e0674bb90ff840870ee0e7f25886bb1757b473469739ea42dac8f7b161e7f4c47891c5d84
+  languageName: node
+  linkType: hard
+
 "pino-pretty@npm:^4.0.0":
   version: 4.2.1
   resolution: "pino-pretty@npm:4.2.1"
@@ -16067,6 +16173,22 @@ fsevents@~2.1.2:
   version: 2.5.0
   resolution: "pino-std-serializers@npm:2.5.0"
   checksum: c7605e6b9dd3b2e6898059da0bca93277ed9139f0b884d9f7c922f22f011ba4a930389a71728e7c682ee5c3bf786aa67a90f10b1eb8eadc0467c5b78883a43bc
+  languageName: node
+  linkType: hard
+
+"pino@npm:^5.17.0":
+  version: 5.17.0
+  resolution: "pino@npm:5.17.0"
+  dependencies:
+    fast-redact: ^2.0.0
+    fast-safe-stringify: ^2.0.7
+    flatstr: ^1.0.12
+    pino-std-serializers: ^2.4.2
+    quick-format-unescaped: ^3.0.3
+    sonic-boom: ^0.7.5
+  bin:
+    pino: bin.js
+  checksum: 31650510c227c27a56c7fd6405649ad88e0434238a3be57d540edc0208e497c1990b3a60f1a7f9b32963172c801e619a5bb8c6100d51152168e86aacacaab056
   languageName: node
   linkType: hard
 
@@ -16419,7 +16541,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"progress@npm:2.0.3, progress@npm:^2.0.0, progress@npm:^2.0.1":
+"progress@npm:2.0.3, progress@npm:^2.0.0, progress@npm:^2.0.1, progress@npm:^2.0.3":
   version: 2.0.3
   resolution: "progress@npm:2.0.3"
   checksum: c46ef5a1de4d527dfd32fe56a7df0c1c8b420a4c02617196813bf7f10ac7c2a929afc265d44fdd68f5c439a7e7cb3d70d569716c82d6b4148ec72089860a1312
@@ -16696,6 +16818,13 @@ fsevents@~2.1.2:
   version: 2.2.0
   resolution: "querystringify@npm:2.2.0"
   checksum: 6235036be3aedff7919dfc06b23f759264915c5794c6352d52a917401d40d2b9bb43b1d82e4e5be983e469aa320e06992aefc218192f6fa1d9eba4f54dc4786c
+  languageName: node
+  linkType: hard
+
+"quick-format-unescaped@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "quick-format-unescaped@npm:3.0.3"
+  checksum: 618bf766b72638de975c2102bd55cb467d0361e6be7828431494dba3deca721bc44b172479bce2524ce56ddc17db0998406c41f7682e99ec7032518c72292562
   languageName: node
   linkType: hard
 
@@ -18653,6 +18782,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"sonic-boom@npm:^0.7.5":
+  version: 0.7.7
+  resolution: "sonic-boom@npm:0.7.7"
+  dependencies:
+    atomic-sleep: ^1.0.0
+    flatstr: ^1.0.12
+  checksum: 621a83fcc3403ef6024cf6ec0e2a3fbd70292335cf37a27a07855620258159c1f4a7c57a7bd89cbe530a23f86b5f2941dee13f65c34adf8b3079807a14293588
+  languageName: node
+  linkType: hard
+
 "sonic-boom@npm:^1.0.2":
   version: 1.3.0
   resolution: "sonic-boom@npm:1.3.0"
@@ -19939,6 +20078,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"ts-morph@npm:^7.0.0":
+  version: 7.3.0
+  resolution: "ts-morph@npm:7.3.0"
+  dependencies:
+    "@dsherret/to-absolute-glob": ^2.0.2
+    "@ts-morph/common": ~0.5.2
+    code-block-writer: ^10.1.0
+  checksum: a66e2d6db9915a3e6f7976ade9f6a977b031b1aa8c80d545422a774ce5dfbfa3850458e3f8d014f5ac160cd9ae613e48a3946c20f79b1f6a24250c918b85aeb7
+  languageName: node
+  linkType: hard
+
 "tsconfig-paths@npm:^3.9.0":
   version: 3.9.0
   resolution: "tsconfig-paths@npm:3.9.0"
@@ -20099,7 +20249,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-typescript@^3.6.4:
+"typescript@^3.6.4, typescript@~3.9.7":
   version: 3.9.7
   resolution: "typescript@npm:3.9.7"
   bin:
@@ -20119,7 +20269,7 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.6.4#builtin<compat/typescript>":
+"typescript@patch:typescript@^3.6.4#builtin<compat/typescript>, typescript@patch:typescript@~3.9.7#builtin<compat/typescript>":
   version: 3.9.7
   resolution: "typescript@patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5b02a2"
   bin:
@@ -21669,6 +21819,16 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
+"yargs-parser@npm:^18.1.2":
+  version: 18.1.3
+  resolution: "yargs-parser@npm:18.1.3"
+  dependencies:
+    camelcase: ^5.0.0
+    decamelize: ^1.2.0
+  checksum: 33871721679053cc38165afc6356c06c3e820459589b5db78f315886105070eb90cbb583cd6515fa4231937d60c80262ca2b7c486d5942576802446318a39597
+  languageName: node
+  linkType: hard
+
 "yargs-parser@npm:^20.2.2":
   version: 20.2.2
   resolution: "yargs-parser@npm:20.2.2"
@@ -21738,6 +21898,25 @@ typescript@^4.0.3:
     y18n: ^4.0.0
     yargs-parser: ^15.0.1
   checksum: cfe46545a6ddb535e7704a5311986e638734b4a11ed548ca7b3af43ecf99089563d54b1353e47c2d12cc7402f5a3e7c6b95c84f968a1f66bdb209c25aea638c9
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^15.1.0":
+  version: 15.4.1
+  resolution: "yargs@npm:15.4.1"
+  dependencies:
+    cliui: ^6.0.0
+    decamelize: ^1.2.0
+    find-up: ^4.1.0
+    get-caller-file: ^2.0.1
+    require-directory: ^2.1.1
+    require-main-filename: ^2.0.0
+    set-blocking: ^2.0.0
+    string-width: ^4.2.0
+    which-module: ^2.0.0
+    y18n: ^4.0.0
+    yargs-parser: ^18.1.2
+  checksum: dbf687d6b938f01bbf11e158dde6df906282b70cd9295af0217ee8cefbd83ad09d49fa9458d0d5325b0e66f03df954a38986db96f91e5b46ccdbbaf9a0157b23
   languageName: node
   linkType: hard
 

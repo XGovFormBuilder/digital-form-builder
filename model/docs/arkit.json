@@ -1,0 +1,36 @@
+{
+  "$schema": "https://arkit.pro/schema.json",
+  "excludePatterns": [
+    "test/**",
+    "tests/**",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "webpack.config*"
+  ],
+  "components": [
+    {
+      "type": "Dependency",
+      "patterns": ["node_modules/*"]
+    },
+    {
+      "type": "Model",
+      "patterns": ["src/**/*.ts"],
+      "format": "full"
+    }
+  ],
+  "output": [
+    {
+      "path": "docs/architecture-diagram.svg",
+      "groups": [
+        {
+          "type": "Model",
+          "components": ["Model"]
+        },
+        {
+          "type": "Dependencies",
+          "components": ["Dependency"]
+        }
+      ]
+    }
+  ]
+}

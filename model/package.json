@@ -18,7 +18,8 @@
     "build:types": "yarn run build:types:node && yarn run build:types:browser",
     "build:types:node": "tsc --emitDeclarationOnly --declarationDir ./dist/module ",
     "build:types:browser": "tsc --emitDeclarationOnly --declarationDir dist/browser ",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate-architecture-diagram": "arkit -c ./docs/arkit.json"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/runtime": "^7.11.2",
     "@hapi/hoek": "^9.0.4",
+    "arkit": "^1.6.4",
     "boom": "7.3.0",
     "btoa": "^1.2.1",
     "eslint-plugin-import": "^2.22.0",
