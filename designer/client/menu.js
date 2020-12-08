@@ -209,6 +209,7 @@ export default class Menu extends React.Component {
         )}
 
         {this.state.showEditLists && (
+<<<<<<< HEAD
                                       <Flyout
                                       title="Edit Lists"
                                       show={this.state.showEditLists}
@@ -222,6 +223,21 @@ export default class Menu extends React.Component {
                                       </ListsEditorContextProvider>
                                       </Flyout>
                                       )}
+=======
+          <Flyout
+            title="Edit Lists"
+            show={this.state.showEditLists}
+            onHide={() => this.setState({ showEditLists: false })}
+            width={""}
+          >
+            <ListsEditorContextProvider>
+              <ListContextProvider>
+                <ListsEdit data={data} context={ListContext} />
+              </ListContextProvider>
+            </ListsEditorContextProvider>
+          </Flyout>
+        )}
+>>>>>>> re add context
 
         {this.state.showEditFees && (
           <Flyout
