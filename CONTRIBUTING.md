@@ -42,14 +42,14 @@ Pre-commit linting is configured to run on your staged files and you can use the
 
 ## Application Diagrams
 
-The generated diagrams are in SVG format and to better visualise them just right-click and "view image" in a new tab (or drag the file to your browser), then you'll be able to zoom in and out as you want.
+The below diagrams are in SVG format and to better visualise them just right-click and "view image" in a new tab (or drag the file to your browser), then you'll be able to zoom in and out as you want.
 
 ### Component Diagram
 
-The aim of the components diagram is to identify and annotate the responsibilities and relationship between the most complex components in the application. It also includes basic information about the various server's endpoints and how they work.
+The aim of the components diagram is to identify, annotate behaviour and relationships between the most complex components in the application. It also includes basic information about the various server's endpoints and how they work.
 
 To update the diagram open [Draw.io](https://app.diagrams.net/), select `Open Existing Diagram` and select the file `./docs/components-diagram.drawio`.
-When you make changes Draw.io should automatically save them to the same file, but make that happens, once you finish please export a new SVG, replace `./docs/components-diagram.svg` and submit a pull request.
+When you make changes Draw.io should automatically save them to the same file, but make sure that happens, once you finish please export a new SVG, replace `./docs/components-diagram.svg` and submit a pull request.
 
 <img src="./docs/components-diagram.svg">
 
