@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React, { memo, useContext, useLayoutEffect } from "react";
+=======
+import React, { useState } from "react";
+import Editor from "./editor";
+>>>>>>> merge wip
 import { ComponentTypes } from "@xgovformbuilder/model";
 import { ComponentContext } from "./reducers/componentReducer";
 import FieldEdit from "./field-edit";

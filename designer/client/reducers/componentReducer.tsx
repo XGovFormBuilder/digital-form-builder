@@ -5,6 +5,7 @@ import {
   StaticListItemActions,
   staticListItemReducer,
 } from "./staticListItemReducer";
+import { errorReducer } from "./componentReducer.validations";
 export const ComponentContext = createContext({});
 
 export enum ComponentActions {
@@ -40,6 +41,8 @@ export enum ComponentActions {
 
   SUBMIT = "SUBMIT",
   DELETE = "DELETE",
+
+  SHOULD_VALIDATE = "SHOULD_VALIDATE",
 }
 
 function valueIsInEnum<T>(value: string, enumType: T): value is T {
@@ -76,6 +79,7 @@ export function componentReducer(
     },
     selectedListItem = {},
     selectedListItemIndex,
+    errors = {},
   } = state;
   let staticListItems = selectedComponent.values?.items;
 
@@ -343,6 +347,9 @@ export function componentReducer(
             selectedListName: payload,
           };
         }
+
+      case ComponentActions.SHOULD_VALIDATE:
+        return errorReducer(state);
 
       default:
         return { ...state, selectedComponent };
