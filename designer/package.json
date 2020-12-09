@@ -32,7 +32,6 @@
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
-    "arkit": "^1.6.4",
     "aws-sdk": "^2.723.0",
     "classnames": "^2.2.6",
     "flat": "5.0.0",

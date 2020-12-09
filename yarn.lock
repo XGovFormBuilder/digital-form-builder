@@ -3651,7 +3651,6 @@ __metadata:
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 2.0.0
     acorn: 7.2.0
-    arkit: ^1.6.4
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
     babel-loader: ^8.1.0
@@ -3749,7 +3748,6 @@ __metadata:
     "@hapi/hoek": ^9.0.4
     "@hapi/lab": ^24.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
-    arkit: ^1.6.4
     babel-eslint: ^10.1.0
     boom: 7.3.0
     btoa: ^1.2.1
@@ -3809,7 +3807,6 @@ __metadata:
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: 7.1.1
-    arkit: ^1.6.4
     aws-sdk: 2.655.0
     babel-eslint: ^10.1.0
     blankie: 5.0.0
