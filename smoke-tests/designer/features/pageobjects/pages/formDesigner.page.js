@@ -26,8 +26,8 @@ class FormDesignerPage extends Page {
   }
 
   get pagesLink() {
-    browser.react$("_n").waitForExist();
-    return browser.react$("_n");
+    browser.react$("Cn").waitForExist();
+    return browser.react$("Cn");
   }
 
   dateField(name) {

@@ -3,6 +3,18 @@
  * that is shared across all page objects
  */
 module.exports = class Page {
+  get errorSummary() {
+    return browser.$(".govuk-error-summary");
+  }
+
+  get errorSummaryHeading() {
+    return this.errorSummary.$("h2");
+  }
+
+  errorSummaryErrors(index) {
+    return browser.$$(".govuk-error-summary__body ul li a")[index];
+  }
+
   get designerMenu() {
     return $("nav.menu");
   }
