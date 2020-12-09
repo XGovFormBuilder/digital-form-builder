@@ -26,7 +26,8 @@
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
-    "type-check:watch": "yarn workspaces foreach run type-check --watch"
+    "type-check:watch": "yarn workspaces foreach run type-check --watch",
+    "generate-architecture-diagrams": "arkit -c ./docs/designer/arkit.json && arkit -c ./docs/model/arkit.json && arkit -c ./docs/runner/arkit.json"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

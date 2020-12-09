@@ -9,26 +9,19 @@
   ],
   "components": [
     {
-      "type": "Dependency",
-      "patterns": ["node_modules/*"]
-    },
-    {
       "type": "Model",
-      "patterns": ["src/**/*.ts"],
+      "patterns": ["model/src/**/*.ts"],
+      "excludePatterns": ["node_modules/*", "**/node_modules/*"],
       "format": "full"
     }
   ],
   "output": [
     {
-      "path": "docs/architecture-diagram.svg",
+      "path": "docs/model/architecture-diagram.svg",
       "groups": [
         {
           "type": "Model",
           "components": ["Model"]
-        },
-        {
-          "type": "Dependencies",
-          "components": ["Dependency"]
         }
       ]
     }

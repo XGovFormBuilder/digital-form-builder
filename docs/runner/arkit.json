@@ -9,33 +9,24 @@
   ],
   "components": [
     {
-      "type": "Dependency",
-      "patterns": ["node_modules/*"],
-      "format": "full"
-    },
-    {
       "type": "Files",
-      "patterns": ["src/**/*.ts"],
+      "patterns": ["runner/src/**/*.ts"],
+      "excludePatterns": ["node_modules/*", "**/node_modules/*"],
       "format": "full"
     }
   ],
   "output": [
     {
-      "path": "docs/architecture-diagram-server.svg",
+      "path": "docs/runner/architecture-diagram.svg",
       "groups": [
         {
           "type": "Engine",
-          "patterns": ["src/server/plugins/engine/**"]
+          "patterns": ["runner/src/server/plugins/engine/**"]
         },
         {
           "last": true,
           "type": "Server",
-          "patterns": ["src/server/**"]
-        },
-        {
-          "last": true,
-          "type": "Dependencies",
-          "components": ["Dependency"]
+          "patterns": ["runner/src/server/**"]
         }
       ]
     }
