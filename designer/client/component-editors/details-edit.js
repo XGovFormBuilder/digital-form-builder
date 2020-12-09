@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   ComponentActions,
   ComponentContext,
 } from "./../reducers/componentReducer";
+import { validateNotEmpty } from "../validations";
 
 export function DetailsEdit({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
+  const [{ selectedComponent, shouldValidate }, dispatch] = useContext(
     !!context ? context : ComponentContext
   );
 
