@@ -21,7 +21,7 @@
     "symlink-env": "./bin/symlink-config",
     "watch": "bash -c 'yarn run babel src -d dist --copy-files --watch -s inline'",
     "type-check": "tsc --noEmit",
-    "generate-architecture-diagram": "arkit -c ./docs/arkit-server.json && arkit -c ./docs/arkit-engine.json"
+    "generate-architecture-diagram": "LEVEL=debug arkit -c ./docs/arkit-server.json"
   },
   "repository": {
     "type": "git",
