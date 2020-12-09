@@ -42,7 +42,7 @@ Pre-commit linting is configured to run on your staged files and you can use the
 
 ## Application Diagrams
 
-The generated diagrams are in SVG format and to better visualise them right click and open in a new tab (or drag the file to your browser), then you'll be able to zoom in and out as you want.
+The generated diagrams are in SVG format and to better visualise them just right-click and "view image" in a new tab (or drag the file to your browser), then you'll be able to zoom in and out as you want.
 
 ### Component Diagram
 
