@@ -32,10 +32,6 @@ TODO
 
 TODO
 
-## Setting up your environment
-
-TODO
-
 ## Pull Request Process
 
 TODO
