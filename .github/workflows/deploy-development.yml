@@ -20,7 +20,7 @@ jobs:
         run: docker build . --file ./designer/Dockerfile --tag digital-form-builder-designer
 
       - name: Tag Image
-        run: docker tag digital-form-builder-designer registry.heroku.com/digital-form-builder-designer/web
+        run: docker tag digital-form-builder-designer:latest registry.heroku.com/digital-form-builder-designer/web
 
       - name: Push to Heroku Registry
         env:
@@ -46,7 +46,7 @@ jobs:
         run: docker build . --file ./runner/Dockerfile --tag digital-form-builder-runner
 
       - name: Tag Image
-        run: docker tag digital-form-builder-runner registry.heroku.com/digital-form-builder-runner/web
+        run: docker tag digital-form-builder-runner:latest registry.heroku.com/digital-form-builder-runner/web
 
       - name: Push to Heroku Registry
         env:
