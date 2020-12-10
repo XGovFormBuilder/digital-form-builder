@@ -2,7 +2,9 @@ FROM node:12-alpine3.12 AS build
 WORKDIR /usr/src/app
 COPY . .
 RUN apk add --no-cache bash
-RUN yarn workspaces focus @xgovformbuilder/runner --production
+RUN yarn workspaces focus @xgovformbuilder/runner
+RUN yarn model build
+RUN yarn runner build
 
 FROM node:12-alpine3.12 AS run
 RUN adduser -D -u 1001 app
