@@ -1,0 +1,36 @@
+name: Publish to Github Container Registry
+
+on:
+  push:
+    branches: chore/STP-1037-1038
+
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Build and publish Designer
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ./designer/Dockerfile
+          tags: |
+            ghcr.io/${{ github.repository }}-designer:${{ github.ref }}
+            ghcr.io/${{ github.repository }}-designer:latest
+
+      - name: Build and publish Runner
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ./runner/Dockerfile
+          tags: |
+            ghcr.io/${{ github.repository }}-runner:${{ github.ref }}
+            ghcr.io/${{ github.repository }}-runnere:latest
