@@ -23,7 +23,7 @@ jobs:
           push: true
           file: ./designer/Dockerfile
           tags: |
-            ghcr.io/${{ github.repository }}-designer:${{ github.ref }}
+#            ghcr.io/${{ github.repository }}-designer:${{ github.ref }}
             ghcr.io/${{ github.repository }}-designer:latest
 
       - name: Build and publish Runner
@@ -32,5 +32,5 @@ jobs:
           push: true
           file: ./runner/Dockerfile
           tags: |
-            ghcr.io/${{ github.repository }}-runner:${{ github.ref }}
+#            ghcr.io/${{ github.repository }}-runner:${{ github.ref }}
             ghcr.io/${{ github.repository }}-runnere:latest
