@@ -9,8 +9,7 @@ jobs:
   login:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Login to GitHub Container Registry
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
@@ -23,7 +22,7 @@ jobs:
           push: true
           file: ./designer/Dockerfile
           tags: |
-            ghcr.io/${{ github.repository }}-designer:latest
+            ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
 
       - name: Build and publish Runner
         uses: docker/build-push-action@v2
@@ -31,5 +30,4 @@ jobs:
           push: true
           file: ./runner/Dockerfile
           tags: |
-            ghcr.io/${{ github.repository }}-runnere:latest
-
+            ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
