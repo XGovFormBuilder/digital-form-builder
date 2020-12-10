@@ -31,3 +31,4 @@ jobs:
           file: ./${{matrix.app}}/Dockerfile
           tags: |
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
+            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ GITHUB_RUN_NUMBER }}
