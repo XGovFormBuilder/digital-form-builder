@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Editor from "./editor";
 import { ComponentTypes } from "@xgovformbuilder/model";
-import ComponentValues from "./components/component-values";
+// import ComponentValues from "./components/component-values";
 import { Textarea } from "@govuk-jsx/textarea";
 import { Input } from "@govuk-jsx/input";
 import Name from "./name";

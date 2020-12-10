@@ -1,11 +1,12 @@
 import React, { memo, useContext } from "react";
-import ComponentTypeEdit from "./component-type-edit";
+import ComponentTypeEdit from "./componentTypeEdit";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import {
   ComponentActions,
   ComponentContext,
 } from "./reducers/componentReducer";
+import { validateComponent } from "./reducers/componentReducer.validations";
 
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
@@ -16,6 +17,12 @@ export function ComponentEdit(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const errors = validateComponent(selectedComponent);
+    if (Object.values(errors)) {
+      console.log(errors);
+      return;
+    }
+
     const updatedData = data.updateComponent(
       page.path,
       initialName,

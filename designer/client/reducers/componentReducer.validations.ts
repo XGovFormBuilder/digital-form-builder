@@ -1,28 +1,12 @@
 import { validateNotEmpty, validateTitle } from "../validations";
 import { isEmpty } from "../helpers";
-import type {
-  inputFieldsDef,
-  ContentComponentsDef,
-  ListComponentsDef,
-} from "@xgovformbuilder/model/components";
-import { i18n } from "../i18n";
+import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
+
 function validateDetails(component) {
   const { title, content } = component;
   return {
     ...validateNotEmpty("details-title", "Title", "title", title),
     ...validateNotEmpty("details-content", "Content", "content", content),
-  };
-}
-
-function validateComponent(component) {
-  const errors = {
-    ...validateNotEmpty("details-title", "Title", "title", component.title),
-    ...validateNotEmpty(
-      "details-content",
-      "Content",
-      "content",
-      component.title
-    ),
   };
 }
 
@@ -34,19 +18,16 @@ const validateName = (name) => {
   if (nameHasSpace) {
     errors.name = {
       href: `#field-name`,
-      children: i18n("name.errors.whitespace"),
+      children: "name.errors.whitespace",
     };
   } else if (nameIsEmpty) {
     errors.name = {
       href: `#field-name`,
-      children: i18n("errors.field", { field: "Component name" }),
+      children: ["errors.field", { field: "Component name" }],
     };
   }
-  return errors;
-};
 
-const componentIsSubtype = <Subtype>(component: any): component is Subtype => {
-  return (component as Subtype).type !== undefined;
+  return errors;
 };
 
 function fieldComponentValidations(component) {
@@ -55,24 +36,46 @@ function fieldComponentValidations(component) {
     validateTitle("field-title", component.title),
   ];
 
-  if (componentIsSubtype<ContentComponentsDef>(component)) {
-    validations.push(validateDetails(component));
-  }
+  switch (component.type) {
+    case Types.CheckboxesField:
+    case Types.DateField:
+    case Types.DateTimeField:
+    case Types.DateTimePartsField:
+    case Types.EmailAddressField:
+    case Types.FileUploadField:
+    case Types.MultilineTextField:
+    case Types.NumberField:
+    case Types.TextField:
+    case Types.TelephoneNumberField:
+    case Types.TimeField:
+    case Types.UkAddressField:
+      break;
 
-  if (componentIsSubtype<inputFieldsDef>(component)) {
-    //validate
-  }
-  if (componentIsSubtype<ListComponentsDef>(component)) {
-    //validate
+    case Types.InsetText:
+    case Types.Html:
+    case Types.Para:
+      //validate content types
+      break;
+
+    case Types.Details:
+      validations.push(validateDetails(component));
+      break;
+
+    case Types.AutocompleteField:
+    case Types.List:
+    case Types.RadiosField:
+    case Types.SelectField:
+    case Types.YesNoField:
+    case Types.FlashCard:
+      //validate list types
+      break;
   }
 
   return { ...validations };
 }
 
-export function errorReducer(state) {
-  const { selectedComponent } = state;
+export function validateComponent(selectedComponent) {
   return {
-    ...state,
     selectedComponent: {
       ...selectedComponent,
       errors: fieldComponentValidations(selectedComponent),
