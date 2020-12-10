@@ -2,6 +2,9 @@ FROM node:12-alpine3.12 AS build
 WORKDIR /usr/src/app
 COPY . .
 RUN apk add --no-cache bash
+RUN npm install -g typescript
+RUN npm install -g @babel/core @babel/cli
+RUN yarn workspaces focus @xgovformbuilder/model
 RUN yarn workspaces focus @xgovformbuilder/runner
 RUN yarn model build
 RUN yarn runner build
