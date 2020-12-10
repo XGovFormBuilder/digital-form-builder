@@ -25,10 +25,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
-      - name: Build and publish {{ matrix.app }}
+      - name: Build and publish ${{ matrix.app }}
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: ./{{matrix.app}}/Dockerfile
+          file: ./${{matrix.app}}/Dockerfile
           tags: |
-            ghcr.io/xgovformbuilder/digital-form-builder-{{ matrix.app }}:latest
+            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
