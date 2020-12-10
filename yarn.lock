@@ -3658,7 +3658,7 @@ __metadata:
     mini-css-extract-plugin: ^0.11.2
     moment-timezone: ^0.5.31
     nanoid: ^3.1.12
-    nodemon: ^2.0.4
+    nodemon: ^2.0.6
     nunjucks: 3.2.1
     prismjs: 1.21.0
     react: 16.13.1
@@ -3783,17 +3783,20 @@ __metadata:
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: 7.1.1
+    atob: ^2.1.2
     aws-sdk: 2.655.0
     babel-eslint: ^10.1.0
     blankie: 5.0.0
     blipp: 4.0.1
     boom: 7.3.0
+    btoa: ^1.2.1
     cheerio: 1.0.0-rc.3
     chrome-launcher: 0.13.1
     code: 5.2.4
     dotenv: 8.2.0
     eslint: ^7.6.0
     eslint-plugin-import: ^2.22.0
+    expr-eval: ^2.0.2
     flat: 5.0.0
     form-data: 3.0.0
     googleapis: 64.0.0
@@ -3812,6 +3815,7 @@ __metadata:
     nanoid: ^3.1.12
     node-sass: 4.13.1
     nodemailer: 6.4.6
+    nodemon: ^2.0.6
     notifications-node-client: 4.7.3
     nunjucks: 3.2.1
     pdfmake: 0.1.65
@@ -3823,6 +3827,7 @@ __metadata:
     typescript: ^4.0.3
     uuid: 7.0.3
     vision: 5.4.4
+    wreck: ^14.2.0
     yar: 9.1.0
   languageName: unknown
   linkType: soft
@@ -5854,7 +5859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:3.4.2, chokidar@npm:>=2.0.0 <4.0.0, chokidar@npm:^3.2.2, chokidar@npm:^3.3.0, chokidar@npm:^3.4.1":
+"chokidar@npm:3.4.2, chokidar@npm:>=2.0.0 <4.0.0, chokidar@npm:^3.3.0, chokidar@npm:^3.4.1":
   version: 3.4.2
   resolution: "chokidar@npm:3.4.2"
   dependencies:
@@ -5896,7 +5901,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.0.0":
+"chokidar@npm:^3.0.0, chokidar@npm:^3.2.2":
   version: 3.4.3
   resolution: "chokidar@npm:3.4.3"
   dependencies:
@@ -7179,12 +7184,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^3.1.0, debug@npm:^3.1.1, debug@npm:^3.2.5, debug@npm:^3.2.6":
+"debug@npm:^3.1.0, debug@npm:^3.1.1, debug@npm:^3.2.5":
   version: 3.2.6
   resolution: "debug@npm:3.2.6"
   dependencies:
     ms: ^2.1.1
   checksum: 619feb53b115f1a8341365b8aa58a8757e6632738587d4b61b25627b74891211cb20e31fdbea37fec766e575a60cf456f7a02d6f9eddfdcef80caa6a4b0fc042
+  languageName: node
+  linkType: hard
+
+"debug@npm:^3.2.6":
+  version: 3.2.7
+  resolution: "debug@npm:3.2.7"
+  dependencies:
+    ms: ^2.1.1
+  checksum: 9fc1277e666db3af31df89e9e41f5c83da6e9de56d4a95b37e095d47ba1958238b8c7b49d4327b516465d46b6340bee723a97a7b2f28c5c7563f8b0a8fc9458a
   languageName: node
   linkType: hard
 
@@ -9301,7 +9315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expr-eval@npm:2.0.2":
+"expr-eval@npm:2.0.2, expr-eval@npm:^2.0.2":
   version: 2.0.2
   resolution: "expr-eval@npm:2.0.2"
   checksum: cbdeb2fe8433175e459c0f5431f00ab3b00ad61614baedd89f3ba6af5c6c06b11658cc83a166b014d90920a7a959e4623ed6207c607f7290703afdcae9de5140
@@ -14949,9 +14963,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nodemon@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "nodemon@npm:2.0.4"
+"nodemon@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "nodemon@npm:2.0.6"
   dependencies:
     chokidar: ^3.2.2
     debug: ^3.2.6
@@ -14961,11 +14975,11 @@ fsevents@~2.1.2:
     semver: ^5.7.1
     supports-color: ^5.5.0
     touch: ^3.1.0
-    undefsafe: ^2.0.2
-    update-notifier: ^4.0.0
+    undefsafe: ^2.0.3
+    update-notifier: ^4.1.0
   bin:
     nodemon: bin/nodemon.js
-  checksum: b5f32e7feea11cc2e3ae6603f2ed9229f3d13d01e0d7d54aab47d0dac3b5759b07a0f00d0a46de7379a8ca8e5705940508dee6d06e4a22b3f31c57ce52faa936
+  checksum: 6a4b0d6ba2c164796a2b164cd8c7e0587387b5fca224526bd1267e93b99a23071b31f51a5eecbeccd656a0ec097a194d9a123a3bc8833e148c53de9c4c3dcebd
   languageName: node
   linkType: hard
 
@@ -16620,11 +16634,11 @@ fsevents@~2.1.2:
   linkType: hard
 
 "pupa@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "pupa@npm:2.0.1"
+  version: 2.1.1
+  resolution: "pupa@npm:2.1.1"
   dependencies:
     escape-goat: ^2.0.0
-  checksum: d03edb9fd7d707e54618711896ab4a96c80fcfb380e413a9130157dc08a3553bf62fa7c7407edbba57095d4ba993df6de4f28a56dd5eca93b5dccbe1fc4a82db
+  checksum: b300d979e1bcc388b0aabe723e9bd7f6598f02a10e66b693b9dde6249f68ad95e93804a1511dbbafd172e404b837d60c49ebdd152e3e94909dc282ca4ba285e8
   languageName: node
   linkType: hard
 
@@ -17289,11 +17303,11 @@ fsevents@~2.1.2:
   linkType: hard
 
 "registry-auth-token@npm:^4.0.0":
-  version: 4.2.0
-  resolution: "registry-auth-token@npm:4.2.0"
+  version: 4.2.1
+  resolution: "registry-auth-token@npm:4.2.1"
   dependencies:
     rc: ^1.2.8
-  checksum: bbdcbe2210ec119538ea5f57df65149bac03e03c0d7fd0e0d0ff323140bb20d62e07a32f825e45902e2aea99e588fd042411a056b477c33761e3a88b846fd87d
+  checksum: 10ca9caeea81da4a9e52f1932c5aa0fc67cc7301df48a768260e946df354dfde8ccd0c2f1caa1b66b49620bb696d18eb2f4be93c55f0217439e2ab116d6c32a4
   languageName: node
   linkType: hard
 
@@ -19585,9 +19599,9 @@ fsevents@~2.1.2:
   linkType: hard
 
 "term-size@npm:^2.1.0":
-  version: 2.2.0
-  resolution: "term-size@npm:2.2.0"
-  checksum: 02307492dfe602234355d55f23f4ce0125ad2dea428a63337e031bc97d2f7832b12c66eb64853f4dc30bdfc05377bc161da8659ecc30303a1ac616a619f284bb
+  version: 2.2.1
+  resolution: "term-size@npm:2.2.1"
+  checksum: a013f688f6fc1b6410be3b2f7a04c3a9169e97186949b0bc33cc7c1943b0c88d9a943f81e518d9227cb817803e7a18c702f2971eafd6d8659ce4a1df94094246
   languageName: node
   linkType: hard
 
@@ -20179,7 +20193,7 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
-"undefsafe@npm:^2.0.2":
+"undefsafe@npm:^2.0.3":
   version: 2.0.3
   resolution: "undefsafe@npm:2.0.3"
   dependencies:
@@ -20404,7 +20418,7 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
-"update-notifier@npm:^4.0.0":
+"update-notifier@npm:^4.1.0":
   version: 4.1.3
   resolution: "update-notifier@npm:4.1.3"
   dependencies:
@@ -21369,7 +21383,7 @@ typescript@^4.0.3:
   languageName: node
   linkType: hard
 
-"wreck@npm:14.2.0":
+"wreck@npm:14.2.0, wreck@npm:^14.2.0":
   version: 14.2.0
   resolution: "wreck@npm:14.2.0"
   dependencies:
