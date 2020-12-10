@@ -30,6 +30,7 @@
   "dependencies": {
     "@hapi/hapi": "19.1.1",
     "@hapi/wreck": "17.0.0",
+    "@snowpack/plugin-babel": "^2.1.5",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
     "aws-sdk": "^2.723.0",
@@ -45,7 +46,8 @@
     "react-helmet": "^6.1.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "schmervice": "^1.5.0"
+    "schmervice": "^1.5.0",
+    "snowpack": "^2.18.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

@@ -10,6 +10,13 @@ function validateDetails(component) {
   };
 }
 
+export interface ValidationError {
+  href?: string;
+  children: string | [string, Record<string, string>];
+}
+
+type ValidationErrors = Record<string, ValidationError>;
+
 const validateName = (name) => {
   //TODO:- should also validate uniqueness.
   const errors: any = {};
@@ -30,7 +37,7 @@ const validateName = (name) => {
   return errors;
 };
 
-function fieldComponentValidations(component) {
+export function fieldComponentValidations(component) {
   const validations = [
     validateName(component.name),
     validateTitle("field-title", component.title),
@@ -71,14 +78,21 @@ function fieldComponentValidations(component) {
       break;
   }
 
-  return { ...validations };
+  return validations.reduce(
+    (acc, error: ValidationError) => {
+      if (Object.keys(error).length) {
+        return { ...acc, ...error };
+      }
+    },
+    { hasValidated: true }
+  );
 }
 
-export function validateComponent(selectedComponent) {
-  return {
-    selectedComponent: {
-      ...selectedComponent,
-      errors: fieldComponentValidations(selectedComponent),
-    },
-  };
-}
+// export function validateComponent(selectedComponent) {
+//   return {
+//     selectedComponent: {
+//       ...selectedComponent,
+//       errors: fieldComponentValidations(selectedComponent),
+//     },
+//   };
+// }
