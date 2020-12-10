@@ -24,6 +24,14 @@ include:
 - Focusing on what is best for the community
 - Showing empathy towards other community members
 
+## Accessibility
+
+TODO
+
+## Setting up your environment
+
+TODO
+
 ## Setting up your environment
 
 TODO
