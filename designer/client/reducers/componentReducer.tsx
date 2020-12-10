@@ -42,7 +42,7 @@ export enum ComponentActions {
   SUBMIT = "SUBMIT",
   DELETE = "DELETE",
 
-  SHOULD_VALIDATE = "SHOULD_VALIDATE",
+  VALIDATE = "VALIDATE",
 }
 
 function valueIsInEnum<T>(value: string, enumType: T): value is T {
@@ -79,11 +79,15 @@ export function componentReducer(
     },
     selectedListItem = {},
     selectedListItemIndex,
-    errors = {},
   } = state;
   let staticListItems = selectedComponent.values?.items;
 
   const { options, schema = {} } = selectedComponent;
+
+  if (type !== ComponentActions.VALIDATE) {
+    state.hasValidated = false;
+  }
+
   if (valueIsInEnum(type, StaticListItemActions)) {
     return staticListItemReducer(state, action);
   } else {
@@ -348,7 +352,7 @@ export function componentReducer(
           };
         }
 
-      case ComponentActions.SHOULD_VALIDATE:
+      case ComponentActions.VALIDATE:
         return validateComponent(state);
 
       default:
