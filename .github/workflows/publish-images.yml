@@ -2,7 +2,7 @@ name: Publish to Github Container Registry
 
 on:
   push:
-    branches: chore/STP-1037-1038
+    branches: master
 
 jobs:
   build-publish:
