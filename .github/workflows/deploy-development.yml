@@ -2,7 +2,7 @@ name: Deploy Development Environment
 
 on:
   registry_package:
-    types: [published]
+    types: [ published, updated ]
 
 jobs:
   deploy:
