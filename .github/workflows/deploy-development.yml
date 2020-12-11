@@ -22,7 +22,7 @@ jobs:
         run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest
 
       - name: Tag Image
-        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
 
       - name: Push to Heroku Registry
         env:
