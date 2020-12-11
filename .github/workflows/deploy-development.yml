@@ -9,6 +9,7 @@ on:
 
 jobs:
   heroku-log-in:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Login to Heroku Container registry
