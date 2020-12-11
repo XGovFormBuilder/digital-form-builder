@@ -7,6 +7,9 @@ on:
 jobs:
   build-publish:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [ designer, runner ]
     steps:
       - name: Trigger deploy
         uses: benc-uk/workflow-dispatch@v1
