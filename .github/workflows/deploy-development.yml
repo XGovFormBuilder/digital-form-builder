@@ -17,10 +17,10 @@ jobs:
         run: heroku container:login
 
       - name: Build Designer Image
-        run: docker build . --file ./designer/Dockerfile --tag digital-form-builder
+        run: docker build . --file ./designer/Dockerfile --tag digital-form-builder-designer
 
       - name: Tag Image
-        run: docker tag digital-form-builder registry.heroku.com/digital-form-builder-designer/web
+        run: docker tag digital-form-builder-designer registry.heroku.com/digital-form-builder-designer/web
 
       - name: Push to Heroku Registry
         env:
@@ -31,6 +31,7 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
         run: heroku container:release -a digital-form-builder-designer web
+
   deploy-runner-dev:
     runs-on: ubuntu-latest
     steps:
@@ -42,10 +43,10 @@ jobs:
         run: heroku container:login
 
       - name: Build Designer Image
-        run: docker build . --file ./runner/Dockerfile --tag digital-form-builder
+        run: docker build . --file ./runner/Dockerfile --tag digital-form-builder-runner
 
       - name: Tag Image
-        run: docker tag digital-form-builder registry.heroku.com/digital-form-builder-runner/web
+        run: docker tag digital-form-builder-runner registry.heroku.com/digital-form-builder-runner/web
 
       - name: Push to Heroku Registry
         env:
