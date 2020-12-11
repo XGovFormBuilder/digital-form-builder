@@ -28,7 +28,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: ./${{matrix.app}}/Dockerfile
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.GHCR_PAT }}
           tags: |
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ github.run_number }}
