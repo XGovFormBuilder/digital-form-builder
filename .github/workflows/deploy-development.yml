@@ -24,7 +24,7 @@ jobs:
         app: [ designer, runner ]
     steps:
       - name: Pull latest ${{ matrix.app }} image
-        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
+        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}
 
       - name: Tag Image
         run: docker tag digital-form-builder-designer registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
