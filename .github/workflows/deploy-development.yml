@@ -18,18 +18,18 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
         run: heroku container:login
 
-      - name: Pull latest ${{ matrix.app }} image
-        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:latest
+      - name: Pull latest ${{ github.event.inputs.app }} image
+        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest
 
       - name: Tag Image
-        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
 
       - name: Push to Heroku Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: docker push registry.heroku.com/digital-form-builder-${{ inputs.app }}/web
+        run: docker push registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
 
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:release -a digital-form-builder-${{ inputs.app }} web
+        run: heroku container:release -a digital-form-builder-${{ github.event.inputs.app }} web
