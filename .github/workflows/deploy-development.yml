@@ -1,59 +1,35 @@
 name: Deploy Development Environment
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to deploy to heroku'
+        required: true
+        default: 'designer'
 
 jobs:
-  deploy-designer-dev:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
         run: heroku container:login
 
-      - name: Build Designer Image
-        run: docker build . --file ./designer/Dockerfile --tag digital-form-builder-designer
+      - name: Pull latest ${{ github.event.inputs.app }} image
+        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest
 
       - name: Tag Image
-        run: docker tag digital-form-builder-designer registry.heroku.com/digital-form-builder-designer/web
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
 
       - name: Push to Heroku Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: docker push registry.heroku.com/digital-form-builder-designer/web
+        run: docker push registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
 
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:release -a digital-form-builder-designer web
-
-  deploy-runner-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Login to Heroku Container registry
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:login
-
-      - name: Build Designer Image
-        run: docker build . --file ./runner/Dockerfile --tag digital-form-builder-runner
-
-      - name: Tag Image
-        run: docker tag digital-form-builder-runner registry.heroku.com/digital-form-builder-runner/web
-
-      - name: Push to Heroku Registry
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: docker push registry.heroku.com/digital-form-builder-runner/web
-
-      - name: Release
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:release -a digital-form-builder-runner web
+        run: heroku container:release -a digital-form-builder-${{ github.event.inputs.app }} web
