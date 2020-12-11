@@ -8,21 +8,18 @@ on:
       chore/STP-1037-1038
 
 jobs:
-  heroku-log-in:
+  deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [ designer, runner ]
     steps:
       - uses: actions/checkout@v2
       - name: Login to Heroku Container registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
         run: heroku container:login
-  deploy:
-    needs: heroku-log-in
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        app: [ designer, runner ]
-    steps:
+
       - name: Pull latest ${{ matrix.app }} image
         run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
 
