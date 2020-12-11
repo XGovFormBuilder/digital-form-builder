@@ -1,18 +1,16 @@
 name: Deploy Development Environment
 
 on:
-  workflow_run:
-    workflows: [ "Publish to Github Container Registry" ]
-    branches: chore/STP-1037-1038
-    types:
-      - completed
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to deploy to heroku'
+        required: true
+        default: 'designer'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        app: [ designer, runner ]
     steps:
       - uses: actions/checkout@v2
       - name: Login to Heroku Container registry
@@ -21,17 +19,17 @@ jobs:
         run: heroku container:login
 
       - name: Pull latest ${{ matrix.app }} image
-        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
+        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:latest
 
       - name: Tag Image
-        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
 
       - name: Push to Heroku Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: docker push registry.heroku.com/digital-form-builder-${{ matrix.app }}/web
+        run: docker push registry.heroku.com/digital-form-builder-${{ inputs.app }}/web
 
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:release -a digital-form-builder-${{ matrix.app }} web
+        run: heroku container:release -a digital-form-builder-${{ inputs.app }} web

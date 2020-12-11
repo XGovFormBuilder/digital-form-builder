@@ -29,8 +29,13 @@ jobs:
         with:
           push: true
           file: ./${{matrix.app}}/Dockerfile
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.GHCR_PAT }}
           tags: |
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ github.run_number }}
+
+      - name: Trigger deploy
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Deploy Development Environment
+          token: ${{ secrets.GHCR_PAT }}
+          inputs: '{ "app": "${{ matrix.app }}"}'
