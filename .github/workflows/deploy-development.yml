@@ -3,9 +3,6 @@ name: Deploy Development Environment
 on:
   registry_package:
     types: [published]
-  push:
-    branches:
-      chore/STP-1037-1038
 
 jobs:
   deploy:
