@@ -3,6 +3,10 @@ name: Deploy Development Environment
 on:
   registry_package:
     types: [ published, updated ]
+  workflow_run:
+    workflows: [ "Publish to Github Container Registry" ]
+    types:
+      - completed
 
 jobs:
   deploy:
