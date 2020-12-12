@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  designer:
+    build:
+      context: .
+      args:
+        - WORKSPACE_NAME=designer
+        - SERVICE_PORT=3009
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=123abc
+      - sandbox=true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/model/node_modules
+      - /usr/src/app/model/dist
+      - /usr/src/app/designer/node_modules
+      - /usr/src/app/designer/dist
+      - /usr/src/app/runner/node_modules
+      - /usr/src/app/runner/dist
+    command: yarn designer dev
+
+  runner:
+    build:
+      context: .
+      args:
+        - WORKSPACE_NAME=runner
+        - SERVICE_PORT=3009
+    ports:
+      - "3009:3009"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=123abc
+      - sandbox=true
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/model/node_modules
+      - /usr/src/app/model/dist
+      - /usr/src/app/designer/node_modules
+      - /usr/src/app/designer/dist
+      - /usr/src/app/runner/node_modules
+      - /usr/src/app/runner/dist
+    command: yarn runner dev
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server --requirepass 123abc
+    ports:
+      - "6379:6379"
