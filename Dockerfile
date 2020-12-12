@@ -7,7 +7,7 @@ ARG SERVICE_PORT
 
 RUN apk update
 RUN apk upgrade
-RUN apk add bash
+RUN apk add --no-cache bash
 RUN apk add inotify-tools
 
 RUN mkdir -p /user/src/app
