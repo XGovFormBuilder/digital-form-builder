@@ -5,7 +5,7 @@ services:
       context: .
       args:
         - WORKSPACE_NAME=designer
-        - SERVICE_PORT=3009
+        - PORT=3000
     ports:
       - "3000:3000"
     environment:
@@ -15,7 +15,7 @@ services:
       - REDIS_PASSWORD=123abc
       - sandbox=true
     volumes:
-      - .:/usr/src/app
+      - ./designer:/usr/src/app/designer:delegated
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
       - /usr/src/app/model/dist
@@ -30,7 +30,7 @@ services:
       context: .
       args:
         - WORKSPACE_NAME=runner
-        - SERVICE_PORT=3009
+        - PORT=3009
     ports:
       - "3009:3009"
     environment:
@@ -40,7 +40,7 @@ services:
       - REDIS_PASSWORD=123abc
       - sandbox=true
     volumes:
-      - ./:/usr/src/app
+      - ./runner:/usr/src/app/runner:delegated
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
       - /usr/src/app/model/dist

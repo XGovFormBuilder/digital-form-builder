@@ -3,12 +3,11 @@ FROM node:12-alpine3.12
 
 # docker-compose args
 ARG WORKSPACE_NAME
-ARG SERVICE_PORT
+ARG PORT
 
 RUN apk update
 RUN apk upgrade
 RUN apk add --no-cache bash
-RUN apk add inotify-tools
 
 RUN mkdir -p /user/src/app
 WORKDIR /usr/src/app
@@ -19,4 +18,4 @@ RUN yarn install
 RUN yarn build:dependencies
 RUN yarn $WORKSPACE_NAME build
 
-EXPOSE $SERVICE_PORT
+EXPOSE $PORT
