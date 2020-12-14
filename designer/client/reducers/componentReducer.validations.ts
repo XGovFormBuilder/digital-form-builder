@@ -27,8 +27,6 @@ export interface ValidationError {
   children: string | [string, Record<string, string>];
 }
 
-type ValidationErrors = Record<string, ValidationError>;
-
 const validateName = (name) => {
   //TODO:- should also validate uniqueness.
   const errors: any = {};
@@ -90,14 +88,9 @@ export function fieldComponentValidations(component) {
       break;
   }
 
-  const r = validations.reduce((acc, error: ValidationError) => {
-    console.log("reducing, with", error);
-    if (error && Object.keys(error).length) {
-      return { ...acc, ...error };
-    }
+  return validations.reduce((acc, error: ValidationError) => {
+    return !!error ? { ...acc, ...error } : acc;
   }, {});
-  console.log("after reduce", r);
-  return r;
 }
 
 export function validateComponent(selectedComponent) {

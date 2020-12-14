@@ -34,7 +34,7 @@ function ErrorSummary({
   }
 
   return (
-    <div''
+    <div
       className={`govuk-error-summary ${className || ""}`}
       aria-labelledby="error-summary-title"
       role="alert"
@@ -51,9 +51,17 @@ function ErrorSummary({
           {errorList.map((error, index) => (
             <li key={index}>
               {error.href ? (
-                <a href={error.href}>{i18n(...error.children)}</a>
+                <a href={error.href}>
+                  {Array.isArray(error.children)
+                    ? i18n(...error.children)
+                    : error.children}
+                </a>
               ) : (
-                <>{i18n(...error.children)}</>
+                <>
+                  {Array.isArray(error.children)
+                    ? i18n(...error.children)
+                    : error.children}
+                </>
               )}
             </li>
           ))}

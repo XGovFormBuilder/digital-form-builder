@@ -2,8 +2,7 @@ import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone } from "@xgovformbuilder/model";
 import { hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
-
+import ErrorSummary from "../error-summary";
 class ComponentEdit extends React.Component {
   constructor(props) {
     super(props);

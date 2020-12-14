@@ -3,7 +3,7 @@ import { SortableHandle } from "react-sortable-hoc";
 import Flyout from "./flyout";
 import ComponentEdit from "./componentEdit";
 import { ComponentContextProvider } from "./reducers/componentReducer";
-import ComponentCreate from "./component-create-fn";
+import ComponentCreate from "./ComponentCreate";
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle">&#9776;</span>
 ));

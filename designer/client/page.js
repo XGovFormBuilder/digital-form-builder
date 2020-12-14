@@ -7,7 +7,7 @@ import {
 import Flyout from "./flyout";
 import PageEdit from "./page-edit";
 import { Component } from "./component";
-import ComponentCreateFn from "./component-create-fn";
+import ComponentCreateFn from "./ComponentCreate";
 import { ComponentTypes, clone } from "@xgovformbuilder/model";
 import { withI18n } from "./i18n";
 

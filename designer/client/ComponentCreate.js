@@ -16,13 +16,20 @@ function ComponentCreate(props) {
 
   const { data, save } = useContext(DataContext);
   const [state, dispatch] = useContext(ComponentContext);
-  const { selectedComponent } = state;
+  const { selectedComponent, errors, hasValidated } = state;
   const { page, toggleAddComponent } = props;
 
   const [isSaving, setIsSaving] = useState(false);
+  const hasErrors = Object.values(errors).length > 0;
+
+  useLayoutEffect(() => {
+    if (hasValidated && !hasErrors) {
+      handleSubmit();
+    }
+  }, [hasValidated]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     setIsSaving(true);
     const { isNew, ...selectedComponent } = state.selectedComponent;
     data.addComponent(page.path, { ...selectedComponent });

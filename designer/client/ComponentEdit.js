@@ -5,15 +5,12 @@ import React, {
   useLayoutEffect,
   useState,
 } from "react";
-import ComponentTypeEdit from "./componentTypeEdit";
-import { clone } from "@xgovformbuilder/model";
+import ComponentTypeEdit from "./ComponentTypeEdit";
 import { DataContext } from "./context";
 import {
   ComponentActions,
   ComponentContext,
 } from "./reducers/componentReducer";
-import { validateComponent } from "./reducers/componentReducer.validations";
-import { hasValidationErrors } from "./validations";
 import ErrorSummary from "./error-summary";
 
 export function ComponentEdit(props) {
@@ -23,13 +20,11 @@ export function ComponentEdit(props) {
     dispatch,
   ] = useContext(props.context || ComponentContext);
   const { page, toggleShowEditor } = props;
+  const hasErrors = Object.values(errors).length > 0;
 
-  useEffect(() => {
-    console.log(errors);
-    if (hasValidated && errors) {
-      console.log("has validated, no errors!");
+  useLayoutEffect(() => {
+    if (hasValidated && !hasErrors) {
       handleSubmit();
-      //toggleShowEditor();
     }
   }, [hasValidated]);
 
@@ -41,7 +36,7 @@ export function ComponentEdit(props) {
       return;
     }
 
-    if (Object.values(errors)) {
+    if (hasErrors) {
       return;
     }
 
@@ -56,13 +51,14 @@ export function ComponentEdit(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-
+    const copy = data.toJSON();
+    const indexOfPage = copy.pages;
     dispatch({ action: ComponentActions.DELETE });
   };
 
   return (
     <>
-      {errors && <ErrorSummary errorList={Object.values(errors)} />}
+      {hasErrors && <ErrorSummary errorList={Object.values(errors)} />}
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="govuk-form-group">
           <span className="govuk-label govuk-label--s" htmlFor="type">
@@ -74,11 +70,7 @@ export function ComponentEdit(props) {
         <button className="govuk-button" type="submit">
           Save
         </button>{" "}
-        <a
-          href="#"
-          onClick={(event) => event.preventDefault()}
-          className="govuk-link"
-        >
+        <a href="#" onClick={handleDelete} className="govuk-link">
           Delete
         </a>
       </form>

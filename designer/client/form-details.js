@@ -3,8 +3,7 @@ import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
 import { Input } from "@govuk-jsx/input";
 import { validateTitle, hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
-
+import ErrorSummary from "./error-summary";
 class FormDetails extends React.Component {
   constructor(props) {
     super(props);

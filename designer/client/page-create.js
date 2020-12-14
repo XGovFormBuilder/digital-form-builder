@@ -6,7 +6,7 @@ import Flyout from "./flyout";
 import SectionEdit from "./section/section-edit";
 import { withI18n } from "./i18n";
 import { Input } from "@govuk-jsx/input";
-import { ErrorSummary } from "./error-summary";
+import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
 
 class PageCreate extends React.Component {
