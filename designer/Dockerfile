@@ -10,13 +10,21 @@ RUN yarn model build
 RUN yarn designer build
 
 FROM node:12-alpine3.12 AS run
-RUN adduser -D -u 1001 app
-RUN mkdir -p /user/src/app && chown -R app /user/src/app
+# working directory
 WORKDIR /usr/src/app
-USER 1001
+
+# copy build from previous stage
 COPY --from=build /usr/src/app/designer ./designer
 COPY --from=build /usr/src/app/model ./model
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package.json ./
+
+# create and set non-root USER
+RUN addgroup -g 1001 appuser && \
+    adduser -S -u 1001 -G appuser appuser
+RUN chown -R appuser:appuser /usr/src/app && \
+    chmod -R 755 /usr/src/app
+USER appuser
+
 EXPOSE 3000
 CMD [ "yarn", "designer", "start" ]
