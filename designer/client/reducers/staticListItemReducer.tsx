@@ -37,7 +37,6 @@ export function staticListItemReducer(
         ...state,
         selectedItem: { ...selectedItem, condition: payload },
       };
-
     case StaticListItemActions.DELETE: {
       delete state.showDeleteWarning, state.selectedItem;
       return state;

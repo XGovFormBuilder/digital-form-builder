@@ -48,7 +48,6 @@
   },
   "error": "Error:",
   "title": "Title",
-  "close": "Close",
   "errors": {
     "required": "This field is required",
     "field": "Enter {{field}}"

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { withI18n } from "./i18n";
 
 interface ErrorListItem {
   reactListKey?: string;
@@ -11,6 +12,7 @@ interface ErrorSummaryProps {
   descriptionChildren: string;
   errorList: Array<ErrorListItem>;
   titleChildren;
+  i18n: any;
 }
 
 function ErrorSummary({
@@ -18,6 +20,7 @@ function ErrorSummary({
   descriptionChildren,
   errorList,
   titleChildren = "There is a problem",
+  i18n,
 }: ErrorSummaryProps) {
   const errorSummaryRef = useRef();
 
@@ -31,7 +34,7 @@ function ErrorSummary({
   }
 
   return (
-    <div
+    <div''
       className={`govuk-error-summary ${className || ""}`}
       aria-labelledby="error-summary-title"
       role="alert"
@@ -46,11 +49,11 @@ function ErrorSummary({
         {description}
         <ul className="govuk-list govuk-error-summary__list">
           {errorList.map((error, index) => (
-            <li key={error.reactListKey || index}>
+            <li key={index}>
               {error.href ? (
-                <a href={error.href}>{error.children}</a>
+                <a href={error.href}>{i18n(...error.children)}</a>
               ) : (
-                <>{error.children}</>
+                <>{i18n(...error.children)}</>
               )}
             </li>
           ))}
@@ -60,4 +63,4 @@ function ErrorSummary({
   );
 }
 
-export { ErrorSummary };
+export default withI18n(ErrorSummary);
