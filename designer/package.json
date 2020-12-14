@@ -94,7 +94,7 @@
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.22.0",
     "file-loader": "^6.1.0",
-    "govuk-frontend": "3.6.0",
+    "govuk-frontend": "^3.10.1",
     "html-webpack-plugin": "^4.5.0",
     "i18next-parser": "^3.3.0",
     "jsdom": "^16.2.2",
