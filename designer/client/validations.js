@@ -1,8 +1,7 @@
 import { isEmpty } from "./helpers";
 
-export function hasValidationErrors(errors) {
-  if (errors) return Object.keys(errors).length > 0;
-  return false;
+export function hasValidationErrors(errors = {}) {
+  return Object.keys(errors).length > 0;
 }
 
 export function validateNotEmpty(id, fieldName, key, value, existingErrors) {

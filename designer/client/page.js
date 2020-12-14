@@ -7,7 +7,7 @@ import {
 import Flyout from "./flyout";
 import PageEdit from "./page-edit";
 import { Component } from "./component";
-import ComponentCreateFn from "./ComponentCreate";
+import ComponentCreate from "./ComponentCreate";
 import { ComponentTypes, clone } from "@xgovformbuilder/model";
 import { withI18n } from "./i18n";
 
@@ -159,7 +159,7 @@ export class Page extends React.Component {
             onHide={this.toggleAddComponent}
           >
             <ComponentContextProvider>
-              <ComponentCreateFn
+              <ComponentCreate
                 renderInForm={true}
                 toggleAddComponent={this.toggleAddComponent}
                 page={page}
