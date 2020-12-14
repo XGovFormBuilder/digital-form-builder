@@ -5,7 +5,10 @@ import {
   StaticListItemActions,
   staticListItemReducer,
 } from "./staticListItemReducer";
-import { validateComponent } from "./componentReducer.validations";
+import {
+  fieldComponentValidations,
+  validateComponent,
+} from "./componentReducer.validations";
 export const ComponentContext = createContext({});
 
 export enum ComponentActions {
@@ -353,7 +356,11 @@ export function componentReducer(
         }
 
       case ComponentActions.VALIDATE:
-        return validateComponent(state);
+        return {
+          ...state,
+          errors: fieldComponentValidations(selectedComponent),
+          hasValidated: true,
+        };
 
       default:
         return { ...state, selectedComponent };

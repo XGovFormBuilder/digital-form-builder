@@ -1,4 +1,4 @@
-import { validateNotEmpty, validateTitle } from "../validations";
+import { validateNotEmpty } from "../validations";
 import { isEmpty } from "../helpers";
 import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
 
@@ -8,6 +8,18 @@ function validateDetails(component) {
     ...validateNotEmpty("details-title", "Title", "title", title),
     ...validateNotEmpty("details-content", "Content", "content", content),
   };
+}
+
+export function validateTitle(id, value) {
+  const titleHasErrors = isEmpty(value);
+  if (titleHasErrors) {
+    return {
+      title: {
+        href: `#${id}`,
+        children: ["errors.field", { field: "$t(title)" }],
+      },
+    };
+  }
 }
 
 export interface ValidationError {
@@ -25,7 +37,7 @@ const validateName = (name) => {
   if (nameHasSpace) {
     errors.name = {
       href: `#field-name`,
-      children: "name.errors.whitespace",
+      children: ["name.errors.whitespace"],
     };
   } else if (nameIsEmpty) {
     errors.name = {
@@ -78,21 +90,18 @@ export function fieldComponentValidations(component) {
       break;
   }
 
-  return validations.reduce(
-    (acc, error: ValidationError) => {
-      if (Object.keys(error).length) {
-        return { ...acc, ...error };
-      }
-    },
-    { hasValidated: true }
-  );
+  const r = validations.reduce((acc, error: ValidationError) => {
+    console.log("reducing, with", error);
+    if (error && Object.keys(error).length) {
+      return { ...acc, ...error };
+    }
+  }, {});
+  console.log("after reduce", r);
+  return r;
 }
 
-// export function validateComponent(selectedComponent) {
-//   return {
-//     selectedComponent: {
-//       ...selectedComponent,
-//       errors: fieldComponentValidations(selectedComponent),
-//     },
-//   };
-// }
+export function validateComponent(selectedComponent) {
+  return {
+    errors: fieldComponentValidations(selectedComponent),
+  };
+}

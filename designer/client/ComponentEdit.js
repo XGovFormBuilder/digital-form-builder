@@ -1,4 +1,10 @@
-import React, { memo, useContext, useLayoutEffect, useState } from "react";
+import React, {
+  memo,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import ComponentTypeEdit from "./componentTypeEdit";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
@@ -8,19 +14,36 @@ import {
 } from "./reducers/componentReducer";
 import { validateComponent } from "./reducers/componentReducer.validations";
 import { hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
+import ErrorSummary from "./error-summary";
 
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
-  const [{ selectedComponent, initialName }, dispatch] = useContext(
-    props.context || ComponentContext
-  );
-  const [errors, setErrors] = useState({});
+  const [
+    { selectedComponent, initialName, errors = {}, hasValidated },
+    dispatch,
+  ] = useContext(props.context || ComponentContext);
   const { page, toggleShowEditor } = props;
 
+  useEffect(() => {
+    console.log(errors);
+    if (hasValidated && errors) {
+      console.log("has validated, no errors!");
+      handleSubmit();
+      //toggleShowEditor();
+    }
+  }, [hasValidated]);
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const errors = validate;
+    e?.preventDefault();
+
+    if (!hasValidated) {
+      dispatch({ type: ComponentActions.VALIDATE });
+      return;
+    }
+
+    if (Object.values(errors)) {
+      return;
+    }
 
     const updatedData = data.updateComponent(
       page.path,
