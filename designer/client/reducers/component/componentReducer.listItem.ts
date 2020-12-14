@@ -1,44 +1,36 @@
-export enum StaticListItemActions {
-  EDIT_LABEL = "STATIC_LIST_ITEM_EDIT_LABEL",
-  EDIT_VALUE = "STATIC_LIST_ITEM_EDIT_VALUE",
-  EDIT_HINT = "STATIC_LIST_ITEM_EDIT_HINT",
-  EDIT_CONDITION = "STATIC_LIST_ITEM_EDIT_CONDITION",
-  SUBMIT = "STATIC_LIST_ITEM_SUBMIT",
-  DELETE = "STATIC_LIST_ITEM_DELETE",
-}
+import { StaticListItem } from "./types";
 
-export function staticListItemReducer(
+export function componentListItemReducer(
   state,
   action: {
-    type: StaticListItemActions;
+    type: StaticListItem;
     payload: any;
   }
 ) {
   const { type, payload } = action;
   const { selectedItem } = state;
   switch (type) {
-    case StaticListItemActions.EDIT_LABEL:
+    case StaticListItem.EDIT_LABEL:
       return {
         ...state,
         selectedItem: { ...selectedItem, label: payload },
       };
-    case StaticListItemActions.EDIT_VALUE:
+    case StaticListItem.EDIT_VALUE:
       return {
         ...state,
         selectedItem: { ...selectedItem, value: payload },
       };
-    case StaticListItemActions.EDIT_HINT:
+    case StaticListItem.EDIT_HINT:
       return {
         ...state,
         selectedItem: { ...selectedItem, hint: payload },
       };
-    case StaticListItemActions.EDIT_CONDITION:
+    case StaticListItem.EDIT_CONDITION:
       return {
         ...state,
         selectedItem: { ...selectedItem, condition: payload },
       };
-
-    case StaticListItemActions.DELETE: {
+    case StaticListItem.DELETE: {
       delete state.showDeleteWarning, state.selectedItem;
       return state;
     }

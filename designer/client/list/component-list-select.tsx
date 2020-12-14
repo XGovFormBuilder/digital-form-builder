@@ -1,10 +1,8 @@
 import { ListActions } from "../reducers/listActions";
 import { DataContext } from "../context";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "../reducers/componentReducer";
+import React, { useContext, useEffect, useState } from "react";
+import { ComponentContext } from "../reducers/component/componentReducer";
+import { Actions } from "../reducers/component/types";
 import { Label } from "@govuk-jsx/label";
 import { withI18n } from "../i18n";
 import { ListContext } from "../reducers/listReducer";
@@ -48,7 +46,7 @@ export function ComponentListSelect(props) {
   const createStaticList = async (e) => {
     e.preventDefault();
     dispatch({
-      type: ComponentActions.ADD_STATIC_LIST,
+      type: Actions.ADD_STATIC_LIST,
       payload: true,
     });
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, true]);

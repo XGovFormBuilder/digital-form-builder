@@ -1,6 +1,6 @@
-import React, { memo, useContext, useLayoutEffect } from "react";
+import React, { useContext } from "react";
 import { ComponentTypes } from "@xgovformbuilder/model";
-import { ComponentContext } from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
 import FieldEdit from "./field-edit";
 import ListFieldEdit from "./component-editors/list-field-edit";
 import { TextFieldEdit } from "./component-editors/text-field-edit";
@@ -9,7 +9,7 @@ import { FileUploadFieldEdit } from "./file-upload-field-edit";
 import { NumberFieldEdit } from "./component-editors/number-field-edit";
 import { DateFieldEdit } from "./component-editors/date-field-edit";
 import { ParaEdit } from "./component-editors/para-edit";
-import { DetailsEdit } from "./component-editors/details-edit";
+import DetailsEdit from "./component-editors/details-edit";
 
 const componentTypeEditors = {
   TextFieldEdit: TextFieldEdit,
@@ -42,8 +42,8 @@ function ComponentTypeEdit(props) {
   );
 
   const needsFieldInputs = type?.subType !== "content";
-  const TagName = componentTypeEditors[`${selectedComponent?.type}Edit`];
-
+  const TagName =
+    componentTypeEditors[`${selectedComponent?.type}Edit`] || FieldEdit;
   return (
     <div>
       {needsFieldInputs && <FieldEdit page={page} context={context} />}

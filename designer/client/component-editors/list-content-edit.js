@@ -1,9 +1,7 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./../reducers/componentReducer";
+import { ComponentContext } from "../reducers/component/componentReducer";
 import { DataContext } from "./../context";
+import { Actions } from "./../reducers/component/types";
 
 export function ListContentEdit({ context }) {
   const [{ selectedComponent }, dispatch] = useContext(
@@ -25,7 +23,7 @@ export function ListContentEdit({ context }) {
             checked={options.type === "numbered"}
             onChange={() =>
               dispatch({
-                type: ComponentActions.EDIT_OPTIONS_TYPE,
+                type: Actions.EDIT_OPTIONS_TYPE,
                 payload: options.type === "numbered" ? undefined : "numbered",
               })
             }

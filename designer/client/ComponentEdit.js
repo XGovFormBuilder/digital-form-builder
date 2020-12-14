@@ -1,26 +1,37 @@
-import React, { memo, useContext, useLayoutEffect, useState } from "react";
-import ComponentTypeEdit from "./componentTypeEdit";
-import { clone } from "@xgovformbuilder/model";
+import React, { memo, useContext, useLayoutEffect } from "react";
+import ComponentTypeEdit from "./ComponentTypeEdit";
 import { DataContext } from "./context";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
-import { validateComponent } from "./reducers/componentReducer.validations";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
+import ErrorSummary from "./error-summary";
 import { hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
 
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
-  const [{ selectedComponent, initialName }, dispatch] = useContext(
-    props.context || ComponentContext
-  );
-  const [errors, setErrors] = useState({});
+  const [
+    { selectedComponent, initialName, errors = {}, hasValidated },
+    dispatch,
+  ] = useContext(props.context || ComponentContext);
   const { page, toggleShowEditor } = props;
+  const hasErrors = hasValidationErrors(errors);
+
+  useLayoutEffect(() => {
+    if (hasValidated && !hasErrors) {
+      handleSubmit();
+    }
+  }, [hasValidated]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const errors = validate;
+    e?.preventDefault();
+
+    if (!hasValidated) {
+      dispatch({ type: Actions.VALIDATE });
+      return;
+    }
+
+    if (hasErrors) {
+      return;
+    }
 
     const updatedData = data.updateComponent(
       page.path,
@@ -33,13 +44,14 @@ export function ComponentEdit(props) {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-
-    dispatch({ action: ComponentActions.DELETE });
+    const copy = data.toJSON();
+    const indexOfPage = copy.pages;
+    dispatch({ action: Actions.DELETE });
   };
 
   return (
     <>
-      {errors && <ErrorSummary errorList={Object.values(errors)} />}
+      {hasErrors && <ErrorSummary errorList={Object.values(errors)} />}
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="govuk-form-group">
           <span className="govuk-label govuk-label--s" htmlFor="type">
@@ -51,11 +63,7 @@ export function ComponentEdit(props) {
         <button className="govuk-button" type="submit">
           Save
         </button>{" "}
-        <a
-          href="#"
-          onClick={(event) => event.preventDefault()}
-          className="govuk-link"
-        >
+        <a href="#" onClick={handleDelete} className="govuk-link">
           Delete
         </a>
       </form>

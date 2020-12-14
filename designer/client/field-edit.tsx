@@ -1,51 +1,43 @@
-import React, { memo, useContext, useLayoutEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ComponentTypes } from "@xgovformbuilder/model";
-import {
-  ComponentContext,
-  ComponentActions,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
+import { Input } from "@govuk-jsx/input";
 import { withI18n } from "./i18n";
 
-function FieldEdit({ i18n, context = ComponentContext }) {
-  const [{ selectedComponent }, dispatch] = useContext(context);
+export function FieldEdit({ i18n, context = ComponentContext }) {
+  const [{ selectedComponent, errors }, dispatch] = useContext(context);
 
-  const {
-    name,
-    title = "",
-    hint = "",
-    attrs,
-    type,
-    options = {},
-    nameHasError = false,
-  } = selectedComponent;
+  const { name, title, hint, attrs, type, options = {} } = selectedComponent;
   const { hideTitle = false, optionalText = false, required = true } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
-
   return (
     <div>
       <div data-test-id="standard-inputs">
-        <div className="govuk-form-group">
-          <label className="govuk-label govuk-label--s" htmlFor="field-title">
-            Title
-          </label>
-          <span className="govuk-hint">
-            This is the title text displayed on the page
-          </span>
-          <input
-            className="govuk-input"
-            id="field-title"
-            name="title"
-            type="text"
-            value={title}
-            onChange={(e) => {
-              dispatch({
-                type: ComponentActions.EDIT_TITLE,
-                payload: e.target.value,
-              });
-            }}
-          />
-        </div>
+        <Input
+          id="field-title"
+          name="title"
+          label={{
+            className: "govuk-label--s",
+            children: ["Title"],
+          }}
+          hint={{
+            children: ["This is the title text displayed on the page"],
+          }}
+          value={title || ""}
+          onChange={(e) => {
+            dispatch({
+              type: Actions.EDIT_TITLE,
+              payload: e.target.value,
+            });
+          }}
+          errorMessage={
+            errors?.title
+              ? { children: i18n(...errors.title.children) }
+              : undefined
+          }
+        />
         <Textarea
           id="field-hint"
           name="hint"
@@ -61,7 +53,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
           value={hint}
           onChange={(e) => {
             dispatch({
-              type: ComponentActions.EDIT_HELP,
+              type: Actions.EDIT_HELP,
               payload: e.target.value,
             });
           }}
@@ -77,7 +69,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
               checked={hideTitle}
               onChange={(e) =>
                 dispatch({
-                  type: ComponentActions.EDIT_OPTIONS_HIDE_TITLE,
+                  type: Actions.EDIT_OPTIONS_HIDE_TITLE,
                   payload: e.target.checked,
                 })
               }
@@ -93,13 +85,13 @@ function FieldEdit({ i18n, context = ComponentContext }) {
         </div>
         <div
           className={`govuk-form-group ${
-            nameHasError ? "govuk-form-group--error" : ""
+            errors?.name ? "govuk-form-group--error" : ""
           }`}
         >
           <label className="govuk-label govuk-label--s" htmlFor="field-name">
             {i18n("component.name")}
           </label>
-          {nameHasError && (
+          {errors?.name && (
             <span className="govuk-error-message">
               <span className="govuk-visually-hidden">{i18n("error")}</span>{" "}
               {i18n("name.errors.whitespace")}
@@ -108,15 +100,15 @@ function FieldEdit({ i18n, context = ComponentContext }) {
           <span className="govuk-hint">{i18n("name.hint")}</span>
           <input
             className={`govuk-input govuk-input--width-20 ${
-              nameHasError ? "govuk-input--error" : ""
+              errors?.name ? "govuk-input--error" : ""
             }`}
             id="field-name"
             name="name"
             type="text"
-            value={name}
+            value={name || ""}
             onChange={(e) => {
               dispatch({
-                type: ComponentActions.EDIT_NAME,
+                type: Actions.EDIT_NAME,
                 payload: e.target.value,
               });
             }}
@@ -134,7 +126,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
               checked={!required}
               onChange={(e) =>
                 dispatch({
-                  type: ComponentActions.EDIT_OPTIONS_REQUIRED,
+                  type: Actions.EDIT_OPTIONS_REQUIRED,
                   payload: !e.target.checked,
                 })
               }
@@ -171,7 +163,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
               checked={optionalText}
               onChange={(e) =>
                 dispatch({
-                  type: ComponentActions.EDIT_OPTIONS_HIDE_OPTIONAL,
+                  type: Actions.EDIT_OPTIONS_HIDE_OPTIONAL,
                   payload: e.target.checked,
                 })
               }
@@ -189,4 +181,4 @@ function FieldEdit({ i18n, context = ComponentContext }) {
   );
 }
 
-export default memo(withI18n(FieldEdit));
+export default withI18n(FieldEdit);

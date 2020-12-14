@@ -11,13 +11,7 @@ import {
   useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
 import { clone } from "@xgovformbuilder/model";
-import {
-  ListItemHook,
-  useDeleteStaticListItem,
-  useGlobalListItem,
-  useListItemAdapter,
-  useStaticListItem,
-} from "../hooks/list/useListItem";
+import { useListItemAdapter } from "../hooks/list/useListItem";
 
 type Props = {
   i18n: (string: string, interpolation?: any) => any;
@@ -37,6 +31,7 @@ export function ListItemEdit(props: Props) {
     handleHintChange,
     prepareForSubmit,
     prepareForDelete,
+    validate,
     value,
     condition,
     title,
@@ -45,11 +40,12 @@ export function ListItemEdit(props: Props) {
 
   const { i18n } = props;
   const { conditions } = data;
-  let error;
-
+  const { listItemErrors: errors } = state;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const copy = clone(data);
+    const hasErrors = validate(i18n);
+    if (hasErrors) return;
     await save(prepareForSubmit(copy));
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST_ITEM, false]);
   };
@@ -62,15 +58,19 @@ export function ListItemEdit(props: Props) {
   };
 
   return (
-    <div>
+    <>
       <form onSubmit={handleSubmit}>
         <Input
+          id="title"
           label={{
             className: "govuk-label--s",
             children: [i18n("list.item.title")],
           }}
           value={title}
           onChange={handleTitleChange}
+          errorMessage={
+            errors?.title ? { children: errors?.title.children } : undefined
+          }
         />
         <Textarea
           label={{ children: [i18n("list.item.titleHint")] }}
@@ -81,7 +81,6 @@ export function ListItemEdit(props: Props) {
           label={{ children: [i18n("list.item.value")] }}
           hint={{ children: [i18n("list.item.valueHint")] }}
           value={value}
-          errorMessage={error}
           onChange={handleValueChange}
         />
 
@@ -116,7 +115,7 @@ export function ListItemEdit(props: Props) {
           </a>
         </div>
       </form>
-    </div>
+    </>
   );
 }
 

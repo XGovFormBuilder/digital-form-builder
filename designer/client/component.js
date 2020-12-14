@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { SortableHandle } from "react-sortable-hoc";
 import Flyout from "./flyout";
-import ComponentEdit from "./componentEdit";
-import { ComponentContextProvider } from "./reducers/componentReducer";
-import ComponentCreate from "./component-create-fn";
+import ComponentEdit from "./ComponentEdit";
+import { ComponentContextProvider } from "./reducers/component/componentReducer";
+import ComponentCreate from "./ComponentCreate";
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle">&#9776;</span>
 ));

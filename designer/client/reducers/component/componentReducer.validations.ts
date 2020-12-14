@@ -1,5 +1,5 @@
-import { validateNotEmpty, validateTitle } from "../validations";
-import { isEmpty } from "../helpers";
+import { validateNotEmpty } from "../../validations";
+import { isEmpty } from "../../helpers";
 import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
 
 function validateDetails(component) {
@@ -10,12 +10,22 @@ function validateDetails(component) {
   };
 }
 
+function validateTitle(id, value) {
+  const titleHasErrors = isEmpty(value);
+  if (titleHasErrors) {
+    return {
+      title: {
+        href: `#${id}`,
+        children: ["errors.field", { field: "$t(title)" }],
+      },
+    };
+  }
+}
+
 export interface ValidationError {
   href?: string;
   children: string | [string, Record<string, string>];
 }
-
-type ValidationErrors = Record<string, ValidationError>;
 
 const validateName = (name) => {
   //TODO:- should also validate uniqueness.
@@ -25,7 +35,7 @@ const validateName = (name) => {
   if (nameHasSpace) {
     errors.name = {
       href: `#field-name`,
-      children: "name.errors.whitespace",
+      children: ["name.errors.whitespace"],
     };
   } else if (nameIsEmpty) {
     errors.name = {
@@ -78,21 +88,13 @@ export function fieldComponentValidations(component) {
       break;
   }
 
-  return validations.reduce(
-    (acc, error: ValidationError) => {
-      if (Object.keys(error).length) {
-        return { ...acc, ...error };
-      }
-    },
-    { hasValidated: true }
-  );
+  return validations.reduce((acc, error: ValidationError) => {
+    return !!error ? { ...acc, ...error } : acc;
+  }, {});
 }
 
-// export function validateComponent(selectedComponent) {
-//   return {
-//     selectedComponent: {
-//       ...selectedComponent,
-//       errors: fieldComponentValidations(selectedComponent),
-//     },
-//   };
-// }
+export function validateComponent(selectedComponent) {
+  return {
+    errors: fieldComponentValidations(selectedComponent),
+  };
+}

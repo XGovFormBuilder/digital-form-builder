@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
+
 import { Classes } from "./classes";
 
 export function FileUploadFieldEdit({ context }) {
-  const [{ selectedComponent }] = useContext(
+  const [{ selectedComponent }, dispatch] = useContext(
     !!context ? context : ComponentContext
   );
   const { options } = selectedComponent;
@@ -27,7 +26,7 @@ export function FileUploadFieldEdit({ context }) {
             checked={options.multiple === false}
             onChange={(e) =>
               dispatch({
-                type: ComponentActions.EDIT_OPTIONS_FILE_UPLOAD_MULTIPLE,
+                type: Actions.EDIT_OPTIONS_FILE_UPLOAD_MULTIPLE,
                 payload: !options.multiple,
               })
             }

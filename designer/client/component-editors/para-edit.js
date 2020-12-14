@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./../reducers/componentReducer";
-import { DataContext } from "./../context";
+import { ComponentContext } from "../reducers/component/componentReducer";
+import { DataContext } from "../context";
 import Editor from "./../editor";
+import { Actions } from "./../reducers/component/types";
 
 export function ParaEdit({ context }) {
   const [{ selectedComponent }, dispatch] = useContext(
@@ -30,7 +28,7 @@ export function ParaEdit({ context }) {
           value={selectedComponent.content}
           valueCallback={(content) => {
             dispatch({
-              type: ComponentActions.EDIT_CONTENT,
+              type: Actions.EDIT_CONTENT,
               payload: content,
             });
           }}
@@ -50,7 +48,7 @@ export function ParaEdit({ context }) {
           value={options.conditions}
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_OPTIONS_CONDITION,
+              type: Actions.EDIT_OPTIONS_CONDITION,
               payload: e.target.value,
             })
           }

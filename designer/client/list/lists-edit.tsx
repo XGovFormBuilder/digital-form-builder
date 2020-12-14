@@ -18,14 +18,15 @@ type Props = {
   i18n?: any;
 };
 
-export function ListsEdit(props: Props) {
-  const { isEditingFromComponent, i18n } = props;
+const useListsEdit = (props) => {
+  const { isEditingFromComponent = false, i18n } = props;
+
   const [
-    { isEditingList, isEditingListItem, showWarning },
+    { isEditingList, isEditingListItem, showWarning, context },
     listsEditorDispatch,
   ]: any = useContext(ListsEditorContext);
 
-  const [{ selectedList, selectedItem }]: any = useSetListEditorContext();
+  const [{ selectedList, selectedItem }]: any = useContext(context);
 
   const closeFlyout = (action: ListsEditorStateActions) => {
     return () => listsEditorDispatch([action, false]);
@@ -39,6 +40,34 @@ export function ListsEdit(props: Props) {
           i18n("list.static.noun"),
       });
 
+  const itemTitle = selectedItem?.isNew
+    ? i18n("list.item.newTitle")
+    : i18n("list.item.editing", {
+        title: selectedItem?.title,
+      });
+
+  return {
+    isEditingList,
+    isEditingListItem,
+    showWarning,
+    selectedList,
+    selectedItem,
+    closeFlyout,
+    listTitle,
+    itemTitle,
+  };
+};
+
+export function ListsEdit(props: Props) {
+  const { isEditingFromComponent, i18n } = props;
+  const {
+    isEditingList,
+    isEditingListItem,
+    showWarning,
+    closeFlyout,
+    listTitle,
+    itemTitle,
+  } = useListsEdit(props);
   return (
     <div className="govuk-body">
       {!isEditingFromComponent && <GlobalListSelect />}
@@ -60,13 +89,7 @@ export function ListsEdit(props: Props) {
       {isEditingListItem && (
         <RenderInPortal>
           <Flyout
-            title={
-              selectedItem?.isNew
-                ? i18n("list.item.newTitle")
-                : i18n("list.item.editing", {
-                    title: selectedItem.title,
-                  })
-            }
+            title={itemTitle}
             show={true}
             width={""}
             onHide={closeFlyout(ListsEditorStateActions.IS_EDITING_LIST_ITEM)}

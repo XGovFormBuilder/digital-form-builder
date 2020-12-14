@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
 
 export function Classes({ context }) {
   const [{ selectedComponent }, dispatch] = useContext(
@@ -32,7 +30,7 @@ export function Classes({ context }) {
         value={options.classes || ""}
         onChange={(e) =>
           dispatch({
-            type: ComponentActions.EDIT_OPTIONS_CLASSES,
+            type: Actions.EDIT_OPTIONS_CLASSES,
             payload: e.target.value,
           })
         }

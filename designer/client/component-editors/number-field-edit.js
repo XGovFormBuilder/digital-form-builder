@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./../reducers/componentReducer";
+import { ComponentContext } from "../reducers/component/componentReducer";
+import { Actions } from "./../reducers/component/types";
+
 import { Classes } from "./../classes";
 
 export function NumberFieldEdit({ context }) {
@@ -34,7 +33,7 @@ export function NumberFieldEdit({ context }) {
           type="number"
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_MIN,
+              type: Actions.EDIT_SCHEMA_MIN,
               payload: e.target.value,
             })
           }
@@ -58,7 +57,7 @@ export function NumberFieldEdit({ context }) {
           type="number"
           onBlur={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_MAX,
+              type: Actions.EDIT_SCHEMA_MAX,
               payload: e.target.value,
             })
           }
@@ -84,7 +83,7 @@ export function NumberFieldEdit({ context }) {
           type="number"
           onBlur={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_PRECISION,
+              type: Actions.EDIT_SCHEMA_PRECISION,
               payload: e.target.value,
             })
           }

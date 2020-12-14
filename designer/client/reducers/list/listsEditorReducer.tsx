@@ -1,5 +1,5 @@
 import { ListContext } from "../listReducer";
-import { ComponentContext } from "../componentReducer";
+import { ComponentContext } from "../component/componentReducer";
 import React, { createContext, useContext, useReducer } from "react";
 
 export enum ListsEditorStateActions {
@@ -51,7 +51,7 @@ export function listsEditorReducer(
     case ListsEditorStateActions.SET_LIST_ITEM_TITLE:
       return { ...state, listItemTitle: payload };
     case ListsEditorStateActions.IS_EDITING_LIST:
-      return { ...state, isEditingList: payload };
+      return { ...state, isEditingList: payload, showWarning: false };
     case ListsEditorStateActions.IS_EDITING_LIST_ITEM:
       return { ...state, isEditingListItem: payload };
     case ListsEditorStateActions.IS_EDITING_STATIC:

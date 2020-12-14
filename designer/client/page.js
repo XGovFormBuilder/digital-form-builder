@@ -12,7 +12,7 @@ import { ComponentTypes, clone } from "@xgovformbuilder/model";
 import { withI18n } from "./i18n";
 
 import { PageLinkage } from "./components/page-linkage";
-import { ComponentContextProvider } from "./reducers/componentReducer";
+import { ComponentContextProvider } from "./../reducers/component/componentReducer";
 
 const SortableItem = SortableElement(({ index, page, component, data }) => (
   <div className="component-item">

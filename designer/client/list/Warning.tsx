@@ -22,8 +22,10 @@ export function useWarning() {
     const selectedListIndex = copy.lists.findIndex(
       (list) => list.name === initialName
     );
-    copy.lists.splice(selectedListIndex, 1);
-    await save(copy);
+    if (selectedListIndex >= 0) {
+      copy.lists.splice(selectedListIndex, 1);
+      await save(copy);
+    }
     dispatch([ListsEditorStateActions.IS_EDITING_LIST, false]);
   }
   function keep(e) {

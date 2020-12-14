@@ -1,12 +1,9 @@
-import { StaticListItemActions } from "../../reducers/staticListItemReducer";
+import { StaticListItem as StaticListItemActions } from "../../reducers/component/types";
 import { ListActions } from "../../reducers/listActions";
-import {
-  ListsEditorContext,
-  ListsEditorStateActions,
-} from "../../reducers/list/listsEditorReducer";
+import { ListsEditorContext } from "../../reducers/list/listsEditorReducer";
 import { useContext } from "react";
 import { clone } from "@xgovformbuilder/model";
-import { DataContext } from "../../context";
+import { hasValidationErrors, validateTitle } from "../../validations";
 
 export type ListItemHook = {
   handleTitleChange: (e) => void;
@@ -15,6 +12,7 @@ export type ListItemHook = {
   handleHintChange: (e) => void;
   prepareForDelete: <T>(data: T, index?: number) => T;
   prepareForSubmit: <T>(data: T) => T;
+  validate: (i18n: any) => boolean;
   value: any;
   condition: any;
   title: string;
@@ -63,6 +61,19 @@ export function useStaticListItem(state, dispatch): ListItemHook {
     });
   }
 
+  function validate(i18n) {
+    const title = state.selectedItem.label || "";
+    const errors = validateTitle("title", title, i18n);
+    const valErrors = hasValidationErrors(errors);
+    if (valErrors) {
+      dispatch({
+        type: ListActions.LIST_ITEM_VALIDATION_ERRORS,
+        payload: errors,
+      });
+    }
+    return valErrors;
+  }
+
   function prepareForSubmit(data) {
     const copy = clone(data);
     const { initialName, selectedItemIndex } = state;
@@ -102,6 +113,7 @@ export function useStaticListItem(state, dispatch): ListItemHook {
     handleHintChange,
     prepareForSubmit,
     prepareForDelete,
+    validate,
     value,
     condition,
     title: selectedItem.label || "",
@@ -142,6 +154,19 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     });
   }
 
+  function validate(i18n) {
+    const title = state.selectedItem.text || "";
+    const errors = validateTitle("title", title, i18n);
+    const valErrors = hasValidationErrors(errors);
+    if (valErrors) {
+      dispatch({
+        type: ListActions.LIST_ITEM_VALIDATION_ERRORS,
+        payload: errors,
+      });
+    }
+    return valErrors;
+  }
+
   function prepareForSubmit(data) {
     const copy = clone(data);
     const { selectedList, selectedItemIndex, initialName } = state;
@@ -149,7 +174,7 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     if (!selectedItem.isNew) {
       items = items.splice(selectedItemIndex, 1, selectedItem);
     } else {
-      const { isNew, ...selectedItem } = state.selectedItem;
+      const { isNew, errors, ...selectedItem } = state.selectedItem;
       items.push(selectedItem);
     }
 
@@ -186,6 +211,7 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     handleHintChange,
     prepareForSubmit,
     prepareForDelete,
+    validate,
     value,
     condition,
     title: selectedItem.text || "",

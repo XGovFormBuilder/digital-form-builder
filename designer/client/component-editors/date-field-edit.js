@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./../reducers/componentReducer";
+import { ComponentContext } from "../reducers/component/componentReducer";
+import { Actions } from "./../reducers/component/types";
 import { Classes } from "./../classes";
 
 export function DateFieldEdit({ context }) {
@@ -33,7 +31,7 @@ export function DateFieldEdit({ context }) {
           type="number"
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_OPTIONS_MAX_DAYS_IN_PAST,
+              type: Actions.EDIT_OPTIONS_MAX_DAYS_IN_PAST,
               payload: e.target.value,
             })
           }
@@ -56,7 +54,7 @@ export function DateFieldEdit({ context }) {
           type="number"
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_OPTIONS_MAX_DAYS_IN_FUTURE,
+              type: Actions.EDIT_OPTIONS_MAX_DAYS_IN_FUTURE,
               payload: e.target.value,
             })
           }

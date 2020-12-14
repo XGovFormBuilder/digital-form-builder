@@ -2,8 +2,7 @@ import FeeItems from "./fee-items";
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { Input } from "@govuk-jsx/input";
-import { ErrorSummary } from "./error-summary";
-
+import ErrorSummary from "./error-summary";
 class FeeEdit extends React.Component {
   constructor(props) {
     super(props);

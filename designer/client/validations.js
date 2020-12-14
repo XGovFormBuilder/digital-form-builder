@@ -1,8 +1,7 @@
 import { isEmpty } from "./helpers";
 
-export function hasValidationErrors(errors) {
-  if (errors) return Object.keys(errors).length > 0;
-  return false;
+export function hasValidationErrors(errors = {}) {
+  return Object.keys(errors).length > 0;
 }
 
 export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
@@ -11,7 +10,7 @@ export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
   if (hasErrors) {
     errors[key] = {
       href: `#${id}`,
-      children: `Enter ${fieldName}`,
+      children: [`Enter ${fieldName}`],
     };
   }
   return errors;
@@ -27,7 +26,7 @@ export function validateName(id, fieldName, value, i18n) {
       : "Name must not contain spaces";
     errors.name = {
       href: `#${id}`,
-      children: message,
+      children: [message],
     };
   } else if (namesIsEmpty) {
     const message = i18n
@@ -35,7 +34,7 @@ export function validateName(id, fieldName, value, i18n) {
       : "Enter Name";
     errors.name = {
       href: `#${id}`,
-      children: message,
+      children: [message],
     };
   }
   return errors;
@@ -51,7 +50,7 @@ export function validateTitle(id, value, i18n) {
 
     errors.title = {
       href: `#${id}`,
-      children: message,
+      children: [message],
     };
   }
   return errors;

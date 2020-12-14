@@ -413,7 +413,7 @@ suite("Page edit", () => {
     assertInputControlProp({
       wrapper,
       id: "page-title",
-      expectedValue: { children: "Enter Title" },
+      expectedValue: { children: ["Enter Title"] },
       prop: "errorMessage",
     });
     expect(wrapper.find(ErrorSummary).exists()).to.equal(true);

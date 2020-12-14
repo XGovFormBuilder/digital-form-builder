@@ -9,7 +9,7 @@ import {
   validateTitle,
   hasValidationErrors,
 } from "../validations";
-import { ErrorSummary } from "../error-summary";
+import ErrorSummary from "../error-summary";
 
 class SectionEdit extends React.Component {
   constructor(props) {

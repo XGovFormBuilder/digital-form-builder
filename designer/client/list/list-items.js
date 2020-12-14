@@ -35,7 +35,7 @@ const SortableItem = SortableElement(
           <a
             href="#"
             onClick={(e) => {
-              e.preventDefault();
+              e?.preventDefault();
               selectListItem(item);
             }}
           >
@@ -46,7 +46,7 @@ const SortableItem = SortableElement(
           <a
             href="#"
             onClick={(e) => {
-              e.preventDefault();
+              e?.preventDefault();
               removeItem(index);
             }}
           >

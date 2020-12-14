@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import { FlyoutContext } from "./context";
 import { withI18n } from "./i18n";
 
@@ -6,14 +6,13 @@ export function useFlyoutEffect(props) {
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
-  const { NEVER_UNMOUNTS } = props;
+  const { NEVER_UNMOUNTS } = (props = {});
 
   /**
    * @code on component mount
    */
   useLayoutEffect(() => {
     flyoutContext.increment();
-    console.log("offset incrementing", flyoutContext.flyoutCount);
     return function cleanup() {
       flyoutContext.decrement();
     };
