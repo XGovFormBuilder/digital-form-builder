@@ -1,18 +1,27 @@
-import React from "react";
-import ComponentTypeEdit from "./component-type-edit";
-import { clone, ComponentTypes } from "@xgovformbuilder/model";
-import { hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
+import React, { Component, ChangeEvent } from "react";
+import { clone } from "@xgovformbuilder/model";
 
-class ComponentCreate extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSaving: false,
-      errors: {},
-    };
-    this.typeEditRef = React.createRef();
-  }
+import { ErrorSummary } from "../../error-summary";
+import { hasValidationErrors } from "../../validations";
+import ComponentTypeEdit from "../../component-type-edit";
+import { ComponentCreateList } from "./ComponentCreateList";
+
+type Props = {
+  data: any;
+};
+
+type State = {
+  isSaving: boolean;
+  errors: {};
+};
+
+class ComponentCreate extends Component<Props, State> {
+  typeEditRef = React.createRef();
+
+  state = {
+    isSaving: false,
+    errors: {},
+  };
 
   async componentDidMount() {
     const { data } = this.props;
@@ -55,9 +64,9 @@ class ComponentCreate extends React.Component {
     this.setState({ component });
   };
 
-  onChangeComponentType = (e) => {
+  onChangeComponentType = (event: ChangeEvent<HTMLSelectElement>) => {
     this.setState({
-      component: { type: e.target.value, name: this.state.id },
+      component: { type: event.target.value, name: this.state.id },
       errors: {},
     });
   };
@@ -65,37 +74,13 @@ class ComponentCreate extends React.Component {
   render() {
     const { page, data } = this.props;
     const { id, isSaving, errors } = this.state;
-
+    <ComponentCreateList onChangeComponentType={this.onChangeComponentType} />;
     return (
       <div>
         {hasValidationErrors(errors) && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-          <div className="govuk-form-group">
-            <label className="govuk-label govuk-label--s" htmlFor="type">
-              Type
-            </label>
-            <select
-              className="govuk-select"
-              id="type"
-              name="type"
-              required
-              onChange={this.onChangeComponentType}
-            >
-              <option />
-              {ComponentTypes.sort((a, b) =>
-                (a.title ?? "").localeCompare(b.title)
-              ).map((type) => {
-                return (
-                  <option key={type.name} value={type.name}>
-                    {type.title}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-
           {this.state?.component?.type && (
             <div>
               <ComponentTypeEdit
