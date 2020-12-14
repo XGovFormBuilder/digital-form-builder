@@ -346,14 +346,23 @@ export function componentReducer(
               ...selectedComponent,
             },
             selectedListName: payload,
+            listItemErrors: {},
           };
         } else {
           // this is not changing component.values right now, since we don't want to "lose" static values.
           return {
             ...state,
             selectedListName: payload,
+            listItemErrors: {},
           };
         }
+
+      case ListActions.LIST_ITEM_VALIDATION_ERRORS: {
+        return {
+          ...state,
+          listItemErrors: payload,
+        };
+      }
 
       case ComponentActions.VALIDATE:
         return {
@@ -377,6 +386,7 @@ const initComponentState = (props) => {
     selectedListName: undefined,
     pagePath: props?.pagePath,
     isNew: props.isNew || ((selectedComponent?.name && false) ?? true),
+    listItemErrors: {},
   };
   if (!!selectedComponent) {
     init.selectedListName =

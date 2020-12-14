@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
-import ComponentTypeEdit from "./component-type-edit";
+import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import { nanoid } from "nanoid";
