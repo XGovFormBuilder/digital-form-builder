@@ -11,6 +11,8 @@ export interface ListState {
   isEditingFromComponent?: boolean;
   selectedListItem?: any; //TODO:- type
   initialName?: string;
+  errors?: any;
+  listItemErrors?: any;
 }
 /**
  * @desc this reducer is for "global" list types.
@@ -36,7 +38,7 @@ export function listReducer(
       };
     }
     case ListActions.EDIT_LIST:
-      return state;
+      return { ...state, errors: {} };
 
     case ListActions.DESELECT_LIST_ITEM:
       delete state.selectedItem, state.selectedItemIndex;
@@ -68,7 +70,7 @@ export function listReducer(
       return { ...state, selectedList: { ...selectedList, type: payload } };
 
     case ListActions.ADD_LIST_ITEM:
-      return { ...state, selectedItem: { isNew: true } };
+      return { ...state, selectedItem: { isNew: true }, listItemErrors: {} };
 
     case ListActions.EDIT_LIST_ITEM: {
       let selectedItem, selectedItemIndex;
@@ -84,6 +86,7 @@ export function listReducer(
         ...state,
         selectedItem,
         selectedItemIndex,
+        listItemErrors: {},
       };
     }
 
@@ -115,8 +118,25 @@ export function listReducer(
       return { selectedList };
     }
 
+    case ListActions.LIST_ITEM_VALIDATION_ERRORS: {
+      return {
+        ...state,
+        listItemErrors: payload,
+      };
+    }
+
+    case ListActions.LIST_VALIDATION_ERRORS: {
+      return {
+        ...state,
+        errors: payload,
+      };
+    }
+
     case ListActions.SUBMIT:
-      return state;
+      return {
+        ...state,
+        errors: {},
+      };
   }
 }
 

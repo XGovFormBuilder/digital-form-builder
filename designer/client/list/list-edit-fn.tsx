@@ -13,6 +13,7 @@ import {
 import { StaticListItemActions } from "../reducers/staticListItemReducer";
 import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
+import { hasValidationErrors, validateTitle } from "../validations";
 
 const useListItem = (state, dispatch) => {
   const [{ isEditingStatic }, listsEditorDispatch]: any = useContext(
@@ -44,8 +45,8 @@ const useListItem = (state, dispatch) => {
   };
 };
 
-function useListEdit() {
-  const [state] = useSetListEditorContext();
+function useListEdit(i18n) {
+  const [state, dispatch] = useSetListEditorContext();
   const [
     { showWarning, isEditingStatic },
     listsEditorDispatch,
@@ -64,6 +65,16 @@ function useListEdit() {
     e.preventDefault();
     const { selectedList, initialName } = state;
 
+    //TODO - move this to separate method
+    const titleError = validateTitle("title", selectedList.title, i18n);
+    if (hasValidationErrors(titleError)) {
+      dispatch({
+        type: ListActions.LIST_VALIDATION_ERRORS,
+        payload: titleError,
+      });
+      return;
+    }
+
     const copy = clone(data);
     if (selectedList.isNew) {
       delete selectedList.isNew;
@@ -77,6 +88,9 @@ function useListEdit() {
     await save(copy.toJSON());
 
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, false]);
+    dispatch({
+      type: ListActions.SUBMIT,
+    });
   };
 
   return {
@@ -88,30 +102,28 @@ function useListEdit() {
 
 export function ListEdit(props) {
   const { i18n } = props;
-  const { handleSubmit, handleDelete, isEditingStatic } = useListEdit();
+  const { handleSubmit, handleDelete, isEditingStatic } = useListEdit(i18n);
 
   const [state, dispatch] = useSetListEditorContext();
   const { selectedList, createItem } = useListItem(state, dispatch);
-
-  const titleHasError = false;
-
+  const { errors } = state;
   return (
     <>
       <form onSubmit={handleSubmit} autoComplete="off">
         {!isEditingStatic && selectedList && (
           <div
             className={`govuk-form-group ${
-              titleHasError ? "govuk-form-group--error" : ""
+              errors?.title ? "govuk-form-group--error" : ""
             }`}
           >
             <Label htmlFor="list-title">{i18n("list.title")}</Label>
             <Hint>{i18n("wontShow")}</Hint>
-            {titleHasError && (
+            {errors?.title && (
               <ErrorMessage>{i18n("errors.required")}</ErrorMessage>
             )}
             <input
               className={`govuk-input govuk-input--width-20 ${
-                titleHasError ? "govuk-input--error" : ""
+                errors?.title ? "govuk-input--error" : ""
               }`}
               id="list-title"
               name="title"
