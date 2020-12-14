@@ -15,7 +15,7 @@ type State = {
   errors: {};
 };
 
-class ComponentCreate extends Component<Props, State> {
+export class ComponentCreate extends Component<Props, State> {
   typeEditRef = React.createRef();
 
   state = {

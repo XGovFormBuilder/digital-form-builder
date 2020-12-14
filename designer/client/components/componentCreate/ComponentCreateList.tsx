@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import { ComponentTypes } from "@xgovformbuilder/model";
 
-console.log(ComponentTypes);
+console.log("XXXXX", ComponentTypes);
 
 type Props = {
   onChangeComponentType: (event: ChangeEvent<HTMLSelectElement>) => void;
