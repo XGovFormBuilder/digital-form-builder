@@ -42,8 +42,8 @@ function ComponentTypeEdit(props) {
   );
 
   const needsFieldInputs = type?.subType !== "content";
-  const TagName = componentTypeEditors[`${selectedComponent?.type}Edit`];
-
+  const TagName =
+    componentTypeEditors[`${selectedComponent?.type}Edit`] || FieldEdit;
   return (
     <div>
       {needsFieldInputs && <FieldEdit page={page} context={context} />}

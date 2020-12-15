@@ -94,6 +94,9 @@
       "noun": "component list",
       "newTitle": "Add a new component list",
       "saveFirst": "You must save before creating a component list, or you can select an existing list"
+    },
+    "errors": {
+      "empty": "List items cannot be empty."
     }
   },
 
