@@ -26,7 +26,15 @@ include:
 
 ## Accessibility
 
-TODO
+As a minimum requirement, you must check all code that touches the front-end to ensure it is accessible to [WCAG 2.1 AA](https://www.gov.uk/service-manual/helping-people-to-use-your-service/understanding-wcag).
+
+Additionally, you must:
+
+- check that automated tools such as [aXe](https://www.deque.com/axe/) pass
+- ensure that users can utilise the feature with a keyboard alone
+- test using one or more of the [common assistive technologies](https://www.gov.uk/service-manual/technology/testing-with-assistive-technologies#what-to-test) where possible
+
+Your PR should detail the testing you carried out in the description.
 
 ## Setting up your environment
 
