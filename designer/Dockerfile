@@ -23,8 +23,8 @@ COPY --from=build /usr/src/app/package.json ./
 RUN addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser
 RUN chown -R appuser:appuser /usr/src/app && \
-    chmod -R 755 /usr/src/app
-USER appuser
+    chmod -R 777 /usr/src/app
+USER 1001
 
 EXPOSE 3000
 CMD [ "yarn", "designer", "start" ]
