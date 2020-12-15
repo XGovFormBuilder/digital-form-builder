@@ -7841,7 +7841,6 @@ __metadata:
     "@rollup/plugin-node-resolve": ^9.0.0
     "@typescript-eslint/eslint-plugin": ^4.5.0
     "@typescript-eslint/parser": ^4.5.0
-    arkit: ^1.6.4
     babel-eslint: ^11.0.0-beta.2
     chai: ^4.2.0
     chai-webdriverio: ^1.0.0
