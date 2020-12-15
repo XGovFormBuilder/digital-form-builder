@@ -31,6 +31,9 @@ parameters:
   test:
     type: boolean
     default: false
+  docs:
+    type: boolean
+    default: false
 
 executors:
   node:
