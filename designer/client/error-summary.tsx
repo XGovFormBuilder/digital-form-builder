@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-interface ErrorListItem {
+export interface ErrorListItem {
   reactListKey?: string;
   href?: string;
   children: string;
