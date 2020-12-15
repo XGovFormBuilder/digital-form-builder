@@ -1,5 +1,5 @@
-import { validateNotEmpty } from "../validations";
-import { isEmpty } from "../helpers";
+import { validateNotEmpty } from "../../validations";
+import { isEmpty } from "../../helpers";
 import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
 
 function validateDetails(component) {
@@ -10,7 +10,7 @@ function validateDetails(component) {
   };
 }
 
-export function validateTitle(id, value) {
+function validateTitle(id, value) {
   const titleHasErrors = isEmpty(value);
   if (titleHasErrors) {
     return {

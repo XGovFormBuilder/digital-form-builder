@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./../reducers/componentReducer";
+import { ComponentContext } from "../reducers/component/componentReducer";
+import { Actions } from "./../reducers/component/types";
+
 import { validateNotEmpty } from "../validations";
 
 export function DetailsEdit({ context }) {
@@ -24,7 +23,7 @@ export function DetailsEdit({ context }) {
           required
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_TITLE,
+              type: Actions.EDIT_TITLE,
               payload: e.target.value,
             })
           }
@@ -49,7 +48,7 @@ export function DetailsEdit({ context }) {
           required
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_CONTENT,
+              type: Actions.EDIT_CONTENT,
               payload: e.target.value,
             })
           }

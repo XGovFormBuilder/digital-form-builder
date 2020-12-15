@@ -1,10 +1,8 @@
 import React, { memo, useContext, useLayoutEffect } from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { DataContext } from "./context";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
 import ErrorSummary from "./error-summary";
 import { hasValidationErrors } from "./validations";
 
@@ -27,7 +25,7 @@ export function ComponentEdit(props) {
     e?.preventDefault();
 
     if (!hasValidated) {
-      dispatch({ type: ComponentActions.VALIDATE });
+      dispatch({ type: Actions.VALIDATE });
       return;
     }
 
@@ -48,7 +46,7 @@ export function ComponentEdit(props) {
     e.preventDefault();
     const copy = data.toJSON();
     const indexOfPage = copy.pages;
-    dispatch({ action: ComponentActions.DELETE });
+    dispatch({ action: Actions.DELETE });
   };
 
   return (

@@ -1,5 +1,5 @@
 import { ListContext } from "../listReducer";
-import { ComponentContext } from "../componentReducer";
+import { ComponentContext } from "../component/componentReducer";
 import React, { createContext, useContext, useReducer } from "react";
 
 export enum ListsEditorStateActions {

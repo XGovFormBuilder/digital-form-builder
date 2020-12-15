@@ -2,16 +2,13 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
 import { hasValidationErrors } from "./validations";
 import ErrorSummary from "./error-summary";
-
 function ComponentCreate(props) {
   useEffect(() => {
-    dispatch({ type: ComponentActions.SET_PAGE, payload: page.path });
+    dispatch({ type: Actions.SET_PAGE, payload: page.path });
   }, []);
 
   const { data, save } = useContext(DataContext);
@@ -32,7 +29,7 @@ function ComponentCreate(props) {
     e?.preventDefault();
 
     if (!hasValidated) {
-      dispatch({ type: ComponentActions.VALIDATE });
+      dispatch({ type: Actions.VALIDATE });
       return;
     }
 
@@ -48,7 +45,7 @@ function ComponentCreate(props) {
   };
 
   const handleTypeChange = (e) => {
-    dispatch({ type: ComponentActions.EDIT_TYPE, payload: e.target.value });
+    dispatch({ type: Actions.EDIT_TYPE, payload: e.target.value });
   };
   const { type } = selectedComponent;
 

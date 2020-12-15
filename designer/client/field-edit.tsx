@@ -1,9 +1,7 @@
 import React, { memo, useContext, useLayoutEffect, useState } from "react";
 import { ComponentTypes } from "@xgovformbuilder/model";
-import {
-  ComponentContext,
-  ComponentActions,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
 import { withI18n } from "./i18n";
 
@@ -40,7 +38,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
             value={title}
             onChange={(e) => {
               dispatch({
-                type: ComponentActions.EDIT_TITLE,
+                type: Actions.EDIT_TITLE,
                 payload: e.target.value,
               });
             }}
@@ -61,7 +59,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
           value={hint}
           onChange={(e) => {
             dispatch({
-              type: ComponentActions.EDIT_HELP,
+              type: Actions.EDIT_HELP,
               payload: e.target.value,
             });
           }}
@@ -77,7 +75,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
               checked={hideTitle}
               onChange={(e) =>
                 dispatch({
-                  type: ComponentActions.EDIT_OPTIONS_HIDE_TITLE,
+                  type: Actions.EDIT_OPTIONS_HIDE_TITLE,
                   payload: e.target.checked,
                 })
               }
@@ -116,7 +114,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
             value={name}
             onChange={(e) => {
               dispatch({
-                type: ComponentActions.EDIT_NAME,
+                type: Actions.EDIT_NAME,
                 payload: e.target.value,
               });
             }}
@@ -134,7 +132,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
               checked={!required}
               onChange={(e) =>
                 dispatch({
-                  type: ComponentActions.EDIT_OPTIONS_REQUIRED,
+                  type: Actions.EDIT_OPTIONS_REQUIRED,
                   payload: !e.target.checked,
                 })
               }
@@ -171,7 +169,7 @@ function FieldEdit({ i18n, context = ComponentContext }) {
               checked={optionalText}
               onChange={(e) =>
                 dispatch({
-                  type: ComponentActions.EDIT_OPTIONS_HIDE_OPTIONAL,
+                  type: Actions.EDIT_OPTIONS_HIDE_OPTIONAL,
                   payload: e.target.checked,
                 })
               }

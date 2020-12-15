@@ -10,7 +10,7 @@ import { DataContext } from "./../context";
 import { RenderInPortal } from "../components/render-in-portal";
 import Flyout from "../flyout";
 import ListItemEdit from "./list-item-edit";
-import { ComponentContext } from "../reducers/componentReducer";
+import { ComponentContext } from "../reducers/component/componentReducer";
 
 class ListEdit extends React.Component {
   static contextType = DataContext;
