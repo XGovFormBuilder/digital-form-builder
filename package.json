@@ -63,7 +63,6 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
-    "node-sass": "^4.14.1",
     "prettier": "2.1.2",
     "resolve": "^1.17.0",
     "rollup": "^2.25.0",
@@ -77,7 +76,7 @@
     "chai-webdriverio": "^1.0.0",
     "cucumber-html-reporter": "^5.2.0",
     "designer": "^1.0.2",
-    "govuk-frontend": "^3.8.1",
+    "govuk-frontend": "^3.10.1",
     "wdio-json-reporter": "^2.0.0",
     "webdriverio": "^6.6.0"
   },
