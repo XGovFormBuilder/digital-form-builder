@@ -1,26 +1,36 @@
 import React, { Component, ChangeEvent } from "react";
 import { clone } from "@xgovformbuilder/model";
 
+import { withI18n, I18n } from "../../i18n";
 import { ErrorSummary } from "../../error-summary";
 import { hasValidationErrors } from "../../validations";
 import ComponentTypeEdit from "../../component-type-edit";
-import { ComponentCreateList } from "./ComponentCreateList";
+import ComponentCreateList from "./ComponentCreateList";
+
+import "./ComponentCreate.scss";
 
 type Props = {
   data: any;
+  onCreate: any;
+  page: any;
+  i18n: I18n;
 };
 
 type State = {
+  id: string;
   isSaving: boolean;
-  errors: {};
+  component?: { type: string; name: string };
+  errors: any;
 };
 
 export class ComponentCreate extends Component<Props, State> {
-  typeEditRef = React.createRef();
+  typeEditRef = React.createRef<ComponentTypeEdit>();
 
   state = {
-    isSaving: false,
+    id: "",
     errors: {},
+    component: undefined,
+    isSaving: false,
   };
 
   async componentDidMount() {
@@ -29,10 +39,10 @@ export class ComponentCreate extends Component<Props, State> {
     this.setState({ id });
   }
 
-  async onSubmit(e) {
-    e.preventDefault();
+  async onSubmit(event: ChangeEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    if (this.state.isSaving) {
+    if (!this.state.isSaving) {
       return;
     }
 
@@ -49,6 +59,8 @@ export class ComponentCreate extends Component<Props, State> {
 
     const saved = await data.save(updated);
     this.props.onCreate({ data: saved });
+
+    return true;
   }
 
   validate = () => {
@@ -57,31 +69,34 @@ export class ComponentCreate extends Component<Props, State> {
       this.setState({ errors });
       return errors;
     }
+
     return {};
   };
 
-  storeComponent = (component) => {
+  storeComponent = (component: State["component"]) => {
     this.setState({ component });
   };
 
-  onChangeComponentType = (event: ChangeEvent<HTMLSelectElement>) => {
+  onSelectComponent = (type: string) => {
     this.setState({
-      component: { type: event.target.value, name: this.state.id },
+      component: { type, name: `${this.state.id}` },
       errors: {},
     });
   };
 
   render() {
-    const { page, data } = this.props;
-    const { id, isSaving, errors } = this.state;
-    <ComponentCreateList onChangeComponentType={this.onChangeComponentType} />;
+    const { page, data, i18n } = this.props;
+    const { component, isSaving, errors } = this.state;
+
     return (
-      <div>
+      <div className="component-create">
         {hasValidationErrors(errors) && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
-        <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
-          {this.state?.component?.type && (
+
+        <form onSubmit={this.onSubmit} autoComplete="off">
+          <ComponentCreateList onSelectComponent={this.onSelectComponent} />
+          {component && (
             <div>
               <ComponentTypeEdit
                 page={page}
@@ -95,7 +110,7 @@ export class ComponentCreate extends Component<Props, State> {
                 className="govuk-button"
                 disabled={isSaving}
               >
-                Save
+                {i18n("Save")}
               </button>
             </div>
           )}
@@ -105,4 +120,4 @@ export class ComponentCreate extends Component<Props, State> {
   }
 }
 
-export default ComponentCreate;
+export default withI18n(ComponentCreate);

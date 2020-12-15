@@ -2,6 +2,12 @@ import * as React from "react";
 import i18n from "i18next";
 import Backend from "i18next-http-backend";
 
+export type I18n = (text: string, options?: any) => string;
+
+export interface WithI18nProps {
+  i18n: I18n;
+}
+
 const initI18n = (i18next: typeof i18n): void => {
   i18next.use(Backend).init({
     lng: "en",
@@ -16,18 +22,13 @@ const initI18n = (i18next: typeof i18n): void => {
   });
 };
 
-const translate = (text: string, options?: any): string =>
-  i18n.t(text, options);
-
-interface WithI18nProps {
-  i18n: (text: string, options?: any) => string;
-}
+const translate: I18n = (text, options) => i18n.t(text, options);
 
 const withI18n = <P extends WithI18nProps>(
   Component: React.ComponentType<P>
 ) => {
-  return function WithI18n(props: P) {
-    return <Component {...props} i18n={translate} />;
+  return function WithI18n(props: Omit<P, keyof WithI18nProps>) {
+    return <Component {...(props as P)} i18n={translate} />;
   };
 };
 

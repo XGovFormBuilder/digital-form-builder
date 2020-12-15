@@ -159,7 +159,7 @@ export class Page extends React.Component {
 
         {this.state.showAddComponent && (
           <Flyout
-            title="Add Component"
+            title={i18n("Create component")}
             show={this.state.showAddComponent}
             onHide={this.toggleAddComponent}
           >
