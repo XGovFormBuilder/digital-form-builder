@@ -40,7 +40,7 @@ services:
       - REDIS_PASSWORD=123abc
       - sandbox=true
     volumes:
-      - ./runner:/usr/src/app/runner:delegated
+      - ./runner:/usr/src/app/runner
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
       - /usr/src/app/model/dist

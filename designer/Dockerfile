@@ -14,10 +14,11 @@ FROM node:12-alpine3.12 AS run
 WORKDIR /usr/src/app
 
 # copy build from previous stage
+COPY --from=build /usr/src/app/package.json ./
+COPY --from=build /usr/src/app/.yarn ./.yarn
+COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/designer ./designer
 COPY --from=build /usr/src/app/model ./model
-COPY --from=build /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/package.json ./
 
 # create and set non-root USER
 RUN addgroup -g 1001 appuser && \
