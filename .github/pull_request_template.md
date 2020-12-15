@@ -18,7 +18,7 @@ Please delete options that are not relevant.
 # How Has This Been Tested?
 
 Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce
-the testing if necessary. 
+the testing if necessary.
 
 Before PR's can be merged they will need to be tested by QA and approved where
 applicable. To flag the change to QA assign **@XGovFormBuilder/qa** as one of the reviewers.
@@ -36,3 +36,5 @@ applicable. To flag the change to QA assign **@XGovFormBuilder/qa** as one of th
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 - [ ] I have rebased onto master and there are no code conflicts
+- [ ] I have checked deployments are working in all environments
+- [ ] I have updated the architecture diagrams as per Contribute.md
