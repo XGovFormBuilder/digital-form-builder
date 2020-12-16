@@ -1,17 +1,10 @@
-import React, {
-  memo,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { memo, useContext, useLayoutEffect } from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { DataContext } from "./context";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
 import ErrorSummary from "./error-summary";
+import { hasValidationErrors } from "./validations";
 
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
@@ -20,7 +13,7 @@ export function ComponentEdit(props) {
     dispatch,
   ] = useContext(props.context || ComponentContext);
   const { page, toggleShowEditor } = props;
-  const hasErrors = Object.values(errors).length > 0;
+  const hasErrors = hasValidationErrors(errors);
 
   useLayoutEffect(() => {
     if (hasValidated && !hasErrors) {
@@ -32,7 +25,7 @@ export function ComponentEdit(props) {
     e?.preventDefault();
 
     if (!hasValidated) {
-      dispatch({ type: ComponentActions.VALIDATE });
+      dispatch({ type: Actions.VALIDATE });
       return;
     }
 
@@ -53,7 +46,7 @@ export function ComponentEdit(props) {
     e.preventDefault();
     const copy = data.toJSON();
     const indexOfPage = copy.pages;
-    dispatch({ action: ComponentActions.DELETE });
+    dispatch({ action: Actions.DELETE });
   };
 
   return (

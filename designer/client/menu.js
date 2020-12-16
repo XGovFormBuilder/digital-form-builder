@@ -12,7 +12,7 @@ import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs/outputs-edit";
 import FormDetails from "./form-details";
 import { ListContext, ListContextProvider } from "./reducers/listReducer";
-import { ComponentContextProvider } from "./reducers/componentReducer";
+import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 
 export default class Menu extends React.Component {

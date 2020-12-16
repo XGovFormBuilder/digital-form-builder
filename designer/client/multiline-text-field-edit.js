@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { Actions } from "./reducers/component/types";
+
 import { TextFieldEdit } from "./component-editors/text-field-edit";
 
 export function MultilineTextFieldEdit({ context }) {
@@ -21,7 +20,7 @@ export function MultilineTextFieldEdit({ context }) {
         value={schema.options.rows}
         onChange={(e) =>
           dispatch({
-            type: ComponentActions.EDIT_SCHEMA_ROWS,
+            type: Actions.EDIT_SCHEMA_ROWS,
             payload: e.target.value,
           })
         }

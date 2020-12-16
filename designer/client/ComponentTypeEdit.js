@@ -1,6 +1,6 @@
-import React, { memo, useContext, useLayoutEffect } from "react";
+import React, { useContext } from "react";
 import { ComponentTypes } from "@xgovformbuilder/model";
-import { ComponentContext } from "./reducers/componentReducer";
+import { ComponentContext } from "./reducers/component/componentReducer";
 import FieldEdit from "./field-edit";
 import ListFieldEdit from "./component-editors/list-field-edit";
 import { TextFieldEdit } from "./component-editors/text-field-edit";

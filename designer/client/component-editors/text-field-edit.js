@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import {
-  ComponentActions,
-  ComponentContext,
-} from "./../reducers/componentReducer";
+import { ComponentContext } from "../reducers/component/componentReducer";
+import { Actions } from "./../reducers/component/types";
 import { Classes } from "./../classes";
 
 export function TextFieldEdit({ children, context }) {
@@ -36,7 +34,7 @@ export function TextFieldEdit({ children, context }) {
           type="number"
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_MAX,
+              type: Actions.EDIT_SCHEMA_MAX,
               payload: e.target.value,
             })
           }
@@ -62,7 +60,7 @@ export function TextFieldEdit({ children, context }) {
           type="number"
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_MIN,
+              type: Actions.EDIT_SCHEMA_MIN,
               payload: e.target.value,
             })
           }
@@ -86,7 +84,7 @@ export function TextFieldEdit({ children, context }) {
           type="number"
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_LENGTH,
+              type: Actions.EDIT_SCHEMA_LENGTH,
               payload: e.target.value,
             })
           }
@@ -110,7 +108,7 @@ export function TextFieldEdit({ children, context }) {
           value={schema.regex}
           onChange={(e) =>
             dispatch({
-              type: ComponentActions.EDIT_SCHEMA_REGEX,
+              type: Actions.EDIT_SCHEMA_REGEX,
               payload: e.target.value,
             })
           }

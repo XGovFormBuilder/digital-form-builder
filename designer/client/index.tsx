@@ -9,8 +9,6 @@ import { FlyoutContext, DataContext } from "./context";
 import "./styles/index.scss";
 import { initI18n, i18n } from "./i18n";
 import { DesignerApi } from "./api/designerApi";
-import { RecoilRoot } from "recoil";
-
 initI18n(i18n);
 
 /**
@@ -132,26 +130,24 @@ export class App extends React.Component {
     if (this.state.loaded) {
       return (
         <DataContext.Provider value={dataContextProviderValue}>
-          <RecoilRoot>
-            <FlyoutContext.Provider value={flyoutContextProviderValue}>
-              <div id="app">
-                <Menu
-                  data={data}
-                  id={this.state.id}
-                  updateDownloadedAt={this.updateDownloadedAt}
-                  updatePersona={this.updatePersona}
-                />
-                <Visualisation
-                  data={data}
-                  downloadedAt={this.state.downloadedAt}
-                  updatedAt={this.state.updatedAt}
-                  persona={this.state.persona}
-                  id={id}
-                  previewUrl={previewUrl}
-                />
-              </div>
-            </FlyoutContext.Provider>
-          </RecoilRoot>
+          <FlyoutContext.Provider value={flyoutContextProviderValue}>
+            <div id="app">
+              <Menu
+                data={data}
+                id={this.state.id}
+                updateDownloadedAt={this.updateDownloadedAt}
+                updatePersona={this.updatePersona}
+              />
+              <Visualisation
+                data={data}
+                downloadedAt={this.state.downloadedAt}
+                updatedAt={this.state.updatedAt}
+                persona={this.state.persona}
+                id={id}
+                previewUrl={previewUrl}
+              />
+            </div>
+          </FlyoutContext.Provider>
         </DataContext.Provider>
       );
     } else {
