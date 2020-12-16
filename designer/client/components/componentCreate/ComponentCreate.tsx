@@ -1,11 +1,12 @@
-import React, { Component, ChangeEvent } from "react";
-import { clone } from "@xgovformbuilder/model";
+import React, { Component, ChangeEvent, MouseEvent } from "react";
+import { clone, ComponentDef } from "@xgovformbuilder/model";
 
 import { withI18n, I18n } from "../../i18n";
 import { ErrorSummary } from "../../error-summary";
 import { hasValidationErrors } from "../../validations";
 import ComponentTypeEdit from "../../component-type-edit";
 import ComponentCreateList from "./ComponentCreateList";
+import { BackLink } from "../backLink";
 
 import "./ComponentCreate.scss";
 
@@ -77,10 +78,24 @@ export class ComponentCreate extends Component<Props, State> {
     this.setState({ component });
   };
 
-  onSelectComponent = (type: string) => {
+  onSelectComponent = (component: ComponentDef) => {
     this.setState({
-      component: { type, name: `${this.state.id}` },
+      component: {
+        ...component,
+        name: `${this.state.id}`,
+      },
       errors: {},
+    });
+  };
+
+  reset = (event: MouseEvent<HTMLAnchorElement>) => {
+    console.log("resetting");
+    event.preventDefault();
+
+    this.setState({
+      errors: {},
+      component: undefined,
+      isSaving: false,
     });
   };
 
@@ -90,12 +105,26 @@ export class ComponentCreate extends Component<Props, State> {
 
     return (
       <div className="component-create">
+        {!component && (
+          <h4 className="govuk-heading-m">{i18n("Create component")}</h4>
+        )}
+        {component && (
+          <>
+            <BackLink onClick={this.reset}>
+              {i18n("Back to create component list")}
+            </BackLink>
+            <h4 className="govuk-heading-m">
+              {component?.["title"]} {i18n("component")}
+            </h4>
+          </>
+        )}
         {hasValidationErrors(errors) && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
-
         <form onSubmit={this.onSubmit} autoComplete="off">
-          <ComponentCreateList onSelectComponent={this.onSelectComponent} />
+          {!component && (
+            <ComponentCreateList onSelectComponent={this.onSelectComponent} />
+          )}
           {component && (
             <div>
               <ComponentTypeEdit

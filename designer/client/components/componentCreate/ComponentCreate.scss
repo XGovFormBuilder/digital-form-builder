@@ -1,12 +1,5 @@
 .component-create {
-  &__list {
-    &__item:not(:first-of-type) {
-    }
-  }
-}
-
-.component-create__list {
-  > ol > li {
-    // border: 1px solid red;
+  .back-link {
+    margin-top: 0;
   }
 }
