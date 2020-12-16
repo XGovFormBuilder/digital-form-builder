@@ -22,12 +22,6 @@ const ActionsArr = [
 ];
 
 export function valueIsInEnum<T>(value: string, enumType: T) {
-  console.log(
-    "value",
-    value,
-    enumType,
-    Object.values(enumType).indexOf(value) !== -1
-  );
   return Object.values(enumType).indexOf(value) !== -1;
 }
 
@@ -172,7 +166,7 @@ export const ComponentContextProvider = (props) => {
     componentReducer,
     initComponentState(props)
   );
-  console.log("component context", state);
+  // console.log("component context", state);
 
   return (
     <ComponentContext.Provider value={[state, dispatch]}>
