@@ -145,7 +145,7 @@ const initComponentState = (props) => {
   const selectedComponent = props?.component;
   const newName = nanoid(6);
   const init = {
-    selectedComponent: selectedComponent ?? { name: newName },
+    selectedComponent: selectedComponent ?? { name: newName, options: {} },
     initialName: selectedComponent?.name ?? newName,
     selectedListName: undefined,
     pagePath: props?.pagePath,
