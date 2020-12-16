@@ -11,7 +11,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { test, describe } = lab;
 
-describe.only("BackLink Component", () => {
+describe("BackLink Component", () => {
   test("it renders correctly", () => {
     const wrapper = shallow(<BackLink>Go Back</BackLink>);
     expect(wrapper.text()).to.equal("Go Back");
