@@ -22,7 +22,7 @@ export function useWarning() {
     const selectedListIndex = copy.lists.findIndex(
       (list) => list.name === initialName
     );
-    if (selectedListIndex > 0) {
+    if (selectedListIndex >= 0) {
       copy.lists.splice(selectedListIndex, 1);
       await save(copy);
     }
