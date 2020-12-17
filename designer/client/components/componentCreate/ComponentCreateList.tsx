@@ -2,9 +2,7 @@ import React, { MouseEvent, useCallback } from "react";
 import { ComponentTypes, ComponentDef } from "@xgovformbuilder/model";
 import sortBy from "lodash/sortBy";
 
-import { withI18n, I18n } from "../../i18n";
-
-console.log(ComponentTypes);
+import { i18n } from "../../i18n";
 
 const SelectionFieldsTypes = [
   "CheckboxesField",
@@ -28,11 +26,10 @@ sortBy(ComponentTypes, ["title"]).forEach((component) => {
 });
 
 type Props = {
-  onSelectComponent: (type: string) => void;
-  i18n: I18n;
+  onSelectComponent: (type: ComponentDef) => void;
 };
 
-export const ComponentCreateList = ({ onSelectComponent, i18n }: Props) => {
+export const ComponentCreateList = ({ onSelectComponent }: Props) => {
   const selectComponent = useCallback(
     (event: MouseEvent<HTMLAnchorElement>, component: ComponentDef) => {
       event.preventDefault();
@@ -102,5 +99,3 @@ export const ComponentCreateList = ({ onSelectComponent, i18n }: Props) => {
     </div>
   );
 };
-
-export default withI18n(ComponentCreateList);

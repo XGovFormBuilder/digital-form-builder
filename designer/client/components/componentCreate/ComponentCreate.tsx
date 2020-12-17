@@ -1,11 +1,11 @@
 import React, { Component, ChangeEvent, MouseEvent } from "react";
 import { clone, ComponentDef } from "@xgovformbuilder/model";
 
-import { withI18n, I18n } from "../../i18n";
+import { i18n } from "../../i18n";
 import { ErrorSummary } from "../../error-summary";
 import { hasValidationErrors } from "../../validations";
 import ComponentTypeEdit from "../../component-type-edit";
-import ComponentCreateList from "./ComponentCreateList";
+import { ComponentCreateList } from "./ComponentCreateList";
 import { BackLink } from "../backLink";
 
 import "./ComponentCreate.scss";
@@ -14,7 +14,6 @@ type Props = {
   data: any;
   onCreate: any;
   page: any;
-  i18n: I18n;
 };
 
 type State = {
@@ -34,18 +33,16 @@ export class ComponentCreate extends Component<Props, State> {
     isSaving: false,
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     const { data } = this.props;
     const id = await data.getId();
     this.setState({ id });
-  }
+  };
 
-  async onSubmit(event: ChangeEvent<HTMLFormElement>) {
+  onSubmit = async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!this.state.isSaving) {
-      return;
-    }
+    if (this.state.isSaving) return false;
 
     let validationErrors = this.validate();
     if (hasValidationErrors(validationErrors)) return false;
@@ -57,12 +54,11 @@ export class ComponentCreate extends Component<Props, State> {
     const copy = clone(data);
 
     const updated = copy.addComponent(page.path, component);
-
     const saved = await data.save(updated);
     this.props.onCreate({ data: saved });
 
     return true;
-  }
+  };
 
   validate = () => {
     if (this.typeEditRef.current) {
@@ -89,7 +85,6 @@ export class ComponentCreate extends Component<Props, State> {
   };
 
   reset = (event: MouseEvent<HTMLAnchorElement>) => {
-    console.log("resetting");
     event.preventDefault();
 
     this.setState({
@@ -100,7 +95,7 @@ export class ComponentCreate extends Component<Props, State> {
   };
 
   render() {
-    const { page, data, i18n } = this.props;
+    const { page, data } = this.props;
     const { component, isSaving, errors } = this.state;
 
     return (
@@ -148,5 +143,3 @@ export class ComponentCreate extends Component<Props, State> {
     );
   }
 }
-
-export default withI18n(ComponentCreate);
