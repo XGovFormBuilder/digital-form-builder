@@ -7,10 +7,10 @@ export interface ErrorListItem {
 }
 
 interface ErrorSummaryProps {
-  className: string;
-  descriptionChildren: string;
+  className?: string;
+  descriptionChildren?: string;
   errorList: Array<ErrorListItem>;
-  titleChildren;
+  titleChildren?: string;
 }
 
 function ErrorSummary({
