@@ -162,13 +162,13 @@ workflows:
   build-test:
     when: << pipeline.parameters.build-test >>
     jobs:
-      - install-yarn
+      - install-yarn-lint
       - build-test:
           name: model-build-test
           package_name: model
           should_build: << pipeline.parameters.model >>
           requires:
-            - install-yarn
+            - install-yarn-lint
 
       - build-test:
           name: runner-build-test
