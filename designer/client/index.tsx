@@ -7,9 +7,9 @@ import { Data } from "@xgovformbuilder/model";
 import { customAlphabet } from "nanoid";
 import { FlyoutContext } from "./context";
 import "./index.scss";
-import { initI18n, i18n } from "./i18n";
+import { initI18n } from "./i18n";
 
-initI18n(i18n);
+initI18n();
 
 /**
  * Custom alphabet is required because '-' is used as a symbol in
