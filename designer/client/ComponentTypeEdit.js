@@ -9,7 +9,7 @@ import { FileUploadFieldEdit } from "./file-upload-field-edit";
 import { NumberFieldEdit } from "./component-editors/number-field-edit";
 import { DateFieldEdit } from "./component-editors/date-field-edit";
 import { ParaEdit } from "./component-editors/para-edit";
-import { DetailsEdit } from "./component-editors/details-edit";
+import DetailsEdit from "./component-editors/details-edit";
 
 const componentTypeEditors = {
   TextFieldEdit: TextFieldEdit,

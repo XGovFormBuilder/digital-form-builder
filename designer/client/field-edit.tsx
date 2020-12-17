@@ -16,7 +16,6 @@ function FieldEdit({ i18n, context = ComponentContext }) {
     attrs,
     type,
     options = {},
-    nameHasError = false,
   } = selectedComponent;
   const { hideTitle = false, optionalText = false, required = true } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";

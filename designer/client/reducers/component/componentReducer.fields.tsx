@@ -35,6 +35,7 @@ export function fieldsReducer(
           ...selectedComponent,
           type: payload,
         },
+        errors: {},
       };
     case Fields.EDIT_CONDITION:
       return {
