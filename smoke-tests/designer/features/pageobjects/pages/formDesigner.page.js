@@ -5,24 +5,28 @@ class FormDesignerPage extends Page {
     return $("nav.menu");
   }
 
+  get createNewForm() {
+    return browser.$("=Create new form");
+  }
+
   get addComponentToPage() {
-    return $("button=Create component");
+    return browser.$("button=Create component");
   }
 
   get editPage() {
-    return $("button=Edit page");
+    return browser.$("button=Edit page");
   }
 
   get formPages() {
-    return $$(".page");
+    return browser.$$(".page");
   }
 
   get formPageTitles() {
-    return $$(".page__heading h3");
+    return browser.$$(".page__heading h3");
   }
 
   get linkLine() {
-    return $("polyline");
+    return browser.$("polyline");
   }
 
   get pagesLink() {
@@ -75,7 +79,7 @@ class FormDesignerPage extends Page {
   }
 
   addComponentToPageNumber(index) {
-    return $$(".page .button")[index];
+    return browser.$$(".page .button")[index];
   }
 
   getPageIndex(name) {

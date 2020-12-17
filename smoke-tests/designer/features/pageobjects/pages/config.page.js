@@ -1,11 +1,20 @@
 const Page = require("./basePage");
 
 class configPage extends Page {
-  get newName() {
-    return $(".govuk-input");
+  get pageHeader() {
+    return browser.$("h1");
   }
+
+  get newName() {
+    return browser.$(".govuk-input");
+  }
+
+  get formError() {
+    return browser.$(".govuk-form-group--error .govuk-error-message");
+  }
+
   get startBtn() {
-    return $(".govuk-button");
+    return browser.$(".govuk-button");
   }
 
   newConfig(configName) {

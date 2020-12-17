@@ -14,7 +14,7 @@ class EditPageSection extends Section {
   }
 
   get deleteBtn() {
-    return this.parentElement.$(".govuk-button=delete");
+    return this.parentElement.$(".govuk-button=Delete");
   }
 }
 
