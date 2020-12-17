@@ -55,7 +55,7 @@ jobs:
           name: Trigger workflows
           command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
 
-  install-yarn:
+  install-yarn-lint:
     executor: node-browsers
     working_directory: ~/project
     steps:
@@ -72,12 +72,16 @@ jobs:
             - .yarn
             - model/dist
           key: all-dependencies-{{ checksum "yarn.lock" }}
+      - run:
+          name: Lint
+          command: |
+            yarn lint
       - persist_to_workspace:
           root: ~/project
           paths:
             - .
 
-  build-lint-test:
+  build-test:
     parameters:
       package_name:
         type: string
@@ -158,24 +162,24 @@ workflows:
   build-test:
     when: << pipeline.parameters.build-test >>
     jobs:
-      - install-yarn
-      - build-lint-test:
-          name: model-build-lint-test
+      - install-yarn-lint
+      - build-test:
+          name: model-build-test
           package_name: model
           should_build: << pipeline.parameters.model >>
           requires:
-            - install-yarn
+            - install-yarn-lint
 
-      - build-lint-test:
-          name: runner-build-lint-test
+      - build-test:
+          name: runner-build-test
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
-            - model-build-lint-test
+            - model-build-test
 
-      - build-lint-test:
-          name: designer-build-lint-test
+      - build-test:
+          name: designer-build-test
           package_name: designer
           should_build: << pipeline.parameters.designer >>
           requires:
-            - model-build-lint-test
+            - model-build-test
