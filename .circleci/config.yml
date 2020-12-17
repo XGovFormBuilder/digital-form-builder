@@ -175,11 +175,11 @@ workflows:
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
-            - model-build-lint-test
+            - model-build-test
 
       - build-test:
           name: designer-build-test
           package_name: designer
           should_build: << pipeline.parameters.designer >>
           requires:
-            - model-build-lint-test
+            - model-build-test
