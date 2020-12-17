@@ -15,7 +15,7 @@ import {
   assertInputControlProp,
 } from "./helpers/sub-component-assertions";
 import { Input } from "@govuk-jsx/input";
-import initI18n from "./i18nForTest";
+import { initI18n } from "../client/i18n";
 
 const { expect } = Code;
 const lab = Lab.script();
