@@ -73,8 +73,9 @@ jobs:
             - model/dist
           key: all-dependencies-{{ checksum "yarn.lock" }}
       - run:
-          - name: Lint
-              - yarn lint
+          name: Lint
+          command: |
+            yarn lint
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -122,9 +123,6 @@ jobs:
                         - not: << pipeline.parameters.model >>
                 steps:
                   - run:
-                      - name: Lint
-                        - yarn lint
-                  - run:
                       name: Build dependencies
                       command: |
                         yarn build:dependencies
@@ -166,21 +164,21 @@ workflows:
     jobs:
       - install-yarn
       - build-test:
-          name: model-build-lint-test
+          name: model-build-test
           package_name: model
           should_build: << pipeline.parameters.model >>
           requires:
             - install-yarn
 
       - build-test:
-          name: runner-build-lint-test
+          name: runner-build-test
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
             - model-build-lint-test
 
       - build-test:
-          name: designer-build-lint-test
+          name: designer-build-test
           package_name: designer
           should_build: << pipeline.parameters.designer >>
           requires:
