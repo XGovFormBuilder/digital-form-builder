@@ -6,16 +6,16 @@ const reactJsxPath = path.join(
 );
 
 module.exports = {
-  "sourceType": "unambiguous", // https://github.com/webpack/webpack/issues/4039#issuecomment-564812879
+  sourceType: "unambiguous", // https://github.com/webpack/webpack/issues/4039#issuecomment-564812879
   presets: [
     "@babel/typescript",
     "@babel/preset-react",
     [
       "@babel/preset-env",
       {
-        'debug': false,
-        'useBuiltIns': 'usage',
-        'corejs': 3
+        debug: false,
+        useBuiltIns: "usage",
+        corejs: 3,
       },
     ],
   ],
@@ -35,5 +35,5 @@ module.exports = {
         },
       },
     ],
-  ]
+  ],
 };

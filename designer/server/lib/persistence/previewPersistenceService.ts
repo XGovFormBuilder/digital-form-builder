@@ -24,12 +24,16 @@ export class PreviewPersistenceService implements PersistenceService {
   }
 
   async listAllConfigurations() {
-    const { payload } = await Wreck.get<FormConfiguration[]>(`${config.previewUrl}/published`);
+    const { payload } = await Wreck.get<FormConfiguration[]>(
+      `${config.previewUrl}/published`
+    );
     return JSON.parse(payload.toString());
   }
 
   async getConfiguration(id: string) {
-    const { payload } = await Wreck.get<FormConfiguration>(`${config.previewUrl}/published/${id}`);
+    const { payload } = await Wreck.get<FormConfiguration>(
+      `${config.previewUrl}/published/${id}`
+    );
     return payload.toString();
   }
 }

@@ -20,7 +20,9 @@ const publish = async function (id, configuration) {
 };
 
 const getPublished = async function (id) {
-  const { payload } = await Wreck.get<FormConfiguration>(`${config.publishUrl}/published/${id}`);
+  const { payload } = await Wreck.get<FormConfiguration>(
+    `${config.publishUrl}/published/${id}`
+  );
   return payload.toString();
 };
 
