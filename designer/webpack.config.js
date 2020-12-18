@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const babelOptions = require("babel.config.js");
+const babelOptions = require("./.babelrc.js");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
