@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 services:
   designer:
     build:
@@ -14,6 +14,8 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=123abc
       - sandbox=true
+      - PREVIEW_URL=http://localhost:3009
+      - PUBLISH_URL=http://runner:3009
     volumes:
       - ./designer:/usr/src/app/designer:delegated
       - /usr/src/app/node_modules
@@ -39,6 +41,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=123abc
       - sandbox=true
+      - PREVIEW_MODE=true
     volumes:
       - ./runner:/usr/src/app/runner
       - /usr/src/app/node_modules
