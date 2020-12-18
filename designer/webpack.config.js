@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const babelOptions = require("./.babelrc.js");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const devMode = process.env.NODE_ENV !== "production";
@@ -23,13 +25,16 @@ const client = {
   node: {
     __dirname: false,
   },
-  devtool: "eval-cheap-module-source-map",
+  devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: "babel-loader",
+        options: {
+          ...babelOptions,
+        },
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -89,4 +94,39 @@ const client = {
   },
 };
 
-module.exports = client;
+const server = {
+  target: "node",
+  mode: environment,
+  watch: devMode,
+  entry: path.resolve(__dirname, "server", "index.ts"),
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "server.js",
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    modules: [path.resolve(__dirname, "../node_modules")],
+  },
+  node: {
+    __dirname: false,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+        options: {
+          ...babelOptions,
+        },
+      },
+    ],
+  },
+  externals: [
+    nodeExternals({
+      modulesDir: path.resolve(__dirname, "../node_modules"),
+    }),
+  ],
+};
+
+module.exports = [client, server];
