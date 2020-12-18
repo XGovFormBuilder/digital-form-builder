@@ -6,15 +6,16 @@ const reactJsxPath = path.join(
 );
 
 module.exports = {
+  sourceType: "unambiguous", // https://github.com/webpack/webpack/issues/4039#issuecomment-564812879
   presets: [
     "@babel/typescript",
     "@babel/preset-react",
     [
       "@babel/preset-env",
       {
-        targets: {
-          node: "12",
-        },
+        debug: false,
+        useBuiltIns: "usage",
+        corejs: 3,
       },
     ],
   ],
@@ -24,6 +25,8 @@ module.exports = {
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-nullish-coalescing-operator",
+    "@babel/plugin-proposal-optional-chaining",
     [
       "module-resolver",
       {
@@ -33,6 +36,4 @@ module.exports = {
       },
     ],
   ],
-  exclude: ["node_modules", "../node_modules/**"],
-  sourceMaps: true,
 };
