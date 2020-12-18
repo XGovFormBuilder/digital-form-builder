@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "client:watch": "NODE_ENV=development webpack",
-    "client:build": "NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production nodemon dist/server.js",
     "start:local": "NODE_ENV=development PERSISTENT_BACKEND=preview ts-node-dev --respawn --transpile-only server/index.ts",
     "server:build": "babel --extensions '.ts' server -d dist/server --copy-files -s inline",
