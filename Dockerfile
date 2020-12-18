@@ -19,3 +19,5 @@ RUN yarn build:dependencies
 RUN yarn $WORKSPACE_NAME build
 
 EXPOSE $PORT
+
+CMD [ "yarn", "${WORKSPACE_NAME}", "start" ]

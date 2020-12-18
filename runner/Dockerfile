@@ -14,17 +14,18 @@ FROM node:12-alpine3.12 AS run
 WORKDIR /usr/src/app
 
 # copy build from previous stage
+COPY --from=build /usr/src/app/package.json ./
+COPY --from=build /usr/src/app/.yarn ./.yarn
+COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/runner ./runner
 COPY --from=build /usr/src/app/model ./model
-COPY --from=build /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/package.json ./
 
 # create and set non-root USER
 RUN addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser
 RUN chown -R appuser:appuser /usr/src/app && \
-    chmod 755 /usr/src/app
-USER appuser
+    chmod -R 777 /usr/src/app
+USER 1001
 
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]

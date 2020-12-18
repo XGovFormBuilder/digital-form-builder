@@ -4,6 +4,7 @@ import Wreck from "@hapi/wreck";
 import pkg from "../../package.json";
 import config from "../config";
 import newFormJson from "../../new-form.json";
+import { FormConfiguration } from "../lib/persistence/types";
 
 const publish = async function (id, configuration) {
   try {
@@ -19,7 +20,9 @@ const publish = async function (id, configuration) {
 };
 
 const getPublished = async function (id) {
-  const { payload } = await Wreck.get(`${config.publishUrl}/published/${id}`);
+  const { payload } = await Wreck.get<FormConfiguration>(
+    `${config.publishUrl}/published/${id}`
+  );
   return payload.toString();
 };
 
@@ -121,10 +124,9 @@ export const designerPlugin = {
             const { id } = request.params;
             try {
               const response = await getPublished(id);
-              const { values } = response ? JSON.parse(response) : {};
-              if (values) {
+              if (response && JSON.parse(response)) {
                 return h
-                  .response(JSON.stringify(values))
+                  .response(JSON.stringify(response))
                   .type("application/json");
               }
             } catch (error) {
