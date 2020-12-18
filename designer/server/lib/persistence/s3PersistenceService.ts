@@ -13,7 +13,7 @@ export class S3PersistenceService implements PersistenceService {
   logger: any;
   bucket: any;
 
-  constructor(server: any, options: any) {
+  constructor(server: any) {
     this.logger = new Logger(server, "S3PersistenceService");
     this.bucket = new S3({
       region: "eu-west-2",
