@@ -25,7 +25,11 @@ const client = {
   node: {
     __dirname: false,
   },
-  devtool: "source-map",
+  devtool: "eval-cheap-module-source-map",
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
   module: {
     rules: [
       {
@@ -109,6 +113,9 @@ const server = {
   },
   node: {
     __dirname: false,
+  },
+  watchOptions: {
+    poll: true, // enable polling since fsevents are not supported in docker
   },
   module: {
     rules: [
