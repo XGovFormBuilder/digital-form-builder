@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "Cross government digital form builder (designer)",
   "main": "server/index.js",
+  "engines": {
+    "node": ">=12"
+  },
   "scripts": {
     "watch": "NODE_ENV=development webpack --mode production --watch",
     "build": "NODE_ENV=production webpack --mode production",

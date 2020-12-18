@@ -6,6 +6,9 @@
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=12"
+  },
   "workspaces": [
     "model",
     "runner",
