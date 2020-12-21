@@ -14,13 +14,9 @@ Install dependencies
 
 `$ yarn`
 
-Build designer.js
+To run the server and client apps locally, for development:
 
-`$ yarn build`
-
-You are now ready to start.
-
-`$ yarn start`
+`$ yarn dev`
 
 Open your browser at
 
