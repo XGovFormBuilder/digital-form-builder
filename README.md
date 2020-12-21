@@ -99,4 +99,4 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/.github/CONTRIBUTING.md) first!
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/CONTRIBUTING.md) first!
