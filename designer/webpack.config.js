@@ -70,9 +70,9 @@ const client = {
       template: path.resolve(__dirname, "server", "views", "layout.html"),
       filename: "views/layout.html",
       minify: prodMode,
-      scriptLoading: 'defer',
-      inject: 'head',
-      hash: prodMode
+      scriptLoading: "defer",
+      inject: "head",
+      hash: prodMode,
     }),
     new MiniCssExtractPlugin({
       filename: devMode
