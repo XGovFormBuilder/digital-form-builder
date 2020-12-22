@@ -10,7 +10,8 @@
         GOV.UK Site - Designer
       {% endblock %}
     </title>
-    
+	<script src="https://unpkg.com/react@16/umd/react.development.js" defer></script>
+	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" defer></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}" /> {# Hardcoded value of $govuk-black #}
 
@@ -23,6 +24,7 @@
 
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
+
   </head>
   <body>
     <script>
@@ -39,7 +41,7 @@
     {% block header %}
       {% include "includes/home-office-header.html" %}
     {% endblock %}
-    
+
     {% block content %}
       <h1 class="govuk-heading-xl">Default page template</h1>
     {% endblock %}
@@ -47,8 +49,6 @@
     {% block footer %}
       {% include "includes/home-office-footer.html" %}
     {% endblock %}
-    
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
   </body>
 </html>
