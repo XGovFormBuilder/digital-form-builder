@@ -69,7 +69,10 @@ const client = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "server", "views", "layout.html"),
       filename: "views/layout.html",
-      minify: false,
+      minify: prodMode,
+      scriptLoading: 'defer',
+      inject: 'head',
+      hash: prodMode
     }),
     new MiniCssExtractPlugin({
       filename: devMode
