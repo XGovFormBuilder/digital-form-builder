@@ -13,6 +13,9 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=123abc
+      - PREVIEW_URL=http://127.0.0.1:3009
+      - PUBLISH_URL=http://runner:3009
+      - LOG_LEVEL=debug
       - sandbox=true
     volumes:
       - ./designer:/usr/src/app/designer:delegated
@@ -24,7 +27,9 @@ services:
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
     command: yarn designer dev
-
+    depends_on:
+      - redis
+      - runner
   runner:
     build:
       context: .
@@ -38,6 +43,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_PASSWORD=123abc
+      - LOG_LEVEL=debug
       - sandbox=true
     volumes:
       - ./runner:/usr/src/app/runner
@@ -49,7 +55,8 @@ services:
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
     command: yarn runner dev
-
+    depends_on:
+      - redis
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass 123abc
