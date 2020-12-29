@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 services:
   designer:
     build:
@@ -26,8 +26,6 @@ services:
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
     command: yarn designer dev
-    depends_on:
-      - runner
 
   runner:
     build:
@@ -54,8 +52,6 @@ services:
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
     command: yarn runner dev
-    depends_on:
-      - redis
 
   redis:
     image: "redis:alpine"
