@@ -17,10 +17,14 @@ import { GlobalListSelect } from "../client/list/global-list-select";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { test, suite } = lab;
+const { test, suite, afterEach } = lab;
 
 suite("GlobalListSelect", () => {
   const i18n = sinon.stub().returns("mockTranslation");
+  let wrapper;
+  afterEach(() => {
+    wrapper?.unmount();
+  });
   const data = new Data({
     lists: [
       {
@@ -54,7 +58,7 @@ suite("GlobalListSelect", () => {
   };
 
   test("Lists all available lists", () => {
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
         <GlobalListSelect i18n={i18n} />
       </TestComponentContextProvider>

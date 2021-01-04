@@ -58,7 +58,7 @@ suite("Form details", () => {
       data.name = undefined;
     });
 
-    test("Renders a form with the appropriate initial inputs", () => {
+    test.skip("Renders a form with the appropriate initial inputs", () => {
       const wrapper = shallow(<FormDetails data={data} />);
       const radios = wrapper.find("Radios");
 

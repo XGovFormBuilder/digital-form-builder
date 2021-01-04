@@ -26,7 +26,7 @@ suite("Component reducer", () => {
       fieldsAction = Actions.EDIT_TITLE,
       optionsAction = Actions.EDIT_OPTIONS_HIDE_TITLE,
       listAction = Actions.EDIT_LIST,
-      listItemAction = Actions.EDIT_VALUE;
+      listItemAction = Actions.STATIC_LIST_ITEM_EDIT_VALUE;
 
     expect(getSubReducer(metaAction)).to.equal(metaReducer);
     expect(getSubReducer(schemaAction)).to.equal(schemaReducer);

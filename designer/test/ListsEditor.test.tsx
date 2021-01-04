@@ -20,11 +20,16 @@ import { ListItemEdit } from "../client/list/list-item-edit";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { test, suite } = lab;
+const { test, suite, afterEach } = lab;
 
 suite("Lists (global)", () => {
   const sandbox = sinon.createSandbox();
   const i18n = sinon.stub().returns("mockTranslation");
+  let wrapper;
+
+  afterEach(() => {
+    wrapper?.unmount();
+  });
   const data = new Data({
     lists: [
       {
@@ -54,7 +59,7 @@ suite("Lists (global)", () => {
   };
 
   test("GlobalListSelect shows when not editing from component", () => {
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
         <ListsEdit i18n={i18n} isEditingFromComponent={false} />
       </TestComponentContextProvider>
@@ -66,7 +71,7 @@ suite("Lists (global)", () => {
   });
 
   test("Opens correct editors", () => {
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
         <ListsEdit i18n={i18n} />
       </TestComponentContextProvider>

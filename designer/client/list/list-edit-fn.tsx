@@ -2,18 +2,17 @@ import ListItems from "./list-items";
 import { Input } from "@govuk-jsx/input";
 import React, { useContext } from "react";
 import { ListActions } from "../reducers/listActions";
+import { Actions } from "../reducers/component/types";
 import { withI18n } from "../i18n";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
   useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
-import { StaticListItemActions } from "../reducers/component/componentReducer.listItem";
 import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
 import { hasValidationErrors, validateTitle } from "../validations";
 import ErrorSummary from "../error-summary";
-
 const useListItem = (state, dispatch) => {
   const [{ isEditingStatic }, listsEditorDispatch]: any = useContext(
     ListsEditorContext
@@ -23,9 +22,7 @@ const useListItem = (state, dispatch) => {
     e.preventDefault();
     console.log(state);
     dispatch({
-      type: isEditingStatic
-        ? StaticListItemActions.DELETE
-        : ListActions.DELETE_LIST_ITEM,
+      type: isEditingStatic ? Actions.DELETE : ListActions.DELETE_LIST_ITEM,
     });
   }
 

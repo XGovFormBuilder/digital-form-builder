@@ -15,7 +15,7 @@ interface ErrorSummaryProps {
   i18n: any;
 }
 
-function ErrorSummary({
+export function ErrorSummary({
   className,
   descriptionChildren,
   errorList,

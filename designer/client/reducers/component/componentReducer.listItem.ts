@@ -10,27 +10,27 @@ export function componentListItemReducer(
   const { type, payload } = action;
   const { selectedItem } = state;
   switch (type) {
-    case StaticListItem.EDIT_LABEL:
+    case StaticListItem.STATIC_LIST_ITEM_EDIT_LABEL:
       return {
         ...state,
         selectedItem: { ...selectedItem, label: payload },
       };
-    case StaticListItem.EDIT_VALUE:
+    case StaticListItem.STATIC_LIST_ITEM_EDIT_VALUE:
       return {
         ...state,
         selectedItem: { ...selectedItem, value: payload },
       };
-    case StaticListItem.EDIT_HINT:
+    case StaticListItem.STATIC_LIST_ITEM_EDIT_HINT:
       return {
         ...state,
         selectedItem: { ...selectedItem, hint: payload },
       };
-    case StaticListItem.EDIT_CONDITION:
+    case StaticListItem.STATIC_LIST_ITEM_EDIT_CONDITION:
       return {
         ...state,
         selectedItem: { ...selectedItem, condition: payload },
       };
-    case StaticListItem.DELETE: {
+    case StaticListItem.STATIC_LIST_ITEM_DELETE: {
       delete state.showDeleteWarning, state.selectedItem;
       return state;
     }

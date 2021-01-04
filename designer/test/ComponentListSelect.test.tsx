@@ -18,10 +18,15 @@ import { ListContextProvider } from "../client/reducers/listReducer";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { test, suite, beforeEach } = lab;
+const { test, suite, beforeEach, afterEach } = lab;
 
 suite("ComponentListSelect", () => {
   let i18n;
+  let wrapper;
+
+  afterEach(() => {
+    wrapper?.unmount();
+  });
 
   let data = new Data({
     pages: [
@@ -106,7 +111,7 @@ suite("ComponentListSelect", () => {
   };
 
   test("Lists all available lists and the static list", () => {
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
         <ComponentListSelect i18n={i18n} />
       </TestComponentContextProvider>
@@ -129,7 +134,7 @@ suite("ComponentListSelect", () => {
   });
 
   test("Selecting a different list changes the edit link", () => {
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
         <ComponentListSelect i18n={i18n} />
       </TestComponentContextProvider>
@@ -166,7 +171,7 @@ suite("ComponentListSelect", () => {
       ],
     });
     const dataValue = { data, save: sinon.spy() };
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
         <ComponentListSelect i18n={i18n} />
       </TestComponentContextProvider>
@@ -187,7 +192,7 @@ suite("ComponentListSelect", () => {
         isNew: true,
       },
     };
-    const wrapper = mount(
+    wrapper = mount(
       <TestComponentContextProvider
         dataValue={dataValue}
         componentValue={componentValue}

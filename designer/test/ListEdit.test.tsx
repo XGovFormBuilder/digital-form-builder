@@ -14,10 +14,16 @@ import { ListEdit } from "../client/list/list-edit-fn";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { experiment, test, suite, beforeEach } = lab;
+const { experiment, test, suite, beforeEach, afterEach } = lab;
 
 experiment("List edit", () => {
   let i18n;
+
+  let wrapper;
+
+  afterEach(() => {
+    wrapper?.unmount();
+  });
 
   let data = new Data({
     pages: [
@@ -88,7 +94,7 @@ experiment("List edit", () => {
       const listContextValue = {
         selectedList,
       };
-      const wrapper = mount(
+      wrapper = mount(
         <TestProvider
           listsEditorValue={[listsEditorValue, sinon.spy()]}
           listContextValue={[listContextValue, sinon.spy()]}
@@ -109,7 +115,7 @@ experiment("List edit", () => {
       const listContextValue = {
         selectedList,
       };
-      const wrapper = mount(
+      wrapper = mount(
         <TestProvider
           listsEditorValue={[listsEditorValue, sandbox.spy()]}
           listContextValue={[listContextValue, sandbox.spy()]}
@@ -181,7 +187,7 @@ experiment("List edit", () => {
         selectedComponent: data.pages[0].components[0],
       };
 
-      const wrapper = mount(
+      wrapper = mount(
         <TestProvider
           listsEditorValue={[listsEditorValue, sandbox.spy()]}
           listContextValue={[{}, sandbox.spy()]}
@@ -204,7 +210,7 @@ experiment("List edit", () => {
         selectedComponent: data.pages[0].components[0],
       };
 
-      const wrapper = mount(
+      wrapper = mount(
         <TestProvider
           listsEditorValue={[listsEditorValue, sandbox.spy()]}
           listContextValue={[{}, sandbox.spy()]}
