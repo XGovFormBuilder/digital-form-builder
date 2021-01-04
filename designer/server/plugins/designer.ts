@@ -122,17 +122,20 @@ export const designerPlugin = {
         options: {
           handler: async (request, h) => {
             const { id } = request.params;
+            let formJson = newFormJson;
+
             try {
               const response = await getPublished(id);
-              if (response && JSON.parse(response)) {
-                return h
-                  .response(JSON.stringify(response))
-                  .type("application/json");
+              const { values } = JSON.parse(response);
+
+              if (values) {
+                formJson = values;
               }
             } catch (error) {
-              // ignore
+              console.error(error);
             }
-            return h.response(newFormJson).type("application/json");
+
+            return h.response(formJson).type("application/json");
           },
         },
       });
