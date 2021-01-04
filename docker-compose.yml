@@ -26,8 +26,8 @@ services:
       - /usr/src/app/runner/dist
       - ./designer:/usr/src/app/designer:delegated
     command: yarn designer dev
-    # depends_on:
-    # - runner
+    depends_on:
+      - runner
 
   runner:
     build:
