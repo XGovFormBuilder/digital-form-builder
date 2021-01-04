@@ -4,6 +4,9 @@
   "description": "A hapi plugin providing the model for XGov digital form builder based applications",
   "main": "dist/module/index.js",
   "browser": "./dist/browser/index.js",
+  "engines": {
+    "node": ">=12"
+  },
   "scripts": {
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",

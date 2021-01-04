@@ -12,8 +12,8 @@ import { FormConfiguration } from "./types";
 export class PreviewPersistenceService implements PersistenceService {
   logger: any;
 
-  async uploadConfiguration(id: string, configuration: string): Promise<any> {
-    return Wreck.post(`${config.previewUrl}/publish`, {
+  async uploadConfiguration(id: string, configuration: string) {
+    return Wreck.post(`${config.publishUrl}/publish`, {
       payload: JSON.stringify({ id, configuration }),
     });
   }
@@ -24,16 +24,12 @@ export class PreviewPersistenceService implements PersistenceService {
   }
 
   async listAllConfigurations() {
-    const { payload } = await Wreck.get<FormConfiguration[]>(
-      `${config.previewUrl}/published`
-    );
+    const { payload } = await Wreck.get(`${config.publishUrl}/published`);
     return JSON.parse(payload.toString());
   }
 
   async getConfiguration(id: string) {
-    const { payload } = await Wreck.get<FormConfiguration>(
-      `${config.previewUrl}/published/${id}`
-    );
+    const { payload } = await Wreck.get(`${config.publishUrl}/published/${id}`);
     return payload.toString();
   }
 }

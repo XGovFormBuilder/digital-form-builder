@@ -69,7 +69,10 @@ const client = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "server", "views", "layout.html"),
       filename: "views/layout.html",
-      minify: false,
+      minify: prodMode,
+      scriptLoading: "defer",
+      inject: "head",
+      hash: prodMode,
     }),
     new MiniCssExtractPlugin({
       filename: devMode
@@ -112,6 +115,9 @@ const server = {
   },
   node: {
     __dirname: false,
+  },
+  watchOptions: {
+    poll: 1000, // enable polling since fsevents are not supported in docker
   },
   module: {
     rules: [
