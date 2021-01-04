@@ -76,10 +76,10 @@ export class App extends React.Component {
     return nanoid();
   };
 
-  setFunctions(data) {
+  setFunctions = (data) => {
     data.save = this.save;
     data.getId = this.getId;
-  }
+  };
 
   updateDownloadedAt = (time) => {
     this.setState({ downloadedAt: time });
