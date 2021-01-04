@@ -5,6 +5,8 @@ import vision from "vision";
 
 import pkg from "../../package.json";
 
+const basedir = path.join(process.cwd(), "..");
+
 export const viewPlugin = {
   plugin: vision,
   options: {
@@ -46,8 +48,8 @@ export const viewPlugin = {
     path: [
       `${path.join("dist", "client", "views")}`,
       `${path.join(__dirname, "..", "views")}`,
-      `${path.dirname(resolve.sync("govuk-frontend"))}`,
-      `${path.dirname(resolve.sync("govuk-frontend"))}/components`,
+      `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}`,
+      `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}/components`,
     ],
     context: {
       appVersion: pkg.version,
