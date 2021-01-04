@@ -17,7 +17,6 @@ services:
       - PREVIEW_URL=http://localhost:3009
       - PUBLISH_URL=http://runner:3009
     volumes:
-      - ./designer:/usr/src/app/designer:delegated
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
       - /usr/src/app/model/dist
@@ -25,9 +24,10 @@ services:
       - /usr/src/app/designer/dist
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
+      - ./designer:/usr/src/app/designer:delegated
     command: yarn designer dev
-    depends_on:
-      - runner
+    # depends_on:
+    # - runner
 
   runner:
     build:
@@ -45,7 +45,6 @@ services:
       - sandbox=true
       - PREVIEW_MODE=true
     volumes:
-      - ./runner:/usr/src/app/runner
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
       - /usr/src/app/model/dist
@@ -53,6 +52,7 @@ services:
       - /usr/src/app/designer/dist
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
+      - ./runner:/usr/src/app/runner
     command: yarn runner dev
     depends_on:
       - redis
