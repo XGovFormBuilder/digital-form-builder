@@ -93,7 +93,6 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
               </li>
             ))}
           </ol>
-          <hr className="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
         </li>
       </ol>
     </div>
