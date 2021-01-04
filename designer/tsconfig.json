@@ -10,5 +10,5 @@
     "resolveJsonModule": true,
     "lib": ["DOM"]
   },
-  "include": ["server", "client"],
+  "include": ["server", "client", "package.json"]
 }

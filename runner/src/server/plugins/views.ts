@@ -6,6 +6,8 @@ import vision from "vision";
 import config from "../config";
 import pkg from "../../../package.json";
 
+const basedir = path.join(process.cwd(), "..");
+
 export default {
   plugin: vision,
   options: {
@@ -47,9 +49,11 @@ export default {
     path: [
       `${path.join(__dirname, "..", "views")}`,
       `${path.join(__dirname, "engine", "views")}`,
-      `${path.dirname(resolve.sync("govuk-frontend"))}`,
-      `${path.dirname(resolve.sync("govuk-frontend"))}/components`,
-      `${path.dirname(resolve.sync("hmpo-components"))}/components`,
+      `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}`,
+      `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}/components`,
+      `${path.dirname(
+        resolve.sync("hmpo-components", { basedir })
+      )}/components`,
     ],
     isCached: !config.isDev,
     context: {
