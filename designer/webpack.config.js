@@ -116,6 +116,9 @@ const server = {
   node: {
     __dirname: false,
   },
+  watchOptions: {
+    poll: 1000, // enable polling since fsevents are not supported in docker
+  },
   module: {
     rules: [
       {
