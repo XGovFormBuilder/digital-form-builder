@@ -2,6 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const devMode = process.env.NODE_ENV !== "production";
 const prodMode = process.env.NODE_ENV === "production";
@@ -66,7 +69,10 @@ const client = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "server", "views", "layout.html"),
       filename: "views/layout.html",
-      minify: false,
+      minify: prodMode,
+      scriptLoading: "defer",
+      inject: "head",
+      hash: prodMode,
     }),
     new MiniCssExtractPlugin({
       filename: devMode
@@ -82,6 +88,11 @@ const client = {
         { from: "server/views", to: "views" },
       ],
     }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      defaultSizes: "gzip",
+      openAnalyzer: false,
+    }),
   ],
   externals: {
     react: "React",
@@ -89,4 +100,39 @@ const client = {
   },
 };
 
-module.exports = client;
+const server = {
+  target: "node",
+  mode: environment,
+  watch: devMode,
+  entry: path.resolve(__dirname, "server", "index.ts"),
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "server.js",
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    modules: [path.resolve(__dirname, "../node_modules")],
+  },
+  node: {
+    __dirname: false,
+  },
+  watchOptions: {
+    poll: 1000, // enable polling since fsevents are not supported in docker
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|tsx|ts)$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
+    ],
+  },
+  externals: [
+    nodeExternals({
+      modulesDir: path.resolve(__dirname, "../node_modules"),
+    }),
+  ],
+};
+
+module.exports = [client, server];
