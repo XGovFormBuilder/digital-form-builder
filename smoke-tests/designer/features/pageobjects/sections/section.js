@@ -4,6 +4,7 @@ module.exports = class Section {
   }
 
   get pageTitle() {
+    browser.$("input#page-title").waitForDisplayed();
     return browser.$("input#page-title");
   }
 
