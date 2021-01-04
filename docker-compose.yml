@@ -24,7 +24,6 @@ services:
       - /usr/src/app/designer/dist
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
-      - ./designer:/usr/src/app/designer:delegated
     command: yarn designer dev
     depends_on:
       - redis
@@ -45,6 +44,7 @@ services:
       - PREVIEW_MODE=true
       - sandbox=true
     volumes:
+      - ./runner:/usr/src/app/runner
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
       - /usr/src/app/model/dist
@@ -52,7 +52,6 @@ services:
       - /usr/src/app/designer/dist
       - /usr/src/app/runner/node_modules
       - /usr/src/app/runner/dist
-      - ./runner:/usr/src/app/runner
     command: yarn runner dev
     depends_on:
       - redis
