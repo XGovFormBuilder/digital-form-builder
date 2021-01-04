@@ -4,12 +4,12 @@ module.exports = class Section {
   }
 
   get pageTitle() {
-    browser.$("input#page-title").waitForDisplayed();
-    return browser.$("input#page-title");
+    browser.$("#page-title").waitForDisplayed();
+    return browser.$("#page-title");
   }
 
   get sectionTitle() {
-    return browser.$("input#section-title");
+    return browser.$("#section-title");
   }
 
   get saveBtn() {
