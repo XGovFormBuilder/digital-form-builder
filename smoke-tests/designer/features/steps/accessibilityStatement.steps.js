@@ -25,6 +25,6 @@ Then(
     this.pageTitle = pageTitle.toLowerCase().replace(/\s+/g, "-");
     browser.switchWindow(`GOV.UK - ${pageTitle}`);
     expect(browser).toHaveUrlContaining(`/help/${this.pageTitle}`);
-    expect(browser.$("h1")).toHaveText(`${pageTitle}`);
+    expect(browser.$("h1")).toHaveText(`${pageTitle}`, { ignoreCase: true });
   }
 );
