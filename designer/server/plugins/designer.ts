@@ -170,7 +170,7 @@ export const designerPlugin = {
                 abortEarly: false,
               });
 
-              if (result.error) {
+              if (error) {
                 throw new Error("Schema validation failed");
               }
               await persistenceService.uploadConfiguration(
