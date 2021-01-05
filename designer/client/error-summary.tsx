@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from "react";
 
-interface ErrorListItem {
+export interface ErrorListItem {
   reactListKey?: string;
   href?: string;
   children: string;
 }
 
 interface ErrorSummaryProps {
-  className: string;
-  descriptionChildren: string;
+  className?: string;
+  descriptionChildren?: string;
   errorList: Array<ErrorListItem>;
-  titleChildren;
+  titleChildren?: string;
 }
 
 function ErrorSummary({

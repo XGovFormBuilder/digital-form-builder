@@ -1,10 +1,11 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import ComponentCreate from "../client/component-create";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
+
+import { ComponentCreate } from "../ComponentCreate";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -12,63 +13,47 @@ exports.lab = lab;
 const { beforeEach, suite, test } = lab;
 
 suite("Component create", () => {
+  const detailsComponentDef = {
+    name: "Details",
+    type: "Details",
+    title: "Details",
+    subType: "content",
+  };
+
   const data = new Data({});
   const page = { path: "/1" };
   const generatedId = "DMaslknf";
+  let onCreate;
 
   beforeEach(() => {
     data.getId = sinon.stub().resolves(generatedId);
     data.clone = sinon.stub();
     data.save = sinon.stub();
+    onCreate = sinon.stub();
   });
 
-  test("Should display form with component types in alphabetical order", () => {
-    const wrapper = shallow(<ComponentCreate data={data} page={page} />);
-    const form = wrapper.find("form");
+  test("Selecting a component type should display the ComponentTypeEdit component", async () => {
+    const wrapper = shallow(
+      <ComponentCreate data={data} page={page} onCreate={onCreate} />
+    );
 
-    const componentTypeInput = form.find("select");
-    let lastDisplayedTitle = "";
-    componentTypeInput.find("options").forEach((type) => {
-      expect(lastDisplayedTitle.localeCompare(type.title)).equal.to(-1);
-      lastDisplayedTitle = type.title;
-    });
-
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.equal(false);
-  });
-
-  test("Selecting a component type should display the ComponentTypeEdit component", async (flags) => {
-    const wrapper = shallow(<ComponentCreate data={data} page={page} />);
     await wrapper.instance().componentDidMount();
 
     const form = wrapper.find("form");
+    const componentCreateList = form.find("ComponentCreateList");
 
-    form.find("select").simulate("change", { target: { value: "TextField" } });
+    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
 
-    const componentTypeEdit = wrapper.find("ComponentTypeEdit");
-    expect(componentTypeEdit.exists()).to.equal(true);
-    expect(componentTypeEdit.prop("page")).to.equal(page);
-    expect(componentTypeEdit.prop("component")).to.equal({
-      type: "TextField",
-      name: generatedId,
-    });
-    expect(componentTypeEdit.prop("data")).to.equal(data);
-    expect(componentTypeEdit.prop("updateModel")).to.equal(
-      wrapper.instance().storeComponent
-    );
-    expect(Object.keys(componentTypeEdit.props()).length).to.equal(4);
+    componentCreateList.prop("onSelectComponent")(detailsComponentDef);
+
+    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
   });
 
   test("Should store the populated component and call callback on submit", async () => {
-    const component = {
-      type: "TextField",
-      schema: { max: 24, min: 22 },
-      options: { required: false },
-    };
-    const onCreate = sinon.spy();
-
     const clonedData = {
       addComponent: sinon.stub(),
     };
+
     const updatedData = sinon.stub();
     const savedData = sinon.stub();
     data.clone.returns(clonedData);
@@ -79,13 +64,15 @@ suite("Component create", () => {
       <ComponentCreate data={data} page={page} onCreate={onCreate} />
     );
 
-    wrapper.instance().storeComponent(component);
+    wrapper.instance().storeComponent(detailsComponentDef);
 
     await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
 
     expect(clonedData.addComponent.callCount).to.equal(1);
     expect(clonedData.addComponent.firstCall.args[0]).to.equal(page.path);
-    expect(clonedData.addComponent.firstCall.args[1]).to.equal(component);
+    expect(clonedData.addComponent.firstCall.args[1]).to.equal(
+      detailsComponentDef
+    );
 
     expect(data.save.callCount).to.equal(1);
     expect(data.save.firstCall.args[0]).to.equal(updatedData);
@@ -101,7 +88,6 @@ suite("Component create", () => {
       options: { required: false },
     };
     const clonedData = { addComponent: sinon.stub() };
-    const onCreate = sinon.spy();
     const savedData = sinon.stub();
     const updatedData = sinon.stub();
     data.clone.returns(clonedData);
@@ -121,5 +107,48 @@ suite("Component create", () => {
     const saveButton = wrapper.find(".govuk-button").first();
     expect(data.save.callCount).to.equal(1);
     expect(saveButton.prop("disabled")).to.equal(true);
+  });
+
+  test("'Back to create component list' link", async () => {
+    const wrapper = shallow(
+      <ComponentCreate data={data} page={page} onCreate={onCreate} />
+    );
+
+    await wrapper.instance().componentDidMount();
+
+    const form = wrapper.find("form");
+    const componentCreateList = form.find("ComponentCreateList");
+
+    expect(wrapper.find("BackLink").exists()).to.be.false();
+
+    componentCreateList.prop("onSelectComponent")(detailsComponentDef);
+
+    expect(wrapper.find("BackLink").exists()).to.be.true();
+    expect(wrapper.find("ComponentCreateList").exists()).to.be.false();
+    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
+
+    wrapper.find("BackLink").prop("onClick")({ preventDefault: sinon.stub() });
+
+    expect(wrapper.find("BackLink").exists()).to.be.false();
+    expect(wrapper.find("ComponentCreateList").exists()).to.be.true();
+    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
+  });
+
+  test("it displays ErrorSummary when validation fails", async () => {
+    const wrapper = mount(
+      <ComponentCreate data={data} page={page} onCreate={onCreate} />
+    );
+
+    await wrapper.instance().componentDidMount();
+
+    let form = wrapper.find("form");
+    const componentCreateList = form.find("ComponentCreateList");
+    componentCreateList.prop("onSelectComponent")(detailsComponentDef);
+    wrapper.update();
+
+    form.prop("onSubmit")({ preventDefault: sinon.stub() });
+    wrapper.update();
+
+    expect(wrapper.find("ErrorSummary").exists()).to.be.true();
   });
 });

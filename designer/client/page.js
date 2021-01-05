@@ -7,7 +7,7 @@ import {
 import Flyout from "./flyout";
 import PageEdit from "./page-edit";
 import { Component } from "./component";
-import ComponentCreate from "./component-create";
+import { ComponentCreate } from "./components/componentCreate";
 import { ComponentTypes, clone } from "@xgovformbuilder/model";
 import { withI18n } from "./i18n";
 
@@ -159,7 +159,6 @@ export class Page extends React.Component {
 
         {this.state.showAddComponent && (
           <Flyout
-            title="Add Component"
             show={this.state.showAddComponent}
             onHide={this.toggleAddComponent}
           >

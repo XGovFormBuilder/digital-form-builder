@@ -1,0 +1,19 @@
+@import "../../styles/colors.scss";
+
+a.back-link.govuk-back-link {
+  text-decoration: none;
+  color: govuk-colour("blue");
+
+  &::before {
+    color: govuk-colour("blue");
+    border-color: govuk-colour("blue");
+
+    &:hover {
+      border-color: govuk-colour("dark-blue");
+    }
+  }
+
+  &:hover {
+    color: govuk-colour("dark-blue");
+  }
+}

@@ -53,5 +53,6 @@
   "Create a new form or edit an existing form": "Create a new form or edit an existing form",
   "A form with this name already exists": "A form with this name already exists",
   "There is a problem": "There is a problem",
-  "Enter form name": "Enter form name"
+  "Enter form name": "Enter form name",
+  "Test": "For testing purpose, do not delete it"
 }

@@ -84,7 +84,7 @@ export const ComponentTypes: ComponentDef[] = [
   {
     name: "AutocompleteField",
     type: "AutocompleteField",
-    title: "AutocompleteField",
+    title: "Autocomplete field",
     subType: "field",
     options: {},
     schema: {},
@@ -92,7 +92,7 @@ export const ComponentTypes: ComponentDef[] = [
   {
     name: "RadiosField",
     type: "RadiosField",
-    title: "RadiosField",
+    title: "Radios field",
     subType: "field",
     options: {},
     schema: {},
@@ -100,7 +100,7 @@ export const ComponentTypes: ComponentDef[] = [
   {
     name: "CheckboxesField",
     type: "CheckboxesField",
-    title: "CheckboxesField",
+    title: "Checkboxes field",
     subType: "field",
     options: {},
     schema: {},
