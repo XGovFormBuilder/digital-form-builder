@@ -10,5 +10,14 @@
     "resolveJsonModule": true,
     "lib": ["DOM"]
   },
-  "include": ["server", "client", "package.json"]
+  "include": [
+    "server",
+    "client",
+    "package.json",
+    "new-form.json",
+    "client/i18n/translations/en.translation.json"
+  ],
+  "paths": {
+    "*": ["node_modules/*", "../node_modules"]
+  }
 }

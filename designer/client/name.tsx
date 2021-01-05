@@ -1,6 +1,6 @@
 import React from "react";
 import { isEmpty } from "./helpers";
-import { withI18nRef } from "./i18n";
+import { withI18nRef, I18n } from "./i18n";
 
 type Props = {
   updateModel?: (arg0: any) => {} | null | undefined;
@@ -8,7 +8,7 @@ type Props = {
   name: string;
   id: string;
   labelText: string;
-  i18n: (arg0: string, arg1?: any) => any;
+  i18n: I18n;
 };
 
 type State = {

@@ -101,6 +101,7 @@ Then(
 When("I edit the page title on the {string}", (pageName) => {
   this.newPageName = "testing";
   FormDesignerPage.editPageForPageName(pageName).click();
+  EditPageSection.pageTitle.clearValue();
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
 });
