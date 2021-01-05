@@ -19,7 +19,7 @@ function secureUrl(value: string, helper: CustomHelpers) {
   }
 
   return helper.message({
-    en: "Config Error: Provided url is insecure, please use https",
+    custom: `Provided ${helper.state.path} is insecure, please use https`,
   });
 }
 
