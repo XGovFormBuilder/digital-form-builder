@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 services:
   designer:
     build:
@@ -27,8 +27,8 @@ services:
       - ./designer:/usr/src/app/designer:delegated
     command: yarn designer dev
     depends_on:
+      - redis
       - runner
-
   runner:
     build:
       context: .
@@ -56,7 +56,6 @@ services:
     command: yarn runner dev
     depends_on:
       - redis
-
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass 123abc
