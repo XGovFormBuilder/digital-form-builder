@@ -7,8 +7,9 @@ import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 import { assertSelectInput } from "./helpers/element-assertions";
 import { assertInputControlValue } from "./helpers/sub-component-assertions";
-import initI18n from "./i18nForTest";
 import { Input } from "@govuk-jsx/input";
+
+import { initI18n } from "../client/i18n";
 import { ErrorSummary } from "../client/error-summary";
 
 const { expect } = Code;

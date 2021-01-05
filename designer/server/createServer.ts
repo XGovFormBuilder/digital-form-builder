@@ -26,7 +26,7 @@ export async function createServer() {
   await server.register(inert);
 
   if (!config.isTest) {
-    await server.register(logging);
+    // await server.register(logging);
   }
 
   await server.register(viewPlugin);

@@ -4,8 +4,8 @@ class AddComponentPage extends Page {
   get parent() {
     return $(".flyout-menu-container");
   }
-  get selectList() {
-    return this.parent.$(".govuk-select");
+  get addComponent() {
+    return this.parent.$(".component-create");
   }
   get titleField() {
     return this.parent.$("#field-title");
@@ -34,8 +34,8 @@ class AddComponentPage extends Page {
   }
 
   selectComponentByName(name) {
-    this.selectList.waitForDisplayed();
-    this.selectList.selectByVisibleText(name);
+    this.addComponent.waitForDisplayed();
+    browser.$(`=${name}`).click();
   }
 
   paragraphSetText(text) {

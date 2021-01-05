@@ -5,7 +5,7 @@ import * as Lab from "@hapi/lab";
 import PageTranslated, { Page } from "../client/page";
 import Flyout from "../client/flyout";
 import PageEdit from "../client/page-edit";
-import ComponentCreate from "../client/component-create";
+import { ComponentCreate } from "../client/components/componentCreate";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 
@@ -39,7 +39,7 @@ suite.skip("Page", () => {
           title: "Personal Details",
         },
       ],
-    });
+    } as any);
 
     props = {
       data,
