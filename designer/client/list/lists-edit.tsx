@@ -1,15 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ListEdit from "./ListEdit";
 import { RenderInPortal } from "../components/render-in-portal";
 import Flyout from "./../flyout";
 import { withI18n } from "./../i18n";
 import ListItemEdit from "./list-item-edit";
 import GlobalListSelect from "./global-list-select";
-import ComponentListSelect from "./component-list-select";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
-  useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
 import Warning from "./Warning";
 
@@ -19,7 +17,7 @@ type Props = {
 };
 
 const useListsEdit = (props) => {
-  const { isEditingFromComponent = false, i18n } = props;
+  const { i18n } = props;
 
   const [
     { isEditingList, isEditingListItem, showWarning, context },
@@ -59,7 +57,7 @@ const useListsEdit = (props) => {
 };
 
 export function ListsEdit(props: Props) {
-  const { isEditingFromComponent, i18n } = props;
+  const { isEditingFromComponent } = props;
   const {
     isEditingList,
     isEditingListItem,
