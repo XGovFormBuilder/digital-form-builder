@@ -14,7 +14,7 @@ import {
 import { ListsEdit } from "../client/list/lists-edit";
 import { ListContextProvider } from "../client/reducers/listReducer";
 import { GlobalListSelect } from "../client/list/global-list-select";
-import { ListEdit } from "../client/list/list-edit-fn";
+import { ListEdit } from "../client/list/ListEdit";
 import { ListItemEdit } from "../client/list/list-item-edit";
 
 const { expect } = Code;

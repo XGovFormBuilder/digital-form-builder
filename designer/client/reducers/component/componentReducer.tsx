@@ -14,10 +14,12 @@ import {
   Options,
   ComponentList,
   StaticListItem,
+  Actions,
 } from "./types";
 import { componentListReducer } from "./componentReducer.list";
 
-export const ComponentContext = createContext({});
+const defaultValues: [any, any] = [{}, () => {}];
+export const ComponentContext = createContext(defaultValues);
 
 const ActionsReducerCollection = [
   [Meta, metaReducer],
@@ -28,30 +30,34 @@ const ActionsReducerCollection = [
   [StaticListItem, componentListItemReducer],
 ];
 
-export function valueIsInEnum<T>(value: string, enumType: T) {
+export function valueIsInEnum<T>(value: keyof ComponentActions, enumType: T) {
   return Object.values(enumType).indexOf(value) !== -1;
 }
 
-export const getSubReducer = (type) => {
-  const tuple = ActionsReducerCollection.find((a) => valueIsInEnum(type, a[0]));
-  return tuple?.[1];
-};
+export function getSubReducer(type) {
+  return ActionsReducerCollection.find((a) => valueIsInEnum(type, a[0]))?.[1];
+}
 
-export function componentReducer(
+export function componentReducer({
   state,
-  action: {
-    type: ComponentActions;
-    payload: any;
-  }
-) {
+  action,
+}: {
+  state: any;
+  action: { type: ComponentActions; payload: any };
+}) {
   const { type } = action;
 
   const { selectedComponent } = state;
-  if (type !== Meta.VALIDATE) {
+
+  const isNotValidate = (type): type is Meta.VALIDATE => {
+    return Object.values(Actions).includes(type);
+  };
+
+  if (isNotValidate(type)) {
     state.hasValidated = false;
   }
 
-  const subReducer = getSubReducer(type);
+  const subReducer: any = getSubReducer(type);
 
   if (subReducer) {
     return {
@@ -85,7 +91,7 @@ export const initComponentState = (props) => {
 };
 
 export const ComponentContextProvider = (props) => {
-  const { children: c, ...rest } = props;
+  const { children, ...rest } = props;
   const [state, dispatch] = useReducer(
     componentReducer,
     initComponentState(rest)
@@ -93,7 +99,7 @@ export const ComponentContextProvider = (props) => {
 
   return (
     <ComponentContext.Provider value={[state, dispatch]}>
-      {c}
+      {children}
     </ComponentContext.Provider>
   );
 };

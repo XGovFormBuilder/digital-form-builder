@@ -9,7 +9,7 @@ import { Data } from "@xgovformbuilder/model";
 import { ComponentContext } from "../client/reducers/component/componentReducer";
 import { ListsEditorContext } from "../client/reducers/list/listsEditorReducer";
 import { ListContext } from "../client/reducers/listReducer";
-import { ListEdit } from "../client/list/list-edit-fn";
+import { ListEdit } from "../client/list/ListEdit";
 
 const { expect } = Code;
 const lab = Lab.script();

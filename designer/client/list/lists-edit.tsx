@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import ListEdit from "./list-edit-fn";
+import ListEdit from "./ListEdit";
 import { RenderInPortal } from "../components/render-in-portal";
 import Flyout from "./../flyout";
 import { withI18n } from "./../i18n";
