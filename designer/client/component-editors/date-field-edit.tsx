@@ -3,10 +3,11 @@ import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "./../reducers/component/types";
 import { Classes } from "./../classes";
 
-export function DateFieldEdit({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
-    !!context ? context : ComponentContext
-  );
+export function DateFieldEdit({ context = ComponentContext }) {
+  // If you are editing a component, the default context will be ComponentContext because props.context is undefined,
+  // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
+  const [{ selectedComponent }, dispatch] = useContext(context);
+
   const { options } = selectedComponent;
 
   return (

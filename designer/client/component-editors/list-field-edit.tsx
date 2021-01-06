@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 
 import ListsEdit from "../list/lists-edit";
 import { ListContextProvider } from "../reducers/listReducer";

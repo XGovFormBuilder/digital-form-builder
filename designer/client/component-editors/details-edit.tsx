@@ -6,6 +6,8 @@ import { withI18n } from "../i18n";
 import classNames from "classnames";
 
 function DetailsEdit({ i18n, context = ComponentContext }) {
+  // If you are editing a component, the default context will be ComponentContext because props.context is undefined,
+  // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
   const [
     { selectedComponent, shouldValidate, errors = {} },
     dispatch,
@@ -73,3 +75,6 @@ function DetailsEdit({ i18n, context = ComponentContext }) {
 }
 
 export default withI18n(DetailsEdit);
+
+
+git mv designer/client/component-editors/details-edit.js designer/client/component-editors/details-edit.tsx
