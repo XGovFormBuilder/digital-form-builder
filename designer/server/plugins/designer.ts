@@ -103,6 +103,47 @@ export const designerPlugin = {
         },
       });
 
+      server.route({
+        method: "post",
+        path: "/api/new",
+        options: {
+          handler: async (request, h) => {
+            const { persistenceService } = request.services([]);
+            const { selected, name } = request.payload;
+            const newName = name === "" ? nanoid(10) : name;
+            try {
+              if (selected.Key === "New") {
+                if (config.persistentBackend !== "preview") {
+                  await persistenceService.uploadConfiguration(
+                    `${newName}.json`,
+                    JSON.stringify(newFormJson)
+                  );
+                }
+                await publish(newName, newFormJson);
+              } else {
+                await persistenceService.copyConfiguration(
+                  `${selected.Key}`,
+                  newName
+                );
+                const copied = await persistenceService.getConfiguration(
+                  newName
+                );
+                await publish(newName, copied);
+              }
+            } catch (e) {
+              console.log(e);
+            }
+
+            const response = {
+              id: `${newName}`,
+              previewUrl: config.previewUrl,
+            };
+
+            return h.response(response).type("application/json").code(200);
+          },
+        },
+      });
+
       // DESIGNER
       server.route({
         method: "get",
@@ -118,7 +159,7 @@ export const designerPlugin = {
       // GET DATA
       server.route({
         method: "GET",
-        path: "/{id}/api/data",
+        path: "/api/{id}/data",
         options: {
           handler: async (request, h) => {
             const { id } = request.params;
@@ -142,7 +183,7 @@ export const designerPlugin = {
 
       server.route({
         method: "GET",
-        path: "/configurations",
+        path: "/api/configurations",
         options: {
           handler: async (request, h) => {
             const { persistenceService } = request.services([]);
@@ -159,7 +200,7 @@ export const designerPlugin = {
       // SAVE DATA
       server.route({
         method: "PUT",
-        path: "/{id}/api/data",
+        path: "/api/{id}/data",
         options: {
           handler: async (request, h) => {
             const { id } = request.params;

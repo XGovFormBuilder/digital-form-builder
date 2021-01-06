@@ -11,7 +11,7 @@
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production nodemon dist/server.js",
     "start:local": "NODE_ENV=development PERSISTENT_BACKEND=preview nodemon dist/server.js",
-    "dev": "concurrently 'yarn watch' 'yarn start:local'",
+    "dev": "concurrently 'yarn wds' 'yarn start:local'",
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
     "symlink-env": "./bin/symlink-config",
@@ -22,7 +22,9 @@
     "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "audit": "npm audit --audit-level=high",
     "i18n-parse": "i18next --config 'client/i18n/i18next-parser.config.js' 'client/**/*.js'",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "wds": "NODE_ENV=development webpack-dev-server --config webpack/webpack.config.js --hot",
+    "wdb": "NODE_ENV=development webpack --config webpack/webpack.config.js"
   },
   "workspace-builder": "@workspace-builder/rollup",
   "repository": {
@@ -34,11 +36,13 @@
     "@hapi/hapi": "^20.0.3",
     "@hapi/inert": "^6.0.1",
     "@hapi/wreck": "17.0.0",
+    "@reduxjs/toolkit": "^1.5.0",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
     "aws-sdk": "^2.723.0",
     "classnames": "^2.2.6",
     "concurrently": "^5.3.0",
+    "connected-react-router": "6.8.0",
     "core-js": "^3.8.1",
     "dotenv": "8.2.0",
     "flat": "5.0.0",
@@ -50,6 +54,9 @@
     "moment-timezone": "^0.5.31",
     "nanoid": "^3.1.12",
     "react-helmet": "^6.1.0",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
     "resolve": "^1.19.0",
     "schmervice": "^1.5.0",
     "vision": "5.4.3"

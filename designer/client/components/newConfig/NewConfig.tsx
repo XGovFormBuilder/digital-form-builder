@@ -5,9 +5,14 @@ import formConfigurationApi from "../../load-form-configurations";
 import { ChevronRight } from "../icons";
 import { withI18n } from "../../i18n";
 import "./NewConfig.scss";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { initDesigner } from "../../store/dataSlice";
 
 type Props = {
   i18n(text: string): string;
+  history?: any;
+  dispatch: any;
 };
 
 type State = {
@@ -84,19 +89,23 @@ export class NewConfig extends Component<Props, State> {
       });
     }
 
-    const newResponse = await window.fetch("/new", {
-      method: "POST",
-      body: JSON.stringify({
-        selected: selectedConfig,
-        name: parseNewName(newName),
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-
-    window.location.href = newResponse.url;
+    const newResponse = await window
+      .fetch("/api/new", {
+        method: "POST",
+        body: JSON.stringify({
+          selected: selectedConfig,
+          name: parseNewName(newName),
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => res.json());
+    console.log(newResponse);
+    console.log(initDesigner);
+    this.props.dispatch(initDesigner(newResponse));
+    this.props.history.push(`/${newResponse.id}`);
   };
 
   render() {
@@ -223,4 +232,4 @@ export class NewConfig extends Component<Props, State> {
   }
 }
 
-export default withI18n(NewConfig);
+export default connect(null, null)(withRouter(withI18n(NewConfig)));
