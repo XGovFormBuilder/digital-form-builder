@@ -44,6 +44,8 @@ jobs:
         echo "Config done"
         git fetch --all
         echo "Pull latest from XGovFormBuilder"
+        git pull -r https://github.com/XGovFormBuilder/digital-form-builder
+        git push -u -f
         git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
         git commit --amend -m "Updated to - $LAST_COMMIT_MESSAGE"
         #git push -u
