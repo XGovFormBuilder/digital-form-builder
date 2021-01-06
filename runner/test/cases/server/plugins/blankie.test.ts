@@ -34,10 +34,10 @@ suite("Server Blankie Plugin", () => {
     expect(options).to.equal({
       defaultSrc: ["self"],
       fontSrc: ["self", "data:"],
-      connectSrc: ["self", config.matomoUrl],
+      connectSrc: ["self", "https://gov.uk/"],
       scriptSrc: ["self", "unsafe-inline", "https://gov.uk/piwik/piwik.js"],
       styleSrc: ["self", "unsafe-inline"],
-      imgSrc: ["self", config.matomoUrl],
+      imgSrc: ["self", "https://gov.uk/"],
       generateNonces: false,
     });
   });
