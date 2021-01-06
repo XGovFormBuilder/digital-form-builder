@@ -5,26 +5,7 @@
     {
       "title": "First page",
       "path": "/first-page",
-      "components": [
-        {
-          "name": "IDDQl4",
-          "title": "abc",
-          "schema": {},
-          "options": {
-            "required": true
-          },
-          "type": "RadiosField",
-          "values": {
-            "type": "static",
-            "valueType": "string",
-            "items": [
-              { "label": "My item", "value": "12", "children": [] },
-              { "label": "Item 2", "hint": "My hint", "value": "11", "condition": "Abcewdad", "children": [] },
-              { "label": "Item 3", "value": "13", "children": [{ "type": "TextField" }] }
-            ]
-          }
-        }
-      ]
+      "components": []
     },
     {
       "title": "Summary",
@@ -33,24 +14,7 @@
       "components": []
     }
   ],
-  "lists": [
-    {
-      "name": "myList",
-      "title": "My list",
-      "type": "string",
-      "items": [
-        { "text": "a", "value": "a", "description": "a","conditional": {
-          "components":[ {
-            "type": "TextField",
-            "name": "abc",
-            "title": "my conditional list component"
-          }]
-        } },
-        { "text": "b", "value": "b",
-          "description": "b" }
-      ]
-    }
-  ],
+  "lists": [],
   "sections": [],
   "conditions": [],
   "fees": [],
