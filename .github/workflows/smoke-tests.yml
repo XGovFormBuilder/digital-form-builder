@@ -13,6 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: sh "docker-componse down && docker-compose up -d"
+        run: docker-compose up -d
       - name: Test
         run: appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
+      - name: Teardown
+        run: docker-componse down
