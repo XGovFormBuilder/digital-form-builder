@@ -18,9 +18,6 @@ jobs:
 #        run: curl -s --retry 10 --retry-connrefused http://localhost:3000/
       - name: Smoke Tests
         run: |
-          yarn
-          yarn build:dependencies
-          cd smoke-tests/designer &&
-          yarn run smoke-test
+          yarn && yarn build:dependencies && cd smoke-tests/designer && yarn run smoke-test
       - name: Teardown
         run: docker-componse down
