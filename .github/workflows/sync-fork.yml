@@ -37,13 +37,13 @@ jobs:
         export LAST_COMMIT_AUTHOR_EMAIL=$(echo $(git log -1 --pretty=format:"%ae"))
         export LAST_COMMIT_MESSAGE=$(echo $(git log -1 --pretty='%s'))
         echo "Processing -[author: $LAST_COMMIT_AUTHOR, author email: $LAST_COMMIT_AUTHOR_EMAIL, last commit message: $LAST_COMMIT_MESSAGE]"
-        git config user.name $LAST_COMMIT_AUTHOR
-        git config user.email $LAST_COMMIT_AUTHOR_EMAIL
+        git config user.name github-actions
+        git config user.email github-actions@github.com
         echo "Config done"
         git fetch --all
         echo "Pull latest from XGovFormBuilder"
         git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
-        git commit --amend -m " Updated to $LAST_COMMIT_MESSAGE"
+        git commit --amend -m " Updated to [author: $LAST_COMMIT_AUTHOR, author email: $LAST_COMMIT_AUTHOR_EMAIL, last commit message: $LAST_COMMIT_MESSAGE]"
         git push -u
         echo "Sync completed"
 #     - name: Pull upstream changes
