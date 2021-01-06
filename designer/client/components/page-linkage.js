@@ -1,7 +1,9 @@
-import React, { useCallback, useState, Fragment } from "react";
+import React, { useCallback, useState, Fragment, useContext } from "react";
 import { RenderInPortal } from "./render-in-portal";
+import { DataContext } from "../context";
 
-export function PageLinkage({ page, data, layout }) {
+export function PageLinkage({ page, layout }) {
+  const { data, save } = useContext(DataContext);
   const [lineStart, setLineStart] = useState(null);
   const [lineEnd, setLineEnd] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -54,7 +56,7 @@ export function PageLinkage({ page, data, layout }) {
       if (linkingPage.path !== page.path) {
         const copy = data.clone();
         const updatedData = copy.addLink(linkingPage.path, page.path);
-        await data.save(updatedData);
+        await save(updatedData);
       }
       reset();
     },

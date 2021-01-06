@@ -2,8 +2,7 @@ import React from "react";
 import SelectConditions from "./conditions/select-conditions";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
-import { ErrorSummary } from "./error-summary";
-
+import ErrorSummary from "./error-summary";
 class LinkCreate extends React.Component {
   state = { errors: {} };
 

@@ -1,11 +1,13 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 
-import { ComponentCreate } from "../ComponentCreate";
+import { ComponentCreate } from "./../ComponentCreate";
+import { ComponentContextProvider } from "../../../reducers/component";
+import { DataContext } from "../../../context";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -20,114 +22,115 @@ suite("Component create", () => {
     subType: "content",
   };
 
-  const data = new Data({});
+  const data = new Data({ pages: [{ path: "/1" }] });
+  const dataSpy = sinon.spy(data);
   const page = { path: "/1" };
-  const generatedId = "DMaslknf";
-  let onCreate;
 
-  beforeEach(() => {
-    data.getId = sinon.stub().resolves(generatedId);
-    data.clone = sinon.stub();
-    data.save = sinon.stub();
-    onCreate = sinon.stub();
-  });
+  beforeEach(() => {});
+
+  const WrappingComponent = ({
+    dataValue = { data: dataSpy, save: sinon.stub() },
+    componentValue,
+    children,
+  }) => {
+    return (
+      <DataContext.Provider value={dataValue}>
+        <ComponentContextProvider {...componentValue}>
+          {children}
+        </ComponentContextProvider>
+      </DataContext.Provider>
+    );
+  };
 
   test("Selecting a component type should display the ComponentTypeEdit component", async () => {
-    const wrapper = shallow(
-      <ComponentCreate data={data} page={page} onCreate={onCreate} />
-    );
-
-    await wrapper.instance().componentDidMount();
+    const wrapper = mount(<ComponentCreate page={page} />, {
+      wrappingComponent: WrappingComponent,
+    });
 
     const form = wrapper.find("form");
     const componentCreateList = form.find("ComponentCreateList");
-
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
-
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
-
+    wrapper.update();
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
   });
 
   test("Should store the populated component and call callback on submit", async () => {
-    const clonedData = {
-      addComponent: sinon.stub(),
-    };
+    let saveStub = sinon.stub();
+    const component = { ...detailsComponentDef, title: "1", content: "1" };
 
-    const updatedData = sinon.stub();
-    const savedData = sinon.stub();
-    data.clone.returns(clonedData);
-    clonedData.addComponent.returns(updatedData);
-    data.save.resolves(savedData);
+    const wrapper = mount(<ComponentCreate page={page} />, {
+      wrappingComponent: WrappingComponent,
+      wrappingComponentProps: {
+        dataValue: { data: dataSpy, save: saveStub },
+        componentValue: {
+          component,
+        },
+      },
+    });
 
-    const wrapper = shallow(
-      <ComponentCreate data={data} page={page} onCreate={onCreate} />
-    );
-
-    wrapper.instance().storeComponent(detailsComponentDef);
-
-    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
-
-    expect(clonedData.addComponent.callCount).to.equal(1);
-    expect(clonedData.addComponent.firstCall.args[0]).to.equal(page.path);
-    expect(clonedData.addComponent.firstCall.args[1]).to.equal(
-      detailsComponentDef
-    );
-
-    expect(data.save.callCount).to.equal(1);
-    expect(data.save.firstCall.args[0]).to.equal(updatedData);
-
-    expect(onCreate.callCount).to.equal(1);
-    expect(onCreate.firstCall.args[0]).to.equal({ data: savedData });
+    wrapper
+      .find("form")
+      .invoke("onSubmit")()
+      .then(() => {
+        expect(dataSpy.addComponent.callCount).to.equal(1);
+        expect(dataSpy.addComponent.firstCall.args[0]).to.equal(page.path);
+        expect(dataSpy.addComponent.firstCall.args[1]).to.equal(component);
+      });
   });
 
   test("Should not allow onSubmit multiple times", async () => {
+    let saveStub = sinon.stub();
     const component = {
       type: "TextField",
       schema: { max: 24, min: 22 },
       options: { required: false },
+      title: "title",
+      name: "name",
     };
-    const clonedData = { addComponent: sinon.stub() };
-    const savedData = sinon.stub();
-    const updatedData = sinon.stub();
-    data.clone.returns(clonedData);
-    clonedData.addComponent.returns(updatedData);
-    data.save.resolves(savedData);
 
-    const wrapper = shallow(
-      <ComponentCreate data={data} page={page} onCreate={onCreate} />
-    );
+    const wrapper = mount(<ComponentCreate page={page} />, {
+      wrappingComponent: WrappingComponent,
+      wrappingComponentProps: {
+        dataValue: { data: dataSpy, save: saveStub },
+        componentValue: {
+          component,
+        },
+      },
+    });
 
-    wrapper.instance().storeComponent(component);
-
-    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
-    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
-    await wrapper.instance().onSubmit({ preventDefault: sinon.spy() });
+    wrapper.find("form").invoke("onSubmit")({ preventDefault: sinon.spy() });
+    wrapper.find("form").invoke("onSubmit")({ preventDefault: sinon.spy() });
+    wrapper.find("form").invoke("onSubmit")({ preventDefault: sinon.spy() });
 
     const saveButton = wrapper.find(".govuk-button").first();
-    expect(data.save.callCount).to.equal(1);
     expect(saveButton.prop("disabled")).to.equal(true);
   });
 
   test("'Back to create component list' link", async () => {
-    const wrapper = shallow(
-      <ComponentCreate data={data} page={page} onCreate={onCreate} />
-    );
-
-    await wrapper.instance().componentDidMount();
-
+    let saveStub = sinon.stub();
+    const wrapper = mount(<ComponentCreate page={page} />, {
+      wrappingComponent: WrappingComponent,
+      wrappingComponentProps: {
+        dataValue: { data: dataSpy, save: saveStub },
+      },
+    });
     const form = wrapper.find("form");
     const componentCreateList = form.find("ComponentCreateList");
 
-    expect(wrapper.find("BackLink").exists()).to.be.false();
-
+    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
+    wrapper.update();
+    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
 
     expect(wrapper.find("BackLink").exists()).to.be.true();
     expect(wrapper.find("ComponentCreateList").exists()).to.be.false();
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
 
-    wrapper.find("BackLink").prop("onClick")({ preventDefault: sinon.stub() });
+    wrapper.find("BackLink").invoke("onClick")({
+      preventDefault: sinon.stub(),
+    });
+    wrapper.update();
 
     expect(wrapper.find("BackLink").exists()).to.be.false();
     expect(wrapper.find("ComponentCreateList").exists()).to.be.true();
@@ -135,18 +138,21 @@ suite("Component create", () => {
   });
 
   test("it displays ErrorSummary when validation fails", async () => {
-    const wrapper = mount(
-      <ComponentCreate data={data} page={page} onCreate={onCreate} />
-    );
+    const saveStub = sinon.stub();
 
-    await wrapper.instance().componentDidMount();
+    const wrapper = mount(<ComponentCreate page={page} />, {
+      wrappingComponent: WrappingComponent,
+      wrappingComponentProps: {
+        dataValue: { data: dataSpy, save: saveStub },
+      },
+    });
 
     let form = wrapper.find("form");
     const componentCreateList = form.find("ComponentCreateList");
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
     wrapper.update();
 
-    form.prop("onSubmit")({ preventDefault: sinon.stub() });
+    wrapper.find("form").invoke("onSubmit")();
     wrapper.update();
 
     expect(wrapper.find("ErrorSummary").exists()).to.be.true();

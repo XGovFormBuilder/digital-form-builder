@@ -124,7 +124,6 @@ class FeeItems extends React.Component {
     data
       .save(copy)
       .then((data) => {
-        console.log(data);
         this.props.onEdit({ data });
       })
       .catch((err) => {

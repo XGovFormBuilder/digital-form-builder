@@ -12,6 +12,7 @@ import { ComponentTypes, clone } from "@xgovformbuilder/model";
 import { withI18n } from "./i18n";
 
 import { PageLinkage } from "./components/page-linkage";
+import { ComponentContextProvider } from "./reducers/component";
 
 const SortableItem = SortableElement(({ index, page, component, data }) => (
   <div className="component-item">
@@ -41,11 +42,6 @@ export class Page extends React.Component {
     showAddComponent: false,
   };
 
-  showEditor = (e, value) => {
-    e.stopPropagation();
-    this.setState({ showEditor: value });
-  };
-
   onSortEnd = ({ oldIndex, newIndex }) => {
     const { page, data } = this.props;
     const copy = clone(data);
@@ -63,15 +59,15 @@ export class Page extends React.Component {
   };
 
   toggleAddComponent = () => {
-    this.setState({
-      showAddComponent: !this.state.showAddComponent,
-    });
+    this.setState((prevState) => ({
+      showAddComponent: !prevState.showAddComponent,
+    }));
   };
 
   toggleEditor = () => {
-    this.setState({
-      showEditor: !this.state.showEditor,
-    });
+    this.setState((prevState) => ({
+      showEditor: !prevState.showEditor,
+    }));
   };
 
   render() {
@@ -79,7 +75,7 @@ export class Page extends React.Component {
     const { sections } = data;
     const formComponents = page?.components?.filter(
       (comp) =>
-        ComponentTypes.find((type) => type.name === comp.type).subType ===
+        ComponentTypes.find((type) => type.name === comp.type)?.subType ===
         "field"
     );
     const section =
@@ -147,26 +143,28 @@ export class Page extends React.Component {
             <span className="govuk-visually-hidden">{pageTitle}</span>
           </a>
         </div>
-        {this.state.showEditor && (
-          <Flyout
-            title="Edit Page"
-            show={this.state.showEditor}
-            onHide={this.toggleEditor}
-          >
-            <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
-          </Flyout>
-        )}
 
+        <Flyout
+          title="Edit Page"
+          show={this.state.showEditor}
+          onHide={this.toggleEditor}
+          NEVER_UNMOUNTS={true}
+        >
+          <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
+        </Flyout>
         {this.state.showAddComponent && (
           <Flyout
-            show={this.state.showAddComponent}
+            title="Add Component"
+            show={true}
             onHide={this.toggleAddComponent}
           >
-            <ComponentCreate
-              page={page}
-              data={data}
-              onCreate={this.toggleAddComponent}
-            />
+            <ComponentContextProvider>
+              <ComponentCreate
+                renderInForm={true}
+                toggleAddComponent={this.toggleAddComponent}
+                page={page}
+              />
+            </ComponentContextProvider>
           </Flyout>
         )}
       </div>

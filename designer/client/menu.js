@@ -3,7 +3,7 @@ import Flyout from "./flyout";
 import DataModel from "./data-model";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
-import ListsEdit from "./lists-edit";
+import ListsEdit from "../client/list/lists-edit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions-edit";
 import FeeEdit from "./fee-edit";
@@ -11,6 +11,9 @@ import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs/outputs-edit";
 import FormDetails from "./form-details";
+import { ListContext, ListContextProvider } from "./reducers/listReducer";
+import { ComponentContextProvider } from "./reducers/component/componentReducer";
+import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 
 export default class Menu extends React.Component {
   state = {
@@ -128,7 +131,6 @@ export default class Menu extends React.Component {
             Summary
           </button>
         </div>
-
         <div className="menu__row">
           <a href="/new">Create new form</a>
           <a href="#" onClick={this.onClickUpload}>
@@ -151,7 +153,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showAddPage && (
           <Flyout
             title="Add Page"
@@ -164,7 +165,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showAddLink && (
           <Flyout
             title="Add Link"
@@ -177,7 +177,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditSections && (
           <Flyout
             title="Edit Sections"
@@ -190,7 +189,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditConditions && (
           <Flyout
             title="Edit Conditions"
@@ -204,18 +202,18 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditLists && (
           <Flyout
             title="Edit Lists"
             show={this.state.showEditLists}
             onHide={() => this.setState({ showEditLists: false })}
-            width="xlarge"
+            width={""}
           >
-            <ListsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditLists: false })}
-            />
+            <ListsEditorContextProvider>
+              <ListContextProvider>
+                <ListsEdit data={data} context={ListContext} />
+              </ListContextProvider>
+            </ListsEditorContextProvider>
           </Flyout>
         )}
 
@@ -232,7 +230,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditNotify && (
           <Flyout
             title="Edit Notify"
@@ -246,7 +243,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditDeclaration && (
           <Flyout
             title="Edit Declaration"
@@ -261,7 +257,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditOutputs && (
           <Flyout
             title="Edit Outputs"
@@ -276,7 +271,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditSummaryBehaviour && (
           <Flyout
             title="Edit Summary behaviour"
@@ -293,7 +287,6 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showSummary && (
           <Flyout
             title="Summary"

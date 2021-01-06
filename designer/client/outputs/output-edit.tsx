@@ -17,7 +17,7 @@ import {
   ValidationErrors,
 } from "./types";
 import { validateNotEmpty, hasValidationErrors } from "../validations";
-import { ErrorSummary } from "../error-summary";
+import ErrorSummary from "../error-summary";
 
 type State = {
   outputType: OutputType;
