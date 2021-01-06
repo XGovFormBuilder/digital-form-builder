@@ -11,7 +11,7 @@ import {
   useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
 import { clone } from "@xgovformbuilder/model";
-import { useListItemAdapter } from "../hooks/list/useListItem";
+import { useListItem } from "../hooks/list/useListItem";
 
 type Props = {
   i18n: (string: string, interpolation?: any) => any;
@@ -34,7 +34,7 @@ export function ListItemEdit(props: Props) {
     condition,
     title,
     hint,
-  } = useListItemAdapter(state, dispatch);
+  } = useListItem(state, dispatch);
 
   const { i18n } = props;
   const { conditions } = data;

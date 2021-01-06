@@ -8,10 +8,8 @@ import { hasValidationErrors } from "./validations";
 
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
-  const [
-    { selectedComponent, initialName, errors = {}, hasValidated },
-    dispatch,
-  ] = useContext(props.context || ComponentContext);
+  const { state, dispatch } = useContext(ComponentContext);
+  const { selectedComponent, initialName, errors = {}, hasValidated } = state;
   const { page, toggleShowEditor } = props;
   const hasErrors = hasValidationErrors(errors);
 

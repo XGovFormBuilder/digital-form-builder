@@ -14,8 +14,7 @@ import {
 
 import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
-import { useListItemAdapter } from "../hooks/list/useListItem";
-import { useStaticListItem } from "../hooks/list/useListItem/useStaticListItem";
+import { useListItem } from "../hooks/list/useListItem";
 
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle-list">&#9776;</span>
