@@ -14,12 +14,16 @@ jobs:
       image: 'node:12-alpine3.12'
     steps:
       - uses: actions/checkout@v2
-#      - name: Build the stack
-#        run: docker-compose up -d
-#      - name: Test
-#        run: curl -s --retry 10 --retry-connrefused http://localhost:3000/
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - name: Install packages
+        run: yarn install
+  
       - name: Smoke Tests
         run: |
-          yarn && yarn build:dependencies && cd smoke-tests/designer && yarn run smoke-test
+         cd smoke-tests/designer
+         yarn run smoke-test
       - name: Teardown
         run: docker-componse down
