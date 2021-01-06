@@ -46,21 +46,6 @@ jobs:
         echo "Pull latest from XGovFormBuilder"
         git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
         git commit --amend -m "Updated to - $LAST_COMMIT_MESSAGE"
+        git diff --name-only HEAD@{0} HEAD@{1}
         git push -u
         echo "Sync completed"
-#     - name: Pull upstream changes
-#       id: sync
-#       uses: aormsby/Fork-Sync-With-Upstream-action@v2.2
-#       with:
-#         upstream_repository: XGovFormBuilder/digital-form-builder
-#         upstream_branch: master
-#         target_branch: master
-#         git_pull_args: --allow-unrelated-histories
-#     # Step 3: Display a message if 'sync' step had new commits (simple test)
-#     - name: Check for new commits
-#       if: steps.sync.outputs.has_new_commits
-#       run: echo "There were new commits."
-
-#     # Step 4: Print a helpful timestamp for your records (not required, just nice)
-#     - name: Timestamp
-#       run: date  
