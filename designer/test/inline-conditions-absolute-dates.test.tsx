@@ -7,7 +7,6 @@ import {
   assertSelectInput,
 } from "./helpers/element-assertions";
 import sinon from "sinon";
-import momentTz from "moment-timezone";
 import {
   absoluteDateOrTimeOperatorNames,
   ConditionValue,
@@ -15,7 +14,6 @@ import {
 
 import {
   AbsoluteDateTimeValues,
-  AbsoluteDateValues,
   AbsoluteTimeValues,
 } from "../client/conditions/inline-conditions-absolute-dates";
 
@@ -29,177 +27,6 @@ suite("Inline conditions absolute date and time value inputs", () => {
 
   beforeEach(() => {
     updateValueCallback = sinon.spy();
-  });
-
-  describe("absolute date operators", () => {
-    absoluteDateOrTimeOperatorNames.forEach((operator) => {
-      test(`should display the expected inputs for '${operator}' operator`, () => {
-        const existingValue = new ConditionValue("2020-01-02");
-        const wrapper = shallow(
-          <AbsoluteDateValues
-            value={existingValue}
-            updateValue={updateValueCallback}
-          />
-        );
-
-        assertRequiredNumberInput(
-          wrapper.find("#cond-value-year"),
-          "cond-value-year",
-          "2020"
-        );
-        assertRequiredNumberInput(
-          wrapper.find("#cond-value-month"),
-          "cond-value-month",
-          "01"
-        );
-        assertRequiredNumberInput(
-          wrapper.find("#cond-value-day"),
-          "cond-value-day",
-          "02"
-        );
-      });
-
-      test(`specifying all inputs in order should save the expected value for adding with '${operator}' operator`, () => {
-        const wrapper = shallow(
-          <AbsoluteDateValues updateValue={updateValueCallback} />
-        );
-
-        wrapper
-          .find("#cond-value-day")
-          .simulate("change", { target: { value: "01" } });
-        wrapper
-          .find("#cond-value-month")
-          .simulate("change", { target: { value: "11" } });
-        wrapper
-          .find("#cond-value-year")
-          .simulate("change", { target: { value: "2018" } });
-
-        expect(updateValueCallback.callCount).to.equal(1);
-        expect(updateValueCallback.firstCall.args.length).to.equal(1);
-        expect(updateValueCallback.firstCall.args[0]).to.equal(
-          new ConditionValue("2018-11-01")
-        );
-      });
-
-      test(`specifying some inputs should not trigger a save '${operator}' operator`, () => {
-        const wrapper = shallow(
-          <AbsoluteDateValues updateValue={updateValueCallback} />
-        );
-
-        wrapper
-          .find("#cond-value-month")
-          .simulate("change", { target: { value: "11" } });
-        wrapper
-          .find("#cond-value-year")
-          .simulate("change", { target: { value: "2018" } });
-
-        expect(updateValueCallback.callCount).to.equal(0);
-      });
-
-      test(`Days and months should be left padded with zeros for '${operator}' operator`, () => {
-        const wrapper = shallow(
-          <AbsoluteDateValues updateValue={updateValueCallback} />
-        );
-
-        wrapper
-          .find("#cond-value-day")
-          .simulate("change", { target: { value: "1" } });
-        wrapper
-          .find("#cond-value-month")
-          .simulate("change", { target: { value: "2" } });
-        wrapper
-          .find("#cond-value-year")
-          .simulate("change", { target: { value: "2018" } });
-
-        expect(updateValueCallback.callCount).to.equal(1);
-        expect(updateValueCallback.firstCall.args.length).to.equal(1);
-        expect(updateValueCallback.firstCall.args[0]).to.equal(
-          new ConditionValue("2018-02-01")
-        );
-      });
-
-      test(`specifying all inputs out of order should save the expected value for adding with '${operator}' operator`, () => {
-        const wrapper = shallow(
-          <AbsoluteDateValues updateValue={updateValueCallback} />
-        );
-
-        wrapper
-          .find("#cond-value-month")
-          .simulate("change", { target: { value: "11" } });
-        wrapper
-          .find("#cond-value-year")
-          .simulate("change", { target: { value: "2018" } });
-        wrapper
-          .find("#cond-value-day")
-          .simulate("change", { target: { value: "01" } });
-
-        expect(updateValueCallback.callCount).to.equal(1);
-        expect(updateValueCallback.firstCall.args.length).to.equal(1);
-        expect(updateValueCallback.firstCall.args[0]).to.equal(
-          new ConditionValue("2018-11-01")
-        );
-      });
-
-      test(`updating day should save the expected value for editing with '${operator}' operator`, () => {
-        const existingValue = new ConditionValue("2020-01-02");
-        const wrapper = shallow(
-          <AbsoluteDateValues
-            value={existingValue}
-            updateValue={updateValueCallback}
-          />
-        );
-
-        wrapper
-          .find("#cond-value-day")
-          .simulate("change", { target: { value: "12" } });
-
-        expect(updateValueCallback.callCount).to.equal(1);
-        expect(updateValueCallback.firstCall.args.length).to.equal(1);
-        expect(updateValueCallback.firstCall.args[0]).to.equal(
-          new ConditionValue("2020-01-12")
-        );
-      });
-
-      test(`updating month should save the expected value for editing with '${operator}' operator`, () => {
-        const existingValue = new ConditionValue("2020-01-02");
-        const wrapper = shallow(
-          <AbsoluteDateValues
-            value={existingValue}
-            updateValue={updateValueCallback}
-          />
-        );
-
-        wrapper
-          .find("#cond-value-month")
-          .simulate("change", { target: { value: "12" } });
-
-        expect(updateValueCallback.callCount).to.equal(1);
-        expect(updateValueCallback.firstCall.args.length).to.equal(1);
-        expect(updateValueCallback.firstCall.args[0]).to.equal(
-          new ConditionValue("2020-12-02")
-        );
-      });
-
-      test(`updating year should save the expected value for editing with '${operator}' operator`, () => {
-        const existingValue = new ConditionValue("2020-01-02");
-        const wrapper = shallow(
-          <AbsoluteDateValues
-            value={existingValue}
-            updateValue={updateValueCallback}
-          />
-        );
-
-        wrapper
-          .find("#cond-value-year")
-          .simulate("change", { target: { value: "2012" } });
-
-        expect(updateValueCallback.callCount).to.equal(1);
-        expect(updateValueCallback.firstCall.args.length).to.equal(1);
-        expect(updateValueCallback.firstCall.args[0]).to.equal(
-          new ConditionValue("2012-01-02")
-        );
-      });
-    });
   });
 
   describe("absolute time operators", () => {

@@ -5,7 +5,7 @@ import {
   clone,
 } from "@xgovformbuilder/model";
 import { icons } from "../icons";
-import InlineConditionsDefinition from "./inline-conditions-definition";
+import InlineConditionsDefinition from "./InlineConditionsDefinition";
 
 class InlineConditionsEdit extends React.Component {
   constructor(props) {

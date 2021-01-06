@@ -32,6 +32,7 @@
   "save": "Save",
   "duplicate": "Duplicate",
   "delete": "Delete",
+  "add": "Add",
   "optional": "{{noun}} (optional)",
   "name": {
     "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.",
@@ -50,9 +51,10 @@
   "Select an existing form to edit": "Select an existing form to edit",
   "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
   "Create a new form": "Create a new form",
-  "Create a new form or edit an existing form": "Create a new form or edit an existing form",
+  "Create a new form or edit an existing form": "Create a new form or edit an existing form, please",
   "A form with this name already exists": "A form with this name already exists",
   "There is a problem": "There is a problem",
   "Enter form name": "Enter form name",
-  "Test": "For testing purpose, do not delete it"
+  "Test": "For testing purpose, do not delete it",
+  "enterDateTimeAsUtc": "Dates and times should be GMT timezone"
 }
