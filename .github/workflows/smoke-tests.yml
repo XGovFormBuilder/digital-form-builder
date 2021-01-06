@@ -1,0 +1,17 @@
+name: Smoke Tests
+on: 
+ push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: sh "docker-componse down && docker-compose up -d"
+      - name: Test
+        run: appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
