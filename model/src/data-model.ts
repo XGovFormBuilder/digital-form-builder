@@ -402,7 +402,7 @@ export class Data implements DataModel {
     return new Data(this.exposePrivateFields);
   }
 
-  toJSON() {
+  toJSON(): { [key: string]: any } {
     return Object.fromEntries(
       Object.entries(this.exposePrivateFields).filter(([_field, value]) => {
         return value && typeof value !== "function";

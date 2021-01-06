@@ -8,7 +8,10 @@
     "declarationDir": "dist/types",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "lib": ["DOM"]
+    "lib": [
+      "DOM",
+      "es2018.promise"
+    ]
   },
   "include": [
     "server",

@@ -1,10 +1,11 @@
+import { Data } from "@xgovformbuilder/model";
+
 export class DesignerApi {
-  async save(id, updatedData) {
+  async save(id: string, updatedData: Data): Promise<Response | any> {
     try {
       const response = await window.fetch(`${id}/api/data`, {
         method: "put",
-        // dodgy hack to ensure get methods are called
-        body: updatedData.toJSON(),
+        body: JSON.stringify(updatedData),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -19,7 +20,7 @@ export class DesignerApi {
     }
   }
 
-  async fetchData(id) {
+  async fetchData(id: string) {
     try {
       const response = await window.fetch(`${id}/api/data`);
       return response.json();
