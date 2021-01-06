@@ -19,6 +19,6 @@ jobs:
       - name: Smoke Tests
         run: |
           cd smoke-tests/designer
-          yarn run smoke-test"
+          yarn run smoke-test
       - name: Teardown
         run: docker-componse down
