@@ -5,7 +5,8 @@ import { Actions } from "./reducers/component/types";
 import { CssClasses } from "./components/CssClasses";
 
 export function FileUploadFieldEdit() {
-  const [{ selectedComponent }, dispatch] = useContext(ComponentContext);
+  const { state, dispatch } = useContext(ComponentContext);
+  const { selectedComponent } = state;
   const { options } = selectedComponent;
 
   return (

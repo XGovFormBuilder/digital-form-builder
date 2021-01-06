@@ -12,7 +12,7 @@ type Props = {
 };
 
 export function useWarning() {
-  const [state, dispatch] = useContext(ListsEditorContext);
+  const { state, dispatch } = useContext(ListsEditorContext);
   const { data, save } = useContext(DataContext);
 
   async function confirm(e) {

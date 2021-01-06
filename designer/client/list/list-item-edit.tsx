@@ -18,10 +18,8 @@ type Props = {
 };
 
 export function ListItemEdit(props: Props) {
-  const [{ isEditingStatic }, listsEditorDispatch] = useContext(
-    ListsEditorContext
-  );
-  const [state, dispatch] = useSetListEditorContext();
+  const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
+  const { state, dispatch } = useSetListEditorContext();
   const { data, save } = useContext(DataContext);
 
   const {

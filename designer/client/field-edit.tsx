@@ -7,7 +7,7 @@ import { Input } from "@govuk-jsx/input";
 import { i18n } from "./i18n";
 
 export function FieldEdit() {
-  const [{ selectedComponent, errors }, dispatch] = useContext(
+const {{ selectedComponent, errors }, dispatch} = useContext(
     ComponentContext
   );
 

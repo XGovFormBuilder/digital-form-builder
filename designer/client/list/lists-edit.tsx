@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ListEdit from "./ListEdit";
 import { RenderInPortal } from "../components/render-in-portal";
 import Flyout from "./../flyout";
@@ -16,12 +16,19 @@ type Props = {
 };
 
 const useListsEdit = () => {
-  const [
-    { isEditingList, isEditingListItem, showWarning, context },
-    listsEditorDispatch,
-  ]: any = useContext(ListsEditorContext);
+  const { state: listEditState, dispatch: listsEditorDispatch } = useContext(
+    ListsEditorContext
+  );
 
-  const [{ selectedList, selectedItem }]: any = useContext(context);
+  const {
+    isEditingList,
+    isEditingListItem,
+    showWarning,
+    listEditContext,
+  } = listEditState;
+
+  const { state } = useContext(listEditContext);
+  const { selectedList, selectedItem } = state;
 
   const closeFlyout = (action: ListsEditorStateActions) => {
     return () => listsEditorDispatch([action, false]);

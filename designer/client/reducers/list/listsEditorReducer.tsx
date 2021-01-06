@@ -19,19 +19,30 @@ export interface ListsEditorState {
   isEditingStatic: boolean;
   listTitle?: string;
   listItemTitle?: string;
-  contextToUse?: typeof ListContext | typeof ComponentContext;
+  showWarning?: boolean;
+  initialName?: string;
+  listEditContext: typeof ListContext | typeof ComponentContext;
 }
 
-export function initListsEditingState(isEditingFromComponent = false) {
+export function initListsEditingState(
+  isEditingFromComponent = false
+): ListsEditorState {
   return {
     isEditingList: false,
     isEditingListItem: false,
     isEditingStatic: false,
-    context: isEditingFromComponent ? ComponentContext : ListContext,
+    listEditContext: isEditingFromComponent ? ComponentContext : ListContext,
   };
 }
 
-export const ListsEditorContext = createContext(initListsEditingState());
+export const ListsEditorContext = createContext<{
+  state: ListsEditorState;
+  dispatch: React.Dispatch<any>;
+}>({
+  state: initListsEditingState(),
+  dispatch: () => {},
+});
+ListsEditorContext.displayName = "ListsEditorContext";
 
 /**
  * @desc Responsible for which screens should be open, and whether ComponentContext or ListContext should be used for changes.
@@ -41,7 +52,6 @@ export function listsEditorReducer(
   action: [ListsEditorStateActions, boolean | string]
 ): ListsEditorState {
   const [type, payload] = action;
-  console.log(type, payload);
 
   switch (type) {
     case ListsEditorStateActions.SET_CONTEXT:
@@ -75,14 +85,15 @@ export const ListsEditorContextProvider = (props) => {
     listsEditorReducer,
     initListsEditingState()
   );
+
   return (
-    <ListsEditorContext.Provider value={[state, dispatch]}>
+    <ListsEditorContext.Provider value={{ state, dispatch }}>
       {props.children}
     </ListsEditorContext.Provider>
   );
 };
 
 export const useSetListEditorContext = () => {
-  const [state]: any = useContext(ListsEditorContext);
-  return useContext(state.context);
+  const { state } = useContext(ListsEditorContext);
+  return useContext(state.listEditContext);
 };

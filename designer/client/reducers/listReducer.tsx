@@ -2,7 +2,6 @@ import { nanoid } from "nanoid";
 import React, { createContext, useContext, useReducer } from "react";
 import { DataContext } from "../context";
 import { ListActions } from "./listActions";
-export const ListContext = createContext({});
 
 export interface ListState {
   selectedList?: any; // TODO:- type
@@ -14,6 +13,15 @@ export interface ListState {
   errors?: any;
   listItemErrors?: any;
 }
+
+export const ListContext = createContext<{
+  state: ListState;
+  dispatch: React.Dispatch<any>;
+}>({
+  state: {},
+  dispatch: () => {},
+});
+
 /**
  * @desc this reducer is for "global" list types.
  */
@@ -154,7 +162,7 @@ export const ListContextProvider = (props) => {
   }
   const [state, dispatch] = useReducer(listReducer, { ...init });
   return (
-    <ListContext.Provider value={[state, dispatch]}>
+    <ListContext.Provider value={{ state, dispatch }}>
       {props.children}
     </ListContext.Provider>
   );

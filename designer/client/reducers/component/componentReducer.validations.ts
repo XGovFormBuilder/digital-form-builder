@@ -12,6 +12,7 @@ function validateDetails(component) {
 
 function validateTitle(id, value) {
   const titleHasErrors = isEmpty(value);
+
   if (titleHasErrors) {
     return {
       title: {
@@ -20,6 +21,8 @@ function validateTitle(id, value) {
       },
     };
   }
+
+  return false;
 }
 
 export interface ValidationError {

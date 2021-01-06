@@ -3,7 +3,8 @@ import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "../reducers/component/types";
 
 export function CssClasses() {
-  const [{ selectedComponent }, dispatch] = useContext(ComponentContext);
+  const { state, dispatch } = useContext(ComponentContext);
+  const { selectedComponent } = state;
   const { options = {} } = selectedComponent;
 
   return (

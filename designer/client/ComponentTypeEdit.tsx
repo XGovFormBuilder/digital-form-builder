@@ -34,7 +34,8 @@ const componentTypeEditors = {
 
 function ComponentTypeEdit(props) {
   const { context = ComponentContext, page } = props;
-  const [{ selectedComponent }] = useContext(context);
+  const { state } = useContext(context);
+  const { selectedComponent } = state;
   const type = ComponentTypes.find(
     (t) => t.name === selectedComponent?.type ?? ""
   );

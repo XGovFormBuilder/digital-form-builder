@@ -18,8 +18,20 @@ import {
 } from "./types";
 import { componentListReducer } from "./componentReducer.list";
 
-const defaultValues: [any, any] = [{}, () => {}];
-export const ComponentContext = createContext(defaultValues);
+// TODO: type
+type ComponentState = {
+  [prop: string]: any;
+};
+
+const defaultValues = {};
+
+export const ComponentContext = createContext<{
+  state: ComponentState;
+  dispatch: React.Dispatch<any>;
+}>({
+  state: defaultValues,
+  dispatch: () => {},
+});
 
 const ActionsReducerCollection = [
   [Meta, metaReducer],
@@ -97,7 +109,7 @@ export const ComponentContextProvider = (props) => {
   );
 
   return (
-    <ComponentContext.Provider value={[state, dispatch]}>
+    <ComponentContext.Provider value={{ state, dispatch }}>
       {children}
     </ComponentContext.Provider>
   );

@@ -22,7 +22,7 @@ import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 function useComponentCreate(props) {
   const { data, save } = useContext(DataContext);
-  const [state, dispatch] = useContext(ComponentContext);
+  const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent, errors = {}, hasValidated } = state;
   const { page, toggleAddComponent = () => {} } = props;
 
