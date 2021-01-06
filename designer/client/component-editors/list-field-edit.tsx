@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 
 import ListsEdit from "../list/lists-edit";
 import { ListContextProvider } from "../reducers/listReducer";
@@ -6,13 +6,17 @@ import { ListsEditorContextProvider } from "../reducers/list/listsEditorReducer"
 import { RenderInPortal } from "../components/render-in-portal";
 import ComponentListSelect from "../list/component-list-select";
 
-function ListFieldEdit(props) {
+type Props = {
+  page: any; // TODO
+};
+
+function ListFieldEdit({ page }: Props) {
   return (
     <ListsEditorContextProvider>
       <ListContextProvider>
         <ComponentListSelect />
         <RenderInPortal>
-          <ListsEdit isEditingFromComponent={true} page={props.page} />
+          <ListsEdit isEditingFromComponent={true} page={page} />
         </RenderInPortal>
       </ListContextProvider>
     </ListsEditorContextProvider>

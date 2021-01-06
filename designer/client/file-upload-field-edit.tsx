@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ComponentContext } from "./reducers/component/componentReducer";
 import { Actions } from "./reducers/component/types";
 
-import { Classes } from "./classes";
+import { CssClasses } from "./components/CssClasses";
 
 export function FileUploadFieldEdit({ context }) {
   const [{ selectedComponent }, dispatch] = useContext(
@@ -40,7 +40,7 @@ export function FileUploadFieldEdit({ context }) {
         </div>
       </div>
 
-      <Classes context={context} />
+      <CssClasses context={context} />
     </details>
   );
 }

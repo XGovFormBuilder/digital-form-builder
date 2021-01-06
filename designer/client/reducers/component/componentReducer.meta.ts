@@ -23,10 +23,8 @@ export function metaReducer(
           options: { required: true },
         },
       };
-
     case Meta.SET_COMPONENT:
-      return { ...state, selectedComponent: payload };
-
+      return { ...state, selectedComponent: payload, errors: {} };
     case Meta.SET_PAGE:
       return { ...state, pagePath: payload };
     case Meta.DELETE:
@@ -35,7 +33,6 @@ export function metaReducer(
       } else {
         return { ...state, showDeleteWarning: true };
       }
-
       break;
     case Meta.VALIDATE:
       return {

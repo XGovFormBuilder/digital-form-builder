@@ -153,11 +153,7 @@ export class Page extends React.Component {
           <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
         </Flyout>
         {this.state.showAddComponent && (
-          <Flyout
-            title="Add Component"
-            show={true}
-            onHide={this.toggleAddComponent}
-          >
+          <Flyout show={true} onHide={this.toggleAddComponent}>
             <ComponentContextProvider>
               <ComponentCreate
                 renderInForm={true}

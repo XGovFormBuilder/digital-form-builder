@@ -2,11 +2,10 @@ import React, { useContext, useLayoutEffect, useState } from "react";
 import { FlyoutContext } from "./context";
 import { withI18n } from "./i18n";
 
-export function useFlyoutEffect(props) {
+export function useFlyoutEffect(props = {}) {
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
-  const { NEVER_UNMOUNTS } = (props = {});
 
   /**
    * @code on component mount
@@ -34,13 +33,11 @@ export function useFlyoutEffect(props) {
 
   const onHide = (e) => {
     e?.preventDefault();
+
     if (props.onHide) {
       props.onHide();
-      /**
-       * FIXME:- onHide should unmount the component. Some components rely on props.show to render, which means they never unmount.
-       * It should really be handled by the parent to determine whether or not the flyout should render.
-       */
-      if (NEVER_UNMOUNTS) {
+
+      if (props.NEVER_UNMOUNTS) {
         flyoutContext.decrement();
       }
     }

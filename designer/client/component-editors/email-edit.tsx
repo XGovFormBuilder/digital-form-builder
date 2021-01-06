@@ -1,6 +1,10 @@
 import React from "react";
 
-class EmailEdit extends React.Component {
+type Props = {
+  output: any; // TODO
+};
+
+class EmailEdit extends React.Component<Props> {
   render() {
     const { output } = this.props;
     const outputConfiguration = output?.outputConfiguration ?? {

@@ -1,12 +1,17 @@
 import React, { useContext } from "react";
 import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "./../reducers/component/types";
-import { Classes } from "./../classes";
+import { CssClasses } from "../components/CssClasses";
 
-export function DateFieldEdit({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
-    !!context ? context : ComponentContext
-  );
+type Props = {
+  context: any; // TODO
+};
+
+export function DateFieldEdit({ context = ComponentContext }: Props) {
+  // If you are editing a component, the default context will be ComponentContext because props.context is undefined,
+  // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
+  const [{ selectedComponent }, dispatch] = useContext(context);
+
   const { options } = selectedComponent;
 
   return (
@@ -61,7 +66,7 @@ export function DateFieldEdit({ context }) {
         />
       </div>
 
-      <Classes context={context} />
+      <CssClasses context={context} />
     </details>
   );
 }
