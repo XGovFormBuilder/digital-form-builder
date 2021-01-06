@@ -5,22 +5,10 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { ErrorSummary } from "../../client/error-summary";
 import { Data } from "@xgovformbuilder/model";
-import {
-  assertTextInput,
-  assertSelectInput,
-} from "../helpers/element-assertions";
-import {
-  assertInputControlValue,
-  assertInputControlProp,
-} from "../helpers/sub-component-assertions";
-import { Input } from "@govuk-jsx/input";
+import { assertSelectInput } from "../helpers/element-assertions";
+import { assertInputControlProp } from "../helpers/sub-component-assertions";
 import OutputEdit from "../../client/outputs/output-edit";
-import {
-  OutputType,
-  OutputConfiguration,
-  Output,
-  ValidationErrors,
-} from "../../client/outputs//types";
+import { Output } from "../../client/outputs/types";
 
 const { expect } = Code;
 const lab = Lab.script();

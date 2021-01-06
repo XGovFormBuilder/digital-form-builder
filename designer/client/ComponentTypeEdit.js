@@ -27,16 +27,14 @@ const componentTypeEditors = {
   WarningTextEdit: ParaEdit,
   DetailsEdit: DetailsEdit,
   FlashCardEdit: ListFieldEdit,
-  FileUploadFieldEdit: FileUploadFieldEdit,
+  FileUploadFieldEdit,
   DatePartsFieldEdit: DateFieldEdit,
   ListEdit: ListFieldEdit,
 };
 
 function ComponentTypeEdit(props) {
   const { context = ComponentContext, page } = props;
-  const [{ selectedComponent }, _dispatch] = useContext(
-    !!props.context ? props.context : ComponentContext
-  );
+  const [{ selectedComponent }] = useContext(context);
   const type = ComponentTypes.find(
     (t) => t.name === selectedComponent?.type ?? ""
   );
@@ -45,10 +43,10 @@ function ComponentTypeEdit(props) {
   const TagName =
     componentTypeEditors[`${selectedComponent?.type}Edit`] || FieldEdit;
   return (
-    <div>
+    <>
       {needsFieldInputs && <FieldEdit page={page} context={context} />}
-      {type && <TagName page={page} context={props.context} />}
-    </div>
+      {type && <TagName page={page} context={context} />}
+    </>
   );
 }
 

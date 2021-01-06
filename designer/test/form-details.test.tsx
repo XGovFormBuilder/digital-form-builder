@@ -266,8 +266,8 @@ suite("Form details", () => {
         .find(ErrorSummary)
         .prop("errorList");
       expect(errorList.length).to.equal(1);
-      expect(errorList[0]).to.equal({
-        children: "Enter title",
+      expect(errorList[0]).to.contain({
+        children: ["Enter title"],
         href: "#form-title",
       });
     });

@@ -29,9 +29,6 @@ export function metaReducer(
 
     case Meta.SET_PAGE:
       return { ...state, pagePath: payload };
-    case Meta.SUBMIT:
-      break;
-
     case Meta.DELETE:
       if (state.showDeleteWarning) {
         delete state.selectedComponent;

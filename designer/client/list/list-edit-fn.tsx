@@ -20,7 +20,6 @@ const useListItem = (state, dispatch) => {
 
   function deleteItem(e) {
     e.preventDefault();
-    console.log(state);
     dispatch({
       type: isEditingStatic ? Actions.DELETE : ListActions.DELETE_LIST_ITEM,
     });

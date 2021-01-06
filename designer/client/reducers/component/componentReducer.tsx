@@ -46,19 +46,6 @@ export function componentReducer(
 ) {
   const { type } = action;
 
-  if (!!state.selectedComponent) {
-    state.selectedComponent = {
-      options: {
-        required: true,
-        hideTitle: false,
-        optionalText: false,
-        classes: "",
-      },
-      hint: "",
-      schema: {},
-    };
-  }
-
   const { selectedComponent } = state;
   if (type !== Meta.VALIDATE) {
     state.hasValidated = false;
@@ -98,14 +85,15 @@ export const initComponentState = (props) => {
 };
 
 export const ComponentContextProvider = (props) => {
+  const { children: c, ...rest } = props;
   const [state, dispatch] = useReducer(
     componentReducer,
-    initComponentState(props)
+    initComponentState(rest)
   );
 
   return (
     <ComponentContext.Provider value={[state, dispatch]}>
-      {props.children}
+      {c}
     </ComponentContext.Provider>
   );
 };

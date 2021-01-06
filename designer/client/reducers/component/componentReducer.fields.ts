@@ -1,4 +1,5 @@
 import { Fields } from "./types";
+import { ComponentTypes } from "@xgovformbuilder/model";
 
 export function fieldsReducer(
   state,
@@ -28,15 +29,15 @@ export function fieldsReducer(
         },
       };
     }
-    case Fields.EDIT_TYPE:
+    case Fields.EDIT_TYPE: {
       return {
         ...state,
         selectedComponent: {
           ...selectedComponent,
           type: payload,
         },
-        errors: {},
       };
+    }
     case Fields.EDIT_CONDITION:
       return {
         ...state,

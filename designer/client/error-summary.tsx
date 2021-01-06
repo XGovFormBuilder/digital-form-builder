@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { withI18n } from "./i18n";
+import { i18n } from "./i18n";
 
 export interface ErrorListItem {
   reactListKey?: string;
@@ -20,7 +20,6 @@ export function ErrorSummary({
   descriptionChildren,
   errorList,
   titleChildren = "There is a problem",
-  i18n,
 }: ErrorSummaryProps) {
   const errorSummaryRef = useRef();
 
@@ -71,4 +70,4 @@ export function ErrorSummary({
   );
 }
 
-export default withI18n(ErrorSummary);
+export default ErrorSummary;
