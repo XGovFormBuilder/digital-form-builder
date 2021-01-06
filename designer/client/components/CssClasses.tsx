@@ -2,10 +2,8 @@ import React, { useContext } from "react";
 import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "../reducers/component/types";
 
-export function CssClasses({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
-    !!context ? context : ComponentContext
-  );
+export function CssClasses() {
+  const [{ selectedComponent }, dispatch] = useContext(ComponentContext);
   const { options = {} } = selectedComponent;
 
   return (

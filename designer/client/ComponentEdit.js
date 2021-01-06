@@ -45,8 +45,13 @@ export function ComponentEdit(props) {
   const handleDelete = async (e) => {
     e.preventDefault();
     const copy = data.toJSON();
-    const indexOfPage = copy.pages;
-    dispatch({ action: Actions.DELETE });
+    const indexOfPage = copy.pages.findIndex((p) => p.path === page.path);
+    const indexOfComponent = copy.pages[indexOfPage].findIndex(
+      (component) => component.name === selectedComponent.initialName
+    );
+    copy.pages[indexOfPage].components.splice(indexOfComponent, 1);
+    await save(updatedData.toJSON());
+    toggleShowEditor();
   };
 
   return (
@@ -59,7 +64,7 @@ export function ComponentEdit(props) {
           </span>
           <span className="govuk-body">{selectedComponent.type}</span>
         </div>
-        <ComponentTypeEdit context={props.context} page={page} />
+        <ComponentTypeEdit page={page} />
         <button className="govuk-button" type="submit">
           Save
         </button>{" "}

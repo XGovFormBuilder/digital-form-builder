@@ -66,7 +66,7 @@ export function DateFieldEdit({ context = ComponentContext }: Props) {
         />
       </div>
 
-      <CssClasses context={context} />
+      <CssClasses />
     </details>
   );
 }

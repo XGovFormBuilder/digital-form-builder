@@ -4,10 +4,8 @@ import { Actions } from "./reducers/component/types";
 
 import { CssClasses } from "./components/CssClasses";
 
-export function FileUploadFieldEdit({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
-    !!context ? context : ComponentContext
-  );
+export function FileUploadFieldEdit() {
+  const [{ selectedComponent }, dispatch] = useContext(ComponentContext);
   const { options } = selectedComponent;
 
   return (
@@ -24,12 +22,13 @@ export function FileUploadFieldEdit({ context }) {
             name="options.multiple"
             type="checkbox"
             checked={options.multiple === false}
-            onChange={(e) =>
+            onChange={(e) => {
+              e.preventDefault();
               dispatch({
                 type: Actions.EDIT_OPTIONS_FILE_UPLOAD_MULTIPLE,
                 payload: !options.multiple,
-              })
-            }
+              });
+            }}
           />
           <label
             className="govuk-label govuk-checkboxes__label"
@@ -40,7 +39,7 @@ export function FileUploadFieldEdit({ context }) {
         </div>
       </div>
 
-      <CssClasses context={context} />
+      <CssClasses />
     </details>
   );
 }

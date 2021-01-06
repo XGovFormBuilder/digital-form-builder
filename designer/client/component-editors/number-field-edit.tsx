@@ -94,7 +94,7 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
         />
       </div>
 
-      <CssClasses context={context} />
+      <CssClasses />
     </details>
   );
 }

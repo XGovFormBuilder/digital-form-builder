@@ -35,28 +35,28 @@ export function useStaticListItem(state, dispatch): ListItemHook {
 
   function handleTitleChange(e) {
     dispatch({
-      type: StaticListItemActions.EDIT_LABEL,
+      type: StaticListItemActions.STATIC_LIST_ITEM_EDIT_LABEL,
       payload: e.target.value,
     });
   }
 
   function handleConditionChange(e) {
     dispatch({
-      type: StaticListItemActions.EDIT_CONDITION,
+      type: StaticListItemActions.STATIC_LIST_ITEM_EDIT_CONDITION,
       payload: e.target.value,
     });
   }
 
   function handleValueChange(e) {
     dispatch({
-      type: StaticListItemActions.EDIT_VALUE,
+      type: StaticListItemActions.STATIC_LIST_ITEM_EDIT_VALUE,
       payload: e.target.value,
     });
   }
 
   function handleHintChange(e) {
     dispatch({
-      type: StaticListItemActions.EDIT_HINT,
+      type: StaticListItemActions.STATIC_LIST_ITEM_EDIT_HINT,
       payload: e.target.value,
     });
   }

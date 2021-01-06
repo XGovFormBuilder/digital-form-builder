@@ -1,6 +1,6 @@
 import React, { useContext, useLayoutEffect, useState } from "react";
 import { FlyoutContext } from "./context";
-import { withI18n } from "./i18n";
+import { i18n } from "./i18n";
 
 export function useFlyoutEffect(props = {}) {
   const flyoutContext = useContext(FlyoutContext);
@@ -61,7 +61,7 @@ function Flyout(props) {
           className="close govuk-body govuk-!-font-size-16"
           onClick={onHide}
         >
-          {props.i18n("close")}
+          {i18n("close")}
         </a>
         <div className="panel panel--flyout">
           <div className="panel-header govuk-!-padding-top-4 govuk-!-padding-left-4">
@@ -78,4 +78,4 @@ function Flyout(props) {
   );
 }
 
-export default withI18n(Flyout);
+export default Flyout;

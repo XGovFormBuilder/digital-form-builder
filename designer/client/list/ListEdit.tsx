@@ -3,7 +3,7 @@ import { Input } from "@govuk-jsx/input";
 import React, { useContext } from "react";
 import { ListActions } from "../reducers/listActions";
 import { Actions } from "../reducers/component/types";
-import { withI18n } from "../i18n";
+import { i18n } from "../i18n";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
@@ -13,6 +13,7 @@ import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
 import { hasValidationErrors, validateTitle } from "../validations";
 import ErrorSummary from "../error-summary";
+
 const useListItem = (state, dispatch) => {
   const [{ isEditingStatic }, listsEditorDispatch]: any = useContext(
     ListsEditorContext
@@ -40,7 +41,7 @@ const useListItem = (state, dispatch) => {
   };
 };
 
-function useListEdit(i18n) {
+function useListEdit() {
   const [state, dispatch] = useSetListEditorContext();
   const [
     { showWarning, isEditingStatic },
@@ -103,9 +104,8 @@ function useListEdit(i18n) {
   };
 }
 
-export function ListEdit(props) {
-  const { i18n } = props;
-  const { handleSubmit, handleDelete, isEditingStatic } = useListEdit(i18n);
+export function ListEdit() {
+  const { handleSubmit, handleDelete, isEditingStatic } = useListEdit();
 
   const [state, dispatch] = useSetListEditorContext();
   const { selectedList, createItem } = useListItem(state, dispatch);
@@ -167,4 +167,4 @@ export function ListEdit(props) {
   );
 }
 
-export default withI18n(ListEdit);
+export default ListEdit;

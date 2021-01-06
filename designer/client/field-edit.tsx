@@ -4,10 +4,12 @@ import { ComponentContext } from "./reducers/component/componentReducer";
 import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
 import { Input } from "@govuk-jsx/input";
-import { withI18n } from "./i18n";
+import { i18n } from "./i18n";
 
-export function FieldEdit({ i18n, context = ComponentContext }) {
-  const [{ selectedComponent, errors }, dispatch] = useContext(context);
+export function FieldEdit() {
+  const [{ selectedComponent, errors }, dispatch] = useContext(
+    ComponentContext
+  );
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
   const { hideTitle = false, optionalText = false, required = true } = options;
@@ -34,7 +36,7 @@ export function FieldEdit({ i18n, context = ComponentContext }) {
           }}
           errorMessage={
             errors?.title
-              ? { children: i18n(...errors.title.children) }
+              ? { children: i18n(errors.title[0], errors.title[1]) }
               : undefined
           }
         />
@@ -180,5 +182,4 @@ export function FieldEdit({ i18n, context = ComponentContext }) {
     </div>
   );
 }
-
-export default withI18n(FieldEdit);
+export default FieldEdit;

@@ -45,8 +45,8 @@ function ComponentTypeEdit(props) {
     componentTypeEditors[`${selectedComponent?.type}Edit`] || FieldEdit;
   return (
     <>
-      {needsFieldInputs && <FieldEdit page={page} context={context} />}
-      {type && <TagName page={page} context={context} />}
+      {needsFieldInputs && <FieldEdit page={page} />}
+      {type && <TagName page={page} />}
     </>
   );
 }

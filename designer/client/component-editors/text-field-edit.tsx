@@ -122,7 +122,7 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
 
       {children}
 
-      <CssClasses context={context} />
+      <CssClasses />
     </details>
   );
 }

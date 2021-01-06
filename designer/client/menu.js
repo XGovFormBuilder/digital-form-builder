@@ -211,7 +211,7 @@ export default class Menu extends React.Component {
           >
             <ListsEditorContextProvider>
               <ListContextProvider>
-                <ListsEdit data={data} context={ListContext} />
+                <ListsEdit />
               </ListContextProvider>
             </ListsEditorContextProvider>
           </Flyout>

@@ -113,7 +113,7 @@ function ListItems() {
           </tr>
         </thead>
         <SortableList
-          items={selectedList.items}
+          items={selectedList?.items ?? []}
           selectListItem={selectListItem}
           removeItem={removeItem}
           onSortEnd={onSortEnd}
