@@ -7,9 +7,9 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
-  schedule:
+  #schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '* * * * *'
+  #  - cron:  '* * * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -28,29 +28,29 @@ jobs:
       with:
         ref: master
     # Step 2: Pull upstream https://github.com/XGovFormBuilder/digital-form-builder and push
-#     - run: |
-#         echo "Setup git config"
-#         git config user.name github-actions
-#         git config user.email github-actions@github.com
-#         echo "Config done"
-#         git fetch --all
-#         echo "Pull latest from XGovFormBuilder"
-#         git merge https://github.com/XGovFormBuilder/digital-form-builder
-#         git push -u
-#         echo "Sync completed"
-    - name: Pull upstream changes
-      id: sync
-      uses: aormsby/Fork-Sync-With-Upstream-action@v2.2
-      with:
-        upstream_repository: XGovFormBuilder/digital-form-builder
-        upstream_branch: master
-        target_branch: master
-        git_pull_args: --ff-only 
-    # Step 3: Display a message if 'sync' step had new commits (simple test)
-    - name: Check for new commits
-      if: steps.sync.outputs.has_new_commits
-      run: echo "There were new commits."
+    - run: |
+        echo "Setup git config"
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        echo "Config done"
+        git fetch --all
+        echo "Pull latest from XGovFormBuilder"
+        git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
+        git push -u
+        echo "Sync completed"
+#     - name: Pull upstream changes
+#       id: sync
+#       uses: aormsby/Fork-Sync-With-Upstream-action@v2.2
+#       with:
+#         upstream_repository: XGovFormBuilder/digital-form-builder
+#         upstream_branch: master
+#         target_branch: master
+#         git_pull_args: --allow-unrelated-histories
+#     # Step 3: Display a message if 'sync' step had new commits (simple test)
+#     - name: Check for new commits
+#       if: steps.sync.outputs.has_new_commits
+#       run: echo "There were new commits."
 
-    # Step 4: Print a helpful timestamp for your records (not required, just nice)
-    - name: Timestamp
-      run: date  
+#     # Step 4: Print a helpful timestamp for your records (not required, just nice)
+#     - name: Timestamp
+#       run: date  
