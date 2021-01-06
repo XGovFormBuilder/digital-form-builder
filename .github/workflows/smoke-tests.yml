@@ -23,7 +23,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install packages
-        run: yarn install
+        run: |
+        sudo apt-get install g++ build-essential
+        yarn install
   
       - name: Smoke Tests
         run: |
