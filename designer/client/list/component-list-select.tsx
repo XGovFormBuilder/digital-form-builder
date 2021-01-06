@@ -13,14 +13,15 @@ import {
 
 export function ComponentListSelect(props) {
   const { i18n } = props;
-  const { data, save } = useContext(DataContext);
-  const [_, listsEditorDispatch]: any = useContext(ListsEditorContext);
-
-  const [state, dispatch]: any = useContext(ComponentContext);
+  const { data } = useContext(DataContext);
+  const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
+  const { state, dispatch } = useContext(ComponentContext);
 
   const { selectedListName, selectedComponent, isNew } = state;
 
-  const [{ selectedList }, listDispatch]: any = useContext(ListContext);
+  const { state: listState, dispatch: listDispatch } = useContext(ListContext);
+
+  const { selectedList } = listState;
 
   const [selectedListTitle, setSelectedListTitle] = useState(
     selectedList?.title

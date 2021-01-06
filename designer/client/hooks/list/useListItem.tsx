@@ -21,8 +21,8 @@ export type ListItemHook = {
 };
 
 export function useListItemAdapter(state, dispatch): ListItemHook {
-  const [{ isEditingStatic }] = useContext(ListsEditorContext);
-  if (isEditingStatic) {
+  const { state: listState } = useContext(ListsEditorContext);
+  if (listState.isEditingStatic) {
     return useStaticListItem(state, dispatch);
   } else {
     return useGlobalListItem(state, dispatch);

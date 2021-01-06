@@ -4,11 +4,11 @@ import { Actions } from "./reducers/component/types";
 
 import { TextFieldEdit } from "./component-editors/text-field-edit";
 
-export function MultilineTextFieldEdit({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
-    !!context ? context : ComponentContext
-  );
+export function MultilineTextFieldEdit({ context = ComponentContext }) {
+  const { state, dispatch } = useContext(context);
+  const { selectedComponent } = state;
   const { options = {} } = selectedComponent;
+
   return (
     <TextFieldEdit>
       <input

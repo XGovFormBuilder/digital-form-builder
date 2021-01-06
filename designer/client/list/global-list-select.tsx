@@ -11,14 +11,12 @@ import {
 export function GlobalListSelect(props) {
   const { i18n } = props;
   const { data } = useContext(DataContext);
-  const [_state, dispatch]: any = useContext(ListContext);
-  const [_editorState, listsEditorDispatch]: any = useContext(
-    ListsEditorContext
-  );
+  const { dispatch: listDispatch } = useContext(ListContext);
+  const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
 
   const editList = (e, list) => {
     e.preventDefault();
-    dispatch({
+    listDispatch({
       type: ListActions.SET_SELECTED_LIST,
       payload: list,
     });
@@ -40,7 +38,7 @@ export function GlobalListSelect(props) {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            dispatch({ type: ListActions.ADD_NEW_LIST });
+            listDispatch({ type: ListActions.ADD_NEW_LIST });
             listsEditorDispatch([
               ListsEditorStateActions.IS_EDITING_LIST,
               true,

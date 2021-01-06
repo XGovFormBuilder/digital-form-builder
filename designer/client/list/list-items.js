@@ -77,11 +77,12 @@ const SortableList = SortableContainer(
 );
 
 function ListItems() {
-  const [{ isEditingStatic }, listsEditorDispatch] = useContext(
+  const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
     ListsEditorContext
   );
+  const { isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
-  const [state, dispatch] = useSetListEditorContext();
+  const { state, dispatch } = useSetListEditorContext();
   const selectedList = isEditingStatic
     ? state.selectedComponent.values
     : state.selectedList;

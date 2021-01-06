@@ -14,9 +14,11 @@ import { clone } from "@xgovformbuilder/model";
 import { hasValidationErrors, validateTitle } from "../validations";
 import ErrorSummary from "../error-summary";
 const useListItem = (state, dispatch) => {
-  const [{ isEditingStatic }, listsEditorDispatch]: any = useContext(
+  const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
     ListsEditorContext
   );
+
+  const { isEditingStatic } = listEditorState;
 
   function deleteItem(e) {
     e.preventDefault();
@@ -41,11 +43,12 @@ const useListItem = (state, dispatch) => {
 };
 
 function useListEdit(i18n) {
-  const [state, dispatch] = useSetListEditorContext();
-  const [
-    { showWarning, isEditingStatic },
-    listsEditorDispatch,
-  ]: any = useContext(ListsEditorContext);
+  const { state, dispatch } = useSetListEditorContext();
+  const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
+    ListsEditorContext
+  );
+
+  const { showWarning, isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
 
   const handleDelete = async (e) => {
@@ -107,7 +110,7 @@ export function ListEdit(props) {
   const { i18n } = props;
   const { handleSubmit, handleDelete, isEditingStatic } = useListEdit(i18n);
 
-  const [state, dispatch] = useSetListEditorContext();
+  const { state, dispatch } = useSetListEditorContext();
   const { selectedList, createItem } = useListItem(state, dispatch);
   const { errors } = state;
   const validationErrors = hasValidationErrors(errors);

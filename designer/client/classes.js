@@ -3,9 +3,10 @@ import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "../reducers/component/types";
 
 export function CSSClasses({ context }) {
-  const [{ selectedComponent }, dispatch] = useContext(
+  const { state, dispatch } = useContext(
     !!context ? context : ComponentContext
   );
+  const { selectedComponent } = state;
   const { options = {} } = selectedComponent;
 
   return (

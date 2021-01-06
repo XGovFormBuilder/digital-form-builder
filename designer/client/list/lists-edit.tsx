@@ -19,12 +19,19 @@ type Props = {
 const useListsEdit = (props) => {
   const { i18n } = props;
 
-  const [
-    { isEditingList, isEditingListItem, showWarning, context },
-    listsEditorDispatch,
-  ]: any = useContext(ListsEditorContext);
+  const { state: listEditState, dispatch: listsEditorDispatch } = useContext(
+    ListsEditorContext
+  );
 
-  const [{ selectedList, selectedItem }]: any = useContext(context);
+  const {
+    isEditingList,
+    isEditingListItem,
+    showWarning,
+    listEditContext,
+  } = listEditState;
+
+  const { state } = useContext(listEditContext);
+  const { selectedList, selectedItem } = state;
 
   const closeFlyout = (action: ListsEditorStateActions) => {
     return () => listsEditorDispatch([action, false]);
