@@ -1,13 +1,11 @@
 import React, {
-  Component,
-  ChangeEvent,
-  MouseEvent,
   useEffect,
   useContext,
   useState,
   useLayoutEffect,
+  FormEvent,
 } from "react";
-import { clone, ComponentDef, ComponentTypes } from "@xgovformbuilder/model";
+import { ComponentDef } from "@xgovformbuilder/model";
 
 import { i18n } from "../../i18n";
 import { ErrorSummary } from "../../error-summary";
@@ -16,13 +14,16 @@ import ComponentTypeEdit from "../../ComponentTypeEdit";
 import { ComponentCreateList } from "./ComponentCreateList";
 import { BackLink } from "../backLink";
 
-import "./ComponentCreate.scss";
 import { Actions } from "../../reducers/component/types";
 import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
+import { typeToFieldName } from "./helpers";
+
+import "./ComponentCreate.scss";
+
 function useComponentCreate(props) {
   const { data, save } = useContext(DataContext);
-  const [state, dispatch] = useContext(ComponentContext);
+  const [state, dispatch] = useContext<any>(ComponentContext);
   const { selectedComponent, errors = {}, hasValidated } = state;
   const { page, toggleAddComponent = () => {} } = props;
 
@@ -43,7 +44,7 @@ function useComponentCreate(props) {
     }
   }, [hasValidated, hasErrors]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e?: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
 
     if (!hasValidated) {
@@ -63,7 +64,12 @@ function useComponentCreate(props) {
   };
 
   const handleTypeChange = (component: ComponentDef) => {
-    dispatch({ type: Actions.EDIT_TYPE, payload: component.type });
+    dispatch({
+      type: Actions.EDIT_TYPE,
+      payload: {
+        type: component.type,
+      },
+    });
   };
 
   const reset = (e) => {
@@ -92,36 +98,32 @@ export function ComponentCreate(props) {
     component,
     isSaving,
   } = useComponentCreate(props);
+
   const type = component?.type;
 
   return (
     <div className="component-create">
-      {hasErrors && <ErrorSummary errorList={errors} />}
-      {!type && <h4 className="govuk-heading-m">{i18n("Create component")}</h4>}
+      {!type && <h4 className="govuk-heading-m">{i18n("component.create")}</h4>}
       {type && (
         <>
           <BackLink onClick={reset}>
             {i18n("Back to create component list")}
           </BackLink>
           <h4 className="govuk-heading-m">
-            {component?.["title"]} {i18n("component")}
+            {typeToFieldName(component?.["type"])} {i18n("component.component")}
           </h4>
         </>
       )}
-      <form onSubmit={handleSubmit}>
-        <div className="govuk-form-group">
-          <label className="govuk-label govuk-label--s" htmlFor="type">
-            Type
-          </label>
-          {!type && (
-            <ComponentCreateList onSelectComponent={handleTypeChange} />
-          )}
-        </div>
-        {type && <ComponentTypeEdit />}
-        <button type="submit" className="govuk-button" disabled={isSaving}>
-          Save
-        </button>
-      </form>
+      {hasErrors && <ErrorSummary errorList={errors} />}
+      {!type && <ComponentCreateList onSelectComponent={handleTypeChange} />}
+      {type && (
+        <form onSubmit={handleSubmit}>
+          {type && <ComponentTypeEdit />}
+          <button type="submit" className="govuk-button" disabled={isSaving}>
+            Save
+          </button>
+        </form>
+      )}
     </div>
   );
 }

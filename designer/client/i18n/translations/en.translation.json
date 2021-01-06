@@ -1,7 +1,6 @@
 {
   "Persona": "Persona",
   "Edit page": "Edit page",
-  "Create component": "Create component",
   "Preview page": "Preview page",
   "Preview": "Preview",
   "page": {
@@ -28,8 +27,11 @@
     "create": "Create section"
   },
   "component": {
-    "name": "Component name"
+    "component": "component",
+    "name": "Component name",
+    "create": "Create component"
   },
+  "field": "field",
   "edit": "edit {{noun}}",
   "create": "create {{noun}}",
   "save": "Save",

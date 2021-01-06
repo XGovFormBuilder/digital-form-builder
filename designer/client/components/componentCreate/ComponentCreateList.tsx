@@ -3,6 +3,7 @@ import { ComponentTypes, ComponentDef } from "@xgovformbuilder/model";
 import sortBy from "lodash/sortBy";
 
 import { i18n } from "../../i18n";
+import { typeToFieldName } from "./helpers";
 
 const SelectionFieldsTypes = [
   "CheckboxesField",
@@ -15,7 +16,7 @@ const contentFields: ComponentDef[] = [];
 const selectionFields: ComponentDef[] = [];
 const inputFields: ComponentDef[] = [];
 
-sortBy(ComponentTypes, ["title"]).forEach((component) => {
+sortBy(ComponentTypes, ["type"]).forEach((component) => {
   if (component.subType === "content") {
     contentFields.push(component);
   } else if (SelectionFieldsTypes.indexOf(component.type) > -1) {
@@ -54,7 +55,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                   href="#0"
                   onClick={(e) => selectComponent(e, component)}
                 >
-                  {component.title}
+                  {typeToFieldName(component.type)}
                 </a>
               </li>
             ))}
@@ -71,7 +72,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                   className="govuk-link"
                   onClick={(e) => selectComponent(e, component)}
                 >
-                  {component.title}
+                  {typeToFieldName(component.type)}
                 </a>
               </li>
             ))}
@@ -88,7 +89,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                   className="govuk-link"
                   onClick={(e) => selectComponent(e, component)}
                 >
-                  {component.title}
+                  {typeToFieldName(component.type)}
                 </a>
               </li>
             ))}
