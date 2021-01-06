@@ -27,6 +27,9 @@
     "edit": "Edit section",
     "create": "Create section"
   },
+  "component": {
+    "name": "Component name"
+  },
   "edit": "edit {{noun}}",
   "create": "create {{noun}}",
   "save": "Save",
