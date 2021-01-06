@@ -15,7 +15,7 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
       - name: Test
-        run: appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
+        run: appropriate/curl -s --retry 30 --retry-connrefused http://localhost:3000/
       - name: Smoke Tests
         run:  sh "cd smoke-tests/designer && yarn run smoke-test"
       - name: Teardown
