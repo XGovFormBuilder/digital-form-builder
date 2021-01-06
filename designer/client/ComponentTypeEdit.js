@@ -39,7 +39,8 @@ function ComponentTypeEdit(props) {
     (t) => t.name === selectedComponent?.type ?? ""
   );
 
-  const needsFieldInputs = type?.subType !== "content";
+  const needsFieldInputs =
+    type?.subType !== "content" || ["FlashCard", "List"].includes(type?.name);
   const TagName =
     componentTypeEditors[`${selectedComponent?.type}Edit`] || FieldEdit;
   return (
