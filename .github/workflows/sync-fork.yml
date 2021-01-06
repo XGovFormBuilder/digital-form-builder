@@ -9,7 +9,7 @@ on:
     branches: [ master ]
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '*/5 * * * *'
+    - cron:  '* * * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -45,7 +45,7 @@ jobs:
         upstream_repository: XGovFormBuilder/digital-form-builder
         upstream_branch: master
         target_branch: master
-        #git_pull_args: --allow-unrelated-histories  
+        git_pull_args: --allow-unrelated-histories  
     # Step 3: Display a message if 'sync' step had new commits (simple test)
     - name: Check for new commits
       if: steps.sync.outputs.has_new_commits
@@ -54,5 +54,3 @@ jobs:
     # Step 4: Print a helpful timestamp for your records (not required, just nice)
     - name: Timestamp
       run: date  
-    - name: Timestamp
-      run: date
