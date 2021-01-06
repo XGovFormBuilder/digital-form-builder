@@ -45,7 +45,7 @@ jobs:
         git fetch --all
         echo "Pull latest from XGovFormBuilder"
         git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
-        git commit --amend -m " Updated to [author: $LAST_COMMIT_AUTHOR, author email: $LAST_COMMIT_AUTHOR_EMAIL, last commit message: $LAST_COMMIT_MESSAGE]"
+        git commit --amend -m "Updated to - $LAST_COMMIT_MESSAGE"
         git push -u
         echo "Sync completed"
 #     - name: Pull upstream changes
