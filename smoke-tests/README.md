@@ -10,15 +10,17 @@ server.
 
 ## Pre-requisites
 
-1. You have changed directory to where the smoke tests are located for the specific component you wish to test i.e. for
-   the designer you need to be in the directory `smoke-tests/designer`
+1. You have changed the directory to where the smoke tests are located for the specific component you wish to test i.e.
+   for the designer you need to be in the directory `smoke-tests/designer`
 
 2. Then run `yarn install` in the terminal
 
+3. The Chrome browser is installed
+
 ## Running the tests
 
-Everything is setup to run the tests and *chrome* has been defined as the default browser. To use a different browser
-update the `browserName` located in the `wdio.conf.js` file before executing the tests.
+Everything is now setup to run the tests and *Chrome* is used as the default browser. To use a different browser update
+the `browserName` located in the `wdio.conf.js` file before executing the tests.
 
 ```Javascript
  capabilities: [
