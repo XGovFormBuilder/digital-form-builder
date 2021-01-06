@@ -4,7 +4,11 @@ import { DataContext } from "../context";
 import Editor from "./../editor";
 import { Actions } from "./../reducers/component/types";
 
-export function ParaEdit({ context = ComponentContext }) {
+type Props = {
+  context: any; // TODO
+};
+
+export function ParaEdit({ context = ComponentContext }: Props) {
   // If you are editing a component, the default context will be ComponentContext because props.context is undefined,
   // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
   const [{ selectedComponent }, dispatch] = useContext(context);

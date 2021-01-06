@@ -2,7 +2,11 @@ import React, { useContext } from "react";
 import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "./../reducers/component/types";
 
-export function ListContentEdit({ context = ComponentContext }) {
+type Props = {
+  context: any; // TODO
+};
+
+export function ListContentEdit({ context = ComponentContext }: Props) {
   // If you are editing a component, the default context will be ComponentContext because props.context is undefined,
   // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
   const [{ selectedComponent }, dispatch] = useContext(context);
