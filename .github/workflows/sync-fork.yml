@@ -30,12 +30,20 @@ jobs:
     # Step 2: Pull upstream https://github.com/XGovFormBuilder/digital-form-builder and push
     - run: |
         echo "Setup git config"
-        git config user.name github-actions
-        git config user.email github-actions@github.com
+        git config --global advice.detachedHead false
+        if [ -d "xgov" ]; then rm -Rf xgov; else mkdir xgov; fi
+        cd xgov && git clone --depth 1 https://github.com/XGovFormBuilder/digital-form-builder.git && cd digital-form-builder
+        export LAST_COMMIT_AUTHOR=$(echo $(git log -1 --pretty=format:"%an"))
+        export LAST_COMMIT_AUTHOR_EMAIL=$(echo $(git log -1 --pretty=format:"%ae"))
+        export LAST_COMMIT_MESSAGE=$(echo $(git log -1 --pretty='%s'))
+        echo "Processing -[author: $LAST_COMMIT_AUTHOR, author email: $LAST_COMMIT_AUTHOR_EMAIL, last commit message: $LAST_COMMIT_MESSAGE]"
+        git config user.name $LAST_COMMIT_AUTHOR
+        git config user.email $LAST_COMMIT_AUTHOR_EMAIL
         echo "Config done"
         git fetch --all
         echo "Pull latest from XGovFormBuilder"
         git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
+        git commit --ammend -m " Updated to $LAST_COMMIT_MESSAGE"
         git push -u
         echo "Sync completed"
 #     - name: Pull upstream changes
