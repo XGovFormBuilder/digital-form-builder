@@ -46,11 +46,11 @@ export function ComponentEdit(props) {
     e.preventDefault();
     const copy = data.toJSON();
     const indexOfPage = copy.pages.findIndex((p) => p.path === page.path);
-    const indexOfComponent = copy.pages[indexOfPage].findIndex(
+    const indexOfComponent = copy.pages[indexOfPage]?.components.findIndex(
       (component) => component.name === selectedComponent.initialName
     );
     copy.pages[indexOfPage].components.splice(indexOfComponent, 1);
-    await save(updatedData.toJSON());
+    await save(copy);
     toggleShowEditor();
   };
 
