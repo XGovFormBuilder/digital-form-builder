@@ -27,14 +27,23 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: master
-    # Step 2: Merge with with https://github.com/XGovFormBuilder/digital-form-builder and push
-    - run: |
-        echo "Setup git config"
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        echo "Config done"
-        git fetch --all
-        echo "Pull latest from XGovFormBuilder"
-        git merge https://github.com/XGovFormBuilder/digital-form-builder
-        git push -u
-        echo "Sync completed"
+    # Step 2: Pull upstream https://github.com/XGovFormBuilder/digital-form-builder and push
+#     - run: |
+#         echo "Setup git config"
+#         git config user.name github-actions
+#         git config user.email github-actions@github.com
+#         echo "Config done"
+#         git fetch --all
+#         echo "Pull latest from XGovFormBuilder"
+#         git merge https://github.com/XGovFormBuilder/digital-form-builder
+#         git push -u
+#         echo "Sync completed"
+    - name: Pull upstream changes
+      id: sync
+      uses: aormsby/Fork-Sync-With-Upstream-action@v2.2
+      with:
+        upstream_repository: XGovFormBuilder/digital-form-builder
+        upstream_branch: master
+        target_branch: master
+    - name: Timestamp
+      run: date
