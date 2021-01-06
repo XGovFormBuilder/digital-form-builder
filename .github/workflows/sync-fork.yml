@@ -45,5 +45,6 @@ jobs:
         upstream_repository: XGovFormBuilder/digital-form-builder
         upstream_branch: master
         target_branch: master
+        git_pull_args: --allow-unrelated-histories  
     - name: Timestamp
       run: date
