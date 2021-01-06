@@ -45,7 +45,7 @@ jobs:
         upstream_repository: XGovFormBuilder/digital-form-builder
         upstream_branch: master
         target_branch: master
-        git_pull_args: --allow-unrelated-histories --ff-only 
+        git_pull_args: --ff-only 
     # Step 3: Display a message if 'sync' step had new commits (simple test)
     - name: Check for new commits
       if: steps.sync.outputs.has_new_commits
