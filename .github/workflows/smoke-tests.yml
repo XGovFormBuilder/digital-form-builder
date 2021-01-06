@@ -10,8 +10,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: 'node:12-alpine3.12'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
