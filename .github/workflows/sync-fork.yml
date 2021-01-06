@@ -46,6 +46,8 @@ jobs:
         echo "Pull latest from XGovFormBuilder"
         git pull --allow-unrelated-histories https://github.com/XGovFormBuilder/digital-form-builder
         git commit --amend -m "Updated to - $LAST_COMMIT_MESSAGE"
+        echo "==============="
         git diff --name-only HEAD@{0} HEAD@{1}
-        git push -u
+        echo "==============="
+        #git push -u
         echo "Sync completed"
