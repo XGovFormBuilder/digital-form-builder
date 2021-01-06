@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .NAME }}
+  labels:
+    project: stp
+  annotations:
+    downscaler/uptime: {{ .UPTIME }}
+spec:
+  replicas: {{ .SERVICE_REPLICAS }}
+  selector:
+    matchLabels:
+      app: {{ .NAME }}
+  template:
+    metadata:
+      labels:
+        project: stp
+        name: {{ .NAME }}
+        app: {{ .NAME }}
+    spec:
+      containers:
+        - name: {{ .NAME }}
+          image: {{ .IMAGE_URL }}:{{ .IMAGE_VERSION }}
+          imagePullPolicy: Always
+          #livenessProbe:
+          #  httpGet:
+          #    path: /
+          #    port: {{ .PORT }}
+          #  initialDelaySeconds: 30
+          #  periodSeconds: 30
+          resources:
+            limits:
+              cpu: 2
+              memory: 2048Mi
+            requests:
+              cpu: 1
+              memory: 1024Mi
+          env:
+            - name: PREVIEW_MODE
+              value: "{{ .PREVIEW_MODE }}"
+            - name: DOCUMENT_UPLOAD_API_URL
+              value: "https://{{ .DOCUMENT_UPLOAD_SERVICE_NAME }}{{ .INTERNAL_URL }}"
+            - name: SUBMISSION_API_URL
+              value: "https://{{ .SUBMISSION_SERVICE_NAME }}{{ .INTERNAL_URL }}"
+            - name: NOTIFY_API_KEY
+              value: "{{ .GOV_UK_NOTIFY_DEFAULT_API_KEY }}"
+            - name: NOTIFY_TEMPLATE_ID
+              value: "{{ .GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID }}"  
+          securityContext:
+            runAsNonRoot: true
+          ports:
+            - containerPort: {{ .PORT }}
+...

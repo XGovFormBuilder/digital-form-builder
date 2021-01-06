@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .NAME }}-external
+  labels:
+    cert-manager.io/solver: route53
+  annotations:
+    cert-manager.io/enabled: "true"
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    ingress.kubernetes.io/whitelist-source-range: "62.25.109.196/32,52.48.127.144/28,52.209.62.128/25,52.56.62.128/25,52.56.221.216,18.130.11.142,18.130.6.5"
+    kubernetes.io/ingress.class: "nginx-external"
+spec:
+  tls:
+    - hosts:
+        - {{ .NAME }}{{ .EXTERNAL_URL }}
+      secretName: {{ .NAME }}-external-tls-cmio
+  rules:
+    - host: {{ .NAME }}{{ .EXTERNAL_URL }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .NAME }}
+              servicePort: 443

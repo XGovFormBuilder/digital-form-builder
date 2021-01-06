@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .NAME }}
+  labels:
+    project: stp
+  annotations:
+    downscaler/uptime: {{ .UPTIME }}
+spec:
+  replicas: {{ .SERVICE_REPLICAS }}
+  selector:
+    matchLabels:
+      app: {{ .NAME }}
+  template:
+    metadata:
+      labels:
+        project: stp
+        name: {{ .NAME }}
+        app: {{ .NAME }}
+    spec:
+      containers:
+        - name: {{ .NAME }}
+          image: {{ .IMAGE_URL }}:{{ .IMAGE_VERSION }}
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .PORT }}
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          env:
+            - name: PREVIEW_MODE
+              value: "{{ .PREVIEW_MODE }}"
+            - name: PREVIEW_URL
+              value: "{{ .PREVIEW_URL }}"
+            - name: PUBLISH_URL
+              value: "{{ .PUBLISH_URL }}"
+          securityContext:
+            runAsNonRoot: true
+          ports:
+            - containerPort: {{ .PORT }}
+...

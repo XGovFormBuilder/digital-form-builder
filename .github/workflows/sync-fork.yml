@@ -1,0 +1,42 @@
+# This is a basic workflow to help you get started with Actions
+
+name: sync-fork
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '*/5 * * * *'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    name: Sync master with upstream latest
+
+    steps:
+    # Step 1: run a standard checkout action, provided by github
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with:
+        ref: master
+    # Step 2: Rebase with https://github.com/XGovFormBuilder/digital-form-builder and push
+    - run: |
+        echo "Setup git config"
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git config pull.rebase true
+        echo "Config done"
+        git fetch --all
+        git pull
+        echo "Pull latest from XGovFormBuilder"
+        git pull https://github.com/XGovFormBuilder/digital-form-builder
+        git push -u -f
+        echo "Sync completed"

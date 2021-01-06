@@ -1,0 +1,346 @@
+kind: pipeline
+name: code-analyze-check
+type: kubernetes
+
+trigger:
+  branch: master
+  event:
+    - push
+steps:
+  - name: build
+    pull: if-not-exists
+    image: node:12.18.4-buster
+    commands:
+      - node -v
+      - curl https://github.com/XGovFormBuilder/digital-form-builder/tree/master/designer/package.json -o designer.json
+      - export DESIGNER_VERSION=$(node -e "console.log(require('./designer.json').version);")
+      - echo $DESIGNER_VERSION
+      - curl https://github.com/XGovFormBuilder/digital-form-builder/tree/master/runner/package.json -o runner.json
+      - export RUNNER_VERSION=$(node -e "console.log(require('./runner.json').version);")
+      - echo $RUNNER_VERSION
+    when:
+      branch:
+        - master
+      event:
+        - push
+
+---
+kind: pipeline
+name: designer-build-and-deploy
+type: kubernetes
+trigger:
+  branch: master
+  event:
+    - push
+steps:
+  - name: ecr-login
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/dind-awscli:19.03.12-dind-1.18.55
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: DESIGNER_AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: DESIGNER_AWS_SECRET_ACCESS_KEY
+      AWS_REGION: eu-west-2
+    commands:
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - aws ecr get-login-password --region $${AWS_REGION} | docker login --username AWS --password-stdin 340268328991.dkr.ecr.$${AWS_REGION}.amazonaws.com
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+  - name: setup
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - sleep 5
+      - n=0; while [ "$n" -lt 120 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - "export TAG_VERSION=$(cat ./designer/package.json | grep version | head -1 | cut -d : -f2 | cut -d , -f1 | tr -d '\"' | tr -d ' ')"
+      - echo "$${TAG_VERSION}" > .tags
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+  - name: build
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - "export TAG_VERSION=$(cat .tags)"
+      - echo " TAG - $TAG_VERSION"
+      - docker build -t stp/fco-form-builder-designer:$TAG_VERSION -t stp/fco-form-builder-designer:$DRONE_COMMIT_SHA -t stp/fco-form-builder-designer:latest ./docker/designer/. --no-cache
+    when:
+      branch:
+        - master
+      event:
+        - push
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+    depends_on:
+      - setup
+  - name: scan
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: stp/fco-form-builder-designer:${DRONE_COMMIT_SHA}
+      WHITELIST: CVE-2020-7788,CVE-2020-7754,CVE-2020-7774,CVE-2017-18589,CVE-2020-15133,CVE-2020-7788,CVE-2020-7774
+    depends_on:
+      - build
+  - name: publish
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - "export TAG_VERSION=$(cat .tags)"
+      - echo " TAG - $TAG_VERSION"
+      - docker image tag stp/fco-form-builder-designer:$DRONE_COMMIT_SHA 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer:$DRONE_COMMIT_SHA
+      - docker image tag stp/fco-form-builder-designer:$TAG_VERSION 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer:$TAG_VERSION
+      - docker image tag stp/fco-form-builder-designer:latest 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer:latest
+      - docker image push 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer:$TAG_VERSION
+      - docker image push 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer:$DRONE_COMMIT_SHA
+      - docker image push 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer:latest
+      - docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}\t{{.Size}}"
+    when:
+      branch:
+        - master
+      event:
+        - push
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+    depends_on:
+      - scan
+  - name: deploy
+    image: quay.io/ukhomeofficedigital/kd:v1.16.0
+    commands:
+      - apk update
+      - apk add curl
+      #- source bin/designer/env.sh
+      #- bin/designer/deploy.sh
+    environment:
+      DRONE_DEPLOY_TO: acp-notprod
+      IMAGE_URL: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder-designer$${RUNNER_TAG_VERSION}
+      KUBE_NAMESPACE: stp-dev
+      KUBE_TOKEN_ACP_NOTPROD:
+        from_secret: kube_token_acp_notprod
+      PREVIEW_MODE: true
+      PREVIEW_URL: https://form-builder.dev.stp-notprod.homeoffice.gov.uk
+      PUBLISH_URL: https://form-builder.dev.internal.stp-notprod.homeoffice.gov.uk
+    when:
+      branch:
+        - master
+      event:
+        - push
+    depends_on:
+      - publish
+
+depends_on:
+  - code-analyze-check
+
+services:
+  - name: docker
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+  
+  - name: anchore-submission-server
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    commands:
+      - /run.sh server
+
+volumes:
+  - name: dockerclientconfig
+    temp: {}
+
+---
+kind: pipeline
+name: runner-build-and-deploy
+type: kubernetes
+trigger:
+  branch: master
+  event:
+    - push
+steps:
+  - name: ecr-login
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/dind-awscli:19.03.12-dind-1.18.55
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: RUNNER_AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: RUNNER_AWS_SECRET_ACCESS_KEY
+      AWS_REGION: eu-west-2
+    commands:
+      # wait for docker service to be up before running docker build
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - aws ecr get-login-password --region $${AWS_REGION} | docker login --username AWS --password-stdin 340268328991.dkr.ecr.$${AWS_REGION}.amazonaws.com
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+  - name: setup
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - sleep 5;
+      - n=0; while [ "$n" -lt 120 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - "export TAG_VERSION=$(cat ./runner/package.json | grep version | head -1 | cut -d : -f2 | cut -d , -f1 | tr -d '\"' | tr -d ' ')"
+      - echo "$${TAG_VERSION}" > .tags
+      - cat .tags
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+  - name: build
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - "export TAG_VERSION=$(cat .tags)"
+      - echo " TAG - $TAG_VERSION"
+      - docker build -t stp/fco-form-builder:$TAG_VERSION -t stp/fco-form-builder:$DRONE_COMMIT_SHA -t stp/fco-form-builder:latest ./docker/runner/. --no-cache
+    when:
+      branch:
+        - master
+      event:
+        - push
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+    depends_on:
+      - setup
+  - name: scan
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: stp/fco-form-builder:${DRONE_COMMIT_SHA}
+      WHITELIST: CVE-2020-7788,CVE-2020-7754,CVE-2020-7774,CVE-2017-18589,CVE-2020-15133,CVE-2020-7788,CVE-2020-7774,CVE-2020-7769
+    depends_on:
+      - build
+  - name: publish
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - "export TAG_VERSION=$(cat .tags)"
+      - echo " TAG - $TAG_VERSION"
+      - docker image tag stp/fco-form-builder:$DRONE_COMMIT_SHA 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder:$DRONE_COMMIT_SHA
+      - docker image tag stp/fco-form-builder:$TAG_VERSION 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder:$TAG_VERSION
+      - docker image tag stp/fco-form-builder:latest 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder:latest
+      - docker image push 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder:$TAG_VERSION
+      - docker image push 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder:$DRONE_COMMIT_SHA
+      - docker image push 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/fco-form-builder:latest
+      - docker images --format "table {{.ID}}\t{{.Repository}}\t{{.Tag}}\t{{.Size}}"
+    when:
+      branch:
+        - master
+      event:
+        - push
+    volumes:
+      - name: dockerclientconfig
+        path: /root/.docker
+    depends_on:
+      - scan
+  - name: deploy
+    image: quay.io/ukhomeofficedigital/kd:v1.16.0
+    commands:
+      - apk update
+      - apk add curl
+      #- source bin/runner/env.sh
+      #- bin/runner/deploy.sh
+    environment:
+      DRONE_DEPLOY_TO: acp-notprod
+      IMAGE_URL: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/stp/form-builder-runner
+      KUBE_NAMESPACE: stp-dev
+      KUBE_TOKEN_ACP_NOTPROD:
+        from_secret: kube_token_acp_notprod
+      PREVIEW_MODE: true
+      GOV_UK_NOTIFY_DEFAULT_API_KEY:
+        from_secret: NOTIFY_API_KEY
+      GOV_UK_NOTIFY_DEFAULT_TEMPLATE_ID: 2d2a640b-db7f-4eb8-8b41-e5d75fc64b64
+    when:
+      branch:
+        - master
+      event:
+        - push
+    depends_on:
+      - publish
+depends_on:
+  - code-analyze-check
+
+services:
+  - name: docker
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+  
+  - name: anchore-submission-server
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    commands:
+      - /run.sh server
+volumes:
+  - name: dockerclientconfig
+    temp: {}
+---
+kind: pipeline
+name: sanity-check-dev
+type: kubernetes
+trigger:
+  branch: master
+  event:
+    - push
+steps:
+  - name: smoke-tests
+    pull: if-not-exists
+    image: node:12.18.4-buster
+    commands:
+      - echo 'Smoke Tests'
+    when:
+      branch:
+        - master
+      event:
+        - push
+  - name: post notification
+    image: plugins/slack
+    settings:
+      webhook:
+        from_secret: slack_webhook
+      channel: stp-dev-alerts
+      image_url: https://unsplash.it/256/256/?random
+      template: >
+        {{#success build.status}}
+         Build succeeded. Good job.
+          Build: {{build.number}}
+          Author: {{build.author}}
+          Link: {{build.link}}
+        {{else}}
+          Build failed. Fix me please.
+          Build: {{build.number}}
+          Author: {{build.author}}
+          Link: {{build.link}}
+        {{/success}}
+    when:
+      branch:
+        - master
+      event:
+        - push
+      status:
+        - success
+        - failure
+depends_on:
+  - designer-build-and-deploy
+  - runner-build-and-deploy
+  - code-analyze-check
+  
+---
+kind: pipeline
+name: deploy-to-test
+type: kubernetes
+trigger:
+  branch: master
+  event:
+    - tag
+steps:
+  - name: deploy to test
+    pull: if-not-exists
+    image: node:12.18.4-buster
+    commands:
+      - echo 'Triggered by tag'
+    trigger:
+      event:
+        - tag
+
+volumes:
+  - name: dockerclientconfig
+    temp: {}
