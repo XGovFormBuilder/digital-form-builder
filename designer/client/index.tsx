@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
+import "./styles/index.scss";
 import { initI18n } from "./i18n";
 import {
   BrowserRouter as Router,

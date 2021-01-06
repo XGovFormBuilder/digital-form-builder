@@ -14,7 +14,7 @@ type Props = {
   updatedAt: string;
   downloadedAt: string;
   previewUrl: string;
-  persona: any;
+  persona?: any;
 };
 
 type State = {

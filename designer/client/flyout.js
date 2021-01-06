@@ -1,9 +1,13 @@
 import React, { useContext, useLayoutEffect, useState } from "react";
-import { FlyoutContext } from "./context";
+import { useDispatch, useSelector } from "react-redux";
+import { getFlyoutCount } from "./store/flyoutSelector";
+import { increment, decrement } from "./store/flyoutSlice";
+
 import { withI18n } from "./i18n";
 
 export function useFlyoutEffect(props) {
-  const flyoutContext = useContext(FlyoutContext);
+  const dispatch = useDispatch();
+  const flyoutCount = useSelector(getFlyoutCount);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
   const { NEVER_UNMOUNTS } = (props = {});
@@ -12,14 +16,14 @@ export function useFlyoutEffect(props) {
    * @code on component mount
    */
   useLayoutEffect(() => {
-    flyoutContext.increment();
+    dispatch(increment());
     return function cleanup() {
-      flyoutContext.decrement();
+      dispatch(decrement());
     };
   }, []);
 
   useLayoutEffect(() => {
-    setOffset(flyoutContext.flyoutCount);
+    setOffset(flyoutCount);
   }, []);
 
   useLayoutEffect(() => {
@@ -34,6 +38,7 @@ export function useFlyoutEffect(props) {
 
   const onHide = (e) => {
     e?.preventDefault();
+    console.log("flyout hide called NEVER_UNMOUNTS=" + NEVER_UNMOUNTS);
     if (props.onHide) {
       props.onHide();
       /**
@@ -41,7 +46,7 @@ export function useFlyoutEffect(props) {
        * It should really be handled by the parent to determine whether or not the flyout should render.
        */
       if (NEVER_UNMOUNTS) {
-        flyoutContext.decrement();
+        dispatch(decrement());
       }
     }
   };

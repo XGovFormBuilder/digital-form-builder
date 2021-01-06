@@ -1,18 +1,43 @@
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDataById } from "./store/dataSlice";
+import { useParams } from "react-router-dom";
+import { fetchDataById, updateDownloadedAt } from "./store/dataSlice";
 import { getData } from "./store/dataSelectors";
-import "./index.scss";
+import { Visualisation } from "./components/visualisation";
+import Menu from "./menu";
+import { Data } from "@xgovformbuilder/model";
 
 function Designer(): ReactElement {
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const { id, data, loaded } = useSelector(getData);
+  const { data, loaded, previewUrl, downloadedAt, updatedAt } = useSelector(
+    getData
+  );
+
   useEffect(() => {
     dispatch(fetchDataById(id));
   }, [id]);
 
   if (!loaded) return <div> Loading ...</div>;
-  return <div>data loaded -{JSON.stringify(data)} </div>;
+
+  const dataObject = new Data(data);
+
+  return (
+    <div id="app">
+      <Menu
+        data={dataObject}
+        id={id}
+        updateDownloadedAt={(arg) => dispatch(updateDownloadedAt(arg))}
+      />
+      <Visualisation
+        data={dataObject}
+        downloadedAt={downloadedAt}
+        updatedAt={updatedAt}
+        id={id}
+        previewUrl={previewUrl}
+      />
+    </div>
+  );
 }
 
 export default Designer;

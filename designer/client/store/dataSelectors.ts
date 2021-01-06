@@ -1,5 +1,6 @@
 import { RootState } from "./rootReducer";
 import { customAlphabet } from "nanoid";
+import { createSelector } from "@reduxjs/toolkit";
 
 /**
  * Custom alphabet is required because '-' is used as a symbol in
@@ -16,3 +17,9 @@ export const getId = () => {
 };
 
 export const getData = (state: RootState) => state.data;
+
+const dataSelector = (state) => state.data.data;
+
+export const getDataAsObject = createSelector(dataSelector, (data) => {
+  return data;
+});
