@@ -12,7 +12,7 @@ const { test, suite } = lab;
 suite("FieldEdit renders correctly when", () => {
   const wrapper = mount(
     <ComponentContextProvider>
-      <FieldEdit i18n={() => ""} />
+      <FieldEdit />
     </ComponentContextProvider>
   );
 

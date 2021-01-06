@@ -8,7 +8,7 @@ import { i18n } from "./i18n";
 
 export function FieldEdit() {
   const { state, dispatch } = useContext(ComponentContext);
-  const { selectedComponent } = state;
+  const { selectedComponent, errors } = state;
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
   const { hideTitle = false, optionalText = false, required = true } = options;
