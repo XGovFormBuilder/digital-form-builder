@@ -38,15 +38,14 @@ export function getSubReducer(type) {
   return ActionsReducerCollection.find((a) => valueIsInEnum(type, a[0]))?.[1];
 }
 
-export function componentReducer({
+export function componentReducer(
   state,
-  action,
-}: {
-  state: any;
-  action: { type: ComponentActions; payload: any };
-}) {
+  action: {
+    type: ComponentActions;
+    payload: any;
+  }
+) {
   const { type } = action;
-
   const { selectedComponent } = state;
 
   const isNotValidate = (type): type is Meta.VALIDATE => {
