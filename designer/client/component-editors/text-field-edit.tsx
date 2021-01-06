@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "./../reducers/component/types";
-import { Classes } from "./../classes";
+import { CssClasses } from "../components/CssClasses";
 
 type Props = {
   context: any; // TODO
@@ -122,7 +122,7 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
 
       {children}
 
-      <Classes context={context} />
+      <CssClasses context={context} />
     </details>
   );
 }
