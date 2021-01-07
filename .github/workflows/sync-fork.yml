@@ -30,6 +30,8 @@ jobs:
     # Step 2: Pull upstream https://github.com/XGovFormBuilder/digital-form-builder and push
     - run: |
         echo "Setup git config"
+        git config --global pull.rebase false
+        git config --global --list
         git config --global advice.detachedHead false
         if [ -d "xgov" ]; then rm -Rf xgov; else mkdir xgov; fi
         cd xgov && git clone --depth 1 https://github.com/XGovFormBuilder/digital-form-builder.git && cd digital-form-builder
