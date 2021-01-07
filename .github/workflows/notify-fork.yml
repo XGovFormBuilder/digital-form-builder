@@ -1,0 +1,18 @@
+name: Dispatch to external repositories
+
+on:
+  push:
+    branches: feature/notify-ho
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          repository: UKHomeOffice/digital-form-builder-1
+          event-type: xgovformbuilder-updated
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+
