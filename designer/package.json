@@ -21,7 +21,6 @@
     "test-lab": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "audit": "npm audit --audit-level=high",
-    "i18n-parse": "i18next --config 'client/i18n/i18next-parser.config.js' 'client/**/*.js'",
     "type-check": "tsc --noEmit"
   },
   "workspace-builder": "@workspace-builder/rollup",
