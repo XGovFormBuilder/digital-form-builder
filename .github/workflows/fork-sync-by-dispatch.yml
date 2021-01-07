@@ -4,9 +4,8 @@ name: Fork sync by dispatch (from xgovformbuilder)
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
-on:
-  repository_dispatch:
-    types: [xgovformbuilder-updated]
+on: [repository_dispatch]
+
 jobs:
   xgovformbuilder-updated:
     runs-on: ubuntu-latest
