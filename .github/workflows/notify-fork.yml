@@ -2,7 +2,7 @@ name: Dispatch to external repositories
 
 on:
   push:
-    branches: feature/notify-ho
+    branches: chore/notify-ho
 
 jobs:
   notify:
