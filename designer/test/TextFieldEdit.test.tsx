@@ -4,7 +4,7 @@ import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import * as Component from "../client/reducers/component/componentReducer";
-import { TextFieldEdit } from "../client/component-editors/text-field-edit";
+import { TextFieldEdit } from "../client/components/fieldEditors/text-field-edit";
 import { MultilineTextFieldEdit } from "../client/multiline-text-field-edit";
 const { expect } = Code;
 const lab = Lab.script();
