@@ -7,7 +7,7 @@ import { CssClasses } from "./components/CssClasses";
 export function FileUploadFieldEdit() {
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent } = state;
-  const { options } = selectedComponent;
+  const { options = {} } = selectedComponent;
 
   return (
     <details className="govuk-details">

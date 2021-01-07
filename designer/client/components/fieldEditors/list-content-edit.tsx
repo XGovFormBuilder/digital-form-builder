@@ -11,7 +11,7 @@ export function ListContentEdit({ context = ComponentContext }: Props) {
   // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
-  const { options } = selectedComponent;
+  const { options = {} } = selectedComponent;
 
   return (
     <div>

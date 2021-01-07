@@ -14,7 +14,7 @@ export function ParaEdit({ context = ComponentContext }: Props) {
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
   const { data } = useContext(DataContext);
-  const { options } = selectedComponent;
+  const { options = {} } = selectedComponent;
   const { conditions } = data;
 
   return (
