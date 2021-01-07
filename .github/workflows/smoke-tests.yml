@@ -13,7 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name : Setup yarn
-        run: yarn add node-gyp
+        run: |
+          yarn add node-gyp
+          sudo apt update && sudo apt install yarn
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
