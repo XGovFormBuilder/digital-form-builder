@@ -5,6 +5,9 @@ name: Fork sync by dispatch (from xgovformbuilder)
 on:
   workflow_dispatch:
     inputs:
+      ref:
+        description: "ref"
+        required: false
       sha:
         description: 'triggered'
         required: false
@@ -17,3 +20,4 @@ jobs:
         with:
           sha: ${{ github.event.client_payload.sha }}
       - run: echo ${{ github.event.client_payload.sha }}
+      - run: echo ${{ github.event.client_payload.ref }}
