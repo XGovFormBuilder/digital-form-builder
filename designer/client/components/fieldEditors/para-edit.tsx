@@ -29,6 +29,7 @@ export function ParaEdit({ context = ComponentContext }: Props) {
           styles.
         </span>
         <Editor
+          id="field-content"
           name="content"
           value={selectedComponent.content}
           valueCallback={(content) => {

@@ -23,6 +23,7 @@ class Editor extends React.Component {
   render() {
     return (
       <SimpleEditor
+        textareaId={this.props.id}
         name={this.props.name}
         className="editor"
         value={this.state.value}

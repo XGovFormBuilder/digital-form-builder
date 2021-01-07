@@ -50,6 +50,10 @@ export function getSubReducer(type) {
   return ActionsReducerCollection.find((a) => valueIsInEnum(type, a[0]))?.[1];
 }
 
+const isNotValidate = (type): type is Meta.VALIDATE => {
+  return Object.values(Actions).includes(type);
+};
+
 export function componentReducer(
   state,
   action: {
@@ -59,10 +63,6 @@ export function componentReducer(
 ) {
   const { type } = action;
   const { selectedComponent } = state;
-
-  const isNotValidate = (type): type is Meta.VALIDATE => {
-    return Object.values(Actions).includes(type);
-  };
 
   if (isNotValidate(type)) {
     state.hasValidated = false;

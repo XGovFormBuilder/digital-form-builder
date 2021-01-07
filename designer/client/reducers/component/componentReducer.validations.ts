@@ -2,6 +2,11 @@ import { validateNotEmpty } from "../../validations";
 import { isEmpty } from "../../helpers";
 import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
 
+export interface ValidationError {
+  href?: string;
+  children: string | [string, Record<string, string>];
+}
+
 function validateDetails(component) {
   const { title, content } = component;
   return {
@@ -25,11 +30,6 @@ function validateTitle(id, value) {
   return false;
 }
 
-export interface ValidationError {
-  href?: string;
-  children: string | [string, Record<string, string>];
-}
-
 const validateName = (name) => {
   //TODO:- should also validate uniqueness.
   const errors: any = {};
@@ -50,11 +50,23 @@ const validateName = (name) => {
   return errors;
 };
 
+const validateContent = (content) => {
+  const errors: any = {};
+  const contentIsEmpty = isEmpty(content);
+
+  if (contentIsEmpty) {
+    errors.name = {
+      href: `#field-content`,
+      children: ["errors.field", { field: "Content" }],
+    };
+  }
+
+  return errors;
+};
+
 export function fieldComponentValidations(component) {
-  const validations = [
-    validateName(component.name),
-    validateTitle("field-title", component.title),
-  ];
+  console.log("validate", component);
+  const validations = [validateName(component.name)];
 
   switch (component.type) {
     case Types.CheckboxesField:
@@ -69,12 +81,13 @@ export function fieldComponentValidations(component) {
     case Types.TelephoneNumberField:
     case Types.TimeField:
     case Types.UkAddressField:
+      validations.push(validateTitle("field-title", component.content));
       break;
 
     case Types.InsetText:
     case Types.Html:
     case Types.Para:
-      //validate content types
+      validations.push(validateContent(component.content));
       break;
 
     case Types.Details:
@@ -91,6 +104,7 @@ export function fieldComponentValidations(component) {
       break;
   }
 
+  console.log("validations", validations);
   return validations.reduce((acc, error: ValidationError) => {
     return !!error ? { ...acc, ...error } : acc;
   }, {});
