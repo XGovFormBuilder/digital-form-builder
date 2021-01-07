@@ -1,0 +1,17 @@
+# This is a basic workflow that is manually triggered
+
+name: Fork sync by dispatch (from xgovformbuilder)
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  repository_dispatch:
+    types: [xgovformbuilder-updated]
+jobs:
+  xgovformbuilder-updated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - run: echo ${{ github.event.client_payload.sha }}
