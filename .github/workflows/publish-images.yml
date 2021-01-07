@@ -39,3 +39,9 @@ jobs:
           workflow: Deploy Development Environment
           token: ${{ secrets.GHCR_PAT }}
           inputs: '{ "app": "${{ matrix.app }}"}'
+
+      - name: Tag branch with run number
+        uses: actions/checkout@v2
+        run: |
+          git tag ${{github.run_number}}-rc
+          git push --tags origin HEAD
