@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "smoke-test": "yarn exec wdio",
-    "ci-test": "yarn exec wdio wdio.CI.conf.js",
+    "smoke-test-headless": "yarn exec wdio wdio.headless.conf.js",
     "debug": "yarn exec wdio wdio.debug.conf.js"
   },
   "author": "Carlos Gutierrez",
