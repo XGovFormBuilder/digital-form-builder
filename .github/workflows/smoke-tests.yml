@@ -1,31 +1,30 @@
 name: Smoke Tests
-on: 
- push:
+on:
+  push:
     branches:
       - master
- pull_request:
+  pull_request:
     branches:
       - master
- workflow_dispatch:
+  workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name : Setup yarn
-        run: |
-          sudo apt update
-          yarn add node-gyp
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Use Node.js
+        uses: actions/setup-node@v1
         with:
-          cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build # will run `yarn build` command
-      - uses: borales/actions-yarn@v2.0.0
+          node-version: "12.x"
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - name: Build the stack
+        run: docker-compose up -d
+      - name: Test
+        run: curl -s --retry 10 --retry-connrefused http://localhost:3000/
       - name: Smoke Tests
         run: |
-         cd smoke-tests/designer
-         yarn run smoke-test
+          cd smoke-tests/designer
+          yarn run smoke-test
       - name: Teardown
         run: docker-componse down
