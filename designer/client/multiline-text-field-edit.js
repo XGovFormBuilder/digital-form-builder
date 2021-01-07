@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { ComponentContext } from "./reducers/component/componentReducer";
 import { Actions } from "./reducers/component/types";
 
-import { TextFieldEdit } from "./component-editors/text-field-edit";
+import { TextFieldEdit } from "./components/fieldEditors/text-field-edit";
 
 export function MultilineTextFieldEdit({ context = ComponentContext }) {
   const { state, dispatch } = useContext(context);

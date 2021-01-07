@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { ComponentContext } from "../reducers/component/componentReducer";
-import { Actions } from "./../reducers/component/types";
+import { ComponentContext } from "../../reducers/component/componentReducer";
+import { Actions } from "../../reducers/component/types";
 
-import { CssClasses } from "../components/CssClasses";
+import { CssClasses } from "../CssClasses";
 
 type Props = {
   context: any; // TODO

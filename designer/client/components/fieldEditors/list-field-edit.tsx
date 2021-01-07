@@ -1,10 +1,10 @@
 import React from "react";
 
-import ListsEdit from "../list/lists-edit";
-import { ListContextProvider } from "../reducers/listReducer";
-import { ListsEditorContextProvider } from "../reducers/list/listsEditorReducer";
-import { RenderInPortal } from "../components/render-in-portal";
-import ComponentListSelect from "../list/component-list-select";
+import ListsEdit from "../../list/lists-edit";
+import { ListContextProvider } from "../../reducers/listReducer";
+import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
+import { RenderInPortal } from "../render-in-portal";
+import ComponentListSelect from "../../list/component-list-select";
 
 type Props = {
   page: any; // TODO
