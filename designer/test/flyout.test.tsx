@@ -43,7 +43,7 @@ describe("useFlyoutContext", () => {
     expect(decrement.notCalled).to.equal(true);
   });
 
-  test.only("Decrement is called on unmount", () => {
+  test("Decrement is called on unmount", () => {
     const flyoutContextProviderValue = { count: 0, increment, decrement };
     wrapper = mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>

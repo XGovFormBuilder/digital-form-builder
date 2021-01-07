@@ -152,7 +152,7 @@ experiment("List edit", () => {
     });
   });
 
-  suite.only("Static", () => {
+  suite("Static", () => {
     let sandbox = sinon.createSandbox();
     const TestProvider = ({
       listsEditorValue,
