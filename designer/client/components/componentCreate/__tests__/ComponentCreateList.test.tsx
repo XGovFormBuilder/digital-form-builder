@@ -5,18 +5,18 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
 import { ComponentCreateList } from "../ComponentCreateList";
-import * as i18nModule from "../../../i18n/i18n";
+import { initI18n } from "../../../i18n/i18n";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { before, beforeEach, afterEach, suite, test, after } = lab;
+const { beforeEach, suite, test, after } = lab;
+
+initI18n();
 
 suite("ComponentCreateList", () => {
   let onSelectComponent;
-  before(() => {
-    sinon.spy(i18nModule, "i18n");
-  });
+
   beforeEach(() => {
     sinon.resetHistory();
     onSelectComponent = sinon.stub();
@@ -93,7 +93,7 @@ suite("ComponentCreateList", () => {
       "Telephone number field",
       "Text field",
       "Time field",
-      "Uk address field",
+      "UK address field",
     ]);
   });
 
@@ -135,8 +135,8 @@ suite("ComponentCreateList", () => {
     expect(listItems).to.equal([
       "Checkboxes field",
       "Radios field",
-      "SelectField",
-      "Yes/No field",
+      "Select field",
+      "YesNo field",
     ]);
   });
 
@@ -165,18 +165,5 @@ suite("ComponentCreateList", () => {
       options: {},
       schema: {},
     });
-  });
-
-  test("It translates expected strings", () => {
-    shallow(<ComponentCreateList onSelectComponent={onSelectComponent} />);
-
-    // @ts-ignore
-    const i18nTranslations = i18nModule.i18n.getCalls().map((c) => c.args[0]);
-    expect(i18nTranslations).to.contain([
-      "Select a component to add to your page",
-      "Content",
-      "Input fields",
-      "Selection fields",
-    ]);
   });
 });

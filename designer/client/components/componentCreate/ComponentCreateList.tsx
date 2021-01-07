@@ -3,7 +3,6 @@ import { ComponentTypes, ComponentDef } from "@xgovformbuilder/model";
 import sortBy from "lodash/sortBy";
 
 import { i18n } from "../../i18n";
-import { typeToFieldName } from "./helpers";
 
 const SelectionFieldsTypes = [
   "CheckboxesField",
@@ -55,7 +54,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                   href="#0"
                   onClick={(e) => selectComponent(e, component)}
                 >
-                  {typeToFieldName(component.type)}
+                  {i18n(`fieldTypeToName.${component.type}`)}
                 </a>
               </li>
             ))}
@@ -72,7 +71,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                   className="govuk-link"
                   onClick={(e) => selectComponent(e, component)}
                 >
-                  {typeToFieldName(component.type)}
+                  {i18n(`fieldTypeToName.${component.type}`)}
                 </a>
               </li>
             ))}
@@ -89,7 +88,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                   className="govuk-link"
                   onClick={(e) => selectComponent(e, component)}
                 >
-                  {typeToFieldName(component.type)}
+                  {i18n(`fieldTypeToName.${component.type}`)}
                 </a>
               </li>
             ))}
