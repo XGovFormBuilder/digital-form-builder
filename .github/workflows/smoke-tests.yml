@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "12.x"
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
       - name: Build the stack
         run: docker-compose up -d
       - name: Test
