@@ -12,6 +12,6 @@ jobs:
         run: |
           curl -X POST https://api.github.com/repos/UKHomeOffice/digital-form-builder-1/actions/workflows/4763518/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.WORKFLOW_ACCESS_TOKEN }} \
+          -u ${{ secrets.WORKFLOW_PAT }} \
           --data '{"event_type": "xgovformbuilder-updated", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
 
