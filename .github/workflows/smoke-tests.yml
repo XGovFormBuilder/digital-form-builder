@@ -20,10 +20,12 @@ jobs:
         run: yarn --immutable
       - name: Build the stack
         run: docker-compose up -d
-      - name: Test
+      - name: Check containers are accessible
         run: |
-          dcoker ps
-          curl -v -s --retry 10 --retry-connrefused http://localhost:3000/
+          DESIGNER_IP=$(docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq) | grep digital-form-builder_designer | awk '{print $3}')
+          RUNNER_IP=$(docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq) | grep digital-form-builder_runner | awk '{print $3}')
+          curl -v -s --retry 10 --retry-connrefused "http://$DESIGNER_IP:3000/"
+          curl -v -s --retry 10 --retry-connrefused "http://$RUNNER_IP:3009/"
       - name: Smoke Tests
         run: |
           cd smoke-tests/designer
