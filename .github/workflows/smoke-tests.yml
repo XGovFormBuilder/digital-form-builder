@@ -2,10 +2,10 @@ name: Smoke Tests
 on: 
  push:
     branches:
-      - main
+      - master
  pull_request:
     branches:
-      - main
+      - master
  workflow_dispatch:
 jobs:
   test:
@@ -16,6 +16,8 @@ jobs:
         run: |
           yarn add node-gyp
           sudo apt update && sudo apt install yarn
+          npm cache clean -f
+          npm install -g n
       - uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install # will run `yarn install` command
