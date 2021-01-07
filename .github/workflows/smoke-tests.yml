@@ -21,7 +21,9 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
       - name: Test
-        run: curl -v -s --retry 10 --retry-connrefused http://localhost:3000/
+        run: |
+          dcoker ps
+          curl -v -s --retry 10 --retry-connrefused http://localhost:3000/
       - name: Smoke Tests
         run: |
           cd smoke-tests/designer
