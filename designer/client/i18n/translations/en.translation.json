@@ -100,5 +100,30 @@
 
   "conditions": {},
   "wontShow": "This will not show on the page.",
-  "Test": "For testing purpose, do not delete it"
+  "Test": "For testing purpose, do not delete it",
+  "fieldTypeToName": {
+    "Details": "Details",
+    "FlashCard": "Flash card",
+    "Html": "Html",
+    "InsetText": "Inset text",
+    "List": "List",
+    "Para": "Paragraph",
+    "AutocompleteField": "Autocomplete field",
+    "DateField": "Date field",
+    "DatePartsField": "Date parts field",
+    "DateTimeField": "Date time field",
+    "DateTimePartsField": "Date time parts field",
+    "EmailAddressField": "Email address field",
+    "FileUploadField": "File upload field",
+    "MultilineTextField": "Multiline text field",
+    "NumberField": "Number field",
+    "TelephoneNumberField": "Telephone number field",
+    "TextField": "Text field",
+    "TimeField": "Time field",
+    "UkAddressField": "UK address field",
+    "CheckboxesField": "Checkboxes field",
+    "RadiosField": "Radios field",
+    "SelectField": "Select field",
+    "YesNoField": "YesNo field"
+  }
 }

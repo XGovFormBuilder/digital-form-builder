@@ -17,7 +17,6 @@ import { BackLink } from "../backLink";
 import { Actions } from "../../reducers/component/types";
 import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
-import { typeToFieldName } from "./helpers";
 
 import "./ComponentCreate.scss";
 
@@ -110,7 +109,8 @@ export function ComponentCreate(props) {
             {i18n("Back to create component list")}
           </BackLink>
           <h4 className="govuk-heading-m">
-            {typeToFieldName(component?.["type"])} {i18n("component.component")}
+            {i18n(`fieldTypeToName.${component?.["type"]}`)}{" "}
+            {i18n("component.component")}
           </h4>
         </>
       )}
