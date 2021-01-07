@@ -16,8 +16,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Install dependencies
-        run: yarn --immutable
       - name: Build the stack
         run: docker-compose up -d
       - name: Check containers are accessible
@@ -29,6 +27,7 @@ jobs:
       - name: Smoke Tests
         run: |
           cd smoke-tests/designer
+          yarn --immutable
           yarn run smoke-test
       - name: Teardown
         run: docker-componse down
