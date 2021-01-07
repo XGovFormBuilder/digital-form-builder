@@ -16,15 +16,6 @@ services:
       - sandbox=true
       - PREVIEW_URL=http://localhost:3009
       - PUBLISH_URL=http://runner:3009
-    volumes:
-      - /usr/src/app/node_modules
-      - /usr/src/app/model/node_modules
-      - /usr/src/app/model/dist
-      - /usr/src/app/designer/node_modules
-      - /usr/src/app/designer/dist
-      - /usr/src/app/runner/node_modules
-      - /usr/src/app/runner/dist
-      - ./designer:/usr/src/app/designer:delegated
     command: yarn designer dev
     depends_on:
       - redis
@@ -44,15 +35,6 @@ services:
       - REDIS_PASSWORD=123abc
       - sandbox=true
       - PREVIEW_MODE=true
-    volumes:
-      - /usr/src/app/node_modules
-      - /usr/src/app/model/node_modules
-      - /usr/src/app/model/dist
-      - /usr/src/app/designer/node_modules
-      - /usr/src/app/designer/dist
-      - /usr/src/app/runner/node_modules
-      - /usr/src/app/runner/dist
-      - ./runner:/usr/src/app/runner
     command: yarn runner dev
     depends_on:
       - redis
