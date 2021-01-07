@@ -3902,7 +3902,7 @@ __metadata:
     eslint-plugin-import: ^2.22.0
     file-loader: ^6.1.0
     flat: 5.0.0
-    govuk-frontend: ^3.10.2
+    govuk-frontend: ^3.10.1
     hapi-pino: ^8.0.1
     hoek: ^6.1.3
     html-webpack-plugin: ^4.5.0
@@ -3920,7 +3920,7 @@ __metadata:
     react: 16.13.1
     react-dom: 16.13.1
     react-helmet: ^6.1.0
-    react-simple-code-editor: 0.6.1
+    react-simple-code-editor: 0.11.0
     react-sortable-hoc: 0.8.3
     resolve: ^1.19.0
     resolve-url-loader: ^3.1.1
@@ -11077,13 +11077,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"govuk-frontend@npm:^3.10.2":
-  version: 3.10.2
-  resolution: "govuk-frontend@npm:3.10.2"
-  checksum: f21d4410a7f7da68199d9ecdad3d27930640d56fdad53631c57c652b8daf4608318af0d6eb0417f55a6d7ec8b022a781f6aeb237d3a004dd8c583fae26206825
-  languageName: node
-  linkType: hard
-
 "graceful-fs@npm:^4.0.0, graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.2, graceful-fs@npm:^4.2.3, graceful-fs@npm:^4.2.4":
   version: 4.2.4
   resolution: "graceful-fs@npm:4.2.4"
@@ -17327,13 +17320,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-simple-code-editor@npm:0.6.1":
-  version: 0.6.1
-  resolution: "react-simple-code-editor@npm:0.6.1"
+"react-simple-code-editor@npm:0.11.0":
+  version: 0.11.0
+  resolution: "react-simple-code-editor@npm:0.11.0"
   peerDependencies:
     react: ^16.0.0
     react-dom: ^16.0.0
-  checksum: 0cb01adcbd242a4efd002cd076b26a75bae099a5b7daec1227ed3cd04ca37dec21287c2551bf5629817605f5b234ec05a553341f04ef878ee7d1683496719e7e
+  checksum: d482ccca2bb4cbdc66eaa2efddcbbce1b2a9e22b4e093d3538abbfc13bbe68a91ce2c745e74b7eeb69cb3ee59d35f031e3dc545cbdf347039445756749a9f64d
   languageName: node
   linkType: hard
 
