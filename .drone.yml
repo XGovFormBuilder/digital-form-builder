@@ -291,33 +291,33 @@ steps:
         - master
       event:
         - push
-  - name: post notification
-    image: plugins/slack
-    settings:
-      webhook:
-        from_secret: slack_webhook
-      channel: stp-dev-alerts
-      image_url: https://unsplash.it/256/256/?random
-      template: >
-        {{#success build.status}}
-         Build succeeded. Good job.
-          Build: {{build.number}}
-          Author: {{build.author}}
-          Link: {{build.link}}
-        {{else}}
-          Build failed. Fix me please.
-          Build: {{build.number}}
-          Author: {{build.author}}
-          Link: {{build.link}}
-        {{/success}}
-    when:
-      branch:
-        - master
-      event:
-        - push
-      status:
-        - success
-        - failure
+#  - name: post notification
+#    image: plugins/slack
+#    settings:
+#      webhook:
+#        from_secret: slack_webhook
+#      channel: stp-dev-alerts
+#      image_url: https://unsplash.it/256/256/?random
+#      template: >
+#        {{#success build.status}}
+#         Build succeeded. Good job.
+#          Build: {{build.number}}
+#          Author: {{build.author}}
+#          Link: {{build.link}}
+#        {{else}}
+#          Build failed. Fix me please.
+#          Build: {{build.number}}
+#          Author: {{build.author}}
+#          Link: {{build.link}}
+#        {{/success}}
+#    when:
+#      branch:
+#        - master
+#      event:
+#        - push
+#      status:
+#        - success
+#        - failure
 depends_on:
   - designer-build-and-deploy
   - runner-build-and-deploy
