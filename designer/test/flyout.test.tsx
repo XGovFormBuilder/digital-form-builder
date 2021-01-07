@@ -21,13 +21,15 @@ describe("useFlyoutContext", () => {
   let increment;
   let decrement;
   let wrapper;
+
   beforeEach(() => {
     sinon.restore();
     increment = sinon.stub();
     decrement = sinon.stub();
   });
+
   afterEach(() => {
-    wrapper?.unmount();
+    wrapper?.exists() && wrapper.unmount();
   });
 
   test("Increment is called on mount", () => {
@@ -41,13 +43,14 @@ describe("useFlyoutContext", () => {
     expect(decrement.notCalled).to.equal(true);
   });
 
-  test("Decrement is called on unmount", () => {
+  test.only("Decrement is called on unmount", () => {
     const flyoutContextProviderValue = { count: 0, increment, decrement };
     wrapper = mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
         <HookWrapper hook={() => useFlyoutEffect({ show: true })} />
       </FlyoutContext.Provider>
     );
+
     wrapper.unmount();
     expect(increment.calledOnce).to.equal(true);
     expect(decrement.calledOnce).to.equal(true);

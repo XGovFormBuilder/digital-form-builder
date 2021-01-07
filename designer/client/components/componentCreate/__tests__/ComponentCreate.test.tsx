@@ -14,7 +14,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { beforeEach, suite, test } = lab;
 
-suite("Component create", () => {
+suite("ComponentCreate:", () => {
   const detailsComponentDef = {
     name: "Details",
     type: "Details",
@@ -47,11 +47,12 @@ suite("Component create", () => {
       wrappingComponent: WrappingComponent,
     });
 
-    const form = wrapper.find("form");
-    const componentCreateList = form.find("ComponentCreateList");
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
+
+    const componentCreateList = wrapper.find("ComponentCreateList");
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
     wrapper.update();
+
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
   });
 
@@ -115,8 +116,8 @@ suite("Component create", () => {
         dataValue: { data: dataSpy, save: saveStub },
       },
     });
-    const form = wrapper.find("form");
-    const componentCreateList = form.find("ComponentCreateList");
+
+    const componentCreateList = wrapper.find("ComponentCreateList");
 
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
@@ -147,8 +148,7 @@ suite("Component create", () => {
       },
     });
 
-    let form = wrapper.find("form");
-    const componentCreateList = form.find("ComponentCreateList");
+    const componentCreateList = wrapper.find("ComponentCreateList");
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
     wrapper.update();
 
