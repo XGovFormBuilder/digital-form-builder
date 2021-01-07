@@ -44,10 +44,10 @@ const useListItem = (state, dispatch) => {
 };
 
 function useListEdit() {
-  const { state, dispatch } = useSetListEditorContext();
   const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
     ListsEditorContext
   );
+  const { state, dispatch } = useSetListEditorContext();
 
   const { showWarning, isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);

@@ -17,8 +17,6 @@ exports.lab = lab;
 const { experiment, test, suite, beforeEach, afterEach } = lab;
 
 experiment("List edit", () => {
-  let i18n;
-
   let wrapper;
 
   afterEach(() => {
@@ -68,9 +66,7 @@ experiment("List edit", () => {
   });
   const dataValue = { data, save: sinon.spy() };
 
-  beforeEach(() => {
-    i18n = sinon.spy();
-  });
+  beforeEach(() => {});
 
   suite("Global", () => {
     const TestProvider = ({ listsEditorValue, listContextValue, children }) => {
@@ -86,20 +82,19 @@ experiment("List edit", () => {
     };
 
     test("allows title change", () => {
-      const listsEditorValue = {
+      const listsEditorState = {
         isEditingList: true,
-        context: ListContext,
+        selectedList: {},
+        listEditContext: ListContext,
       };
-      const selectedList = data.findList("myList");
-      const listContextValue = {
-        selectedList,
-      };
+      const listContextState = data.findList("myList");
+
       wrapper = mount(
         <TestProvider
-          listsEditorValue={[listsEditorValue, sinon.spy()]}
-          listContextValue={[listContextValue, sinon.spy()]}
+          listsEditorValue={{ state: listsEditorState, dispatch: sinon.spy() }}
+          listContextValue={{ state: listContextState, dispatch: sinon.spy() }}
         >
-          <ListEdit i18n={i18n} />
+          <ListEdit />
         </TestProvider>
       );
       expect(wrapper.find("input")).to.exist();
@@ -108,19 +103,25 @@ experiment("List edit", () => {
     test("displays list items and edit/delete called correctly", () => {
       const listsEditorValue = {
         isEditingList: true,
-        context: ListContext,
+        listEditContext: ListContext,
       };
       const sandbox = sinon.createSandbox();
       const selectedList = data.findList("myList");
-      const listContextValue = {
+      const listContextState = {
         selectedList,
       };
       wrapper = mount(
         <TestProvider
-          listsEditorValue={[listsEditorValue, sandbox.spy()]}
-          listContextValue={[listContextValue, sandbox.spy()]}
+          listsEditorValue={{
+            state: listsEditorValue,
+            dispatch: sandbox.spy(),
+          }}
+          listContextValue={{
+            state: listContextState,
+            dispatch: sandbox.spy(),
+          }}
         >
-          <ListEdit i18n={i18n} />
+          <ListEdit />
         </TestProvider>
       );
       const listEdit = wrapper.find(ListEdit);
@@ -151,7 +152,7 @@ experiment("List edit", () => {
     });
   });
 
-  suite("Static", () => {
+  suite.only("Static", () => {
     let sandbox = sinon.createSandbox();
     const TestProvider = ({
       listsEditorValue,
@@ -180,7 +181,7 @@ experiment("List edit", () => {
       const listsEditorValue = {
         isEditingList: true,
         isEditingStatic: true,
-        context: ComponentContext,
+        listEditContext: ComponentContext,
       };
 
       const componentContextValue = {
@@ -189,11 +190,17 @@ experiment("List edit", () => {
 
       wrapper = mount(
         <TestProvider
-          listsEditorValue={[listsEditorValue, sandbox.spy()]}
-          listContextValue={[{}, sandbox.spy()]}
-          componentValue={[componentContextValue, sandbox.spy()]}
+          listsEditorValue={{
+            state: listsEditorValue,
+            dispatch: sandbox.spy(),
+          }}
+          listContextValue={{ state: {}, dispatch: sandbox.spy() }}
+          componentValue={{
+            state: componentContextValue,
+            dispatch: sandbox.spy(),
+          }}
         >
-          <ListEdit i18n={i18n} />
+          <ListEdit />
         </TestProvider>
       );
       expect(wrapper.find("input").exists()).to.equal(false);
@@ -201,22 +208,28 @@ experiment("List edit", () => {
 
     test("displays list items and edit/delete called correctly", () => {
       const listsEditorValue = {
-        isEditingList: true,
-        isEditingStatic: true,
-        context: ComponentContext,
+        state: {
+          isEditingList: true,
+          isEditingStatic: true,
+          listEditContext: ComponentContext,
+        },
+        dispatch: sandbox.spy(),
       };
 
       const componentContextValue = {
-        selectedComponent: data.pages[0].components[0],
+        state: {
+          selectedComponent: data.pages[0].components[0],
+        },
+        dispatch: sandbox.spy(),
       };
 
       wrapper = mount(
         <TestProvider
-          listsEditorValue={[listsEditorValue, sandbox.spy()]}
-          listContextValue={[{}, sandbox.spy()]}
-          componentValue={[componentContextValue, sandbox.spy()]}
+          listsEditorValue={listsEditorValue}
+          listContextValue={{ state: {}, dispatch: sandbox.spy() }}
+          componentValue={componentContextValue}
         >
-          <ListEdit i18n={i18n} />
+          <ListEdit />
         </TestProvider>
       );
 
@@ -226,7 +239,7 @@ experiment("List edit", () => {
       expect(editLink.props.children).to.equal("Edit");
       expect(deleteLink.props.children).to.equal("Delete");
 
-      const componentSpy = sandbox.getFakes()[2];
+      const componentSpy = sandbox.getFakes()[1];
       const editorSpy = sandbox.getFakes()[0];
       expect(componentSpy.notCalled).to.be.true();
       expect(editorSpy.notCalled).to.be.true();

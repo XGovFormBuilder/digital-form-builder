@@ -95,6 +95,5 @@ export const ListsEditorContextProvider = (props) => {
 
 export const useSetListEditorContext = () => {
   const { state } = useContext(ListsEditorContext);
-  console.log("listEditorState,", state);
-  return state.listEditContext;
+  return useContext(state.listEditContext);
 };

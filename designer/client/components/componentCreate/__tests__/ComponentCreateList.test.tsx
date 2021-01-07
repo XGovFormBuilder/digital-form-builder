@@ -172,7 +172,7 @@ suite("ComponentCreateList", () => {
 
     // @ts-ignore
     const i18nTranslations = i18nModule.i18n.getCalls().map((c) => c.args[0]);
-    expect(i18nTranslations).to.equal([
+    expect(i18nTranslations).to.contain([
       "Select a component to add to your page",
       "Content",
       "Input fields",

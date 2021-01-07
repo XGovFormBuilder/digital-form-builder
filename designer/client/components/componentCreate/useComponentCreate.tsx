@@ -1,13 +1,5 @@
-import React, {
-  Component,
-  ChangeEvent,
-  MouseEvent,
-  useEffect,
-  useContext,
-  useState,
-  useLayoutEffect,
-} from "react";
-import { clone, ComponentDef, ComponentTypes } from "@xgovformbuilder/model";
+import React, { useEffect, useContext, useState, useLayoutEffect } from "react";
+import { ComponentDef } from "@xgovformbuilder/model";
 
 import { i18n } from "../../i18n";
 import { ErrorSummary } from "../../error-summary";
@@ -15,11 +7,11 @@ import { hasValidationErrors } from "../../validations";
 import ComponentTypeEdit from "../../ComponentTypeEdit";
 import { ComponentCreateList } from "./ComponentCreateList";
 import { BackLink } from "../backLink";
-
 import "./ComponentCreate.scss";
 import { Actions } from "../../reducers/component/types";
 import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
+
 function useComponentCreate(props) {
   const { data, save } = useContext(DataContext);
   const { state, dispatch } = useContext(ComponentContext);
