@@ -89,7 +89,7 @@ function ListItems() {
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST_ITEM, true]);
   };
 
-  const { prepareForDelete } = useListItemAdapter(state, dispatch);
+  const { prepareForDelete } = useListItem(state, dispatch);
 
   function removeItem() {
     const copy = clone(data);

@@ -5,25 +5,25 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
 import { ComponentCreateList } from "../ComponentCreateList";
-import * as i18Module from "../../../i18n/i18n";
+import * as i18nModule from "../../../i18n/i18n";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { beforeEach, afterEach, suite, test } = lab;
-
-const sandbox = sinon.createSandbox();
+const { before, beforeEach, afterEach, suite, test, after } = lab;
 
 suite("ComponentCreateList", () => {
   let onSelectComponent;
-
+  before(() => {
+    sinon.spy(i18nModule, "i18n");
+  });
   beforeEach(() => {
-    onSelectComponent = sandbox.stub();
-    sandbox.stub(i18Module, "i18n").returns("TEST TRANSLATION");
+    sinon.resetHistory();
+    onSelectComponent = sinon.stub();
   });
 
-  afterEach(() => {
-    sandbox.restore();
+  after(() => {
+    sinon.restore();
   });
 
   test("it displays Content components list correctly", () => {
@@ -171,7 +171,7 @@ suite("ComponentCreateList", () => {
     shallow(<ComponentCreateList onSelectComponent={onSelectComponent} />);
 
     // @ts-ignore
-    const i18nTranslations = i18Module.i18n.getCalls().map((c) => c.args[0]);
+    const i18nTranslations = i18nModule.i18n.getCalls().map((c) => c.args[0]);
     expect(i18nTranslations).to.equal([
       "Select a component to add to your page",
       "Content",

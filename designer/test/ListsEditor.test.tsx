@@ -24,7 +24,6 @@ const { test, suite, afterEach } = lab;
 
 suite("Lists (global)", () => {
   const sandbox = sinon.createSandbox();
-  const i18n = sinon.stub().returns("mockTranslation");
   let wrapper;
 
   afterEach(() => {
@@ -51,7 +50,7 @@ suite("Lists (global)", () => {
     spied = sandbox.spy(dispatch);
     return (
       <DataContext.Provider value={dataValue}>
-        <ListsEditorContext.Provider value={[state, spied]}>
+        <ListsEditorContext.Provider value={{ state, dispatch: spied }}>
           <ListContextProvider>{children}</ListContextProvider>
         </ListsEditorContext.Provider>
       </DataContext.Provider>
@@ -61,7 +60,7 @@ suite("Lists (global)", () => {
   test("GlobalListSelect shows when not editing from component", () => {
     wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
-        <ListsEdit i18n={i18n} isEditingFromComponent={false} />
+        <ListsEdit isEditingFromComponent={false} />
       </TestComponentContextProvider>
     );
 
@@ -73,7 +72,7 @@ suite("Lists (global)", () => {
   test("Opens correct editors", () => {
     wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
-        <ListsEdit i18n={i18n} />
+        <ListsEdit isEditingFromComponent={false} />
       </TestComponentContextProvider>
     );
     const listsEdit = () => wrapper.find(ListsEdit).first();

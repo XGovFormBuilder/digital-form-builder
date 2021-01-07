@@ -55,7 +55,7 @@ export function listsEditorReducer(
 
   switch (type) {
     case ListsEditorStateActions.SET_CONTEXT:
-      return { ...state, context: payload };
+      return { ...state, listEditContext: payload };
     case ListsEditorStateActions.SET_LIST_TITLE:
       return { ...state, listTitle: payload };
     case ListsEditorStateActions.SET_LIST_ITEM_TITLE:
@@ -68,7 +68,7 @@ export function listsEditorReducer(
       return {
         ...state,
         isEditingStatic: payload,
-        context: payload ? ComponentContext : ListContext,
+        listEditContext: payload ? ComponentContext : ListContext,
       };
     case ListsEditorStateActions.SHOW_WARNING:
       return {
@@ -95,5 +95,6 @@ export const ListsEditorContextProvider = (props) => {
 
 export const useSetListEditorContext = () => {
   const { state } = useContext(ListsEditorContext);
-  return useContext(state.listEditContext);
+  console.log("listEditorState,", state);
+  return state.listEditContext;
 };

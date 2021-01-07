@@ -68,7 +68,7 @@ export function ListsEdit({ isEditingFromComponent = false }: Props) {
     closeFlyout,
     listTitle,
     itemTitle,
-  } = useListsEdit();
+  } = useListsEdit(isEditingFromComponent);
   return (
     <div className="govuk-body">
       {!isEditingFromComponent && <GlobalListSelect />}

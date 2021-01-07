@@ -5,7 +5,8 @@ import { useStaticListItem } from "./useStaticListItem";
 import { ListItemHook } from "./types";
 
 export function useListItem(state, dispatch): ListItemHook {
-  const [{ isEditingStatic }] = useContext(ListsEditorContext);
+  const { state: listsEditorState } = useContext(ListsEditorContext);
+  const { isEditingStatic } = listsEditorState;
   if (isEditingStatic) {
     return useStaticListItem(state, dispatch);
   } else {

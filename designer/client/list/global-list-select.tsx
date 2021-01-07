@@ -1,15 +1,14 @@
 import { ListActions } from "../reducers/listActions";
 import { DataContext } from "../context";
 import React, { useContext } from "react";
-import { withI18n } from "../i18n";
+import { i18n } from "../i18n";
 import { ListContext } from "../reducers/listReducer";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
 
-export function GlobalListSelect(props) {
-  const { i18n } = props;
+export function GlobalListSelect() {
   const { data } = useContext(DataContext);
   const { dispatch: listDispatch } = useContext(ListContext);
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
@@ -51,4 +50,4 @@ export function GlobalListSelect(props) {
     </ul>
   );
 }
-export default withI18n(GlobalListSelect);
+export default GlobalListSelect;

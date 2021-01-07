@@ -4,15 +4,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { ComponentContext } from "../reducers/component/componentReducer";
 import { Actions } from "../reducers/component/types";
 import { Label } from "@govuk-jsx/label";
-import { withI18n } from "../i18n";
+import { i18n } from "../i18n";
 import { ListContext } from "../reducers/listReducer";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
 
-export function ComponentListSelect(props) {
-  const { i18n } = props;
+export function ComponentListSelect() {
   const { data } = useContext(DataContext);
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
   const { state, dispatch } = useContext(ComponentContext);
@@ -112,4 +111,4 @@ export function ComponentListSelect(props) {
   );
 }
 
-export default withI18n(ComponentListSelect);
+export default ComponentListSelect;

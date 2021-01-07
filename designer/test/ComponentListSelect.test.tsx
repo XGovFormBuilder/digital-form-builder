@@ -14,18 +14,28 @@ import {
 } from "../client/reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "../client/reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../client/reducers/listReducer";
+import * as i18nModule from "../client/i18n/i18n";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { test, suite, beforeEach, afterEach } = lab;
+const { before, test, suite, afterEach, after } = lab;
 
 suite("ComponentListSelect", () => {
-  let i18n;
   let wrapper;
+  let i18n;
+
+  before(() => {
+    sinon.restore();
+    i18n = sinon.spy(i18nModule, "i18n");
+  });
 
   afterEach(() => {
     wrapper?.unmount();
+  });
+
+  after(() => {
+    sinon.restore();
   });
 
   let data = new Data({
@@ -82,10 +92,6 @@ suite("ComponentListSelect", () => {
   });
   const dataValue = { data, save: sinon.spy() };
 
-  beforeEach(() => {
-    i18n = sinon.spy();
-  });
-
   const TestComponentContextProvider = ({
     children,
     dataValue,
@@ -102,7 +108,7 @@ suite("ComponentListSelect", () => {
     return (
       <DataContext.Provider value={dataValue}>
         <ListsEditorContextProvider>
-          <ComponentContext.Provider value={[state, dispatch]}>
+          <ComponentContext.Provider value={{ state, dispatch }}>
             <ListContextProvider>{children}</ListContextProvider>
           </ComponentContext.Provider>
         </ListsEditorContextProvider>
@@ -113,7 +119,7 @@ suite("ComponentListSelect", () => {
   test("Lists all available lists and the static list", () => {
     wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
-        <ComponentListSelect i18n={i18n} />
+        <ComponentListSelect />
       </TestComponentContextProvider>
     );
     const options = () => wrapper.find(ComponentListSelect).find("option");
@@ -136,7 +142,7 @@ suite("ComponentListSelect", () => {
   test("Selecting a different list changes the edit link", () => {
     wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
-        <ComponentListSelect i18n={i18n} />
+        <ComponentListSelect />
       </TestComponentContextProvider>
     );
     const select = () => wrapper.find("select");
@@ -173,7 +179,7 @@ suite("ComponentListSelect", () => {
     const dataValue = { data, save: sinon.spy() };
     wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
-        <ComponentListSelect i18n={i18n} />
+        <ComponentListSelect />
       </TestComponentContextProvider>
     );
     expect(wrapper.find("list.static.newTitle")).to.exist();
@@ -197,7 +203,7 @@ suite("ComponentListSelect", () => {
         dataValue={dataValue}
         componentValue={componentValue}
       >
-        <ComponentListSelect i18n={i18n} />
+        <ComponentListSelect />
       </TestComponentContextProvider>
     );
 

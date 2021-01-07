@@ -13,18 +13,16 @@ import {
 } from "../client/reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../client/reducers/listReducer";
 import { GlobalListSelect } from "../client/list/global-list-select";
+import * as i18nModule from "../client/i18n/i18n";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { test, suite, afterEach } = lab;
+const { test, suite, afterEach, after, before } = lab;
 
 suite("GlobalListSelect", () => {
-  const i18n = sinon.stub().returns("mockTranslation");
   let wrapper;
-  afterEach(() => {
-    wrapper?.unmount();
-  });
+
   const data = new Data({
     lists: [
       {
@@ -50,7 +48,7 @@ suite("GlobalListSelect", () => {
     );
     return (
       <DataContext.Provider value={dataValue}>
-        <ListsEditorContext.Provider value={[state, dispatch]}>
+        <ListsEditorContext.Provider value={{ state, dispatch }}>
           <ListContextProvider>{children}</ListContextProvider>
         </ListsEditorContext.Provider>
       </DataContext.Provider>
@@ -60,15 +58,12 @@ suite("GlobalListSelect", () => {
   test("Lists all available lists", () => {
     wrapper = mount(
       <TestComponentContextProvider dataValue={dataValue}>
-        <GlobalListSelect i18n={i18n} />
+        <GlobalListSelect />
       </TestComponentContextProvider>
     );
     const lists = wrapper.find("li");
     expect(lists.length).to.equal(data.lists.length + 1);
     expect(lists.find("li a").get(0).props.children).to.equal("My list");
     expect(lists.find("li a").get(1).props.children).to.equal("myOtherList");
-    expect(lists.find("li a").get(2).props.children).to.equal(
-      "mockTranslation"
-    );
   });
 });
