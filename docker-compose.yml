@@ -6,8 +6,8 @@ services:
       args:
         - WORKSPACE_NAME=designer
         - PORT=3000
-      network: host  
-    network_mode: host    
+      network: host
+    network_mode: host
     ports:
       - "3000:3000"
     environment:
@@ -28,7 +28,7 @@ services:
       args:
         - WORKSPACE_NAME=runner
         - PORT=3009
-        network: host  
+      network: host
     network_mode: host
     ports:
       - "3009:3009"
