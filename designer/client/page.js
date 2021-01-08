@@ -4,13 +4,14 @@ import {
   SortableElement,
   arrayMove,
 } from "react-sortable-hoc";
+
 import Flyout from "./flyout";
 import PageEdit from "./page-edit";
 import { Component } from "./component";
 import { ComponentCreate } from "./components/componentCreate";
 import { ComponentTypes, clone } from "@xgovformbuilder/model";
 import { withI18n } from "./i18n";
-
+import { DataContext } from "./context";
 import { PageLinkage } from "./components/page-linkage";
 import { ComponentContextProvider } from "./reducers/component";
 
@@ -37,25 +38,21 @@ const SortableList = SortableContainer(({ page, data }) => {
 });
 
 export class Page extends React.Component {
+  static contextType = DataContext;
+
   state = {
     showEditor: false,
     showAddComponent: false,
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
+    const { save } = this.context;
     const { page, data } = this.props;
     const copy = clone(data);
     const copyPage = data.findPage(page.path);
     copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex);
 
-    data.save(copy);
-
-    // OPTIMISTIC SAVE TO STOP JUMP
-
-    // const { page, data } = this.props
-    // page.components = arrayMove(page.components, oldIndex, newIndex)
-
-    // data.save(data)
+    save(copy);
   };
 
   toggleAddComponent = () => {

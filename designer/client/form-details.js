@@ -1,10 +1,16 @@
 import React from "react";
-import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
 import { Input } from "@govuk-jsx/input";
+import { clone } from "@xgovformbuilder/model";
+
 import { validateTitle, hasValidationErrors } from "./validations";
+import formConfigurationApi from "./load-form-configurations";
 import ErrorSummary from "./error-summary";
+import { DataContext } from "./context";
+
 class FormDetails extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     const { feedbackForm, feedbackUrl } = props.data;
@@ -29,10 +35,13 @@ class FormDetails extends React.Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = this.validate();
+
     if (hasValidationErrors(validationErrors)) return;
+
+    const { save } = this.context;
     const { data } = this.props;
     const { title, feedbackForm, selectedFeedbackForm } = this.state;
-    const copy = data.clone();
+    const copy = clone(data);
     copy.name = title;
     copy.feedbackForm = feedbackForm;
     copy.setFeedbackUrl(
@@ -40,7 +49,7 @@ class FormDetails extends React.Component {
     );
 
     try {
-      const saved = await data.save(copy);
+      const saved = await save(copy);
       if (this.props.onCreate) {
         this.props.onCreate(saved);
       }
