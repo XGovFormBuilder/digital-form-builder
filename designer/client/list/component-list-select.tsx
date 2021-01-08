@@ -25,9 +25,10 @@ export function ComponentListSelect() {
   const [selectedListTitle, setSelectedListTitle] = useState(
     selectedList?.title
   );
+  const values = selectedComponent?.values;
+  const isStatic = selectedListName === "static" || values?.type === "static";
 
   useEffect(() => {
-    const isStatic = selectedListName === "static";
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, isStatic]);
     const list = data.lists.find((list) => list?.name === selectedListName);
     listDispatch({ type: ListActions.SET_SELECTED_LIST, payload: list });
@@ -41,8 +42,6 @@ export function ComponentListSelect() {
     });
   };
 
-  const values = selectedComponent?.values;
-
   const createStaticList = async (e) => {
     e.preventDefault();
     dispatch({
@@ -50,6 +49,11 @@ export function ComponentListSelect() {
       payload: true,
     });
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, true]);
+    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
+  };
+
+  const handleEditListClick = (e) => {
+    e.preventDefault();
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
   };
 
@@ -63,9 +67,11 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        {(isNew || !!values) && <option />}
-        {values?.type === "static" && values?.items?.length > 0 && (
-          <option value="static">{selectedListTitle}</option>
+        {(isNew || values?.items?.length === 0) && <option />}
+        {(values?.type === "static" || selectedListName === "static") && (
+          <option value="static">
+            {isStatic ? selectedComponent.title : selectedListTitle}
+          </option>
         )}
         {data.lists.map((list, index) => {
           return (
@@ -80,13 +86,7 @@ export function ComponentListSelect() {
         <a
           href="#"
           className="govuk-link govuk-!-display-block"
-          onClick={(e) => {
-            e.preventDefault();
-            listsEditorDispatch([
-              ListsEditorStateActions.IS_EDITING_LIST,
-              true,
-            ]);
-          }}
+          onClick={handleEditListClick}
         >
           {i18n("list.edit", { title: selectedListTitle })}
         </a>

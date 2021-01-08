@@ -18,6 +18,7 @@ export function componentListReducer(
 ) {
   const { type, payload } = action;
   const { selectedComponent } = state;
+  let values = selectedComponent.values;
   let staticListItems = selectedComponent.values?.items;
 
   switch (type) {
@@ -54,7 +55,7 @@ export function componentListReducer(
           ...state,
           selectedComponent: {
             values: {
-              type: "listRef",
+              type: payload === "static" ? "static" : "listRef",
               list: payload,
             },
             ...selectedComponent,
@@ -65,6 +66,13 @@ export function componentListReducer(
       } else {
         return {
           ...state,
+          selectedComponent: {
+            ...selectedComponent,
+            values: {
+              ...values,
+              type: payload === "static" ? "static" : "listRef",
+            },
+          },
           selectedListName: payload,
           listItemErrors: {},
         };
