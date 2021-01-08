@@ -4,9 +4,16 @@ export function hasValidationErrors(errors = {}) {
   return Object.keys(errors).length > 0;
 }
 
-export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
+export function validateNotEmpty(
+  id: string,
+  fieldName: string,
+  key: string,
+  value: string,
+  existingErrors = {}
+) {
   const hasErrors = isEmpty(value);
-  const errors = existingErrors ? existingErrors : {};
+  const errors = existingErrors;
+
   if (hasErrors) {
     errors[key] = {
       href: `#${id}`,
@@ -16,10 +23,15 @@ export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
   return errors;
 }
 
-export function validateName(id, fieldName, value, i18n) {
+export function validateName(
+  id: string,
+  fieldName: string,
+  value: string,
+  i18n: any
+) {
   const namesIsEmpty = isEmpty(value);
   const nameHasErrors = /\s/g.test(value);
-  const errors = {};
+  const errors: any = {};
   if (nameHasErrors) {
     const message = i18n
       ? i18n("name.errors.whitespace")
@@ -40,9 +52,9 @@ export function validateName(id, fieldName, value, i18n) {
   return errors;
 }
 
-export function validateTitle(id, value, i18n) {
+export function validateTitle(id: string, value: string, i18n: any) {
   const titleHasErrors = isEmpty(value);
-  const errors = {};
+  const errors: any = {};
   if (titleHasErrors) {
     const message = i18n
       ? i18n("errors.field", { field: "$t(title)" })
