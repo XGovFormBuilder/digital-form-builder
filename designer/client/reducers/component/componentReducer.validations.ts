@@ -84,8 +84,6 @@ export function fieldComponentValidations(component) {
     return !!error ? { ...acc, ...error } : acc;
   }, {});
 
-  console.log(errors);
-
   return errors;
 }
 
