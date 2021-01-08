@@ -81,7 +81,7 @@ const staticValueSchema = joi.object().keys({
     .try(joi.number(), joi.string(), joi.boolean())
     .required(),
   hint: joi.string().allow("").optional(),
-  condition: joi.string().optional(),
+  condition: joi.string().optional().allow("", null),
   children: joi
     .array()
     .items(joi.any() /** Should be a joi.link('#componentSchema') */)
@@ -102,10 +102,6 @@ const valueChildrenSchema = joi.object().keys({
 
 const componentValuesSchema = joi.object().keys({
   type: joi.string().allow("static", "listRef").required(), // allow extension support for dynamically looked up types later
-  valueType: joi.when("type", {
-    is: joi.string().valid("static"),
-    then: joi.string().allow("string", "number", "boolean").required(),
-  }),
   items: joi.when("type", {
     is: joi.string().valid("static"),
     then: joi.array().items(staticValueSchema).unique("value"),

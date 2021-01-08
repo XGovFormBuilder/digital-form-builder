@@ -5,6 +5,16 @@ import { ComponentContext } from "./reducers/component/componentReducer";
 import { Actions } from "./reducers/component/types";
 import ErrorSummary from "./error-summary";
 import { hasValidationErrors } from "./validations";
+import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
+
+const LIST_TYPES = [
+  Types.AutocompleteField,
+  Types.List,
+  Types.RadiosField,
+  Types.SelectField,
+  Types.YesNoField,
+  Types.FlashCard,
+];
 
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
@@ -29,6 +39,10 @@ export function ComponentEdit(props) {
 
     if (hasErrors) {
       return;
+    }
+
+    if (selectedComponent.values?.type === "listRef") {
+      delete selectedComponent.items;
     }
 
     const updatedData = data.updateComponent(

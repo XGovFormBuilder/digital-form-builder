@@ -76,7 +76,7 @@ export function componentReducer(
       ...subReducer(state, action),
     };
   } else {
-    console.error("Unrecognised action");
+    console.error("Unrecognised action:", action.type);
     return { ...state, selectedComponent };
   }
 }

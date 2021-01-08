@@ -63,9 +63,9 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        <option />
-        {values?.type === "static" && (
-          <option value="static">{selectedComponent.title}</option>
+        {(isNew || !!values) && <option />}
+        {values?.type === "static" && values?.items?.length > 0 && (
+          <option value="static">{selectedListTitle}</option>
         )}
         {data.lists.map((list, index) => {
           return (
