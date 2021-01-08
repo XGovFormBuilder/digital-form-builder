@@ -1,5 +1,5 @@
 module.exports = {
   roots: ["<rootDir>/client"],
-  testMatch: ["<rootDir>/client/conditions/__tests__/*.test.(ts|tsx)"],
+  testMatch: ["<rootDir>/client/conditions/__tests__/*.jest.(ts|tsx)"],
   testPathIgnorePatterns: ["<rootDir>/test/"],
 };
