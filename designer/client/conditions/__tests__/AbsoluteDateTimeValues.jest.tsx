@@ -1,19 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render } from "@testing-library/react";
+import {
+  findInputValue,
+  typeIntoInput,
+} from "../../../test/helpers/react-testing-library-utils";
 import React from "react";
 import { AbsoluteDateTimeValues } from "../AbsoluteDateTimeValues";
-
-const findInput = async (label) =>
-  (await screen.findByLabelText(label)) as HTMLInputElement;
-
-const findInputValue = async (label) => {
-  const input = (await screen.findByLabelText(label)) as HTMLInputElement;
-  return input.value;
-};
-
-const typeIntoInput = async (label, value) => {
-  userEvent.type(await findInput(label), value);
-};
 
 describe("AbsoluteDateTimeValues", () => {
   afterEach(() => jest.resetAllMocks());
@@ -41,10 +32,21 @@ describe("AbsoluteDateTimeValues", () => {
     await typeIntoInput("dd", "26");
     await typeIntoInput("HH", "10");
     await typeIntoInput("mm", "57");
-    // look for the second call to the spy, because the first will be made
-    // when the first valid digit is typed in the 'mm' input ie '5'
-    const d = updateValue.mock.calls[1][0];
+    const d = updateValue.mock.calls.pop()[0];
     expect(d.toISOString()).toEqual("2020-04-26T10:57:00.000Z");
+  });
+
+  it("calls the updateValue prop if an existing valid date and time are edited", async () => {
+    const updateValue = jest.fn();
+    const d = new Date("2020-01-31T12:10:35Z");
+    render(<AbsoluteDateTimeValues updateValue={updateValue} value={d} />);
+    await typeIntoInput("yyyy", "2020");
+    await typeIntoInput("MM", "4");
+    await typeIntoInput("dd", "26");
+    await typeIntoInput("HH", "10");
+    await typeIntoInput("mm", "57");
+    const newDate = updateValue.mock.calls.pop()[0];
+    expect(newDate.toISOString()).toEqual("2020-04-26T10:57:00.000Z");
   });
 
   it("doesn't call the updateValue prop if a valid date and time are not entered", async () => {
@@ -65,9 +67,7 @@ describe("AbsoluteDateTimeValues", () => {
     await typeIntoInput("dd", "26");
     await typeIntoInput("HH", "0");
     await typeIntoInput("mm", "57");
-    // look for the second call to the spy, because the first will be made
-    // when the first valid digit is typed in the 'mm' input ie '5'
-    const d = updateValue.mock.calls[1][0];
+    const d = updateValue.mock.calls.pop()[0];
     expect(d.toISOString()).toEqual("2020-04-26T00:57:00.000Z");
   });
 
@@ -79,7 +79,7 @@ describe("AbsoluteDateTimeValues", () => {
     await typeIntoInput("dd", "26");
     await typeIntoInput("HH", "14");
     await typeIntoInput("mm", "0");
-    const d = updateValue.mock.calls[0][0];
+    const d = updateValue.mock.calls.pop()[0];
     expect(d.toISOString()).toEqual("2020-04-26T14:00:00.000Z");
   });
 });
