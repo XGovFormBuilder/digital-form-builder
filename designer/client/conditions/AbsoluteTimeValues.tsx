@@ -18,21 +18,23 @@ export const AbsoluteTimeValues = ({
   updateValue,
 }: Props) => {
   const [hour, setHour] = React.useState<string>(() =>
-    initialHour ? initialHour.toString() : ""
+    isInt(initialHour) ? initialHour.toString() : ""
   );
   const [minute, setMinute] = React.useState<string>(() =>
-    initialMinute ? initialMinute.toString() : ""
+    isInt(initialMinute) ? initialMinute.toString() : ""
   );
 
   React.useEffect(() => {
+    const parsedHour = parseInt(hour as string, 10);
+    const parsedMinute = parseInt(minute as string, 10);
     if (
       isInt(hour) &&
       isInt(minute) &&
-      (hour !== initialHour || minute !== initialMinute)
+      (parsedMinute !== initialHour || parsedMinute !== initialMinute)
     ) {
       return updateValue({
-        hour: parseInt(hour as string, 10),
-        minute: parseInt(minute as string, 10),
+        hour: parsedHour,
+        minute: parsedMinute,
       });
     }
   }, [hour, minute]);
@@ -79,7 +81,7 @@ export const AbsoluteTimeValues = ({
             name="cond-value-minutes"
             type="number"
             maxLength={2}
-            min={1}
+            min={0}
             max={59}
             value={minute}
             required

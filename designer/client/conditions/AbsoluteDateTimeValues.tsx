@@ -13,11 +13,11 @@ interface Props {
 export const AbsoluteDateTimeValues = ({ value, updateValue }: Props) => {
   const [dateTimeParts, setDateTimeParts] = React.useState(() => {
     return {
-      year: value && value.getFullYear(),
-      month: value && value.getMonth() + 1,
-      day: value && value.getDate(),
-      hour: value && value.getHours(),
-      minute: value && value.getMinutes(),
+      year: value && value.getUTCFullYear(),
+      month: value && value.getUTCMonth() + 1,
+      day: value && value.getUTCDate(),
+      hour: value && value.getUTCHours(),
+      minute: value && value.getUTCMinutes(),
     };
   });
 
@@ -29,7 +29,8 @@ export const AbsoluteDateTimeValues = ({ value, updateValue }: Props) => {
     setDateTimeParts(updatedDateTime);
     const { year, month, day, hour, minute } = updatedDateTime;
     if (year && month && day && isInt(hour) && isInt(minute)) {
-      const date = new Date(Date.UTC(year, month - 1, day, hour, minute));
+      const utcMilliseconds = Date.UTC(year, month - 1, day, hour, minute);
+      const date = new Date(utcMilliseconds);
       if (isValid(date)) {
         updateValue(date);
       }
