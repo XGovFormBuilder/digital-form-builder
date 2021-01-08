@@ -54,7 +54,6 @@ suite("ComponentListSelect", () => {
             type: "RadiosField",
             values: {
               type: "static",
-              valueType: "string",
               items: [
                 { label: "My item", value: "12", children: [] },
                 {

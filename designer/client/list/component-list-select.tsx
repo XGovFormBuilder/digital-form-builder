@@ -65,6 +65,8 @@ export function ComponentListSelect() {
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
   };
 
+  const hasItems = values?.items?.length > 0 ?? false;
+
   return (
     <div className="govuk-form-group">
       <Label htmlFor="field-options-list">{i18n("list.select")}</Label>
@@ -75,10 +77,8 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        {(isNew || !values.items) && <option />}
-        {!!values?.items && (
-          <option value="static">{selectedComponent.title}</option>
-        )}
+        {(isNew || !hasItems) && <option />}
+        {hasItems && <option value="static">{selectedComponent.title}</option>}
         {data.lists.map((list, index) => {
           return (
             <option key={`${list.name}-${index}`} value={list.name}>
@@ -94,7 +94,7 @@ export function ComponentListSelect() {
         </div>
       )}
 
-      {(values?.items?.length > 0 || selectedListName !== "static") && (
+      {!isNew && (hasItems || selectedListName !== "static") && (
         <a
           href="#"
           className="govuk-link govuk-!-display-block"
@@ -104,7 +104,7 @@ export function ComponentListSelect() {
         </a>
       )}
 
-      {!isNew && (!values.items || values?.items.length < 1) && (
+      {!isNew && !hasItems && (
         <a
           href="#"
           className="govuk-link govuk-!-display-block"
