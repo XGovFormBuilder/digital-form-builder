@@ -1,6 +1,6 @@
 import React from "react";
 import isValid from "date-fns/isValid";
-import { tryParseInt } from "./inline-condition-helpers";
+import { isInt, tryParseInt } from "./inline-condition-helpers";
 
 export interface YearMonthDay {
   year: number;
@@ -8,38 +8,48 @@ export interface YearMonthDay {
   day: number;
 }
 
-interface Props {
+export interface YearMonthDayOptional {
   year?: number;
   month?: number;
   day?: number;
+}
+
+interface Props {
+  value: YearMonthDayOptional;
   updateValue: ({ year, month, day }: YearMonthDay) => void;
 }
 
-export const AbsoluteDateValues = ({
-  year: initialYear,
-  month: initialMonth,
-  day: initialDay,
-  updateValue,
-}: Props) => {
-  const [year, setYear] = React.useState(() => initialYear || "");
-  const [month, setMonth] = React.useState(() => initialMonth || "");
-  const [day, setDay] = React.useState(() => initialDay || "");
+export const AbsoluteDateValues = ({ value = {}, updateValue }: Props) => {
+  const [year, setYear] = React.useState<string>(() =>
+    isInt(value.year) ? (value.year as number).toString() : ""
+  );
+  const [month, setMonth] = React.useState<string>(() =>
+    isInt(value.month) ? (value.month as number).toString() : ""
+  );
+  const [day, setDay] = React.useState<string>(() =>
+    isInt(value.day) ? (value.day as number).toString() : ""
+  );
 
   React.useEffect(() => {
+    const parsedYear = tryParseInt(year);
+    const parsedMonth = tryParseInt(month);
+    const parsedDay = tryParseInt(day);
     if (
-      year &&
-      month &&
-      day &&
-      (year !== initialYear || month !== initialMonth || day !== initialDay) &&
-      isValid(new Date(year, month - 1, day))
+      parsedYear &&
+      parsedMonth &&
+      parsedDay &&
+      (parsedYear !== value.year ||
+        parsedMonth !== value.month ||
+        parsedDay !== value.day) &&
+      isValid(new Date(parsedYear, parsedMonth - 1, parsedDay))
     ) {
-      return updateValue({ year, month, day });
+      updateValue({ year: parsedYear, month: parsedMonth, day: parsedDay });
     }
   }, [year, month, day]);
 
-  const yearChanged = (e) => setYear(tryParseInt(e.target.value));
-  const monthChanged = (e) => setMonth(tryParseInt(e.target.value));
-  const dayChanged = (e) => setDay(tryParseInt(e.target.value));
+  const yearChanged = (e) => setYear(e.target.value);
+  const monthChanged = (e) => setMonth(e.target.value);
+  const dayChanged = (e) => setDay(e.target.value);
 
   return (
     <div className="govuk-date-input">

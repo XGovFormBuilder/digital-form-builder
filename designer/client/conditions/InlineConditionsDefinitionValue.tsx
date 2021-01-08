@@ -12,6 +12,7 @@ import { AbsoluteDateTimeValues } from "./AbsoluteDateTimeValues";
 import { AbsoluteTimeValues } from "./AbsoluteTimeValues";
 import { TextValues } from "./TextValues";
 import { SelectValues } from "./SelectValues";
+import { tryParseInt } from "./inline-condition-helpers";
 
 function DateTimeComponent(fieldType, operator) {
   const operatorConfig = getOperatorConfig(fieldType, operator);
@@ -26,6 +27,8 @@ function DateTimeComponent(fieldType, operator) {
     if (absoluteDateOrTimeOperatorNames.includes(operator)) {
       //since these are all classes return a function which creates new class comp
       let CustomRendering = absoluteDateTimeRenderFunctions[fieldType];
+      const pad = (num: number) => num.toString().padStart(2, "0");
+
       return function CustomRenderingWrapper({ value, updateValue }) {
         const transformUpdatedValue = (value) => {
           let transformed;
@@ -35,11 +38,11 @@ function DateTimeComponent(fieldType, operator) {
               break;
             case AbsoluteDateValues:
               const { year, month, day } = value;
-              transformed = `${year}-${month}-${day}`;
+              transformed = `${pad(year)}-${pad(month)}-${pad(day)}`;
               break;
             case AbsoluteTimeValues:
               const { hour, minute } = value;
-              transformed = `${hour}:${minute}`;
+              transformed = `${pad(hour)}:${pad(minute)}`;
           }
           updateValue(new ConditionValue(transformed));
         };
@@ -47,13 +50,18 @@ function DateTimeComponent(fieldType, operator) {
           if (condition && condition.value) {
             switch (CustomRendering) {
               case AbsoluteDateTimeValues:
+                // value should be an ISO format date string
                 return new Date(condition.value);
               case AbsoluteDateValues:
                 const [year, month, day] = condition.value.split("-");
-                return { year, month, day };
+                return {
+                  year: tryParseInt(year),
+                  month: tryParseInt(month),
+                  day: tryParseInt(day),
+                };
               case AbsoluteTimeValues:
                 const [hour, minute] = condition.value.split(":");
-                return { hour, minute };
+                return { hour: tryParseInt(hour), minute: tryParseInt(minute) };
             }
           }
           return undefined;
@@ -67,7 +75,7 @@ function DateTimeComponent(fieldType, operator) {
       };
     } else if (relativeDateOrTimeOperatorNames.includes(operator)) {
       const units = operatorConfig.units;
-      return function RelativeTimeValuesWrapper(value, updateValue) {
+      return function RelativeTimeValuesWrapper({ value, updateValue }) {
         return (
           <RelativeTimeValues
             value={value}

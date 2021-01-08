@@ -41,14 +41,11 @@ export const AbsoluteDateTimeValues = ({ value, updateValue }: Props) => {
   return (
     <div>
       <AbsoluteDateValues
-        year={year}
-        month={month}
-        day={day}
+        value={{ year, month, day }}
         updateValue={dateTimeChanged}
       />
       <AbsoluteTimeValues
-        hour={hour}
-        minute={minute}
+        value={{ hour, minute }}
         updateValue={dateTimeChanged}
       />
       <div>{i18n("enterDateTimeAsUtc")}</div>

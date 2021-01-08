@@ -6,22 +6,22 @@ export interface HourMinute {
   minute: number;
 }
 
-interface Props {
+export interface HourMinuteOptional {
   hour?: number;
   minute?: number;
+}
+
+interface Props {
+  value: HourMinuteOptional;
   updateValue: ({ hour, minute }: HourMinute) => void;
 }
 
-export const AbsoluteTimeValues = ({
-  hour: initialHour,
-  minute: initialMinute,
-  updateValue,
-}: Props) => {
+export const AbsoluteTimeValues = ({ value = {}, updateValue }: Props) => {
   const [hour, setHour] = React.useState<string>(() =>
-    isInt(initialHour) ? initialHour.toString() : ""
+    isInt(value.hour) ? (value.hour as number).toString() : ""
   );
   const [minute, setMinute] = React.useState<string>(() =>
-    isInt(initialMinute) ? initialMinute.toString() : ""
+    isInt(value.minute) ? (value.minute as number).toString() : ""
   );
 
   React.useEffect(() => {
@@ -30,7 +30,7 @@ export const AbsoluteTimeValues = ({
     if (
       isInt(hour) &&
       isInt(minute) &&
-      (parsedMinute !== initialHour || parsedMinute !== initialMinute)
+      (parsedHour !== value.hour || parsedMinute !== value.minute)
     ) {
       return updateValue({
         hour: parsedHour,
