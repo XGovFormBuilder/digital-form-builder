@@ -15,7 +15,7 @@ Given("I have created a new form configuration", () => {
   Actions.createNewConfig();
 });
 
-When("I choose {string} for the {string}", function (action, pageName) {
+When("I choose to create a component for the {string}", function (pageName) {
   FormDesignerPage.createComponentForPageName(pageName).click();
 });
 

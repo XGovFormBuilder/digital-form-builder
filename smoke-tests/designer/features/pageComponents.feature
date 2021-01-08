@@ -7,7 +7,7 @@ Feature: Components
     Given I have created a new form configuration
 
   Scenario: Return to the component list without creating a component
-    When I choose "Create component" for the "First page"
+    When I choose to create a component for the "First page"
     And I select "Details" component to add to the page
     Then I am able to return to components list with creating the component
 
