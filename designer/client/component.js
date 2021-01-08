@@ -3,6 +3,8 @@ import { SortableHandle } from "react-sortable-hoc";
 import Flyout from "./flyout";
 import ComponentEdit from "./ComponentEdit";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
+import { i18n } from "./i18n";
+
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle">&#9776;</span>
 ));
@@ -289,6 +291,9 @@ export function Component(props) {
   };
   const { data, page, component } = props;
   const TagName = componentTypes[`${component.type}`];
+  const editFlyoutTitle = i18n("component.edit", {
+    name: i18n(`fieldTypeToName.${component.type}`),
+  });
 
   return (
     <div>
@@ -297,7 +302,7 @@ export function Component(props) {
         <TagName />
       </div>
       {showEditor && (
-        <Flyout title="Edit Component" show={true} onHide={toggleShowEditor}>
+        <Flyout title={editFlyoutTitle} show={true} onHide={toggleShowEditor}>
           <ComponentContextProvider pagePath={page.path} component={component}>
             <ComponentEdit page={page} toggleShowEditor={toggleShowEditor} />
           </ComponentContextProvider>
