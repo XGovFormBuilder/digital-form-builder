@@ -14,8 +14,11 @@ import FormDetails from "./form-details";
 import { ListContext, ListContextProvider } from "./reducers/listReducer";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
+import { DataContext } from "./context";
 
 export default class Menu extends React.Component {
+  static contextType = DataContext;
+
   state = {
     tab: "model",
   };
@@ -26,6 +29,7 @@ export default class Menu extends React.Component {
   };
 
   onFileUpload = (e) => {
+    const { save } = this.context;
     const { data } = this.props;
     const file = e.target.files.item(0);
     const reader = new window.FileReader();
@@ -54,7 +58,7 @@ export default class Menu extends React.Component {
 
       console.log("Converted", content);
 
-      data.save(content);
+      save(content);
     };
   };
 
