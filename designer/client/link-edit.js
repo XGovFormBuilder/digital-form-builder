@@ -25,6 +25,7 @@ class LinkEdit extends React.Component {
     e.preventDefault();
     const { link, page, selectedCondition } = this.state;
     const { data } = this.props;
+    const { save } = this.context;
 
     const copy = clone(data);
     const updatedData = copy.updateLink(
@@ -33,8 +34,7 @@ class LinkEdit extends React.Component {
       selectedCondition
     );
 
-    data
-      .save(updatedData)
+    save(updatedData)
       .then((data) => {
         this.props.onEdit({ data });
       })
