@@ -46,8 +46,6 @@ class NotifyItems extends React.Component<Props, State> {
     const { save } = this.context;
     const copy = clone(data);
 
-    // Remove the list
-
     save(copy)
       .then((data) => {
         this.props.onEdit({ data });
