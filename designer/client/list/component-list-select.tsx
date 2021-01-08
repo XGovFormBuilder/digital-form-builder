@@ -31,9 +31,17 @@ export function ComponentListSelect() {
   useEffect(() => {
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, isStatic]);
     const list = data.lists.find((list) => list?.name === selectedListName);
-    listDispatch({ type: ListActions.SET_SELECTED_LIST, payload: list });
-    setSelectedListTitle(list?.title ?? "component list");
-  }, [selectedListName]);
+    if (!!list) {
+      listDispatch({ type: ListActions.SET_SELECTED_LIST, payload: list });
+      setSelectedListTitle(list.title);
+    } else {
+      dispatch({
+        type: ListActions.SET_SELECTED_LIST,
+        payload: "static",
+      });
+      setSelectedListTitle(selectedComponent.title);
+    }
+  }, [selectedListName, selectedComponent.title, data]);
 
   const editList = (e) => {
     dispatch({
@@ -67,11 +75,9 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        {(isNew || values?.items?.length === 0) && <option />}
-        {(values?.type === "static" || selectedListName === "static") && (
-          <option value="static">
-            {isStatic ? selectedComponent.title : selectedListTitle}
-          </option>
+        {(isNew || !values.items) && <option />}
+        {!!values?.items && (
+          <option value="static">{selectedComponent.title}</option>
         )}
         {data.lists.map((list, index) => {
           return (
@@ -82,7 +88,13 @@ export function ComponentListSelect() {
         })}
       </select>
 
-      {!!selectedListName && (
+      {isNew && (
+        <div className="govuk-inset-text govuk-!-margin-top-1">
+          <p>{i18n("list.static.saveFirst")}</p>
+        </div>
+      )}
+
+      {(values?.items?.length > 0 || selectedListName !== "static") && (
         <a
           href="#"
           className="govuk-link govuk-!-display-block"
@@ -92,13 +104,7 @@ export function ComponentListSelect() {
         </a>
       )}
 
-      {isNew && !selectedListName && (
-        <div className="govuk-inset-text govuk-!-margin-top-1">
-          <p>{i18n("list.static.saveFirst")}</p>
-        </div>
-      )}
-
-      {(!isNew || !!values) && !selectedListName && (
+      {!isNew && (!values.items || values?.items.length < 1) && (
         <a
           href="#"
           className="govuk-link govuk-!-display-block"

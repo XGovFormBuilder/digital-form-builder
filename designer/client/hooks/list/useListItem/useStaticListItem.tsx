@@ -1,5 +1,9 @@
 import { StaticListItem as StaticListItemActions } from "../../../reducers/component/types";
-import { hasValidationErrors, validateTitle } from "../../../validations";
+import {
+  hasValidationErrors,
+  validateNotEmpty,
+  validateTitle,
+} from "../../../validations";
 import { ListActions } from "../../../reducers/listActions";
 import { clone } from "@xgovformbuilder/model";
 import { ListItemHook } from "./types";
@@ -38,7 +42,10 @@ export function useStaticListItem(state, dispatch): ListItemHook {
 
   function validate() {
     const title = state.selectedItem.label || "";
-    const errors = validateTitle("title", title);
+    const errors = {
+      ...validateTitle("title", title),
+      ...validateNotEmpty("value", "value", "value", value),
+    };
     const valErrors = hasValidationErrors(errors);
     if (valErrors) {
       dispatch({
