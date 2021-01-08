@@ -1,4 +1,5 @@
 import React, { useCallback, useState, Fragment, useContext } from "react";
+import { clone } from "@xgovformbuilder/model";
 import { RenderInPortal } from "./render-in-portal";
 import { DataContext } from "../context";
 
@@ -54,7 +55,7 @@ export function PageLinkage({ page, layout }) {
 
       const linkingPage = JSON.parse(event.dataTransfer.getData("linkingPage"));
       if (linkingPage.path !== page.path) {
-        const copy = data.clone();
+        const copy = clone(data);
         const updatedData = copy.addLink(linkingPage.path, page.path);
         await save(updatedData);
       }
