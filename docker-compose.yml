@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 services:
   designer:
     build:
@@ -6,8 +6,6 @@ services:
       args:
         - WORKSPACE_NAME=designer
         - PORT=3000
-      network: host
-    network_mode: host
     ports:
       - "3000:3000"
     environment:
@@ -28,8 +26,6 @@ services:
       args:
         - WORKSPACE_NAME=runner
         - PORT=3009
-      network: host
-    network_mode: host
     ports:
       - "3009:3009"
     environment:
@@ -45,6 +41,5 @@ services:
   redis:
     image: "redis:alpine"
     command: redis-server --requirepass 123abc
-    network_mode: host
     ports:
       - "6379:6379"

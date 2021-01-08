@@ -18,6 +18,8 @@ jobs:
           node-version: "12.x"
       - name: Build the stack
         run: docker-compose up -d
+      - name: Check designer running
+        run: curl -s --retry 5 --retry-connrefused http://localhost:3000/
       - name: Check containers are accessible
         run: |
           export DESIGNER_IP=$(docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq) | grep digital-form-builder_designer | awk '{print $3}')
