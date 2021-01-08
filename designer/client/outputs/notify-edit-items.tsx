@@ -1,6 +1,6 @@
 import React, { MouseEvent, ChangeEvent } from "react";
 import { clone } from "@xgovformbuilder/model";
-import { DataContext } from "./context";
+import { DataContext } from "../context";
 
 type State = {
   items: string[];
