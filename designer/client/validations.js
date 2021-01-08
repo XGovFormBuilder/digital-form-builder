@@ -1,4 +1,5 @@
 import { isEmpty } from "./helpers";
+import { i18n } from "./i18n";
 
 export function hasValidationErrors(errors = {}) {
   return Object.keys(errors).length > 0;
@@ -16,21 +17,22 @@ export function validateNotEmpty(id, fieldName, key, value, existingErrors) {
   return errors;
 }
 
-export function validateName(id, fieldName, value, i18n) {
+export function validateName(id, fieldName, value, i18nProp) {
+  const translate = i18nProp ?? i18n;
   const namesIsEmpty = isEmpty(value);
   const nameHasErrors = /\s/g.test(value);
   const errors = {};
   if (nameHasErrors) {
-    const message = i18n
-      ? i18n("name.errors.whitespace")
+    const message = translate
+      ? translate("name.errors.whitespace")
       : "Name must not contain spaces";
     errors.name = {
       href: `#${id}`,
       children: [message],
     };
   } else if (namesIsEmpty) {
-    const message = i18n
-      ? i18n("errors.field", { field: fieldName })
+    const message = translate
+      ? translate("errors.field", { field: fieldName })
       : "Enter Name";
     errors.name = {
       href: `#${id}`,
@@ -40,12 +42,13 @@ export function validateName(id, fieldName, value, i18n) {
   return errors;
 }
 
-export function validateTitle(id, value, i18n) {
+export function validateTitle(id, value, i18nProp) {
+  const translate = i18nProp ?? i18n;
   const titleHasErrors = isEmpty(value);
   const errors = {};
   if (titleHasErrors) {
-    const message = i18n
-      ? i18n("errors.field", { field: "$t(title)" })
+    const message = translate
+      ? translate("errors.field", { field: "$t(title)" })
       : "Enter title";
 
     errors.title = {

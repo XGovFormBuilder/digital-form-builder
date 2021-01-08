@@ -36,9 +36,9 @@ export function useStaticListItem(state, dispatch): ListItemHook {
     });
   }
 
-  function validate(i18n) {
+  function validate() {
     const title = state.selectedItem.label || "";
-    const errors = validateTitle("title", title, i18n);
+    const errors = validateTitle("title", title);
     const valErrors = hasValidationErrors(errors);
     if (valErrors) {
       dispatch({

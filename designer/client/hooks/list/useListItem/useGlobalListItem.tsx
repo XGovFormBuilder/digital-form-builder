@@ -1,5 +1,9 @@
 import { ListActions } from "../../../reducers/listActions";
-import { hasValidationErrors, validateTitle } from "../../../validations";
+import {
+  hasValidationErrors,
+  validateNotEmpty,
+  validateTitle,
+} from "../../../validations";
 import { clone } from "@xgovformbuilder/model";
 import { ListItemHook } from "./index";
 
@@ -35,10 +39,15 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     });
   }
 
-  function validate(i18n) {
+  function validate(i18nProp) {
     const title = state.selectedItem.text || "";
-    const errors = validateTitle("title", title, i18n);
+    const errors = {
+      ...validateTitle("title", title, i18nProp),
+      ...validateNotEmpty("value", "value", "value", value),
+    };
+
     const valErrors = hasValidationErrors(errors);
+
     if (valErrors) {
       dispatch({
         type: ListActions.LIST_ITEM_VALIDATION_ERRORS,

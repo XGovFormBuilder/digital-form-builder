@@ -65,7 +65,6 @@ const validateContent = (content) => {
 };
 
 export function fieldComponentValidations(component) {
-  console.log("validate", component);
   const validations = [validateName(component.name)];
 
   switch (component.type) {

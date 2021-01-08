@@ -1,5 +1,5 @@
 import React, { memo, useContext } from "react";
-import { withI18n } from "./../i18n";
+import { i18n } from "./../i18n";
 import { Input } from "@govuk-jsx/input";
 import { Textarea } from "@govuk-jsx/textarea";
 import { Label } from "@govuk-jsx/label";
@@ -13,11 +13,7 @@ import {
 import { clone } from "@xgovformbuilder/model";
 import { useListItem } from "../hooks/list/useListItem";
 
-type Props = {
-  i18n: (string: string, interpolation?: any) => any;
-};
-
-export function ListItemEdit(props: Props) {
+export function ListItemEdit() {
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
   const { state, dispatch } = useSetListEditorContext();
   const { data, save } = useContext(DataContext);
@@ -36,7 +32,6 @@ export function ListItemEdit(props: Props) {
     hint,
   } = useListItem(state, dispatch);
 
-  const { i18n } = props;
   const { conditions } = data;
   const { listItemErrors: errors } = state;
   const handleSubmit = async (e) => {
@@ -78,7 +73,11 @@ export function ListItemEdit(props: Props) {
         <Input
           label={{ children: [i18n("list.item.value")] }}
           hint={{ children: [i18n("list.item.valueHint")] }}
+          id="value"
           value={value}
+          errorMessage={
+            errors?.value ? { children: errors?.value.children } : undefined
+          }
           onChange={handleValueChange}
         />
 
@@ -117,4 +116,4 @@ export function ListItemEdit(props: Props) {
   );
 }
 
-export default memo(withI18n(ListItemEdit));
+export default memo(ListItemEdit);
