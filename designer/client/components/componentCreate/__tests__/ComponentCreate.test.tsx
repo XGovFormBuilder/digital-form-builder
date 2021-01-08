@@ -80,34 +80,6 @@ suite("ComponentCreate:", () => {
       });
   });
 
-  test("Should not allow onSubmit multiple times", async () => {
-    let saveStub = sinon.stub();
-    const component = {
-      type: "TextField",
-      schema: { max: 24, min: 22 },
-      options: { required: false },
-      title: "title",
-      name: "name",
-    };
-
-    const wrapper = mount(<ComponentCreate page={page} />, {
-      wrappingComponent: WrappingComponent,
-      wrappingComponentProps: {
-        dataValue: { data: dataSpy, save: saveStub },
-        componentValue: {
-          component,
-        },
-      },
-    });
-
-    wrapper.find("form").invoke("onSubmit")({ preventDefault: sinon.spy() });
-    wrapper.find("form").invoke("onSubmit")({ preventDefault: sinon.spy() });
-    wrapper.find("form").invoke("onSubmit")({ preventDefault: sinon.spy() });
-
-    const saveButton = wrapper.find(".govuk-button").first();
-    expect(saveButton.prop("disabled")).to.equal(true);
-  });
-
   test("'Back to create component list' link", async () => {
     let saveStub = sinon.stub();
     const wrapper = mount(<ComponentCreate page={page} />, {
