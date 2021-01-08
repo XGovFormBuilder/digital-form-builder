@@ -29,7 +29,8 @@
   "component": {
     "component": "component",
     "name": "Component name",
-    "create": "Create component"
+    "create": "Create component",
+    "edit": "Edit {{name}} component"
   },
   "field": "field",
   "edit": "edit {{noun}}",

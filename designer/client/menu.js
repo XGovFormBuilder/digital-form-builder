@@ -37,8 +37,6 @@ export default class Menu extends React.Component {
     reader.onload = function (evt) {
       const content = JSON.parse(evt.target.result);
 
-      console.log("Converting form format");
-
       for (const page of content.pages) {
         if (!page.title && page.components && page.components.length > 0) {
           page.title = page.components[0].title;
@@ -46,7 +44,6 @@ export default class Menu extends React.Component {
         for (const link of page.next || []) {
           const nextPage = content.pages.find((np) => np.path === link.path);
           if (nextPage && nextPage.condition) {
-            console.log(`Moving condition ${nextPage.condition} to link`);
             link.condition = nextPage.condition;
           }
         }
@@ -55,8 +52,6 @@ export default class Menu extends React.Component {
       for (const page of content.pages) {
         delete page.condition;
       }
-
-      console.log("Converted", content);
 
       save(content);
     };

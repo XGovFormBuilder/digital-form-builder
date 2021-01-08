@@ -105,8 +105,7 @@ class SectionEdit extends React.Component {
       await save(copy);
       this.closeFlyout({});
     } catch (error) {
-      // TODO:- we should really think about handling these errors properly.
-      console.log(error);
+      console.error(error);
     }
   };
 

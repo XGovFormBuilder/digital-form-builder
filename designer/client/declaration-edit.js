@@ -26,7 +26,6 @@ class DeclarationEdit extends React.Component {
     save(copy)
       .then((data) => {
         toggleShowState("showEditSummaryBehaviour");
-        console.log(data);
       })
       .catch((err) => {
         console.error(err);

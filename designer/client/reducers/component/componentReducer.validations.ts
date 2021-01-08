@@ -1,4 +1,4 @@
-import { validateNotEmpty, validateTitle } from "../../validations";
+import { validateTitle } from "../../validations";
 import { isEmpty } from "../../helpers";
 import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
 import { i18n } from "../../i18n";
@@ -8,15 +8,8 @@ export interface ValidationError {
   children: string | [string, Record<string, string>];
 }
 
-function validateDetails(component) {
-  const { title, content } = component;
-  return {
-    ...validateNotEmpty("details-title", "Title", "title", title),
-    ...validateNotEmpty("details-content", "Content", "content", content),
-  };
-}
-
-const validateName = (name: string) => {
+// TODO move validations to "../../validations"
+const validateName = ({ name }) => {
   //TODO:- should also validate uniqueness.
   const errors: any = {};
   const nameIsEmpty = isEmpty(name);
@@ -36,12 +29,12 @@ const validateName = (name: string) => {
   return errors;
 };
 
-const validateContent = (content: string) => {
+const validateContent = ({ content }) => {
   const errors: any = {};
   const contentIsEmpty = isEmpty(content);
 
   if (contentIsEmpty) {
-    errors.name = {
+    errors.content = {
       href: `#field-content`,
       children: ["errors.field", { field: "Content" }],
     };
@@ -50,11 +43,15 @@ const validateContent = (content: string) => {
   return errors;
 };
 
-const validateList = (list) => {};
+const validateList = (component) => {};
 
 const ComponentsWithoutTitleField = [Types.InsetText, Types.Html, Types.Para];
-const ComponentsWithContentField = [Types.InsetText, Types.Html, Types.Para];
-const ComponentsWithDetailsField = [Types.Details];
+const ComponentsWithContentField = [
+  Types.InsetText,
+  Types.Html,
+  Types.Para,
+  Types.Details,
+];
 const ComponentsWithListField = [
   Types.AutocompleteField,
   Types.List,
@@ -67,40 +64,26 @@ const ComponentsWithListField = [
 export function fieldComponentValidations(component) {
   const hasTitle = !ComponentsWithoutTitleField.includes(component.type);
   const hasContentField = ComponentsWithContentField.includes(component.type);
-  const hasDetailsField = ComponentsWithDetailsField.includes(component.type);
   const hasListField = ComponentsWithListField.includes(component.type);
 
-  console.log("XXXX", component);
-
-  const validations = [validateName(component.name)];
+  const validations = [validateName(component)];
 
   if (hasTitle) {
     validations.push(validateTitle("field-title", component.title, i18n));
   }
 
   if (hasContentField) {
-    validations.push(validateContent(component.content));
-  }
-
-  if (hasDetailsField) {
-    validations.push(validateDetails(component.details));
+    validations.push(validateContent(component));
   }
 
   if (hasListField) {
-    validations.push(validateList(component.list));
+    validations.push(validateList(component));
   }
-
-  console.log({
-    component,
-    type: component.type,
-    validations,
-  });
 
   const errors = validations.reduce((acc, error: ValidationError) => {
     return !!error ? { ...acc, ...error } : acc;
   }, {});
 
-  console.log({ errors });
   return errors;
 }
 

@@ -70,12 +70,6 @@ export function ComponentEdit(props) {
     <>
       {hasErrors && <ErrorSummary errorList={Object.values(errors)} />}
       <form autoComplete="off" onSubmit={handleSubmit}>
-        <div className="govuk-form-group">
-          <span className="govuk-label govuk-label--s" htmlFor="type">
-            Type
-          </span>
-          <span className="govuk-body">{selectedComponent.type}</span>
-        </div>
         <ComponentTypeEdit page={page} />
         <button className="govuk-button" type="submit">
           Save
