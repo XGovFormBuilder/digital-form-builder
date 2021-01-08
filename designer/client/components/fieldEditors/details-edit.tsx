@@ -61,7 +61,7 @@ function DetailsEdit({ i18n, context = ComponentContext }: Props) {
         )}
         <textarea
           className="govuk-textarea"
-          id="details-content"
+          id="field-content"
           name="content"
           defaultValue={selectedComponent.content}
           rows="10"

@@ -54,7 +54,6 @@ export function validateName(
   return errors;
 }
 
-
 export function validateTitle(id: string, value: string, i18nProp?: any) {
   const translate = i18nProp ?? i18n;
   const titleHasErrors = isEmpty(value);
