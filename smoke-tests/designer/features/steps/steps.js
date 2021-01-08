@@ -15,10 +15,31 @@ Given("I have created a new form configuration", () => {
   Actions.createNewConfig();
 });
 
+When("I choose {string} for the {string}", function (action, pageName) {
+  FormDesignerPage.createComponentForPageName(pageName).click();
+});
+
+When("I select {string} component to add to the page", function (
+  componentName
+) {
+  this.componentName = componentName;
+  AddComponentPage.selectComponentByName(this.componentName);
+});
+
+Then(
+  "I am able to return to components list with creating the component",
+  function () {
+    AddComponentPage.backToComponentList.click();
+    expect(AddComponentPage.sectionHeading).toHaveText("Create component");
+    expect(AddComponentPage.addComponent).toBeDisplayed();
+  }
+);
+
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
+  expect(AddComponentPage.backToComponentList).toBeDisplayed();
   switch (componentName) {
     case "Paragraph":
       AddComponentPage.paragraphSetText(
