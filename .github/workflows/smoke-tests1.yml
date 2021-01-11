@@ -55,5 +55,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: logs
-          path: smoke-tests/designer/logs
+          name: htmlreports
+          path: smoke-tests/designer/reports/html-reports

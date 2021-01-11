@@ -1,3 +1,5 @@
+const { ReportAggregator, HtmlReporter } = require("@rpii/wdio-html-reporter");
+
 const drivers = {
   chrome: { version: "86.0.4240.22" }, // https://chromedriver.chromium.org/
   firefox: { version: "0.27.0" }, // https://github.com/mozilla/geckodriver/releases
@@ -50,6 +52,34 @@ exports.config = {
       {
         jsonFolder: "./reports/json/",
         language: "en",
+      },
+    ],
+    [
+      HtmlReporter,
+      {
+        debug: true,
+        outputDir: "./reports/html-reports/",
+        filename: "report.html",
+        reportTitle: "Smoke Test Reports",
+
+        //to show the report in a browser when done
+        showInBrowser: true,
+
+        //to turn on screenshots after every test
+        useOnAfterCommandForScreenshot: false,
+
+        // to use the template override option, can point to your own file in the test project:
+        // templateFilename: path.resolve(__dirname, '../template/wdio-html-reporter-alt-template.hbs'),
+
+        // to add custom template functions for your custom template:
+        // templateFuncs: {
+        //     addOne: (v) => {
+        //         return v+1;
+        //     },
+        // },
+
+        //to initialize the logger
+        //LOG: log4j.getLogger("default"),
       },
     ],
   ],
