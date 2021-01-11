@@ -53,6 +53,6 @@ jobs:
       - name: Curl
         run: |
         curl http://localhost:3009 -I
-        curl http://localhost:3000 -I    
+        curl http://localhost:3000 -I
       - name: Test
         run: yarn smoke-tests/designer smoke-test
