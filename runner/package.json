@@ -21,7 +21,7 @@
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
     "type-check": "tsc --noEmit",
-    "start:st": "NODE_ENV=development sandbox=true REDIS_HOST=localhost REDIS_PORT=6379 PREVIEW_MODE=true nodemon dist/index.js"
+    "start:st": "NODE_ENV=development sandbox=true REDIS_HOST=localhost REDIS_PORT=6379 PREVIEW_MODE=true node dist/index.js"
   },
   "repository": {
     "type": "git",

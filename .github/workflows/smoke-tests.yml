@@ -35,6 +35,6 @@ jobs:
       - name: Start Runner
         run: yarn runner start:st
       - name: Start Designer
-        run: yarn designer start:local
+        run: yarn designer start:st
       - name: Test
         run: yarn smoke-tests/designer smoke-test
