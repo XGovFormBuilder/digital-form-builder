@@ -1,0 +1,54 @@
+name: Smoke Tests1
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps port 6379 on service container to the host
+          - 6379:6379
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies
+        run: yarn
+      - name: Build dependencies
+        run: yarn build:dependencies
+      - name: Build
+        run: yarn build
+      - name: Start Runner
+        run: yarn runner start:st &
+      - name: Start Designer
+        run: yarn designer start:st &
+      - name: Sleep for 30 seconds
+        run: sleep 30
+      - run: curl -s --retry 5 --retry-connrefused http://localhost:3000/
+      - run: curl -s --retry 5 --retry-connrefused http://localhost:3009/
+      - name: Test
+        run: yarn smoke-tests/skakani test:local
