@@ -16,6 +16,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Build the stack
         run: docker-compose up -d
       - name: Check containers are rulling is running
@@ -28,4 +32,4 @@ jobs:
         run: |
           echo "TODO Run smoke tests"
       - name: Teardown
-        run: docker-componse down
+        run: docker-compose down
