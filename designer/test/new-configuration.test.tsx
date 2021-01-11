@@ -7,7 +7,7 @@ import sinon from "sinon";
 import { NewConfig } from "../client/components/newConfig/NewConfig";
 import { stubFetchJson, restoreWindowMethods } from "./helpers/window-stubbing";
 
-import formConfigurationsApi from "../client/load-form-configurations";
+import * as formConfigurationsApi from "../client/load-form-configurations";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -39,7 +39,7 @@ suite("New configuration screen", () => {
   let formConfigurationApiStub;
 
   afterEach(() => {
-    formConfigurationApiStub.restore();
+    sinon.restore();
   });
 
   test("no existing configurations found error message", () => {

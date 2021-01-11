@@ -27,7 +27,7 @@ import FormDetails from "../client/form-details";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { afterEach, beforeEach, describe, suite, test, before } = lab;
+const { afterEach, beforeEach, describe, suite, test, before, after } = lab;
 
 suite("Form details", () => {
   let save = sinon.spy();
@@ -49,6 +49,10 @@ suite("Form details", () => {
   afterEach(() => {
     loadStub.restore();
     fetchStub.restore();
+  });
+
+  after(() => {
+    sinon.restore();
   });
 
   const DataWrapper = ({ dataValue = { data, save }, children }) => {

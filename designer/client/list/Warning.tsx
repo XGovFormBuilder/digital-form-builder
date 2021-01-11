@@ -18,11 +18,11 @@ export function useWarning() {
   async function confirm(e) {
     e.preventDefault();
     const { initialName } = state;
-    const copy = clone(data);
+    const copy = clone(data).toJSON();
     const selectedListIndex = copy.lists.findIndex(
       (list) => list.name === initialName
     );
-    if (selectedListIndex >= 0) {
+    if (!!selectedListIndex) {
       copy.lists.splice(selectedListIndex, 1);
       await save(copy);
     }

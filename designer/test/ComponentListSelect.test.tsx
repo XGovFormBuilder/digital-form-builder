@@ -122,17 +122,17 @@ suite("ComponentListSelect", () => {
       </TestComponentContextProvider>
     );
     const options = () => wrapper.find(ComponentListSelect).find("option");
-    expect(options().length).to.equal(4);
-    expect(options().get(0).props).to.equal({});
-    expect(options().get(1).props).to.contain({
+    expect(options().length).to.equal(3);
+
+    expect(options().get(0).props).to.contain({
       value: "static",
       children: "abc",
     });
-    expect(options().get(2).props).to.equal({
+    expect(options().get(1).props).to.equal({
       value: "myList",
       children: "My list",
     });
-    expect(options().get(3).props).to.equal({
+    expect(options().get(2).props).to.equal({
       value: "myOtherList",
       children: "",
     });
