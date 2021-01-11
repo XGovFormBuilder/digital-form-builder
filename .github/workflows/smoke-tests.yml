@@ -26,6 +26,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Install dependencies
         run: yarn
       - name: Build dependencies
@@ -33,8 +43,14 @@ jobs:
       - name: Build
         run: yarn build
       - name: Start Runner
-        run: yarn runner start:st
+        run: |
+        yarn runner start:st &
+        sleep 5 && 
+        curl http://localhost:3009 -I
       - name: Start Designer
-        run: yarn designer start:st
+        run: |
+        yarn designer start:st &
+        sleep 5 && 
+        curl http://localhost:3000 -I
       - name: Test
         run: yarn smoke-tests/designer smoke-test
