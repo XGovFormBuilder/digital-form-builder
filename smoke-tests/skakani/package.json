@@ -1,0 +1,41 @@
+{
+  "name": "designer e2e test",
+  "version": "1.0.0",
+  "author": "skakani",
+  "description": "Boilerplate project to run WebdriverIO tests with Jasmine",
+  "license": "MIT",
+  "homepage": "https://github.com/UKHomeOffice/digital-form-builder-1",
+  "main": "./node_modules/.bin/wdio",
+  "keywords": [
+    "webdriver",
+    "webdriverio",
+    "jasmine",
+    "e2e",
+    "selenium",
+    "test"
+  ],
+  "scripts": {
+    "test": "wdio wdio.sauce.conf.js",
+    "test:local": "wdio wdio.local.conf.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-syntax-export-default-from": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "@wdio/cli": "^6.11.3",
+    "@wdio/jasmine-framework": "^6.11.0",
+    "@wdio/local-runner": "^6.11.3",
+    "@wdio/sauce-service": "^6.11.0",
+    "@wdio/spec-reporter": "^6.11.0",
+    "@wdio/sync": "^6.11.0",
+    "eslint": "^7.2.0",
+    "eslint-config-standard": "^16.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "wdio-chromedriver-service": "^6.0.2"
+  }
+}
