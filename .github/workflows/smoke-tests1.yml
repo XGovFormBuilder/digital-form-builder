@@ -51,4 +51,9 @@ jobs:
       - run: curl -s --retry 5 --retry-connrefused http://localhost:3000/
       - run: curl -s --retry 5 --retry-connrefused http://localhost:3009/
       - name: Test
-        run: yarn smoke-tests/skakani test:local
+        run: yarn smoke-tests/designer smoke-test-headless
+      - uses: actions/upload-artifact@v1
+          if: failure()
+          with:
+            name: logs
+            path: smoke-tests/designer/logs  

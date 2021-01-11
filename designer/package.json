@@ -23,7 +23,7 @@
     "audit": "npm audit --audit-level=high",
     "i18n-parse": "i18next --config 'client/i18n/i18next-parser.config.js' 'client/**/*.js'",
     "type-check": "tsc --noEmit",
-    "start:st": "sandbox=true PREVIEW_URL=http://localhost:3009 PUBLISH_URL=http://runner:3009 PERSISTENT_BACKEND=preview NODE_ENV=development nodemon dist/server.js"
+    "start:st": "sandbox=true PREVIEW_URL=http://localhost:3009 PUBLISH_URL=http://localhost:3009 PERSISTENT_BACKEND=preview NODE_ENV=development nodemon dist/server.js"
   },
   "workspace-builder": "@workspace-builder/rollup",
   "repository": {
