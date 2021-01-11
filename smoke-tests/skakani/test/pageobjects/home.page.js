@@ -4,15 +4,22 @@ class HomePage extends Page {
   /**
    * define elements
    */
+  get pageTitle() {
+    return browser.getTitle();
+  }
+
+  /**
+   * define elements
+   */
   get pageText() {
-    return $("label.govuk-label govuk-label--m");
+    return $("label=Create a new form");
   }
 
   /**
    * define or overwrite page methods
    */
   open() {
-    super.open("");
+    super.open("new");
   }
 }
 
