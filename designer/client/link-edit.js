@@ -34,13 +34,12 @@ class LinkEdit extends React.Component {
       selectedCondition
     );
 
-    save(updatedData)
-      .then((data) => {
-        this.props.onEdit({ data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      await save(updatedData);
+      this.props.onEdit();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   onClickDelete = (e) => {

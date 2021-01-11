@@ -26,11 +26,15 @@ suite("Link create", () => {
       { name: "anotherCondition", displayName: "Another condition" },
     ],
   });
-  const nextId = "abcdef";
-  data.getId = sinon.stub();
-  data.getId.resolves(nextId);
 
+  let saveSpy = sinon.spy();
   const dataValue = { data, save: sinon.spy() };
+
+  const DataWrapper = ({ dataValue = { data, save: saveSpy }, children }) => {
+    return (
+      <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
+    );
+  };
 
   test("Renders a form with from and to inputs", () => {
     const wrapper = shallow(<LinkCreate data={data} />);
@@ -91,8 +95,12 @@ suite("Link create", () => {
       };
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
-        <LinkCreate data={data} onCreate={wrappedOnCreate} />
+      const wrapper = mount(
+        <LinkCreate data={data} onCreate={wrappedOnCreate} />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       const form = wrapper.find("form");
       form.find("#link-source").simulate("change", { target: { value: "/1" } });
@@ -104,7 +112,7 @@ suite("Link create", () => {
 
       data.clone = sinon.stub();
       data.clone.returns(clonedData);
-      data.save = flags.mustCall(save, 1);
+
       clonedData.addLink.returns(updatedData);
 
       await form.simulate("submit", { preventDefault: preventDefault });
@@ -132,8 +140,12 @@ suite("Link create", () => {
       };
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
-        <LinkCreate data={data} onCreate={wrappedOnCreate} />
+      const wrapper = mount(
+        <LinkCreate data={data} onCreate={wrappedOnCreate} />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       const form = wrapper.find("form");
       await form
@@ -147,7 +159,7 @@ suite("Link create", () => {
 
       data.clone = sinon.stub();
       data.clone.returns(clonedData);
-      data.save = flags.mustCall(save, 1);
+
       clonedData.addLink.returns(updatedData);
 
       await form.simulate("submit", { preventDefault: preventDefault });
