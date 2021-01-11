@@ -32,8 +32,6 @@ jobs:
           echo "Runner URL: http://$RUNNER_IP:3009/"
           curl -v -s --retry 10 --retry-connrefused "http://localhost:3000/"
           curl -v -s --retry 10 --retry-connrefused "http://localhost:3009/"
-#          curl -v -s --retry 10 --retry-connrefused "http://$DESIGNER_IP:3000/"
-#          curl -v -s --retry 10 --retry-connrefused "http://$RUNNER_IP:3009/"
       - name: Smoke Tests
         run: |
           echo "TODO Run smoke tests"
