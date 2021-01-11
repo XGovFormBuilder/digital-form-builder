@@ -18,14 +18,12 @@ jobs:
           node-version: "12.x"
       - name: Build the stack
         run: docker-compose up -d
-      - name: Check designer running
-        run: |
-          sleep 180
-          docker ps
       - name: Check designer is running
-        run: docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
+        run:  |
+          docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
       - name: Check runner is running
-          run: docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
+        run: |
+          docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
       - name: Smoke Tests
         run: |
           echo "TODO Run smoke tests"
