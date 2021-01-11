@@ -44,8 +44,11 @@ jobs:
         run: |
           yarn smoke-tests/designer smoke-test-headless
           ls -lah smoke-tests/designer/reports/html-reports
+      - name: 'Tar files'
+          run: tar -cvf smoke-tests.tar smoke-tests/designer/reports/html-reports
       - uses: actions/upload-artifact@v2
-        if: failure()
+#        if: failure()
         with:
           name: htmlreports
           path: smoke-tests/designer/reports/html-reports
+          retention-days: 14
