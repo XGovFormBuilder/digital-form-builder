@@ -48,7 +48,7 @@ jobs:
         run: yarn designer start:st &
       - name: Sleep for 30 seconds
         run: sleep 30
-      - name: Curl
-        run: curl http://localhost:3000 -I
+      - run: curl -s --retry 5 --retry-connrefused http://localhost:3000/
+      - run: curl -s --retry 5 --retry-connrefused http://localhost:3009/
       - name: Test
         run: yarn smoke-tests/designer smoke-test
