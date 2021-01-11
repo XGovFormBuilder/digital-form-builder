@@ -13,8 +13,7 @@
     "model",
     "runner",
     "designer",
-    "smoke-tests/designer",
-    "smoke-tests/skakani"
+    "smoke-tests/designer"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
