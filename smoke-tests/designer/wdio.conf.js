@@ -106,4 +106,24 @@ exports.config = {
   beforeFeature: function () {
     browser.maximizeWindow();
   },
+  onPrepare: function (config, capabilities) {
+    let reportAggregator = new ReportAggregator({
+      outputDir: "./reports/html-reports/",
+      filename: "master-report.html",
+      reportTitle: "Master Report",
+      browserName: capabilities.browserName,
+      collapseTests: true,
+      // to use the template override option, can point to your own file in the test project:
+      // templateFilename: path.resolve(__dirname, '../template/wdio-html-reporter-alt-template.hbs')
+    });
+    reportAggregator.clean();
+
+    global.reportAggregator = reportAggregator;
+  },
+
+  onComplete: function (exitCode, config, capabilities, results) {
+    (async () => {
+      await global.reportAggregator.createReport();
+    })();
+  },
 };
