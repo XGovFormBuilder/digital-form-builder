@@ -7,7 +7,7 @@ import {
   assertSelectInput,
 } from "./helpers/element-assertions";
 import sinon from "sinon";
-import InlineConditionsDefinitionValue from "../client/conditions/inline-conditions-definition-values";
+import { InlineConditionsDefinitionValue } from "../client/conditions/InlineConditionsDefinitionValue";
 import {
   ConditionValue,
   dateTimeUnits,

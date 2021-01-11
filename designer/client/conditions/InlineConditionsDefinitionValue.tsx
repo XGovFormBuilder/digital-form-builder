@@ -100,7 +100,7 @@ interface FieldDef {
 interface Props {
   fieldDef: FieldDef;
   operator: string;
-  value: any;
+  value?: any;
   updateValue: (any) => void;
 }
 
