@@ -54,6 +54,12 @@ function Flyout(props) {
 
   const { style, width = "", onHide } = useFlyoutEffect(props);
 
+  const closeOnEnter = (e) => {
+    if (e.key === "Enter") {
+      onHide(e);
+    }
+  };
+
   return (
     <FocusTrap>
       <div className="flyout-menu show">
@@ -63,6 +69,7 @@ function Flyout(props) {
             title="Close"
             className="close govuk-body govuk-!-font-size-16 govuk-link"
             onClick={onHide}
+            onKeyPress={closeOnEnter}
           >
             {i18n("close")}
           </a>
