@@ -3,7 +3,7 @@ import { ConditionsModel, clone } from "@xgovformbuilder/model";
 import InlineConditionsDefinition from "./InlineConditionsDefinition";
 import InlineConditionsEdit from "./inline-conditions-edit";
 
-import { storeConditionIfNecessary } from "./inline-condition-helpers";
+import helpers from "./inline-condition-helpers";
 
 interface Props {
   path: string;
@@ -110,7 +110,10 @@ class InlineConditions extends React.Component<Props, State> {
         conditionsChange(condition.name);
       }
     } else {
-      const conditionResult = await storeConditionIfNecessary(copy, conditions);
+      const conditionResult = await helpers.storeConditionIfNecessary(
+        copy,
+        conditions
+      );
       await data.save(conditionResult.data);
       if (conditionsChange) {
         conditionsChange(conditionResult.condition);
