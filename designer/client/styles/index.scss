@@ -1,5 +1,5 @@
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
-@import 'utils';
+@import "utils";
 @import "../node_modules/govuk-frontend/govuk/all.scss";
 
 $color-orange: #ffbf47;
@@ -78,7 +78,6 @@ main {
       @extend .govuk-\!-font-size-14;
       @extend .govuk-\!-margin-bottom-1, .govuk-\!-margin-right-1;
     }
-    
   }
 
   @include govuk-media-query($from: tablet) {
@@ -296,8 +295,12 @@ main {
       color: #aaa;
       position: absolute;
       right: 10px;
-      top: 10px;
+      top: 20px;
       z-index: 100;
+
+      &:focus {
+        color: #000000;
+      }
     }
 
     > .close:hover {
@@ -317,7 +320,7 @@ main {
     }
     .panel-body {
       flex: 1;
-      
+
       .govuk-button {
         margin-bottom: 0;
       }
