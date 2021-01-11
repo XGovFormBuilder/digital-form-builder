@@ -20,8 +20,8 @@ jobs:
         run: docker-compose up -d
       - name: Check designer running
         run: |
-        sleep 180
-        docker ps | grep 'digital'
+          sleep 180
+          docker ps
       - name: Check containers are accessible
         run: |
           export DESIGNER_CID=$(docker ps | grep digital-form-builder | grep designer | awk '{ print $1}')
