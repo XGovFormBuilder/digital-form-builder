@@ -19,19 +19,19 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
       - name: Check designer running
-        run: curl -s --retry 5 --retry-connrefused http://localhost:3000/
+        run: |
+        sleep 180
+        docker ps | grep 'digital'
       - name: Check containers are accessible
         run: |
           export DESIGNER_IP=$(docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq) | grep digital-form-builder_designer | awk '{print $3}')
-          export RUNNER_IP=$(docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq) | grep digital-form-builder_runner | awk '{print $3}')
           echo "Designer URL: http://$DESIGNER_IP:3000/"
-          echo "Runner URL: http://$RUNNER_IP:3000/"
-          #curl -v -s --retry 10 --retry-connrefused "http://$DESIGNER_IP:3000/"
-          #curl -v -s --retry 10 --retry-connrefused "http://$RUNNER_IP:3009/"
+          echo "Runner URL: http://$DESIGNER_IP:3009/"
+          curl -v -s --retry 10 --retry-connrefused "http://$DESIGNER_IP:3000/"
+          curl -v -s --retry 10 --retry-connrefused "http://$RUNNER_IP:3009/"
       - name: Smoke Tests
         run: |
           cd smoke-tests/designer
-          yarn --immutable
           yarn run smoke-test
       - name: Teardown
         run: docker-componse down
