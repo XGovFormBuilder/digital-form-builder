@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import {
@@ -17,6 +17,7 @@ import {
 } from "@xgovformbuilder/model";
 
 import InlineConditionHelpers from "../client/conditions/inline-condition-helpers";
+import { DataContext } from "../client/context";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -33,6 +34,13 @@ suite("Inline conditions", () => {
     updateCondition: sinon.stub(),
     conditions: [],
   };
+  const save = sinon.spy();
+
+  const DataWrapper = ({ dataValue = { data, save }, children }) => {
+    return (
+      <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
+    );
+  };
   const isEqualToOperator = "is";
   const path = "/";
   let conditionsChange;
@@ -41,10 +49,6 @@ suite("Inline conditions", () => {
   beforeEach(() => {
     conditionsChange = sinon.spy();
     cancelCallback = sinon.spy();
-  });
-
-  afterEach(() => {
-    data.save.resetHistory();
   });
 
   test("render returns nothing when there is an empty fields list", () => {
@@ -138,6 +142,7 @@ suite("Inline conditions", () => {
         InlineConditionHelpers,
         "storeConditionIfNecessary"
       );
+      save.resetHistory();
     });
 
     afterEach(function () {
@@ -194,13 +199,14 @@ suite("Inline conditions", () => {
     });
 
     test("Conditions change is called with the updated conditions when the save button is clicked", async () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <InlineConditions
           data={data}
           path={path}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        { wrappingComponent: DataWrapper }
       );
       wrapper.instance().saveCondition(
         new Condition(
@@ -226,12 +232,9 @@ suite("Inline conditions", () => {
         condition: selectedCondition,
       });
 
-      expect(wrapper.find("#save-inline-conditions").prop("onClick")).to.equal(
-        wrapper.instance().onClickSave
-      );
       await wrapper.instance().onClickSave();
-      expect(data.save.calledOnce).to.equal(true);
-      expect(data.save.firstCall.args[0]).to.equal(updatedData);
+      expect(save.calledOnce).to.equal(true);
+      expect(save.firstCall.args[0]).to.equal(updatedData);
       expect(conditionsChange.calledOnceWith(selectedCondition)).to.equal(true);
     });
 
@@ -525,14 +528,15 @@ suite("Inline conditions", () => {
       });
 
       test("Edited condition is updated and conditions change callback is called when save button is clicked", async () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
             data={data}
             condition={conditionModel}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          { wrappingComponent: DataWrapper }
         );
         expect(conditionsChange.called).to.equal(false);
 
@@ -592,8 +596,8 @@ suite("Inline conditions", () => {
           ),
         ]);
 
-        expect(data.save.callCount).to.equal(1);
-        expect(data.save.firstCall.args[0]).to.equal(updatedData);
+        expect(save.callCount).to.equal(1);
+        expect(save.firstCall.args[0]).to.equal(updatedData);
         expect(conditionsChange.calledOnceWith(conditionModel.name)).to.equal(
           true
         );

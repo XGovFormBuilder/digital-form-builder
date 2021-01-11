@@ -19,7 +19,6 @@ suite("Inline condition helpers", () => {
   });
 
   test("should save conditions if provided", async () => {
-    data.getId.resolves("abcdef");
     const amendedData = sinon.stub();
     data.addCondition.returns(amendedData);
     const conditions = {
@@ -31,7 +30,6 @@ suite("Inline condition helpers", () => {
       conditions
     );
 
-    expect(data.getId.calledOnce).to.equal(true);
     expect(data.addCondition.calledOnce).to.equal(true);
     expect(data.addCondition.firstCall.args[0]).to.equal("abcdef");
     expect(data.addCondition.firstCall.args[1]).to.equal("My condition");
