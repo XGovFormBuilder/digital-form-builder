@@ -30,8 +30,8 @@ jobs:
           #curl -v -s --retry 10 --retry-connrefused "http://$RUNNER_IP:3009/"
       - name: Smoke Tests
         run: |
-          cd smoke-tests/designer
-          yarn --immutable
-          yarn run smoke-test
+          cd smoke-tests/skakani
+          yarn
+          yarn run test:local
       - name: Teardown
         run: docker-componse down
