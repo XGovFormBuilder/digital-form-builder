@@ -18,7 +18,7 @@ jobs:
           node-version: "12.x"
       - name: Build the stack
         run: docker-compose up -d
-      - name: Check containers are rulling is running
+      - name: Check containers are running
         run:  |
           sleep 60
           docker ps
@@ -41,7 +41,9 @@ jobs:
       - name: Build
         run: yarn build
       - name: Smoke Test
-        run: yarn smoke-tests/designer smoke-test-headless
+        run: |
+          yarn smoke-tests/designer smoke-test-headless
+          ls -lah smoke-tests/designer/reports/html-reports
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
