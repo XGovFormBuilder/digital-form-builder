@@ -47,9 +47,7 @@ jobs:
       - name: Start Designer
         run: yarn designer start:st &
       - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "30s"
+        run: sleep 30
       - name: Curl
         run: curl http://localhost:3000 -I
       - name: Test
