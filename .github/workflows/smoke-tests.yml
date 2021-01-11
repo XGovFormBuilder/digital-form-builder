@@ -22,16 +22,10 @@ jobs:
         run: |
           sleep 180
           docker ps
-      - name: Check containers are accessible
-        run: |
-          export DESIGNER_CID=$(docker ps | grep digital-form-builder | grep designer | awk '{ print $1}')
-          export DESIGNER_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $DESIGNER_CID)
-          export RUNNER_CID=$(docker ps | grep digital-form-builder | grep runner | awk '{ print $1}')
-          export RUNNER_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $RUNNER_CID)
-          echo "Designer URL: http://$DESIGNER_IP:3000/"
-          echo "Runner URL: http://$RUNNER_IP:3009/"
-          curl -v -s --retry 10 --retry-connrefused "http://localhost:3000/"
-          curl -v -s --retry 10 --retry-connrefused "http://localhost:3009/"
+      - name: Check designer is running
+        run: docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
+      - name: Check runner is running
+          run: docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
       - name: Smoke Tests
         run: |
           echo "TODO Run smoke tests"

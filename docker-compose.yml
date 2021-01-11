@@ -1,6 +1,7 @@
 version: "3"
 services:
   designer:
+    container_name: designer
     build:
       context: .
       args:
@@ -21,6 +22,7 @@ services:
       - redis
       - runner
   runner:
+    container_name: runner
     build:
       context: .
       args:
