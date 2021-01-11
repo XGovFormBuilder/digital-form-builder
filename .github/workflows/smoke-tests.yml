@@ -13,7 +13,6 @@ jobs:
       redis:
         image: redis
         options: >-
-          --requirepass "123abc"
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
