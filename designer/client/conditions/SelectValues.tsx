@@ -25,6 +25,7 @@ export const SelectValues = (props) => {
       name="cond-value"
       value={value?.value ?? ""}
       onChange={onChangeSelect}
+      data-testid={"cond-value"}
     >
       <option />
       {fieldDef.values.map((option) => {

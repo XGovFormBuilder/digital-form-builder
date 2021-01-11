@@ -15,7 +15,7 @@ export interface YearMonthDayOptional {
 }
 
 interface Props {
-  value: YearMonthDayOptional;
+  value?: YearMonthDayOptional;
   updateValue: ({ year, month, day }: YearMonthDay) => void;
 }
 
