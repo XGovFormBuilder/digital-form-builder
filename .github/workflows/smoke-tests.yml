@@ -43,12 +43,16 @@ jobs:
       - name: Build
         run: yarn build
       - name: Start Runner
-        run: |
-        yarn runner start:st &
-        sleep 5 && curl http://localhost:3009 -I
+        run: yarn runner start:st &
       - name: Start Designer
+        run: yarn designer start:st &
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '30s'
+      - name: Curl
         run: |
-        yarn designer start:st &
-        sleep 5 && curl http://localhost:3000 -I
+        curl http://localhost:3009 -I
+        curl http://localhost:3000 -I    
       - name: Test
         run: yarn smoke-tests/designer smoke-test
