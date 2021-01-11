@@ -47,7 +47,6 @@ jobs:
       - name: 'Tar files'
           run: tar -cvf smoke-tests.tar smoke-tests/designer/reports/html-reports
       - uses: actions/upload-artifact@v2
-#        if: failure()
         with:
           name: htmlreports
           path: smoke-tests/designer/reports/html-reports
