@@ -45,12 +45,10 @@ jobs:
       - name: Start Runner
         run: |
         yarn runner start:st &
-        sleep 5 && 
-        curl http://localhost:3009 -I
+        sleep 5 && curl http://localhost:3009 -I
       - name: Start Designer
         run: |
         yarn designer start:st &
-        sleep 5 && 
-        curl http://localhost:3000 -I
+        sleep 5 && curl http://localhost:3000 -I
       - name: Test
         run: yarn smoke-tests/designer smoke-test
