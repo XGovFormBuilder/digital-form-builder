@@ -17,7 +17,8 @@ import {
   ValidationErrors,
 } from "./types";
 import { validateNotEmpty, hasValidationErrors } from "../validations";
-import { ErrorSummary } from "../error-summary";
+import ErrorSummary from "../error-summary";
+import { DataContext } from "../context";
 
 type State = {
   outputType: OutputType;
@@ -32,6 +33,8 @@ type Props = {
 };
 
 class OutputEdit extends Component<Props, State> {
+  static contextType = DataContext;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -42,6 +45,7 @@ class OutputEdit extends Component<Props, State> {
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { save } = this.context;
     let output = this.props.output || { name: "", type: "" };
     const form = event.currentTarget;
     const formData = new window.FormData(form);
@@ -52,6 +56,7 @@ class OutputEdit extends Component<Props, State> {
     const outputName = formData.get("output-name") as string;
     const outputTitle = formData.get("output-title") as string;
     let validationErrors = this.validate(formData, outputType);
+
     if (hasValidationErrors(validationErrors)) return;
 
     let outputIndex: number = -1;
@@ -100,8 +105,7 @@ class OutputEdit extends Component<Props, State> {
       copy.outputs.push(output);
     }
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })
@@ -185,12 +189,12 @@ class OutputEdit extends Component<Props, State> {
     }
 
     const { data, output } = this.props;
+    const { save } = this.context;
     const copy = clone(data);
     const outputIndex = data.outputs.indexOf(output);
     copy.outputs.splice(outputIndex, 1);
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })

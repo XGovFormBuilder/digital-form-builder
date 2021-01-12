@@ -9,25 +9,32 @@ import sinon from "sinon";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { test, describe, beforeEach } = lab;
+const { test, describe, beforeEach, afterEach } = lab;
 
 function HookWrapper(props) {
   const hook = props.hook ? props.hook() : undefined;
+  // @ts-ignore
   return <div hook={hook} />;
 }
 
 describe("useFlyoutContext", () => {
   let increment;
   let decrement;
+  let wrapper;
+
   beforeEach(() => {
     sinon.restore();
-    increment = sinon.stub().callsFake();
-    decrement = sinon.stub().callsFake();
+    increment = sinon.stub();
+    decrement = sinon.stub();
+  });
+
+  afterEach(() => {
+    wrapper?.exists() && wrapper.unmount();
   });
 
   test("Increment is called on mount", () => {
     const flyoutContextProviderValue = { count: 0, increment, decrement };
-    mount(
+    wrapper = mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
         <HookWrapper hook={() => useFlyoutEffect({ show: true })} />
       </FlyoutContext.Provider>
@@ -36,39 +43,37 @@ describe("useFlyoutContext", () => {
     expect(decrement.notCalled).to.equal(true);
   });
 
-  test("Increment is not called when show is false", () => {
-    //TODO:- deprecate this test when we remove reliance on show prop
-    const flyoutContextProviderValue = { count: 0, increment, decrement };
-    mount(
-      <FlyoutContext.Provider value={flyoutContextProviderValue}>
-        <HookWrapper hook={() => useFlyoutEffect({ show: false })} />
-      </FlyoutContext.Provider>
-    );
-    expect(increment.calledOnce).to.equal(false);
-  });
-
   test("Decrement is called on unmount", () => {
     const flyoutContextProviderValue = { count: 0, increment, decrement };
-    const wrapper = mount(
+    wrapper = mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
         <HookWrapper hook={() => useFlyoutEffect({ show: true })} />
       </FlyoutContext.Provider>
     );
+
     wrapper.unmount();
     expect(increment.calledOnce).to.equal(true);
     expect(decrement.calledOnce).to.equal(true);
   });
 
-  test("flyout is offset by correct amount", () => {
-    const flyoutContextProviderValue = { count: 1, increment, decrement };
-    const wrapper = mount(
+  test.skip("flyout is offset by correct amount", () => {
+    const flyoutContextProviderValue = {
+      count: 1,
+      increment,
+      decrement,
+    };
+    expect(increment.notCalled).to.equal(true);
+    wrapper = mount(
       <FlyoutContext.Provider value={flyoutContextProviderValue}>
-        <HookWrapper hook={() => useFlyoutEffect()} />
+        <HookWrapper hook={() => useFlyoutEffect({ show: true })} />
       </FlyoutContext.Provider>
     );
+
     const { hook } = wrapper.find("div").props();
-    const { style, offset } = hook;
-    expect(offset).to.equal(1);
+    wrapper.mount();
+    const { style } = hook;
+    expect(increment.calledOnce).to.equal(true);
+
     expect(style).to.include({
       paddingLeft: "50px",
       transform: "translateX(-50px)",

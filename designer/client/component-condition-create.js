@@ -47,7 +47,6 @@ class ComponentConditionCreate extends React.Component {
         {selectedType && (
           <div>
             <ComponentTypeEdit
-              data={{}}
               component={this.state.component}
               updateModel={(component) => this.setState({ component })}
             />

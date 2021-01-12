@@ -2,7 +2,11 @@ import React from "react";
 import SelectConditions from "./conditions/select-conditions";
 import { clone } from "@xgovformbuilder/model";
 
+import { DataContext } from "./context";
+
 class LinkEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
 
@@ -21,6 +25,7 @@ class LinkEdit extends React.Component {
     e.preventDefault();
     const { link, page, selectedCondition } = this.state;
     const { data } = this.props;
+    const { save } = this.context;
 
     const copy = clone(data);
     const updatedData = copy.updateLink(
@@ -29,14 +34,12 @@ class LinkEdit extends React.Component {
       selectedCondition
     );
 
-    data
-      .save(updatedData)
-      .then((data) => {
-        this.props.onEdit({ data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    try {
+      await save(updatedData);
+      this.props.onEdit();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   onClickDelete = (e) => {
@@ -48,14 +51,14 @@ class LinkEdit extends React.Component {
 
     const { data } = this.props;
     const { link, page } = this.state;
+    const { save } = this.context;
 
     const copy = clone(data);
     const copyPage = copy.findPage(page.path);
     const copyLinkIdx = copyPage.next.findIndex((n) => n.path === link.path);
     copyPage.next.splice(copyLinkIdx, 1);
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })

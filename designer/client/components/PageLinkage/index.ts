@@ -1,0 +1,1 @@
+export { PageLinkage } from "./PageLinkage";

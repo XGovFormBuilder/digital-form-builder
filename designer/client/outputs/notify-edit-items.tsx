@@ -1,5 +1,6 @@
 import React, { MouseEvent, ChangeEvent } from "react";
 import { clone } from "@xgovformbuilder/model";
+import { DataContext } from "../context";
 
 type State = {
   items: string[];
@@ -13,6 +14,8 @@ type Props = {
 };
 
 class NotifyItems extends React.Component<Props, State> {
+  static contextType = DataContext;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -40,12 +43,10 @@ class NotifyItems extends React.Component<Props, State> {
     }
 
     const { data } = this.props;
+    const { save } = this.context;
     const copy = clone(data);
 
-    // Remove the list
-
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })
