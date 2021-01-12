@@ -7,18 +7,14 @@ on:
 jobs:
   notify:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        endpoint: [ https://api.github.com/repos/UKHomeOffice/digital-form-builder-1/actions/workflows/4763518/dispatches, https://api.github.com/repos/UKHomeOffice/digital-form-builder-acp/actions/workflows/4881046]
     steps:
-      - name: Repository Dispatch using action
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.WORKFLOW_PAT }}
-          repository: UKHomeOffice/digital-form-builder-1
-          event-type: xgovformbuilder-updated
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-#      - name: Repository dispatch
-#        run: |
-#          curl -X POST https://api.github.com/repos/UKHomeOffice/digital-form-builder-1/actions/workflows/4763518/dispatches \
-#          -H 'Accept: application/vnd.github.everest-preview+json' \
-#          -u ${{ secrets.WORKFLOW_PAT }} \
-#          --data '{ "ref": "master", "inputs":{ "sha": "$GITHUB_SHA"} }'
+      - name: Repository dispatch
+        run: |
+          curl -X POST  ${{ matrix.endpoint }} \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.WORKFLOW_PAT }} \
+          --data '{ "ref": "master", "inputs":{ "sha": "$GITHUB_SHA"} }'
 
