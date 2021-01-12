@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        endpoint: [ https://api.github.com/repos/UKHomeOffice/digital-form-builder-1/actions/workflows/4763518/dispatches, https://api.github.com/repos/UKHomeOffice/digital-form-builder-acp/actions/workflows/4881046]
+        endpoint: [ "https://api.github.com/repos/UKHomeOffice/digital-form-builder-1/actions/workflows/4763518/dispatches", "https://api.github.com/repos/UKHomeOffice/digital-form-builder-acp/actions/workflows/4881046"]
     steps:
       - name: Repository dispatch
         run: |
