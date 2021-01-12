@@ -1,9 +1,9 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount } from "../../BackLink/__tests__/node_modules/enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data } from "@xgovformbuilder/model";
-import sinon from "sinon";
+import sinon from "../../BackLink/__tests__/node_modules/sinon";
 
 import { ComponentCreate } from "./../ComponentCreate";
 import { ComponentContextProvider } from "../../../reducers/component";

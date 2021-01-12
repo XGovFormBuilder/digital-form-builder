@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow } from "../../components/BackLink/__tests__/node_modules/enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 
