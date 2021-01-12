@@ -57,18 +57,15 @@ const SortableList = SortableContainer(
   ({ items, selectListItem, removeItem }) => {
     return (
       <tbody className="govuk-table__body">
-        {items.map((item, idx) => {
-          console.log(`index ${idx}`);
-          return (
-            <SortableItem
-              key={`item-${idx}`}
-              item={item}
-              index={idx}
-              selectListItem={selectListItem}
-              removeItem={() => removeItem(idx)}
-            />
-          );
-        })}
+        {items.map((item, idx) => (
+          <SortableItem
+            key={`item-${idx}`}
+            item={item}
+            index={idx}
+            selectListItem={selectListItem}
+            removeItem={() => removeItem(idx)}
+          />
+        ))}
       </tbody>
     );
   }
