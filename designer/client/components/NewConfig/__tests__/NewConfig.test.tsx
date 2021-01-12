@@ -1,10 +1,10 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
-import { NewConfig } from "../";
+import { NewConfig } from "../NewConfig";
 import {
   stubFetchJson,
   restoreWindowMethods,
