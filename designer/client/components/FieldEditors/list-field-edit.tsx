@@ -3,7 +3,7 @@ import React from "react";
 import ListsEdit from "../../list/lists-edit";
 import { ListContextProvider } from "../../reducers/listReducer";
 import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
-import { RenderInPortal } from "../render-in-portal";
+import { RenderInPortal } from "../RenderInPortal";
 import ComponentListSelect from "../../list/component-list-select";
 
 type Props = {
