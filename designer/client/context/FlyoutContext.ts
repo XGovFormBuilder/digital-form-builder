@@ -5,12 +5,3 @@ export const FlyoutContext = createContext({
   increment: () => {},
   decrement: () => {},
 });
-
-// TODO: types
-export const DataContext = createContext<{
-  data: any;
-  save: () => Promise<any>;
-}>({
-  data: {},
-  save: async () => {},
-});
