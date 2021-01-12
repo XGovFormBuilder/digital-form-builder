@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ListEdit from "./ListEdit";
-import { RenderInPortal } from "../components/render-in-portal";
+import { RenderInPortal } from "../components/RenderInPortal";
 import Flyout from "./../flyout";
 import ListItemEdit from "./list-item-edit";
 import GlobalListSelect from "./global-list-select";

@@ -1,6 +1,6 @@
 import React from "react";
 import Flyout from "./flyout";
-import DataModel from "./data-model";
+import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
 import ListsEdit from "../client/list/lists-edit";
@@ -317,7 +317,7 @@ export default class Menu extends React.Component {
                 </ul>
                 {tab === "model" && (
                   <section className="govuk-tabs__panel">
-                    <DataModel data={data} />
+                    <DataPrettyPrint data={data} />
                   </section>
                 )}
                 {tab === "json" && (

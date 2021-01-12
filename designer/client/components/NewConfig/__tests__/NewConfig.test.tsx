@@ -1,13 +1,16 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
-import { NewConfig } from "../client/components/newConfig/NewConfig";
-import { stubFetchJson, restoreWindowMethods } from "./helpers/window-stubbing";
+import { NewConfig } from "../NewConfig";
+import {
+  stubFetchJson,
+  restoreWindowMethods,
+} from "../../../../test/helpers/window-stubbing";
 
-import * as formConfigurationsApi from "../client/load-form-configurations";
+import * as formConfigurationsApi from "../../../load-form-configurations";
 
 const { expect } = Code;
 const lab = Lab.script();

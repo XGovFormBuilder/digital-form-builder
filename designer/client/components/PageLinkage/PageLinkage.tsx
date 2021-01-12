@@ -1,7 +1,7 @@
 import React, { useCallback, useState, Fragment, useContext } from "react";
 import { clone } from "@xgovformbuilder/model";
-import { RenderInPortal } from "./render-in-portal";
-import { DataContext } from "../context";
+import { RenderInPortal } from "../RenderInPortal";
+import { DataContext } from "../../context";
 
 export function PageLinkage({ page, layout }) {
   const { data, save } = useContext(DataContext);

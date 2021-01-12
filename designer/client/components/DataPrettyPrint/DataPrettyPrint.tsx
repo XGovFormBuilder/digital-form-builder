@@ -14,7 +14,7 @@ export function componentToString(component) {
   return `${component.type}`;
 }
 
-function DataModel(props) {
+export function DataPrettyPrint(props) {
   const { data } = props;
   const { sections, pages } = data;
 
@@ -45,5 +45,3 @@ function DataModel(props) {
     </div>
   );
 }
-
-export default DataModel;

@@ -5,7 +5,7 @@ import * as Lab from "@hapi/lab";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 
-import { ComponentCreate } from "./../ComponentCreate";
+import { ComponentCreate } from "../ComponentCreate";
 import { ComponentContextProvider } from "../../../reducers/component";
 import { DataContext } from "../../../context";
 

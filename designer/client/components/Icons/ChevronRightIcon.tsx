@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ChevronRight = (props: {}) => (
+export const ChevronRightIcon = (props: {}) => (
   <svg
     className="govuk-button__start-icon"
     xmlns="http://www.w3.org/2000/svg"

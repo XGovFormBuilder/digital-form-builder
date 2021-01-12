@@ -12,7 +12,7 @@ import { ErrorSummary } from "../../error-summary";
 import { hasValidationErrors } from "../../validations";
 import ComponentTypeEdit from "../../ComponentTypeEdit";
 import { ComponentCreateList } from "./ComponentCreateList";
-import { BackLink } from "../backLink";
+import { BackLink } from "../BackLink";
 
 import { Actions } from "../../reducers/component/types";
 import { DataContext } from "../../context";

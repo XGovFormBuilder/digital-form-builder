@@ -2,7 +2,7 @@ import React, { Component, ChangeEvent, MouseEvent } from "react";
 import startCase from "lodash/startCase";
 
 import * as formConfigurationApi from "../../load-form-configurations";
-import { ChevronRight } from "../icons";
+import { ChevronRightIcon } from "../Icons";
 import { withI18n } from "../../i18n";
 import "./NewConfig.scss";
 
@@ -215,7 +215,7 @@ export class NewConfig extends Component<Props, State> {
             className="govuk-button govuk-button--start"
             onClick={this.onSubmit}
           >
-            {i18n("Start")} <ChevronRight />
+            {i18n("Start")} <ChevronRightIcon />
           </button>
         </div>
       </div>
