@@ -83,14 +83,20 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     return copy;
   }
 
-  function prepareForDelete(data, index) {
+  function prepareForDelete(data: any, index: number | undefined) {
     const copy = clone(data);
     const { initialName, selectedList, selectedItemIndex } = state;
-    selectedList.items.splice(selectedItemIndex ?? index, 1);
+
+    // If user clicks delete button in list items list, then index is defined and we use it
+    // If user clicks delete button inside item edit screen, then selectedItemIndex is defined and index is undefined
+    const itemToDelete = index !== undefined ? index : selectedItemIndex;
+    selectedList.items.splice(itemToDelete, 1);
+
     const selectedListIndex = copy.lists.findIndex(
       (list) => list.name === initialName
     );
     copy.lists[selectedListIndex] = selectedList;
+
     return copy;
   }
 

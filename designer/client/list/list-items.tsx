@@ -20,40 +20,38 @@ const DragHandle = SortableHandle(() => (
   <span className="drag-handle-list">&#9776;</span>
 ));
 
-const SortableItem = SortableElement(
-  ({ index, item, type, removeItem, selectListItem }) => {
-    return (
-      <tr className="govuk-table__row" scope="row">
-        <td className="govuk-table__cell" width="20px">
-          <DragHandle />
-        </td>
-        <td className="govuk-table__cell">{item.text ?? item.label}</td>
-        <td className="govuk-table__cell" width="50px">
-          <a
-            href="#"
-            onClick={(e) => {
-              e?.preventDefault();
-              selectListItem(item);
-            }}
-          >
-            Edit
-          </a>
-        </td>
-        <td className="govuk-table__cell" width="50px">
-          <a
-            href="#"
-            onClick={(e) => {
-              e?.preventDefault();
-              removeItem(index);
-            }}
-          >
-            Delete
-          </a>
-        </td>
-      </tr>
-    );
-  }
-);
+const SortableItem = SortableElement(({ item, removeItem, selectListItem }) => {
+  return (
+    <tr className="govuk-table__row" scope="row">
+      <td className="govuk-table__cell" width="20px">
+        <DragHandle />
+      </td>
+      <td className="govuk-table__cell">{item.text ?? item.label}</td>
+      <td className="govuk-table__cell" width="50px">
+        <a
+          href="#"
+          onClick={(e) => {
+            e?.preventDefault();
+            selectListItem(item);
+          }}
+        >
+          Edit
+        </a>
+      </td>
+      <td className="govuk-table__cell" width="50px">
+        <a
+          href="#"
+          onClick={(e) => {
+            e?.preventDefault();
+            removeItem();
+          }}
+        >
+          Delete
+        </a>
+      </td>
+    </tr>
+  );
+});
 
 const SortableList = SortableContainer(
   ({ items, selectListItem, removeItem }) => {
@@ -65,7 +63,7 @@ const SortableList = SortableContainer(
             item={item}
             index={idx}
             selectListItem={selectListItem}
-            removeItem={removeItem}
+            removeItem={() => removeItem(idx)}
           />
         ))}
       </tbody>
@@ -91,9 +89,9 @@ function ListItems() {
 
   const { prepareForDelete } = useListItem(state, dispatch);
 
-  function removeItem() {
+  function removeItem(index: number) {
     const copy = clone(data);
-    save(prepareForDelete(copy));
+    save(prepareForDelete(copy, index));
   }
 
   //TODO:- reimplement drag sorting
