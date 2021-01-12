@@ -5,7 +5,7 @@ import * as Lab from "@hapi/lab";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 
-import { PageLinkage } from "../client/components/PageLinkage";
+import { PageLinkage } from "../";
 
 const { expect } = Code;
 const lab = Lab.script();
