@@ -4,7 +4,7 @@ import {
   toPresentationString,
   clone,
 } from "@xgovformbuilder/model";
-import { icons } from "../Icons";
+import { icons } from "../components/Icons";
 import InlineConditionsDefinition from "./inline-conditions-definition";
 
 class InlineConditionsEdit extends React.Component {
