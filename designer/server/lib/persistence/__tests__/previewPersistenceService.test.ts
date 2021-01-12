@@ -1,6 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import sinon from "../../../../client/components/BackLink/__tests__/node_modules/sinon";
+import sinon from "sinon";
 import Wreck from "@hapi/wreck";
 import config from "../../../config";
 

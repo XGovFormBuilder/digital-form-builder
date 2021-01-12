@@ -1,8 +1,8 @@
 import React from "react";
-import { shallow } from "../../BackLink/__tests__/node_modules/enzyme";
+import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import sinon from "../../BackLink/__tests__/node_modules/sinon";
+import sinon from "sinon";
 
 import { ComponentCreateList } from "../ComponentCreateList";
 import { initI18n } from "../../../i18n/i18n";
