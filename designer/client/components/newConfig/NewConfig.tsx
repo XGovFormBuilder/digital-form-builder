@@ -2,7 +2,7 @@ import React, { Component, ChangeEvent, MouseEvent } from "react";
 import startCase from "lodash/startCase";
 
 import * as formConfigurationApi from "../../load-form-configurations";
-import { ChevronRight } from "../icons";
+import { ChevronRight } from "../Icons";
 import { withI18n } from "../../i18n";
 import "./NewConfig.scss";
 
