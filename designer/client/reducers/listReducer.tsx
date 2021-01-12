@@ -51,7 +51,7 @@ export function listReducer(
     case ListActions.DESELECT_LIST_ITEM:
       delete state.selectedItem, state.selectedItemIndex;
 
-      return state;
+      return { ...state };
 
     case ListActions.ADD_NEW_LIST:
       return {

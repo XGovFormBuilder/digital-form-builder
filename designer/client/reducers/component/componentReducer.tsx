@@ -63,6 +63,7 @@ export function componentReducer(
 ) {
   const { type } = action;
   const { selectedComponent } = state;
+  console.info(type);
 
   if (isNotValidate(type)) {
     state.hasValidated = false;
@@ -87,7 +88,7 @@ export const initComponentState = (props) => {
   const init = {
     selectedComponent: selectedComponent ?? { name: newName, options: {} },
     initialName: selectedComponent?.name ?? newName,
-    selectedListName: undefined,
+    selectedListName: selectedComponent?.values?.list ?? "static",
     pagePath: props?.pagePath,
     isNew: props?.isNew || ((selectedComponent?.name && false) ?? true),
     listItemErrors: {},
@@ -107,7 +108,7 @@ export const ComponentContextProvider = (props) => {
     componentReducer,
     initComponentState(rest)
   );
-
+  console.info(state);
   return (
     <ComponentContext.Provider value={{ state, dispatch }}>
       {children}

@@ -19,9 +19,16 @@ const LIST_TYPES = [
 export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
   const { state, dispatch } = useContext(ComponentContext);
-  const { selectedComponent, initialName, errors = {}, hasValidated } = state;
+  const {
+    selectedComponent,
+    initialName,
+    errors = {},
+    hasValidated,
+    selectedListName,
+  } = state;
   const { page, toggleShowEditor } = props;
   const hasErrors = hasValidationErrors(errors);
+  const componentToSubmit = { ...selectedComponent };
 
   useLayoutEffect(() => {
     if (hasValidated && !hasErrors) {
@@ -41,14 +48,17 @@ export function ComponentEdit(props) {
       return;
     }
 
-    if (selectedComponent.values?.type === "listRef") {
-      delete selectedComponent.items;
+    if (LIST_TYPES.includes(selectedComponent.type)) {
+      if (selectedListName !== "static") {
+        componentToSubmit.values = { type: "listRef", list: selectedListName };
+        delete componentToSubmit.items;
+      }
     }
 
     const updatedData = data.updateComponent(
       page.path,
       initialName,
-      selectedComponent
+      componentToSubmit
     );
     await save(updatedData.toJSON());
     toggleShowEditor();

@@ -14,12 +14,11 @@ import {
 export function ComponentListSelect() {
   const { data } = useContext(DataContext);
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
-  const { state, dispatch } = useContext(ComponentContext);
 
+  const { state, dispatch } = useContext(ComponentContext);
   const { selectedListName, selectedComponent, isNew } = state;
 
   const { state: listState, dispatch: listDispatch } = useContext(ListContext);
-
   const { selectedList } = listState;
 
   const [selectedListTitle, setSelectedListTitle] = useState(
@@ -29,19 +28,20 @@ export function ComponentListSelect() {
   const isStatic = selectedListName === "static" || values?.type === "static";
 
   useEffect(() => {
-    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, isStatic]);
-    const list = data.lists.find((list) => list?.name === selectedListName);
-    if (!!list) {
-      listDispatch({ type: ListActions.SET_SELECTED_LIST, payload: list });
-      setSelectedListTitle(list.title);
-    } else {
-      dispatch({
+    if (!isStatic) {
+      const list = data.findList(selectedListName);
+      listDispatch({
         type: ListActions.SET_SELECTED_LIST,
-        payload: "static",
+        payload: list,
       });
-      setSelectedListTitle(selectedComponent.title);
     }
-  }, [selectedListName, selectedComponent.title, data]);
+    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, isStatic]);
+  }, [selectedListName]);
+
+  useEffect(() => {
+    const list = data.findList(selectedListName);
+    setSelectedListTitle(list?.title ?? list?.name ?? selectedComponent.title);
+  }, [data, selectedListName]);
 
   const editList = (e) => {
     dispatch({
@@ -77,7 +77,7 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        {(isNew || !hasItems) && <option />}
+        {!hasItems && <option value="static" />}
         {hasItems && <option value="static">{selectedComponent.title}</option>}
         {data.lists.map((list, index) => {
           return (
@@ -94,15 +94,17 @@ export function ComponentListSelect() {
         </div>
       )}
 
-      {!isNew && (hasItems || selectedListName !== "static") && (
-        <a
-          href="#"
-          className="govuk-link govuk-!-display-block"
-          onClick={handleEditListClick}
-        >
-          {i18n("list.edit", { title: selectedListTitle })}
-        </a>
-      )}
+      {!isNew &&
+        !!selectedListName &&
+        (hasItems || selectedListName !== "static") && (
+          <a
+            href="#"
+            className="govuk-link govuk-!-display-block"
+            onClick={handleEditListClick}
+          >
+            {i18n("list.edit", { title: selectedListTitle })}
+          </a>
+        )}
 
       {!isNew && !hasItems && (
         <a
