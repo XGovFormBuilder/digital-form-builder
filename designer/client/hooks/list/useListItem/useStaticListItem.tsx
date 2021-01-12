@@ -75,7 +75,7 @@ export function useStaticListItem(state, dispatch): ListItemHook {
     return copy.updateComponent(pagePath, initialName, component);
   }
 
-  function prepareForDelete(data, index) {
+  function prepareForDelete(data: any, index: number | undefined) {
     const copy = clone(data);
     const {
       selectedComponent: component,
@@ -83,7 +83,11 @@ export function useStaticListItem(state, dispatch): ListItemHook {
       pagePath,
       selectedItemIndex,
     } = state;
-    component.values.items.splice(selectedItemIndex ?? index, 1);
+
+    // If user clicks delete button in list items list, then index is defined and we use it
+    // If user clicks delete button inside item edit screen, then selectedItemIndex is defined and index is undefined
+    const itemToDelete = index !== undefined ? index : selectedItemIndex;
+    component.values.items.splice(itemToDelete, 1);
     copy.updateComponent(pagePath, initialName, component);
     return copy;
   }
