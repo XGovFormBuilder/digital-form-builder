@@ -6,6 +6,7 @@ export function useFlyoutEffect(props = {}) {
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
+  const show = props.show ?? true;
 
   /**
    * @code on component mount
@@ -43,15 +44,14 @@ export function useFlyoutEffect(props = {}) {
     }
   };
 
-  return { style, width: props?.width, onHide, offset };
+  return { style, width: props?.width, onHide, offset, show };
 }
 
 function Flyout(props) {
-  if (!props?.show) {
+  const { style, width = "", onHide, show } = useFlyoutEffect(props);
+  if (!show) {
     return null;
   }
-
-  const { style, width = "", onHide } = useFlyoutEffect(props);
 
   return (
     <div className="flyout-menu show">

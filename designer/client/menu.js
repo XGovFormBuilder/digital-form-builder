@@ -11,8 +11,7 @@ import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs/outputs-edit";
 import FormDetails from "./form-details";
-import { ListContext, ListContextProvider } from "./reducers/listReducer";
-import { ComponentContextProvider } from "./reducers/component/componentReducer";
+import { ListContextProvider } from "./reducers/listReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";
 
@@ -143,7 +142,6 @@ export default class Menu extends React.Component {
         {this.state.showFormConfig && (
           <Flyout
             title="Form Details"
-            show={this.state.showFormConfig}
             onHide={() => this.setState({ showFormConfig: false })}
           >
             <FormDetails
@@ -155,7 +153,6 @@ export default class Menu extends React.Component {
         {this.state.showAddPage && (
           <Flyout
             title="Add Page"
-            show={this.state.showAddPage}
             onHide={() => this.setState({ showAddPage: false })}
           >
             <PageCreate
@@ -167,7 +164,6 @@ export default class Menu extends React.Component {
         {this.state.showAddLink && (
           <Flyout
             title="Add Link"
-            show={this.state.showAddLink}
             onHide={() => this.setState({ showAddLink: false })}
           >
             <LinkCreate
@@ -179,7 +175,6 @@ export default class Menu extends React.Component {
         {this.state.showEditSections && (
           <Flyout
             title="Edit Sections"
-            show={this.state.showEditSections}
             onHide={() => this.setState({ showEditSections: false })}
           >
             <SectionsEdit
@@ -191,7 +186,6 @@ export default class Menu extends React.Component {
         {this.state.showEditConditions && (
           <Flyout
             title="Edit Conditions"
-            show={this.state.showEditConditions}
             onHide={() => this.setState({ showEditConditions: false })}
             width="large"
           >
@@ -204,7 +198,6 @@ export default class Menu extends React.Component {
         {this.state.showEditLists && (
           <Flyout
             title="Edit Lists"
-            show={this.state.showEditLists}
             onHide={() => this.setState({ showEditLists: false })}
             width={""}
           >
@@ -219,7 +212,6 @@ export default class Menu extends React.Component {
         {this.state.showEditFees && (
           <Flyout
             title="Edit Fees"
-            show={this.state.showEditFees}
             onHide={() => this.setState({ showEditFees: false })}
             width="xlarge"
           >
@@ -232,7 +224,6 @@ export default class Menu extends React.Component {
         {this.state.showEditNotify && (
           <Flyout
             title="Edit Notify"
-            show={this.state.showEditNotify}
             onHide={() => this.setState({ showEditNotify: false })}
             width="xlarge"
           >
@@ -245,7 +236,6 @@ export default class Menu extends React.Component {
         {this.state.showEditDeclaration && (
           <Flyout
             title="Edit Declaration"
-            show={this.state.showEditDeclaration}
             onHide={() => this.setState({ showEditDeclaration: false })}
             width="xlarge"
           >
@@ -259,7 +249,6 @@ export default class Menu extends React.Component {
         {this.state.showEditOutputs && (
           <Flyout
             title="Edit Outputs"
-            show={this.state.showEditOutputs}
             onHide={() => this.setState({ showEditOutputs: false })}
             width="xlarge"
           >
@@ -273,7 +262,6 @@ export default class Menu extends React.Component {
         {this.state.showEditSummaryBehaviour && (
           <Flyout
             title="Edit Summary behaviour"
-            show={this.state.showEditSummaryBehaviour}
             onHide={() => this.setState({ showEditSummaryBehaviour: false })}
             width="xlarge"
           >
@@ -289,7 +277,6 @@ export default class Menu extends React.Component {
         {this.state.showSummary && (
           <Flyout
             title="Summary"
-            show={this.state.showSummary}
             width="large"
             onHide={() => this.setState({ showSummary: false })}
           >
