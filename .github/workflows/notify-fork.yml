@@ -12,7 +12,7 @@ jobs:
     steps:
       - id: set-matrix
         run: |
-          JSON=$(cat ./notifications)
+          JSON=$(cat ./notifications.json)
           echo "::set-output name=${JSON//'%'/'%25'}"
   notify:
     runs-on: ubuntu-latest
