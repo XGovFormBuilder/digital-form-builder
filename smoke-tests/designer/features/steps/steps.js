@@ -167,7 +167,7 @@ When("I add a new section", () => {
   EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
   expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
-  EditSection.closeSection.click();
+  EditSection.closeLinks[0].click();
 });
 
 Then("the section should be available when I edit the Question page", () => {
@@ -181,7 +181,7 @@ When("I add a new list", () => {
   EditListSection.createListItem.click();
   EditListSection.addNewListItem("Test Global Lists", "two", "three");
   EditListSection.saveBtn.click();
-  EditListSection.closeSection.click();
+  EditListSection.closeLinks[0].click();
 });
 
 When(
@@ -199,7 +199,7 @@ Then("the list is available in the list options", () => {
 When("I choose to duplicate the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.duplicateBtn.click();
-  EditPageSection.closeSection.click();
+  EditPageSection.closeLinks[0].click();
 });
 
 Then(
@@ -215,7 +215,7 @@ When("I choose to delete the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.deleteBtn.click();
   acceptAlert();
-  EditPageSection.closeSection.click();
+  EditPageSection.closeLinks[0].click();
 });
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
@@ -225,4 +225,25 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
   });
   expect(FormDesignerPage.formPages.length).toEqual(1);
   chai.expect(pageNames).not.include(pageName);
+});
+
+When(/^I edit the "([^"]*)" component$/, function (componentType) {
+  FormDesignerPage.editPageComponent(componentType);
+});
+
+When(/^I create a new component list with (\d+) item$/, function (
+  numberOfItems
+) {
+  EditListSection.clickLink("Add a new component list");
+  EditListSection.clickLink("Create list item");
+  EditListSection.addNewListItem(
+    `list item ${numberOfItems}`,
+    "A list item",
+    `${numberOfItems}`
+  );
+  EditListSection.closeLinks[1].click();
+});
+
+Then(/^the list is selected in the list dropdown$/, function () {
+  expect(EditListSection.selectListValue).toHaveText("Local list test");
 });
