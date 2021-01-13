@@ -17,10 +17,10 @@ interface Props {
 }
 
 export const AbsoluteTimeValues = ({ value = {}, updateValue }: Props) => {
-  const [hour, setHour] = React.useState<string>(() =>
+  const [hour, setHour] = React.useState(() =>
     isInt(value.hour) ? (value.hour as number).toString() : ""
   );
-  const [minute, setMinute] = React.useState<string>(() =>
+  const [minute, setMinute] = React.useState(() =>
     isInt(value.minute) ? (value.minute as number).toString() : ""
   );
 

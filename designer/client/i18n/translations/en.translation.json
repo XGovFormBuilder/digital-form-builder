@@ -57,11 +57,11 @@
   "Select an existing form to edit": "Select an existing form to edit",
   "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
   "Create a new form": "Create a new form",
-  "Create a new form or edit an existing form": "Create a new form or edit an existing form, please",
+  "Create a new form or edit an existing form": "Create a new form or edit an existing form",
   "A form with this name already exists": "A form with this name already exists",
   "There is a problem": "There is a problem",
   "Enter form name": "Enter form name",
-  "enterDateTimeAsUtc": "Dates and times should be GMT timezone",
+  "enterDateTimeAsGmt": "Dates and times should be GMT timezone",
   "list": {
     "select": "Select list",
     "edit": "Edit {{title}}",
