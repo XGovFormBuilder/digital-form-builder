@@ -1,4 +1,4 @@
-export { default as Schema } from "./schema";
+export { Schema } from "./schema";
 export { Data } from "./data-model";
 export { Logger } from "./utils/logger";
 export { FormConfiguration } from "./form";
