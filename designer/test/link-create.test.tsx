@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import LinkCreate from "../client/link-create";
@@ -7,7 +7,8 @@ import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 import { assertSelectInput, assertClasses } from "./helpers/element-assertions";
 import { ErrorMessage } from "@govuk-jsx/error-message";
-import { ErrorSummary } from "../client/error-summary";
+import ErrorSummary from "../client/error-summary";
+import { DataContext } from "../client/context";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -25,9 +26,15 @@ suite("Link create", () => {
       { name: "anotherCondition", displayName: "Another condition" },
     ],
   });
-  const nextId = "abcdef";
-  data.getId = sinon.stub();
-  data.getId.resolves(nextId);
+
+  let saveSpy = sinon.spy();
+  const dataValue = { data, save: sinon.spy() };
+
+  const DataWrapper = ({ dataValue = { data, save: saveSpy }, children }) => {
+    return (
+      <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
+    );
+  };
 
   test("Renders a form with from and to inputs", () => {
     const wrapper = shallow(<LinkCreate data={data} />);
@@ -88,8 +95,12 @@ suite("Link create", () => {
       };
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
-        <LinkCreate data={data} onCreate={wrappedOnCreate} />
+      const wrapper = mount(
+        <LinkCreate data={data} onCreate={wrappedOnCreate} />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       const form = wrapper.find("form");
       form.find("#link-source").simulate("change", { target: { value: "/1" } });
@@ -101,7 +112,7 @@ suite("Link create", () => {
 
       data.clone = sinon.stub();
       data.clone.returns(clonedData);
-      data.save = flags.mustCall(save, 1);
+
       clonedData.addLink.returns(updatedData);
 
       await form.simulate("submit", { preventDefault: preventDefault });
@@ -129,8 +140,12 @@ suite("Link create", () => {
       };
       const wrappedOnCreate = flags.mustCall(onCreate, 1);
 
-      const wrapper = shallow(
-        <LinkCreate data={data} onCreate={wrappedOnCreate} />
+      const wrapper = mount(
+        <LinkCreate data={data} onCreate={wrappedOnCreate} />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       const form = wrapper.find("form");
       await form
@@ -144,7 +159,7 @@ suite("Link create", () => {
 
       data.clone = sinon.stub();
       data.clone.returns(clonedData);
-      data.save = flags.mustCall(save, 1);
+
       clonedData.addLink.returns(updatedData);
 
       await form.simulate("submit", { preventDefault: preventDefault });
@@ -161,7 +176,7 @@ suite("Link create", () => {
   test("with no from and to should not call callback function", async (flags) => {
     const wrappedOnCreate = sinon.spy();
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <LinkCreate data={data} onCreate={wrappedOnCreate} />
     );
 
@@ -169,10 +184,10 @@ suite("Link create", () => {
     await form.simulate("submit", { preventDefault: sinon.spy() });
     wrapper.update();
 
+    const errorSummary = wrapper.find(ErrorSummary);
     expect(wrappedOnCreate.notCalled).to.equal(true);
-
-    expect(wrapper.find(ErrorSummary)).to.exists();
-    expect(wrapper.find(ErrorSummary).prop("errorList").length).to.be.equal(2);
+    expect(errorSummary).to.exist();
+    expect(errorSummary.props().errorList.length).to.be.equal(2);
 
     assertClasses(wrapper.find("#link-source"), [
       "govuk-select",
@@ -182,9 +197,9 @@ suite("Link create", () => {
       "govuk-form-group",
       "govuk-form-group--error",
     ]);
-    expect(wrapper.find(ErrorMessage).at(0).childAt(0).text()).to.equal(
-      "Enter from"
-    );
+    expect(
+      wrapper.find(".govuk-error-message").at(0).childAt(1).text()
+    ).to.equal("Enter from");
 
     assertClasses(wrapper.find("#link-target"), [
       "govuk-select",
@@ -194,8 +209,8 @@ suite("Link create", () => {
       "govuk-form-group",
       "govuk-form-group--error",
     ]);
-    expect(wrapper.find(ErrorMessage).at(1).childAt(0).text()).to.equal(
-      "Enter to"
-    );
+    expect(
+      wrapper.find(".govuk-error-message").at(1).childAt(1).text()
+    ).to.equal("Enter to");
   });
 });

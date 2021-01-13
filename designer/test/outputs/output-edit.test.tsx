@@ -5,22 +5,10 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { ErrorSummary } from "../../client/error-summary";
 import { Data } from "@xgovformbuilder/model";
-import {
-  assertTextInput,
-  assertSelectInput,
-} from "../helpers/element-assertions";
-import {
-  assertInputControlValue,
-  assertInputControlProp,
-} from "../helpers/sub-component-assertions";
-import { Input } from "@govuk-jsx/input";
+import { assertSelectInput } from "../helpers/element-assertions";
+import { assertInputControlProp } from "../helpers/sub-component-assertions";
 import OutputEdit from "../../client/outputs/output-edit";
-import {
-  OutputType,
-  OutputConfiguration,
-  Output,
-  ValidationErrors,
-} from "../../client/outputs//types";
+import { Output } from "../../client/outputs/types";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -124,12 +112,12 @@ suite("Output edit", () => {
         .find(ErrorSummary)
         .prop("errorList");
       expect(errorList.length).to.equal(2);
-      expect(errorList[0]).to.equal({
-        children: "Enter output title",
+      expect(errorList[0]).to.contain({
+        children: ["Enter output title"],
         href: "#output-title",
       });
-      expect(errorList[1]).to.equal({
-        children: "Enter email address",
+      expect(errorList[1]).to.contain({
+        children: ["Enter email address"],
         href: "#email-address",
       });
     });

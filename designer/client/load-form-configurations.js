@@ -1,4 +1,4 @@
-function fetchConfigurations() {
+export function fetchConfigurations() {
   return window
     .fetch("/configurations", {
       method: "get",
@@ -16,7 +16,7 @@ function fetchConfigurations() {
     });
 }
 
-async function loadConfigurations() {
+export async function loadConfigurations() {
   return fetchConfigurations()
     .then((data) => {
       return Object.values(data) || [];
@@ -25,7 +25,3 @@ async function loadConfigurations() {
       return [];
     });
 }
-
-export default {
-  loadConfigurations: loadConfigurations,
-};

@@ -100,3 +100,43 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 ## contributions
 
 Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+
+### Developer only features ⚠️
+
+There are some features that we do not want to expose (for fear of wide adoption), as they are not complete or have accessibility issues. Please use these with caution. 
+
+- Conditionally revealing of fields based on checkbox/radio selection. 
+  - This is a known accessibility issue. https://github.com/alphagov/govuk-frontend/issues/1991. NVDA, JAWS and VoiceOver (currently most popular screen readers) all have varying levels of support for checkboxes and radios. It is breaking WCAG 2.1A compliance.
+  - If you would like to use these, the runner will still support child components, you must add this to your JSON configuration manually. 
+    - Static lists (inside a Radios/Checkboxes Field component) 
+    ``` json
+        { // Component object, other keys stripped for brevity
+          ...
+          "type": "RadiosField",
+          "values": {
+            "type": "static",
+            "valueType": "string",
+            "items": [
+              { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
+            ]
+          }
+        }
+        where { ...subcomponent } is any valid Component object
+    ```
+    - Global lists
+    ``` json 
+      { //List object, other keys stripped for brevity
+      ...
+      "items": [
+        { "text": "a", "value": "a", "description": "a",
+          "conditional": {
+            "components":[{ ...component }]
+          }
+        }
+      ]
+    }
+    where {...subcomponent } is any valid Component Object
+    ```
+
+
+

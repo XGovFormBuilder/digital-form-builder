@@ -1734,6 +1734,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.2.0":
+  version: 7.12.5
+  resolution: "@babel/runtime@npm:7.12.5"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 423fb0079353db2faa0dad0cbdf0a90fbc5b511d1f77e5645d1aa0b144a144e24502bb023c12a31d7dca63b6e16ae36afa59992f0404e92e21de211051c361e3
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.10.4":
   version: 7.10.4
   resolution: "@babel/template@npm:7.10.4"
@@ -2151,7 +2160,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/hoek@npm:9.x.x, @hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.0.3, @hapi/hoek@npm:^9.0.4":
+"@hapi/hoek@npm:9.x.x, @hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.0.3, @hapi/hoek@npm:^9.0.4, @hapi/hoek@npm:^9.1.0":
   version: 9.1.0
   resolution: "@hapi/hoek@npm:9.1.0"
   checksum: c77ac8f0c1ae6e21b3d77fa63f462dc1b0c84481388f5e54c651e86cf565d58cb701c396a1fa86a746d5dc278013ad5b3513a58c4cb19a493802d17b68c90740
@@ -3920,8 +3929,8 @@ __metadata:
     react: 16.13.1
     react-dom: 16.13.1
     react-helmet: ^6.1.0
-    react-simple-code-editor: 0.6.1
-    react-sortable-hoc: 0.8.3
+    react-simple-code-editor: 0.11.0
+    react-sortable-hoc: 1.11.0
     resolve: ^1.19.0
     resolve-url-loader: ^3.1.1
     sass: ^1.26.11
@@ -3978,7 +3987,7 @@ __metadata:
     "@babel/preset-typescript": ^7.10.4
     "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
-    "@hapi/hoek": ^9.0.4
+    "@hapi/hoek": ^9.1.0
     "@hapi/lab": ^24.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
     babel-eslint: ^10.1.0
@@ -5188,7 +5197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-runtime@npm:^6.11.6, babel-runtime@npm:^6.26.0":
+"babel-runtime@npm:^6.26.0":
   version: 6.26.0
   resolution: "babel-runtime@npm:6.26.0"
   dependencies:
@@ -12108,7 +12117,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.2.1, invariant@npm:^2.2.2, invariant@npm:^2.2.4":
+"invariant@npm:^2.2.2, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -17320,27 +17329,28 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-simple-code-editor@npm:0.6.1":
-  version: 0.6.1
-  resolution: "react-simple-code-editor@npm:0.6.1"
+"react-simple-code-editor@npm:0.11.0":
+  version: 0.11.0
+  resolution: "react-simple-code-editor@npm:0.11.0"
   peerDependencies:
     react: ^16.0.0
     react-dom: ^16.0.0
-  checksum: 0cb01adcbd242a4efd002cd076b26a75bae099a5b7daec1227ed3cd04ca37dec21287c2551bf5629817605f5b234ec05a553341f04ef878ee7d1683496719e7e
+  checksum: d482ccca2bb4cbdc66eaa2efddcbbce1b2a9e22b4e093d3538abbfc13bbe68a91ce2c745e74b7eeb69cb3ee59d35f031e3dc545cbdf347039445756749a9f64d
   languageName: node
   linkType: hard
 
-"react-sortable-hoc@npm:0.8.3":
-  version: 0.8.3
-  resolution: "react-sortable-hoc@npm:0.8.3"
+"react-sortable-hoc@npm:1.11.0":
+  version: 1.11.0
+  resolution: "react-sortable-hoc@npm:1.11.0"
   dependencies:
-    babel-runtime: ^6.11.6
-    invariant: ^2.2.1
+    "@babel/runtime": ^7.2.0
+    invariant: ^2.2.4
     prop-types: ^15.5.7
   peerDependencies:
+    prop-types: ^15.5.7
     react: ^0.14.0 || ^15.0.0 || ^16.0.0
     react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0
-  checksum: 05d1e221b0704e713bf22c9053aabac556615cbd858a53bfa38b0156494a0ec6f094bccbfbbfbfe7fcc198df6910b1f86cc5f2a6c7d272c5481a2617fa8489fe
+  checksum: 89e100f47cc2b88839113ba1b764046aadbd38c0dd0f8bf970b3ed05aa78ffe9f28c15090b99c4d5d4b1e696da30ef2877821bb927fdc4135bf67bb85e728209
   languageName: node
   linkType: hard
 

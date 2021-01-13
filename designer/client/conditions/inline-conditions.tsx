@@ -4,6 +4,7 @@ import InlineConditionsDefinition from "./inline-conditions-definition";
 import InlineConditionsEdit from "./inline-conditions-edit";
 
 import InlineConditionHelpers from "./inline-condition-helpers";
+import { DataContext } from "../context";
 
 interface Props {
   path: string;
@@ -21,6 +22,8 @@ interface State {
 }
 
 class InlineConditions extends React.Component<Props, State> {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
 
@@ -97,15 +100,17 @@ class InlineConditions extends React.Component<Props, State> {
 
   onClickSave = async () => {
     const { data, conditionsChange, condition } = this.props;
+    const { save } = this.context;
     const { conditions } = this.state;
-    const copy = data.clone();
+    const copy = clone(data);
+
     if (condition) {
       const updatedData = data.updateCondition(
         condition.name,
         conditions.name,
         conditions
       );
-      await data.save(updatedData);
+      await save(updatedData);
       if (conditionsChange) {
         conditionsChange(condition.name);
       }
@@ -114,7 +119,7 @@ class InlineConditions extends React.Component<Props, State> {
         copy,
         conditions
       );
-      await data.save(conditionResult.data);
+      await save(conditionResult.data);
       if (conditionsChange) {
         conditionsChange(conditionResult.condition);
       }

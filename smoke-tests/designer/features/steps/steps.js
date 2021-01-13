@@ -84,8 +84,7 @@ When(
   (componentName, pageName) => {
     const pageComponent = toCamelCase(componentName);
     FormDesignerPage[pageComponent](pageName).click();
-    AddComponentPage.deleteBtn.click();
-    acceptAlert();
+    AddComponentPage.deleteLink.click();
   }
 );
 
@@ -155,10 +154,11 @@ Then("the section should be available when I edit the Question page", () => {
 });
 
 When("I add a new list", () => {
-  EditListSection.addList.click();
+  EditListSection.addNewList.click();
   EditListSection.listTitle.setValue("Countries");
-  EditListSection.add.click();
-  EditListSection.fillOutItems("one", "two", "three");
+  EditListSection.createListItem.click();
+  EditListSection.addNewListItem("Test Global Lists", "two", "three");
+  EditListSection.saveBtn.click();
   EditListSection.closeSection.click();
 });
 
@@ -167,7 +167,6 @@ When(
   (componentName, pageName) => {
     FormDesignerPage.createComponentForPageName(pageName).click();
     AddComponentPage.selectComponentByName(componentName);
-    AddComponentPage.fromAList.click();
   }
 );
 
