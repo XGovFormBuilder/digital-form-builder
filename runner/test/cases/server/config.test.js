@@ -1,7 +1,7 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 
-import { buildConfig } from "src/server/config";
+import { buildConfig } from "server/config";
 
 const { beforeEach, test, suite, afterEach } = (exports.lab = Lab.script());
 
@@ -83,6 +83,7 @@ suite(`Server Config`, () => {
       isSandbox: false,
     };
 
+    console.log(buildConfig);
     const result = buildConfig();
 
     expect(result).to.include(expectedResult);
