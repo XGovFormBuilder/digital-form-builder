@@ -45,8 +45,18 @@ const client = {
               publicPath: "../../",
             },
           },
-          "css-loader",
-          "sass-loader",
+          {
+            loader: "css-loader",
+            options: {},
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sassOptions: {
+                outputStyle: "expanded",
+              },
+            },
+          },
         ],
       },
       {
