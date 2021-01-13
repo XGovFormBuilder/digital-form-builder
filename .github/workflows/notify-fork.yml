@@ -5,7 +5,7 @@ on:
     branches: chore/notify-ho
 
 jobs:
-  parse-notifications:
+  parse:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -14,15 +14,15 @@ jobs:
       - id: set-matrix
         run: |
           JSON=$(cat .github/workflows/notifications.json)
-          echo "::set-output name=matrix::${JSON//'%'/'%25'}"
+          echo ::set-output name=matrix::${JSON//'%'/'%25'}
   notify:
     runs-on: ubuntu-latest
-    needs: parse-notifications
+    needs: parse
 #    strategy:
-#      matrix: ${{fromJson(needs.parse-notifcations.outputs.matrix)}}
+#      matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
       - name: Dump matrix context
-        run: echo "${{fromJson(needs.parse-notifcations.outputs.matrix)}}"
+        run: echo ${{needs.parse.outputs.matrix}}
 #      - name: Repository dispatch
 #        run: |
 #          curl -X POST  ${{ matrix.endpoint }} \
