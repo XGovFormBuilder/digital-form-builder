@@ -18,13 +18,11 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     needs: parse-notifications
-    strategy:
-      matrix: ${{fromJson(needs.parse-notifcations.outputs.matrix)}}
+#    strategy:
+#      matrix: ${{fromJson(needs.parse-notifcations.outputs.matrix)}}
     steps:
       - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+        run: echo "${{fromJson(needs.parse-notifcations.outputs.matrix)}}"
 #      - name: Repository dispatch
 #        run: |
 #          curl -X POST  ${{ matrix.endpoint }} \
