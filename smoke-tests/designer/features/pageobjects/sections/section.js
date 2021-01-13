@@ -1,6 +1,6 @@
 module.exports = class Section {
   get parentElement() {
-    return browser.$(".flyout__container div.panel");
+    return browser.$(".panel");
   }
 
   get pageTitle() {
@@ -16,7 +16,15 @@ module.exports = class Section {
     return browser.$(".govuk-button=Save");
   }
 
-  get closeSection() {
-    return browser.$("=Close");
+  get closeLinks() {
+    return browser.$$("=Close");
+  }
+
+  /**
+   * Clicks on a single link of a specified name
+   * @param linkName
+   */
+  clickLink(linkName) {
+    browser.$(`=${linkName}`).click();
   }
 };

@@ -44,6 +44,10 @@ class EditListsSection extends Section {
     this.saveButton.scrollIntoView();
     this.saveButton.click();
   }
+
+  get selectListValue() {
+    return browser.$("#field-options-list");
+  }
 }
 
 module.exports = new EditListsSection();
