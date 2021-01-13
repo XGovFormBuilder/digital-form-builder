@@ -5,16 +5,26 @@ on:
     branches: chore/notify-ho
 
 jobs:
+  parse-notifications:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: |
+          JSON=$(cat ./notifications)
+          echo "::set-output name=${JSON//'%'/'%25'}"
   notify:
     runs-on: ubuntu-latest
+    needs: parse-notifications
     strategy:
-      matrix:
-        endpoint: [ "https://api.github.com/repos/UKHomeOffice/digital-form-builder-1/actions/workflows/4763518/dispatches", "https://api.github.com/repos/UKHomeOffice/digital-form-builder-acp/actions/workflows/4881046/dispatches"]
+      matrix: ${{fromJson(needs.parse-notifcations.outputs.matrix)}}
     steps:
-      - name: Repository dispatch
-        run: |
-          curl -X POST  ${{ matrix.endpoint }} \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.WORKFLOW_PAT }} \
-          --data '{ "ref": "master", "inputs":{ "sha": "$GITHUB_SHA"} }'
-
+      - name: checking matrix
+      run: echo '${{matrix.endpoint}} ${{matrix.branch}}'
+#      - name: Repository dispatch
+#        run: |
+#          curl -X POST  ${{ matrix.endpoint }} \
+#          -H 'Accept: application/vnd.github.everest-preview+json' \
+#          -u ${{ secrets.WORKFLOW_PAT }} \
+#          --data '{ "ref": "master", "inputs":{ "sha": "$GITHUB_SHA"} }'
