@@ -2,7 +2,9 @@ import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
+
 import { isEmpty } from "./helpers";
+import { DataContext } from "./context";
 
 function headDuplicate(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -20,6 +22,8 @@ const MISSING_COND = "missingCondition";
 const DUP_CONDITIONS = "dupConditions";
 
 class FeeItems extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -116,15 +120,14 @@ class FeeItems extends React.Component {
     }
 
     const { data, fee } = this.props;
+    const { save } = this.context;
     const copy = clone(data);
 
     // Remove the list
     copy.fees.splice(data.fees.indexOf(fee), 1);
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
-        console.log(data);
         this.props.onEdit({ data });
       })
       .catch((err) => {

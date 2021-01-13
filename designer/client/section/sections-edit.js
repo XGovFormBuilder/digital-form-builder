@@ -1,6 +1,6 @@
 import React from "react";
 import SectionEdit from "./section-edit";
-import { RenderInPortal } from "../components/render-in-portal";
+import { RenderInPortal } from "../components/RenderInPortal";
 import Flyout from "../flyout";
 
 class SectionsEdit extends React.Component {

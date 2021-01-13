@@ -6,5 +6,6 @@ export default {
   options: {
     prettyPrint: config.isDev,
     level: config.logLevel,
+    logEvents: ["onPostStart", "onPostStop", "request-error"],
   },
 };
