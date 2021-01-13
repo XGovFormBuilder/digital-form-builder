@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { RenderInPortal } from "../client/components/render-in-portal";
+import { RenderInPortal } from "../client/components/RenderInPortal";
 
 const { expect } = Code;
 const lab = Lab.script();

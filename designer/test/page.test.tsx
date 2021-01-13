@@ -5,7 +5,7 @@ import * as Lab from "@hapi/lab";
 import PageTranslated, { Page } from "../client/page";
 import Flyout from "../client/flyout";
 import PageEdit from "../client/page-edit";
-import { ComponentCreate } from "../client/components/componentCreate";
+import { ComponentCreate } from "../client/components/ComponentCreate";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 

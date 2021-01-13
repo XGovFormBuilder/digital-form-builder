@@ -1,7 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { stubFetchJson, restoreWindowMethods } from "./helpers/window-stubbing";
-import formConfigurationsApi from "../client/load-form-configurations";
+import * as formConfigurationsApi from "../client/load-form-configurations";
 
 const { expect } = Code;
 const lab = Lab.script();

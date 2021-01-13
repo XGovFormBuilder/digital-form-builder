@@ -166,24 +166,22 @@ export const designerPlugin = {
             const { persistenceService } = request.services([]);
 
             try {
-              const result = Schema.validate(request.payload, {
+              const { value, error } = Schema.validate(request.payload, {
                 abortEarly: false,
               });
 
-              if (result.error) {
+              if (error) {
                 throw new Error("Schema validation failed");
               }
               await persistenceService.uploadConfiguration(
                 `${id}`,
-                JSON.stringify(result.value)
+                JSON.stringify(value)
               );
-              await publish(id, result.value);
+              await publish(id, value);
               return h.response({ ok: true }).code(204);
             } catch (err) {
               console.log("Designer Server PUT /{id}/api/data error:", err);
-              return h
-                .response({ ok: false, err: "Write file failed" })
-                .code(401);
+              return h.response({ ok: false, err }).code(401);
             }
           },
         },

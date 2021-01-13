@@ -1,9 +1,13 @@
+import { nanoid } from "nanoid";
+
 async function storeConditionIfNecessary(data, conditions) {
   let condition;
+
   if (conditions && conditions.hasConditions) {
-    condition = await data.getId();
+    condition = nanoid();
     data = data.addCondition(condition, conditions.name, conditions);
   }
+
   return { data, condition };
 }
 

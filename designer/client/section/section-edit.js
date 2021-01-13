@@ -9,9 +9,12 @@ import {
   validateTitle,
   hasValidationErrors,
 } from "../validations";
-import { ErrorSummary } from "../error-summary";
+import ErrorSummary from "../error-summary";
+import { DataContext } from "../context";
 
 class SectionEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.closeFlyout = props.closeFlyout;
@@ -28,10 +31,14 @@ class SectionEdit extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     let validationErrors = this.validate();
+
     if (hasValidationErrors(validationErrors)) return;
+
+    const { save } = this.context;
     const { name, title } = this.state;
     const { data } = this.props;
     const copy = clone(data);
+
     if (this.isNewSection) {
       copy.addSection(name, title.trim());
     } else {
@@ -56,7 +63,7 @@ class SectionEdit extends React.Component {
     }
 
     try {
-      await data.save(copy);
+      await save(copy);
       this.closeFlyout(name);
     } catch (err) {
       console.error(err);
@@ -75,10 +82,12 @@ class SectionEdit extends React.Component {
 
   onClickDelete = async (e) => {
     e.preventDefault();
+
     if (!window.confirm("Confirm delete")) {
       return;
     }
 
+    const { save } = this.context;
     const { data, section } = this.props;
     const copy = clone(data);
     const previousName = this.props.section?.name;
@@ -93,11 +102,10 @@ class SectionEdit extends React.Component {
     });
 
     try {
-      await data.save(copy);
+      await save(copy);
       this.closeFlyout({});
     } catch (error) {
-      // TODO:- we should really think about handling these errors properly.
-      console.log(error);
+      console.error(error);
     }
   };
 

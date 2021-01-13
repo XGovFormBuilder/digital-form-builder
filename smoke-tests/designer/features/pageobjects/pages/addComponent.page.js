@@ -29,10 +29,6 @@ class AddComponentPage extends Page {
     return this.parent.$("#field-hint");
   }
 
-  get fromAList() {
-    return this.parent.$("input#definitionType");
-  }
-
   get listOptions() {
     return this.parent.$("select#field-options-list");
   }
@@ -41,8 +37,8 @@ class AddComponentPage extends Page {
     return this.parent.$(".govuk-button");
   }
 
-  get deleteBtn() {
-    return this.parent.$(".govuk-button=Delete");
+  get deleteLink() {
+    return this.parent.$(".govuk-link=Delete");
   }
 
   selectComponentByName(name) {

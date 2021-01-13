@@ -2,7 +2,11 @@ import React from "react";
 import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 
+import { DataContext } from "./context";
+
 class DeclarationEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
@@ -13,16 +17,15 @@ class DeclarationEdit extends React.Component {
     const form = e.target;
     const formData = new window.FormData(form);
     const { data, toggleShowState } = this.props;
+    const { save } = this.context;
     const copy = clone(data);
 
     copy.declaration = formData.get("declaration");
     copy.skipSummary = formData.get("skip-summary") === "on";
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         toggleShowState("showEditSummaryBehaviour");
-        console.log(data);
       })
       .catch((err) => {
         console.error(err);
