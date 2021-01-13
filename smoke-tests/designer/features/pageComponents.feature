@@ -37,8 +37,14 @@ Feature: Components
     And I add a new section
     Then the section should be available when I edit the Question page
 
-  Scenario: Edit Lists
+  Scenario: Create a Global list
     And I choose "Edit Lists" from the designer menu
     When I add a new list
     And I create a "List" control for the "First page"
     Then the list is available in the list options
+
+  Scenario: Create a Local list
+    And I add a "List" control to the "First page"
+    When I edit the "List" component
+    And I create a new component list with 1 item
+    Then the list is selected in the list dropdown
