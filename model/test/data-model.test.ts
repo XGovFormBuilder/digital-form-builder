@@ -10,6 +10,9 @@ exports.lab = lab;
 const { suite, describe, test } = lab;
 
 suite("data model", () => {
+  function inputsAsObject(inputs) {
+    return inputs.map((i) => ({ ...i }));
+  }
   const fullyPopulatedRawData = {
     pages: [
       {
@@ -67,7 +70,8 @@ suite("data model", () => {
           },
         ],
       } as any);
-      expect(data.allInputs()).to.equal([
+
+      expect(inputsAsObject(data.allInputs())).to.equal([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -116,7 +120,10 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+
+      const inputs = inputsAsObject(data.allInputs());
+
+      const expectedInputs = [
         {
           name: "name1",
           page: { name: "page1", path: "/page1", section: "section1" },
@@ -147,9 +154,6 @@ suite("data model", () => {
           title: "Feedback source form name",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_formTitle",
-          hint: "",
-          options: {},
-          schema: {},
         },
         {
           name: "feedbackContextInfo_pageTitle",
@@ -157,9 +161,6 @@ suite("data model", () => {
           title: "Feedback source page title",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_pageTitle",
-          hint: "",
-          options: {},
-          schema: {},
         },
         {
           name: "feedbackContextInfo_url",
@@ -167,11 +168,12 @@ suite("data model", () => {
           title: "Feedback source url",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_url",
-          hint: "",
-          options: {},
-          schema: {},
         },
-      ]);
+      ];
+
+      expectedInputs.forEach((input, i) => {
+        expect(input).to.contain(inputs[i]);
+      });
     });
 
     test("should include hidden inputs from values", () => {
@@ -255,7 +257,7 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+      expect(inputsAsObject(data.allInputs())).to.equal([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -402,7 +404,7 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+      expect(inputsAsObject(data.allInputs())).to.equal([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -522,7 +524,7 @@ suite("data model", () => {
         ],
         lists: [],
       });
-      expect(data.allInputs()).to.equal([
+      expect(inputsAsObject(data.allInputs())).to.equal([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -642,7 +644,7 @@ suite("data model", () => {
         ],
         lists: [],
       });
-      expect(data.allInputs()).to.equal([
+      expect(inputsAsObject(data.allInputs())).to.equal([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -727,7 +729,7 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+      expect(inputsAsObject(data.allInputs())).to.equal([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -751,26 +753,26 @@ suite("data model", () => {
 
     test("should handle no pages", () => {
       const data = new Data({ pages: [] });
-      expect(data.allInputs()).to.equal([]);
+      expect(inputsAsObject(data.allInputs())).to.equal([]);
     });
 
     test("should handle undefined pages", () => {
       const data = new Data({});
-      expect(data.allInputs()).to.equal([]);
+      expect(inputsAsObject(data.allInputs())).to.equal([]);
     });
 
     test("should handle pages with undefined components", () => {
       const data = new Data({
         pages: [{}],
       });
-      expect(data.allInputs()).to.equal([]);
+      expect(inputsAsObject(data.allInputs())).to.equal([]);
     });
 
     test("should handle pages with no components", () => {
       const data = new Data({
         pages: [{ components: [] }],
       });
-      expect(data.allInputs()).to.equal([]);
+      expect(inputsAsObject(data.allInputs())).to.equal([]);
     });
   });
 
@@ -799,7 +801,9 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+
+      const inputs = inputsAsObject(data.inputsAccessibleAt("/3"));
+      const expectedInputs = [
         {
           name: "name1",
           page: {
@@ -856,7 +860,11 @@ suite("data model", () => {
           propertyPath: "name6",
           title: undefined,
         },
-      ]);
+      ];
+
+      inputs.forEach((input, i) => {
+        expect(input).to.contain(expectedInputs[i]);
+      });
     });
 
     test("should include inputs from multiple branches leading to the requested page", () => {
@@ -972,7 +980,9 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+      const inputs = inputsAsObject(data.inputsAccessibleAt("/3"));
+
+      const expectedInputs = [
         {
           name: "name1",
           page: {
@@ -1074,7 +1084,11 @@ suite("data model", () => {
           options: {},
           schema: {},
         },
-      ]);
+      ];
+
+      expectedInputs.forEach((input, i) => {
+        expect(input).to.include(inputs[i]);
+      });
     });
 
     test("should ignore inputs from routes that don't lead to the requested page", () => {
@@ -1102,7 +1116,7 @@ suite("data model", () => {
         ],
       });
 
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+      const expectedInputs = [
         {
           name: "name1",
           page: {
@@ -1137,7 +1151,12 @@ suite("data model", () => {
           propertyPath: "name6",
           title: undefined,
         },
-      ]);
+      ];
+      const inputs = inputsAsObject(data.inputsAccessibleAt("/3"));
+
+      expectedInputs.forEach((input, i) => {
+        expect(input).to.include(inputs[i]);
+      });
     });
 
     test("should ignore unnamed components", () => {
