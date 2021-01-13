@@ -24,7 +24,7 @@ config.reporters = [
   [
     "cucumberjs-json",
     {
-      jsonFolder: "./reports/ci/",
+      jsonFolder: "./reports/json/",
       language: "en",
     },
   ],
