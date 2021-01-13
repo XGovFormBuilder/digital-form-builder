@@ -116,6 +116,7 @@ suite("data model", () => {
           },
         ],
       });
+
       expect(data.allInputs()).to.equal([
         {
           name: "name1",
@@ -147,9 +148,6 @@ suite("data model", () => {
           title: "Feedback source form name",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_formTitle",
-          hint: "",
-          options: {},
-          schema: {},
         },
         {
           name: "feedbackContextInfo_pageTitle",
@@ -157,9 +155,6 @@ suite("data model", () => {
           title: "Feedback source page title",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_pageTitle",
-          hint: "",
-          options: {},
-          schema: {},
         },
         {
           name: "feedbackContextInfo_url",
@@ -167,9 +162,6 @@ suite("data model", () => {
           title: "Feedback source url",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_url",
-          hint: "",
-          options: {},
-          schema: {},
         },
       ]);
     });
@@ -972,6 +964,7 @@ suite("data model", () => {
           },
         ],
       });
+
       expect(data.inputsAccessibleAt("/3")).to.equal([
         {
           name: "name1",
@@ -1040,9 +1033,6 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_formTitle",
-          hint: "",
-          options: {},
-          schema: {},
         },
         {
           name: "feedbackContextInfo_pageTitle",
@@ -1055,9 +1045,6 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_pageTitle",
-          hint: "",
-          options: {},
-          schema: {},
         },
         {
           name: "feedbackContextInfo_url",
@@ -1070,9 +1057,6 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_url",
-          hint: "",
-          options: {},
-          schema: {},
         },
       ]);
     });
