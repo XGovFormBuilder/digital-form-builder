@@ -1,7 +1,6 @@
 {
   "Persona": "Persona",
   "Edit page": "Edit page",
-  "Create component": "Create component",
   "Preview page": "Preview page",
   "Preview": "Preview",
   "page": {
@@ -27,11 +26,19 @@
     "edit": "Edit section",
     "create": "Create section"
   },
+  "component": {
+    "component": "component",
+    "name": "Component name",
+    "create": "Create component",
+    "edit": "Edit {{name}} component"
+  },
+  "field": "field",
   "edit": "edit {{noun}}",
   "create": "create {{noun}}",
   "save": "Save",
   "duplicate": "Duplicate",
   "delete": "Delete",
+  "add": "Add",
   "optional": "{{noun}} (optional)",
   "name": {
     "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.",
@@ -54,5 +61,72 @@
   "A form with this name already exists": "A form with this name already exists",
   "There is a problem": "There is a problem",
   "Enter form name": "Enter form name",
-  "Test": "For testing purpose, do not delete it"
+  "enterDateTimeAsGmt": "Dates and times should be GMT timezone",
+  "list": {
+    "select": "Select list",
+    "edit": "Edit {{title}}",
+    "editingTitle": "Editing {{title}}",
+    "newTitle": "Add a new list",
+    "create": "Create list",
+    "deleteTitle": "Deleting this list?",
+    "deleteWarning": {
+      "title": "Deleting this list?",
+      "message": "If you delete this list, it will be deleted across the entire form",
+      "confirm": "Yes, delete this list",
+      "keep": "No, keep it"
+    },
+    "title": "List title",
+    "titleHint": "This will not show on the page.",
+    "createListItem": "Create list item",
+    "item": {
+      "newTitle": "Add a new list item",
+      "editing": "Editing list item",
+      "title": "Item title",
+      "titleHint": "Help text (optional)",
+      "value": "Value",
+      "valueHint": "This will not show on the page. If the list item is answered with words, you can use the item title, for example 'email'. If the list item is answered with a number, use a number with no letters or symbols, for example 1000",
+      "conditions": "Conditions (optional)",
+      "conditionsHint": "The item will only be shown if the selected condition applies",
+      "subComponent": "Sub component (optional)",
+      "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
+      "createSubcomponent": "Create sub component"
+    },
+    "static": {
+      "noun": "component list",
+      "newTitle": "Add a new component list",
+      "saveFirst": "You must save before creating a component list, or you can select an existing list"
+    },
+    "errors": {
+      "empty": "The list must have list items"
+    }
+  },
+
+  "conditions": {},
+  "wontShow": "This will not show on the page.",
+  "Test": "For testing purpose, do not delete it",
+  "fieldTypeToName": {
+    "Details": "Details",
+    "FlashCard": "Flash card",
+    "Html": "Html",
+    "InsetText": "Inset text",
+    "List": "List",
+    "Para": "Paragraph",
+    "AutocompleteField": "Autocomplete field",
+    "DateField": "Date field",
+    "DatePartsField": "Date parts field",
+    "DateTimeField": "Date time field",
+    "DateTimePartsField": "Date time parts field",
+    "EmailAddressField": "Email address field",
+    "FileUploadField": "File upload field",
+    "MultilineTextField": "Multiline text field",
+    "NumberField": "Number field",
+    "TelephoneNumberField": "Telephone number field",
+    "TextField": "Text field",
+    "TimeField": "Time field",
+    "UkAddressField": "UK address field",
+    "CheckboxesField": "Checkboxes field",
+    "RadiosField": "Radios field",
+    "SelectField": "Select field",
+    "YesNoField": "YesNo field"
+  }
 }

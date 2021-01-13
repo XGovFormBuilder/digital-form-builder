@@ -1,29 +1,48 @@
 const Section = require("./section");
 
 class EditListsSection extends Section {
-  get addList() {
-    return this.parentElement.$("a=Add list");
+  get addNewList() {
+    return this.parentElement.$("a=Add a new list");
   }
 
   get listTitle() {
-    return this.parentElement.$("input#list-title");
+    return browser.$("input#list-title");
   }
 
-  get add() {
-    return this.parentElement.$("a=Add");
+  get createListItem() {
+    return browser.$("a=Create list item");
   }
 
-  items(index) {
-    return this.parentElement.$$("td.govuk-table__cell input.govuk-input")[
-      index
-    ];
+  itemTitle(title) {
+    browser.$("#title").waitForDisplayed();
+    return browser.$("#title").setValue(title);
   }
 
-  fillOutItems(text, value, description) {
-    this.items(0).setValue(text);
-    this.items(1).setValue(value);
-    this.items(2).setValue(description);
-    this.saveBtn.click();
+  helpText(text) {
+    return browser.$(".govuk-textarea").setValue(text);
+  }
+
+  itemValue(value) {
+    return browser.$("#value").setValue(value);
+  }
+
+  get saveButton() {
+    browser.$$(".govuk-button=Save")[1].waitForClickable();
+    return browser.$$(".govuk-button=Save")[1];
+  }
+
+  /**
+   * Adds one list item to a global list
+   * @param title
+   * @param text
+   * @param value
+   */
+  addNewListItem(title, text, value) {
+    this.itemTitle(title);
+    this.helpText(text);
+    this.itemValue(value);
+    this.saveButton.scrollIntoView();
+    this.saveButton.click();
   }
 }
 

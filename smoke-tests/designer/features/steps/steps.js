@@ -15,10 +15,31 @@ Given("I have created a new form configuration", () => {
   Actions.createNewConfig();
 });
 
+When("I choose to create a component for the {string}", function (pageName) {
+  FormDesignerPage.createComponentForPageName(pageName).click();
+});
+
+When("I select {string} component to add to the page", function (
+  componentName
+) {
+  this.componentName = componentName;
+  AddComponentPage.selectComponentByName(this.componentName);
+});
+
+Then(
+  "I am able to return to components list with creating the component",
+  function () {
+    AddComponentPage.backToComponentList.click();
+    expect(AddComponentPage.sectionHeading).toHaveText("Create component");
+    expect(AddComponentPage.addComponent).toBeDisplayed();
+  }
+);
+
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
   FormDesignerPage.createComponentForPageName(pageName).click();
   AddComponentPage.selectComponentByName(componentName);
+  expect(AddComponentPage.backToComponentList).toBeDisplayed();
   switch (componentName) {
     case "Paragraph":
       AddComponentPage.paragraphSetText(
@@ -84,8 +105,7 @@ When(
   (componentName, pageName) => {
     const pageComponent = toCamelCase(componentName);
     FormDesignerPage[pageComponent](pageName).click();
-    AddComponentPage.deleteBtn.click();
-    acceptAlert();
+    AddComponentPage.deleteLink.click();
   }
 );
 
@@ -102,6 +122,7 @@ When("I edit the page title on the {string}", (pageName) => {
   this.newPageName = "testing";
   FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.pageTitle.clearValue();
+  expect(EditPageSection.pageTitle).toHaveValue("");
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
 });
@@ -155,10 +176,11 @@ Then("the section should be available when I edit the Question page", () => {
 });
 
 When("I add a new list", () => {
-  EditListSection.addList.click();
+  EditListSection.addNewList.click();
   EditListSection.listTitle.setValue("Countries");
-  EditListSection.add.click();
-  EditListSection.fillOutItems("one", "two", "three");
+  EditListSection.createListItem.click();
+  EditListSection.addNewListItem("Test Global Lists", "two", "three");
+  EditListSection.saveBtn.click();
   EditListSection.closeSection.click();
 });
 
@@ -167,7 +189,6 @@ When(
   (componentName, pageName) => {
     FormDesignerPage.createComponentForPageName(pageName).click();
     AddComponentPage.selectComponentByName(componentName);
-    AddComponentPage.fromAList.click();
   }
 );
 

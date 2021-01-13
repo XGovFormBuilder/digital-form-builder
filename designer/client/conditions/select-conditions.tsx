@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import InlineConditions from "./inline-conditions";
 import { ConditionsModel } from "@xgovformbuilder/model";
-import Flyout from "../flyout";
+import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
 

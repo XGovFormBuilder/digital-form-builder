@@ -1,7 +1,7 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 
-import config, { buildConfig } from "src/server/config";
+import { buildConfig } from "server/config";
 
 const { beforeEach, test, suite, afterEach } = (exports.lab = Lab.script());
 
@@ -18,9 +18,9 @@ suite(`Server Config`, () => {
       BROWSER_REFRESH_URL: "TEST_BROWSER_REFRESH_URL",
       FEEDBACK_LINK: "TEST_FEEDBACK_LINK",
       MATOMO_ID: "TEST_MATOMO_ID",
-      MATOMO_URL: "TEST_MATOMO_URL",
-      PAY_API_URL: "TEST_PAY_API_URL",
-      PAY_RETURN_URL: "TEST_PAY_RETURN_URL",
+      MATOMO_URL: "https://matomo.url",
+      PAY_API_URL: "https://pay.url",
+      PAY_RETURN_URL: "https://pay.return.url",
       SERVICE_URL: "TEST_SERVICE_URL",
       REDIS_HOST: "TEST_REDIS_HOST",
       REDIS_PORT: "9999",
@@ -58,9 +58,9 @@ suite(`Server Config`, () => {
       browserRefreshUrl: "TEST_BROWSER_REFRESH_URL",
       feedbackLink: "TEST_FEEDBACK_LINK",
       matomoId: "TEST_MATOMO_ID",
-      matomoUrl: "TEST_MATOMO_URL",
-      payApiUrl: "TEST_PAY_API_URL",
-      payReturnUrl: "TEST_PAY_RETURN_URL",
+      matomoUrl: "https://matomo.url",
+      payApiUrl: "https://pay.url",
+      payReturnUrl: "https://pay.return.url",
       serviceUrl: "TEST_SERVICE_URL",
       redisHost: "TEST_REDIS_HOST",
       redisPort: 9999,
@@ -110,6 +110,45 @@ suite(`Server Config`, () => {
       documentUploadApiUrl: "http://localhost:9000",
       sessionTimeout: 1200000,
     });
+  });
+
+  test("it throws when MATOMO_URL is insecure", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      MATOMO_URL: "http://insecure.url",
+    };
+
+    expect(() => buildConfig()).to.throw(
+      Error,
+      "The server config is invalid. Provided matomoUrl is insecure, please use https"
+    );
+  });
+
+  test("it throws when PAY_API_URL is insecure", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      PAY_API_URL: "http://insecure.url",
+    };
+
+    expect(() => buildConfig()).to.throw(
+      Error,
+      "The server config is invalid. Provided payApiUrl is insecure, please use https"
+    );
+  });
+
+  test("it throws when PAY_RETURN_URL is insecure", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      PAY_RETURN_URL: "http://insecure.url",
+    };
+
+    expect(() => buildConfig()).to.throw(
+      Error,
+      "The server config is invalid. Provided payReturnUrl is insecure, please use https"
+    );
   });
 
   // TODO

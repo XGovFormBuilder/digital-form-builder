@@ -1,11 +1,12 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 import { assertSelectInput } from "./helpers/element-assertions";
 import LinkEdit from "../client/link-edit";
+import { DataContext } from "../client/context";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -164,8 +165,20 @@ suite("Link edit", () => {
       };
       const wrappedOnEdit = flags.mustCall(onEdit, 1);
 
-      const wrapper = shallow(
-        <LinkEdit data={data} edge={edge} onEdit={wrappedOnEdit} />
+      const DataWrapper = ({
+        dataValue = { data, save: sinon.spy() },
+        children,
+      }) => {
+        return (
+          <DataContext.Provider value={dataValue}>
+            {children}
+          </DataContext.Provider>
+        );
+      };
+
+      const wrapper = mount(
+        <LinkEdit data={data} edge={edge} onEdit={wrappedOnEdit} />,
+        { wrappingComponent: DataWrapper }
       );
       const selectedCondition = "aCondition";
       wrapper.instance().conditionSelected(selectedCondition);
@@ -176,7 +189,6 @@ suite("Link edit", () => {
 
       data.clone = sinon.stub();
       data.clone.returns(clonedData);
-      data.save = flags.mustCall(save, 1);
 
       await wrapper.simulate("submit", { preventDefault: preventDefault });
 

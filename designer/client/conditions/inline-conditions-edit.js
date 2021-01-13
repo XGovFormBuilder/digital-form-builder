@@ -4,8 +4,8 @@ import {
   toPresentationString,
   clone,
 } from "@xgovformbuilder/model";
-import { icons } from "../icons";
-import InlineConditionsDefinition from "./inline-conditions-definition";
+import InlineConditionsDefinition from "./InlineConditionsDefinition";
+import { EditIcon, MoveDownIcon, MoveUpIcon } from "../components/Icons";
 
 class InlineConditionsEdit extends React.Component {
   constructor(props) {
@@ -86,7 +86,7 @@ class InlineConditionsEdit extends React.Component {
                             className="govuk-link"
                             onClick={() => this.onClickEdit(index)}
                           >
-                            {icons.edit(true)}
+                            <EditIcon bottom={true} />
                           </a>
                         </span>
                       )}
@@ -102,7 +102,7 @@ class InlineConditionsEdit extends React.Component {
                               )
                             }
                           >
-                            {icons.moveUp}
+                            <MoveUpIcon />
                           </a>
                         </span>
                       )}
@@ -119,7 +119,7 @@ class InlineConditionsEdit extends React.Component {
                               )
                             }
                           >
-                            {icons.moveDown}
+                            <MoveDownIcon />
                           </a>
                         </span>
                       )}

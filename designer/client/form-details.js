@@ -1,17 +1,23 @@
 import React from "react";
-import formConfigurationApi from "./load-form-configurations";
 import { Radios } from "@govuk-jsx/radios";
 import { Input } from "@govuk-jsx/input";
+import { clone } from "@xgovformbuilder/model";
+
 import { validateTitle, hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
+import * as formConfigurationApi from "./load-form-configurations";
+import ErrorSummary from "./error-summary";
+import { DataContext } from "./context";
 
 class FormDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    const { feedbackForm, feedbackUrl } = props.data;
-    const selectedFeedbackForm = feedbackUrl?.substr(1);
+  static contextType = DataContext;
+
+  constructor(props, context) {
+    super(props, context);
+    const { data } = this.context;
+    const { feedbackForm, feedbackUrl } = data;
+    const selectedFeedbackForm = feedbackUrl?.substr(1) || "";
     this.state = {
-      title: props.data.name,
+      title: data.name || "",
       feedbackForm: feedbackForm,
       formConfigurations: [],
       selectedFeedbackForm,
@@ -28,10 +34,12 @@ class FormDetails extends React.Component {
   }
 
   onSubmit = async (e) => {
-    e.preventDefault();
+    e?.preventDefault();
     const validationErrors = this.validate();
+
     if (hasValidationErrors(validationErrors)) return;
-    const { data } = this.props;
+
+    const { data, save } = this.context;
     const { title, feedbackForm, selectedFeedbackForm } = this.state;
     const copy = data.clone();
     copy.name = title;
@@ -41,7 +49,7 @@ class FormDetails extends React.Component {
     );
 
     try {
-      const saved = await data.save(copy);
+      const saved = await save(copy);
       if (this.props.onCreate) {
         this.props.onCreate(saved);
       }

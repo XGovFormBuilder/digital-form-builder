@@ -5,7 +5,7 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
 import Menu from "../client/menu";
-import Flyout from "../client/flyout";
+import { Flyout } from "../client/components/Flyout";
 import { Data } from "@xgovformbuilder/model";
 
 const { expect } = Code;

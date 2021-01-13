@@ -1,6 +1,6 @@
 module.exports = class Section {
   get parentElement() {
-    return browser.$(".flyout-menu-container div.panel");
+    return browser.$(".flyout__container div.panel");
   }
 
   get pageTitle() {
@@ -13,10 +13,10 @@ module.exports = class Section {
   }
 
   get saveBtn() {
-    return this.parentElement.$(".govuk-button=Save");
+    return browser.$(".govuk-button=Save");
   }
 
   get closeSection() {
-    return browser.$("a.close");
+    return browser.$("=Close");
   }
 };

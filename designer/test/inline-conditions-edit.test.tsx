@@ -735,14 +735,14 @@ function assertEditPanel(wrapper, conditions, editingError) {
       assertLink(
         actions.children().at(0).find(`#condition-${index}-edit`),
         `condition-${index}-edit`,
-        "Edit"
+        "<EditIcon />"
       );
     }
     if (index !== 0) {
       assertLink(
         actions.children().at(1).find(`#condition-${index}-move-earlier`),
         `condition-${index}-move-earlier`,
-        "Move up"
+        "<MoveUpIcon />"
       );
     }
     if (index !== conditions.length - 1) {
@@ -753,7 +753,7 @@ function assertEditPanel(wrapper, conditions, editingError) {
           .at(actionIndex)
           .find(`#condition-${index}-move-later`),
         `condition-${index}-move-later`,
-        "Move down"
+        "<MoveDownIcon />"
       );
     }
   });
