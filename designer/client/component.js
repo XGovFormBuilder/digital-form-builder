@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SortableHandle } from "react-sortable-hoc";
-import Flyout from "./flyout";
+import { Flyout } from "./components/Flyout";
 import ComponentEdit from "./ComponentEdit";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { i18n } from "./i18n";

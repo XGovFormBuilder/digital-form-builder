@@ -2,8 +2,8 @@ import React from "react";
 import { mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { useFlyoutEffect } from "../client/flyout";
-import { FlyoutContext } from "../client/context";
+import { useFlyoutEffect } from "../Flyout";
+import { FlyoutContext } from "../../../context";
 import sinon from "sinon";
 
 const { expect } = Code;

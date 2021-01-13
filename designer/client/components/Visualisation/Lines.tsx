@@ -1,7 +1,7 @@
 import React from "react";
 import { Data } from "@xgovformbuilder/model";
 
-import Flyout from "../../flyout";
+import { Flyout } from "../Flyout";
 import LinkEdit from "../../link-edit";
 import { Layout, Edge } from "./getLayout";
 

@@ -1,0 +1,91 @@
+@import "../../styles/colors.scss";
+
+.flyout {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+  overflow: scroll;
+  z-index: 1000;
+
+  &__button-close {
+    cursor: pointer;
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    z-index: 100;
+
+    &:hover,
+    &:focus {
+      outline: 3px solid transparent;
+      color: #0b0c0c;
+      background-color: govuk-colour("yellow");
+      box-shadow: 0 -2px govuk-colour("yellow"), 0 4px #0b0c0c;
+      text-decoration: none;
+    }
+  }
+
+  &__container {
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    min-width: 300px;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+
+    &.large {
+      width: 75%;
+    }
+
+    &.xlarge {
+      width: 95%;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .panel {
+      display: flex;
+      max-height: 100%;
+      flex-direction: column;
+    }
+
+    .panel-body {
+      flex: 1;
+
+      .govuk-button {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .govuk-tabs__panel {
+    overflow-y: auto;
+  }
+
+  &.hide {
+    transform: translate3d(-100vw, 0, 0);
+  }
+
+  &.show {
+    transform: translate3d(0vw, 0, 0);
+    min-width: 100%;
+    overflow: hidden;
+  }
+
+  & h2 a {
+    color: #333;
+    margin-left: 15px;
+    text-decoration: none;
+  }
+
+  & h2 a:hover {
+    text-decoration: underline;
+  }
+}

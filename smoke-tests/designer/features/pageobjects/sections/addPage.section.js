@@ -2,7 +2,7 @@ const Section = require("./section");
 
 class AddPageSection extends Section {
   get sectionContainer() {
-    return $(".flyout-menu-container ");
+    return $(".flyout__container ");
   }
 
   linkFrom(pagePath) {

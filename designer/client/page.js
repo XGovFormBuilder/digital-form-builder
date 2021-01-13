@@ -5,7 +5,7 @@ import {
   arrayMove,
 } from "react-sortable-hoc";
 
-import Flyout from "./flyout";
+import { Flyout } from "./components/Flyout";
 import PageEdit from "./page-edit";
 import { Component } from "./component";
 import { ComponentCreate } from "./components/ComponentCreate";

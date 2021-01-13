@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/RenderInPortal";
 import SectionEdit from "./section/section-edit";
-import Flyout from "./flyout";
+import { Flyout } from "./components/Flyout";
 import { withI18n } from "./i18n";
 import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";

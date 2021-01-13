@@ -2,7 +2,7 @@ const Section = require("./section");
 
 class AddLinkSection extends Section {
   get parent() {
-    return browser.$(".flyout-menu-container");
+    return browser.$(".flyout__container");
   }
 
   get fromSelectList() {
