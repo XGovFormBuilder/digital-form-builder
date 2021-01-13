@@ -1,5 +1,5 @@
 import React from "react";
-import Flyout from "./flyout";
+import { Flyout } from "./components/Flyout";
 import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";

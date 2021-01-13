@@ -2,17 +2,29 @@ const Page = require("./basePage");
 
 class AddComponentPage extends Page {
   get parent() {
-    return $(".flyout-menu-container");
+    return $(".flyout__container");
   }
+
   get addComponent() {
     return this.parent.$(".component-create");
   }
+
+  get backToComponentList() {
+    return this.parent.$("=Back to create component list");
+  }
+
+  get sectionHeading() {
+    return this.parent.$("h4");
+  }
+
   get titleField() {
     return this.parent.$("#field-title");
   }
+
   get nameField() {
     return this.parent.$("#field-name");
   }
+
   get hintField() {
     return this.parent.$("#field-hint");
   }

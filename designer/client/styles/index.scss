@@ -1,5 +1,5 @@
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
-@import 'utils';
+@import "utils";
 @import "../node_modules/govuk-frontend/govuk/all.scss";
 
 $color-orange: #ffbf47;
@@ -79,7 +79,6 @@ main {
       @extend .govuk-\!-font-size-14;
       @extend .govuk-\!-margin-bottom-1, .govuk-\!-margin-right-1;
     }
-    
   }
 
   @include govuk-media-query($from: tablet) {
@@ -260,96 +259,6 @@ main {
       visibility: visible;
     }
   }
-}
-
-// Flyout
-.flyout-menu {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
-  overflow: scroll;
-  z-index: 1000;
-
-  .flyout-menu-container {
-    width: 50%;
-    height: 100%;
-    overflow: auto;
-
-    // padding: 20px;
-    min-width: 300px;
-    // max-width: 600px;
-    box-sizing: border-box;
-    position: relative;
-    background-color: #fff;
-
-    &.large {
-      width: 75%;
-    }
-
-    &.xlarge {
-      width: 95%;
-    }
-
-    > .close {
-      cursor: pointer;
-      color: #aaa;
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      z-index: 100;
-    }
-
-    > .close:hover {
-      color: #000;
-    }
-
-    textarea {
-      resize: vertical;
-    }
-
-    .panel {
-      display: flex;
-      max-height: 100%;
-      flex-direction: column;
-    }
-    .panel-header {
-    }
-    .panel-body {
-      flex: 1;
-      
-      .govuk-button {
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  .govuk-tabs__panel {
-    overflow-y: auto;
-  }
-}
-
-.flyout-menu.hide {
-  transform: translate3d(-100vw, 0, 0);
-}
-
-.flyout-menu.show {
-  transform: translate3d(0vw, 0, 0);
-  min-width: 100%;
-  overflow: hidden;
-}
-
-.flyout-menu h2 a {
-  color: #333;
-  margin-left: 15px;
-  text-decoration: none;
-}
-
-.flyout-menu h2 a:hover {
-  text-decoration: underline;
 }
 
 // Modal

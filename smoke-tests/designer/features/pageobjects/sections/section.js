@@ -1,6 +1,6 @@
 module.exports = class Section {
   get parentElement() {
-    return browser.$(".flyout-menu-container div.panel");
+    return browser.$(".flyout__container div.panel");
   }
 
   get pageTitle() {
