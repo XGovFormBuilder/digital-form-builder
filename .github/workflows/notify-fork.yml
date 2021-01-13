@@ -21,8 +21,10 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.parse-notifcations.outputs.matrix)}}
     steps:
-      - name: checking matrix
-        run: echo ${{matrix.endpoint}} ${{matrix.branch}}
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
 #      - name: Repository dispatch
 #        run: |
 #          curl -X POST  ${{ matrix.endpoint }} \
