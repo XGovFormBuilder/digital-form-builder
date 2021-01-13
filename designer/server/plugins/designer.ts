@@ -53,7 +53,11 @@ export const designerPlugin = {
             let error;
             try {
               configurations = await persistenceService.listAllConfigurations();
-              return h.view("designer", { newConfig: true, configurations });
+              return h.view("designer", {
+                newConfig: true,
+                configurations,
+                phase: config.phase,
+              });
             } catch (e) {
               error = e;
               configurations = [];
@@ -61,6 +65,7 @@ export const designerPlugin = {
                 newConfig: true,
                 configurations,
                 error,
+                phase: config.phase,
               });
             }
           },
@@ -110,7 +115,11 @@ export const designerPlugin = {
         options: {
           handler: (request, h) => {
             const { id } = request.params;
-            return h.view("designer", { id, previewUrl: config.previewUrl });
+            return h.view("designer", {
+              id,
+              previewUrl: config.previewUrl,
+              phase: config.phase,
+            });
           },
         },
       });
