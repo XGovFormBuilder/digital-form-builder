@@ -9,12 +9,13 @@ import { InputWrapper } from "./input-wrapper";
 import { ValuesWrapper } from "./values-wrapper";
 import { clone, filter } from "../utils/helpers";
 import { ComponentDef } from "../components/types";
-import { Page, Section, List, Feedback } from "./types";
+import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 
 type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
   name?: string;
   conditions?: ConditionRawData[];
   feedback?: Feedback;
+  phaseBanner?: PhaseBanner;
 };
 
 export class Data {
@@ -46,6 +47,7 @@ export class Data {
   pages: Page[] = [];
   lists: List[] = [];
   sections: Section[] = [];
+  phaseBanner: PhaseBanner = {};
   #conditions: ConditionsWrapper[] = [];
   #feedback?: Feedback;
 
@@ -61,6 +63,7 @@ export class Data {
     this.#conditions = (rawDataClone.conditions || []).map(
       (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
     );
+    this.phaseBanner = rawDataClone.phaseBanner || {};
 
     delete rawDataClone.name;
     delete rawDataClone.conditions;
@@ -221,6 +224,14 @@ export class Data {
       return new ValuesWrapper(values, this);
     }
     return undefined;
+  }
+
+  setFormPhase(phase: PhaseBanner["phase"]) {
+    this.phaseBanner.phase = phase;
+  }
+
+  getFormPhase() {
+    this.phaseBanner.phase;
   }
 
   _valuesFor(
