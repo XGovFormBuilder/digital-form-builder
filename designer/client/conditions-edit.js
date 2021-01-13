@@ -1,6 +1,6 @@
 import React from "react";
 import InlineConditions from "./conditions/inline-conditions";
-import Flyout from "./flyout";
+import { Flyout } from "./components/Flyout";
 
 class ConditionsEdit extends React.Component {
   state = {};

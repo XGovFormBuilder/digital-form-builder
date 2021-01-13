@@ -2,7 +2,7 @@ const Page = require("./basePage");
 
 class AddComponentPage extends Page {
   get parent() {
-    return $(".flyout-menu-container");
+    return $(".flyout__container");
   }
   get addComponent() {
     return this.parent.$(".component-create");
