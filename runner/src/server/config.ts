@@ -23,7 +23,6 @@ function secureUrl(value: string, helper: CustomHelpers) {
   });
 }
 
-// Define config schema
 const schema = Joi.object({
   port: Joi.number().default(DEFAULT_PORT),
   env: Joi.string()
