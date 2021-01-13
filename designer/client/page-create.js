@@ -5,7 +5,7 @@ import { Input } from "@govuk-jsx/input";
 import SelectConditions from "./conditions/select-conditions";
 import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/RenderInPortal";
-import Flyout from "./flyout";
+import { Flyout } from "./components/Flyout";
 import SectionEdit from "./section/section-edit";
 import { withI18n } from "./i18n";
 import ErrorSummary from "./error-summary";
