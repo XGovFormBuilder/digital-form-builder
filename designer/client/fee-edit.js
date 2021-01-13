@@ -2,9 +2,13 @@ import FeeItems from "./fee-items";
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { Input } from "@govuk-jsx/input";
-import { ErrorSummary } from "./error-summary";
+
+import ErrorSummary from "./error-summary";
+import { DataContext } from "./context";
 
 class FeeEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.feeItemsRef = React.createRef();
@@ -18,6 +22,7 @@ class FeeEdit extends React.Component {
     const form = e.target;
     const formData = new window.FormData(form);
     const { data } = this.props;
+    const { save } = this.context;
 
     // Items
     const payApiKey = formData.get("pay-api-key").trim();
@@ -36,8 +41,7 @@ class FeeEdit extends React.Component {
       condition: conditions[i],
     }));
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })
@@ -73,15 +77,14 @@ class FeeEdit extends React.Component {
       return;
     }
 
+    const { save } = this.context;
     const { data, fee } = this.props;
     const copy = clone(data);
 
     copy.fees.splice(data.fees.indexOf(fee), 1);
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
-        console.log(data);
         this.props.onEdit({ data });
       })
       .catch((err) => {

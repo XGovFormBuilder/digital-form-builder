@@ -1,9 +1,9 @@
 import React from "react";
-import Flyout from "./flyout";
-import DataModel from "./data-model";
+import { Flyout } from "./components/Flyout";
+import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
-import ListsEdit from "./lists-edit";
+import ListsEdit from "../client/list/lists-edit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions-edit";
 import FeeEdit from "./fee-edit";
@@ -11,8 +11,13 @@ import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs/outputs-edit";
 import FormDetails from "./form-details";
+import { ListContextProvider } from "./reducers/listReducer";
+import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
+import { DataContext } from "./context";
 
 export default class Menu extends React.Component {
+  static contextType = DataContext;
+
   state = {
     tab: "model",
   };
@@ -23,14 +28,13 @@ export default class Menu extends React.Component {
   };
 
   onFileUpload = (e) => {
+    const { save } = this.context;
     const { data } = this.props;
     const file = e.target.files.item(0);
     const reader = new window.FileReader();
     reader.readAsText(file, "UTF-8");
     reader.onload = function (evt) {
       const content = JSON.parse(evt.target.result);
-
-      console.log("Converting form format");
 
       for (const page of content.pages) {
         if (!page.title && page.components && page.components.length > 0) {
@@ -39,7 +43,6 @@ export default class Menu extends React.Component {
         for (const link of page.next || []) {
           const nextPage = content.pages.find((np) => np.path === link.path);
           if (nextPage && nextPage.condition) {
-            console.log(`Moving condition ${nextPage.condition} to link`);
             link.condition = nextPage.condition;
           }
         }
@@ -49,9 +52,7 @@ export default class Menu extends React.Component {
         delete page.condition;
       }
 
-      console.log("Converted", content);
-
-      data.save(content);
+      save(content);
     };
   };
 
@@ -128,7 +129,6 @@ export default class Menu extends React.Component {
             Summary
           </button>
         </div>
-
         <div className="menu__row">
           <a href="/new">Create new form</a>
           <a href="#" onClick={this.onClickUpload}>
@@ -142,7 +142,6 @@ export default class Menu extends React.Component {
         {this.state.showFormConfig && (
           <Flyout
             title="Form Details"
-            show={this.state.showFormConfig}
             onHide={() => this.setState({ showFormConfig: false })}
           >
             <FormDetails
@@ -151,11 +150,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showAddPage && (
           <Flyout
             title="Add Page"
-            show={this.state.showAddPage}
             onHide={() => this.setState({ showAddPage: false })}
           >
             <PageCreate
@@ -164,11 +161,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showAddLink && (
           <Flyout
             title="Add Link"
-            show={this.state.showAddLink}
             onHide={() => this.setState({ showAddLink: false })}
           >
             <LinkCreate
@@ -177,11 +172,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditSections && (
           <Flyout
             title="Edit Sections"
-            show={this.state.showEditSections}
             onHide={() => this.setState({ showEditSections: false })}
           >
             <SectionsEdit
@@ -190,11 +183,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditConditions && (
           <Flyout
             title="Edit Conditions"
-            show={this.state.showEditConditions}
             onHide={() => this.setState({ showEditConditions: false })}
             width="large"
           >
@@ -204,25 +195,23 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditLists && (
           <Flyout
             title="Edit Lists"
-            show={this.state.showEditLists}
             onHide={() => this.setState({ showEditLists: false })}
-            width="xlarge"
+            width={""}
           >
-            <ListsEdit
-              data={data}
-              onCreate={() => this.setState({ showEditLists: false })}
-            />
+            <ListsEditorContextProvider>
+              <ListContextProvider>
+                <ListsEdit />
+              </ListContextProvider>
+            </ListsEditorContextProvider>
           </Flyout>
         )}
 
         {this.state.showEditFees && (
           <Flyout
             title="Edit Fees"
-            show={this.state.showEditFees}
             onHide={() => this.setState({ showEditFees: false })}
             width="xlarge"
           >
@@ -232,11 +221,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditNotify && (
           <Flyout
             title="Edit Notify"
-            show={this.state.showEditNotify}
             onHide={() => this.setState({ showEditNotify: false })}
             width="xlarge"
           >
@@ -246,11 +233,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditDeclaration && (
           <Flyout
             title="Edit Declaration"
-            show={this.state.showEditDeclaration}
             onHide={() => this.setState({ showEditDeclaration: false })}
             width="xlarge"
           >
@@ -261,11 +246,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditOutputs && (
           <Flyout
             title="Edit Outputs"
-            show={this.state.showEditOutputs}
             onHide={() => this.setState({ showEditOutputs: false })}
             width="xlarge"
           >
@@ -276,11 +259,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showEditSummaryBehaviour && (
           <Flyout
             title="Edit Summary behaviour"
-            show={this.state.showEditSummaryBehaviour}
             onHide={() => this.setState({ showEditSummaryBehaviour: false })}
             width="xlarge"
           >
@@ -293,11 +274,9 @@ export default class Menu extends React.Component {
             />
           </Flyout>
         )}
-
         {this.state.showSummary && (
           <Flyout
             title="Summary"
-            show={this.state.showSummary}
             width="large"
             onHide={() => this.setState({ showSummary: false })}
           >
@@ -338,7 +317,7 @@ export default class Menu extends React.Component {
                 </ul>
                 {tab === "model" && (
                   <section className="govuk-tabs__panel">
-                    <DataModel data={data} />
+                    <DataPrettyPrint data={data} />
                   </section>
                 )}
                 {tab === "json" && (

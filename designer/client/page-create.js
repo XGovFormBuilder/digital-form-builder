@@ -1,15 +1,20 @@
 import React from "react";
+import { clone } from "@xgovformbuilder/model";
+import { Input } from "@govuk-jsx/input";
+
 import SelectConditions from "./conditions/select-conditions";
 import { toUrl } from "./helpers";
-import { RenderInPortal } from "./components/render-in-portal";
-import Flyout from "./flyout";
+import { RenderInPortal } from "./components/RenderInPortal";
+import { Flyout } from "./components/Flyout";
 import SectionEdit from "./section/section-edit";
 import { withI18n } from "./i18n";
-import { Input } from "@govuk-jsx/input";
-import { ErrorSummary } from "./error-summary";
+import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
+import { DataContext } from "./context";
 
 class PageCreate extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     const { page } = this.props;
@@ -27,6 +32,8 @@ class PageCreate extends React.Component {
     e.preventDefault();
 
     const { data } = this.props;
+    const { save } = this.context;
+
     const title = this.state.title?.trim();
     const linkFrom = this.state.linkFrom?.trim();
     const section = this.state.section?.name?.trim();
@@ -50,7 +57,7 @@ class PageCreate extends React.Component {
       value.controller = pageType;
     }
 
-    let copy = data.clone();
+    let copy = clone(data);
 
     copy = copy.addPage(value);
 
@@ -58,7 +65,7 @@ class PageCreate extends React.Component {
       copy = copy.addLink(linkFrom, path, selectedCondition);
     }
     try {
-      await data.save(copy);
+      await save(copy);
       this.props.onCreate({ value });
     } catch (err) {
       console.error(err);

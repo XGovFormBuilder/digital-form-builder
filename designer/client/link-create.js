@@ -1,22 +1,27 @@
 import React from "react";
 import SelectConditions from "./conditions/select-conditions";
 import { ErrorMessage } from "@govuk-jsx/error-message";
+import { clone } from "@xgovformbuilder/model";
 import classNames from "classnames";
-import { ErrorSummary } from "./error-summary";
+
+import ErrorSummary from "./error-summary";
+import { DataContext } from "./context";
 
 class LinkCreate extends React.Component {
+  static contextType = DataContext;
   state = { errors: {} };
 
   onSubmit = async (e) => {
     e.preventDefault();
+    const { save } = this.context;
     const { from, to, selectedCondition } = this.state;
     const hasValidationErrors = this.validate();
     if (hasValidationErrors) return;
     // Apply
     const { data } = this.props;
-    const copy = data.clone();
+    const copy = clone(data);
     const updatedData = copy.addLink(from, to, selectedCondition);
-    const savedData = await data.save(updatedData);
+    const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };
 
@@ -40,7 +45,7 @@ class LinkCreate extends React.Component {
       errors.from = { href: "#link-source", children: "Enter from" };
     }
     if (!to) {
-      errors.to = { href: "#link-source", children: "Enter to" };
+      errors.to = { href: "#link-target", children: "Enter to" };
     }
     this.setState({
       errors,

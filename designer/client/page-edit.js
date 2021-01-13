@@ -1,16 +1,20 @@
 import React from "react";
-import { toUrl } from "./helpers";
-import { clone } from "@xgovformbuilder/model";
-import { RenderInPortal } from "./components/render-in-portal";
-import SectionEdit from "./section/section-edit";
-import { nanoid } from "nanoid";
-import Flyout from "./flyout";
-import { withI18n } from "./i18n";
 import { Input } from "@govuk-jsx/input";
-import { ErrorSummary } from "./error-summary";
+import { clone } from "@xgovformbuilder/model";
+import { nanoid } from "nanoid";
+
+import { toUrl } from "./helpers";
+import { RenderInPortal } from "./components/RenderInPortal";
+import SectionEdit from "./section/section-edit";
+import { Flyout } from "./components/Flyout";
+import { withI18n } from "./i18n";
+import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
+import { DataContext } from "./context";
 
 export class PageEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     const { page } = this.props;
@@ -28,6 +32,7 @@ export class PageEdit extends React.Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const { save } = this.context;
     const { title, path, section, controller } = this.state;
     const { data, page } = this.props;
 
@@ -55,7 +60,7 @@ export class PageEdit extends React.Component {
 
     copy.pages[pageIndex] = copyPage;
     try {
-      await data.save(copy);
+      await save(copy);
       this.props.onEdit({ data });
     } catch (err) {
       console.error(err);
@@ -88,6 +93,7 @@ export class PageEdit extends React.Component {
       return;
     }
 
+    const { save } = this.context;
     const { data, page } = this.props;
     const copy = clone(data);
 
@@ -107,7 +113,7 @@ export class PageEdit extends React.Component {
 
     copy.pages.splice(copyPageIdx, 1);
     try {
-      await data.save(copy);
+      await save(copy);
     } catch (error) {
       console.error(error);
     }
@@ -117,6 +123,7 @@ export class PageEdit extends React.Component {
     e.preventDefault();
 
     const { data, page } = this.props;
+    const { save } = this.context;
     const copy = clone(data);
     const duplicatedPage = clone(page);
     duplicatedPage.path = `${duplicatedPage.path}-${nanoid(6)}`;
@@ -125,7 +132,7 @@ export class PageEdit extends React.Component {
     });
     copy.pages.push(duplicatedPage);
     try {
-      await data.save(copy);
+      await save(copy);
     } catch (err) {
       console.error(err);
     }

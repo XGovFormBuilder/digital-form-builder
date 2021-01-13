@@ -1,4 +1,5 @@
 import React, { MouseEvent } from "react";
+import { nanoid } from "nanoid";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
@@ -32,8 +33,8 @@ class OutputsEdit extends React.Component<Props, State> {
 
   onClickAddOutput = async (event: MouseEvent) => {
     event.preventDefault();
-    const { data } = this.props;
-    const id = await data.getId();
+
+    const id = nanoid();
     this.setState({
       showAddOutput: true,
       id,

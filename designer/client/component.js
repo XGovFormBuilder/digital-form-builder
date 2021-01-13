@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { SortableHandle } from "react-sortable-hoc";
-import Flyout from "./flyout";
-import ComponentEdit from "./component-edit";
+import { Flyout } from "./components/Flyout";
+import ComponentEdit from "./ComponentEdit";
+import { ComponentContextProvider } from "./reducers/component/componentReducer";
+import { i18n } from "./i18n";
+
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle">&#9776;</span>
 ));
@@ -281,42 +284,30 @@ function Html() {
   );
 }
 
-export class Component extends React.Component {
-  state = {};
-
-  showEditor = (e, value) => {
-    e?.stopPropagation();
-    this.setState({ showEditor: value });
+export function Component(props) {
+  const [showEditor, setShowEditor] = useState();
+  const toggleShowEditor = (value) => {
+    setShowEditor(value ?? !showEditor);
   };
+  const { data, page, component } = props;
+  const TagName = componentTypes[`${component.type}`];
+  const editFlyoutTitle = i18n("component.edit", {
+    name: i18n(`fieldTypeToName.${component.type}`),
+  });
 
-  render() {
-    const { data, page, component } = this.props;
-    const TagName = componentTypes[`${component.type}`];
-
-    return (
-      <div>
-        <div
-          className="component govuk-!-padding-2"
-          onClick={(e) => this.showEditor(e, true)}
-        >
-          <DragHandle />
-          <TagName />
-        </div>
-        {this.state.showEditor && (
-          <Flyout
-            title="Edit Component"
-            show={this.state.showEditor}
-            onHide={(e) => this.showEditor(e, false)}
-          >
-            <ComponentEdit
-              component={component}
-              page={page}
-              data={data}
-              onEdit={(e) => this.setState({ showEditor: false })}
-            />
-          </Flyout>
-        )}
+  return (
+    <div>
+      <div className="component govuk-!-padding-2" onClick={toggleShowEditor}>
+        <DragHandle />
+        <TagName />
       </div>
-    );
-  }
+      {showEditor && (
+        <Flyout title={editFlyoutTitle} show={true} onHide={toggleShowEditor}>
+          <ComponentContextProvider pagePath={page.path} component={component}>
+            <ComponentEdit page={page} toggleShowEditor={toggleShowEditor} />
+          </ComponentContextProvider>
+        </Flyout>
+      )}
+    </div>
+  );
 }

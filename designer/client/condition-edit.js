@@ -1,8 +1,11 @@
 import React from "react";
 import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
+import { DataContext } from "./context";
 
 class ConditionEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +16,7 @@ class ConditionEdit extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
+    const { save } = this.context;
     const displayName = this.state.displayName;
     const newValue = this.state.value;
     const { data, condition } = this.props;
@@ -21,7 +25,7 @@ class ConditionEdit extends React.Component {
     const updated = copy.updateCondition(condition.name, displayName, newValue);
 
     try {
-      const saved = await data.save(updated);
+      const saved = await save(updated);
       this.props.onEdit({ data: saved });
     } catch (err) {
       console.error(err);
@@ -35,16 +39,15 @@ class ConditionEdit extends React.Component {
       return;
     }
 
+    const { save } = this.context;
     const { data, condition } = this.props;
     const copy = clone(data);
 
     // Remove the condition
     copy.removeCondition(condition.name);
 
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
-        console.log(data);
         this.props.onEdit({ data });
       })
       .catch((err) => {

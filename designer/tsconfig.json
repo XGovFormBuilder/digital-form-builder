@@ -8,7 +8,7 @@
     "declarationDir": "dist/types",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "lib": ["DOM"]
+    "lib": ["DOM", "es2018.promise"]
   },
   "include": [
     "server",
@@ -16,7 +16,8 @@
     "test",
     "package.json",
     "new-form.json",
-    "client/i18n/translations/en.translation.json"
+    "client/i18n/translations/en.translation.json",
+    "test/helpers/window-stubbing.js"
   ],
   "paths": {
     "*": ["node_modules/*", "../node_modules"]
