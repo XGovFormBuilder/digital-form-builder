@@ -11,8 +11,9 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: set-matrix
+      - uses: actions/checkout@v2
         run: |
-          JSON=$(cat ./notifications.json)
+          JSON=$(cat .github/workflows/notifications.json)
           echo "::set-output name=${JSON//'%'/'%25'}"
   notify:
     runs-on: ubuntu-latest
