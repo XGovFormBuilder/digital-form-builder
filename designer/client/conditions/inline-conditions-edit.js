@@ -4,8 +4,8 @@ import {
   toPresentationString,
   clone,
 } from "@xgovformbuilder/model";
+import InlineConditionsDefinition from "./InlineConditionsDefinition";
 import { EditIcon, MoveDownIcon, MoveUpIcon } from "../components/Icons";
-import InlineConditionsDefinition from "./inline-conditions-definition";
 
 class InlineConditionsEdit extends React.Component {
   constructor(props) {
