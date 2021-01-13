@@ -21,7 +21,7 @@ jobs:
       matrix: ${{fromJson(needs.parse-notifcations.outputs.matrix)}}
     steps:
       - name: checking matrix
-      run: echo '${{matrix.endpoint}} ${{matrix.branch}}'
+        run: echo '${{matrix.endpoint}} ${{matrix.branch}}'
 #      - name: Repository dispatch
 #        run: |
 #          curl -X POST  ${{ matrix.endpoint }} \
