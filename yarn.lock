@@ -3911,6 +3911,7 @@ __metadata:
     eslint-plugin-import: ^2.22.0
     file-loader: ^6.1.0
     flat: 5.0.0
+    focus-trap-react: ^8.3.2
     govuk-frontend: ^3.10.1
     hapi-pino: ^8.0.1
     hoek: ^6.1.3
@@ -10298,6 +10299,28 @@ __metadata:
     inherits: ^2.0.3
     readable-stream: ^2.3.6
   checksum: b8fa1fbfadd5c4b6df3cf2c34b3c408fe508a2899c536bafa339f679de545689997e907bd4ff61dd292942f8044fb2f293a5956dd8b601f6a5601617842d0dda
+  languageName: node
+  linkType: hard
+
+"focus-trap-react@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "focus-trap-react@npm:8.3.2"
+  dependencies:
+    focus-trap: ^6.2.2
+  peerDependencies:
+    prop-types: ^15.7.2
+    react: ">=16.0.0"
+    react-dom: ">=16.0.0"
+  checksum: 62b8c84138cd4a74465283eb3674f5fabe21eca5a363b5f20adaf2c4f5bc792666e6bbed143994537ba9949ed6f65691d9ded39e050846646d0068d9e37cb2c5
+  languageName: node
+  linkType: hard
+
+"focus-trap@npm:^6.2.2":
+  version: 6.2.3
+  resolution: "focus-trap@npm:6.2.3"
+  dependencies:
+    tabbable: ^5.1.4
+  checksum: be5505a4f9c17e060efc2c17a86f6466b01e364eb921a741c323e91e5f3fa6f6994c7d2a7297391b8b343fe01c5a9af1743c5ceb3c17ea7c7edee1cdb121cea7
   languageName: node
   linkType: hard
 
@@ -19874,6 +19897,13 @@ resolve@1.1.7:
   version: 1.3.1
   resolution: "symlink-or-copy@npm:1.3.1"
   checksum: 7b9b7ddc67cd3efe4831d2c51b191fa4cb9642c5432bd978427070bdcad7224c9d104117ca3c22bf17398f4f3566d4aaaaabbefef175155da8c5678f302ac9ae
+  languageName: node
+  linkType: hard
+
+"tabbable@npm:^5.1.4":
+  version: 5.1.5
+  resolution: "tabbable@npm:5.1.5"
+  checksum: e9a873a2917166c2f8412b4897cee4716475ab049769d268c50f98a39149f98c5efe8588241848edce889978490eedf0c84010235085639a369302ca31cfbf26
   languageName: node
   linkType: hard
 
