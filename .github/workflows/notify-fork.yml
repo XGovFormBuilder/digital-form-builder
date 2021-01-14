@@ -24,10 +24,10 @@ jobs:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
       # Create check run
-    - name: Dump matrix context
+    - name: Dump event content
       env:
-        CONTENT: ${{ toJson(github.event) }}
-      run: echo "$CONTENT"
+        EVENT_CONTENT: ${{ toJson(github.event.action) }}
+      run: echo "$EVENT_CONTENT"
 #    - run: echo ${{github.event.action}}
 #    - run: echo ${{github.event}}
 #      - uses: octokit/request-action@v2.x
