@@ -11,7 +11,10 @@ import { clone, filter } from "../utils/helpers";
 import { ComponentDef } from "../components/types";
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 
-type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
+export type RawData = Pick<
+  Data,
+  "startPage" | "pages" | "lists" | "sections"
+> & {
   name?: string;
   conditions?: ConditionRawData[];
   feedback?: Feedback;
@@ -47,29 +50,25 @@ export class Data {
   pages: Page[] = [];
   lists: List[] = [];
   sections: Section[] = [];
-  phaseBanner: PhaseBanner = {};
+  phaseBanner?: PhaseBanner = {};
   #conditions: ConditionsWrapper[] = [];
   #feedback?: Feedback;
 
   constructor(rawData: RawData) {
     const rawDataClone =
-      rawData instanceof Data
-        ? rawData._exposePrivateFields()
-        : Object.assign({}, rawData);
+      rawData instanceof Data ? rawData._exposePrivateFields() : { ...rawData };
 
+    // protected properties
     this.#name = rawDataClone.name || "";
-    this.startPage = rawDataClone.startPage;
     this.#feedback = rawDataClone.feedback;
     this.#conditions = (rawDataClone.conditions || []).map(
       (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
     );
-    this.phaseBanner = rawDataClone.phaseBanner || {};
 
-    delete rawDataClone.name;
-    delete rawDataClone.conditions;
-    delete rawDataClone.feedback;
+    // discard already set properties
+    const { name, conditions, feedback, ...otherProps } = rawDataClone;
 
-    Object.assign(this, rawDataClone);
+    Object.assign(this, otherProps);
   }
 
   _listInputsFor(page: Page, input: ComponentDef): Array<InputWrapper> {
@@ -224,14 +223,6 @@ export class Data {
       return new ValuesWrapper(values, this);
     }
     return undefined;
-  }
-
-  setFormPhase(phase: PhaseBanner["phase"]) {
-    this.phaseBanner.phase = phase;
-  }
-
-  getFormPhase() {
-    this.phaseBanner.phase;
   }
 
   _valuesFor(

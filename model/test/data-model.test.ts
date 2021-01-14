@@ -2,6 +2,7 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 
 import { Data } from "../src";
+import { RawData } from "../src/data-model/data-model";
 
 const { expect } = Code;
 
@@ -10,7 +11,7 @@ exports.lab = lab;
 const { suite, describe, test } = lab;
 
 suite("data model", () => {
-  const fullyPopulatedRawData = {
+  const fullyPopulatedRawData: RawData = {
     pages: [
       {
         name: "page1",
@@ -49,6 +50,10 @@ suite("data model", () => {
         ],
       },
     ],
+    phaseBanner: {
+      phase: "alpha",
+      feedbackUrl: "mailto:test@gov.uk",
+    },
   };
 
   describe("all inputs", () => {
@@ -148,6 +153,9 @@ suite("data model", () => {
           title: "Feedback source form name",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_formTitle",
+          hint: "",
+          options: {},
+          schema: {},
         },
         {
           name: "feedbackContextInfo_pageTitle",
@@ -155,6 +163,9 @@ suite("data model", () => {
           title: "Feedback source page title",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_pageTitle",
+          hint: "",
+          options: {},
+          schema: {},
         },
         {
           name: "feedbackContextInfo_url",
@@ -162,6 +173,9 @@ suite("data model", () => {
           title: "Feedback source url",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_url",
+          hint: "",
+          options: {},
+          schema: {},
         },
       ]);
     });
@@ -791,6 +805,8 @@ suite("data model", () => {
           },
         ],
       });
+
+      console.log(data);
       expect(data.inputsAccessibleAt("/3")).to.equal([
         {
           name: "name1",
@@ -1023,9 +1039,9 @@ suite("data model", () => {
           title: undefined,
         },
         {
+          hint: "",
           name: "feedbackContextInfo_formTitle",
-          type: "TextField",
-          title: "Feedback source form name",
+          options: {},
           page: {
             name: "page1",
             path: "/1",
@@ -1033,9 +1049,14 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_formTitle",
+          schema: {},
+          title: "Feedback source form name",
+          type: "TextField",
         },
         {
+          hint: "",
           name: "feedbackContextInfo_pageTitle",
+          options: {},
           type: "TextField",
           title: "Feedback source page title",
           page: {
@@ -1045,11 +1066,15 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_pageTitle",
+          schema: {},
         },
         {
           name: "feedbackContextInfo_url",
           type: "TextField",
           title: "Feedback source url",
+          hint: "",
+          options: {},
+          schema: {},
           page: {
             name: "page1",
             path: "/1",
@@ -2276,9 +2301,45 @@ suite("data model", () => {
     });
   });
 
+  describe.only("phase banner: ", () => {
+    test("empty phase banner object is set", () => {
+      const rawData = { ...fullyPopulatedRawData };
+      delete rawData.phaseBanner;
+
+      const data = new Data(rawData);
+      expect(typeof data.phaseBanner).to.equal("object");
+      expect(data.phaseBanner).to.equal({});
+    });
+
+    test("phase banner object is initialised correctly", () => {
+      const data = new Data({ ...fullyPopulatedRawData });
+      expect(data.phaseBanner.phase).to.equal("alpha");
+      expect(data.phaseBanner.feedbackUrl).to.equal("mailto:test@gov.uk");
+    });
+
+    test("phase property can be changed directly", () => {
+      const data = new Data({ ...fullyPopulatedRawData });
+      data.phaseBanner.phase = "beta";
+
+      expect(data.phaseBanner).to.equal({
+        phase: "beta",
+        feedbackUrl: "mailto:test@gov.uk",
+      });
+    });
+  });
+
   describe("toJSON", () => {
+    const basicFormJSON = {
+      conditions: [],
+      lists: [],
+      pages: [],
+      sections: [],
+      phaseBanner: {},
+    };
+
     test("should expose the conditions field", () => {
       const rawData: any = {
+        ...basicFormJSON,
         conditions: [
           {
             displayName: "a Monkey",
@@ -2286,9 +2347,6 @@ suite("data model", () => {
             value: "a Monkey value",
           },
         ],
-        lists: [],
-        pages: [],
-        sections: [],
       };
       const data = new Data(rawData);
       expect(data.toJSON()).to.equal(rawData);
@@ -2296,53 +2354,42 @@ suite("data model", () => {
 
     test("should expose the name field", () => {
       const rawData: any = {
-        conditions: [],
+        ...basicFormJSON,
         name: "My form",
-        lists: [],
-        pages: [],
-        sections: [],
       };
       const data = new Data(rawData);
       expect(data.toJSON()).to.equal(rawData);
     });
 
     test("should expose the feedback field", () => {
-      const rawData = {
-        conditions: [],
+      const rawData: any = {
+        ...basicFormJSON,
         feedback: {
           feedbackForm: true,
         },
-        lists: [],
-        pages: [],
-        sections: [],
       };
       const data = new Data(rawData);
       expect(data.toJSON()).to.equal(rawData);
     });
 
     test("should expose the pages field", () => {
-      const rawData = {
+      const rawData: any = {
         pages: [{ name: "someName" }],
       };
       const data = new Data(rawData);
       expect(data.toJSON()).to.equal({
+        ...basicFormJSON,
         pages: [{ name: "someName" }],
-        conditions: [],
-        lists: [],
-        sections: [],
       });
     });
 
     test("should not expose a random function", () => {
-      const rawData = {
+      const rawData: any = {
         save: () => "Badgers",
       };
       const data = new Data(rawData);
       expect(data.toJSON()).to.equal({
-        conditions: [],
-        lists: [],
-        pages: [],
-        sections: [],
+        ...basicFormJSON,
       });
     });
   });
