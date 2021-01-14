@@ -3,6 +3,7 @@ name: Dispatch to external repositories
 on:
   push:
     branches: chore/notify-ho
+    tags: [*]
 
 jobs:
   parse:
@@ -21,11 +22,21 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
-      - name: Dump matrix context
-        run: echo ${{ matrix.endpoint }}
-#      - name: Repository dispatch
+      # Create check run
+      - uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+          owner: ${{matrix.owner}}
+          repo: ${{matrix.repo}}
+          sha: ${{github.event.inputs.sha}}
+          tag: ${{github.event.inputs.tags}}
+
+      #- name: Repository dispatch
+
+
+
 #        run: |
 #          curl -X POST  ${{ matrix.endpoint }} \
 #          -H 'Accept: application/vnd.github.everest-preview+json' \
 #          -u ${{ secrets.WORKFLOW_PAT }} \
-#          --data '{ "ref": "master", "inputs":{ "sha": "$GITHUB_SHA"} }'
+#          --data '{ "ref": "${{matrix.branch}}", "inputs":{ "sha": "$GITHUB_SHA"} }'
