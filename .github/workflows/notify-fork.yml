@@ -23,8 +23,6 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
-      # Create check run
-    - name: Dump event content
     - uses: octokit/request-action@v2.x
       with:
         route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
