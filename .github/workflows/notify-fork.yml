@@ -27,7 +27,13 @@ jobs:
     - name: Dump event content
       env:
         EVENT_CONTENT: ${{ toJson(github.event_name) }}
-      run: echo "$EVENT_CONTENT"
+        EVENT_REF: ${{ toJson(github.ref) }}
+        EVENT_REFTYPE: ${{ toJson(github.ref_type) }}
+      run: |
+      echo "$EVENT_CONTENT"
+      echo "$EVENT_REF"
+      echo "$EVENT_REFTYPE"
+
 #    - run: echo ${{github.event.action}}
 #    - run: echo ${{github.event}}
 #      - uses: octokit/request-action@v2.x
