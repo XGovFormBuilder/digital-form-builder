@@ -29,6 +29,7 @@ jobs:
         owner: ${{matrix.owner}}
         repo: ${{matrix.repo}}
         workflow_id: ${{matrix.workflow_id}}
+        ref: ${{matrix.ref}}
         sha: ${{github.sha}}
         tag: ${{contains(github.ref, '/refs/tags/') && github.ref}}
       env:
