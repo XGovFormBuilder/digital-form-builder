@@ -31,6 +31,8 @@ jobs:
           repo: ${{matrix.repo}}
           sha: ${{github.event.inputs.sha}}
           tag: ${{github.event.inputs.tags}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       #- name: Repository dispatch
 
