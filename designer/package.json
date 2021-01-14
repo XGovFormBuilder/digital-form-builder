@@ -6,6 +6,10 @@
   "engines": {
     "node": ">=12"
   },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ],
   "scripts": {
     "watch": "NODE_ENV=development webpack",
     "build": "NODE_ENV=production webpack",
@@ -87,6 +91,7 @@
     "@workspace-builder/rollup": "^1.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "acorn": "7.2.0",
+    "autoprefixer": "^10.2.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-name-mapper": "^1.2.0",
@@ -110,6 +115,8 @@
     "mini-css-extract-plugin": "^0.11.2",
     "nodemon": "^2.0.6",
     "nunjucks": "3.2.1",
+    "postcss": "^8.2.4",
+    "postcss-loader": "^4.1.0",
     "prismjs": "1.21.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -83,7 +83,6 @@ main {
 
   @include govuk-media-query($from: tablet) {
     .menu {
-      position: -webkit-sticky; /* Safari */
       position: sticky;
       top: 0;
       padding: 8px;
