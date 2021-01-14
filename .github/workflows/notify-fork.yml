@@ -33,4 +33,4 @@ jobs:
         inputs: '{ "sha": "${{github.sha}}", "tag": "${{env.TAG}}" }'
       env:
         GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
-        TAG: ${{contains(github.ref, /refs/tags/) && github.ref}}
+        TAG: ${{contains(github.ref, '/refs/tags/') && github.ref}}
