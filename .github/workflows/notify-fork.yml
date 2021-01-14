@@ -24,15 +24,18 @@ jobs:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
       # Create check run
-      - uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{matrix.owner}}
-          repo: ${{matrix.repo}}
-          sha: ${{github.event.inputs.sha}}
-          tag: ${{github.event.inputs.tags}}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: echo ${{github.event.action}}
+    - run: echo ${{github.event}}
+#      - uses: octokit/request-action@v2.x
+#        with:
+#          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+#          owner: ${{matrix.owner}}
+#          repo: ${{matrix.repo}}
+#          worklow_id: ${{matrix.workflow_id}}
+#          sha: ${{github.event.inputs.sha}}
+#          tag: ${{github.event.inputs.tags}}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       #- name: Repository dispatch
 
