@@ -24,8 +24,12 @@ jobs:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
       # Create check run
-    - run: echo ${{github.event.action}}
-    - run: echo ${{github.event}}
+    - name: Dump matrix context
+      env:
+        CONTENT: ${{ toJson(github.event) }}
+      run: echo "$CONTENT"
+#    - run: echo ${{github.event.action}}
+#    - run: echo ${{github.event}}
 #      - uses: octokit/request-action@v2.x
 #        with:
 #          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
