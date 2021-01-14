@@ -32,4 +32,4 @@ jobs:
         sha: ${{github.sha}}
         tag: ${{contains(github.ref, '/refs/tags/') && github.ref}}
       env:
-        GITHUB_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+        GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
