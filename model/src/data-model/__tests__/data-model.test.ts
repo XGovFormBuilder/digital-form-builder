@@ -1628,7 +1628,7 @@ describe("data model", () => {
     });
   });
 
-  describe("find list", () => {
+  describe("list", () => {
     test("should return the page with the requested path if it exists", () => {
       const data = new Data({
         lists: [
@@ -1657,6 +1657,25 @@ describe("data model", () => {
     test("should handle undefined lists", () => {
       const data = new Data({});
       expect(data.findList("/1")).toEqual(undefined);
+    });
+
+    test.only("add lists", () => {
+      const data = new Data({});
+      const list = {
+        name: "Colors",
+        title: "Colors",
+        type: "string",
+        items: [
+          {
+            text: "Blue",
+            value: "blue",
+            description: "Blue color",
+            condition: "123",
+          },
+        ],
+      };
+      data.addList(list);
+      expect(data.findList("Colors")).toMatchObject(list);
     });
   });
 

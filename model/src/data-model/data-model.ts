@@ -146,6 +146,10 @@ export class Data {
     return this.lists.find((list) => list.name === listName);
   }
 
+  addList(list: List) {
+    this.lists.push(list);
+  }
+
   addLink(from: string, to: string, condition: string): Data {
     const fromPage = this.pages.find((page) => page.path === from);
     const toPage = this.pages.find((page) => page.path === to);
