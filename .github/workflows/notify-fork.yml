@@ -26,10 +26,9 @@ jobs:
     - uses: octokit/request-action@v2.x
       with:
         route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-        mediaType: application/vnd.github.everest-preview+json
         owner: ${{matrix.owner}}
         repo: ${{matrix.repo}}
-        worklow_id: ${{matrix.workflow_id}}
+        workflow_id: ${{matrix.workflow_id}}
         sha: ${{github.sha}}
         tag: ${{contains(github.ref, '/refs/tags/') && github.ref}}
       env:
