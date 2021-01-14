@@ -25,34 +25,14 @@ jobs:
     steps:
       # Create check run
     - name: Dump event content
-      env:
-        EVENT_CONTENT: ${{ toJson(github.event_name) }}
-        EVENT_REF: ${{ toJson(github.ref) }}
-        EVENT_REFTYPE: ${{ toJson(github.ref_type) }}
-      run: |
-        echo "$EVENT_CONTENT"
-        echo "$EVENT_REF"
-        echo "$EVENT_REFTYPE"
-
-#    - run: echo ${{github.event.action}}
-#    - run: echo ${{github.event}}
-#      - uses: octokit/request-action@v2.x
-#        with:
-#          route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-#          owner: ${{matrix.owner}}
-#          repo: ${{matrix.repo}}
-#          worklow_id: ${{matrix.workflow_id}}
-#          sha: ${{github.event.inputs.sha}}
-#          tag: ${{github.event.inputs.tags}}
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      #- name: Repository dispatch
-
-
-
-#        run: |
-#          curl -X POST  ${{ matrix.endpoint }} \
-#          -H 'Accept: application/vnd.github.everest-preview+json' \
-#          -u ${{ secrets.WORKFLOW_PAT }} \
-#          --data '{ "ref": "${{matrix.branch}}", "inputs":{ "sha": "$GITHUB_SHA"} }'
+      run: echo ${{github.event}}
+        - uses: octokit/request-action@v2.x
+          with:
+            route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+            owner: ${{matrix.owner}}
+            repo: ${{matrix.repo}}
+            worklow_id: ${{matrix.workflow_id}}
+            sha: ${{github.sha}}
+            tag: ${{contains(github.ref, '/refs/tags/') && github.ref) }}
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
