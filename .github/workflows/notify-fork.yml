@@ -26,7 +26,7 @@ jobs:
       # Create check run
     - name: Dump event content
       env:
-        EVENT_CONTENT: ${{ toJson(github.event.type) }}
+        EVENT_CONTENT: ${{ toJson(github.event_name) }}
       run: echo "$EVENT_CONTENT"
 #    - run: echo ${{github.event.action}}
 #    - run: echo ${{github.event}}
