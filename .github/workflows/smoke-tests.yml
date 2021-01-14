@@ -45,6 +45,6 @@ jobs:
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
       - uses: actions/upload-artifact@v2
         with:
-          name: smoke-tests.tar
-          path: ${{ github.workspace }}
+          name: smoke-tests
+          path: smoke-tests.tar
           retention-days: 14
