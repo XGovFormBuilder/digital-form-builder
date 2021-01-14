@@ -61,3 +61,21 @@ Then("the page is added in the designer", () => {
   FormDesignerPage.designerMenu.waitForDisplayed();
   expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });
+
+Given(/^I have created a new Global with (\d+) list item$/, function (
+  itemNumber
+) {
+  MenuSection.buttonByName("Edit Lists").click();
+  EditListSection.addNewList.click();
+  EditListSection.listTitle.setValue("Countries");
+  EditListSection.createListItem.click();
+  EditListSection.addNewListItem("Test Global Lists", "two", "three");
+  EditListSection.saveBtn.click();
+  EditListSection.closeLinks[0].click();
+});
+
+When(/^I add another list item to the Global list$/, function () {});
+
+Then(/^the list item is added to the Global list$/, function () {});
+
+Then(/^I am able to save the edited Global list$/, function () {});

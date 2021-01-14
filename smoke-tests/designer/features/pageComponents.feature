@@ -43,8 +43,17 @@ Feature: Components
     And I create a "List" control for the "First page"
     Then the list is available in the list options
 
+  @wip
+  Scenario: Editing a Global list
+    And I have created a new Global with 1 list item
+    When I add another list item to the Global list
+    Then the list item is added to the Global list
+    And  I am able to save the edited Global list
+
   Scenario: Create a Local list
     And I add a "List" control to the "First page"
     When I edit the "List" component
     And I create a new component list with 1 item
     Then the list is selected in the list dropdown
+
+
