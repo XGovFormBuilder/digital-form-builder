@@ -25,14 +25,13 @@ jobs:
     steps:
       # Create check run
     - name: Dump event content
-      run: echo ${{github.event}}
-        - uses: octokit/request-action@v2.x
-          with:
-            route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-            owner: ${{matrix.owner}}
-            repo: ${{matrix.repo}}
-            worklow_id: ${{matrix.workflow_id}}
-            sha: ${{github.sha}}
-            tag: ${{contains(github.ref, '/refs/tags/') && github.ref) }}
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: octokit/request-action@v2.x
+      with:
+        route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+        owner: ${{matrix.owner}}
+        repo: ${{matrix.repo}}
+        worklow_id: ${{matrix.workflow_id}}
+        sha: ${{github.sha}}
+        tag: ${{contains(github.ref, '/refs/tags/') && github.ref}}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
