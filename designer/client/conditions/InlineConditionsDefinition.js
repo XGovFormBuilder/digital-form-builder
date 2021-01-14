@@ -7,8 +7,9 @@ import {
   getOperatorNames,
   clone,
 } from "@xgovformbuilder/model";
+import { i18n } from "../i18n";
 
-import InlineConditionsDefinitionValue from "./inline-conditions-definition-values";
+import { InlineConditionsDefinitionValue } from "./InlineConditionsDefinitionValue";
 
 function isCondition(fieldDef) {
   return fieldDef?.type === "Condition";
@@ -222,14 +223,13 @@ class InlineConditionsDefinition extends React.Component {
             )}
             {(condition.value || isCondition(fieldDef)) && (
               <div className="govuk-form-group">
-                <a
-                  href="#"
+                <button
                   id="save-condition"
                   className="govuk-link"
                   onClick={this.onClickFinalise}
                 >
-                  Add
-                </a>
+                  {i18n("add")}
+                </button>
               </div>
             )}
           </div>

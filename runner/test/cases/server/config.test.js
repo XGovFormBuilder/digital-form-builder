@@ -83,7 +83,6 @@ suite(`Server Config`, () => {
       isSandbox: false,
     };
 
-    console.log(buildConfig);
     const result = buildConfig();
 
     expect(result).to.include(expectedResult);
