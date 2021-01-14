@@ -9,12 +9,16 @@ import { InputWrapper } from "./input-wrapper";
 import { ValuesWrapper } from "./values-wrapper";
 import { clone, filter } from "../utils/helpers";
 import { ComponentDef } from "../components/types";
-import { Page, Section, List, Feedback } from "./types";
+import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 
-type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
+export type RawData = Pick<
+  Data,
+  "startPage" | "pages" | "lists" | "sections"
+> & {
   name?: string;
   conditions?: ConditionRawData[];
   feedback?: Feedback;
+  phaseBanner?: PhaseBanner;
 };
 
 export class Data {
@@ -46,27 +50,25 @@ export class Data {
   pages: Page[] = [];
   lists: List[] = [];
   sections: Section[] = [];
+  phaseBanner?: PhaseBanner = {};
   #conditions: ConditionsWrapper[] = [];
   #feedback?: Feedback;
 
   constructor(rawData: RawData) {
     const rawDataClone =
-      rawData instanceof Data
-        ? rawData._exposePrivateFields()
-        : Object.assign({}, rawData);
+      rawData instanceof Data ? rawData._exposePrivateFields() : { ...rawData };
 
+    // protected properties
     this.#name = rawDataClone.name || "";
-    this.startPage = rawDataClone.startPage;
     this.#feedback = rawDataClone.feedback;
     this.#conditions = (rawDataClone.conditions || []).map(
       (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
     );
 
-    delete rawDataClone.name;
-    delete rawDataClone.conditions;
-    delete rawDataClone.feedback;
+    // discard already set properties
+    const { name, conditions, feedback, ...otherProps } = rawDataClone;
 
-    Object.assign(this, rawDataClone);
+    Object.assign(this, otherProps);
   }
 
   _listInputsFor(page: Page, input: ComponentDef): Array<InputWrapper> {
@@ -142,6 +144,10 @@ export class Data {
 
   findList(listName: string) {
     return this.lists.find((list) => list.name === listName);
+  }
+
+  addList(list: List) {
+    this.lists.push(list);
   }
 
   addLink(from: string, to: string, condition: string): Data {

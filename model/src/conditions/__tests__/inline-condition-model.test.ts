@@ -1,5 +1,4 @@
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
+// @ts-nocheck
 
 import {
   Coordinator,
@@ -11,16 +10,10 @@ import {
   dateUnits,
   RelativeTimeValue,
   ConditionValue,
-} from "../src";
-import { ConditionRef } from "../src/conditions";
+} from "../..";
+import { ConditionRef } from "..";
 
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
-
-const { suite, describe, test, beforeEach } = lab;
-
-suite("inline condition model", () => {
+describe("inline condition model", () => {
   let underTest;
 
   beforeEach(() => {
@@ -29,15 +22,15 @@ suite("inline condition model", () => {
 
   describe("before adding the first condition", () => {
     test("should return an empty array", () => {
-      expect(underTest.asPerUserGroupings).to.equal([]);
+      expect(underTest.asPerUserGroupings).toEqual([]);
     });
 
     test("should return an empty presentation string", () => {
-      expect(underTest.toPresentationString()).to.equal("");
+      expect(underTest.toPresentationString()).toEqual("");
     });
 
     test("should not have conditions", () => {
-      expect(underTest.hasConditions).to.equal(false);
+      expect(underTest.hasConditions).toEqual(false);
     });
   });
 
@@ -53,7 +46,7 @@ suite("inline condition model", () => {
     });
 
     test("should have one item in the model", () => {
-      expect(underTest.asPerUserGroupings).to.equal([
+      expect(underTest.asPerUserGroupings).toEqual([
         {
           coordinator: undefined,
           field: { name: "badger", type: "TextField", display: "Badger" },
@@ -64,17 +57,15 @@ suite("inline condition model", () => {
     });
 
     test("should return a human readable presentation string", () => {
-      expect(underTest.toPresentationString()).to.equal(
-        "'Badger' is 'Monkeys'"
-      );
+      expect(underTest.toPresentationString()).toEqual("'Badger' is 'Monkeys'");
     });
 
     test("should return a valid expression string", () => {
-      expect(underTest.toExpression()).to.equal("badger == 'Monkeys'");
+      expect(underTest.toExpression()).toEqual("badger == 'Monkeys'");
     });
 
     test("should have conditions", () => {
-      expect(underTest.hasConditions).to.equal(true);
+      expect(underTest.hasConditions).toEqual(true);
     });
   });
 
@@ -106,7 +97,7 @@ suite("inline condition model", () => {
     });
 
     test("should have three items in the model", () => {
-      expect(underTest.asPerUserGroupings).to.equal([
+      expect(underTest.asPerUserGroupings).toEqual([
         {
           coordinator: undefined,
           field: { display: "Badger", type: "TextField", name: "badger" },
@@ -129,19 +120,19 @@ suite("inline condition model", () => {
     });
 
     test("should return a human readable presentation string with all properties", () => {
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Monkeys' and 'Monkeys' is not 'Giraffes' and 'Squiffy' is not 'Donkeys'"
       );
     });
 
     test("should return a valid expression", () => {
-      expect(underTest.toExpression()).to.equal(
+      expect(underTest.toExpression()).toEqual(
         "badger == 'Monkeys' and monkeys != 'Giraffes' and squiffy != 'Donkeys'"
       );
     });
 
     test("should have conditions", () => {
-      expect(underTest.hasConditions).to.equal(true);
+      expect(underTest.hasConditions).toEqual(true);
     });
   });
 
@@ -173,7 +164,7 @@ suite("inline condition model", () => {
     });
 
     test("should have three items in the model", () => {
-      expect(underTest.asPerUserGroupings).to.equal([
+      expect(underTest.asPerUserGroupings).toEqual([
         {
           coordinator: undefined,
           field: { display: "Badger", type: "TextField", name: "badger" },
@@ -196,13 +187,13 @@ suite("inline condition model", () => {
     });
 
     test("should return a human readable presentation string with all properties", () => {
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Monkeys' or 'Monkeys' is not 'Giraffes' or 'Squiffy' is not 'Donkeys'"
       );
     });
 
     test("should return a valid expression", () => {
-      expect(underTest.toExpression()).to.equal(
+      expect(underTest.toExpression()).toEqual(
         "badger == 'Monkeys' or monkeys != 'Giraffes' or squiffy != 'Donkeys'"
       );
     });
@@ -233,10 +224,10 @@ suite("inline condition model", () => {
           Coordinator.AND
         )
       );
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Monkeys' is 'Giraffes' and 'Squiffy' is not 'Donkeys')"
       );
-      expect(underTest.toExpression()).to.equal(
+      expect(underTest.toExpression()).toEqual(
         "badger == 'Zebras' or (monkeys == 'Giraffes' and squiffy != 'Donkeys')"
       );
     });
@@ -267,10 +258,10 @@ suite("inline condition model", () => {
           Coordinator.OR
         )
       );
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Badger' is 'Zebras' and 'Squiffy' is not 'Donkeys') or 'Monkeys' is 'Giraffes'"
       );
-      expect(underTest.toExpression()).to.equal(
+      expect(underTest.toExpression()).toEqual(
         "(badger == 'Zebras' and squiffy != 'Donkeys') or monkeys == 'Giraffes'"
       );
     });
@@ -321,13 +312,13 @@ suite("inline condition model", () => {
     });
 
     test("should return a human readable presentation string with all properties", () => {
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is at least '10 days in the past' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should return a valid expression", () => {
-      expect(underTest.toExpression()).to.equal(
+      expect(underTest.toExpression()).toEqual(
         "badger == 'Zebras' or (under18 and squiffy == 'Donkeys') or duration >= 10 or (birthday <= dateForComparison(-10, 'days') and squiffy != 'Donkeys')"
       );
     });
@@ -345,7 +336,7 @@ suite("inline condition model", () => {
     });
 
     test("should return a valid expression with unquoted value", () => {
-      expect(underTest.toExpression()).to.equal("badger == true");
+      expect(underTest.toExpression()).toEqual("badger == true");
     });
   });
 
@@ -385,7 +376,7 @@ suite("inline condition model", () => {
           new ConditionValue("Giraffes")
         )
       );
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Giraffes' and 'Monkeys' is not 'Giraffes' and 'Squiffy' is not 'Donkeys'"
       );
     });
@@ -400,7 +391,7 @@ suite("inline condition model", () => {
           Coordinator.AND
         )
       );
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Monkeys' and 'Monkeys' is not 'Giraffes' and 'Badger' is 'Giraffes'"
       );
     });
@@ -416,7 +407,7 @@ suite("inline condition model", () => {
             Coordinator.AND
           )
         )
-      ).to.throw(Error);
+      ).toThrow(Error);
     });
 
     test("should not replace condition for index equal to conditions length", () => {
@@ -430,7 +421,7 @@ suite("inline condition model", () => {
             Coordinator.AND
           )
         )
-      ).to.throw(Error);
+      ).toThrow(Error);
     });
 
     test("should not replace condition for index greater than conditions length", () => {
@@ -444,7 +435,7 @@ suite("inline condition model", () => {
             Coordinator.AND
           )
         )
-      ).to.throw(Error);
+      ).toThrow(Error);
     });
 
     test("should not replace subsequent condition without coordinator", () => {
@@ -457,7 +448,7 @@ suite("inline condition model", () => {
             new ConditionValue("Giraffes")
           )
         )
-      ).to.throw(Error);
+      ).toThrow(Error);
     });
   });
 
@@ -507,14 +498,14 @@ suite("inline condition model", () => {
 
     test("should apply defined group and auto-group the remaining conditions", () => {
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "(('Badger' is 'Zebras' or 'Under 18') and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should be able to apply group with single and condition and not need to clarify", () => {
       underTest.addGroups([new ConditionGroupDef(1, 2)]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -524,7 +515,7 @@ suite("inline condition model", () => {
         new ConditionGroupDef(0, 1),
         new ConditionGroupDef(2, 3),
       ]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "(('Badger' is 'Zebras' or 'Under 18') and ('Squiffy' is 'Donkeys' or 'Duration' is at least '10')) or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -534,7 +525,7 @@ suite("inline condition model", () => {
         new ConditionGroupDef(0, 1),
         new ConditionGroupDef(2, 4),
       ]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Badger' is 'Zebras' or 'Under 18') and ('Squiffy' is 'Donkeys' or 'Duration' is at least '10' or 'Birthday' is '10/10/2019') and 'Squiffy' is not 'Donkeys'"
       );
     });
@@ -544,7 +535,7 @@ suite("inline condition model", () => {
         new ConditionGroupDef(0, 2),
         new ConditionGroupDef(3, 5),
       ]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys')) or ('Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys'))"
       );
     });
@@ -552,7 +543,7 @@ suite("inline condition model", () => {
     test("subsequent calls to addGroups should operate on the previously grouped entries", () => {
       underTest.addGroups([new ConditionGroupDef(0, 2)]);
       underTest.addGroups([new ConditionGroupDef(1, 2)]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys')) or (('Duration' is at least '10' or 'Birthday' is '10/10/2019') and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -560,7 +551,7 @@ suite("inline condition model", () => {
     test("subsequent calls to addGroups can create nested groups", () => {
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "(('Badger' is 'Zebras' or 'Under 18') and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -569,7 +560,7 @@ suite("inline condition model", () => {
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       const returned = underTest.asPerUserGroupings;
-      expect(returned).to.equal([
+      expect(returned).toEqual([
         {
           conditions: [
             {
@@ -668,7 +659,7 @@ suite("inline condition model", () => {
     test("should split defined group and auto-group the remaining conditions", () => {
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.splitGroup(0);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -677,14 +668,14 @@ suite("inline condition model", () => {
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.splitGroup(0);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "(('Badger' is 'Zebras' or 'Under 18') and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should do nothing if trying to split a group that is not grouped", () => {
       underTest.splitGroup(0);
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -736,9 +727,9 @@ suite("inline condition model", () => {
 
     test("should remove the specified condition indexes", () => {
       underTest.remove([1, 4]);
-      expect(underTest.asPerUserGroupings.length).to.equal(4);
+      expect(underTest.asPerUserGroupings.length).toEqual(4);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Badger' is 'Zebras' and 'Squiffy' is 'Donkeys') or ('Duration' is at least '10' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -746,46 +737,46 @@ suite("inline condition model", () => {
     test("should remove the only condition", () => {
       underTest.addGroups([new ConditionGroupDef(0, 5)]);
       underTest.remove([0]);
-      expect(underTest.asPerUserGroupings.length).to.equal(0);
+      expect(underTest.asPerUserGroupings.length).toEqual(0);
     });
 
     test("should allow removal of condition before group condition", () => {
       underTest.addGroups([new ConditionGroupDef(1, 2)]);
       underTest.remove([0]);
-      expect(underTest.asPerUserGroupings.length).to.equal(4);
+      expect(underTest.asPerUserGroupings.length).toEqual(4);
     });
 
     test("should remove all elements from a user-defined group", () => {
-      expect(underTest.asPerUserGroupings.length).to.equal(6);
+      expect(underTest.asPerUserGroupings.length).toEqual(6);
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
-      expect(underTest.asPerUserGroupings.length).to.equal(5);
+      expect(underTest.asPerUserGroupings.length).toEqual(5);
       underTest.remove([0]);
-      expect(underTest.asPerUserGroupings.length).to.equal(4);
+      expect(underTest.asPerUserGroupings.length).toEqual(4);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Squiffy' is 'Donkeys' or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should remove all elements from a nested group", () => {
-      expect(underTest.asPerUserGroupings.length).to.equal(6);
+      expect(underTest.asPerUserGroupings.length).toEqual(6);
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
-      expect(underTest.asPerUserGroupings.length).to.equal(4);
+      expect(underTest.asPerUserGroupings.length).toEqual(4);
       underTest.remove([0]);
-      expect(underTest.asPerUserGroupings.length).to.equal(3);
+      expect(underTest.asPerUserGroupings.length).toEqual(3);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
 
     test("should do nothing if provided invalid index to remove", () => {
-      expect(underTest.asPerUserGroupings.length).to.equal(6);
+      expect(underTest.asPerUserGroupings.length).toEqual(6);
 
       underTest.remove([6]);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -794,17 +785,17 @@ suite("inline condition model", () => {
   describe("name", () => {
     test("should set and return name", () => {
       underTest.name = "some condition name";
-      expect(underTest.name).to.equal("some condition name");
+      expect(underTest.name).toEqual("some condition name");
     });
 
     test("should overwrite name", () => {
       underTest.name = "some condition name";
       underTest.name = "some condition name 2";
-      expect(underTest.name).to.equal("some condition name 2");
+      expect(underTest.name).toEqual("some condition name 2");
     });
 
     test("should return undefined if no name set", () => {
-      expect(underTest.name).to.equal(undefined);
+      expect(underTest.name).toEqual(undefined);
     });
   });
 
@@ -855,15 +846,15 @@ suite("inline condition model", () => {
 
     test("should be cloned", () => {
       const returned = underTest.clone();
-      expect(returned === underTest).to.equal(false);
-      expect(returned).to.equal(underTest);
+      expect(returned === underTest).toEqual(false);
+      expect(returned).toEqual(underTest);
 
       const returnedCondition1 = returned.asPerUserGroupings[0];
       const underTestCondition1 = underTest.asPerUserGroupings[0];
       returnedCondition1.coordinator = "or";
       underTestCondition1.coordinator = undefined;
-      expect(returnedCondition1).to.not.equal(underTestCondition1);
-      expect(returned).to.equal(underTest);
+      expect(returnedCondition1).not.toEqual(underTestCondition1);
+      expect(returned).toEqual(underTest);
     });
   });
 
@@ -915,11 +906,11 @@ suite("inline condition model", () => {
 
     test("should clear state", () => {
       const returned = underTest.clear();
-      expect(returned === underTest).to.equal(true);
-      expect(returned.hasConditions).to.equal(false);
-      expect(returned.asPerUserGroupings).to.equal([]);
-      expect(returned.name).to.equal(undefined);
-      expect(returned.toPresentationString()).to.equal("");
+      expect(returned === underTest).toEqual(true);
+      expect(returned.hasConditions).toEqual(false);
+      expect(returned.asPerUserGroupings).toEqual([]);
+      expect(returned.name).toEqual(undefined);
+      expect(returned.toPresentationString()).toEqual("");
     });
   });
 
@@ -970,7 +961,7 @@ suite("inline condition model", () => {
     test("should move a condition earlier when not becoming the first item", () => {
       underTest.moveEarlier(3);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or 'Under 18' or ('Duration' is at least '10' and 'Squiffy' is 'Donkeys') or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -978,7 +969,7 @@ suite("inline condition model", () => {
     test("should move the last condition earlier", () => {
       underTest.moveEarlier(5);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or ('Duration' is at least '10' and 'Squiffy' is not 'Donkeys') or 'Birthday' is '10/10/2019'"
       );
     });
@@ -986,7 +977,7 @@ suite("inline condition model", () => {
     test("should move a condition earlier and switch co-ordinators when becoming the first item", () => {
       underTest.moveEarlier(1);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Under 18' or ('Badger' is 'Zebras' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -995,7 +986,7 @@ suite("inline condition model", () => {
       underTest.addGroups([new ConditionGroupDef(1, 2)]);
       underTest.moveEarlier(1);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Under 18' and 'Squiffy' is 'Donkeys') or 'Badger' is 'Zebras' or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1003,7 +994,7 @@ suite("inline condition model", () => {
     test("move earlier does nothing when already the first item", () => {
       underTest.moveEarlier(0);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1011,7 +1002,7 @@ suite("inline condition model", () => {
     test("move earlier does nothing when before the first item", () => {
       underTest.moveEarlier(-1);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1019,7 +1010,7 @@ suite("inline condition model", () => {
     test("move earlier does nothing when after the last item", () => {
       underTest.moveEarlier(-1);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1027,7 +1018,7 @@ suite("inline condition model", () => {
     test("move later does nothing when already the last item", () => {
       underTest.moveLater(5);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1035,7 +1026,7 @@ suite("inline condition model", () => {
     test("move later does nothing when after the last item", () => {
       underTest.moveLater(6);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1043,7 +1034,7 @@ suite("inline condition model", () => {
     test("move later does nothing when before the first item", () => {
       underTest.moveLater(-1);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1051,7 +1042,7 @@ suite("inline condition model", () => {
     test("should move a condition later when not the first or last item", () => {
       underTest.moveLater(3);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or 'Birthday' is '10/10/2019' or ('Duration' is at least '10' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1059,7 +1050,7 @@ suite("inline condition model", () => {
     test("should move penultimate condition later", () => {
       underTest.moveLater(4);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Badger' is 'Zebras' or ('Under 18' and 'Squiffy' is 'Donkeys') or ('Duration' is at least '10' and 'Squiffy' is not 'Donkeys') or 'Birthday' is '10/10/2019'"
       );
     });
@@ -1067,7 +1058,7 @@ suite("inline condition model", () => {
     test("should move a condition later and switch co-ordinators when moving the first item", () => {
       underTest.moveLater(0);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "'Under 18' or ('Badger' is 'Zebras' and 'Squiffy' is 'Donkeys') or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1076,7 +1067,7 @@ suite("inline condition model", () => {
       underTest.addGroups([new ConditionGroupDef(0, 1)]);
       underTest.moveLater(0);
 
-      expect(underTest.toPresentationString()).to.equal(
+      expect(underTest.toPresentationString()).toEqual(
         "('Squiffy' is 'Donkeys' and ('Badger' is 'Zebras' or 'Under 18')) or 'Duration' is at least '10' or ('Birthday' is '10/10/2019' and 'Squiffy' is not 'Donkeys')"
       );
     });
@@ -1092,7 +1083,7 @@ suite("inline condition model", () => {
               null,
               new ConditionValue("Monkeys")
             )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on condition creation if non-string operator provided", () => {
@@ -1103,7 +1094,7 @@ suite("inline condition model", () => {
               {} as string,
               new ConditionValue("Monkeys")
             )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
     });
 
@@ -1111,7 +1102,7 @@ suite("inline condition model", () => {
       test("should throw an error on condition creation if no field provided", () => {
         expect(
           () => new Condition(null, "is", new ConditionValue("Monkeys"))
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on condition creation if field is not a ConditionField type", () => {
@@ -1122,47 +1113,47 @@ suite("inline condition model", () => {
               "is",
               new ConditionValue("Monkeys")
             )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on field creation if no value provided", () => {
-        expect(() => new ConditionField(null, "TextField", "Badger")).to.throw(
+        expect(() => new ConditionField(null, "TextField", "Badger")).toThrow(
           Error
         );
       });
 
       test("should throw an error on field creation if no type provided", () => {
-        expect(
-          () => new ConditionField("badger", undefined, "Badger")
-        ).to.throw(Error);
+        expect(() => new ConditionField("badger", undefined, "Badger")).toThrow(
+          Error
+        );
       });
 
       test("should throw an error on field creation if invalid type provided", () => {
         expect(
           () => new ConditionField("badger", "MadeUpType" as any, "Badger")
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on field creation if invalid name value type provided", () => {
         expect(
           () => new ConditionField({} as string, "TextField", "Badger")
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on field creation if invalid display value type provided", () => {
         expect(
           () => new ConditionField("Badger", "TextField", {} as string)
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on field creation if no display value provided", () => {
-        expect(() => new ConditionField("badger", "TextField", null)).to.throw(
+        expect(() => new ConditionField("badger", "TextField", null)).toThrow(
           Error
         );
       });
 
       test("should throw errors from factory method", () => {
-        expect(() => ConditionField.from({ name: "badger" } as any)).to.throw(
+        expect(() => ConditionField.from({ name: "badger" } as any)).toThrow(
           Error
         );
       });
@@ -1178,7 +1169,7 @@ suite("inline condition model", () => {
               undefined,
               undefined
             )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on condition creation if value is not a Value type", () => {
@@ -1189,24 +1180,24 @@ suite("inline condition model", () => {
               "is",
               "Monkeys" as any
             )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on value creation if no value provided", () => {
         // @ts-ignore
-        expect(() => new ConditionValue()).to.throw(Error);
+        expect(() => new ConditionValue()).toThrow(Error);
       });
 
       test("should throw an error on value creation if display value is provided and is not a string", () => {
-        expect(() => new ConditionValue("badger", {} as any)).to.throw(Error);
+        expect(() => new ConditionValue("badger", {} as any)).toThrow(Error);
       });
 
       test("should throw an error on value creation if value is provided and is not a string", () => {
-        expect(() => new ConditionValue({} as any, "Badger")).to.throw(Error);
+        expect(() => new ConditionValue({} as any, "Badger")).toThrow(Error);
       });
 
       test("should throw errors from factory method", () => {
-        expect(() => ConditionValue.from({} as any)).to.throw(Error);
+        expect(() => ConditionValue.from({} as any)).toThrow(Error);
       });
     });
 
@@ -1220,7 +1211,7 @@ suite("inline condition model", () => {
               new ConditionValue("Monkeys"),
               "is" as Coordinator
             )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on adding first condition if a coordinator is provided", () => {
@@ -1233,7 +1224,7 @@ suite("inline condition model", () => {
               Coordinator.OR
             )
           )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
 
       test("should throw an error on adding subsequent condition if no coordinator is provided", () => {
@@ -1252,26 +1243,26 @@ suite("inline condition model", () => {
               new ConditionValue("Monkeys")
             )
           )
-        ).to.throw(Error);
+        ).toThrow(Error);
       });
     });
 
     describe("invalid group def", () => {
       test("should throw error if there is no last value", () => {
         // @ts-ignore
-        expect(() => new ConditionGroupDef(3)).to.throw(Error);
+        expect(() => new ConditionGroupDef(3)).toThrow(Error);
       });
 
       test("should throw error if there is no first value", () => {
-        expect(() => new ConditionGroupDef(null, 3)).to.throw(Error);
+        expect(() => new ConditionGroupDef(null, 3)).toThrow(Error);
       });
 
       test("should throw error if first > last", () => {
-        expect(() => new ConditionGroupDef(4, 3)).to.throw(Error);
+        expect(() => new ConditionGroupDef(4, 3)).toThrow(Error);
       });
 
       test("should throw error if first == last", () => {
-        expect(() => new ConditionGroupDef(4, 4)).to.throw(Error);
+        expect(() => new ConditionGroupDef(4, 4)).toThrow(Error);
       });
     });
   });
@@ -1430,28 +1421,26 @@ suite("inline condition model", () => {
           },
         ],
       };
-      expect(JSON.stringify(underTest)).to.equal(JSON.stringify(expected));
+      expect(JSON.stringify(underTest)).toEqual(JSON.stringify(expected));
     });
 
     test("deserialising the serialised json returns a new ConditionsModel equal to the original", () => {
       const returned = ConditionsModel.from(
         JSON.parse(JSON.stringify(underTest))
       );
-      expect(returned).to.equal(underTest);
-      expect(returned.asPerUserGroupings).to.equal(
-        underTest.asPerUserGroupings
-      );
-      expect(returned.toExpression()).to.equal(underTest.toExpression());
-      expect(returned.toPresentationString()).to.equal(
+      expect(returned).toEqual(underTest);
+      expect(returned.asPerUserGroupings).toEqual(underTest.asPerUserGroupings);
+      expect(returned.toExpression()).toEqual(underTest.toExpression());
+      expect(returned.toPresentationString()).toEqual(
         underTest.toPresentationString()
       );
-      expect(returned === underTest).to.equal(false);
+      expect(returned === underTest).toEqual(false);
     });
 
     test("ConditionsModel.from with existing conditions model returns the passed object", () => {
       const returned = ConditionsModel.from(underTest);
-      expect(returned).to.equal(underTest);
-      expect(returned === underTest).to.equal(true);
+      expect(returned).toEqual(underTest);
+      expect(returned === underTest).toEqual(true);
     });
   });
 });

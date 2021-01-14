@@ -1,32 +1,24 @@
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
-import sinon from "sinon";
-import { ListItemReferencesToValueObjects } from "../src/migration/";
+// @ts-nocheck
 
-import { clone } from "../src/utils/helpers";
+import { ListItemReferencesToValueObjects } from "../";
+import { clone } from "../../utils/helpers";
 
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
-
-const { afterEach, describe, suite, test } = lab;
-
-suite("ListItemReferencesToValueObjects", () => {
+describe("ListItemReferencesToValueObjects", () => {
   const logger = {
-    info: sinon.spy(),
-    error: sinon.spy(),
+    info: jest.fn(),
+    error: jest.fn(),
   };
   const underTest = new ListItemReferencesToValueObjects({});
   // @ts-ignore
   underTest.logger = logger;
 
   afterEach(() => {
-    logger.error.resetHistory();
+    logger.error.mockClear();
   });
 
   test("Initial version should always be 0", () => {
-    expect(underTest.getInitialVersion()).to.equal(0);
-    expect(underTest.getInitialVersion()).to.equal(0);
+    expect(underTest.getInitialVersion()).toEqual(0);
+    expect(underTest.getInitialVersion()).toEqual(0);
   });
 
   function permutations(fieldTypes, valueTypes) {
@@ -52,14 +44,14 @@ suite("ListItemReferencesToValueObjects", () => {
     testCases.forEach((testCase) => {
       test(`should ignore definition with field of type ${testCase.fieldType} which is already migrated`, () => {
         const def = migratedDef(testCase);
-        expect(underTest.migrate(def)).to.equal(def);
+        expect(underTest.migrate(def)).toEqual(def);
       });
 
       test(`should correct definition with field of type ${testCase.fieldType} which is already migrated but does not have the correct version identifier`, () => {
         const def = migratedDef(testCase);
         const copy = clone(def);
         delete copy.version;
-        expect(underTest.migrate(copy)).to.equal(def);
+        expect(underTest.migrate(copy)).toEqual(def);
       });
 
       test(`should migrate definition with field of type ${testCase.fieldType} and ${testCase.valueType} values with no initial version identifier`, () => {
@@ -67,13 +59,13 @@ suite("ListItemReferencesToValueObjects", () => {
         const copy = clone(def);
         delete copy.version;
         const expected = migratedDef(testCase);
-        expect(underTest.migrate(copy)).to.equal(expected);
+        expect(underTest.migrate(copy)).toEqual(expected);
       });
 
       test(`should migrate definition with field of type ${testCase.fieldType} and ${testCase.valueType} values with an initial version identifier`, () => {
         const def = unmigratedDef(testCase);
         const expected = migratedDef(testCase);
-        expect(underTest.migrate(def)).to.equal(expected);
+        expect(underTest.migrate(def)).toEqual(expected);
       });
     });
   });

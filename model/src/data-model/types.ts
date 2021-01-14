@@ -30,3 +30,8 @@ export interface Feedback {
   feedbackForm?: boolean;
   url?: string;
 }
+
+export type PhaseBanner = {
+  phase?: "alpha" | "beta";
+  feedbackUrl?: string;
+};
