@@ -119,6 +119,8 @@ describe("data model", () => {
         ],
       });
 
+      const inputs = inputsAsObject(data.allInputs());
+
       expect(data.allInputs()).toEqual([
         {
           name: "name1",
@@ -150,6 +152,9 @@ describe("data model", () => {
           title: "Feedback source form name",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_formTitle",
+          hint: "",
+          options: {},
+          schema: {},
         },
         {
           name: "feedbackContextInfo_pageTitle",
@@ -157,6 +162,9 @@ describe("data model", () => {
           title: "Feedback source page title",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_pageTitle",
+          hint: "",
+          options: {},
+          schema: {},
         },
         {
           name: "feedbackContextInfo_url",
@@ -164,12 +172,11 @@ describe("data model", () => {
           title: "Feedback source url",
           page: { name: "page1", path: "/page1", section: "section1" },
           propertyPath: "feedbackContextInfo_url",
+          hint: "",
+          options: {},
+          schema: {},
         },
-      ];
-
-      expectedInputs.forEach((input, i) => {
-        expect(input).to.contain(inputs[i]);
-      });
+      ]);
     });
 
     test("should include hidden inputs from values", () => {
@@ -855,11 +862,7 @@ describe("data model", () => {
           propertyPath: "name6",
           title: undefined,
         },
-      ];
-
-      inputs.forEach((input, i) => {
-        expect(input).to.contain(expectedInputs[i]);
-      });
+      ]);
     });
 
     test("should include inputs from multiple branches leading to the requested page", () => {
@@ -1078,11 +1081,7 @@ describe("data model", () => {
           },
           propertyPath: "feedbackContextInfo_url",
         },
-      ];
-
-      expectedInputs.forEach((input, i) => {
-        expect(input).to.include(inputs[i]);
-      });
+      ]);
     });
 
     test("should ignore inputs from routes that don't lead to the requested page", () => {
@@ -1145,12 +1144,7 @@ describe("data model", () => {
           propertyPath: "name6",
           title: undefined,
         },
-      ];
-      const inputs = inputsAsObject(data.inputsAccessibleAt("/3"));
-
-      expectedInputs.forEach((input, i) => {
-        expect(input).to.include(inputs[i]);
-      });
+      ]);
     });
 
     test("should ignore unnamed components", () => {
