@@ -4411,7 +4411,7 @@ __metadata:
     resolve-url-loader: ^3.1.1
     sass: ^1.26.11
     sass-loader: ^10.0.2
-    schmervice: ^1.5.0
+    schmervice: ^1.6.0
     sinon: ^9.0.2
     standard: 12.0.1
     ts-node-dev: ^1.1.1
@@ -4566,7 +4566,7 @@ __metadata:
     pdfmake: 0.1.65
     resolve: ^1.19.0
     rollup-plugin-includepaths: ^0.2.3
-    schmervice: 1.5.0
+    schmervice: ^1.6.0
     sinon: 9.0.2
     standard: ^14.3.4
     tmp: 0.1.0
@@ -20428,18 +20428,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"schmervice@npm:1.5.0":
-  version: 1.5.0
-  resolution: "schmervice@npm:1.5.0"
-  dependencies:
-    "@hapi/hoek": 8.x.x
-  peerDependencies:
-    "@hapi/hapi": ">=17 <20"
-  checksum: e37a91ae17ea08123f6de17848cf211db09e3ac44c6e04aa7adc035357db7a26bf7546f15c4fbd5e661a2de333c76ff6c9d9e3e85129c76f2f5c105f63ae32df
-  languageName: node
-  linkType: hard
-
-"schmervice@npm:^1.5.0":
+"schmervice@npm:^1.6.0":
   version: 1.6.0
   resolution: "schmervice@npm:1.6.0"
   dependencies:
