@@ -40,8 +40,10 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
           inputs: '{ "app": "${{ matrix.app }}"}'
 
-      - name: Tag branch with run number
+      - name: Checkout repo
         uses: actions/checkout@v2
+
+      - name: Tag master with run number
         run: |
           git tag ${{github.run_number}}-rc
           git push --tags origin HEAD
