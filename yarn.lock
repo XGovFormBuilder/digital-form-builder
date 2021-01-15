@@ -4538,6 +4538,7 @@ __metadata:
     cheerio: 1.0.0-rc.3
     chrome-launcher: 0.13.1
     code: 5.2.4
+    concurrently: ^5.3.0
     dotenv: 8.2.0
     eslint: ^7.6.0
     eslint-plugin-import: ^2.22.0
