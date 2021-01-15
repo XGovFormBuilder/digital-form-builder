@@ -33,7 +33,7 @@ jobs:
         repo: ${{matrix.repo}}
         workflow_id: ${{matrix.workflow_id}}
         ref: ${{matrix.ref}}
-        inputs: '{ "sha": "${{github.sha}}", "tag": "${{env.TAG}}" }'
+        inputs: '{ "sha": "${{github.sha}}", "tag": ${{env.TAG}} }'
       env:
         GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
         TAG: ${{contains(github.ref, 'refs/tags/') && matrix.tag}}
