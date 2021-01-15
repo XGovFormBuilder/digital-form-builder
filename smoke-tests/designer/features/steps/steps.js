@@ -166,7 +166,11 @@ When("I add a new section", () => {
   EditSection.addSection.click();
   EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
-  expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
+  expect(EditSection.sectionLinks).toBeElementsArrayOfSize({ gte: 2 });
+  const found = EditSection.sectionLinks.find(
+    (el) => el.getText() == "MyTestSection"
+  );
+  expect(found).toBeDefined();
   EditSection.closeSection.click();
 });
 

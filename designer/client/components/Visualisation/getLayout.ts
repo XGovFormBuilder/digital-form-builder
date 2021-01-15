@@ -52,7 +52,7 @@ export const getLayout: GetLayout = (data, el) => {
   g.setGraph({
     rankdir: "LR",
     marginx: 50,
-    marginy: 150,
+    marginy: 100,
     ranksep: 160,
   });
 
