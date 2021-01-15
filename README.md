@@ -37,7 +37,7 @@ To learn more about workspaces, check these links:
 
 `$ yarn [runner|designer|model] name-of-script`
 
-eg.: `yarn desginer start` or `yarn runner add babel-core --dev`
+eg.: `yarn designer start` or `yarn runner add babel-core --dev`
 
 #### run a script for each of the workspaces
 
@@ -109,34 +109,34 @@ There are some features that we do not want to expose (for fear of wide adoption
   - This is a known accessibility issue. https://github.com/alphagov/govuk-frontend/issues/1991. NVDA, JAWS and VoiceOver (currently most popular screen readers) all have varying levels of support for checkboxes and radios. It is breaking WCAG 2.1A compliance.
   - If you would like to use these, the runner will still support child components, you must add this to your JSON configuration manually. 
     - Static lists (inside a Radios/Checkboxes Field component) 
-    ``` json
-        { // Component object, other keys stripped for brevity
-          ...
-          "type": "RadiosField",
-          "values": {
-            "type": "static",
-            "valueType": "string",
-            "items": [
-              { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
-            ]
-          }
+      ``` json5
+      { // Component object, other keys stripped for brevity
+        ...
+        "type": "RadiosField",
+        "values": {
+          "type": "static",
+          "valueType": "string",
+          "items": [
+            { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
+          ]
         }
-        where { ...subcomponent } is any valid Component object
-    ```
+      }
+      ```
+      where `{ ...subcomponent }` is any valid `Component` object
     - Global lists
-    ``` json 
+      ``` json5 
       { //List object, other keys stripped for brevity
-      ...
-      "items": [
-        { "text": "a", "value": "a", "description": "a",
-          "conditional": {
-            "components":[{ ...component }]
+        ...
+        "items": [
+          { "text": "a", "value": "a", "description": "a",
+            "conditional": {
+              "components":[{ ...component }]
+            }
           }
-        }
-      ]
-    }
-    where {...subcomponent } is any valid Component Object
-    ```
+        ]
+      }
+      ```
+      where `{ ...subcomponent }` is any valid `Component` object
 
 
 
