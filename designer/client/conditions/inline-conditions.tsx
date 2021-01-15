@@ -1,9 +1,9 @@
 import React, { MouseEvent, ChangeEvent } from "react";
 import { ConditionsModel, clone } from "@xgovformbuilder/model";
-import InlineConditionsDefinition from "./inline-conditions-definition";
+import InlineConditionsDefinition from "./InlineConditionsDefinition";
 import InlineConditionsEdit from "./inline-conditions-edit";
 
-import InlineConditionHelpers from "./inline-condition-helpers";
+import helpers from "./inline-condition-helpers";
 import { DataContext } from "../context";
 
 interface Props {
@@ -115,7 +115,7 @@ class InlineConditions extends React.Component<Props, State> {
         conditionsChange(condition.name);
       }
     } else {
-      const conditionResult = await InlineConditionHelpers.storeConditionIfNecessary(
+      const conditionResult = await helpers.storeConditionIfNecessary(
         copy,
         conditions
       );

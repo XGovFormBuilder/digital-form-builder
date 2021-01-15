@@ -1,24 +1,17 @@
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
-import { Logger } from "../src";
-import sinon from "sinon";
+// @ts-nocheck
 
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
+import { Logger } from "../logger";
 
-const { afterEach, suite, test } = lab;
-
-suite("logger", () => {
+describe("logger", () => {
   const server = {
-    log: sinon.spy(),
+    log: jest.fn(),
   };
   const identifier = "MyIdentifier";
   const message = "My message";
   const logger = new Logger(server, identifier);
 
   afterEach(() => {
-    server.log.resetHistory();
+    server.log.mockClear();
   });
 
   test("should log an error level message", () => {
@@ -42,8 +35,8 @@ suite("logger", () => {
   });
 
   function assertMessageLoggedAt(level) {
-    expect(server.log.callCount).to.equal(1);
-    expect(server.log.firstCall.args[0]).to.equal([level, identifier]);
-    expect(server.log.firstCall.args[1]).to.equal(message);
+    expect(server.log.mock.calls.length).toEqual(1);
+    expect(server.log.mock.calls[0][0]).toEqual([level, identifier]);
+    expect(server.log.mock.calls[0][1]).toEqual(message);
   }
 });

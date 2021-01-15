@@ -1,13 +1,6 @@
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
-import sinon from "sinon";
-import { SchemaMigrationService } from "../src/migration/schema-migrations";
+// @ts-nocheck
 
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
-
-const { afterEach, beforeEach, describe, suite, test } = lab;
+import { SchemaMigrationService } from "../schema-migrations";
 
 class StubbedMigration {
   constructor(initialVersion, mutator) {
@@ -25,11 +18,12 @@ class StubbedMigration {
   }
 }
 
-suite("SchemaMigrationService", () => {
+describe("SchemaMigrationService", () => {
   const logger = {
-    info: sinon.spy(),
-    error: sinon.spy(),
+    info: jest.fn(),
+    error: jest.fn(),
   };
+
   const migrations = [
     new StubbedMigration(0, (def) => {
       def.migration1 = true;
@@ -49,24 +43,24 @@ suite("SchemaMigrationService", () => {
   });
 
   afterEach(() => {
-    logger.error.resetHistory();
+    logger.error.mockClear();
   });
 
   describe("For a form with no version", () => {
     test("should apply migrations in order starting from version zero", () => {
       const def = {};
       const returned = underTest.migrate(def);
-      expect(returned.migration1).to.equal(true);
-      expect(returned.migration2).to.equal(true);
-      expect(returned.migration3).to.equal(true);
-      expect(returned.version).to.equal(3);
+      expect(returned.migration1).toEqual(true);
+      expect(returned.migration2).toEqual(true);
+      expect(returned.migration3).toEqual(true);
+      expect(returned.version).toEqual(3);
     });
 
     test("should do nothing if there are no migrations", () => {
       underTest.migrations = [];
       const def = {};
       const returned = underTest.migrate(def);
-      expect(returned).to.equal({});
+      expect(returned).toEqual({});
     });
   });
 
@@ -74,17 +68,17 @@ suite("SchemaMigrationService", () => {
     test("should apply migrations in order starting from version zero", () => {
       const def = { version: 0 };
       const returned = underTest.migrate(def);
-      expect(returned.migration1).to.equal(true);
-      expect(returned.migration2).to.equal(true);
-      expect(returned.migration3).to.equal(true);
-      expect(returned.version).to.equal(3);
+      expect(returned.migration1).toEqual(true);
+      expect(returned.migration2).toEqual(true);
+      expect(returned.migration3).toEqual(true);
+      expect(returned.version).toEqual(3);
     });
 
     test("should do nothing if there are no migrations", () => {
       underTest.migrations = [];
       const def = {};
       const returned = underTest.migrate(def);
-      expect(returned).to.equal({});
+      expect(returned).toEqual({});
     });
   });
 
@@ -92,24 +86,24 @@ suite("SchemaMigrationService", () => {
     test("should apply migrations in order starting from the specified version", () => {
       const def = { version: 1 };
       const returned = underTest.migrate(def);
-      expect(returned.migration1).to.equal(undefined);
-      expect(returned.migration2).to.equal(true);
-      expect(returned.migration3).to.equal(true);
-      expect(returned.version).to.equal(3);
+      expect(returned.migration1).toEqual(undefined);
+      expect(returned.migration2).toEqual(true);
+      expect(returned.migration3).toEqual(true);
+      expect(returned.version).toEqual(3);
     });
 
     test("should do nothing if the form is already at the highest available version", () => {
       const def = { version: 3 };
       const returned = underTest.migrate(def);
-      expect(returned).to.equal({ version: 3 });
+      expect(returned).toEqual({ version: 3 });
     });
 
     test("should log an error if the form version is higher than the highest available migration", () => {
       const def = { version: 4 };
       const returned = underTest.migrate(def);
-      expect(returned).to.equal({ version: 4 });
-      expect(logger.error.callCount).to.equal(1);
-      expect(logger.error.firstCall.args[0]).to.equal(
+      expect(returned).toEqual({ version: 4 });
+      expect(logger.error.mock.calls.length).toEqual(1);
+      expect(logger.error.mock.calls[0][0]).toEqual(
         "New schema version 4 has no corresponding migration"
       );
     });
@@ -125,9 +119,9 @@ suite("SchemaMigrationService", () => {
         }),
       ];
       const returned = underTest.migrate(def);
-      expect(returned).to.equal({ version: 1 });
-      expect(logger.error.callCount).to.equal(1);
-      expect(logger.error.firstCall.args[0]).to.equal(
+      expect(returned).toEqual({ version: 1 });
+      expect(logger.error.mock.calls.length).toEqual(1);
+      expect(logger.error.mock.calls[0][0]).toEqual(
         "Found a migration from version 2 but the schema is only at version 1"
       );
     });
@@ -143,9 +137,9 @@ suite("SchemaMigrationService", () => {
         }),
       ];
       const returned = underTest.migrate(def);
-      expect(returned).to.equal({ version: 1, migration1: true });
-      expect(logger.error.callCount).to.equal(1);
-      expect(logger.error.firstCall.args[0]).to.equal(
+      expect(returned).toEqual({ version: 1, migration1: true });
+      expect(logger.error.mock.calls.length).toEqual(1);
+      expect(logger.error.mock.calls[0][0]).toEqual(
         "Found a migration from version 2 but the schema is only at version 1"
       );
     });

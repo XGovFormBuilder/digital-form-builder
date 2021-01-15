@@ -19,6 +19,10 @@ module.exports = class Page {
     return browser.url(`/${path}`);
   }
 
+  get govPhaseBanner() {
+    return browser.$(".govuk-phase-banner");
+  }
+
   get govFooter() {
     return browser.$("footer");
   }

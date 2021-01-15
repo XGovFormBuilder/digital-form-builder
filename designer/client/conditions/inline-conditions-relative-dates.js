@@ -44,6 +44,7 @@ class RelativeTimeValues extends React.Component {
           defaultValue={timePeriod}
           required
           onChange={(e) => this.updateState({ timePeriod: e.target.value })}
+          data-testid="cond-value-period"
         />
 
         <select
@@ -52,6 +53,7 @@ class RelativeTimeValues extends React.Component {
           name="cond-value-units"
           value={timeUnits ?? ""}
           onChange={(e) => this.updateState({ timeUnits: e.target.value })}
+          data-testid="cond-value-units"
         >
           <option />
           {Object.values(this.props.units).map((unit) => {
@@ -69,6 +71,7 @@ class RelativeTimeValues extends React.Component {
           name="cond-value-direction"
           value={direction ?? ""}
           onChange={(e) => this.updateState({ direction: e.target.value })}
+          data-testid="cond-value-direction"
         >
           <option />
           {Object.values(DateDirections).map((direction) => {

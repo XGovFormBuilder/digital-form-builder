@@ -1,16 +1,14 @@
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
+// @ts-nocheck
 
-import { Data } from "../src";
+import { Data } from "../..";
+import { RawData } from "../data-model";
 
-const { expect } = Code;
+describe("data model", () => {
+  function inputsAsObject(inputs) {
+    return inputs.map((i) => ({ ...i }));
+  }
 
-const lab = Lab.script();
-exports.lab = lab;
-const { suite, describe, test } = lab;
-
-suite("data model", () => {
-  const fullyPopulatedRawData = {
+  const fullyPopulatedRawData: RawData = {
     pages: [
       {
         name: "page1",
@@ -49,6 +47,10 @@ suite("data model", () => {
         ],
       },
     ],
+    phaseBanner: {
+      phase: "alpha",
+      feedbackUrl: "mailto:test@gov.uk",
+    },
   };
 
   describe("all inputs", () => {
@@ -67,7 +69,7 @@ suite("data model", () => {
           },
         ],
       } as any);
-      expect(data.allInputs()).to.equal([
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -116,7 +118,10 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+
+      const inputs = inputsAsObject(data.allInputs());
+
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", path: "/page1", section: "section1" },
@@ -255,7 +260,7 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -402,7 +407,7 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -522,7 +527,7 @@ suite("data model", () => {
         ],
         lists: [],
       });
-      expect(data.allInputs()).to.equal([
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -642,7 +647,7 @@ suite("data model", () => {
         ],
         lists: [],
       });
-      expect(data.allInputs()).to.equal([
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -727,7 +732,7 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.allInputs()).to.equal([
+      expect(data.allInputs()).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -751,26 +756,26 @@ suite("data model", () => {
 
     test("should handle no pages", () => {
       const data = new Data({ pages: [] });
-      expect(data.allInputs()).to.equal([]);
+      expect(data.allInputs()).toEqual([]);
     });
 
     test("should handle undefined pages", () => {
       const data = new Data({});
-      expect(data.allInputs()).to.equal([]);
+      expect(data.allInputs()).toEqual([]);
     });
 
     test("should handle pages with undefined components", () => {
       const data = new Data({
         pages: [{}],
       });
-      expect(data.allInputs()).to.equal([]);
+      expect(data.allInputs()).toEqual([]);
     });
 
     test("should handle pages with no components", () => {
       const data = new Data({
         pages: [{ components: [] }],
       });
-      expect(data.allInputs()).to.equal([]);
+      expect(data.allInputs()).toEqual([]);
     });
   });
 
@@ -799,7 +804,8 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+
+      expect(data.inputsAccessibleAt("/3")).toEqual([
         {
           name: "name1",
           page: {
@@ -884,7 +890,7 @@ suite("data model", () => {
         ],
       });
 
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+      expect(data.inputsAccessibleAt("/3")).toEqual([
         {
           name: "name1",
           page: {
@@ -972,7 +978,8 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+
+      expect(data.inputsAccessibleAt("/3")).toEqual([
         {
           name: "name1",
           page: {
@@ -1030,9 +1037,9 @@ suite("data model", () => {
           title: undefined,
         },
         {
+          hint: "",
           name: "feedbackContextInfo_formTitle",
-          type: "TextField",
-          title: "Feedback source form name",
+          options: {},
           page: {
             name: "page1",
             path: "/1",
@@ -1040,12 +1047,14 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_formTitle",
-          hint: "",
-          options: {},
           schema: {},
+          title: "Feedback source form name",
+          type: "TextField",
         },
         {
+          hint: "",
           name: "feedbackContextInfo_pageTitle",
+          options: {},
           type: "TextField",
           title: "Feedback source page title",
           page: {
@@ -1055,14 +1064,15 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_pageTitle",
-          hint: "",
-          options: {},
           schema: {},
         },
         {
           name: "feedbackContextInfo_url",
           type: "TextField",
           title: "Feedback source url",
+          hint: "",
+          options: {},
+          schema: {},
           page: {
             name: "page1",
             path: "/1",
@@ -1070,9 +1080,6 @@ suite("data model", () => {
             section: "section1",
           },
           propertyPath: "feedbackContextInfo_url",
-          hint: "",
-          options: {},
-          schema: {},
         },
       ]);
     });
@@ -1102,7 +1109,7 @@ suite("data model", () => {
         ],
       });
 
-      expect(data.inputsAccessibleAt("/3")).to.equal([
+      expect(data.inputsAccessibleAt("/3")).toEqual([
         {
           name: "name1",
           page: {
@@ -1159,7 +1166,7 @@ suite("data model", () => {
         ],
       });
 
-      expect(data.inputsAccessibleAt("/2")).to.equal([
+      expect(data.inputsAccessibleAt("/2")).toEqual([
         {
           name: "name1",
           page: {
@@ -1193,26 +1200,26 @@ suite("data model", () => {
 
     test("should handle no pages", () => {
       const data = new Data({ pages: [] });
-      expect(data.inputsAccessibleAt("/1")).to.equal([]);
+      expect(data.inputsAccessibleAt("/1")).toEqual([]);
     });
 
     test("should handle undefined pages", () => {
       const data = new Data({});
-      expect(data.inputsAccessibleAt("/1")).to.equal([]);
+      expect(data.inputsAccessibleAt("/1")).toEqual([]);
     });
 
     test("should handle pages with undefined components", () => {
       const data = new Data({
         pages: [{ path: "/1" }],
       });
-      expect(data.inputsAccessibleAt("/1")).to.equal([]);
+      expect(data.inputsAccessibleAt("/1")).toEqual([]);
     });
 
     test("should handle pages with no components", () => {
       const data = new Data({
         pages: [{ path: "/1", components: [] }],
       });
-      expect(data.inputsAccessibleAt("/1")).to.equal([]);
+      expect(data.inputsAccessibleAt("/1")).toEqual([]);
     });
   });
 
@@ -1255,26 +1262,26 @@ suite("data model", () => {
         const data = new Data(fullyPopulatedRawData);
         const returned = data.valuesFor({ values: values });
         delete returned.values.toStaticValues;
-        expect(returned.values).to.equal(values);
+        expect(returned.values).toEqual(values);
       });
 
       test(`returned '${values.type}' values should convert to static values`, () => {
         const data = new Data(fullyPopulatedRawData);
         const returned = data.valuesFor({ values: values });
-        expect(returned.toStaticValues()).to.equal(staticValues);
+        expect(returned.toStaticValues()).toEqual(staticValues);
       });
     });
 
     test("should return undefined if no values exist", () => {
       const data = new Data({});
 
-      expect(data.valuesFor({ options: {} })).to.equal(undefined);
+      expect(data.valuesFor({ options: {} })).toEqual(undefined);
     });
 
     test("should return yes/no list if the provided input has no values defined but is a YesNoField", () => {
       const data = new Data({});
 
-      expect(data.valuesFor({ type: "YesNoField" }).toStaticValues()).to.equal({
+      expect(data.valuesFor({ type: "YesNoField" }).toStaticValues()).toEqual({
         type: "static",
         valueType: "boolean",
         items: [
@@ -1316,14 +1323,14 @@ suite("data model", () => {
         ],
       });
       const returned = data.addLink("/1", "/2");
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/2" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
@@ -1352,14 +1359,14 @@ suite("data model", () => {
 
       const returned = data.addLink("/1", "/2", "condition1");
 
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/2", condition: "condition1" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
@@ -1388,14 +1395,14 @@ suite("data model", () => {
         ],
       });
       const returned = data.updateLink("/1", "/2");
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/2" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
@@ -1425,14 +1432,14 @@ suite("data model", () => {
 
       const returned = data.updateLink("/1", "/2", "condition1");
 
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/2", condition: "condition1" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
@@ -1462,14 +1469,14 @@ suite("data model", () => {
 
       const returned = data.updateLink("/1", "/2", "condition1");
 
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/2", condition: "condition1" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
@@ -1505,20 +1512,20 @@ suite("data model", () => {
 
       const returned = data.updateLink("/1", "/3", "condition1");
 
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/2" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
         components: [{ name: "name3" }, { name: "name4" }],
       });
-      expect(returned.findPage("/3")).to.equal({
+      expect(returned.findPage("/3")).toEqual({
         name: "page3",
         section: "section1",
         path: "/3",
@@ -1533,12 +1540,12 @@ suite("data model", () => {
         sections: [{ name: "a", title: "B" }],
       });
       const returned = data.addSection("badger", "Badger");
-      expect(returned.sections.length).to.equal(2);
-      expect(returned.sections.find((it) => it.name === "a")).to.equal({
+      expect(returned.sections.length).toEqual(2);
+      expect(returned.sections.find((it) => it.name === "a")).toEqual({
         name: "a",
         title: "B",
       });
-      expect(returned.sections.find((it) => it.name === "badger")).to.equal({
+      expect(returned.sections.find((it) => it.name === "badger")).toEqual({
         name: "badger",
         title: "Badger",
       });
@@ -1549,8 +1556,8 @@ suite("data model", () => {
         sections: [{ name: "a", title: "B" }],
       });
       const returned = data.addSection("a", "Badger");
-      expect(returned.sections.length).to.equal(1);
-      expect(returned.sections.find((it) => it.name === "a")).to.equal({
+      expect(returned.sections.length).toEqual(1);
+      expect(returned.sections.find((it) => it.name === "a")).toEqual({
         name: "a",
         title: "B",
       });
@@ -1592,27 +1599,27 @@ suite("data model", () => {
 
       const returned = data.updateLinksTo("/2", "/7");
 
-      expect(returned.findPage("/0")).to.equal({
+      expect(returned.findPage("/0")).toEqual({
         name: "page0",
         path: "/0",
         next: [{ path: "/7", condition: "badgers" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         name: "page1",
         section: "section1",
         path: "/1",
         next: [{ path: "/7" }],
         components: [{ name: "name1" }, { name: "name2" }],
       });
-      expect(returned.findPage("/2")).to.equal({
+      expect(returned.findPage("/2")).toEqual({
         name: "page2",
         section: "section1",
         path: "/2",
         next: [{ path: "/3" }],
         components: [{ name: "name3" }, { name: "name4" }],
       });
-      expect(returned.findPage("/3")).to.equal({
+      expect(returned.findPage("/3")).toEqual({
         name: "page3",
         section: "section1",
         path: "/3",
@@ -1621,7 +1628,7 @@ suite("data model", () => {
     });
   });
 
-  describe("find list", () => {
+  describe("list", () => {
     test("should return the page with the requested path if it exists", () => {
       const data = new Data({
         lists: [
@@ -1631,7 +1638,7 @@ suite("data model", () => {
         ],
       });
       const returned = data.findList("myList");
-      expect(returned === data.lists[1]).to.equal(true);
+      expect(returned === data.lists[1]).toEqual(true);
     });
 
     test("should return undefined if the requested list does not exist", () => {
@@ -1639,17 +1646,36 @@ suite("data model", () => {
         lists: [{ name: "firstList" }],
       });
 
-      expect(data.findList("myList")).to.equal(undefined);
+      expect(data.findList("myList")).toEqual(undefined);
     });
 
     test("should handle no lists", () => {
       const data = new Data({ lists: [] });
-      expect(data.findList("/1")).to.equal(undefined);
+      expect(data.findList("/1")).toEqual(undefined);
     });
 
     test("should handle undefined lists", () => {
       const data = new Data({});
-      expect(data.findList("/1")).to.equal(undefined);
+      expect(data.findList("/1")).toEqual(undefined);
+    });
+
+    test.only("add lists", () => {
+      const data = new Data({});
+      const list = {
+        name: "Colors",
+        title: "Colors",
+        type: "string",
+        items: [
+          {
+            text: "Blue",
+            value: "blue",
+            description: "Blue color",
+            condition: "123",
+          },
+        ],
+      };
+      data.addList(list);
+      expect(data.findList("Colors")).toMatchObject(list);
     });
   });
 
@@ -1674,7 +1700,7 @@ suite("data model", () => {
         ],
       });
       const returned = data.findPage("/2");
-      expect(returned === data.pages[1]).to.equal(true);
+      expect(returned === data.pages[1]).toEqual(true);
     });
 
     test("should return undefined if the requested page does not exist", () => {
@@ -1690,17 +1716,17 @@ suite("data model", () => {
         ],
       });
 
-      expect(data.findPage("/2")).to.equal(undefined);
+      expect(data.findPage("/2")).toEqual(undefined);
     });
 
     test("should handle no pages", () => {
       const data = new Data({ pages: [] });
-      expect(data.findPage("/1")).to.equal(undefined);
+      expect(data.findPage("/1")).toEqual(undefined);
     });
 
     test("should handle undefined pages", () => {
       const data = new Data({});
-      expect(data.findPage("/1")).to.equal(undefined);
+      expect(data.findPage("/1")).toEqual(undefined);
     });
   });
 
@@ -1717,7 +1743,7 @@ suite("data model", () => {
         components: [{ name: "name3" }, { name: "name4" }],
       };
       data.addPage(page);
-      expect(data.findPage("/2")).to.equal(page);
+      expect(data.findPage("/2")).toEqual(page);
     });
 
     test("should add the page if no pages collection is defined", () => {
@@ -1730,7 +1756,7 @@ suite("data model", () => {
         components: [{ name: "name3" }, { name: "name4" }],
       };
       data.addPage(page);
-      expect(data.findPage("/2")).to.equal(page);
+      expect(data.findPage("/2")).toEqual(page);
     });
   });
 
@@ -1755,13 +1781,13 @@ suite("data model", () => {
         ],
       });
       const returned = data.getPages();
-      expect(returned === data.pages).to.equal(true);
+      expect(returned === data.pages).toEqual(true);
     });
 
     test("should return empty array if undefined", () => {
       const data = new Data({});
 
-      expect(data.getPages()).to.equal([]);
+      expect(data.getPages()).toEqual([]);
     });
   });
 
@@ -1770,26 +1796,26 @@ suite("data model", () => {
       const data = new Data({
         name: "My form",
       });
-      expect(data.name).to.equal("My form");
+      expect(data.name).toEqual("My form");
     });
 
     test("should set the provided name", () => {
       const data = new Data({});
       data.name = "My form";
-      expect(data.name).to.equal("My form");
+      expect(data.name).toEqual("My form");
     });
 
     test("should set to undefined", () => {
       const data = new Data({});
       data.name = undefined;
-      expect(data.name).to.equal(undefined);
+      expect(data.name).toEqual(undefined);
     });
 
     test("should error if setting the name to a non-string value", () => {
       const data = new Data({});
       expect(() => {
         data.name = 2;
-      }).to.throw(Error);
+      }).toThrow(Error);
     });
   });
 
@@ -1800,7 +1826,7 @@ suite("data model", () => {
           feedbackForm: true,
         },
       });
-      expect(data.feedbackForm).to.equal(true);
+      expect(data.feedbackForm).toEqual(true);
     });
 
     test("should return false if set to false", () => {
@@ -1809,32 +1835,32 @@ suite("data model", () => {
           feedbackForm: false,
         },
       });
-      expect(data.feedbackForm).to.equal(false);
+      expect(data.feedbackForm).toEqual(false);
     });
 
     test("should return false if no value", () => {
       const data = new Data({
         feedback: {},
       });
-      expect(data.feedbackForm).to.equal(false);
+      expect(data.feedbackForm).toEqual(false);
     });
 
     test("should return false if no feedback config", () => {
       const data = new Data({});
-      expect(data.feedbackForm).to.equal(false);
+      expect(data.feedbackForm).toEqual(false);
     });
 
     test("should set the provided boolean", () => {
       const data = new Data({});
       data.feedbackForm = true;
-      expect(data.feedbackForm).to.equal(true);
+      expect(data.feedbackForm).toEqual(true);
     });
 
     test("should error if setting to a non-boolean value", () => {
       const data = new Data({});
       expect(() => {
         data.feedbackForm = 2;
-      }).to.throw(Error);
+      }).toThrow(Error);
     });
   });
 
@@ -1845,19 +1871,19 @@ suite("data model", () => {
           url: "/feedback",
         },
       });
-      expect(data.feedbackUrl).to.equal("/feedback");
+      expect(data.feedbackUrl).toEqual("/feedback");
     });
 
     test("should return undefined if not set", () => {
       const data = new Data({
         feedback: {},
       });
-      expect(data.feedbackUrl).to.equal(undefined);
+      expect(data.feedbackUrl).toEqual(undefined);
     });
 
     test("should return undefined if no feedback config", () => {
       const data = new Data({});
-      expect(data.feedbackUrl).to.equal(undefined);
+      expect(data.feedbackUrl).toEqual(undefined);
     });
   });
 
@@ -1865,7 +1891,7 @@ suite("data model", () => {
     test("should set the provided string", () => {
       const data = new Data({});
       data.setFeedbackUrl("/feedback");
-      expect(data.feedbackUrl).to.equal("/feedback");
+      expect(data.feedbackUrl).toEqual("/feedback");
     });
 
     test("should set feedback url to undefined and clear send context", () => {
@@ -1875,12 +1901,12 @@ suite("data model", () => {
         },
       });
       data.setFeedbackUrl();
-      expect(data.feedbackUrl).to.equal(undefined);
+      expect(data.feedbackUrl).toEqual(undefined);
     });
 
     test("should error if setting url to a non-string value", () => {
       const data = new Data({});
-      expect(() => data.setFeedbackUrl(2)).to.throw(Error);
+      expect(() => data.setFeedbackUrl(2)).toThrow(Error);
     });
 
     test("should error if setting url on a feedback form", () => {
@@ -1889,7 +1915,7 @@ suite("data model", () => {
           feedbackForm: true,
         },
       });
-      expect(() => data.setFeedbackUrl("/feedback")).to.throw(Error);
+      expect(() => data.setFeedbackUrl("/feedback")).toThrow(Error);
     });
 
     test("should not error if setting url to undefined on a feedback form", () => {
@@ -1900,30 +1926,30 @@ suite("data model", () => {
         },
       });
       data.setFeedbackUrl();
-      expect(data.feedbackUrl).to.equal(undefined);
+      expect(data.feedbackUrl).toEqual(undefined);
     });
   });
 
   describe("constructor", () => {
     test("should construct data model from raw data schema", () => {
       const returned = new Data(fullyPopulatedRawData);
-      expect(returned.pages).to.equal(fullyPopulatedRawData.pages);
-      expect(returned.conditions).to.equal(fullyPopulatedRawData.conditions);
-      expect(returned.feedbackUrl).to.equal(fullyPopulatedRawData.feedback.url);
-      expect(returned.feedbackForm).to.equal(
+      expect(returned.pages).toEqual(fullyPopulatedRawData.pages);
+      expect(returned.conditions).toEqual(fullyPopulatedRawData.conditions);
+      expect(returned.feedbackUrl).toEqual(fullyPopulatedRawData.feedback.url);
+      expect(returned.feedbackForm).toEqual(
         fullyPopulatedRawData.feedback.feedbackForm
       );
-      expect(returned instanceof Data).to.equal(true);
+      expect(returned instanceof Data).toEqual(true);
     });
 
     test("should construct data model from existing data model object", () => {
       const rawData = new Data(fullyPopulatedRawData);
       const returned = new Data(rawData);
-      expect(returned.pages).to.equal(rawData.pages);
-      expect(returned.conditions).to.equal(rawData.conditions);
-      expect(returned.feedbackUrl).to.equal(rawData.feedbackUrl);
-      expect(returned.feedbackForm).to.equal(rawData.feedbackForm);
-      expect(returned instanceof Data).to.equal(true);
+      expect(returned.pages).toEqual(rawData.pages);
+      expect(returned.conditions).toEqual(rawData.conditions);
+      expect(returned.feedbackUrl).toEqual(rawData.feedbackUrl);
+      expect(returned.feedbackForm).toEqual(rawData.feedbackForm);
+      expect(returned instanceof Data).toEqual(true);
     });
   });
 
@@ -1933,7 +1959,7 @@ suite("data model", () => {
         pages: [{ path: "/1" }],
       });
       const returned = data.addComponent("/1", { name: "My name" });
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         path: "/1",
         components: [{ name: "My name" }],
       });
@@ -1944,7 +1970,7 @@ suite("data model", () => {
         pages: [{ path: "/1", components: [{ name: "First name" }] }],
       });
       const returned = data.addComponent("/1", { name: "My name" });
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         path: "/1",
         components: [{ name: "First name" }, { name: "My name" }],
       });
@@ -1954,9 +1980,7 @@ suite("data model", () => {
       const data = new Data({
         pages: [{ path: "/1", components: [{ name: "First name" }] }],
       });
-      expect(() => data.addComponent("/2", { name: "My name" })).to.throw(
-        Error
-      );
+      expect(() => data.addComponent("/2", { name: "My name" })).toThrow(Error);
     });
   });
 
@@ -1977,7 +2001,7 @@ suite("data model", () => {
       const returned = data.updateComponent("/1", "mycomponent", {
         name: "My name",
       });
-      expect(returned.findPage("/1")).to.equal({
+      expect(returned.findPage("/1")).toEqual({
         path: "/1",
         components: [
           { name: "anothercomponent" },
@@ -1991,7 +2015,7 @@ suite("data model", () => {
       const data = new Data({
         pages: [{ path: "/1", components: [{ name: "First name" }] }],
       });
-      expect(() => data.updateComponent("/2", { name: "My name" })).to.throw(
+      expect(() => data.updateComponent("/2", { name: "My name" })).toThrow(
         Error
       );
     });
@@ -2002,7 +2026,7 @@ suite("data model", () => {
       });
       expect(() =>
         data.updateComponent("/1", "myComponent", { name: "My name" })
-      ).to.throw(Error);
+      ).toThrow(Error);
     });
   });
 
@@ -2010,12 +2034,12 @@ suite("data model", () => {
     test("should deep clone the data class", () => {
       const data = new Data(fullyPopulatedRawData);
       const returned = data.clone();
-      expect(returned).to.equal(data);
-      expect(returned.conditions).to.equal(data.conditions);
-      expect(returned.feedbackUrl).to.equal(data.feedbackUrl);
-      expect(returned.feedbackForm).to.equal(data.feedbackForm);
-      expect(returned instanceof Data).to.equal(true);
-      expect(data === returned).to.equal(false);
+      expect(returned).toEqual(data);
+      expect(returned.conditions).toEqual(data.conditions);
+      expect(returned.feedbackUrl).toEqual(data.feedbackUrl);
+      expect(returned.feedbackForm).toEqual(data.feedbackForm);
+      expect(returned instanceof Data).toEqual(true);
+      expect(data === returned).toEqual(false);
     });
 
     test("random function property should be copied to data instance", () => {
@@ -2041,8 +2065,8 @@ suite("data model", () => {
       sourceData.save = save;
       const data = new Data(sourceData);
 
-      expect(data.save).to.equal(save);
-      expect(data.save("something")).to.equal("badgers");
+      expect(data.save).toEqual(save);
+      expect(data.save("something")).toEqual("badgers");
     });
 
     test("random function property should be copied on clone", () => {
@@ -2068,8 +2092,8 @@ suite("data model", () => {
       sourceData.save = save;
       const data = sourceData.clone();
 
-      expect(data.save).to.equal(save);
-      expect(data.save("something")).to.equal("badgers");
+      expect(data.save).toEqual(save);
+      expect(data.save("something")).toEqual("badgers");
     });
   });
 
@@ -2079,7 +2103,7 @@ suite("data model", () => {
         conditions: [],
       });
       data.addCondition("someName", "My name", "a condition");
-      expect(data.conditions).to.equal([
+      expect(data.conditions).toEqual([
         { name: "someName", displayName: "My name", value: "a condition" },
       ]);
     });
@@ -2087,7 +2111,7 @@ suite("data model", () => {
     test("should create conditions in data model if they don't exist", () => {
       const data = new Data({});
       data.addCondition("someName", "My name", "a condition");
-      expect(data.conditions).to.equal([
+      expect(data.conditions).toEqual([
         { name: "someName", displayName: "My name", value: "a condition" },
       ]);
     });
@@ -2099,7 +2123,7 @@ suite("data model", () => {
       data.addCondition("someName", "My name", "a condition");
       expect(() =>
         data.addCondition("someName", "another name", "awe shucks")
-      ).to.throw(Error);
+      ).toThrow(Error);
     });
   });
 
@@ -2107,19 +2131,19 @@ suite("data model", () => {
     test("should return true if there is at least one condition", () => {
       const data = new Data({});
       data.addCondition("someName", "My name", "a condition");
-      expect(data.hasConditions).to.equal(true);
+      expect(data.hasConditions).toEqual(true);
     });
 
     test("should return false if no conditions array exists", () => {
       const data = new Data({});
-      expect(data.hasConditions).to.equal(false);
+      expect(data.hasConditions).toEqual(false);
     });
 
     test("should return false if there are no conditions", () => {
       const data = new Data({
         conditions: [],
       });
-      expect(data.hasConditions).to.equal(false);
+      expect(data.hasConditions).toEqual(false);
     });
   });
 
@@ -2131,23 +2155,23 @@ suite("data model", () => {
         ],
       });
       const returned = data.conditions;
-      expect(returned === data.conditions).to.equal(false);
-      expect(returned).to.equal(data.conditions);
+      expect(returned === data.conditions).toEqual(false);
+      expect(returned).toEqual(data.conditions);
       returned[0].name = "badger";
-      expect(data.conditions[0].name).to.equal("some name");
-      expect(data.conditions[0].displayName).to.equal("My name");
+      expect(data.conditions[0].name).toEqual("some name");
+      expect(data.conditions[0].displayName).toEqual("My name");
     });
 
     test("should return empty if no conditions array exists", () => {
       const data = new Data({});
-      expect(data.conditions).to.equal([]);
+      expect(data.conditions).toEqual([]);
     });
 
     test("should return empty if there are no conditions", () => {
       const data = new Data({
         conditions: [],
       });
-      expect(data.conditions).to.equal([]);
+      expect(data.conditions).toEqual([]);
     });
   });
 
@@ -2156,7 +2180,8 @@ suite("data model", () => {
       const data = new Data({
         conditions: [{ name: "someName" }],
       });
-      expect(data.findCondition("someName")).to.contain({
+
+      expect(data.findCondition("someName")).toMatchObject({
         name: "someName",
         displayName: "someName",
       });
@@ -2166,12 +2191,12 @@ suite("data model", () => {
       const data = new Data({
         conditions: [{ name: "anotherName" }],
       });
-      expect(data.findCondition("someName")).to.equal(undefined);
+      expect(data.findCondition("someName")).toEqual(undefined);
     });
 
     test("should return undefined if conditions is undefined", () => {
       const data = new Data({});
-      expect(data.findCondition("someName")).to.equal(undefined);
+      expect(data.findCondition("someName")).toEqual(undefined);
     });
   });
 
@@ -2181,7 +2206,7 @@ suite("data model", () => {
         conditions: [{ name: "someName" }],
       });
       data.updateCondition("someName", "My condition", "badgers == monkeys");
-      expect(data.findCondition("someName")).to.equal({
+      expect(data.findCondition("someName")).toEqual({
         name: "someName",
         displayName: "My condition",
         value: "badgers == monkeys",
@@ -2193,7 +2218,7 @@ suite("data model", () => {
         conditions: [{ name: "anotherName" }],
       });
       data.updateCondition("someName", "My condition", "Some value");
-      expect(data.conditions).to.equal([
+      expect(data.conditions).toEqual([
         { name: "anotherName", displayName: "anotherName", value: undefined },
       ]);
     });
@@ -2201,7 +2226,7 @@ suite("data model", () => {
     test("should do nothing if conditions is undefined", () => {
       const data = new Data({});
       data.updateCondition("someName", "My condition", "Some value");
-      expect(data.conditions).to.equal([]);
+      expect(data.conditions).toEqual([]);
     });
   });
 
@@ -2211,7 +2236,7 @@ suite("data model", () => {
         conditions: [{ name: "someName" }],
       });
       data.removeCondition("someName");
-      expect(data.conditions).to.equal([]);
+      expect(data.conditions).toEqual([]);
     });
 
     test("should remove references to the removed condition if used in page links", () => {
@@ -2226,8 +2251,8 @@ suite("data model", () => {
         conditions: [{ name: "someName" }],
       });
       data.removeCondition("someName");
-      expect(data.findPage("/")).to.equal({ path: "/" });
-      expect(data.findPage("/badgers")).to.equal({
+      expect(data.findPage("/")).toEqual({ path: "/" });
+      expect(data.findPage("/badgers")).toEqual({
         path: "/badgers",
         next: [{ path: "/summary" }, { path: "/disaster" }],
       });
@@ -2238,7 +2263,7 @@ suite("data model", () => {
         conditions: [{ name: "anotherName" }],
       });
       data.removeCondition("someName");
-      expect(data.conditions).to.equal([
+      expect(data.conditions).toEqual([
         { name: "anotherName", displayName: "anotherName", value: undefined },
       ]);
     });
@@ -2246,7 +2271,7 @@ suite("data model", () => {
     test("should do nothing if conditions is undefined", () => {
       const data = new Data({});
       data.removeCondition("someName");
-      expect(data.conditions).to.equal([]);
+      expect(data.conditions).toEqual([]);
     });
   });
 
@@ -2255,7 +2280,7 @@ suite("data model", () => {
       const data = new Data({
         conditions: [{ name: "someName", value: "badgers == monkeys" }],
       });
-      expect(data.findCondition("someName").expression).to.equal(
+      expect(data.findCondition("someName").expression).toEqual(
         "badgers == monkeys"
       );
     });
@@ -2286,15 +2311,51 @@ suite("data model", () => {
           },
         ],
       });
-      expect(data.findCondition("someName").expression).to.equal(
+      expect(data.findCondition("someName").expression).toEqual(
         "badger == 'Monkeys'"
       );
     });
   });
 
+  describe("phase banner: ", () => {
+    test("empty phase banner object is set", () => {
+      const rawData = { ...fullyPopulatedRawData };
+      delete rawData.phaseBanner;
+
+      const data = new Data(rawData);
+      expect(typeof data.phaseBanner).toEqual("object");
+      expect(data.phaseBanner).toEqual({});
+    });
+
+    test("phase banner object is initialised correctly", () => {
+      const data = new Data({ ...fullyPopulatedRawData });
+      expect(data.phaseBanner.phase).toEqual("alpha");
+      expect(data.phaseBanner.feedbackUrl).toEqual("mailto:test@gov.uk");
+    });
+
+    test("phase property can be changed directly", () => {
+      const data = new Data({ ...fullyPopulatedRawData });
+      data.phaseBanner.phase = "beta";
+
+      expect(data.phaseBanner).toEqual({
+        phase: "beta",
+        feedbackUrl: "mailto:test@gov.uk",
+      });
+    });
+  });
+
   describe("toJSON", () => {
+    const basicFormJSON = {
+      conditions: [],
+      lists: [],
+      pages: [],
+      sections: [],
+      phaseBanner: {},
+    };
+
     test("should expose the conditions field", () => {
       const rawData: any = {
+        ...basicFormJSON,
         conditions: [
           {
             displayName: "a Monkey",
@@ -2302,63 +2363,49 @@ suite("data model", () => {
             value: "a Monkey value",
           },
         ],
-        lists: [],
-        pages: [],
-        sections: [],
       };
       const data = new Data(rawData);
-      expect(data.toJSON()).to.equal(rawData);
+      expect(data.toJSON()).toEqual(rawData);
     });
 
     test("should expose the name field", () => {
       const rawData: any = {
-        conditions: [],
+        ...basicFormJSON,
         name: "My form",
-        lists: [],
-        pages: [],
-        sections: [],
       };
       const data = new Data(rawData);
-      expect(data.toJSON()).to.equal(rawData);
+      expect(data.toJSON()).toEqual(rawData);
     });
 
     test("should expose the feedback field", () => {
-      const rawData = {
-        conditions: [],
+      const rawData: any = {
+        ...basicFormJSON,
         feedback: {
           feedbackForm: true,
         },
-        lists: [],
-        pages: [],
-        sections: [],
       };
       const data = new Data(rawData);
-      expect(data.toJSON()).to.equal(rawData);
+      expect(data.toJSON()).toEqual(rawData);
     });
 
     test("should expose the pages field", () => {
-      const rawData = {
+      const rawData: any = {
         pages: [{ name: "someName" }],
       };
       const data = new Data(rawData);
-      expect(data.toJSON()).to.equal({
+      expect(data.toJSON()).toEqual({
+        ...basicFormJSON,
         pages: [{ name: "someName" }],
-        conditions: [],
-        lists: [],
-        sections: [],
       });
     });
 
     test("should not expose a random function", () => {
-      const rawData = {
+      const rawData: any = {
         save: () => "Badgers",
       };
       const data = new Data(rawData);
-      expect(data.toJSON()).to.equal({
-        conditions: [],
-        lists: [],
-        pages: [],
-        sections: [],
+      expect(data.toJSON()).toEqual({
+        ...basicFormJSON,
       });
     });
   });

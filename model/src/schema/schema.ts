@@ -228,6 +228,10 @@ const feedbackSchema = joi.object().keys({
   }),
 });
 
+const phaseBannerSchema = joi.object().keys({
+  phase: joi.string().valid("alpha", "beta"),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -246,6 +250,7 @@ export const Schema = joi
     payApiKey: joi.string().allow("").optional(),
     skipSummary: joi.boolean().default(false),
     version: joi.number().default(0),
+    phaseBanner: phaseBannerSchema,
   });
 
 /**

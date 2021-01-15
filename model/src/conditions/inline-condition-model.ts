@@ -1,4 +1,4 @@
-import ComponentTypes from "../component-types";
+import { ComponentTypes } from "../components/component-types";
 import { getExpression } from "./inline-condition-operators";
 import { AbstractConditionValue, valueFrom } from "./inline-condition-values";
 

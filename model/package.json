@@ -10,11 +10,9 @@
   "scripts": {
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
-    "test": "yarn lint && yarn type-check &&  yarn test-lab-cov",
-    "test:dev": "yarn test-lab",
-    "test-cov": "yarn test-lab-cov",
-    "test-lab": "lab -T test/.transform.js test/*.test.ts -S -v test -r console -o stdout -r html -o unit-test.html -I version --coverage-exclude src",
-    "test-lab-cov": "lab -T test/.transform.js test/*.test.ts -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html  -r junit -o test-results/lab/unit-test.xml -I version",
+    "test": "yarn lint && yarn type-check &&  yarn test-cov",
+    "test:dev": "jest --watch",
+    "test-cov": "jest --coverage ",
     "build": "yarn run build:types && yarn run build:node && yarn run build:browser",
     "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module",
     "build:browser": "BABEL_ENV=browser babel --extensions '.ts' src --out-dir dist/browser",
@@ -31,7 +29,6 @@
   "dependencies": {
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/runtime": "^7.11.2",
-    "@hapi/hoek": "^9.1.0",
     "boom": "7.3.0",
     "btoa": "^1.2.1",
     "eslint-plugin-import": "^2.22.0",
@@ -54,13 +51,14 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-typescript": "^7.10.4",
-    "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^24.0.0",
+    "@types/jest": "^26.0.20",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "cross-env": "^7.0.2",
     "eslint": "^7.6.0",
-    "sinon": "^9.0.2",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.4.4",
     "typescript": "^4.0.3"
   }
 }
