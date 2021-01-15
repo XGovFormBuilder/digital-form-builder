@@ -1,6 +1,28 @@
 const Section = require("./section");
 
 class EditListsSection extends Section {
+  /**
+   * Allows scoping within a specific panel
+   * @param panelIndex
+   * @returns {Element}
+   */
+  panels(panelIndex) {
+    return browser.$$(".panel")[panelIndex];
+  }
+
+  get panelHeadings() {
+    return browser.$$(".panel h4");
+  }
+
+  /**
+   * Retrieves the index of a panel using the heading name
+   * @param name
+   * @returns {number}
+   */
+  getPanel(name) {
+    return this.panelHeadings.findIndex((el) => el.getText().includes(name));
+  }
+
   get addNewList() {
     return this.parentElement.$("a=Add a new list");
   }
@@ -13,17 +35,16 @@ class EditListsSection extends Section {
     return browser.$("a=Create list item");
   }
 
-  itemTitle(title) {
-    browser.$("#title").waitForDisplayed();
-    return browser.$("#title").setValue(title);
+  itemTitle(panelIndex, title) {
+    return this.panels(panelIndex).$("#title").setValue(title);
   }
 
-  helpText(text) {
-    return browser.$(".govuk-textarea").setValue(text);
+  helpText(panelIndex, text) {
+    return this.panels(panelIndex).$(".govuk-textarea").setValue(text);
   }
 
-  itemValue(value) {
-    return browser.$("#value").setValue(value);
+  itemValue(panelIndex, value) {
+    return this.panels(panelIndex).$("#value").setValue(value);
   }
 
   get saveButton() {
@@ -38,9 +59,11 @@ class EditListsSection extends Section {
    * @param value
    */
   addNewListItem(title, text, value) {
-    this.itemTitle(title);
-    this.helpText(text);
-    this.itemValue(value);
+    let panelIndex = this.getPanel("Add a new list item");
+    console.log(panelIndex);
+    this.itemTitle(panelIndex, title);
+    this.helpText(panelIndex, text);
+    this.itemValue(panelIndex, value);
     this.saveButton.scrollIntoView();
     this.saveButton.click();
   }
