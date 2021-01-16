@@ -13,9 +13,73 @@ function NoMatch() {
 }
 
 export class App extends React.Component {
+  state = {
+    id: "",
+    flyoutCount: 0,
+    isNavigatingBack: false,
+  };
+
+  designerApi = new DesignerApi();
+
+  componentDidMount() {
+    this.setState({ newConfig: window.newConfig ?? false }, () => {
+      if (!this.state.loaded && !this.state.newConfig) {
+        this.setState({ id: window.id, previewUrl: window.previewUrl }, () => {
+          const dataPromise = this.designerApi.fetchData(this.state.id);
+          dataPromise.then((data) => {
+            this.setState({ loaded: true, data: new Data(data) });
+          });
+        });
+      }
+    });
+  }
+
+  getId = () => {
+    return nanoid();
+  };
+
+  setFunctions = (data) => {
+    data.getId = this.getId;
+  };
+
+  updateDownloadedAt = (time) => {
+    this.setState({ downloadedAt: time });
+  };
+
+  setStateId = (id) => {
+    this.setState({ id });
+  };
+
+  incrementFlyoutCounter = (callback = () => {}) => {
+    let currentCount = this.state.flyoutCount;
+    this.setState({ flyoutCount: ++currentCount }, callback());
+  };
+
+  decrementFlyoutCounter = (callback = () => {}) => {
+    let currentCount = this.state.flyoutCount;
+    this.setState({ flyoutCount: --currentCount }, callback());
+  };
+
+  save = async (toUpdate, callback = () => {}) => {
+    const { id } = this.state;
+    await this.designerApi.save(id, toUpdate);
+    this.setState(
+      { data: new Data(toUpdate), updatedAt: new Date().toLocaleTimeString() },
+      callback()
+    );
+    return new Data(toUpdate);
+  };
+
   render() {
-    return (
-      <Router>
+    const { previewUrl, id, flyoutCount, newConfig, data, page } = this.state;
+    const flyoutContextProviderValue = {
+      flyoutCount,
+      increment: this.incrementFlyoutCounter,
+      decrement: this.decrementFlyoutCounter,
+    };
+    const dataContextProviderValue = { data, save: this.save };
+    if (newConfig) {
+      return (
         <div id="app">
           <Switch>
             <Route path="/designer/:id" component={Designer} />

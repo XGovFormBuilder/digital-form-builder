@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Data } from "@xgovformbuilder/model";
 
 import Page from "../../page";
 import { Lines } from "./Lines";
 import { Minimap } from "./Minimap";
 import { Info } from "./Info";
-import { getLayout, Layout } from "./getLayout";
+import { getLayout, Layout, Pos } from "./getLayout";
 import "./visualisation.scss";
+import { DataContext } from "../../context";
 
 type Props = {
   data: Data;
@@ -21,35 +22,37 @@ type State = {
   layout?: Layout["pos"];
 };
 
-export class Visualisation extends React.Component<Props, State> {
-  ref = React.createRef<HTMLDivElement>();
+function useVisualisation(ref) {
+  const { data } = useContext(DataContext)
+  const [layout, setLayout] = useState<Pos>()
 
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  scheduleLayout() {
-    setTimeout(() => {
-      const { data } = this.props;
-      const layout = getLayout(data, this.ref.current!);
-
-      this.setState({
-        layout: layout.pos,
-      });
+  useEffect(() => {
+    const schedule = setTimeout(() => {
+      const layout = getLayout(data, ref.current!);
+      setLayout(layout.pos)
     }, 200);
-  }
+    return () => clearTimeout(schedule);
+  }, [data]);
 
-  componentDidMount() {
-    this.scheduleLayout();
-  }
+  useEffect(() => {
+    window.history.pushState(null, null, window.location.pathname);
+    console.log("component did mount");
+    window.addEventListener("popstate", (event) => {
+      event.preventDefault();
+      console.log("popstate");
+      alert("Are you sure you want to leave the designer?");
+    });
+  }, [])
+  return {layout}
 
-  UNSAFE_componentWillReceiveProps() {
-    this.scheduleLayout();
-  }
+}
 
-  render() {
+export function Visualisation(props: Props){
+  const ref = useRef(null)
+
+
+
+  return {
     const {
       data,
       id,
@@ -57,18 +60,18 @@ export class Visualisation extends React.Component<Props, State> {
       downloadedAt,
       previewUrl,
       persona,
-    } = this.props;
+    } = props;
     const { pages } = data;
 
-    const wrapperStyle = this.state.layout && {
-      width: this.state.layout?.width,
-      height: this.state.layout?.height,
+    const wrapperStyle = state.layout && {
+      width: state.layout?.width,
+      height: state.layout?.height,
     };
 
     return (
       <div className="visualisation">
         <div className="visualisation__pages-wrapper">
-          <div ref={this.ref} style={wrapperStyle}>
+          <div ref={ref} style={wrapperStyle}>
             {pages.map((page, index) => (
               <Page
                 id={id}
@@ -77,21 +80,21 @@ export class Visualisation extends React.Component<Props, State> {
                 page={page}
                 persona={persona}
                 previewUrl={previewUrl}
-                layout={this.state.layout?.nodes[index]}
+                layout={state.layout?.nodes[index]}
               />
             ))}
 
-            {this.state.layout && (
-              <Lines layout={this.state.layout} data={data} persona={persona} />
+            {state.layout && (
+              <Lines layout={state.layout} data={data} persona={persona} />
             )}
           </div>
         </div>
 
-        {this.state.layout && (
+        {state.layout && (
           <Info downloadedAt={downloadedAt} updatedAt={updatedAt} />
         )}
 
-        {this.state.layout && <Minimap layout={this.state.layout} />}
+        {state.layout && <Minimap layout={state.layout} />}
       </div>
     );
   }
