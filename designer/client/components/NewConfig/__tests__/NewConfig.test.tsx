@@ -75,8 +75,9 @@ suite("New configuration screen", () => {
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves(configurations);
     stubFetchJson(200, { url: "configUrl" });
-
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const push = sinon.stub();
+    const history = { push: push };
+    const wrapper = shallow(<NewConfig i18n={mockI18n} history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {

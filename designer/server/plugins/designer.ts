@@ -38,43 +38,43 @@ export const designerPlugin = {
         path: "/",
         options: {
           handler: async (_request, h) => {
-            return h.redirect("/new");
+            return h.redirect("/app");
           },
         },
       });
 
       server.route({
         method: "get",
-        path: "/new",
+        path: "/app",
         options: {
           handler: async (request, h) => {
-            const { persistenceService } = request.services([]);
-            let configurations = [];
-            let error;
-            try {
-              configurations = await persistenceService.listAllConfigurations();
-              return h.view("designer", {
-                newConfig: true,
-                configurations,
-                phase: config.phase,
-              });
-            } catch (e) {
-              error = e;
-              configurations = [];
-              return h.view("designer", {
-                newConfig: true,
-                configurations,
-                error,
-                phase: config.phase,
-              });
-            }
+            return h.view("designer", {
+              phase: config.phase,
+              previewUrl: config.previewUrl,
+            });
           },
         },
       });
 
+      /*server.route({
+        method: "get",
+        path: "/app/designer/{id}",
+        options: {
+          handler: async (request, h) => {
+            const { id } = request.params;
+            return h.view("designer", {
+              newConfig: false,
+              id,
+              phase: config.phase,
+              previewUrl: config.previewUrl,
+            });
+          },
+        },
+      });*/
+
       server.route({
         method: "post",
-        path: "/new",
+        path: "/api/new",
         options: {
           handler: async (request, h) => {
             const { persistenceService } = request.services([]);
@@ -103,23 +103,12 @@ export const designerPlugin = {
               console.log(e);
             }
 
-            return h.redirect(`/${newName}`);
-          },
-        },
-      });
-
-      // DESIGNER
-      server.route({
-        method: "get",
-        path: "/{id}",
-        options: {
-          handler: (request, h) => {
-            const { id } = request.params;
-            return h.view("designer", {
-              id,
+            const response = {
+              id: `${newName}`,
               previewUrl: config.previewUrl,
-              phase: config.phase,
-            });
+            };
+
+            return h.response(response).type("application/json").code(200);
           },
         },
       });
@@ -127,7 +116,7 @@ export const designerPlugin = {
       // GET DATA
       server.route({
         method: "GET",
-        path: "/{id}/api/data",
+        path: "/api/{id}/data",
         options: {
           handler: async (request, h) => {
             const { id } = request.params;
@@ -151,7 +140,7 @@ export const designerPlugin = {
 
       server.route({
         method: "GET",
-        path: "/configurations",
+        path: "/api/configurations",
         options: {
           handler: async (request, h) => {
             const { persistenceService } = request.services([]);
@@ -159,7 +148,8 @@ export const designerPlugin = {
               const response = await persistenceService.listAllConfigurations();
               return h.response(response).type("application/json");
             } catch (error) {
-              request.server.log(["error", "/configurations"], error);
+              request.server.log(["error", "/api/configurations"], error);
+              return h.response({ ok: false, error }).code(500);
             }
           },
         },
@@ -168,7 +158,7 @@ export const designerPlugin = {
       // SAVE DATA
       server.route({
         method: "PUT",
-        path: "/{id}/api/data",
+        path: "/api/{id}/data",
         options: {
           handler: async (request, h) => {
             const { id } = request.params;

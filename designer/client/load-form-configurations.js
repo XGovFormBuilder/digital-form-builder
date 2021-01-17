@@ -1,6 +1,6 @@
 export function fetchConfigurations() {
   return window
-    .fetch("/configurations", {
+    .fetch("/api/configurations", {
       method: "get",
       headers: {
         Accept: "application/json",

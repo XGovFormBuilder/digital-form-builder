@@ -4,10 +4,12 @@ import startCase from "lodash/startCase";
 import * as formConfigurationApi from "../../load-form-configurations";
 import { ChevronRightIcon } from "../Icons";
 import { withI18n } from "../../i18n";
+import { withRouter } from "react-router-dom";
 import "./NewConfig.scss";
 
 type Props = {
   i18n(text: string): string;
+  history?: any;
 };
 
 type State = {
@@ -84,19 +86,20 @@ export class NewConfig extends Component<Props, State> {
       });
     }
 
-    const newResponse = await window.fetch("/new", {
-      method: "POST",
-      body: JSON.stringify({
-        selected: selectedConfig,
-        name: parseNewName(newName),
-      }),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    });
-
-    window.location.href = newResponse.url;
+    const newResponse = await window
+      .fetch("/api/new", {
+        method: "POST",
+        body: JSON.stringify({
+          selected: selectedConfig,
+          name: parseNewName(newName),
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => res.json());
+    this.props.history.push(`designer/${newResponse.id}`);
   };
 
   render() {
@@ -223,4 +226,4 @@ export class NewConfig extends Component<Props, State> {
   }
 }
 
-export default withI18n(NewConfig);
+export default withRouter(withI18n(NewConfig));
