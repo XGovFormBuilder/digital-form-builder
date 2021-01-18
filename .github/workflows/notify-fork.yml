@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - '*'
+  create:
+    tags:
+      - '*'
 
 jobs:
   parse:
