@@ -9,6 +9,19 @@
 {% endblock %}
 
 {% block content %}
+    {% if (phase) %}
+    <div class="govuk-phase-banner" role="banner">
+      <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">
+        {{ phase }}
+        </strong>
+        <span class="govuk-phase-banner__text">
+        This service is currently in development
+        </span>
+      </p>
+    </div>
+    {% endif %}
+    
     <main id="root"></main>
     <div id="portal-root"></div>
 {% endblock %}

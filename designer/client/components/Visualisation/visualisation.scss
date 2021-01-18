@@ -6,7 +6,7 @@
 
   &__pages-wrapper {
     position: relative;
-    margin-bottom: 100px;
+    margin-bottom: 80px;
   }
 
   .page {
@@ -82,7 +82,7 @@
 
   .notification {
     position: fixed;
-    bottom: 100px;
+    bottom: 80px;
     width: 100%;
     background-color: white;
     padding-left: 8px;
@@ -91,7 +91,7 @@
   .minimap {
     position: fixed;
     right: 0;
-    bottom: 105px;
+    bottom: 85px;
     z-index: 998;
     background: lightgray;
     padding: 5px;

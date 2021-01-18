@@ -57,6 +57,7 @@ main {
 #app {
   flex: 1;
   display: flex;
+  flex-direction: column;
 
   .menu {
     padding: 8px;
@@ -82,7 +83,8 @@ main {
 
   @include govuk-media-query($from: tablet) {
     .menu {
-      position: fixed;
+      position: sticky;
+      top: 0;
       padding: 8px;
       z-index: 999;
       background-color: #fff;
@@ -604,7 +606,7 @@ header {
 }
 
 .wrapper-footer {
-  padding: 30px 20px;
+  padding: 15px 20px;
   display: flex;
   max-width: 960px;
   margin: 0 auto;
