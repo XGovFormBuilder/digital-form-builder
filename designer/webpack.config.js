@@ -5,6 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const autoprefixer = require("autoprefixer");
 
 const devMode = process.env.NODE_ENV !== "production";
 const prodMode = process.env.NODE_ENV === "production";
@@ -48,6 +49,9 @@ const client = {
           {
             loader: "css-loader",
             options: {},
+          },
+          {
+            loader: "postcss-loader",
           },
           {
             loader: "sass-loader",
