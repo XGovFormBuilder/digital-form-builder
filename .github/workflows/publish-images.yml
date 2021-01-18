@@ -32,6 +32,7 @@ jobs:
           push: true
           file: ./${{matrix.app}}/Dockerfile
           tags: |
+            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ github.run_number }}-rc
 
       - name: Trigger deploy
@@ -51,5 +52,5 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
       - name: Tag branch with run number
         run: |
-          git tag ${{github.run_number}}-test-rc
+          git tag ${{github.run_number}}-rc
           git push --tags origin HEAD
