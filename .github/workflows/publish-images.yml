@@ -50,5 +50,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Tag branch with run number
         run: |
-        git tag ${{github.run_number}}-rc
-        git push --tags origin HEAD
+          git tag ${{github.run_number}}-rc
+          git push --tags origin HEAD
