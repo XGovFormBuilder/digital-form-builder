@@ -49,10 +49,13 @@ Feature: Components
     Then the Global list has 2 list items
     And I am able to save the edited Global list
 
+  Scenario: Deleting a list item from a Global list
+    And I have created a new Global with 2 list items
+    When I delete a list item from the global list
+    Then the Global list only has one item
+
   Scenario: Create a Local list
     And I add a "List" control to the "First page"
     When I edit the "List" component
     And I create a new component list with 1 item
     Then the list is selected in the list dropdown
-
-
