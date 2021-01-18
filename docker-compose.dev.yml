@@ -1,0 +1,31 @@
+# This file brings only has some extra configuration needed for local dev environment
+# To run it: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+# Ths is is needed because volumes mapping cause issues with CI pipeline
+version: "3.9"
+services:
+  designer:
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - /usr/src/app/node_modules
+      - /usr/src/app/model/node_modules
+      - /usr/src/app/model/dist
+      - /usr/src/app/designer/node_modules
+      - /usr/src/app/designer/dist
+      - /usr/src/app/runner/node_modules
+      - /usr/src/app/runner/dist
+      - ./designer:/usr/src/app/designer:delegated
+    command: yarn designer dev
+  runner:
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - /usr/src/app/node_modules
+      - /usr/src/app/model/node_modules
+      - /usr/src/app/model/dist
+      - /usr/src/app/designer/node_modules
+      - /usr/src/app/designer/dist
+      - /usr/src/app/runner/node_modules
+      - /usr/src/app/runner/dist
+      - ./runner:/usr/src/app/runner
+    command: yarn runner dev
