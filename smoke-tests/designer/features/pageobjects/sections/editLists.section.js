@@ -95,6 +95,21 @@ class EditListsSection extends Section {
     let listItemIndex = this.getListItem(name);
     return this.listItems[listItemIndex].$("=Delete").click();
   }
+
+  /**
+   * Creates a list with list items
+   * @param listName
+   * @param numberOfListItems
+   */
+  createGlobalListWithListItems(listName, numberOfListItems) {
+    this.addNewList.click();
+    this.listTitle.setValue(listName);
+    for (let i = 0; i < numberOfListItems; i++) {
+      this.createListItem.click();
+      this.addNewListItem(`Global list item ${i}`, `${i}`, `${i}`);
+    }
+    this.saveBtn.click();
+  }
 }
 
 module.exports = new EditListsSection();
