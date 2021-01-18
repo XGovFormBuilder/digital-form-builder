@@ -52,3 +52,5 @@ jobs:
         run: |
           git tag ${{github.run_number}}-test-rc
           git push --tags origin HEAD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}

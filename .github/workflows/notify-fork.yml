@@ -2,11 +2,6 @@ name: Dispatch to external repositories
 
 on:
   push:
-    branches:
-     - chore/notify-ho
-    tags:
-      - '*'
-  create:
     tags:
       - '*'
 
