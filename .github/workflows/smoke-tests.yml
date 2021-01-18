@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - master
+      - docker-and-compose-configuration
   workflow_dispatch:
 jobs:
   test:
