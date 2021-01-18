@@ -3,13 +3,13 @@ import { mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { Data, FormConfiguration } from "@xgovformbuilder/model";
-import { ErrorSummary } from "../client/error-summary";
+import { ErrorSummary } from "../../../error-summary";
 
 import sinon from "sinon";
-import * as formConfigurationsApi from "../client/load-form-configurations";
+import * as formConfigurationsApi from "../../../load-form-configurations";
 
-import { assertInputControlProp } from "./helpers/sub-component-assertions";
-import { DataContext } from "../client/context";
+import { assertInputControlProp } from "../../../../test/helpers/sub-component-assertions";
+import { DataContext } from "../../../context";
 const formConfigurations = [
   new FormConfiguration("someKey", "Some display name", undefined, true),
   new FormConfiguration("anotherKey", "Another display name", undefined, true),
@@ -22,7 +22,7 @@ const formConfigurations = [
   ),
 ];
 
-import FormDetails from "../client/form-details";
+import { FormDetails } from "../";
 
 const { expect } = Code;
 const lab = Lab.script();

@@ -10,7 +10,7 @@ import FeeEdit from "./fee-edit";
 import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
 import OutputsEdit from "./outputs/outputs-edit";
-import FormDetails from "./form-details";
+import { FormDetails } from "./components/FormDetails";
 import { ListContextProvider } from "./reducers/listReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";

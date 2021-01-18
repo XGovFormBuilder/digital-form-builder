@@ -1,14 +1,13 @@
 import React from "react";
 import { Radios } from "@govuk-jsx/radios";
 import { Input } from "@govuk-jsx/input";
-import { clone } from "@xgovformbuilder/model";
 
-import { validateTitle, hasValidationErrors } from "./validations";
-import * as formConfigurationApi from "./load-form-configurations";
-import ErrorSummary from "./error-summary";
-import { DataContext } from "./context";
+import { validateTitle, hasValidationErrors } from "../../validations";
+import * as formConfigurationApi from "../../load-form-configurations";
+import ErrorSummary from "../../error-summary";
+import { DataContext } from "../../context";
 
-class FormDetails extends React.Component {
+export class FormDetails extends React.Component {
   static contextType = DataContext;
 
   constructor(props, context) {
@@ -189,5 +188,3 @@ class FormDetails extends React.Component {
     );
   }
 }
-
-export default FormDetails;
