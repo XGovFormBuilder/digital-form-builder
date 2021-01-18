@@ -51,5 +51,5 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
       - name: Tag branch with run number
         run: |
-          git tag ${{github.run_number}}-test-rc
+          git tag ${{github.run_number}}-rc
           git push --tags origin HEAD
