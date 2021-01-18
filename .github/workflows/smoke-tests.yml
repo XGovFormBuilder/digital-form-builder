@@ -17,12 +17,12 @@ jobs:
         run: docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
-      - name: Check containers are running
-        run: |
-          sleep 60
-          docker ps
-          docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
-          docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
+      # - name: Check containers are running
+      #   run: |
+      #     sleep 60
+      #     docker ps
+      #     docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
+      #     docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
       # - name: Get yarn cache directory path
       #   id: yarn-cache-dir-path
       #   run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
