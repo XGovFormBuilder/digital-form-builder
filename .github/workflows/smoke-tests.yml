@@ -17,29 +17,26 @@ jobs:
         run: docker-compose up -d
       - name: Check containers are running
         run: |
-          sleep 30
+          sleep 60
           docker ps
           docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
           docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
-      id: yarn-cache-dir-path
-      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - name: Get yarn cache directory path
-      - uses: actions/cache@v2
-      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      with:
-      path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      restore-keys: |
-      ${{ runner.os }}-yarn-
+      # - name: Get yarn cache directory path
+      #   id: yarn-cache-dir-path
+      #   run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      # - uses: actions/cache@v2
+      #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      #   with:
+      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
       - name: Install smoke tests dependencies
-        run: ls -al
-      - name: Install smoke tests dependencies
-        run: cd smoke-tests/designer && yarn
+        run: yarn install --cwd "smoke-tests/designer"
       - name: Smoke Test
         run: |
-          pwd
-          cd smoke-tests/designer && yarn smoke-test-headless
-          ls -lah reports/
+          yarn smoke-tests/designer smoke-test-headless
+          ls -lah smoke-tests/designer/reports/
       - name: "Tar files"
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
       - uses: actions/upload-artifact@v2
