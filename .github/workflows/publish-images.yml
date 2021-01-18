@@ -48,9 +48,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GHCR_PAT }}
       - name: Tag branch with run number
         run: |
           git tag ${{github.run_number}}-test-rc
           git push --tags origin HEAD
-        env:
-          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
