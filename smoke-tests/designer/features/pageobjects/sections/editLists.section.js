@@ -76,12 +76,21 @@ class EditListsSection extends Section {
     return browser.$$(".govuk-table__body .govuk-table__row");
   }
 
+  /**
+   * Locates the index of the list item
+   * @param listItemName
+   * @returns {number}
+   */
   getListItem(listItemName) {
     return this.listItems.findIndex((el) =>
       el.getText().includes(listItemName)
     );
   }
 
+  /**
+   * Clicks on delete for the chosen list item
+   * @param name
+   */
   deleteListItem(name) {
     let listItemIndex = this.getListItem(name);
     return this.listItems[listItemIndex].$("=Delete").click();
