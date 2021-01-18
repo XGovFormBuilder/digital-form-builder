@@ -23,13 +23,13 @@ type State = {
 };
 
 function useVisualisation(ref) {
-  const { data } = useContext(DataContext)
-  const [layout, setLayout] = useState<Pos>()
+  const { data } = useContext(DataContext);
+  const [layout, setLayout] = useState<Pos>();
 
   useEffect(() => {
     const schedule = setTimeout(() => {
       const layout = getLayout(data, ref.current!);
-      setLayout(layout.pos)
+      setLayout(layout.pos);
     }, 200);
     return () => clearTimeout(schedule);
   }, [data]);
@@ -42,60 +42,45 @@ function useVisualisation(ref) {
       console.log("popstate");
       alert("Are you sure you want to leave the designer?");
     });
-  }, [])
-  return {layout}
-
+  }, []);
+  return { layout };
 }
 
-export function Visualisation(props: Props){
-  const ref = useRef(null)
+export function Visualisation(props: Props) {
+  const ref = useRef(null);
+  const { layout } = useVisualisation(ref);
 
+  const { data, id, updatedAt, downloadedAt, previewUrl, persona } = props;
+  const { pages } = data;
 
+  const wrapperStyle = layout && {
+    width: layout?.width,
+    height: layout?.height,
+  };
 
-  return {
-    const {
-      data,
-      id,
-      updatedAt,
-      downloadedAt,
-      previewUrl,
-      persona,
-    } = props;
-    const { pages } = data;
+  return (
+    <div className="visualisation">
+      <div className="visualisation__pages-wrapper">
+        <div ref={ref} style={wrapperStyle}>
+          {pages.map((page, index) => (
+            <Page
+              id={id}
+              key={index}
+              data={data}
+              page={page}
+              persona={persona}
+              previewUrl={previewUrl}
+              layout={layout?.nodes[index]}
+            />
+          ))}
 
-    const wrapperStyle = state.layout && {
-      width: state.layout?.width,
-      height: state.layout?.height,
-    };
-
-    return (
-      <div className="visualisation">
-        <div className="visualisation__pages-wrapper">
-          <div ref={ref} style={wrapperStyle}>
-            {pages.map((page, index) => (
-              <Page
-                id={id}
-                key={index}
-                data={data}
-                page={page}
-                persona={persona}
-                previewUrl={previewUrl}
-                layout={state.layout?.nodes[index]}
-              />
-            ))}
-
-            {state.layout && (
-              <Lines layout={state.layout} data={data} persona={persona} />
-            )}
-          </div>
+          {layout && <Lines layout={layout} data={data} persona={persona} />}
         </div>
-
-        {state.layout && (
-          <Info downloadedAt={downloadedAt} updatedAt={updatedAt} />
-        )}
-
-        {state.layout && <Minimap layout={state.layout} />}
       </div>
-    );
-  }
+
+      {layout && <Info downloadedAt={downloadedAt} updatedAt={updatedAt} />}
+
+      {layout && <Minimap layout={layout} />}
+    </div>
+  );
 }
