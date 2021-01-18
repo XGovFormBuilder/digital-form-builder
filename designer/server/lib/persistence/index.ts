@@ -8,12 +8,12 @@ type Name = "s3" | "blob" | "preview";
 export function determinePersistenceService(name: Name) {
   switch (name) {
     case "s3":
-      return S3PersistenceService;
+      return (server) => new S3PersistenceService(server);
     case "blob":
-      return BlobPersistenceService;
+      return () => new BlobPersistenceService();
     case "preview":
-      return PreviewPersistenceService;
+      return () => new PreviewPersistenceService();
     default:
-      return StubPersistenceService;
+      return () => new StubPersistenceService();
   }
 }
