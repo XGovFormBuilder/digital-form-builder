@@ -12,6 +12,15 @@ module.exports = class Page {
   }
 
   /**
+   * Used for clicking on a link with a specific name
+   * @param linkName
+   * @returns {Element}
+   */
+  clickLink(linkName) {
+    return browser.$(`=${linkName}`).click();
+  }
+
+  /**
    * Opens a sub page of the page
    * @param path path of the sub page (e.g. /path/to/page.html)
    */

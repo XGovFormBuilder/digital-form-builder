@@ -71,6 +71,10 @@ class EditListsSection extends Section {
   get selectListValue() {
     return browser.$("#field-options-list");
   }
+
+  get listItems() {
+    return browser.$$(".govuk-table__row");
+  }
 }
 
 module.exports = new EditListsSection();

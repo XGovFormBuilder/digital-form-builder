@@ -247,3 +247,32 @@ When(/^I create a new component list with (\d+) item$/, function (
 Then(/^the list is selected in the list dropdown$/, function () {
   expect(EditListSection.selectListValue).toHaveText("Local list test");
 });
+
+Given(/^I have created a new Global with (\d+) list item$/, function (
+  itemNumber
+) {
+  MenuSection.buttonByName("Edit Lists").click();
+  EditListSection.addNewList.click();
+  EditListSection.listTitle.setValue("Countries");
+  EditListSection.createListItem.click();
+  EditListSection.addNewListItem("Test Global Lists", "two", "three");
+  EditListSection.saveBtn.click();
+  EditListSection.closeLinks[0].click();
+});
+
+When(/^I add another list item to the Global list$/, function () {
+  MenuSection.buttonByName("Edit Lists").click();
+  FormDesignerPage.clickLink("Countries");
+  EditListSection.createListItem.click();
+  EditListSection.addNewListItem("Global list item 2", "2", "2");
+});
+
+Then(/^the Global list has (\d+) list items$/, function (listItemNumber) {
+  expect(EditListSection.listItems[listItemNumber]).toHaveTextContaining(
+    "Global list item 2"
+  );
+});
+
+Then(/^I am able to save the edited Global list$/, function () {
+  EditListSection.saveBtn.click();
+});
