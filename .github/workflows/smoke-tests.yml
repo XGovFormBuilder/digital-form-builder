@@ -36,8 +36,8 @@ jobs:
       - name: Smoke Test
         run: |
           pwd
-          yarn smoke-tests/designer smoke-test-headless
-          ls -lah smoke-tests/designer/reports/
+          cd smoke-tests/designer && yarn smoke-test-headless
+          ls -lah reports/
       - name: "Tar files"
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
       - uses: actions/upload-artifact@v2
