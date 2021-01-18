@@ -35,28 +35,6 @@ Then(
   }
 );
 
-When("I add a {string} control to the {string}", (componentName, pageName) => {
-  this.pageName = pageName;
-  FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  expect(AddComponentPage.backToComponentList).toBeDisplayed();
-  switch (componentName) {
-    case "Paragraph":
-      AddComponentPage.paragraphSetText(
-        `You need the vehicle’s number plate (registration number).\n
-          You can see the results as soon as the MOT centre has recorded the test result.\n
-          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
-      );
-      AddComponentPage.saveBtn.click();
-      break;
-    default:
-      AddComponentPage.completeCommonFields(
-        FieldData[toCamelCase(componentName)]
-      );
-      break;
-  }
-});
-
 Then(
   "the {string} control is displayed in the {string}",
   (componentName, pageName) => {
@@ -118,37 +96,10 @@ Then(
   }
 );
 
-When("I edit the page title on the {string}", (pageName) => {
-  this.newPageName = "testing";
-  FormDesignerPage.editPageForPageName(pageName).click();
-  EditPageSection.pageTitle.clearValue();
-  expect(EditPageSection.pageTitle).toHaveValue("");
-  EditPageSection.pageTitle.setValue(this.newPageName);
-  EditPageSection.saveBtn.click();
-});
-
-Then("the changes are reflected in the page designer", () => {
-  FormDesignerPage.designerMenu.waitForDisplayed();
-  console.log(FormDesignerPage.getTitleTextForPage(this.newPageName));
-  expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
-    this.newPageName
-  );
-});
-
-When("I choose {string} from the designer menu", (menuOption) => {
-  MenuSection.buttonByName(menuOption).click();
-});
-
 When("I enter the details for my page", () => {
   this.newPageName = "Personal Details";
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
-});
-
-Then("the page is added in the designer", () => {
-  const pageName = this.newPageName.toLowerCase().replace(" ", "-");
-  FormDesignerPage.designerMenu.waitForDisplayed();
-  expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });
 
 When("I link the {string} to the {string}", (fromPage, toPage) => {
@@ -227,52 +178,59 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
   chai.expect(pageNames).not.include(pageName);
 });
 
-When(/^I edit the "([^"]*)" component$/, function (componentType) {
-  FormDesignerPage.editPageComponent(componentType);
-});
-
-When(/^I create a new component list with (\d+) item$/, function (
-  numberOfItems
-) {
-  EditListSection.clickLink("Add a new component list");
-  EditListSection.clickLink("Create list item");
-  EditListSection.addNewListItem(
-    `list item ${numberOfItems}`,
-    "A list item",
-    `${numberOfItems}`
-  );
-  EditListSection.closeLinks[1].click();
-});
-
-Then(/^the list is selected in the list dropdown$/, function () {
+Then("the list is selected in the list dropdown", function () {
   expect(EditListSection.selectListValue).toHaveText("Local list test");
 });
 
-Given(/^I have created a new Global with (\d+) list item$/, function (
-  itemNumber
-) {
-  MenuSection.buttonByName("Edit Lists").click();
-  EditListSection.addNewList.click();
-  EditListSection.listTitle.setValue("Countries");
-  EditListSection.createListItem.click();
-  EditListSection.addNewListItem("Test Global Lists", "two", "three");
-  EditListSection.saveBtn.click();
-  EditListSection.closeLinks[0].click();
+When("I add a {string} control to the {string}", (componentName, pageName) => {
+  this.pageName = pageName;
+  FormDesignerPage.createComponentForPageName(pageName).click();
+  AddComponentPage.selectComponentByName(componentName);
+  expect(AddComponentPage.backToComponentList).toBeDisplayed();
+  switch (componentName) {
+    case "Paragraph":
+      AddComponentPage.paragraphSetText(
+        `You need the vehicle’s number plate (registration number).\n
+          You can see the results as soon as the MOT centre has recorded the test result.\n
+          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
+      );
+      AddComponentPage.saveBtn.click();
+      break;
+    default:
+      AddComponentPage.completeCommonFields(
+        FieldData[toCamelCase(componentName)]
+      );
+      break;
+  }
 });
 
-When(/^I add another list item to the Global list$/, function () {
-  MenuSection.buttonByName("Edit Lists").click();
-  FormDesignerPage.clickLink("Countries");
-  EditListSection.createListItem.click();
-  EditListSection.addNewListItem("Global list item 2", "2", "2");
+Then("the Date field control is displayed in the page", () => {
+  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
+    .true;
+  expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 
-Then(/^the Global list has (\d+) list items$/, function (listItemNumber) {
-  expect(EditListSection.listItems[listItemNumber]).toHaveTextContaining(
-    "Global list item 2"
+When("I edit the page title on the {string}", (pageName) => {
+  this.newPageName = "testing";
+  FormDesignerPage.editPageForPageName(pageName).click();
+  EditPageSection.pageTitle.setValue(this.newPageName);
+  EditPageSection.saveBtn.click();
+});
+
+Then("the changes are reflected in the page designer", () => {
+  FormDesignerPage.designerMenu.waitForDisplayed();
+  console.log(FormDesignerPage.getTitleTextForPage(this.newPageName));
+  expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
+    this.newPageName
   );
 });
 
-Then(/^I am able to save the edited Global list$/, function () {
-  EditListSection.saveBtn.click();
+When("I choose {string} from the designer menu", (menuOption) => {
+  MenuSection.buttonByName(menuOption).click();
+});
+
+Then("the page is added in the designer", () => {
+  const pageName = this.newPageName.toLowerCase().replace(" ", "-");
+  FormDesignerPage.designerMenu.waitForDisplayed();
+  expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });

@@ -73,7 +73,18 @@ class EditListsSection extends Section {
   }
 
   get listItems() {
-    return browser.$$(".govuk-table__row");
+    return browser.$$(".govuk-table__body .govuk-table__row");
+  }
+
+  getListItem(listItemName) {
+    return this.listItems.findIndex((el) =>
+      el.getText().includes(listItemName)
+    );
+  }
+
+  deleteListItem(name) {
+    let listItemIndex = this.getListItem(name);
+    return this.listItems[listItemIndex].$("=Delete").click();
   }
 }
 
