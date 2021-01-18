@@ -17,20 +17,20 @@ jobs:
         run: docker-compose up -d
       - name: Check containers are running
         run: |
-          sleep 60
+          sleep 30
           docker ps
           docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
           docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+        # id: yarn-cache-dir-path
+        # run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      # - name: Get yarn cache directory path
+      # - uses: actions/cache@v2
+      # id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      # with:
+      # path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      # key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      # restore-keys: |
+      # ${{ runner.os }}-yarn-
       - name: Install smoke tests dependencies
         run: cd smoke-tests/designer && yarn
       - name: Smoke Test
