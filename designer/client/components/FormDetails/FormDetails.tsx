@@ -1,11 +1,12 @@
-import React from "react";
-import { Radios } from "@govuk-jsx/radios";
+import React, { ChangeEvent } from "react";
+
 import { Input } from "@govuk-jsx/input";
 
 import { validateTitle, hasValidationErrors } from "../../validations";
 import * as formConfigurationApi from "../../load-form-configurations";
 import ErrorSummary from "../../error-summary";
 import { DataContext } from "../../context";
+import { FormDetailsFeedback } from "./FormDetailsFeedback";
 
 export class FormDetails extends React.Component {
   static contextType = DataContext;
@@ -22,7 +23,6 @@ export class FormDetails extends React.Component {
       selectedFeedbackForm,
       errors: {},
     };
-    this.onSelectFeedbackForm = this.onSelectFeedbackForm.bind(this);
   }
 
   async componentDidMount() {
@@ -64,13 +64,13 @@ export class FormDetails extends React.Component {
     return errors;
   };
 
-  onSelectFeedbackForm(e) {
-    const selectedFeedbackForm = e.target.value;
+  onSelectFeedbackForm = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFeedbackForm = event.target.value;
     this.setState({ selectedFeedbackForm });
-  }
+  };
 
-  handleIsFeedbackFormRadio = (e) => {
-    const isFeedbackForm = e.target.value === "true";
+  handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLInputElement>) => {
+    const isFeedbackForm = event.target.value === "true";
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });
@@ -94,32 +94,6 @@ export class FormDetails extends React.Component {
           <ErrorSummary errorList={Object.values(errors)} />
         )}
         <form onSubmit={this.onSubmit} autoComplete="off">
-          <Radios
-            name="feedbackForm"
-            value={feedbackForm}
-            onChange={this.handleIsFeedbackFormRadio}
-            required={true}
-            fieldset={{
-              legend: {
-                children: ["Is this a feedback form?"],
-              },
-            }}
-            hint={{
-              children: [
-                "A feedback form is used to gather feedback from users about another form",
-              ],
-            }}
-            items={[
-              {
-                children: ["Yes"],
-                value: true,
-              },
-              {
-                children: ["No"],
-                value: false,
-              },
-            ]}
-          />
           <Input
             id="form-title"
             name="title"
@@ -133,53 +107,13 @@ export class FormDetails extends React.Component {
               errors?.title ? { children: errors.title.children } : undefined
             }
           />
-          {!feedbackForm && (
-            <div className="govuk-form-group">
-              <label
-                className="govuk-label govuk-label--s"
-                htmlFor="target-feedback-form"
-              >
-                Feedback form
-              </label>
-              {formConfigurations.length === 0 && (
-                <div className="govuk-hint" id="target-feedback-form-hint">
-                  <p>No available feedback form configurations found</p>
-                  <p>
-                    Only forms marked as being a feedback form are listed here
-                  </p>
-                </div>
-              )}
-
-              {formConfigurations.length > 0 && (
-                <div>
-                  <div id="target-feedback-form-hint" className="govuk-hint">
-                    <p>
-                      This is the form to use for gathering feedback about this
-                      form
-                    </p>
-                    <p>
-                      Only forms marked as being a feedback form are listed here
-                    </p>
-                  </div>
-                  <select
-                    className="govuk-select"
-                    id="target-feedback-form"
-                    name="targetFeedbackForm"
-                    value={selectedFeedbackForm}
-                    required
-                    onChange={this.onSelectFeedbackForm}
-                  >
-                    <option />
-                    {formConfigurations.map((config, index) => (
-                      <option key={config.Key + index} value={config.Key}>
-                        {config.DisplayName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              )}
-            </div>
-          )}
+          <FormDetailsFeedback
+            feedbackForm={feedbackForm}
+            selectedFeedbackForm={selectedFeedbackForm}
+            formConfigurations={formConfigurations}
+            handleIsFeedbackFormRadio={this.handleIsFeedbackFormRadio}
+            onSelectFeedbackForm={this.onSelectFeedbackForm}
+          />
           <button type="submit" className="govuk-button">
             Save
           </button>
