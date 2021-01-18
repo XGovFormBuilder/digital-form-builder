@@ -15,7 +15,7 @@ class configPage extends Page {
   }
 
   open() {
-    return super.open("new");
+    return super.open("app");
   }
 }
 
