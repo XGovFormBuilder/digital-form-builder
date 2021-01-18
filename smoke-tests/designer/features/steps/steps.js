@@ -126,9 +126,10 @@ Then("the section should be available when I edit the Question page", () => {
   expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
 });
 
-When("I add a new list", () => {
+When("I add a new Global list named {string}", function (listName) {
+  this.listName = listName;
   EditListSection.addNewList.click();
-  EditListSection.listTitle.setValue("Countries");
+  EditListSection.listTitle.setValue(listName);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem("Test Global Lists", "two", "three");
   EditListSection.saveBtn.click();
@@ -143,8 +144,8 @@ When(
   }
 );
 
-Then("the list is available in the list options", () => {
-  expect(AddComponentPage.listOptions).toHaveText("Countries");
+Then("the list is available in the list options", function () {
+  expect(AddComponentPage.listOptions).toHaveText(this.listName);
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
@@ -179,7 +180,7 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
 });
 
 Then("the list is selected in the list dropdown", function () {
-  expect(EditListSection.selectListValue).toHaveText("Local list test");
+  expect(EditListSection.selectListValue).toHaveText(FieldData.list.title);
 });
 
 When("I add a {string} control to the {string}", (componentName, pageName) => {
