@@ -1,39 +1,56 @@
 import React, { ChangeEvent } from "react";
 import { Radios } from "@govuk-jsx/radios";
+import { Label } from "@govuk-jsx/label";
 import { Data } from "@xgovformbuilder/model";
+
+import { i18n } from "../../i18n";
 
 type Props = {
   phaseBanner: Data["phaseBanner"];
-  handlePhaseBannerSelection: (event: ChangeEvent<HTMLInputElement>) => void;
+  handlePhaseBannerChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export const FormDetailsPhaseBanner = (props: Props) => {
+  const { phaseBanner, handlePhaseBannerChange } = props;
+
   return (
-    <Radios
-      name="phaseBanner"
-      value={phaseBanner}
-      onChange={handlePhaseBannerSelection}
-      required={true}
-      fieldset={{
-        legend: {
-          children: ["Is this a feedback form?"],
-        },
-      }}
-      hint={{
-        children: [
-          "A feedback form is used to gather feedback from users about another form",
-        ],
-      }}
-      items={[
-        {
-          children: ["Yes"],
-          value: true,
-        },
-        {
-          children: ["No"],
-          value: false,
-        },
-      ]}
-    />
+    <div className="govuk-form-group">
+      <Radios
+        id="field-form-phase-banner"
+        name="phaseBanner"
+        value={phaseBanner?.phase}
+        onChange={handlePhaseBannerChange}
+        required={false}
+        fieldset={{
+          legend: {
+            children: (
+              <Label
+                className="govuk-label--s"
+                htmlFor="#field-form-phase-banner"
+              >
+                {i18n("formDetails.phaseBanner.fieldTitle")}
+              </Label>
+            ),
+          },
+        }}
+        hint={{
+          children: [i18n("formDetails.phaseBanner.hint")],
+        }}
+        items={[
+          {
+            children: [i18n("formDetails.alpha")],
+            value: "alpha",
+          },
+          {
+            children: [i18n("formDetails.beta")],
+            value: "beta",
+          },
+          {
+            children: [i18n("formDetails.none")],
+            value: undefined,
+          },
+        ]}
+      />
+    </div>
   );
 };

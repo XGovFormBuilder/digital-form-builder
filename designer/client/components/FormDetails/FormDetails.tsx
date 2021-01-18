@@ -1,19 +1,42 @@
-import React, { ChangeEvent } from "react";
+import React, { Component, ChangeEvent, ContextType, FormEvent } from "react";
+import { Data, clone } from "@xgovformbuilder/model";
 
-import { Input } from "@govuk-jsx/input";
+import { FormConfiguration } from "@xgovformbuilder/model";
 
 import { validateTitle, hasValidationErrors } from "../../validations";
 import * as formConfigurationApi from "../../load-form-configurations";
 import ErrorSummary from "../../error-summary";
 import { DataContext } from "../../context";
-import { FormDetailsFeedback } from "./FormDetailsFeedback";
+import { i18n } from "../../i18n";
 
-export class FormDetails extends React.Component {
+import { FormDetailsTitle } from "./FormDetailsTitle";
+import { FormDetailsFeedback } from "./FormDetailsFeedback";
+import { FormDetailsPhaseBanner } from "./FormDetailsPhaseBanner";
+
+import "./FormDetails.scss";
+
+type Phase = "alpha" | "beta" | undefined;
+
+type Props = {
+  onCreate?: (saved: boolean) => void;
+};
+
+type State = {
+  title: string;
+  phase: Phase;
+  feedbackForm: Data["feedbackForm"];
+  formConfigurations: FormConfiguration[];
+  selectedFeedbackForm?: string;
+  errors: any;
+};
+
+export class FormDetails extends Component<Props, State> {
   static contextType = DataContext;
+  context!: ContextType<typeof DataContext>;
 
   constructor(props, context) {
     super(props, context);
-    const { data } = this.context;
+    const { data } = context;
     const { feedbackForm, feedbackUrl } = data;
     const selectedFeedbackForm = feedbackUrl?.substr(1) || "";
     this.state = {
@@ -22,30 +45,33 @@ export class FormDetails extends React.Component {
       formConfigurations: [],
       selectedFeedbackForm,
       errors: {},
+      phase: undefined,
     };
   }
 
   async componentDidMount() {
-    const formConfigurations = await formConfigurationApi.loadConfigurations();
+    const result = await formConfigurationApi.loadConfigurations();
     this.setState({
-      formConfigurations: formConfigurations.filter((it) => it.feedbackForm),
+      formConfigurations: result.filter((it) => it.feedbackForm),
     });
   }
 
-  onSubmit = async (e) => {
-    e?.preventDefault();
+  onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const validationErrors = this.validate();
 
     if (hasValidationErrors(validationErrors)) return;
 
     const { data, save } = this.context;
-    const { title, feedbackForm, selectedFeedbackForm } = this.state;
-    const copy = data.clone();
+    const { title, feedbackForm, selectedFeedbackForm, phase } = this.state;
+    const copy = clone(data);
     copy.name = title;
     copy.feedbackForm = feedbackForm;
-    copy.setFeedbackUrl(
-      selectedFeedbackForm ? `/${selectedFeedbackForm}` : undefined
-    );
+    copy.setFeedbackUrl(selectedFeedbackForm ? `/${selectedFeedbackForm}` : "");
+    copy.phaseBanner = {
+      ...(data.phaseBanner || {}),
+      phase,
+    };
 
     try {
       const saved = await save(copy);
@@ -64,12 +90,12 @@ export class FormDetails extends React.Component {
     return errors;
   };
 
-  onSelectFeedbackForm = (event: ChangeEvent<HTMLInputElement>) => {
+  onSelectFeedbackForm = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedFeedbackForm = event.target.value;
     this.setState({ selectedFeedbackForm });
   };
 
-  handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLInputElement>) => {
+  handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLSelectElement>) => {
     const isFeedbackForm = event.target.value === "true";
 
     if (isFeedbackForm) {
@@ -77,6 +103,15 @@ export class FormDetails extends React.Component {
     } else {
       this.setState({ feedbackForm: false });
     }
+  };
+
+  handlePhaseBannerChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const phase = event.target.value as Phase;
+    this.setState({ phase });
+  };
+
+  handleTitleInputBlur = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({ title: event.target.value });
   };
 
   render() {
@@ -88,24 +123,22 @@ export class FormDetails extends React.Component {
       errors,
     } = this.state;
 
+    const { data } = this.context;
+
     return (
       <>
         {Object.keys(errors).length > 0 && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
         <form onSubmit={this.onSubmit} autoComplete="off">
-          <Input
-            id="form-title"
-            name="title"
-            label={{
-              className: "govuk-label--s",
-              children: ["Title"],
-            }}
-            onBlur={(e) => this.setState({ title: e.target.value })}
-            defaultValue={title}
-            errorMessage={
-              errors?.title ? { children: errors.title.children } : undefined
-            }
+          <FormDetailsTitle
+            title={title}
+            errors={errors}
+            handleTitleInputBlur={this.handleTitleInputBlur}
+          />
+          <FormDetailsPhaseBanner
+            phaseBanner={data.phaseBanner}
+            handlePhaseBannerChange={this.handlePhaseBannerChange}
           />
           <FormDetailsFeedback
             feedbackForm={feedbackForm}
@@ -115,7 +148,7 @@ export class FormDetails extends React.Component {
             onSelectFeedbackForm={this.onSelectFeedbackForm}
           />
           <button type="submit" className="govuk-button">
-            Save
+            {i18n("Save")}
           </button>
         </form>
       </>

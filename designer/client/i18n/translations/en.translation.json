@@ -34,6 +34,8 @@
   },
   "field": "field",
   "edit": "edit {{noun}}",
+  "yes": "yes",
+  "no": "no",
   "create": "create {{noun}}",
   "save": "Save",
   "duplicate": "Duplicate",
@@ -128,5 +130,18 @@
     "RadiosField": "Radios field",
     "SelectField": "Select field",
     "YesNoField": "YesNo field"
+  },
+  "formDetails": {
+    "alpha": "Alpha",
+    "beta": "Beta",
+    "none": "None",
+    "phaseBanner": {
+      "fieldTitle": "Select a phase banner to add or change to your form",
+      "fieldHint": "A feedback form is used to gather feedback from users about another form",
+      "hint": "A phase banner includes a link for users to give feedback on your form."
+    },
+    "feedbackForm": {
+      "fieldTitle": "Is this a feedback form?"
+    }
   }
 }

@@ -1,13 +1,16 @@
 import React, { ChangeEvent } from "react";
 import { Radios } from "@govuk-jsx/radios";
+import { Label } from "@govuk-jsx/label";
 import { FormConfiguration } from "@xgovformbuilder/model";
+
+import { i18n } from "../../i18n";
 
 type Props = {
   feedbackForm: any;
-  handleIsFeedbackFormRadio: (event: ChangeEvent<HTMLInputElement>) => void;
-  onSelectFeedbackForm: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleIsFeedbackFormRadio: (event: ChangeEvent<HTMLSelectElement>) => void;
+  onSelectFeedbackForm: (event: ChangeEvent<HTMLSelectElement>) => void;
   formConfigurations: FormConfiguration[];
-  selectedFeedbackForm: string;
+  selectedFeedbackForm: string | undefined;
 };
 
 export const FormDetailsFeedback = (props: Props) => {
@@ -20,7 +23,7 @@ export const FormDetailsFeedback = (props: Props) => {
   } = props;
 
   return (
-    <>
+    <div className="govuk-form-group">
       <Radios
         name="feedbackForm"
         value={feedbackForm}
@@ -28,21 +31,26 @@ export const FormDetailsFeedback = (props: Props) => {
         required={true}
         fieldset={{
           legend: {
-            children: ["Is this a feedback form?"],
+            children: (
+              <Label
+                className="govuk-label--s"
+                htmlFor="#field-form-phase-banner"
+              >
+                {i18n("formDetails.feedbackForm.fieldTitle")}
+              </Label>
+            ),
           },
         }}
         hint={{
-          children: [
-            "A feedback form is used to gather feedback from users about another form",
-          ],
+          children: [i18n("formDetails.feedbackForm.fieldHint")],
         }}
         items={[
           {
-            children: ["Yes"],
+            children: [i18n("yes")],
             value: true,
           },
           {
-            children: ["No"],
+            children: [i18n("no")],
             value: false,
           },
         ]}
@@ -91,6 +99,6 @@ export const FormDetailsFeedback = (props: Props) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
