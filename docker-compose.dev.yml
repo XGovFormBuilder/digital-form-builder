@@ -1,6 +1,6 @@
-# This file brings only has some extra configuration needed for local dev environment
-# To run it: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
-# Ths is is needed because volumes mapping cause issues with CI pipeline
+# This file brings some extra configuration needed for local dev environment
+# To start your local dev environment please run:
+#    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 version: "3.9"
 services:
   designer:
