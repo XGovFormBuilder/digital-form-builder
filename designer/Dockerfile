@@ -1,7 +1,7 @@
 # ----------------------------
 # Stage 1
 # Base image contains the updated OS and
-# It also configures the non-root user that will be given permision to copied files/folders in every subsequent stages
+# It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
 FROM node:12-alpine3.12 AS base
 
 RUN mkdir -p /usr/src/app && \
@@ -59,7 +59,7 @@ RUN rsync -a /usr/src/cache/designer/ ./designer && \
 # ----------------------------
 # Stage 5
 # Run stage
-# Usign the small base image we copy the application from build stage  and run it with a non-root user.
+# Using the small base image we copy the application from build stage  and run it with a non-root user.
 # The Copy command belowe is slower but reduces the size of the final image by 1GB.
 FROM base AS run
 WORKDIR /usr/src/app
