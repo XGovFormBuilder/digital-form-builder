@@ -13,8 +13,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - name: Build the stack
-        run: docker-compose build --parallel
+      - name: Docker compose build
+        run: docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
       - name: Check containers are running
