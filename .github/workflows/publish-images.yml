@@ -2,7 +2,9 @@ name: Publish to Github Container Registry
 
 on:
   push:
-    branches: master
+    branches:
+      - master
+      - chore/notify-ho
 
 jobs:
   build-publish:
@@ -30,8 +32,8 @@ jobs:
           push: true
           file: ./${{matrix.app}}/Dockerfile
           tags: |
-            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
-            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ github.run_number }}
+#            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
+            ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ github.run_number }}-rc
 
       - name: Trigger deploy
         uses: benc-uk/workflow-dispatch@v1
