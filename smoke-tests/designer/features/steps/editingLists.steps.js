@@ -7,22 +7,19 @@ const FieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 
 Given("I have created a Global list with {int} list item(s)", function (
-  itemNumber
+  numberOfListItems
 ) {
   MenuSection.buttonByName("Edit Lists").click();
-  EditListSection.addNewList.click();
-  EditListSection.listTitle.setValue("Countries");
-  for (let i = 0; i < itemNumber; i++) {
-    EditListSection.createListItem.click();
-    EditListSection.addNewListItem(`Global list item ${i}`, `${i}`, `${i}`);
-  }
-  EditListSection.saveBtn.click();
+  EditListSection.createGlobalListWithListItems(
+    FieldData.list.title,
+    numberOfListItems
+  );
 });
 
 When("I add another list item to the Global list", function () {
   EditListSection.closeLinks[0].click();
   MenuSection.buttonByName("Edit Lists").click();
-  FormDesignerPage.clickLink("Countries");
+  EditListSection.clickLink(FieldData.list.title);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem("Global list item 1", "1", "1");
 });
@@ -38,10 +35,21 @@ Then("I am able to save the edited Global list", function () {
   EditListSection.saveBtn.click();
 });
 
-When(/^I delete a list item from the global list$/, function () {
-  FormDesignerPage.clickLink("Countries");
+When("I delete the {int}st list item from the {string} list", function (
+  itemNumber,
+  listType
+) {
+  switch (listType.toLowerCase()) {
+    case "global":
+      EditListSection.clickLink(FieldData.list.title);
+      break;
+    case "local":
+      FormDesignerPage.editPageComponent("list");
+      EditListSection.clickLink(`Edit ${FieldData.list.title}`);
+      break;
+  }
   expect(EditListSection.listItems.length).toEqual(2);
-  EditListSection.deleteListItem("0");
+  EditListSection.deleteListItem(itemNumber - 1);
 });
 
 Then(/^the Global list only has one item$/, function () {
@@ -86,17 +94,6 @@ Given("I have created a Local list with {int} list item(s)", function (
   EditListSection.saveBtn.click();
 });
 
-//   EditListSection.closeLinks[1].click();
-//   MenuSection.buttonByName("Edit Lists").click();
-//   EditListSection.addNewList.click();
-//   EditListSection.listTitle.setValue("Countries");
-//   console.log(itemNumber);
-//   for (let i = 0; i < itemNumber; i++) {
-//     EditListSection.createListItem.click();
-//     EditListSection.addNewListItem(`Global list item ${i}`, `${i}`, `${i}`);
-//   }
-//   EditListSection.saveBtn.click();
-// });
 When("I create a {int}nd list item for the Local list", function (
   listItemNumber
 ) {
@@ -115,13 +112,6 @@ Then(/^the Local list has (\d+) list items$/, function (listItems) {
   expect(EditListSection.listItems[listItems - 1]).toHaveTextContaining(
     "Local list item 2"
   );
-});
-
-When(/^I delete a list item from the Local list$/, function () {
-  FormDesignerPage.editPageComponent("list");
-  EditListSection.clickLink(`Edit ${FieldData.list.title}`);
-  expect(EditListSection.listItems.length).toEqual(2);
-  EditListSection.deleteListItem("Local list item 0");
 });
 
 Then(/^the Local list only has one item$/, function () {

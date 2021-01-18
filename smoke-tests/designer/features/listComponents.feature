@@ -21,7 +21,7 @@ Feature: List components
 
   Scenario: Deleting a list item from a Global list
     And I have created a Global list with 2 list items
-    When I delete a list item from the global list
+    When I delete the 1st list item from the "global" list
     Then the Global list only has one item
 
   Scenario: Create a Local list
@@ -37,5 +37,5 @@ Feature: List components
 
   Scenario: Deleting a list item from a local list
     And I have created a Local list with 2 list items
-    When I delete a list item from the Local list
+    When I delete the 1st list item from the "Local" list
     Then the Local list only has one item

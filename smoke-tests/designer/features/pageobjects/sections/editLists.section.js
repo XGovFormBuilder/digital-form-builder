@@ -91,8 +91,7 @@ class EditListsSection extends Section {
    * Clicks on delete for the chosen list item
    * @param name
    */
-  deleteListItem(name) {
-    let listItemIndex = this.getListItem(name);
+  deleteListItem(listItemIndex) {
     return this.listItems[listItemIndex].$("=Delete").click();
   }
 
