@@ -4,8 +4,6 @@
 version: "3.9"
 services:
   designer:
-    environment:
-      - CHOKIDAR_USEPOLLING=true
     volumes:
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
@@ -17,8 +15,6 @@ services:
       - ./designer:/usr/src/app/designer:delegated
     command: yarn designer dev
   runner:
-    environment:
-      - CHOKIDAR_USEPOLLING=true
     volumes:
       - /usr/src/app/node_modules
       - /usr/src/app/model/node_modules
