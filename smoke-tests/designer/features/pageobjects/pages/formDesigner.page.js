@@ -1,10 +1,6 @@
 const Page = require("./basePage");
 
 class FormDesignerPage extends Page {
-  get designerMenu() {
-    return browser.$("nav.menu");
-  }
-
   get addComponentToPage() {
     return browser.$("button=Create component");
   }

@@ -4,7 +4,7 @@
  */
 module.exports = class Page {
   get designerMenu() {
-    return $("nav.menu");
+    return browser.$(".menu");
   }
 
   get saveBtn() {
