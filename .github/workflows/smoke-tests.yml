@@ -28,7 +28,7 @@ jobs:
           restore-keys: |
             digital-form-builder-1
       - name: Docker compose build
-        run: docker-compose build
+        run: docker-compose build --parallel
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
