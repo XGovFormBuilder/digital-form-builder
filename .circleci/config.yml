@@ -3,19 +3,13 @@ parameters:
   # This parameter is used to trigger the main workflow
   trigger:
     type: boolean
-    default: true
-
-  # This parameter is used to trigger the build-test workflow
+    default: false  # This parameter is used to trigger the build-test workflow
   build-test:
     type: boolean
-    default: true
-
-  # If you need to force build all of the packages, set default: true
+    default: true  # If you need to force build all of the packages, set default: true
   force-build-all:
     type: boolean
-    default: true
-
-  # A parameter per package
+    default: true  # A parameter per package
   model:
     type: boolean
     default: false
@@ -33,9 +27,7 @@ parameters:
     default: false
   docs:
     type: boolean
-    default: false
-
-executors:
+    default: falseexecutors:
   node:
     docker:
       - image: circleci/node:12
@@ -44,10 +36,14 @@ executors:
       - image: circleci/node:12.16-browsers
   python:
     docker:
-      - image: circleci/python:2.7-jessie
-
-jobs:
-  install-yarn-lint:
+      - image: circleci/python:2.7-jessiejobs:
+  trigger-workflows:
+    executor: node
+    steps:
+      - checkout
+      - run:
+          name: Trigger workflows
+          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh  install-yarn-lint:
     executor: node-browsers
     working_directory: ~/project
     steps:
@@ -71,28 +67,20 @@ jobs:
       - persist_to_workspace:
           root: ~/project
           paths:
-            - .
-
-  build-test:
+            - .  build-test:
     parameters:
       package_name:
         type: string
       should_build:
-        type: boolean
-
-    executor: node-browsers
+        type: boolean    executor: node-browsers
     working_directory: ~/project
     steps:
       - when:
           condition:
             or:
               # changes were made to this module, it needs to be rebuilt
-              - << parameters.should_build >>
-
-              # force flag
-              - << pipeline.parameters.force-build-all >>
-
-              # if the upstream dependencies (model) have changed, this package must be rebuilt.
+              - << parameters.should_build >>              # force flag
+              - << pipeline.parameters.force-build-all >>              # if the upstream dependencies (model) have changed, this package must be rebuilt.
               - and:
                   - equal: ["runner", << parameters.package_name >>]
                   - << pipeline.parameters.model >>
@@ -101,9 +89,7 @@ jobs:
                   - << pipeline.parameters.model >>
           steps:
             - attach_workspace:
-                at: ~/project
-
-            - when:
+                at: ~/project            - when:
                 condition:
                   or:
                     - and:
@@ -117,9 +103,7 @@ jobs:
                   - run:
                       name: Build dependencies
                       command: |
-                        yarn build:dependencies
-
-            - run:
+                        yarn build:dependencies            - run:
                 name: Build
                 command: |
                   yarn << parameters.package_name >> run build
@@ -139,11 +123,9 @@ jobs:
           command: |
             if [ ! '<< parameters.should_build >>' = 'true' ]; then
               circleci-agent step halt
-            fi
-
-workflows:
-  version: 2
-
+            fiworkflows:
+  version: 2  # The main workflow responsible for triggering all other workflows
+  # in which changes are detected.
   build-test:
     when: << pipeline.parameters.build-test >>
     jobs:
@@ -153,16 +135,12 @@ workflows:
           package_name: model
           should_build: << pipeline.parameters.model >>
           requires:
-            - install-yarn-lint
-
-      - build-test:
+            - install-yarn-lint      - build-test:
           name: runner-build-test
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
-            - model-build-test
-
-      - build-test:
+            - model-build-test      - build-test:
           name: designer-build-test
           package_name: designer
           should_build: << pipeline.parameters.designer >>
