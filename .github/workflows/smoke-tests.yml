@@ -22,14 +22,13 @@ jobs:
         run: docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
+      - name: Install smoke tests dependencies
+        run: yarn install --cwd "smoke-tests/designer"
       - name: Check containers are running
         run: |
-          sleep 60
           docker ps
           docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
           docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
-      - name: Install smoke tests dependencies
-        run: yarn install --cwd "smoke-tests/designer"
       - name: Smoke Test
         run: |
           yarn smoke-tests/designer smoke-test-headless
