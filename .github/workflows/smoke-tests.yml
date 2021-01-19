@@ -20,15 +20,16 @@ jobs:
         continue-on-error: true
         with:
           # Layers are cached by keys
-          # docker-layer-caching action has an issue which causes layers to dangle, increasing pull time significantly
+          # docker-layer-caching action has an issue which causes layers to dangle,
+          # and this will eventually build up and increase pull time significantly
           # see https://github.com/satackey/action-docker-layer-caching/issues/55
-          # ATM solution is to change keys periodically to avoid pulling dangling layers
-          # for that just increase the number you see in key and restore-keys below (they must have the same values)
+          # ATM solution is to change keys periodically to avoid the dangling layers
+          # for that just increase the number you see in key and restore-keys below (same number in both keys)
           key: digital-form-builder-1-{hash}
           restore-keys: |
             digital-form-builder-1
       - name: Docker compose build
-        run: docker-compose build --parallel
+        run: docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
