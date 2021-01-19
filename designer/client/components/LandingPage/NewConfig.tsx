@@ -1,11 +1,9 @@
-import React, { Component, ChangeEvent, MouseEvent } from "react";
-import startCase from "lodash/startCase";
-
+import React, { Component, MouseEvent } from "react";
 import * as formConfigurationApi from "../../load-form-configurations";
-import { ChevronRightIcon } from "../Icons";
 import { withI18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
-import "./NewConfig.scss";
+import { BackLink } from "../BackLink";
+import "./LandingPage.scss";
 
 type Props = {
   i18n(text: string): string;
@@ -14,7 +12,6 @@ type Props = {
 
 type State = {
   configs: { Key: string; DisplayName: string }[];
-  selected: { Key: string };
   newName: string;
   alreadyExistsError: boolean;
   nameIsRequiredError: boolean;
@@ -30,7 +27,6 @@ export class NewConfig extends Component<Props, State> {
 
     this.state = {
       configs: [],
-      selected: { Key: "New" },
       newName: "",
       alreadyExistsError: false,
       nameIsRequiredError: false,
@@ -45,44 +41,26 @@ export class NewConfig extends Component<Props, State> {
     });
   }
 
-  onSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { configs } = this.state;
-    const { value } = event.target;
-    const selected = configs.find((config) => config.Key === value)!;
-    this.setState({ selected, newName: "", alreadyExistsError: false });
-  };
+  onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
 
-  onNewNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { configs } = this.state;
-    const newName = event.target.value;
+    const { newName, configs } = this.state;
+    if (!newName) {
+      return this.setState({
+        nameIsRequiredError: true,
+      });
+    }
+
     const parsedName = parseNewName(newName);
-
     const alreadyExists =
       configs.find((config) => {
         const fileName = config.Key.toLowerCase().replace(".json", "");
         return fileName === parsedName;
       }) ?? false;
 
-    this.setState({
-      newName,
-      alreadyExistsError: !!alreadyExists,
-      selected: { Key: "New" },
-    });
-  };
-
-  onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    const { selected, newName, alreadyExistsError } = this.state;
-    const selectedConfig = selected || { Key: "New" };
-
-    if (alreadyExistsError) {
-      return;
-    }
-
-    if (selectedConfig.Key === "New" && !newName) {
+    if (alreadyExists) {
       return this.setState({
-        nameIsRequiredError: true,
+        alreadyExistsError: true,
       });
     }
 
@@ -90,7 +68,7 @@ export class NewConfig extends Component<Props, State> {
       .fetch("/api/new", {
         method: "POST",
         body: JSON.stringify({
-          selected: selectedConfig,
+          selected: { Key: "New" },
           name: parseNewName(newName),
         }),
         headers: {
@@ -102,21 +80,23 @@ export class NewConfig extends Component<Props, State> {
     this.props.history.push(`designer/${newResponse.id}`);
   };
 
+  goBack = (event) => {
+    this.props.history.goBack();
+  };
+
   render() {
     const { i18n } = this.props;
-    const {
-      selected,
-      configs,
-      newName,
-      alreadyExistsError,
-      nameIsRequiredError,
-    } = this.state;
+    const { newName, alreadyExistsError, nameIsRequiredError } = this.state;
 
     const hasError = alreadyExistsError || nameIsRequiredError;
 
     return (
       <div className="new-config">
         <div>
+          <BackLink onClick={this.goBack}>
+            {i18n("Back to previous page")}
+          </BackLink>
+
           {hasError && (
             <div
               className="govuk-error-summary"
@@ -149,16 +129,14 @@ export class NewConfig extends Component<Props, State> {
               </div>
             </div>
           )}
-          <h1 className="govuk-heading-l">
-            {i18n("Create a new form or edit an existing form")}
-          </h1>
+
           <div
             className={`govuk-form-group ${
               hasError ? "govuk-form-group--error" : ""
             }`}
           >
             <label className="govuk-label govuk-label--m" htmlFor="formName">
-              {i18n("Create a new form")}
+              {i18n("Enter a name for your form")}
             </label>
             <div className="govuk-hint">
               {i18n(
@@ -187,38 +165,14 @@ export class NewConfig extends Component<Props, State> {
                 hasError ? "govuk-input--error" : ""
               }`}
               value={newName}
-              onChange={this.onNewNameChange}
+              onChange={(e) => this.setState({ newName: e.target.value })}
             />
-          </div>
-          <div className="govuk-form-group">
-            <label
-              className="govuk-label govuk-label--m"
-              htmlFor="configuration"
-            >
-              {i18n("Select an existing form to edit")}
-            </label>
-            <select
-              className="govuk-select"
-              id="link-source"
-              name="configuration"
-              value={selected.Key}
-              required
-              onChange={this.onSelect}
-            >
-              <option>{configs.length ? "" : "No existing forms found"}</option>
-              {configs.length &&
-                configs.map((config, i) => (
-                  <option key={config.Key + i} value={config.Key}>
-                    {startCase(config.DisplayName)}
-                  </option>
-                ))}
-            </select>
           </div>
           <button
             className="govuk-button govuk-button--start"
             onClick={this.onSubmit}
           >
-            {i18n("Start")} <ChevronRightIcon />
+            {i18n("Next")}
           </button>
         </div>
       </div>

@@ -1,0 +1,30 @@
+.new-config {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 30px 200px;
+
+  .govuk-fieldset__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .back-link {
+    margin-bottom: 40px;
+  }
+
+  .form__list {
+    margin-top: 60px;
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+@media only screen and (min-height: 800px) {
+  .new-config {
+    padding-bottom: 200px;
+  }
+}

@@ -37,7 +37,7 @@ const configurations = [
 
 const wait = () => new Promise((resolve) => setTimeout(resolve));
 
-suite("New configuration screen", () => {
+suite.skip("New configuration screen", () => {
   const mockI18n = (text: string) => text;
   let formConfigurationApiStub;
 

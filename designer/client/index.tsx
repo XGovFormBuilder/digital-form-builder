@@ -1,21 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Menu from "./menu";
-import { Visualisation } from "./components/Visualisation";
-import { NewConfig } from "./components/NewConfig";
-import { Data } from "@xgovformbuilder/model";
-import { customAlphabet } from "nanoid";
-import { FlyoutContext, DataContext } from "./context";
+import {
+  LandingChoice,
+  NewConfig,
+  ChooseExisting,
+} from "./components/LandingPage";
 import "./styles/index.scss";
 import { initI18n } from "./i18n";
-import { DesignerApi } from "./api/designerApi";
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Designer from "./designer";
 
 initI18n();
@@ -32,7 +24,13 @@ export class App extends React.Component {
           <Switch>
             <Route path="/designer/:id" component={Designer} />
             <Route path="/" exact>
+              <LandingChoice />
+            </Route>
+            <Route path="/new" exact>
               <NewConfig />
+            </Route>
+            <Route path="/choose-existing" exact>
+              <ChooseExisting />
             </Route>
             <Route path="*">
               <NoMatch />
