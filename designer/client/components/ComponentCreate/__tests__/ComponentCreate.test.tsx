@@ -1,7 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
+import { render, screen } from "@testing-library/react";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 
@@ -9,12 +7,7 @@ import { ComponentCreate } from "../ComponentCreate";
 import { ComponentContextProvider } from "../../../reducers/component";
 import { DataContext } from "../../../context";
 
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
-const { beforeEach, suite, test } = lab;
-
-suite("ComponentCreate:", () => {
+describe("ComponentCreate:", () => {
   const detailsComponentDef = {
     name: "Details",
     type: "Details",
@@ -25,8 +18,6 @@ suite("ComponentCreate:", () => {
   const data = new Data({ pages: [{ path: "/1" }] });
   const dataSpy = sinon.spy(data);
   const page = { path: "/1" };
-
-  beforeEach(() => {});
 
   const WrappingComponent = ({
     dataValue = { data: dataSpy, save: sinon.stub() },
@@ -42,25 +33,24 @@ suite("ComponentCreate:", () => {
     );
   };
 
-  test("Selecting a component type should display the ComponentTypeEdit component", async () => {
-    const wrapper = mount(<ComponentCreate page={page} />, {
-      wrappingComponent: WrappingComponent,
-    });
+  test.only("Selecting a component type should display the ComponentTypeEdit component", () => {
+    const wrapper = render(<ComponentCreate page={page} />);
 
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
 
     const componentCreateList = wrapper.find("ComponentCreateList");
+
     componentCreateList.prop("onSelectComponent")(detailsComponentDef);
     wrapper.update();
 
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
   });
 
-  test("Should store the populated component and call callback on submit", async () => {
+  test("Should store the populated component and call callback on submit", () => {
     let saveStub = sinon.stub();
     const component = { ...detailsComponentDef, title: "1", content: "1" };
 
-    const wrapper = mount(<ComponentCreate page={page} />, {
+    const wrapper = render(<ComponentCreate page={page} />, {
       wrappingComponent: WrappingComponent,
       wrappingComponentProps: {
         dataValue: { data: dataSpy, save: saveStub },
@@ -80,9 +70,9 @@ suite("ComponentCreate:", () => {
       });
   });
 
-  test("'Back to create component list' link", async () => {
+  test("'Back to create component list' link", () => {
     let saveStub = sinon.stub();
-    const wrapper = mount(<ComponentCreate page={page} />, {
+    const wrapper = render(<ComponentCreate page={page} />, {
       wrappingComponent: WrappingComponent,
       wrappingComponentProps: {
         dataValue: { data: dataSpy, save: saveStub },
@@ -110,10 +100,10 @@ suite("ComponentCreate:", () => {
     expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
   });
 
-  test("it displays ErrorSummary when validation fails", async () => {
+  test("it displays ErrorSummary when validation fails", () => {
     const saveStub = sinon.stub();
 
-    const wrapper = mount(<ComponentCreate page={page} />, {
+    const wrapper = render(<ComponentCreate page={page} />, {
       wrappingComponent: WrappingComponent,
       wrappingComponentProps: {
         dataValue: { data: dataSpy, save: saveStub },
