@@ -4,11 +4,20 @@
  */
 module.exports = class Page {
   get designerMenu() {
-    return $("nav.menu");
+    return browser.$(".menu");
   }
 
   get saveBtn() {
     return this.parent.$(".govuk-button");
+  }
+
+  /**
+   * Used for clicking on a link with a specific name
+   * @param linkName
+   * @returns {Element}
+   */
+  clickLink(linkName) {
+    return browser.$(`=${linkName}`).click();
   }
 
   /**

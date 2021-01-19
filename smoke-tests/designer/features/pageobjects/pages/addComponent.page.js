@@ -2,7 +2,7 @@ const Page = require("./basePage");
 
 class AddComponentPage extends Page {
   get parent() {
-    return $(".flyout__container");
+    return browser.$(".panel--flyout");
   }
 
   get addComponent() {
@@ -18,6 +18,7 @@ class AddComponentPage extends Page {
   }
 
   get titleField() {
+    this.parent.$("#field-title").waitForDisplayed();
     return this.parent.$("#field-title");
   }
 
