@@ -6,14 +6,29 @@ const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 
-Given("I have created a Global list with {int} list item(s)", function (
+Given("I have created a {string} list with {int} list item(s)", function (
+  listType,
   numberOfListItems
 ) {
-  MenuSection.buttonByName("Edit Lists").click();
-  EditListSection.createGlobalListWithListItems(
-    FieldData.list.title,
-    numberOfListItems
-  );
+  switch (listType.toLowerCase()) {
+    case "local":
+      FormDesignerPage.createComponentForPageName("First page").click();
+      AddComponentPage.selectComponentByName("List");
+      AddComponentPage.completeCommonFields(FieldData[toCamelCase("List")]);
+      FormDesignerPage.editPageComponent("list");
+      EditListSection.clickLink("Add a new component list");
+      EditListSection.createListWithListItems(listType, numberOfListItems);
+      EditListSection.closeLinks[1].click();
+      EditListSection.saveBtn.click();
+      break;
+    case "global":
+      MenuSection.buttonByName("Edit Lists").click();
+      EditListSection.addNewList.click();
+      EditListSection.listTitle.setValue(FieldData.list.title);
+      EditListSection.createListWithListItems(listType, numberOfListItems);
+      EditListSection.saveBtn.click();
+      break;
+  }
 });
 
 When("I add another list item to the Global list", function () {
@@ -21,7 +36,12 @@ When("I add another list item to the Global list", function () {
   MenuSection.buttonByName("Edit Lists").click();
   EditListSection.clickLink(FieldData.list.title);
   EditListSection.createListItem.click();
-  EditListSection.addNewListItem("Global list item 1", "1", "1");
+  EditListSection.addNewListItem(
+    "Add a new list item",
+    "Global list item 1",
+    "1",
+    "1"
+  );
 });
 
 Then("the Global list has {int} list items", function (listItemNumber) {
@@ -52,7 +72,7 @@ When("I delete the {int}st list item from the {string} list", function (
   EditListSection.deleteListItem(itemNumber - 1);
 });
 
-Then(/^the Global list only has one item$/, function () {
+Then("the Global list only has one item", function () {
   expect(EditListSection.listItems.length).toEqual(1);
   expect(EditListSection.listItems[0]).not.toHaveTextContaining(
     "Global list item 0"
@@ -67,31 +87,12 @@ When("I create a new component list with {int} item", function (numberOfItems) {
   EditListSection.clickLink("Add a new component list");
   EditListSection.clickLink("Create list item");
   EditListSection.addNewListItem(
+    "Add a new list item",
     `list item ${numberOfItems}`,
     "A list item",
     `${numberOfItems}`
   );
   EditListSection.closeLinks[1].click();
-});
-
-Given("I have created a Local list with {int} list item(s)", function (
-  itemNumber
-) {
-  FormDesignerPage.createComponentForPageName("First page").click();
-  AddComponentPage.selectComponentByName("List");
-  AddComponentPage.completeCommonFields(FieldData[toCamelCase("List")]);
-  FormDesignerPage.editPageComponent("list");
-  EditListSection.clickLink("Add a new component list");
-  for (let i = 0; i < itemNumber; i++) {
-    EditListSection.clickLink("Create list item");
-    EditListSection.addNewListItem(
-      `Local list item ${i}`,
-      "A list item",
-      `${i}`
-    );
-  }
-  EditListSection.closeLinks[1].click();
-  EditListSection.saveBtn.click();
 });
 
 When("I create a {int}nd list item for the Local list", function (
@@ -101,20 +102,48 @@ When("I create a {int}nd list item for the Local list", function (
   EditListSection.clickLink(`Edit ${FieldData.list.title}`);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
+    "Add a new list item",
     `Local list item ${listItemNumber}`,
     `${listItemNumber}`,
     `${listItemNumber}`
   );
 });
 
-Then(/^the Local list has (\d+) list items$/, function (listItems) {
+Then("the Local list has {int} list items", function (listItems) {
   expect(EditListSection.listItems.length).toEqual(listItems);
   expect(EditListSection.listItems[listItems - 1]).toHaveTextContaining(
     "Local list item 2"
   );
 });
 
-Then(/^the Local list only has one item$/, function () {
+Then("the Local list only has one item", function () {
   expect(EditListSection.listItems.length).toEqual(1);
   expect(EditListSection.listItems[0]).not.toHaveText("Local list item 0");
+});
+
+When("I edit the {int}st list item from the {string} list", function (
+  listItem,
+  listType
+) {
+  this.listItemTitle = `${listType} list item 3`;
+  if (listType.toLowerCase() === "local") {
+    FormDesignerPage.editPageComponent("list");
+    EditListSection.clickLink(`Edit ${FieldData.list.title}`);
+  } else {
+    EditListSection.clickLink(FieldData.list.title);
+  }
+  expect(EditListSection.listItems.length).toEqual(2);
+  EditListSection.editListItem(listItem - 1);
+  EditListSection.addNewListItem(
+    "Editing list item",
+    this.listItemTitle,
+    "3",
+    "3"
+  );
+});
+
+Then("the {int}st list item reflects the changes I made", function (listItem) {
+  expect(EditListSection.listItems[listItem - 1]).toHaveTextContaining(
+    this.listItemTitle
+  );
 });

@@ -131,7 +131,12 @@ When("I add a new Global list named {string}", function (listName) {
   EditListSection.addNewList.click();
   EditListSection.listTitle.setValue(listName);
   EditListSection.createListItem.click();
-  EditListSection.addNewListItem("Test Global Lists", "two", "three");
+  EditListSection.addNewListItem(
+    "Add a new list item",
+    "Test Global Lists",
+    "two",
+    "two"
+  );
   EditListSection.saveBtn.click();
   EditListSection.closeLinks[0].click();
 });

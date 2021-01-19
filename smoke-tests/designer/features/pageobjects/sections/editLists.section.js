@@ -54,13 +54,13 @@ class EditListsSection extends Section {
 
   /**
    * Adds one list item to a global list
+   * @param panelName
    * @param title
    * @param text
    * @param value
    */
-  addNewListItem(title, text, value) {
-    let panelIndex = this.getPanel("Add a new list item");
-    console.log(panelIndex);
+  addNewListItem(panelName, title, text, value) {
+    let panelIndex = this.getPanel(panelName);
     this.itemTitle(panelIndex, title);
     this.helpText(panelIndex, text);
     this.itemValue(panelIndex, value);
@@ -88,26 +88,36 @@ class EditListsSection extends Section {
   }
 
   /**
-   * Clicks on delete for the chosen list item
-   * @param name
+   * Clicks on Delete for the chosen list item
+   * @param listItemIndex
    */
   deleteListItem(listItemIndex) {
     return this.listItems[listItemIndex].$("=Delete").click();
   }
 
   /**
+   * Clicks on Edit for the chosen list item
+   * @param listItemIndex
+   */
+  editListItem(listItemIndex) {
+    return this.listItems[listItemIndex].$("=Edit").click();
+  }
+
+  /**
    * Creates a list with list items
-   * @param listName
+   * @param listType
    * @param numberOfListItems
    */
-  createGlobalListWithListItems(listName, numberOfListItems) {
-    this.addNewList.click();
-    this.listTitle.setValue(listName);
+  createListWithListItems(listType, numberOfListItems) {
     for (let i = 0; i < numberOfListItems; i++) {
       this.createListItem.click();
-      this.addNewListItem(`Global list item ${i}`, `${i}`, `${i}`);
+      this.addNewListItem(
+        "Add a new list item",
+        `${listType} list item ${i}`,
+        `${i}`,
+        `${i}`
+      );
     }
-    this.saveBtn.click();
   }
 }
 

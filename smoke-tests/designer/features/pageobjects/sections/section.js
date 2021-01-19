@@ -13,6 +13,7 @@ module.exports = class Section {
   }
 
   get saveBtn() {
+    browser.$(".govuk-button=Save").scrollIntoView();
     return browser.$(".govuk-button=Save");
   }
 
