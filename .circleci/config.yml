@@ -8,12 +8,12 @@ parameters:
   # This parameter is used to trigger the build-test workflow
   build-test:
     type: boolean
-    default: false
+    default: true
 
   # If you need to force build all of the packages, set default: true
   force-build-all:
     type: boolean
-    default: false
+    default: true
 
   # A parameter per package
   model:
@@ -47,14 +47,6 @@ executors:
       - image: circleci/python:2.7-jessie
 
 jobs:
-  trigger-workflows:
-    executor: node
-    steps:
-      - checkout
-      - run:
-          name: Trigger workflows
-          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
-
   install-yarn-lint:
     executor: node-browsers
     working_directory: ~/project
@@ -151,13 +143,6 @@ jobs:
 
 workflows:
   version: 2
-
-  # The main workflow responsible for triggering all other workflows
-  # in which changes are detected.
-  ci:
-    when: << pipeline.parameters.trigger >>
-    jobs:
-      - trigger-workflows
 
   build-test:
     when: << pipeline.parameters.build-test >>
