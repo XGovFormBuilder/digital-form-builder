@@ -34,7 +34,7 @@ export async function createServer() {
   (server as any).registerService([
     Schmervice.withName(
       "persistenceService",
-      determinePersistenceService(config.persistentBackend)
+      determinePersistenceService(config.persistentBackend, server)
     ),
   ]);
   await server.register(designerPlugin);
