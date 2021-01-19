@@ -39,6 +39,7 @@ export async function createServer() {
   ]);
   await server.register(designerPlugin);
   await server.register(router);
+  await server.register(logging);
 
   return server;
 }
