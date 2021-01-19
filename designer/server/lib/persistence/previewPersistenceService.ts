@@ -1,7 +1,6 @@
 import type { PersistenceService } from "./persistenceService";
 import Wreck from "@hapi/wreck";
 import config from "../../config";
-import { FormConfiguration } from "./types";
 
 /**
  * Persistence service that relies on the runner for storing
