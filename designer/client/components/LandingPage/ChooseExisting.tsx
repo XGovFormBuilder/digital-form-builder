@@ -34,7 +34,7 @@ export class ChooseExisting extends Component<Props, State> {
     });
   }
 
-  onSelect = async (form) => {
+  selectForm = async (form) => {
     //TODO get config name
     const newResponse = await window
       .fetch("/api/new", {
@@ -64,6 +64,21 @@ export class ChooseExisting extends Component<Props, State> {
       return <p>Loading ...</p>;
     }
 
+    const formList = configs.map((form) => (
+      <li key={form.Key}>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            this.selectForm(form.Key);
+          }}
+        >
+          {form.DisplayName}
+        </a>
+        <hr />
+      </li>
+    ));
+
     return (
       <div className="new-config">
         <div>
@@ -78,10 +93,7 @@ export class ChooseExisting extends Component<Props, State> {
               <li>Form name</li>
               <hr />
               {hasEditableForms ? (
-                <FormList
-                  forms={this.state.configs}
-                  onSelectForm={this.onSelect}
-                ></FormList>
+                <>{formList}</>
               ) : (
                 <p>You do not have any existing forms</p>
               )}
