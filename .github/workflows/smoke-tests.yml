@@ -13,6 +13,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Docker compose pull
+        run: docker-compose pull
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
       - name: Docker compose build
         run: docker-compose build
       - name: Docker compose up
