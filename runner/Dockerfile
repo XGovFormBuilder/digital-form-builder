@@ -1,17 +1,14 @@
 # ----------------------------
 # Stage 1
 # Base image contains the updated OS and
-# It also configures the non-root user that will be given permision to copied files/folders in every subsequent stages
+# It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
 FROM node:12-alpine3.12 AS base
 
 RUN mkdir -p /usr/src/app && \
-    mkdir -p /usr/src/cache && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
     chown -R appuser:appuser /usr/src/app && \
-    chown -R appuser:appuser /usr/src/cache && \
     chmod -R +x  /usr/src/app && \
-    chmod -R +x  /usr/src/cache && \
     apk update && \
     apk upgrade && \
     apk add --no-cache bash && \
@@ -21,8 +18,8 @@ RUN mkdir -p /usr/src/app && \
 # Stage 2
 # Cache layer contains npm packages for all workspaces
 # It will re-run only if one of the copied files change, otherwise this stage is cached
-FROM base AS cache
-WORKDIR /usr/src/cache
+FROM base AS dependencies
+WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 COPY --chown=appuser:appuser model/package.json ./model/
@@ -36,11 +33,10 @@ RUN yarn
 # In this layer we build the model workspace.
 # It will re-run only if anything inside ./model changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM cache AS model
+FROM dependencies AS model
 WORKDIR /usr/src/app
-COPY --chown=appuser:appuser ./model ./model/
-RUN rsync -a /usr/src/cache/ ./ && \
-    yarn model build
+COPY ./model ./model/
+RUN yarn model build
 
 
 # ----------------------------
@@ -49,21 +45,11 @@ RUN rsync -a /usr/src/cache/ ./ && \
 # In this layer we build the runner workspace
 # It will re-run only if anything inside ./runner changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM model AS build
+FROM model AS build-runner
 WORKDIR /usr/src/app
-COPY --chown=appuser:appuser ./runner ./runner/
-RUN rsync -a /usr/src/cache/runner/ ./runner && \
-    yarn runner build
-
-
-# ----------------------------
-# Stage 5
-# Run stage
-# Usign the small base image we copy the application from build stage  and run it with a non-root user.
-# The Copy command belowe is slower but reduces the size of the final image by 1GB.
-FROM base AS run
-WORKDIR /usr/src/app
-COPY --from=build --chown=appuser:appuser /usr/src/app/ ./
+COPY ./runner ./runner/
+RUN yarn runner build && \
+    rm -rf ./designer
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]

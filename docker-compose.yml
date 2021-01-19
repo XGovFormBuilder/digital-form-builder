@@ -1,3 +1,5 @@
+# This file only contains base configuration needed for CI build and test
+# For local development environment please see docker-compose.dev.yml
 version: "3.9"
 services:
   designer:
@@ -5,9 +7,6 @@ services:
     build:
       context: .
       dockerfile: ./designer/Dockerfile
-      args:
-        - WORKSPACE_NAME=designer
-        - PORT=3000
     ports:
       - "3000:3000"
     environment:
@@ -18,16 +17,7 @@ services:
       - sandbox=true
       - PREVIEW_URL=http://localhost:3009
       - PUBLISH_URL=http://runner:3009
-    volumes:
-      - /usr/src/app/node_modules
-      - /usr/src/app/model/node_modules
-      - /usr/src/app/model/dist
-      - /usr/src/app/designer/node_modules
-      - /usr/src/app/designer/dist
-      - /usr/src/app/runner/node_modules
-      - /usr/src/app/runner/dist
-      - ./designer:/usr/src/app/designer:delegated
-    command: yarn designer dev
+    command: yarn designer start
     depends_on:
       - runner
   runner:
@@ -35,9 +25,6 @@ services:
     build:
       context: .
       dockerfile: ./runner/Dockerfile
-      args:
-        - WORKSPACE_NAME=runner
-        - PORT=3009
     ports:
       - "3009:3009"
     environment:
@@ -47,16 +34,7 @@ services:
       - REDIS_PASSWORD=123abc
       - sandbox=true
       - PREVIEW_MODE=true
-    volumes:
-      - /usr/src/app/node_modules
-      - /usr/src/app/model/node_modules
-      - /usr/src/app/model/dist
-      - /usr/src/app/designer/node_modules
-      - /usr/src/app/designer/dist
-      - /usr/src/app/runner/node_modules
-      - /usr/src/app/runner/dist
-      - ./runner:/usr/src/app/runner
-    command: yarn runner dev
+    command: yarn runner start
     depends_on:
       - redis
   redis:
