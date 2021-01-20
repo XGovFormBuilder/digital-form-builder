@@ -15,7 +15,8 @@ import { FormDetailsPhaseBanner } from "./FormDetailsPhaseBanner";
 
 import "./FormDetails.scss";
 
-type Phase = "alpha" | "beta" | undefined;
+type PhaseBanner = Exclude<Data["phaseBanner"], undefined>;
+type Phase = PhaseBanner["phase"];
 
 type Props = {
   onCreate?: (saved: boolean) => void;
@@ -33,6 +34,7 @@ type State = {
 export class FormDetails extends Component<Props, State> {
   static contextType = DataContext;
   context!: ContextType<typeof DataContext>;
+  isUnmounting = false;
 
   constructor(props, context) {
     super(props, context);
@@ -45,15 +47,21 @@ export class FormDetails extends Component<Props, State> {
       formConfigurations: [],
       selectedFeedbackForm,
       errors: {},
-      phase: undefined,
+      phase: data.phaseBanner?.phase,
     };
   }
 
   async componentDidMount() {
     const result = await formConfigurationApi.loadConfigurations();
-    this.setState({
-      formConfigurations: result.filter((it) => it.feedbackForm),
-    });
+    if (!this.isUnmounting) {
+      this.setState({
+        formConfigurations: result.filter((it) => it.feedbackForm),
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.isUnmounting = true;
   }
 
   onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -107,7 +115,7 @@ export class FormDetails extends Component<Props, State> {
 
   handlePhaseBannerChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const phase = event.target.value as Phase;
-    this.setState({ phase });
+    this.setState({ phase: phase || undefined });
   };
 
   handleTitleInputBlur = (event: ChangeEvent<HTMLInputElement>) => {
@@ -117,13 +125,12 @@ export class FormDetails extends Component<Props, State> {
   render() {
     const {
       title,
+      phase,
       feedbackForm,
       selectedFeedbackForm,
       formConfigurations,
       errors,
     } = this.state;
-
-    const { data } = this.context;
 
     return (
       <>
@@ -137,7 +144,7 @@ export class FormDetails extends Component<Props, State> {
             handleTitleInputBlur={this.handleTitleInputBlur}
           />
           <FormDetailsPhaseBanner
-            phaseBanner={data.phaseBanner}
+            phase={phase}
             handlePhaseBannerChange={this.handlePhaseBannerChange}
           />
           <FormDetailsFeedback

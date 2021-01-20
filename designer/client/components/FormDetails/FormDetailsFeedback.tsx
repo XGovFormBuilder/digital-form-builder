@@ -15,7 +15,7 @@ type Props = {
 
 export const FormDetailsFeedback = (props: Props) => {
   const {
-    feedbackForm,
+    feedbackForm = false,
     handleIsFeedbackFormRadio,
     onSelectFeedbackForm,
     formConfigurations,
@@ -83,6 +83,7 @@ export const FormDetailsFeedback = (props: Props) => {
               <select
                 className="govuk-select"
                 id="target-feedback-form"
+                data-testid="target-feedback-form"
                 name="targetFeedbackForm"
                 value={selectedFeedbackForm}
                 required

@@ -18,7 +18,7 @@ export const FormDetailsTitle = (props: Props) => {
         className: "govuk-label--s",
         children: [i18n("Title")],
       }}
-      onBlur={handleTitleInputBlur}
+      onChange={handleTitleInputBlur}
       defaultValue={title}
       errorMessage={
         errors?.title ? { children: errors.title.children } : undefined
