@@ -51,7 +51,7 @@ class FormDesignerPage extends Page {
   }
 
   pageContainer(elem) {
-    return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
+    return browser.$(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
   }
 
   /**

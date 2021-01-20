@@ -3,13 +3,16 @@ const ConfigPage = require("../pageobjects/pages/config.page");
 const FormDesigner = require("../pageobjects/pages/formDesigner.page");
 const FieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
+const { nanoid } = require("nanoid");
 
 class Actions {
   createNewConfig() {
     ConfigPage.open();
-    this.configRef = `smoke-testing ${Date.parse(Date())}`;
+    this.configRef = `smoke-testing-${nanoid(10)}`;
     ConfigPage.newConfig(this.configRef);
-    expect(browser).toHaveUrlContaining(this.configRef.replace(" ", "-"));
+    expect(browser).toHaveUrlContaining(
+      this.configRef.replace(" ", "-").toLowerCase()
+    );
   }
 
   createComponentForPage(componentName, pageName) {

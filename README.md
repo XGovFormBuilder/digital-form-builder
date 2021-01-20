@@ -10,7 +10,9 @@ This repository is a mono repo for
 
 The repos are forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
 
-This is a (getting close to) zero-install yarn 2 workspaces repository. .yarnrc.yml allows us to align our yarn environments. Please commit any plugins in .yarn, but do not commit your .yarn/cache. CI will save and restore the caches.
+### This is a  yarn 2 zero installs, workspaces repository. You must commit your .yarn/cache and yarn.lock
+Committing your .yarn/cache is not the same as committing node_modules. Yarn 2 is able to dedupe packages, and will compress them much smaller than if you were to compress node_modules yourself.
+For pull requests not authored by a member of XGovFormBuilder/maintainers, CI will run `yarn install --check-cache` and fetch any packages that are bad. Read more about zero installs [here](https://yarnpkg.com/features/zero-installs)!
 
 Workspaces will deal with sym-linking the packages, so we do not have to manually run `yarn link`.
 It will also deal with hoisting the node_modules for any packages that are shared between the repos, thus decreasing any install times. Hopefully it all just works™️.
@@ -20,7 +22,8 @@ It will also deal with hoisting the node_modules for any packages that are share
 **Always run scripts from the root directory.**
 
 1. Make sure you are using node >=12. `node --version`.
-2. Make sure you have yarn 2.4+ installed.
+2. Make sure you have yarn 1.22+ installed. 
+   - You do not need to install yarn 2.4+, the binary for it is in [.yarn/releases](./.yarn/releases). Yarn 1.22+ will use this binary when you run yarn commands. 
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
 
