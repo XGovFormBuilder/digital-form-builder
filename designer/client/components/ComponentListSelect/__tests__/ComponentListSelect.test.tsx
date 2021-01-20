@@ -1,7 +1,7 @@
 import sinon from "sinon";
 import React, { useReducer } from "react";
-import { mount } from "enzyme";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import userEvent, { TargetElement } from "@testing-library/user-event";
 
 import { DataContext } from "../../../context";
 import { Data } from "@xgovformbuilder/model";
@@ -13,15 +13,12 @@ import {
 } from "../../../reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "../../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../../reducers/listReducer";
-import * as i18nModule from "../../../i18n/i18n";
+import { i18n, initI18n } from "../../../i18n/i18n";
 
 describe("ComponentListSelect", () => {
-  let i18n: any;
-  let wrapper: any;
-
   beforeEach(() => {
-    sinon.restore(); // TODO check if this is necessary
-    i18n = sinon.spy(i18nModule, "i18n");
+    sinon.restore(); // TODO Is this necessary?
+    initI18n();
   });
 
   afterEach(() => {
@@ -86,7 +83,7 @@ describe("ComponentListSelect", () => {
     dataValue,
     componentValue,
   }) => {
-    const initComponentValue = (initialState) => {
+    const initComponentValue = (initialState: any) => {
       return !!componentValue ? componentValue : initialState;
     };
     const [state, dispatch] = useReducer(
@@ -105,8 +102,9 @@ describe("ComponentListSelect", () => {
     );
   };
 
-  test.only("Lists all available lists and the static list", () => {
-    wrapper = render(
+  test("Lists all available lists and the static list", () => {
+    // - when
+    const { container } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
         componentValue={false}
@@ -115,48 +113,52 @@ describe("ComponentListSelect", () => {
       </TestComponentContextProvider>
     );
 
-    screen.debug();
+    const options = container.querySelectorAll("option");
 
-    const options = () => wrapper.find(ComponentListSelect).find("option");
-    expect(options().length).to.equal(3);
+    // - then
+    expect(options).toHaveLength(3);
 
-    expect(options().get(0).props).to.contain({
-      value: "static",
-      children: "abc",
-    });
-    expect(options().get(1).props).to.equal({
-      value: "myList",
-      children: "My list",
-    });
-    expect(options().get(2).props).to.equal({
-      value: "myOtherList",
-      children: "",
+    const optionProps = [
+      { value: "static", text: "abc" },
+      { value: "myList", text: "My list" },
+      { value: "myOtherList", text: "" },
+    ];
+
+    optionProps.forEach((optionProp, index) => {
+      expect(options[index]).toHaveValue(optionProp.value);
+      expect(options[index]).toHaveTextContent(optionProp.text);
     });
   });
 
   test("Selecting a different list changes the edit link", () => {
-    wrapper = mount(
-      <TestComponentContextProvider dataValue={dataValue}>
+    // - when
+    const { container } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={false}
+      >
         <ComponentListSelect />
       </TestComponentContextProvider>
     );
-    const select = () => wrapper.find("select");
-    select().simulate("change", { target: { value: "myList" } });
-    expect(select().props().value).to.equal("myList");
-    expect(i18n.lastCall.args).to.equal(["list.edit", { title: "My list" }]);
+
+    const select = container.querySelector("select") as TargetElement;
+    userEvent.selectOptions(select, "myList");
+
+    // - then
+    const editLink = container.querySelector("a");
+    expect(editLink).toHaveTextContent("Edit My list");
   });
 
   test("Create new static list shows when values is empty", () => {
+    // - when
     const data = new Data({
+      startPage: "",
       pages: [
         {
-          name: "IDDQl4",
           title: "abc",
-          schema: {},
-          options: {
-            required: true,
-          },
-          type: "RadiosField",
+          path: "/abc",
+          controller: "test",
+          section: "test",
           components: [
             {
               name: "IDDQl4",
@@ -170,18 +172,27 @@ describe("ComponentListSelect", () => {
           ],
         },
       ],
+      lists: [],
+      sections: [],
     });
     const dataValue = { data, save: sinon.spy() };
-    wrapper = mount(
-      <TestComponentContextProvider dataValue={dataValue}>
+    const { container } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={false}
+      >
         <ComponentListSelect />
       </TestComponentContextProvider>
     );
-    expect(wrapper.find("list.static.newTitle")).to.exist();
+
+    // - then
+    const anchorLink = container.querySelector("a");
+    expect(anchorLink).toHaveTextContent(i18n("list.static.newTitle"));
   });
 
   test("Force user to save for new components before allowing to create a static list", () => {
-    const componentValue = {
+    // - when
+    const componentProps = {
       selectedComponent: {
         name: "IDDQl4",
         title: "abc",
@@ -190,18 +201,19 @@ describe("ComponentListSelect", () => {
           required: true,
         },
         type: "RadiosField",
-        isNew: true,
       },
+      isNew: true,
     };
-    wrapper = mount(
+    const { container } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
-        componentValue={componentValue}
+        componentValue={componentProps}
       >
         <ComponentListSelect />
       </TestComponentContextProvider>
     );
 
-    expect(wrapper.find("list.static.saveFirst")).to.exist();
+    // - then
+    expect(container).toHaveTextContent(i18n("list.static.saveFirst"));
   });
 });
