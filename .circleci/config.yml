@@ -36,7 +36,7 @@ executors:
       - image: cimg/node:12
   node-browsers:
     docker:
-      - image: cimg/node:12.16-browsers
+      - image: cimg/node:12.19.1-browsers
   python:
     docker:
       - image: circleci/python:2.7-jessie
