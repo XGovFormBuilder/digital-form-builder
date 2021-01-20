@@ -23,7 +23,7 @@ export const FormDetailsFeedback = (props: Props) => {
   } = props;
 
   return (
-    <div className="govuk-form-group">
+    <div className="govuk-form-group form-details__feedback">
       <Radios
         name="feedbackForm"
         value={feedbackForm}
