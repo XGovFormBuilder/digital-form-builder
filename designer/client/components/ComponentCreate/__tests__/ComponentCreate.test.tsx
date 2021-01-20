@@ -2,25 +2,30 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
+import userEvent, { TargetElement } from "@testing-library/user-event";
 
 import { ComponentCreate } from "../ComponentCreate";
 import { ComponentContextProvider } from "../../../reducers/component";
 import { DataContext } from "../../../context";
+import { initI18n } from "../../../i18n/i18n";
+import { DetailsComponent } from "@xgovformbuilder/model";
 
 describe("ComponentCreate:", () => {
-  const detailsComponentDef = {
-    name: "Details",
-    type: "Details",
-    title: "Details",
-    subType: "content",
-  };
+  beforeEach(() => {
+    initI18n();
+  });
 
-  const data = new Data({ pages: [{ path: "/1" }] });
-  const dataSpy = sinon.spy(data);
+  const data = new Data({
+    pages: [{ path: "/1", title: "", controller: "", section: "" }],
+    lists: [],
+    sections: [],
+    startPage: "",
+  });
+
   const page = { path: "/1" };
 
   const WrappingComponent = ({
-    dataValue = { data: dataSpy, save: sinon.stub() },
+    dataValue = { data, save: sinon.stub() },
     componentValue,
     children,
   }) => {
@@ -33,90 +38,92 @@ describe("ComponentCreate:", () => {
     );
   };
 
-  test.only("Selecting a component type should display the ComponentTypeEdit component", () => {
-    const wrapper = render(<ComponentCreate page={page} />);
+  test("Selecting a component type should display the component edit form", () => {
+    // - when
+    const { container, queryByTestId, getByText } = render(
+      <WrappingComponent componentValue={false}>
+        <ComponentCreate page={page} />
+      </WrappingComponent>
+    );
 
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
+    expect(queryByTestId("standard-inputs")).toBeNull();
+    userEvent.click(getByText("Details"));
 
-    const componentCreateList = wrapper.find("ComponentCreateList");
-
-    componentCreateList.prop("onSelectComponent")(detailsComponentDef);
-    wrapper.update();
-
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
+    // - then
+    const editForm = container.querySelector("form");
+    expect(editForm).toBeInTheDocument();
   });
 
   test("Should store the populated component and call callback on submit", () => {
-    let saveStub = sinon.stub();
-    const component = { ...detailsComponentDef, title: "1", content: "1" };
+    // - when
+    const { container, getByText } = render(
+      <WrappingComponent componentValue={false}>
+        <ComponentCreate page={page} />
+      </WrappingComponent>
+    );
 
-    const wrapper = render(<ComponentCreate page={page} />, {
-      wrappingComponent: WrappingComponent,
-      wrappingComponentProps: {
-        dataValue: { data: dataSpy, save: saveStub },
-        componentValue: {
-          component,
-        },
-      },
-    });
+    userEvent.click(getByText("Details"));
 
-    wrapper
-      .find("form")
-      .invoke("onSubmit")()
-      .then(() => {
-        expect(dataSpy.addComponent.callCount).to.equal(1);
-        expect(dataSpy.addComponent.firstCall.args[0]).to.equal(page.path);
-        expect(dataSpy.addComponent.firstCall.args[1]).to.equal(component);
-      });
+    const titleInput = container.querySelector(
+      "#details-title"
+    ) as TargetElement;
+    const contentTextArea = container.querySelector(
+      "#field-content"
+    ) as TargetElement;
+    const saveBtn = container.querySelector("button") as TargetElement;
+
+    userEvent.type(titleInput, "Details");
+    userEvent.type(contentTextArea, "content");
+
+    userEvent.click(saveBtn);
+
+    console.log(data.pages[0].components, "data!");
+
+    // - then
+    const newDetailsComp = data.pages[0].components?.[0] as DetailsComponent;
+
+    expect(newDetailsComp.type).toEqual("Details");
+    expect(newDetailsComp.title).toEqual("Details");
+    expect(newDetailsComp.content).toEqual("content");
   });
 
-  test("'Back to create component list' link", () => {
-    let saveStub = sinon.stub();
-    const wrapper = render(<ComponentCreate page={page} />, {
-      wrappingComponent: WrappingComponent,
-      wrappingComponentProps: {
-        dataValue: { data: dataSpy, save: saveStub },
-      },
-    });
+  test("Should have functioning 'Back to create component list' link", () => {
+    // - when
+    const { queryByTestId, queryByText } = render(
+      <WrappingComponent componentValue={false}>
+        <ComponentCreate page={page} />
+      </WrappingComponent>
+    );
+    const backBtnTxt: string = "Back to create component list";
 
-    const componentCreateList = wrapper.find("ComponentCreateList");
+    expect(queryByTestId("component-create-list")).toBeInTheDocument();
 
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
-    componentCreateList.prop("onSelectComponent")(detailsComponentDef);
-    wrapper.update();
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
+    userEvent.click(queryByText("Details") as TargetElement);
 
-    expect(wrapper.find("BackLink").exists()).to.be.true();
-    expect(wrapper.find("ComponentCreateList").exists()).to.be.false();
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.true();
+    // - then
+    expect(queryByTestId("component-create-list")).toBeNull();
+    expect(queryByText(backBtnTxt)).toBeInTheDocument();
 
-    wrapper.find("BackLink").invoke("onClick")({
-      preventDefault: sinon.stub(),
-    });
-    wrapper.update();
+    userEvent.click(queryByText(backBtnTxt) as TargetElement);
 
-    expect(wrapper.find("BackLink").exists()).to.be.false();
-    expect(wrapper.find("ComponentCreateList").exists()).to.be.true();
-    expect(wrapper.find("ComponentTypeEdit").exists()).to.be.false();
+    expect(queryByTestId("component-create-list")).toBeInTheDocument();
+    expect(queryByText(backBtnTxt)).toBeNull();
   });
 
-  test("it displays ErrorSummary when validation fails", () => {
-    const saveStub = sinon.stub();
+  test.only("Should display ErrorSummary when validation fails", () => {
+    // - when
+    const { container, getByText, queryByRole } = render(
+      <WrappingComponent componentValue={false}>
+        <ComponentCreate page={page} />
+      </WrappingComponent>
+    );
 
-    const wrapper = render(<ComponentCreate page={page} />, {
-      wrappingComponent: WrappingComponent,
-      wrappingComponentProps: {
-        dataValue: { data: dataSpy, save: saveStub },
-      },
-    });
+    expect(queryByRole("alert")).toBeNull();
 
-    const componentCreateList = wrapper.find("ComponentCreateList");
-    componentCreateList.prop("onSelectComponent")(detailsComponentDef);
-    wrapper.update();
+    userEvent.click(getByText("Details") as TargetElement);
+    userEvent.click(container.querySelector("button") as TargetElement);
 
-    wrapper.find("form").invoke("onSubmit")();
-    wrapper.update();
-
-    expect(wrapper.find("ErrorSummary").exists()).to.be.true();
+    // - then
+    expect(queryByRole("alert")).toBeInTheDocument();
   });
 });
