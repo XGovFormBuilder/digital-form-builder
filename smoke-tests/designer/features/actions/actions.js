@@ -9,6 +9,7 @@ class Actions {
     ConfigPage.open();
     this.configRef = `smoke-testing ${Date.parse(Date())}`;
     ConfigPage.newConfig(this.configRef);
+    ConfigPage.designerMenu.waitForDisplayed();
     expect(browser).toHaveUrlContaining(this.configRef.replace(" ", "-"));
   }
 
