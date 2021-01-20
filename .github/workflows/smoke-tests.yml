@@ -45,8 +45,10 @@ jobs:
           ls -lah smoke-tests/designer/reports/
       - name: "Tar files"
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
+        if: ${{ failure() }}
       - uses: actions/upload-artifact@v2
         with:
           name: smoke-tests
           path: smoke-tests.tar
           retention-days: 14
+        if: ${{ failure() }}
