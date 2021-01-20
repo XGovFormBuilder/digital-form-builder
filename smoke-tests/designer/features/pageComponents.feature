@@ -36,9 +36,3 @@ Feature: Components
     When I choose "Edit Sections" from the designer menu
     And I add a new section
     Then the section should be available when I edit the Question page
-
-  Scenario: Edit Lists
-    And I choose "Edit Lists" from the designer menu
-    When I add a new list
-    And I create a "List" control for the "First page"
-    Then the list is available in the list options

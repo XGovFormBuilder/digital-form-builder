@@ -2,7 +2,7 @@ const Section = require("./section");
 
 class AddPageSection extends Section {
   get sectionContainer() {
-    return $(".flyout__container ");
+    return browser.$(".panel");
   }
 
   linkFrom(pagePath) {
