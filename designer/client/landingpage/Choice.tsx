@@ -1,12 +1,12 @@
 import React, { ReactElement, useState } from "react";
-import { withI18n } from "../../i18n";
+import { withI18n } from "../i18n";
 import { withRouter } from "react-router-dom";
 import { Radios } from "@govuk-jsx/radios";
 import "./LandingPage.scss";
 
 interface Props {
   i18n(text: string): string;
-  history?: any;
+  history: any;
 }
 
 export function LandingChoice({ i18n, history }: Props): ReactElement {
@@ -55,6 +55,7 @@ export function LandingChoice({ i18n, history }: Props): ReactElement {
         <button
           className="govuk-button govuk-button--start"
           onClick={handleNext}
+          title="Next"
         >
           Next
         </button>

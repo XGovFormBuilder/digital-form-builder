@@ -1,13 +1,13 @@
 import React, { Component, MouseEvent } from "react";
-import * as formConfigurationApi from "../../load-form-configurations";
-import { withI18n } from "../../i18n";
+import * as formConfigurationApi from "../load-form-configurations";
+import { withI18n } from "../i18n";
 import { withRouter } from "react-router-dom";
-import { BackLink } from "../BackLink";
+import { BackLink } from "../components/BackLink";
 import "./LandingPage.scss";
 
 type Props = {
   i18n(text: string): string;
-  history?: any;
+  history: any;
 };
 
 type State = {

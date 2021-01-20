@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChooseExisting no existing configurations 1`] = `
+<DocumentFragment>
+  <div
+    class="new-config"
+  >
+    <div>
+      <a
+        class="back-link govuk-back-link"
+        href="#0"
+      />
+      <h2
+        class="govuk-heading-2"
+      >
+        Select an existing form
+      </h2>
+      <div
+        class="govuk-form-group form__list"
+      >
+        <ol
+          class="govuk-list"
+        >
+          <li>
+            Form name
+          </li>
+          <hr />
+          <p>
+            You do not have any existing forms
+          </p>
+        </ol>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ChooseExisting with existing configurations 1`] = `
+<DocumentFragment>
+  <div
+    class="new-config"
+  >
+    <div>
+      <a
+        class="back-link govuk-back-link"
+        href="#0"
+      />
+      <h2
+        class="govuk-heading-2"
+      >
+        Select an existing form
+      </h2>
+      <div
+        class="govuk-form-group form__list"
+      >
+        <ol
+          class="govuk-list"
+        >
+          <li>
+            Form name
+          </li>
+          <hr />
+          <li>
+            <a
+              href="#"
+            >
+              test
+            </a>
+            <hr />
+          </li>
+          <li>
+            <a
+              href="#"
+            >
+              skl1
+            </a>
+            <hr />
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -4394,7 +4394,9 @@ __metadata:
     i18next: ^19.7.0
     i18next-http-backend: ^1.0.21
     i18next-parser: ^3.3.0
+    identity-obj-proxy: ^3.0.0
     jest: ^26.6.3
+    jest-fetch-mock: ^3.0.3
     joi: 17.2.1
     jsdom: ^16.2.2
     mini-css-extract-plugin: ^0.11.2
@@ -7883,6 +7885,15 @@ __metadata:
     cross-env: src/bin/cross-env.js
     cross-env-shell: src/bin/cross-env-shell.js
   checksum: af4fa4dab3ddf6c25ed5e0c95ef53ea363aceb41741e22b7eae83a12cc10cb2416e3aba29c95f2f2c3a1aa918d3444fe92fab318a8ba761e8d52ae88388496cc
+  languageName: node
+  linkType: hard
+
+"cross-fetch@npm:^3.0.4":
+  version: 3.0.6
+  resolution: "cross-fetch@npm:3.0.6"
+  dependencies:
+    node-fetch: 2.6.1
+  checksum: a491ad1b89988a351f8b8b252b68a5e653636d911042648c43a806cf7575ff043379a80d6269102ca60ec633af0b49ca4c83536007793bb0e65e491769f70d9d
   languageName: node
   linkType: hard
 
@@ -12322,6 +12333,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"harmony-reflect@npm:^1.4.6":
+  version: 1.6.1
+  resolution: "harmony-reflect@npm:1.6.1"
+  checksum: cd8ee880be124d0f634e5f58027c2e6c9f600c2874a1e2481cb7acd369f0df6fb41b496aa3fbf247fb6a4a2de8d70b7587854c652493a6c6c21964ce70573100
+  languageName: node
+  linkType: hard
+
 "has-ansi@npm:^2.0.0":
   version: 2.0.0
   resolution: "has-ansi@npm:2.0.0"
@@ -12894,6 +12912,15 @@ fsevents@~2.1.2:
   version: 1.7.2
   resolution: "idb-wrapper@npm:1.7.2"
   checksum: 00a28e546dcb6c4c36eba4c8d9a1febfd0b546804fc76524ebc1b79005fe9718c7785fd61cdbfbc2923fc0c6ab86199a0a87097200c1ac828bb60985ba24c889
+  languageName: node
+  linkType: hard
+
+"identity-obj-proxy@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "identity-obj-proxy@npm:3.0.0"
+  dependencies:
+    harmony-reflect: ^1.4.6
+  checksum: 87f71cb15bc6173123a97f37f4fe2a9e1e44d9ceaceb19b0b233a0ab62bcc08793a019bc00241d876a73421ec4005fd28952805ef72725cda5866d712d789fe7
   languageName: node
   linkType: hard
 
@@ -14337,6 +14364,16 @@ fsevents@~2.1.2:
     jest-mock: ^26.6.2
     jest-util: ^26.6.2
   checksum: 68ea035d62b35faf1991c0a0a432c1d9547ce93949e9460761071748cbf4b1d818e47421df1eb7b15a3eda7c0846e284b4a5ece5d99122307a0ad742ea765a57
+  languageName: node
+  linkType: hard
+
+"jest-fetch-mock@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "jest-fetch-mock@npm:3.0.3"
+  dependencies:
+    cross-fetch: ^3.0.4
+    promise-polyfill: ^8.1.3
+  checksum: 5c7dc1ba7ac0637e63e22afa3b58cdb699539f2d3a22b154cebf56d044d134785cbaec46e6fc4b657868b0db75fffabb39f49cbf4c1b9c324d7890b47f4e3da4
   languageName: node
   linkType: hard
 
@@ -18749,6 +18786,13 @@ fsevents@~2.1.2:
   dependencies:
     rsvp: ^3.0.14
   checksum: 06be10b0e7cd97c103ec3cfc1a344100d972cf4397026fbbeac23ab43c0d83c186581dfcc28004adf910c918b2de13ced102de0e86906924724d95544d2b4f4e
+  languageName: node
+  linkType: hard
+
+"promise-polyfill@npm:^8.1.3":
+  version: 8.2.0
+  resolution: "promise-polyfill@npm:8.2.0"
+  checksum: 37a612596d7f3eddf3cd650df9e94726eac8273f4d61efef7145dbf6570a082291e6424c718d17f84de1dd1473cbd24319094a63f7a2ccf3ece4145e512ccc40
   languageName: node
   linkType: hard
 

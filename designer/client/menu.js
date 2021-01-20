@@ -130,7 +130,7 @@ export default class Menu extends React.Component {
           </button>
         </div>
         <div className="menu__row">
-          <a href="/new">Create new form</a>
+          <a href="/app">Create new form</a>
           <a href="#" onClick={this.onClickUpload}>
             Import saved form
           </a>

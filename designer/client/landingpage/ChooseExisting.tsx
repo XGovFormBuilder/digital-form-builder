@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import * as formConfigurationApi from "../../load-form-configurations";
-import { withI18n } from "../../i18n";
+import * as formConfigurationApi from "../load-form-configurations";
+import { withI18n } from "../i18n";
 import { withRouter } from "react-router-dom";
-import { BackLink } from "../BackLink";
+import { BackLink } from "../components/BackLink";
 import "./LandingPage.scss";
 
 type Props = {
   i18n(text: string): string;
-  history?: any;
+  history: any;
 };
 
 type State = {
@@ -35,9 +35,8 @@ export class ChooseExisting extends Component<Props, State> {
   }
 
   selectForm = async (form) => {
-    //TODO get config name
-    const newResponse = await window
-      .fetch("/api/new", {
+    try {
+      const response = await window.fetch("/api/new", {
         method: "POST",
         body: JSON.stringify({
           selected: { Key: form },
@@ -47,9 +46,12 @@ export class ChooseExisting extends Component<Props, State> {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-      })
-      .then((res) => res.json());
-    this.props.history.push(`designer/${newResponse.id}`);
+      });
+      const responseJson = await response.json();
+      this.props.history.push(`/designer/${responseJson.id}`);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   goBack = (event) => {
