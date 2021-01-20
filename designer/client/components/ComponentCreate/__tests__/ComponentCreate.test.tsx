@@ -110,7 +110,7 @@ describe("ComponentCreate:", () => {
     expect(queryByText(backBtnTxt)).toBeNull();
   });
 
-  test.only("Should display ErrorSummary when validation fails", () => {
+  test("Should display ErrorSummary when validation fails", () => {
     // - when
     const { container, getByText, queryByRole } = render(
       <WrappingComponent componentValue={false}>

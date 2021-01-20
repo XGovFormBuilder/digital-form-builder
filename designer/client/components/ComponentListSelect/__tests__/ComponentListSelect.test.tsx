@@ -17,7 +17,7 @@ import { i18n, initI18n } from "../../../i18n/i18n";
 
 describe("ComponentListSelect", () => {
   beforeEach(() => {
-    sinon.restore(); // TODO Is this necessary?
+    sinon.restore();
     initI18n();
   });
 
