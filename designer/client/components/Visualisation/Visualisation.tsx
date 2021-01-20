@@ -1,56 +1,70 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Data } from "@xgovformbuilder/model";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import Page from "../../page";
 import { Lines } from "./Lines";
 import { Minimap } from "./Minimap";
 import { Info } from "./Info";
-import { getLayout, Layout, Pos } from "./getLayout";
+import { getLayout, Pos } from "./getLayout";
 import "./visualisation.scss";
 import { DataContext } from "../../context";
+import { i18n } from "../../i18n";
 
 type Props = {
-  data: Data;
-  id: string;
-  updatedAt: string;
-  downloadedAt: string;
-  previewUrl: string;
-  persona: any;
+  updatedAt?: string;
+  downloadedAt?: string;
+  previewUrl?: string;
+  persona?: any;
 };
 
-type State = {
-  layout?: Layout["pos"];
-};
-
-function useVisualisation(ref) {
+export function useVisualisation(ref) {
   const { data } = useContext(DataContext);
   const [layout, setLayout] = useState<Pos>();
+  const [pushedHistoryCount, setPushedHistoryCount] = useState(-1);
 
   useEffect(() => {
-    const schedule = setTimeout(() => {
-      const layout = getLayout(data, ref.current!);
-      setLayout(layout.pos);
-    }, 200);
-    return () => clearTimeout(schedule);
+    const layout = getLayout(data, ref.current!);
+    setLayout(layout.pos);
   }, [data]);
 
-  useEffect(() => {
-    window.history.pushState(null, null, window.location.pathname);
-    console.log("component did mount");
-    window.addEventListener("popstate", (event) => {
-      event.preventDefault();
-      console.log("popstate");
-      alert("Are you sure you want to leave the designer?");
-    });
+  function pushEmptyState() {
+    window.history.pushState(document.title, window.location.pathname);
+    setPushedHistoryCount((prevState) => prevState + 1);
+  }
+
+  useLayoutEffect(() => {
+    pushEmptyState();
   }, []);
+
+  const alertUser = () => {
+    if (window.confirm(i18n("leaveDesigner"))) {
+      window.history.go(-pushedHistoryCount - 1);
+    } else {
+      pushEmptyState();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("popstate", alertUser);
+    return () => {
+      window.removeEventListener("popstate", alertUser);
+    };
+  }, []);
+
   return { layout };
 }
 
 export function Visualisation(props: Props) {
   const ref = useRef(null);
   const { layout } = useVisualisation(ref);
+  const { data } = useContext(DataContext);
 
-  const { data, id, updatedAt, downloadedAt, previewUrl, persona } = props;
+  const { updatedAt, downloadedAt, previewUrl, persona } = props;
   const { pages } = data;
 
   const wrapperStyle = layout && {
@@ -64,9 +78,7 @@ export function Visualisation(props: Props) {
         <div ref={ref} style={wrapperStyle}>
           {pages.map((page, index) => (
             <Page
-              id={id}
               key={index}
-              data={data}
               page={page}
               persona={persona}
               previewUrl={previewUrl}
