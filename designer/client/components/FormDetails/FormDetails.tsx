@@ -1,7 +1,6 @@
 import React, { Component, ChangeEvent, ContextType, FormEvent } from "react";
-import { Data, clone } from "@xgovformbuilder/model";
-
-import { FormConfiguration } from "@xgovformbuilder/model";
+import { Data, clone, FormConfiguration } from "@xgovformbuilder/model";
+import isFunction from "lodash/isFunction";
 
 import { validateTitle, hasValidationErrors } from "../../validations";
 import * as formConfigurationApi from "../../load-form-configurations";
@@ -12,7 +11,6 @@ import { i18n } from "../../i18n";
 import { FormDetailsTitle } from "./FormDetailsTitle";
 import { FormDetailsFeedback } from "./FormDetailsFeedback";
 import { FormDetailsPhaseBanner } from "./FormDetailsPhaseBanner";
-
 import "./FormDetails.scss";
 
 type PhaseBanner = Exclude<Data["phaseBanner"], undefined>;
@@ -39,15 +37,14 @@ export class FormDetails extends Component<Props, State> {
   constructor(props, context) {
     super(props, context);
     const { data } = context;
-    const { feedbackForm, feedbackUrl } = data;
-    const selectedFeedbackForm = feedbackUrl?.substr(1) || "";
+    const selectedFeedbackForm = data.feedbackUrl?.substr(1) || "";
     this.state = {
       title: data.name || "",
-      feedbackForm: feedbackForm,
+      feedbackForm: data.feedbackForm,
       formConfigurations: [],
       selectedFeedbackForm,
-      errors: {},
       phase: data.phaseBanner?.phase,
+      errors: {},
     };
   }
 
@@ -72,19 +69,22 @@ export class FormDetails extends Component<Props, State> {
 
     const { data, save } = this.context;
     const { title, feedbackForm, selectedFeedbackForm, phase } = this.state;
+    const { phaseBanner = {} } = data;
+    const { onCreate } = this.props;
+
     const copy = clone(data);
     copy.name = title;
     copy.feedbackForm = feedbackForm;
     copy.setFeedbackUrl(selectedFeedbackForm ? `/${selectedFeedbackForm}` : "");
     copy.phaseBanner = {
-      ...(data.phaseBanner || {}),
+      ...phaseBanner,
       phase,
     };
 
     try {
       const saved = await save(copy);
-      if (this.props.onCreate) {
-        this.props.onCreate(saved);
+      if (isFunction(onCreate)) {
+        onCreate(saved);
       }
     } catch (err) {
       console.error(err);
