@@ -25,4 +25,9 @@ module.exports = {
     name: "vehicleMakeAndModel",
     hint: "Please enter your vehicle using the format: BMW, 3 Series",
   },
+  list: {
+    title: "Local list test",
+    name: "LocalList",
+    hint: "An automated test for creating local lists",
+  },
 };

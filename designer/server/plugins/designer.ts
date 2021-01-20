@@ -179,7 +179,7 @@ export const designerPlugin = {
               await publish(id, value);
               return h.response({ ok: true }).code(204);
             } catch (err) {
-              console.log("Designer Server PUT /{id}/api/data error:", err);
+              console.error("Designer Server PUT /{id}/api/data error:", err);
               return h.response({ ok: false, err }).code(401);
             }
           },

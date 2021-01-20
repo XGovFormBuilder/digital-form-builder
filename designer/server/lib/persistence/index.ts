@@ -5,15 +5,15 @@ import { PreviewPersistenceService } from "./previewPersistenceService";
 
 type Name = "s3" | "blob" | "preview";
 
-export function determinePersistenceService(name: Name) {
+export function determinePersistenceService(name: Name, server: any) {
   switch (name) {
     case "s3":
-      return S3PersistenceService;
+      return () => new S3PersistenceService(server);
     case "blob":
-      return BlobPersistenceService;
+      return () => new BlobPersistenceService();
     case "preview":
-      return PreviewPersistenceService;
+      return () => new PreviewPersistenceService();
     default:
-      return StubPersistenceService;
+      return () => new StubPersistenceService();
   }
 }

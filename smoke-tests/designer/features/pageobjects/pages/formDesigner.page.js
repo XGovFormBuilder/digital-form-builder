@@ -1,16 +1,12 @@
 const Page = require("./basePage");
 
 class FormDesignerPage extends Page {
-  get designerMenu() {
-    return $("nav.menu");
-  }
-
   get addComponentToPage() {
-    return $("button=Create component");
+    return browser.$("button=Create component");
   }
 
   get editPage() {
-    return $("button=Edit page");
+    return browser.$("button=Edit page");
   }
 
   get formPages() {
@@ -56,6 +52,14 @@ class FormDesignerPage extends Page {
 
   pageContainer(elem) {
     return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
+  }
+
+  /**
+   * Clicks on a component within a form page
+   * @param componentType
+   */
+  editPageComponent(componentType) {
+    browser.$(`.component-${componentType.toLowerCase()}`).click();
   }
 
   getTitleTextForPage(name) {

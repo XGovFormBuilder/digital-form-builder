@@ -35,28 +35,6 @@ Then(
   }
 );
 
-When("I add a {string} control to the {string}", (componentName, pageName) => {
-  this.pageName = pageName;
-  FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  expect(AddComponentPage.backToComponentList).toBeDisplayed();
-  switch (componentName) {
-    case "Paragraph":
-      AddComponentPage.paragraphSetText(
-        `You need the vehicle’s number plate (registration number).\n
-          You can see the results as soon as the MOT centre has recorded the test result.\n
-          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
-      );
-      AddComponentPage.saveBtn.click();
-      break;
-    default:
-      AddComponentPage.completeCommonFields(
-        FieldData[toCamelCase(componentName)]
-      );
-      break;
-  }
-});
-
 Then(
   "the {string} control is displayed in the {string}",
   (componentName, pageName) => {
@@ -118,37 +96,10 @@ Then(
   }
 );
 
-When("I edit the page title on the {string}", (pageName) => {
-  this.newPageName = "testing";
-  FormDesignerPage.editPageForPageName(pageName).click();
-  EditPageSection.pageTitle.clearValue();
-  expect(EditPageSection.pageTitle).toHaveValue("");
-  EditPageSection.pageTitle.setValue(this.newPageName);
-  EditPageSection.saveBtn.click();
-});
-
-Then("the changes are reflected in the page designer", () => {
-  FormDesignerPage.designerMenu.waitForDisplayed();
-  console.log(FormDesignerPage.getTitleTextForPage(this.newPageName));
-  expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
-    this.newPageName
-  );
-});
-
-When("I choose {string} from the designer menu", (menuOption) => {
-  MenuSection.buttonByName(menuOption).click();
-});
-
 When("I enter the details for my page", () => {
   this.newPageName = "Personal Details";
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
-});
-
-Then("the page is added in the designer", () => {
-  const pageName = this.newPageName.toLowerCase().replace(" ", "-");
-  FormDesignerPage.designerMenu.waitForDisplayed();
-  expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });
 
 When("I link the {string} to the {string}", (fromPage, toPage) => {
@@ -166,12 +117,8 @@ When("I add a new section", () => {
   EditSection.addSection.click();
   EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
-  expect(EditSection.sectionLinks).toBeElementsArrayOfSize({ gte: 2 });
-  const found = EditSection.sectionLinks.find(
-    (el) => el.getText() == "MyTestSection"
-  );
-  expect(found).toBeDefined();
-  EditSection.closeSection.click();
+  expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
+  EditSection.closeLinks[0].click();
 });
 
 Then("the section should be available when I edit the Question page", () => {
@@ -179,13 +126,19 @@ Then("the section should be available when I edit the Question page", () => {
   expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
 });
 
-When("I add a new list", () => {
+When("I add a new Global list named {string}", function (listName) {
+  this.listName = listName;
   EditListSection.addNewList.click();
-  EditListSection.listTitle.setValue("Countries");
+  EditListSection.listTitle.setValue(listName);
   EditListSection.createListItem.click();
-  EditListSection.addNewListItem("Test Global Lists", "two", "three");
+  EditListSection.addNewListItem(
+    "Add a new list item",
+    "Test Global Lists",
+    "two",
+    "two"
+  );
   EditListSection.saveBtn.click();
-  EditListSection.closeSection.click();
+  EditListSection.closeLinks[0].click();
 });
 
 When(
@@ -196,14 +149,14 @@ When(
   }
 );
 
-Then("the list is available in the list options", () => {
-  expect(AddComponentPage.listOptions).toHaveText("Countries");
+Then("the list is available in the list options", function () {
+  expect(AddComponentPage.listOptions).toHaveText(this.listName);
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.duplicateBtn.click();
-  EditPageSection.closeSection.click();
+  EditPageSection.closeLinks[0].click();
 });
 
 Then(
@@ -219,7 +172,7 @@ When("I choose to delete the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
   EditPageSection.deleteBtn.click();
   acceptAlert();
-  EditPageSection.closeSection.click();
+  EditPageSection.closeLinks[0].click();
 });
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
@@ -229,4 +182,61 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
   });
   expect(FormDesignerPage.formPages.length).toEqual(1);
   chai.expect(pageNames).not.include(pageName);
+});
+
+Then("the list is selected in the list dropdown", function () {
+  expect(EditListSection.selectListValue).toHaveText(FieldData.list.title);
+});
+
+When("I add a {string} control to the {string}", (componentName, pageName) => {
+  this.pageName = pageName;
+  FormDesignerPage.createComponentForPageName(pageName).click();
+  AddComponentPage.selectComponentByName(componentName);
+  expect(AddComponentPage.backToComponentList).toBeDisplayed();
+  switch (componentName) {
+    case "Paragraph":
+      AddComponentPage.paragraphSetText(
+        `You need the vehicle’s number plate (registration number).\n
+          You can see the results as soon as the MOT centre has recorded the test result.\n
+          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
+      );
+      AddComponentPage.saveBtn.click();
+      break;
+    default:
+      AddComponentPage.completeCommonFields(
+        FieldData[toCamelCase(componentName)]
+      );
+      break;
+  }
+});
+
+Then("the Date field control is displayed in the page", () => {
+  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
+    .true;
+  expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
+});
+
+When("I edit the page title on the {string}", (pageName) => {
+  this.newPageName = "testing";
+  FormDesignerPage.editPageForPageName(pageName).click();
+  EditPageSection.pageTitle.setValue(this.newPageName);
+  EditPageSection.saveBtn.click();
+});
+
+Then("the changes are reflected in the page designer", () => {
+  FormDesignerPage.designerMenu.waitForDisplayed();
+  console.log(FormDesignerPage.getTitleTextForPage(this.newPageName));
+  expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
+    this.newPageName
+  );
+});
+
+When("I choose {string} from the designer menu", (menuOption) => {
+  MenuSection.buttonByName(menuOption).click();
+});
+
+Then("the page is added in the designer", () => {
+  const pageName = this.newPageName.toLowerCase().replace(" ", "-");
+  FormDesignerPage.designerMenu.waitForDisplayed();
+  expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
 });

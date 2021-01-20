@@ -2,7 +2,7 @@ const Section = require("./section");
 
 class EditPageSection extends Section {
   get parentElement() {
-    return browser.$(".flyout__container");
+    return browser.$(".panel");
   }
 
   get sectionDropdown() {
