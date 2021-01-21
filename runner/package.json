@@ -32,6 +32,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@xgovformbuilder/model": "2.0.0",
     "@babel/runtime": "7.10.4",
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",
