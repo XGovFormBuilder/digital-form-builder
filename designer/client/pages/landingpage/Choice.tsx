@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { withI18n } from "../i18n";
+import { withI18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
 import { Radios } from "@govuk-jsx/radios";
 import "./LandingPage.scss";

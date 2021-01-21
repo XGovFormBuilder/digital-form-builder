@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { LandingChoice, NewConfig, ChooseExisting } from "./landingpage";
+import { LandingChoice, NewConfig, ChooseExisting } from "./pages/landingpage";
 import "./styles/index.scss";
 import { initI18n } from "./i18n";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";

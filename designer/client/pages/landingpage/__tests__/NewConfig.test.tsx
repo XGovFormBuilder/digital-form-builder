@@ -8,9 +8,9 @@ import { NewConfig } from "../NewConfig";
 import {
   stubFetchJson,
   restoreWindowMethods,
-} from "../../../test/helpers/window-stubbing";
+} from "../../../../test/helpers/window-stubbing";
 
-import * as formConfigurationsApi from "../../load-form-configurations";
+import * as formConfigurationsApi from "../../../load-form-configurations";
 
 const { expect } = Code;
 const lab = Lab.script();
