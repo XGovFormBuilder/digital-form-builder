@@ -41,23 +41,12 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
-      - run:
-          name: "echo environment variables from org-global context"
-          command: echo $TRUSTED_CACHE
-      - when:
-          condition:
-            equal: ['true', $TRUSTED_CACHE]
-          steps:
-            - run: echo "should be ok.."
-            - run: yarn install
-
-      - when:
-          condition:
-            not: $TRUSTED_CACHE #provided in context. For non maintainers, checksum will be run.
-          steps:
-            - run: yarn install --check-cache
-
-      - run: yarn rebuild node-sass only
+      - run: |
+          if [ "$TRUSTED_CACHE" = "true" ]; then
+              yarn install --check-cache
+          else
+              yarn install --check-cache
+          fi
       - run:
           name: Lint
           command: |
