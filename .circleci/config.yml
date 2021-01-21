@@ -43,7 +43,7 @@ jobs:
       - checkout
       - when:
           condition:
-            equal: [true, $TRUSTED_CACHE]
+            equal: ['true', $TRUSTED_CACHE]
           steps:
             - run: yarn install
       - when:
