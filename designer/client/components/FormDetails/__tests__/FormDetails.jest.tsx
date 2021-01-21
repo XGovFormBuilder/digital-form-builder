@@ -64,7 +64,7 @@ describe("FormDetails", () => {
   }
 
   describe("Title", () => {
-    it("updates the form title", async () => {
+    it("updates the form title", () => {
       renderWithDataContext(<FormDetails />, {
         providerProps,
       });
@@ -87,7 +87,7 @@ describe("FormDetails", () => {
 
   describe("Phase banner", () => {
     it("sets alpha phase", () => {
-      const { debug } = renderWithDataContext(<FormDetails />, {
+      renderWithDataContext(<FormDetails />, {
         providerProps,
       });
 
@@ -181,7 +181,7 @@ describe("FormDetails", () => {
       });
     });
 
-    it("sets `No` feedback form", async () => {
+    it("sets `No` feedback form", () => {
       renderWithDataContext(<FormDetails />, {
         providerProps: {
           ...providerProps,
