@@ -1,8 +1,10 @@
 <footer>
   <div class="wrapper-footer">
-    {% if (footerText == "") %}
-      <div class="footer-message"><p>{{ footerText }}</p></div>
-    {% endif %}
+    <div class="footer-message">
+      {% if (footerText) %}
+        <p>{{ footerText }}</p>
+      {% endif %}
+    </div>
     <div class="footer-menu">
       <ul>
         <li><a href="/help/cookies" target="_blank" rel="noopener noreferrer">Cookies</a></li>
