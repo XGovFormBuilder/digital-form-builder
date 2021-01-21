@@ -20,7 +20,8 @@
     "@wdio/spec-reporter": "^6.6.0",
     "@wdio/sync": "^6.6.0",
     "fs-extra": "^9.0.1",
-    "multiple-cucumber-html-reporter": "^1.18.0"
+    "multiple-cucumber-html-reporter": "^1.18.0",
+    "nanoid": "^3.1.12"
   },
   "dependencies": {
     "arkit": "^1.6.4",
