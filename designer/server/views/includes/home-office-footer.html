@@ -1,15 +1,15 @@
 <footer>
-    <div class="wrapper-footer">
-      <div class="footer-message">
-        <p>A Home Office Digital, Data and Technology service</p>
-      </div>
-      <div class="footer-menu">
-        <ul>
-          <li><a href="/help/cookies" target="_blank" rel="noopener noreferrer">Cookies</a></li>
-          <li><a href="/help/accessibility-statement" target="_blank" rel="noopener noreferrer">Accessibility Statement</a></li>
-          <li><a href="/help/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms and Conditions</a></li>
-        </ul>
-      </div>
+  <div class="wrapper-footer">
+    {% if (footerText == "") %}
+      <div class="footer-message"><p>{{ footerText }}</p></div>
+    {% endif %}
+    <div class="footer-menu">
+      <ul>
+        <li><a href="/help/cookies" target="_blank" rel="noopener noreferrer">Cookies</a></li>
+        <li><a href="/help/accessibility-statement" target="_blank" rel="noopener noreferrer">Accessibility Statement</a></li>
+        <li><a href="/help/terms-and-conditions" target="_blank" rel="noopener noreferrer">Terms and Conditions</a></li>
+      </ul>
     </div>
-  </footer>
+  </div>
+</footer>
   
