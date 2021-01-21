@@ -21,6 +21,7 @@
     "test-lab": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "jest": "jest",
+    "jest:watch": "jest --watch",
     "audit": "npm audit --audit-level=high",
     "type-check": "tsc --noEmit"
   },
@@ -47,6 +48,7 @@
     "i18next": "^19.7.0",
     "i18next-http-backend": "^1.0.21",
     "joi": "17.2.1",
+    "lodash": "^4.17.20",
     "moment-timezone": "^0.5.31",
     "nanoid": "^3.1.12",
     "react-helmet": "^6.1.0",
@@ -105,6 +107,7 @@
     "jest": "^26.6.3",
     "jsdom": "^16.2.2",
     "mini-css-extract-plugin": "^0.11.2",
+    "msw": "^0.25.0",
     "nodemon": "^2.0.6",
     "nunjucks": "3.2.1",
     "postcss": "^8.2.4",
@@ -125,6 +128,7 @@
     "webpack-bundle-analyzer": "^4.3.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
-    "webpack-node-externals": "^2.5.2"
+    "webpack-node-externals": "^2.5.2",
+    "whatwg-fetch": "^3.5.0"
   }
 }

@@ -117,6 +117,10 @@ When("I add a new section", () => {
   EditSection.addSection.click();
   EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
+  browser.waitUntil(() => EditSection.sectionLinks[0] === "MyTestSection", {
+    timeout: 1000,
+    timeoutMsg: "Expected new list item to be added after 1s",
+  });
   expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
   EditSection.closeLinks[0].click();
 });
