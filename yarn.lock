@@ -4489,6 +4489,7 @@ __metadata:
     arkit: ^1.6.4
     fs-extra: ^9.0.1
     multiple-cucumber-html-reporter: ^1.18.0
+    nanoid: ^3.1.12
     wdio-config: ^5.0.0-alpha.7
     wdio-cucumberjs-json-reporter: ^2.0.2
   languageName: unknown
