@@ -31,6 +31,7 @@ Feature: List components
     When I edit the 1st list item from the "global" list
     Then the 1st list item reflects the changes I made
 
+  @wip
   Scenario: Create a Local list
     And I add a "List" control to the "First page"
     When I edit the "List" component
