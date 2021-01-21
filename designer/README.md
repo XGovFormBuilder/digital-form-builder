@@ -45,6 +45,7 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 | PERSISTENT_KEY_ID     | (Access) key ID for backend persistence                   |    no    |                |                             |                                                                                                                                           |
 | S3_BUCKET             | Name of the S3 bucket to upload to                        |    no    |                |                             |                                                                                                                                           |
 | LOG_LEVEL             | Log level                                                 |    no    | debug          |   trace,debug,info,error    |                                                                                                                                           |
+| FOOTER_TEXT           | Text displayed on the left side of the footer             |    no    |                |                             |
 
 ## License
 
