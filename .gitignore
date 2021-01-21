@@ -6,7 +6,6 @@ npm-debug.log
 .nyc_output
 unit-test.html
 package-lock.json
-/.yarn/cache/
 */.env
 */test-results/*
 */test-coverage/*
@@ -19,6 +18,7 @@ smoke-tests/designer/reports/
 tsconfig.tsbuildinfo
 
 .yarn/*
+!.yarn/cache
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks
