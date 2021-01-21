@@ -37,7 +37,8 @@ Feature: List components
     When I edit the "List" component
     And I create a new component list with 1 item
     Then the list is selected in the list dropdown
-
+  
+  @wip
   Scenario: Adding a list item to a Local list
     And I have created a "Local" list with 1 list item
     When I create a 2nd list item for the Local list
