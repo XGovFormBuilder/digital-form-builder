@@ -32,6 +32,7 @@ Feature: Components
     And I delete the "Date field" control from the "First page"
     Then the "Date field" will not be visible in the "First page"
 
+  @debug
   Scenario: Edit Sections from the form designer menu
     When I choose "Edit Sections" from the designer menu
     And I add a new section

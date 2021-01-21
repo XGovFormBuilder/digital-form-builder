@@ -117,11 +117,15 @@ When("I add a new section", () => {
   EditSection.addSection.click();
   EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
-  browser.waitUntil(() => EditSection.sectionLinks[0] === "MyTestSection", {
-    timeout: 5000,
-    timeoutMsg: "Expected new a section to be added",
-    interval: 500,
-  });
+  console.log(EditSection.sectionLinks[0].getText());
+  browser.waitUntil(
+    () => EditSection.sectionLinks[0].getText() === "MyTestSection",
+    {
+      timeout: 5000,
+      timeoutMsg: "Expected new a section to be added",
+      interval: 500,
+    }
+  );
   expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
   EditSection.closeLinks[0].click();
 });
