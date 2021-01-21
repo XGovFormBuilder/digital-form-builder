@@ -7,9 +7,11 @@ const { toCamelCase } = require("../../support/testHelpers");
 class Actions {
   createNewConfig() {
     ConfigPage.open();
-    this.configRef = `smoke-testing ${Date.parse(Date())}`;
+    this.configRef = `smoke-testing-${nanoid(10)}`;
     ConfigPage.newConfig(this.configRef);
-    expect(browser).toHaveUrlContaining(this.configRef.replace(" ", "-"));
+    expect(browser).toHaveUrlContaining(
+      this.configRef.replace(" ", "-").toLowerCase()
+    );
   }
 
   createComponentForPage(componentName, pageName) {
