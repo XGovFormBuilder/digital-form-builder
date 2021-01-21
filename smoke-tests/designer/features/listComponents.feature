@@ -47,7 +47,8 @@ Feature: List components
     And I have created a "Local" list with 2 list items
     When I delete the 1st list item from the "Local" list
     Then the Local list only has one item
-
+  
+  @wip
   Scenario: Editing a list item in a Local list
     And I have created a "Local" list with 2 list items
     When I edit the 1st list item from the "local" list
