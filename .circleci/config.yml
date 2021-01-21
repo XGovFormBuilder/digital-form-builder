@@ -43,7 +43,7 @@ jobs:
       - checkout
       - run: |
           if [ "$TRUSTED_CACHE" = "true" ]; then
-              yarn install --check-cache
+              yarn install
           else
               yarn install --check-cache
           fi
