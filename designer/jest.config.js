@@ -1,6 +1,6 @@
 module.exports = {
   roots: ["<rootDir>/client"],
-  testMatch: ["<rootDir>/client/**/__tests__/*.(jest|test).(ts|tsx)"],
+  testMatch: ["<rootDir>/**/__tests__/*.jest.(ts|tsx)"],
   testPathIgnorePatterns: ["<rootDir>/test/"],
   setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
   moduleNameMapper: {
