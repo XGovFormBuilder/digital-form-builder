@@ -125,13 +125,14 @@ workflows:
   build-test:
     when: << pipeline.parameters.build-test >>
     jobs:
-      - install-yarn-lint
+      - install-yarn-lint:
+          context:
+            - maintainers
+
       - build-test:
           name: model-build-test
           package_name: model
           should_build: << pipeline.parameters.model >>
-          context:
-            - Maintaners
           requires:
             - install-yarn-lint
 
