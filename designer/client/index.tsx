@@ -57,9 +57,13 @@ export class App extends React.Component {
         if (!res.ok) {
           throw Error(res.statusText);
         }
+
+        return res.ok;
       })
-      .catch(() => {
+      .catch((error) => {
         // Not connected to preview environment
+        console.error(error);
+        return false;
       })
       .finally(() => {
         this.setFunctions(updatedData);
