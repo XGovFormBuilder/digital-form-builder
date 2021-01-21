@@ -48,6 +48,7 @@ jobs:
           condition:
             equal: ['true', $TRUSTED_CACHE]
           steps:
+            - run: echo "should be ok.."
             - run: yarn install
 
       - when:
@@ -132,24 +133,24 @@ workflows:
       - install-yarn-lint:
           context:
             - maintainers
-
-      - build-test:
-          name: model-build-test
-          package_name: model
-          should_build: << pipeline.parameters.model >>
-          requires:
-            - install-yarn-lint
-
-      - build-test:
-          name: runner-build-test
-          package_name: runner
-          should_build: << pipeline.parameters.runner >>
-          requires:
-            - install-yarn-lint
-
-      - build-test:
-          name: designer-build-test
-          package_name: designer
-          should_build: << pipeline.parameters.designer >>
-          requires:
-            - install-yarn-lint
+#
+#      - build-test:
+#          name: model-build-test
+#          package_name: model
+#          should_build: << pipeline.parameters.model >>
+#          requires:
+#            - install-yarn-lint
+#
+#      - build-test:
+#          name: runner-build-test
+#          package_name: runner
+#          should_build: << pipeline.parameters.runner >>
+#          requires:
+#            - install-yarn-lint
+#
+#      - build-test:
+#          name: designer-build-test
+#          package_name: designer
+#          should_build: << pipeline.parameters.designer >>
+#          requires:
+#            - install-yarn-lint
