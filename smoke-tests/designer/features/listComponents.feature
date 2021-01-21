@@ -12,13 +12,15 @@ Feature: List components
     When I add a new Global list named "European Countries"
     And I create a "List" control for the "First page"
     Then the list is available in the list options
-
+  
+  @wip
   Scenario: Adding a list item to a Global list
     And I have created a "Global" list with 1 list item
     When I add another list item to the Global list
     Then the Global list has 2 list items
     And I am able to save the edited Global list
-
+  
+  @wip
   Scenario: Deleting a list item from a Global list
     And I have created a "Global" list with 2 list items
     When I delete the 1st list item from the "global" list
