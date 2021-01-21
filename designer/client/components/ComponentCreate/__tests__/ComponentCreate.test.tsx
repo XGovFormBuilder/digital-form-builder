@@ -22,6 +22,16 @@ suite("ComponentCreate:", () => {
     subType: "content",
   };
 
+  const data = new Data({
+    pages: [
+      {
+        title: "my first page",
+        path: "/1",
+      },
+      { title: "my second page", path: "/2" },
+    ],
+  });
+
   const dataSpy = sinon.spy(data);
   const page = { path: "/1" };
 
