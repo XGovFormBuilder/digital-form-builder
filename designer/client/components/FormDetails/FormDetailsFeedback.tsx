@@ -5,13 +5,13 @@ import { FormConfiguration } from "@xgovformbuilder/model";
 
 import { i18n } from "../../i18n";
 
-type Props = {
+interface Props {
   feedbackForm: any;
   handleIsFeedbackFormRadio: (event: ChangeEvent<HTMLSelectElement>) => void;
   onSelectFeedbackForm: (event: ChangeEvent<HTMLSelectElement>) => void;
   formConfigurations: FormConfiguration[];
   selectedFeedbackForm: string | undefined;
-};
+}
 
 export const FormDetailsFeedback = (props: Props) => {
   const {

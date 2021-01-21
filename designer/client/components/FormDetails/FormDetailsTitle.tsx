@@ -2,11 +2,11 @@ import React, { ChangeEvent } from "react";
 import { Input } from "@govuk-jsx/input";
 import { i18n } from "../../i18n";
 
-type Props = {
+interface Props {
   errors: any;
   handleTitleInputBlur: (event: ChangeEvent<HTMLInputElement>) => void;
   title: string;
-};
+}
 export const FormDetailsTitle = (props: Props) => {
   const { title, errors, handleTitleInputBlur } = props;
 

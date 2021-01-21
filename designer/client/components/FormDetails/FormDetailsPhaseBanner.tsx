@@ -8,10 +8,10 @@ import { i18n } from "../../i18n";
 type PhaseBanner = Exclude<Data["phaseBanner"], undefined>;
 type Phase = PhaseBanner["phase"];
 
-type Props = {
+interface Props {
   phase: Phase;
   handlePhaseBannerChange: (event: ChangeEvent<HTMLSelectElement>) => void;
-};
+}
 
 export const FormDetailsPhaseBanner = (props: Props) => {
   const { phase = "", handlePhaseBannerChange } = props;

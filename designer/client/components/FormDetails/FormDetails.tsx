@@ -16,18 +16,18 @@ import "./FormDetails.scss";
 type PhaseBanner = Exclude<Data["phaseBanner"], undefined>;
 type Phase = PhaseBanner["phase"];
 
-type Props = {
+interface Props {
   onCreate?: (saved: boolean) => void;
-};
+}
 
-type State = {
+interface State {
   title: string;
   phase: Phase;
   feedbackForm: Data["feedbackForm"];
   formConfigurations: FormConfiguration[];
   selectedFeedbackForm?: string;
   errors: any;
-};
+}
 
 export class FormDetails extends Component<Props, State> {
   static contextType = DataContext;
