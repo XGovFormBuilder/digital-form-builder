@@ -12,7 +12,7 @@ The repos are forked from [DEFRA's digital form builder](https://github.com/DEFR
 
 ### This is a  yarn 2 zero installs, workspaces repository. You must commit your .yarn/cache and yarn.lock
 Committing your .yarn/cache is not the same as committing node_modules. Yarn 2 is able to dedupe packages, and will compress them much smaller than if you were to compress node_modules yourself.
-For pull requests not authored by a member of XGovFormBuilder/maintainers, CI will run `yarn install --check-cache` and fetch any packages that are bad.
+For pull requests not authored by a member of XGovFormBuilder/maintainers, CI will run `yarn install --check-cache` and fetch any packages that are bad. Read more about zero installs [here](https://yarnpkg.com/features/zero-installs)!
 
 Workspaces will deal with sym-linking the packages, so we do not have to manually run `yarn link`.
 It will also deal with hoisting the node_modules for any packages that are shared between the repos, thus decreasing any install times. Hopefully it all just works™️.
