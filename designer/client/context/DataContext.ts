@@ -1,10 +1,10 @@
 import { createContext } from "react";
+import { Data } from "@xgovformbuilder/model";
 
-// TODO: data type
 export const DataContext = createContext<{
-  data: any;
-  save: () => Promise<any>;
+  data: Data;
+  save: (toUpdate: Data) => Promise<false>;
 }>({
-  data: {},
-  save: async () => {},
+  data: {} as Data,
+  save: async (_data: Data) => false,
 });

@@ -21,7 +21,8 @@ export async function loadConfigurations() {
     .then((data) => {
       return Object.values(data) || [];
     })
-    .catch((_error) => {
+    .catch((error) => {
+      console.error(error);
       return [];
     });
 }
