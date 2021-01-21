@@ -181,6 +181,9 @@ Then("the list is available in the list options", function () {
 
 When("I choose to duplicate the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
+  if (EditPageSection.parentElement.isDisplayed() === false) {
+    FormDesignerPage.editPageForPageName(pageName).click();
+  }
   EditPageSection.duplicateBtn.click();
   EditPageSection.closeLinks[0].click();
 });
