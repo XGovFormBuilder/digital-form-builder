@@ -1,7 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { Data } from "@xgovformbuilder/model";
-import sinon from "sinon";
 import userEvent, { TargetElement } from "@testing-library/user-event";
 
 import { ComponentCreate } from "../ComponentCreate";
@@ -25,7 +24,7 @@ describe("ComponentCreate:", () => {
   const page = { path: "/1" };
 
   const WrappingComponent = ({
-    dataValue = { data, save: sinon.stub() },
+    dataValue = { data, save: jest.fn() },
     componentValue,
     children,
   }) => {
@@ -74,10 +73,7 @@ describe("ComponentCreate:", () => {
 
     userEvent.type(titleInput, "Details");
     userEvent.type(contentTextArea, "content");
-
     userEvent.click(saveBtn);
-
-    console.log(data.pages[0].components, "data!");
 
     // - then
     const newDetailsComp = data.pages[0].components?.[0] as DetailsComponent;

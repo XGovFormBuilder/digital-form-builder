@@ -1,4 +1,3 @@
-import sinon from "sinon";
 import React, { useReducer } from "react";
 import { render } from "@testing-library/react";
 import userEvent, { TargetElement } from "@testing-library/user-event";
@@ -17,12 +16,7 @@ import { i18n, initI18n } from "../../../i18n/i18n";
 
 describe("ComponentListSelect", () => {
   beforeEach(() => {
-    sinon.restore();
     initI18n();
-  });
-
-  afterEach(() => {
-    sinon.restore();
   });
 
   let data = new Data({
@@ -76,7 +70,7 @@ describe("ComponentListSelect", () => {
       },
     ],
   });
-  const dataValue = { data, save: sinon.spy() };
+  const dataValue = { data, save: jest.fn() };
 
   const TestComponentContextProvider = ({
     children,
@@ -175,7 +169,7 @@ describe("ComponentListSelect", () => {
       lists: [],
       sections: [],
     });
-    const dataValue = { data, save: sinon.spy() };
+    const dataValue = { data, save: jest.fn() };
     const { container } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
