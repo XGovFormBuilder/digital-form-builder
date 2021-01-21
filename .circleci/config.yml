@@ -41,11 +41,15 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
+      - run:
+          name: "echo environment variables from org-global context"
+          command: echo $TRUSTED_CACHE
       - when:
           condition:
             equal: ['true', $TRUSTED_CACHE]
           steps:
             - run: yarn install
+
       - when:
           condition:
             not: $TRUSTED_CACHE #provided in context. For non maintainers, checksum will be run.
