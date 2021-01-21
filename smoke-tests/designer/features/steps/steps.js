@@ -113,6 +113,7 @@ Then("a link between them will be displayed", () => {
   expect(FormDesignerPage.linkLine).toExist();
 });
 
+@wip
 When("I add a new section", () => {
   EditSection.addSection.click();
   EditSection.sectionTitle.setValue("MyTestSection");
