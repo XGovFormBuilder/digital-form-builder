@@ -41,12 +41,14 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
-      - run: |
-          if [ "$TRUSTED_CACHE" = "true" ]; then
-              yarn install
-          else
-              yarn install --check-cache
-          fi
+      - run:
+          name: yarn install
+          command: |
+            if [ "$TRUSTED_CACHE" = "true" ]; then
+                yarn install
+            else
+                yarn install --check-cache
+            fi
       - run:
           name: Lint
           command: |
