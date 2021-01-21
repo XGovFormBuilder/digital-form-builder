@@ -117,6 +117,7 @@ When("I add a new section", () => {
   EditSection.addSection.click();
   EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
+  browser.pause(100);
   expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
   EditSection.closeLinks[0].click();
 });
