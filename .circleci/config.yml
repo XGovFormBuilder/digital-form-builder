@@ -31,25 +31,11 @@ parameters:
     default: false
 
 executors:
-  node:
-    docker:
-      - image: cimg/node:12
   node-browsers:
     docker:
       - image: cimg/node:12.19.1-browsers
-  python:
-    docker:
-      - image: circleci/python:2.7-jessie
 
 jobs:
-  trigger-workflows:
-    executor: node
-    steps:
-      - checkout
-      - run:
-          name: Trigger workflows
-          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
-
   install-yarn-lint:
     executor: node-browsers
     working_directory: ~/project
@@ -61,6 +47,8 @@ jobs:
           name: Lint
           command: |
             yarn lint
+
+      - run: yarn build:dependencies
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -85,32 +73,18 @@ jobs:
               # force flag
               - << pipeline.parameters.force-build-all >>
 
-              # if the upstream dependencies (model) have changed, this package must be rebuilt.
-              - and:
-                  - equal: ["runner", << parameters.package_name >>]
-                  - << pipeline.parameters.model >>
-              - and:
-                  - equal: ["designer", << parameters.package_name >>]
-                  - << pipeline.parameters.model >>
           steps:
             - attach_workspace:
                 at: ~/project
 
             - when:
                 condition:
-                  or:
-                    - and:
-                        - equal: ["runner", << parameters.package_name >>]
-                        - or:
-                            - not: << pipeline.parameters.model >>
-                    - and:
-                        - equal: ["designer", << parameters.package_name >>]
-                        - not: << pipeline.parameters.model >>
+                  not: << pipeline.parameters.model >>
                 steps:
                   - run:
-                      name: Build dependencies
+                      name: Build
                       command: |
-                        yarn build:dependencies
+                        yarn << parameters.package_name >> run build
 
             - run:
                 name: Build
@@ -119,14 +93,15 @@ jobs:
             - run:
                 name: Test
                 command: yarn << parameters.package_name >> run test-cov
+
+          post-steps:
+            - run:
+                command: Upload test results
             - store_test_results:
                 path: << parameters.package_name >>/test-results
             - store_artifacts:
                 path: << parameters.package_name >>/test-coverage
-            - persist_to_workspace:
-                root: ~/project
-                paths:
-                  - .
+
       - run:
           name: Changes made to << parameters.package_name >> - << parameters.should_build >>
           command: |
@@ -153,11 +128,11 @@ workflows:
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
-            - model-build-test
+            - install-yarn-lint
 
       - build-test:
           name: designer-build-test
           package_name: designer
           should_build: << pipeline.parameters.designer >>
           requires:
-            - model-build-test
+            - install-yarn-lint
