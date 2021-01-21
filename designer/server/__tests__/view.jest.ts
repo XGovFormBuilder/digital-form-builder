@@ -1,11 +1,17 @@
+import hapi from "@hapi/hapi";
 import { createServer } from "../createServer";
 
 describe("Server tests", () => {
+  const startServer = async (): Promise<hapi.Server> => {
+    const server = await createServer();
+    await server.start();
+    return server;
+  };
+
   let server;
 
   beforeAll(async () => {
-    server = await createServer();
-    await server.start();
+    server = await startServer();
     const { persistenceService } = server.services();
     persistenceService.listAllConfigurations = () => {
       return Promise.resolve([]);
