@@ -41,7 +41,17 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
-      - run: yarn install
+      - when:
+          condition:
+            equal: [true, $TRUSTED_CACHE]
+          steps:
+            - run: yarn install
+      - when:
+          condition:
+            not: $TRUSTED_CACHE #provided in context. For non maintainers, checksum will be run.
+          steps:
+            - run: yarn install --check-cache
+
       - run: yarn rebuild node-sass only
       - run:
           name: Lint
@@ -120,6 +130,8 @@ workflows:
           name: model-build-test
           package_name: model
           should_build: << pipeline.parameters.model >>
+          context:
+            - Maintaners
           requires:
             - install-yarn-lint
 
