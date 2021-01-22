@@ -39,7 +39,10 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
   );
 
   return (
-    <div className="govuk-form-group component-create__list">
+    <div
+      className="govuk-form-group component-create__list"
+      data-testid="component-create-list"
+    >
       <h1 className="govuk-hint">
         {i18n("Select a component to add to your page")}
       </h1>
