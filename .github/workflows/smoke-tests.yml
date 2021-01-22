@@ -47,6 +47,9 @@ jobs:
       - name: Install smoke tests dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --cwd "smoke-tests/designer"
+      - name: wait for containers to start when cache-hit
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: sleep 60
       - name: Check containers are running
         run: |
           docker ps
