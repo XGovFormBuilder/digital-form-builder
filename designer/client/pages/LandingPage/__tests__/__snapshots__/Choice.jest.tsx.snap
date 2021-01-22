@@ -7,7 +7,7 @@ exports[`LandingChoice snapshot matches 1`] = `
   >
     <div>
       <h1
-        class="govuk-heading-l"
+        class="govuk-heading-xl govuk-heading-xl__lowmargin"
       >
         Design and prototype forms
       </h1>

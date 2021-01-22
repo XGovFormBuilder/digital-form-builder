@@ -12,12 +12,19 @@
     font-weight: 700;
   }
 
+  .govuk-heading-xl__lowmargin {
+    margin-bottom: 15px;
+  }
+
   .back-link {
     margin-bottom: 40px;
   }
 
   .table__cell__noborder {
     border-bottom: none;
+  }
+  .form-grid {
+    margin-top: 30px;
   }
 }
 

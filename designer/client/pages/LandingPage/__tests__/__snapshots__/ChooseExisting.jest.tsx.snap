@@ -12,13 +12,13 @@ exports[`ChooseExisting no existing configurations 1`] = `
       >
         Back to previous page
       </a>
-      <h2
+      <h1
         class="govuk-heading-l"
       >
         Select an existing form
-      </h2>
+      </h1>
       <div
-        class="govuk-grid-row"
+        class="govuk-grid-row form-grid"
       >
         <div
           class="govuk-grid-column-two-thirds"
@@ -73,13 +73,13 @@ exports[`ChooseExisting with existing configurations 1`] = `
       >
         Back to previous page
       </a>
-      <h2
+      <h1
         class="govuk-heading-l"
       >
         Select an existing form
-      </h2>
+      </h1>
       <div
-        class="govuk-grid-row"
+        class="govuk-grid-row form-grid"
       >
         <div
           class="govuk-grid-column-two-thirds"

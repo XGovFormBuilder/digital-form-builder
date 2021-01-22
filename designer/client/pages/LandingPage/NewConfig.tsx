@@ -80,6 +80,7 @@ export class NewConfig extends Component<Props, State> {
   };
 
   goBack = (event) => {
+    event.preventDefault();
     this.props.history.goBack();
   };
 
@@ -128,19 +129,18 @@ export class NewConfig extends Component<Props, State> {
             </div>
           )}
 
+          <h1 className="govuk-heading-l">
+            {i18n("Enter a name for your form")}
+          </h1>
+
           <div
             className={`govuk-form-group ${
               hasError ? "govuk-form-group--error" : ""
             }`}
           >
-            <label className="govuk-label govuk-label--m" htmlFor="formName">
-              {i18n("Enter a name for your form")}
+            <label className="govuk-visually-hidden" htmlFor="formName">
+              {i18n("Form name")}
             </label>
-            <div className="govuk-hint">
-              {i18n(
-                "Enter the name for your form, for example Applying for visitors pass"
-              )}
-            </div>
             {alreadyExistsError && (
               <span className="govuk-error-message">
                 <span id="error-already-exists" className="govuk-error-message">

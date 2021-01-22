@@ -53,7 +53,8 @@ export class ChooseExisting extends Component<Props, State> {
     }
   };
 
-  goBack = () => {
+  goBack = (event) => {
+    event.preventDefault();
     this.props.history.goBack();
   };
 
@@ -88,11 +89,11 @@ export class ChooseExisting extends Component<Props, State> {
             {i18n("Back to previous page")}
           </BackLink>
 
-          <h2 className="govuk-heading-l">
+          <h1 className="govuk-heading-l">
             {i18n("landingPage.existing.select")}
-          </h2>
+          </h1>
 
-          <div className="govuk-grid-row">
+          <div className="govuk-grid-row form-grid">
             <div className="govuk-grid-column-two-thirds">
               <table className="govuk-table">
                 <thead className="govuk-table__head">
