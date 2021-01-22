@@ -53,7 +53,7 @@ export class ChooseExisting extends Component<Props, State> {
     }
   };
 
-  goBack = (event) => {
+  goBack = () => {
     this.props.history.goBack();
   };
 
@@ -64,19 +64,21 @@ export class ChooseExisting extends Component<Props, State> {
       return <p>Loading ...</p>;
     }
 
-    const formList = configs.map((form) => (
-      <li key={form.Key}>
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            this.selectForm(form.Key);
-          }}
-        >
-          {form.DisplayName}
-        </a>
-        <hr />
-      </li>
+    const formTable = configs.map((form) => (
+      <tr className="govuk-table__row" key={form.Key}>
+        <td className="govuk-table__cell">
+          <a
+            className="govuk-link"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              this.selectForm(form.Key);
+            }}
+          >
+            {form.DisplayName}
+          </a>
+        </td>
+      </tr>
     ));
 
     return (
@@ -86,20 +88,33 @@ export class ChooseExisting extends Component<Props, State> {
             {i18n("Back to previous page")}
           </BackLink>
 
-          <h2 className="govuk-heading-2">
+          <h2 className="govuk-heading-l">
             {i18n("landingPage.existing.select")}
           </h2>
 
-          <div className="govuk-form-group form__list">
-            <ol className="govuk-list">
-              <li>Form name</li>
-              <hr />
-              {hasEditableForms ? (
-                <>{formList}</>
-              ) : (
-                <p>{i18n("landingPage.existing.noforms")}</p>
-              )}
-            </ol>
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-two-thirds">
+              <table className="govuk-table">
+                <thead className="govuk-table__head">
+                  <tr className="govuk-table__row">
+                    <th scope="col" className="govuk-table__header">
+                      Form name
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="govuk-table__body">
+                  {hasEditableForms ? (
+                    <>{formTable}</>
+                  ) : (
+                    <tr className="govuk-table__row">
+                      <td className="govuk-table__cell table__cell__noborder">
+                        {i18n("landingPage.existing.noforms")}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

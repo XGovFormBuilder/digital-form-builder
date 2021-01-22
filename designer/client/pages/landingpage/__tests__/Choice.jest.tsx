@@ -13,11 +13,10 @@ describe("LandingChoice", () => {
     const push = jest.fn();
     const history = { push: push };
     const { asFragment } = render(<LandingChoice history={history} />);
-    expect(asFragment(<LandingChoice history={history} />)).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it("should push /new to history if 'Create a new form' is selected", async () => {
-    const i18n = jest.fn();
     const push = jest.fn();
     const history = { push: push };
     render(<LandingChoice history={history} />);
@@ -26,7 +25,6 @@ describe("LandingChoice", () => {
   });
 
   it("should push /choose-existing to history if 'Open an existing form' is selected", async () => {
-    const i18n = jest.fn();
     const push = jest.fn();
     const history = { push: push };
     render(<LandingChoice history={history} />);
