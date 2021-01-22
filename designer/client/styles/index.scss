@@ -38,18 +38,16 @@ main {
   width: 30%;
   height: 24px;
   cursor: pointer;
-  background-color: #006435;
 
   &.active:hover {
     background-color: $color-orange;
   }
 
-  &.square {
-    cursor: default;
-    width: 24px;
+  &.search {
+    width: 20px;
+    height: 20px;
     &:after {
       float: right;
-      content: "\1F50E";
     }
   }
 }

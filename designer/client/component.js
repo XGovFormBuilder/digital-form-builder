@@ -4,6 +4,7 @@ import { Flyout } from "./components/Flyout";
 import ComponentEdit from "./ComponentEdit";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { i18n } from "./i18n";
+import { SearchIcon } from "./components/Icons";
 
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle">&#9776;</span>
@@ -72,7 +73,9 @@ function UkAddressField() {
   return (
     <ComponentField>
       <span className="box" />
-      <span className="button square" />
+      <span className="button search">
+        <SearchIcon width={20} height={20} />
+      </span>
     </ComponentField>
   );
 }
