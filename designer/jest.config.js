@@ -4,6 +4,6 @@ module.exports = {
   testPathIgnorePatterns: ["<rootDir>/test/"],
   setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
   moduleNameMapper: {
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
   },
 };
