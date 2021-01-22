@@ -45,9 +45,8 @@ jobs:
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --cwd "smoke-tests/designer"
-      - name: wait for containers to start when cache-hit
+      - name: Wait for containers to start when smoke tests dependencies install from cache
         if: steps.yarn-cache.outputs.cache-hit == 'true'
         run: sleep 60
       - name: Check containers are running
