@@ -91,11 +91,6 @@ jobs:
                       name: Build
                       command: |
                         yarn << parameters.package_name >> run build
-
-            - run:
-                name: Build
-                command: |
-                  yarn << parameters.package_name >> run build
             - run:
                 name: Test
                 command: yarn << parameters.package_name >> run test-cov
