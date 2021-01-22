@@ -13,7 +13,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
@@ -24,7 +23,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
       - name: Docker compose pull
         run: docker-compose pull
       - name: Docker layer caching
@@ -46,9 +44,6 @@ jobs:
         run: docker-compose up -d
       - name: Install smoke tests dependencies
         run: yarn install --cwd "smoke-tests/designer"
-      - name: Wait for containers to start when smoke tests dependencies install from cache
-        if: steps.yarn-cache.outputs.cache-hit == 'true'
-        run: sleep 60
       - name: Check containers are running
         run: |
           docker ps
