@@ -18,7 +18,7 @@ class configPage extends Page {
   }
 
   get newFormScreen() {
-    return $(".govuk-label=Enter a name for your form");
+    return $("h1=Enter a name for your form");
   }
 
   newConfig(configName) {
