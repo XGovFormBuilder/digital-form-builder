@@ -1,29 +1,16 @@
 import config from "../../config";
-import { nanoid } from "nanoid";
 import newFormJson from "../../../new-form.json";
-import Wreck from "@hapi/wreck";
+import { publish } from "../../lib/publish";
+import { ServerRoute } from "@hapi/hapi";
+import { FormConfiguration } from "@xgovformbuilder/model";
 
-const publish = async function (id, configuration) {
-  try {
-    const result = Wreck.post(`${config.publishUrl}/publish`, {
-      payload: JSON.stringify({ id, configuration }),
-    });
-    return result;
-  } catch (error) {
-    throw new Error(
-      `Error when publishing to endpoint ${config.publishUrl}/publish: message: ${error.message}`
-    );
-  }
-};
-
-export const get = {
+export const get: ServerRoute = {
   method: "get",
   path: "/new",
   options: {
     handler: async (request, h) => {
       const { persistenceService } = request.services([]);
-      let configurations = [];
-      let error;
+      let configurations: FormConfiguration[] = [];
       try {
         configurations = await persistenceService.listAllConfigurations();
         return h.view("designer", {
@@ -32,12 +19,11 @@ export const get = {
           phase: config.phase,
         });
       } catch (e) {
-        error = e;
         configurations = [];
         return h.view("designer", {
           newConfig: true,
           configurations,
-          error,
+          error: e,
           phase: config.phase,
         });
       }
@@ -45,14 +31,15 @@ export const get = {
   },
 };
 
-export const post = {
+export const post: ServerRoute = {
   method: "post",
   path: "/new",
   options: {
     handler: async (request, h) => {
       const { persistenceService } = request.services([]);
       const { selected, name } = request.payload;
-      const newName = name === "" ? nanoid(10) : name;
+      const newName = encodeURI(name);
+
       try {
         if (selected.Key === "New") {
           if (config.persistentBackend !== "preview") {
@@ -71,7 +58,7 @@ export const post = {
           await publish(newName, copied);
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
 
       return h.redirect(`/${newName}`);

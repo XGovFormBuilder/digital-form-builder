@@ -2,6 +2,8 @@ import newFormJson from "../../../new-form.json";
 import { FormConfiguration, Schema } from "@xgovformbuilder/model";
 import Wreck from "@hapi/wreck";
 import config from "../../config";
+import { publish } from "../../lib/publish";
+import { ServerRoute } from "@hapi/hapi";
 
 const getPublished = async function (id) {
   const { payload } = await Wreck.get<FormConfiguration>(
@@ -10,7 +12,7 @@ const getPublished = async function (id) {
   return payload.toString();
 };
 
-export const get = {
+export const get: ServerRoute = {
   // GET DATA
   method: "GET",
   path: "/{id}/api/data",
@@ -35,7 +37,7 @@ export const get = {
   },
 };
 
-export const put = {
+export const put: ServerRoute = {
   // SAVE DATA
   method: "PUT",
   path: "/{id}/api/data",

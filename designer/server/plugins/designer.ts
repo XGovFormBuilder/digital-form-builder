@@ -2,7 +2,7 @@ import pkg from "../../package.json";
 import config from "../config";
 import { newConfig, api, configurations } from "./routes";
 
-export const designerPlugin: { plugin: Plugin<any> } = {
+export const designerPlugin = {
   plugin: {
     name: pkg.name,
     version: pkg.version,
@@ -27,7 +27,7 @@ export const designerPlugin: { plugin: Plugin<any> } = {
         method: "get",
         path: "/{id}",
         options: {
-          handler: (request, h: ResponseToolkit) => {
+          handler: (request, h) => {
             const { id } = request.params;
             return h.view("designer", {
               id,
