@@ -34,7 +34,7 @@ jobs:
           # and this will eventually build up and increase pull time significantly
           # see https://github.com/satackey/action-docker-layer-caching/issues/55
           # ATM solution is to change keys periodically to avoid the dangling layers
-          # for that just increase the number you see in key and restore-keys below (same number in both keys)
+          # for that just increase the number you see in key and restore-keys below (same number in both keys).
           key: digital-form-builder-1-{hash}
           restore-keys: |
             digital-form-builder-1
