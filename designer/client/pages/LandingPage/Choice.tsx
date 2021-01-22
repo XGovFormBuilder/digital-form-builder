@@ -22,7 +22,7 @@ export function LandingChoice({ history }: Props): ReactElement {
 
   return (
     <div className="new-config">
-      <div>
+      <div className="choice-wrapper">
         <h1 className="govuk-heading-xl govuk-heading-xl__lowmargin">
           {i18n("landingPage.choice.heading")}
         </h1>

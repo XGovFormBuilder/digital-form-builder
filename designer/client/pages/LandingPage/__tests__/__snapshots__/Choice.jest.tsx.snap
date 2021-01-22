@@ -5,7 +5,9 @@ exports[`LandingChoice snapshot matches 1`] = `
   <div
     class="new-config"
   >
-    <div>
+    <div
+      class="choice-wrapper"
+    >
       <h1
         class="govuk-heading-xl govuk-heading-xl__lowmargin"
       >
