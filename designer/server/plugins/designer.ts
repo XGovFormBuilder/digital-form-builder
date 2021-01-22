@@ -51,6 +51,7 @@ export const designerPlugin = {
             return h.view("designer", {
               phase: config.phase,
               previewUrl: config.previewUrl,
+              footerText: config.footerText,
             });
           },
         },

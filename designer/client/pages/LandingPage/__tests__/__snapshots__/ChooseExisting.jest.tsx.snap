@@ -13,24 +13,48 @@ exports[`ChooseExisting no existing configurations 1`] = `
         Back to previous page
       </a>
       <h2
-        class="govuk-heading-2"
+        class="govuk-heading-l"
       >
         Select an existing form
       </h2>
       <div
-        class="govuk-form-group form__list"
+        class="govuk-grid-row"
       >
-        <ol
-          class="govuk-list"
+        <div
+          class="govuk-grid-column-two-thirds"
         >
-          <li>
-            Form name
-          </li>
-          <hr />
-          <p>
-            You do not have any existing forms
-          </p>
-        </ol>
+          <table
+            class="govuk-table"
+          >
+            <thead
+              class="govuk-table__head"
+            >
+              <tr
+                class="govuk-table__row"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="col"
+                >
+                  Form name
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="govuk-table__body"
+            >
+              <tr
+                class="govuk-table__row"
+              >
+                <td
+                  class="govuk-table__cell table__cell__noborder"
+                >
+                  You do not have any existing forms
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -50,37 +74,67 @@ exports[`ChooseExisting with existing configurations 1`] = `
         Back to previous page
       </a>
       <h2
-        class="govuk-heading-2"
+        class="govuk-heading-l"
       >
         Select an existing form
       </h2>
       <div
-        class="govuk-form-group form__list"
+        class="govuk-grid-row"
       >
-        <ol
-          class="govuk-list"
+        <div
+          class="govuk-grid-column-two-thirds"
         >
-          <li>
-            Form name
-          </li>
-          <hr />
-          <li>
-            <a
-              href="#"
+          <table
+            class="govuk-table"
+          >
+            <thead
+              class="govuk-table__head"
             >
-              Not a feedback form
-            </a>
-            <hr />
-          </li>
-          <li>
-            <a
-              href="#"
+              <tr
+                class="govuk-table__row"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="col"
+                >
+                  Form name
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="govuk-table__body"
             >
-              My feedback form
-            </a>
-            <hr />
-          </li>
-        </ol>
+              <tr
+                class="govuk-table__row"
+              >
+                <td
+                  class="govuk-table__cell"
+                >
+                  <a
+                    class="govuk-link"
+                    href="#"
+                  >
+                    Not a feedback form
+                  </a>
+                </td>
+              </tr>
+              <tr
+                class="govuk-table__row"
+              >
+                <td
+                  class="govuk-table__cell"
+                >
+                  <a
+                    class="govuk-link"
+                    href="#"
+                  >
+                    My feedback form
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

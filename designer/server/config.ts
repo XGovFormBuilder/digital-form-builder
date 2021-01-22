@@ -1,7 +1,24 @@
 import dotenv from "dotenv";
 import joi from "joi";
 
-dotenv.config({ path: "./../.env" });
+dotenv.config({ path: "../.env" });
+
+export interface Config {
+  env: "development" | "test" | "production";
+  port: number;
+  previewUrl: string;
+  publishUrl: string;
+  persistentBackend: "s3" | "blob" | "preview";
+  s3Bucket?: string;
+  persistentKeyId?: string;
+  persistentAccessKey?: string;
+  logLevel: "trace" | "info" | "debug" | "error";
+  phase?: "alpha" | "beta";
+  footerText?: string;
+  isProd: boolean;
+  isDev: boolean;
+  isTest: boolean;
+}
 
 // Define config schema
 const schema = joi.object({
@@ -21,6 +38,7 @@ const schema = joi.object({
     .valid("trace", "info", "debug", "error")
     .default("debug"),
   phase: joi.string().valid("alpha", "beta").optional(),
+  footerText: joi.string().optional(),
 });
 
 // Build config
@@ -35,6 +53,7 @@ const config = {
   s3Bucket: process.env.S3_BUCKET,
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
+  footerText: process.env.FOOTER_TEXT,
 };
 
 // Validate config
@@ -46,7 +65,7 @@ if (result.error) {
 }
 
 // Use the joi validated value
-const value = result.value;
+const value: Config = result.value;
 
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;

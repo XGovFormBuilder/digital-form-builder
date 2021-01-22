@@ -1,25 +1,24 @@
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
+import hapi from "@hapi/hapi";
 import { createServer } from "../createServer";
 
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
-const { before, suite, test, after } = lab;
+describe("Server tests", () => {
+  const startServer = async (): Promise<hapi.Server> => {
+    const server = await createServer();
+    await server.start();
+    return server;
+  };
 
-suite("Server tests", () => {
   let server;
 
-  before(async () => {
-    server = await createServer();
-    await server.start();
+  beforeAll(async () => {
+    server = await startServer();
     const { persistenceService } = server.services();
     persistenceService.listAllConfigurations = () => {
       return Promise.resolve([]);
     };
   });
 
-  after(async () => {
+  afterAll(async () => {
     await server.stop();
   });
 
@@ -31,12 +30,12 @@ suite("Server tests", () => {
 
     const res = await server.inject(options);
 
-    expect(res.statusCode).to.equal(200);
+    expect(res.statusCode).toEqual(200);
     expect(
       res.result.indexOf(
         '<h1 class="govuk-heading-xl">Accessibility Statement</h1>'
       ) > -1
-    ).to.equal(true);
+    ).toEqual(true);
   });
 
   test("cookies page is served", async () => {
@@ -47,10 +46,10 @@ suite("Server tests", () => {
 
     const res = await server.inject(options);
 
-    expect(res.statusCode).to.equal(200);
+    expect(res.statusCode).toEqual(200);
     expect(
       res.result.indexOf('<h1 class="govuk-heading-xl">Cookies</h1>') > -1
-    ).to.equal(true);
+    ).toEqual(true);
   });
 
   test("terms and conditions page is served", async () => {
@@ -61,15 +60,15 @@ suite("Server tests", () => {
 
     const res = await server.inject(options);
 
-    expect(res.statusCode).to.equal(200);
+    expect(res.statusCode).toEqual(200);
     expect(
       res.result.indexOf(
         '<h1 class="govuk-heading-xl">Terms and conditions</h1>'
       ) > -1
-    ).to.equal(true);
+    ).toEqual(true);
   });
 
-  test("Phase banner is present", async (flags) => {
+  test("Phase banner is present", async () => {
     const { persistenceService } = server.services();
     persistenceService.listAllConfigurations = () => {
       return Promise.resolve([]);
@@ -77,30 +76,30 @@ suite("Server tests", () => {
 
     const options = {
       method: "get",
-      url: "/new",
+      url: "/app",
     };
 
     const res = await server.inject(options);
-    expect(res.statusCode).to.equal(200);
+    expect(res.statusCode).toEqual(200);
     expect(
       res.result.indexOf(
         '<strong class="govuk-tag govuk-phase-banner__content__tag">'
       ) > -1
-    ).to.equal(true);
+    ).toEqual(true);
   });
 
-  test("Phase banner is present", async (flags) => {
+  test("Phase banner is present", async () => {
     const options = {
       method: "get",
-      url: "/new",
+      url: "/app",
     };
 
     const res = await server.inject(options);
-    expect(res.statusCode).to.equal(200);
+    expect(res.statusCode).toEqual(200);
     expect(
       res.result.indexOf(
         '<strong class="govuk-tag govuk-phase-banner__content__tag">'
       ) > -1
-    ).to.equal(true);
+    ).toEqual(true);
   });
 });
