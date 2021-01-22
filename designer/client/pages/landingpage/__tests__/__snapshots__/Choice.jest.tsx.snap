@@ -14,7 +14,7 @@ exports[`LandingChoice snapshot matches 1`] = `
       <p
         class="govuk-body"
       >
-        Use the form designer to easily create forms test ideas and get user feedback
+        Use the form designer to easily create,edit forms and test ideas
       </p>
       <div
         class="govuk-form-group "

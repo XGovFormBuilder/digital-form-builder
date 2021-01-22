@@ -1,9 +1,7 @@
 import "@testing-library/jest-dom";
-import fetchMock from "jest-fetch-mock";
-import "whatwg-fetch";
+import "./test/testServer";
 
 beforeEach(() => {
   jest.resetAllMocks();
   expect.hasAssertions();
-  fetchMock.enableMocks();
 });

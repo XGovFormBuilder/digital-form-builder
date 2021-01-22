@@ -9,7 +9,9 @@ exports[`ChooseExisting no existing configurations 1`] = `
       <a
         class="back-link govuk-back-link"
         href="#0"
-      />
+      >
+        Back to previous page
+      </a>
       <h2
         class="govuk-heading-2"
       >
@@ -44,7 +46,9 @@ exports[`ChooseExisting with existing configurations 1`] = `
       <a
         class="back-link govuk-back-link"
         href="#0"
-      />
+      >
+        Back to previous page
+      </a>
       <h2
         class="govuk-heading-2"
       >
@@ -64,7 +68,7 @@ exports[`ChooseExisting with existing configurations 1`] = `
             <a
               href="#"
             >
-              test
+              Not a feedback form
             </a>
             <hr />
           </li>
@@ -72,7 +76,7 @@ exports[`ChooseExisting with existing configurations 1`] = `
             <a
               href="#"
             >
-              skl1
+              My feedback form
             </a>
             <hr />
           </li>

@@ -1,15 +1,14 @@
 import React, { ReactElement, useState } from "react";
-import { withI18n } from "../../i18n";
+import { i18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
 import { Radios } from "@govuk-jsx/radios";
 import "./LandingPage.scss";
 
 interface Props {
-  i18n(text: string): string;
   history: any;
 }
 
-export function LandingChoice({ i18n, history }: Props): ReactElement {
+export function LandingChoice({ history }: Props): ReactElement {
   const [createNewFrom, setCreateNewForm] = useState(true);
 
   const handleNext = function () {
@@ -24,11 +23,10 @@ export function LandingChoice({ i18n, history }: Props): ReactElement {
   return (
     <div className="new-config">
       <div>
-        <h1 className="govuk-heading-l">Design and prototype forms</h1>
-        <p className="govuk-body">
-          Use the form designer to easily create forms test ideas and get user
-          feedback
-        </p>
+        <h1 className="govuk-heading-l">
+          {i18n("landingPage.choice.heading")}
+        </h1>
+        <p className="govuk-body">{i18n("landingPage.choice.intro")}</p>
         <Radios
           className="govuk-radios--inline"
           name="newOrExisting"
@@ -38,16 +36,16 @@ export function LandingChoice({ i18n, history }: Props): ReactElement {
           fieldset={{
             legend: {
               isPageHeading: true,
-              children: ["Select an option"],
+              children: [i18n("landingPage.choice.hint")],
             },
           }}
           items={[
             {
-              children: ["Create a new form"],
+              children: [i18n("landingPage.choice.newform")],
               value: true,
             },
             {
-              children: ["Open an existing form"],
+              children: [i18n("landingPage.choice.existing")],
               value: false,
             },
           ]}
@@ -57,11 +55,11 @@ export function LandingChoice({ i18n, history }: Props): ReactElement {
           onClick={handleNext}
           title="Next"
         >
-          Next
+          {i18n("Next")}
         </button>
       </div>
     </div>
   );
 }
 
-export default withRouter(withI18n(LandingChoice));
+export default withRouter(LandingChoice);

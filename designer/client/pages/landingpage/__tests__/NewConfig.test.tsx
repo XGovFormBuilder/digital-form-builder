@@ -3,15 +3,15 @@ import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-
 import { NewConfig } from "../NewConfig";
 import {
   stubFetchJson,
   restoreWindowMethods,
 } from "../../../../test/helpers/window-stubbing";
-
 import * as formConfigurationsApi from "../../../load-form-configurations";
+import { initI18n } from "../../../i18n";
 
+initI18n();
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
@@ -38,8 +38,9 @@ const configurations = [
 const wait = () => new Promise((resolve) => setTimeout(resolve));
 
 suite("New configuration screen", () => {
-  const mockI18n = (text: string) => text;
   let formConfigurationApiStub;
+  const push = sinon.stub();
+  const history = { push: push };
 
   afterEach(() => {
     sinon.restore();
@@ -50,9 +51,8 @@ suite("New configuration screen", () => {
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves(configurations);
     stubFetchJson(200, { url: "configUrl" });
-    const push = sinon.stub();
-    const history = { push: push };
-    const wrapper = shallow(<NewConfig i18n={mockI18n} history={history} />);
+
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -81,7 +81,7 @@ suite("New configuration screen", () => {
       ]);
     stubFetchJson(200, { url: "configUrl" });
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -106,7 +106,7 @@ suite("New configuration screen", () => {
         },
       ]);
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -131,7 +131,7 @@ suite("New configuration screen", () => {
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves(configurations);
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });

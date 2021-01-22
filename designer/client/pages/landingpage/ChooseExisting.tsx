@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import * as formConfigurationApi from "../../load-form-configurations";
-import { withI18n } from "../../i18n";
+import { i18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
 import { BackLink } from "../../components/BackLink";
 import "./LandingPage.scss";
 
 type Props = {
-  i18n(text: string): string;
   history: any;
 };
 
@@ -59,7 +58,6 @@ export class ChooseExisting extends Component<Props, State> {
   };
 
   render() {
-    const { i18n } = this.props;
     const configs = this.state.configs || [];
     const hasEditableForms = configs.length > 0;
     if (this.state.loading) {
@@ -88,7 +86,9 @@ export class ChooseExisting extends Component<Props, State> {
             {i18n("Back to previous page")}
           </BackLink>
 
-          <h2 className="govuk-heading-2">Select an existing form</h2>
+          <h2 className="govuk-heading-2">
+            {i18n("landingPage.existing.select")}
+          </h2>
 
           <div className="govuk-form-group form__list">
             <ol className="govuk-list">
@@ -97,7 +97,7 @@ export class ChooseExisting extends Component<Props, State> {
               {hasEditableForms ? (
                 <>{formList}</>
               ) : (
-                <p>You do not have any existing forms</p>
+                <p>{i18n("landingPage.existing.noforms")}</p>
               )}
             </ol>
           </div>
@@ -107,4 +107,4 @@ export class ChooseExisting extends Component<Props, State> {
   }
 }
 
-export default withRouter(withI18n(ChooseExisting));
+export default withRouter(ChooseExisting);

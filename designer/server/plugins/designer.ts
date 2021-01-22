@@ -56,22 +56,6 @@ export const designerPlugin = {
         },
       });
 
-      /*server.route({
-        method: "get",
-        path: "/app/designer/{id}",
-        options: {
-          handler: async (request, h) => {
-            const { id } = request.params;
-            return h.view("designer", {
-              newConfig: false,
-              id,
-              phase: config.phase,
-              previewUrl: config.previewUrl,
-            });
-          },
-        },
-      });*/
-
       server.route({
         method: "post",
         path: "/api/new",

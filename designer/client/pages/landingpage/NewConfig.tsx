@@ -1,12 +1,11 @@
 import React, { Component, MouseEvent } from "react";
 import * as formConfigurationApi from "../../load-form-configurations";
-import { withI18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
 import { BackLink } from "../../components/BackLink";
+import { i18n } from "../../i18n";
 import "./LandingPage.scss";
 
 type Props = {
-  i18n(text: string): string;
   history: any;
 };
 
@@ -85,7 +84,6 @@ export class NewConfig extends Component<Props, State> {
   };
 
   render() {
-    const { i18n } = this.props;
     const { newName, alreadyExistsError, nameIsRequiredError } = this.state;
 
     const hasError = alreadyExistsError || nameIsRequiredError;
@@ -180,4 +178,4 @@ export class NewConfig extends Component<Props, State> {
   }
 }
 
-export default withRouter(withI18n(NewConfig));
+export default withRouter(NewConfig);

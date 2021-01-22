@@ -1,31 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { rest } from "msw";
-import { setupServer } from "msw/node";
 import { FormDetails } from "../FormDetails";
-
+import { server, mockedFormConfigurations } from "../../../../test/testServer";
 import { initI18n } from "../../../i18n";
 import { DataContext } from "../../../../client/context";
 initI18n();
-
-const mockedFormConfigurations = [
-  {
-    Key: "test",
-    DisplayName: "Not a feedback form",
-    feedbackForm: false,
-  },
-  {
-    Key: "UKPrecgQUv",
-    DisplayName: "My feedback form",
-    feedbackForm: true,
-  },
-];
-
-const server = setupServer(
-  rest.get("/configurations", (_req, res, ctx) => {
-    return res(ctx.json(mockedFormConfigurations));
-  })
-);
 
 describe("FormDetails", () => {
   let providerProps;
