@@ -48,10 +48,28 @@ export const designerPlugin = {
         path: "/app",
         options: {
           handler: async (request, h) => {
-            return h.view("designer", {
-              phase: config.phase,
-              previewUrl: config.previewUrl,
-            });
+            const { persistenceService } = request.services([]);
+            let configurations = [];
+            let error;
+            try {
+              configurations = await persistenceService.listAllConfigurations();
+              return h.view("designer", {
+                newConfig: true,
+                configurations,
+                phase: config.phase,
+                footerText: config.footerText,
+              });
+            } catch (e) {
+              error = e;
+              configurations = [];
+              return h.view("designer", {
+                newConfig: true,
+                configurations,
+                error,
+                phase: config.phase,
+                footerText: config.footerText,
+              });
+            }
           },
         },
       });
@@ -90,9 +108,9 @@ export const designerPlugin = {
             const response = {
               id: `${newName}`,
               previewUrl: config.previewUrl,
-            };
-
-            return h.response(response).type("application/json").code(200);
+              phase: config.phase,
+              footerText: config.footerText,
+            });
           },
         },
       });

@@ -45,7 +45,21 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 | PERSISTENT_KEY_ID     | (Access) key ID for backend persistence                   |    no    |                |                             |                                                                                                                                           |
 | S3_BUCKET             | Name of the S3 bucket to upload to                        |    no    |                |                             |                                                                                                                                           |
 | LOG_LEVEL             | Log level                                                 |    no    | debug          |   trace,debug,info,error    |                                                                                                                                           |
+| FOOTER_TEXT           | Text displayed on the left side of the footer             |    no    |                |                             |
 
+## Unit tests
+
+This project currently has a combination of tests written with Hapi helpers and tests written in Testing Library, the aim is to have all component tests written in Testing Library so please aim to do that if you come accorss any Hapi tests.
+
+To watch the tests:
+```sh
+yarn jest --watch
+```
+
+or run this in the root of the project:
+```sh
+yarn designer jest --watch
+```
 ## License
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:

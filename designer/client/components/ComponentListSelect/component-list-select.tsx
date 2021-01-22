@@ -1,15 +1,15 @@
-import { ListActions } from "../reducers/listActions";
-import { DataContext } from "../context";
+import { ListActions } from "../../reducers/listActions";
+import { DataContext } from "../../context";
 import React, { useContext, useEffect, useState } from "react";
-import { ComponentContext } from "../reducers/component/componentReducer";
-import { Actions } from "../reducers/component/types";
+import { ComponentContext } from "../../reducers/component/componentReducer";
+import { Actions } from "../../reducers/component/types";
 import { Label } from "@govuk-jsx/label";
-import { i18n } from "../i18n";
-import { ListContext } from "../reducers/listReducer";
+import { i18n } from "../../i18n";
+import { ListContext } from "../../reducers/listReducer";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
-} from "../reducers/list/listsEditorReducer";
+} from "../../reducers/list/listsEditorReducer";
 
 export function ComponentListSelect() {
   const { data } = useContext(DataContext);
@@ -43,14 +43,14 @@ export function ComponentListSelect() {
     setSelectedListTitle(list?.title ?? list?.name ?? selectedComponent.title);
   }, [data, selectedListName]);
 
-  const editList = (e) => {
+  const editList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
       type: ListActions.SET_SELECTED_LIST,
       payload: e.target.value,
     });
   };
 
-  const createStaticList = async (e) => {
+  const createStaticList = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({
       type: Actions.ADD_STATIC_LIST,
@@ -60,7 +60,7 @@ export function ComponentListSelect() {
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
   };
 
-  const handleEditListClick = (e) => {
+  const handleEditListClick = (e: React.MouseEvent) => {
     e.preventDefault();
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
   };
@@ -79,13 +79,21 @@ export function ComponentListSelect() {
       >
         {!hasItems && <option value="static" />}
         {hasItems && <option value="static">{selectedComponent.title}</option>}
-        {data.lists.map((list, index) => {
-          return (
-            <option key={`${list.name}-${index}`} value={list.name}>
-              {list.title}
-            </option>
-          );
-        })}
+        {data.lists.map(
+          (
+            list: {
+              name: string | number | readonly string[] | undefined;
+              title: React.ReactNode;
+            },
+            index: number
+          ) => {
+            return (
+              <option key={`${list.name}-${index}`} value={list.name}>
+                {list.title}
+              </option>
+            );
+          }
+        )}
       </select>
 
       {isNew && (
