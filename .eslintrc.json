@@ -32,7 +32,9 @@
     "node_modules/**",
     "dist/**",
     "public/**",
-    "smoke-tests/designer/features/*.feature"
+    "smoke-tests/designer/features/*.feature",
+    "*.md",
+    ".eslintrc.json"
   ],
   "settings": {
     "react": {
