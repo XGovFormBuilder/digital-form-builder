@@ -3,7 +3,6 @@
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
 FROM node:12-alpine3.12 AS base
-
 RUN mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
@@ -25,6 +24,7 @@ COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  .
 COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser designer/package.json ./designer/
 COPY --chown=appuser:appuser runner/package.json ./runner/
+USER 1001
 RUN yarn
 
 # ----------------------------
@@ -35,9 +35,9 @@ RUN yarn
 # rsync is used to merge folders instead of individually copying files
 FROM dependencies AS model
 WORKDIR /usr/src/app
-COPY ./model ./model/
+COPY --chown=appuser:appuser ./model ./model/
+USER 1001
 RUN yarn model build
-
 
 # ----------------------------
 # Stage 4
@@ -47,7 +47,7 @@ RUN yarn model build
 # rsync is used to merge folders instead of individually copying files
 FROM model AS build-designer
 WORKDIR /usr/src/app
-COPY ./designer ./designer/
+COPY --chown=appuser:appuser ./designer ./designer/
 RUN yarn designer build && \
     rm -rf ./runner
 USER 1001
