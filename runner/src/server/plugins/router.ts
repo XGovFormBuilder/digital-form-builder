@@ -1,8 +1,8 @@
 import { redirectTo } from "./engine";
-import publicRoutes from "../routes/public";
+import { publicRoutes, healthCheckRoute } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 
-const routes = [...publicRoutes];
+const routes = [...publicRoutes, healthCheckRoute];
 
 export default {
   plugin: {
