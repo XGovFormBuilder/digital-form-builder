@@ -14,6 +14,7 @@ type State = {
   newName: string;
   alreadyExistsError: boolean;
   nameIsRequiredError: boolean;
+  notAvalidPatternError: boolean;
 };
 
 const parseNewName = (name: string) => {
@@ -47,6 +48,12 @@ export class NewConfig extends Component<Props, State> {
     if (!newName) {
       return this.setState({
         nameIsRequiredError: true,
+      });
+    }
+
+    if (!newName.match(/^[a-zA-Z0-9 ]+$/)) {
+      return this.setState({
+        notAvalidPatternError: true,
       });
     }
 
@@ -85,9 +92,15 @@ export class NewConfig extends Component<Props, State> {
   };
 
   render() {
-    const { newName, alreadyExistsError, nameIsRequiredError } = this.state;
+    const {
+      newName,
+      alreadyExistsError,
+      nameIsRequiredError,
+      notAvalidPatternError,
+    } = this.state;
 
-    const hasError = alreadyExistsError || nameIsRequiredError;
+    const hasError =
+      alreadyExistsError || nameIsRequiredError || notAvalidPatternError;
 
     return (
       <div className="new-config">
@@ -124,6 +137,15 @@ export class NewConfig extends Component<Props, State> {
                       <a href="#formName">{i18n("Enter form name")}</a>
                     </li>
                   )}
+                  {notAvalidPatternError && (
+                    <li>
+                      <a href="#formName">
+                        {i18n(
+                          "Form name should not contain special characters"
+                        )}
+                      </a>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -152,6 +174,13 @@ export class NewConfig extends Component<Props, State> {
               <span className="govuk-error-message">
                 <span id="error-name-required" className="govuk-error-message">
                   {i18n("Enter form name")}
+                </span>
+              </span>
+            )}
+            {notAvalidPatternError && (
+              <span className="govuk-error-message">
+                <span id="error-name-not-valid" className="govuk-error-message">
+                  {i18n("Form name should not contain special characters")}
                 </span>
               </span>
             )}

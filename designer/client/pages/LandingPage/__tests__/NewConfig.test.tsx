@@ -144,4 +144,32 @@ suite("New configuration screen", () => {
     expect(summaryErrorTitle.text()).to.equal("There is a problem");
     expect(inputError.text()).to.equal("Enter form name");
   });
+
+  test("Form name with special characters results in error", async () => {
+    formConfigurationApiStub = sinon
+      .stub(formConfigurationsApi, "loadConfigurations")
+      .resolves(configurations);
+
+    const wrapper = shallow(<NewConfig history={history} />);
+    await wait();
+
+    wrapper.find("input").simulate("change", {
+      target: { value: "Visa & Form" },
+      preventDefault: sinon.stub(),
+    });
+
+    wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
+
+    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
+    const summaryErrorTitle = wrapper.find("#error-summary-title");
+    const inputError = wrapper.find("#error-name-not-valid");
+
+    expect(summaryErrorList.text()).to.equal(
+      "Form name should not contain special characters"
+    );
+    expect(summaryErrorTitle.text()).to.equal("There is a problem");
+    expect(inputError.text()).to.equal(
+      "Form name should not contain special characters"
+    );
+  });
 });
