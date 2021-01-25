@@ -13,6 +13,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       - name: Docker compose pull
         run: docker-compose pull
       - name: Docker layer caching
@@ -24,7 +34,7 @@ jobs:
           # and this will eventually build up and increase pull time significantly
           # see https://github.com/satackey/action-docker-layer-caching/issues/55
           # ATM solution is to change keys periodically to avoid the dangling layers
-          # for that just increase the number you see in key and restore-keys below (same number in both keys)
+          # for that just increase the number you see in key and restore-keys below (same number in both keys).
           key: digital-form-builder-1-{hash}
           restore-keys: |
             digital-form-builder-1
