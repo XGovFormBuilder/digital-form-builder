@@ -57,6 +57,7 @@ export const designerPlugin = {
                 newConfig: true,
                 configurations,
                 phase: config.phase,
+                footerText: config.footerText,
               });
             } catch (e) {
               error = e;
@@ -66,6 +67,7 @@ export const designerPlugin = {
                 configurations,
                 error,
                 phase: config.phase,
+                footerText: config.footerText,
               });
             }
           },
@@ -119,6 +121,7 @@ export const designerPlugin = {
               id,
               previewUrl: config.previewUrl,
               phase: config.phase,
+              footerText: config.footerText,
             });
           },
         },
