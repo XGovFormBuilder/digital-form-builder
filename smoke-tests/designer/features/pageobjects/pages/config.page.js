@@ -11,12 +11,12 @@ class configPage extends Page {
    */
   newConfig(configName) {
     this.newName.setValue(configName);
-    this.clickButton("Next");
+    this.clickButton("Start");
     this.designerMenu.waitForDisplayed();
   }
 
   open() {
-    return super.open("app");
+    return super.open("new");
   }
 }
 
