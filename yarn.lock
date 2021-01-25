@@ -2838,6 +2838,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sideway/address@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@sideway/address@npm:4.1.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: 13f0a6b4178b03d7c0062894312313892d9a728987a5d07d43cb42c04bcdf55cd02092eb6f09ffb8d78a1dfae8cf5ce6c9b4ad66934771ea6a18e2b3fcd752d9
+  languageName: node
+  linkType: hard
+
+"@sideway/formula@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@sideway/formula@npm:3.0.0"
+  checksum: b83ecd35fea33e7b826ddcdc9f0735a79bd374927efea36885203200c418ad0f9975c329eaf9e990a7c61cf96f560ed2020227a35e699324ddd3c94dd3f4045f
+  languageName: node
+  linkType: hard
+
+"@sideway/pinpoint@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@sideway/pinpoint@npm:2.0.0"
+  checksum: e5528639aef1d266c23050897a6571c1e2aeccb59b6a22006a153fbd73aee78ae995bf19c022d70de5a00589a7f51372e78ef9aacd34a3dd9b13720c866aca7e
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^0.14.0":
   version: 0.14.0
   resolution: "@sindresorhus/is@npm:0.14.0"
@@ -3174,6 +3197,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/hapi@npm:^18.0.5":
+  version: 18.0.5
+  resolution: "@types/hapi@npm:18.0.5"
+  dependencies:
+    "@types/boom": "*"
+    "@types/catbox": "*"
+    "@types/iron": "*"
+    "@types/mimos": "*"
+    "@types/node": "*"
+    "@types/podium": "*"
+    "@types/shot": "*"
+    joi: ^17.3.0
+  checksum: 3f3f7c8e0c58d81e62f8bb35673673c81d1b165924fe506554c6fae91854f4f3929555cd7ee73c1c2440c26bdd7d82b72f12ca60eef64b83df87abd90a03ea49
+  languageName: node
+  linkType: hard
+
 "@types/hapi__catbox-memory@npm:^4.1.2":
   version: 4.1.2
   resolution: "@types/hapi__catbox-memory@npm:4.1.2"
@@ -3256,6 +3295,16 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: fe2f8b34f7ad045d2b0d317d0a61e26fef50d37864e3167a4439317b870452a90eb1983f801db40f110a41c7d3a68917e6a100f2b64057d52f4fdaaa778eb68b
+  languageName: node
+  linkType: hard
+
+"@types/hapi__vision@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "@types/hapi__vision@npm:5.5.2"
+  dependencies:
+    "@types/hapi__hapi": "*"
+    handlebars: ^4.1
+  checksum: 7a328cca6e20836d8e5eb647b5c4476350fdf9f49a078d9957c065c7435d1fe2c1f509c763691a0473a13f370ea74dadfdbeb66d8f25ae0cc4e1c4a8af7f01a5
   languageName: node
   linkType: hard
 
@@ -4244,6 +4293,7 @@ __metadata:
     "@babel/eslint-plugin": ^7.11.3
     "@babel/node": ^7.10.5
     "@babel/plugin-proposal-class-properties": ^7.10.4
+    "@babel/plugin-proposal-export-namespace-from": ^7.12.1
     "@babel/plugin-proposal-nullish-coalescing-operator": ^7.12.1
     "@babel/plugin-proposal-private-methods": ^7.10.4
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
@@ -4263,7 +4313,8 @@ __metadata:
     "@testing-library/react": ^11.2.2
     "@testing-library/user-event": ^12.6.0
     "@types/dagre": ^0.7.44
-    "@types/hapi": ^18.0.4
+    "@types/hapi": ^18.0.5
+    "@types/hapi__vision": ^5.5.2
     "@types/node": ^14.11.8
     "@types/react": ^16.9.52
     "@types/react-dom": ^16.9.8
@@ -4274,7 +4325,7 @@ __metadata:
     autoprefixer: ^10.2.1
     aws-sdk: ^2.723.0
     babel-eslint: ^10.1.0
-    babel-loader: ^8.1.0
+    babel-loader: ^8.2.0
     babel-plugin-module-name-mapper: ^1.2.0
     babel-plugin-module-resolver: ^4.0.0
     babel-plugin-transform-import-ignore: ^1.1.0
@@ -5575,7 +5626,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-loader@npm:^8.1.0":
+"babel-loader@npm:^8.2.0":
   version: 8.2.2
   resolution: "babel-loader@npm:8.2.2"
   dependencies:
@@ -8712,6 +8763,7 @@ __metadata:
     "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/lab": ^24.0.0
+    "@types/hapi__vision": ^5.5.2
     "@typescript-eslint/eslint-plugin": ^4.10.0
     "@typescript-eslint/parser": ^4.10.0
     babel-eslint: ^11.0.0-beta.2
@@ -12054,7 +12106,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"handlebars@npm:4.x.x":
+"handlebars@npm:4.x.x, handlebars@npm:^4.1":
   version: 4.7.6
   resolution: "handlebars@npm:4.7.6"
   dependencies:
@@ -14520,6 +14572,19 @@ fsevents@~2.1.2:
     "@hapi/pinpoint": ^2.0.0
     "@hapi/topo": ^5.0.0
   checksum: 197c86238922203a34a894a6240342462815bb538412333b496500520ec4d5ad04db3c7ae6d3ea58e8b1780252c91e53eb22ac7822cb82c14572920f60f031f7
+  languageName: node
+  linkType: hard
+
+"joi@npm:^17.3.0":
+  version: 17.3.0
+  resolution: "joi@npm:17.3.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.0
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 3a2a6a8df5df408b33661d61abf6389f21d71478748daebe4edf4be2176548a70396601fcf2fd4fc0bc44fc12ab67fa72de310509db47579ad21bca0f2e0611b
   languageName: node
   linkType: hard
 
