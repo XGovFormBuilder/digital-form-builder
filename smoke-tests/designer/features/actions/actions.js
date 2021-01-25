@@ -8,6 +8,7 @@ const { nanoid } = require("nanoid");
 class Actions {
   createNewConfig() {
     ConfigPage.open();
+    ConfigPage.clickButton("Next");
     this.configRef = `smoke-testing-${nanoid(10)}`;
     ConfigPage.newConfig(this.configRef);
     expect(browser).toHaveUrlContaining(
