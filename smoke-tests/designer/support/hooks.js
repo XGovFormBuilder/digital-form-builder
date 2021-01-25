@@ -11,13 +11,6 @@ exports.hooks = {
     browser.maximizeWindow();
   },
 
-  afterScenario: function () {
-    if (browser.isAlertOpen() === false) {
-      landingPage.open();
-    }
-    browser.acceptAlert();
-  },
-
   afterStep: (uri, feature, scenario) => {
     if (scenario.passed === false) {
       console.log("FAILED");
