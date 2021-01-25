@@ -21,7 +21,6 @@ test("POST /new encodes the form name", async () => {
       console.log(e);
     }
   }).not.toThrow();
-
-  expect(encoded).not.toContain(invalidCharacters);
+  expect(encoded).toEqual(expect.not.arrayContaining(invalidCharacters));
   expect(res.statusCode).toBe(302);
 });
