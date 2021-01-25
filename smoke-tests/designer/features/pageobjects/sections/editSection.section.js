@@ -6,7 +6,7 @@ class EditSections extends Section {
   }
 
   get sectionLinks() {
-    return browser.$$("ul li a");
+    return browser.$$("ul.govuk-list li a");
   }
 
   get sectionSaveBtn() {
