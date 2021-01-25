@@ -20,7 +20,7 @@ export const designerPlugin = {
       });
 
       server.route(newConfig.get);
-      server.route(newConfig.post);
+      server.route(newConfig.registerNewFormWithRunner);
 
       // DESIGNER
       server.route({
@@ -39,13 +39,10 @@ export const designerPlugin = {
         },
       });
 
-      // GET DATA
-      server.route(api.get);
+      server.route(api.getFormWithId);
+      server.route(api.putFormWithId);
 
-      server.route(configurations.get);
-
-      // SAVE DATA
-      server.route(api.put);
+      server.route(configurations.getAllPersistedConfigurations);
     },
   },
 };

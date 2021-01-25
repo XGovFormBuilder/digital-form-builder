@@ -1,6 +1,6 @@
 import { ResponseObject, ServerRoute } from "@hapi/hapi";
 
-export const get: ServerRoute = {
+export const getAllPersistedConfigurations: ServerRoute = {
   method: "GET",
   path: "/configurations",
   options: {

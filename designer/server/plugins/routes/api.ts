@@ -12,7 +12,7 @@ const getPublished = async function (id) {
   return payload.toString();
 };
 
-export const get: ServerRoute = {
+export const getFormWithId: ServerRoute = {
   // GET DATA
   method: "GET",
   path: "/{id}/api/data",
@@ -37,7 +37,7 @@ export const get: ServerRoute = {
   },
 };
 
-export const put: ServerRoute = {
+export const putFormWithId: ServerRoute = {
   // SAVE DATA
   method: "PUT",
   path: "/{id}/api/data",

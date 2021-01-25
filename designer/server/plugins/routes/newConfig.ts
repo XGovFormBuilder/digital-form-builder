@@ -31,7 +31,7 @@ export const get: ServerRoute = {
   },
 };
 
-export const post: ServerRoute = {
+export const registerNewFormWithRunner: ServerRoute = {
   method: "post",
   path: "/new",
   options: {
