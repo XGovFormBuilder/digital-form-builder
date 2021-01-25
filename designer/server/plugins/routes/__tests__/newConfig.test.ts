@@ -3,7 +3,7 @@ const { expect } = require("@hapi/code");
 const { afterEach, beforeEach, describe, it } = (exports.lab = Lab.script());
 const { createServer } = require("../../../createServer");
 
-describe.only("POST /new", () => {
+describe("POST /new", () => {
   let server;
 
   beforeEach(async () => {
@@ -12,16 +12,25 @@ describe.only("POST /new", () => {
   });
 
   afterEach(async () => {
-    // await server.stop();
+    await server.stop();
   });
 
-  it("responds with 200", async () => {
-    console.log(server);
+  it("Encodes the new form name", async () => {
+    const name = ">:тестировать<";
+    const invalidCharacters = [...name];
     const res = await server.inject({
       method: "post",
       url: "/new",
-      payload: { name: ">>nice%252E%252E%252F<::<try::" },
+      payload: { name },
     });
-    expect(res.statusCode).to.equal(200);
+    const encoded = res.headers.location;
+
+    try {
+      decodeURIComponent(encoded);
+    } catch (e) {
+      console.error(e);
+    }
+    expect(encoded).to.not.include(invalidCharacters);
+    expect(res.statusCode).to.equal(302);
   });
 });

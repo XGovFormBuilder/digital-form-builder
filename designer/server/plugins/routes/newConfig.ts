@@ -38,7 +38,7 @@ export const post: ServerRoute = {
     handler: async (request, h) => {
       const { persistenceService } = request.services([]);
       const { selected, name } = request.payload;
-      const newName = encodeURI(name);
+      const newName = encodeURIComponent(name);
 
       try {
         if (selected.Key === "New") {
