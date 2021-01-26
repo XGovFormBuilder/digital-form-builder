@@ -3,15 +3,15 @@ import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-
 import { NewConfig } from "../NewConfig";
 import {
   stubFetchJson,
   restoreWindowMethods,
 } from "../../../../test/helpers/window-stubbing";
-
 import * as formConfigurationsApi from "../../../load-form-configurations";
+import { initI18n } from "../../../i18n";
 
+initI18n();
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
@@ -38,36 +38,12 @@ const configurations = [
 const wait = () => new Promise((resolve) => setTimeout(resolve));
 
 suite("New configuration screen", () => {
-  const mockI18n = (text: string) => text;
   let formConfigurationApiStub;
+  const push = sinon.stub();
+  const history = { push: push };
 
   afterEach(() => {
     sinon.restore();
-  });
-
-  test("no existing configurations found error message", () => {
-    formConfigurationApiStub = sinon
-      .stub(formConfigurationsApi, "loadConfigurations")
-      .resolves([]);
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
-    const select = wrapper.find("select");
-
-    expect(select.find("option").first().text()).to.equal(
-      "No existing forms found"
-    );
-  });
-
-  test("Loads configurations into select", () => {
-    formConfigurationApiStub = sinon
-      .stub(formConfigurationsApi, "loadConfigurations")
-      .resolves(configurations);
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
-
-    return wait().then(() => {
-      wrapper.update();
-      expect(wrapper.state("configs")).to.have.length(3);
-      expect(wrapper.find("option")).to.have.length(4);
-    });
   });
 
   test("new configuration is submitted correctly", async () => {
@@ -76,7 +52,7 @@ suite("New configuration screen", () => {
       .resolves(configurations);
     stubFetchJson(200, { url: "configUrl" });
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -105,7 +81,7 @@ suite("New configuration screen", () => {
       ]);
     stubFetchJson(200, { url: "configUrl" });
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
@@ -120,41 +96,6 @@ suite("New configuration screen", () => {
     restoreWindowMethods();
   });
 
-  test("newName and alreadyExistsError are cleared when selecting an existing config ", async () => {
-    formConfigurationApiStub = sinon
-      .stub(formConfigurationsApi, "loadConfigurations")
-      .resolves(configurations);
-    stubFetchJson(200, { url: "configUrl" });
-
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
-    await wait();
-
-    wrapper.setState({ newName: "Test", alreadyExistsError: true });
-    wrapper.instance().onSelect({ target: { value: "form-config-111.json" } });
-
-    expect(wrapper.state().newName).to.equal("");
-    restoreWindowMethods();
-  });
-
-  test("existing configurations names are displayed as startCase in select input", async () => {
-    formConfigurationApiStub = sinon
-      .stub(formConfigurationsApi, "loadConfigurations")
-      .resolves(configurations);
-
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
-    await wait();
-
-    const options = wrapper.find("option");
-    const optionsText = options.map((option) => option.text());
-
-    expect(optionsText).to.equal([
-      "",
-      "Form Config 111",
-      "Form Config 222",
-      "Form Config 333",
-    ]);
-  });
-
   test("already existing error is shown correctly", async () => {
     formConfigurationApiStub = sinon
       .stub(formConfigurationsApi, "loadConfigurations")
@@ -165,13 +106,14 @@ suite("New configuration screen", () => {
         },
       ]);
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("input").simulate("change", {
       target: { value: "Visa Form" },
       preventDefault: sinon.stub(),
     });
+    wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
 
     const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
     const summaryErrorTitle = wrapper.find("#error-summary-title");
@@ -189,7 +131,7 @@ suite("New configuration screen", () => {
       .stub(formConfigurationsApi, "loadConfigurations")
       .resolves(configurations);
 
-    const wrapper = shallow(<NewConfig i18n={mockI18n} />);
+    const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
     wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
@@ -201,5 +143,33 @@ suite("New configuration screen", () => {
     expect(summaryErrorList.text()).to.equal("Enter form name");
     expect(summaryErrorTitle.text()).to.equal("There is a problem");
     expect(inputError.text()).to.equal("Enter form name");
+  });
+
+  test("Form name with special characters results in error", async () => {
+    formConfigurationApiStub = sinon
+      .stub(formConfigurationsApi, "loadConfigurations")
+      .resolves(configurations);
+
+    const wrapper = shallow(<NewConfig history={history} />);
+    await wait();
+
+    wrapper.find("input").simulate("change", {
+      target: { value: "Visa & Form" },
+      preventDefault: sinon.stub(),
+    });
+
+    wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
+
+    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
+    const summaryErrorTitle = wrapper.find("#error-summary-title");
+    const inputError = wrapper.find("#error-name-not-valid");
+
+    expect(summaryErrorList.text()).to.equal(
+      "Form name should not contain special characters"
+    );
+    expect(summaryErrorTitle.text()).to.equal("There is a problem");
+    expect(inputError.text()).to.equal(
+      "Form name should not contain special characters"
+    );
   });
 });

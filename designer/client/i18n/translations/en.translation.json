@@ -143,5 +143,18 @@
     "feedbackForm": {
       "fieldTitle": "Is this a feedback form?"
     }
+  },
+  "landingPage": {
+    "choice": {
+      "heading": "Design and prototype forms",
+      "intro": "Use the form designer to easily create,edit forms and test ideas",
+      "hint": "Select an option",
+      "newform": "Create a new form",
+      "existing": "Open an existing form"
+    },
+    "existing": {
+      "select": "Select an existing form",
+      "noforms": "You do not have any existing forms"
+    }
   }
 }

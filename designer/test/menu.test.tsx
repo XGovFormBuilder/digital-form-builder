@@ -114,7 +114,7 @@ suite("Page", () => {
       .find("a")
       .first();
 
-    expect(createNewFormMenu.prop("href")).to.equal("/new");
+    expect(createNewFormMenu.prop("href")).to.equal("/app");
     expect(createNewFormMenu.prop("onClick")).to.equal(undefined);
   });
 

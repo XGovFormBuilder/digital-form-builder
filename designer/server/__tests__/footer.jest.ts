@@ -26,7 +26,7 @@ describe("Footer", () => {
 
     const options = {
       method: "GET",
-      url: `/new`,
+      url: `/app`,
     };
 
     const server = await startServer();

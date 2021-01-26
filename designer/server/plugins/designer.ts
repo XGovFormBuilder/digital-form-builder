@@ -14,35 +14,29 @@ export const designerPlugin = {
         path: "/",
         options: {
           handler: async (_request, h) => {
-            return h.redirect("/new");
+            return h.redirect("/app");
           },
         },
       });
 
-      server.route(newConfig.get);
-      server.route(newConfig.registerNewFormWithRunner);
-
-      // DESIGNER
       server.route({
         method: "get",
-        path: "/{id}",
+        path: "/app",
         options: {
-          handler: (request, h) => {
-            const { id } = request.params;
+          handler: async (request, h) => {
             return h.view("designer", {
-              id,
-              previewUrl: config.previewUrl,
               phase: config.phase,
+              previewUrl: config.previewUrl,
               footerText: config.footerText,
             });
           },
         },
       });
 
+      server.route(newConfig.registerNewFormWithRunner);
       server.route(api.getFormWithId);
       server.route(api.putFormWithId);
-
-      server.route(configurations.getAllPersistedConfigurations);
+      server.route(api.getAllPersistedConfigurations);
     },
   },
 };

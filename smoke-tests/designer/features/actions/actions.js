@@ -10,6 +10,7 @@ class Actions {
     ConfigPage.open();
     this.configRef = `smoke-testing-${nanoid(10)}`;
     ConfigPage.newConfig(this.configRef);
+    ConfigPage.designerMenu.waitForDisplayed();
     expect(browser).toHaveUrlContaining(
       this.configRef.replace(" ", "-").toLowerCase()
     );

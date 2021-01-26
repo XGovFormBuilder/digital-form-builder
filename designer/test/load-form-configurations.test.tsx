@@ -20,7 +20,7 @@ suite("Load form configurations", () => {
     const returned = await formConfigurationsApi.loadConfigurations();
 
     expect(window.fetch.callCount).to.equal(1);
-    expect(window.fetch.firstCall.args[0]).to.equal("/configurations");
+    expect(window.fetch.firstCall.args[0]).to.equal("/api/configurations");
     expect(window.fetch.firstCall.args[1]).to.equal({
       method: "get",
       headers: {
@@ -38,7 +38,7 @@ suite("Load form configurations", () => {
     const returned = await formConfigurationsApi.loadConfigurations();
 
     expect(window.fetch.callCount).to.equal(1);
-    expect(window.fetch.firstCall.args[0]).to.equal("/configurations");
+    expect(window.fetch.firstCall.args[0]).to.equal("/api/configurations");
     expect(window.fetch.firstCall.args[1]).to.equal({
       method: "get",
       headers: {
