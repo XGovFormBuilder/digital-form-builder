@@ -45,8 +45,8 @@ jobs:
       - name: Check containers are running
         run: |
           docker ps
-          docker run --rm  -it appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
-          docker run --rm  -it appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
+          docker run --network container:designer -it appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+          docker run --network container:runner -it appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
       - name: Install smoke tests dependencies
         run: yarn install --cwd "smoke-tests/designer"
       - name: Smoke Test

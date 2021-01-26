@@ -21,9 +21,9 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 40s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
     depends_on:
       - runner
   runner:
@@ -44,9 +44,9 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3009/health-check"]
       interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 40s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
 
     depends_on:
       - redis
