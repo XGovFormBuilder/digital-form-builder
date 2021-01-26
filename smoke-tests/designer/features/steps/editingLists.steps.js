@@ -45,7 +45,7 @@ When("I add another list item to the Global list", function () {
 });
 
 Then("the Global list has {int} list items", function (listItemNumber) {
-  expect(EditListSection.listItems.length).toEqual(listItemNumber);
+  browser.waitUntil(() => EditListSection.listItems.length === 2);
   expect(EditListSection.listItems[listItemNumber - 1]).toHaveTextContaining(
     "Global list item 1"
   );
