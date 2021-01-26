@@ -1,26 +1,68 @@
 const { createServer } = require("../../../createServer");
 
-test("POST /new encodes the form name", async () => {
-  let server;
-  server = await createServer();
-  await server.initialize();
-  await server.stop();
+describe("NewConfig tests", () => {
+  const startServer = async (): Promise<hapi.Server> => {
+    const server = await createServer();
+    await server.start();
+    return server;
+  };
 
-  const name = ">:тестировать<";
-  const invalidCharacters = [...name];
-  const res = await server.inject({
-    method: "post",
-    url: "/new",
-    payload: { name },
+  let server;
+
+  beforeAll(async () => {
+    server = await startServer();
+    const { persistenceService } = server.services();
+    persistenceService.listAllConfigurations = () => {
+      return Promise.resolve([]);
+    };
+    persistenceService.copyConfiguration = () => {
+      return Promise.resolve([]);
+    };
+    persistenceService.uploadConfiguration = () => {
+      return Promise.resolve([]);
+    };
   });
-  const encoded = res.headers.location;
-  expect(async () => {
-    try {
-      decodeURIComponent(encoded);
-    } catch (e) {
-      console.log(e);
-    }
-  }).not.toThrow();
-  expect(encoded).toEqual(expect.not.arrayContaining(invalidCharacters));
-  expect(res.statusCode).toBe(302);
+
+  afterAll(async () => {
+    await server.stop();
+  });
+
+  test("POST /api/new with special characters result in bad request", async () => {
+    const options = {
+      method: "post",
+      url: "/api/new",
+      payload: { name: "A *& B", selected: { Key: "New" } },
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.statusCode).toEqual(400);
+    expect(
+      res.result.indexOf("Form name should not contain special characters") > -1
+    ).toEqual(true);
+  });
+
+  test("POST /api/new with existing form should not result in bad request", async () => {
+    const options = {
+      method: "post",
+      url: "/api/new",
+      payload: { name: "", selected: { Key: "Test" } },
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.statusCode).toEqual(200);
+  });
+
+  test("POST /api/new with '-' should not result in bad request", async () => {
+    const options = {
+      method: "post",
+      url: "/api/new",
+      payload: { name: "a-b", selected: { Key: "New" } },
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.statusCode).toEqual(200);
+  });
 });

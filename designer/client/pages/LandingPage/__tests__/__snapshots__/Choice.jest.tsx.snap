@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingChoice snapshot matches 1`] = `
+<DocumentFragment>
+  <div
+    class="new-config"
+  >
+    <div
+      class="choice-wrapper"
+    >
+      <h1
+        class="govuk-heading-xl govuk-heading-xl__lowmargin"
+      >
+        Design and prototype forms
+      </h1>
+      <p
+        class="govuk-body"
+      >
+        Use the form designer to easily create,edit forms and test ideas
+      </p>
+      <div
+        class="govuk-form-group "
+      >
+        <fieldset
+          class="govuk-fieldset "
+        >
+          <legend
+            class="govuk-fieldset__legend "
+          >
+            <h1
+              class="govuk-fieldset__heading"
+            >
+              Select an option
+            </h1>
+          </legend>
+          <div
+            class="govuk-radios  govuk-radios--inline"
+            required=""
+          >
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                checked=""
+                class="govuk-radios__input"
+                id="newOrExisting"
+                name="newOrExisting"
+                type="radio"
+                value="true"
+              />
+              <label
+                class="govuk-label govuk-radios__label "
+                for="newOrExisting"
+              >
+                Create a new form
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                id="newOrExisting-2"
+                name="newOrExisting"
+                type="radio"
+                value="false"
+              />
+              <label
+                class="govuk-label govuk-radios__label "
+                for="newOrExisting-2"
+              >
+                Open an existing form
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <button
+        class="govuk-button govuk-button--start"
+        title="Next"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

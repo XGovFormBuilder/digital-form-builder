@@ -45,7 +45,7 @@ When("I add another list item to the Global list", function () {
 });
 
 Then("the Global list has {int} list items", function (listItemNumber) {
-  expect(EditListSection.listItems.length).toEqual(listItemNumber);
+  browser.waitUntil(() => EditListSection.listItems.length === 2);
   expect(EditListSection.listItems[listItemNumber - 1]).toHaveTextContaining(
     "Global list item 1"
   );
@@ -74,7 +74,7 @@ When("I delete the {int}st list item from the {string} list", function (
 });
 
 Then("the Global list only has one item", function () {
-  expect(EditListSection.listItems.length).toEqual(1);
+  browser.waitUntil(() => EditListSection.listItems.length == 1);
   expect(EditListSection.listItems[0]).not.toHaveTextContaining(
     "Global list item 0"
   );

@@ -8,10 +8,10 @@ exports.config = {
   runner: "local",
   specs: ["./features/**/*.feature"],
   exclude: [],
-  maxInstances: 5,
+  maxInstances: 1,
   capabilities: [
     {
-      maxInstances: 5,
+      maxInstances: 1,
       browserName: "chrome",
       acceptInsecureCerts: true,
     },

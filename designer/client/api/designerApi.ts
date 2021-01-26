@@ -3,7 +3,7 @@ import { Data } from "@xgovformbuilder/model";
 export class DesignerApi {
   async save(id: string, updatedData: Data): Promise<Response | any> {
     try {
-      const response = await window.fetch(`${id}/api/data`, {
+      const response = await window.fetch(`/api/${id}/data`, {
         method: "put",
         body: JSON.stringify(updatedData),
         headers: {
@@ -22,7 +22,7 @@ export class DesignerApi {
 
   async fetchData(id: string) {
     try {
-      const response = await window.fetch(`${id}/api/data`);
+      const response = await window.fetch(`/api/${id}/data`);
       return response.json();
     } catch (e) {
       console.error(e);
