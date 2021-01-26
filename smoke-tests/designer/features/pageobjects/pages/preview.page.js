@@ -1,15 +1,25 @@
 const Page = require("./basePage");
 
 class PreviewPage extends Page {
-  get title() {
-    return browser.$("h1 .govuk-label");
+  get pageTitle() {
+    return browser.$$("h1")[0];
   }
 
+  /**
+   *
+   * @param componentName
+   */
   hintText(componentName) {
-    browser.$(`#${componentName}-hint`);
+    return browser.$(`#${componentName}-hint`);
   }
 
   getComponent(componentName) {
-    browser.$(`#${componentName}`);
+    return browser.$(`#${componentName}`);
+  }
+
+  get paragraph() {
+    return browser.$("p.govuk-body");
   }
 }
+
+module.exports = new PreviewPage();

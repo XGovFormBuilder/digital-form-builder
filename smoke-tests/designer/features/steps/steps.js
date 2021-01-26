@@ -8,6 +8,7 @@ const EditSection = require("../pageobjects/sections/editSection.section");
 const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
+const PreviewPage = require("../pageobjects/pages/preview.page");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
 const Actions = require("../actions/actions");
 
@@ -35,32 +36,33 @@ Then(
   }
 );
 
-Then(
-  "the {string} control is displayed in the {string}",
-  (componentName, pageName) => {
-    const pageComponent = toCamelCase(componentName);
-    switch (pageComponent) {
-      case "dateField":
-        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
-          .be.true;
-        expect(FormDesignerPage[pageComponent](pageName)).toHaveText(
-          "dd/mm/yyyy"
-        );
-        break;
-      case "dateTimeField":
-        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
-          .be.true;
-        expect(FormDesignerPage[pageComponent](pageName)).toHaveText(
-          "dd/mm/yyyy hh:mm"
-        );
-        break;
-      default:
-        chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to
-          .be.true;
-        break;
-    }
+Then("the {string} control is displayed in the {string}", function (
+  componentName,
+  pageName
+) {
+  this.pageName = pageName;
+  const pageComponent = toCamelCase(componentName);
+  switch (pageComponent) {
+    case "dateField":
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
+        .to.be.true;
+      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
+        "dd/mm/yyyy"
+      );
+      break;
+    case "dateTimeField":
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
+        .to.be.true;
+      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
+        "dd/mm/yyyy hh:mm"
+      );
+      break;
+    default:
+      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
+        .to.be.true;
+      break;
   }
-);
+});
 
 When("I add multiple components to the {string}", (pageName) => {
   this.pageComponents = ["Email address field", "Date field"];
@@ -247,4 +249,21 @@ Then("the page is added in the designer", () => {
   const pageName = this.newPageName.toLowerCase().replace(" ", "-");
   FormDesignerPage.designerMenu.waitForDisplayed();
   expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
+});
+
+Then("the {string} is displayed when I Preview the page", function (component) {
+  this.component = toCamelCase(component);
+  FormDesignerPage.previewPageForPageName(this.pageName).click();
+  browser.switchWindow(`${this.pageName}`);
+  expect(PreviewPage.pageTitle).toHaveText(this.pageName);
+  if (component !== "Paragraph") {
+    expect(PreviewPage.hintText(FieldData[this.component].name)).toHaveText(
+      FieldData[this.component].hint
+    );
+    expect(
+      PreviewPage.getComponent(FieldData[this.component].name)
+    ).toBeDisplayed();
+  } else {
+    expect(PreviewPage.paragraph).toBeDisplayed();
+  }
 });
