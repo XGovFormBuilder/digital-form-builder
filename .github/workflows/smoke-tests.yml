@@ -35,9 +35,9 @@ jobs:
           # see https://github.com/satackey/action-docker-layer-caching/issues/55
           # ATM solution is to change keys periodically to avoid the dangling layers
           # for that just increase the number you see in key and restore-keys below (same number in both keys).
-          key: digital-form-builder-1-{hash}
+          key: digital-form-builder-2-{hash}
           restore-keys: |
-            digital-form-builder-1
+            digital-form-builder-2
       - name: Docker compose build
         run: docker-compose build
       - name: Docker compose up
@@ -45,8 +45,8 @@ jobs:
       - name: Check containers are running
         run: |
           docker ps
-          docker run appropriate/curl --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
-          docker run appropriate/curl --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
+          docker run --rm  -it appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+          docker run --rm  -it appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
       - name: Install smoke tests dependencies
         run: yarn install --cwd "smoke-tests/designer"
       - name: Smoke Test
