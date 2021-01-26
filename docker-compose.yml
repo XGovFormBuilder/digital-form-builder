@@ -18,12 +18,6 @@ services:
       - PREVIEW_URL=http://localhost:3009
       - PUBLISH_URL=http://runner:3009
     command: yarn designer start
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:3000"]
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 10
-    #   start_period: 20s
     depends_on:
       - runner
   runner:
@@ -41,13 +35,6 @@ services:
       - sandbox=true
       - PREVIEW_MODE=true
     command: yarn runner start
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "http://localhost:3009/health-check"]
-    #   interval: 10s
-    #   timeout: 10s
-    #   retries: 10
-    #   start_period: 20s
-
     depends_on:
       - redis
   redis:
