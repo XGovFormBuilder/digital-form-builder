@@ -1,7 +1,7 @@
 const Page = require("./basePage");
 
 class PreviewPage extends Page {
-  get pageTitle() {
+  get title() {
     return browser.$("h1 .govuk-label");
   }
 
