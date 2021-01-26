@@ -3,6 +3,7 @@ import InlineConditions from "./inline-conditions";
 import { Flyout } from "./../components/Flyout";
 import { DataContext } from "../context";
 import { RenderInPortal } from "../components/RenderInPortal";
+import { i18n } from "../i18n";
 
 function useConditionsEditor() {
   const [editingCondition, setEditingCondition] = useState(null);
@@ -54,7 +55,10 @@ export function ConditionsEdit() {
         <>
           {showAddCondition && (
             <RenderInPortal>
-              <Flyout title="Add Condition" onHide={cancelInlineCondition}>
+              <Flyout
+                title={i18n("conditions.add")}
+                onHide={cancelInlineCondition}
+              >
                 <InlineConditions
                   data={data}
                   conditionsChange={cancelInlineCondition}
@@ -84,12 +88,12 @@ export function ConditionsEdit() {
                   id="add-condition-link"
                   onClick={onClickAddCondition}
                 >
-                  Add condition
+                  {i18n("conditions.add")}
                 </a>
               )}
               {data.allInputs().length <= 0 && (
                 <div className="govuk-body">
-                  You cannot add any conditions as there are no available fields
+                  {i18n("conditions.noFieldsAvailable")}
                 </div>
               )}
             </li>
@@ -99,7 +103,7 @@ export function ConditionsEdit() {
       {editingCondition && (
         <RenderInPortal>
           <div id="edit-conditions">
-            <Flyout title="Edit Conditions" onHide={editFinished}>
+            <Flyout title={i18n("conditions.edit")} onHide={editFinished}>
               <InlineConditions
                 data={data}
                 condition={editingCondition}
