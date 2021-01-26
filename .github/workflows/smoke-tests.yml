@@ -35,9 +35,9 @@ jobs:
           # see https://github.com/satackey/action-docker-layer-caching/issues/55
           # ATM solution is to change keys periodically to avoid the dangling layers
           # for that just increase the number you see in key and restore-keys below (same number in both keys).
-          key: digital-form-builder-2-{hash}
+          key: digital-form-builder-3-{hash}
           restore-keys: |
-            digital-form-builder-2
+            digital-form-builder-3
       - name: Docker compose build
         run: docker-compose build
       - name: Docker compose up
