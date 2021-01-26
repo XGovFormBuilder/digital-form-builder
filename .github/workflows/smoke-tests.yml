@@ -41,7 +41,7 @@ jobs:
       - name: Docker compose build
         run: docker-compose build
       - name: Docker compose up
-        run: docker-compose up -d
+        run: docker-compose up
       - name: Install smoke tests dependencies
         run: yarn install --cwd "smoke-tests/designer"
       - name: Check containers are running
