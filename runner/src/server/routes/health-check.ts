@@ -8,6 +8,7 @@ export default {
   handler: function () {
     const date = new Date();
     return {
+      status: "OK",
       lastCommit: LAST_COMMIT,
       time: date.toUTCString(),
     };

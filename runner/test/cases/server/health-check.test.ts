@@ -26,6 +26,7 @@ suite(`/health-check Route`, () => {
     };
 
     const { result } = await server.inject(options);
+    expect(result.status).to.equal("OK");
     expect(result.lastCommit).to.equal(LAST_COMMIT);
     expect(result.time).to.be.a.string();
   });
