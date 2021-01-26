@@ -5,7 +5,7 @@ const LAST_TAG = execSync("git describe --tags --abbrev=0").toString().trim();
 
 export default {
   method: "GET",
-  path: "/heath-check",
+  path: "/health-check",
   handler: function () {
     const date = new Date();
 
