@@ -41,7 +41,7 @@ jobs:
       - name: Docker compose build
         run: docker-compose build
       - name: Docker compose up
-        run: docker-compose up -d
+        run: docker-compose up
       - name: Check containers are running
         run: |
           sleep 60
