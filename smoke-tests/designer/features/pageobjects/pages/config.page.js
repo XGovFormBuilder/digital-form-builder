@@ -2,15 +2,16 @@ const Page = require("./basePage");
 
 class configPage extends Page {
   get newName() {
-    return $(".govuk-input");
-  }
-  get startBtn() {
-    return $(".govuk-button");
+    return browser.$(".govuk-input");
   }
 
+  /**
+   * Creates a new form with a unique name
+   * @param configName
+   */
   newConfig(configName) {
     this.newName.setValue(configName);
-    this.startBtn.click();
+    this.clickButton("Start");
     this.designerMenu.waitForDisplayed();
   }
 
