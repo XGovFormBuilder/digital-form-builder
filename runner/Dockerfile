@@ -10,8 +10,7 @@ RUN mkdir -p /usr/src/app && \
     chmod -R +x  /usr/src/app && \
     apk update && \
     apk upgrade && \
-    apk add --no-cache bash && \
-    apk add --no-cache rsync
+    apk add --no-cache bash git
 
 # ----------------------------
 # Stage 2
