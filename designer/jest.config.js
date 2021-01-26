@@ -1,9 +1,21 @@
 module.exports = {
-  roots: ["<rootDir>/client", "<rootDir>/server"],
-  testMatch: ["<rootDir>/**/__tests__/*.jest.(ts|tsx)"],
-  testPathIgnorePatterns: ["<rootDir>/test/"],
-  setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
-  moduleNameMapper: {
-    "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
-  },
+  projects: [
+    {
+      roots: ["<rootDir>/client"],
+      displayName: "client",
+      setupFilesAfterEnv: ["<rootDir>/jest-setup.js"],
+      testMatch: ["<rootDir>/**/__tests__/*.jest.(ts|tsx)"],
+      testPathIgnorePatterns: ["<rootDir>/test/"],
+      moduleNameMapper: {
+        "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
+      },
+    },
+    {
+      displayName: "server",
+      roots: ["<rootDir>/server"],
+      setupFilesAfterEnv: ["<rootDir>/jest-server-setup.js"],
+      testMatch: ["<rootDir>/**/__tests__/*.jest.(ts|tsx)"],
+      testPathIgnorePatterns: ["<rootDir>/test/"],
+    },
+  ],
 };

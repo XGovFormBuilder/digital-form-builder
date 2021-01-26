@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { BackLink } from "../../components/BackLink";
 import { i18n } from "../../i18n";
 import "./LandingPage.scss";
+import { isEmpty } from "../../helpers";
 
 type Props = {
   history: any;
@@ -12,9 +13,7 @@ type Props = {
 type State = {
   configs: { Key: string; DisplayName: string }[];
   newName: string;
-  alreadyExistsError: boolean;
-  nameIsRequiredError: boolean;
-  notAvalidPatternError: boolean;
+  errors?: any;
 };
 
 const parseNewName = (name: string) => {
@@ -28,8 +27,7 @@ export class NewConfig extends Component<Props, State> {
     this.state = {
       configs: [],
       newName: "",
-      alreadyExistsError: false,
-      nameIsRequiredError: false,
+      errors: {},
     };
   }
 
@@ -41,20 +39,20 @@ export class NewConfig extends Component<Props, State> {
     });
   }
 
-  onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  validate = (newName, configs) => {
+    const errors: any = {};
+    let hasErrors = false;
 
-    const { newName, configs } = this.state;
-    if (!newName) {
-      return this.setState({
-        nameIsRequiredError: true,
-      });
+    if (isEmpty(newName)) {
+      errors.nameIsRequiredError = true;
+      hasErrors = true;
+      return { errors, hasErrors };
     }
 
     if (!newName.match(/^[a-zA-Z0-9 ]+$/)) {
-      return this.setState({
-        notAvalidPatternError: true,
-      });
+      errors.notAvalidPatternError = true;
+      hasErrors = true;
+      return { errors, hasErrors };
     }
 
     const parsedName = parseNewName(newName);
@@ -65,8 +63,27 @@ export class NewConfig extends Component<Props, State> {
       }) ?? false;
 
     if (alreadyExists) {
+      errors.alreadyExistsError = true;
+      hasErrors = true;
+    }
+
+    return { errors, hasErrors };
+  };
+
+  onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const { newName, configs } = this.state;
+
+    const { errors, hasErrors } = this.validate(newName, configs);
+
+    if (hasErrors) {
       return this.setState({
-        alreadyExistsError: true,
+        errors,
+      });
+    } else {
+      this.setState({
+        errors,
       });
     }
 
@@ -92,12 +109,13 @@ export class NewConfig extends Component<Props, State> {
   };
 
   render() {
+    const { newName, errors } = this.state;
+
     const {
-      newName,
       alreadyExistsError,
       nameIsRequiredError,
       notAvalidPatternError,
-    } = this.state;
+    } = errors;
 
     const hasError =
       alreadyExistsError || nameIsRequiredError || notAvalidPatternError;
