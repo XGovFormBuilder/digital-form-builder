@@ -12,7 +12,7 @@ export const registerNewFormWithRunner: ServerRoute = {
       const { persistenceService } = request.services([]);
       const { selected, name } = request.payload;
 
-      if (name && name !== "" && !name.match(/^[a-zA-Z0-9 -]+$/)) {
+      if (name && name !== "" && !name.match(/^[a-zA-Z0-9 _-]+$/)) {
         return h
           .response("Form name should not contain special characters")
           .type("application/json")

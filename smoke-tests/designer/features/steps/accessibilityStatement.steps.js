@@ -4,8 +4,9 @@ const actions = require("../actions/actions");
 
 Given("I am on the new configuration page", function () {
   Config.open();
-  expect(Config.govPhaseBanner).toHaveText(
-    "ALPHA This service is currently in development"
+  expect(Config.govPhaseBanner).toHaveTextContaining("ALPHA");
+  expect(Config.govPhaseBanner).toHaveTextContaining(
+    "This service is currently in development"
   );
 });
 
@@ -15,8 +16,8 @@ Then("I can see the footer element at the bottom of the page", function () {
 
 Given("I am on the form designer page", function () {
   actions.createNewConfig();
-  expect(Config.govPhaseBanner).toHaveText(
-    "ALPHA This service is currently in development"
+  expect(Config.govPhaseBanner).toHaveTextContaining(
+    "This service is currently in development"
   );
 });
 

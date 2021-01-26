@@ -49,7 +49,7 @@ export class NewConfig extends Component<Props, State> {
       return { errors, hasErrors };
     }
 
-    if (!newName.match(/^[a-zA-Z0-9 ]+$/)) {
+    if (!newName.match(/^[a-zA-Z0-9 _-]+$/)) {
       errors.notAvalidPatternError = true;
       hasErrors = true;
       return { errors, hasErrors };
