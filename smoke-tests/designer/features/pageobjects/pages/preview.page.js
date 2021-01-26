@@ -6,13 +6,19 @@ class PreviewPage extends Page {
   }
 
   /**
-   *
+   * Retrieves the hint text element for a component
    * @param componentName
+   * @returns {Element}
    */
   hintText(componentName) {
     return browser.$(`#${componentName}-hint`);
   }
 
+  /**
+   * Retrieves the element for the component
+   * @param componentName
+   * @returns {Element}
+   */
   getComponent(componentName) {
     return browser.$(`#${componentName}`);
   }
