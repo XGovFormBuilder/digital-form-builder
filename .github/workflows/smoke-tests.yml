@@ -44,6 +44,7 @@ jobs:
         run: docker-compose up -d
       - name: Check containers are running
         run: |
+          sleep 30
           docker ps
           docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
