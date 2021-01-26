@@ -70,6 +70,7 @@ When("I delete the {int}st list item from the {string} list", function (
   }
   expect(EditListSection.listItems.length).toEqual(2);
   EditListSection.deleteListItem(itemNumber - 1);
+  browser.waitUntil(() => EditListSection.listItems.length === 1);
 });
 
 Then("the Global list only has one item", function () {

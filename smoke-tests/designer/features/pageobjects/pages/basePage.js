@@ -3,6 +3,14 @@
  * that is shared across all page objects
  */
 module.exports = class Page {
+  /**
+   * Clicks on a button using its name
+   * @param buttonName
+   */
+  clickButton(buttonName) {
+    return browser.$(`button=${buttonName}`).click();
+  }
+
   get designerMenu() {
     return browser.$(".menu");
   }

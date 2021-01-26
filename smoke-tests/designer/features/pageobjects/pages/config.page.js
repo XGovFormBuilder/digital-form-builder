@@ -21,6 +21,10 @@ class configPage extends Page {
     return $("h1=Enter a name for your form");
   }
 
+  /**
+   * Creates a new form with a unique name
+   * @param configName
+   */
   newConfig(configName) {
     this.newForm.click();
     this.nextBtn.click();
