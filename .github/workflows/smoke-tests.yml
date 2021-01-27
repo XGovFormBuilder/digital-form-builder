@@ -42,8 +42,8 @@ jobs:
             digital-form-builder-1
       - name: Docker compose build
         run: |
-          LAST_TAG='${{GITHUB_RUN_NUMBER}}-rc'
-          LAST_COMMIT='${{GITHUB_SHA}}'
+          LAST_TAG='${{ github.run_number }}-rc'
+          LAST_COMMIT='${{ github.sha }}'
           docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
