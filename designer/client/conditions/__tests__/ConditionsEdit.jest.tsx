@@ -2,7 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import ConditionsEdit from "../client/conditions-edit";
+import ConditionsEdit from "../ConditionsEdit";
 import sinon from "sinon";
 
 const { expect } = Code;
