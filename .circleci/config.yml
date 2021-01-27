@@ -87,7 +87,8 @@ jobs:
 
             - when:
                 condition:
-                  not: << pipeline.parameters.model >>
+                  not:
+                    equal: [ model, << parameters.package_name >> ]
                 steps:
                   - run:
                       name: Build
@@ -96,11 +97,6 @@ jobs:
             - run:
                 name: Test
                 command: yarn << parameters.package_name >> run test-cov
-
-            - persist_to_workspace:
-                root: ~/project
-                paths:
-                  - .
 
           post-steps:
             - run:
