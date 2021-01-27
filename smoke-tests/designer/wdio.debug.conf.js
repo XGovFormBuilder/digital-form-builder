@@ -1,9 +1,9 @@
 const { config } = require("./wdio.conf.js");
 
-(config.maxInstances = 1),
+(config.maxInstances = 5),
   (config.capabilities = [
     {
-      maxInstances: 1,
+      maxInstances: 5,
       browserName: "chrome",
     },
   ]);
