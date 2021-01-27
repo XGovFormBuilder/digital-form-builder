@@ -102,7 +102,7 @@ export function ConditionsEdit() {
       )}
       {editingCondition && (
         <RenderInPortal>
-          <div id="edit-conditions">
+          <div id="edit-conditions" data-test-id="edit-conditions">
             <Flyout title={i18n("conditions.edit")} onHide={editFinished}>
               <InlineConditions
                 data={data}
