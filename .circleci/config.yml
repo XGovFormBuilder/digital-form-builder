@@ -1,19 +1,14 @@
 version: 2.1
 parameters:
-  # This parameter is used to trigger the main workflow
-  trigger:
-    type: boolean
-    default: true
-
   # This parameter is used to trigger the build-test workflow
   build-test:
     type: boolean
-    default: false
+    default: true
 
   # If you need to force build all of the packages, set default: true
   force-build-all:
     type: boolean
-    default: false
+    default: true
 
   # A parameter per package
   model:
@@ -36,25 +31,11 @@ parameters:
     default: false
 
 executors:
-  node:
-    docker:
-      - image: circleci/node:12
   node-browsers:
     docker:
-      - image: circleci/node:12.16-browsers
-  python:
-    docker:
-      - image: circleci/python:2.7-jessie
+      - image: cimg/node:12.19.1-browsers
 
 jobs:
-  trigger-workflows:
-    executor: node
-    steps:
-      - checkout
-      - run:
-          name: Trigger workflows
-          command: chmod +x .circleci/circle_trigger.sh && .circleci/circle_trigger.sh
-
   install-yarn-lint:
     executor: node-browsers
     working_directory: ~/project
@@ -66,16 +47,16 @@ jobs:
             - all-dependencies-{{ checksum "yarn.lock" }}
             - all-dependencies
       - run: yarn install
-      - run: yarn rebuild node-sass only
       - save_cache:
           paths:
-            - .yarn
-            - model/dist
+            - .yarn/cache
           key: all-dependencies-{{ checksum "yarn.lock" }}
       - run:
           name: Lint
           command: |
             yarn lint
+
+      - run: yarn build:dependencies
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -100,64 +81,33 @@ jobs:
               # force flag
               - << pipeline.parameters.force-build-all >>
 
-              # if the upstream dependencies (model) have changed, this package must be rebuilt.
-              - and:
-                  - equal: ["runner", << parameters.package_name >>]
-                  - << pipeline.parameters.model >>
-              - and:
-                  - equal: ["designer", << parameters.package_name >>]
-                  - << pipeline.parameters.model >>
           steps:
             - attach_workspace:
                 at: ~/project
 
             - when:
                 condition:
-                  or:
-                    - and:
-                        - equal: ["runner", << parameters.package_name >>]
-                        - or:
-                            - not: << pipeline.parameters.model >>
-                    - and:
-                        - equal: ["designer", << parameters.package_name >>]
-                        - not: << pipeline.parameters.model >>
+                  not:
+                    equal: [ model, << parameters.package_name >> ]
                 steps:
                   - run:
-                      name: Build dependencies
+                      name: Build
                       command: |
-                        yarn build:dependencies
-
-            - run:
-                name: Build
-                command: |
-                  yarn << parameters.package_name >> run build
+                        yarn << parameters.package_name >> run build
             - run:
                 name: Test
                 command: yarn << parameters.package_name >> run test-cov
+
+          post-steps:
+            - run:
+                command: Upload test results
             - store_test_results:
                 path: << parameters.package_name >>/test-results
             - store_artifacts:
                 path: << parameters.package_name >>/test-coverage
-            - persist_to_workspace:
-                root: ~/project
-                paths:
-                  - .
-      - run:
-          name: Changes made to << parameters.package_name >> - << parameters.should_build >>
-          command: |
-            if [ ! '<< parameters.should_build >>' = 'true' ]; then
-              circleci-agent step halt
-            fi
 
 workflows:
   version: 2
-
-  # The main workflow responsible for triggering all other workflows
-  # in which changes are detected.
-  ci:
-    when: << pipeline.parameters.trigger >>
-    jobs:
-      - trigger-workflows
 
   build-test:
     when: << pipeline.parameters.build-test >>
@@ -175,11 +125,11 @@ workflows:
           package_name: runner
           should_build: << pipeline.parameters.runner >>
           requires:
-            - model-build-test
+            - install-yarn-lint
 
       - build-test:
           name: designer-build-test
           package_name: designer
           should_build: << pipeline.parameters.designer >>
           requires:
-            - model-build-test
+            - install-yarn-lint
