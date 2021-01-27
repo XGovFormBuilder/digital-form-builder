@@ -1,4 +1,7 @@
+import { healthCheckRoute } from "./routes";
+
 const routes = [
+  healthCheckRoute,
   {
     method: "GET",
     path: "/robots.txt",
