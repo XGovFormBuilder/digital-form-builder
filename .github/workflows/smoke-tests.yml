@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -44,11 +46,14 @@ jobs:
         run: docker-compose up -d
       - name: Install smoke tests dependencies
         run: yarn install --cwd "smoke-tests/designer"
-      - name: Check containers are running
+      - name: Check designer container is running
         run: |
           docker ps
-          docker run --network container:designer appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
-          docker run --network container:runner appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3009/
+          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+      - name: Check runner container is running
+        run: |
+          docker ps
+          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
       - name: Smoke Test
         run: |
           yarn smoke-tests/designer smoke-test-headless

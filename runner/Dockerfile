@@ -10,8 +10,7 @@ RUN mkdir -p /usr/src/app && \
     chmod -R +x  /usr/src/app && \
     apk update && \
     apk upgrade && \
-    apk add --no-cache bash && \
-    apk add --no-cache rsync
+    apk add --no-cache bash git
 
 # ----------------------------
 # Stage 2
@@ -20,6 +19,7 @@ RUN mkdir -p /usr/src/app && \
 FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
+COPY --chown=appuser:appuser .git ./.git/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser designer/package.json ./designer/
