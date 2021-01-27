@@ -262,10 +262,10 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
+  FormDesignerPage.designerMenu.waitForDisplayed();
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });
-  FormDesignerPage.designerMenu.waitForDisplayed();
   expect(this.pageNames.includes(this.newPageName)).toEqual(true);
 });
 

@@ -19,10 +19,10 @@ When("I link ths page to link from the {string}", (linkedPage) => {
 });
 
 Then("my page is created with a link to the page", () => {
+  browser.waitUntil(() => FormDesignerPage.formPageTitles.length === 3);
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });
-  FormDesignerPage.designerMenu.waitForDisplayed();
   expect(this.pageNames.includes("Second page")).toEqual(true);
   expect(FormDesignerPage.linkLine).toExist();
 });
