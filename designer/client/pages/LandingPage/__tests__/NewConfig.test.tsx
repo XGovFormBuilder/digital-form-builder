@@ -10,6 +10,9 @@ import {
 } from "../../../../test/helpers/window-stubbing";
 import * as formConfigurationsApi from "../../../load-form-configurations";
 import { initI18n } from "../../../i18n";
+import { Input } from "@govuk-jsx/input";
+import { assertInputControlProp } from "../../../../test/helpers/sub-component-assertions";
+import ErrorSummary from "../../../error-summary";
 
 initI18n();
 const { expect } = Code;
@@ -55,7 +58,7 @@ suite("New configuration screen", () => {
     const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
-    wrapper.find("input").simulate("change", {
+    wrapper.find(Input).simulate("change", {
       target: { value: "Test Configuration" },
       preventDefault: sinon.stub(),
     });
@@ -84,7 +87,7 @@ suite("New configuration screen", () => {
     const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
-    wrapper.find("input").simulate("change", {
+    wrapper.find(Input).simulate("change", {
       target: { value: "Visa Form" },
       preventDefault: sinon.stub(),
     });
@@ -109,21 +112,19 @@ suite("New configuration screen", () => {
     const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
-    wrapper.find("input").simulate("change", {
+    wrapper.find(Input).simulate("change", {
       target: { value: "Visa Form" },
       preventDefault: sinon.stub(),
     });
     wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
 
-    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
-    const summaryErrorTitle = wrapper.find("#error-summary-title");
-    const inputError = wrapper.find("#error-already-exists");
-
-    expect(summaryErrorList.text()).to.equal(
-      "A form with this name already exists"
-    );
-    expect(summaryErrorTitle.text()).to.equal("There is a problem");
-    expect(inputError.text()).to.equal("A form with this name already exists");
+    assertInputControlProp({
+      wrapper,
+      id: "formName",
+      expectedValue: { children: "A form with this name already exists" },
+      prop: "errorMessage",
+    });
+    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
   });
 
   test("Enter form name error shown correctly", async () => {
@@ -136,13 +137,13 @@ suite("New configuration screen", () => {
 
     wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
 
-    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
-    const summaryErrorTitle = wrapper.find("#error-summary-title");
-    const inputError = wrapper.find("#error-name-required");
-
-    expect(summaryErrorList.text()).to.equal("Enter form name");
-    expect(summaryErrorTitle.text()).to.equal("There is a problem");
-    expect(inputError.text()).to.equal("Enter form name");
+    assertInputControlProp({
+      wrapper,
+      id: "formName",
+      expectedValue: { children: "Enter form name" },
+      prop: "errorMessage",
+    });
+    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
   });
 
   test("Form name with special characters results in error", async () => {
@@ -153,23 +154,21 @@ suite("New configuration screen", () => {
     const wrapper = shallow(<NewConfig history={history} />);
     await wait();
 
-    wrapper.find("input").simulate("change", {
+    wrapper.find(Input).simulate("change", {
       target: { value: "Visa & Form" },
       preventDefault: sinon.stub(),
     });
 
     wrapper.find("button").simulate("click", { preventDefault: sinon.stub() });
 
-    const summaryErrorList = wrapper.find(".govuk-error-summary__list").first();
-    const summaryErrorTitle = wrapper.find("#error-summary-title");
-    const inputError = wrapper.find("#error-name-not-valid");
-
-    expect(summaryErrorList.text()).to.equal(
-      "Form name should not contain special characters"
-    );
-    expect(summaryErrorTitle.text()).to.equal("There is a problem");
-    expect(inputError.text()).to.equal(
-      "Form name should not contain special characters"
-    );
+    assertInputControlProp({
+      wrapper,
+      id: "formName",
+      expectedValue: {
+        children: "Form name should not contain special characters",
+      },
+      prop: "errorMessage",
+    });
+    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
   });
 });
