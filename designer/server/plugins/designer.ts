@@ -1,6 +1,6 @@
 import pkg from "../../package.json";
 import config from "../config";
-import { newConfig, api, configurations } from "./routes";
+import { newConfig, api } from "./routes";
 
 export const designerPlugin = {
   plugin: {
