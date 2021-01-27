@@ -68,9 +68,9 @@ export function ConditionsEdit() {
             </RenderInPortal>
           )}
 
-          <ul className="govuk-list">
+          <ul className="govuk-list" data-testid="conditions-list">
             {conditions.map((condition) => (
-              <li key={condition.name}>
+              <li key={condition.name} data-testid="conditions-list-item">
                 <a href="#" onClick={(e) => onClickCondition(e, condition)}>
                   {condition.displayName}
                 </a>{" "}
@@ -86,6 +86,7 @@ export function ConditionsEdit() {
                 <a
                   href="#"
                   id="add-condition-link"
+                  data-testid={"add-condition-link"}
                   onClick={onClickAddCondition}
                 >
                   {i18n("conditions.add")}
@@ -93,7 +94,9 @@ export function ConditionsEdit() {
               )}
               {data.allInputs().length <= 0 && (
                 <div className="govuk-body">
-                  {i18n("conditions.noFieldsAvailable")}
+                  <p data-testid={"condition-none-available-message"}>
+                    {i18n("conditions.noFieldsAvailable")}
+                  </p>
                 </div>
               )}
             </li>
@@ -102,7 +105,7 @@ export function ConditionsEdit() {
       )}
       {editingCondition && (
         <RenderInPortal>
-          <div id="edit-conditions" data-test-id="edit-conditions">
+          <div id="edit-conditions" data-testid="edit-conditions">
             <Flyout title={i18n("conditions.edit")} onHide={editFinished}>
               <InlineConditions
                 data={data}
