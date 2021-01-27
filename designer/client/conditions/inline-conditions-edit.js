@@ -72,7 +72,10 @@ class InlineConditionsEdit extends React.Component {
                             href="#"
                             id={`condition-${index}-split`}
                             className="govuk-link"
-                            onClick={() => this.onClickSplit(index)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              this.onClickSplit(index);
+                            }}
                           >
                             Split
                           </a>
@@ -84,7 +87,10 @@ class InlineConditionsEdit extends React.Component {
                             href="#"
                             id={`condition-${index}-edit`}
                             className="govuk-link"
-                            onClick={() => this.onClickEdit(index)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              this.onClickEdit(index);
+                            }}
                           >
                             <EditIcon bottom={true} />
                           </a>

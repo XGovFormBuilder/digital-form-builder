@@ -88,6 +88,7 @@ class InlineConditions extends React.Component<Props, State> {
   };
 
   onClickCancel = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     const { cancelCallback } = this.props;
     this.setState({
       conditions: this.state.conditions.clear(),
@@ -98,7 +99,8 @@ class InlineConditions extends React.Component<Props, State> {
     }
   };
 
-  onClickSave = async () => {
+  onClickSave = async (e: MouseEvent<HTMLAnchorElement>) => {
+    e?.preventDefault();
     const { data, conditionsChange, condition } = this.props;
     const { save } = this.context;
     const { conditions } = this.state;
@@ -207,7 +209,10 @@ class InlineConditions extends React.Component<Props, State> {
                       href="#"
                       id="edit-conditions-link"
                       className="govuk-link"
-                      onClick={this.toggleEdit}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.toggleEdit();
+                      }}
                     >
                       Not what you meant?
                     </a>

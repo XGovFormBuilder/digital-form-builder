@@ -24,6 +24,7 @@ class NotifyItems extends React.Component<Props, State> {
   }
 
   onClickAddItem = (_event: MouseEvent) => {
+    _event.preventDefault();
     this.setState((state) => ({
       items: [...state.items, ""],
     }));
@@ -127,7 +128,10 @@ class NotifyItems extends React.Component<Props, State> {
               <td className="govuk-table__cell" width="20px">
                 <a
                   className="list-item-delete"
-                  onClick={() => this.removeItem(index)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    this.removeItem(index);
+                  }}
                 >
                   &#128465;
                 </a>

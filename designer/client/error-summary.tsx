@@ -32,6 +32,14 @@ export function ErrorSummary({
     description = <p>{descriptionChildren}</p>;
   }
 
+  const handleClick = (id) => {
+    const element = document.getElementById(id.substring(1));
+    if (element) {
+      element.scrollIntoView();
+      element.focus();
+    }
+  };
+
   return (
     <div
       className={`govuk-error-summary ${className || ""}`}
@@ -50,7 +58,13 @@ export function ErrorSummary({
           {errorList.map((error, index) => (
             <li key={index}>
               {error.href ? (
-                <a href={error.href}>
+                <a
+                  href={error.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick(error.href);
+                  }}
+                >
                   {Array.isArray(error.children)
                     ? i18n(...error.children)
                     : error.children}
