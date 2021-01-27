@@ -83,7 +83,7 @@ When("I delete the {int}st list item from the {string} list", function (
 });
 
 Then("the Global list only has one item", function () {
-  expect(EditListSection.listItems.length).toEqual(1);
+  browser.waitUntil(() => EditListSection.listItems.length == 1);
   expect(EditListSection.listItems[0]).not.toHaveTextContaining(
     "Global list item 0"
   );

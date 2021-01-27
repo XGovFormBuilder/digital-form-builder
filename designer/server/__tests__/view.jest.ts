@@ -76,7 +76,7 @@ describe("Server tests", () => {
 
     const options = {
       method: "get",
-      url: "/new",
+      url: "/app",
     };
 
     const res = await server.inject(options);
@@ -91,7 +91,7 @@ describe("Server tests", () => {
   test("Phase banner is present", async () => {
     const options = {
       method: "get",
-      url: "/new",
+      url: "/app",
     };
 
     const res = await server.inject(options);

@@ -142,8 +142,11 @@ export function ListEdit() {
         <ListItems />
         <a
           className="govuk-link govuk-body govuk-!-display-block govuk-!-margin-bottom-1"
-          href="#"
-          onClick={createItem}
+          href="#createItem"
+          onClick={(e) => {
+            e.preventDefault();
+            createItem();
+          }}
         >
           {i18n("list.createListItem")}
         </a>

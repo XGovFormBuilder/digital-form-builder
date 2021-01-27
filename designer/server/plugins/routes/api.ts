@@ -3,7 +3,7 @@ import { FormConfiguration, Schema } from "@xgovformbuilder/model";
 import Wreck from "@hapi/wreck";
 import config from "../../config";
 import { publish } from "../../lib/publish";
-import { ServerRoute } from "@hapi/hapi";
+import { ServerRoute, ResponseObject } from "@hapi/hapi";
 
 const getPublished = async function (id) {
   const { payload } = await Wreck.get<FormConfiguration>(
@@ -15,7 +15,7 @@ const getPublished = async function (id) {
 export const getFormWithId: ServerRoute = {
   // GET DATA
   method: "GET",
-  path: "/{id}/api/data",
+  path: "/api/{id}/data",
   options: {
     handler: async (request, h) => {
       const { id } = request.params;
@@ -40,7 +40,7 @@ export const getFormWithId: ServerRoute = {
 export const putFormWithId: ServerRoute = {
   // SAVE DATA
   method: "PUT",
-  path: "/{id}/api/data",
+  path: "/api/{id}/data",
   options: {
     handler: async (request, h) => {
       const { id } = request.params;
@@ -63,6 +63,23 @@ export const putFormWithId: ServerRoute = {
       } catch (err) {
         console.error("Designer Server PUT /{id}/api/data error:", err);
         return h.response({ ok: false, err }).code(401);
+      }
+    },
+  },
+};
+
+export const getAllPersistedConfigurations: ServerRoute = {
+  method: "GET",
+  path: "/api/configurations",
+  options: {
+    handler: async (request, h): Promise<ResponseObject | undefined> => {
+      const { persistenceService } = request.services([]);
+      try {
+        const response = await persistenceService.listAllConfigurations();
+        return h.response(response).type("application/json");
+      } catch (error) {
+        request.server.log(["error", "/configurations"], error);
+        return;
       }
     },
   },

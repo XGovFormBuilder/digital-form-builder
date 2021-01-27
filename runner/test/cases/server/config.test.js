@@ -151,6 +151,19 @@ suite(`Server Config`, () => {
     );
   });
 
+  test("it captures LAST_COMMIT and LAST_TAG environment variables", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      LAST_COMMIT: "LAST COMMIT",
+      LAST_TAG: "LAST TAG",
+    };
+
+    const config = buildConfig();
+    expect(config.lastCommit).to.equal("LAST COMMIT");
+    expect(config.lastTag).to.equal("LAST TAG");
+  });
+
   // TODO
   test("Error is throw when required environment value XXX is missing");
   test("Notify Required environment variables in production");

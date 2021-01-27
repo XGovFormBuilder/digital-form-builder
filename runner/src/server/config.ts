@@ -66,6 +66,8 @@ const schema = Joi.object({
       otherwise: Joi.optional(),
     })
     .label("NOTIFY_API_KEY"),
+  lastCommit: Joi.string(),
+  lastTag: Joi.string(),
 });
 
 export function buildConfig() {
@@ -99,6 +101,8 @@ export function buildConfig() {
     privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
     notifyTemplateId: process.env.NOTIFY_TEMPLATE_ID,
     notifyAPIKey: process.env.NOTIFY_API_KEY,
+    lastCommit: process.env.LAST_COMMIT,
+    lastTag: process.env.LAST_TAG,
   };
 
   // Validate config

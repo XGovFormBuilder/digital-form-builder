@@ -1,5 +1,5 @@
 import * as newConfig from "./newConfig";
 import * as api from "./api";
-import * as configurations from "./configurations";
+import { healthCheckRoute } from "./healthCheck";
 
-export { newConfig, api, configurations };
+export { newConfig, api, healthCheckRoute };
