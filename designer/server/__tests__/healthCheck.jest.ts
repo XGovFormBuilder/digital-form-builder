@@ -1,20 +1,5 @@
-import { execSync } from "child_process";
-import { createServer } from "../createServer";
-
-const LAST_COMMIT = execSync("git rev-parse HEAD").toString().trim();
-const LAST_TAG = execSync("git describe --tags --abbrev=0").toString().trim();
-
 describe(`/health-check Route`, () => {
-  let server;
-
-  beforeAll(async () => {
-    server = await createServer();
-    await server.start();
-  });
-
-  afterAll(async () => {
-    await server.stop();
-  });
+  const OLD_ENV = process.env;
 
   test("/health-check route response is correct", async () => {
     const options = {
@@ -22,11 +7,25 @@ describe(`/health-check Route`, () => {
       url: "/health-check",
     };
 
-    const { result } = await server.inject(options);
+    process.env = {
+      ...OLD_ENV,
+      LAST_COMMIT: "LAST COMMIT",
+      LAST_TAG: "LAST TAG",
+    };
 
-    expect(result.status).toEqual("OK");
-    expect(result.lastCommit).toEqual(LAST_COMMIT);
-    expect(result.lastTag).toEqual(LAST_TAG);
-    expect(typeof result.time).toBe("string");
+    jest.resetModules();
+    await import("../config");
+    const { createServer } = await import("../createServer");
+
+    const server = await createServer();
+    const { result } = (await server.inject(options)) as any;
+
+    await server.stop();
+    process.env = OLD_ENV;
+
+    expect(result?.status).toEqual("OK");
+    expect(result?.lastCommit).toEqual("LAST COMMIT");
+    expect(result?.lastTag).toEqual("LAST TAG");
+    expect(typeof result?.time).toBe("string");
   });
 });
