@@ -39,3 +39,5 @@ export default {
     },
   },
 };
+
+console.log(routes);
