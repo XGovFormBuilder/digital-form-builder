@@ -61,7 +61,7 @@ export const putFormWithId: ServerRoute = {
         await publish(id, value);
         return h.response({ ok: true }).code(204);
       } catch (err) {
-        console.error("Designer Server PUT /{id}/api/data error:", err);
+        console.error("Designer Server PUT /api/{id}/data error:", err);
         return h.response({ ok: false, err }).code(401);
       }
     },

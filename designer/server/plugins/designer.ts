@@ -44,6 +44,20 @@ export const designerPlugin = {
         },
       });
 
+      server.route({
+        method: "get",
+        path: "/app/{path*}",
+        options: {
+          handler: async (request, h) => {
+            return h.view("designer", {
+              phase: config.phase,
+              previewUrl: config.previewUrl,
+              footerText: config.footerText,
+            });
+          },
+        },
+      });
+
       // This is old url , redirecting it to new
       server.route({
         method: "get",
@@ -51,7 +65,7 @@ export const designerPlugin = {
         options: {
           handler: async (_request, h) => {
             const { id } = _request.params;
-            return h.redirect(`/app#/designer/${id}`).code(301);
+            return h.redirect(`/app/designer/${id}`).code(301);
           },
         },
       });
