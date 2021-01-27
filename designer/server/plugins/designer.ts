@@ -19,6 +19,17 @@ export const designerPlugin = {
         },
       });
 
+      // This is old url , redirecting it to new
+      server.route({
+        method: "get",
+        path: "/new",
+        options: {
+          handler: async (_request, h) => {
+            return h.redirect("/app").code(301);
+          },
+        },
+      });
+
       server.route({
         method: "get",
         path: "/app",
@@ -29,6 +40,18 @@ export const designerPlugin = {
               previewUrl: config.previewUrl,
               footerText: config.footerText,
             });
+          },
+        },
+      });
+
+      // This is old url , redirecting it to new
+      server.route({
+        method: "get",
+        path: "/{id}",
+        options: {
+          handler: async (_request, h) => {
+            const { id } = _request.params;
+            return h.redirect(`/app#/designer/${id}`).code(301);
           },
         },
       });
