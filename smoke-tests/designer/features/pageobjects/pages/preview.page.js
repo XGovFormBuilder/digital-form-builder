@@ -26,6 +26,10 @@ class PreviewPage extends Page {
   get paragraph() {
     return browser.$("p.govuk-body");
   }
+
+  get listItems() {
+    return browser.$$(".govuk-list--bullet li");
+  }
 }
 
 module.exports = new PreviewPage();

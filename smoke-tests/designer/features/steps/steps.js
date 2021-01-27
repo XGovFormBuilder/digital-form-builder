@@ -159,6 +159,22 @@ When(
   }
 );
 
+When("I add a {string} control for the {string}", function (
+  componentName,
+  pageName
+) {
+  this.pageName = pageName;
+  EditListSection.closeLinks[0].click();
+  FormDesignerPage.createComponentForPageName(pageName).click();
+  AddComponentPage.selectComponentByName(componentName);
+  AddComponentPage.completeCommonFields(
+    FieldData[toCamelCase(componentName)],
+    false
+  );
+  AddComponentPage.selectList(FieldData.list.title);
+  AddComponentPage.saveBtn.click();
+});
+
 Then("the list is available in the list options", function () {
   expect(AddComponentPage.listOptions).toHaveText(this.listName);
 });
@@ -246,9 +262,11 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  const pageName = this.newPageName.toLowerCase().replace(" ", "-");
+  this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
+    return element.getText();
+  });
   FormDesignerPage.designerMenu.waitForDisplayed();
-  expect(FormDesignerPage.getTitleTextForPage(pageName)).toBe(this.newPageName);
+  expect(this.pageNames.includes(this.newPageName)).toEqual(true);
 });
 
 Then("the {string} is displayed when I Preview the page", function (component) {

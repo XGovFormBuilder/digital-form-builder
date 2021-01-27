@@ -19,11 +19,11 @@ When("I link ths page to link from the {string}", (linkedPage) => {
 });
 
 Then("my page is created with a link to the page", () => {
-  this.pageName = this.newPageName.toLowerCase().replace(" ", "-");
+  this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
+    return element.getText();
+  });
   FormDesignerPage.designerMenu.waitForDisplayed();
-  expect(FormDesignerPage.getTitleTextForPage(this.pageName)).toBe(
-    this.newPageName
-  );
+  expect(this.pageNames.includes("Second page")).toEqual(true);
   expect(FormDesignerPage.linkLine).toExist();
 });
 
