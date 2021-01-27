@@ -1,7 +1,4 @@
-import { execSync } from "child_process";
-
-const LAST_COMMIT = execSync("git rev-parse HEAD").toString().trim();
-const LAST_TAG = execSync("git describe --tags --abbrev=0").toString().trim();
+import config from "../config";
 
 export default {
   method: "GET",
@@ -11,8 +8,8 @@ export default {
 
     return {
       status: "OK",
-      lastCommit: LAST_COMMIT,
-      lastTag: LAST_TAG,
+      lastCommit: config.lastCommit,
+      lastTag: config.lastTag,
       time: date.toUTCString(),
     };
   },

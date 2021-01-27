@@ -19,7 +19,6 @@ RUN mkdir -p /usr/src/app && \
 FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
-COPY --chown=appuser:appuser .git ./.git/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser designer/package.json ./designer/
@@ -47,6 +46,10 @@ RUN yarn model build
 # rsync is used to merge folders instead of individually copying files
 FROM model AS build-runner
 WORKDIR /usr/src/app
+ARG LAST_COMMMIT
+ARG LAST_TAG
+ENV LAST_COMMMIT=$LAST_COMMMIT
+ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner ./runner/
 RUN yarn runner build && \
     rm -rf ./designer
