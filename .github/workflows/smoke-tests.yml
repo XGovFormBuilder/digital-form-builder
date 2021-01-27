@@ -41,7 +41,10 @@ jobs:
           restore-keys: |
             digital-form-builder-1
       - name: Docker compose build
-        run: docker-compose build
+        run: |
+          LAST_TAG='${{ github.run_number }}-rc'
+          LAST_COMMIT='${{ github.sha }}'
+          docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies

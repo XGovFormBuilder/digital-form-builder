@@ -11,7 +11,7 @@ jobs:
     name: build-publish-${{matrix.app}}
     strategy:
       matrix:
-        app: [ designer, runner ]
+        app: [designer, runner]
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -34,6 +34,9 @@ jobs:
           tags: |
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:latest
             ghcr.io/xgovformbuilder/digital-form-builder-${{ matrix.app }}:${{ github.run_number }}-rc
+          build-args: |
+            LAST_TAG='${{github.run_number}}-rc'
+            LAST_COMMIT='${{github.sha}}'
 
       - name: Trigger deploy
         uses: benc-uk/workflow-dispatch@v1

@@ -46,6 +46,8 @@ RUN yarn model build
 # It will re-run only if anything inside ./runner changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
 FROM model AS build-designer
+ARG LAST_COMMMIT
+ARG LAST_TAG
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./designer ./designer/
 RUN yarn designer build && \

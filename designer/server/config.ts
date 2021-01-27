@@ -18,6 +18,8 @@ export interface Config {
   isProd: boolean;
   isDev: boolean;
   isTest: boolean;
+  lastCommit: string;
+  lastTag: string;
 }
 
 // Define config schema
@@ -39,6 +41,8 @@ const schema = joi.object({
     .default("debug"),
   phase: joi.string().valid("alpha", "beta").optional(),
   footerText: joi.string().optional(),
+  lastCommit: joi.string(),
+  lastTag: joi.string(),
 });
 
 // Build config
@@ -54,6 +58,8 @@ const config = {
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
   footerText: process.env.FOOTER_TEXT,
+  lastCommit: process.env.LAST_COMMIT,
+  lastTag: process.env.LAST_TAG,
 };
 
 // Validate config
