@@ -5,7 +5,7 @@ import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
 import ListsEdit from "../client/list/lists-edit";
 import SectionsEdit from "./section/sections-edit";
-import ConditionsEdit from "./conditions-edit";
+import ConditionsEdit from "./conditions/ConditionsEdit";
 import FeeEdit from "./fee-edit";
 import NotifyEdit from "./outputs/notify-edit";
 import DeclarationEdit from "./declaration-edit";
