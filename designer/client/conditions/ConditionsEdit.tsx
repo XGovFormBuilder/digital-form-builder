@@ -86,6 +86,7 @@ export function ConditionsEdit() {
                 <a
                   href="#"
                   id="add-condition-link"
+                  className="govuk-button"
                   data-testid={"add-condition-link"}
                   onClick={onClickAddCondition}
                 >
