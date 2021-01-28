@@ -103,7 +103,11 @@
     }
   },
 
-  "conditions": {},
+  "conditions": {
+    "add": "Add condition",
+    "edit": "Edit condition",
+    "noFieldsAvailable": "You cannot add any conditions as there are no available fields"
+  },
   "wontShow": "This will not show on the page.",
   "Test": "For testing purpose, do not delete it",
   "fieldTypeToName": {

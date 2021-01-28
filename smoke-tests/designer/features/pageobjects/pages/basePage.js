@@ -58,4 +58,12 @@ module.exports = class Page {
       expect(this.footerLinks(`${link}`)).toBeDisplayed()
     );
   }
+
+  /**
+   * Selects a value from a select list by text
+   * @param listName
+   */
+  selectList(listName) {
+    browser.$(".govuk-select").selectByVisibleText(listName);
+  }
 };
