@@ -155,7 +155,7 @@
     "existing": {
       "select": "Select an existing form",
       "noforms": "You do not have any existing forms"
-    },
+    }
   },
   "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost."
 }
