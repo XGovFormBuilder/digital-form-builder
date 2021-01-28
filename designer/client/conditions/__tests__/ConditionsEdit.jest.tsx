@@ -52,13 +52,16 @@ describe("with existing conditions", () => {
       save: jest.fn(),
     };
 
-    const { getByText, queryByTestId } = customRender(<ConditionsEdit />, {
-      providerProps,
-    });
+    const { getByText, queryByTestId, getByTestId } = customRender(
+      <ConditionsEdit />,
+      {
+        providerProps,
+      }
+    );
     expect(getByText(condition.displayName)).toBeInTheDocument();
     expect(getByText(condition2.displayName)).toBeInTheDocument();
     expect(queryByTestId("edit-conditions")).toBeNull();
-    expect(getByText("Add condition")).toBeInTheDocument();
+    expect(getByTestId("condition-none-available-message")).toBeInTheDocument();
   });
 
   test("Clicking an edit link causes the edit view to be rendered and all other elements hidden", () => {
