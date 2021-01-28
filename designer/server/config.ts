@@ -20,6 +20,7 @@ export interface Config {
   isTest: boolean;
   lastCommit: string;
   lastTag: string;
+  featureDuplicatePage: boolean;
 }
 
 // Define config schema
@@ -43,6 +44,7 @@ const schema = joi.object({
   footerText: joi.string().optional(),
   lastCommit: joi.string(),
   lastTag: joi.string(),
+  featureDuplicatePage: joi.optional(),
 });
 
 // Build config
@@ -60,6 +62,7 @@ const config = {
   footerText: process.env.FOOTER_TEXT,
   lastCommit: process.env.LAST_COMMIT,
   lastTag: process.env.LAST_TAG,
+  featureDuplicatePage: true,
 };
 
 // Validate config

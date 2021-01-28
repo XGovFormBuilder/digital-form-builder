@@ -16,13 +16,14 @@ import {
 } from "./helpers/sub-component-assertions";
 import { Input } from "@govuk-jsx/input";
 import { initI18n } from "../client/i18n";
+import { ToggleApi } from "../client/api/toggleApi";
 
 import { DataContext } from "../client/context";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, test, before } = lab;
+const { suite, test, before, after } = lab;
 
 const DataWrapper = ({
   dataValue = { data: {}, save: sinon.spy() },
@@ -36,8 +37,16 @@ const DataWrapper = ({
 suite("Page edit", () => {
   before(() => {
     initI18n();
+    sinon.stub(ToggleApi.prototype, "fetchToggles").callsFake(function () {
+      return { ff_featureDuplicatePage: "false" };
+    });
   });
 
+  after(() => {
+    sinon.restore();
+  });
+
+  //TODO: update test for conditional button
   test("Renders a form with the appropriate initial inputs", () => {
     const data = new Data({
       pages: [
@@ -98,12 +107,11 @@ suite("Page edit", () => {
       expectedValue: "badger",
     });
     const buttons = wrapper.find("button");
-    expect(buttons.length).to.equal(3);
+    expect(buttons.length).to.equal(2);
     expect(buttons.at(0).text()).to.equal("Save");
-    expect(buttons.at(1).text()).to.equal("Duplicate");
-    expect(buttons.at(2).text()).to.equal("Delete");
+    expect(buttons.at(1).text()).to.equal("Delete");
   });
-
+  //TODO: update test for conditional button
   test("Renders a form with the appropriate initial inputs when no section or controller selected", () => {
     const data = new Data({
       pages: [{ path: "/1", title: "My first page" }],
@@ -152,10 +160,9 @@ suite("Page edit", () => {
       expectedValue: "",
     });
     const buttons = wrapper.find("button");
-    expect(buttons.length).to.equal(3);
+    expect(buttons.length).to.equal(2);
     expect(buttons.at(0).text()).to.equal("Save");
-    expect(buttons.at(1).text()).to.equal("Duplicate");
-    expect(buttons.at(2).text()).to.equal("Delete");
+    expect(buttons.at(1).text()).to.equal("Delete");
   });
 
   test("Updating the title changes the path if the path is the auto-generated one", () => {

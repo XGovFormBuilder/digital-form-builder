@@ -11,6 +11,7 @@ import { withI18n } from "./i18n";
 import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
 import { DataContext } from "./context";
+import { ToggleApi } from "./api/toggleApi";
 
 export class PageEdit extends React.Component {
   static contextType = DataContext;
@@ -25,8 +26,17 @@ export class PageEdit extends React.Component {
       section: page?.section ?? "",
       isEditingSection: false,
       errors: {},
+      toggle: false,
     };
     this.formEditSection = React.createRef();
+  }
+
+  async componentDidMount() {
+    const result = await new ToggleApi().fetchToggles();
+
+    this.setState({
+      toggle: result["ff_featureDuplicatePage"] == "true" || false,
+    });
   }
 
   onSubmit = async (e) => {
@@ -202,6 +212,7 @@ export class PageEdit extends React.Component {
       isEditingSection,
       isNewSection,
       errors,
+      toggle,
     } = this.state;
 
     return (
@@ -305,13 +316,15 @@ export class PageEdit extends React.Component {
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
-          <button
-            className="govuk-button"
-            type="button"
-            onClick={this.onClickDuplicate}
-          >
-            {i18n("duplicate")}
-          </button>{" "}
+          {toggle && (
+            <button
+              className="govuk-button"
+              type="button"
+              onClick={this.onClickDuplicate}
+            >
+              {i18n("duplicate")}
+            </button>
+          )}{" "}
           <button
             className="govuk-button"
             type="button"
