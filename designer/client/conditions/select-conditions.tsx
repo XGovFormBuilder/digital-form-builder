@@ -149,7 +149,7 @@ class SelectConditions extends React.Component<Props, State> {
             {inline && (
               <Flyout
                 title="Define condition"
-                show={inline}
+                show={true}
                 onHide={this.onCancelInlineCondition}
               >
                 <InlineConditions
