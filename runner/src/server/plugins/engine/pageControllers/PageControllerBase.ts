@@ -103,9 +103,7 @@ export class PageControllerBase {
 
     const formComponents = components.filter((c) => c.isFormComponent);
     const hasSingleFormComponent = formComponents.length === 1;
-    const singleFormComponent = hasSingleFormComponent
-      ? formComponents[0]
-      : null;
+    const singleFormComponent = hasSingleFormComponent && formComponents[0];
     const singleFormComponentIsFirst =
       singleFormComponent && singleFormComponent === components[0];
 
