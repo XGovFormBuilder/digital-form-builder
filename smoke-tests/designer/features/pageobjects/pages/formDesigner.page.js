@@ -10,11 +10,11 @@ class FormDesignerPage extends Page {
   }
 
   get formPages() {
-    return $$(".page");
+    return browser.$$(".page");
   }
 
   get formPageTitles() {
-    return $$(".page__heading h3");
+    return browser.$$(".page__heading h3");
   }
 
   get linkLine() {
@@ -50,8 +50,8 @@ class FormDesignerPage extends Page {
     return this.pageContainer(pageName).react$("TextField");
   }
 
-  pageContainer(elem) {
-    return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
+  pageContainer(name) {
+    return this.formPages.find((el) => el.getText().includes(name));
   }
 
   /**
@@ -72,6 +72,10 @@ class FormDesignerPage extends Page {
 
   editPageForPageName(name) {
     return this.pageContainer(name).$("button=Edit page");
+  }
+
+  previewPageForPageName(name) {
+    return this.pageContainer(name).$(".page a");
   }
 
   dropdownComponentForPage(name) {
