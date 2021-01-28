@@ -101,12 +101,13 @@ class InlineConditionsEdit extends React.Component {
                           <a
                             href="#"
                             id={`condition-${index}-move-earlier`}
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.preventDefault();
                               this.onClickMove(
                                 index,
                                 this.state.conditions.moveEarlier
-                              )
-                            }
+                              );
+                            }}
                           >
                             <MoveUpIcon />
                           </a>
@@ -118,12 +119,13 @@ class InlineConditionsEdit extends React.Component {
                             href="#"
                             id={`condition-${index}-move-later`}
                             className="govuk-link"
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.preventDefault();
                               this.onClickMove(
                                 index,
                                 this.state.conditions.moveLater
-                              )
-                            }
+                              );
+                            }}
                           >
                             <MoveDownIcon />
                           </a>
@@ -196,7 +198,8 @@ class InlineConditionsEdit extends React.Component {
     });
   };
 
-  onClickGroup = () => {
+  onClickGroup = (e) => {
+    e?.preventDefault();
     if (this.state.selectedConditions?.length < 2) {
       this.setState({
         editingError: "Please select at least 2 items for grouping",
@@ -228,7 +231,8 @@ class InlineConditionsEdit extends React.Component {
     }
   };
 
-  onClickRemove = () => {
+  onClickRemove = (e) => {
+    e?.preventDefault();
     if (this.state.selectedConditions?.length < 1) {
       this.setState({
         editingError: "Please select at least 1 item to remove",
@@ -272,7 +276,8 @@ class InlineConditionsEdit extends React.Component {
     }
   }
 
-  onClickCancelEditView = () => {
+  onClickCancelEditView = (e) => {
+    e?.preventDefault();
     this.setState({
       selectedConditions: [],
       editingIndex: undefined,

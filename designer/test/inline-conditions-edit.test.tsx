@@ -66,6 +66,7 @@ suite("Editing inline conditions", () => {
     new ConditionValue("M")
   );
   let conditions;
+  const e = { preventDefault: sinon.spy() };
 
   beforeEach(() => {
     conditions = new ConditionsModel();
@@ -98,7 +99,6 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      const e = { preventDefault: sinon.spy() };
       wrapper.find("#condition-0-edit").simulate("click", e);
 
       assertFieldDefinitionSection(wrapper, fields, true, firstCondition, 0);
@@ -125,7 +125,6 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      const e = { preventDefault: sinon.spy() };
       wrapper.find("#condition-1-edit").simulate("click", e);
 
       assertFieldDefinitionSection(wrapper, fields, true, condition, 1);
@@ -157,7 +156,6 @@ suite("Editing inline conditions", () => {
         { condition: "'Something' is 'M'" },
         { condition: "and 'Something else' is 'N'" },
       ]);
-      const e = { preventDefault: sinon.spy() };
       wrapper.find("#condition-1-edit").simulate("click", e);
 
       wrapper
@@ -221,7 +219,7 @@ suite("Editing inline conditions", () => {
         { condition: "and 'Something else' is 'N'", selected: true },
       ]);
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [
         {
@@ -282,7 +280,7 @@ suite("Editing inline conditions", () => {
       ];
       assertEditPanel(wrapper, expectedConditions);
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
       assertEditPanel(
         wrapper,
         expectedConditions,
@@ -371,7 +369,7 @@ suite("Editing inline conditions", () => {
         { condition: "and 'Something else' is 'Y'", selected: true },
       ]);
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [
         {
@@ -419,7 +417,6 @@ suite("Editing inline conditions", () => {
         .find("#condition-1")
         .simulate("change", { target: { value: "1", checked: true } });
 
-      const e = { preventDefault: sinon.spy() };
       wrapper.find("#group-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [
@@ -480,7 +477,7 @@ suite("Editing inline conditions", () => {
         .find("#condition-2")
         .simulate("change", { target: { value: "2", checked: true } });
 
-      wrapper.find("#remove-conditions").simulate("click");
+      wrapper.find("#remove-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [{ condition: "'Something else' is 'N'" }]);
       expect(saveCallback.calledOnce).to.equal(true);
@@ -574,12 +571,12 @@ suite("Editing inline conditions", () => {
         .find("#condition-1")
         .simulate("change", { target: { value: "1", checked: true } });
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       wrapper
         .find("#condition-0")
         .simulate("change", { target: { value: "0", checked: true } });
-      wrapper.find("#remove-conditions").simulate("click");
+      wrapper.find("#remove-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [{ condition: "'Another thing' is 'Value 1'" }]);
       expect(saveCallback.calledTwice).to.equal(true);
@@ -616,12 +613,12 @@ suite("Editing inline conditions", () => {
         .find("#condition-1")
         .simulate("change", { target: { value: "1", checked: true } });
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       wrapper
         .find("#condition-0")
         .simulate("change", { target: { value: "0", checked: true } });
-      wrapper.find("#remove-conditions").simulate("click");
+      wrapper.find("#remove-conditions").simulate("click", e);
 
       expect(saveCallback.calledTwice).to.equal(true);
       expect(saveCallback.secondCall.args[0]).to.equal(conditions);
@@ -636,7 +633,6 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      const e = { preventDefault: sinon.spy() };
       wrapper.find("#condition-0-edit").simulate("click", e);
       wrapper.find("#cancel-edit-inline-conditions-link").simulate("click", e);
 
@@ -652,7 +648,7 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      wrapper.find("#cancel-edit-inline-conditions-link").simulate("click");
+      wrapper.find("#cancel-edit-inline-conditions-link").simulate("click", e);
 
       expect(exitCallback.calledOnce).to.equal(true);
     });
