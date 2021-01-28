@@ -21,7 +21,7 @@ interface State {
   conditionString: any;
 }
 
-class InlineConditions extends React.Component<Props, State> {
+export class InlineConditions extends React.Component<Props, State> {
   static contextType = DataContext;
 
   constructor(props) {
@@ -154,7 +154,7 @@ class InlineConditions extends React.Component<Props, State> {
     return (
       this.state.fields &&
       Object.keys(this.state.fields).length > 0 && (
-        <div id="inline-conditions">
+        <div id="inline-conditions" data-testid={"inline-conditions"}>
           <div id="inline-condition-header">
             {conditionString && (
               <div
