@@ -4,12 +4,14 @@ const EditListSection = require("../pageobjects/sections/editLists.section");
 const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
+const PreviewPage = require("../pageobjects/pages/preview.page");
 const { toCamelCase } = require("../../support/testHelpers");
 
 Given("I have created a {string} list with {int} list item(s)", function (
   listType,
   numberOfListItems
 ) {
+  this.numberOfListItems = numberOfListItems;
   switch (listType.toLowerCase()) {
     case "local":
       FormDesignerPage.createComponentForPageName("First page").click();
@@ -17,7 +19,7 @@ Given("I have created a {string} list with {int} list item(s)", function (
       AddComponentPage.completeCommonFields(FieldData[toCamelCase("List")]);
       FormDesignerPage.editPageComponent("list");
       EditListSection.clickLink("Add a new component list");
-      EditListSection.createListWithListItems(listType, numberOfListItems);
+      EditListSection.createListWithListItems(listType, this.numberOfListItems);
       EditListSection.closeLinks[1].click();
       EditListSection.saveBtn.click();
       break;
@@ -25,7 +27,7 @@ Given("I have created a {string} list with {int} list item(s)", function (
       MenuSection.buttonByName("Edit Lists").click();
       EditListSection.addNewList.click();
       EditListSection.listTitle.setValue(FieldData.list.title);
-      EditListSection.createListWithListItems(listType, numberOfListItems);
+      EditListSection.createListWithListItems(listType, this.numberOfListItems);
       EditListSection.saveBtn.click();
       break;
   }
@@ -53,6 +55,13 @@ Then("the Global list has {int} list items", function (listItemNumber) {
 
 Then("I am able to save the edited Global list", function () {
   EditListSection.saveBtn.click();
+});
+
+Then("the List is displayed when I Preview the page", function () {
+  FormDesignerPage.previewPageForPageName(this.pageName).click();
+  browser.switchWindow(`${this.pageName}`);
+  expect(PreviewPage.pageTitle).toHaveText(this.pageName);
+  expect(PreviewPage.listItems).toBeElementsArrayOfSize(this.numberOfListItems);
 });
 
 When("I delete the {int}st list item from the {string} list", function (

@@ -51,11 +51,18 @@ class AddComponentPage extends Page {
     $("[name='content']").setValue(text);
   }
 
-  completeCommonFields(dataObject) {
+  /**
+   * Fills in the fields with data from the Object
+   * @param dataObject
+   * @param save
+   */
+  completeCommonFields(dataObject, save = true) {
     this.titleField.setValue(dataObject.title);
     this.hintField.setValue(dataObject.hint);
     this.nameField.setValue(dataObject.name);
-    this.saveBtn.click();
+    if (save) {
+      this.saveBtn.click();
+    }
   }
 }
 
