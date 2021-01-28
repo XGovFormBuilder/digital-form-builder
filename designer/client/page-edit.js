@@ -92,8 +92,8 @@ export class PageEdit extends React.Component {
       return;
     }
 
-    const { save } = this.context;
-    const { data, page } = this.props;
+    const { save, data } = this.context;
+    const { page } = this.props;
     const copy = clone(data);
 
     const copyPageIdx = copy.pages.findIndex((p) => p.path === page.path);
@@ -120,9 +120,8 @@ export class PageEdit extends React.Component {
 
   onClickDuplicate = async (e) => {
     e.preventDefault();
-
-    const { data, page } = this.props;
-    const { save } = this.context;
+    const { page } = this.props;
+    const { data, save } = this.context;
     const copy = clone(data);
     const duplicatedPage = clone(page);
     duplicatedPage.path = `${duplicatedPage.path}-${nanoid(6)}`;
