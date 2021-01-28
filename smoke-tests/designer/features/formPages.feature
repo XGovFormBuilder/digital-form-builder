@@ -33,7 +33,7 @@ Feature: Form pages
     And I choose confirm
     Then I will go back to my previous page
 
-  Scenario:
+  Scenario: Cancel navigating away
     When I navigate away from the designer workspace
     And I choose cancel
     Then I will be on the same page
