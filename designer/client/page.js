@@ -72,8 +72,9 @@ export class Page extends React.Component {
     const { data } = this.context;
     const { sections } = data;
 
-    const { page, id, previewUrl, persona, i18n } = this.props;
+    const { page, previewUrl, persona, i18n, id } = this.props;
 
+    const previewHref = new URL(`${id}${page.path}`, previewUrl);
     const formComponents =
       page?.components?.filter(
         (comp) =>
@@ -139,7 +140,7 @@ export class Page extends React.Component {
           </button>
           <a
             title={i18n("Preview page")}
-            href={`${previewUrl}/${id}${page.path}`}
+            href={previewHref}
             target="_blank"
             rel="noreferrer"
           >
