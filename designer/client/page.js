@@ -48,7 +48,8 @@ export class Page extends React.Component {
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     const { save } = this.context;
-    const { page, data } = this.props;
+    const { page } = this.props;
+    const { data } = this.context;
     const copy = clone(data);
     const copyPage = data.findPage(page.path);
     copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex);

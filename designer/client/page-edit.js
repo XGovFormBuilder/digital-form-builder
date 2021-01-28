@@ -31,10 +31,9 @@ export class PageEdit extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const { save } = this.context;
+    const { save, data } = this.context;
     const { title, path, section, controller } = this.state;
-    const { data, page } = this.props;
+    const { page } = this.props;
 
     let validationErrors = this.validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
@@ -156,7 +155,8 @@ export class PageEdit extends React.Component {
 
   generatePath(title) {
     let path = toUrl(title);
-    const { data, page } = this.props;
+    const { data } = this.context;
+    const { page } = this.props;
     if (data.findPage(path) && page.title !== title) {
       path = `${path}-${nanoid(6)}`;
     }
@@ -188,13 +188,14 @@ export class PageEdit extends React.Component {
   };
 
   findSectionWithName(name) {
-    const { data } = this.props;
+    const { data } = this.context;
     const { sections } = data;
     return sections.find((section) => section.name === name);
   }
 
   render() {
-    const { data, i18n } = this.props;
+    const { i18n } = this.props;
+    const { data } = this.context;
     const { sections } = data;
     const {
       title,

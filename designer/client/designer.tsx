@@ -34,7 +34,7 @@ const nanoid = customAlphabet(
 );
 
 export default class Designer extends Component<Props, State> {
-  state = { loading: true };
+  state = { loading: true, flyoutCount: 0 };
 
   designerApi = new DesignerApi();
 
@@ -76,8 +76,7 @@ export default class Designer extends Component<Props, State> {
   componentDidMount() {
     const id = this.props.match?.params?.id;
     this.setState({ id });
-    const dataPromise = this.designerApi.fetchData(id);
-    dataPromise.then((data) => {
+    this.designerApi.fetchData(id).then((data) => {
       this.setState({ loading: false, data: new Data(data) });
     });
   }
@@ -90,7 +89,7 @@ export default class Designer extends Component<Props, State> {
     }
 
     const flyoutContextProviderValue = {
-      flyoutCount,
+      count: flyoutCount,
       increment: this.incrementFlyoutCounter,
       decrement: this.decrementFlyoutCounter,
     };
