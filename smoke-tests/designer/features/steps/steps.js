@@ -288,3 +288,29 @@ Then("the {string} is displayed when I Preview the page", function (component) {
     expect(PreviewPage.paragraph).toBeDisplayed();
   }
 });
+
+When("I navigate away from the designer workspace", () => {
+  browser.back();
+});
+
+Then("I will see an alert warning me that I am about to leave the page", () => {
+  const alert = browser.getAlertText();
+  expect(alert).toEqual(
+    "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost."
+  );
+});
+
+When("I choose confirm", () => {
+  browser.acceptAlert();
+});
+
+Then("I will go back to my previous page", () => {
+  expect(browser.getUrl()).not.toContain(Actions.configRef);
+});
+
+When("I choose cancel", () => {
+  browser.dismissAlert();
+});
+Then("I will be on the same page", () => {
+  expect(browser.getUrl()).toContain(Actions.configRef);
+});
