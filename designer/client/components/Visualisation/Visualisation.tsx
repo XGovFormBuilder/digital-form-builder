@@ -51,7 +51,7 @@ export function Visualisation(props: Props) {
 
   return (
     <>
-      <Prompt message={i18n("leaveDesigner")} />
+      <Prompt message={`${i18n("leaveDesigner")}`} />
       <div className="visualisation">
         <div className="visualisation__pages-wrapper">
           <div ref={ref} style={wrapperStyle}>

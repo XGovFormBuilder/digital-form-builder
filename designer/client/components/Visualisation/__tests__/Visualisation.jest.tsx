@@ -1,12 +1,18 @@
 import React from "react";
 import { Visualisation } from "../Visualisation";
-import { act, render, waitFor } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { DataContext } from "../../../context";
 import { Data } from "@xgovformbuilder/model";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 const customRender = (ui, { providerProps, ...renderOptions }) => {
+  const history = createMemoryHistory();
+  history.push("");
   return render(
-    <DataContext.Provider value={providerProps}>{ui}</DataContext.Provider>,
+    <Router history={history}>
+      <DataContext.Provider value={providerProps}>{ui}</DataContext.Provider>
+    </Router>,
     renderOptions
   );
 };
@@ -26,11 +32,12 @@ test("Graph is rendered with correct number of pages and updates ", async () => 
     save: jest.fn(),
   };
 
-  const {
-    rerender,
-    findAllByText,
-    queryAllByText,
-  } = customRender(<Visualisation />, { providerProps });
+  const { rerender, findAllByText, queryAllByText } = customRender(
+    <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
+    {
+      providerProps,
+    }
+  );
   expect(await findAllByText("my first page")).toBeTruthy();
   expect(await findAllByText("my second page")).toBeTruthy();
   const thirdPage = await queryAllByText("my third page");
