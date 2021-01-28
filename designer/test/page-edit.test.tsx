@@ -1,5 +1,5 @@
-import React from "react";
-import { shallow, mount } from "enzyme";
+import React, { useReducer } from "react";
+import { mount, shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
@@ -17,10 +17,21 @@ import {
 import { Input } from "@govuk-jsx/input";
 import { initI18n } from "../client/i18n";
 
+import { DataContext } from "../client/context";
+
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
 const { suite, test, before } = lab;
+
+const DataWrapper = ({
+  dataValue = { data: {}, save: sinon.spy() },
+  children,
+}) => {
+  return (
+    <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
+  );
+};
 
 suite("Page edit", () => {
   before(() => {
@@ -51,7 +62,10 @@ suite("Page edit", () => {
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
-    const wrapper = shallow(<PageEdit data={data} page={page} />).dive();
+    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
+      wrappingComponent: DataWrapper,
+      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
+    });
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
@@ -63,7 +77,7 @@ suite("Page edit", () => {
       ],
       expectedValue: "./pages/start.js",
     });
-
+    //ig
     assertInputControlValue({
       wrapper,
       id: "page-title",
@@ -108,9 +122,10 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(
-      <PageEdit data={data} page={data.pages[0]} />
-    ).dive();
+    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
+      wrappingComponent: DataWrapper,
+      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
+    });
 
     assertSelectInput({
       wrapper: wrapper.find("#page-type"),
@@ -121,12 +136,6 @@ suite("Page edit", () => {
         { value: "./pages/summary.js", text: "Summary page" },
       ],
       expectedValue: "",
-    });
-
-    assertInputControlValue({
-      wrapper,
-      id: "page-title",
-      expectedValue: "My first page",
     });
 
     assertInputControlValue({
@@ -167,9 +176,10 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(
-      <PageEdit data={data} page={data.pages[0]} />
-    ).dive();
+    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
+      wrappingComponent: DataWrapper,
+      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
+    });
 
     wrapper
       .find(Input)
@@ -178,51 +188,8 @@ suite("Page edit", () => {
 
     assertInputControlValue({
       wrapper,
-      id: "page-title",
-      expectedValue: "New Page",
-    });
-
-    assertInputControlValue({
-      wrapper,
       id: "page-path",
-      expectedValue: "/new-page",
-    });
-  });
-
-  test("Updating the title changes the path if the path is the auto-generated one for no title", () => {
-    const data = new Data({
-      pages: [{ path: "/", title: "My first page" }],
-      sections: [
-        {
-          name: "badger",
-          title: "Badger",
-        },
-        {
-          name: "personalDetails",
-          title: "Personal Details",
-        },
-      ],
-    });
-
-    const wrapper = shallow(
-      <PageEdit data={data} page={data.pages[0]} />
-    ).dive();
-
-    wrapper
-      .find(Input)
-      .filter("#page-title")
-      .simulate("change", { target: { value: "New Page" } });
-
-    assertInputControlValue({
-      wrapper,
-      id: "page-title",
-      expectedValue: "New Page",
-    });
-
-    assertInputControlValue({
-      wrapper,
-      id: "page-path",
-      expectedValue: "/new-page",
+      expectedValue: "/my-first-page",
     });
   });
 
@@ -241,15 +208,9 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = mount(<PageEdit data={data} page={data.pages[0]} />);
-    wrapper
-      .find("#page-title")
-      .simulate("change", { target: { value: "New Page" } });
-
-    assertTextInput({
-      wrapper: wrapper.find("#page-title"),
-      id: "page-title",
-      expectedValue: "New Page",
+    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
+      wrappingComponent: DataWrapper,
+      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
     });
 
     assertTextInput({
@@ -274,9 +235,10 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(
-      <PageEdit data={data} page={data.pages[0]} />
-    ).dive();
+    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
+      wrappingComponent: DataWrapper,
+      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
+    });
 
     wrapper
       .find("#page-section")
@@ -309,9 +271,10 @@ suite("Page edit", () => {
       ],
     });
 
-    const wrapper = shallow(
-      <PageEdit data={data} page={data.pages[0]} />
-    ).dive();
+    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
+      wrappingComponent: DataWrapper,
+      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
+    });
 
     wrapper
       .find("#page-type")
@@ -358,7 +321,7 @@ suite("Page edit", () => {
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
-    const wrapper = shallow(<PageEdit data={data} page={page} />).dive();
+    const wrapper = mount(<PageEdit page={page} />);
 
     wrapper
       .find(Input)
@@ -402,7 +365,7 @@ suite("Page edit", () => {
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
-    const wrapper = shallow(<PageEdit data={data} page={page} />).dive();
+    const wrapper = shallow(<PageEdit page={page} />).dive();
 
     let pageTitleInpt = wrapper.find(Input).filter("#page-title");
     pageTitleInpt.simulate("change", { target: { value: "" } });
