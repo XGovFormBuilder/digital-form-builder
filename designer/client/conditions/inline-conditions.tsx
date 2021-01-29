@@ -92,6 +92,7 @@ export class InlineConditions extends React.Component<Props, State> {
   };
 
   onClickCancel = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     const { cancelCallback } = this.props;
     this.setState({
       conditions: this.state.conditions.clear(),
@@ -194,9 +195,6 @@ export class InlineConditions extends React.Component<Props, State> {
     ).length;
     const hasErrors = !!validationErrors.length;
 
-    console.log(conditions);
-    console.log(validationErrors);
-
     return (
       this.state.fields &&
       Object.keys(this.state.fields).length > 0 && (
@@ -260,7 +258,10 @@ export class InlineConditions extends React.Component<Props, State> {
                       href="#"
                       id="edit-conditions-link"
                       className="govuk-link"
-                      onClick={this.toggleEdit}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.toggleEdit();
+                      }}
                     >
                       Not what you meant?
                     </a>

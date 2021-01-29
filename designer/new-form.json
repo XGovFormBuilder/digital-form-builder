@@ -5,7 +5,9 @@
     {
       "title": "First page",
       "path": "/first-page",
-      "components": []
+      "components": [
+        { "name": "bBqafN", "options": {}, "type": "DateField", "title": "dob" }
+      ]
     },
     {
       "title": "Summary",

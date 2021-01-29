@@ -76,11 +76,6 @@ export const AbsoluteDateValues = ({ value = {}, updateValue }: Props) => {
     }
 
     if (isValid(new Date(parsedYear, parsedMonth - 1, parsedDay))) {
-      console.log("XXXX", {
-        year: parsedYear,
-        month: parsedMonth,
-        day: parsedDay,
-      });
       updateValue({ year: parsedYear, month: parsedMonth, day: parsedDay });
     }
   }, [year, month, day]);

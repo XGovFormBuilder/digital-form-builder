@@ -5,6 +5,8 @@ import { BackLink } from "../../components/BackLink";
 import { i18n } from "../../i18n";
 import "./LandingPage.scss";
 import { isEmpty } from "../../helpers";
+import { Input } from "@govuk-jsx/input";
+import ErrorSummary from "../../error-summary";
 
 type Props = {
   history: any;
@@ -39,18 +41,26 @@ export class NewConfig extends Component<Props, State> {
     });
   }
 
-  validate = (newName, configs) => {
+  validate = () => {
+    const { newName, configs } = this.state;
+
     const errors: any = {};
     let hasErrors = false;
 
     if (isEmpty(newName)) {
-      errors.nameIsRequiredError = true;
+      errors.name = {
+        href: "#formName",
+        children: i18n("Enter form name"),
+      };
       hasErrors = true;
       return { errors, hasErrors };
     }
 
     if (!newName.match(/^[a-zA-Z0-9 _-]+$/)) {
-      errors.notAvalidPatternError = true;
+      errors.name = {
+        href: "#formName",
+        children: i18n("Form name should not contain special characters"),
+      };
       hasErrors = true;
       return { errors, hasErrors };
     }
@@ -63,7 +73,10 @@ export class NewConfig extends Component<Props, State> {
       }) ?? false;
 
     if (alreadyExists) {
-      errors.alreadyExistsError = true;
+      errors.name = {
+        href: "#formName",
+        children: i18n("A form with this name already exists"),
+      };
       hasErrors = true;
     }
 
@@ -73,9 +86,9 @@ export class NewConfig extends Component<Props, State> {
   onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    const { newName, configs } = this.state;
+    const { newName } = this.state;
 
-    const { errors, hasErrors } = this.validate(newName, configs);
+    const { errors, hasErrors } = this.validate();
 
     if (hasErrors) {
       return this.setState({
@@ -110,16 +123,6 @@ export class NewConfig extends Component<Props, State> {
 
   render() {
     const { newName, errors } = this.state;
-
-    const {
-      alreadyExistsError,
-      nameIsRequiredError,
-      notAvalidPatternError,
-    } = errors;
-
-    const hasError =
-      alreadyExistsError || nameIsRequiredError || notAvalidPatternError;
-
     return (
       <div className="new-config">
         <div>
@@ -127,92 +130,31 @@ export class NewConfig extends Component<Props, State> {
             {i18n("Back to previous page")}
           </BackLink>
 
-          {hasError && (
-            <div
-              className="govuk-error-summary"
-              aria-labelledby="error-summary-title"
-              role="alert"
-              tabIndex={-1}
-              data-module="govuk-error-summary"
-            >
-              <h2
-                className="govuk-error-summary__title"
-                id="error-summary-title"
-              >
-                {i18n("There is a problem")}
-              </h2>
-              <div className="govuk-error-summary__body">
-                <ul className="govuk-list govuk-error-summary__list">
-                  {alreadyExistsError && (
-                    <li>
-                      <a href="#formName">
-                        {i18n("A form with this name already exists")}
-                      </a>
-                    </li>
-                  )}
-                  {nameIsRequiredError && (
-                    <li>
-                      <a href="#formName">{i18n("Enter form name")}</a>
-                    </li>
-                  )}
-                  {notAvalidPatternError && (
-                    <li>
-                      <a href="#formName">
-                        {i18n(
-                          "Form name should not contain special characters"
-                        )}
-                      </a>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </div>
+          {errors?.name && (
+            <ErrorSummary
+              titleChildren="There is a problem"
+              errorList={Object.values(errors)}
+            />
           )}
 
           <h1 className="govuk-heading-l">
             {i18n("Enter a name for your form")}
           </h1>
 
-          <div
-            className={`govuk-form-group ${
-              hasError ? "govuk-form-group--error" : ""
-            }`}
-          >
-            <label className="govuk-visually-hidden" htmlFor="formName">
-              {i18n("Form name")}
-            </label>
-            {alreadyExistsError && (
-              <span className="govuk-error-message">
-                <span id="error-already-exists" className="govuk-error-message">
-                  {i18n("A form with this name already exists")}
-                </span>
-              </span>
-            )}
-            {nameIsRequiredError && (
-              <span className="govuk-error-message">
-                <span id="error-name-required" className="govuk-error-message">
-                  {i18n("Enter form name")}
-                </span>
-              </span>
-            )}
-            {notAvalidPatternError && (
-              <span className="govuk-error-message">
-                <span id="error-name-not-valid" className="govuk-error-message">
-                  {i18n("Form name should not contain special characters")}
-                </span>
-              </span>
-            )}
-            <input
-              type="text"
-              id="formName"
-              name="formName"
-              className={`govuk-input govuk-input--width-10 ${
-                hasError ? "govuk-input--error" : ""
-              }`}
-              value={newName}
-              onChange={(e) => this.setState({ newName: e.target.value })}
-            />
-          </div>
+          <Input
+            id="formName"
+            name="formName"
+            className="govuk-input--width-10"
+            label={{
+              className: "govuk-label--s",
+              children: ["Title"],
+            }}
+            value={newName || ""}
+            onChange={(e) => this.setState({ newName: e.target.value })}
+            errorMessage={
+              errors?.name ? { children: errors?.name.children } : undefined
+            }
+          />
           <button
             className="govuk-button govuk-button--start"
             onClick={this.onSubmit}

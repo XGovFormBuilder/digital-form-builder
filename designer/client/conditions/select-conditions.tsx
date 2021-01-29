@@ -57,7 +57,8 @@ class SelectConditions extends React.Component<Props, State> {
       }, {});
   }
 
-  onClickDefineCondition = () => {
+  onClickDefineCondition = (e) => {
+    e.preventDefault();
     this.setState({
       inline: true,
     });

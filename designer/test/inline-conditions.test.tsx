@@ -260,7 +260,7 @@ suite("Inline conditions", () => {
         )
       );
       expect(wrapper.find("#conditions-display").exists()).to.equal(true);
-      const e = {};
+      const e = { preventDefault: sinon.spy() };
       wrapper.find("#cancel-inline-conditions-link").simulate("click", e);
 
       assertAddingFirstCondition(wrapper, expectedFields);
@@ -287,7 +287,7 @@ suite("Inline conditions", () => {
         )
       );
       expect(wrapper.find("#conditions-display").exists()).to.equal(true);
-      const e = {};
+      const e = { preventDefault: sinon.spy() };
       wrapper.find("#cancel-inline-conditions-link").simulate("click", e);
 
       assertAddingFirstCondition(wrapper, expectedFields);
@@ -377,7 +377,8 @@ suite("Inline conditions", () => {
           />
         );
         wrapper.instance().setState({ conditions: conditions });
-        wrapper.find("#edit-conditions-link").simulate("click");
+        const e = { preventDefault: sinon.spy() };
+        wrapper.find("#edit-conditions-link").simulate("click", e);
 
         assertEditingHeaderGroupWithConditionString(
           wrapper,
@@ -408,7 +409,8 @@ suite("Inline conditions", () => {
               new ConditionValue("N")
             )
           );
-        wrapper.find("#edit-conditions-link").simulate("click");
+        const e = { preventDefault: sinon.spy() };
+        wrapper.find("#edit-conditions-link").simulate("click", e);
         assertEditingHeaderGroupWithConditionString(
           wrapper,
           "'Something else' is 'N'"
@@ -432,7 +434,8 @@ suite("Inline conditions", () => {
           />
         );
         wrapper.instance().setState({ conditions: conditions });
-        wrapper.find("#edit-conditions-link").simulate("click");
+        const e = { preventDefault: sinon.spy() };
+        wrapper.find("#edit-conditions-link").simulate("click", e);
         wrapper.instance().toggleEdit();
 
         assertAddingSubsequentCondition(
