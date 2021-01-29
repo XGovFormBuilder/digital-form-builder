@@ -106,7 +106,7 @@ export class InlineConditions extends React.Component<Props, State> {
   };
 
   onClickSave = async (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+    event?.preventDefault();
     const { data, conditionsChange, condition } = this.props;
     const { save } = this.context;
     const { conditions } = this.state;
