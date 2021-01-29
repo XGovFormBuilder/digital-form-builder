@@ -21,10 +21,11 @@ const SortableItem = SortableElement(({ index, page, component, data }) => (
   </div>
 ));
 
-const SortableList = SortableContainer(({ page, data }) => {
+const SortableList = SortableContainer(({ page = {}, data }) => {
+  const { components = [] } = page;
   return (
     <div className="component-list">
-      {page.components.map((component, index) => (
+      {components.map((component, index) => (
         <SortableItem
           key={index}
           index={index}
@@ -47,7 +48,8 @@ export class Page extends React.Component {
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     const { save } = this.context;
-    const { page, data } = this.props;
+    const { page } = this.props;
+    const { data } = this.context;
     const copy = clone(data);
     const copyPage = data.findPage(page.path);
     copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex);
@@ -68,16 +70,23 @@ export class Page extends React.Component {
   };
 
   render() {
-    const { page, data, id, previewUrl, persona, i18n } = this.props;
+    const { data } = this.context;
     const { sections } = data;
-    const formComponents = page?.components?.filter(
-      (comp) =>
-        ComponentTypes.find((type) => type.name === comp.type)?.subType ===
-        "field"
-    );
+
+    const { page, previewUrl, persona, i18n, id } = this.props;
+
+    const previewHref = new URL(`${id}${page.path}`, previewUrl);
+    const formComponents =
+      page?.components?.filter(
+        (comp) =>
+          ComponentTypes.find((type) => type.name === comp.type)?.subType ===
+          "field"
+      ) ?? [];
+
     const section =
       page.section && sections.find((section) => section.name === page.section);
     const conditional = !!page.condition;
+
     let pageTitle =
       page.title ||
       (formComponents.length === 1 && page.components[0] === formComponents[0]
@@ -132,7 +141,7 @@ export class Page extends React.Component {
           </button>
           <a
             title={i18n("Preview page")}
-            href={`${previewUrl}/${id}${page.path}`}
+            href={previewHref}
             target="_blank"
             rel="noreferrer"
           >
@@ -147,7 +156,7 @@ export class Page extends React.Component {
           onHide={this.toggleEditor}
           NEVER_UNMOUNTS={true}
         >
-          <PageEdit page={page} data={data} onEdit={this.toggleEditor} />
+          <PageEdit page={page} onEdit={this.toggleEditor} />
         </Flyout>
         {this.state.showAddComponent && (
           <Flyout show={true} onHide={this.toggleAddComponent}>
