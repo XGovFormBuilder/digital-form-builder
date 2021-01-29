@@ -224,7 +224,7 @@ suite("Page edit", () => {
     });
   });
 
-  test("Changing the section causes the new section to be selected", () => {
+  test("Changing the section causes the new section to be selected", (done) => {
     const data = new Data({
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
@@ -258,6 +258,42 @@ suite("Page edit", () => {
       ],
       expectedValue: "badger",
     });
+  });
+
+  test("should show duplicate if feature toggle is set to true", () => {
+    const data = new Data({
+      pages: [{ path: "/1", title: "My first page" }],
+      sections: [
+        {
+          name: "badger",
+          title: "Badger",
+        },
+      ],
+    });
+
+    // let editComponent = mount(<PageEdit data={data} page={data.pages[0]} />);
+    // const buttons = editComponent.find("button");
+    // expect(buttons.length).to.equal(2);
+
+    sinon.restore();
+    sinon.stub(ToggleApi.prototype, "fetchToggles").callsFake(function () {
+      return { ff_featureDuplicatePage: "true" };
+    });
+
+    let editComponent = mount(<PageEdit data={data} page={data.pages[0]} />);
+    // editComponent.update();
+
+    // editComponent.setProps({})
+
+    setImmediate(() => {
+      expect(editComponent.find("button").length).to.equal(3);
+      // have to call `done` here to let Jest know the test is done
+      done();
+    });
+
+    // expect(buttons.at(0).text()).to.equal("Save");
+    // expect(await findAllByText("Duplicate")).toBeTruthy();
+    // expect(buttons.at(2).text()).to.equal("Delete");
   });
 
   test("Changing the controller causes the new controller to be selected", () => {
