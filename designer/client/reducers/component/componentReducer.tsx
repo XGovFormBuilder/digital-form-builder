@@ -107,7 +107,7 @@ export const ComponentContextProvider = (props) => {
     componentReducer,
     initComponentState(rest)
   );
-  console.info(state);
+
   return (
     <ComponentContext.Provider value={{ state, dispatch }}>
       {children}
