@@ -16,10 +16,6 @@ Feature: Form pages
     And I enter the details for my page
     Then the page is added in the designer
 
-  Scenario: Duplicate a page
-    When I choose to duplicate the "Summary"
-    Then 2 "Summary" pages are shown in the designer
-
   Scenario: Delete a page
     When I choose to delete the "First page"
     Then the "First page" is no longer visible in the designer
