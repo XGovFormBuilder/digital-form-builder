@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import isValid from "date-fns/isValid";
+import padStart from "lodash/padStart";
 import { isInt, tryParseInt } from "./inline-condition-helpers";
 
 export interface YearMonthDay {
@@ -19,69 +20,122 @@ interface Props {
   updateValue: ({ year, month, day }: YearMonthDay) => void;
 }
 
+function isValidateDate(props: {
+  year?: number | string;
+  month?: number | string;
+  day?: number | string;
+}) {
+  const { year = 2020, month = 12, day = 1 } = props;
+  const parsedDate = Date.parse(`${year}-${month}-${day}`);
+
+  if (isNaN(parsedDate)) {
+    return false;
+  }
+
+  return true;
+}
+
+function isValidDay(day: string) {
+  return isValidateDate({ day });
+}
+function isValidMonth(month: string) {
+  return isValidateDate({ month });
+}
+function isValidYear(year: string) {
+  return year.length === 4 && isValidateDate({ year });
+}
+
 export const AbsoluteDateValues = ({ value = {}, updateValue }: Props) => {
-  const [year, setYear] = React.useState<string>(() =>
+  const [year, setYear] = useState<string>(() =>
     isInt(value.year) ? (value.year as number).toString() : ""
   );
-  const [month, setMonth] = React.useState<string>(() =>
-    isInt(value.month) ? (value.month as number).toString() : ""
-  );
-  const [day, setDay] = React.useState<string>(() =>
-    isInt(value.day) ? (value.day as number).toString() : ""
+
+  const [month, setMonth] = useState<string>(() =>
+    isInt(value.month) ? padStart(String(value.month), 2, "0") : ""
   );
 
-  React.useEffect(() => {
-    const parsedYear = tryParseInt(year);
-    const parsedMonth = tryParseInt(month);
-    const parsedDay = tryParseInt(day);
+  const [day, setDay] = useState<string>(() =>
+    isInt(value.day) ? padStart(String(value.day), 2, "0") : ""
+  );
+
+  useEffect(() => {
+    const parsedDay = tryParseInt(day)!;
+    const parsedMonth = tryParseInt(month)!;
+    const parsedYear = tryParseInt(year)!;
+
     if (
-      parsedYear &&
-      parsedMonth &&
-      parsedDay &&
-      (parsedYear !== value.year ||
-        parsedMonth !== value.month ||
-        parsedDay !== value.day) &&
-      isValid(new Date(parsedYear, parsedMonth - 1, parsedDay))
+      parsedDay === value.day &&
+      parsedMonth === value.month &&
+      parsedYear === value.year
     ) {
+      return;
+    }
+
+    if (!isValidDay(day) || !isValidMonth(month) || !isValidYear(year)) {
+      return;
+    }
+
+    if (isValid(new Date(parsedYear, parsedMonth - 1, parsedDay))) {
+      console.log("XXXX", {
+        year: parsedYear,
+        month: parsedMonth,
+        day: parsedDay,
+      });
       updateValue({ year: parsedYear, month: parsedMonth, day: parsedDay });
     }
   }, [year, month, day]);
 
-  const yearChanged = (e) => setYear(e.target.value);
-  const monthChanged = (e) => setMonth(e.target.value);
-  const dayChanged = (e) => setDay(e.target.value);
+  const dayChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    const day = e.target.value;
+    if (Number(day) <= 31) {
+      setDay(day);
+    }
+  };
+
+  const monthChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    const month = e.target.value;
+    if (Number(month) <= 12) {
+      setMonth(month);
+    }
+  };
+
+  const yearChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    const year = e.target.value;
+    setYear(year);
+  };
 
   return (
     <div className="govuk-date-input">
       <div className="govuk-date-input__item">
         <div className="govuk-form-group">
           <label
-            htmlFor="cond-value-year"
+            htmlFor="cond-value-day"
             className="govuk-label govuk-label--s"
           >
-            yyyy
+            Day
           </label>
           <input
-            className="govuk-input govuk-input--width-4"
-            id="cond-value-year"
-            name="cond-value-year"
+            className="govuk-input govuk-input--width-2"
+            id="cond-value-day"
+            name="cond-value-day"
             type="number"
-            maxLength={4}
-            minLength={4}
-            value={year}
+            maxLength={2}
+            minLength={2}
+            min={1}
+            max={31}
+            value={day}
             required
-            onChange={yearChanged}
+            onChange={dayChanged}
           />
         </div>
       </div>
-
       <div className="govuk-date-input__item">
         <div className="govuk-form-group">
           <label
             htmlFor="cond-value-month"
             className="govuk-label govuk-label--s"
           >
-            MM
+            Month
           </label>
           <input
             className="govuk-input govuk-input--width-2"
@@ -89,6 +143,7 @@ export const AbsoluteDateValues = ({ value = {}, updateValue }: Props) => {
             name="cond-value-month"
             type="number"
             maxLength={2}
+            minLength={2}
             min={1}
             max={12}
             value={month}
@@ -100,22 +155,21 @@ export const AbsoluteDateValues = ({ value = {}, updateValue }: Props) => {
       <div className="govuk-date-input__item">
         <div className="govuk-form-group">
           <label
-            htmlFor="cond-value-day"
+            htmlFor="cond-value-year"
             className="govuk-label govuk-label--s"
           >
-            dd
+            Year
           </label>
           <input
-            className="govuk-input govuk-input--width-2"
-            id="cond-value-day"
-            name="cond-value-day"
+            className="govuk-input govuk-input--width-4"
+            id="cond-value-year"
+            name="cond-value-year"
             type="number"
-            maxLength={2}
-            min={1}
-            max={31}
-            value={day}
+            maxLength={4}
+            minLength={4}
+            value={year}
             required
-            onChange={dayChanged}
+            onChange={yearChanged}
           />
         </div>
       </div>
