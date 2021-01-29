@@ -203,6 +203,11 @@ class OutputEdit extends Component<Props, State> {
       });
   };
 
+  handleOnClickBackLink = (e) => {
+    e.preventDefault();
+    this.props.onCancel(e);
+  };
+
   render() {
     const { outputType, errors } = this.state;
     const { data, output } = this.props;
@@ -237,7 +242,7 @@ class OutputEdit extends Component<Props, State> {
             <a
               className="govuk-back-link"
               href="#"
-              onClick={(e) => this.props.onCancel(e)}
+              onClick={this.handleOnClickBackLink}
             >
               Back
             </a>
