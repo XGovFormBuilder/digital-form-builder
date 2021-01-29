@@ -181,6 +181,9 @@ Then("the list is available in the list options", function () {
 
 When("I choose to duplicate the {string}", (pageName) => {
   FormDesignerPage.editPageForPageName(pageName).click();
+  if (EditPageSection.parentElement.isDisplayed() === false) {
+    FormDesignerPage.editPageForPageName(pageName).click();
+  }
   EditPageSection.duplicateBtn.click();
   EditPageSection.closeLinks[0].click();
 });
@@ -284,4 +287,30 @@ Then("the {string} is displayed when I Preview the page", function (component) {
   } else {
     expect(PreviewPage.paragraph).toBeDisplayed();
   }
+});
+
+When("I navigate away from the designer workspace", () => {
+  browser.back();
+});
+
+Then("I will see an alert warning me that I am about to leave the page", () => {
+  const alert = browser.getAlertText();
+  expect(alert).toEqual(
+    "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost."
+  );
+});
+
+When("I choose confirm", () => {
+  browser.acceptAlert();
+});
+
+Then("I will go back to my previous page", () => {
+  expect(browser.getUrl()).not.toContain(Actions.configRef);
+});
+
+When("I choose cancel", () => {
+  browser.dismissAlert();
+});
+Then("I will be on the same page", () => {
+  expect(browser.getUrl()).toContain(Actions.configRef);
 });

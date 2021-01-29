@@ -1,8 +1,8 @@
 import React from "react";
 
 type Props = {
-  updatedAt: string;
-  downloadedAt: string;
+  updatedAt?: string;
+  downloadedAt?: string;
 };
 
 export const Info = ({ updatedAt, downloadedAt }: Props) => (
