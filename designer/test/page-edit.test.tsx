@@ -46,7 +46,6 @@ suite("Page edit", () => {
     sinon.restore();
   });
 
-  //TODO: update test for conditional button
   test("Renders a form with the appropriate initial inputs", () => {
     const data = new Data({
       pages: [
