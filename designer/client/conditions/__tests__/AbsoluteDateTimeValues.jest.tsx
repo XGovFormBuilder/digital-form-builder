@@ -12,9 +12,9 @@ describe("AbsoluteDateTimeValues", () => {
   it("renders out a date that's passed to it", async () => {
     const d = new Date("2020-01-31T12:10:35Z");
     render(<AbsoluteDateTimeValues updateValue={jest.fn()} value={d} />);
-    expect(await findInputValue("yyyy")).toEqual("2020");
-    expect(await findInputValue("MM")).toEqual("1");
-    expect(await findInputValue("dd")).toEqual("31");
+    expect(await findInputValue("Year")).toEqual("2020");
+    expect(await findInputValue("Month")).toEqual("01");
+    expect(await findInputValue("Day")).toEqual("31");
   });
 
   it("renders out a time that's passed to it", async () => {
@@ -27,9 +27,9 @@ describe("AbsoluteDateTimeValues", () => {
   it("calls the updateValue prop if a valid date and time are entered", async () => {
     const updateValue = jest.fn();
     render(<AbsoluteDateTimeValues updateValue={updateValue} />);
-    await typeIntoInput("yyyy", "2020");
-    await typeIntoInput("MM", "4");
-    await typeIntoInput("dd", "26");
+    await typeIntoInput("Year", "2020");
+    await typeIntoInput("Month", "4");
+    await typeIntoInput("Day", "26");
     await typeIntoInput("HH", "10");
     await typeIntoInput("mm", "57");
     const d = updateValue.mock.calls.pop()[0];
@@ -40,9 +40,9 @@ describe("AbsoluteDateTimeValues", () => {
     const updateValue = jest.fn();
     const d = new Date("2020-01-31T12:10:35Z");
     render(<AbsoluteDateTimeValues updateValue={updateValue} value={d} />);
-    await typeIntoInput("yyyy", "2020");
-    await typeIntoInput("MM", "4");
-    await typeIntoInput("dd", "26");
+    await typeIntoInput("Year", "2020");
+    await typeIntoInput("Month", "4");
+    await typeIntoInput("Day", "26");
     await typeIntoInput("HH", "10");
     await typeIntoInput("mm", "57");
     const newDate = updateValue.mock.calls.pop()[0];
@@ -52,9 +52,9 @@ describe("AbsoluteDateTimeValues", () => {
   it("doesn't call the updateValue prop if a valid date and time are not entered", async () => {
     const updateValue = jest.fn();
     render(<AbsoluteDateTimeValues updateValue={updateValue} />);
-    await typeIntoInput("yyyy", "2020");
-    await typeIntoInput("MM", "4");
-    await typeIntoInput("dd", "26");
+    await typeIntoInput("Year", "2020");
+    await typeIntoInput("Month", "4");
+    await typeIntoInput("Day", "26");
     await typeIntoInput("HH", "40");
     expect(updateValue).not.toHaveBeenCalled();
   });
@@ -62,9 +62,9 @@ describe("AbsoluteDateTimeValues", () => {
   it("allows a zero value for hours", async () => {
     const updateValue = jest.fn();
     render(<AbsoluteDateTimeValues updateValue={updateValue} />);
-    await typeIntoInput("yyyy", "2020");
-    await typeIntoInput("MM", "4");
-    await typeIntoInput("dd", "26");
+    await typeIntoInput("Year", "2020");
+    await typeIntoInput("Month", "4");
+    await typeIntoInput("Day", "26");
     await typeIntoInput("HH", "0");
     await typeIntoInput("mm", "57");
     const d = updateValue.mock.calls.pop()[0];
@@ -74,9 +74,9 @@ describe("AbsoluteDateTimeValues", () => {
   it("allows a zero value for minutes", async () => {
     const updateValue = jest.fn();
     render(<AbsoluteDateTimeValues updateValue={updateValue} />);
-    await typeIntoInput("yyyy", "2020");
-    await typeIntoInput("MM", "4");
-    await typeIntoInput("dd", "26");
+    await typeIntoInput("Year", "2020");
+    await typeIntoInput("Month", "4");
+    await typeIntoInput("Day", "26");
     await typeIntoInput("HH", "14");
     await typeIntoInput("mm", "0");
     const d = updateValue.mock.calls.pop()[0];
