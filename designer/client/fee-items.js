@@ -96,6 +96,7 @@ class FeeItems extends React.Component {
   };
 
   onClickAddItem = (e) => {
+    e.preventDefault();
     this.setState({
       items: this.state.items.concat({
         description: "",

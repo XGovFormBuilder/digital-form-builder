@@ -11,7 +11,10 @@ function Modal(props) {
         <a
           title="Close"
           className="close govuk-body govuk-!-font-size-16"
-          onClick={(e) => props.onHide(e)}
+          onClick={(e) => {
+            e.preventDefault();
+            props.onHide(e);
+          }}
         >
           Close
         </a>
