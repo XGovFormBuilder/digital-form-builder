@@ -1,98 +1,73 @@
-import React from "react";
-import { Data } from "@xgovformbuilder/model";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import Page from "../../page";
 import { Lines } from "./Lines";
 import { Minimap } from "./Minimap";
 import { Info } from "./Info";
-import { getLayout, Layout } from "./getLayout";
+import { getLayout, Pos } from "./getLayout";
 import "./visualisation.scss";
+import { DataContext } from "../../context";
+import { i18n } from "../../i18n";
+import { Prompt } from "react-router-dom";
 
 type Props = {
-  data: Data;
-  id: string;
-  updatedAt: string;
-  downloadedAt: string;
-  previewUrl: string;
-  persona: any;
+  updatedAt?: string;
+  downloadedAt?: string;
+  previewUrl?: string;
+  persona?: any;
+  id?: string;
 };
 
-type State = {
-  layout?: Layout["pos"];
-};
+export function useVisualisation(ref) {
+  const { data } = useContext(DataContext);
+  const [layout, setLayout] = useState<Pos>();
 
-export class Visualisation extends React.Component<Props, State> {
-  ref = React.createRef<HTMLDivElement>();
+  useEffect(() => {
+    const layout = getLayout(data, ref.current!);
+    setLayout(layout.pos);
+  }, [data]);
 
-  constructor(props: Props) {
-    super(props);
+  return { layout };
+}
 
-    this.state = {};
-  }
+export function Visualisation(props: Props) {
+  const ref = useRef(null);
+  const { layout } = useVisualisation(ref);
+  const { data } = useContext(DataContext);
 
-  scheduleLayout() {
-    setTimeout(() => {
-      const { data } = this.props;
-      const layout = getLayout(data, this.ref.current!);
+  const { updatedAt, downloadedAt, previewUrl, persona, id } = props;
+  const { pages } = data;
 
-      this.setState({
-        layout: layout.pos,
-      });
-    }, 200);
-  }
+  const wrapperStyle = layout && {
+    width: layout?.width,
+    height: layout?.height,
+  };
 
-  componentDidMount() {
-    this.scheduleLayout();
-  }
-
-  UNSAFE_componentWillReceiveProps() {
-    this.scheduleLayout();
-  }
-
-  render() {
-    const {
-      data,
-      id,
-      updatedAt,
-      downloadedAt,
-      previewUrl,
-      persona,
-    } = this.props;
-    const { pages } = data;
-
-    const wrapperStyle = this.state.layout && {
-      width: this.state.layout?.width,
-      height: this.state.layout?.height,
-    };
-
-    return (
+  return (
+    <>
+      <Prompt message={`${i18n("leaveDesigner")}`} />
       <div className="visualisation">
         <div className="visualisation__pages-wrapper">
-          <div ref={this.ref} style={wrapperStyle}>
+          <div ref={ref} style={wrapperStyle}>
             {pages.map((page, index) => (
               <Page
-                id={id}
                 key={index}
-                data={data}
                 page={page}
                 persona={persona}
                 previewUrl={previewUrl}
-                layout={this.state.layout?.nodes[index]}
+                layout={layout?.nodes[index]}
+                id={id}
               />
             ))}
 
-            {this.state.layout && (
-              <Lines layout={this.state.layout} data={data} persona={persona} />
-            )}
+            {layout && <Lines layout={layout} data={data} persona={persona} />}
           </div>
         </div>
 
-        {this.state.layout && (
-          <Info downloadedAt={downloadedAt} updatedAt={updatedAt} />
-        )}
+        {layout && <Info downloadedAt={downloadedAt} updatedAt={updatedAt} />}
 
-        {this.state.layout && <Minimap layout={this.state.layout} />}
+        {layout && <Minimap layout={layout} />}
       </div>
-    );
-  }
+    </>
+  );
 }
