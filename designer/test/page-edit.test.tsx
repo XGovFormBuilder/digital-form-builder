@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { mount, shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
@@ -60,8 +60,6 @@ suite("Page edit", () => {
       ],
     });
 
-    const page = Object.assign(data.pages[0], { section: data.sections[0] });
-
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
       wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
@@ -77,7 +75,6 @@ suite("Page edit", () => {
       ],
       expectedValue: "./pages/start.js",
     });
-    //ig
     assertInputControlValue({
       wrapper,
       id: "page-title",

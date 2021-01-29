@@ -25,7 +25,7 @@
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
-    "smoke": "yarn workspace @xgovformbuilder/test",
+    "smoke-test": "yarn workspace @xgovformbuilder/test",
     "model": "yarn workspace @xgovformbuilder/model",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",

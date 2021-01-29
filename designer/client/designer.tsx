@@ -61,7 +61,7 @@ export default class Designer extends Component<Props, State> {
   };
 
   save = async (toUpdate, callback = () => {}) => {
-    const dataJson = await this.designerApi.save(this.id, toUpdate);
+    await this.designerApi.save(this.id, toUpdate);
     this.setState(
       { data: new Data(toUpdate), updatedAt: new Date().toLocaleTimeString() },
       callback()

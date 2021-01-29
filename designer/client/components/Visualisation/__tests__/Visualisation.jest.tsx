@@ -6,15 +6,21 @@ import { Data } from "@xgovformbuilder/model";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
+const history = createMemoryHistory();
+history.push("");
+
 const customRender = (ui, { providerProps, ...renderOptions }) => {
-  const history = createMemoryHistory();
-  history.push("");
-  return render(
+  const rendered = render(
     <Router history={history}>
       <DataContext.Provider value={providerProps}>{ui}</DataContext.Provider>
     </Router>,
     renderOptions
   );
+  return {
+    ...rendered,
+    rerender: (ui, options) =>
+      customRender(ui, { container: rendered.container, ...options }),
+  };
 };
 
 test("Graph is rendered with correct number of pages and updates ", async () => {
@@ -42,10 +48,17 @@ test("Graph is rendered with correct number of pages and updates ", async () => 
   expect(await findAllByText("my second page")).toBeTruthy();
   const thirdPage = await queryAllByText("my third page");
   expect(thirdPage.length).toBe(0);
-  data.addPage({
+  const cloned = data.clone();
+
+  cloned.addPage({
     title: "my third page",
     path: "/3",
   });
-  rerender();
-  await waitFor(() => queryAllByText("my third page"));
+
+  await rerender(
+    <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
+    { providerProps: { data: cloned, save: jest.fn() } }
+  );
+
+  await waitFor(() => expect(queryAllByText("my third page").length).toBe(2));
 });

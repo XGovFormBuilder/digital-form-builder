@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { LandingChoice, NewConfig, ChooseExisting } from "./pages/LandingPage";
 import "./styles/index.scss";
 import { initI18n } from "./i18n";
