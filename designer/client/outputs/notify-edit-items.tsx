@@ -23,8 +23,8 @@ class NotifyItems extends React.Component<Props, State> {
     };
   }
 
-  onClickAddItem = (_event: MouseEvent) => {
-    _event.preventDefault();
+  onClickAddItem = (e: MouseEvent) => {
+    e.preventDefault();
     this.setState((state) => ({
       items: [...state.items, ""],
     }));

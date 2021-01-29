@@ -1,6 +1,6 @@
 import pkg from "../../package.json";
 import config from "../config";
-import { newConfig, api } from "./routes";
+import { newConfig, api, app } from "./routes";
 
 export const designerPlugin = {
   plugin: {
@@ -20,55 +20,14 @@ export const designerPlugin = {
       });
 
       // This is old url , redirecting it to new
-      server.route({
-        method: "get",
-        path: "/new",
-        options: {
-          handler: async (_request, h) => {
-            return h.redirect("/app").code(301);
-          },
-        },
-      });
+      server.route(app.redirectNewToApp);
 
-      server.route({
-        method: "get",
-        path: "/app",
-        options: {
-          handler: async (request, h) => {
-            return h.view("designer", {
-              phase: config.phase,
-              previewUrl: config.previewUrl,
-              footerText: config.footerText,
-            });
-          },
-        },
-      });
+      server.route(app.getApp);
 
-      server.route({
-        method: "get",
-        path: "/app/{path*}",
-        options: {
-          handler: async (request, h) => {
-            return h.view("designer", {
-              phase: config.phase,
-              previewUrl: config.previewUrl,
-              footerText: config.footerText,
-            });
-          },
-        },
-      });
+      server.route(app.getAppChildRoutes);
 
       // This is old url , redirecting it to new
-      server.route({
-        method: "get",
-        path: "/{id}",
-        options: {
-          handler: async (_request, h) => {
-            const { id } = _request.params;
-            return h.redirect(`/app/designer/${id}`).code(301);
-          },
-        },
-      });
+      server.route(app.redirectOldUrlToDesigner);
 
       server.route(newConfig.registerNewFormWithRunner);
       server.route(api.getFormWithId);

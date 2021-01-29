@@ -23,7 +23,7 @@ function useConditionsEditor() {
     setShowAddCondition(false);
   }
   function cancelInlineCondition(e) {
-    if (e?.preventDefault) e.preventDefault();
+    e?.preventDefault?.();
     setEditingCondition(null);
     setShowAddCondition(false);
   }
