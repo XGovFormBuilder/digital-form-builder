@@ -9,7 +9,7 @@ import { initI18n } from "../i18n";
 describe("Duplicate button", () => {
   beforeEach(() => {
     initI18n();
-    sinon.reset();
+    sinon.restore();
   });
 
   test("should show duplicate if feature toggle is set to true", async () => {
