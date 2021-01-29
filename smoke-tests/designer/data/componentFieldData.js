@@ -30,4 +30,9 @@ module.exports = {
     name: "LocalList",
     hint: "An automated test for creating local lists",
   },
+  paragraph: {
+    content: `You need the vehicle’s number plate (registration number).\n
+          You can see the results as soon as the MOT centre has recorded the test result.\n
+          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`,
+  },
 };

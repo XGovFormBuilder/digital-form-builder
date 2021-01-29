@@ -22,5 +22,7 @@ When(/^I add a condition for the "([^"]*)"$/, function (componentName) {
 });
 
 Then(/^the condition is created$/, function () {
-  console.log(addCondition.getCondition().getText());
+  expect(addCondition.getCondition().getText().replace(/'/g, "")).toEqual(
+    `${this.operator} is after 2012-01-01`
+  );
 });

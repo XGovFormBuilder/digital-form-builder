@@ -222,9 +222,7 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   switch (componentName) {
     case "Paragraph":
       AddComponentPage.paragraphSetText(
-        `You need the vehicle’s number plate (registration number).\n
-          You can see the results as soon as the MOT centre has recorded the test result.\n
-          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
+        FieldData[componentName.toLowerCase()].content
       );
       AddComponentPage.saveBtn.click();
       break;
