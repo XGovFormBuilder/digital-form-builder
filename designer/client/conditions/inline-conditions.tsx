@@ -7,6 +7,7 @@ import InlineConditionsEdit from "./inline-conditions-edit";
 import helpers from "./inline-condition-helpers";
 import { DataContext } from "../context";
 import ErrorSummary, { ErrorListItem } from "../error-summary";
+import { i18n } from "../i18n";
 
 interface Props {
   path: string;
@@ -162,7 +163,7 @@ export class InlineConditions extends React.Component<Props, State> {
   validateName = () => {
     const nameError: ErrorListItem = {
       href: "#cond-name",
-      children: "Enter Name",
+      children: i18n("conditions.enterName"),
     };
     const { validationErrors } = this.state;
     const otherErrors = validationErrors.filter(
@@ -170,7 +171,6 @@ export class InlineConditions extends React.Component<Props, State> {
     );
 
     if (!this.state.conditions.name) {
-      console.log("XXXERROR");
       this.setState({
         validationErrors: [...otherErrors, nameError],
       });
@@ -190,9 +190,9 @@ export class InlineConditions extends React.Component<Props, State> {
       validationErrors,
     } = this.state;
     const hasConditions = conditions.hasConditions;
-    const hasNameError = !!validationErrors.filter(
+    const nameError = validationErrors.filter(
       (error) => error.href === "#cond-name"
-    ).length;
+    )[0];
     const hasErrors = !!validationErrors.length;
 
     return (
@@ -219,15 +219,23 @@ export class InlineConditions extends React.Component<Props, State> {
               {hasErrors && <ErrorSummary errorList={validationErrors} />}
               <div
                 className={classNames("govuk-form-group", {
-                  "govuk-form-group--error": hasNameError,
+                  "govuk-form-group--error": nameError,
                 })}
               >
                 <label className="govuk-label" htmlFor="cond-name">
                   Display name
                 </label>
+                {nameError && (
+                  <span className="govuk-error-message">
+                    <span className="govuk-visually-hidden">
+                      {i18n("error")}
+                    </span>{" "}
+                    {nameError?.children}
+                  </span>
+                )}
                 <input
                   className={classNames("govuk-input govuk-input--width-20", {
-                    "govuk-input--error": hasNameError,
+                    "govuk-input--error": nameError,
                   })}
                   id="cond-name"
                   name="cond-name"
