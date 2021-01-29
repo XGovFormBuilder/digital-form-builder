@@ -12,7 +12,6 @@ interface ErrorSummaryProps {
   descriptionChildren?: string;
   errorList: Array<ErrorListItem>;
   titleChildren?: string;
-  i18n: any;
 }
 
 export function ErrorSummary({
