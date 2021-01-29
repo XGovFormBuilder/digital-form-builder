@@ -22,7 +22,7 @@ export class PageEdit extends React.Component {
       path: page?.path ?? this.generatePath(page.title),
       controller: page?.controller ?? "",
       title: page?.title,
-      section: page?.section ?? {},
+      section: page?.section ?? "",
       isEditingSection: false,
       errors: {},
     };
@@ -171,18 +171,16 @@ export class PageEdit extends React.Component {
   };
 
   closeFlyout = (sectionName) => {
-    const propSection = this.state.section ?? this.props.page?.section ?? {};
+    const propSection = this.state.section ?? this.props.page?.section ?? "";
     this.setState({
       isEditingSection: false,
-      section: sectionName
-        ? this.findSectionWithName(sectionName)
-        : propSection,
+      section: sectionName,
     });
   };
 
   onChangeSection = (e) => {
     this.setState({
-      section: this.findSectionWithName(e.target.value),
+      section: e.target.value,
     });
   };
 
@@ -274,7 +272,7 @@ export class PageEdit extends React.Component {
                 className="govuk-select"
                 id="page-section"
                 name="section"
-                value={section?.name}
+                value={section}
                 onChange={this.onChangeSection}
               >
                 <option />
@@ -285,7 +283,7 @@ export class PageEdit extends React.Component {
                 ))}
               </select>
             )}
-            {section?.name && (
+            {section && (
               <a
                 href="#"
                 className="govuk-link govuk-!-display-block"
@@ -294,13 +292,15 @@ export class PageEdit extends React.Component {
                 {i18n("section.edit")}
               </a>
             )}
-            <a
-              href="#"
-              className="govuk-link govuk-!-display-block"
-              onClick={(e) => this.editSection(e, true)}
-            >
-              {i18n("section.create")}
-            </a>
+            {!section && (
+              <a
+                href="#"
+                className="govuk-link govuk-!-display-block"
+                onClick={(e) => this.editSection(e, true)}
+              >
+                {i18n("section.create")}
+              </a>
+            )}
           </div>
           <button className="govuk-button" type="submit">
             {i18n("save")}
@@ -332,7 +332,7 @@ export class PageEdit extends React.Component {
               show={isEditingSection}
             >
               <SectionEdit
-                section={isNewSection ? {} : section}
+                section={isNewSection ? {} : this.findSectionWithName(section)}
                 data={data}
                 closeFlyout={this.closeFlyout}
               />

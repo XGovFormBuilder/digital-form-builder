@@ -149,7 +149,7 @@ suite("Page edit", () => {
         { value: "badger", text: "Badger" },
         { value: "personalDetails", text: "Personal Details" },
       ],
-      expectedValue: undefined,
+      expectedValue: "",
     });
     const buttons = wrapper.find("button");
     expect(buttons.length).to.equal(3);
