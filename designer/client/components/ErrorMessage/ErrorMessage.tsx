@@ -1,9 +1,18 @@
 import React, { FunctionComponent } from "react";
+import classNames from "classnames";
 import { i18n } from "../../i18n";
 
-export const ErrorMessage: FunctionComponent = ({ children, ...props }) => {
+interface Props {
+  className?: "string";
+}
+
+export const ErrorMessage: FunctionComponent<Props> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
-    <span className="govuk-error-message" {...props}>
+    <span className={classNames("govuk-error-message", className)} {...props}>
       <span className="govuk-visually-hidden">{i18n("error")}</span> {children}
     </span>
   );

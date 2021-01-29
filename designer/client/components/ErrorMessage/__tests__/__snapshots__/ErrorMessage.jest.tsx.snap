@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorMessage component matches snapshot 1`] = `
+<DocumentFragment>
+  <span
+    class="govuk-error-message 123"
+  >
+    <span
+      class="govuk-visually-hidden"
+    />
+     Error 123
+  </span>
+</DocumentFragment>
+`;
