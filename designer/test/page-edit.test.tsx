@@ -16,14 +16,12 @@ import {
 } from "./helpers/sub-component-assertions";
 import { Input } from "@govuk-jsx/input";
 import { initI18n } from "../client/i18n";
-import { ToggleApi } from "../client/api/toggleApi";
-
 import { DataContext } from "../client/context";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, test, before, after } = lab;
+const { suite, test, before } = lab;
 
 const DataWrapper = ({
   dataValue = { data: {}, save: sinon.spy() },
@@ -37,13 +35,6 @@ const DataWrapper = ({
 suite("Page edit", () => {
   before(() => {
     initI18n();
-    sinon.stub(ToggleApi.prototype, "fetchToggles").callsFake(function () {
-      return { ff_featureDuplicatePage: "false" };
-    });
-  });
-
-  after(() => {
-    sinon.restore();
   });
 
   test("Renders a form with the appropriate initial inputs", () => {
@@ -110,7 +101,7 @@ suite("Page edit", () => {
     expect(buttons.at(0).text()).to.equal("Save");
     expect(buttons.at(1).text()).to.equal("Delete");
   });
-  //TODO: update test for conditional button
+
   test("Renders a form with the appropriate initial inputs when no section or controller selected", () => {
     const data = new Data({
       pages: [{ path: "/1", title: "My first page" }],
@@ -223,7 +214,7 @@ suite("Page edit", () => {
     });
   });
 
-  test("Changing the section causes the new section to be selected", (done) => {
+  test("Changing the section causes the new section to be selected", () => {
     const data = new Data({
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
