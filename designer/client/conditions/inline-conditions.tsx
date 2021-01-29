@@ -8,6 +8,7 @@ import helpers from "./inline-condition-helpers";
 import { DataContext } from "../context";
 import ErrorSummary, { ErrorListItem } from "../error-summary";
 import { i18n } from "../i18n";
+import { ErrorMessage } from "../components/ErrorMessage";
 
 interface Props {
   path: string;
@@ -226,12 +227,7 @@ export class InlineConditions extends React.Component<Props, State> {
                   Display name
                 </label>
                 {nameError && (
-                  <span className="govuk-error-message">
-                    <span className="govuk-visually-hidden">
-                      {i18n("error")}
-                    </span>{" "}
-                    {nameError?.children}
-                  </span>
+                  <ErrorMessage>{nameError?.children}</ErrorMessage>
                 )}
                 <input
                   className={classNames("govuk-input govuk-input--width-20", {
