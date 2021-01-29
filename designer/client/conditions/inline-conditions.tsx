@@ -1,17 +1,19 @@
 import React, { MouseEvent, ChangeEvent } from "react";
+import classNames from "classnames";
 import { ConditionsModel, clone } from "@xgovformbuilder/model";
+
 import InlineConditionsDefinition from "./InlineConditionsDefinition";
 import InlineConditionsEdit from "./inline-conditions-edit";
-
 import helpers from "./inline-condition-helpers";
 import { DataContext } from "../context";
+import ErrorSummary, { ErrorListItem } from "../error-summary";
 
 interface Props {
   path: string;
   condition?: any;
   data: any;
   cancelCallback?: (event: MouseEvent) => void;
-  conditionsChange?: (name: string) => void;
+  conditionsChange?: (event: MouseEvent) => void;
 }
 
 interface State {
@@ -19,6 +21,7 @@ interface State {
   conditions: ConditionsModel;
   fields: any;
   conditionString: any;
+  validationErrors: ErrorListItem[];
 }
 
 export class InlineConditions extends React.Component<Props, State> {
@@ -39,6 +42,7 @@ export class InlineConditions extends React.Component<Props, State> {
     }
 
     this.state = {
+      validationErrors: [],
       conditions: conditions,
       fields: this.fieldsForPath(path),
       conditionString:
@@ -98,10 +102,18 @@ export class InlineConditions extends React.Component<Props, State> {
     }
   };
 
-  onClickSave = async () => {
+  onClickSave = async (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     const { data, conditionsChange, condition } = this.props;
     const { save } = this.context;
     const { conditions } = this.state;
+
+    const nameError = this.validateName();
+
+    if (nameError) {
+      return;
+    }
+
     const copy = clone(data);
 
     if (condition) {
@@ -112,7 +124,7 @@ export class InlineConditions extends React.Component<Props, State> {
       );
       await save(updatedData);
       if (conditionsChange) {
-        conditionsChange(condition.name);
+        conditionsChange(event);
       }
     } else {
       const conditionResult = await helpers.storeConditionIfNecessary(
@@ -121,7 +133,7 @@ export class InlineConditions extends React.Component<Props, State> {
       );
       await save(conditionResult.data);
       if (conditionsChange) {
-        conditionsChange(conditionResult.condition);
+        conditionsChange(event);
       }
     }
   };
@@ -139,17 +151,51 @@ export class InlineConditions extends React.Component<Props, State> {
   };
 
   onChangeDisplayName = (e: ChangeEvent<HTMLInputElement>) => {
-    const input = e.target;
     const copy = clone(this.state.conditions);
-    copy.name = input.value;
+    copy.name = e.target.value;
     this.setState({
       conditions: copy,
     });
   };
 
+  validateName = () => {
+    const nameError: ErrorListItem = {
+      href: "#cond-name",
+      children: "Enter Name",
+    };
+    const { validationErrors } = this.state;
+    const otherErrors = validationErrors.filter(
+      (error) => error.href !== nameError.href
+    );
+
+    if (!this.state.conditions.name) {
+      console.log("XXXERROR");
+      this.setState({
+        validationErrors: [...otherErrors, nameError],
+      });
+
+      return true;
+    }
+
+    this.setState({ validationErrors: otherErrors });
+    return false;
+  };
+
   render() {
-    const { conditions, editView, conditionString } = this.state;
+    const {
+      conditions,
+      editView,
+      conditionString,
+      validationErrors,
+    } = this.state;
     const hasConditions = conditions.hasConditions;
+    const hasNameError = !!validationErrors.filter(
+      (error) => error.href === "#cond-name"
+    ).length;
+    const hasErrors = !!validationErrors.length;
+
+    console.log(conditions);
+    console.log(validationErrors);
 
     return (
       this.state.fields &&
@@ -172,12 +218,19 @@ export class InlineConditions extends React.Component<Props, State> {
               </div>
             )}
             <div>
-              <div className="govuk-form-group">
+              {hasErrors && <ErrorSummary errorList={validationErrors} />}
+              <div
+                className={classNames("govuk-form-group", {
+                  "govuk-form-group--error": hasNameError,
+                })}
+              >
                 <label className="govuk-label" htmlFor="cond-name">
                   Display name
                 </label>
                 <input
-                  className="govuk-input govuk-input--width-20"
+                  className={classNames("govuk-input govuk-input--width-20", {
+                    "govuk-input--error": hasNameError,
+                  })}
                   id="cond-name"
                   name="cond-name"
                   type="text"
