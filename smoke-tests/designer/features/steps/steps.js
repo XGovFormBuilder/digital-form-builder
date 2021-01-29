@@ -216,22 +216,7 @@ Then("the list is selected in the list dropdown", function () {
 
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
-  FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  expect(AddComponentPage.backToComponentList).toBeDisplayed();
-  switch (componentName) {
-    case "Paragraph":
-      AddComponentPage.paragraphSetText(
-        FieldData[componentName.toLowerCase()].content
-      );
-      AddComponentPage.saveBtn.click();
-      break;
-    default:
-      AddComponentPage.completeCommonFields(
-        FieldData[toCamelCase(componentName)]
-      );
-      break;
-  }
+  Actions.createComponentForPage(componentName, pageName);
 });
 
 Then("the Date field control is displayed in the page", () => {
