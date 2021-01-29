@@ -1,6 +1,6 @@
 import pkg from "../../package.json";
 import config from "../config";
-import { newConfig, api } from "./routes";
+import { newConfig, api, app } from "./routes";
 
 export const designerPlugin = {
   plugin: {
@@ -19,19 +19,15 @@ export const designerPlugin = {
         },
       });
 
-      server.route({
-        method: "get",
-        path: "/app",
-        options: {
-          handler: async (request, h) => {
-            return h.view("designer", {
-              phase: config.phase,
-              previewUrl: config.previewUrl,
-              footerText: config.footerText,
-            });
-          },
-        },
-      });
+      // This is old url , redirecting it to new
+      server.route(app.redirectNewToApp);
+
+      server.route(app.getApp);
+
+      server.route(app.getAppChildRoutes);
+
+      // This is old url , redirecting it to new
+      server.route(app.redirectOldUrlToDesigner);
 
       server.route(newConfig.registerNewFormWithRunner);
       server.route(api.getFormWithId);

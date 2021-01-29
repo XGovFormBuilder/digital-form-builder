@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { LandingChoice, NewConfig, ChooseExisting } from "./pages/LandingPage";
 import "./styles/index.scss";
 import { initI18n } from "./i18n";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Designer from "./designer";
 
 initI18n();
@@ -15,7 +15,7 @@ function NoMatch() {
 export class App extends React.Component {
   render() {
     return (
-      <Router>
+      <Router basename="/app">
         <div id="app">
           <Switch>
             <Route path="/designer/:id" component={Designer} />

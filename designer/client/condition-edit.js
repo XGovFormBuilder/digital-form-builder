@@ -90,7 +90,10 @@ class ConditionEdit extends React.Component {
         <a
           className="govuk-back-link"
           href="#"
-          onClick={(e) => this.props.onCancel(e)}
+          onClick={(e) => {
+            e.preventDefault();
+            this.props.onCancel(e);
+          }}
         >
           Back
         </a>

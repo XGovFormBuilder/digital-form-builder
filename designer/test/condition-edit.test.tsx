@@ -145,7 +145,7 @@ suite("Condition edit", () => {
   });
 
   test("Cancelling the form calls the onCancel callback", async (flags) => {
-    const event = { target: {} };
+    const event = { target: {}, preventDefault: sinon.spy() };
     const onCancel = (e) => {
       expect(e).to.equal(event);
     };
