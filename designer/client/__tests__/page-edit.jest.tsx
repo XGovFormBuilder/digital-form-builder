@@ -24,7 +24,7 @@ describe("Duplicate button", () => {
     });
 
     sinon.stub(ToggleApi.prototype, "fetchToggles").callsFake(function () {
-      return { ff_featureDuplicatePage: "true" };
+      return { featureEditPageDuplicateButton: true };
     });
 
     let { findAllByText } = render(
@@ -48,7 +48,7 @@ describe("Duplicate button", () => {
     });
 
     sinon.stub(ToggleApi.prototype, "fetchToggles").callsFake(function () {
-      return { ff_featureDuplicatePage: "yes" };
+      return { featureEditPageDuplicateButton: "true" };
     });
 
     let { findAllByText, queryAllByText } = render(

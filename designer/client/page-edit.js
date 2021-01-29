@@ -35,7 +35,7 @@ export class PageEdit extends React.Component {
     const result = await new ToggleApi().fetchToggles();
 
     this.setState({
-      toggle: result["ff_featureDuplicatePage"] == "true" || false,
+      toggle: result["featureEditPageDuplicateButton"] == true,
     });
   }
 

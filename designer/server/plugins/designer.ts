@@ -1,6 +1,7 @@
 import pkg from "../../package.json";
 import config from "../config";
 import { newConfig, api, app } from "./routes";
+import { envStore, flagg } from "flagg";
 
 export const designerPlugin = {
   plugin: {
@@ -34,15 +35,16 @@ export const designerPlugin = {
         path: "/feature-toggles",
         options: {
           handler: async (request, h) => {
-            let environmentVariables = process.env;
-
-            Object.keys(process.env).forEach(function (key) {
-              if (key.substring(0, 2) != "ff") {
-                delete environmentVariables[key];
-              }
+            const featureFlags = flagg({
+              store: envStore(process.env),
+              definitions: {
+                featureEditPageDuplicateButton: { default: false },
+              },
             });
 
-            return h.response(JSON.stringify(environmentVariables)).code(200);
+            return h
+              .response(JSON.stringify(featureFlags.getAllResolved()))
+              .code(200);
           },
         },
       });
