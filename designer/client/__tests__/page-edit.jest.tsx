@@ -32,7 +32,7 @@ describe("Duplicate button", () => {
     sinon.restore();
   });
 
-  test("should show duplicate if feature toggle is set to true", async () => {
+  test("should show duplicate if feature showDuplicateButton is set to true", async () => {
     const data = new Data({
       pages: [{ path: "/1", section: "badger", title: "My first page" }],
       sections: [
@@ -61,7 +61,7 @@ describe("Duplicate button", () => {
     expect(await findAllByText("Duplicate")).toBeTruthy();
   });
 
-  test("should not show duplicate if feature toggle is not set to true", async () => {
+  test("should not show duplicate if feature showDuplicateButton is not set to true", async () => {
     const data = new Data({
       pages: [{ path: "/1", section: "badger", title: "My first page" }],
       sections: [

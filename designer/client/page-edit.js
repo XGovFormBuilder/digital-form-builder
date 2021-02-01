@@ -26,16 +26,16 @@ export class PageEdit extends React.Component {
       section: page?.section ?? "",
       isEditingSection: false,
       errors: {},
-      toggle: false,
+      showDuplicateButton: false,
     };
     this.formEditSection = React.createRef();
   }
 
   async componentDidMount() {
-    const result = await new ToggleApi().fetchToggles();
+    const featureFlags = await new ToggleApi().fetchToggles();
 
     this.setState({
-      toggle: result["featureEditPageDuplicateButton"] == true,
+      showDuplicateButton: featureFlags["featureEditPageDuplicateButton"] == true,
     });
   }
 
@@ -212,7 +212,7 @@ export class PageEdit extends React.Component {
       isEditingSection,
       isNewSection,
       errors,
-      toggle,
+      showDuplicateButton,
     } = this.state;
 
     return (
@@ -316,7 +316,7 @@ export class PageEdit extends React.Component {
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
-          {toggle && (
+          {showDuplicateButton && (
             <button
               className="govuk-button"
               type="button"

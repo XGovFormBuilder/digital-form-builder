@@ -13,7 +13,7 @@ suite("Toggle API", () => {
     restoreWindowMethods();
   });
 
-  test("Should fetch toggle", async () => {
+  test("Should fetch feature toggles", async () => {
     const toggle = [{ ff_somevalue: "false" }];
     stubFetchJson(200, toggle);
 
@@ -25,7 +25,7 @@ suite("Toggle API", () => {
     expect(result).to.equal(result);
   });
 
-  test("Toggle should return nothing on server error", async () => {
+  test("Should return nothing on server error", async () => {
     stubFetchJson(500, "Some error happened");
 
     const result = await new ToggleApi().fetchToggles();
