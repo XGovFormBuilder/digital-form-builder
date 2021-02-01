@@ -1,16 +1,12 @@
-import React, { FunctionComponent } from "react";
+import React, { FC } from "react";
 import classNames from "classnames";
 import { i18n } from "../../i18n";
 
 interface Props {
-  className?: "string";
+  className?: string;
 }
 
-export const ErrorMessage: FunctionComponent<Props> = ({
-  children,
-  className,
-  ...props
-}) => {
+export const ErrorMessage: FC<Props> = ({ children, className, ...props }) => {
   return (
     <span className={classNames("govuk-error-message", className)} {...props}>
       <span className="govuk-visually-hidden">{i18n("error")}</span> {children}
