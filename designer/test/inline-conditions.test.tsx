@@ -208,6 +208,11 @@ suite("Inline conditions", () => {
         />,
         { wrappingComponent: DataWrapper }
       );
+
+      wrapper
+        .instance()
+        .onChangeDisplayName({ target: { value: "ConditionName" } });
+
       wrapper.instance().saveCondition(
         new Condition(
           ConditionField.from({
@@ -219,6 +224,7 @@ suite("Inline conditions", () => {
           new ConditionValue("N")
         )
       );
+
       expect(conditionsChange.called).to.equal(false);
 
       const clonedData = sinon.spy();
@@ -235,7 +241,7 @@ suite("Inline conditions", () => {
       await wrapper.instance().onClickSave();
       expect(save.calledOnce).to.equal(true);
       expect(save.firstCall.args[0]).to.equal(updatedData);
-      expect(conditionsChange.calledOnceWith(selectedCondition)).to.equal(true);
+      expect(conditionsChange.calledOnce).to.equal(true);
     });
 
     test("Clicking the cancel link should cancel any added conditions and partially completed inputs and trigger the cancel callback", () => {
@@ -541,6 +547,11 @@ suite("Inline conditions", () => {
           />,
           { wrappingComponent: DataWrapper }
         );
+
+        wrapper
+          .instance()
+          .onChangeDisplayName({ target: { value: "ConditionName" } });
+
         expect(conditionsChange.called).to.equal(false);
 
         const clonedData = sinon.spy();
@@ -601,9 +612,7 @@ suite("Inline conditions", () => {
 
         expect(save.callCount).to.equal(1);
         expect(save.firstCall.args[0]).to.equal(updatedData);
-        expect(conditionsChange.calledOnceWith(conditionModel.name)).to.equal(
-          true
-        );
+        expect(conditionsChange.calledOnce).to.equal(true);
       });
     });
   });

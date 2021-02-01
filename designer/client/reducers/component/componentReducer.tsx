@@ -63,7 +63,6 @@ export function componentReducer(
 ) {
   const { type } = action;
   const { selectedComponent } = state;
-  console.info(type);
 
   if (isNotValidate(type)) {
     state.hasValidated = false;
@@ -108,7 +107,7 @@ export const ComponentContextProvider = (props) => {
     componentReducer,
     initComponentState(rest)
   );
-  console.info(state);
+
   return (
     <ComponentContext.Provider value={{ state, dispatch }}>
       {children}

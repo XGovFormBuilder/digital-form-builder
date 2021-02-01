@@ -4,6 +4,7 @@ import { Actions } from "../../reducers/component/types";
 import { Input } from "@govuk-jsx/input";
 import { withI18n } from "../../i18n";
 import classNames from "classnames";
+import { ErrorMessage } from "../ErrorMessage";
 
 type Props = {
   context: any; // TODO
@@ -54,10 +55,7 @@ function DetailsEdit({ i18n, context = ComponentContext }: Props) {
           styles.
         </span>
         {errors?.content && (
-          <span className="govuk-error-message">
-            <span className="govuk-visually-hidden">{i18n("error")}</span>{" "}
-            {i18n(...errors.content.children)}
-          </span>
+          <ErrorMessage>{i18n(...errors.content.children)}</ErrorMessage>
         )}
         <textarea
           className="govuk-textarea"
