@@ -234,6 +234,12 @@ main {
   background-color: $color-orange;
 }
 
+.dragging-on-modal {
+  z-index: 1000;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+  background-color: $color-orange;
+}
+
 .govuk-table__row {
   .list-item-delete {
     cursor: pointer;
@@ -246,6 +252,7 @@ main {
   }
 
   &:hover {
+
     .list-item-delete {
       visibility: visible;
     }

@@ -94,8 +94,12 @@ function ListItems() {
     save(prepareForDelete(copy, index));
   }
 
-  //TODO:- reimplement drag sorting
-  const onSortEnd = () => {};
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    const payload = { oldIndex, newIndex };
+    if (!isEditingStatic) {
+      dispatch({ type: ListActions.SORT_LIST_ITEM, payload });
+    }
+  };
 
   return (
     <div>
@@ -113,7 +117,8 @@ function ListItems() {
           selectListItem={selectListItem}
           removeItem={removeItem}
           onSortEnd={onSortEnd}
-          helperClass="dragging"
+          helperClass="dragging-on-modal"
+          hideSortableGhost={false}
           lockToContainerEdges
           useDragHandle
         />

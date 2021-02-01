@@ -21,4 +21,5 @@ export enum ListActions {
 
   SUBMIT = "SUBMIT",
   DESELECT_LIST_ITEM = "DESELECT_LIST_ITEM",
+  SORT_LIST_ITEM = "SORT_LIST_ITEM",
 }

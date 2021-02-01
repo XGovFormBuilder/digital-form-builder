@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import React, { createContext, useContext, useReducer } from "react";
 import { DataContext } from "../context";
 import { ListActions } from "./listActions";
+import { arrayMove } from "../helpers";
 
 export interface ListState {
   selectedList?: any; // TODO:- type
@@ -119,6 +120,21 @@ export function listReducer(
       return {
         ...state,
         selectedItem: { ...selectedItem, condition: payload },
+      };
+    }
+
+    case ListActions.SORT_LIST_ITEM: {
+      const changedItems = arrayMove(
+        selectedList.items,
+        payload.oldIndex,
+        payload.newIndex
+      );
+      return {
+        ...state,
+        selectedList: {
+          ...selectedList,
+          items: changedItems,
+        },
       };
     }
 
