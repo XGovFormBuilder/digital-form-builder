@@ -17,174 +17,6 @@ class InlineConditionsEdit extends React.Component {
     };
   }
 
-  render() {
-    const {
-      conditions,
-      condition,
-      editingIndex,
-      editingError,
-      selectedConditions,
-    } = this.state;
-
-    return (
-      <div id="edit-conditions">
-        {!editingIndex && editingIndex !== 0 && (
-          <fieldset className="govuk-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
-              Amend conditions
-            </legend>
-            {editingError && (
-              <span id="conditions-error" className="govuk-error-message">
-                <span className="govuk-visually-hidden">Error:</span>{" "}
-                {editingError}
-              </span>
-            )}
-            <div id="editing-checkboxes" className="govuk-checkboxes">
-              {conditions.asPerUserGroupings.map((condition, index) => {
-                return (
-                  <div
-                    key={`condition-checkbox-${index}`}
-                    className="govuk-checkboxes__item"
-                    style={{ display: "flex" }}
-                  >
-                    <input
-                      type="checkbox"
-                      className="govuk-checkboxes__input"
-                      id={`condition-${index}`}
-                      name={`condition-${index}`}
-                      value={index}
-                      onChange={this.onChangeCheckbox}
-                      checked={selectedConditions?.includes(index) || ""}
-                    />
-                    <label
-                      className="govuk-label govuk-checkboxes__label"
-                      htmlFor={`condition-${index}`}
-                    >
-                      {toPresentationString(condition)}
-                    </label>
-                    <span
-                      id={`condition-${index}-actions`}
-                      style={{ display: "inline-flex", flexGrow: 1 }}
-                    >
-                      {condition.isGroup() && (
-                        <span style={{ flexGrow: 1 }}>
-                          <a
-                            href="#"
-                            id={`condition-${index}-split`}
-                            className="govuk-link"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              this.onClickSplit(index);
-                            }}
-                          >
-                            Split
-                          </a>
-                        </span>
-                      )}
-                      {!condition.isGroup() && (
-                        <span style={{ flexGrow: 1 }}>
-                          <a
-                            href="#"
-                            id={`condition-${index}-edit`}
-                            className="govuk-link"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              this.onClickEdit(index);
-                            }}
-                          >
-                            <EditIcon bottom={true} />
-                          </a>
-                        </span>
-                      )}
-                      {index > 0 && (
-                        <span>
-                          <a
-                            href="#"
-                            id={`condition-${index}-move-earlier`}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              this.onClickMove(
-                                index,
-                                this.state.conditions.moveEarlier
-                              );
-                            }}
-                          >
-                            <MoveUpIcon />
-                          </a>
-                        </span>
-                      )}
-                      {index < conditions.lastIndex && (
-                        <span>
-                          <a
-                            href="#"
-                            id={`condition-${index}-move-later`}
-                            className="govuk-link"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              this.onClickMove(
-                                index,
-                                this.state.conditions.moveLater
-                              );
-                            }}
-                          >
-                            <MoveDownIcon />
-                          </a>
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="govuk-form-group" id="group-and-remove">
-              {selectedConditions?.length > 1 && (
-                <span>
-                  <a
-                    href="#"
-                    id="group-conditions"
-                    className="govuk-link"
-                    onClick={this.onClickGroup}
-                  >
-                    Group
-                  </a>{" "}
-                  /
-                </span>
-              )}
-              {selectedConditions?.length > 0 && (
-                <a
-                  href="#"
-                  id="remove-conditions"
-                  className="govuk-link"
-                  onClick={this.onClickRemove}
-                >
-                  Remove
-                </a>
-              )}
-            </div>
-          </fieldset>
-        )}
-        {editingIndex >= 0 && (
-          <InlineConditionsDefinition
-            expectsCoordinator={editingIndex > 0}
-            fields={this.props.fields}
-            condition={condition}
-            saveCallback={this.saveCondition}
-          />
-        )}
-        <div className="govuk-form-group">
-          <a
-            href="#"
-            id="cancel-edit-inline-conditions-link"
-            className="govuk-link"
-            onClick={this.onClickCancelEditView}
-          >
-            Finished editing
-          </a>
-        </div>
-      </div>
-    );
-  }
-
   onChangeCheckbox = (e) => {
     let copy = clone(this.state.selectedConditions ?? []);
     const index = Number(e.target.value);
@@ -301,12 +133,25 @@ class InlineConditionsEdit extends React.Component {
     }
   }
 
-  onClickMove(index, moveFunction) {
+  moveConditionEarlier = (event) => {
+    event.preventDefault();
+    const index = event.currentTarget.dataset.index;
+    const conditions = this.state.conditions.moveEarlier(index);
     this.setState({
-      conditions: moveFunction(index),
+      conditions,
       selectedConditions: [],
     });
-  }
+  };
+
+  moveConditionLater = (event) => {
+    event.preventDefault();
+    const index = event.currentTarget.dataset.index;
+    const conditions = this.state.conditions.moveLater(index);
+    this.setState({
+      conditions,
+      selectedConditions: [],
+    });
+  };
 
   setState(state, callback) {
     if (state.conditions) {
@@ -325,6 +170,164 @@ class InlineConditionsEdit extends React.Component {
       editingIndex: undefined,
     });
   };
+
+  render() {
+    const {
+      conditions,
+      condition,
+      editingIndex,
+      editingError,
+      selectedConditions,
+    } = this.state;
+
+    return (
+      <div id="edit-conditions">
+        {!editingIndex && editingIndex !== 0 && (
+          <fieldset className="govuk-fieldset">
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--l">
+              Amend conditions
+            </legend>
+            {editingError && (
+              <span id="conditions-error" className="govuk-error-message">
+                <span className="govuk-visually-hidden">Error:</span>{" "}
+                {editingError}
+              </span>
+            )}
+            <div id="editing-checkboxes" className="govuk-checkboxes">
+              {conditions.asPerUserGroupings.map((condition, index) => {
+                return (
+                  <div
+                    key={`condition-checkbox-${index}`}
+                    className="govuk-checkboxes__item"
+                    style={{ display: "flex" }}
+                  >
+                    <input
+                      type="checkbox"
+                      className="govuk-checkboxes__input"
+                      id={`condition-${index}`}
+                      name={`condition-${index}`}
+                      value={index}
+                      onChange={this.onChangeCheckbox}
+                      checked={selectedConditions?.includes(index) || ""}
+                    />
+                    <label
+                      className="govuk-label govuk-checkboxes__label"
+                      htmlFor={`condition-${index}`}
+                    >
+                      {toPresentationString(condition)}
+                    </label>
+                    <span
+                      id={`condition-${index}-actions`}
+                      style={{ display: "inline-flex", flexGrow: 1 }}
+                    >
+                      {condition.isGroup() && (
+                        <span style={{ flexGrow: 1 }}>
+                          <a
+                            href="#"
+                            id={`condition-${index}-split`}
+                            className="govuk-link"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              this.onClickSplit(index);
+                            }}
+                          >
+                            Split
+                          </a>
+                        </span>
+                      )}
+                      {!condition.isGroup() && (
+                        <span style={{ flexGrow: 1 }}>
+                          <a
+                            href="#"
+                            id={`condition-${index}-edit`}
+                            className="govuk-link"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              this.onClickEdit(index);
+                            }}
+                          >
+                            <EditIcon bottom={true} />
+                          </a>
+                        </span>
+                      )}
+                      {index > 0 && (
+                        <span>
+                          <a
+                            href="#"
+                            id={`condition-${index}-move-earlier`}
+                            data-index={index}
+                            onClick={this.moveConditionEarlier}
+                          >
+                            <MoveUpIcon />
+                          </a>
+                        </span>
+                      )}
+                      {index < conditions.lastIndex && (
+                        <span>
+                          <a
+                            href="#"
+                            className="govuk-link"
+                            id={`condition-${index}-move-later`}
+                            data-index={index}
+                            onClick={this.moveConditionLater}
+                          >
+                            <MoveDownIcon />
+                          </a>
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="govuk-form-group" id="group-and-remove">
+              {selectedConditions?.length > 1 && (
+                <span>
+                  <a
+                    href="#"
+                    id="group-conditions"
+                    className="govuk-link"
+                    onClick={this.onClickGroup}
+                  >
+                    Group
+                  </a>{" "}
+                  /
+                </span>
+              )}
+              {selectedConditions?.length > 0 && (
+                <a
+                  href="#"
+                  id="remove-conditions"
+                  className="govuk-link"
+                  onClick={this.onClickRemove}
+                >
+                  Remove
+                </a>
+              )}
+            </div>
+          </fieldset>
+        )}
+        {editingIndex >= 0 && (
+          <InlineConditionsDefinition
+            expectsCoordinator={editingIndex > 0}
+            fields={this.props.fields}
+            condition={condition}
+            saveCallback={this.saveCondition}
+          />
+        )}
+        <div className="govuk-form-group">
+          <a
+            href="#"
+            id="cancel-edit-inline-conditions-link"
+            className="govuk-link"
+            onClick={this.onClickCancelEditView}
+          >
+            Finished editing
+          </a>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default InlineConditionsEdit;
