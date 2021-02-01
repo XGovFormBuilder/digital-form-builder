@@ -54,16 +54,19 @@ export function listReducer(
 
       return { ...state };
 
-    case ListActions.ADD_NEW_LIST:
+    case ListActions.ADD_NEW_LIST: {
+      const listId = nanoid(6);
       return {
         selectedList: {
           title: "",
-          name: nanoid(6),
+          name: listId,
           type: "string",
           items: [],
           isNew: true,
         },
+        initialName: listId,
       };
+    }
 
     case ListActions.SET_SELECTED_LIST:
       return {

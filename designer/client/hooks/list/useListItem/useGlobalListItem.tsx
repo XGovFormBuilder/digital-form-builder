@@ -75,11 +75,10 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     if (selectedList.isNew) {
       delete selectedList.isNew;
       copy.addList(selectedList);
+    } else {
+      const list = copy.lists[indexOfList];
+      copy.lists[indexOfList] = { ...list, items };
     }
-
-    const list = copy.lists[indexOfList];
-    copy.lists[indexOfList] = { ...list, items };
-
     return copy;
   }
 
