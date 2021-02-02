@@ -1,5 +1,5 @@
-export class ToggleApi {
-  async fetchToggles() {
+export class FeatureToggleApi {
+  async fetch() {
     try {
       const response = await window.fetch("/feature-toggles");
       return response.json();
@@ -9,3 +9,5 @@ export class ToggleApi {
     }
   }
 }
+
+export default FeatureToggleApi;

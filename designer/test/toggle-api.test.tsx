@@ -1,7 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { stubFetchJson, restoreWindowMethods } from "./helpers/window-stubbing";
-import { ToggleApi } from "../client/api/toggleApi";
+import { FeatureToggleApi } from "../client/api/toggleApi";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -17,7 +17,7 @@ suite("Toggle API", () => {
     const toggle = [{ ff_somevalue: "false" }];
     stubFetchJson(200, toggle);
 
-    const result = await new ToggleApi().fetchToggles();
+    const result = await new FeatureToggleApi().fetch();
 
     expect(window.fetch.callCount).to.equal(1);
     expect(window.fetch.firstCall.args[0]).to.equal("/feature-toggles");
@@ -28,7 +28,7 @@ suite("Toggle API", () => {
   test("Should return nothing on server error", async () => {
     stubFetchJson(500, "Some error happened");
 
-    const result = await new ToggleApi().fetchToggles();
+    const result = await new FeatureToggleApi().fetch();
 
     expect(window.fetch.callCount).to.equal(1);
     expect(window.fetch.firstCall.args[0]).to.equal("/feature-toggles");
