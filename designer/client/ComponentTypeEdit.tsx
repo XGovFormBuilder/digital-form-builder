@@ -12,24 +12,27 @@ import { ParaEdit } from "./components/FieldEditors/para-edit";
 import DetailsEdit from "./components/FieldEditors/details-edit";
 
 const componentTypeEditors = {
-  TextFieldEdit: TextFieldEdit,
-  EmailAddressFieldEdit: TextFieldEdit,
-  TelephoneNumberFieldEdit: TextFieldEdit,
-  NumberFieldEdit: NumberFieldEdit,
-  MultilineTextFieldEdit: MultilineTextFieldEdit,
-  AutocompleteFieldEdit: ListFieldEdit,
-  SelectFieldEdit: ListFieldEdit,
-  RadiosFieldEdit: ListFieldEdit,
-  CheckboxesFieldEdit: ListFieldEdit,
-  ParaEdit: ParaEdit,
-  HtmlEdit: ParaEdit,
-  InsetTextEdit: ParaEdit,
-  WarningTextEdit: ParaEdit,
-  DetailsEdit: DetailsEdit,
-  FlashCardEdit: ListFieldEdit,
-  FileUploadFieldEdit,
-  DatePartsFieldEdit: DateFieldEdit,
-  ListEdit: ListFieldEdit,
+  TextField: TextFieldEdit,
+  EmailAddressField: TextFieldEdit,
+  TelephoneNumberField: TextFieldEdit,
+  MultilineTextField: MultilineTextFieldEdit,
+  NumberField: NumberFieldEdit,
+  AutocompleteField: ListFieldEdit,
+  SelectField: ListFieldEdit,
+  RadiosField: ListFieldEdit,
+  CheckboxesField: ListFieldEdit,
+  FlashCard: ListFieldEdit,
+  List: ListFieldEdit,
+  Details: DetailsEdit,
+  Para: ParaEdit,
+  Html: ParaEdit,
+  InsetText: ParaEdit,
+  WarningText: ParaEdit,
+  FileUploadField: FileUploadFieldEdit,
+  DatePartsField: DateFieldEdit,
+  DateTimeField: DateFieldEdit,
+  DateTimePartsField: DateFieldEdit,
+  DateField: DateFieldEdit,
 };
 
 function ComponentTypeEdit(props) {
@@ -42,13 +45,14 @@ function ComponentTypeEdit(props) {
 
   const needsFieldInputs =
     type?.subType !== "content" || ["FlashCard", "List"].includes(type?.name);
-  const TagName =
-    componentTypeEditors[`${selectedComponent?.type}Edit`] || FieldEdit;
+
+  const TagName = componentTypeEditors[type?.name ?? ""];
+
   return (
-    <>
+    <div>
       {needsFieldInputs && <FieldEdit page={page} />}
-      {type && <TagName page={page} />}
-    </>
+      {TagName && <TagName page={page} />}
+    </div>
   );
 }
 
