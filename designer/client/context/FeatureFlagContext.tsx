@@ -1,14 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
 import { FeatureToggleApi } from "../api/toggleApi";
 
-export const FEATURE_EDIT_PAGE_DUPLICATE_BUTTON =
-  "featureEditPageDuplicateButton";
-
-export interface FeaturesInterface {
-  [FEATURE_EDIT_PAGE_DUPLICATE_BUTTON]?: boolean;
+export enum FeatureFlags {
+  FEATURE_EDIT_PAGE_DUPLICATE_BUTTON = "featureEditPageDuplicateButton",
 }
 
-const initialState: FeaturesInterface = {};
+export interface FlagState {
+  [FeatureFlags.FEATURE_EDIT_PAGE_DUPLICATE_BUTTON]?: string;
+}
+
+const initialState: FlagState = {};
 export const FeatureFlagContext = createContext(initialState);
 
 export const FeatureFlagProvider = ({ children }) => {

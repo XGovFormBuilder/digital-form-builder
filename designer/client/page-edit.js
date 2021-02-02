@@ -13,7 +13,7 @@ import { validateTitle, hasValidationErrors } from "./validations";
 import { DataContext } from "./context";
 
 import FeatureToggle from "./FeatureToggle";
-import { FEATURE_EDIT_PAGE_DUPLICATE_BUTTON } from "./context/FeatureFlagContext";
+import { FeatureFlags } from "./context/FeatureFlagContext";
 
 export class PageEdit extends React.Component {
   static contextType = DataContext;
@@ -308,7 +308,9 @@ export class PageEdit extends React.Component {
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
-          <FeatureToggle feature={FEATURE_EDIT_PAGE_DUPLICATE_BUTTON}>
+          <FeatureToggle
+            feature={FeatureFlags.FEATURE_EDIT_PAGE_DUPLICATE_BUTTON}
+          >
             <button
               className="govuk-button"
               type="button"
