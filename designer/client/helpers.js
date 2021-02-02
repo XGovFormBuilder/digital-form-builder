@@ -72,3 +72,9 @@ export function camelCase(str) {
 export function isEmpty(str) {
   return !str || str.trim().length < 1;
 }
+
+export function arrayMove(arr, from, to) {
+  const elm = arr.splice(from, 1)[0];
+  arr.splice(to, 0, elm);
+  return arr;
+}

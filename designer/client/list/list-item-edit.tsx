@@ -24,7 +24,6 @@ export function ListItemEdit() {
     handleValueChange,
     handleHintChange,
     prepareForSubmit,
-    prepareForDelete,
     validate,
     value,
     condition,
@@ -40,13 +39,6 @@ export function ListItemEdit() {
     const hasErrors = validate(i18n);
     if (hasErrors) return;
     await save(prepareForSubmit(copy));
-    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST_ITEM, false]);
-  };
-
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    const copy = clone(data);
-    await save(prepareForDelete(copy));
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST_ITEM, false]);
   };
 
@@ -103,13 +95,6 @@ export function ListItemEdit() {
           <button className="govuk-button" type="submit" onClick={handleSubmit}>
             Save
           </button>
-          <a
-            href="#"
-            onClick={handleDelete}
-            className="govuk-link govuk-!-margin-left-2 govuk-link--v-centre"
-          >
-            Delete
-          </a>
         </div>
       </form>
     </>

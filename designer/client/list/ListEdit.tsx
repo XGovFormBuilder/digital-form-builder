@@ -52,8 +52,10 @@ function useListEdit() {
   const { showWarning, isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
+  const handleDelete = (isNewList) => {
+    if (isNewList) {
+      listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, false]);
+    }
     if (!showWarning) {
       listsEditorDispatch([ListsEditorStateActions.SHOW_WARNING, true]);
       return;
@@ -162,7 +164,10 @@ export function ListEdit() {
             <a
               href="#"
               className="govuk-link govuk-link--v-centre govuk-!-margin-left-2"
-              onClick={handleDelete}
+              onClick={(e) => {
+                e.preventDefault();
+                handleDelete(selectedList.isNew);
+              }}
             >
               {i18n("delete")}
             </a>
