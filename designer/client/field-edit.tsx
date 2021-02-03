@@ -5,6 +5,7 @@ import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
 import { Input } from "@govuk-jsx/input";
 import { i18n } from "./i18n";
+import { ErrorMessage } from "./components/ErrorMessage";
 
 export function FieldEdit() {
   const { state, dispatch } = useContext(ComponentContext);
@@ -93,10 +94,7 @@ export function FieldEdit() {
             {i18n("component.name")}
           </label>
           {errors?.name && (
-            <span className="govuk-error-message">
-              <span className="govuk-visually-hidden">{i18n("error")}</span>{" "}
-              {i18n("name.errors.whitespace")}
-            </span>
+            <ErrorMessage>{i18n("name.errors.whitespace")}</ErrorMessage>
           )}
           <span className="govuk-hint">{i18n("name.hint")}</span>
           <input

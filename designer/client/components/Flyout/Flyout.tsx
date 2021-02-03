@@ -22,7 +22,7 @@ export function useFlyoutEffect(props = {}) {
   }, []);
 
   useLayoutEffect(() => {
-    setOffset(flyoutContext.flyoutCount);
+    setOffset(flyoutContext.count);
   }, []);
 
   useLayoutEffect(() => {

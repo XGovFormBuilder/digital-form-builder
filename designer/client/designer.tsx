@@ -34,57 +34,20 @@ const nanoid = customAlphabet(
 );
 
 export default class Designer extends Component<Props, State> {
-  state = { loading: true };
+  state = { loading: true, flyoutCount: 0 };
 
   designerApi = new DesignerApi();
-
-  save = (updatedData) => {
-    return window
-      .fetch(`/api/${this.state.id}/data`, {
-        method: "put",
-        body: JSON.stringify(updatedData),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-
-        return res.ok;
-      })
-      .catch((error) => {
-        // Not connected to preview environment
-        console.error(error);
-        return false;
-      })
-      .finally(() => {
-        this.setFunctions(updatedData);
-        this.setState({
-          data: updatedData,
-          updatedAt: new Date().toLocaleTimeString(),
-        });
-        return updatedData;
-      });
-  };
 
   getId = () => {
     return nanoid();
   };
 
-  setFunctions = (data) => {
-    data.save = this.save;
-    data.getId = this.getId;
-  };
+  get id() {
+    return this.props.match?.params?.id;
+  }
 
   updateDownloadedAt = (time) => {
     this.setState({ downloadedAt: time });
-  };
-
-  setStateId = (id) => {
-    this.setState({ id });
   };
 
   incrementFlyoutCounter = (callback = () => {}) => {
@@ -97,9 +60,8 @@ export default class Designer extends Component<Props, State> {
     this.setState({ flyoutCount: --currentCount }, callback());
   };
 
-  saveData = async (toUpdate, callback = () => {}) => {
-    const { id } = this.state;
-    const dataJson = await this.designerApi.save(id, toUpdate);
+  save = async (toUpdate, callback = () => {}) => {
+    await this.designerApi.save(this.id, toUpdate);
     this.setState(
       { data: new Data(toUpdate), updatedAt: new Date().toLocaleTimeString() },
       callback()
@@ -114,24 +76,24 @@ export default class Designer extends Component<Props, State> {
   componentDidMount() {
     const id = this.props.match?.params?.id;
     this.setState({ id });
-    const dataPromise = this.designerApi.fetchData(id);
-    dataPromise.then((data) => {
+    this.designerApi.fetchData(id).then((data) => {
       this.setState({ loading: false, data: new Data(data) });
     });
   }
 
   render() {
-    const { id, flyoutCount, data, page, loading } = this.state;
+    const { flyoutCount, data, loading } = this.state;
+    const { previewUrl } = window;
     if (loading) {
       return <p>Loading ...</p>;
     }
 
     const flyoutContextProviderValue = {
-      flyoutCount,
+      count: flyoutCount,
       increment: this.incrementFlyoutCounter,
       decrement: this.decrementFlyoutCounter,
     };
-    const dataContextProviderValue = { data, save: this.saveData };
+    const dataContextProviderValue = { data, save: this.save };
 
     return (
       <DataContext.Provider value={dataContextProviderValue}>
@@ -139,16 +101,15 @@ export default class Designer extends Component<Props, State> {
           <div id="app">
             <Menu
               data={data}
-              id={this.state.id}
+              id={this.id}
               updateDownloadedAt={this.updateDownloadedAt}
               updatePersona={this.updatePersona}
             />
             <Visualisation
-              data={data}
               downloadedAt={this.state.downloadedAt}
               updatedAt={this.state.updatedAt}
               persona={this.state.persona}
-              id={id}
+              id={this.id}
               previewUrl={previewUrl}
             />
           </div>

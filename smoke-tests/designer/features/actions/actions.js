@@ -3,12 +3,14 @@ const configPage = require("../pageobjects/pages/config.page");
 const formDesigner = require("../pageobjects/pages/formDesigner.page");
 const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
-const { nanoid } = require("nanoid");
+const { customAlphabet } = require("nanoid");
+const nanoid = customAlphabet("0123456789_-abcdefghijklmnopqrstuvwxyz", 10);
 
 class Actions {
+  configRef;
   createNewConfig() {
     configPage.open();
-    this.configRef = `smoke-testing-${nanoid(10)}`;
+    this.configRef = `smoke-testing-${nanoid()}`;
     configPage.newConfig(this.configRef);
     configPage.designerMenu.waitForDisplayed();
     expect(browser).toHaveUrlContaining(

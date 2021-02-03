@@ -1,164 +1,165 @@
 {
-  "Persona": "Persona",
-  "Edit page": "Edit page",
-  "Preview page": "Preview page",
-  "Preview": "Preview",
-  "page": {
-    "noun": "page",
-    "noun_plural": "pages",
-    "type": "Page type",
-    "types": {
-      "question": "Question page",
-      "start": "Start page",
-      "summary": "Summary page"
-    },
-    "title": "Page title",
-    "path": "Path",
-    "pathHint": "The path of this page e.g. /personal-details",
-    "section": "Section (optional)",
-    "sectionHint": "The section title is shown above the page title. If the page and the section title are the same, the section title wont show."
-  },
-  "section": {
-    "noun": "section",
-    "noun_plural": "sections",
-    "editingTitle": "Editing {{title}}",
-    "newTitle": "Add a new section",
-    "edit": "Edit section",
-    "create": "Create section"
-  },
-  "component": {
-    "component": "component",
-    "name": "Component name",
-    "create": "Create component",
-    "edit": "Edit {{name}} component"
-  },
-  "field": "field",
-  "edit": "edit {{noun}}",
-  "yes": "yes",
-  "no": "no",
-  "create": "create {{noun}}",
-  "save": "Save",
-  "duplicate": "Duplicate",
-  "delete": "Delete",
-  "add": "Add",
-  "optional": "{{noun}} (optional)",
-  "name": {
-    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.",
-    "errors": {
-      "whitespace": "Name must not contain spaces"
-    }
-  },
-  "error": "Error:",
-  "title": "Title",
-  "close": "Close",
-  "errors": {
-    "required": "This field is required",
-    "field": "Enter {{field}}"
-  },
-  "Start": "Start",
-  "Select an existing form to edit": "Select an existing form to edit",
-  "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
+  "A form with this name already exists": "A form with this name already exists",
   "Create a new form": "Create a new form",
   "Create a new form or edit an existing form": "Create a new form or edit an existing form",
-  "A form with this name already exists": "A form with this name already exists",
-  "There is a problem": "There is a problem",
+  "Edit page": "Edit page",
   "Enter form name": "Enter form name",
-  "enterDateTimeAsGmt": "Dates and times should be GMT timezone",
-  "list": {
-    "select": "Select list",
-    "edit": "Edit {{title}}",
-    "editingTitle": "Editing {{title}}",
-    "newTitle": "Add a new list",
-    "create": "Create list",
-    "deleteTitle": "Deleting this list?",
-    "deleteWarning": {
-      "title": "Deleting this list?",
-      "message": "If you delete this list, it will be deleted across the entire form",
-      "confirm": "Yes, delete this list",
-      "keep": "No, keep it"
-    },
-    "title": "List title",
-    "titleHint": "This will not show on the page.",
-    "createListItem": "Create list item",
-    "item": {
-      "newTitle": "Add a new list item",
-      "editing": "Editing list item",
-      "title": "Item title",
-      "titleHint": "Help text (optional)",
-      "value": "Value",
-      "valueHint": "This will not show on the page. If the list item is answered with words, you can use the item title, for example 'email'. If the list item is answered with a number, use a number with no letters or symbols, for example 1000",
-      "conditions": "Conditions (optional)",
-      "conditionsHint": "The item will only be shown if the selected condition applies",
-      "subComponent": "Sub component (optional)",
-      "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
-      "createSubcomponent": "Create sub component"
-    },
-    "static": {
-      "noun": "component list",
-      "newTitle": "Add a new component list",
-      "saveFirst": "You must save before creating a component list, or you can select an existing list"
-    },
-    "errors": {
-      "empty": "The list must have list items"
-    }
+  "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
+  "Persona": "Persona",
+  "Preview": "Preview",
+  "Preview page": "Preview page",
+  "Select an existing form to edit": "Select an existing form to edit",
+  "Start": "Start",
+  "Test": "For testing purpose, do not delete it",
+  "There is a problem": "There is a problem",
+  "add": "Add",
+  "close": "Close",
+  "component": {
+    "component": "component",
+    "create": "Create component",
+    "edit": "Edit {{name}} component",
+    "name": "Component name"
   },
-
   "conditions": {
     "add": "Add condition",
     "edit": "Edit condition",
+    "enterName": "Enter Name",
     "noFieldsAvailable": "You cannot add any conditions as there are no available fields"
   },
-  "wontShow": "This will not show on the page.",
-  "Test": "For testing purpose, do not delete it",
+  "create": "create {{noun}}",
+  "delete": "Delete",
+  "duplicate": "Duplicate",
+  "edit": "edit {{noun}}",
+  "enterDateTimeAsGmt": "Dates and times should be GMT timezone",
+  "error": "Error:",
+  "errors": {
+    "field": "Enter {{field}}",
+    "required": "This field is required"
+  },
+  "field": "field",
   "fieldTypeToName": {
-    "Details": "Details",
-    "FlashCard": "Flash card",
-    "Html": "Html",
-    "InsetText": "Inset text",
-    "List": "List",
-    "Para": "Paragraph",
     "AutocompleteField": "Autocomplete field",
+    "CheckboxesField": "Checkboxes field",
     "DateField": "Date field",
     "DatePartsField": "Date parts field",
     "DateTimeField": "Date time field",
     "DateTimePartsField": "Date time parts field",
+    "Details": "Details",
     "EmailAddressField": "Email address field",
     "FileUploadField": "File upload field",
+    "FlashCard": "Flash card",
+    "Html": "Html",
+    "InsetText": "Inset text",
+    "List": "List",
     "MultilineTextField": "Multiline text field",
     "NumberField": "Number field",
+    "Para": "Paragraph",
+    "RadiosField": "Radios field",
+    "SelectField": "Select field",
     "TelephoneNumberField": "Telephone number field",
     "TextField": "Text field",
     "TimeField": "Time field",
     "UkAddressField": "UK address field",
-    "CheckboxesField": "Checkboxes field",
-    "RadiosField": "Radios field",
-    "SelectField": "Select field",
     "YesNoField": "YesNo field"
   },
   "formDetails": {
     "alpha": "Alpha",
     "beta": "Beta",
-    "none": "None",
-    "phaseBanner": {
-      "fieldTitle": "Select a phase banner to add or change to your form",
-      "fieldHint": "A feedback form is used to gather feedback from users about another form",
-      "hint": "A phase banner includes a link for users to give feedback on your form."
-    },
     "feedbackForm": {
       "fieldTitle": "Is this a feedback form?"
+    },
+    "none": "None",
+    "phaseBanner": {
+      "fieldHint": "A feedback form is used to gather feedback from users about another form",
+      "fieldTitle": "Select a phase banner to add or change to your form",
+      "hint": "A phase banner includes a link for users to give feedback on your form."
     }
   },
   "landingPage": {
     "choice": {
+      "existing": "Open an existing form",
       "heading": "Design and prototype forms",
-      "intro": "Use the form designer to easily create,edit forms and test ideas",
       "hint": "Select an option",
-      "newform": "Create a new form",
-      "existing": "Open an existing form"
+      "intro": "Use the form designer to easily create,edit forms and test ideas",
+      "newform": "Create a new form"
     },
     "existing": {
-      "select": "Select an existing form",
-      "noforms": "You do not have any existing forms"
+      "noforms": "You do not have any existing forms",
+      "select": "Select an existing form"
     }
-  }
+  },
+  "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost.",
+  "list": {
+    "create": "Create list",
+    "createListItem": "Create list item",
+    "deleteTitle": "Deleting this list?",
+    "deleteWarning": {
+      "confirm": "Yes, delete this list",
+      "keep": "No, keep it",
+      "message": "If you delete this list, it will be deleted across the entire form",
+      "title": "Deleting this list?"
+    },
+    "edit": "Edit {{title}}",
+    "editingTitle": "Editing {{title}}",
+    "errors": {
+      "empty": "The list must have list items"
+    },
+    "item": {
+      "conditions": "Conditions (optional)",
+      "conditionsHint": "The item will only be shown if the selected condition applies",
+      "createSubcomponent": "Create sub component",
+      "editing": "Editing list item",
+      "newTitle": "Add a new list item",
+      "subComponent": "Sub component (optional)",
+      "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
+      "title": "Item title",
+      "titleHint": "Help text (optional)",
+      "value": "Value",
+      "valueHint": "This will not show on the page. If the list item is answered with words, you can use the item title, for example 'email'. If the list item is answered with a number, use a number with no letters or symbols, for example 1000"
+    },
+    "newTitle": "Add a new list",
+    "select": "Select list",
+    "static": {
+      "newTitle": "Add a new component list",
+      "noun": "component list",
+      "saveFirst": "You must save before creating a component list, or you can select an existing list"
+    },
+    "title": "List title",
+    "titleHint": "This will not show on the page."
+  },
+  "name": {
+    "errors": {
+      "whitespace": "Name must not contain spaces"
+    },
+    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces."
+  },
+  "no": "no",
+  "optional": "{{noun}} (optional)",
+  "page": {
+    "noun": "page",
+    "noun_plural": "pages",
+    "path": "Path",
+    "pathHint": "The path of this page e.g. /personal-details",
+    "section": "Section (optional)",
+    "sectionHint": "The section title is shown above the page title. If the page and the section title are the same, the section title wont show.",
+    "title": "Page title",
+    "type": "Page type",
+    "types": {
+      "question": "Question page",
+      "start": "Start page",
+      "summary": "Summary page"
+    }
+  },
+  "save": "Save",
+  "section": {
+    "create": "Create section",
+    "edit": "Edit section",
+    "editingTitle": "Editing {{title}}",
+    "newTitle": "Add a new section",
+    "noun": "section",
+    "noun_plural": "sections"
+  },
+  "title": "Title",
+  "wontShow": "This will not show on the page.",
+  "yes": "yes"
 }
