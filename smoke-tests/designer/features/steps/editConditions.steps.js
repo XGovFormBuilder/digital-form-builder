@@ -12,9 +12,10 @@ When(/^I choose to "([^"]*)"$/, function (buttonName) {
 When(/^I add a condition for the "([^"]*)"$/, function (componentName) {
   editSection.clickLink("Add condition");
   expect($$(".panel--flyout")[1].getCSSProperty("width").value).toEqual(
-    "720px"
+    "620px"
   );
   this.operator = fieldData[toCamelCase(componentName)].title;
+  addCondition.displayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
   addCondition.selectOperator("is after");
   addCondition.enterDate("01", "01", "2012");
@@ -25,4 +26,10 @@ Then(/^the condition is created$/, function () {
   expect(addCondition.getCondition().getText().replace(/'/g, "")).toEqual(
     `${this.operator} is after 2012-01-01`
   );
+});
+
+Then(/^I can save the condition$/, function () {
+  addCondition.clickLink("Save");
+  console.log(addCondition.getConditionLink(`Test ${this.operator}`));
+  addCondition.getConditionLink(`Test ${this.operator}`).toExist;
 });

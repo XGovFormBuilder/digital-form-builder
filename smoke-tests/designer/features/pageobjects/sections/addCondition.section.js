@@ -1,6 +1,18 @@
 const Page = require("../pages/basePage");
 
 class AddConditionSection extends Page {
+  /**
+   * Returns an array of conditions links
+   * @returns {WebdriverIO.ElementArray}
+   */
+  get conditionLinks() {
+    return browser.$$("[data-testid='conditions-list-item'] a");
+  }
+
+  getConditionLink(linkText) {
+    return this.conditionLinks.find((el) => el.getText().includes(linkText));
+  }
+
   displayName(name) {
     return browser.$("#cond-name").setValue(name);
   }
