@@ -3,6 +3,7 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 import { DataContext } from "../../context";
 import Editor from "../../editor";
 import { Actions } from "../../reducers/component/types";
+import { ContentOptions } from "@xgovformbuilder/model";
 
 type Props = {
   context: any; // TODO
@@ -14,7 +15,7 @@ export function ParaEdit({ context = ComponentContext }: Props) {
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
   const { data } = useContext(DataContext);
-  const { options = {} } = selectedComponent;
+  const { options = {} }: { options: ContentOptions } = selectedComponent;
   const { conditions } = data;
 
   return (
