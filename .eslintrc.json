@@ -22,8 +22,7 @@
     "allowImportExportEverywhere": true
   },
   "rules": {
-    "react/prop-types": 0,
-    "prettier/prettier": ["error"]
+    "react/prop-types": 0
   },
   "ignorePatterns": [
     "**/node_modules/**",
@@ -34,7 +33,7 @@
     "public/**",
     "smoke-tests/designer/features/*.feature",
     "*.md",
-    ".eslintrc.json"
+    "*.eslintrc.json"
   ],
   "settings": {
     "react": {
@@ -48,5 +47,18 @@
     "parserOptions": {
       "ecmaFeatures": { "jsx": true }
     }
-  }]
+  },
+    {
+      "files": ["*.translation.json"],
+      "plugins": ["i18n-json"],
+      "rules": {
+        "i18n-json/sorted-keys": 2
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "prettier/prettier": ["error"]
+      }
+    }]
 }
