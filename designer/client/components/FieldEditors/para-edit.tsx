@@ -51,7 +51,7 @@ export function ParaEdit({ context = ComponentContext }: Props) {
           className="govuk-select"
           id="condition"
           name="options.condition"
-          value={options.conditions}
+          value={options.condition}
           onChange={(e) =>
             dispatch({
               type: Actions.EDIT_OPTIONS_CONDITION,
