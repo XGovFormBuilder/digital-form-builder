@@ -23,31 +23,43 @@ export function GlobalListSelect() {
   };
 
   return (
-    <ul className="govuk-list">
-      {data.lists.map((list) => (
-        <li key={list.name}>
-          <a href="#" onClick={(e) => editList(e, list)}>
-            {list.title || list.name}
+    <>
+      <div className="govuk-body govuk-hint">
+        <p>{i18n("list.hint.description")}</p>
+        <p>{i18n("list.hint.manage")}</p>
+      </div>
+      <ul className="govuk-list">
+        {data.lists.map((list) => (
+          <li key={list.name}>
+            <a
+              data-testid="edit-list"
+              href="#"
+              onClick={(e) => editList(e, list)}
+            >
+              {list.title || list.name}
+            </a>
+          </li>
+        ))}
+        <li>
+          <hr />
+          <a
+            href="#"
+            className="govuk-link"
+            data-testid="add-list"
+            onClick={(e) => {
+              e.preventDefault();
+              listDispatch({ type: ListActions.ADD_NEW_LIST });
+              listsEditorDispatch([
+                ListsEditorStateActions.IS_EDITING_LIST,
+                true,
+              ]);
+            }}
+          >
+            {i18n("list.newTitle")}
           </a>
         </li>
-      ))}
-      <li>
-        <hr />
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            listDispatch({ type: ListActions.ADD_NEW_LIST });
-            listsEditorDispatch([
-              ListsEditorStateActions.IS_EDITING_LIST,
-              true,
-            ]);
-          }}
-        >
-          {i18n("list.newTitle")}
-        </a>
-      </li>
-    </ul>
+      </ul>
+    </>
   );
 }
 export default GlobalListSelect;

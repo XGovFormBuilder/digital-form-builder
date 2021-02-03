@@ -8,7 +8,7 @@ import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
-import Warning from "./Warning";
+import { Warning } from "./Warning";
 import { i18n } from "./../i18n";
 
 type Props = {
@@ -35,16 +35,14 @@ const useListsEdit = () => {
   };
 
   const listTitle = selectedList?.isNew
-    ? i18n("list.newTitle")
-    : i18n("list.editingTitle", {
-        title:
-          (selectedList?.title ?? selectedList?.name) ||
-          i18n("list.static.noun"),
+    ? i18n("list.add")
+    : i18n("list.edit", {
+        title: state.initialTitle ?? selectedList?.title ?? selectedList?.name,
       });
 
   const itemTitle = selectedItem?.isNew
-    ? i18n("list.item.newTitle")
-    : i18n("list.item.editing", {
+    ? i18n("list.item.add")
+    : i18n("list.item.edit", {
         title: selectedItem?.title,
       });
 
@@ -80,7 +78,6 @@ export function ListsEdit({ isEditingFromComponent = false }: Props) {
             title={listTitle}
             onHide={closeFlyout(ListsEditorStateActions.IS_EDITING_LIST)}
             width={""}
-            show={isEditingList}
           >
             {showWarning && <Warning />}
             <ListEdit />
@@ -92,7 +89,6 @@ export function ListsEdit({ isEditingFromComponent = false }: Props) {
         <RenderInPortal>
           <Flyout
             title={itemTitle}
-            show={true}
             width={""}
             onHide={closeFlyout(ListsEditorStateActions.IS_EDITING_LIST_ITEM)}
           >

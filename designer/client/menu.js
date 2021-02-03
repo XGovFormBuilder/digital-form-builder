@@ -14,6 +14,7 @@ import { FormDetails } from "./components/FormDetails";
 import { ListContextProvider } from "./reducers/listReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";
+import { i18n } from "./i18n";
 
 export default class Menu extends React.Component {
   static contextType = DataContext;
@@ -197,7 +198,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showEditLists && (
           <Flyout
-            title="Edit Lists"
+            title={i18n("list.addOrEdit")}
             onHide={() => this.setState({ showEditLists: false })}
             width={""}
           >

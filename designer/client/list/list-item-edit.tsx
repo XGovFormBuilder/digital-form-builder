@@ -51,6 +51,7 @@ export function ListItemEdit() {
             className: "govuk-label--s",
             children: [i18n("list.item.title")],
           }}
+          hint={{ children: i18n("list.item.titleHint") }}
           value={title}
           onChange={handleTitleChange}
           errorMessage={
@@ -58,7 +59,8 @@ export function ListItemEdit() {
           }
         />
         <Textarea
-          label={{ children: [i18n("list.item.titleHint")] }}
+          label={{ children: i18n("list.item.help") }}
+          hint={{ children: i18n("list.item.helpHint") }}
           value={hint}
           onChange={handleHintChange}
         />
