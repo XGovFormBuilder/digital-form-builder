@@ -6,7 +6,6 @@ Feature: Form pages
   Background: Create new config
     Given I have created a new form configuration
 
-    @wip
   Scenario: Edit a page title
     When I edit the page title on the "First page"
     Then the changes are reflected in the page designer

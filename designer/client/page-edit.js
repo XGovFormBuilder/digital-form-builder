@@ -70,7 +70,8 @@ export class PageEdit extends React.Component {
   };
 
   validate = (title, path) => {
-    const { data, page, i18n } = this.props;
+    const { page, i18n } = this.props;
+    const { data } = this.context;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
 
