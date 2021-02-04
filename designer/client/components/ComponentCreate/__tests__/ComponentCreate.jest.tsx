@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Data } from "@xgovformbuilder/model";
 import userEvent, { TargetElement } from "@testing-library/user-event";
 
@@ -37,23 +37,23 @@ describe("ComponentCreate:", () => {
     );
   };
 
-  test("Selecting a component type should display the component edit form", () => {
+  test("Selecting a component type should display the component edit form", async () => {
     // - when
-    const { container, queryByTestId, getByText } = render(
+    const { getByText } = render(
       <WrappingComponent componentValue={false}>
         <ComponentCreate page={page} />
       </WrappingComponent>
     );
 
-    expect(queryByTestId("standard-inputs")).toBeNull();
+    expect(screen.queryByLabelText("Title")).toBeNull();
     userEvent.click(getByText("Details"));
 
     // - then
-    const editForm = container.querySelector("form");
+    const editForm = await screen.findByLabelText("Title");
     expect(editForm).toBeInTheDocument();
   });
 
-  test("Should store the populated component and call callback on submit", () => {
+  test("Should store the populated component and call callback on submit", async () => {
     // - when
     const { container, getByText } = render(
       <WrappingComponent componentValue={false}>
@@ -63,9 +63,7 @@ describe("ComponentCreate:", () => {
 
     userEvent.click(getByText("Details"));
 
-    const titleInput = container.querySelector(
-      "#details-title"
-    ) as TargetElement;
+    const titleInput = (await screen.findByLabelText("Title")) as TargetElement;
     const contentTextArea = container.querySelector(
       "#field-content"
     ) as TargetElement;
@@ -106,7 +104,7 @@ describe("ComponentCreate:", () => {
     expect(queryByText(backBtnTxt)).toBeNull();
   });
 
-  test("Should display ErrorSummary when validation fails", () => {
+  test("Should display ErrorSummary when validation fails", async () => {
     // - when
     const { container, getByText, queryByRole } = render(
       <WrappingComponent componentValue={false}>
@@ -117,6 +115,7 @@ describe("ComponentCreate:", () => {
     expect(queryByRole("alert")).toBeNull();
 
     userEvent.click(getByText("Details") as TargetElement);
+    await screen.findByLabelText("Title");
     userEvent.click(container.querySelector("button") as TargetElement);
 
     // - then
