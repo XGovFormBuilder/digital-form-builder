@@ -19,7 +19,6 @@ export enum Schema {
 export enum Fields {
   EDIT_TITLE = "EDIT_TITLE",
   EDIT_NAME = "EDIT_NAME",
-  EDIT_CONDITION = "EDIT_CONDITION",
   EDIT_HELP = "EDIT_HELP",
   EDIT_CONTENT = "EDIT_CONTENT",
   EDIT_TYPE = "EDIT_TYPE",
