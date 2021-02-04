@@ -14,6 +14,7 @@ import { FormDetails } from "./components/FormDetails";
 import { ListContextProvider } from "./reducers/listReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";
+import { i18n } from "./i18n";
 
 export default class Menu extends React.Component {
   static contextType = DataContext;
@@ -163,7 +164,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showAddLink && (
           <Flyout
-            title="Add Link"
+            title={i18n("menu.links")}
             onHide={() => this.setState({ showAddLink: false })}
           >
             <LinkCreate
