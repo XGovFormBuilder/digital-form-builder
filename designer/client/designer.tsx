@@ -4,6 +4,7 @@ import { Visualisation } from "./components/Visualisation";
 import { Data } from "@xgovformbuilder/model";
 import { customAlphabet } from "nanoid";
 import { FlyoutContext, DataContext } from "./context";
+import { FeatureFlagProvider } from "./context/FeatureFlagContext";
 import { DesignerApi } from "./api/designerApi";
 
 interface Props {
@@ -96,25 +97,27 @@ export default class Designer extends Component<Props, State> {
     const dataContextProviderValue = { data, save: this.save };
 
     return (
-      <DataContext.Provider value={dataContextProviderValue}>
-        <FlyoutContext.Provider value={flyoutContextProviderValue}>
-          <div id="app">
-            <Menu
-              data={data}
-              id={this.id}
-              updateDownloadedAt={this.updateDownloadedAt}
-              updatePersona={this.updatePersona}
-            />
-            <Visualisation
-              downloadedAt={this.state.downloadedAt}
-              updatedAt={this.state.updatedAt}
-              persona={this.state.persona}
-              id={this.id}
-              previewUrl={previewUrl}
-            />
-          </div>
-        </FlyoutContext.Provider>
-      </DataContext.Provider>
+      <FeatureFlagProvider>
+        <DataContext.Provider value={dataContextProviderValue}>
+          <FlyoutContext.Provider value={flyoutContextProviderValue}>
+            <div id="app">
+              <Menu
+                data={data}
+                id={this.id}
+                updateDownloadedAt={this.updateDownloadedAt}
+                updatePersona={this.updatePersona}
+              />
+              <Visualisation
+                downloadedAt={this.state.downloadedAt}
+                updatedAt={this.state.updatedAt}
+                persona={this.state.persona}
+                id={this.id}
+                previewUrl={previewUrl}
+              />
+            </div>
+          </FlyoutContext.Provider>
+        </DataContext.Provider>
+      </FeatureFlagProvider>
     ); //
   }
 }

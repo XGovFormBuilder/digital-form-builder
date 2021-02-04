@@ -33,7 +33,7 @@
     "public/**",
     "smoke-tests/designer/features/*.feature",
     "*.md",
-    "*.eslintrc.json"
+    ".eslintrc.json"
   ],
   "settings": {
     "react": {
