@@ -1,5 +1,9 @@
 {
   "A form with this name already exists": "A form with this name already exists",
+  "AddLink": {
+    "hint1": "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
+    "hint2": "To add a link in the form screen, draw a line between pages. To edit a link, select its line."
+  },
   "Create a new form": "Create a new form",
   "Create a new form or edit an existing form": "Create a new form or edit an existing form",
   "Edit page": "Edit page",
@@ -24,7 +28,7 @@
     "add": "Add condition",
     "edit": "Edit condition",
     "enterName": "Enter Name",
-    "noFieldsAvailable": "You cannot add any conditions as there are no available fields"
+    "noFieldsAvailable": "You cannot add any conditions as there are no components on the page you wish to link from. Add a component, such as an Input or a Selection field, and then add a condition."
   },
   "create": "create {{noun}}",
   "delete": "Delete",
@@ -126,6 +130,9 @@
     },
     "title": "List title",
     "titleHint": "This will not show on the page."
+  },
+  "menu": {
+    "links": "Add link"
   },
   "name": {
     "errors": {
