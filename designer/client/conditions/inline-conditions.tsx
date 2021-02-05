@@ -201,6 +201,7 @@ export class InlineConditions extends React.Component<Props, State> {
       Object.keys(this.state.fields).length > 0 && (
         <div id="inline-conditions" data-testid={"inline-conditions"}>
           <div id="inline-condition-header">
+            <div className="govuk-hint">{i18n("conditions.addOrEditHint")}</div>
             {conditionString && (
               <div
                 id="condition-string-edit-warning"
@@ -223,9 +224,15 @@ export class InlineConditions extends React.Component<Props, State> {
                   "govuk-form-group--error": nameError,
                 })}
               >
-                <label className="govuk-label" htmlFor="cond-name">
-                  Display name
+                <label
+                  className="govuk-label govuk-label--s"
+                  htmlFor="cond-name"
+                >
+                  {i18n("conditions.displayName")}
                 </label>
+                <div className="govuk-hint">
+                  {i18n("conditions.displayNameHint")}
+                </div>
                 {nameError && (
                   <ErrorMessage>{nameError?.children}</ErrorMessage>
                 )}
@@ -241,15 +248,16 @@ export class InlineConditions extends React.Component<Props, State> {
                   onChange={this.onChangeDisplayName}
                 />
               </div>
-              <div className="govuk-form-group">
+              <div>
                 <label
-                  className="govuk-label"
+                  className="govuk-label govuk-label--s"
                   id="condition-string-label"
                   htmlFor="condition-string"
                 >
                   When
                 </label>
               </div>
+              <div className="govuk-hint">{i18n("conditions.when")}</div>
             </div>
             {hasConditions && (
               <div id="conditions-display" className="govuk-body">
