@@ -1,4 +1,4 @@
-import ListItems from "./list-items";
+import ListItems from "./ListItems";
 import { Input } from "@govuk-jsx/input";
 import React, { useContext } from "react";
 import { ListActions } from "../reducers/listActions";

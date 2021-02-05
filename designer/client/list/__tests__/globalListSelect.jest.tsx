@@ -4,7 +4,7 @@ import { Data } from "@xgovformbuilder/model";
 initI18n();
 
 import React from "react";
-import { GlobalListSelect } from "../global-list-select";
+import { GlobalListSelect } from "../GlobalListSelect";
 
 const data = new Data({
   lists: [
