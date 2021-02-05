@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "plugin:react/recommended",
-    "prettier"
-  ],
+  "extends": ["plugin:react/recommended", "prettier"],
   "plugins": ["react", "@babel", "prettier"],
   "parser": "babel-eslint",
   "env": {
@@ -33,21 +30,23 @@
     "public/**",
     "smoke-tests/designer/features/*.feature",
     "*.md",
-    ".eslintrc.json"
+    ".eslintrc.json",
+    "yarn.lock"
   ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "overrides": [{
-    "files": ["*.ts", "*.tsx"],
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["react", "@babel", "prettier", "@typescript-eslint"],
-    "parserOptions": {
-      "ecmaFeatures": { "jsx": true }
-    }
-  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["react", "@babel", "prettier", "@typescript-eslint"],
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true }
+      }
+    },
     {
       "files": ["*.translation.json"],
       "plugins": ["i18n-json"],
@@ -60,5 +59,6 @@
       "rules": {
         "prettier/prettier": ["error"]
       }
-    }]
+    }
+  ]
 }

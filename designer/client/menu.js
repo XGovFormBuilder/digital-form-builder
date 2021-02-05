@@ -14,6 +14,7 @@ import { FormDetails } from "./components/FormDetails";
 import { ListContextProvider } from "./reducers/listReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";
+import { i18n } from "./i18n";
 
 export default class Menu extends React.Component {
   static contextType = DataContext;
@@ -185,7 +186,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showEditConditions && (
           <Flyout
-            title="Edit Conditions"
+            title={i18n("conditions.addOrEdit")}
             onHide={() => this.setState({ showEditConditions: false })}
             width="large"
           >

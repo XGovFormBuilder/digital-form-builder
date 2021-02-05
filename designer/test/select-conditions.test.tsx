@@ -4,7 +4,7 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { assertLink } from "./helpers/element-assertions";
 import sinon from "sinon";
-import SelectConditions from "../client/conditions/select-conditions";
+import SelectConditions from "../client/conditions/SelectConditions";
 
 const { expect } = Code;
 const lab = Lab.script();

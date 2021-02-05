@@ -1,13 +1,14 @@
 import React, { ChangeEvent } from "react";
-import InlineConditions from "./inline-conditions";
-import { ConditionsModel } from "@xgovformbuilder/model";
+import InlineConditions from "./InlineConditions";
+import { ConditionsModel, Data } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
+import { i18n } from "../i18n";
 
 interface Props {
   path: string;
-  data: any;
+  data: Data;
   conditionsChange: (selectedCondition: string) => void;
   hints: any[];
 }
@@ -103,7 +104,7 @@ class SelectConditions extends React.Component<Props, State> {
             className="govuk-label govuk-label--s"
             htmlFor="page-conditions"
           >
-            Conditions (optional)
+            {i18n("conditions.optional")}
           </label>
           {hints.map((hint, index) => (
             <Hint key={`conditions-header-group-hint-${index}`}>{hint}</Hint>
@@ -121,7 +122,7 @@ class SelectConditions extends React.Component<Props, State> {
                     children: [""],
                     value: "",
                   },
-                  ...this.props.data.conditions.map((it, index) => ({
+                  ...this.props.data.conditions.map((it) => ({
                     children: [it.displayName],
                     value: it.name,
                   })),
@@ -163,7 +164,9 @@ class SelectConditions extends React.Component<Props, State> {
           </div>
         ) : (
           <div className="govuk-body">
-            You cannot add any conditions as there are no available fields
+            <div className="govuk-hint">
+              {i18n("conditions.noFieldsAvailable")}
+            </div>
           </div>
         )}
       </div>
