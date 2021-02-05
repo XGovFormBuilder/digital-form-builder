@@ -37,7 +37,7 @@ suite("ComponentCreateList", () => {
     expect(listItems).to.equal([
       "Details",
       "Flash card",
-      "Html",
+      "HTML",
       "Inset text",
       "List",
       "Paragraph",
