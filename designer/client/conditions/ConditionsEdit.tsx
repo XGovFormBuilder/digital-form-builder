@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import InlineConditions from "./inline-conditions";
+import InlineConditions from "./InlineConditions";
 import { Flyout } from "./../components/Flyout";
 import { DataContext } from "../context";
 import { RenderInPortal } from "../components/RenderInPortal";
