@@ -16,7 +16,6 @@ import {
 } from "./helpers/sub-component-assertions";
 import { Input } from "@govuk-jsx/input";
 import { initI18n } from "../client/i18n";
-
 import { DataContext } from "../client/context";
 
 const { expect } = Code;
@@ -98,10 +97,9 @@ suite("Page edit", () => {
       expectedValue: "badger",
     });
     const buttons = wrapper.find("button");
-    expect(buttons.length).to.equal(3);
+    expect(buttons.length).to.equal(2);
     expect(buttons.at(0).text()).to.equal("Save");
-    expect(buttons.at(1).text()).to.equal("Duplicate");
-    expect(buttons.at(2).text()).to.equal("Delete");
+    expect(buttons.at(1).text()).to.equal("Delete");
   });
 
   test("Renders a form with the appropriate initial inputs when no section or controller selected", () => {
@@ -152,10 +150,9 @@ suite("Page edit", () => {
       expectedValue: "",
     });
     const buttons = wrapper.find("button");
-    expect(buttons.length).to.equal(3);
+    expect(buttons.length).to.equal(2);
     expect(buttons.at(0).text()).to.equal("Save");
-    expect(buttons.at(1).text()).to.equal("Duplicate");
-    expect(buttons.at(2).text()).to.equal("Delete");
+    expect(buttons.at(1).text()).to.equal("Delete");
   });
 
   test("Updating the title changes the path if the path is the auto-generated one", () => {

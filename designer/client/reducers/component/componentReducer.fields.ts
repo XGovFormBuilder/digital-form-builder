@@ -38,11 +38,6 @@ export function fieldsReducer(
         },
       };
     }
-    case Fields.EDIT_CONDITION:
-      return {
-        ...state,
-        selectedComponent: { ...selectedComponent, condition: payload },
-      };
     case Fields.EDIT_HELP:
       return {
         ...state,
