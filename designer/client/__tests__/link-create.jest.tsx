@@ -46,9 +46,7 @@ describe("LinkCreate", () => {
     const hint =
       "You cannot add any conditions as there are no components on the page you wish to link from. Add a component, such as an Input or a Selection field, and then add a condition.";
 
-    const { getByLabelText, getByText, debug } = render(
-      <LinkCreate data={data} />
-    );
+    const { getByLabelText, getByText } = render(<LinkCreate data={data} />);
 
     fireEvent.change(getByLabelText("From"), {
       target: { value: data.pages[0].path },
