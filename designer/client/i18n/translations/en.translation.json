@@ -98,14 +98,13 @@
       "message": "You will no longer be able to edit or assign this list.",
       "title": "Delete list"
     },
-    "hint": {
-      "description": "Use lists to provide information in bullet points or set answers to multiple choice questions. After you create a list you can assign it to components to use on your form.",
-      "manage": "Lists you have created appear on this screen. From here you can manage the lists available for your form."
-    },
-
     "edit": "Edit {{title}}",
     "errors": {
       "empty": "The list must have list items"
+    },
+    "hint": {
+      "description": "Use lists to provide information in bullet points or set answers to multiple choice questions. After you create a list you can assign it to components to use on your form.",
+      "manage": "Lists you have created appear on this screen. From here you can manage the lists available for your form."
     },
     "item": {
       "add": "Add list item",
@@ -113,18 +112,18 @@
       "conditionsHint": "Select a condition that determines whether to show this list item. You can create and edit conditions on the Conditions screen.",
       "createSubcomponent": "Create sub component",
       "edit": "Edit list item",
-      "subComponent": "Sub component (optional)",
-      "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
       "help": "Help text (optional)",
       "helpHint": "Enter the description to show for this list item",
+      "subComponent": "Sub component (optional)",
+      "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
       "title": "Item text",
       "titleHint": "Enter the text you want to show",
       "value": "Value",
       "valueHint": "This determines the data format of the list item and does not show on the form. Unless you are using integrations and want to modify the payload, it should match the list item text."
     },
     "items": {
-      "title": "List items",
-      "hint": "Drag and drop the icons to reorder your list"
+      "hint": "Drag and drop the icons to reorder your list",
+      "title": "List items"
     },
     "newTitle": "Add list",
     "select": "Select list",
