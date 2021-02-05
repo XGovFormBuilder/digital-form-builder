@@ -38,7 +38,7 @@ test("strings are rendered correctly", async () => {
   ).toBeInTheDocument();
   expect(
     getByText(
-      "Select a condition that determines whether to show this list item. You can create and edit conditions on the Conditions screen"
+      "Select a condition that determines whether to show this list item. You can create and edit conditions on the Conditions screen."
     )
   ).toBeInTheDocument();
 });
