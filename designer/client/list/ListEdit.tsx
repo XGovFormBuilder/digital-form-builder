@@ -143,6 +143,7 @@ export function ListEdit() {
         <a
           className="govuk-link govuk-body govuk-!-display-block govuk-!-margin-bottom-1"
           href="#createItem"
+          data-testid="add-list-item"
           onClick={(e) => {
             e.preventDefault();
             createItem();

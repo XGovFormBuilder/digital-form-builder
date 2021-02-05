@@ -24,7 +24,7 @@ class EditListsSection extends Section {
   }
 
   get addNewList() {
-    return this.parentElement.$("a=Add a new list");
+    return this.parentElement.$('[data-testid="add-list"]');
   }
 
   get listTitle() {
@@ -32,7 +32,7 @@ class EditListsSection extends Section {
   }
 
   get createListItem() {
-    return browser.$("a=Create list item");
+    return browser.$('[data-testid="add-list-item"]');
   }
 
   itemTitle(panelIndex, title) {
