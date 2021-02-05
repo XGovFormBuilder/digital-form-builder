@@ -211,9 +211,12 @@ export class InlineConditions extends React.Component<Props, State> {
                   !
                 </span>
                 <strong className="govuk-warning-text__text">
-                  <span className="govuk-warning-text__assistive">Warning</span>
-                  You cannot edit this condition &apos;{conditionString}&apos;.
-                  Please recreate it in the editor below to continue
+                  <span className="govuk-warning-text__assistive">
+                    {i18n("warning")}
+                  </span>
+                  {i18n("conditions.youCannotEditWarning", {
+                    conditionString,
+                  })}
                 </strong>
               </div>
             )}
@@ -254,10 +257,10 @@ export class InlineConditions extends React.Component<Props, State> {
                   id="condition-string-label"
                   htmlFor="condition-string"
                 >
-                  When
+                  {i18n("conditions.when")}
                 </label>
               </div>
-              <div className="govuk-hint">{i18n("conditions.when")}</div>
+              <div className="govuk-hint">{i18n("conditions.whenHint")}</div>
             </div>
             {hasConditions && (
               <div id="conditions-display" className="govuk-body">
@@ -275,7 +278,7 @@ export class InlineConditions extends React.Component<Props, State> {
                         this.toggleEdit();
                       }}
                     >
-                      Not what you meant?
+                      {i18n("conditions.notWhatYouMean")}
                     </a>
                   </div>
                 )}
@@ -297,7 +300,7 @@ export class InlineConditions extends React.Component<Props, State> {
                     className="govuk-button"
                     onClick={this.onClickSave}
                   >
-                    Save
+                    {i18n("save")}
                   </a>
                 )}
                 <a
@@ -306,7 +309,7 @@ export class InlineConditions extends React.Component<Props, State> {
                   className="govuk-link"
                   onClick={this.onClickCancel}
                 >
-                  Cancel
+                  {i18n("cancel")}
                 </a>
               </div>
             </div>

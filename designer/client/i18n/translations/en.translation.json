@@ -13,6 +13,7 @@
   "Test": "For testing purpose, do not delete it",
   "There is a problem": "There is a problem",
   "add": "Add",
+  "cancel": "Cancel",
   "close": "Close",
   "component": {
     "component": "component",
@@ -30,7 +31,11 @@
     "enterName": "Enter Name",
     "hint": "Set conditions for components and links to control the flow of a form. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
     "noFieldsAvailable": "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.",
-    "when": "Set when a condition might be met in the form. For example, when the form asks a question and the user selects Yes instead of No (yes=true)."
+    "notWhatYouMean": "Not what you meant?",
+    "optional": "Conditions (optional)",
+    "when": "When",
+    "whenHint": "Set when a condition might be met in the form. For example, when the form asks a question and the user selects Yes instead of No (yes=true).",
+    "youCannotEditWarning": "You cannot edit this condition '{{conditionString}}'. Please recreate it in the editor below to continue"
   },
   "create": "create {{noun}}",
   "delete": "Delete",
@@ -166,6 +171,7 @@
     "noun_plural": "sections"
   },
   "title": "Title",
+  "warning": "Warning",
   "wontShow": "This will not show on the page.",
   "yes": "yes"
 }
