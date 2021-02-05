@@ -2,7 +2,7 @@ import { customRenderForLists } from "./helpers";
 import { initI18n } from "../../i18n";
 import { Data } from "@xgovformbuilder/model";
 import React from "react";
-import { ListEdit } from "../listEdit";
+import { ListEdit } from "../ListEdit";
 
 initI18n();
 
