@@ -4392,6 +4392,7 @@ __metadata:
     eslint: ^7.6.0
     eslint-plugin-import: ^2.22.0
     file-loader: ^6.1.0
+    flagg: ^1.1.2
     flat: 5.0.0
     focus-trap-react: ^8.3.2
     govuk-frontend: ^3.10.1
@@ -11230,6 +11231,13 @@ __metadata:
     micromatch: ^3.0.4
     resolve-dir: ^1.0.1
   checksum: be03bd98fc3f6666933b958e690b3913ac932496d55db13379de93657d86073c18ec53e7438ffe3adf98b606830c3d4645fae985e857645dd8a56983188abade
+  languageName: node
+  linkType: hard
+
+"flagg@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "flagg@npm:1.1.2"
+  checksum: 0b3647ab49b9b54a6486c5bfab52951137810e8a10ff3c744ef6af01253768a9d903b59c0501ee17598cf66c9a05e9f1c0919f78fd7cf50fab2ba030238c6650
   languageName: node
   linkType: hard
 
