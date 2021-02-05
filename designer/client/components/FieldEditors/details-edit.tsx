@@ -24,7 +24,10 @@ function DetailsEdit({ i18n, context = ComponentContext }: Props) {
         name="title"
         label={{
           className: "govuk-label--s",
-          children: ["Title"],
+          children: [i18n("Title")],
+        }}
+        hint={{
+          children: [i18n("fieldeditors.titlehint")],
         }}
         value={selectedComponent.title}
         onChange={(e) =>
@@ -49,11 +52,7 @@ function DetailsEdit({ i18n, context = ComponentContext }: Props) {
         <label className="govuk-label" htmlFor="details-content">
           Content
         </label>
-        <span className="govuk-hint">
-          The content can include HTML and the `govuk-prose-scope` css class is
-          available. Use this on a wrapping element to apply default govuk
-          styles.
-        </span>
+        <span className="govuk-hint">{i18n("fieldeditors.details.hint")}</span>
         {errors?.content && (
           <ErrorMessage>{i18n(...errors.content.children)}</ErrorMessage>
         )}

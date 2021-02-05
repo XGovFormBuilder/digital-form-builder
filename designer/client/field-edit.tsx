@@ -22,10 +22,10 @@ export function FieldEdit() {
           name="title"
           label={{
             className: "govuk-label--s",
-            children: ["Title"],
+            children: [i18n("Title")],
           }}
           hint={{
-            children: ["This is the title text displayed on the page"],
+            children: [i18n("fieldeditors.titlehint")],
           }}
           value={title || ""}
           onChange={(e) => {
@@ -49,7 +49,7 @@ export function FieldEdit() {
             children: ["Help Text (optional)"],
           }}
           hint={{
-            children: ["Text can include HTML"],
+            children: [i18n("fieldeditors.helptext")],
           }}
           required={false}
           value={hint}
@@ -82,7 +82,9 @@ export function FieldEdit() {
             >
               Hide title
             </label>
-            <span className="govuk-hint">Hide the title of the component</span>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("fieldeditors.hidetitle")}
+            </span>
           </div>
         </div>
         <div
@@ -134,11 +136,7 @@ export function FieldEdit() {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-required"
             >
-              {`Make ${
-                ComponentTypes.find(
-                  (componentType) => componentType.name === type
-                )?.title ?? ""
-              } optional`}
+              {i18n("fieldeditors.optional")}
             </label>
             {isFileUploadField && (
               <span className="govuk-hint govuk-checkboxes__label">

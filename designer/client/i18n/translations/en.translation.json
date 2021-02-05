@@ -48,7 +48,7 @@
     "EmailAddressField": "Email address field",
     "FileUploadField": "File upload field",
     "FlashCard": "Flash card",
-    "Html": "Html",
+    "Html": "HTML",
     "InsetText": "Inset text",
     "List": "List",
     "MultilineTextField": "Multiline text field",
@@ -61,6 +61,21 @@
     "TimeField": "Time field",
     "UkAddressField": "UK address field",
     "YesNoField": "YesNo field"
+  },
+  "fieldeditors": {
+    "conditions": {
+      "hint": "Select a condition that determines whether to show the contents of this component.You can create and edit conditions on the Conditions screen."
+    },
+    "details": {
+      "hint": "Enter the text you want to show when users expand the title. You can apply basic formatting, such as text formatting and hyperlinks."
+    },
+    "helptext": "Enter the description to show for this component",
+    "hidetitle": "Tick this box if you do not want the title to show on the page",
+    "optional": "Tick this box if the user does not need to complete this field to progress through the form.",
+    "para": {
+      "hint": "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
+    },
+    "titlehint": "Enter the name to show for this component"
   },
   "formDetails": {
     "alpha": "Alpha",
@@ -120,6 +135,7 @@
     "newTitle": "Add a new list",
     "select": "Select list",
     "static": {
+      "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the List screen",
       "newTitle": "Add a new component list",
       "noun": "component list",
       "saveFirst": "You must save before creating a component list, or you can select an existing list"
@@ -131,7 +147,7 @@
     "errors": {
       "whitespace": "Name must not contain spaces"
     },
-    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces."
+    "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify.It must not contain spaces."
   },
   "no": "no",
   "optional": "{{noun}} (optional)",
