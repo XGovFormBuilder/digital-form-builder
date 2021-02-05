@@ -4,6 +4,7 @@ import { ConditionsModel } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
+import { i18n } from "../i18n";
 
 interface Props {
   path: string;
@@ -163,7 +164,7 @@ class SelectConditions extends React.Component<Props, State> {
           </div>
         ) : (
           <div className="govuk-body">
-            You cannot add any conditions as there are no available fields
+            <div className="govuk-hint">{i18n("conditions.cannotAdd")}</div>
           </div>
         )}
       </div>
