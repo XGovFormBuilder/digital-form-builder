@@ -1,9 +1,5 @@
 {
   "A form with this name already exists": "A form with this name already exists",
-  "AddLink": {
-    "hint1": "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
-    "hint2": "To add a link in the form screen, draw a line between pages. To edit a link, select its line."
-  },
   "Create a new form": "Create a new form",
   "Create a new form or edit an existing form": "Create a new form or edit an existing form",
   "Edit page": "Edit page",
@@ -17,6 +13,10 @@
   "Test": "For testing purpose, do not delete it",
   "There is a problem": "There is a problem",
   "add": "Add",
+  "addLink": {
+    "hint1": "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
+    "hint2": "To add a link in the main screen, click and hold the title of a page and drag a line to the title of the page you want to link it to. To edit a link, select its line."
+  },
   "close": "Close",
   "component": {
     "component": "component",

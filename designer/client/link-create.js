@@ -65,8 +65,8 @@ class LinkCreate extends React.Component {
         {hasValidationErrors && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
-        <div className="govuk-hint">{i18n("AddLink.hint1")}</div>
-        <div className="govuk-hint">{i18n("AddLink.hint2")}</div>
+        <div className="govuk-hint">{i18n("addLink.hint1")}</div>
+        <div className="govuk-hint">{i18n("addLink.hint2")}</div>
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div
             className={classNames({
