@@ -102,4 +102,17 @@ describe("Server tests", () => {
       ) > -1
     ).toEqual(true);
   });
+
+  test("Feature toggles api contains data", async () => {
+    const options = {
+      method: "get",
+      url: "/feature-toggles",
+    };
+
+    const res = await server.inject(options);
+    expect(res.statusCode).toEqual(200);
+    expect(
+      res.result.indexOf('{"featureEditPageDuplicateButton":false}') > -1
+    ).toEqual(true);
+  });
 });

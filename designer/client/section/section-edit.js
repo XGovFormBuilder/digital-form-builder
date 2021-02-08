@@ -103,7 +103,7 @@ class SectionEdit extends React.Component {
 
     try {
       await save(copy);
-      this.closeFlyout({});
+      this.closeFlyout("");
     } catch (error) {
       console.error(error);
     }

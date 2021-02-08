@@ -12,6 +12,9 @@ import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
 import { DataContext } from "./context";
 
+import FeatureToggle from "./FeatureToggle";
+import { FeatureFlags } from "./context/FeatureFlagContext";
+
 export class PageEdit extends React.Component {
   static contextType = DataContext;
 
@@ -52,7 +55,7 @@ export class PageEdit extends React.Component {
     }
 
     copyPage.title = title;
-    section ? (copyPage.section = section.name) : delete copyPage.section;
+    section ? (copyPage.section = section) : delete copyPage.section;
     controller
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
@@ -67,7 +70,8 @@ export class PageEdit extends React.Component {
   };
 
   validate = (title, path) => {
-    const { data, page, i18n } = this.props;
+    const { page, i18n } = this.props;
+    const { data } = this.context;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
 
@@ -305,13 +309,17 @@ export class PageEdit extends React.Component {
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
-          <button
-            className="govuk-button"
-            type="button"
-            onClick={this.onClickDuplicate}
+          <FeatureToggle
+            feature={FeatureFlags.FEATURE_EDIT_PAGE_DUPLICATE_BUTTON}
           >
-            {i18n("duplicate")}
-          </button>{" "}
+            <button
+              className="govuk-button"
+              type="button"
+              onClick={this.onClickDuplicate}
+            >
+              {i18n("duplicate")}
+            </button>{" "}
+          </FeatureToggle>
           <button
             className="govuk-button"
             type="button"

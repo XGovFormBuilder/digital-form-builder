@@ -17,6 +17,7 @@
     "hint1": "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
     "hint2": "To add a link in the main screen, click and hold the title of a page and drag a line to the title of the page you want to link it to. To edit a link, select its line."
   },
+  "cancel": "Cancel",
   "close": "Close",
   "component": {
     "component": "component",
@@ -26,9 +27,19 @@
   },
   "conditions": {
     "add": "Add condition",
+    "addOrEdit": "Add or edit condition",
+    "addOrEditHint": "Set the rules that determine the conditional behaviour in the form flow. For example, a question page might have a component for yes and no options that need two conditions - one to control what happens if a user selects yes and one for when a user selects no.",
+    "displayName": "Display name",
+    "displayNameHint": "Set a condition name that is easy to recognise. It appears as an option in the settings menus for the pages, components and links in a form.",
     "edit": "Edit condition",
     "enterName": "Enter Name",
-    "noFieldsAvailable": "You cannot add any conditions as there are no components on the page you wish to link from. Add a component, such as an Input or a Selection field, and then add a condition."
+    "hint": "Set conditions for components and links to control the flow of a form. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
+    "noFieldsAvailable": "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.",
+    "notWhatYouMean": "Not what you meant?",
+    "optional": "Conditions (optional)",
+    "when": "When",
+    "whenHint": "Set when a condition might be met in the form. For example, when the form asks a question and the user selects Yes instead of No (yes=true).",
+    "youCannotEditWarning": "You cannot edit this condition '{{conditionString}}'. Please recreate it in the editor below to continue"
   },
   "create": "create {{noun}}",
   "delete": "Delete",
@@ -167,6 +178,7 @@
     "noun_plural": "sections"
   },
   "title": "Title",
+  "warning": "Warning",
   "wontShow": "This will not show on the page.",
   "yes": "yes"
 }

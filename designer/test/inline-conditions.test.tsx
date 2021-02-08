@@ -8,7 +8,7 @@ import {
   assertText,
 } from "./helpers/element-assertions";
 import sinon from "sinon";
-import InlineConditions from "../client/conditions/inline-conditions";
+import InlineConditions from "../client/conditions/InlineConditions";
 import {
   Condition,
   ConditionsModel,

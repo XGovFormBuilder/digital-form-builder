@@ -1,6 +1,7 @@
 import pkg from "../../package.json";
 import config from "../config";
 import { newConfig, api, app } from "./routes";
+import { envStore, flagg } from "flagg";
 
 export const designerPlugin = {
   plugin: {
@@ -28,6 +29,25 @@ export const designerPlugin = {
 
       // This is old url , redirecting it to new
       server.route(app.redirectOldUrlToDesigner);
+
+      server.route({
+        method: "GET",
+        path: "/feature-toggles",
+        options: {
+          handler: async (request, h) => {
+            const featureFlags = flagg({
+              store: envStore(process.env),
+              definitions: {
+                featureEditPageDuplicateButton: { default: false },
+              },
+            });
+
+            return h
+              .response(JSON.stringify(featureFlags.getAllResolved()))
+              .code(200);
+          },
+        },
+      });
 
       server.route(newConfig.registerNewFormWithRunner);
       server.route(api.getFormWithId);

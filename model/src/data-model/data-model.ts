@@ -243,13 +243,18 @@ export class Data {
     return null;
   }
 
-  _allPathsLeadingTo(path: string): Array<string> {
+  _allPathsLeadingTo(
+    path: string,
+    visited: Set<string> = new Set<string>()
+  ): Array<string> {
+    if (visited.has(path)) return [];
+    visited.add(path);
     return this.pages
       .filter(
         (page) => page.next && page.next.find((next) => next.path === path)
       )
       .flatMap((page) =>
-        [page.path].concat(this._allPathsLeadingTo(page.path))
+        [page.path].concat(this._allPathsLeadingTo(page.path, visited))
       );
   }
 

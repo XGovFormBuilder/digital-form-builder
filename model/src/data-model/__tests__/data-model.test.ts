@@ -1375,6 +1375,91 @@ describe("data model", () => {
     });
   });
 
+  describe("all paths", () => {
+    test("_allPathsLeadingTo should work with cycle in paths", () => {
+      const data = new Data({
+        pages: [
+          {
+            name: "page1",
+            path: "/1",
+            next: [{ path: "/2" }],
+          },
+          {
+            name: "page2",
+            path: "/2",
+            next: [{ path: "/1" }],
+          },
+          {
+            name: "page3",
+            path: "/3",
+          },
+        ],
+      } as any);
+
+      const paths = data._allPathsLeadingTo("/2");
+      expect(paths).toEqual(["/1", "/2"]);
+    });
+
+    test("_allPathsLeadingTo should work with single parents", () => {
+      const data = new Data({
+        pages: [
+          {
+            name: "page1",
+            path: "/1",
+            next: [{ path: "/2" }],
+          },
+          {
+            name: "page2",
+            path: "/2",
+            next: [{ path: "/3" }],
+          },
+          {
+            name: "page3",
+            path: "/3",
+          },
+        ],
+      } as any);
+
+      const paths = data._allPathsLeadingTo("/3");
+      expect(paths).toEqual(["/2", "/1"]);
+    });
+
+    test("_allPathsLeadingTo should work with multiple parents", () => {
+      const data = new Data({
+        pages: [
+          {
+            name: "page1",
+            path: "/1",
+            next: [{ path: "/2" }, { path: "/3" }],
+          },
+          {
+            name: "page2",
+            path: "/2",
+            next: [{ path: "/4" }],
+          },
+          {
+            name: "page3",
+            path: "/3",
+            next: [{ path: "/4" }],
+          },
+          {
+            name: "page4",
+            path: "/4",
+          },
+        ],
+      } as any);
+
+      const paths = data._allPathsLeadingTo("/4");
+      expect(paths).toEqual(["/2", "/1", "/3", "/1"]);
+
+      const paths1 = data._allPathsLeadingTo("/3");
+      expect(paths1).toEqual(["/1"]);
+
+      const paths2 = data._allPathsLeadingTo("/1");
+      expect(paths2).toEqual([]);
+    });
+  });
+
   describe("update link", () => {
     test("should remove a condition from a link to the next page", () => {
       const data = new Data({
@@ -1659,7 +1744,7 @@ describe("data model", () => {
       expect(data.findList("/1")).toEqual(undefined);
     });
 
-    test.only("add lists", () => {
+    test("add lists", () => {
       const data = new Data({});
       const list = {
         name: "Colors",
