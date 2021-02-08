@@ -4405,7 +4405,7 @@ __metadata:
     jest: ^26.6.3
     joi: 17.2.1
     jsdom: ^16.2.2
-    lodash-es: ^4.17.20
+    lodash: ^4.17.20
     mini-css-extract-plugin: ^0.11.2
     moment-timezone: ^0.5.31
     msw: ^0.25.0
@@ -15673,7 +15673,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.15, lodash-es@npm:^4.17.20":
+"lodash-es@npm:^4.17.15":
   version: 4.17.20
   resolution: "lodash-es@npm:4.17.20"
   checksum: b333b502ae1241244005bac3846c0744eed555f10d75a7b2628da67ff8d7a2695fa1213fa9f0ef36c99e719261eeb470e9d0573ead687ce9b14d0cdd47c46f15

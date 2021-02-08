@@ -2,7 +2,7 @@ import * as React from "react";
 import i18next, { InitOptions, TOptions } from "i18next";
 import Backend from "i18next-http-backend";
 import enCommonTranslations from "./translations/en.translation.json";
-import upperFirst from "lodash-es/UpperFirst";
+import upperFirst from "lodash/upperFirst";
 
 const interpolationFormats = {
   capitalise: (value) => upperFirst(value),
