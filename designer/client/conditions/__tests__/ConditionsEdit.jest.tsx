@@ -2,6 +2,9 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import ConditionsEdit from "../ConditionsEdit";
 import { DataContext, FlyoutContext } from "../../context";
+import { initI18n } from "../../i18n";
+
+initI18n();
 
 const flyoutValue = {
   increment: jest.fn(),
@@ -22,6 +25,23 @@ const customRender = (
     renderOptions
   );
 };
+
+describe("hint texts", () => {
+  test("main hint text is correct", () => {
+    const { getByText } = customRender(<ConditionsEdit />, {});
+
+    const hint =
+      "Set conditions for components and links to control the flow of a form. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.";
+    expect(getByText(hint)).toBeInTheDocument();
+  });
+
+  test("no field hint test is correct", () => {
+    const { getByText } = customRender(<ConditionsEdit />, {});
+    const hint =
+      "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.";
+    expect(getByText(hint)).toBeInTheDocument();
+  });
+});
 
 describe("with existing conditions", () => {
   const condition = {
@@ -52,16 +72,12 @@ describe("with existing conditions", () => {
       save: jest.fn(),
     };
 
-    const { getByText, queryByTestId, getByTestId } = customRender(
-      <ConditionsEdit />,
-      {
-        providerProps,
-      }
-    );
+    const { getByText, queryByTestId } = customRender(<ConditionsEdit />, {
+      providerProps,
+    });
     expect(getByText(condition.displayName)).toBeInTheDocument();
     expect(getByText(condition2.displayName)).toBeInTheDocument();
     expect(queryByTestId("edit-conditions")).toBeNull();
-    expect(getByTestId("condition-none-available-message")).toBeInTheDocument();
   });
 
   test("Clicking an edit link causes the edit view to be rendered and all other elements hidden", () => {
@@ -76,23 +92,6 @@ describe("with existing conditions", () => {
     const link = getByText(condition.displayName);
     fireEvent.click(link);
     expect(getByTestId("edit-conditions")).toBeTruthy();
-  });
-
-  //FIXME:- test needs to be moved to InlineConditions and spying on onHide/editFinished.
-  test.skip("Cancellation or completion of inline conditions flyout causes the flyout to be hidden again", () => {
-    data.allInputs.returns([{}]);
-    const wrapper = render(<ConditionsEdit data={data} />);
-    const listItems = wrapper.find("li");
-    expect(listItems.exists()).toBe(true);
-    expect(listItems.length).toBe(3);
-    expect(listItems.at(2).find("a").exists()).toBe(true);
-    listItems
-      .at(2)
-      .find("a")
-      .simulate("click", { preventDefault: sinon.spy() });
-    //assertInlineConditionsFlyout(wrapper, data, true);
-    wrapper.instance().cancelInlineCondition();
-    //assertInlineConditionsFlyout(wrapper, data, false);
   });
 });
 
@@ -138,10 +137,12 @@ describe("without existing conditions", () => {
       save: jest.fn(),
     };
 
-    const { getByTestId } = customRender(<ConditionsEdit />, {
+    const { getByText } = customRender(<ConditionsEdit />, {
       providerProps,
     });
 
-    expect(getByTestId("condition-none-available-message")).toBeInTheDocument();
+    const hint =
+      "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.";
+    expect(getByText(hint)).toBeInTheDocument();
   });
 });
