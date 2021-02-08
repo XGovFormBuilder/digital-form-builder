@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import InlineConditions from "./inline-conditions";
+import InlineConditions from "./InlineConditions";
 import { Flyout } from "./../components/Flyout";
 import { DataContext } from "../context";
 import { RenderInPortal } from "../components/RenderInPortal";
@@ -51,6 +51,8 @@ export function ConditionsEdit() {
   const { conditions } = data;
   return (
     <div className="govuk-body">
+      <div className="govuk-hint">{i18n("conditions.hint")}</div>
+
       {!editingCondition && (
         <>
           {showAddCondition && (
@@ -95,9 +97,9 @@ export function ConditionsEdit() {
               )}
               {data.allInputs().length <= 0 && (
                 <div className="govuk-body">
-                  <p data-testid={"condition-none-available-message"}>
+                  <div className="govuk-hint">
                     {i18n("conditions.noFieldsAvailable")}
-                  </p>
+                  </div>
                 </div>
               )}
             </li>
@@ -107,7 +109,7 @@ export function ConditionsEdit() {
       {editingCondition && (
         <RenderInPortal>
           <div id="edit-conditions" data-testid="edit-conditions">
-            <Flyout title={i18n("conditions.edit")} onHide={editFinished}>
+            <Flyout title={i18n("conditions.addOrEdit")} onHide={editFinished}>
               <InlineConditions
                 data={data}
                 condition={editingCondition}

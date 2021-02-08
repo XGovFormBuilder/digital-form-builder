@@ -186,7 +186,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showEditConditions && (
           <Flyout
-            title="Edit Conditions"
+            title={i18n("conditions.addOrEdit")}
             onHide={() => this.setState({ showEditConditions: false })}
             width="large"
           >
