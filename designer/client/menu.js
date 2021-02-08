@@ -16,6 +16,10 @@ import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";
 import { i18n } from "./i18n";
 
+function menu() {
+  return;
+}
+
 export default class Menu extends React.Component {
   static contextType = DataContext;
 
