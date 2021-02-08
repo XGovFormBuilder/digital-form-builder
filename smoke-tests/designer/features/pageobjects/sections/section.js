@@ -28,4 +28,8 @@ module.exports = class Section {
   clickLink(linkName) {
     browser.$(`=${linkName}`).click();
   }
+
+  clickDataTestId(dataTestId) {
+    browser.$(`[data-testid='${dataTestId}']`).click();
+  }
 };

@@ -24,7 +24,7 @@ class EditListsSection extends Section {
   }
 
   get addNewList() {
-    return this.parentElement.$('[data-testid="add-list"]');
+    return browser.$('[data-testid="add-list"]');
   }
 
   get listTitle() {
@@ -35,16 +35,16 @@ class EditListsSection extends Section {
     return browser.$('[data-testid="add-list-item"]');
   }
 
-  itemTitle(panelIndex, title) {
-    return this.panels(panelIndex).$("#title").setValue(title);
+  itemTitle(title) {
+    return browser.$('[data-testid="list-item-text"]').setValue(title);
   }
 
-  helpText(panelIndex, text) {
-    return this.panels(panelIndex).$(".govuk-textarea").setValue(text);
+  helpText(text) {
+    return browser.$('[data-testid="list-item-hint"]').setValue(text);
   }
 
-  itemValue(panelIndex, value) {
-    return this.panels(panelIndex).$("#value").setValue(value);
+  itemValue(value) {
+    return browser.$('[data-testid="list-item-value"]').setValue(value);
   }
 
   get saveButton() {
@@ -61,9 +61,9 @@ class EditListsSection extends Section {
    */
   addNewListItem(panelName, title, text, value) {
     let panelIndex = this.getPanel(panelName);
-    this.itemTitle(panelIndex, title);
-    this.helpText(panelIndex, text);
-    this.itemValue(panelIndex, value);
+    this.itemTitle(title);
+    this.helpText(text);
+    this.itemValue(value);
     this.saveButton.scrollIntoView();
     this.saveButton.click();
   }
