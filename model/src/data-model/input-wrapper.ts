@@ -5,6 +5,7 @@ import { Page } from "./types";
 export class InputWrapper {
   name: string | undefined = undefined;
   title: string | undefined = undefined;
+  type: string | undefined = undefined;
   propertyPath: string | undefined;
   #parentItemName: string | undefined;
   page: Page;

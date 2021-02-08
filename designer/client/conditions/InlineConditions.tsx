@@ -201,6 +201,7 @@ export class InlineConditions extends React.Component<Props, State> {
       Object.keys(this.state.fields).length > 0 && (
         <div id="inline-conditions" data-testid={"inline-conditions"}>
           <div id="inline-condition-header">
+            <div className="govuk-hint">{i18n("conditions.addOrEditHint")}</div>
             {conditionString && (
               <div
                 id="condition-string-edit-warning"
@@ -210,9 +211,12 @@ export class InlineConditions extends React.Component<Props, State> {
                   !
                 </span>
                 <strong className="govuk-warning-text__text">
-                  <span className="govuk-warning-text__assistive">Warning</span>
-                  You cannot edit this condition &apos;{conditionString}&apos;.
-                  Please recreate it in the editor below to continue
+                  <span className="govuk-warning-text__assistive">
+                    {i18n("warning")}
+                  </span>
+                  {i18n("conditions.youCannotEditWarning", {
+                    conditionString,
+                  })}
                 </strong>
               </div>
             )}
@@ -223,9 +227,15 @@ export class InlineConditions extends React.Component<Props, State> {
                   "govuk-form-group--error": nameError,
                 })}
               >
-                <label className="govuk-label" htmlFor="cond-name">
-                  Display name
+                <label
+                  className="govuk-label govuk-label--s"
+                  htmlFor="cond-name"
+                >
+                  {i18n("conditions.displayName")}
                 </label>
+                <div className="govuk-hint">
+                  {i18n("conditions.displayNameHint")}
+                </div>
                 {nameError && (
                   <ErrorMessage>{nameError?.children}</ErrorMessage>
                 )}
@@ -241,15 +251,16 @@ export class InlineConditions extends React.Component<Props, State> {
                   onChange={this.onChangeDisplayName}
                 />
               </div>
-              <div className="govuk-form-group">
+              <div>
                 <label
-                  className="govuk-label"
+                  className="govuk-label govuk-label--s"
                   id="condition-string-label"
                   htmlFor="condition-string"
                 >
-                  When
+                  {i18n("conditions.when")}
                 </label>
               </div>
+              <div className="govuk-hint">{i18n("conditions.whenHint")}</div>
             </div>
             {hasConditions && (
               <div id="conditions-display" className="govuk-body">
@@ -267,7 +278,7 @@ export class InlineConditions extends React.Component<Props, State> {
                         this.toggleEdit();
                       }}
                     >
-                      Not what you meant?
+                      {i18n("conditions.notWhatYouMean")}
                     </a>
                   </div>
                 )}
@@ -289,7 +300,7 @@ export class InlineConditions extends React.Component<Props, State> {
                     className="govuk-button"
                     onClick={this.onClickSave}
                   >
-                    Save
+                    {i18n("save")}
                   </a>
                 )}
                 <a
@@ -298,7 +309,7 @@ export class InlineConditions extends React.Component<Props, State> {
                   className="govuk-link"
                   onClick={this.onClickCancel}
                 >
-                  Cancel
+                  {i18n("cancel")}
                 </a>
               </div>
             </div>
