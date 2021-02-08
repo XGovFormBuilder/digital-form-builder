@@ -45,7 +45,7 @@ test("strings are rendered correctly", async () => {
   expect(
     getByText("Drag and drop the icons to reorder your list")
   ).toBeInTheDocument();
-  expect(getByText("Add list item")).toBeInTheDocument();
+  expect(getByText("Add a new list item")).toBeInTheDocument();
 
   await rerender(<ListEdit />, {
     dataValue,
