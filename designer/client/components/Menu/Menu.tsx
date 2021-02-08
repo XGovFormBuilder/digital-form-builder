@@ -19,11 +19,13 @@ import { i18n } from "./i18n";
 function useMenuItem() {
   const [isVisible, setIsVisible] = useState(false);
 
-  function show() {
+  function show(e) {
+    e.preventDefault();
     setIsVisible(true);
   }
 
-  function hide() {
+  function hide(e) {
+    e.preventDefault();
     setIsVisible(false);
   }
 
@@ -34,32 +36,45 @@ function useMenuItem() {
   };
 }
 
-const Items = [
-  formConfig,
-  page,
-  link,
-  sections,
-  conditions,
-  lists,
-  outputs,
-  fees,
-  summaryBehaviour,
-  summary,
-];
+function MenuButton() {}
 
-function useItems(items) {
-  return items.map((item) => {
-    item;
-  });
+function MenuFlyout() {}
+
+function FlyoutMenuItem({ children }) {
+  const { isVisible, show, hide } = useMenuItem();
+  const;
+  const buttonChild = children;
+  const flyoutChild;
+  return (
+    <>
+      <button onClick={show}>Form Details</button>
+      {isVisible && (
+        <Flyout title="Form Details" onHide={hide}>
+          <FormDetails data={{}} onCreate={hide} />
+        </Flyout>
+      )}
+    </>
+  );
 }
 
 function menu() {
+  const items = {
+    formConfig: useMenuItem(),
+    page: useMenuItem(),
+    link: useMenuItem(),
+    sections: useMenuItem(),
+    conditions: useMenuItem(),
+    lists: useMenuItem(),
+    outputs: useMenuItem(),
+    fees: useMenuItem(),
+    summaryBehaviour: useMenuItem(),
+    summary: useMenuItem(),
+  };
+
   return (
     <nav className="menu">
       <div className="menu__row">
-        <button onClick={() => this.setState({ showFormConfig: true })}>
-          Form Details
-        </button>
+        <button onClick={items.formConfig.show}>Form Details</button>
 
         <button onClick={() => this.setState({ showAddPage: true })}>
           Add Page
