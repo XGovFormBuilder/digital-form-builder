@@ -149,7 +149,7 @@
       "saveFirst": "You must save before creating a component list, or you can select an existing list"
     },
     "title": "List title",
-    "titleHint": "This will not show on the page."
+    "titleHint": "Enter a unique name for your list"
   },
   "menu": {
     "links": "Add Link"

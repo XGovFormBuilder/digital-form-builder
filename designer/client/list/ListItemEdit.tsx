@@ -98,7 +98,7 @@ export function ListItemEdit() {
 
         <div className={"govuk-form-group"}>
           <button className="govuk-button" type="submit" onClick={handleSubmit}>
-            Save
+            {i18n("save")}
           </button>
         </div>
       </form>

@@ -121,7 +121,7 @@ export function ListEdit() {
         {!isEditingStatic && selectedList && (
           <Input
             id="list-title"
-            hint={i18n("wontShow")}
+            hint={{ children: i18n("list.titleHint") }}
             label={{
               className: "govuk-label--s",
               children: [i18n("list.title")],
@@ -158,7 +158,7 @@ export function ListEdit() {
               type="submit"
               onClick={handleSubmit}
             >
-              Save
+              {i18n("save")}
             </button>
             <a
               href="#"
@@ -168,7 +168,7 @@ export function ListEdit() {
                 handleDelete(selectedList.isNew);
               }}
             >
-              {i18n("delete")}
+              {i18n(selectedList.isNew ? "cancel" : "delete")}
             </a>
           </>
         )}

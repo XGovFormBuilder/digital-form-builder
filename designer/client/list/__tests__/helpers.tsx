@@ -32,8 +32,8 @@ export const customRenderForLists = (
   const rendered = render(
     <DataContext.Provider value={dataValue}>
       <FlyoutContext.Provider value={flyoutValue}>
-        <ListsEditorContext.Provider value={defaultListsValue}>
-          <ListContext.Provider value={defaultListValue}>
+        <ListsEditorContext.Provider value={listsValue}>
+          <ListContext.Provider value={listValue}>
             {children}
           </ListContext.Provider>
         </ListsEditorContext.Provider>
