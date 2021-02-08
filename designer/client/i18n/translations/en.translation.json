@@ -53,6 +53,14 @@
     "required": "This field is required"
   },
   "field": "field",
+  "fieldEdit": {
+    "helpText": "Help text (optional)",
+    "helpTextHint": "Enter the description to show for this field",
+    "hideTitle": "Hide title",
+    "hideTitleHint": "Tick this box if you do not want the title to show on the page",
+    "title": "Title",
+    "titleHint": "Enter the name to show for this field"
+  },
   "fieldTypeToName": {
     "AutocompleteField": "Autocomplete field",
     "CheckboxesField": "Checkboxes field",
@@ -150,7 +158,7 @@
     "errors": {
       "whitespace": "Name must not contain spaces"
     },
-    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces."
+    "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
   },
   "no": "no",
   "optional": "{{noun}} (optional)",

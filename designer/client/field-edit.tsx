@@ -22,10 +22,10 @@ export function FieldEdit() {
           name="title"
           label={{
             className: "govuk-label--s",
-            children: ["Title"],
+            children: [i18n("fieldEdit.title")],
           }}
           hint={{
-            children: ["This is the title text displayed on the page"],
+            children: [i18n("fieldEdit.titleHint")],
           }}
           value={title || ""}
           onChange={(e) => {
@@ -46,10 +46,10 @@ export function FieldEdit() {
           rows={2}
           label={{
             className: "govuk-label--s",
-            children: ["Help Text (optional)"],
+            children: [i18n("fieldEdit.helpText")],
           }}
           hint={{
-            children: ["Text can include HTML"],
+            children: [i18n("fieldEdit.helpTextHint")],
           }}
           required={false}
           value={hint}
@@ -80,9 +80,11 @@ export function FieldEdit() {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-hideTitle"
             >
-              Hide title
+              {i18n("fieldEdit.hideTitle")}
             </label>
-            <span className="govuk-hint">Hide the title of the component</span>
+            <span className="govuk-hint checkbox-hint">
+              {i18n("fieldEdit.hideTitleHint")}
+            </span>
           </div>
         </div>
         <div
@@ -140,6 +142,9 @@ export function FieldEdit() {
                 )?.title ?? ""
               } optional`}
             </label>
+            <span className="govuk-hint checkbox-hint">
+              {i18n("name.hint")}
+            </span>
             {isFileUploadField && (
               <span className="govuk-hint govuk-checkboxes__label">
                 All file upload fields are optional to mitigate possible upload
