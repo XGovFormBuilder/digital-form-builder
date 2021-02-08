@@ -13,6 +13,11 @@
   "Test": "For testing purpose, do not delete it",
   "There is a problem": "There is a problem",
   "add": "Add",
+  "addLink": {
+    "hint1": "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
+    "hint2": "To add a link in the main screen, click and hold the title of a page and drag a line to the title of the page you want to link it to. To edit a link, select its line.",
+    "noFieldsAvailable": "You cannot add any conditions as there are no components on the page you wish to link from. Add a component, such as an Input or a Selection field, and then add a condition."
+  },
   "cancel": "Cancel",
   "close": "Close",
   "component": {
@@ -137,6 +142,9 @@
     },
     "title": "List title",
     "titleHint": "This will not show on the page."
+  },
+  "menu": {
+    "links": "Add Link"
   },
   "name": {
     "errors": {
