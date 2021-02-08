@@ -11,6 +11,7 @@ interface Props {
   data: Data;
   conditionsChange: (selectedCondition: string) => void;
   hints: any[];
+  noFieldsHintText?: string;
 }
 
 interface State {
@@ -94,7 +95,7 @@ class SelectConditions extends React.Component<Props, State> {
 
   render() {
     const { selectedCondition, inline } = this.state;
-    const { data, hints = [] } = this.props;
+    const { data, hints = [], noFieldsHintText } = this.props;
     const hasConditions = data.hasConditions || selectedCondition;
 
     return (
@@ -164,9 +165,7 @@ class SelectConditions extends React.Component<Props, State> {
           </div>
         ) : (
           <div className="govuk-body">
-            <div className="govuk-hint">
-              {i18n("conditions.noFieldsAvailable")}
-            </div>
+            <div className="govuk-hint">{noFieldsHintText}</div>
           </div>
         )}
       </div>

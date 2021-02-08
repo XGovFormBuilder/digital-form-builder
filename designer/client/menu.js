@@ -164,7 +164,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showAddLink && (
           <Flyout
-            title="Add Link"
+            title={i18n("menu.links")}
             onHide={() => this.setState({ showAddLink: false })}
           >
             <LinkCreate

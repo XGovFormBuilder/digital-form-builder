@@ -16,14 +16,14 @@ describe("SelectConditions", () => {
       },
       conditionsChange: jest.fn() as any,
       hints: [],
+      noFieldsHintText: "NoFieldsHintText",
     };
   });
 
   test("noFieldsAvailable hint text is rendered correctly", () => {
     const { getByText } = render(<SelectConditions {...props} />);
 
-    const hint =
-      "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.";
+    const hint = "NoFieldsHintText";
     expect(getByText(hint)).toBeInTheDocument();
   });
 });
