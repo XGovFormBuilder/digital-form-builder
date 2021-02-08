@@ -31,7 +31,8 @@
     "smoke-tests/designer/features/*.feature",
     "*.md",
     ".eslintrc.json",
-    "yarn.lock"
+    "yarn.lock",
+    "*.scss"
   ],
   "settings": {
     "react": {
