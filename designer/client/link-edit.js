@@ -115,6 +115,7 @@ class LinkEdit extends React.Component {
           path={edge.source}
           selectedCondition={selectedCondition}
           conditionsChange={this.conditionSelected}
+          noFieldsHintText={i18n("addLink.noFieldsAvailable")}
         />
         <button className="govuk-button" type="submit">
           Save

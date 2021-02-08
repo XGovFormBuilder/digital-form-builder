@@ -131,6 +131,7 @@ class LinkCreate extends React.Component {
               data={data}
               path={from}
               conditionsChange={this.conditionSelected}
+              noFieldsHintText={i18n("addLink.noFieldsAvailable")}
             />
           )}
 

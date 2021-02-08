@@ -31,7 +31,7 @@ describe("LinkCreate", () => {
     };
   });
 
-  it("renders hint texts correctly", () => {
+  test("hint texts are rendered correctly", () => {
     const hint1 =
       "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.";
     const hint2 =
@@ -42,7 +42,7 @@ describe("LinkCreate", () => {
     expect(getByText(hint2)).toBeInTheDocument();
   });
 
-  it("renders cannot add condition hint correctly", () => {
+  test("cannot add condition hint is rendered correctly", () => {
     const hint =
       "You cannot add any conditions as there are no components on the page you wish to link from. Add a component, such as an Input or a Selection field, and then add a condition.";
 
