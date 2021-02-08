@@ -1,6 +1,7 @@
 import React from "react";
 import SelectConditions from "./conditions/SelectConditions";
 import { clone } from "@xgovformbuilder/model";
+import { i18n } from "./i18n";
 
 import { DataContext } from "./context";
 
