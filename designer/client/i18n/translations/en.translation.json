@@ -75,7 +75,7 @@
   },
   "fieldeditors": {
     "conditions": {
-      "hint": "Select a condition that determines whether to show the contents of this component.You can create and edit conditions on the Conditions screen."
+      "hint": "Select a condition that determines whether to show the contents of this component. You can create and edit conditions on the Conditions screen."
     },
     "details": {
       "hint": "Enter the text you want to show when users expand the title. You can apply basic formatting, such as text formatting and hyperlinks."
@@ -146,7 +146,7 @@
     "newTitle": "Add a new list",
     "select": "Select list",
     "static": {
-      "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the List screen",
+      "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen",
       "newTitle": "Add a new component list",
       "noun": "component list",
       "saveFirst": "You must save before creating a component list, or you can select an existing list"
@@ -158,7 +158,7 @@
     "errors": {
       "whitespace": "Name must not contain spaces"
     },
-    "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify.It must not contain spaces."
+    "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
   },
   "no": "no",
   "optional": "{{noun}} (optional)",
