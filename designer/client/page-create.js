@@ -233,6 +233,7 @@ class PageCreate extends React.Component {
               data={data}
               path={linkFrom}
               conditionsChange={this.conditionSelected}
+              noFieldsHintText={i18n("conditions.noFieldsAvailable")}
             />
           )}
 
