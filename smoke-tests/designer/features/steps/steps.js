@@ -43,14 +43,14 @@ Then("the {string} control is displayed in the {string}", function (
   this.pageName = pageName;
   const pageComponent = toCamelCase(componentName);
   switch (pageComponent) {
-    case "dateField":
+    case "date":
       chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
         .to.be.true;
       expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
         "dd/mm/yyyy"
       );
       break;
-    case "dateTimeField":
+    case "dateTime":
       chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
         .to.be.true;
       expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
@@ -239,7 +239,7 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   }
 });
 
-Then("the Date field control is displayed in the page", () => {
+Then("the Date control is displayed in the page", () => {
   chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
     .true;
   expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
