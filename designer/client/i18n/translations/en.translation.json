@@ -58,6 +58,8 @@
     "helpTextHint": "Enter the description to show for this field",
     "hideTitle": "Hide title",
     "hideTitleHint": "Tick this box if you do not want the title to show on the page",
+    "optional": "Make {{fieldTitle}} optional",
+    "optionalHint": "Tick this box if the user does not need to complete this field to progress through the form",
     "title": "Title",
     "titleHint": "Enter the name to show for this field"
   },
