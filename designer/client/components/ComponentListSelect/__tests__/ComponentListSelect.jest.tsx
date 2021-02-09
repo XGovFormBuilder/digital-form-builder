@@ -210,4 +210,32 @@ describe("ComponentListSelect", () => {
     // - then
     expect(container).toHaveTextContent(i18n("list.static.saveFirst"));
   });
+
+  test("check help text changes", () => {
+    // - when
+    const componentProps = {
+      selectedComponent: {
+        name: "IDDQl4",
+        title: "abc",
+        schema: {},
+        options: {
+          required: true,
+        },
+        type: "RadiosField",
+      },
+      isNew: true,
+    };
+    const { container, debug } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={componentProps}
+      >
+        <ComponentListSelect />
+      </TestComponentContextProvider>
+    );
+
+    expect(container).toHaveTextContent(
+      "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen"
+    );
+  });
 });
