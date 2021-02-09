@@ -46,7 +46,7 @@ export function FieldEdit() {
           rows={2}
           label={{
             className: "govuk-label--s",
-            children: ["Help Text (optional)"],
+            children: ["Help text (optional)"],
           }}
           hint={{
             children: [i18n("fieldeditors.helptext")],
@@ -169,7 +169,7 @@ export function FieldEdit() {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-optionalText"
             >
-              Hide &apos;(Optional)&apos; text
+              Hide &apos;(optional)&apos; text
             </label>
           </div>
         </div>
