@@ -65,7 +65,7 @@ Then("the {string} control is displayed in the {string}", function (
 });
 
 When("I add multiple components to the {string}", (pageName) => {
-  this.pageComponents = ["Email address field", "Date field"];
+  this.pageComponents = ["Email address", "Date"];
   this.pageComponents.forEach((component) =>
     Actions.createComponentForPage(component, pageName)
   );

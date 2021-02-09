@@ -17,12 +17,12 @@ Feature: Components
     And the "<type>" is displayed when I Preview the page
     Examples:
       | type                |
-      | Date field          |
-      | Date parts field    |
-      | Date time field     |
-      | Email address field |
+      | Date          |
+      | Date parts    |
+      | Date time     |
+      | Email address |
       | Paragraph           |
-      | Text field          |
+      | Text          |
 
   Scenario: Add multiple components to a page
     When I add multiple components to the "First page"
