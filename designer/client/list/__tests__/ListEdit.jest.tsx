@@ -63,5 +63,7 @@ test("strings are rendered correctly", async () => {
     listValue: emptyList,
   });
 
-  expect(getByText("No list items available")).toBeInTheDocument();
+  expect(
+    getByText("This list does not have any list items")
+  ).toBeInTheDocument();
 });

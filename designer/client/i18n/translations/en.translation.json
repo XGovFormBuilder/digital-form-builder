@@ -139,7 +139,7 @@
     },
     "items": {
       "hint": "Use the drag handles to reorder your list",
-      "hintNoItems": "No list items available",
+      "hintNoItems": "This list does not have any list items",
       "title": "List items"
     },
     "newTitle": "Add list",
