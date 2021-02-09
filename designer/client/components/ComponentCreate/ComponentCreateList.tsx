@@ -37,18 +37,17 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
     },
     []
   );
-
+  console.log(JSON.stringify(contentFields));
   return (
     <div
       className="govuk-form-group component-create__list"
       data-testid="component-create-list"
     >
-      <h1 className="govuk-hint">
-        {i18n("Select a component to add to your page")}
-      </h1>
+      <h1 className="govuk-hint">{i18n("component.create_info")}</h1>
       <ol className="govuk-list">
         <li className="component-create__list__item">
           <h2 className="govuk-heading-s">{i18n("Content")}</h2>
+          <p className="govuk-body">{i18n("component.contentfields_info")}</p>
           <ol className="govuk-list">
             {contentFields.map((component) => (
               <li key={component.name}>
@@ -59,6 +58,9 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                 >
                   {i18n(`fieldTypeToName.${component.type}`)}
                 </a>
+                <p className="govuk-body-s">
+                  {i18n(`fieldTypeToName.${component.type}_info`)}
+                </p>
               </li>
             ))}
           </ol>
@@ -66,6 +68,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
         </li>
         <li className="component-create__list__item">
           <h2 className="govuk-heading-s">{i18n("Input fields")}</h2>
+          <p className="govuk-body">{i18n("component.inputfields_info")}</p>
           <ol className="govuk-list">
             {inputFields.map((component) => (
               <li key={component.type}>
@@ -76,6 +79,9 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                 >
                   {i18n(`fieldTypeToName.${component.type}`)}
                 </a>
+                <p className="govuk-body-s">
+                  {i18n(`fieldTypeToName.${component.type}_info`)}
+                </p>
               </li>
             ))}
           </ol>
@@ -83,6 +89,7 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
         </li>
         <li className="component-create__list__item">
           <h2 className="govuk-heading-s">{i18n("Selection fields")}</h2>
+          <p className="govuk-body">{i18n("component.selectfields_info")}</p>
           <ol className="govuk-list">
             {selectionFields.map((component) => (
               <li key={component.type}>
@@ -93,6 +100,9 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
                 >
                   {i18n(`fieldTypeToName.${component.type}`)}
                 </a>
+                <p className="govuk-body-s">
+                  {i18n(`fieldTypeToName.${component.type}_info`)}
+                </p>
               </li>
             ))}
           </ol>
