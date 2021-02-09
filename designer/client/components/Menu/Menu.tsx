@@ -1,31 +1,36 @@
-import React, { useState } from "react";
-import { Flyout } from "./components/Flyout";
-import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
-import PageCreate from "./page-create";
-import LinkCreate from "./link-create";
-import ListsEdit from "../client/list/lists-edit";
-import SectionsEdit from "./section/sections-edit";
-import ConditionsEdit from "./conditions/ConditionsEdit";
-import FeeEdit from "./fee-edit";
-import NotifyEdit from "./outputs/notify-edit";
-import DeclarationEdit from "./declaration-edit";
-import OutputsEdit from "./outputs/outputs-edit";
-import { FormDetails } from "./components/FormDetails";
-import { ListContextProvider } from "./reducers/listReducer";
-import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
-import { DataContext } from "./context";
-import { i18n } from "./i18n";
+import React, { useContext, useState } from "react";
+import { Flyout } from "../Flyout";
+import { FormDetails } from "../FormDetails";
+import PageCreate from "../../page-create";
+import LinkCreate from "../../link-create";
+import SectionsEdit from "../../section/sections-edit";
+import ConditionsEdit from "../../conditions/ConditionsEdit";
+import { i18n } from "../../i18n";
+import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
+import ListsEdit from "../../list/lists-edit";
+import { ListContextProvider } from "../../reducers/listReducer";
+import FeeEdit from "../../fee-edit";
+import NotifyEdit from "../../outputs/notify-edit";
+import DeclarationEdit from "../../declaration-edit";
+import OutputsEdit from "../../outputs/outputs-edit";
+import { DataContext } from "../../context";
 
-function useMenuItem() {
+type MenuItemHook = {
+  isVisible: boolean;
+  show: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  hide: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+};
+
+function useMenuItem(): MenuItemHook {
   const [isVisible, setIsVisible] = useState(false);
 
   function show(e) {
-    e.preventDefault();
+    e?.preventDefault();
     setIsVisible(true);
   }
 
   function hide(e) {
-    e.preventDefault();
+    e?.preventDefault();
     setIsVisible(false);
   }
 
@@ -36,83 +41,47 @@ function useMenuItem() {
   };
 }
 
-function MenuButton() {}
+export function Menu() {
+  const formConfig = useMenuItem(),
+    page = useMenuItem(),
+    link = useMenuItem(),
+    sections = useMenuItem(),
+    conditions = useMenuItem(),
+    lists = useMenuItem(),
+    outputs = useMenuItem(),
+    fees = useMenuItem(),
+    summaryBehaviour = useMenuItem(),
+    summary = useMenuItem();
 
-function MenuFlyout() {}
-
-function FlyoutMenuItem({ children }) {
-  const { isVisible, show, hide } = useMenuItem();
-  const;
-  const buttonChild = children;
-  const flyoutChild;
-  return (
-    <>
-      <button onClick={show}>Form Details</button>
-      {isVisible && (
-        <Flyout title="Form Details" onHide={hide}>
-          <FormDetails data={{}} onCreate={hide} />
-        </Flyout>
-      )}
-    </>
-  );
-}
-
-function menu() {
-  const items = {
-    formConfig: useMenuItem(),
-    page: useMenuItem(),
-    link: useMenuItem(),
-    sections: useMenuItem(),
-    conditions: useMenuItem(),
-    lists: useMenuItem(),
-    outputs: useMenuItem(),
-    fees: useMenuItem(),
-    summaryBehaviour: useMenuItem(),
-    summary: useMenuItem(),
-  };
+  const { data } = useContext(DataContext);
 
   return (
     <nav className="menu">
       <div className="menu__row">
-        <button onClick={items.formConfig.show}>Form Details</button>
+        <button onClick={formConfig.show}>Form Details</button>
+        {formConfig.isVisible && (
+          <Flyout title="Form Details" onHide={formConfig.hide}>
+            <FormDetails data={{}} onCreate={() => formConfig.hide} />
+          </Flyout>
+        )}
 
-        <button onClick={() => this.setState({ showAddPage: true })}>
-          Add Page
-        </button>
+        <button onClick={page.show}>Add Page</button>
 
-        <button onClick={() => this.setState({ showAddLink: true })}>
-          Add Link
-        </button>
+        <button onClick={link.show}>Add Link</button>
 
-        <button onClick={() => this.setState({ showEditSections: true })}>
-          Edit Sections
-        </button>
+        <button onClick={sections.show}>Edit Sections</button>
 
-        <button onClick={() => this.setState({ showEditConditions: true })}>
-          Edit Conditions
-        </button>
+        <button onClick={conditions.show}>Edit Conditions</button>
 
-        <button onClick={() => this.setState({ showEditLists: true })}>
-          Edit Lists
-        </button>
+        <button onClick={lists.show}>Edit Lists</button>
 
-        <button onClick={() => this.setState({ showEditOutputs: true })}>
-          Edit Outputs
-        </button>
+        <button onClick={outputs.show}>Edit Outputs</button>
 
-        <button onClick={() => this.setState({ showEditFees: true })}>
-          Edit Fees
-        </button>
+        <button onClick={fees.show}>Edit Fees</button>
 
-        <button
-          onClick={() => this.setState({ showEditSummaryBehaviour: true })}
-        >
-          Edit summary behaviour
-        </button>
+        <button onClick={summaryBehaviour.show}>Edit summary behaviour</button>
 
-        <button onClick={() => this.setState({ showSummary: true })}>
-          Summary
-        </button>
+        <button onClick={summary.show}>Summary</button>
       </div>
       <div className="menu__row">
         <a href="/app">Create new form</a>
@@ -124,68 +93,37 @@ function menu() {
         </a>
         <input type="file" id="upload" hidden onChange={this.onFileUpload} />
       </div>
-      {this.state.showFormConfig && (
-        <Flyout
-          title="Form Details"
-          onHide={() => this.setState({ showFormConfig: false })}
-        >
-          <FormDetails
-            data={data}
-            onCreate={() => this.setState({ showFormConfig: false })}
-          />
+      {formConfig.isVisible && (
+        <Flyout title="Form Details" onHide={formConfig.hide}>
+          <FormDetails data={data} onCreate={() => formConfig.hide} />
         </Flyout>
       )}
-      {this.state.showAddPage && (
-        <Flyout
-          title="Add Page"
-          onHide={() => this.setState({ showAddPage: false })}
-        >
-          <PageCreate
-            data={data}
-            onCreate={() => this.setState({ showAddPage: false })}
-          />
+      {page && (
+        <Flyout title="Add Page" onHide={page.hide}>
+          <PageCreate data={data} onCreate={() => page.hide} />
         </Flyout>
       )}
-      {this.state.showAddLink && (
-        <Flyout
-          title={i18n("menu.links")}
-          onHide={() => this.setState({ showAddLink: false })}
-        >
-          <LinkCreate
-            data={data}
-            onCreate={() => this.setState({ showAddLink: false })}
-          />
+      {link && (
+        <Flyout title={i18n("menu.links")} onHide={link.hide}>
+          <LinkCreate data={data} onCreate={() => link.hide} />
         </Flyout>
       )}
-      {this.state.showEditSections && (
-        <Flyout
-          title="Edit Sections"
-          onHide={() => this.setState({ showEditSections: false })}
-        >
-          <SectionsEdit
-            data={data}
-            onCreate={() => this.setState({ showEditSections: false })}
-          />
+      {sections && (
+        <Flyout title="Edit Sections" onHide={sections.hide}>
+          <SectionsEdit data={data} onCreate={() => sections.hide} />
         </Flyout>
       )}
-      {this.state.showEditConditions && (
+      {conditions && (
         <Flyout
           title={i18n("conditions.addOrEdit")}
-          onHide={() => this.setState({ showEditConditions: false })}
+          onHide={conditions.hide}
           width="large"
         >
-          <ConditionsEdit
-            data={data}
-            onCreate={() => this.setState({ showEditConditions: false })}
-          />
+          <ConditionsEdit data={data} onCreate={() => conditions.hide} />
         </Flyout>
       )}
-      {this.state.showEditLists && (
-        <Flyout
-          title="Edit Lists"
-          onHide={() => this.setState({ showEditLists: false })}
-          width={""}
-        >
+      {lists && (
+        <Flyout title="Edit Lists" onHide={lists.hide} width={""}>
           <ListsEditorContextProvider>
             <ListContextProvider>
               <ListsEdit />
@@ -194,75 +132,53 @@ function menu() {
         </Flyout>
       )}
 
-      {this.state.showEditFees && (
-        <Flyout
-          title="Edit Fees"
-          onHide={() => this.setState({ showEditFees: false })}
-          width="xlarge"
-        >
-          <FeeEdit
-            data={data}
-            onEdit={() => this.setState({ showEditFees: false })}
-          />
+      {fees && (
+        <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
+          <FeeEdit data={data} onEdit={() => fees.hide} />
         </Flyout>
       )}
-      {this.state.showEditNotify && (
-        <Flyout
-          title="Edit Notify"
-          onHide={() => this.setState({ showEditNotify: false })}
-          width="xlarge"
-        >
-          <NotifyEdit
-            data={data}
-            onCreate={() => this.setState({ showEditNotify: false })}
-          />
+      {notify && (
+        <Flyout title="Edit Notify" onHide={notify.hide} width="xlarge">
+          <NotifyEdit data={data} onCreate={() => notify.hide} />
         </Flyout>
       )}
-      {this.state.showEditDeclaration && (
+      {declaration && (
         <Flyout
           title="Edit Declaration"
-          onHide={() => this.setState({ showEditDeclaration: false })}
+          onHide={declaration.hide}
           width="xlarge"
         >
           <DeclarationEdit
             data={data}
             toggleShowState={this.toggleShowState}
-            onCreate={() => this.setState({ showEditDeclaration: false })}
+            onCreate={() => declaration.hide}
           />
         </Flyout>
       )}
-      {this.state.showEditOutputs && (
-        <Flyout
-          title="Edit Outputs"
-          onHide={() => this.setState({ showEditOutputs: false })}
-          width="xlarge"
-        >
+      {outputs && (
+        <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
           <OutputsEdit
             data={data}
             toggleShowState={this.toggleShowState}
-            onCreate={() => this.setState({ showEditOutputs: false })}
+            onCreate={() => outputs.hide}
           />
         </Flyout>
       )}
-      {this.state.showEditSummaryBehaviour && (
+      {summaryBehaviour && (
         <Flyout
           title="Edit Summary behaviour"
-          onHide={() => this.setState({ showEditSummaryBehaviour: false })}
+          onHide={summaryBehaviour.hide}
           width="xlarge"
         >
           <DeclarationEdit
             data={data}
             toggleShowState={this.toggleShowState}
-            onCreate={() => this.setState({ showEditSummaryBehaviour: false })}
+            onCreate={() => summaryBehaviour.hide}
           />
         </Flyout>
       )}
-      {this.state.showSummary && (
-        <Flyout
-          title="Summary"
-          width="large"
-          onHide={() => this.setState({ showSummary: false })}
-        >
+      {showSummary && (
+        <Flyout title="Summary" width="large" onHide={showSummary.hide}>
           <div className="js-enabled" style={{ paddingTop: "3px" }}>
             <div className="govuk-tabs" data-module="tabs">
               <h2 className="govuk-tabs__title">Summary</h2>
