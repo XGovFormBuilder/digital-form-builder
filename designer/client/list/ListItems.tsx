@@ -101,12 +101,16 @@ function ListItems() {
     }
   };
 
+  const hasListItems = (selectedList?.items ?? []).length > 0;
+
   return (
     <div>
       <table className="govuk-table">
         <caption className={"govuk-table__caption"}>
           {i18n("list.items.title")}
-          <span className="govuk-hint">{i18n("list.items.hint")}</span>
+          <span className="govuk-hint">
+            {i18n(hasListItems ? "list.items.hint" : "list.items.hintNoItems")}
+          </span>
         </caption>
         <thead className="govuk-table__head">
           <tr className="govuk-table__row">

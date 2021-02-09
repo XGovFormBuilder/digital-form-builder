@@ -20,6 +20,11 @@ const data = new Data({
         { text: "text b", description: "desc b", value: "value b" },
       ],
     },
+    {
+      name: "myEmptyList",
+      title: "My empty list",
+      items: [],
+    },
   ],
 });
 
@@ -45,12 +50,18 @@ test("strings are rendered correctly", async () => {
   expect(
     getByText("Drag and drop the icons to reorder your list")
   ).toBeInTheDocument();
-  expect(getByText("Add a new list item")).toBeInTheDocument();
+  expect(getByText("Add list item")).toBeInTheDocument();
+
+  const emptyList = {
+    state: { selectedList: data.findList("myEmptyList"), isNew: true },
+    dispatch: jest.fn(),
+  };
 
   await rerender(<ListEdit />, {
     dataValue,
     listsValue,
-    listValue: { state: { selectedList: { isNew: true } } },
+    listValue: emptyList,
   });
-  expect(getByText("Cancel")).toBeInTheDocument();
+
+  expect(getByText("No list items available")).toBeInTheDocument();
 });

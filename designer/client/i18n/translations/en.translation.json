@@ -123,7 +123,7 @@
       "manage": "Lists you have created appear on this screen. From here you can manage the lists available for your form."
     },
     "item": {
-      "add": "Add a new list item",
+      "add": "Add list item",
       "conditions": "Conditions (optional)",
       "conditionsHint": "Select a condition that determines whether to show this list item. You can create and edit conditions on the Conditions screen.",
       "createSubcomponent": "Create sub component",
@@ -139,6 +139,7 @@
     },
     "items": {
       "hint": "Drag and drop the icons to reorder your list",
+      "hintNoItems": "No list items available",
       "title": "List items"
     },
     "newTitle": "Add list",
