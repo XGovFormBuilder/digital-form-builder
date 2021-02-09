@@ -31,16 +31,23 @@ function useComponentCreate(props) {
   const hasErrors = hasValidationErrors(errors);
 
   useEffect(() => {
+    let isMounted = true;
     // render in the next re-paint to allow the DOM to reflow without the list
     // thus resetting the Flyout wrapper scrolling position
     // This is a quick work around the bug in small screens
     // where once user scrolls down the components list and selects one of the bottom components
     // then the component edit screen renders already scrolled to the bottom
     if (selectedComponent?.type) {
-      window.requestAnimationFrame(() => setRenderTypeEdit(true));
+      window.requestAnimationFrame(() => {
+        if (isMounted) setRenderTypeEdit(true);
+      });
     } else {
       setRenderTypeEdit(false);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [selectedComponent?.type]);
 
   useEffect(() => {
