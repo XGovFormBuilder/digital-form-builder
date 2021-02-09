@@ -143,10 +143,11 @@
     },
     "newTitle": "Add a new list",
     "select": "Select list",
+    "selectListHint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen.",
     "static": {
       "newTitle": "Add a new component list",
       "noun": "component list",
-      "saveFirst": "You must save before creating a component list, or you can select an existing list"
+      "saveFirst": "You must save before creating a component list, or you can select an existing list."
     },
     "title": "List title",
     "titleHint": "This will not show on the page."
