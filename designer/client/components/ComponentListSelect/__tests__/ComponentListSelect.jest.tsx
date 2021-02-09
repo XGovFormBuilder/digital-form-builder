@@ -225,7 +225,7 @@ describe("ComponentListSelect", () => {
       },
       isNew: true,
     };
-    const { container, debug } = render(
+    const { container } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
         componentValue={componentProps}

@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { ComponentTypes } from "@xgovformbuilder/model";
 import { ComponentContext } from "./reducers/component/componentReducer";
 import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
@@ -46,10 +45,10 @@ export function FieldEdit() {
           rows={2}
           label={{
             className: "govuk-label--s",
-            children: ["Help text (optional)"],
+            children: [i18n("fieldeditors.helptext")],
           }}
           hint={{
-            children: [i18n("fieldeditors.helptext")],
+            children: [i18n("fieldeditors.helptextHint")],
           }}
           required={false}
           value={hint}

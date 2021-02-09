@@ -31,53 +31,33 @@ describe("details-edit test", () => {
         },
       ],
       conditions: [],
-      lists: [
-        {
-          name: "myList",
-          title: "My list",
-          type: "number",
-          items: [{ text: "An item", description: "A hint", value: "12" }],
-        },
-        {
-          name: "myOtherList",
-          title: "",
-          type: "string",
-          items: [{ text: "An item", description: "A hint", value: "12" }],
-        },
-      ],
     }); //
     const dataValue = { data, save: jest.fn() };
-    const initComponentValue = (initialState: any) => {
-      return initialState;
+    const compContextValue = {
+      state: { selectedComponent: {} },
+      dispatch: jest.fn(),
     };
-    const [state, dispatch] = useReducer(
-      componentReducer,
-      initComponentState({ component: data.pages[0].components[0] }),
-      initComponentValue
-    );
     return (
       <DataContext.Provider value={dataValue}>
-        <ComponentContext.Provider value={{ state, dispatch }}>
+        <ComponentContext.Provider value={compContextValue}>
           {children}
         </ComponentContext.Provider>
       </DataContext.Provider>
     );
   }
 
-  describe("Text changes", () => {
-    it("Should render with correct screen text", () => {
-      const { container, debug } = render(
-        <TestComponentWithContext>
-          <ParaEdit context={ComponentContext}></ParaEdit>
-        </TestComponentWithContext>
-      );
-      expect(container).toHaveTextContent(
-        "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
-      );
+  it("Should render with correct screen text", () => {
+    const { container } = render(
+      <TestComponentWithContext>
+        <ParaEdit context={ComponentContext}></ParaEdit>
+      </TestComponentWithContext>
+    );
+    expect(container).toHaveTextContent(
+      "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
+    );
 
-      expect(container).toHaveTextContent(
-        "Select a condition that determines whether to show the contents of this component. You can create and edit conditions on the Conditions screen."
-      );
-    });
+    expect(container).toHaveTextContent(
+      "Select a condition that determines whether to show the contents of this component. You can create and edit conditions on the Conditions screen."
+    );
   });
 });

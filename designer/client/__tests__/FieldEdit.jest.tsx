@@ -28,41 +28,9 @@ describe("Field Edit", () => {
             options: {
               required: true,
             },
-            type: "RadiosField",
-            values: {
-              type: "static",
-              items: [
-                { label: "My item", value: "12", children: [] },
-                {
-                  label: "Item 2",
-                  hint: "My hint",
-                  value: "11",
-                  condition: "Abcewdad",
-                  children: [],
-                },
-                {
-                  label: "Item 3",
-                  value: "13",
-                  children: [{ type: "TextField" }],
-                },
-              ],
-            },
+            type: "List",
           },
         ],
-      },
-    ],
-    lists: [
-      {
-        name: "myList",
-        title: "My list",
-        type: "number",
-        items: [{ text: "An item", description: "A hint", value: "12" }],
-      },
-      {
-        name: "myOtherList",
-        title: "",
-        type: "string",
-        items: [{ text: "An item", description: "A hint", value: "12" }],
       },
     ],
   });
@@ -74,7 +42,7 @@ describe("Field Edit", () => {
     componentValue,
   }) => {
     const initComponentValue = (initialState: any) => {
-      return !!componentValue ? componentValue : initialState;
+      return componentValue ? componentValue : initialState;
     };
     const [state, dispatch] = useReducer(
       componentReducer,
@@ -91,7 +59,6 @@ describe("Field Edit", () => {
   };
 
   test("Help text changes", () => {
-    // - when
     const { container } = render(
       <TestComponentContextProvider
         dataValue={dataValue}

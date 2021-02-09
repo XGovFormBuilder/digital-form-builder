@@ -85,7 +85,8 @@
     "details": {
       "hint": "Enter the text you want to show when users expand the title. You can apply basic formatting, such as text formatting and hyperlinks."
     },
-    "helptext": "Enter the description to show for this component",
+    "helptext": "Help text (optional)",
+    "helptextHint": "Enter the description to show for this component",
     "hidetitle": "Tick this box if you do not want the title to show on the page",
     "optional": "Tick this box if the user does not need to complete this field to progress through the form.",
     "para": {
