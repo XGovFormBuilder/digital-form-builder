@@ -48,7 +48,7 @@ test("strings are rendered correctly", async () => {
   expect(getByText("List items")).toBeInTheDocument();
   expect(getByText("Enter a unique name for your list")).toBeInTheDocument();
   expect(
-    getByText("Drag and drop the icons to reorder your list")
+    getByText("Use the drag handles to reorder your list")
   ).toBeInTheDocument();
   expect(getByText("Add list item")).toBeInTheDocument();
 

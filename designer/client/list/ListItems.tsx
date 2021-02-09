@@ -108,10 +108,11 @@ function ListItems() {
       <table className="govuk-table">
         <caption className={"govuk-table__caption"}>
           {i18n("list.items.title")}
-          <span className="govuk-hint">
-            {i18n(hasListItems ? "list.items.hint" : "list.items.hintNoItems")}
+          <span className="govuk-hint govuk-!-margin-bottom-0">
+            {i18n("list.items.hint")}
           </span>
         </caption>
+
         <thead className="govuk-table__head">
           <tr className="govuk-table__row">
             <th className="govuk-table__header" scope="col" />
@@ -120,6 +121,13 @@ function ListItems() {
             <th className="govuk-table__header" scope="col" />
           </tr>
         </thead>
+
+        {!hasListItems && (
+          <tr className={"govuk-table__row"}>
+            <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
+          </tr>
+        )}
+
         <SortableList
           items={selectedList?.items ?? []}
           selectListItem={selectListItem}

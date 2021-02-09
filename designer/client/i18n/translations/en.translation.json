@@ -138,7 +138,7 @@
       "valueHint": "This determines the data format of the list item and does not show on the form. Unless you are using integrations and want to modify the payload, it should match the list item text."
     },
     "items": {
-      "hint": "Drag and drop the icons to reorder your list",
+      "hint": "Use the drag handles to reorder your list",
       "hintNoItems": "No list items available",
       "title": "List items"
     },
