@@ -14,6 +14,10 @@ export function FieldEdit() {
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
   const { hideTitle = false, optionalText = false, required = true } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
+  const fieldTitle =
+    ComponentTypes.find((componentType) => componentType.name === type)
+      ?.title ?? "";
+
   return (
     <div>
       <div data-test-id="standard-inputs">
@@ -136,14 +140,10 @@ export function FieldEdit() {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-required"
             >
-              {`Make ${
-                ComponentTypes.find(
-                  (componentType) => componentType.name === type
-                )?.title ?? ""
-              } optional`}
+              {i18n("fieldEdit.optional", { fieldTitle })}
             </label>
             <span className="govuk-hint checkbox-hint">
-              {i18n("name.hint")}
+              {i18n("fieldEdit.optionalHint")}
             </span>
             {isFileUploadField && (
               <span className="govuk-hint govuk-checkboxes__label">
