@@ -124,7 +124,9 @@ function ListItems() {
 
         {!hasListItems && (
           <tbody className="govuk-table__body">
-            <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
+            <tr className="govuk-table__row" scope="row">
+              <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
+            </tr>
           </tbody>
         )}
         {hasListItems && (
