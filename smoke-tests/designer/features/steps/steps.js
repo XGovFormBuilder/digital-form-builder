@@ -209,7 +209,7 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
   FormDesignerPage.formPageTitles.forEach((elem) => {
     pageNames.push(elem.getText());
   });
-  expect(FormDesignerPage.formPages.length).toEqual(1);
+  expect(FormDesignerPage.formPages.length).toEqual(3);
   chai.expect(pageNames).not.include(pageName);
 });
 
