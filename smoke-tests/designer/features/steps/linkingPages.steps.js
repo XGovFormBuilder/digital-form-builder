@@ -19,7 +19,7 @@ When("I link ths page to link from the {string}", (linkedPage) => {
 });
 
 Then("my page is created with a link to the page", () => {
-  browser.waitUntil(() => FormDesignerPage.formPageTitles.length === 3);
+  browser.waitUntil(() => FormDesignerPage.formPageTitles.length === 4);
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });
