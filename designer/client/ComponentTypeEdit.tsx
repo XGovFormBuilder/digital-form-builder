@@ -50,7 +50,9 @@ function ComponentTypeEdit(props) {
 
   return (
     <div>
-      {needsFieldInputs && <FieldEdit page={page} />}
+      {needsFieldInputs && (
+        <FieldEdit isContentField={type?.subType === "content"} />
+      )}
       {TagName && <TagName page={page} />}
     </div>
   );

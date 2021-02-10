@@ -49,7 +49,7 @@ function DetailsEdit({ i18n, context = ComponentContext }: Props) {
           "govuk-form-group--error": errors?.content,
         })}
       >
-        <label className="govuk-label" htmlFor="details-content">
+        <label className="govuk-label govuk-label--s" htmlFor="details-content">
           Content
         </label>
         <span className="govuk-hint">{i18n("fieldeditors.details.hint")}</span>

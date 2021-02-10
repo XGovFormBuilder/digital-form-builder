@@ -87,4 +87,34 @@ describe("Field Edit", () => {
       "Tick this box if the user does not need to complete this field to progress through the form."
     );
   });
+
+  test("Content fields should not have optional checkbox", () => {
+    const { container } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={false}
+      >
+        <FieldEdit isContentField={true} />
+      </TestComponentContextProvider>
+    );
+    expect(container).toHaveTextContent(
+      "Enter the name to show for this component"
+    );
+
+    expect(container).toHaveTextContent(
+      "Enter the description to show for this component"
+    );
+
+    expect(container).toHaveTextContent(
+      "Tick this box if you do not want the title to show on the page"
+    );
+
+    expect(container).toHaveTextContent(
+      "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
+    );
+
+    expect(container).not.toHaveTextContent(
+      "Tick this box if the user does not need to complete this field to progress through the form."
+    );
+  });
 });

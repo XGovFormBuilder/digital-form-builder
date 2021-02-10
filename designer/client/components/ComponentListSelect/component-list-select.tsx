@@ -69,10 +69,12 @@ export function ComponentListSelect() {
 
   return (
     <div className="govuk-form-group">
-      <Label htmlFor="field-options-list">{i18n("list.select")}</Label>
+      <Label htmlFor="field-options-list" className="govuk-label--s">
+        {i18n("list.select")}
+      </Label>
       <div className="govuk-hint">
-        <p>{i18n("list.static.hint")}</p>
-        {isNew && <p>{i18n("list.static.saveFirst")}</p>}
+        {i18n("list.static.hint")}
+        {isNew && i18n("list.static.saveFirst")}
       </div>
       <select
         className="govuk-select govuk-input--width-10"

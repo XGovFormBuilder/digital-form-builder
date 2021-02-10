@@ -1,11 +1,7 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { render } from "@testing-library/react";
 import { initI18n } from "../../../i18n";
-import {
-  ComponentContext,
-  componentReducer,
-  initComponentState,
-} from "../../../reducers/component/componentReducer";
+import { ComponentContext } from "../../../reducers/component/componentReducer";
 import { ParaEdit } from "../para-edit";
 import { Data } from "@xgovformbuilder/model";
 import { DataContext } from "../../../context";
@@ -57,7 +53,7 @@ describe("details-edit test", () => {
     );
 
     expect(container).toHaveTextContent(
-      "Select a condition that determines whether to show the contents of this component. You can create and edit conditions on the Conditions screen."
+      "Select a condition that determines whether to show the contents of this component. You can create and edit conditions from the Conditions screen."
     );
   });
 });

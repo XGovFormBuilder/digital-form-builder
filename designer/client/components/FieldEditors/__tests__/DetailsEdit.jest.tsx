@@ -28,7 +28,7 @@ describe("details-edit test", () => {
     );
 
     expect(container).toHaveTextContent(
-      "Enter the text you want to show when users expand the title. You can apply basic formatting, such as text formatting and hyperlinks."
+      "Enter the text you want to show when users expand the title. You can apply basic HTML, such as text formatting and hyperlinks."
     );
   });
 });

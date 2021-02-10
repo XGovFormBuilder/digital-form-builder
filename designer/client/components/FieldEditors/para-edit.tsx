@@ -22,7 +22,7 @@ export function ParaEdit({ context = ComponentContext }: Props) {
   return (
     <div>
       <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="para-content">
+        <label className="govuk-label govuk-label--s" htmlFor="para-content">
           Content
         </label>
         <span className="govuk-hint">{i18n("fieldeditors.para.hint")}</span>
@@ -39,7 +39,7 @@ export function ParaEdit({ context = ComponentContext }: Props) {
         />
       </div>
       <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="condition">
+        <label className="govuk-label govuk-label--s" htmlFor="condition">
           Condition (optional)
         </label>
         <span className="govuk-hint">
