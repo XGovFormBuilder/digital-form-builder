@@ -19,7 +19,7 @@ It will also deal with hoisting the node_modules for any packages that are share
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node >=12. `node --version`.
+1. Make sure you are using node >=12. up 14. `node --version`.
 2. Make sure you have yarn 2.4+ installed.
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
@@ -140,3 +140,24 @@ There are some features that we do not want to expose (for fear of wide adoption
 
 
 
+### Smoke tests
+
+There is a suite of smoke tests which are run against all PR's. There is nightly cron based action which executes smoke tests against the Heroku deployments.
+
+To run the smoke tests locally, you start the containers up using the command
+
+```
+docker-compose up --build
+```
+Then smoke test can be executed using command
+
+```
+yarn smoke-tests/designer smoke-test-headless
+```
+
+Pre-requite for running smoke test are:
+ 1. Yarn 
+ 2. JVM 
+ 2. a browser like chrome
+ 3. Node version 12+ up 14
+ 4. yarn install
