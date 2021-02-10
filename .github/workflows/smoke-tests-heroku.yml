@@ -24,12 +24,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Check designer container is running
-        run: |
-          curl -4 --retry 10 --retry-connrefused --retry-delay 10 https://digital-form-builder-designer.herokuapp.com/health-check
-      - name: Check runner container is running
-        run: |
-          curl -4 --retry 10 --retry-connrefused --retry-delay 10 https://digital-form-builder-runner.herokuapp.com/health-check
       - name: Smoke Test
         run: |
           yarn smoke-tests/designer smoke-test-headless --baseUrl=https://digital-form-builder-designer.herokuapp.com/
