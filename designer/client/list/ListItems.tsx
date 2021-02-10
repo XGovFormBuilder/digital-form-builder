@@ -123,19 +123,22 @@ function ListItems() {
         </thead>
 
         {!hasListItems && (
-          <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
+          <tbody className="govuk-table__body">
+            <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
+          </tbody>
         )}
-
-        <SortableList
-          items={selectedList?.items ?? []}
-          selectListItem={selectListItem}
-          removeItem={removeItem}
-          onSortEnd={onSortEnd}
-          helperClass="dragging-on-modal"
-          hideSortableGhost={false}
-          lockToContainerEdges
-          useDragHandle
-        />
+        {hasListItems && (
+          <SortableList
+            items={selectedList?.items ?? []}
+            selectListItem={selectListItem}
+            removeItem={removeItem}
+            onSortEnd={onSortEnd}
+            helperClass="dragging-on-modal"
+            hideSortableGhost={false}
+            lockToContainerEdges
+            useDragHandle
+          />
+        )}
       </table>
     </div>
   );
