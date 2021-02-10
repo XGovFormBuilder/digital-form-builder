@@ -53,6 +53,16 @@
     "required": "This field is required"
   },
   "field": "field",
+  "fieldEdit": {
+    "helpText": "Help text (optional)",
+    "helpTextHint": "Enter the description to show for this field",
+    "hideTitle": "Hide title",
+    "hideTitleHint": "Tick this box if you do not want the title to show on the page",
+    "optional": "Make {{fieldTitle}} optional",
+    "optionalHint": "Tick this box if users do not need to complete this field to progress through the form",
+    "title": "Title",
+    "titleHint": "Enter the name to show for this field"
+  },
   "fieldTypeToName": {
     "AutocompleteField": "Autocomplete field",
     "CheckboxesField": "Checkboxes field",
@@ -144,10 +154,11 @@
     },
     "newTitle": "Add list",
     "select": "Select list",
+    "selectListHint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen.",
     "static": {
       "newTitle": "Add a new component list",
       "noun": "component list",
-      "saveFirst": "You must save before creating a component list, or you can select an existing list"
+      "saveFirst": "You must save before creating a component list, or you can select an existing list."
     },
     "title": "List title",
     "titleHint": "Enter a unique name for your list"
@@ -159,7 +170,7 @@
     "errors": {
       "whitespace": "Name must not contain spaces"
     },
-    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces."
+    "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
   },
   "no": "no",
   "optional": "{{noun}} (optional)",
