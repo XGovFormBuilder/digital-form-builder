@@ -39,11 +39,14 @@ test("strings are rendered correctly", async () => {
     dispatch: jest.fn(),
   };
 
-  const { getByText, rerender } = customRenderForLists(<ListEdit />, {
-    dataValue,
-    listsValue,
-    listValue,
-  });
+  const { getByText, queryByText, rerender } = customRenderForLists(
+    <ListEdit />,
+    {
+      dataValue,
+      listsValue,
+      listValue,
+    }
+  );
 
   expect(getByText("List items")).toBeInTheDocument();
   expect(getByText("Enter a unique name for your list")).toBeInTheDocument();
@@ -51,6 +54,7 @@ test("strings are rendered correctly", async () => {
     getByText("Use the drag handles to reorder your list")
   ).toBeInTheDocument();
   expect(getByText("Add list item")).toBeInTheDocument();
+  expect(queryByText("This list does not have any list items")).toBeNull();
 
   const emptyList = {
     state: { selectedList: data.findList("myEmptyList"), isNew: true },
@@ -62,7 +66,6 @@ test("strings are rendered correctly", async () => {
     listsValue,
     listValue: emptyList,
   });
-
   expect(
     getByText("This list does not have any list items")
   ).toBeInTheDocument();

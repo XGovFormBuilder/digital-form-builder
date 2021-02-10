@@ -123,9 +123,7 @@ function ListItems() {
         </thead>
 
         {!hasListItems && (
-          <tr className={"govuk-table__row"}>
-            <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
-          </tr>
+          <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
         )}
 
         <SortableList
