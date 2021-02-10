@@ -115,7 +115,7 @@ describe("ComponentTypeEdit", () => {
 
       const labelText = "Make Checkboxes field optional";
       const hintText =
-        "Tick this box if the user does not need to complete this field to progress through the form";
+        "Tick this box if users do not need to complete this field to progress through the form";
 
       expect(getByText(labelText)).toBeInTheDocument();
       expect(getByText(hintText)).toBeInTheDocument();
@@ -202,7 +202,7 @@ describe("ComponentTypeEdit", () => {
 
       const labelText = "Make Radios field optional";
       const hintText =
-        "Tick this box if the user does not need to complete this field to progress through the form";
+        "Tick this box if users do not need to complete this field to progress through the form";
 
       expect(getByText(labelText)).toBeInTheDocument();
       expect(getByText(hintText)).toBeInTheDocument();
@@ -289,7 +289,7 @@ describe("ComponentTypeEdit", () => {
 
       const labelText = "Make Select field optional";
       const hintText =
-        "Tick this box if the user does not need to complete this field to progress through the form";
+        "Tick this box if users do not need to complete this field to progress through the form";
 
       expect(getByText(labelText)).toBeInTheDocument();
       expect(getByText(hintText)).toBeInTheDocument();
