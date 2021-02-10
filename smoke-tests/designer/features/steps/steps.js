@@ -42,24 +42,19 @@ Then("the {string} control is displayed in the {string}", function (
 ) {
   this.pageName = pageName;
   const pageComponent = toCamelCase(componentName);
+  browser.waitUntil(
+    () => FormDesignerPage[pageComponent](this.pageName).isDisplayed() === true
+  );
   switch (pageComponent) {
     case "dateField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
       expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
         "dd/mm/yyyy"
       );
       break;
     case "dateTimeField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
       expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
         "dd/mm/yyyy hh:mm"
       );
-      break;
-    default:
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
       break;
   }
 });
@@ -84,8 +79,12 @@ When(
   "I delete the {string} control from the {string}",
   (componentName, pageName) => {
     const pageComponent = toCamelCase(componentName);
+    browser.waitUntil(
+      () =>
+        FormDesignerPage[pageComponent](this.pageName).isDisplayed() === true
+    );
     FormDesignerPage[pageComponent](pageName).click();
-    AddComponentPage.deleteLink.click();
+    AddComponentPage.clickLink("Delete");
   }
 );
 
@@ -93,8 +92,9 @@ Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
     const pageComponent = toCamelCase(componentName);
-    chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to.be
-      .false;
+    FormDesignerPage[pageComponent](pageName).waitForDisplayed({
+      reverse: true,
+    });
   }
 );
 
