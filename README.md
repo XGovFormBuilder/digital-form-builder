@@ -161,3 +161,5 @@ Pre-requite for running smoke test are:
  2. a browser like chrome
  3. Node version 12+ up 14
  4. yarn install
+ 
+ More details are on [Smoke Tests](./smoke-tests/README.md)
