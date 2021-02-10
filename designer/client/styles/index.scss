@@ -252,7 +252,6 @@ main {
   }
 
   &:hover {
-
     .list-item-delete {
       visibility: visible;
     }
@@ -718,4 +717,8 @@ footer {
   @include m(flyout) {
     position: relative;
   }
+}
+
+.checkbox-hint {
+  padding-left: govuk-spacing(3);
 }

@@ -76,7 +76,7 @@ export const ComponentTypes: ComponentDef[] = [
   {
     name: "SelectField",
     type: "SelectField",
-    title: "SelectField",
+    title: "Select field",
     subType: "field",
     options: {},
     schema: {},
