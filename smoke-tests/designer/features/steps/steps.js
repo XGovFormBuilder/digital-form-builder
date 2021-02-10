@@ -41,25 +41,19 @@ Then("the {string} control is displayed in the {string}", function (
   pageName
 ) {
   this.pageName = pageName;
-  const pageComponent = toCamelCase(componentName);
-  switch (pageComponent) {
+  const ccCompName = toCamelCase(componentName);
+  const componentEl = FormDesignerPage.getComponentOnPage(pageName, ccCompName);
+  switch (ccCompName) {
     case "date":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy"
-      );
+      chai.expect(componentEl.isDisplayed()).to.be.true;
+      expect(componentEl).toHaveText("dd/mm/yyyy");
       break;
     case "dateTime":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy hh:mm"
-      );
+      chai.expect(componentEl.isDisplayed()).to.be.true;
+      expect(componentEl).toHaveText("dd/mm/yyyy hh:mm");
       break;
     default:
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
+      chai.expect(componentEl.isDisplayed()).to.be.true;
       break;
   }
 });
@@ -75,7 +69,10 @@ Then("all the components are displayed in the {string}", (pageName) => {
   this.pageComponents.forEach(
     (component) =>
       chai.expect(
-        FormDesignerPage[toCamelCase(component)](pageName).isDisplayed()
+        FormDesignerPage.getComponentOnPage(
+          pageName,
+          toCamelCase(component)
+        ).isDisplayed()
       ).to.be.true
   );
 });
@@ -83,8 +80,10 @@ Then("all the components are displayed in the {string}", (pageName) => {
 When(
   "I delete the {string} control from the {string}",
   (componentName, pageName) => {
-    const pageComponent = toCamelCase(componentName);
-    FormDesignerPage[pageComponent](pageName).click();
+    FormDesignerPage.getComponentOnPage(
+      pageName,
+      toCamelCase(componentName)
+    ).click();
     AddComponentPage.deleteLink.click();
   }
 );
@@ -92,9 +91,12 @@ When(
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
-    const pageComponent = toCamelCase(componentName);
-    chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to.be
-      .false;
+    chai.expect(
+      FormDesignerPage.getComponentOnPage(
+        pageName,
+        toCamelCase(componentName)
+      ).isDisplayed()
+    ).to.be.false;
   }
 );
 
