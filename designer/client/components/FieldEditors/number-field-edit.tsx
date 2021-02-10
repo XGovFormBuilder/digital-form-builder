@@ -3,6 +3,7 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
 
 import { CssClasses } from "../CssClasses";
+import { i18n } from "../../i18n";
 
 type Props = {
   context: any; // TODO
@@ -18,7 +19,9 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
   return (
     <details className="govuk-details">
       <summary className="govuk-details__summary">
-        <span className="govuk-details__summary-text">more</span>
+        <span className="govuk-details__summary-text">
+          {i18n("common.detailsLink.title")}
+        </span>
       </summary>
 
       <div className="govuk-form-group">
@@ -26,9 +29,11 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
           className="govuk-label govuk-label--s"
           htmlFor="field-schema-min"
         >
-          Min
+          {i18n("numberFieldEditComponent.minField.title")}
         </label>
-        <span className="govuk-hint">Specifies the minimum value</span>
+        <span className="govuk-hint">
+          {i18n("numberFieldEditComponent.minField.helpText")}
+        </span>
         <input
           className="govuk-input govuk-input--width-3"
           data-cast="number"
@@ -50,9 +55,11 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
           className="govuk-label govuk-label--s"
           htmlFor="field-schema-max"
         >
-          Max
+          {i18n("numberFieldEditComponent.maxField.title")}
         </label>
-        <span className="govuk-hint">Specifies the maximum value</span>
+        <span className="govuk-hint">
+          {i18n("numberFieldEditComponent.maxField.helpText")}
+        </span>
         <input
           className="govuk-input govuk-input--width-3"
           data-cast="number"
@@ -74,10 +81,10 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
           className="govuk-label govuk-label--s"
           htmlFor="field-schema-precision"
         >
-          Precision
+          {i18n("numberFieldEditComponent.precisionField.title")}
         </label>
         <span className="govuk-hint">
-          How many decimal places can users enter?
+          {i18n("numberFieldEditComponent.precisionField.helpText")}
         </span>
         <input
           className="govuk-input govuk-input--width-3"

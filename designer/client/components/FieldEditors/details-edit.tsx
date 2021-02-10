@@ -27,7 +27,7 @@ function DetailsEdit({ i18n, context = ComponentContext }: Props) {
           children: [i18n("Title")],
         }}
         hint={{
-          children: [i18n("fieldEdit.titleHint")],
+          children: [i18n("titleHint")],
         }}
         value={selectedComponent.title}
         onChange={(e) =>

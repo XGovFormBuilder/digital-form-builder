@@ -142,7 +142,7 @@ export function ComponentCreate(props) {
       {!type && <ComponentCreateList onSelectComponent={handleTypeChange} />}
       {type && renderTypeEdit && (
         <form onSubmit={handleSubmit}>
-          {type && <ComponentTypeEdit />}
+          {true && <ComponentTypeEdit />}
           <button type="submit" className="govuk-button" disabled={isSaving}>
             Save
           </button>
