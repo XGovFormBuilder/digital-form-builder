@@ -35,7 +35,7 @@ jobs:
           ls -lah smoke-tests/designer/reports/
       - name: "Tar files"
         if: ${{ success() || failure() }}
-        run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
+        run: tar -cvf smoke-tests-nightly-heroku.tar smoke-tests/designer/reports
       - uses: actions/upload-artifact@v2
         if: ${{ success() || failure() }}
         with:
