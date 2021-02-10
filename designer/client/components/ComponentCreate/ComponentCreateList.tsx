@@ -37,7 +37,6 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
     },
     []
   );
-  console.log(JSON.stringify(contentFields));
   return (
     <div
       className="govuk-form-group component-create__list"
