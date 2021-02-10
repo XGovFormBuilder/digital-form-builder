@@ -19,7 +19,7 @@ It will also deal with hoisting the node_modules for any packages that are share
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node >=12. up 14. `node --version`.
+1. Make sure you are using node >=12. upto 14. `node --version`.
 2. Make sure you have yarn 2.4+ installed.
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
@@ -159,7 +159,7 @@ Pre-requite for running smoke test are:
  1. Yarn 
  2. JVM 
  2. a browser like chrome
- 3. Node version 12+ up 14
+ 3. Node version 12+ upto 14
  4. yarn install
  
  More details are on [Smoke Tests](./smoke-tests/README.md)
