@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
 import { CssClasses } from "../CssClasses";
+import { i18n } from "../../i18n";
 
 type Props = {
   context: any; // TODO
@@ -17,39 +18,21 @@ export function DateFieldEdit({ context = ComponentContext }: Props) {
   return (
     <details className="govuk-details">
       <summary className="govuk-details__summary">
-        <span className="govuk-details__summary-text">more</span>
+        <span className="govuk-details__summary-text">
+          {i18n("common.detailsLink.title")}
+        </span>
       </summary>
-
-      <div className="govuk-form-group">
-        <label
-          className="govuk-label govuk-label--s"
-          htmlFor="field-options-maxDaysInPast"
-        >
-          Maximum days in the past
-        </label>
-        <input
-          className="govuk-input govuk-input--width-3"
-          data-cast="number"
-          id="field-options-maxDaysInPast"
-          name="options.maxDaysInPast"
-          value={options.maxDaysInPast}
-          type="number"
-          onChange={(e) =>
-            dispatch({
-              type: Actions.EDIT_OPTIONS_MAX_DAYS_IN_PAST,
-              payload: e.target.value,
-            })
-          }
-        />
-      </div>
 
       <div className="govuk-form-group">
         <label
           className="govuk-label govuk-label--s"
           htmlFor="field-options-maxDaysInFuture"
         >
-          Maximum days in the future
+          {i18n("dateFieldEditComponent.maxDaysInFutureField.title")}
         </label>
+        <span className="govuk-hint">
+          {i18n("dateFieldEditComponent.maxDaysInFutureField.helpText")}
+        </span>
         <input
           className="govuk-input govuk-input--width-3"
           data-cast="number"
@@ -60,6 +43,32 @@ export function DateFieldEdit({ context = ComponentContext }: Props) {
           onChange={(e) =>
             dispatch({
               type: Actions.EDIT_OPTIONS_MAX_DAYS_IN_FUTURE,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
+          htmlFor="field-options-maxDaysInPast"
+        >
+          {i18n("dateFieldEditComponent.maxDaysInPastField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("dateFieldEditComponent.maxDaysInPastField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="number"
+          id="field-options-maxDaysInPast"
+          name="options.maxDaysInPast"
+          value={options.maxDaysInPast}
+          type="number"
+          onChange={(e) =>
+            dispatch({
+              type: Actions.EDIT_OPTIONS_MAX_DAYS_IN_PAST,
               payload: e.target.value,
             })
           }

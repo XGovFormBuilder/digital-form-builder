@@ -70,11 +70,9 @@ export function ComponentListSelect() {
   return (
     <div className="govuk-form-group">
       <Label htmlFor="field-options-list" className="govuk-label--s">
-        {i18n("list.select")}
+        {i18n("list.select.title")}
       </Label>
-      <div className="govuk-hint">
-        {i18n("list.static.hint")} {i18n("list.static.saveFirst")}
-      </div>
+      <span className="govuk-hint">{i18n("list.select.helpText")}</span>
       <select
         className="govuk-select govuk-input--width-10"
         id="field-options-list"
@@ -100,7 +98,6 @@ export function ComponentListSelect() {
           }
         )}
       </select>
-
       {!isNew &&
         !!selectedListName &&
         (hasItems || selectedListName !== "static") && (

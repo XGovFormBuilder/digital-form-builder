@@ -63,11 +63,11 @@ describe("Field Edit", () => {
       </TestComponentContextProvider>
     );
     expect(container).toHaveTextContent(
-      "Enter the name to show for this component"
+      "Enter the name to show for this field"
     );
 
     expect(container).toHaveTextContent(
-      "Enter the description to show for this component"
+      "Enter the description to show for this field"
     );
 
     expect(container).toHaveTextContent(
@@ -95,11 +95,11 @@ describe("Field Edit", () => {
       </TestComponentContextProvider>
     );
     expect(container).toHaveTextContent(
-      "Enter the name to show for this component"
+      "Enter the name to show for this field"
     );
 
     expect(container).toHaveTextContent(
-      "Enter the description to show for this component"
+      "Enter the description to show for this field"
     );
 
     expect(container).toHaveTextContent(
