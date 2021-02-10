@@ -34,7 +34,7 @@
     "eslint-plugin-import": "^2.22.0",
     "expr-eval": "2.0.2",
     "govuk-frontend": "^3.10.1",
-    "hmpo-components": "2.6.5",
+    "hmpo-components": "3.4.0",
     "joi": "17.2.1",
     "moment": "2.24.0",
     "nunjucks": "3.2.1",
