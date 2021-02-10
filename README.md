@@ -101,6 +101,49 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
 
+## Known Issues
+
+The following are known issues and may affect your use of Digital Forms Builder. These issues will be prioritised and any updates will be captured within the issue itself.
+
+### In progress
+
+* FORMS-324	[Tech Debt - Designer - Acceptance Tests	Story](https://github.com/XGovFormBuilder/digital-form-builder/issues/334)
+* FORMS-319	[Designer tech debt - defining sub-components in lists](https://github.com/XGovFormBuilder/digital-form-builder/issues/335)
+
+### Coming soon
+
+* FORMS-318 [Improve workspaces folder structure](https://github.com/XGovFormBuilder/digital-form-builder/issues/161)
+* FORMS-323 [rewrite class components as function components](https://github.com/XGovFormBuilder/digital-form-builder/issues/173)
+* FORMS-317	[Adjust app dependencies](https://github.com/XGovFormBuilder/digital-form-builder/issues/333)	
+
+### Backlog 
+
+ * [Schema validation fails](https://github.com/XGovFormBuilder/digital-form-builder/issues/293)
+ * [Missing features from prototyping FCDO emergency travel alerts](https://github.com/XGovFormBuilder/digital-form-builder/issues/291)
+ * [Bugs / UX issues / missing features from prototyping FCDO emergency alerts](https://github.com/XGovFormBuilder/digital-form-builder/issues/290)
+ * [Deploy PRs to a preview environment for signoff / QA](https://github.com/XGovFormBuilder/digital-form-builder/issues/240)
+ * [Home Office specific templates in designer](https://github.com/XGovFormBuilder/digital-form-builder/issues/212)
+ * [Refactor @model/AbstractConditionValue to interface](https://github.com/XGovFormBuilder/digital-form-builder/issues/180)
+ * [Change visit url param to cookie](https://github.com/XGovFormBuilder/digital-form-builder/issues/152)
+ * [Review CI Test Signal](https://github.com/XGovFormBuilder/digital-form-builder/issues/144)
+ * [Refactor Data model class usage to use hooks](https://github.com/XGovFormBuilder/digital-form-builder/issues/143)
+ * [Use govuk-react-jsx components](https://github.com/XGovFormBuilder/digital-form-builder/issues/139)
+ * [UploadService behaviour](https://github.com/XGovFormBuilder/digital-form-builder/issues/130)
+ * [Manual accessibility ](https://github.com/XGovFormBuilder/digital-form-builder/issues/129)
+ * [Run lighthouse against ](https://github.com/XGovFormBuilder/digital-form-builder/issues/126)
+ * [Add a11y](https://github.com/XGovFormBuilder/digital-form-builder/issues/125)
+ * [Creating an inline condition on a link does not assign it to the link](https://github.com/XGovFormBuilder/digital-form-builder/issues/110)
+ * [Conditions not redirecting to correct next page](https://github.com/XGovFormBuilder/digital-form-builder/issues/109)
+ * [Documentation](https://github.com/XGovFormBuilder/digital-form-builder/issues/86)
+ * [Test old components](https://github.com/XGovFormBuilder/digital-form-builder/issues/80)
+ * [repeatable pages (unspecified n)](https://github.com/XGovFormBuilder/digital-form-builder/issues/75)
+ * [Add gitter hook to circleci config ](https://github.com/XGovFormBuilder/digital-form-builder/issues/60)
+ * [Provide components to support URL and National Insurance capture](https://github.com/XGovFormBuilder/digital-form-builder/issues/59)
+ * [(Optional) text does not appear for optional fields which are shown when a list item is selected](https://github.com/XGovFormBuilder/digital-form-builder/issues/31)
+ * [Re-ordering of list items doesn't work](https://github.com/XGovFormBuilder/digital-form-builder/issues/25)
+ * ["reactify" forms](https://github.com/XGovFormBuilder/digital-form-builder/issues/18)
+
+
 ### Developer only features ⚠️
 
 There are some features that we do not want to expose (for fear of wide adoption), as they are not complete or have accessibility issues. Please use these with caution. 
