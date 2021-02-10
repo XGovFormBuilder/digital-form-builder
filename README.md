@@ -15,6 +15,12 @@ This is a (getting close to) zero-install yarn 2 workspaces repository. .yarnrc.
 Workspaces will deal with sym-linking the packages, so we do not have to manually run `yarn link`.
 It will also deal with hoisting the node_modules for any packages that are shared between the repos, thus decreasing any install times. Hopefully it all just works™️.
 
+## Jump to
+- [Setup](#setup)
+- [Troubleshooting](#troubleshooting)
+- [Contributions](#contributions)
+- [Known Issues](#known-issues)
+
 ## Setup
 
 **Always run scripts from the root directory.**
@@ -101,6 +107,43 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
 
+### Developer only features ⚠️
+
+There are some features that we do not want to expose (for fear of wide adoption), as they are not complete or have accessibility issues. Please use these with caution. 
+
+- Conditionally revealing of fields based on checkbox/radio selection. 
+  - This is a known accessibility issue. https://github.com/alphagov/govuk-frontend/issues/1991. NVDA, JAWS and VoiceOver (currently most popular screen readers) all have varying levels of support for checkboxes and radios. It is breaking WCAG 2.1A compliance.
+  - If you would like to use these, the runner will still support child components, you must add this to your JSON configuration manually. 
+    - Static lists (inside a Radios/Checkboxes Field component) 
+      ``` json5
+      { // Component object, other keys stripped for brevity
+        ...
+        "type": "RadiosField",
+        "values": {
+          "type": "static",
+          "valueType": "string",
+          "items": [
+            { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
+          ]
+        }
+      }
+      ```
+      where `{ ...subcomponent }` is any valid `Component` object
+    - Global lists
+      ``` json5 
+      { //List object, other keys stripped for brevity
+        ...
+        "items": [
+          { "text": "a", "value": "a", "description": "a",
+            "conditional": {
+              "components":[{ ...component }]
+            }
+          }
+        ]
+      }
+      ```
+      where `{ ...subcomponent }` is any valid `Component` object
+
 ## Known Issues
 
 The following are known issues and may affect your use of Digital Forms Builder. These issues will be prioritised and any updates will be captured within the issue itself.
@@ -142,44 +185,3 @@ The following are known issues and may affect your use of Digital Forms Builder.
  * [(Optional) text does not appear for optional fields which are shown when a list item is selected](https://github.com/XGovFormBuilder/digital-form-builder/issues/31)
  * [Re-ordering of list items doesn't work](https://github.com/XGovFormBuilder/digital-form-builder/issues/25)
  * ["reactify" forms](https://github.com/XGovFormBuilder/digital-form-builder/issues/18)
-
-
-### Developer only features ⚠️
-
-There are some features that we do not want to expose (for fear of wide adoption), as they are not complete or have accessibility issues. Please use these with caution. 
-
-- Conditionally revealing of fields based on checkbox/radio selection. 
-  - This is a known accessibility issue. https://github.com/alphagov/govuk-frontend/issues/1991. NVDA, JAWS and VoiceOver (currently most popular screen readers) all have varying levels of support for checkboxes and radios. It is breaking WCAG 2.1A compliance.
-  - If you would like to use these, the runner will still support child components, you must add this to your JSON configuration manually. 
-    - Static lists (inside a Radios/Checkboxes Field component) 
-      ``` json5
-      { // Component object, other keys stripped for brevity
-        ...
-        "type": "RadiosField",
-        "values": {
-          "type": "static",
-          "valueType": "string",
-          "items": [
-            { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
-          ]
-        }
-      }
-      ```
-      where `{ ...subcomponent }` is any valid `Component` object
-    - Global lists
-      ``` json5 
-      { //List object, other keys stripped for brevity
-        ...
-        "items": [
-          { "text": "a", "value": "a", "description": "a",
-            "conditional": {
-              "components":[{ ...component }]
-            }
-          }
-        ]
-      }
-      ```
-      where `{ ...subcomponent }` is any valid `Component` object
-
-
-
