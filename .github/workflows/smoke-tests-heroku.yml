@@ -4,7 +4,7 @@ on:
     - cron:  '0 0 * * *'
   push:
     branches:
-      - Feature/run smoke tests nightly
+      - feature/Run-Smoke-Tests-Nightly
   workflow_dispatch:
 jobs:
   test:
