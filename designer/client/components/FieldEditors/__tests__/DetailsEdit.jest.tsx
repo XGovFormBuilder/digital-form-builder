@@ -6,7 +6,7 @@ import DetailsEdit from "../details-edit";
 
 initI18n();
 
-describe("details-edit test", () => {
+describe("details-edit", () => {
   function TestComponentWithContext({ children }) {
     return (
       <ComponentContext.Provider
@@ -23,6 +23,7 @@ describe("details-edit test", () => {
         <DetailsEdit context={ComponentContext}></DetailsEdit>
       </TestComponentWithContext>
     );
+
     expect(container).toHaveTextContent(
       "Enter the name to show for this component"
     );

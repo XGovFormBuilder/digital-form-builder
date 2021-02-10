@@ -73,8 +73,7 @@ export function ComponentListSelect() {
         {i18n("list.select")}
       </Label>
       <div className="govuk-hint">
-        {i18n("list.static.hint")}
-        {isNew && i18n("list.static.saveFirst")}
+        {i18n("list.selectListHint")} {i18n("list.static.saveFirst")}
       </div>
       <select
         className="govuk-select govuk-input--width-10"

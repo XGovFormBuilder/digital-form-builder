@@ -36,11 +36,19 @@ function useComponentCreate(props) {
     // This is a quick work around the bug in small screens
     // where once user scrolls down the components list and selects one of the bottom components
     // then the component edit screen renders already scrolled to the bottom
+    let isMounted = true;
+
     if (selectedComponent?.type) {
-      window.requestAnimationFrame(() => setRenderTypeEdit(true));
+      window.requestAnimationFrame(() => {
+        if (isMounted) setRenderTypeEdit(true);
+      });
     } else {
       setRenderTypeEdit(false);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [selectedComponent?.type]);
 
   useEffect(() => {

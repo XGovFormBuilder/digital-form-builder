@@ -53,6 +53,25 @@
     "required": "This field is required"
   },
   "field": "field",
+  "fieldEdit": {
+    "conditions": {
+      "hint": "Select a condition that determines whether to show the contents of this component. You can create and edit conditions from the Conditions screen."
+    },
+    "details": {
+      "hint": "Enter the text you want to show when users expand the title. You can apply basic HTML, such as text formatting and hyperlinks."
+    },
+    "helpText": "Help text (optional)",
+    "helpTextHint": "Enter the description to show for this component",
+    "hideTitle": "Hide title",
+    "hideTitleHint": "Tick this box if you do not want the title to show on the page",
+    "optional": "Make {{fieldTitle}} optional",
+    "optionalHint": "Tick this box if users do not need to complete this field to progress through the form",
+    "para": {
+      "hint": "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
+    },
+    "title": "Title",
+    "titleHint": "Enter the name to show for this component"
+  },
   "fieldTypeToName": {
     "AutocompleteField": "Autocomplete field",
     "CheckboxesField": "Checkboxes field",
@@ -77,22 +96,6 @@
     "TimeField": "Time field",
     "UkAddressField": "UK address field",
     "YesNoField": "YesNo field"
-  },
-  "fieldeditors": {
-    "conditions": {
-      "hint": "Select a condition that determines whether to show the contents of this component. You can create and edit conditions from the Conditions screen."
-    },
-    "details": {
-      "hint": "Enter the text you want to show when users expand the title. You can apply basic HTML, such as text formatting and hyperlinks."
-    },
-    "helptext": "Help text (optional)",
-    "helptextHint": "Enter the description to show for this component",
-    "hidetitle": "Tick this box if you do not want the title to show on the page",
-    "optional": "Tick this box if the user does not need to complete this field to progress through the form.",
-    "para": {
-      "hint": "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
-    },
-    "titlehint": "Enter the name to show for this component"
   },
   "formDetails": {
     "alpha": "Alpha",
@@ -151,6 +154,7 @@
     },
     "newTitle": "Add a new list",
     "select": "Select list",
+    "selectListHint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen.",
     "static": {
       "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
       "newTitle": "Add a new component list",

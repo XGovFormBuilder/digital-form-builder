@@ -8,7 +8,7 @@ import { DataContext } from "../../../context";
 
 initI18n();
 
-describe("details-edit test", () => {
+describe("para edit", () => {
   function TestComponentWithContext({ children }) {
     let data = new Data({
       pages: [

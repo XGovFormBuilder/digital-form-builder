@@ -59,7 +59,7 @@ describe("Field Edit", () => {
   };
 
   test("Help text changes", () => {
-    const { container } = render(
+    const { container, getByText } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
         componentValue={false}
@@ -83,9 +83,11 @@ describe("Field Edit", () => {
       "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
     );
 
-    expect(container).toHaveTextContent(
-      "Tick this box if the user does not need to complete this field to progress through the form."
-    );
+    expect(
+      getByText(
+        "Tick this box if users do not need to complete this field to progress through the form"
+      )
+    ).toBeInTheDocument();
   });
 
   test("Content fields should not have optional checkbox", () => {
@@ -114,7 +116,7 @@ describe("Field Edit", () => {
     );
 
     expect(container).not.toHaveTextContent(
-      "Tick this box if the user does not need to complete this field to progress through the form."
+      "Tick this box if users do not need to complete this field to progress through the form"
     );
   });
 });
