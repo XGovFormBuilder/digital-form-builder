@@ -50,8 +50,13 @@ export function ComponentEdit(props) {
 
     if (LIST_TYPES.includes(selectedComponent.type)) {
       if (selectedListName !== "static") {
-        componentToSubmit.values = { type: "listRef", list: selectedListName };
+        componentToSubmit.values = {
+          type: "listRef",
+          list: selectedListName,
+        };
         delete componentToSubmit.items;
+      } else {
+        componentToSubmit.values.valueType = "static";
       }
     }
 
