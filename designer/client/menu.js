@@ -3,7 +3,7 @@ import { Flyout } from "./components/Flyout";
 import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
-import ListsEdit from "../client/list/lists-edit";
+import ListsEdit from "./list/ListsEdit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions/ConditionsEdit";
 import FeeEdit from "./fee-edit";
@@ -198,7 +198,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showEditLists && (
           <Flyout
-            title="Edit Lists"
+            title={i18n("list.addOrEdit")}
             onHide={() => this.setState({ showEditLists: false })}
             width={""}
           >
