@@ -11,6 +11,7 @@ export interface ListState {
   isEditingFromComponent?: boolean;
   selectedListItem?: any; //TODO:- type
   initialName?: string;
+  initialTitle?: string;
   errors?: any;
   listItemErrors?: any;
 }
@@ -73,6 +74,7 @@ export function listReducer(
         ...state,
         selectedList: payload,
         initialName: payload?.name || state.initialName,
+        initialTitle: payload?.title,
       };
 
     case ListActions.EDIT_TITLE:
@@ -169,13 +171,15 @@ export function listReducer(
 
 export const ListContextProvider = (props) => {
   let init: ListState = {};
-  if (props.selectedListName) {
+  const { selectedListName } = props;
+  if (selectedListName) {
     const { data } = useContext(DataContext);
     init = {
       selectedList: data.lists.find(
         (list) => list.name === props.selectedListName
       ),
-      initialName: props.selectedListName,
+      initialName: selectedListName,
+      initialTitle: data.findList(selectedListName)?.title,
       isEditingFromComponent: true,
     };
   }

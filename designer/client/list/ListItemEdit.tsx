@@ -47,10 +47,12 @@ export function ListItemEdit() {
       <form onSubmit={handleSubmit}>
         <Input
           id="title"
+          data-testid="list-item-text"
           label={{
             className: "govuk-label--s",
             children: [i18n("list.item.title")],
           }}
+          hint={{ children: i18n("list.item.titleHint") }}
           value={title}
           onChange={handleTitleChange}
           errorMessage={
@@ -58,14 +60,17 @@ export function ListItemEdit() {
           }
         />
         <Textarea
-          label={{ children: [i18n("list.item.titleHint")] }}
+          label={{ children: i18n("list.item.help") }}
+          hint={{ children: i18n("list.item.helpHint") }}
           value={hint}
+          data-testid="list-item-hint"
           onChange={handleHintChange}
         />
         <Input
           label={{ children: [i18n("list.item.value")] }}
           hint={{ children: [i18n("list.item.valueHint")] }}
           id="value"
+          data-testid="list-item-value"
           value={value}
           errorMessage={
             errors?.value ? { children: errors?.value.children } : undefined
@@ -93,7 +98,7 @@ export function ListItemEdit() {
 
         <div className={"govuk-form-group"}>
           <button className="govuk-button" type="submit" onClick={handleSubmit}>
-            Save
+            {i18n("save")}
           </button>
         </div>
       </form>
