@@ -95,7 +95,7 @@ When("I edit the {string} component", function (componentType) {
 
 When("I create a new component list with {int} item", function (numberOfItems) {
   EditListSection.clickLink("Add a new component list");
-  EditListSection.clickLink("Create list item");
+  EditListSection.createListItem.click();
   EditListSection.addNewListItem(
     "Add a new list item",
     `list item ${numberOfItems}`,
