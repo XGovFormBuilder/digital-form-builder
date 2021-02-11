@@ -1,4 +1,4 @@
-import ListItems from "./list-items";
+import ListItems from "./ListItems";
 import { Input } from "@govuk-jsx/input";
 import React, { useContext } from "react";
 import { ListActions } from "../reducers/listActions";
@@ -48,10 +48,8 @@ function useListEdit() {
     ListsEditorContext
   );
   const { state, dispatch } = useSetListEditorContext();
-
   const { showWarning, isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
-
   const handleDelete = (isNewList) => {
     if (isNewList) {
       listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, false]);
@@ -123,7 +121,7 @@ export function ListEdit() {
         {!isEditingStatic && selectedList && (
           <Input
             id="list-title"
-            hint={i18n("wontShow")}
+            hint={{ children: i18n("list.titleHint") }}
             label={{
               className: "govuk-label--s",
               children: [i18n("list.title")],
@@ -145,12 +143,13 @@ export function ListEdit() {
         <a
           className="govuk-link govuk-body govuk-!-display-block govuk-!-margin-bottom-1"
           href="#createItem"
+          data-testid="add-list-item"
           onClick={(e) => {
             e.preventDefault();
             createItem();
           }}
         >
-          {i18n("list.createListItem")}
+          {i18n("list.item.add")}
         </a>
         {!isEditingStatic && (
           <>
@@ -159,17 +158,17 @@ export function ListEdit() {
               type="submit"
               onClick={handleSubmit}
             >
-              Save
+              {i18n("save")}
             </button>
             <a
               href="#"
-              className="govuk-link govuk-link--v-centre govuk-!-margin-left-2"
+              className="govuk-link govuk-body govuk-link--v-centre govuk-!-margin-left-2"
               onClick={(e) => {
                 e.preventDefault();
                 handleDelete(selectedList.isNew);
               }}
             >
-              {i18n("delete")}
+              {i18n(selectedList.isNew ? "cancel" : "delete")}
             </a>
           </>
         )}
