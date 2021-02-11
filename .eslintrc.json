@@ -1,5 +1,9 @@
 {
-  "extends": ["plugin:react/recommended", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:json/recommended"
+  ],
   "plugins": ["react", "@babel", "prettier"],
   "parser": "babel-eslint",
   "env": {
