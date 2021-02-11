@@ -18,7 +18,7 @@ export function validateNotEmpty(
   if (hasErrors) {
     errors[key] = {
       href: `#${id}`,
-      children: [`Enter ${fieldName}`],
+      children: [i18n("errors.field", { field: fieldName })],
     };
   }
   return errors;
