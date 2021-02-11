@@ -9,7 +9,7 @@ exports[`ComponentCreateList should match snapshot 1`] = `
     <h1
       class="govuk-hint"
     >
-      Select a component to add to your page. If your page has only one component, the component title does not show on the page. To name or describe the component, use the page title.
+      Select a component to add to your page. If your page has only one component, the component title does not show on the page. To name or describe the component, use the page title instead.
     </h1>
     <ol
       class="govuk-list"
@@ -66,7 +66,7 @@ exports[`ComponentCreateList should match snapshot 1`] = `
             <div
               class="govuk-hint"
             >
-              A block of text you can apply basic HTML to, such as text formatting and hyperlinks
+              A block of text that you can apply basic HTML to, such as text formatting and hyperlinks
             </div>
           </li>
           <li>
