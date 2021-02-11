@@ -41,7 +41,7 @@
       "title": "Help text (optional)"
     },
     "hideOptionalTextOption": {
-      "helpText": "Tick this box if ybu do not want the title to indicate that this field is optional",
+      "helpText": "Tick this box if you do not want the title to indicate that this field is optional",
       "title": "Hide '(optional)' text"
     },
     "hideTitleOption": {
@@ -307,19 +307,19 @@
   },
   "textFieldEditComponent": {
     "lengthField": {
-      "helpText": "Determines the latest date users can enter. Using this setting negates any value you set for Min length or Max length.",
+      "helpText": "Specifies the exact character length users must enter. Using this setting negates any values you set for Min length or Max length.",
       "title": "Length"
     },
     "maxLengthField": {
-      "helpText": "Specify the maximum number of characters users can enter",
+      "helpText": "Specifies the maximum number of characters users can enter",
       "title": "Max length"
     },
     "minLengthField": {
-      "helpText": "Specify the minimum number of characters users can enter",
+      "helpText": "Specifies the minimum number of characters users can enter",
       "title": "Min length"
     },
     "regexField": {
-      "helpText": "Specify a regular expression to validate users' inputs. Use JavaScript syntax.",
+      "helpText": "Specifies a regular expression to validate users' inputs. Use JavaScript syntax.",
       "title": "Regex"
     }
   },

@@ -41,7 +41,7 @@ export function FileUploadFieldEdit() {
             {i18n("fileUploadFieldEditPage.multipleFilesOption.title")}
           </label>
           <span className="govuk-hint govuk-checkboxes__hint">
-            {i18n("page.sectionHint")}
+            {i18n("fileUploadFieldEditPage.multipleFilesOption.helpText")}
           </span>
         </div>
       </div>
