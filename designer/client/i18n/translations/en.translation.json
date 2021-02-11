@@ -154,7 +154,6 @@
     },
     "newTitle": "Add a new list",
     "select": "Select list",
-    "selectListHint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen.",
     "static": {
       "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
       "newTitle": "Add a new component list",
