@@ -67,7 +67,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this field";
+      const text = "Enter the name to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -78,7 +78,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this field";
+      const text = "Enter the description to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -129,7 +129,7 @@ describe("ComponentTypeEdit", () => {
       );
 
       const text =
-        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen. You must save before creating a component list, or you can select an existing list.";
+        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
       expect(getByText(text)).toBeInTheDocument();
     });
   });
@@ -154,7 +154,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this field";
+      const text = "Enter the name to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -165,7 +165,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this field";
+      const text = "Enter the description to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -216,7 +216,7 @@ describe("ComponentTypeEdit", () => {
       );
 
       const text =
-        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen. You must save before creating a component list, or you can select an existing list.";
+        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
       expect(getByText(text)).toBeInTheDocument();
     });
   });
@@ -241,7 +241,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this field";
+      const text = "Enter the name to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -252,7 +252,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this field";
+      const text = "Enter the description to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -303,7 +303,7 @@ describe("ComponentTypeEdit", () => {
       );
 
       const text =
-        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen. You must save before creating a component list, or you can select an existing list.";
+        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
       expect(getByText(text)).toBeInTheDocument();
     });
   });
@@ -328,7 +328,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this field";
+      const text = "Enter the name to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -339,7 +339,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this field";
+      const text = "Enter the description to show for this component";
       expect(getByText(text)).toBeInTheDocument();
     });
 

@@ -32,12 +32,14 @@ suite("ComponentCreateList", () => {
     );
 
     const contentComponentsList = wrapper.find("ol").at(1);
-    const listItems = contentComponentsList.find("li").map((c) => c.text());
+    const listItems = contentComponentsList
+      .find("li")
+      .map((c) => c.find("a").text());
 
     expect(listItems).to.equal([
       "Details",
       "Flash card",
-      "Html",
+      "HTML",
       "Inset text",
       "List",
       "Paragraph",
@@ -78,22 +80,24 @@ suite("ComponentCreateList", () => {
     );
 
     const contentComponentsList = wrapper.find("ol").at(2);
-    const listItems = contentComponentsList.find("li").map((c) => c.text());
+    const listItems = contentComponentsList
+      .find("li")
+      .map((c) => c.find("a").text());
 
     expect(listItems).to.equal([
-      "Autocomplete field",
-      "Date field",
-      "Date parts field",
-      "Date time field",
-      "Date time parts field",
-      "Email address field",
-      "File upload field",
-      "Multiline text field",
-      "Number field",
-      "Telephone number field",
-      "Text field",
-      "Time field",
-      "UK address field",
+      "Autocomplete",
+      "Date",
+      "Date parts",
+      "Date time",
+      "Date time parts",
+      "Email address",
+      "File upload",
+      "Multiline text",
+      "Number",
+      "Telephone number",
+      "Text",
+      "Time",
+      "UK address",
     ]);
   });
 
@@ -130,14 +134,11 @@ suite("ComponentCreateList", () => {
     );
 
     const contentComponentsList = wrapper.find("ol").at(3);
-    const listItems = contentComponentsList.find("li").map((c) => c.text());
+    const listItems = contentComponentsList
+      .find("li")
+      .map((c) => c.find("a").text());
 
-    expect(listItems).to.equal([
-      "Checkboxes field",
-      "Radios field",
-      "Select field",
-      "YesNo field",
-    ]);
+    expect(listItems).to.equal(["Checkboxes", "Radios", "Select", "YesNo"]);
   });
 
   test("it selects Selection fields on click", () => {
