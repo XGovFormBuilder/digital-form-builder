@@ -53,7 +53,7 @@
   "enterDateTimeAsGmt": "Dates and times should be GMT timezone",
   "error": "Error:",
   "errors": {
-    "field": "Enter {{field}}",
+    "field": "Enter {{field, capitalise}}",
     "required": "This field is required"
   },
   "field": "field",
@@ -152,34 +152,43 @@
   },
   "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost.",
   "list": {
-    "create": "Create list",
-    "createListItem": "Create list item",
-    "deleteTitle": "Deleting this list?",
+    "add": "Add list",
+    "addOrEdit": "Add or edit lists",
     "deleteWarning": {
       "confirm": "Yes, delete this list",
       "keep": "No, keep it",
-      "message": "If you delete this list, it will be deleted across the entire form",
-      "title": "Deleting this list?"
+      "message": "You will no longer be able to edit or assign this list.",
+      "title": "Delete list"
     },
     "edit": "Edit {{title}}",
-    "editingTitle": "Editing {{title}}",
     "errors": {
       "empty": "The list must have list items"
     },
+    "hint": {
+      "description": "Use lists to provide information in bullet points or set answers to multiple choice questions. After you create a list you can assign it to components to use on your form.",
+      "manage": "Lists you have created appear on this screen. From here you can manage the lists available for your form."
+    },
     "item": {
+      "add": "Add list item",
       "conditions": "Conditions (optional)",
-      "conditionsHint": "The item will only be shown if the selected condition applies",
+      "conditionsHint": "Select a condition that determines whether to show this list item. You can create and edit conditions on the Conditions screen.",
       "createSubcomponent": "Create sub component",
-      "editing": "Editing list item",
-      "newTitle": "Add a new list item",
+      "edit": "Edit list item",
+      "help": "Help text (optional)",
+      "helpHint": "Enter the description to show for this list item",
       "subComponent": "Sub component (optional)",
       "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
-      "title": "Item title",
-      "titleHint": "Help text (optional)",
+      "title": "Item text",
+      "titleHint": "Enter the text you want to show",
       "value": "Value",
-      "valueHint": "This will not show on the page. If the list item is answered with words, you can use the item title, for example 'email'. If the list item is answered with a number, use a number with no letters or symbols, for example 1000"
+      "valueHint": "This determines the data format of the list item and does not show on the form. Unless you are using integrations and want to modify the payload, it should match the list item text."
     },
-    "newTitle": "Add a new list",
+    "items": {
+      "hint": "Use the drag handles to reorder your list",
+      "hintNoItems": "This list does not have any list items",
+      "title": "List items"
+    },
+    "newTitle": "Add list",
     "select": "Select list",
     "static": {
       "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
@@ -188,7 +197,7 @@
       "saveFirst": "You must save before creating a component list, or you can select an existing list."
     },
     "title": "List title",
-    "titleHint": "This will not show on the page."
+    "titleHint": "Enter a unique name for your list"
   },
   "menu": {
     "links": "Add Link"
