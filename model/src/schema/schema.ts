@@ -73,6 +73,10 @@ const localisedString = joi
   .alternatives()
   .try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(""));
 
+/**
+ * @deprecated
+ * This will be removed in a future sprint.
+ */
 const staticValueSchema = joi.object().keys({
   label: joi.string().required(),
   value: joi
@@ -80,7 +84,7 @@ const staticValueSchema = joi.object().keys({
     .try(joi.number(), joi.string(), joi.boolean())
     .required(),
   hint: joi.string().allow("").optional(),
-  condition: joi.string().optional(),
+  condition: joi.string().allow(null, "").optional(),
   children: joi
     .array()
     .items(joi.any() /** Should be a joi.link('#componentSchema') */)
@@ -99,11 +103,18 @@ const valueChildrenSchema = joi.object().keys({
     .unique("name"),
 });
 
+/**
+ * @deprecated
+ * this will be removed in a future sprint.
+ */
 const componentValuesSchema = joi.object().keys({
   type: joi.string().allow("static", "listRef").required(), // allow extension support for dynamically looked up types later
   valueType: joi.when("type", {
-    is: joi.string().valid("static"),
-    then: joi.string().allow("string", "number", "boolean").required(),
+    is: joi.string().valid("static").allow(null, "").optional(),
+    then: joi
+      .string()
+      .allow("string", "number", "boolean", null, "")
+      .optional(),
   }),
   items: joi.when("type", {
     is: joi.string().valid("static"),
@@ -163,7 +174,7 @@ const listItemSchema = joi.object().keys({
     })
     .allow(null)
     .optional(),
-  condition: joi.string().allow("").optional(),
+  condition: joi.string().allow(null, "").optional(),
 });
 
 const listSchema = joi.object().keys({
