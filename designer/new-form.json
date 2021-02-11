@@ -5,7 +5,22 @@
     {
       "title": "First page",
       "path": "/first-page",
-      "components": []
+      "components": [],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
     },
     {
       "title": "Summary",

@@ -12,18 +12,18 @@ Given("I have chosen to {string} to my form", (menuOption) => {
 });
 
 When("I link ths page to link from the {string}", (linkedPage) => {
-  this.newPageName = "Second page";
+  this.newPageName = "Third page";
   AddPageSection.linkFrom(linkedPage);
   AddPageSection.pageTitle.setValue(this.newPageName);
   AddPageSection.saveBtn.click();
 });
 
 Then("my page is created with a link to the page", () => {
-  browser.waitUntil(() => FormDesignerPage.formPageTitles.length === 3);
+  browser.waitUntil(() => FormDesignerPage.formPageTitles.length === 4);
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });
-  expect(this.pageNames.includes("Second page")).toEqual(true);
+  expect(this.pageNames.includes("Third page")).toEqual(true);
   expect(FormDesignerPage.linkLine).toExist();
 });
 

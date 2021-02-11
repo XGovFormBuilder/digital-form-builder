@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
-import { ComponentTypes } from "@xgovformbuilder/model";
 import { ComponentContext } from "./reducers/component/componentReducer";
+import { ComponentTypes } from "@xgovformbuilder/model";
 import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
 import { Input } from "@govuk-jsx/input";
 import { i18n } from "./i18n";
 import { ErrorMessage } from "./components/ErrorMessage";
 
-export function FieldEdit() {
+type Props = {
+  isContentField?: boolean;
+};
+
+export function FieldEdit({ isContentField = false }: Props) {
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent, errors } = state;
 
@@ -119,40 +123,42 @@ export function FieldEdit() {
             }}
           />
         </div>
-        <div className="govuk-checkboxes govuk-form-group">
-          <div className="govuk-checkboxes__item">
-            <input
-              type="checkbox"
-              id="field-options-required"
-              className={`govuk-checkboxes__input ${
-                isFileUploadField ? "disabled" : ""
-              }`}
-              name="options.required"
-              checked={!required}
-              onChange={(e) =>
-                dispatch({
-                  type: Actions.EDIT_OPTIONS_REQUIRED,
-                  payload: !e.target.checked,
-                })
-              }
-            />
-            <label
-              className="govuk-label govuk-checkboxes__label"
-              htmlFor="field-options-required"
-            >
-              {i18n("fieldEdit.optional", { fieldTitle })}
-            </label>
-            <span className="govuk-hint checkbox-hint">
-              {i18n("fieldEdit.optionalHint")}
-            </span>
-            {isFileUploadField && (
-              <span className="govuk-hint govuk-checkboxes__label">
-                All file upload fields are optional to mitigate possible upload
-                errors
+        {!isContentField && (
+          <div className="govuk-checkboxes govuk-form-group">
+            <div className="govuk-checkboxes__item">
+              <input
+                type="checkbox"
+                id="field-options-required"
+                className={`govuk-checkboxes__input ${
+                  isFileUploadField ? "disabled" : ""
+                }`}
+                name="options.required"
+                checked={!required}
+                onChange={(e) =>
+                  dispatch({
+                    type: Actions.EDIT_OPTIONS_REQUIRED,
+                    payload: !e.target.checked,
+                  })
+                }
+              />
+              <label
+                className="govuk-label govuk-checkboxes__label"
+                htmlFor="field-options-required"
+              >
+                {i18n("fieldEdit.optional", { fieldTitle })}
+              </label>
+              <span className="govuk-hint checkbox-hint">
+                {i18n("fieldEdit.optionalHint")}
               </span>
-            )}
+              {isFileUploadField && (
+                <span className="govuk-hint govuk-checkboxes__label">
+                  All file upload fields are optional to mitigate possible
+                  upload errors
+                </span>
+              )}
+            </div>
           </div>
-        </div>
+        )}
         <div
           className="govuk-checkboxes govuk-form-group"
           data-test-id="field-options.optionalText-wrapper"
@@ -176,7 +182,7 @@ export function FieldEdit() {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-optionalText"
             >
-              Hide &apos;(Optional)&apos; text
+              Hide &apos;(optional)&apos; text
             </label>
           </div>
         </div>

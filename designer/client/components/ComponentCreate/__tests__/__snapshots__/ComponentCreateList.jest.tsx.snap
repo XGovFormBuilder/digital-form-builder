@@ -1,0 +1,379 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ComponentCreateList should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-form-group component-create__list"
+    data-testid="component-create-list"
+  >
+    <h1
+      class="govuk-hint"
+    >
+      Select a component to add to your page. If your page has only one component, the component title does not show on the page. To name or describe the component, use the page title instead.
+    </h1>
+    <ol
+      class="govuk-list"
+    >
+      <li
+        class="component-create__list__item"
+      >
+        <h2
+          class="govuk-heading-s"
+        >
+          Content
+        </h2>
+        <div
+          class="govuk-hint"
+        >
+          Content components allow you to add information to your page
+        </div>
+        <ol
+          class="govuk-list"
+        >
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Details
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              An expandable title that lets users reveal more detailed information only if they need it
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Flash card
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A panel of text that can include a list
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              HTML
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A block of text that you can apply basic HTML to, such as text formatting and hyperlinks
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Inset text
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A block of text that differentiates it from surrounding content, for example for quotes
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              List
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A series of bullet points
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Paragraph
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A block of text
+            </div>
+          </li>
+        </ol>
+        <hr
+          class="govuk-section-break govuk-section-break--m govuk-section-break--visible"
+        />
+      </li>
+      <li
+        class="component-create__list__item"
+      >
+        <h2
+          class="govuk-heading-s"
+        >
+          Input fields
+        </h2>
+        <div
+          class="govuk-hint"
+        >
+          Input fields allow you to ask users to enter information
+        </div>
+        <ol
+          class="govuk-list"
+        >
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Autocomplete
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Sets a list of values to suggest to users as they complete this field
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Date
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A calendar for users to specify a date
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Date parts
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Allows users to manually enter a Day, Month and Year
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Date time
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A calendar and clock for users to specify a date and time
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Date time parts
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Allows users to manually enter a Day, Month, Year, Hour and Minute
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Email address
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box that users can enter an email address into
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              File upload
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Allows users to upload files from the device they are using
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Multiline text
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box for users to enter multiple lines of text into, for example as 'Additional info'
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Number
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box that users can only enter numbers into
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Telephone number
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box that users can enter numbers and some symbols into, such as '+'
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Text
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box that users can enter letters, numbers and symbols into
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Time
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A clock for users to specify a time
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              UK address
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Allows users to enter their street address, town or city and postcode
+            </div>
+          </li>
+        </ol>
+        <hr
+          class="govuk-section-break govuk-section-break--m govuk-section-break--visible"
+        />
+      </li>
+      <li
+        class="component-create__list__item"
+      >
+        <h2
+          class="govuk-heading-s"
+        >
+          Selection fields
+        </h2>
+        <div
+          class="govuk-hint"
+        >
+          Selection fields allow you to provide lists of answers for users to choose from
+        </div>
+        <ol
+          class="govuk-list"
+        >
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Checkboxes
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A list for users to select multiple answers
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Radios
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A list for users to select one answer
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Select
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A drop-down list for users to select one answer
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              YesNo
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Allows users to answer either 'Yes' or 'No'
+            </div>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+</DocumentFragment>
+`;
