@@ -8,6 +8,10 @@ import { ListActions } from "../../../reducers/listActions";
 import { clone } from "@xgovformbuilder/model";
 import { ListItemHook } from "./types";
 
+/**
+ * @deprecated
+ * This feature will be removed and replaced with Global Lists.
+ */
 export function useStaticListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
   const { value = "", condition } = selectedItem;
@@ -66,7 +70,9 @@ export function useStaticListItem(state, dispatch): ListItemHook {
 
     if (selectedItem.isNew) {
       const { isNew, ...selectedItem } = state.selectedItem;
-      const { values = { items: [] } } = state.selectedComponent;
+      const {
+        values = { type: "static", items: [] },
+      } = state.selectedComponent;
       values.items.push(selectedItem);
       component.values = values;
     } else {
