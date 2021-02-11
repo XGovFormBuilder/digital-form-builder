@@ -142,7 +142,7 @@ There are some features that we do not want to expose (for fear of wide adoption
 
 ### Smoke tests
 
-There is a suite of smoke tests which are run against all PR's. There is nightly cron based action which executes smoke tests against the Heroku deployments.
+There is a suite of smoke tests which are run against all PR's. There is nightly cron based action which executes smoke tests against the Heroku deployments. The nightly job is scheduled to run at midnight.
 
 To run the smoke tests locally, you start the containers up using the command
 
