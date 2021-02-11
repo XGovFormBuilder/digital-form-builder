@@ -1,4 +1,5 @@
 const Page = require("./basePage");
+const ComponentMappings = require("../../../support/componentMapping");
 
 class FormDesignerPage extends Page {
   get addComponentToPage() {
@@ -48,6 +49,13 @@ class FormDesignerPage extends Page {
 
   textField(pageName) {
     return this.pageContainer(pageName).react$("TextField");
+  }
+
+  getComponentOnPage(pageName, componentName) {
+    const mappedName = ComponentMappings[componentName]
+      ? ComponentMappings[componentName]
+      : componentName;
+    return this.pageContainer(pageName).react$(mappedName);
   }
 
   pageContainer(name) {

@@ -16,22 +16,22 @@ Feature: Components
     Then the "<type>" control is displayed in the "First page"
     And the "<type>" is displayed when I Preview the page
     Examples:
-      | type                |
-      | Date field          |
-      | Date parts field    |
-      | Date time field     |
-      | Email address field |
-      | Paragraph           |
-      | Text field          |
+      | type          |
+      | Date          |
+      | Date parts    |
+      | Date time     |
+      | Email address |
+      | Paragraph     |
+      | Text          |
 
   Scenario: Add multiple components to a page
     When I add multiple components to the "First page"
     Then all the components are displayed in the "First page"
 
   Scenario: Delete a component
-    When I add a "Date field" control to the "First page"
-    And I delete the "Date field" control from the "First page"
-    Then the "Date field" will not be visible in the "First page"
+    When I add a "Date" control to the "First page"
+    And I delete the "Date" control from the "First page"
+    Then the "Date" will not be visible in the "First page"
 
   Scenario: Edit Sections from the form designer menu
     When I choose "Edit Sections" from the designer menu
