@@ -113,11 +113,11 @@ suite("Output edit", () => {
         .prop("errorList");
       expect(errorList.length).to.equal(2);
       expect(errorList[0]).to.contain({
-        children: ["Enter output title"],
+        children: ["Enter Output title"],
         href: "#output-title",
       });
       expect(errorList[1]).to.contain({
-        children: ["Enter email address"],
+        children: ["Enter Email address"],
         href: "#email-address",
       });
     });

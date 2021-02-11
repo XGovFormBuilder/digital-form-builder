@@ -1,5 +1,8 @@
 import { StaticListItem } from "./types";
 
+/**
+ * @deprecated This feature will be removed. Lists will be handled by Global Lists only.
+ */
 export function componentListItemReducer(
   state,
   action: {
