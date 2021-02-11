@@ -4,7 +4,7 @@ import {
   SortableElement,
   SortableHandle,
 } from "react-sortable-hoc";
-import { withI18n } from "../i18n";
+import { i18n, withI18n } from "../i18n";
 import { ListActions } from "../reducers/listActions";
 import {
   ListsEditorContext,
@@ -101,9 +101,18 @@ function ListItems() {
     }
   };
 
+  const hasListItems = (selectedList?.items ?? []).length > 0;
+
   return (
     <div>
       <table className="govuk-table">
+        <caption className={"govuk-table__caption"}>
+          {i18n("list.items.title")}
+          <span className="govuk-hint govuk-!-margin-bottom-0">
+            {i18n("list.items.hint")}
+          </span>
+        </caption>
+
         <thead className="govuk-table__head">
           <tr className="govuk-table__row">
             <th className="govuk-table__header" scope="col" />
@@ -112,16 +121,26 @@ function ListItems() {
             <th className="govuk-table__header" scope="col" />
           </tr>
         </thead>
-        <SortableList
-          items={selectedList?.items ?? []}
-          selectListItem={selectListItem}
-          removeItem={removeItem}
-          onSortEnd={onSortEnd}
-          helperClass="dragging-on-modal"
-          hideSortableGhost={false}
-          lockToContainerEdges
-          useDragHandle
-        />
+
+        {!hasListItems && (
+          <tbody className="govuk-table__body">
+            <tr className="govuk-table__row" scope="row">
+              <td className="govuk-body">{i18n("list.items.hintNoItems")}</td>
+            </tr>
+          </tbody>
+        )}
+        {hasListItems && (
+          <SortableList
+            items={selectedList?.items ?? []}
+            selectListItem={selectListItem}
+            removeItem={removeItem}
+            onSortEnd={onSortEnd}
+            helperClass="dragging-on-modal"
+            hideSortableGhost={false}
+            lockToContainerEdges
+            useDragHandle
+          />
+        )}
       </table>
     </div>
   );

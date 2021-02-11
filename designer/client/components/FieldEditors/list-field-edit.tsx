@@ -1,6 +1,6 @@
 import React from "react";
 
-import ListsEdit from "../../list/lists-edit";
+import ListsEdit from "../../list/ListsEdit";
 import { ListContextProvider } from "../../reducers/listReducer";
 import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
 import { RenderInPortal } from "../RenderInPortal";
