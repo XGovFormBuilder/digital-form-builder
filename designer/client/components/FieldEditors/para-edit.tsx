@@ -4,6 +4,7 @@ import { DataContext } from "../../context";
 import Editor from "../../editor";
 import { Actions } from "../../reducers/component/types";
 import { ContentOptions } from "@xgovformbuilder/model";
+import { i18n } from "../../i18n";
 
 type Props = {
   context: any; // TODO
@@ -21,14 +22,10 @@ export function ParaEdit({ context = ComponentContext }: Props) {
   return (
     <div>
       <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="para-content">
+        <label className="govuk-label govuk-label--s" htmlFor="para-content">
           Content
         </label>
-        <span className="govuk-hint">
-          The content can include HTML and the `govuk-prose-scope` css class is
-          available. Use this on a wrapping element to apply default govuk
-          styles.
-        </span>
+        <span className="govuk-hint">{i18n("fieldEdit.para.hint")}</span>
         <Editor
           id="field-content"
           name="content"
@@ -42,12 +39,10 @@ export function ParaEdit({ context = ComponentContext }: Props) {
         />
       </div>
       <div className="govuk-form-group">
-        <label className="govuk-label" htmlFor="condition">
+        <label className="govuk-label govuk-label--s" htmlFor="condition">
           Condition (optional)
         </label>
-        <span className="govuk-hint">
-          Only show this content if the condition is truthy.{" "}
-        </span>
+        <span className="govuk-hint">{i18n("fieldEdit.conditions.hint")} </span>
         <select
           className="govuk-select"
           id="condition"
