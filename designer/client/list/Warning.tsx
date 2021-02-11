@@ -1,15 +1,11 @@
 import React, { useContext } from "react";
-import { withI18n } from "../i18n";
+import { i18n } from "../i18n";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
 import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
-
-type Props = {
-  i18n: any;
-};
 
 export function useWarning() {
   const { state, dispatch } = useContext(ListsEditorContext);
@@ -36,8 +32,7 @@ export function useWarning() {
   return { confirm, keep };
 }
 
-export function Warning(props: Props) {
-  const { i18n } = props;
+export function Warning() {
   const { confirm, keep } = useWarning();
 
   return (
@@ -55,5 +50,3 @@ export function Warning(props: Props) {
     </div>
   );
 }
-
-export default withI18n(Warning);
