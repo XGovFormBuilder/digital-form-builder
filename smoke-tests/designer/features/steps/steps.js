@@ -45,15 +45,15 @@ Then("the {string} control is displayed in the {string}", function (
   const componentEl = FormDesignerPage.getComponentOnPage(pageName, ccCompName);
   switch (ccCompName) {
     case "date":
-      chai.expect(componentEl.isDisplayed()).to.be.true;
+      componentEl.waitForDisplayed();
       expect(componentEl).toHaveText("dd/mm/yyyy");
       break;
     case "dateTime":
-      chai.expect(componentEl.isDisplayed()).to.be.true;
+      componentEl.waitForDisplayed();
       expect(componentEl).toHaveText("dd/mm/yyyy hh:mm");
       break;
     default:
-      chai.expect(componentEl.isDisplayed()).to.be.true;
+      componentEl.waitForDisplayed();
       break;
   }
 });
@@ -83,6 +83,10 @@ When(
     FormDesignerPage.getComponentOnPage(
       pageName,
       toCamelCase(componentName)
+    ).waitForDisplayed();
+    FormDesignerPage.getComponentOnPage(
+      pageName,
+      toCamelCase(componentName)
     ).click();
     AddComponentPage.deleteLink.click();
   }
@@ -91,6 +95,10 @@ When(
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
+    FormDesignerPage.getComponentOnPage(
+      pageName,
+      toCamelCase(componentName)
+    ).waitForDisplayed({ reverse: true });
     chai.expect(
       FormDesignerPage.getComponentOnPage(
         pageName,
