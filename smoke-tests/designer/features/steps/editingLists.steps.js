@@ -73,7 +73,7 @@ When("I delete the {int}st list item from the {string} list", function (
       EditListSection.clickLink(FieldData.list.title);
       break;
     case "local":
-      FormDesignerPage.editPageComponent("list");
+      browser.pause(750);
       FormDesignerPage.editPageComponent("list");
       EditListSection.clickLink(`Edit ${FieldData.list.title}`);
       break;
@@ -109,7 +109,7 @@ When("I create a new component list with {int} item", function (numberOfItems) {
 When("I create a {int}nd list item for the Local list", function (
   listItemNumber
 ) {
-  FormDesignerPage.editPageComponent("list");
+  browser.pause(750);
   FormDesignerPage.editPageComponent("list");
   EditListSection.clickLink(`Edit ${FieldData.list.title}`);
   EditListSection.createListItem.click();
