@@ -42,6 +42,9 @@ export const putFormWithId: ServerRoute = {
   method: "PUT",
   path: "/api/{id}/data",
   options: {
+    payload: {
+      parse: true,
+    },
     handler: async (request, h) => {
       const { id } = request.params;
       const { persistenceService } = request.services([]);
@@ -53,6 +56,12 @@ export const putFormWithId: ServerRoute = {
 
         if (error) {
           request.server.log(["error", "/api/{id}/data"], error, request);
+          request.server.log(
+            ["error", "/api/{id}/data"],
+            error,
+            JSON.stringify(request)
+          );
+
           throw new Error("Schema validation failed", error);
         }
         await persistenceService.uploadConfiguration(
