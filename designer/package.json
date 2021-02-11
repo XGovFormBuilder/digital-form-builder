@@ -77,7 +77,7 @@
     "@babel/preset-react": "7.10.1",
     "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "7.10.3",
-    "@babel/runtime": "7.10.3",
+    "@babel/runtime": "7.12.13",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
     "@testing-library/jest-dom": "^5.11.6",
