@@ -58,14 +58,23 @@
   },
   "field": "field",
   "fieldEdit": {
+    "conditions": {
+      "hint": "Select a condition that determines whether to show the contents of this component. You can create and edit conditions from the Conditions screen."
+    },
+    "details": {
+      "hint": "Enter the text you want to show when users expand the title. You can apply basic HTML, such as text formatting and hyperlinks."
+    },
     "helpText": "Help text (optional)",
-    "helpTextHint": "Enter the description to show for this field",
+    "helpTextHint": "Enter the description to show for this component",
     "hideTitle": "Hide title",
     "hideTitleHint": "Tick this box if you do not want the title to show on the page",
     "optional": "Make {{fieldTitle}} optional",
     "optionalHint": "Tick this box if users do not need to complete this field to progress through the form",
+    "para": {
+      "hint": "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
+    },
     "title": "Title",
-    "titleHint": "Enter the name to show for this field"
+    "titleHint": "Enter the name to show for this component"
   },
   "fieldTypeToName": {
     "AutocompleteField": "Autocomplete",
@@ -181,8 +190,8 @@
     },
     "newTitle": "Add list",
     "select": "Select list",
-    "selectListHint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the list screen.",
     "static": {
+      "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
       "newTitle": "Add a new component list",
       "noun": "component list",
       "saveFirst": "You must save before creating a component list, or you can select an existing list."

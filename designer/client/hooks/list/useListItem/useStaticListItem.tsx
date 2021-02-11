@@ -70,7 +70,9 @@ export function useStaticListItem(state, dispatch): ListItemHook {
 
     if (selectedItem.isNew) {
       const { isNew, ...selectedItem } = state.selectedItem;
-      const { values = { items: [] } } = state.selectedComponent;
+      const {
+        values = { type: "static", items: [] },
+      } = state.selectedComponent;
       values.items.push(selectedItem);
       component.values = values;
     } else {
