@@ -219,7 +219,7 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
   FormDesignerPage.formPageTitles.forEach((elem) => {
     pageNames.push(elem.getText());
   });
-  expect(FormDesignerPage.formPages.length).toEqual(1);
+  expect(FormDesignerPage.formPages.length).toEqual(2);
   chai.expect(pageNames).not.include(pageName);
 });
 
@@ -263,8 +263,9 @@ When("I edit the page title on the {string}", (pageName) => {
 });
 
 Then("the changes are reflected in the page designer", () => {
-  FormDesignerPage.designerMenu.waitForDisplayed();
-  console.log(FormDesignerPage.getTitleTextForPage(this.newPageName));
+  browser.waitUntil(
+    () => FormDesignerPage.formPageTitles[0].getText() === "testing"
+  );
   expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
     this.newPageName
   );
@@ -275,7 +276,7 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  FormDesignerPage.designerMenu.waitForDisplayed();
+  browser.waitUntil(() => FormDesignerPage.formPages.length === 4);
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });
