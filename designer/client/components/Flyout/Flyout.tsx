@@ -57,9 +57,14 @@ export function useFlyoutEffect(props = {}) {
 }
 
 export function Flyout(props) {
-  const { style, width = "", onHide, closeOnEnter, show } = useFlyoutEffect(
-    props
-  );
+  const {
+    style,
+    width = "",
+    onHide,
+    closeOnEnter,
+    show,
+    offset,
+  } = useFlyoutEffect(props);
 
   if (!show) {
     return null;
@@ -67,7 +72,7 @@ export function Flyout(props) {
 
   return (
     <FocusTrap>
-      <div className="flyout show">
+      <div className="flyout show" data-testid={`flyout-${offset}`}>
         <div className={`flyout__container ${width}`} style={style}>
           <a
             tabIndex={0}
@@ -81,7 +86,9 @@ export function Flyout(props) {
           <div className="panel panel--flyout">
             <div className="panel-header govuk-!-padding-top-4 govuk-!-padding-left-4">
               {props.title && (
-                <h4 className="govuk-heading-m">{props.title}</h4>
+                <h4 className="govuk-heading-m" data-testid="flyout-heading">
+                  {props.title}
+                </h4>
               )}
             </div>
             <div className="panel-body">
