@@ -55,11 +55,10 @@ export const putFormWithId: ServerRoute = {
         });
 
         if (error) {
-          request.server.log(["error", "/api/{id}/data"], error, request);
           request.server.log(
-            ["error", "/api/{id}/data"],
+            ["error", `/api/${id}/data`],
             error,
-            JSON.stringify(request)
+            request.payload
           );
 
           throw new Error("Schema validation failed", error);
