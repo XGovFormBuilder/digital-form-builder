@@ -52,9 +52,10 @@ export const putFormWithId: ServerRoute = {
         });
 
         if (error) {
-          request.server.log(["error", "/api/{id}/data"], error, request);
-          throw new Error("Schema validation failed", error);
+          request.server.log(["error", "/api/{id}/data"], error);
+          throw new Error("Schema validation failed");
         }
+
         await persistenceService.uploadConfiguration(
           `${id}`,
           JSON.stringify(value)

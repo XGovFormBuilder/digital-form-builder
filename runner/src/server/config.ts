@@ -29,6 +29,7 @@ const schema = Joi.object({
     .valid("development", "test", "production")
     .default(DEFAULT_ENVIRONMENT),
   logLevel: Joi.string().optional().default(DEFAULT_LOG_LEVEL),
+  logPayload: Joi.boolean().default(false),
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string().default("#"),
@@ -76,6 +77,7 @@ export function buildConfig() {
     port: process.env.PORT,
     env: process.env.NODE_ENV,
     logLevel: process.env.LOG_LEVEL,
+    logPayload: process.env.LOG_PAYLOAD === "true",
     ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
     browserRefreshUrl: process.env.BROWSER_REFRESH_URL,
     feedbackLink: process.env.FEEDBACK_LINK,
