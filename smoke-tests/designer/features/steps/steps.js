@@ -152,7 +152,7 @@ When("I add a new Global list named {string}", function (listName) {
   EditListSection.listTitle.setValue(listName);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add a new list item",
+    "Add list item",
     "Test Global Lists",
     "two",
     "two"

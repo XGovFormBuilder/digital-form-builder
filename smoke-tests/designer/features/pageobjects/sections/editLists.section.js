@@ -24,7 +24,7 @@ class EditListsSection extends Section {
   }
 
   get addNewList() {
-    return this.parentElement.$("a=Add a new list");
+    return this.parentElement.$("a=Add list");
   }
 
   get listTitle() {
@@ -32,7 +32,7 @@ class EditListsSection extends Section {
   }
 
   get createListItem() {
-    return browser.$("a=Create list item");
+    return browser.$("a=Add list item");
   }
 
   itemTitle(panelIndex, title) {
@@ -112,7 +112,7 @@ class EditListsSection extends Section {
     for (let i = 0; i < numberOfListItems; i++) {
       this.createListItem.click();
       this.addNewListItem(
-        "Add a new list item",
+        "Add list item",
         `${listType} list item ${i}`,
         `${i}`,
         `${i}`

@@ -39,7 +39,7 @@ When("I add another list item to the Global list", function () {
   EditListSection.clickLink(FieldData.list.title);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add a new list item",
+    "Add list item",
     "Global list item 1",
     "1",
     "1"
@@ -154,7 +154,7 @@ When("I edit the {int}st list item from the {string} list", function (
   expect(EditListSection.listItems.length).toEqual(2);
   EditListSection.editListItem(listItem - 1);
   EditListSection.addNewListItem(
-    "Editing list item",
+    "Edit list item",
     this.listItemTitle,
     "3",
     "3"
