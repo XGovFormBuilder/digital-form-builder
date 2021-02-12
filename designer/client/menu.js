@@ -3,7 +3,7 @@ import { Flyout } from "./components/Flyout";
 import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
 import PageCreate from "./page-create";
 import LinkCreate from "./link-create";
-import ListsEdit from "../client/list/lists-edit";
+import ListsEdit from "./list/ListsEdit";
 import SectionsEdit from "./section/sections-edit";
 import ConditionsEdit from "./conditions/ConditionsEdit";
 import FeeEdit from "./fee-edit";
@@ -14,6 +14,7 @@ import { FormDetails } from "./components/FormDetails";
 import { ListContextProvider } from "./reducers/listReducer";
 import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
 import { DataContext } from "./context";
+import { i18n } from "./i18n";
 
 export default class Menu extends React.Component {
   static contextType = DataContext;
@@ -163,7 +164,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showAddLink && (
           <Flyout
-            title="Add Link"
+            title={i18n("menu.links")}
             onHide={() => this.setState({ showAddLink: false })}
           >
             <LinkCreate
@@ -185,7 +186,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showEditConditions && (
           <Flyout
-            title="Edit Conditions"
+            title={i18n("conditions.addOrEdit")}
             onHide={() => this.setState({ showEditConditions: false })}
             width="large"
           >
@@ -197,7 +198,7 @@ export default class Menu extends React.Component {
         )}
         {this.state.showEditLists && (
           <Flyout
-            title="Edit Lists"
+            title={i18n("list.addOrEdit")}
             onHide={() => this.setState({ showEditLists: false })}
             width={""}
           >

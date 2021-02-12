@@ -1,6 +1,7 @@
 import React from "react";
-import SelectConditions from "./conditions/select-conditions";
+import SelectConditions from "./conditions/SelectConditions";
 import { clone } from "@xgovformbuilder/model";
+import { i18n } from "./i18n";
 
 import { DataContext } from "./context";
 
@@ -115,6 +116,7 @@ class LinkEdit extends React.Component {
           path={edge.source}
           selectedCondition={selectedCondition}
           conditionsChange={this.conditionSelected}
+          noFieldsHintText={i18n("addLink.noFieldsAvailable")}
         />
         <button className="govuk-button" type="submit">
           Save

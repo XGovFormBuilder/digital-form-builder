@@ -2,7 +2,7 @@ import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { Input } from "@govuk-jsx/input";
 
-import SelectConditions from "./conditions/select-conditions";
+import SelectConditions from "./conditions/SelectConditions";
 import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/RenderInPortal";
 import { Flyout } from "./components/Flyout";
@@ -233,6 +233,7 @@ class PageCreate extends React.Component {
               data={data}
               path={linkFrom}
               conditionsChange={this.conditionSelected}
+              noFieldsHintText={i18n("conditions.noFieldsAvailable")}
             />
           )}
 

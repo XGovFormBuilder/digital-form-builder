@@ -1,11 +1,12 @@
 import React from "react";
-import SelectConditions from "./conditions/select-conditions";
+import SelectConditions from "./conditions/SelectConditions";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import { clone } from "@xgovformbuilder/model";
 import classNames from "classnames";
 
 import ErrorSummary from "./error-summary";
 import { DataContext } from "./context";
+import { i18n } from "./i18n";
 
 class LinkCreate extends React.Component {
   static contextType = DataContext;
@@ -64,6 +65,8 @@ class LinkCreate extends React.Component {
         {hasValidationErrors && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}
+        <div className="govuk-hint">{i18n("addLink.hint1")}</div>
+        <div className="govuk-hint">{i18n("addLink.hint2")}</div>
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div
             className={classNames({
@@ -128,6 +131,7 @@ class LinkCreate extends React.Component {
               data={data}
               path={from}
               conditionsChange={this.conditionSelected}
+              noFieldsHintText={i18n("addLink.noFieldsAvailable")}
             />
           )}
 

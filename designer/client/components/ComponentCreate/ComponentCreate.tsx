@@ -21,6 +21,7 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 import "./ComponentCreate.scss";
 
 function useComponentCreate(props) {
+  const [renderTypeEdit, setRenderTypeEdit] = useState<boolean>(false);
   const { data, save } = useContext(DataContext);
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent, errors = {}, hasValidated } = state;
@@ -28,6 +29,27 @@ function useComponentCreate(props) {
 
   const [isSaving, setIsSaving] = useState(false);
   const hasErrors = hasValidationErrors(errors);
+
+  useEffect(() => {
+    // render in the next re-paint to allow the DOM to reflow without the list
+    // thus resetting the Flyout wrapper scrolling position
+    // This is a quick work around the bug in small screens
+    // where once user scrolls down the components list and selects one of the bottom components
+    // then the component edit screen renders already scrolled to the bottom
+    let isMounted = true;
+
+    if (selectedComponent?.type) {
+      window.requestAnimationFrame(() => {
+        if (isMounted) setRenderTypeEdit(true);
+      });
+    } else {
+      setRenderTypeEdit(false);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedComponent?.type]);
 
   useEffect(() => {
     dispatch({ type: Actions.SET_PAGE, payload: page.path });
@@ -84,6 +106,7 @@ function useComponentCreate(props) {
     component: selectedComponent,
     isSaving,
     reset,
+    renderTypeEdit,
   };
 }
 
@@ -96,6 +119,7 @@ export function ComponentCreate(props) {
     errors,
     component,
     isSaving,
+    renderTypeEdit,
   } = useComponentCreate(props);
 
   const type = component?.type;
@@ -116,7 +140,7 @@ export function ComponentCreate(props) {
       )}
       {hasErrors && <ErrorSummary errorList={errors} />}
       {!type && <ComponentCreateList onSelectComponent={handleTypeChange} />}
-      {type && (
+      {type && renderTypeEdit && (
         <form onSubmit={handleSubmit}>
           {type && <ComponentTypeEdit />}
           <button type="submit" className="govuk-button" disabled={isSaving}>

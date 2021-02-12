@@ -41,31 +41,25 @@ Then("the {string} control is displayed in the {string}", function (
   pageName
 ) {
   this.pageName = pageName;
-  const pageComponent = toCamelCase(componentName);
-  switch (pageComponent) {
-    case "dateField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy"
-      );
+  const ccCompName = toCamelCase(componentName);
+  const componentEl = FormDesignerPage.getComponentOnPage(pageName, ccCompName);
+  switch (ccCompName) {
+    case "date":
+      chai.expect(componentEl.isDisplayed()).to.be.true;
+      expect(componentEl).toHaveText("dd/mm/yyyy");
       break;
-    case "dateTimeField":
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
-      expect(FormDesignerPage[pageComponent](this.pageName)).toHaveText(
-        "dd/mm/yyyy hh:mm"
-      );
+    case "dateTime":
+      chai.expect(componentEl.isDisplayed()).to.be.true;
+      expect(componentEl).toHaveText("dd/mm/yyyy hh:mm");
       break;
     default:
-      chai.expect(FormDesignerPage[pageComponent](this.pageName).isDisplayed())
-        .to.be.true;
+      chai.expect(componentEl.isDisplayed()).to.be.true;
       break;
   }
 });
 
 When("I add multiple components to the {string}", (pageName) => {
-  this.pageComponents = ["Email address field", "Date field"];
+  this.pageComponents = ["Email address", "Date"];
   this.pageComponents.forEach((component) =>
     Actions.createComponentForPage(component, pageName)
   );
@@ -75,7 +69,10 @@ Then("all the components are displayed in the {string}", (pageName) => {
   this.pageComponents.forEach(
     (component) =>
       chai.expect(
-        FormDesignerPage[toCamelCase(component)](pageName).isDisplayed()
+        FormDesignerPage.getComponentOnPage(
+          pageName,
+          toCamelCase(component)
+        ).isDisplayed()
       ).to.be.true
   );
 });
@@ -83,8 +80,10 @@ Then("all the components are displayed in the {string}", (pageName) => {
 When(
   "I delete the {string} control from the {string}",
   (componentName, pageName) => {
-    const pageComponent = toCamelCase(componentName);
-    FormDesignerPage[pageComponent](pageName).click();
+    FormDesignerPage.getComponentOnPage(
+      pageName,
+      toCamelCase(componentName)
+    ).click();
     AddComponentPage.deleteLink.click();
   }
 );
@@ -92,9 +91,12 @@ When(
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
-    const pageComponent = toCamelCase(componentName);
-    chai.expect(FormDesignerPage[pageComponent](pageName).isDisplayed()).to.be
-      .false;
+    chai.expect(
+      FormDesignerPage.getComponentOnPage(
+        pageName,
+        toCamelCase(componentName)
+      ).isDisplayed()
+    ).to.be.false;
   }
 );
 
@@ -209,7 +211,7 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
   FormDesignerPage.formPageTitles.forEach((elem) => {
     pageNames.push(elem.getText());
   });
-  expect(FormDesignerPage.formPages.length).toEqual(1);
+  expect(FormDesignerPage.formPages.length).toEqual(2);
   chai.expect(pageNames).not.include(pageName);
 });
 
@@ -222,7 +224,7 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   Actions.createComponentForPage(componentName, pageName);
 });
 
-Then("the Date field control is displayed in the page", () => {
+Then("the Date control is displayed in the page", () => {
   chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
     .true;
   expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");

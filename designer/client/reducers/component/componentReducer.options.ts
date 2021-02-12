@@ -1,12 +1,18 @@
 import { Options } from "./types";
 
-export function optionsReducer(
-  state,
-  action: {
-    type: Options;
-    payload: any;
-  }
-) {
+interface ConditionAction {
+  type: Options.EDIT_OPTIONS_CONDITION;
+  payload: string;
+}
+
+interface AnyAction {
+  type: Options;
+  payload: any;
+}
+
+type OptionsActions = ConditionAction | AnyAction;
+
+export function optionsReducer(state, action: OptionsActions) {
   const { type, payload } = action;
   const { selectedComponent } = state;
   const { options } = state;

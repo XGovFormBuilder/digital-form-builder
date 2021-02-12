@@ -59,6 +59,10 @@ export type ConditionalComponent = {
   subType: "field";
 };
 
+export type ContentOptions = {
+  condition?: string;
+};
+
 // Types for Components JSON structure which are expected by engine and turned into
 // actual form input/content/lists
 interface TextFieldBase {
@@ -120,9 +124,7 @@ interface ContentFieldBase {
   name: string;
   title: string;
   content: string;
-  options: {
-    condition?: string;
-  };
+  options: ContentOptions;
   schema: {};
 }
 
