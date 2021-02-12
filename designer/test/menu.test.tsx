@@ -4,7 +4,7 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 
-import Menu from "../client/menu";
+import Menu from "../client/components/Menu/menu";
 import { Flyout } from "../client/components/Flyout";
 import { Data } from "@xgovformbuilder/model";
 

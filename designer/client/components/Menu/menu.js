@@ -1,20 +1,20 @@
 import React from "react";
-import { Flyout } from "./components/Flyout";
-import { DataPrettyPrint } from "./components/DataPrettyPrint/DataPrettyPrint";
-import PageCreate from "./page-create";
-import LinkCreate from "./link-create";
-import ListsEdit from "./list/ListsEdit";
-import SectionsEdit from "./section/sections-edit";
-import ConditionsEdit from "./conditions/ConditionsEdit";
-import FeeEdit from "./fee-edit";
-import NotifyEdit from "./outputs/notify-edit";
-import DeclarationEdit from "./declaration-edit";
-import OutputsEdit from "./outputs/outputs-edit";
-import { FormDetails } from "./components/FormDetails";
-import { ListContextProvider } from "./reducers/listReducer";
-import { ListsEditorContextProvider } from "./reducers/list/listsEditorReducer";
-import { DataContext } from "./context";
-import { i18n } from "./i18n";
+import { Flyout } from "../Flyout";
+import { DataPrettyPrint } from "../DataPrettyPrint/DataPrettyPrint";
+import PageCreate from "../../page-create";
+import LinkCreate from "../../link-create";
+import ListsEdit from "../../list/lists-edit";
+import SectionsEdit from "../../section/sections-edit";
+import ConditionsEdit from "../../conditions/ConditionsEdit";
+import FeeEdit from "../../fee-edit";
+import NotifyEdit from "../../outputs/notify-edit";
+import DeclarationEdit from "../../declaration-edit";
+import OutputsEdit from "../../outputs/outputs-edit";
+import { FormDetails } from "../FormDetails";
+import { ListContextProvider } from "../../reducers/listReducer";
+import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
+import { DataContext } from "../../context";
+import { i18n } from "../../i18n";
 
 function menu() {
   return;
