@@ -6,6 +6,7 @@ class AddConditionSection extends Page {
    * @returns {WebdriverIO.ElementArray}
    */
   get conditionLinks() {
+    browser.$("[data-testid='conditions-list-item'] a").waitForDisplayed();
     return browser.$$("[data-testid='conditions-list-item'] a");
   }
 
