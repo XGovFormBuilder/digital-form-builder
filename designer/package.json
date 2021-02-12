@@ -38,7 +38,7 @@
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
     "@xgovformbuilder/model": "2.0.0",
-    "aws-sdk": "^2.723.0",
+    "aws-sdk": "^2.843.0",
     "classnames": "^2.2.6",
     "concurrently": "^5.3.0",
     "core-js": "^3.8.1",

@@ -513,7 +513,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.12.13"
 
-"@babel/plugin-transform-classes@^7.10.1", "@babel/plugin-transform-classes@^7.10.3", "@babel/plugin-transform-classes@^7.12.13":
+"@babel/plugin-transform-classes@^7.10.3", "@babel/plugin-transform-classes@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-classes/-/plugin-transform-classes-7.12.13.tgz#9728edc1838b5d62fc93ad830bd523b1fcb0e1f6"
   dependencies:
@@ -1389,7 +1389,7 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@hapi/formula/-/formula-2.0.0.tgz#edade0619ed58c8e4f164f233cda70211e787128"
 
-"@hapi/hapi@^20.0.3":
+"@hapi/hapi@^20.1.0":
   version "20.1.0"
   resolved "https://registry.yarnpkg.com/@hapi/hapi/-/hapi-20.1.0.tgz#af39b3ad00a9d8c612cde7bbead5f32a6706c488"
   dependencies:
@@ -3514,23 +3514,9 @@ autoprefixer@^10.2.1:
     normalize-range "^0.1.2"
     postcss-value-parser "^4.1.0"
 
-aws-sdk@2.655.0:
-  version "2.655.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.655.0.tgz#e95da28e66f02a4bfc0eab46731e2140364b3ea2"
-  dependencies:
-    buffer "4.9.1"
-    events "1.1.1"
-    ieee754 "1.1.13"
-    jmespath "0.15.0"
-    querystring "0.2.0"
-    sax "1.2.1"
-    url "0.10.3"
-    uuid "3.3.2"
-    xml2js "0.4.19"
-
-aws-sdk@^2.723.0:
-  version "2.842.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.842.0.tgz#2673f72c0981c4697f8ed5dc39061cff98d9057f"
+aws-sdk@2.843.0, aws-sdk@^2.843.0:
+  version "2.843.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.843.0.tgz#3e274214565597de6ccfbfaf6727a47f42b3774d"
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -4071,14 +4057,6 @@ buffer-indexof@^1.0.0:
 buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
-
-buffer@4.9.1:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/buffer/-/buffer-4.9.1.tgz#6d1bb601b07a4efced97094132093027c95bc298"
-  dependencies:
-    base64-js "^1.0.2"
-    ieee754 "^1.1.4"
-    isarray "^1.0.0"
 
 buffer@4.9.2, buffer@^4.3.0:
   version "4.9.2"
@@ -13354,7 +13332,7 @@ sass-loader@^10.0.2:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.26.11:
+sass@^1.32.7:
   version "1.32.7"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.32.7.tgz#632a9df2b85dc4b346977fcaf2d5e6f2b7039fd8"
   dependencies:
