@@ -25,16 +25,16 @@ type Props = {
 export default function Menu({ updateDownloadedAt, id }: Props) {
   const { data } = useContext(DataContext);
 
-  const formDetails = useMenuItem(),
-    page = useMenuItem(),
-    link = useMenuItem(),
-    sections = useMenuItem(),
-    conditions = useMenuItem(),
-    lists = useMenuItem(),
-    outputs = useMenuItem(),
-    fees = useMenuItem(),
-    summaryBehaviour = useMenuItem(),
-    summary = useMenuItem();
+  const formDetails = useMenuItem();
+  const page = useMenuItem();
+  const link = useMenuItem();
+  const sections = useMenuItem();
+  const conditions = useMenuItem();
+  const lists = useMenuItem();
+  const outputs = useMenuItem();
+  const fees = useMenuItem();
+  const summaryBehaviour = useMenuItem();
+  const summary = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
 
