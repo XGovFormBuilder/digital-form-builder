@@ -1,11 +1,11 @@
-const {Given, When, Then} = require("cucumber");
+const { Given, When, Then } = require("cucumber");
 const AddComponentPage = require("../pageobjects/pages/addComponent.page");
 const EditListSection = require("../pageobjects/sections/editLists.section");
 const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
 const PreviewPage = require("../pageobjects/pages/preview.page");
-const {toCamelCase} = require("../../support/testHelpers");
+const { toCamelCase } = require("../../support/testHelpers");
 
 Given("I have created a {string} list with {int} list item(s)", function (
   listType,
@@ -39,7 +39,7 @@ When("I add another list item to the Global list", function () {
   EditListSection.clickLink(FieldData.list.title);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add list item",
+    "Add a new list item",
     "Global list item 1",
     "1",
     "1"
@@ -96,7 +96,7 @@ When("I edit the {string} component", function (componentType) {
 
 When("I create a new component list with {int} item", function (numberOfItems) {
   EditListSection.clickLink("Add a new component list");
-  EditListSection.clickLink("Add list item");
+  EditListSection.createListItem.click();
   EditListSection.addNewListItem(
     "Add list item",
     `list item ${numberOfItems}`,
@@ -119,8 +119,7 @@ When("I create a {int}nd list item for the Local list", function (
     `${listItemNumber}`,
     `${listItemNumber}`
   );
-})
-;
+});
 
 Then("the Local list has {int} list items", function (listItems) {
   expect(EditListSection.listItems).toBeElementsArrayOfSize(listItems);

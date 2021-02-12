@@ -2,9 +2,6 @@ name: Smoke Tests Nightly -Heroku
 on:
   schedule:
     - cron:  '0 0 * * *'
-  push:
-    branches:
-      - feature/Run-Smoke-Tests-Nightly
   workflow_dispatch:
 jobs:
   test:
@@ -31,7 +28,7 @@ jobs:
         run: yarn install --cwd "smoke-tests/designer"
       - name: Smoke Test
         run: |
-          yarn smoke-tests/designer smoke-test-headless --baseUrl=https://digital-form-builder-designer.herokuapp.com/
+          yarn smoke-tests/designer smoke-test-heroku
           ls -lah smoke-tests/designer/reports/
       - name: "Tar files"
         if: ${{ success() || failure() }}

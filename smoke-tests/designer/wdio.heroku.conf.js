@@ -1,10 +1,10 @@
 const { config } = require("./wdio.conf.js");
 
-(config.baseUrl = "http://localhost:3000"), // TODO:- Change to the url in the CI environment
-  (config.maxInstances = 5),
+(config.baseUrl = "https://digital-form-builder-designer.herokuapp.com/"),
+  (config.maxInstances = 1),
   (config.capabilities = [
     {
-      maxInstances: 5, // number instances in parallel
+      maxInstances: 1, // number instances in parallel
       browserName: "chrome",
       "goog:chromeOptions": {
         args: [

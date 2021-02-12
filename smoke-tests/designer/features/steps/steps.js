@@ -66,6 +66,7 @@ When("I add multiple components to the {string}", (pageName) => {
 });
 
 Then("all the components are displayed in the {string}", (pageName) => {
+  browser.pause(500);
   this.pageComponents.forEach(
     (component) =>
       chai.expect(
