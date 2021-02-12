@@ -7,59 +7,25 @@ import SectionsEdit from "../../section/sections-edit";
 import ConditionsEdit from "../../conditions/ConditionsEdit";
 import { i18n } from "../../i18n";
 import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
-import ListsEdit from "../../list/lists-edit";
 import { ListContextProvider } from "../../reducers/listReducer";
 import FeeEdit from "../../fee-edit";
-import NotifyEdit from "../../outputs/notify-edit";
 import DeclarationEdit from "../../declaration-edit";
 import OutputsEdit from "../../outputs/outputs-edit";
 import { DataContext } from "../../context";
 import { DataPrettyPrint } from "../DataPrettyPrint/DataPrettyPrint";
+import ListsEdit from "../../list/ListsEdit";
+import { useMenuItem } from "./useMenuItem";
+import { Tabs, useTabs } from "./useTabs";
 
-type MenuItemHook = {
-  isVisible: boolean;
-  show: (e?: React.MouseEvent<HTMLButtonElement>) => void;
-  hide: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+type Props = {
+  updateDownloadedAt: (string) => void,
+  id: string,
 };
 
-function useMenuItem(): MenuItemHook {
-  const [isVisible, setIsVisible] = useState(false);
-
-  function show(e) {
-    e?.preventDefault();
-    setIsVisible(true);
-  }
-
-  function hide(e) {
-    e?.preventDefault();
-    setIsVisible(false);
-  }
-
-  return {
-    isVisible,
-    show,
-    hide,
-  };
-}
-
-enum Tabs {
-  model,
-  json,
-  summary,
-}
-function useTabs() {
-  const [selectedTab, setSelectedTab] = useState(Tabs.model);
-  function handleTabChange(tab: Tabs) {
-    setSelectedTab(tab);
-  }
-
-  return { selectedTab, handleTabChange };
-}
-
-export function Menu() {
+export default function Menu({ updateDownloadedAt, id }: Props) {
   const { data } = useContext(DataContext);
 
-  const formConfig = useMenuItem(),
+  const formDetails = useMenuItem(),
     page = useMenuItem(),
     link = useMenuItem(),
     sections = useMenuItem(),
@@ -68,14 +34,26 @@ export function Menu() {
     outputs = useMenuItem(),
     fees = useMenuItem(),
     summaryBehaviour = useMenuItem(),
-    summary = useMenuItem(),
-    notify = useMenuItem();
+    summary = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
 
   const onClickUpload = (e) => {
     e.preventDefault();
     document.getElementById("upload").click();
+  };
+
+  const onClickDownload = (e) => {
+    e.preventDefault();
+    const encodedData =
+      "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+    updateDownloadedAt(new Date().toLocaleTimeString());
+    const link = document.createElement("a");
+    link.download = `${id}.json`;
+    link.href = `data:${encodedData}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const onFileUpload = (e) => {
@@ -92,35 +70,37 @@ export function Menu() {
   return (
     <nav className="menu">
       <div className="menu__row">
-        <button onClick={formConfig.show}>Form Details</button>
-        {formConfig.isVisible && (
-          <Flyout title="Form Details" onHide={formConfig.hide}>
-            <FormDetails onCreate={() => formConfig.hide} />
+        <button onClick={formDetails.show}>{ i18n("menu.formDetails") }</button>
+        {formDetails.isVisible && (
+          <Flyout title="Form Details" onHide={formDetails.hide}>
+            <FormDetails onCreate={() => formDetails.hide} />
           </Flyout>
         )}
 
-        <button onClick={page.show}>Add Page</button>
+        <button onClick={page.show}>
+          { i18n("menu.addPage") }
+        </button>
         {page.isVisible && (
           <Flyout title="Add Page" onHide={page.hide}>
             <PageCreate data={data} onCreate={() => page.hide} />
           </Flyout>
         )}
 
-        <button onClick={link.show}>Add Link</button>
+        <button onClick={link.show}>{ i18n("menu.links") }</button>
         {link.isVisible && (
           <Flyout title={i18n("menu.links")} onHide={link.hide}>
             <LinkCreate data={data} onCreate={() => link.hide} />
           </Flyout>
         )}
 
-        <button onClick={sections.show}>Edit Sections</button>
+        <button onClick={sections.show}>{ i18n("menu.sections") }</button>
         {sections.isVisible && (
           <Flyout title="Edit Sections" onHide={sections.hide}>
             <SectionsEdit data={data} onCreate={() => sections.hide} />
           </Flyout>
         )}
 
-        <button onClick={conditions.show}>Edit Conditions</button>
+        <button onClick={conditions.show}>{ i18n("menu.conditions") }</button>
         {conditions.isVisible && (
           <Flyout
             title={i18n("conditions.addOrEdit")}
@@ -131,37 +111,39 @@ export function Menu() {
           </Flyout>
         )}
 
-        <button onClick={lists.show}>Edit Lists</button>
+        <button onClick={lists.show}>{ i18n("menu.lists") }</button>
         {lists.isVisible && (
           <Flyout title="Edit Lists" onHide={lists.hide} width={""}>
             <ListsEditorContextProvider>
               <ListContextProvider>
-                <ListsEdit />
+                <ListsEdit isEditingFromComponent={false} />
               </ListContextProvider>
             </ListsEditorContextProvider>
           </Flyout>
         )}
 
-        <button onClick={outputs.show}>Edit Outputs</button>
+        <button onClick={outputs.show}>{ i18n("menu.outputs") }</button>
         {outputs.isVisible && (
           <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
             <OutputsEdit data={data} onCreate={outputs.hide} />
           </Flyout>
         )}
 
-        <button onClick={fees.show}>Edit Fees</button>
+        <button onClick={fees.show}>{ i18n("menu.fees") }</button>
         {fees.isVisible && (
           <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
             <FeeEdit data={data} onEdit={() => fees.hide} />
           </Flyout>
         )}
 
-        <button onClick={summaryBehaviour.show}>Edit summary behaviour</button>
+        <button onClick={summaryBehaviour.show}>{ i18n("menu.summaryBehaviour") }</button>
         {summaryBehaviour.isVisible && (
           <Flyout
             title="Edit Summary behaviour"
             onHide={summaryBehaviour.hide}
+
             width="xlarge"
+
           >
             <DeclarationEdit
               data={data}
@@ -170,7 +152,7 @@ export function Menu() {
           </Flyout>
         )}
 
-        <button onClick={summary.show}>Summary</button>
+        <button onClick={summary.show} data-testid="menu-summary">{ i18n("menu.summary") }</button>
         {summary.isVisible && (
           <Flyout title="Summary" width="large" onHide={summary.hide}>
             <div className="js-enabled" style={{ paddingTop: "3px" }}>
@@ -181,7 +163,7 @@ export function Menu() {
                     <button
                       className="govuk-tabs__tab"
                       aria-selected={selectedTab === Tabs.model}
-                      onClick={handleTabChange(Tabs.model)}
+                      onClick={(e) => handleTabChange(e, Tabs.model)}
                     >
                       Data Model
                     </button>
@@ -190,7 +172,8 @@ export function Menu() {
                     <button
                       className="govuk-tabs__tab"
                       aria-selected={selectedTab === Tabs.json}
-                      onClick={handleTabChange(Tabs.json)}
+                      data-testid={"tab-json-button"}
+                      onClick={(e) => handleTabChange(e, Tabs.json)}
                     >
                       JSON
                     </button>
@@ -199,24 +182,25 @@ export function Menu() {
                     <button
                       className="govuk-tabs__tab"
                       aria-selected={selectedTab === Tabs.summary}
-                      onClick={handleTabChange(Tabs.summary)}
+                      data-testid="tab-summary-button"
+                      onClick={(e) => handleTabChange(e, Tabs.summary)}
                     >
                       Summary
                     </button>
                   </li>
                 </ul>
                 {selectedTab === Tabs.model && (
-                  <section className="govuk-tabs__panel">
+                  <section className="govuk-tabs__panel" data-testid="tab-model">
                     <DataPrettyPrint data={data} />
                   </section>
                 )}
                 {selectedTab === Tabs.json && (
-                  <section className="govuk-tabs__panel">
+                  <section className="govuk-tabs__panel"  data-testid="tab-json">
                     <pre>{JSON.stringify(data, null, 2)}</pre>
                   </section>
                 )}
                 {selectedTab === Tabs.summary && (
-                  <section className="govuk-tabs__panel">
+                  <section className="govuk-tabs__panel" data-testid="tab-summary">
                     <pre>
                       {JSON.stringify(
                         data.pages.map((page) => page.path),
@@ -241,12 +225,6 @@ export function Menu() {
         </a>
         <input type="file" id="upload" hidden onChange={onFileUpload} />
       </div>
-
-      {notify.isVisible && (
-        <Flyout title="Edit Notify" onHide={notify.hide} width="xlarge">
-          <NotifyEdit data={data} onCreate={() => notify.hide} />
-        </Flyout>
-      )}
     </nav>
   );
 }

@@ -6,14 +6,9 @@ import userEvent, { TargetElement } from "@testing-library/user-event";
 import { ComponentCreate } from "../ComponentCreate";
 import { ComponentContextProvider } from "../../../reducers/component";
 import { DataContext } from "../../../context";
-import { initI18n } from "../../../i18n/i18n";
 import { DetailsComponent } from "@xgovformbuilder/model";
 
 describe("ComponentCreate:", () => {
-  beforeEach(() => {
-    initI18n();
-  });
-
   const data = new Data({
     pages: [{ path: "/1", title: "", controller: "", section: "" }],
     lists: [],

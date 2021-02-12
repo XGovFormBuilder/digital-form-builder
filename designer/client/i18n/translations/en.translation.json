@@ -200,7 +200,16 @@
     "titleHint": "Enter a unique name for your list"
   },
   "menu": {
-    "links": "Add Link"
+    "formDetails": "Form details",
+    "addPage": "Add page",
+    "links": "Add link",
+    "sections": "Sections",
+    "conditions": "Conditions",
+    "lists": "Lists",
+    "outputs": "Outputs",
+    "fees": "Fees",
+    "summaryBehaviour": "Summary behaviour",
+    "summary": "Summary"
   },
   "name": {
     "errors": {
