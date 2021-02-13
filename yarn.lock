@@ -15220,9 +15220,9 @@ wdio-config@^5.0.0-alpha.7:
     glob "^7.1.2"
     wdio-logger "^5.0.0-alpha.7"
 
-wdio-cucumberjs-json-reporter@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/wdio-cucumberjs-json-reporter/-/wdio-cucumberjs-json-reporter-2.0.2.tgz#c3cfacfd7bf6e12b653638a61d52f0f08b52f14a"
+wdio-cucumberjs-json-reporter@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/wdio-cucumberjs-json-reporter/-/wdio-cucumberjs-json-reporter-2.0.3.tgz#2801f793006f2beb6b20472de3c595ed5a05ca34"
   dependencies:
     "@cucumber/gherkin" "^12.0.0"
     "@wdio/logger" "^6.0.16"

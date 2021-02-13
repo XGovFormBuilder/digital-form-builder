@@ -25,6 +25,6 @@
   "dependencies": {
     "arkit": "^1.6.4",
     "wdio-config": "^5.0.0-alpha.7",
-    "wdio-cucumberjs-json-reporter": "^2.0.2"
+    "wdio-cucumberjs-json-reporter": "^2.0.3"
   }
 }
