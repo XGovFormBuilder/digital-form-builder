@@ -115,7 +115,7 @@
     "babel-plugin-module-name-mapper": "^1.2.0",
     "cheerio": "1.0.0-rc.3",
     "code": "5.2.4",
-    "eslint": "^7.6.0",
+    "eslint": "^7.20.0",
     "eslint-plugin-import": "^2.22.0",
     "lab": "18.0.2",
     "node-sass": "^4.12.1",
