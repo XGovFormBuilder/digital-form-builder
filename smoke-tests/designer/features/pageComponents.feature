@@ -34,6 +34,6 @@ Feature: Components
     Then the "Date" will not be visible in the "First page"
 
   Scenario: Edit Sections from the form designer menu
-    When I choose "Edit Sections" from the designer menu
+    When I choose "Sections" from the designer menu
     And I add a new section
     Then the section should be available when I edit the Question page

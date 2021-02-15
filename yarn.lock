@@ -4391,6 +4391,7 @@ __metadata:
     enzyme-adapter-react-16: ^1.15.5
     eslint: ^7.6.0
     eslint-plugin-import: ^2.22.0
+    eslint-plugin-json: ^2.1.2
     file-loader: ^6.1.0
     flagg: ^1.1.2
     flat: 5.0.0

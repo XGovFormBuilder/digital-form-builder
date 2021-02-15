@@ -7,10 +7,7 @@ import {
   initComponentState,
 } from "../reducers/component/componentReducer";
 import { DataContext } from "../context";
-import { initI18n } from "../i18n";
 import { Data } from "@xgovformbuilder/model";
-
-initI18n();
 
 describe("ComponentTypeEdit", () => {
   let mockData: Data;

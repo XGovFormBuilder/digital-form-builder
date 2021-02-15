@@ -24,7 +24,7 @@ Given("I have created a {string} list with {int} list item(s)", function (
       EditListSection.saveBtn.click();
       break;
     case "global":
-      MenuSection.buttonByName("Edit Lists").click();
+      MenuSection.buttonByName("Lists").click();
       EditListSection.addNewList.click();
       EditListSection.listTitle.setValue(FieldData.list.title);
       EditListSection.createListWithListItems(listType, this.numberOfListItems);
@@ -35,7 +35,7 @@ Given("I have created a {string} list with {int} list item(s)", function (
 
 When("I add another list item to the Global list", function () {
   EditListSection.closeLinks[0].click();
-  MenuSection.buttonByName("Edit Lists").click();
+  MenuSection.buttonByName("Lists").click();
   EditListSection.clickLink(FieldData.list.title);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
