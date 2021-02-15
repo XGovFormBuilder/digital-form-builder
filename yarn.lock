@@ -2231,9 +2231,9 @@
     "@types/hapi__hapi" "*"
     handlebars "^4.1"
 
-"@types/hapi__yar@^9.2.1":
-  version "9.2.2"
-  resolved "https://registry.yarnpkg.com/@types/hapi__yar/-/hapi__yar-9.2.2.tgz#ce6b1f44ee2b4ddbaed9369f3b9422db4854f836"
+"@types/hapi__yar@^10.1.0":
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/@types/hapi__yar/-/hapi__yar-10.1.0.tgz#1677bfe3fa29742313374c29f191f09eccff9b2c"
   dependencies:
     "@types/hapi__catbox" "*"
     "@types/hapi__hapi" "*"
