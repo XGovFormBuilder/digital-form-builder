@@ -6,6 +6,7 @@
   "scripts": {
     "smoke-test": "yarn exec wdio",
     "smoke-test-headless": "yarn exec wdio wdio.headless.conf.js",
+    "smoke-test-heroku": "yarn exec wdio wdio.heroku.conf.js",
     "debug": "yarn exec wdio wdio.debug.conf.js"
   },
   "author": "Carlos Gutierrez",
