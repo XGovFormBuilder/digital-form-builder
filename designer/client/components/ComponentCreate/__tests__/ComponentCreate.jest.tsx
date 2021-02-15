@@ -16,14 +16,7 @@ describe("ComponentCreate:", () => {
     startPage: "",
   });
 
-  const page = {
-    path: "/1",
-    selectedComponent: {
-      name: "gNYynl",
-      options: {},
-      type: "AutocompleteField",
-    },
-  };
+  const page = { path: "/1" };
 
   const WrappingComponent = ({
     dataValue = { data, save: jest.fn() },
