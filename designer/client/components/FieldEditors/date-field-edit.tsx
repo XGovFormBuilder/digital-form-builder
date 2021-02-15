@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
 import { CssClasses } from "../CssClasses";
+import { i18n } from "../../i18n";
 
 type Props = {
   context: any; // TODO
@@ -17,7 +18,9 @@ export function DateFieldEdit({ context = ComponentContext }: Props) {
   return (
     <details className="govuk-details">
       <summary className="govuk-details__summary">
-        <span className="govuk-details__summary-text">more</span>
+        <span className="govuk-details__summary-text">
+          {i18n("common.detailsLink.title")}
+        </span>
       </summary>
 
       <div className="govuk-form-group">
@@ -25,8 +28,11 @@ export function DateFieldEdit({ context = ComponentContext }: Props) {
           className="govuk-label govuk-label--s"
           htmlFor="field-options-maxDaysInPast"
         >
-          Maximum days in the past
+          {i18n("dateFieldEditComponent.maxDaysInPastField.title")}
         </label>
+        <span className="govuk-hint">
+          {i18n("dateFieldEditComponent.maxDaysInPastField.helpText")}
+        </span>
         <input
           className="govuk-input govuk-input--width-3"
           data-cast="number"
@@ -48,8 +54,11 @@ export function DateFieldEdit({ context = ComponentContext }: Props) {
           className="govuk-label govuk-label--s"
           htmlFor="field-options-maxDaysInFuture"
         >
-          Maximum days in the future
+          {i18n("dateFieldEditComponent.maxDaysInFutureField.title")}
         </label>
+        <span className="govuk-hint">
+          {i18n("dateFieldEditComponent.maxDaysInFutureField.helpText")}
+        </span>
         <input
           className="govuk-input govuk-input--width-3"
           data-cast="number"

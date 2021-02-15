@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
+import { i18n } from "../../i18n";
 
 export function CssClasses() {
   const { state, dispatch } = useContext(ComponentContext);
@@ -13,14 +14,9 @@ export function CssClasses() {
         className="govuk-label govuk-label--s"
         htmlFor="field-options-classes"
       >
-        Classes
+        {i18n("common.classes.title")}
       </label>
-      <span className="govuk-hint">
-        Additional CSS classes to add to the field
-        <br />
-        E.g. govuk-input--width-2 (or 3, 4, 5, 10, 20) or govuk-!-width-one-half
-        (two-thirds, three-quarters etc.)
-      </span>
+      <span className="govuk-hint">{i18n("common.classes.helpText")}</span>
       <input
         className="govuk-input"
         id="field-options-classes"

@@ -20,6 +20,39 @@
   },
   "cancel": "Cancel",
   "close": "Close",
+  "common": {
+    "classes": {
+      "helpText": "Apply CSS classes to this field. For example, govuk-input-width-5",
+      "title": "Classes"
+    },
+    "componentNameField": {
+      "helpText": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces.",
+      "title": "Component name"
+    },
+    "componentOptionalOption": {
+      "helpText": "Tick this box if users do not need to complete this field to progress through the form",
+      "title": "Make {{component}} optional"
+    },
+    "detailsLink": {
+      "title": "Additional settings"
+    },
+    "helpTextField": {
+      "helpText": "Enter the description to show for this field",
+      "title": "Help text (optional)"
+    },
+    "hideOptionalTextOption": {
+      "helpText": "Tick this box if you do not want the title to indicate that this field is optional",
+      "title": "Hide '(optional)' text"
+    },
+    "hideTitleOption": {
+      "helpText": "Tick this box if you do not want the title to show on the page",
+      "title": "Hide title"
+    },
+    "titleField": {
+      "helpText": "Enter the name to show for this field",
+      "title": "Title"
+    }
+  },
   "component": {
     "component": "component",
     "contentfields_info": "Content components allow you to add information to your page",
@@ -47,6 +80,16 @@
     "youCannotEditWarning": "You cannot edit this condition '{{conditionString}}'. Please recreate it in the editor below to continue"
   },
   "create": "create {{noun}}",
+  "dateFieldEditComponent": {
+    "maxDaysInFutureField": {
+      "helpText": "Determines the latest date users can enter",
+      "title": "Max days in the future"
+    },
+    "maxDaysInPastField": {
+      "helpText": "Determines the earliest date users can enter",
+      "title": "Max days in the past"
+    }
+  },
   "delete": "Delete",
   "duplicate": "Duplicate",
   "edit": "edit {{noun}}",
@@ -64,17 +107,13 @@
     "details": {
       "hint": "Enter the text you want to show when users expand the title. You can apply basic HTML, such as text formatting and hyperlinks."
     },
-    "helpText": "Help text (optional)",
-    "helpTextHint": "Enter the description to show for this component",
     "hideTitle": "Hide title",
     "hideTitleHint": "Tick this box if you do not want the title to show on the page",
     "optional": "Make {{fieldTitle}} optional",
     "optionalHint": "Tick this box if users do not need to complete this field to progress through the form",
     "para": {
       "hint": "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
-    },
-    "title": "Title",
-    "titleHint": "Enter the name to show for this component"
+    }
   },
   "fieldTypeToName": {
     "AutocompleteField": "Autocomplete",
@@ -123,6 +162,12 @@
     "UkAddressField_info": "Allows users to enter their street address, town or city and postcode",
     "YesNoField": "YesNo",
     "YesNoField_info": "Allows users to answer either 'Yes' or 'No'"
+  },
+  "fileUploadFieldEditPage": {
+    "multipleFilesOption": {
+      "helpText": "Tick this box to enable users to upload multiple files",
+      "title": "Allow multiple file upload"
+    }
   },
   "formDetails": {
     "alpha": "Alpha",
@@ -188,8 +233,11 @@
       "hintNoItems": "This list does not have any list items",
       "title": "List items"
     },
-    "newTitle": "Add list",
-    "select": "Select list",
+    "newTitle": "Add a new list",
+    "select": {
+      "helpText": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.",
+      "title": "Select list"
+    },
     "static": {
       "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
       "newTitle": "Add a new component list",
@@ -218,6 +266,20 @@
     "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
   },
   "no": "no",
+  "numberFieldEditComponent": {
+    "maxField": {
+      "helpText": "Specifies the highest number users can enter",
+      "title": "Max"
+    },
+    "minField": {
+      "helpText": "Specifies the lowest number users can enter",
+      "title": "Min"
+    },
+    "precisionField": {
+      "helpText": "Specifies the number of decimal places users can enter. For example, to allow users to enter numbers with up to two decimal places, set this to 2",
+      "title": "Precision"
+    }
+  },
   "optional": "{{noun}} (optional)",
   "page": {
     "noun": "page",
@@ -243,7 +305,26 @@
     "noun": "section",
     "noun_plural": "sections"
   },
+  "textFieldEditComponent": {
+    "lengthField": {
+      "helpText": "Specifies the exact character length users must enter. Using this setting negates any values you set for Min length or Max length.",
+      "title": "Length"
+    },
+    "maxLengthField": {
+      "helpText": "Specifies the maximum number of characters users can enter",
+      "title": "Max length"
+    },
+    "minLengthField": {
+      "helpText": "Specifies the minimum number of characters users can enter",
+      "title": "Min length"
+    },
+    "regexField": {
+      "helpText": "Specifies a regular expression to validate users' inputs. Use JavaScript syntax.",
+      "title": "Regex"
+    }
+  },
   "title": "Title",
+  "titleHint": "Enter the name to show for this component",
   "warning": "Warning",
   "wontShow": "This will not show on the page.",
   "yes": "yes"

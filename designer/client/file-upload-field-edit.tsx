@@ -3,6 +3,7 @@ import { ComponentContext } from "./reducers/component/componentReducer";
 import { Actions } from "./reducers/component/types";
 
 import { CssClasses } from "./components/CssClasses";
+import { i18n } from "./i18n";
 
 export function FileUploadFieldEdit() {
   const { state, dispatch } = useContext(ComponentContext);
@@ -12,7 +13,9 @@ export function FileUploadFieldEdit() {
   return (
     <details className="govuk-details">
       <summary className="govuk-details__summary">
-        <span className="govuk-details__summary-text">more</span>
+        <span className="govuk-details__summary-text">
+          {i18n("common.detailsLink.title")}
+        </span>
       </summary>
 
       <div className="govuk-checkboxes govuk-form-group">
@@ -35,8 +38,11 @@ export function FileUploadFieldEdit() {
             className="govuk-label govuk-checkboxes__label"
             htmlFor="field-options.multiple"
           >
-            Allow multiple files to be selected
+            {i18n("fileUploadFieldEditPage.multipleFilesOption.title")}
           </label>
+          <span className="govuk-hint govuk-checkboxes__hint">
+            {i18n("fileUploadFieldEditPage.multipleFilesOption.helpText")}
+          </span>
         </div>
       </div>
 
