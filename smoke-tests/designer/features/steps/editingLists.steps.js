@@ -39,7 +39,7 @@ When("I add another list item to the Global list", function () {
   EditListSection.clickLink(FieldData.list.title);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add a new list item",
+    "Add list item",
     "Global list item 1",
     "1",
     "1"
@@ -73,7 +73,11 @@ When("I delete the {int}st list item from the {string} list", function (
       EditListSection.clickLink(FieldData.list.title);
       break;
     case "local":
+      browser.pause(750);
       FormDesignerPage.editPageComponent("list");
+      if (!browser.$(".panel--flyout").isDisplayed()) {
+        FormDesignerPage.editPageComponent("list");
+      }
       EditListSection.clickLink(`Edit ${FieldData.list.title}`);
       break;
   }
@@ -97,7 +101,7 @@ When("I create a new component list with {int} item", function (numberOfItems) {
   EditListSection.clickLink("Add a new component list");
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add a new list item",
+    "Add list item",
     `list item ${numberOfItems}`,
     "A list item",
     `${numberOfItems}`
@@ -108,11 +112,15 @@ When("I create a new component list with {int} item", function (numberOfItems) {
 When("I create a {int}nd list item for the Local list", function (
   listItemNumber
 ) {
+  browser.pause(750);
   FormDesignerPage.editPageComponent("list");
+  if (!browser.$(".panel--flyout").isDisplayed()) {
+    FormDesignerPage.editPageComponent("list");
+  }
   EditListSection.clickLink(`Edit ${FieldData.list.title}`);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add a new list item",
+    "Add list item",
     `Local list item ${listItemNumber}`,
     `${listItemNumber}`,
     `${listItemNumber}`
@@ -120,7 +128,7 @@ When("I create a {int}nd list item for the Local list", function (
 });
 
 Then("the Local list has {int} list items", function (listItems) {
-  expect(EditListSection.listItems.length).toEqual(listItems);
+  expect(EditListSection.listItems).toBeElementsArrayOfSize(listItems);
   expect(EditListSection.listItems[listItems - 1]).toHaveTextContaining(
     "Local list item 2"
   );
@@ -137,7 +145,11 @@ When("I edit the {int}st list item from the {string} list", function (
 ) {
   this.listItemTitle = `${listType} list item 3`;
   if (listType.toLowerCase() === "local") {
+    browser.pause(500);
     FormDesignerPage.editPageComponent("list");
+    if (!browser.$(".panel--flyout").isDisplayed()) {
+      FormDesignerPage.editPageComponent("list");
+    }
     EditListSection.clickLink(`Edit ${FieldData.list.title}`);
   } else {
     EditListSection.clickLink(FieldData.list.title);
@@ -145,7 +157,7 @@ When("I edit the {int}st list item from the {string} list", function (
   expect(EditListSection.listItems.length).toEqual(2);
   EditListSection.editListItem(listItem - 1);
   EditListSection.addNewListItem(
-    "Editing list item",
+    "Edit list item",
     this.listItemTitle,
     "3",
     "3"
