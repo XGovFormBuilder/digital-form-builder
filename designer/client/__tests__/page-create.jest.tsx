@@ -55,7 +55,7 @@ describe("page create", () => {
 
     test("should display path help text", () => {
       const text =
-        "Appears in the browser path. It is automatically populated from the value you enter in the page title field. To override this, enter your own path name, relevant to the page, and use lowercase text and hyphens between words. For example, '/personal-details'.";
+        "Appears in the browser path. The value you enter in the page title field automatically populates the path title. To override it, enter your own path name, relevant to the page, and use lowercase text and hyphens between words. For example, '/personal-details'.";
       expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
     });
 
@@ -66,7 +66,7 @@ describe("page create", () => {
 
     test("should display section option help text", () => {
       const text =
-        "Use sections to split a form. For example, to add a section per applicant. The title appears above the page title. If these titles are the same, only the page title will show.";
+        "Use sections to split a form. For example, to add a section per applicant. The section title appears above the page title. However, if these titles are the same, the form will only show the page title.";
       expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
     });
   });

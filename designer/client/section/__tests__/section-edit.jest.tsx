@@ -34,7 +34,7 @@ describe("Section edit", () => {
 
     test("should display future section title help text ", () => {
       const text =
-        "Appears above the page title. If these titles are the same, only the page title will show.";
+        "Appears above the page title. However, if these titles are the same, the form will only show the page title.";
       expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
     });
 
