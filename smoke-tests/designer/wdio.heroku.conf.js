@@ -1,6 +1,6 @@
 const { config } = require("./wdio.conf.js");
 
-(config.baseUrl = "http://localhost:3000"), // TODO:- Change to the url in the CI environment
+(config.baseUrl = "https://digital-form-builder-designer.herokuapp.com/"),
   (config.maxInstances = 1),
   (config.capabilities = [
     {

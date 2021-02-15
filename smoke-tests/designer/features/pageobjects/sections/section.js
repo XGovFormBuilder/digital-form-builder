@@ -26,6 +26,7 @@ module.exports = class Section {
    * @param linkName
    */
   clickLink(linkName) {
+    browser.$(`=${linkName}`).waitForDisplayed();
     browser.$(`=${linkName}`).click();
   }
 

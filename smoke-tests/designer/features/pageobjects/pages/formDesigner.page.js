@@ -67,6 +67,9 @@ class FormDesignerPage extends Page {
    * @param componentType
    */
   editPageComponent(componentType) {
+    browser
+      .$(`.component-${componentType.toLowerCase()}`)
+      .waitForDisplayed({ interval: 1000 });
     browser.$(`.component-${componentType.toLowerCase()}`).click();
   }
 
