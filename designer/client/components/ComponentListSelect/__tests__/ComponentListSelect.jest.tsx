@@ -12,7 +12,7 @@ import {
 } from "../../../reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "../../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../../reducers/listReducer";
-import { i18n, initI18n } from "../../../i18n/i18n";
+import { i18n, initI18n } from "../../../i18n";
 
 describe("ComponentListSelect", () => {
   beforeEach(() => {
@@ -209,5 +209,34 @@ describe("ComponentListSelect", () => {
 
     // - then
     expect(container).toHaveTextContent(i18n("list.static.saveFirst"));
+  });
+
+  test("should display the correct title", () => {
+    const { getByText } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={false}
+      >
+        <ComponentListSelect />
+      </TestComponentContextProvider>
+    );
+
+    const text = "Select list";
+    expect(getByText(text)).toBeInTheDocument();
+  });
+
+  test("should display correct help text", () => {
+    const { getByText } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={false}
+      >
+        <ComponentListSelect />
+      </TestComponentContextProvider>
+    );
+
+    const text =
+      "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
+    expect(getByText(text)).toBeInTheDocument();
   });
 });
