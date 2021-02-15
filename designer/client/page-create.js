@@ -250,9 +250,6 @@ class PageCreate extends React.Component {
               className: "govuk-label--s",
               children: [i18n("addPage.pageTitleField.title")],
             }}
-            hint={{
-              children: [i18n("addPage.pathField.helpText")],
-            }}
             value={title || ""}
             onChange={this.onChangeTitle}
             errorMessage={
