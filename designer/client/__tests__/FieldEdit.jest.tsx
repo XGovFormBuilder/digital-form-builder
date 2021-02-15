@@ -8,13 +8,8 @@ import {
   initComponentState,
 } from "../reducers/component/componentReducer";
 import { FieldEdit } from "../field-edit";
-import { initI18n } from "../i18n";
 
 describe("Field Edit", () => {
-  beforeEach(() => {
-    initI18n();
-  });
-
   let data = new Data({
     pages: [
       {

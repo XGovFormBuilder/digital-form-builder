@@ -8,7 +8,7 @@ Feature: List components
     Given I have created a new form configuration
 
   Scenario: Create a Global list
-    And I choose "Edit Lists" from the designer menu
+    And I choose "Lists" from the designer menu
     When I add a new Global list named "European Countries"
     And I create a "List" control for the "First page"
     Then the list is available in the list options

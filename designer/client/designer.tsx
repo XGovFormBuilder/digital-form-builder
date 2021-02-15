@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Menu from "./menu";
+import Menu from "./components/Menu/Menu";
 import { Visualisation } from "./components/Visualisation";
 import { Data } from "@xgovformbuilder/model";
 import { customAlphabet } from "nanoid";
