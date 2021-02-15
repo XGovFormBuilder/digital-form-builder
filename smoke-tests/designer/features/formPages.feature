@@ -11,7 +11,7 @@ Feature: Form pages
     Then the changes are reflected in the page designer
 
   Scenario: Add a page
-    When I choose "Add Page" from the designer menu
+    When I choose "Add page" from the designer menu
     And I enter the details for my page
     Then the page is added in the designer
 

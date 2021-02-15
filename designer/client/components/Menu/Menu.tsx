@@ -18,7 +18,7 @@ import { useMenuItem } from "./useMenuItem";
 import { Tabs, useTabs } from "./useTabs";
 
 type Props = {
-  updateDownloadedAt: (string) => void;
+  updateDownloadedAt?: (string) => void;
   id: string;
 };
 
@@ -70,35 +70,45 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   return (
     <nav className="menu">
       <div className="menu__row">
-        <button onClick={formDetails.show}>{i18n("menu.formDetails")}</button>
+        <button data-testid="menu-form-details" onClick={formDetails.show}>
+          {i18n("menu.formDetails")}
+        </button>
         {formDetails.isVisible && (
           <Flyout title="Form Details" onHide={formDetails.hide}>
             <FormDetails onCreate={() => formDetails.hide} />
           </Flyout>
         )}
 
-        <button onClick={page.show}>{i18n("menu.addPage")}</button>
+        <button data-testid="menu-page" onClick={page.show}>
+          {i18n("menu.addPage")}
+        </button>
         {page.isVisible && (
           <Flyout title="Add Page" onHide={page.hide}>
             <PageCreate data={data} onCreate={() => page.hide} />
           </Flyout>
         )}
 
-        <button onClick={link.show}>{i18n("menu.links")}</button>
+        <button data-testid="menu-links" onClick={link.show}>
+          {i18n("menu.links")}
+        </button>
         {link.isVisible && (
           <Flyout title={i18n("menu.links")} onHide={link.hide}>
             <LinkCreate data={data} onCreate={() => link.hide} />
           </Flyout>
         )}
 
-        <button onClick={sections.show}>{i18n("menu.sections")}</button>
+        <button data-testid="menu-sections" onClick={sections.show}>
+          {i18n("menu.sections")}
+        </button>
         {sections.isVisible && (
           <Flyout title="Edit Sections" onHide={sections.hide}>
             <SectionsEdit data={data} onCreate={() => sections.hide} />
           </Flyout>
         )}
 
-        <button onClick={conditions.show}>{i18n("menu.conditions")}</button>
+        <button data-testid="menu-conditions" onClick={conditions.show}>
+          {i18n("menu.conditions")}
+        </button>
         {conditions.isVisible && (
           <Flyout
             title={i18n("conditions.addOrEdit")}
@@ -109,7 +119,9 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           </Flyout>
         )}
 
-        <button onClick={lists.show}>{i18n("menu.lists")}</button>
+        <button data-testid="menu-lists" onClick={lists.show}>
+          {i18n("menu.lists")}
+        </button>
         {lists.isVisible && (
           <Flyout title="Edit Lists" onHide={lists.hide} width={""}>
             <ListsEditorContextProvider>
@@ -120,21 +132,28 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           </Flyout>
         )}
 
-        <button onClick={outputs.show}>{i18n("menu.outputs")}</button>
+        <button data-testid="menu-outputs" onClick={outputs.show}>
+          {i18n("menu.outputs")}
+        </button>
         {outputs.isVisible && (
           <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
             <OutputsEdit data={data} onCreate={outputs.hide} />
           </Flyout>
         )}
 
-        <button onClick={fees.show}>{i18n("menu.fees")}</button>
+        <button data-testid="menu-fees" onClick={fees.show}>
+          {i18n("menu.fees")}
+        </button>
         {fees.isVisible && (
           <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
             <FeeEdit data={data} onEdit={() => fees.hide} />
           </Flyout>
         )}
 
-        <button onClick={summaryBehaviour.show}>
+        <button
+          data-testid="menu-summary-behaviour"
+          onClick={summaryBehaviour.show}
+        >
           {i18n("menu.summaryBehaviour")}
         </button>
         {summaryBehaviour.isVisible && (
