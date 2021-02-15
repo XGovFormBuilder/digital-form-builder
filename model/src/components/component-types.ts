@@ -117,7 +117,7 @@ export const ComponentTypes: ComponentDef[] = [
   {
     name: "UkAddressField",
     type: "UkAddressField",
-    title: "Uk address field",
+    title: "UK address field",
     subType: "field",
     hint: "",
     options: {},

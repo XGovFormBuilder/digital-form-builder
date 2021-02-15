@@ -30,10 +30,10 @@ export function FieldEdit({ isContentField = false }: Props) {
           name="title"
           label={{
             className: "govuk-label--s",
-            children: [i18n("fieldEdit.title")],
+            children: [i18n("common.titleField.title")],
           }}
           hint={{
-            children: [i18n("fieldEdit.titleHint")],
+            children: [i18n("common.titleField.helpText")],
           }}
           value={title || ""}
           onChange={(e) => {
@@ -54,10 +54,10 @@ export function FieldEdit({ isContentField = false }: Props) {
           rows={2}
           label={{
             className: "govuk-label--s",
-            children: [i18n("fieldEdit.helpText")],
+            children: [i18n("common.helpTextField.title")],
           }}
           hint={{
-            children: [i18n("fieldEdit.helpTextHint")],
+            children: [i18n("common.helpTextField.helpText")],
           }}
           required={false}
           value={hint}
@@ -88,10 +88,10 @@ export function FieldEdit({ isContentField = false }: Props) {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-hideTitle"
             >
-              {i18n("fieldEdit.hideTitle")}
+              {i18n("common.hideTitleOption.title")}
             </label>
-            <span className="govuk-hint checkbox-hint">
-              {i18n("fieldEdit.hideTitleHint")}
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.hideTitleOption.helpText")}
             </span>
           </div>
         </div>
@@ -101,7 +101,7 @@ export function FieldEdit({ isContentField = false }: Props) {
           }`}
         >
           <label className="govuk-label govuk-label--s" htmlFor="field-name">
-            {i18n("component.name")}
+            {i18n("common.componentNameField.title")}
           </label>
           {errors?.name && (
             <ErrorMessage>{i18n("name.errors.whitespace")}</ErrorMessage>
@@ -145,17 +145,16 @@ export function FieldEdit({ isContentField = false }: Props) {
                 className="govuk-label govuk-checkboxes__label"
                 htmlFor="field-options-required"
               >
-                {i18n("fieldEdit.optional", { fieldTitle })}
+                {i18n("common.componentOptionalOption.title", {
+                  component:
+                    ComponentTypes.find(
+                      (componentType) => componentType.name === type
+                    )?.title ?? "",
+                })}
               </label>
-              <span className="govuk-hint checkbox-hint">
-                {i18n("fieldEdit.optionalHint")}
+              <span className="govuk-hint govuk-checkboxes__hint">
+                {i18n("common.componentOptionalOption.helpText")}
               </span>
-              {isFileUploadField && (
-                <span className="govuk-hint govuk-checkboxes__label">
-                  All file upload fields are optional to mitigate possible
-                  upload errors
-                </span>
-              )}
             </div>
           </div>
         )}
@@ -182,8 +181,11 @@ export function FieldEdit({ isContentField = false }: Props) {
               className="govuk-label govuk-checkboxes__label"
               htmlFor="field-options-optionalText"
             >
-              Hide &apos;(optional)&apos; text
+              {i18n("common.hideOptionalTextOption.title")}
             </label>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.hideOptionalTextOption.helpText")}
+            </span>
           </div>
         </div>
       </div>
