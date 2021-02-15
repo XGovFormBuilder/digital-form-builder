@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Flyout } from "../Flyout";
 import { FormDetails } from "../FormDetails";
 import PageCreate from "../../page-create";
@@ -23,7 +23,7 @@ type Props = {
 };
 
 export default function Menu({ updateDownloadedAt, id }: Props) {
-  const { data } = useContext(DataContext);
+  const { data, save } = useContext(DataContext);
 
   const formDetails = useMenuItem();
   const page = useMenuItem();
@@ -47,7 +47,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
     e.preventDefault();
     const encodedData =
       "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-    updateDownloadedAt(new Date().toLocaleTimeString());
+    updateDownloadedAt?.(new Date().toLocaleTimeString());
     const link = document.createElement("a");
     link.download = `${id}.json`;
     link.href = `data:${encodedData}`;
@@ -57,7 +57,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   };
 
   const onFileUpload = (e) => {
-    const { save } = useContext(DataContext);
     const file = e.target.files.item(0);
     const reader = new window.FileReader();
     reader.readAsText(file, "UTF-8");
