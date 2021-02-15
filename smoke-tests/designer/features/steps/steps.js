@@ -66,6 +66,7 @@ When("I add multiple components to the {string}", (pageName) => {
 });
 
 Then("all the components are displayed in the {string}", (pageName) => {
+  browser.pause(500);
   this.pageComponents.forEach(
     (component) =>
       chai.expect(
@@ -249,7 +250,7 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   }
 });
 
-Then("the Date control is displayed in the page", () => {
+Then("the Date field control is displayed in the page", () => {
   chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
     .true;
   expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
@@ -276,7 +277,7 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  browser.waitUntil(() => FormDesignerPage.formPages.length === 3);
+  browser.waitUntil(() => FormDesignerPage.formPages.length === 4);
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });
