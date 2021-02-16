@@ -172,8 +172,9 @@ export function listReducer(
 export const ListContextProvider = (props) => {
   let init: ListState = {};
   const { selectedListName } = props;
+  const { data } = useContext(DataContext);
+
   if (selectedListName) {
-    const { data } = useContext(DataContext);
     init = {
       selectedList: data.lists.find(
         (list) => list.name === props.selectedListName
@@ -183,7 +184,9 @@ export const ListContextProvider = (props) => {
       isEditingFromComponent: true,
     };
   }
+
   const [state, dispatch] = useReducer(listReducer, { ...init });
+
   return (
     <ListContext.Provider value={{ state, dispatch }}>
       {props.children}
