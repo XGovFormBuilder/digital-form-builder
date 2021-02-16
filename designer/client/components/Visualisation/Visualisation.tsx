@@ -25,7 +25,7 @@ export function useVisualisation(ref) {
   useEffect(() => {
     const layout = getLayout(data, ref.current!);
     setLayout(layout.pos);
-  }, [data]);
+  }, [data, ref]);
 
   return { layout };
 }
