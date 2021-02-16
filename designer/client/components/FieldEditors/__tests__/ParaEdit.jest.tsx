@@ -1,12 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { initI18n } from "../../../i18n";
 import { ComponentContext } from "../../../reducers/component/componentReducer";
 import { ParaEdit } from "../para-edit";
 import { Data } from "@xgovformbuilder/model";
 import { DataContext } from "../../../context";
-
-initI18n();
 
 describe("para edit", () => {
   function TestComponentWithContext({ children }) {

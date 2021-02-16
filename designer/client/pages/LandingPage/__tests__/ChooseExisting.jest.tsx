@@ -7,14 +7,11 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import { initI18n } from "../../../i18n";
 import {
   server,
   rest,
   mockedFormConfigurations,
 } from "../../../../test/testServer";
-
-initI18n();
 
 describe("ChooseExisting", () => {
   afterEach(() => jest.resetAllMocks());

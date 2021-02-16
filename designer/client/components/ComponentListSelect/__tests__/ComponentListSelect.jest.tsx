@@ -12,13 +12,9 @@ import {
 } from "../../../reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "../../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../../reducers/listReducer";
-import { i18n, initI18n } from "../../../i18n/i18n";
+import { i18n } from "../../../i18n/i18n";
 
 describe("ComponentListSelect", () => {
-  beforeEach(() => {
-    initI18n();
-  });
-
   let data = new Data({
     pages: [
       {

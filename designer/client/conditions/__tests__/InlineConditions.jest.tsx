@@ -1,9 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import InlineConditions from "../InlineConditions";
-import { initI18n } from "../../i18n";
-
-initI18n();
 
 describe("SelectConditions", () => {
   let props: any;

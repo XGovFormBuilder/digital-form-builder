@@ -1,10 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { initI18n } from "../../../i18n";
 import { ComponentContext } from "../../../reducers/component/componentReducer";
 import DetailsEdit from "../details-edit";
-
-initI18n();
 
 describe("details-edit", () => {
   function TestComponentWithContext({ children }) {

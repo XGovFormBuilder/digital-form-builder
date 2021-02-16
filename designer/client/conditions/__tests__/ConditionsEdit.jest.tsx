@@ -2,9 +2,6 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import ConditionsEdit from "../ConditionsEdit";
 import { DataContext, FlyoutContext } from "../../context";
-import { initI18n } from "../../i18n";
-
-initI18n();
 
 const flyoutValue = {
   increment: jest.fn(),
