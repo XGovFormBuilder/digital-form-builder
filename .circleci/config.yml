@@ -88,7 +88,7 @@ jobs:
             - when:
                 condition:
                   not:
-                    equal: [ model, << parameters.package_name >> ]
+                    equal: [model, << parameters.package_name >>]
                 steps:
                   - run:
                       name: Build
@@ -97,6 +97,10 @@ jobs:
             - run:
                 name: Test
                 command: yarn << parameters.package_name >> run test-cov
+
+            - run:
+                command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+                when: always
 
           post-steps:
             - run:
