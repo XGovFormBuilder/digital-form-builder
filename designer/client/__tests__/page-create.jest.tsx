@@ -55,7 +55,7 @@ describe("page create", () => {
 
     test("should display path help text", () => {
       const text =
-        "Appears in the browser path. The value you enter in the page title field automatically populates the path title. To override it, enter your own path name, relevant to the page, and use lowercase text and hyphens between words. For example, '/personal-details'.";
+        "Appears in the browser path. The value you enter in the page title field automatically populates the path name. To override it, enter your own path name, relevant to the page, and use lowercase text and hyphens between words. For example, '/personal-details'.";
       expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
     });
 
