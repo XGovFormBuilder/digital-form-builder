@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
 import { CssClasses } from "../CssClasses";
+import { i18n } from "../../i18n";
 
 type Props = {
   context: any; // TODO
@@ -18,44 +19,20 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
   return (
     <details className="govuk-details">
       <summary className="govuk-details__summary">
-        <span className="govuk-details__summary-text">more</span>
-      </summary>
-
-      <div className="govuk-form-group">
-        <label
-          className="govuk-label govuk-label--s"
-          htmlFor="field-schema-max"
-        >
-          Max length
-        </label>
-        <span className="govuk-hint">
-          Specifies the maximum number of characters
+        <span className="govuk-details__summary-text">
+          {i18n("common.detailsLink.title")}
         </span>
-        <input
-          className="govuk-input govuk-input--width-3"
-          data-cast="number"
-          id="field-schema-max"
-          name="schema.max"
-          value={schema.max || ""}
-          type="number"
-          onChange={(e) =>
-            dispatch({
-              type: Actions.EDIT_SCHEMA_MAX,
-              payload: e.target.value,
-            })
-          }
-        />
-      </div>
+      </summary>
 
       <div className="govuk-form-group">
         <label
           className="govuk-label govuk-label--s"
           htmlFor="field-schema-min"
         >
-          Min length
+          {i18n("textFieldEditComponent.minLengthField.title")}
         </label>
         <span className="govuk-hint">
-          Specifies the minimum number of characters
+          {i18n("textFieldEditComponent.minLengthField.helpText")}
         </span>
         <input
           className="govuk-input govuk-input--width-3"
@@ -76,11 +53,39 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
       <div className="govuk-form-group">
         <label
           className="govuk-label govuk-label--s"
+          htmlFor="field-schema-max"
+        >
+          {i18n("textFieldEditComponent.maxLengthField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("textFieldEditComponent.maxLengthField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="number"
+          id="field-schema-max"
+          name="schema.max"
+          value={schema.max || ""}
+          type="number"
+          onChange={(e) =>
+            dispatch({
+              type: Actions.EDIT_SCHEMA_MAX,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
           htmlFor="field-schema-length"
         >
-          Length
+          {i18n("textFieldEditComponent.lengthField.title")}
         </label>
-        <span className="govuk-hint">Specifies the exact text length</span>
+        <span className="govuk-hint">
+          {i18n("textFieldEditComponent.lengthField.helpText")}
+        </span>
         <input
           className="govuk-input govuk-input--width-3"
           data-cast="number"
@@ -102,10 +107,10 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
           className="govuk-label govuk-label--s"
           htmlFor="field-schema-regex"
         >
-          Regex
+          {i18n("textFieldEditComponent.regexField.title")}
         </label>
         <span className="govuk-hint">
-          Specifies a regex against which input will be validated
+          {i18n("textFieldEditComponent.regexField.helpText")}
         </span>
         <input
           className="govuk-input"
