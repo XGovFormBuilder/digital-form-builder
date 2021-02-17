@@ -1,14 +1,9 @@
 import React from "react";
-import { initI18n } from "../i18n";
 import { render } from "@testing-library/react";
 import { FileUploadFieldEdit } from "../file-upload-field-edit";
 import { RenderWithContext } from "./helpers/renderers";
 
 describe("File upload", () => {
-  beforeEach(() => {
-    initI18n();
-  });
-
   describe("File upload Field", () => {
     let stateProps;
     let page;
