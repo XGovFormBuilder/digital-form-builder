@@ -18,7 +18,7 @@ describe("AbsoluteDateValues", () => {
     );
     expect(await findInputValue("Year")).toEqual("1999");
     expect(await findInputValue("Month")).toEqual("12");
-    expect(await findInputValue("Day")).toEqual("32");
+    expect(await findInputValue("Day")).toEqual("31");
   });
 
   it("calls the updateValue prop if a valid date is entered", async () => {
