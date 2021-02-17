@@ -43,7 +43,7 @@ jobs:
       - name: Test
         run: yarn ${{matrix.app}} test-cov
 
-      -name: Store test results
+      - name: Store test results
         uses: actions/upload-artifact@v2
         if: ${{ success() || failure() }}
         with:
@@ -60,7 +60,7 @@ jobs:
       # TODO
       # Double check
       # 1. Are test artifacts uploaded correctly?
-      
+
   build-and-publish-images:
     runs-on: ubuntu-latest
     needs: [lint-and-test]
