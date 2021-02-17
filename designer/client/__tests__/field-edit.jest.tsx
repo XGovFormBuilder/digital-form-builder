@@ -71,7 +71,7 @@ describe("Field edit", () => {
   });
 
   test("componentOptionalOption should display display correct title", () => {
-    const text = "Make Uk address field optional";
+    const text = "Make UK address field optional";
     expect(page.getByText(text)).toBeInTheDocument();
   });
 
