@@ -43,13 +43,6 @@ jobs:
       - name: Test
         run: yarn ${{matrix.app}} test-cov
 
-      - name: Push Docker images
-        run: |
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:test-latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:test-${{ github.run_number }}-rc
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:test-latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:test-${{ github.run_number }}-rc
-
       # TODO
       # publish images
       # Upload test results
@@ -135,3 +128,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
+
+      - name: Push Docker images
+        run: |
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-latest
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-${{ github.run_number }}-rc
