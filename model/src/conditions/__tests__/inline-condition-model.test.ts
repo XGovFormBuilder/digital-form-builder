@@ -26,7 +26,7 @@ describe("inline condition model", () => {
     });
 
     test("should return an empty presentation string", () => {
-      expect(underTest.toPresentationString()).toEqual("xxxx");
+      expect(underTest.toPresentationString()).toEqual("");
     });
 
     test("should not have conditions", () => {
