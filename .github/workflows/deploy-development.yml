@@ -10,9 +10,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    name: Deploy development ${{ github.event.inputs.app }}
     steps:
       - name: Works
-        run: echo "Worked ${{ github.event.inputs.app }}"
+        run: echo "Works ${{ github.event.inputs.app }}"
       # - uses: actions/checkout@v2
       # - name: Login to Heroku Container registry
       #   env:
