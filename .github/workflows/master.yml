@@ -7,6 +7,10 @@ on:
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [designer, runner, model]
+    name: lint-and-test-${{matrix.app}}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -34,13 +38,10 @@ jobs:
         run: yarn build:dependencies
 
       - name: Lint
-        run: yarn lint
+        run: yarn ${{matrix.app}} lint
 
-      - name: Test Designer
-        run: yarn designer test-cov
-
-      - name: Test Runner
-        run: yarn runner test-cov
+      - name: Test
+        run: yarn ${{matrix.app}} test-cov
 
       # TODO
       # publish images
