@@ -2,7 +2,7 @@ name: Deploy Development Environment
 
 on:
   workflow_run:
-    workflows: ["Master Branch Test Build And Publish Images"]
+    workflows: ["master-test-build-publish-images"]
     branches: [master]
     types:
       - completed
