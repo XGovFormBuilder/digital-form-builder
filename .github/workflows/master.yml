@@ -27,13 +27,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build dependencies
+        run: yarn build:dependencies
+
+      - name: Lint
+        run: yarn install
+
+      - name: Test Designer
+        run: yarn designer test-cov
+
+      - name: Test Runner
+        run: yarn runner test-cov
+
       - name: Docker compose pull
         run: docker-compose pull
 
       - name: Docker layer caching MONTH key
-        # MONTH key is used to rotate docker-layer-caching to avoid the layers dandle issue
+        # MONTH key is used to rotate docker-layer-caching monthly to avoid the layers dangle issues
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to smoke-tests.yml
+        # so master branch cache can be shared with branches
         run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
 
       - name: Docker layer caching
@@ -54,12 +70,24 @@ jobs:
         run: |
           docker image ls
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      # TODO
+      # publish images
+      # Upload test results
+
       # - name: Push Docker images
       #   run: |
       #     docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
       #     docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:${{ github.run_number }}-rc
       #     docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
       #     docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:${{ github.run_number }}-rc
+
       # NOT IN MASTER
       # - name: Docker compose up
       #   run: docker-compose up -d

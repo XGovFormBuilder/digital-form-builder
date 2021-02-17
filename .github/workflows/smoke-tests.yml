@@ -28,6 +28,7 @@ jobs:
         # MONTH key is used to rotate docker-layer-caching to avoid the layers dandle issue
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to master.yml
+        # so master branch cache can be shared with branches
       - run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
