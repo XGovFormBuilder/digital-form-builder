@@ -1,4 +1,4 @@
-name: Master Branch Workflow
+name: Master Branch Test Build And Publish Images
 
 on:
   push:
@@ -59,16 +59,6 @@ jobs:
           path: ${{matrix.app}}/test-coverage
           retention-days: 14
 
-      # TODO
-      # publish images
-      # Upload test results
-      # Build & publish designer/runner in parallel
-      # Emmit event to trigger other workflows once images are published
-
-      # TODO
-      # Double check
-      # 1. Are test artifacts uploaded correctly?
-
   build-and-publish-images:
     runs-on: ubuntu-latest
     needs: [lint-and-test]
@@ -118,6 +108,15 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
+      - name: Trigger next workflow
+        if: success()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_GHA_PAT }}
+          repository: StevenMMortimer/salesforcer
+          event-type: main-02-test-coverage
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+
       # - name: Tag image
       #   run: |
       #     docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
@@ -127,3 +126,25 @@ jobs:
       #   run: |
       #     docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
       #     docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ github.run_number }}-rc
+
+  # tag-branch:
+  #   runs-on: ubuntu-latest
+  #   needs: [build-publish]
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v2
+  #       with:
+  #         token: ${{ secrets.GHCR_PAT }}
+  #     - name: Tag branch with run number
+  #       run: |
+  #         git tag ${{github.run_number}}-rc
+  #         git push --tags origin HEAD
+# TODO
+# Emmit event to trigger other workflows once images are published
+# Test with lint failure
+# Test with unit test failure
+
+# TODO
+# Double check
+# 1. Are test artifacts uploaded correctly?
+# 2. deploy-development workflow should not trigger when test/build workflow fails
