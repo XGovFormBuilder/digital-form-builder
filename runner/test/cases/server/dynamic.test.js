@@ -119,7 +119,7 @@ suite("Dynamic pages", { skip: true }, () => {
       })
     );
     expect(response.headers.location).to.equal(
-      `XXX/dynamic/applicant-repeatable?num=1&visit=${VISIT_ID}`
+      `/dynamic/applicant-repeatable?num=1&visit=${VISIT_ID}`
     );
   });
 
