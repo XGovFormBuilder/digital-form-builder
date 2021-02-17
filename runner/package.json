@@ -100,7 +100,7 @@
     "@babel/plugin-transform-runtime": "7.10.3",
     "@babel/preset-env": "7.10.3",
     "@babel/preset-typescript": "^7.10.4",
-    "@babel/register": "7.10.3",
+    "@babel/register": "7.12.13",
     "@types/hapi": "^18.0.4",
     "@types/hapi__catbox-memory": "^4.1.2",
     "@types/hapi__catbox-redis": "^5.0.2",
