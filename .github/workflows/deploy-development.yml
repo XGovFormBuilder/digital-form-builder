@@ -2,8 +2,8 @@ name: Deploy Development Environment
 
 on:
   workflow_run:
-    workflows: ["master-test-build-publish-images"]
-    branches: [master, FORMS-376-circleci-to-github-actions]
+    workflows: ["Master Branch Test Build And Publish Images"]
+    # branches: [master]
     types:
       - completed
   # workflow_dispatch:

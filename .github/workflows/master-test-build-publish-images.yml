@@ -134,6 +134,7 @@ jobs:
 # Emmit event to trigger other workflows once images are published
 # Test with lint failure
 # Test with unit test failure
+# Make sure deploy-development workflow_run.workflows has correct file name and uncomment branches
 
 # TODO
 # Double check
