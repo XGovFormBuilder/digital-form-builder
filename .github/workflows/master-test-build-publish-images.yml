@@ -129,6 +129,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
+      - name: Tag image
+        run: |
+          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-latest
+          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-${{ github.run_number }}-rc
+
       - name: Push Docker images
         run: |
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-latest
