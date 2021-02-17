@@ -1,0 +1,94 @@
+name: Master Branch Workflow
+
+on:
+  push:
+    branches:
+      - FORMS-376-circleci-to-github-actions
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - name: Configure yarn caching
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Docker compose pull
+        run: docker-compose pull
+
+      - name: Docker layer caching MONTH key
+        # MONTH key is used to rotate docker-layer-caching to avoid the layers dandle issue
+        # see https://github.com/satackey/action-docker-layer-caching/issues/55
+        # if you change this, please remember to apply the same changes to smoke-tests.yml
+        run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
+
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: digital-form-builder-${{ env.MONTH }}-{hash}
+          restore-keys: |
+            digital-form-builder-${{ env.MONTH }}
+
+      - name: Docker compose build
+        run: |
+          LAST_TAG='${{ github.run_number }}-rc'
+          LAST_COMMIT='${{ github.sha }}'
+          docker-compose build
+
+      - name: Check images
+        run: |
+          docker image ls
+
+      # - name: Push Docker images
+      #   run: |
+      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
+      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:${{ github.run_number }}-rc
+      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
+      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:${{ github.run_number }}-rc
+      # NOT IN MASTER
+      # - name: Docker compose up
+      #   run: docker-compose up -d
+      # NOT IN MASTER
+      # - name: Install smoke tests dependencies
+      #   run: yarn install --cwd "smoke-tests/designer"
+      # NOT IN MASTER
+      # - name: Check designer container is running
+      #   run: |
+      #     docker ps
+      #     docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+      # NOT IN MASTER
+      # - name: Check runner container is running
+      #   run: |
+      #     docker ps
+      #     docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
+      # NOT IN MASTER
+      # - name: Smoke Test
+      #   run: |
+      #     yarn smoke-tests/designer smoke-test-headless
+      #     ls -lah smoke-tests/designer/reports/
+      # NOT IN MASTER
+      # - name: "Tar files"
+      #   if: ${{ success() || failure() }}
+      #   run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
+      # NOT IN MASTER
+      # - uses: actions/upload-artifact@v2
+      #   if: ${{ success() || failure() }}
+      #   with:
+      #     name: smoke-tests
+      #     path: smoke-tests.tar
+      #     retention-days: 14

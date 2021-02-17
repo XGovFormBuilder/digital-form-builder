@@ -2,15 +2,13 @@ name: Smoke Tests
 on:
   pull_request:
     branches:
-      - master
+      - masterX
   workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -27,19 +25,17 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Docker compose pull
         run: docker-compose pull
+        # MONTH key is used to rotate docker-layer-caching to avoid the layers dandle issue
+        # see https://github.com/satackey/action-docker-layer-caching/issues/55
+        # if you change this, please remember to apply the same changes to master.yml
+      - run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
         with:
-          # Layers are cached by keys
-          # docker-layer-caching action has an issue which causes layers to dangle,
-          # and this will eventually build up and increase pull time significantly
-          # see https://github.com/satackey/action-docker-layer-caching/issues/55
-          # ATM solution is to change keys periodically to avoid the dangling layers
-          # for that just increase the number you see in key and restore-keys below (same number in both keys).
-          key: digital-form-builder-1-{hash}
+          key: digital-form-builder-${{ env.MONTH }}-{hash}
           restore-keys: |
-            digital-form-builder-1
+            digital-form-builder-${{ env.MONTH }}
       - name: Docker compose build
         run: |
           LAST_TAG='${{ github.run_number }}-rc'
