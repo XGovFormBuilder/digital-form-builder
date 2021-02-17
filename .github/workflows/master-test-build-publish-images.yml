@@ -43,17 +43,17 @@ jobs:
       - name: Test
         run: yarn ${{matrix.app}} test-cov
 
+      - name: Push Docker images
+        run: |
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:test-latest
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:test-${{ github.run_number }}-rc
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:test-latest
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:test-${{ github.run_number }}-rc
+
       # TODO
       # publish images
       # Upload test results
       # Build & publish designer/runner in parallel
-
-      # - name: Push Docker images
-      #   run: |
-      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
-      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-designer:${{ github.run_number }}-rc
-      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
-      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-runner:${{ github.run_number }}-rc
 
       # NOT IN MASTER
       # - name: Docker compose up
