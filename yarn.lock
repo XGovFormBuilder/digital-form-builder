@@ -4486,7 +4486,7 @@ __metadata:
     hoek: ^6.1.3
     html-webpack-plugin: ^4.5.0
     i18next: ^19.7.0
-    i18next-http-backend: ^1.0.21
+    i18next-http-backend: ^1.1.0
     i18next-parser: ^3.3.0
     jest: ^26.6.3
     joi: 17.2.1
@@ -12946,12 +12946,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"i18next-http-backend@npm:^1.0.21":
-  version: 1.0.21
-  resolution: "i18next-http-backend@npm:1.0.21"
+"i18next-http-backend@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "i18next-http-backend@npm:1.1.0"
   dependencies:
     node-fetch: 2.6.1
-  checksum: 5294f738afe51f1707cf37634f80141c160efe1d53058519e678c585ff890f84fb2eaeb181755604f571b5747e8069e05a604479d4e251f18b0aadcaf716b822
+  checksum: a6cf3c6285a51db0633b3a0b357ca99a807cb1570bd74382b7256da35e0eefc9e9f91dfbd2cc0e1c507d20f5d826bc3b2641cc9d8b81e965a516e23112e366a7
   languageName: node
   linkType: hard
 

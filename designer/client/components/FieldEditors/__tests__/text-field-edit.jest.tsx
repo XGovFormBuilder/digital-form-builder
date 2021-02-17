@@ -1,12 +1,9 @@
 import React from "react";
-import { initI18n } from "../../../i18n";
 import { render } from "@testing-library/react";
 import { TextFieldEdit } from "../text-field-edit";
 import { RenderWithContext } from "../../../__tests__/helpers/renderers";
 
 describe("Text field edit", () => {
-  initI18n();
-
   describe("Text field edit fields", () => {
     let stateProps;
     let textFieldEditPage;

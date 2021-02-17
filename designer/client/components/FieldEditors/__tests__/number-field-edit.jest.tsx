@@ -1,12 +1,9 @@
 import React from "react";
-import { initI18n } from "../../../i18n";
 import { render } from "@testing-library/react";
 import { NumberFieldEdit } from "../number-field-edit";
 import { RenderWithContext } from "../../../__tests__/helpers/renderers";
 
 describe("Number field edit", () => {
-  initI18n();
-
   describe("Number field edit fields", () => {
     let stateProps;
     let textFieldEditPage;

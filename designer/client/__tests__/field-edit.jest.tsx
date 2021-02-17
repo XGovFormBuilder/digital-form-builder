@@ -1,14 +1,11 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { render } from "@testing-library/react";
 import { FieldEdit } from "../field-edit";
-import { initI18n } from "../i18n";
 import { simplePageMock } from "./helpers/mocks";
 import { RenderWithContextAndDataContext } from "./helpers/renderers";
 
 describe("Field edit", () => {
   const mockData = simplePageMock();
-  initI18n();
-
   let stateProps;
   let page;
 

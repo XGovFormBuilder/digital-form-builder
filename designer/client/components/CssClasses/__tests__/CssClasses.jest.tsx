@@ -1,14 +1,9 @@
 import React from "react";
-import { initI18n } from "../../../i18n";
 import { render } from "@testing-library/react";
 import { CssClasses } from "../CssClasses";
 import { RenderWithContext } from "../../../__tests__/helpers/renderers";
 
 describe("CssClasses", () => {
-  beforeEach(() => {
-    initI18n();
-  });
-
   describe("CssClassField", () => {
     let stateProps;
     let page;

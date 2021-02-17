@@ -1,12 +1,9 @@
 import React from "react";
-import { initI18n } from "../../../i18n";
 import { render } from "@testing-library/react";
 import { DateFieldEdit } from "../date-field-edit";
 import { RenderWithContext } from "../../../__tests__/helpers/renderers";
 
 describe("date field edit", () => {
-  initI18n();
-
   describe("date field edit fields", () => {
     let stateProps;
     let textFieldEditPage;

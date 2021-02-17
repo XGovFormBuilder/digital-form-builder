@@ -1,7 +1,5 @@
 import { customRenderForLists } from "./helpers";
-import { initI18n } from "../../i18n";
 import { Data } from "@xgovformbuilder/model";
-initI18n();
 
 import React from "react";
 import { GlobalListSelect } from "../GlobalListSelect";
