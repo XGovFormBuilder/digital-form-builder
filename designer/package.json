@@ -22,7 +22,7 @@
     "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "jest": "yarn jest:client && yarn jest:server",
     "jest:client": "jest --selectProjects client --forceExit --ci -w=1 --logHeapUsage",
-    "jest:server": "jest --selectProjects server --runInBand --forceExit --ci -w=1 --logHeapUsage",
+    "jest:server": "jest --selectProjects server --forceExit --ci -w=1 --logHeapUsage",
     "jest:watch": "jest --watch",
     "audit": "npm audit --audit-level=high",
     "type-check": "tsc --noEmit"
