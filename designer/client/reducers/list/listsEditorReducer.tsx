@@ -1,11 +1,8 @@
-import { ListContext } from "../listReducer";
-import { ComponentContext } from "../component/componentReducer";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 
 export enum ListsEditorStateActions {
   IS_EDITING_LIST = "IS_EDITING_LIST",
   IS_EDITING_LIST_ITEM = "IS_EDITING_LIST_ITEM",
-  IS_EDITING_STATIC = "IS_EDITING_STATIC",
   SET_LIST_TITLE = "SET_LIST_TITLE",
   SET_LIST_ITEM_TITLE = "SET_LIST_ITEM_TITLE",
   SET_CONTEXT = "SET_CONTEXT",
@@ -21,17 +18,13 @@ export interface ListsEditorState {
   listItemTitle?: string;
   showWarning?: boolean;
   initialName?: string;
-  listEditContext: typeof ListContext | typeof ComponentContext;
 }
 
-export function initListsEditingState(
-  isEditingFromComponent = false
-): ListsEditorState {
+export function initListsEditingState(): ListsEditorState {
   return {
     isEditingList: false,
     isEditingListItem: false,
     isEditingStatic: false,
-    listEditContext: isEditingFromComponent ? ComponentContext : ListContext,
   };
 }
 
@@ -64,12 +57,6 @@ export function listsEditorReducer(
       return { ...state, isEditingList: payload, showWarning: false };
     case ListsEditorStateActions.IS_EDITING_LIST_ITEM:
       return { ...state, isEditingListItem: payload };
-    case ListsEditorStateActions.IS_EDITING_STATIC:
-      return {
-        ...state,
-        isEditingStatic: payload,
-        listEditContext: payload ? ComponentContext : ListContext,
-      };
     case ListsEditorStateActions.SHOW_WARNING:
       return {
         ...state,
@@ -91,9 +78,4 @@ export const ListsEditorContextProvider = (props) => {
       {props.children}
     </ListsEditorContext.Provider>
   );
-};
-
-export const useSetListEditorContext = () => {
-  const { state } = useContext(ListsEditorContext);
-  return useContext(state.listEditContext);
 };

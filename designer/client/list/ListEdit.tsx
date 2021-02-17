@@ -7,7 +7,6 @@ import { i18n } from "../i18n";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
-  useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
 import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
@@ -47,7 +46,7 @@ function useListEdit() {
   const { state: listEditorState, dispatch: listsEditorDispatch } = useContext(
     ListsEditorContext
   );
-  const { state, dispatch } = useSetListEditorContext();
+  const { state, dispatch } = useContext(ListContext);
   const { showWarning, isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
   const handleDelete = (isNewList) => {
@@ -110,7 +109,7 @@ function useListEdit() {
 export function ListEdit() {
   const { handleSubmit, handleDelete, isEditingStatic } = useListEdit();
 
-  const { state, dispatch } = useSetListEditorContext();
+  const { state, dispatch } = useContext(ListContext);
   const { selectedList, createItem } = useListItem(state, dispatch);
   const { errors } = state;
   const validationErrors = hasValidationErrors(errors);

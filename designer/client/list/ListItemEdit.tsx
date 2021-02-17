@@ -15,7 +15,7 @@ import { useListItem } from "../hooks/list/useListItem";
 
 export function ListItemEdit() {
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
-  const { state, dispatch } = useSetListEditorContext();
+  const { state, dispatch } = useContext(ListContext);
   const { data, save } = useContext(DataContext);
 
   const {

@@ -2,7 +2,6 @@ import { ListActions } from "../../reducers/listActions";
 import { DataContext } from "../../context";
 import React, { useContext, useEffect, useState } from "react";
 import { ComponentContext } from "../../reducers/component/componentReducer";
-import { Actions } from "../../reducers/component/types";
 import { Label } from "@govuk-jsx/label";
 import { i18n } from "../../i18n";
 import { ListContext } from "../../reducers/listReducer";
@@ -25,17 +24,13 @@ export function ComponentListSelect() {
     selectedList?.title
   );
   const values = selectedComponent?.values;
-  const isStatic = selectedListName === "static" || values?.type === "static";
 
   useEffect(() => {
-    if (!isStatic) {
-      const list = data.findList(selectedListName);
-      listDispatch({
-        type: ListActions.SET_SELECTED_LIST,
-        payload: list,
-      });
-    }
-    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, isStatic]);
+    const list = data.findList(selectedListName);
+    listDispatch({
+      type: ListActions.SET_SELECTED_LIST,
+      payload: list,
+    });
   }, [selectedListName]);
 
   useEffect(() => {
@@ -48,16 +43,6 @@ export function ComponentListSelect() {
       type: ListActions.SET_SELECTED_LIST,
       payload: e.target.value,
     });
-  };
-
-  const createStaticList = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch({
-      type: Actions.ADD_STATIC_LIST,
-      payload: true,
-    });
-    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_STATIC, true]);
-    listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
   };
 
   const handleEditListClick = (e: React.MouseEvent) => {
@@ -98,25 +83,13 @@ export function ComponentListSelect() {
           }
         )}
       </select>
-      {!isNew &&
-        !!selectedListName &&
-        (hasItems || selectedListName !== "static") && (
-          <a
-            href="#"
-            className="govuk-link govuk-!-display-block"
-            onClick={handleEditListClick}
-          >
-            {i18n("list.edit", { title: selectedListTitle })}
-          </a>
-        )}
-
-      {!isNew && !hasItems && (
+      {!isNew && !!selectedListName && hasItems && (
         <a
           href="#"
           className="govuk-link govuk-!-display-block"
-          onClick={createStaticList}
+          onClick={handleEditListClick}
         >
-          {i18n("list.static.newTitle")}
+          {i18n("list.edit", { title: selectedListTitle })}
         </a>
       )}
     </div>
