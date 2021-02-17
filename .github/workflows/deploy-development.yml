@@ -2,16 +2,10 @@ name: Deploy Development Environment
 
 on:
   workflow_run:
-    workflows: ["Master Branch Test Build And Publish Images"]
+    workflows: ["Test Build And Publish Images"]
     # branches: [master]
     types:
       - completed
-  # workflow_dispatch:
-  #   inputs:
-  #     app:
-  #       description: "App to deploy to heroku"
-  #       required: true
-  #       default: "designer"
 
 jobs:
   deploy:
@@ -22,24 +16,24 @@ jobs:
     steps:
       - name: Log
         run: echo "Works ${{matrix.app}}"
-      # - uses: actions/checkout@v2
-      # - name: Login to Heroku Container registry
-      #   env:
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-      #   run: heroku container:login
+      - uses: actions/checkout@v2
+      - name: Login to Heroku Container registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
+        run: heroku container:login
 
-      # - name: Pull latest ${{ github.event.inputs.app }} image
-      #   run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest
+      - name: Pull latest ${{matrix.app}} image
+        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
 
-      # - name: Tag Image
-      #   run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:latest registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
+      - name: Tag Image
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest registry.heroku.com/digital-form-builder-${{matrix.app}}/web
 
-      # - name: Push to Heroku Registry
-      #   env:
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-      #   run: docker push registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
+      - name: Push to Heroku Registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
+        run: docker push registry.heroku.com/digital-form-builder-${{matrix.app}}/web
 
-      # - name: Release
-      #   env:
-      #     HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-      #   run: heroku container:release -a digital-form-builder-${{ github.event.inputs.app }} web
+      - name: Release
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
+        run: heroku container:release -a digital-form-builder-${{matrix.app}} web
