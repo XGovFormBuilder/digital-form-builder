@@ -43,12 +43,20 @@ jobs:
       - name: Test
         run: yarn ${{matrix.app}} test-cov
 
-      - name: Store test results
+      - name: Upload test results artifacts
         uses: actions/upload-artifact@v2
         if: ${{ success() || failure() }}
         with:
           name: test-results
           path: ${{matrix.app}}/test-results
+          retention-days: 14
+
+      - name: Upload test coverage artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage
+          path: ${{matrix.app}}/test-coverage
           retention-days: 14
 
       # TODO
@@ -67,7 +75,7 @@ jobs:
     strategy:
       matrix:
         app: [designer, runner]
-    name: build-publish-${{matrix.app}}
+    name: build-and-publish-${{matrix.app}}-image
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
