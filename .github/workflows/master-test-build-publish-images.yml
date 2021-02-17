@@ -43,43 +43,24 @@ jobs:
       - name: Test
         run: yarn ${{matrix.app}} test-cov
 
+      -name: Store test results
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-results
+          path: ${{matrix.app}}/test-results
+          retention-days: 14
+
       # TODO
       # publish images
       # Upload test results
       # Build & publish designer/runner in parallel
+      # Emmit event to trigger other workflows once images are published
 
-      # NOT IN MASTER
-      # - name: Docker compose up
-      #   run: docker-compose up -d
-      # NOT IN MASTER
-      # - name: Install smoke tests dependencies
-      #   run: yarn install --cwd "smoke-tests/designer"
-      # NOT IN MASTER
-      # - name: Check designer container is running
-      #   run: |
-      #     docker ps
-      #     docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
-      # NOT IN MASTER
-      # - name: Check runner container is running
-      #   run: |
-      #     docker ps
-      #     docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
-      # NOT IN MASTER
-      # - name: Smoke Test
-      #   run: |
-      #     yarn smoke-tests/designer smoke-test-headless
-      #     ls -lah smoke-tests/designer/reports/
-      # NOT IN MASTER
-      # - name: "Tar files"
-      #   if: ${{ success() || failure() }}
-      #   run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
-      # NOT IN MASTER
-      # - uses: actions/upload-artifact@v2
-      #   if: ${{ success() || failure() }}
-      #   with:
-      #     name: smoke-tests
-      #     path: smoke-tests.tar
-      #     retention-days: 14
+      # TODO
+      # Double check
+      # 1. Are test artifacts uploaded correctly?
+      
   build-and-publish-images:
     runs-on: ubuntu-latest
     needs: [lint-and-test]
@@ -129,12 +110,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
-      - name: Tag image
-        run: |
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-latest
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-${{ github.run_number }}-rc
+      # - name: Tag image
+      #   run: |
+      #     docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
+      #     docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ github.run_number }}-rc
 
-      - name: Push Docker images
-        run: |
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:test-${{ github.run_number }}-rc
+      # - name: Push Docker images
+      #   run: |
+      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
+      #     docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ github.run_number }}-rc
