@@ -108,15 +108,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
 
-      - name: Trigger next workflow
-        if: success()
-        uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.REPO_GHA_PAT }}
-          repository: StevenMMortimer/salesforcer
-          event-type: main-02-test-coverage
-          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
-
       # - name: Tag image
       #   run: |
       #     docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
