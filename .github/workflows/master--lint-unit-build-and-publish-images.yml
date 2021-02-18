@@ -90,6 +90,14 @@ jobs:
           restore-keys: |
             digital-form-builder-${{ env.MONTH }}
 
+      - name: Create .env for ${{ matrix.app }} workspace
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          LAST_TAG: "1.0.${{ github.run_number }}-rc"
+          LAST_COMMIT: "${{ github.sha }}"
+          directory: ${{ matrix.app }}
+          file_name: .env
+
       - name: Docker compose build ${{ matrix.app }}
         run: |
           LAST_TAG='1.0.${{ github.run_number }}-rc'
