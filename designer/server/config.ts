@@ -3,6 +3,8 @@ import joi from "joi";
 
 dotenv.config({ path: "../.env" });
 
+console.log(process.env);
+
 export interface Config {
   env: "development" | "test" | "production";
   port: number;

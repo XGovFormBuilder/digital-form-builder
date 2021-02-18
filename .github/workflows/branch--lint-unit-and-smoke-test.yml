@@ -99,8 +99,6 @@ jobs:
           cat ./${{ matrix.app }}/.env
       - name: Docker compose build
         run: |
-          LAST_TAG='1.0.${{ github.run_number }}-rc'
-          LAST_COMMIT='${{ github.sha }}'
           docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
