@@ -52,7 +52,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "digital-form-builder_runner"
+          image: "ghcr.io/xgovformbuilder/digital-form-builder-runner:latest"
           fail-build: true
           severity-cutoff: critical
       - name: Upload artifact
@@ -69,7 +69,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "digital-form-builder_designer"
+          image: "ghcr.io/xgovformbuilder/digital-form-builder-designer:latest"
           acs-report-enable: true
           fail-build: true
           severity-cutoff: critical
