@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
 
-dotenv.config({ path: "../.env" });
-
-console.log(process.env);
+dotenv.config({ path: ".env" });
 
 export interface Config {
   env: "development" | "test" | "production";
