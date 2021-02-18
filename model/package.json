@@ -12,7 +12,7 @@
     "fix-lint": "yarn run eslint . --fix",
     "test": "yarn lint && yarn type-check &&  yarn test-cov",
     "test:dev": "jest --watch",
-    "test-cov": "jest --coverage ",
+    "test-cov": "jest --coverage",
     "build": "yarn run build:types && yarn run build:node && yarn run build:browser",
     "build:node": "BABEL_ENV=node babel --extensions '.ts' src --out-dir dist/module",
     "build:browser": "BABEL_ENV=browser babel --extensions '.ts' src --out-dir dist/browser",

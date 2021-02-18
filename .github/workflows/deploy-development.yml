@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       app:
-        description: 'App to deploy to heroku'
+        description: "Name of the app to deploy to heroku"
         required: true
-        default: 'designer'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    name: Deploy development ${{ github.event.inputs.app }}
     steps:
       - uses: actions/checkout@v2
       - name: Login to Heroku Container registry
