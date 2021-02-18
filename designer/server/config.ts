@@ -58,8 +58,9 @@ const config = {
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
   footerText: process.env.FOOTER_TEXT,
-  lastCommit: process.env.LAST_COMMIT || "undefined",
-  lastTag: process.env.LAST_TAG || "undefined",
+  lastCommit:
+    process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH || "undefined",
+  lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH || "undefined",
 };
 
 // Validate config

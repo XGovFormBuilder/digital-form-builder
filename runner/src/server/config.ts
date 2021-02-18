@@ -101,8 +101,9 @@ export function buildConfig() {
     privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
     notifyTemplateId: process.env.NOTIFY_TEMPLATE_ID,
     notifyAPIKey: process.env.NOTIFY_API_KEY,
-    lastCommit: process.env.LAST_COMMIT || "undefined",
-    lastTag: process.env.LAST_TAG || "undefined",
+    lastCommit:
+      process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH || "undefined",
+    lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH || "undefined",
   };
 
   // Validate config
