@@ -5,6 +5,7 @@ on:
     branches:
       # - master
       - FORMS-376-circleci-to-github-actions
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
