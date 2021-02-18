@@ -91,10 +91,14 @@ jobs:
           key: digital-form-builder-${{ env.MONTH }}-{hash}
           restore-keys: |
             digital-form-builder-${{ env.MONTH }}
+      - name: Create .env for ${{ matrix.app }} workspace
+        run: |
+          touch ./${{ matrix.app }}/.env
+          echo LAST_TAG=1.0.${{ github.run_number }}-rc >> .env
+          echo LAST_COMMIT=${{ github.sha }} >> .env
+          cat ./${{ matrix.app }}/.env
       - name: Docker compose build
         run: |
-          LAST_TAG='1.0.${{ github.run_number }}-rc'
-          LAST_COMMIT='${{ github.sha }}'
           docker-compose build
       - name: Docker compose up
         run: docker-compose up -d

@@ -71,17 +71,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-
       - name: Docker compose pull
         run: docker-compose pull
-
       - name: Docker layer caching MONTH key
         # MONTH key is used to rotate docker-layer-caching monthly to avoid the layers dangle issues
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
         # so master branch cache can be shared with branches
         run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
-
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
@@ -89,42 +86,34 @@ jobs:
           key: digital-form-builder-${{ env.MONTH }}-{hash}
           restore-keys: |
             digital-form-builder-${{ env.MONTH }}
-
       - name: Create .env for ${{ matrix.app }} workspace
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          LAST_TAG: "1.0.${{ github.run_number }}-rc"
-          LAST_COMMIT: "${{ github.sha }}"
-          directory: ${{ matrix.app }}
-          file_name: .env
-
+        run: |
+          touch ./${{ matrix.app }}/.env
+          echo LAST_TAG=1.0.${{ github.run_number }}-rc >> .env
+          echo LAST_COMMIT=${{ github.sha }} >> .env
+          cat ./${{ matrix.app }}/.env
       - name: Docker compose build ${{ matrix.app }}
         run: |
           LAST_TAG='1.0.${{ github.run_number }}-rc'
           LAST_COMMIT='${{ github.sha }}'
           docker-compose build ${{ matrix.app }}
-
       - name: Check images
         run: |
           docker image ls
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
-
       - name: Tag image
         run: |
           docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
           docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:1.0.${{ github.run_number }}-rc
-
       - name: Push Docker images
         run: |
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:1.0.${{ github.run_number }}-rc
-
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
         with:
