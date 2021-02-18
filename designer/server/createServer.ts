@@ -19,6 +19,7 @@ const serverOptions = () => {
           abortEarly: false,
         },
       },
+      security: true,
     },
   };
 };
