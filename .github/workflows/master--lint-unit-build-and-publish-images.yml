@@ -92,7 +92,7 @@ jobs:
 
       - name: Docker compose build ${{ matrix.app }}
         run: |
-          LAST_TAG='${{ github.run_number }}-rc'
+          LAST_TAG='1.0.${{ github.run_number }}-rc'
           LAST_COMMIT='${{ github.sha }}'
           docker-compose build
 
@@ -110,12 +110,12 @@ jobs:
       - name: Tag image
         run: |
           docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ github.run_number }}-rc
+          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:1.0.${{ github.run_number }}-rc
 
       - name: Push Docker images
         run: |
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ github.run_number }}-rc
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:1.0.${{ github.run_number }}-rc
 
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
@@ -134,5 +134,5 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
       - name: Tag branch with run number
         run: |
-          git tag ${{github.run_number}}-rc
+          git tag 1.0.${{ github.run_number }}-rc
           git push --tags origin HEAD
