@@ -66,8 +66,8 @@ const schema = Joi.object({
       otherwise: Joi.optional(),
     })
     .label("NOTIFY_API_KEY"),
-  lastCommit: Joi.string(),
-  lastTag: Joi.string(),
+  lastCommit: Joi.string().default("undefined"),
+  lastTag: Joi.string().default("undefined"),
 });
 
 export function buildConfig() {

@@ -41,8 +41,8 @@ const schema = joi.object({
     .default("debug"),
   phase: joi.string().valid("alpha", "beta").optional(),
   footerText: joi.string().optional(),
-  lastCommit: joi.string(),
-  lastTag: joi.string(),
+  lastCommit: joi.string().default("undefined"),
+  lastTag: joi.string().default("undefined"),
 });
 
 // Build config

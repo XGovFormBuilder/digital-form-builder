@@ -94,7 +94,7 @@ jobs:
         run: |
           LAST_TAG='1.0.${{ github.run_number }}-rc'
           LAST_COMMIT='${{ github.sha }}'
-          docker-compose build
+          docker-compose build ${{ matrix.app }}
 
       - name: Check images
         run: |
