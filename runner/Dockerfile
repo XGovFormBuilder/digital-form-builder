@@ -48,8 +48,8 @@ FROM model AS build-runner
 WORKDIR /usr/src/app
 ARG LAST_COMMIT
 ARG LAST_TAG
-ENV LAST_COMMIT=$LAST_COMMIT
-ENV LAST_TAG=$LAST_TAG
+ENV LAST_COMMIT="$LAST_COMMIT."
+ENV LAST_TAG="$LAST_TAG."
 COPY --chown=appuser:appuser ./runner ./runner/
 RUN yarn runner build && \
     rm -rf ./designer
