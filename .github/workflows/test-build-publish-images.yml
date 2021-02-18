@@ -3,7 +3,7 @@ name: Test Build And Publish Images
 on:
   push:
     branches:
-      - master
+      # - master
       - FORMS-376-circleci-to-github-actions
 jobs:
   lint-and-test:
