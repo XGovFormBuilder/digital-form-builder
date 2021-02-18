@@ -1,9 +1,11 @@
 name: Anchore scan
+
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+
 jobs:
   create-docker-image:
     runs-on: ubuntu-latest
@@ -41,6 +43,7 @@ jobs:
         run: |
           docker ps
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
+
   runner-scan:
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +59,7 @@ jobs:
         with:
           name: AnchoreReports-Runner
           path: vulnerabilities.json
+
   designer-scan:
     runs-on: ubuntu-latest
     steps:
