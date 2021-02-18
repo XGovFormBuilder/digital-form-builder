@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+      - master
+      - feature/FORMS-206-add-anchore-scans
 
 jobs:
   create-docker-image:
