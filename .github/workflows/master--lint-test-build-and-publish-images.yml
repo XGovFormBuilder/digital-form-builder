@@ -1,5 +1,4 @@
 name: Test Build And Publish Images
-
 on:
   push:
     branches:
