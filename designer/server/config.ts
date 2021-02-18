@@ -41,8 +41,8 @@ const schema = joi.object({
     .default("debug"),
   phase: joi.string().valid("alpha", "beta").optional(),
   footerText: joi.string().optional(),
-  lastCommit: joi.string().default("undefined"),
-  lastTag: joi.string().default("undefined"),
+  lastCommit: joi.string(),
+  lastTag: joi.string(),
 });
 
 // Build config
@@ -58,8 +58,8 @@ const config = {
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
   footerText: process.env.FOOTER_TEXT,
-  lastCommit: process.env.LAST_COMMIT,
-  lastTag: process.env.LAST_TAG,
+  lastCommit: process.env.LAST_COMMIT || "undefined",
+  lastTag: process.env.LAST_TAG || "undefined",
 };
 
 // Validate config
