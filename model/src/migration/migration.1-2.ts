@@ -1,0 +1,90 @@
+import { MigrationScript } from "./types";
+import { nanoid } from "../utils/helpers";
+
+/**
+ * @private
+ * StaticItem is a deprecated Type.
+ * It should only be used for aiding migration scripts.
+ */
+type StaticItem = {
+  label: string;
+  value: string | number | boolean;
+  hint?: string;
+  condition?: string;
+};
+
+/**
+ * @private
+ * StaticComponentValues is a deprecated Type.
+ * It should only be used for aiding migration scripts.
+ */
+type StaticComponentValues = {
+  type: "static" | "listRef";
+  valueType: string | number;
+  items: StaticItem[];
+};
+
+type Item = {
+  title: string;
+  value: any;
+  conditions?: any;
+  hint?: string;
+};
+
+function recastItem({ label, value, condition, hint }: StaticItem) {
+  let item: Item = {
+    title: label,
+    value,
+  };
+
+  condition && (item.conditions = condition);
+  hint && (item.hint = hint);
+  return item;
+}
+
+function addListId(component: { values: StaticComponentValues }) {
+  if (!component.values) {
+    return component;
+  }
+  return {
+    ...component,
+    list: nanoid(),
+  };
+}
+
+function migratePage(page) {
+  return {
+    ...page,
+    components: page.components.map(addListId),
+  };
+}
+
+function removeValues(page) {
+  return page.components.map((component) => {
+    const { values, ...rest } = component;
+    return {
+      ...rest,
+    };
+  });
+}
+
+export function migrate(data): MigrationScript {
+  const pages = data.pages.map(migratePage);
+  const componentsWithList = pages.flatMap((page) =>
+    page.components.filter((c) => c.values?.items)
+  );
+
+  const valuesAsLists = componentsWithList.map((component) => {
+    return {
+      title: component.title,
+      name: component.list,
+      items: component.values.items.map((item) => recastItem(item)),
+    };
+  });
+
+  return {
+    ...data,
+    pages: pages.map(removeValues),
+    lists: [...(data.lists ?? []), ...valuesAsLists],
+  };
+}

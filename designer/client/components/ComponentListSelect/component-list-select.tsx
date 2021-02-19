@@ -15,7 +15,7 @@ export function ComponentListSelect() {
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
 
   const { state, dispatch } = useContext(ComponentContext);
-  const { selectedListName, selectedComponent, isNew } = state;
+  const { selectedListName, selectedComponent } = state;
 
   const { state: listState, dispatch: listDispatch } = useContext(ListContext);
   const { selectedList } = listState;
@@ -23,7 +23,6 @@ export function ComponentListSelect() {
   const [selectedListTitle, setSelectedListTitle] = useState(
     selectedList?.title
   );
-  const values = selectedComponent?.values;
 
   useEffect(() => {
     const list = data.findList(selectedListName);
@@ -31,12 +30,12 @@ export function ComponentListSelect() {
       type: ListActions.SET_SELECTED_LIST,
       payload: list,
     });
-  }, [selectedListName]);
+  }, [data, listDispatch, selectedListName]);
 
   useEffect(() => {
     const list = data.findList(selectedListName);
     setSelectedListTitle(list?.title ?? list?.name ?? selectedComponent.title);
-  }, [data, selectedListName]);
+  }, [data, selectedComponent.title, selectedListName]);
 
   const editList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
@@ -49,8 +48,6 @@ export function ComponentListSelect() {
     e.preventDefault();
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, true]);
   };
-
-  const hasItems = values?.items?.length > 0 ?? false;
 
   return (
     <div className="govuk-form-group">
@@ -65,8 +62,7 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        {!hasItems && <option value="static" />}
-        {hasItems && <option value="static">{selectedComponent.title}</option>}
+        <option />
         {data.lists.map(
           (
             list: {
@@ -83,15 +79,13 @@ export function ComponentListSelect() {
           }
         )}
       </select>
-      {!isNew && !!selectedListName && hasItems && (
-        <a
-          href="#"
-          className="govuk-link govuk-!-display-block"
-          onClick={handleEditListClick}
-        >
-          {i18n("list.edit", { title: selectedListTitle })}
-        </a>
-      )}
+      <a
+        href="#"
+        className="govuk-link govuk-!-display-block"
+        onClick={handleEditListClick}
+      >
+        {i18n("list.edit", { title: selectedListTitle })}
+      </a>
     </div>
   );
 }

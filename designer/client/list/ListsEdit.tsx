@@ -10,6 +10,7 @@ import {
 } from "../reducers/list/listsEditorReducer";
 import { Warning } from "./Warning";
 import { i18n } from "./../i18n";
+import { ListContext } from "../reducers/listReducer";
 
 type Props = {
   isEditingFromComponent: boolean;
@@ -19,15 +20,8 @@ const useListsEdit = () => {
   const { state: listEditState, dispatch: listsEditorDispatch } = useContext(
     ListsEditorContext
   );
-
-  const {
-    isEditingList,
-    isEditingListItem,
-    showWarning,
-    listEditContext,
-  } = listEditState;
-
-  const { state } = useContext(listEditContext);
+  const { isEditingList, isEditingListItem, showWarning } = listEditState;
+  const { state } = useContext(ListContext);
   const { selectedList, selectedItem } = state;
 
   const closeFlyout = (action: ListsEditorStateActions) => {

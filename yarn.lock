@@ -4622,6 +4622,7 @@ __metadata:
     jest: ^26.6.3
     joi: 17.2.1
     moment: 2.24.0
+    nanoid: ^3.1.20
     nunjucks: 3.2.1
     path: 0.12.7
     ts-jest: ^26.4.4

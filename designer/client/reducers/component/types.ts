@@ -5,6 +5,7 @@ export enum Meta {
   SET_PAGE = "SET_PAGE",
   DELETE = "DELETE",
   VALIDATE = "VALIDATE",
+  SET_SELECTED_LIST = "SET_SELECTED_LIST",
 }
 
 export enum Schema {

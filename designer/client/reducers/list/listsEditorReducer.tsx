@@ -13,7 +13,6 @@ export enum ListsEditorStateActions {
 export interface ListsEditorState {
   isEditingList: boolean;
   isEditingListItem: boolean;
-  isEditingStatic: boolean;
   listTitle?: string;
   listItemTitle?: string;
   showWarning?: boolean;
@@ -24,7 +23,6 @@ export function initListsEditingState(): ListsEditorState {
   return {
     isEditingList: false,
     isEditingListItem: false,
-    isEditingStatic: false,
   };
 }
 

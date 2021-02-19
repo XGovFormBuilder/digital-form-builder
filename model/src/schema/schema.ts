@@ -260,7 +260,7 @@ export const Schema = joi
     outputs: joi.array().items(outputSchema),
     payApiKey: joi.string().allow("").optional(),
     skipSummary: joi.boolean().default(false),
-    version: joi.number().default(0),
+    version: joi.number().default(2),
     phaseBanner: phaseBannerSchema,
   });
 
@@ -269,4 +269,5 @@ export const Schema = joi
  *  Undefined / 0 - initial version as at 28/8/20. Conditions may be in object structure or string form.
  *  1 - Relevant components (radio, checkbox, select, autocomplete) now contain
  *      options as 'values' rather than referencing a data list
+ *  2 - Reverse v1. Values populating radio, checkboxes, select, autocomplete are defined in Lists only.
  **/
