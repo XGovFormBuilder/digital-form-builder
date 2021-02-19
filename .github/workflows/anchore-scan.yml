@@ -11,10 +11,33 @@ jobs:
   runner-scan:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Docker compose pull
+        run: docker-compose pull
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          # Layers are cached by keys
+          # docker-layer-caching action has an issue which causes layers to dangle,
+          # and this will eventually build up and increase pull time significantly
+          # see https://github.com/satackey/action-docker-layer-caching/issues/55
+          # ATM solution is to change keys periodically to avoid the dangling layers
+          # for that just increase the number you see in key and restore-keys below (same number in both keys).
+          key: digital-form-builder-1-{hash}
+          restore-keys: |
+            digital-form-builder-1
+      - name: Docker compose build
+        run: |
+          LAST_TAG='${{ github.run_number }}-rc'
+          LAST_COMMIT='${{ github.sha }}'
+          docker-compose build
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "ghcr.io/xgovformbuilder/digital-form-builder-runner:latest"
+          image: "digital-form-builder_designer:latest"
           fail-build: true
           severity-cutoff: critical
       - name: Upload artifact
@@ -27,10 +50,33 @@ jobs:
   designer-scan:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Docker compose pull
+        run: docker-compose pull
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          # Layers are cached by keys
+          # docker-layer-caching action has an issue which causes layers to dangle,
+          # and this will eventually build up and increase pull time significantly
+          # see https://github.com/satackey/action-docker-layer-caching/issues/55
+          # ATM solution is to change keys periodically to avoid the dangling layers
+          # for that just increase the number you see in key and restore-keys below (same number in both keys).
+          key: digital-form-builder-1-{hash}
+          restore-keys: |
+            digital-form-builder-1
+      - name: Docker compose build
+        run: |
+          LAST_TAG='${{ github.run_number }}-rc'
+          LAST_COMMIT='${{ github.sha }}'
+          docker-compose build
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "ghcr.io/xgovformbuilder/digital-form-builder-designer:latest"
+          image: "digital-form-builder_runner:latest"
           acs-report-enable: true
           fail-build: true
           severity-cutoff: critical
