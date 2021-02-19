@@ -94,8 +94,8 @@ jobs:
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
-          echo LAST_TAG=1.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
-          echo LAST_COMMIT=${{ github.sha }} >> ./${{ matrix.app }}/.env
+          echo LAST_TAG_GH=1.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
+          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
       - name: Docker compose build
         run: |
