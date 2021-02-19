@@ -37,6 +37,9 @@ suite(`Server Config`, () => {
       FROM_EMAIL_ADDRESS: "TEST_FROM_EMAIL_ADDRESS",
       SERVICE_START_PAGE: "TEST_SERVICE_START_PAGE",
       PRIVACY_POLICY_URL: "TEST_PRIVACY_POLICY_URL",
+      LAST_COMMIT: "LAST COMMIT",
+      LAST_TAG: "LAST TAG",
+      sandbox: "true",
     };
   });
 
@@ -59,6 +62,8 @@ suite(`Server Config`, () => {
       feedbackLink: "TEST_FEEDBACK_LINK",
       matomoId: "TEST_MATOMO_ID",
       matomoUrl: "https://matomo.url",
+      notifyAPIKey: undefined,
+      notifyTemplateId: undefined,
       payApiUrl: "https://pay.url",
       payReturnUrl: "https://pay.return.url",
       serviceUrl: "TEST_SERVICE_URL",
@@ -80,7 +85,9 @@ suite(`Server Config`, () => {
       isProd: false,
       isDev: true,
       isTest: true,
-      isSandbox: false,
+      isSandbox: true,
+      lastCommit: "LAST COMMIT",
+      lastTag: "LAST TAG",
     };
 
     const result = buildConfig();
@@ -157,6 +164,21 @@ suite(`Server Config`, () => {
       ...customVariables,
       LAST_COMMIT: "LAST COMMIT",
       LAST_TAG: "LAST TAG",
+    };
+
+    const config = buildConfig();
+    expect(config.lastCommit).to.equal("LAST COMMIT");
+    expect(config.lastTag).to.equal("LAST TAG");
+  });
+
+  test("it captures LAST_COMMIT_GH and LAST_TAG_GH environment variables", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      LAST_COMMIT: "",
+      LAST_TAG: "",
+      LAST_COMMIT_GH: "LAST COMMIT",
+      LAST_TAG_GH: "LAST TAG",
     };
 
     const config = buildConfig();

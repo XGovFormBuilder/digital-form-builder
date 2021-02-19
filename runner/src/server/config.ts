@@ -66,8 +66,8 @@ const schema = Joi.object({
       otherwise: Joi.optional(),
     })
     .label("NOTIFY_API_KEY"),
-  lastCommit: Joi.string(),
-  lastTag: Joi.string(),
+  lastCommit: Joi.string().default("undefined"),
+  lastTag: Joi.string().default("undefined"),
 });
 
 export function buildConfig() {
@@ -101,9 +101,8 @@ export function buildConfig() {
     privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
     notifyTemplateId: process.env.NOTIFY_TEMPLATE_ID,
     notifyAPIKey: process.env.NOTIFY_API_KEY,
-    lastCommit:
-      process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH || "undefined",
-    lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH || "undefined",
+    lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
+    lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
   };
 
   // Validate config
@@ -123,7 +122,7 @@ export function buildConfig() {
   value.isProd = value.env === "production";
   value.isDev = !value.isProd;
   value.isTest = value.env === "test";
-  value.isSandbox = process.env.sandbox || false; // for heroku instances
+  value.isSandbox = process.env.sandbox === "true"; // for heroku instances
 
   return value;
 }
