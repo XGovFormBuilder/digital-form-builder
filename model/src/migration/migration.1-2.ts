@@ -68,7 +68,16 @@ function removeValues(page) {
   });
 }
 
+function needsUpgrade(data) {
+  return !!data.pages
+    .flatMap((page) => page.components)
+    .find((component) => component.values);
+}
+
 export function migrate(data): MigrationScript {
+  if (!needsUpgrade(data)) {
+    return data;
+  }
   const pages = data.pages.map(migratePage);
   const componentsWithList = pages.flatMap((page) =>
     page.components.filter((c) => c.values?.items)

@@ -1,2 +1,1 @@
-export { SchemaMigrationService } from "./schema-migrations";
-export { ListItemReferencesToValueObjects } from "./list-item-references-to-value-objects";
+export { migrate as V1_TO_V2 } from "./migration.1-2";
