@@ -80,6 +80,9 @@
     "wdio-json-reporter": "^2.0.0",
     "webdriverio": "^6.6.0"
   },
+  "resolutions": {
+    "braces": "2.3.1"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
