@@ -2811,6 +2811,93 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@oclif/command@npm:^1.5.20, @oclif/command@npm:^1.6.0":
+  version: 1.8.0
+  resolution: "@oclif/command@npm:1.8.0"
+  dependencies:
+    "@oclif/config": ^1.15.1
+    "@oclif/errors": ^1.3.3
+    "@oclif/parser": ^3.8.3
+    "@oclif/plugin-help": ^3
+    debug: ^4.1.1
+    semver: ^7.3.2
+  peerDependencies:
+    "@oclif/config": ^1
+  checksum: d0591e56ceea7f3057b7e42ee10deeeb7f70fa32de72fe7d41e1ad05a9f6e1c6073fa2d13a30e9e868f4794899874f723196f5214aeee3124850e12eb5b5a0c9
+  languageName: node
+  linkType: hard
+
+"@oclif/config@npm:^1.15.1":
+  version: 1.17.0
+  resolution: "@oclif/config@npm:1.17.0"
+  dependencies:
+    "@oclif/errors": ^1.3.3
+    "@oclif/parser": ^3.8.0
+    debug: ^4.1.1
+    globby: ^11.0.1
+    is-wsl: ^2.1.1
+    tslib: ^2.0.0
+  checksum: 52b5803062d9ce45b831939b644da2577de8f84073a75eb4968711d036840badc7b0ab55344e9d613c96d7fd20ffd39be2fdf50ad812aa54ffb685759b11229f
+  languageName: node
+  linkType: hard
+
+"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3":
+  version: 1.3.4
+  resolution: "@oclif/errors@npm:1.3.4"
+  dependencies:
+    clean-stack: ^3.0.0
+    fs-extra: ^8.1
+    indent-string: ^4.0.0
+    strip-ansi: ^6.0.0
+    wrap-ansi: ^7.0.0
+  checksum: 28ba0c33bc64e891935e3b0de8cfd4a8e992e0b4502ef7ee87e48d073e98fc71df99ba1010154f907796710257e8fef0db889c5c493d63b8c4fda5be89d30b79
+  languageName: node
+  linkType: hard
+
+"@oclif/linewrap@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@oclif/linewrap@npm:1.0.0"
+  checksum: e372dde762340a2aa468a92354400e238ff40aa5e4013921aa50c753a3c73d37c5686c2e28060c22f93e2d6f5e32b27be7f466310e07f14378615451558c585e
+  languageName: node
+  linkType: hard
+
+"@oclif/parser@npm:^3.8.0, @oclif/parser@npm:^3.8.3":
+  version: 3.8.5
+  resolution: "@oclif/parser@npm:3.8.5"
+  dependencies:
+    "@oclif/errors": ^1.2.2
+    "@oclif/linewrap": ^1.0.0
+    chalk: ^2.4.2
+    tslib: ^1.9.3
+  checksum: 50e6aab1399611d95402d648b4fb50b323e7562f24b856048609f7ba7645709fddbc92534bf1dfcc8ce56982996dec29c04a0cd55fd0fb4a506c2364b8eb3fa8
+  languageName: node
+  linkType: hard
+
+"@oclif/plugin-help@npm:^3":
+  version: 3.2.2
+  resolution: "@oclif/plugin-help@npm:3.2.2"
+  dependencies:
+    "@oclif/command": ^1.5.20
+    "@oclif/config": ^1.15.1
+    "@oclif/errors": ^1.2.2
+    chalk: ^4.1.0
+    indent-string: ^4.0.0
+    lodash.template: ^4.4.0
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+    widest-line: ^3.1.0
+    wrap-ansi: ^4.0.0
+  checksum: f28e4689a8cd97804bcf3ee1ce15346857eda65f833a0717dfa18d321ec2ac2006d7e3430c71824b05971edaa947746d2af21a92d5a93b64dbc340fefd0df4a3
+  languageName: node
+  linkType: hard
+
+"@oclif/screen@npm:^1.0.3":
+  version: 1.0.4
+  resolution: "@oclif/screen@npm:1.0.4"
+  checksum: 8c5c8d1f6d09af29c75f64be130dfdfcb2211456da56e0626a7e1a0e34f267bd2fb4d043879fc2a2f5f1c6c2197f9bb4b2bb654c1d122f8db3ec97613e949380
+  languageName: node
+  linkType: hard
+
 "@open-draft/until@npm:^1.0.3":
   version: 1.0.3
   resolution: "@open-draft/until@npm:1.0.3"
@@ -4683,7 +4770,12 @@ __metadata:
     boom: 7.3.0
     btoa: ^1.2.1
     cheerio: 1.0.0-rc.3
+<<<<<<< HEAD
     chrome-launcher: ^0.13.4
+=======
+    chrome-launcher: 0.13.1
+    cli-ux: ^5.5.1
+>>>>>>> IIFE check scripts
     code: 5.2.4
     concurrently: ^5.3.0
     dotenv: 8.2.0
@@ -5056,7 +5148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-escapes@npm:^3.0.0, ansi-escapes@npm:^3.2.0":
+"ansi-escapes@npm:^3.0.0, ansi-escapes@npm:^3.1.0, ansi-escapes@npm:^3.2.0":
   version: 3.2.0
   resolution: "ansi-escapes@npm:3.2.0"
   checksum: 0a106c53c71bc831a3245b49016a2630de4217674f4383761c7ef4fe78dfe73a897e323f27298783494b45ce3703f903013d4548c5411bafb6c5c937fb0b3f4e
@@ -5125,7 +5217,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:^4.0.0, ansi-styles@npm:^4.1.0":
+"ansi-styles@npm:^4.0.0, ansi-styles@npm:^4.1.0, ansi-styles@npm:^4.2.0":
   version: 4.3.0
   resolution: "ansi-styles@npm:4.3.0"
   dependencies:
@@ -5142,6 +5234,13 @@ __metadata:
   bin:
     ansi-to-html: bin/ansi-to-html
   checksum: f68b49478d45eecbb77dfe9123dbe2223a6f13362ac45e03e91f9c5de19e340fa48de1c9932a5dd9659dcf00088683c07c4669a9d25765ff1521d2c334280a60
+  languageName: node
+  linkType: hard
+
+"ansicolors@npm:~0.3.2":
+  version: 0.3.2
+  resolution: "ansicolors@npm:0.3.2"
+  checksum: 0da3223f0a13de431eca509ab4d4d72843c575e3cdb49f7f7bdf682b77914a3edeb73db204c77363f7b4aeefe72147ccbbe50835c83e218743e304116bb43252
   languageName: node
   linkType: hard
 
@@ -6732,6 +6831,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
+=======
+"capture-stack-trace@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "capture-stack-trace@npm:1.0.1"
+  checksum: c857f977ca42626cf9187b753ae7e891c894689b917f7d83510c89cec58bdd2fbf77055987226efa862cf95c15ade4e02ccd463f53fdec49819170c0905d1071
+  languageName: node
+  linkType: hard
+
+"cardinal@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "cardinal@npm:2.1.1"
+  dependencies:
+    ansicolors: ~0.3.2
+    redeyed: ~2.1.0
+  bin:
+    cdl: ./bin/cdl.js
+  checksum: 7dafc23b737921f8249c3060709413719729ec1fb4771ac805f59990314ef78993931d73a3cf3ef2edd6f1789b2b1630e20f24e9c76256d01796067ad244d263
+  languageName: node
+  linkType: hard
+
+>>>>>>> IIFE check scripts
 "caseless@npm:~0.12.0":
   version: 0.12.0
   resolution: "caseless@npm:0.12.0"
@@ -7105,6 +7226,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clean-stack@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "clean-stack@npm:3.0.1"
+  dependencies:
+    escape-string-regexp: 4.0.0
+  checksum: 735d54fcd0b0d1f6dde250031c730cc090d95b47c31d3104a1e8d9c9e1e90acb1df0fb53655b3216f9fabf1369a5d74ef8311ea2f3f6d70c0cdc230ac1f662b9
+  languageName: node
+  linkType: hard
+
 "clean-webpack-plugin@npm:^3.0.0":
   version: 3.0.0
   resolution: "clean-webpack-plugin@npm:3.0.0"
@@ -7139,6 +7269,16 @@ __metadata:
   dependencies:
     restore-cursor: ^3.1.0
   checksum: 15dbfc222f27da8cbc61680e4948b189e811224271f6ee5be9db0dcbabe23ae3b2c5a5663be6f17ee51f6203ab44abddd4f4cffb20d69458fc845fa86976f96a
+  languageName: node
+  linkType: hard
+
+"cli-progress@npm:^3.4.0":
+  version: 3.9.0
+  resolution: "cli-progress@npm:3.9.0"
+  dependencies:
+    colors: ^1.1.2
+    string-width: ^4.2.0
+  checksum: 8c5d78a3226e9f25b447609454557c82a99c562880d4962941b0c5ec3d37c3b2679d3d592640fdbcd778168f60eeb4d08118432276b8f2306802d2951b196636
   languageName: node
   linkType: hard
 
@@ -7184,6 +7324,40 @@ __metadata:
     slice-ansi: ^3.0.0
     string-width: ^4.2.0
   checksum: 2b20f9e353cd34b015ff0067effd2810490c4e23eb9b4edfd7cdc41f00311d0d1a6148eb7e9947d4ab858295f4da5b5d8f150842a8802dc7999c51288fe26e62
+  languageName: node
+  linkType: hard
+
+"cli-ux@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "cli-ux@npm:5.5.1"
+  dependencies:
+    "@oclif/command": ^1.6.0
+    "@oclif/errors": ^1.2.1
+    "@oclif/linewrap": ^1.0.0
+    "@oclif/screen": ^1.0.3
+    ansi-escapes: ^4.3.0
+    ansi-styles: ^4.2.0
+    cardinal: ^2.1.1
+    chalk: ^4.1.0
+    clean-stack: ^3.0.0
+    cli-progress: ^3.4.0
+    extract-stack: ^2.0.0
+    fs-extra: ^8.1
+    hyperlinker: ^1.0.0
+    indent-string: ^4.0.0
+    is-wsl: ^2.2.0
+    js-yaml: ^3.13.1
+    lodash: ^4.17.11
+    natural-orderby: ^2.0.1
+    object-treeify: ^1.1.4
+    password-prompt: ^1.1.2
+    semver: ^7.3.2
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+    supports-color: ^7.1.0
+    supports-hyperlinks: ^2.1.0
+    tslib: ^2.0.0
+  checksum: 5719712f4c50cecf567ef7dc12c79ca4a4da9077fc88dfcdde90aafb813af12bd8738f7e25c6af2792ecd94106fb891a68c8636bb8d5ac1fbd16da39ad4f7282
   languageName: node
   linkType: hard
 
@@ -10313,7 +10487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esprima@npm:^4.0.0, esprima@npm:^4.0.1":
+"esprima@npm:^4.0.0, esprima@npm:^4.0.1, esprima@npm:~4.0.0":
   version: 4.0.1
   resolution: "esprima@npm:4.0.1"
   bin:
@@ -10692,6 +10866,13 @@ __metadata:
     snapdragon: ^0.8.1
     to-regex: ^3.0.1
   checksum: ce23be772ff536976902aa0193a6d167abad229ca40fb4c1de2fd71c0116eeae168a02f6508d41382eb918fcbafb66dba61d498754051964a167c98210c62b28
+  languageName: node
+  linkType: hard
+
+"extract-stack@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "extract-stack@npm:2.0.0"
+  checksum: eee3a94e525079e91f1613807aa56d71341cea605754574b561ab1196b1dbc86c810d41e79b342a4ce410352a6edc770ae923bcd1a800129c0bcf77d73aa7cda
   languageName: node
   linkType: hard
 
@@ -11358,7 +11539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^8.1.0":
+"fs-extra@npm:^8.1, fs-extra@npm:^8.1.0":
   version: 8.1.0
   resolution: "fs-extra@npm:8.1.0"
   dependencies:
@@ -12703,6 +12884,13 @@ fsevents@~2.1.2:
     husky-run: bin/run.js
     husky-upgrade: lib/upgrader/bin.js
   checksum: 799b1484e47f868760a612d8578f0bc2cf8848a55719ad00bfbd6bec3d094afaca024631949157390a05616a1c83242c3d917f33c049d9161f7af3ec313b6870
+  languageName: node
+  linkType: hard
+
+"hyperlinker@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "hyperlinker@npm:1.0.0"
+  checksum: 80273573e9bf8dde6442eec5aee8e7598bf6f534df1c88706a2af9894a004820a2af31c0ac76247559bba21e1cf367736d78697555ca7c3da7f9bd74592fe2d8
   languageName: node
   linkType: hard
 
@@ -15318,6 +15506,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"lodash._reinterpolate@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "lodash._reinterpolate@npm:3.0.0"
+  checksum: 27513557d6fe526296324f1de9e1b8e8ac88ef2a2544a655e825f3ab0f52c5a675f1a73a0c9ff3c64fda031c56dfb4deb9dac7c7d21f9a04bc63dd7db5a5a73d
+  languageName: node
+  linkType: hard
+
 "lodash.camelcase@npm:^4.3.0":
   version: 4.3.0
   resolution: "lodash.camelcase@npm:4.3.0"
@@ -15476,6 +15671,25 @@ fsevents@~2.1.2:
   version: 4.7.0
   resolution: "lodash.sortby@npm:4.7.0"
   checksum: 43cde11276c66da7b3eda5e9f00dc6edc276d2bcf0a5969ffc62b612cd1c4baf2eff5e84cee11383005722c460a9ca0f521fad4fa1cd2dc1ef013ee4da2dfe63
+  languageName: node
+  linkType: hard
+
+"lodash.template@npm:^4.4.0":
+  version: 4.5.0
+  resolution: "lodash.template@npm:4.5.0"
+  dependencies:
+    lodash._reinterpolate: ^3.0.0
+    lodash.templatesettings: ^4.0.0
+  checksum: e27068e20b7a374938c20ab76a093dd49e9626bfbe1882d9d05d81efefe3210cfcd6ad24f1cb0d956ce57d75855fec17bd386a4aa54762a144bd7c0891ee7ee1
+  languageName: node
+  linkType: hard
+
+"lodash.templatesettings@npm:^4.0.0":
+  version: 4.2.0
+  resolution: "lodash.templatesettings@npm:4.2.0"
+  dependencies:
+    lodash._reinterpolate: ^3.0.0
+  checksum: 45546a5b76376b138ef4f01aa2722813127c639428eb9baef3fbac176b509ee2dab5cb9d1ee8267dbeeef8d49371f9a748af3df83649bf8b75fa54993f65b7aa
   languageName: node
   linkType: hard
 
@@ -16454,6 +16668,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"natural-orderby@npm:^2.0.1":
+  version: 2.0.3
+  resolution: "natural-orderby@npm:2.0.3"
+  checksum: 09cabe151aa54b901104074968075e608b692e34d64157a0de73f14c230dcfda1041e3fefe98d3243a893ecd6b1bd830d286cdb807cd7a6e4ab39e30176c40d5
+  languageName: node
+  linkType: hard
+
 "nearley@npm:^2.7.10":
   version: 2.20.1
   resolution: "nearley@npm:2.20.1"
@@ -16958,6 +17179,13 @@ fsevents@~2.1.2:
   version: 1.1.1
   resolution: "object-keys@npm:1.1.1"
   checksum: 30d72d768b7f3f42144cee517b80e70c40cf39bb76f100557ffac42779613c591780135c54d8133894a78d2c0ae817e24a5891484722c6019a5cd5b58c745c66
+  languageName: node
+  linkType: hard
+
+"object-treeify@npm:^1.1.4":
+  version: 1.1.31
+  resolution: "object-treeify@npm:1.1.31"
+  checksum: b430f4b16a10145291191f7afd65d82412ac50d8d2fa05fcb4152aad65f1170643775316414a1dce3f33fb43507a63fd44943ab6113f9d2e861b35640fe6dd06
   languageName: node
   linkType: hard
 
@@ -17543,6 +17771,16 @@ fsevents@~2.1.2:
   version: 0.1.1
   resolution: "pascalcase@npm:0.1.1"
   checksum: 268a9dbf9cd934fcd0ba02733b7d6176834b13a608bbcd295550636b3c6371a6047875175b457e705b283e81ec171884c9cd86d1fd6c49f70f66fbc3783dc0c1
+  languageName: node
+  linkType: hard
+
+"password-prompt@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "password-prompt@npm:1.1.2"
+  dependencies:
+    ansi-escapes: ^3.1.0
+    cross-spawn: ^6.0.5
+  checksum: 84665f73da5d42c54302e35dcbe4afe5ff66dfb85dd70480e1137107052e41e20b028a16fdc5dc22fb564a1dda7b187666a849b40be1881a4c133b9480a4241c
   languageName: node
   linkType: hard
 
@@ -19014,6 +19252,15 @@ fsevents@~2.1.2:
     indent-string: ^4.0.0
     strip-indent: ^3.0.0
   checksum: 78c8aa0a1076f47e0e198bfc8a9aa7d4ae3163c6951bd5de1015e47661bba62ea36573337bbeb4b309b48cc71954edbe43ae4aa3163db1996a781b757c5c47d7
+  languageName: node
+  linkType: hard
+
+"redeyed@npm:~2.1.0":
+  version: 2.1.1
+  resolution: "redeyed@npm:2.1.1"
+  dependencies:
+    esprima: ~4.0.0
+  checksum: 2e8e1eebac6266b9497c81863c8f8efb5aee9960aa0536e7fa9eb917e04674f2da0c2e3167ac9e47bf9a6814c47e9bd4f4575fc39bf53b853cf7620776e9db0b
   languageName: node
   linkType: hard
 
@@ -21359,7 +21606,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"supports-hyperlinks@npm:^2.0.0":
+"supports-hyperlinks@npm:^2.0.0, supports-hyperlinks@npm:^2.1.0":
   version: 2.1.0
   resolution: "supports-hyperlinks@npm:2.1.0"
   dependencies:
@@ -22036,14 +22283,14 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1, tslib@npm:^1.9.0":
+"tslib@npm:^1.8.1, tslib@npm:^1.9.0, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: f44fe7f216946b17d3e3074df3746372703cf24e9127b4c045511456e8e4bf25515fb0a1bb3937676cc305651c5d4fcb6377b0588a4c6a957e748c4c28905d17
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.3":
   version: 2.1.0
   resolution: "tslib@npm:2.1.0"
   checksum: d8f5bdd067611651c6b846c2388f4dc8ba1f5af124e66105f5263d1ad56da17f4b8c6566887ca2f205c5a9758451871ceca87d5d06087af2dca1699c5e33db69
@@ -23483,6 +23730,30 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
+<<<<<<< HEAD
+=======
+"wrap-ansi@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "wrap-ansi@npm:2.1.0"
+  dependencies:
+    string-width: ^1.0.1
+    strip-ansi: ^3.0.1
+  checksum: d1846c06645c23dc25489e7df74df33164665c53fc609f9275ebcae11e1106f2d07038ffd8063433d1aaf9c657c42f8f45c77b7c749e358bf022351d86921d3b
+  languageName: node
+  linkType: hard
+
+"wrap-ansi@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "wrap-ansi@npm:4.0.0"
+  dependencies:
+    ansi-styles: ^3.2.0
+    string-width: ^2.1.1
+    strip-ansi: ^4.0.0
+  checksum: 9eaaaf464101150afa378ee25e638e4542f88800e2875ea60946aedf8a36f737483faa8fb1cc9d720cd01046644a039b4030c289682d8beefd63463c11365d24
+  languageName: node
+  linkType: hard
+
+>>>>>>> IIFE check scripts
 "wrap-ansi@npm:^5.1.0":
   version: 5.1.0
   resolution: "wrap-ansi@npm:5.1.0"
