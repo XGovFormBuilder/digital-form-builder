@@ -7,7 +7,7 @@ import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/RenderInPortal";
 import { Flyout } from "./components/Flyout";
 import SectionEdit from "./section/section-edit";
-import { withI18n } from "./i18n";
+import { i18n, withI18n } from "./i18n";
 import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
 import { DataContext } from "./context";
@@ -193,8 +193,11 @@ class PageCreate extends React.Component {
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="page-type">
-              Page Type
+              {i18n("addPage.pageTypeOption.title")}
             </label>
+            <span className="govuk-hint">
+              {i18n("addPage.pageTypeOption.helpText")}
+            </span>
             <select
               className="govuk-select"
               id="page-type"
@@ -210,8 +213,11 @@ class PageCreate extends React.Component {
 
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="link-from">
-              Link from (optional)
+              {i18n("addPage.linkFromOption.title")}
             </label>
+            <span className="govuk-hint">
+              {i18n("addPage.linkFromOption.helpText")}
+            </span>
             <select
               className="govuk-select"
               id="link-from"
@@ -242,7 +248,7 @@ class PageCreate extends React.Component {
             name="title"
             label={{
               className: "govuk-label--s",
-              children: ["Title"],
+              children: [i18n("addPage.pageTitleField.title")],
             }}
             value={title || ""}
             onChange={this.onChangeTitle}
@@ -256,10 +262,10 @@ class PageCreate extends React.Component {
             name="path"
             label={{
               className: "govuk-label--s",
-              children: ["Path"],
+              children: [i18n("addPage.pathField.title")],
             }}
             hint={{
-              children: ["The path of this page e.g. '/personal-details'."],
+              children: [i18n("addPage.pathField.helpText")],
             }}
             value={path}
             onChange={this.onChangePath}
@@ -273,11 +279,10 @@ class PageCreate extends React.Component {
               className="govuk-label govuk-label--s"
               htmlFor="page-section"
             >
-              Section (optional)
+              {i18n("addPage.sectionOption.title")}
             </label>
             <span className="govuk-hint">
-              The section title is shown above the page title. If the page and
-              the section title are the same, the section title wont show.
+              {i18n("addPage.sectionOption.helpText")}
             </span>
             {sections.length > 0 && (
               <select

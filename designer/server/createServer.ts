@@ -1,5 +1,6 @@
 import hapi from "@hapi/hapi";
 import inert from "@hapi/inert";
+import Scooter from "@hapi/scooter";
 import logging from "./plugins/logging";
 import router from "./plugins/router";
 import { viewPlugin } from "./plugins/view";
@@ -7,6 +8,7 @@ import { designerPlugin } from "./plugins/designer";
 import Schmervice from "schmervice";
 import config from "./config";
 import { determinePersistenceService } from "./lib/persistence";
+import { configureBlankiePlugin } from "./plugins/blankie";
 
 const serverOptions = () => {
   return {
@@ -17,6 +19,7 @@ const serverOptions = () => {
           abortEarly: false,
         },
       },
+      security: true,
     },
   };
 };
@@ -24,6 +27,8 @@ const serverOptions = () => {
 export async function createServer() {
   const server = hapi.server(serverOptions());
   await server.register(inert);
+  await server.register(Scooter);
+  await server.register(configureBlankiePlugin());
   await server.register(viewPlugin);
   await server.register(Schmervice);
   (server as any).registerService([

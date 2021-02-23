@@ -45,15 +45,15 @@ Then("the {string} control is displayed in the {string}", function (
   const componentEl = FormDesignerPage.getComponentOnPage(pageName, ccCompName);
   switch (ccCompName) {
     case "date":
-      chai.expect(componentEl.isDisplayed()).to.be.true;
+      componentEl.waitForDisplayed();
       expect(componentEl).toHaveText("dd/mm/yyyy");
       break;
     case "dateTime":
-      chai.expect(componentEl.isDisplayed()).to.be.true;
+      componentEl.waitForDisplayed();
       expect(componentEl).toHaveText("dd/mm/yyyy hh:mm");
       break;
     default:
-      chai.expect(componentEl.isDisplayed()).to.be.true;
+      componentEl.waitForDisplayed();
       break;
   }
 });
@@ -66,6 +66,7 @@ When("I add multiple components to the {string}", (pageName) => {
 });
 
 Then("all the components are displayed in the {string}", (pageName) => {
+  browser.pause(500);
   this.pageComponents.forEach(
     (component) =>
       chai.expect(
@@ -83,6 +84,10 @@ When(
     FormDesignerPage.getComponentOnPage(
       pageName,
       toCamelCase(componentName)
+    ).waitForDisplayed();
+    FormDesignerPage.getComponentOnPage(
+      pageName,
+      toCamelCase(componentName)
     ).click();
     AddComponentPage.deleteLink.click();
   }
@@ -91,6 +96,10 @@ When(
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
+    FormDesignerPage.getComponentOnPage(
+      pageName,
+      toCamelCase(componentName)
+    ).waitForDisplayed({ reverse: true });
     chai.expect(
       FormDesignerPage.getComponentOnPage(
         pageName,
@@ -144,7 +153,7 @@ When("I add a new Global list named {string}", function (listName) {
   EditListSection.listTitle.setValue(listName);
   EditListSection.createListItem.click();
   EditListSection.addNewListItem(
-    "Add a new list item",
+    "Add list item",
     "Test Global Lists",
     "two",
     "two"
@@ -224,7 +233,7 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
   Actions.createComponentForPage(componentName, pageName);
 });
 
-Then("the Date control is displayed in the page", () => {
+Then("the Date field control is displayed in the page", () => {
   chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
     .true;
   expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
@@ -238,8 +247,9 @@ When("I edit the page title on the {string}", (pageName) => {
 });
 
 Then("the changes are reflected in the page designer", () => {
-  FormDesignerPage.designerMenu.waitForDisplayed();
-  console.log(FormDesignerPage.getTitleTextForPage(this.newPageName));
+  browser.waitUntil(
+    () => FormDesignerPage.formPageTitles[0].getText() === "testing"
+  );
   expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
     this.newPageName
   );
@@ -250,7 +260,7 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  FormDesignerPage.designerMenu.waitForDisplayed();
+  browser.waitUntil(() => FormDesignerPage.formPages.length === 4);
   this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
     return element.getText();
   });

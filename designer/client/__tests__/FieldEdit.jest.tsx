@@ -8,13 +8,8 @@ import {
   initComponentState,
 } from "../reducers/component/componentReducer";
 import { FieldEdit } from "../field-edit";
-import { initI18n } from "../i18n";
 
 describe("Field Edit", () => {
-  beforeEach(() => {
-    initI18n();
-  });
-
   let data = new Data({
     pages: [
       {
@@ -68,11 +63,11 @@ describe("Field Edit", () => {
       </TestComponentContextProvider>
     );
     expect(container).toHaveTextContent(
-      "Enter the name to show for this component"
+      "Enter the name to show for this field"
     );
 
     expect(container).toHaveTextContent(
-      "Enter the description to show for this component"
+      "Enter the description to show for this field"
     );
 
     expect(container).toHaveTextContent(
@@ -100,11 +95,11 @@ describe("Field Edit", () => {
       </TestComponentContextProvider>
     );
     expect(container).toHaveTextContent(
-      "Enter the name to show for this component"
+      "Enter the name to show for this field"
     );
 
     expect(container).toHaveTextContent(
-      "Enter the description to show for this component"
+      "Enter the description to show for this field"
     );
 
     expect(container).toHaveTextContent(

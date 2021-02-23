@@ -1,7 +1,5 @@
 import { customRenderForLists } from "./helpers";
-import { initI18n } from "../../i18n";
 import { Data } from "@xgovformbuilder/model";
-initI18n();
 
 import React from "react";
 import { GlobalListSelect } from "../GlobalListSelect";
@@ -54,5 +52,5 @@ test("strings are rendered correctly", async () => {
       "Lists you have created appear on this screen. From here you can manage the lists available for your form."
     )
   ).toBeInTheDocument();
-  expect(getByText("Add list")).toBeInTheDocument();
+  expect(getByText("Add a new list")).toBeInTheDocument();
 });

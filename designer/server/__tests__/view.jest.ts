@@ -115,4 +115,22 @@ describe("Server tests", () => {
       res.result.indexOf('{"featureEditPageDuplicateButton":false}') > -1
     ).toEqual(true);
   });
+
+  test("security headers are present", async () => {
+    const { persistenceService } = server.services();
+    persistenceService.listAllConfigurations = () => {
+      return Promise.resolve([]);
+    };
+
+    const options = {
+      method: "get",
+      url: "/app",
+    };
+
+    const res = await server.inject(options);
+    expect(res.statusCode).toEqual(200);
+    expect(res.headers["x-frame-options"]).not.toBeNull();
+    expect(res.headers["x-content-type-options"]).not.toBeNull();
+    expect(res.headers["x-frame-options"]).not.toBeNull();
+  });
 });

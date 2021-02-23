@@ -16,7 +16,7 @@ export function componentToString(component) {
 
 export function DataPrettyPrint(props) {
   const { data } = props;
-  const { sections, pages } = data;
+  const { sections = [], pages = [] } = data;
 
   const model = {};
 

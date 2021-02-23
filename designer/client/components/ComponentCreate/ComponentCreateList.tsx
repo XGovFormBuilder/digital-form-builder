@@ -35,8 +35,9 @@ export const ComponentCreateList = ({ onSelectComponent }: Props) => {
       event.preventDefault();
       onSelectComponent(component);
     },
-    []
+    [onSelectComponent]
   );
+
   return (
     <div
       className="govuk-form-group component-create__list"

@@ -7,10 +7,7 @@ import {
   initComponentState,
 } from "../reducers/component/componentReducer";
 import { DataContext } from "../context";
-import { initI18n } from "../i18n";
 import { Data } from "@xgovformbuilder/model";
-
-initI18n();
 
 describe("ComponentTypeEdit", () => {
   let mockData: Data;
@@ -67,7 +64,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this component";
+      const text = "Enter the name to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -78,7 +75,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this component";
+      const text = "Enter the description to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -154,7 +151,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this component";
+      const text = "Enter the name to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -165,7 +162,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this component";
+      const text = "Enter the description to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -241,7 +238,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this component";
+      const text = "Enter the name to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -252,7 +249,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this component";
+      const text = "Enter the description to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -328,7 +325,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the name to show for this component";
+      const text = "Enter the name to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 
@@ -339,7 +336,7 @@ describe("ComponentTypeEdit", () => {
         </RenderWithContext>
       );
 
-      const text = "Enter the description to show for this component";
+      const text = "Enter the description to show for this field";
       expect(getByText(text)).toBeInTheDocument();
     });
 

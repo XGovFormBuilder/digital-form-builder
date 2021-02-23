@@ -1,6 +1,5 @@
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
-import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
@@ -122,9 +121,12 @@ class SectionEdit extends React.Component {
           <Input
             id="section-title"
             name="title"
+            hint={{
+              children: [i18n("sectionEdit.titleField.helpText")],
+            }}
             label={{
               className: "govuk-label--s",
-              children: [i18n("title")],
+              children: [i18n("sectionEdit.titleField.title")],
             }}
             value={title}
             onChange={(e) => this.setState({ title: e.target.value })}
@@ -138,10 +140,10 @@ class SectionEdit extends React.Component {
             className="govuk-input--width-20"
             label={{
               className: "govuk-label--s",
-              children: ["Section name"],
+              children: [i18n("sectionEdit.nameField.title")],
             }}
             hint={{
-              children: [i18n("name.hint")],
+              children: [i18n("sectionEdit.nameField.helpText")],
             }}
             value={name}
             onChange={(e) => this.setState({ name: e.target.value })}

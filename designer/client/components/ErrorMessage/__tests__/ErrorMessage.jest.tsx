@@ -1,9 +1,6 @@
 import React from "react";
 import { render, cleanup, screen } from "@testing-library/react";
 import { ErrorMessage } from "..";
-import { initI18n } from "../../../i18n/i18n";
-
-initI18n();
 
 describe("ErrorMessage component", () => {
   afterEach(cleanup);

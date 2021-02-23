@@ -1,9 +1,6 @@
 import React from "react";
 import { LandingChoice } from "../Choice";
 import { render, cleanup, fireEvent, screen } from "@testing-library/react";
-import { initI18n } from "../../../i18n";
-
-initI18n();
 
 describe("LandingChoice", () => {
   afterEach(() => jest.resetAllMocks());

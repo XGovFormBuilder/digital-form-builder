@@ -5,10 +5,10 @@ import { Lines } from "./Lines";
 import { Minimap } from "./Minimap";
 import { Info } from "./Info";
 import { getLayout, Pos } from "./getLayout";
-import "./visualisation.scss";
 import { DataContext } from "../../context";
 import { i18n } from "../../i18n";
 import { Prompt } from "react-router-dom";
+import "./visualisation.scss";
 
 type Props = {
   updatedAt?: string;
@@ -25,7 +25,7 @@ export function useVisualisation(ref) {
   useEffect(() => {
     const layout = getLayout(data, ref.current!);
     setLayout(layout.pos);
-  }, [data]);
+  }, [data, ref]);
 
   return { layout };
 }

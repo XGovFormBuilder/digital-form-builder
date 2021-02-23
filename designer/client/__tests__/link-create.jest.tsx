@@ -1,9 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import LinkCreate from "../link-create";
-import { initI18n } from "../i18n";
-
-initI18n();
 
 describe("LinkCreate", () => {
   let data: any;
