@@ -81,7 +81,8 @@
     "webdriverio": "^6.6.0"
   },
   "resolutions": {
-    "braces": "2.3.1"
+    "braces": "2.3.1",
+    "pathval": "1.1.1"
   },
   "husky": {
     "hooks": {
