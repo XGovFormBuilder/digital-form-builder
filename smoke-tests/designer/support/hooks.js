@@ -22,6 +22,9 @@ exports.hooks = {
     generate({
       jsonDir: "./reports/json/",
       reportPath: "./reports/",
+      displayDuration: true,
+      durationInSeconds: true,
+      displayReportTime: true,
       // for more options see https://github.com/wswebcreation/multiple-cucumber-html-reporter#options
     });
   },
