@@ -45,6 +45,7 @@ class AddComponentPage extends Page {
   selectComponentByName(name) {
     this.addComponent.waitForDisplayed();
     browser.$(`=${name}`).click();
+    expect(this.backToComponentList).toBeDisplayed();
   }
 
   paragraphSetText(text) {
