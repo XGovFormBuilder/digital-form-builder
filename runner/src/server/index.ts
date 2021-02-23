@@ -2,7 +2,7 @@ import fs from "fs";
 import hapi, { ServerOptions } from "@hapi/hapi";
 
 import Scooter from "@hapi/scooter";
-import inert from "inert";
+import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
 
