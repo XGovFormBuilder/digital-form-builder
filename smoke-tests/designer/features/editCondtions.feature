@@ -7,13 +7,7 @@ Feature: Edit Conditions
   Scenario: Create a condition using Edit Conditions
     Given I have created a new form configuration
     And I add a "Date" control to the "First page"
-    When I choose to "Edit Conditions"
+    When I choose to "Conditions"
     And I add a condition for the "Date"
     Then the condition is created
     And I can save the condition
-
-    @debug
-  Scenario: Add a conditon to a link
-    Given I have created a new form configuration
-    And I add a "Date" control to the "First page"
-    When I create a condition for the "Date" field

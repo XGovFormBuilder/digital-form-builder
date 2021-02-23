@@ -1,9 +1,9 @@
-const {When, Then} = require("cucumber");
+const { When, Then } = require("cucumber");
 const formDesigner = require("../pageobjects/pages/formDesigner.page");
 const editSection = require("../pageobjects/sections/editSection.section");
 const addCondition = require("../pageobjects/sections/addCondition.section");
 const fieldData = require("../../data/componentFieldData");
-const {toCamelCase} = require("../../support/testHelpers");
+const { toCamelCase } = require("../../support/testHelpers");
 
 When(/^I choose to "([^"]*)"$/, function (buttonName) {
   formDesigner.clickButton(buttonName);
@@ -11,9 +11,13 @@ When(/^I choose to "([^"]*)"$/, function (buttonName) {
 
 When(/^I add a condition for the "([^"]*)"$/, function (componentName) {
   editSection.clickLink("Add condition");
-  expect($$(".panel--flyout")[1].getCSSProperty("width").value).toEqual(
-    "620px"
+  const panelWidth = parseInt(
+    browser
+      .$$(".panel--flyout")[1]
+      .getCSSProperty("width")
+      .value.match(/\d+/)[0]
   );
+  expect(panelWidth).toBeGreaterThanOrEqual(620);
   this.operator = fieldData[toCamelCase(componentName)].title;
   addCondition.displayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
