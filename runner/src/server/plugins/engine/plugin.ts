@@ -2,11 +2,7 @@ import path from "path";
 import nunjucks from "nunjucks";
 import { redirectTo } from "./helpers";
 import { RelativeUrl } from "./feedback";
-import {
-  FormConfiguration,
-  SchemaMigrationService,
-} from "@xgovformbuilder/model";
-
+import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 
 import { FormModel } from "./models/FormModel";
@@ -75,8 +71,6 @@ export const plugin = {
   multiple: true,
   register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
-
-    const schemaMigrationService = new SchemaMigrationService(server, options);
     /*
      * This plugin cannot be run outside of the context of the https://github.com/XGovFormBuilder/digital-form-builder project.
      * Ideally the engine encapsulates all the functionality required to run a form so work needs to be done to merge functionality
@@ -84,10 +78,10 @@ export const plugin = {
      **/
     const forms = {};
     configs.forEach((config) => {
-      forms[config.id] = new FormModel(
-        schemaMigrationService.migrate(config.configuration),
-        { ...modelOptions, basePath: config.id }
-      );
+      forms[config.id] = new FormModel(config.configuration, {
+        ...modelOptions,
+        basePath: config.id,
+      });
     });
 
     if (previewMode) {
@@ -109,8 +103,10 @@ export const plugin = {
             typeof configuration === "string"
               ? JSON.parse(configuration)
               : configuration;
-          const def = schemaMigrationService.migrate(parsedConfiguration);
-          forms[id] = new FormModel(def, { ...modelOptions, basePath: id });
+          forms[id] = new FormModel(parsedConfiguration, {
+            ...modelOptions,
+            basePath: id,
+          });
           return h.response({}).code(204);
         },
       });
