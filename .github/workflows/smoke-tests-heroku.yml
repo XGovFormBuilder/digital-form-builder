@@ -59,4 +59,5 @@ jobs:
           SLACK_MESSAGE: 'Nightly Smoke test job for heroku failed'
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
+          SLACK_ICON: https://a.slack-edge.om/80588/img/services/outgoing-webhook_128.png
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
