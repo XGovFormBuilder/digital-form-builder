@@ -1,4 +1,4 @@
-name: Smoke Tests Nightly -Heroku
+name: Smoke Tests Nightly - Heroku
 on:
   schedule:
     - cron: "0 0 * * *"
