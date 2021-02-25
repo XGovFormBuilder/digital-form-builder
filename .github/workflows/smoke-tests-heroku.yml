@@ -2,6 +2,9 @@ name: Smoke Tests Nightly -Heroku
 on:
   schedule:
     - cron: "0 0 * * *"
+  pull_request:
+    branches:
+      - add-slack-hook-to-nightly-smoke
   workflow_dispatch:
 jobs:
   test:
@@ -47,3 +50,14 @@ jobs:
           name: smoke-tests-nightly-heroku
           path: smoke-tests-nightly-heroku.tar
           retention-days: 14
+      - name: Slack Notification
+          if: ${{failure() }}
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
+            SLACK_COLOR: '#3278BD'
+            SLACK_ICON: https://github.com/rtCamp.png?size=48
+            SLACK_MESSAGE: 'Nightly Smoke test job for heroku failed'
+            SLACK_TITLE: Smoke Test failure
+            SLACK_USERNAME: rtBot
+            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
