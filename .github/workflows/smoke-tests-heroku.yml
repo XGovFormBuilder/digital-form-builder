@@ -58,5 +58,5 @@ jobs:
           SLACK_COLOR: '#3278BD'
           SLACK_MESSAGE: 'Nightly Smoke test job for heroku failed'
           SLACK_TITLE: Smoke Test failure
-          SLACK_USERNAME: rtBot
+          SLACK_USERNAME: froms-nightly-bot
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
