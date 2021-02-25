@@ -51,7 +51,7 @@ jobs:
           path: smoke-tests-nightly-heroku.tar
           retention-days: 14
       - name: Slack Notification
-          if: ${{failure() }}
+          if: ${{failure()}}
           uses: rtCamp/action-slack-notify@v2
           env:
             SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
