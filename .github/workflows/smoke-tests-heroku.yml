@@ -55,7 +55,7 @@ jobs:
         if: ${{failure()}}
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
-          SLACK_COLOR: '#3278BD'
+          SLACK_COLOR: '#990000'
           SLACK_MESSAGE: 'Nightly Smoke test job for heroku failed'
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
