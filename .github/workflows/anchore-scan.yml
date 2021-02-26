@@ -8,7 +8,7 @@ on:
       - feature/FORMS-206-add-anchore-scans
 
 jobs:
-  runner-scan:
+  designer-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -44,10 +44,10 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         if: ${{ success() || failure() }}
         with:
-          name: AnchoreReports-Runner
+          name: AnchoreReports-Designer
           path: vulnerabilities.json
 
-  designer-scan:
+  runner-scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -84,5 +84,5 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         if: ${{ success() || failure() }}
         with:
-          name: AnchoreReports-Designer
+          name: AnchoreReports-Runner
           path: vulnerabilities.json
