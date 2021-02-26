@@ -9,7 +9,7 @@ const { config } = require("./wdio.conf.js");
       "goog:chromeOptions": {
         args: [
           "--disable-infobars",
-          "--window-size=1280,800",
+          "--window-size=1444,774",
           "--headless",
           "--no-sandbox",
           "--disable-gpu",

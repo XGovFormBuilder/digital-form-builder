@@ -230,24 +230,7 @@ Then("the list is selected in the list dropdown", function () {
 
 When("I add a {string} control to the {string}", (componentName, pageName) => {
   this.pageName = pageName;
-  FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  expect(AddComponentPage.backToComponentList).toBeDisplayed();
-  switch (componentName) {
-    case "Paragraph":
-      AddComponentPage.paragraphSetText(
-        `You need the vehicle’s number plate (registration number).\n
-          You can see the results as soon as the MOT centre has recorded the test result.\n
-          You’ll need the 11-digit number from the vehicle’s log book (V5C) to see the test location.`
-      );
-      AddComponentPage.saveBtn.click();
-      break;
-    default:
-      AddComponentPage.completeCommonFields(
-        FieldData[toCamelCase(componentName)]
-      );
-      break;
-  }
+  Actions.createComponentForPage(componentName, pageName);
 });
 
 Then("the Date field control is displayed in the page", () => {
