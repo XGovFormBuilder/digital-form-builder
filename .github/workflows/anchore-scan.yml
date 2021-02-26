@@ -37,7 +37,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "digital-form-builder_designer:latest"
+          image: "digital-form-builder-designer:latest"
           fail-build: false
           severity-cutoff: critical
       - name: Upload artifact
@@ -76,7 +76,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "digital-form-builder_runner:latest"
+          image: "digital-form-builder-runner:latest"
           acs-report-enable: true
           fail-build: false
           severity-cutoff: critical
