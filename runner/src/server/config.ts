@@ -44,7 +44,9 @@ const schema = Joi.object({
   serviceName: Joi.string().optional(),
   documentUploadApiUrl: Joi.string().default(DEFAULT_DOCUMENT_UPLOAD_API_URL),
   previewMode: Joi.boolean().optional(),
-  sslKey: Joi.string().optional(),
+  sslKey: Joi.string()
+    .optional()
+    .default(process.env.NODE_ENV === "development" ? null : "form-builder"),
   sslCert: Joi.string().optional(),
   sessionTimeout: Joi.number().default(DEFAULT_SESSION_TTL),
   sessionCookiePassword: Joi.string().optional(),
