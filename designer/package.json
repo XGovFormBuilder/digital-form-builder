@@ -144,5 +144,8 @@
     "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^2.5.2",
     "whatwg-fetch": "^3.5.0"
+  },
+  "resolutions": {
+    "dot-prop": "^5.1.1"
   }
 }
