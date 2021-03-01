@@ -239,16 +239,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           </Flyout>
         )}
       </div>
-      <div className="menu__row">
-        <a href="/app">Create new form</a>
-        <a href="#" onClick={onClickUpload}>
-          Import saved form
-        </a>
-        <a onClick={onClickDownload} href="#">
-          Download form
-        </a>
-        <input type="file" id="upload" hidden onChange={onFileUpload} />
-      </div>
     </nav>
   );
 }

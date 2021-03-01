@@ -1,10 +1,10 @@
 import { whichMigrations } from "@xgovformbuilder/model";
 
-export function useMigration(formJson) {
-  const version = formJson.version ?? 0;
+export function useMigration(form) {
+  const version = form.version ?? 0;
   const migrationList = whichMigrations(version);
   try {
-    let migratedJson = { ...formJson };
+    let migratedJson = { ...form };
     migrationList.forEach((migration) => {
       migratedJson = migration(migratedJson);
     });
