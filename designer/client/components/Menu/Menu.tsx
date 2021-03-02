@@ -16,6 +16,7 @@ import { DataPrettyPrint } from "../DataPrettyPrint/DataPrettyPrint";
 import ListsEdit from "../../list/ListsEdit";
 import { useMenuItem } from "./useMenuItem";
 import { Tabs, useTabs } from "./useTabs";
+import { SubMenu } from "./SubMenu";
 
 type Props = {
   updateDownloadedAt?: (string) => void;
@@ -37,34 +38,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   const summary = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
-
-  const onClickUpload = (e) => {
-    e.preventDefault();
-    document.getElementById("upload").click();
-  };
-
-  const onClickDownload = (e) => {
-    e.preventDefault();
-    const encodedData =
-      "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
-    updateDownloadedAt?.(new Date().toLocaleTimeString());
-    const link = document.createElement("a");
-    link.download = `${id}.json`;
-    link.href = `data:${encodedData}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const onFileUpload = (e) => {
-    const file = e.target.files.item(0);
-    const reader = new window.FileReader();
-    reader.readAsText(file, "UTF-8");
-    reader.onload = function (evt) {
-      const content = JSON.parse(evt.target.result);
-      save(content);
-    };
-  };
 
   return (
     <nav className="menu">
@@ -239,6 +212,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           </Flyout>
         )}
       </div>
+      <SubMenu id={id} updateDownloadedAt={updateDownloadedAt} />
     </nav>
   );
 }

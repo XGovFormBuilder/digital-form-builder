@@ -1,12 +1,9 @@
-import { valuesFrom, yesNoValues } from "../values";
-import type { ComponentValues } from "../values";
 import {
   ConditionsWrapper,
   ConditionWrapperValue,
   ConditionRawData,
 } from "./conditions-wrapper";
 import { InputWrapper } from "./input-wrapper";
-import { ValuesWrapper } from "./values-wrapper";
 import { clone, filter } from "../utils/helpers";
 import { ComponentDef } from "../components/types";
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
@@ -219,28 +216,6 @@ export class Data {
 
   getPages(): Array<any> {
     return this.pages;
-  }
-
-  valuesFor(component: ComponentDef): ValuesWrapper | undefined {
-    const values = this._valuesFor(component);
-    if (values) {
-      return new ValuesWrapper(values, this);
-    }
-    return undefined;
-  }
-
-  _valuesFor(
-    component: ComponentDef & { values?: ComponentValues }
-  ): ComponentValues | null {
-    if (component.type === "YesNoField") {
-      return yesNoValues;
-    }
-
-    if (component.values) {
-      return valuesFrom(component.values);
-    }
-
-    return null;
   }
 
   _allPathsLeadingTo(

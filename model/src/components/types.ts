@@ -1,5 +1,3 @@
-import { ComponentValues } from "../values";
-
 export enum ComponentTypeEnum {
   TextField = "TextField",
   MultilineTextField = "MultilineTextField",
@@ -114,7 +112,7 @@ interface ListFieldBase {
     classes?: string;
     bold?: boolean;
   };
-  values?: ComponentValues;
+  list?: string;
   schema: {};
 }
 
