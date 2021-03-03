@@ -202,4 +202,9 @@ export class FormModel {
   get conditionOptions() {
     return { allowUnknown: true, presence: "required" };
   }
+
+  getList(name: string) {
+    console.log(name);
+    return this.lists.find((list) => list.name === name) ?? [];
+  }
 }

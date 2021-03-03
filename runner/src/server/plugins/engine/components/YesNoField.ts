@@ -1,11 +1,11 @@
 import { Schema } from "joi";
 
 import * as helpers from "./helpers";
-import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
+import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
 
-export class YesNoField extends FormComponent {
+export class YesNoField extends ListFormComponent {
   list = {
     name: "__yesNo",
     title: "Yes/No",
@@ -22,33 +22,26 @@ export class YesNoField extends FormComponent {
     ],
   };
 
-  items = [
-    {
-      text: "Yes",
-      value: true,
-    },
-    {
-      text: "No",
-      value: false,
-    },
-  ];
+  get items() {
+    return this.list?.items ?? [];
+  }
+
+  get values() {
+    return [true, false];
+  }
 
   constructor(def, model) {
     super(def, model);
 
     const { options } = this;
 
-    const values = [true, false];
-    this.values = values;
-    const formSchema = helpers
+    this.formSchema = helpers
       .buildFormSchema("boolean", this, options.required !== false)
       .valid(true, false);
-    const stateSchema = helpers
+    this.stateSchema = helpers
       .buildStateSchema(this.list.type, this)
       .valid(true, false);
 
-    this.formSchema = formSchema;
-    this.stateSchema = stateSchema;
     addClassOptionIfNone(this.options, "govuk-radios--inline");
   }
 
@@ -61,26 +54,22 @@ export class YesNoField extends FormComponent {
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    const { name, values } = this;
-    const value = state[name];
-    const item = values?.items.find((item) => item.value === value);
+    const value = state[this.name];
+    const item = this.items.find((item) => item.value === value);
     return item ? item.label : "";
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {
       legend: viewModel.label,
     };
-
-    viewModel.items = values?.items.map((item) => ({
-      text: item.label,
-      value: item.value,
-      // Do a loose string based check as state may or
-      // may not match the item value types.
-      checked: "" + item.value === "" + formData[name],
+    console.log(this.items);
+    viewModel.items = this.items.map(({ text, value }) => ({
+      text,
+      value,
+      checked: value === formData[this.name],
     }));
 
     return viewModel;

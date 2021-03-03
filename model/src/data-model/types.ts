@@ -14,16 +14,18 @@ export interface Section {
   title: string;
 }
 
+export interface Item {
+  text: string;
+  value: string;
+  description?: string;
+  condition?: string;
+}
+
 export interface List {
   name: string;
   title: string;
   type: "string" | "number";
-  items: {
-    text: string;
-    value: string;
-    description: string;
-    condition: string; // the ID of the condition stored in dataModel.conditions
-  }[];
+  items: Item[];
 }
 
 export interface Feedback {

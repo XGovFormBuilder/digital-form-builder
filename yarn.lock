@@ -4770,12 +4770,8 @@ __metadata:
     boom: 7.3.0
     btoa: ^1.2.1
     cheerio: 1.0.0-rc.3
-<<<<<<< HEAD
     chrome-launcher: ^0.13.4
-=======
-    chrome-launcher: 0.13.1
     cli-ux: ^5.5.1
->>>>>>> IIFE check scripts
     code: 5.2.4
     concurrently: ^5.3.0
     dotenv: 8.2.0
@@ -6831,15 +6827,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
-=======
-"capture-stack-trace@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "capture-stack-trace@npm:1.0.1"
-  checksum: c857f977ca42626cf9187b753ae7e891c894689b917f7d83510c89cec58bdd2fbf77055987226efa862cf95c15ade4e02ccd463f53fdec49819170c0905d1071
-  languageName: node
-  linkType: hard
-
 "cardinal@npm:^2.1.1":
   version: 2.1.1
   resolution: "cardinal@npm:2.1.1"
@@ -6852,7 +6839,6 @@ __metadata:
   languageName: node
   linkType: hard
 
->>>>>>> IIFE check scripts
 "caseless@npm:~0.12.0":
   version: 0.12.0
   resolution: "caseless@npm:0.12.0"
@@ -23730,18 +23716,6 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-<<<<<<< HEAD
-=======
-"wrap-ansi@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "wrap-ansi@npm:2.1.0"
-  dependencies:
-    string-width: ^1.0.1
-    strip-ansi: ^3.0.1
-  checksum: d1846c06645c23dc25489e7df74df33164665c53fc609f9275ebcae11e1106f2d07038ffd8063433d1aaf9c657c42f8f45c77b7c749e358bf022351d86921d3b
-  languageName: node
-  linkType: hard
-
 "wrap-ansi@npm:^4.0.0":
   version: 4.0.0
   resolution: "wrap-ansi@npm:4.0.0"
@@ -23753,7 +23727,6 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
->>>>>>> IIFE check scripts
 "wrap-ansi@npm:^5.1.0":
   version: 5.1.0
   resolution: "wrap-ansi@npm:5.1.0"

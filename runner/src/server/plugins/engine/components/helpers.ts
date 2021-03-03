@@ -1,10 +1,7 @@
 import joi from "joi";
 
 export function buildSchema(type, keys) {
-  let schema = type?.isJoi ? type : joi[type?.type ?? type]?.();
-  if (!!schema) {
-    return;
-  }
+  let schema = type?.isJoi ? type : joi[type?.type ?? type]();
 
   Object.keys(keys).forEach((key) => {
     let val = keys[key];
@@ -19,9 +16,6 @@ export function buildSchema(type, keys) {
 
 export function buildFormSchema(schemaType, component, isRequired = true) {
   let schema = buildSchema(schemaType, component.schema);
-  if (!!schema) {
-    return;
-  }
 
   if (isRequired) {
     schema = schema.required();
