@@ -3,7 +3,6 @@ import {
   ConditionWrapperValue,
   ConditionRawData,
 } from "./conditions-wrapper";
-import { InputWrapper } from "./input-wrapper";
 import { clone, filter } from "../utils/helpers";
 import { ComponentDef } from "../components/types";
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
@@ -18,6 +17,9 @@ export type RawData = Pick<
   phaseBanner?: PhaseBanner;
 };
 
+/**
+ * FIXME:- This class is seriously bloated and most of the methods are not used by the runner at all. I don't even know why it's in /model..!
+ */
 export class Data {
   /**
    * TODO
@@ -66,73 +68,6 @@ export class Data {
     const { name, conditions, feedback, ...otherProps } = rawDataClone;
 
     Object.assign(this, otherProps);
-  }
-
-  _listInputsFor(page: Page, input: ComponentDef): Array<InputWrapper> {
-    const values = this.valuesFor(input)?.toStaticValues();
-    return values
-      ? values.items.flatMap(
-          (listItem) =>
-            listItem.children
-              ?.filter((component) => component.name)
-              ?.map(
-                (component) =>
-                  new InputWrapper(component, page, {
-                    parentItemName: listItem.label,
-                  })
-              ) ?? []
-        )
-      : [];
-  }
-
-  allInputs(): Array<InputWrapper> {
-    const inputs: Array<InputWrapper> = this.pages.flatMap((page) =>
-      (page.components || [])
-        .filter((component) => component.name)
-        .flatMap((component) =>
-          [new InputWrapper(component, page, {})].concat(
-            this._listInputsFor(page, component)
-          )
-        )
-    );
-
-    if (this.feedbackForm) {
-      const startPage = this.findPage(this.startPage);
-      const options = { ignoreSection: true };
-
-      Data.FEEDBACK_CONTEXT_ITEMS.forEach((it) => {
-        inputs.push(
-          new InputWrapper(
-            {
-              type: "TextField",
-              title: it.display,
-              name: it.key,
-              hint: "",
-              options: {},
-              schema: {},
-            },
-            startPage,
-            options
-          )
-        );
-      });
-    }
-
-    const names = new Set();
-
-    return inputs.filter((input: InputWrapper) => {
-      const isPresent = !names.has(input.propertyPath);
-      names.add(input.propertyPath);
-      return isPresent;
-    });
-  }
-
-  inputsAccessibleAt(path: string): Array<InputWrapper> {
-    const precedingPages = this._allPathsLeadingTo(path);
-    return this.allInputs().filter(
-      (input) =>
-        precedingPages.includes(input.page.path) || path === input.page.path
-    );
   }
 
   findPage(path: string | undefined) {
@@ -216,21 +151,6 @@ export class Data {
 
   getPages(): Array<any> {
     return this.pages;
-  }
-
-  _allPathsLeadingTo(
-    path: string,
-    visited: Set<string> = new Set<string>()
-  ): Array<string> {
-    if (visited.has(path)) return [];
-    visited.add(path);
-    return this.pages
-      .filter(
-        (page) => page.next && page.next.find((next) => next.path === path)
-      )
-      .flatMap((page) =>
-        [page.path].concat(this._allPathsLeadingTo(page.path, visited))
-      );
   }
 
   addCondition(

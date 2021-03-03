@@ -9,7 +9,7 @@ async function check() {
   const files = await fs.readdir(FORM_PATH);
   const forms = (await files).filter((file) => path.extname(file) === ".json");
 
-  let needsMigration = forms.filter(async (file) => {
+  const needsMigration = forms.filter(async (file) => {
     const form = await fs.readFile(path.join(FORM_PATH, file));
     const version = JSON.parse(form).version || 0;
     return version < CURRENT_SCHEMA_VERSION;
@@ -20,7 +20,7 @@ async function check() {
     cli.warn(
       `Your form(s) ${needsMigration.join(
         ", "
-      )} are out of date. Use the designer to upload your files, which runs the migration scripts. Download those JSONs to replace the outdated forms.`
+      )} are out of date. Use the designer to upload your files, which runs the migration scripts. Download those JSONs to replace the outdated forms. Migration scripts will not cover conditional reveal fields. You will need to fix those manually.`
     );
   } else {
     cli.info("Your forms are up to date");

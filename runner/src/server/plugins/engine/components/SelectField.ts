@@ -12,15 +12,16 @@ export class SelectField extends FormComponent {
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
-    const { values } = this;
+    const { list } = def;
+    const listObject = model.lists.find((list) => list.name === list);
     const formSchema = helpers.buildFormSchema("string", this);
-    const itemValues = values?.items.map((item) => item.value) ?? [];
+    const itemValues = listObject.items.map((item) => item.value) ?? [];
 
     const stateSchema = helpers
-      .buildStateSchema(values?.valueType, this)
+      .buildStateSchema("string", this)
       .valid(...itemValues);
 
-    this.items = values?.items;
+    this.items = listObject.items;
     this.formSchema = formSchema;
     this.stateSchema = stateSchema;
   }

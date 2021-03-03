@@ -1,33 +1,54 @@
 import { Schema } from "joi";
-import { Data, InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
-import { FormModel } from "../models";
 
 export class YesNoField extends FormComponent {
-  constructor(def: InputFieldsComponentsDef, model: FormModel) {
+  list = {
+    name: "__yesNo",
+    title: "Yes/No",
+    type: "boolean",
+    items: [
+      {
+        text: "Yes",
+        value: true,
+      },
+      {
+        text: "No",
+        value: false,
+      },
+    ],
+  };
+
+  items = [
+    {
+      text: "Yes",
+      value: true,
+    },
+    {
+      text: "No",
+      value: false,
+    },
+  ];
+
+  constructor(def, model) {
     super(def, model);
-    const data = new Data(model.def);
-    const { options, values } = this;
 
-    this.values = data.valuesFor(def)?.toStaticValues();
-    const isRequired =
-      "required" in options && options.required === false ? false : true;
+    const { options } = this;
 
-    const validValues = values?.items.map((item) => item.value) || [];
+    const values = [true, false];
+    this.values = values;
     const formSchema = helpers
-      .buildFormSchema(values?.valueType, this, isRequired)
-      .valid(...validValues);
+      .buildFormSchema("boolean", this, options.required !== false)
+      .valid(true, false);
     const stateSchema = helpers
-      .buildStateSchema(values?.valueType, this)
-      .valid(...validValues);
+      .buildStateSchema(this.list.type, this)
+      .valid(true, false);
 
     this.formSchema = formSchema;
     this.stateSchema = stateSchema;
-
     addClassOptionIfNone(this.options, "govuk-radios--inline");
   }
 

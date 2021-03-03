@@ -112,7 +112,7 @@ interface ListFieldBase {
     classes?: string;
     bold?: boolean;
   };
-  list?: string;
+  list: string;
   schema: {};
 }
 

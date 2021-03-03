@@ -48,12 +48,7 @@
           "type": "SelectField",
           "name": "numberOfApplicants",
           "title": "How many applicants are there?",
-          "values": {
-            "type": "listRef",
-            "list": "numberOfApplicants",
-            "valueChildren": []
-          },
-          "schema": {}
+          "list": "numberOfApplicants"
         }
       ],
       "next": [

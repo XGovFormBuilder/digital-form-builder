@@ -1,5 +1,4 @@
 import { MigrationScript } from "./types";
-import { nanoid } from "../utils/helpers";
 
 function needsUpgrade(data) {
   return !!data.pages

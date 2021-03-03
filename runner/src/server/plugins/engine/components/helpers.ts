@@ -1,14 +1,17 @@
 import joi from "joi";
 
 export function buildSchema(type, keys) {
-  let schema = type.isJoi ? type : joi[type.type ?? type]();
+  let schema = type?.isJoi ? type : joi[type?.type ?? type]?.();
+  if (!!schema) {
+    return;
+  }
 
   Object.keys(keys).forEach((key) => {
     let val = keys[key];
     if (key === "regex") {
       val = new RegExp(val);
     }
-    schema = schema[key](typeof val === "boolean" ? undefined : val);
+    schema[key](typeof val === "boolean" ? undefined : val);
   });
 
   return schema;
@@ -16,6 +19,9 @@ export function buildSchema(type, keys) {
 
 export function buildFormSchema(schemaType, component, isRequired = true) {
   let schema = buildSchema(schemaType, component.schema);
+  if (!!schema) {
+    return;
+  }
 
   if (isRequired) {
     schema = schema.required();
