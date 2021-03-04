@@ -1,6 +1,6 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
-const AddComponentPage = require("../pageobjects/pages/addComponent.page");
+const createComponent = require("../pageobjects/sections/createComponent.section");
 const AddLinkSection = require("../pageobjects/sections/addLink.section");
 const EditListSection = require("../pageobjects/sections/editLists.section");
 const EditPageSection = require("../pageobjects/sections/editPage.section");
@@ -24,15 +24,15 @@ When("I select {string} component to add to the page", function (
   componentName
 ) {
   this.componentName = componentName;
-  AddComponentPage.selectComponentByName(this.componentName);
+  createComponent.selectComponentByName(this.componentName);
 });
 
 Then(
   "I am able to return to components list with creating the component",
   function () {
-    AddComponentPage.backToComponentList.click();
-    expect(AddComponentPage.sectionHeading).toHaveText("Create component");
-    expect(AddComponentPage.addComponent).toBeDisplayed();
+    createComponent.backToComponentList.click();
+    expect(createComponent.sectionHeading).toHaveText("Create component");
+    expect(createComponent.addComponent).toBeDisplayed();
   }
 );
 
@@ -89,7 +89,7 @@ When(
       pageName,
       toCamelCase(componentName)
     ).click();
-    AddComponentPage.deleteLink.click();
+    createComponent.deleteLink.click();
   }
 );
 
@@ -166,7 +166,7 @@ When(
   "I create a {string} control for the {string}",
   (componentName, pageName) => {
     FormDesignerPage.createComponentForPageName(pageName).click();
-    AddComponentPage.selectComponentByName(componentName);
+    createComponent.selectComponentByName(componentName);
   }
 );
 
@@ -177,17 +177,17 @@ When("I add a {string} control for the {string}", function (
   this.pageName = pageName;
   EditListSection.closeLinks[0].click();
   FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.completeCommonFields(
+  createComponent.selectComponentByName(componentName);
+  createComponent.completeCommonFields(
     FieldData[toCamelCase(componentName)],
     false
   );
-  AddComponentPage.selectList(FieldData.list.title);
-  AddComponentPage.saveBtn.click();
+  createComponent.selectList(FieldData.list.title);
+  createComponent.saveBtn.click();
 });
 
 Then("the list is available in the list options", function () {
-  expect(AddComponentPage.listOptions).toHaveText(this.listName);
+  expect(createComponent.listOptions).toHaveText(this.listName);
 });
 
 When("I choose to duplicate the {string}", (pageName) => {

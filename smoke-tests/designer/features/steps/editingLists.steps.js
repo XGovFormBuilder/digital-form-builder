@@ -1,5 +1,5 @@
 const { Given, When, Then } = require("cucumber");
-const AddComponentPage = require("../pageobjects/pages/addComponent.page");
+const createComponent = require("../pageobjects/sections/createComponent.section");
 const EditListSection = require("../pageobjects/sections/editLists.section");
 const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
@@ -15,8 +15,8 @@ Given("I have created a {string} list with {int} list item(s)", function (
   switch (listType.toLowerCase()) {
     case "local":
       FormDesignerPage.createComponentForPageName("First page").click();
-      AddComponentPage.selectComponentByName("List");
-      AddComponentPage.completeCommonFields(FieldData[toCamelCase("List")]);
+      createComponent.selectComponentByName("List");
+      createComponent.completeCommonFields(FieldData[toCamelCase("List")]);
       FormDesignerPage.editPageComponent("list");
       EditListSection.clickLink("Add a new component list");
       EditListSection.createListWithListItems(listType, this.numberOfListItems);
@@ -168,4 +168,20 @@ Then("the {int}st list item reflects the changes I made", function (listItem) {
   expect(EditListSection.listItems[listItem - 1]).toHaveTextContaining(
     this.listItemTitle
   );
+});
+
+When("I try add {string} to the {string} without selecting a list", function (
+  componentName,
+  pageName
+) {
+  this.pageName = pageName;
+  EditListSection.closeLinks[0].click();
+  FormDesignerPage.createComponentForPageName(pageName).click();
+  createComponent.selectComponentByName(componentName);
+  createComponent.titleField.setValue("Checkbox Component Test");
+  createComponent.saveBtn.click();
+});
+
+Then("the error summary is displayed", function () {
+  expect(createComponent.errorSummary).toBeDisplayed();
 });

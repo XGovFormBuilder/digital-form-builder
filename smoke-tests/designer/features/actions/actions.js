@@ -1,4 +1,4 @@
-const addComponent = require("../pageobjects/pages/addComponent.page");
+const createComponent = require("../pageobjects/sections/createComponent.section");
 const configPage = require("../pageobjects/pages/config.page");
 const formDesigner = require("../pageobjects/pages/formDesigner.page");
 const fieldData = require("../../data/componentFieldData");
@@ -25,14 +25,16 @@ class Actions {
    */
   createComponentForPage(componentName, pageName) {
     formDesigner.createComponentForPageName(pageName).click();
-    addComponent.selectComponentByName(componentName);
+    createComponent.selectComponentByName(componentName);
     if (componentName.toLowerCase() === "paragraph") {
-      addComponent.paragraphSetText(
+      createComponent.paragraphSetText(
         fieldData[componentName.toLowerCase()].content
       );
-      addComponent.saveBtn.click();
+      createComponent.saveBtn.click();
     } else {
-      addComponent.completeCommonFields(fieldData[toCamelCase(componentName)]);
+      createComponent.completeCommonFields(
+        fieldData[toCamelCase(componentName)]
+      );
     }
   }
 }
