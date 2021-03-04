@@ -34,7 +34,8 @@ Feature: List components
     When I edit the 1st list item from the "global" list
     Then the 1st list item reflects the changes I made
 
-    @wip # Enable once the fix for 449 is in place
+  # Enable once the fix for 449 is in place
+  @wip
   Scenario: Adding a component without selecting a list
     And I have created a "Global" list with 2 list items
     When I try add "Checkboxes" to the "First page" without selecting a list
