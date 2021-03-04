@@ -197,7 +197,7 @@ const applicationStatus = {
             reference,
             meta.description,
             meta.payApiKey,
-            redirectUrl(request, config.payReturnUrl)
+            `${config.payReturnUrl}?visit=${request.query.visit}`
           );
           await cacheService.mergeState(request, {
             pay: {
