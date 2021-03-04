@@ -19,7 +19,7 @@ export const request: Request = async (method, url, options = {}) => {
   const { res, payload } = await wreck[method](url, options);
 
   try {
-    return { res, payload: payload.toString() };
+    return { res, payload };
   } catch (error) {
     return { res, error };
   }
