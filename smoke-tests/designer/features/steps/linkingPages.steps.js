@@ -1,7 +1,7 @@
 const { Given, When, Then } = require("cucumber");
+const { formDesigner } = require("../pageobjects/pages");
 const AddLinkSection = require("../pageobjects/sections/addLink.section");
 const AddPageSection = require("../pageobjects/sections/addPage.section");
-const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const Actions = require("../actions/actions");
 const { acceptAlert, toUrl } = require("../../support/testHelpers");
@@ -19,12 +19,12 @@ When("I link ths page to link from the {string}", (linkedPage) => {
 });
 
 Then("my page is created with a link to the page", () => {
-  browser.waitUntil(() => FormDesignerPage.formPageTitles.length === 4);
-  this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
+  browser.waitUntil(() => formDesigner.formPageTitles.length === 4);
+  this.pageNames = formDesigner.formPageTitles.map(function (element) {
     return element.getText();
   });
   expect(this.pageNames.includes("Third page")).toEqual(true);
-  expect(FormDesignerPage.linkLine).toExist();
+  expect(formDesigner.linkLine).toExist();
 });
 
 Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
@@ -37,8 +37,8 @@ Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
 });
 
 When("I delete the link between the pages", () => {
-  FormDesignerPage.pagesLink.waitForClickable();
-  FormDesignerPage.pagesLink.click();
+  formDesigner.pagesLink.waitForClickable();
+  formDesigner.pagesLink.click();
   // TODO:- Get an attribute for selected added to CSS
   // expect(AddLinkSection.fromSelectList).toHaveText(this.fromPage);
   // expect(AddLinkSection.toSelectList).toHaveText(this.toPage);
@@ -48,5 +48,5 @@ When("I delete the link between the pages", () => {
 });
 
 Then("the link is no longer displayed", () => {
-  expect(FormDesignerPage.linkLine).not.toExist();
+  expect(formDesigner.linkLine).not.toExist();
 });

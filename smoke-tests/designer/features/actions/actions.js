@@ -1,6 +1,5 @@
+const { configPage, formDesigner } = require("../pageobjects/pages");
 const createComponent = require("../pageobjects/sections/createComponent.section");
-const configPage = require("../pageobjects/pages/config.page");
-const formDesigner = require("../pageobjects/pages/formDesigner.page");
 const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 const { customAlphabet } = require("nanoid");

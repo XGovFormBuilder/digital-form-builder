@@ -1,6 +1,6 @@
 const Page = require("./basePage");
 
-class configPage extends Page {
+class ConfigPage extends Page {
   get newName() {
     return $(".govuk-input");
   }
@@ -38,4 +38,4 @@ class configPage extends Page {
   }
 }
 
-module.exports = new configPage();
+module.exports = new ConfigPage();
