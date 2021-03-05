@@ -204,7 +204,6 @@ export class FormModel {
   }
 
   getList(name: string) {
-    console.log(name);
     return this.lists.find((list) => list.name === name) ?? [];
   }
 }

@@ -1,7 +1,7 @@
-import joi from "joi";
+/*import joi from "joi";
 import nunjucks from "nunjucks";
 
-import { FormComponent } from "./FormComponent";
+import { ListFormComponent } from "./ListFormComponent";
 import { ComponentCollection } from "./ComponentCollection";
 import {
   FormData,
@@ -9,11 +9,12 @@ import {
   FormSubmissionErrors,
   FormSubmissionState,
 } from "../types";
-import { FormModel } from "../models";
+import { FormModel } from "../models";*/
 
-const getSchemaKeys = Symbol("getSchemaKeys");
+//const getSchemaKeys = Symbol("getSchemaKeys");
 // FIXME:- FML
-export class ConditionalFormComponent extends FormComponent {
+// @ts-ignore
+/*export class ConditionalFormComponent extends ListFormComponent {
   itemValues: any;
 
   constructor(def, model: FormModel) {
@@ -183,4 +184,4 @@ export class ConditionalFormComponent extends FormComponent {
     });
     return schemaKeys;
   }
-}
+}*/

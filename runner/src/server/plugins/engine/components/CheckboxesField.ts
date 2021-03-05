@@ -1,7 +1,7 @@
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
+import { ListFormComponent } from "./ListFormComponent";
 import { ListComponentsDef } from "@xgovformbuilder/model";
-import { FormModel } from "server/plugins/engine/models";
+import { FormModel } from "../models";
 import joi from "joi";
 
 export class CheckboxesField extends ListFormComponent {
@@ -19,6 +19,7 @@ export class CheckboxesField extends ListFormComponent {
     this.stateSchema = schema;
   }
 
+  // @ts-ignore
   getDisplayStringFromState(state: FormSubmissionState) {
     const { name } = this;
     const value = state[name];

@@ -1,17 +1,17 @@
 import path from "path";
-import nunjucks from "nunjucks";
+import { configure } from "nunjucks";
 import { redirectTo } from "./helpers";
 import { RelativeUrl } from "./feedback";
 import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 
-import { FormModel } from "./models/FormModel";
+import { FormModel } from "./models";
 import { nanoid } from "nanoid";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 
-nunjucks.configure([
+configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
   path.resolve(__dirname, "/views"),
   path.resolve(__dirname, "/views/partials"),

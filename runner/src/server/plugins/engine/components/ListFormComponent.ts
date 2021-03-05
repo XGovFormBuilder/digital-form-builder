@@ -2,18 +2,19 @@ import joi, { Schema } from "joi";
 import { ListComponentsDef, Item, List } from "@xgovformbuilder/model";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
-import { FormModel } from "../models";
+import { FormModel } from "./../models";
 
 export class ListFormComponent extends FormComponent {
   list: List;
-  listType: "number" | "string";
+  listType = "boolean";
   formSchema;
   stateSchema;
+  options: ListComponentsDef["options"];
 
   get items(): Item[] {
     return this.list.items;
   }
-  get values() {
+  get values(): (string | number | boolean)[] {
     return this.items.map((item) => item.value);
   }
 
@@ -21,13 +22,13 @@ export class ListFormComponent extends FormComponent {
     super(def, model);
     this.list = model.getList(def.list);
     this.listType = this.list.type ?? "string";
-    const { options, values } = this;
+    this.options = def.options;
 
     const schema = joi[this.listType]()
-      .allow(...values)
+      .allow(...this.values)
       .label(def.title);
 
-    const isRequired = options?.required ?? true;
+    const isRequired = this.options.required ?? true;
     isRequired && schema.required();
     this.formSchema = schema;
     this.stateSchema = schema;
@@ -44,7 +45,7 @@ export class ListFormComponent extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState): string | string[] {
     const { name, items } = this;
     const value = state[name];
-    return items.find((item) => item.value === value)?.value ?? "";
+    return `${items.find((item) => item.value === value)?.value ?? ""}`;
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {

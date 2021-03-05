@@ -3,6 +3,7 @@ import { FormData, FormSubmissionErrors } from "../types";
 
 export class List extends ComponentBase {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    // @ts-ignore
     const { values, options } = this;
     const viewModel = super.getViewModel(formData, errors);
 

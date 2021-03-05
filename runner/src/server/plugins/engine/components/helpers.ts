@@ -2,8 +2,8 @@ import joi from "joi";
 
 /**
  * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
+ * The xxField classes should be responsible for generating their own schemas.
  */
-
 export function buildSchema(type, keys) {
   let schema = type?.isJoi ? type : joi[type?.type ?? type]();
 

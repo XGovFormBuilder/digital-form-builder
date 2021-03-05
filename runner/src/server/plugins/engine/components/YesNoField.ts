@@ -3,7 +3,7 @@ import joi, { Schema } from "joi";
 import * as helpers from "./helpers";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
-import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
+import { ListFormComponent } from "./ListFormComponent";
 import { List } from "@xgovformbuilder/model";
 
 /**
@@ -41,7 +41,7 @@ export class YesNoField extends ListFormComponent {
     const { options } = this;
 
     this.formSchema = helpers
-      .buildFormSchema("boolean", this, options.required !== false)
+      .buildFormSchema("boolean", this, options?.required !== false)
       .valid(true, false);
     this.stateSchema = helpers
       .buildStateSchema(this.list.type, this)

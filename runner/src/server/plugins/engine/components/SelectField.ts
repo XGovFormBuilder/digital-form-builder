@@ -1,3 +1,3 @@
-import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
+import { ListFormComponent } from "./ListFormComponent";
 
 export class SelectField extends ListFormComponent {}
