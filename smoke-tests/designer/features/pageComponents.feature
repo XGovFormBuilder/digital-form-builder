@@ -24,6 +24,15 @@ Feature: Components
       | Paragraph     |
       | Text          |
 
+  # Remove tag once checkbox issue is resolved
+  @wip
+  Scenario: Progress to the Summary after filling in Checkboxes
+    And I have created a "Global" list with 2 list items
+    When I add a "Checkboxes" control for the "Second page"
+    And I preview the "Second" page
+    Then I can check a checkbox
+    And progress to the "Summary" page
+
   Scenario: Add multiple components to a page
     When I add multiple components to the "First page"
     Then all the components are displayed in the "First page"
