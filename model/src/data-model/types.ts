@@ -16,7 +16,7 @@ export interface Section {
 
 export interface Item {
   text: string;
-  value: string;
+  value: string | number | boolean;
   description?: string;
   condition?: string;
 }
@@ -24,7 +24,7 @@ export interface Item {
 export interface List {
   name: string;
   title: string;
-  type: "string" | "number";
+  type: "string" | "number" | "boolean";
   items: Item[];
 }
 

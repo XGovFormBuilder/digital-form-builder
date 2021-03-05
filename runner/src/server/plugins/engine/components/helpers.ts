@@ -1,5 +1,9 @@
 import joi from "joi";
 
+/**
+ * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
+ */
+
 export function buildSchema(type, keys) {
   let schema = type?.isJoi ? type : joi[type?.type ?? type]();
 

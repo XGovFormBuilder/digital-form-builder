@@ -1,12 +1,17 @@
-import { Schema } from "joi";
+import joi, { Schema } from "joi";
 
 import * as helpers from "./helpers";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
 import { ListFormComponent } from "server/plugins/engine/components/ListFormComponent";
+import { List } from "@xgovformbuilder/model";
 
+/**
+ * @desc
+ * YesNoField is a radiosField with predefined values.
+ */
 export class YesNoField extends ListFormComponent {
-  list = {
+  list: List = {
     name: "__yesNo",
     title: "Yes/No",
     type: "boolean",
@@ -21,7 +26,7 @@ export class YesNoField extends ListFormComponent {
       },
     ],
   };
-
+  itemsSchema = joi.boolean();
   get items() {
     return this.list?.items ?? [];
   }
@@ -56,7 +61,7 @@ export class YesNoField extends ListFormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const value = state[this.name];
     const item = this.items.find((item) => item.value === value);
-    return item ? item.label : "";
+    return item?.text ?? "";
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
@@ -65,7 +70,6 @@ export class YesNoField extends ListFormComponent {
     viewModel.fieldset = {
       legend: viewModel.label,
     };
-    console.log(this.items);
     viewModel.items = this.items.map(({ text, value }) => ({
       text,
       value,
