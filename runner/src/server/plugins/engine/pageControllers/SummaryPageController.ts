@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import config from "server/config";
 import { SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
-import { redirectTo, redirectUrl } from "../helpers";
+import { redirectTo, redirectUrl, nonRelativeRedirectUrl } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {
   RelativeUrl,
@@ -167,7 +167,7 @@ export class SummaryPageController extends PageController {
         paymentReference,
         description,
         summaryViewModel.payApiKey || "",
-        redirectUrl(request, payReturnUrl)
+        nonRelativeRedirectUrl(request, payReturnUrl)
       );
 
       request.yar.set("basePath", model.basePath);
