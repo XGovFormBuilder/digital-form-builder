@@ -3,5 +3,5 @@ export {
   FeedbackContextInfo,
   decodeFeedbackContextInfo,
 } from "./feedback";
-export { redirectTo, redirectUrl } from "./helpers";
+export { redirectTo, redirectUrl, nonRelativeRedirectUrl } from "./helpers";
 export { configureEnginePlugin } from "./configureEnginePlugin";

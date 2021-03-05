@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import {
   decodeFeedbackContextInfo,
   redirectTo,
-  redirectUrl,
+  nonRelativeRedirectUrl,
   RelativeUrl,
 } from "./engine";
 
@@ -197,7 +197,7 @@ const applicationStatus = {
             reference,
             meta.description,
             meta.payApiKey,
-            `${config.payReturnUrl}?visit=${request.query.visit}`
+            nonRelativeRedirectUrl(request, config.payReturnUrl)
           );
           await cacheService.mergeState(request, {
             pay: {
