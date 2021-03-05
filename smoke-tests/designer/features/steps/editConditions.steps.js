@@ -1,5 +1,5 @@
 const { When, Then } = require("cucumber");
-const formDesigner = require("../pageobjects/pages/formDesigner.page");
+const { formDesigner } = require("../pageobjects/pages");
 const editSection = require("../pageobjects/sections/editSection.section");
 const addCondition = require("../pageobjects/sections/addCondition.section");
 const fieldData = require("../../data/componentFieldData");

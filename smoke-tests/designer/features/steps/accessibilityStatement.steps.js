@@ -1,28 +1,28 @@
 const { Given, When, Then } = require("cucumber");
-const Config = require("../pageobjects/pages/config.page");
+const { configPage } = require("../pageobjects/pages");
 const actions = require("../actions/actions");
 
 Given("I am on the new configuration page", function () {
-  Config.open();
-  expect(Config.govPhaseBanner).toHaveTextContaining("ALPHA");
-  expect(Config.govPhaseBanner).toHaveTextContaining(
+  configPage.open();
+  expect(configPage.govPhaseBanner).toHaveTextContaining("ALPHA");
+  expect(configPage.govPhaseBanner).toHaveTextContaining(
     "This service is currently in development"
   );
 });
 
 Then("I can see the footer element at the bottom of the page", function () {
-  Config.verifyFooter();
+  configPage.verifyFooter();
 });
 
 Given("I am on the form designer page", function () {
   actions.createNewConfig();
-  expect(Config.govPhaseBanner).toHaveTextContaining(
+  expect(configPage.govPhaseBanner).toHaveTextContaining(
     "This service is currently in development"
   );
 });
 
 When("I select the {string} in the footer", function (footerLink) {
-  Config.footerLinks(footerLink).click();
+  configPage.footerLinks(footerLink).click();
 });
 
 Then(

@@ -1,8 +1,12 @@
-const Page = require("./basePage");
+const Page = require("../pages/basePage");
 
-class AddComponentPage extends Page {
+class CreateComponentSection extends Page {
   get parent() {
     return browser.$(".panel--flyout");
+  }
+
+  get errorSummary() {
+    return this.parent.$(".govuk-error-summary");
   }
 
   get addComponent() {
@@ -67,4 +71,4 @@ class AddComponentPage extends Page {
   }
 }
 
-module.exports = new AddComponentPage();
+module.exports = new CreateComponentSection();

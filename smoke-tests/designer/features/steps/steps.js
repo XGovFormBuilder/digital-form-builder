@@ -1,14 +1,13 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
-const AddComponentPage = require("../pageobjects/pages/addComponent.page");
+const { formDesigner, previewPage } = require("../pageobjects/pages");
+const createComponent = require("../pageobjects/sections/createComponent.section");
 const AddLinkSection = require("../pageobjects/sections/addLink.section");
 const EditListSection = require("../pageobjects/sections/editLists.section");
 const EditPageSection = require("../pageobjects/sections/editPage.section");
 const EditSection = require("../pageobjects/sections/editSection.section");
-const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
-const PreviewPage = require("../pageobjects/pages/preview.page");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
 const Actions = require("../actions/actions");
 
@@ -17,22 +16,22 @@ Given("I have created a new form configuration", () => {
 });
 
 When("I choose to create a component for the {string}", function (pageName) {
-  FormDesignerPage.createComponentForPageName(pageName).click();
+  formDesigner.createComponentForPageName(pageName).click();
 });
 
 When("I select {string} component to add to the page", function (
   componentName
 ) {
   this.componentName = componentName;
-  AddComponentPage.selectComponentByName(this.componentName);
+  createComponent.selectComponentByName(this.componentName);
 });
 
 Then(
   "I am able to return to components list with creating the component",
   function () {
-    AddComponentPage.backToComponentList.click();
-    expect(AddComponentPage.sectionHeading).toHaveText("Create component");
-    expect(AddComponentPage.addComponent).toBeDisplayed();
+    createComponent.backToComponentList.click();
+    expect(createComponent.sectionHeading).toHaveText("Create component");
+    expect(createComponent.addComponent).toBeDisplayed();
   }
 );
 
@@ -42,7 +41,7 @@ Then("the {string} control is displayed in the {string}", function (
 ) {
   this.pageName = pageName;
   const ccCompName = toCamelCase(componentName);
-  const componentEl = FormDesignerPage.getComponentOnPage(pageName, ccCompName);
+  const componentEl = formDesigner.getComponentOnPage(pageName, ccCompName);
   switch (ccCompName) {
     case "date":
       componentEl.waitForDisplayed();
@@ -70,10 +69,9 @@ Then("all the components are displayed in the {string}", (pageName) => {
   this.pageComponents.forEach(
     (component) =>
       chai.expect(
-        FormDesignerPage.getComponentOnPage(
-          pageName,
-          toCamelCase(component)
-        ).isDisplayed()
+        formDesigner
+          .getComponentOnPage(pageName, toCamelCase(component))
+          .isDisplayed()
       ).to.be.true
   );
 });
@@ -81,30 +79,26 @@ Then("all the components are displayed in the {string}", (pageName) => {
 When(
   "I delete the {string} control from the {string}",
   (componentName, pageName) => {
-    FormDesignerPage.getComponentOnPage(
-      pageName,
-      toCamelCase(componentName)
-    ).waitForDisplayed();
-    FormDesignerPage.getComponentOnPage(
-      pageName,
-      toCamelCase(componentName)
-    ).click();
-    AddComponentPage.deleteLink.click();
+    formDesigner
+      .getComponentOnPage(pageName, toCamelCase(componentName))
+      .waitForDisplayed();
+    formDesigner
+      .getComponentOnPage(pageName, toCamelCase(componentName))
+      .click();
+    createComponent.deleteLink.click();
   }
 );
 
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
-    FormDesignerPage.getComponentOnPage(
-      pageName,
-      toCamelCase(componentName)
-    ).waitForDisplayed({ reverse: true });
+    formDesigner
+      .getComponentOnPage(pageName, toCamelCase(componentName))
+      .waitForDisplayed({ reverse: true });
     chai.expect(
-      FormDesignerPage.getComponentOnPage(
-        pageName,
-        toCamelCase(componentName)
-      ).isDisplayed()
+      formDesigner
+        .getComponentOnPage(pageName, toCamelCase(componentName))
+        .isDisplayed()
     ).to.be.false;
   }
 );
@@ -123,7 +117,7 @@ When("I link the {string} to the {string}", (fromPage, toPage) => {
 });
 
 Then("a link between them will be displayed", () => {
-  expect(FormDesignerPage.linkLine).toExist();
+  expect(formDesigner.linkLine).toExist();
 });
 
 When("I add a new section", () => {
@@ -143,7 +137,7 @@ When("I add a new section", () => {
 });
 
 Then("the section should be available when I edit the Question page", () => {
-  FormDesignerPage.editPageForPageName("First page").click();
+  formDesigner.editPageForPageName("First page").click();
   expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
 });
 
@@ -165,8 +159,8 @@ When("I add a new Global list named {string}", function (listName) {
 When(
   "I create a {string} control for the {string}",
   (componentName, pageName) => {
-    FormDesignerPage.createComponentForPageName(pageName).click();
-    AddComponentPage.selectComponentByName(componentName);
+    formDesigner.createComponentForPageName(pageName).click();
+    createComponent.selectComponentByName(componentName);
   }
 );
 
@@ -176,24 +170,24 @@ When("I add a {string} control for the {string}", function (
 ) {
   this.pageName = pageName;
   EditListSection.closeLinks[0].click();
-  FormDesignerPage.createComponentForPageName(pageName).click();
-  AddComponentPage.selectComponentByName(componentName);
-  AddComponentPage.completeCommonFields(
+  formDesigner.createComponentForPageName(pageName).click();
+  createComponent.selectComponentByName(componentName);
+  createComponent.completeCommonFields(
     FieldData[toCamelCase(componentName)],
     false
   );
-  AddComponentPage.selectList(FieldData.list.title);
-  AddComponentPage.saveBtn.click();
+  createComponent.selectList(FieldData.list.title);
+  createComponent.saveBtn.click();
 });
 
 Then("the list is available in the list options", function () {
-  expect(AddComponentPage.listOptions).toHaveText(this.listName);
+  expect(createComponent.listOptions).toHaveText(this.listName);
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
-  FormDesignerPage.editPageForPageName(pageName).click();
+  formDesigner.editPageForPageName(pageName).click();
   if (EditPageSection.parentElement.isDisplayed() === false) {
-    FormDesignerPage.editPageForPageName(pageName).click();
+    formDesigner.editPageForPageName(pageName).click();
   }
   EditPageSection.duplicateBtn.click();
   EditPageSection.closeLinks[0].click();
@@ -202,14 +196,14 @@ When("I choose to duplicate the {string}", (pageName) => {
 Then(
   "{int} {string} pages are shown in the designer",
   (numberOfPages, pageName) => {
-    expect(FormDesignerPage.retrieveNumberOfPagesMatching(pageName)).toEqual(
+    expect(formDesigner.retrieveNumberOfPagesMatching(pageName)).toEqual(
       numberOfPages
     );
   }
 );
 
 When("I choose to delete the {string}", (pageName) => {
-  FormDesignerPage.editPageForPageName(pageName).click();
+  formDesigner.editPageForPageName(pageName).click();
   EditPageSection.deleteBtn.click();
   acceptAlert();
   EditPageSection.closeLinks[0].click();
@@ -217,10 +211,10 @@ When("I choose to delete the {string}", (pageName) => {
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
   const pageNames = [];
-  FormDesignerPage.formPageTitles.forEach((elem) => {
+  formDesigner.formPageTitles.forEach((elem) => {
     pageNames.push(elem.getText());
   });
-  expect(FormDesignerPage.formPages.length).toEqual(2);
+  expect(formDesigner.formPages.length).toEqual(2);
   chai.expect(pageNames).not.include(pageName);
 });
 
@@ -234,23 +228,22 @@ When("I add a {string} control to the {string}", (componentName, pageName) => {
 });
 
 Then("the Date field control is displayed in the page", () => {
-  chai.expect(FormDesignerPage.dropdown(this.pageName).isDisplayed()).to.be
-    .true;
-  expect(FormDesignerPage.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
+  chai.expect(formDesigner.dropdown(this.pageName).isDisplayed()).to.be.true;
+  expect(formDesigner.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 
 When("I edit the page title on the {string}", (pageName) => {
   this.newPageName = "testing";
-  FormDesignerPage.editPageForPageName(pageName).click();
+  formDesigner.editPageForPageName(pageName).click();
   EditPageSection.pageTitle.setValue(this.newPageName);
   EditPageSection.saveBtn.click();
 });
 
 Then("the changes are reflected in the page designer", () => {
   browser.waitUntil(
-    () => FormDesignerPage.formPageTitles[0].getText() === "testing"
+    () => formDesigner.formPageTitles[0].getText() === "testing"
   );
-  expect(FormDesignerPage.getTitleTextForPage(this.newPageName)).toBe(
+  expect(formDesigner.getTitleTextForPage(this.newPageName)).toBe(
     this.newPageName
   );
 });
@@ -260,8 +253,8 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  browser.waitUntil(() => FormDesignerPage.formPages.length === 4);
-  this.pageNames = FormDesignerPage.formPageTitles.map(function (element) {
+  browser.waitUntil(() => formDesigner.formPages.length === 4);
+  this.pageNames = formDesigner.formPageTitles.map(function (element) {
     return element.getText();
   });
   expect(this.pageNames.includes(this.newPageName)).toEqual(true);
@@ -269,18 +262,18 @@ Then("the page is added in the designer", () => {
 
 Then("the {string} is displayed when I Preview the page", function (component) {
   this.component = toCamelCase(component);
-  FormDesignerPage.previewPageForPageName(this.pageName).click();
+  formDesigner.previewPageForPageName(this.pageName).click();
   browser.switchWindow(`${this.pageName}`);
-  expect(PreviewPage.pageTitle).toHaveText(this.pageName);
+  expect(previewPage.pageTitle).toHaveText(this.pageName);
   if (component !== "Paragraph") {
-    expect(PreviewPage.hintText(FieldData[this.component].name)).toHaveText(
+    expect(previewPage.hintText(FieldData[this.component].name)).toHaveText(
       FieldData[this.component].hint
     );
     expect(
-      PreviewPage.getComponent(FieldData[this.component].name)
+      previewPage.getComponent(FieldData[this.component].name)
     ).toBeDisplayed();
   } else {
-    expect(PreviewPage.paragraph).toBeDisplayed();
+    expect(previewPage.paragraph).toBeDisplayed();
   }
 });
 

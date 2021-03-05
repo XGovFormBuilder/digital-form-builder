@@ -1,10 +1,9 @@
 const { Given, When, Then } = require("cucumber");
-const AddComponentPage = require("../pageobjects/pages/addComponent.page");
+const { formDesigner, previewPage } = require("../pageobjects/pages");
+const createComponent = require("../pageobjects/sections/createComponent.section");
 const EditListSection = require("../pageobjects/sections/editLists.section");
-const FormDesignerPage = require("../pageobjects/pages/formDesigner.page");
 const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
-const PreviewPage = require("../pageobjects/pages/preview.page");
 const { toCamelCase } = require("../../support/testHelpers");
 
 Given("I have created a {string} list with {int} list item(s)", function (
@@ -14,10 +13,10 @@ Given("I have created a {string} list with {int} list item(s)", function (
   this.numberOfListItems = numberOfListItems;
   switch (listType.toLowerCase()) {
     case "local":
-      FormDesignerPage.createComponentForPageName("First page").click();
-      AddComponentPage.selectComponentByName("List");
-      AddComponentPage.completeCommonFields(FieldData[toCamelCase("List")]);
-      FormDesignerPage.editPageComponent("list");
+      formDesigner.createComponentForPageName("First page").click();
+      createComponent.selectComponentByName("List");
+      createComponent.completeCommonFields(FieldData[toCamelCase("List")]);
+      formDesigner.editPageComponent("list");
       EditListSection.clickLink("Add a new component list");
       EditListSection.createListWithListItems(listType, this.numberOfListItems);
       EditListSection.closeLinks[1].click();
@@ -58,10 +57,10 @@ Then("I am able to save the edited Global list", function () {
 });
 
 Then("the List is displayed when I Preview the page", function () {
-  FormDesignerPage.previewPageForPageName(this.pageName).click();
+  formDesigner.previewPageForPageName(this.pageName).click();
   browser.switchWindow(`${this.pageName}`);
-  expect(PreviewPage.pageTitle).toHaveText(this.pageName);
-  expect(PreviewPage.listItems).toBeElementsArrayOfSize(this.numberOfListItems);
+  expect(previewPage.pageTitle).toHaveText(this.pageName);
+  expect(previewPage.listItems).toBeElementsArrayOfSize(this.numberOfListItems);
 });
 
 When("I delete the {int}st list item from the {string} list", function (
@@ -74,9 +73,9 @@ When("I delete the {int}st list item from the {string} list", function (
       break;
     case "local":
       browser.pause(750);
-      FormDesignerPage.editPageComponent("list");
+      formDesigner.editPageComponent("list");
       if (!browser.$(".panel--flyout").isDisplayed()) {
-        FormDesignerPage.editPageComponent("list");
+        formDesigner.editPageComponent("list");
       }
       EditListSection.clickLink(`Edit ${FieldData.list.title}`);
       break;
@@ -94,7 +93,7 @@ Then("the Global list only has one item", function () {
 });
 
 When("I edit the {string} component", function (componentType) {
-  FormDesignerPage.editPageComponent(componentType);
+  formDesigner.editPageComponent(componentType);
 });
 
 When("I create a new component list with {int} item", function (numberOfItems) {
@@ -113,9 +112,9 @@ When("I create a {int}nd list item for the Local list", function (
   listItemNumber
 ) {
   browser.pause(750);
-  FormDesignerPage.editPageComponent("list");
+  formDesigner.editPageComponent("list");
   if (!browser.$(".panel--flyout").isDisplayed()) {
-    FormDesignerPage.editPageComponent("list");
+    formDesigner.editPageComponent("list");
   }
   EditListSection.clickLink(`Edit ${FieldData.list.title}`);
   EditListSection.createListItem.click();
@@ -146,9 +145,9 @@ When("I edit the {int}st list item from the {string} list", function (
   this.listItemTitle = `${listType} list item 3`;
   if (listType.toLowerCase() === "local") {
     browser.pause(500);
-    FormDesignerPage.editPageComponent("list");
+    formDesigner.editPageComponent("list");
     if (!browser.$(".panel--flyout").isDisplayed()) {
-      FormDesignerPage.editPageComponent("list");
+      formDesigner.editPageComponent("list");
     }
     EditListSection.clickLink(`Edit ${FieldData.list.title}`);
   } else {
@@ -168,4 +167,20 @@ Then("the {int}st list item reflects the changes I made", function (listItem) {
   expect(EditListSection.listItems[listItem - 1]).toHaveTextContaining(
     this.listItemTitle
   );
+});
+
+When("I try add {string} to the {string} without selecting a list", function (
+  componentName,
+  pageName
+) {
+  this.pageName = pageName;
+  EditListSection.closeLinks[0].click();
+  formDesigner.createComponentForPageName(pageName).click();
+  createComponent.selectComponentByName(componentName);
+  createComponent.titleField.setValue("Checkbox Component Test");
+  createComponent.saveBtn.click();
+});
+
+Then("the error summary is displayed", function () {
+  expect(createComponent.errorSummary).toBeDisplayed();
 });
