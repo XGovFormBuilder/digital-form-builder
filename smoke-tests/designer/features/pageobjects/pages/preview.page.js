@@ -30,6 +30,14 @@ class PreviewPage extends Page {
   get listItems() {
     return browser.$$(".govuk-list--bullet li");
   }
+
+  get checkBoxes() {
+    return browser.$$(".govuk-checkboxes__input");
+  }
+
+  get summaryList() {
+    return browser.$(".govuk-summary-list");
+  }
 }
 
 module.exports = new PreviewPage();

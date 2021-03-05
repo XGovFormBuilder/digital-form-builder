@@ -40,4 +40,9 @@ module.exports = {
     name: "yesNo",
     hint: "An automated test for creating YesNo",
   },
+  checkboxes: {
+    title: "Checkboxes Test",
+    name: "checkBoxes",
+    hint: "Please select a checkbox",
+  },
 };

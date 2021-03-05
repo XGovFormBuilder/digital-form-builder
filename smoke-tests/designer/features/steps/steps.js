@@ -299,6 +299,24 @@ Then("I will go back to my previous page", () => {
 When("I choose cancel", () => {
   browser.dismissAlert();
 });
+
 Then("I will be on the same page", () => {
   expect(browser.getUrl()).toContain(Actions.configRef);
+});
+
+When("I preview the {string} page", function (pageName) {
+  formDesigner.previewPageForPageName(pageName).click();
+  browser.switchWindow(pageName);
+  previewPage.pageTitle.waitForDisplayed();
+});
+
+When("I can check a checkbox", function () {
+  previewPage.checkBoxes[0].click();
+  expect(previewPage.checkBoxes[0].isSelected()).toEqual(true);
+});
+
+Then("progress to the {string} page", function (pageName) {
+  previewPage.clickButton("Continue");
+  previewPage.summaryList.waitForDisplayed();
+  expect(previewPage.pageTitle).toHaveText(pageName);
 });
