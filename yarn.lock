@@ -3387,11 +3387,12 @@ __metadata:
   linkType: hard
 
 "@types/hapi__crumb@npm:^7.3.1":
-  version: 7.3.1
-  resolution: "@types/hapi__crumb@npm:7.3.1"
+  version: 7.3.2
+  resolution: "@types/hapi__crumb@npm:7.3.2"
   dependencies:
     "@types/hapi__hapi": "*"
-  checksum: 34f2518d2797afe3005007448768a3adf85f3a1bd68838e7a2963cff9e36a0445db5d65f9408bb32963bc4e9821f664fe4d1d68f4bbaebcce5d0c3a3b81a5804
+    joi: ^17.3.0
+  checksum: 3b7ec843621acd0069d48d0294b6f56068a162f593eb4bda6fe65bfa3e8370b9bcc1a6c09be9a1479213887ff5d4ac03791aa8711dbe60293edb16979cbf7e23
   languageName: node
   linkType: hard
 
@@ -3497,11 +3498,11 @@ __metadata:
   linkType: hard
 
 "@types/ioredis@npm:*":
-  version: 4.17.11
-  resolution: "@types/ioredis@npm:4.17.11"
+  version: 4.22.0
+  resolution: "@types/ioredis@npm:4.22.0"
   dependencies:
     "@types/node": "*"
-  checksum: 9e370175d232bad6163521cce85a52827ceb2cd0df2baa87987537d10c554f20bd4e9d1bf9ae3dd66c93e8fd2ee393104014fd5fb54c542539d752770d2a17cc
+  checksum: 367ddb76f1f96bfb3f3978bb0fef07de688452bc370b2af1f5036daf16f0b11a74864f3d7f9ceefc19ce5b5496a0b533428e9034ab91c40642db6d75e5ebdee1
   languageName: node
   linkType: hard
 
@@ -4788,7 +4789,6 @@ __metadata:
     hapi-require-https: 5.0.0
     hmpo-components: 2.6.5
     ioredis: 4.16.1
-    jest: ^26.6.3
     joi: 17.2.1
     lab: 18.0.2
     lighthouse: ^7.1.0
@@ -4805,7 +4805,6 @@ __metadata:
     sinon: 9.0.2
     standard: ^14.3.4
     tmp: 0.1.0
-    ts-jest: ^26.5.3
     typescript: ^4.0.3
     uuid: 7.0.3
     vision: 5.4.4
@@ -15702,13 +15701,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.x":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: 4983720b9abca930a4a46f18db163d7dad8dd00dbed6db0cc7b499b33b717cce69f80928b27bbb1ff2cbd3b19d251ee90669a8b5ea466072ca81c2ebe91e7468
-  languageName: node
-  linkType: hard
-
 "lodash@npm:^4.0.0, lodash@npm:^4.13.1, lodash@npm:^4.15.0, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.4, lodash@npm:^4.17.5, lodash@npm:^4.3.0, lodash@npm:~4.17.10":
   version: 4.17.20
   resolution: "lodash@npm:4.17.20"
@@ -22209,29 +22201,6 @@ resolve@1.1.7:
   bin:
     ts-jest: cli.js
   checksum: bee46b789c13a9f195c80fbb201362c6c2e5150abb5aeb3699c4ccc17b9bc9c4b229e06230c5a23bf8f17bfd05311c33a4ea33a7641683e8a4bec21529f4da77
-  languageName: node
-  linkType: hard
-
-"ts-jest@npm:^26.5.3":
-  version: 26.5.3
-  resolution: "ts-jest@npm:26.5.3"
-  dependencies:
-    bs-logger: 0.x
-    buffer-from: 1.x
-    fast-json-stable-stringify: 2.x
-    jest-util: ^26.1.0
-    json5: 2.x
-    lodash: 4.x
-    make-error: 1.x
-    mkdirp: 1.x
-    semver: 7.x
-    yargs-parser: 20.x
-  peerDependencies:
-    jest: ">=26 <27"
-    typescript: ">=3.8 <5.0"
-  bin:
-    ts-jest: cli.js
-  checksum: 6f429720812687c60b58464e40452687f8dfd958c7cbaf80c36b5af67d5c90b7a313bad05aa385a7f703b0607163f2e879ed719ea12334868d849175414111e7
   languageName: node
   linkType: hard
 

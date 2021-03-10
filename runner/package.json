@@ -19,7 +19,6 @@
     "test:dev": "lab -T test/.transform.js -P test/**/*.test.* -v test --coverage-exclude src",
     "unit-test": "lab -T test/.transform.js -P test/**/*.test.* -v test -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test-cov": "lab -T test/.transform.js -P test/**/*.test.* -v test -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
-    "jest": "jest",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
     "type-check": "tsc --noEmit"
@@ -120,10 +119,8 @@
     "code": "5.2.4",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.22.0",
-    "jest": "^26.6.3",
     "lab": "18.0.2",
     "node-sass": "^5.0.0",
-    "ts-jest": "^26.5.3",
     "typescript": "^4.0.3"
   },
   "lighthouse": {

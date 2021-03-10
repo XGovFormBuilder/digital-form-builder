@@ -5,6 +5,7 @@ import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
 
 import { FormSubmissionState } from "../types";
 import { PageControllerBase, getPageController } from "../pageControllers";
+import { PageController } from "../pageControllers/PageController";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -27,7 +28,7 @@ export class FormModel {
   options: any;
   name: any;
   values: any;
-  DefaultPageController: any;
+  DefaultPageController: any = PageController;
   basePath: string;
   conditions: any;
   pages: PageControllerBase[];

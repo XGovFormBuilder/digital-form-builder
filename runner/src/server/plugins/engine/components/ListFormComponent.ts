@@ -12,10 +12,10 @@ export class ListFormComponent extends FormComponent {
   options: ListComponentsDef["options"];
 
   get items(): Item[] {
-    return this.list.items;
+    return this.list?.items ?? [];
   }
   get values(): (string | number | boolean)[] {
-    return this.items.map((item) => item.value);
+    return this.items?.map((item) => item.value) ?? [];
   }
 
   constructor(def: ListComponentsDef, model: FormModel) {

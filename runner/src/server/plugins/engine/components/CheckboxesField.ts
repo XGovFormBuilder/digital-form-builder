@@ -8,12 +8,17 @@ export class CheckboxesField extends ListFormComponent {
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
 
-    const schema = joi
+    let schema = joi
       .array()
       .items(joi[this.listType]().allow(...this.values))
       .single()
-      .required()
       .label(def.title);
+
+    if (def.options?.required !== false) {
+      console.log("here def options", def.options);
+      schema.required();
+      console.log(schema.describe());
+    }
 
     this.formSchema = schema;
     this.stateSchema = schema;
