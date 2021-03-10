@@ -10,12 +10,17 @@ const { suite, test } = lab;
 suite("Engine Plugin ConfigurationService", () => {
   test("it loads pre-configured forms configuration correctly ", () => {
     const testFormJSON = require("../../../../../../src/server/forms/test.json");
+    const reportFormJSON = require("../../../../../../src/server/forms/report-a-terrorist.json");
     const result = loadPreConfiguredForms();
 
-    expect(result).to.equal([
+    expect(result).to.contain([
       {
         configuration: testFormJSON,
         id: "test",
+      },
+      {
+        id: "report-a-terrorist",
+        configuration: reportFormJSON,
       },
     ]);
   });
