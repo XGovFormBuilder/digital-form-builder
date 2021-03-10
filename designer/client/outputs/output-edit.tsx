@@ -106,6 +106,7 @@ class OutputEdit extends Component<Props, State> {
       copy.outputs = copy.outputs || [];
       copy.outputs.push(output);
     }
+
     save(copy)
       .then((data) => {
         this.props.onEdit({ data });
