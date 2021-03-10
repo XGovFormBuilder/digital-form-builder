@@ -22,6 +22,27 @@ export function proceed(
 
 type Params = { num?: number; returnUrl: string } | {};
 
+export function nonRelativeRedirectUrl(
+  request: HapiRequest,
+  targetUrl: string,
+  params: Params = {}
+) {
+  const url = new URL(targetUrl);
+
+  Object.entries(params).forEach(([name, value]) => {
+    url.searchParams.append(name, `${value}`);
+  });
+
+  paramsToCopy.forEach((key) => {
+    const value = request.query[key];
+    if (typeof value === "string") {
+      url.searchParams.append(key, value);
+    }
+  });
+
+  return url.toString();
+}
+
 export function redirectUrl(
   request: HapiRequest,
   targetUrl: string,

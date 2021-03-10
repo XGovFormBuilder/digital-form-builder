@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import {
   decodeFeedbackContextInfo,
   redirectTo,
-  redirectUrl,
+  nonRelativeRedirectUrl,
   RelativeUrl,
 } from "./engine";
 
@@ -80,9 +80,9 @@ const applicationStatus = {
           if (reference) {
             await cacheService.clearState(request);
             if (reference !== "UNKNOWN") {
-              return successfulOutcome(request, h, { reference });
+              return successfulOutcome(request, h, { reference, payState });
             } else {
-              return successfulOutcome(request, h);
+              return successfulOutcome(request, h, { payState });
             }
           }
 
@@ -164,10 +164,12 @@ const applicationStatus = {
               return successfulOutcome(request, h, {
                 reference: newReference,
                 paySkipped: userCouldntPay,
+                payState,
               });
             } else {
               return successfulOutcome(request, h, {
                 paySkipped: userCouldntPay,
+                payState,
               });
             }
           } catch (err) {
@@ -197,7 +199,7 @@ const applicationStatus = {
             reference,
             meta.description,
             meta.payApiKey,
-            redirectUrl(request, config.payReturnUrl)
+            nonRelativeRedirectUrl(request, config.payReturnUrl)
           );
           await cacheService.mergeState(request, {
             pay: {

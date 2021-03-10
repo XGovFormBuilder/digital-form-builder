@@ -55,7 +55,11 @@ export class PayService {
   }
 
   async payStatus(url: string, apiKey: string) {
-    const { payload } = await get(url, this.options(apiKey));
+    const { payload } = await get(url, {
+      ...this.options(apiKey),
+      json: true,
+    });
+
     return payload;
   }
 

@@ -1,6 +1,5 @@
-const addComponent = require("../pageobjects/pages/addComponent.page");
-const configPage = require("../pageobjects/pages/config.page");
-const formDesigner = require("../pageobjects/pages/formDesigner.page");
+const { configPage, formDesigner } = require("../pageobjects/pages");
+const createComponent = require("../pageobjects/sections/createComponent.section");
 const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 const { customAlphabet } = require("nanoid");
@@ -25,14 +24,16 @@ class Actions {
    */
   createComponentForPage(componentName, pageName) {
     formDesigner.createComponentForPageName(pageName).click();
-    addComponent.selectComponentByName(componentName);
+    createComponent.selectComponentByName(componentName);
     if (componentName.toLowerCase() === "paragraph") {
-      addComponent.paragraphSetText(
+      createComponent.paragraphSetText(
         fieldData[componentName.toLowerCase()].content
       );
-      addComponent.saveBtn.click();
+      createComponent.saveBtn.click();
     } else {
-      addComponent.completeCommonFields(fieldData[toCamelCase(componentName)]);
+      createComponent.completeCommonFields(
+        fieldData[toCamelCase(componentName)]
+      );
     }
   }
 }
