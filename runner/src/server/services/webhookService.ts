@@ -1,4 +1,5 @@
 import { post } from "./httpService";
+import { HapiServer } from "../types";
 
 const DEFAULT_OPTIONS = {
   headers: {
@@ -8,6 +9,11 @@ const DEFAULT_OPTIONS = {
 };
 
 export class WebhookService {
+  logger: any;
+  constructor(server: HapiServer) {
+    this.logger = server.logger;
+  }
+
   /**
    * Posts data to a webhook
    * @params { string } url must be webhook with a POST endpoint which returns a webhookResponse object.
@@ -26,16 +32,18 @@ export class WebhookService {
 
     try {
       const { reference } = JSON.parse(payload);
-      console.log("Webhook request submitted OK");
-      console.log(
-        "Received response payload " +
-          JSON.stringify(payload) +
-          "  with reference " +
-          reference
+      this.logger.info(
+        ["WebhookService", "postRequest"],
+        `Webhook request to ${url} submitted OK`
       );
+      this.logger.debug(
+        ["WebhookService", "postRequest", `REF: ${reference}`],
+        JSON.stringify(payload)
+      );
+
       return reference;
     } catch (error) {
-      console.error(error);
+      this.logger.error(["WebhookService", "postRequest"], error);
       return "UNKNOWN";
     }
   }
