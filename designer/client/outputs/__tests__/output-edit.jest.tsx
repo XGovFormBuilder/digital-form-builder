@@ -1,13 +1,6 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
-// import ComponentTypeEdit from "../ComponentTypeEdit";
-// import {
-//   ComponentContext,
-//   componentReducer,
-//   initComponentState,
-// } from "../reducers/component/componentReducer";
 import { RenderWithContextAndDataContext } from "../../__tests__/helpers/renderers";
-// import { DataContext } from "../../context";
 import { Data } from "@xgovformbuilder/model";
 
 import OutputEdit from "../output-edit";
