@@ -82,6 +82,8 @@ class OutputEdit extends Component<Props, State> {
           templateId: formData.get("template-id") as string,
           apiKey: formData.get("api-key") as string,
           emailField: formData.get("email-field") as string,
+          addReferencesToPersonalisation:
+            formData.get("add-references-to-personalisation") === "true",
         };
         break;
       case OutputType.Webhook:
@@ -104,7 +106,7 @@ class OutputEdit extends Component<Props, State> {
       copy.outputs = copy.outputs || [];
       copy.outputs.push(output);
     }
-
+    console.log("XXXSUBBMITED", copy.outputs);
     save(copy)
       .then((data) => {
         this.props.onEdit({ data });

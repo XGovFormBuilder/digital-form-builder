@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NotifyEditItems from "./notify-edit-items";
 import { Output, NotifyOutputConfiguration, ValidationErrors } from "./types";
 import { Input } from "@govuk-jsx/input";
+import { Checkboxes } from "@govuk-jsx/Checkboxes";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
 
@@ -113,6 +114,31 @@ class NotifyEdit extends Component<Props, State> {
           data={data}
           onEdit={onEdit}
         />
+        <div className="govuk-form-group">
+          <Checkboxes
+            items={[
+              {
+                children: (
+                  <strong>Include webhook and payment references</strong>
+                ),
+                hint: {
+                  children: (
+                    <div>
+                      If webhook or payment references are available, they will
+                      be included in Notify&apos;s personalisation object.
+                      <br />
+                      The included fields are: hasWebhookReference (boolean),
+                      webhookReference: (string), hasPaymentReference:
+                      (boolean), paymentReference: string.
+                    </div>
+                  ),
+                },
+                value: true,
+              },
+            ]}
+            name="add-references-to-personalisation"
+          />
+        </div>
       </div>
     );
   }
