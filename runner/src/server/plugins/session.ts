@@ -16,7 +16,7 @@ export default {
           .join(""),
       isSecure: !!config.isDev,
       isHttpOnly: true,
-      isSameSite: "Strict",
+      isSameSite: "Lax",
     },
   },
 };
