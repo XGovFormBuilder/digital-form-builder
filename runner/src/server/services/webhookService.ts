@@ -26,6 +26,8 @@ export class WebhookService {
 
     try {
       const { reference } = JSON.parse(payload);
+      console.log("Webook request submitted OK");
+      console.log("Received response payload " + JSON.stringify(payload) +"  with reference "+ reference);
       return reference;
     } catch (error) {
       console.error(error);
