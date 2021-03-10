@@ -4702,6 +4702,7 @@ __metadata:
     boom: 7.3.0
     btoa: ^1.2.1
     cross-env: ^7.0.2
+    depth-first: ^4.0.0
     eslint: ^7.6.0
     eslint-plugin-import: ^2.22.0
     expr-eval: 2.0.2
@@ -8773,6 +8774,13 @@ __metadata:
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: f45566ff7019a346852f095768a380778ed544de24e103b479fd5d3e61982d670efbb5234c09d0588d7fdb09c26c48283d7150e4be5e6ce5d3d37cd268d75c4d
+  languageName: node
+  linkType: hard
+
+"depth-first@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "depth-first@npm:4.0.0"
+  checksum: 4445b320b997f609e70031b2ddc9ae675744de823de6dbb934f197acdd1f03cd0cac15fea7b417e043001048f38ab94ace8411b0a8f0748c6e0b8f2a4cde6f8f
   languageName: node
   linkType: hard
 

@@ -58,18 +58,24 @@ describe("data model", () => {
       const data = new Data({
         pages: [
           {
-            name: "page1",
+            path: "page1",
             section: "section1",
-            components: [{ name: "name1" }, { name: "name2" }],
+            components: [
+              { name: "name1", subType: "field" },
+              { name: "name2", subType: "field" },
+            ],
           },
           {
-            name: "page2",
+            path: "page2",
             section: "section1",
-            components: [{ name: "name3" }, { name: "name4" }],
+            components: [
+              { name: "name3", subType: "field" },
+              { name: "name4", subType: "field" },
+            ],
           },
         ],
       } as any);
-      expect(data.allInputs()).toEqual([
+      expect(data.allInputs).toEqual([
         {
           name: "name1",
           page: { name: "page1", section: "section1" },
@@ -86,663 +92,6 @@ describe("data model", () => {
           name: "name3",
           page: { name: "page2", section: "section1" },
           propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", section: "section1" },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should include feedback inputs for feedback form", () => {
-      const data = new Data({
-        feedback: {
-          feedbackForm: true,
-        },
-        startPage: "/page1",
-        pages: [
-          {
-            name: "page1",
-            path: "/page1",
-            section: "section1",
-            components: [{ name: "name1" }, { name: "name2" }],
-          },
-          {
-            name: "page2",
-            path: "/page2",
-            section: "section1",
-            components: [{ name: "name3" }, { name: "name4" }],
-          },
-        ],
-      });
-
-      const inputs = inputsAsObject(data.allInputs());
-
-      expect(data.allInputs()).toEqual([
-        {
-          name: "name1",
-          page: { name: "page1", path: "/page1", section: "section1" },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: { name: "page1", path: "/page1", section: "section1" },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: { name: "page2", path: "/page2", section: "section1" },
-          propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", path: "/page2", section: "section1" },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-        {
-          name: "feedbackContextInfo_formTitle",
-          type: "TextField",
-          title: "Feedback source form name",
-          page: { name: "page1", path: "/page1", section: "section1" },
-          propertyPath: "feedbackContextInfo_formTitle",
-          hint: "",
-          options: {},
-          schema: {},
-        },
-        {
-          name: "feedbackContextInfo_pageTitle",
-          type: "TextField",
-          title: "Feedback source page title",
-          page: { name: "page1", path: "/page1", section: "section1" },
-          propertyPath: "feedbackContextInfo_pageTitle",
-          hint: "",
-          options: {},
-          schema: {},
-        },
-        {
-          name: "feedbackContextInfo_url",
-          type: "TextField",
-          title: "Feedback source url",
-          page: { name: "page1", path: "/page1", section: "section1" },
-          propertyPath: "feedbackContextInfo_url",
-          hint: "",
-          options: {},
-          schema: {},
-        },
-      ]);
-    });
-
-    test("should include hidden inputs from values", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            components: [
-              {
-                name: "name1",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              { name: "name2" },
-            ],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            components: [{ name: "name3" }, { name: "name4" }],
-          },
-        ],
-        lists: [
-          {
-            name: "anotherList",
-            title: "Address Yes/No",
-            type: "string",
-            items: [
-              {
-                text: "Yes",
-                value: "true",
-                description: "",
-                condition: "",
-                conditional: {
-                  components: [
-                    {
-                      type: "TextField",
-                      name: "buildingNameOrNumber",
-                      title: "Building name or number",
-                      hint: "",
-                      schema: {},
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-          {
-            name: "badgerList",
-            title: "Badgers are epic",
-            type: "string",
-            items: [
-              {
-                text: "Something",
-                value: "something",
-                description: "",
-                condition: "",
-                conditional: {
-                  components: [
-                    {
-                      name: "myField",
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-        ],
-      });
-      expect(data.allInputs()).toEqual([
-        {
-          name: "name1",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.name1",
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          title: undefined,
-        },
-        {
-          name: "myField",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.myField",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: { name: "page2", section: "section1" },
-          propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", section: "section1" },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should not duplicate hidden inputs from children if more than one component in the same page uses the same hidden component", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            components: [
-              {
-                name: "name1",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              {
-                name: "name2",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            components: [{ name: "name3" }, { name: "name4" }],
-          },
-        ],
-        lists: [
-          {
-            name: "anotherList",
-            title: "Address Yes/No",
-            type: "string",
-            items: [
-              {
-                text: "Yes",
-                value: "true",
-                description: "",
-                condition: "",
-                conditional: {
-                  components: [
-                    {
-                      type: "TextField",
-                      name: "buildingNameOrNumber",
-                      title: "Building name or number",
-                      hint: "",
-                      schema: {},
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-          {
-            name: "badgerList",
-            title: "Badgers are epic",
-            type: "string",
-            items: [
-              {
-                text: "Something",
-                value: "something",
-                description: "",
-                condition: "",
-                conditional: {
-                  components: [
-                    {
-                      name: "myField",
-                    },
-                  ],
-                },
-              },
-            ],
-          },
-        ],
-      });
-      expect(data.allInputs()).toEqual([
-        {
-          name: "name1",
-          page: { name: "page1", section: "section1" },
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "myField",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.myField",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: { name: "page1", section: "section1" },
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: { name: "page2", section: "section1" },
-          propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", section: "section1" },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should not duplicate hidden inputs from children if components in different pages with the same section use the same child", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            components: [
-              {
-                name: "name1",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              { name: "name2" },
-            ],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            components: [
-              {
-                name: "name3",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              { name: "name4" },
-            ],
-          },
-        ],
-        lists: [],
-      });
-      expect(data.allInputs()).toEqual([
-        {
-          name: "name1",
-          page: { name: "page1", section: "section1" },
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "myField",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.myField",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: { name: "page2", section: "section1" },
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", section: "section1" },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should return multiple of the same hidden input from children if components in different pages with different sections use the same children", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            components: [
-              {
-                name: "name1",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              { name: "name2" },
-            ],
-          },
-          {
-            name: "page2",
-            section: "section2",
-            components: [
-              {
-                name: "name3",
-                values: {
-                  type: "static",
-                  valueType: "string",
-                  items: [
-                    {
-                      display: "Something",
-                      value: "something",
-                      children: [
-                        {
-                          name: "myField",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-              { name: "name4" },
-            ],
-          },
-        ],
-        lists: [],
-      });
-      expect(data.allInputs()).toEqual([
-        {
-          name: "name1",
-          page: { name: "page1", section: "section1" },
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "myField",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.myField",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: { name: "page2", section: "section2" },
-          values: {
-            type: "static",
-            valueType: "string",
-            items: [
-              {
-                display: "Something",
-                value: "something",
-                children: [
-                  {
-                    name: "myField",
-                  },
-                ],
-              },
-            ],
-          },
-          propertyPath: "section2.name3",
-          title: undefined,
-        },
-        {
-          name: "myField",
-          page: { name: "page2", section: "section2" },
-          propertyPath: "section2.myField",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", section: "section2" },
-          propertyPath: "section2.name4",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should ignore unnamed components", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            components: [{ name: "name1" }, { name: "name2" }],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            components: [{ badger: "name3" }, { name: "name4" }],
-          },
-        ],
-      });
-      expect(data.allInputs()).toEqual([
-        {
-          name: "name1",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: { name: "page1", section: "section1" },
-          propertyPath: "section1.name2",
           title: undefined,
         },
         {
@@ -756,26 +105,26 @@ describe("data model", () => {
 
     test("should handle no pages", () => {
       const data = new Data({ pages: [] });
-      expect(data.allInputs()).toEqual([]);
+      expect(data.allInputs).toEqual([]);
     });
 
     test("should handle undefined pages", () => {
       const data = new Data({});
-      expect(data.allInputs()).toEqual([]);
+      expect(data.allInputs).toEqual([]);
     });
 
     test("should handle pages with undefined components", () => {
       const data = new Data({
         pages: [{}],
       });
-      expect(data.allInputs()).toEqual([]);
+      expect(data.allInputs).toEqual([]);
     });
 
     test("should handle pages with no components", () => {
       const data = new Data({
         pages: [{ components: [] }],
       });
-      expect(data.allInputs()).toEqual([]);
+      expect(data.allInputs).toEqual([]);
     });
   });
 
@@ -1223,87 +572,6 @@ describe("data model", () => {
     });
   });
 
-  describe("values for", () => {
-    const staticValues = {
-      type: "static",
-      valueType: "string",
-      items: [
-        {
-          label: "some stuff",
-          value: "myValue",
-          hint: "A hint",
-          condition: "badger",
-          children: [{ name: "aBadger" }],
-        },
-        {
-          label: "another thing",
-          value: "anotherValue",
-          hint: undefined,
-          condition: undefined,
-          children: [],
-        },
-      ],
-    };
-    const valuesTypes = [
-      staticValues,
-      {
-        type: "listRef",
-        list: "myList",
-        valueChildren: [
-          {
-            value: "myValue",
-            children: [{ name: "aBadger" }],
-          },
-        ],
-      },
-    ];
-    valuesTypes.forEach((values) => {
-      test(`should return the '${values.type}' values specified in the provided input if it exists`, () => {
-        const data = new Data(fullyPopulatedRawData);
-        const returned = data.valuesFor({ values: values });
-        delete returned.values.toStaticValues;
-        expect(returned.values).toEqual(values);
-      });
-
-      test(`returned '${values.type}' values should convert to static values`, () => {
-        const data = new Data(fullyPopulatedRawData);
-        const returned = data.valuesFor({ values: values });
-        expect(returned.toStaticValues()).toEqual(staticValues);
-      });
-    });
-
-    test("should return undefined if no values exist", () => {
-      const data = new Data({});
-
-      expect(data.valuesFor({ options: {} })).toEqual(undefined);
-    });
-
-    test("should return yes/no list if the provided input has no values defined but is a YesNoField", () => {
-      const data = new Data({});
-
-      expect(data.valuesFor({ type: "YesNoField" }).toStaticValues()).toEqual({
-        type: "static",
-        valueType: "boolean",
-        items: [
-          {
-            label: "Yes",
-            value: true,
-            hint: undefined,
-            condition: undefined,
-            children: [],
-          },
-          {
-            label: "No",
-            value: false,
-            hint: undefined,
-            condition: undefined,
-            children: [],
-          },
-        ],
-      });
-    });
-  });
-
   describe("add link", () => {
     test("should add a link to the next page with no condition", () => {
       const data = new Data({
@@ -1396,8 +664,8 @@ describe("data model", () => {
         ],
       } as any);
 
-      const paths = data._allPathsLeadingTo("/2");
-      expect(paths).toEqual(["/1", "/2"]);
+      const paths = data.allPathsLeadingTo("/2");
+      expect(paths).toEqual(["/1"]);
     });
 
     test("_allPathsLeadingTo should work with single parents", () => {
@@ -1420,7 +688,7 @@ describe("data model", () => {
         ],
       } as any);
 
-      const paths = data._allPathsLeadingTo("/3");
+      const paths = data.allPathsLeadingTo("/3");
       expect(paths).toEqual(["/2", "/1"]);
     });
 
@@ -1449,13 +717,13 @@ describe("data model", () => {
         ],
       } as any);
 
-      const paths = data._allPathsLeadingTo("/4");
-      expect(paths).toEqual(["/2", "/1", "/3", "/1"]);
+      const paths = data.allPathsLeadingTo("/4");
+      expect(paths).toEqual(["/2", "/1", "/3"]);
 
-      const paths1 = data._allPathsLeadingTo("/3");
+      const paths1 = data.allPathsLeadingTo("/3");
       expect(paths1).toEqual(["/1"]);
 
-      const paths2 = data._allPathsLeadingTo("/1");
+      const paths2 = data.allPathsLeadingTo("/1");
       expect(paths2).toEqual([]);
     });
   });
