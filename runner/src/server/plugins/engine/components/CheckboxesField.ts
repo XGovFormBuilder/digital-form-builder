@@ -14,10 +14,8 @@ export class CheckboxesField extends ListFormComponent {
       .single()
       .label(def.title);
 
-    if (def.options?.required !== false) {
-      console.log("here def options", def.options);
-      schema.required();
-      console.log(schema.describe());
+    if (def.options.required !== false) {
+      schema = schema.required();
     }
 
     this.formSchema = schema;

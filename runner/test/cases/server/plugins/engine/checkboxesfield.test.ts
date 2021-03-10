@@ -57,7 +57,6 @@ suite("CheckboxesField", () => {
       makePage: () => sinon.stub(),
     };
     const component = new CheckboxesField(componentDefinition, formModel);
-    console.log(component.formSchema.describe());
 
     it("is required by default", () => {
       expect(component.formSchema.describe().flags.presence).to.equal(
@@ -86,6 +85,9 @@ suite("CheckboxesField", () => {
       expect(component.formSchema.describe().flags.presence).to.not.equal(
         "required"
       );
+    });
+    it("validates correctly", () => {
+      expect(component.formSchema.validate({}).error).to.exist();
     });
   });
 });
