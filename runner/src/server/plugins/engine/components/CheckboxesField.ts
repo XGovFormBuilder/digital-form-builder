@@ -22,7 +22,6 @@ export class CheckboxesField extends ListFormComponent {
     this.stateSchema = schema;
   }
 
-  // @ts-ignore
   getDisplayStringFromState(state: FormSubmissionState) {
     const { name } = this;
     const value = state[name];
@@ -31,7 +30,7 @@ export class CheckboxesField extends ListFormComponent {
     return checked
       .map((check) => {
         const item = this.items.find((item) => item.value === check);
-        return item?.value ?? "";
+        return item?.value;
       })
       .filter((c) => c);
   }

@@ -1,12 +1,13 @@
 import joi, { Schema } from "joi";
-import { ListComponentsDef, Item, List } from "@xgovformbuilder/model";
+import { ListComponentsDef } from "@xgovformbuilder/model";
 import { FormComponent } from "./FormComponent";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 import { FormModel } from "./../models";
+import { List, Item } from "@xgovformbuilder/model";
 
 export class ListFormComponent extends FormComponent {
   list: List;
-  listType = "boolean";
+  listType = "string";
   formSchema;
   stateSchema;
   options: ListComponentsDef["options"];
@@ -24,12 +25,14 @@ export class ListFormComponent extends FormComponent {
     this.listType = this.list.type ?? "string";
     this.options = def.options;
 
-    const schema = joi[this.listType]()
+    let schema = joi[this.listType]()
       .allow(...this.values)
       .label(def.title);
 
-    const isRequired = this.options.required ?? true;
-    isRequired && schema.required();
+    if (def.options.required !== false) {
+      schema = schema.required();
+    }
+
     this.formSchema = schema;
     this.stateSchema = schema;
   }
