@@ -40,7 +40,6 @@ export class WebhookService {
         ["WebhookService", "postRequest", `REF: ${reference}`],
         JSON.stringify(payload)
       );
-
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
