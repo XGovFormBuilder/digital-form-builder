@@ -6,6 +6,7 @@ import { Input } from "@govuk-jsx/input";
 import { Checkboxes } from "@govuk-jsx/checkboxes";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
+import { i18n } from "../i18n";
 
 type State = {};
 
@@ -119,19 +120,12 @@ class NotifyEdit extends Component<Props, State> {
             items={[
               {
                 children: (
-                  <strong>Include webhook and payment references</strong>
+                  <strong>
+                    {i18n("outputEdit.notifyEdit.includeReferenceTitle")}
+                  </strong>
                 ),
                 hint: {
-                  children: (
-                    <div>
-                      If webhook or payment references are available, they will
-                      be included in Notify&apos;s personalisation object.
-                      <br />
-                      The included fields are: hasWebhookReference (boolean),
-                      webhookReference: (string), hasPaymentReference:
-                      (boolean), paymentReference: string.
-                    </div>
-                  ),
+                  children: i18n("outputEdit.notifyEdit.includeReferenceHint"),
                 },
                 value: true,
               },
