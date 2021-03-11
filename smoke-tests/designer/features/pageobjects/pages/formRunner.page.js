@@ -1,6 +1,6 @@
 class FormRunnerPage {
   open(path) {
-    return browser.url(`${browser.config.runnerUrl}${path}`);
+    return browser.url(`${browser.config.runnerUrl}${path}/`);
   }
   get pageTitle() {
     return browser.$("h1");
