@@ -128,7 +128,8 @@ describe("data model", () => {
     });
   });
 
-  describe("all inputs accessible by", () => {
+  // FIXME:- no consumers use this method!!
+  describe.only("inputsAccessibleAt", () => {
     test("should return all inputs from the page model when a single route leads to this page", () => {
       const data = new Data({
         pages: [
@@ -137,19 +138,28 @@ describe("data model", () => {
             section: "section1",
             path: "/1",
             next: [{ path: "/2" }],
-            components: [{ name: "name1" }, { name: "name2" }],
+            components: [
+              { name: "name1", subType: "field" },
+              { name: "name2", subType: "field" },
+            ],
           },
           {
             name: "page2",
             section: "section1",
             path: "/2",
             next: [{ path: "/3" }],
-            components: [{ name: "name3" }, { name: "name4" }],
+            components: [
+              { name: "name3", subType: "field" },
+              { name: "name4", subType: "field" },
+            ],
           },
           {
             name: "page3",
             path: "/3",
-            components: [{ name: "name5" }, { name: "name6" }],
+            components: [
+              { name: "name5", subType: "field" },
+              { name: "name6", subType: "field" },
+            ],
           },
         ],
       });
@@ -158,7 +168,6 @@ describe("data model", () => {
         {
           name: "name1",
           page: {
-            name: "page1",
             path: "/1",
             next: [{ path: "/2" }],
             section: "section1",
@@ -169,7 +178,6 @@ describe("data model", () => {
         {
           name: "name2",
           page: {
-            name: "page1",
             path: "/1",
             next: [{ path: "/2" }],
             section: "section1",
@@ -180,7 +188,6 @@ describe("data model", () => {
         {
           name: "name3",
           page: {
-            name: "page2",
             path: "/2",
             next: [{ path: "/3" }],
             section: "section1",
@@ -191,7 +198,6 @@ describe("data model", () => {
         {
           name: "name4",
           page: {
-            name: "page2",
             path: "/2",
             next: [{ path: "/3" }],
             section: "section1",
@@ -201,347 +207,14 @@ describe("data model", () => {
         },
         {
           name: "name5",
-          page: { name: "page3", path: "/3" },
+          page: { path: "/3" },
           propertyPath: "name5",
           title: undefined,
         },
         {
           name: "name6",
-          page: { name: "page3", path: "/3" },
+          page: { path: "/3" },
           propertyPath: "name6",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should include inputs from multiple branches leading to the requested page", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            path: "/1",
-            next: [{ path: "/3" }],
-            components: [{ name: "name1" }, { name: "name2" }],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            path: "/2",
-            next: [{ path: "/3" }],
-            components: [{ name: "name3" }, { name: "name4" }],
-          },
-          {
-            name: "page3",
-            path: "/3",
-            components: [{ name: "name5" }, { name: "name6" }],
-          },
-        ],
-      });
-
-      expect(data.inputsAccessibleAt("/3")).toEqual([
-        {
-          name: "name1",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: {
-            name: "page2",
-            path: "/2",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: {
-            name: "page2",
-            path: "/2",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-        {
-          name: "name5",
-          page: { name: "page3", path: "/3" },
-          propertyPath: "name5",
-          title: undefined,
-        },
-        {
-          name: "name6",
-          page: { name: "page3", path: "/3" },
-          propertyPath: "name6",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should include feedback context inputs for feedback form", () => {
-      const data = new Data({
-        feedback: {
-          feedbackForm: true,
-        },
-        startPage: "/1",
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            path: "/1",
-            next: [{ path: "/2" }],
-            components: [{ name: "name1" }, { name: "name2" }],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            path: "/2",
-            next: [{ path: "/3" }],
-            components: [{ name: "name3" }, { name: "name4" }],
-          },
-          {
-            name: "page3",
-            path: "/3",
-            components: [{ name: "name5" }, { name: "name6" }],
-          },
-        ],
-      });
-
-      expect(data.inputsAccessibleAt("/3")).toEqual([
-        {
-          name: "name1",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name3",
-          page: {
-            name: "page2",
-            path: "/2",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name3",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: {
-            name: "page2",
-            path: "/2",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name4",
-          title: undefined,
-        },
-        {
-          name: "name5",
-          page: { name: "page3", path: "/3" },
-          propertyPath: "name5",
-          title: undefined,
-        },
-        {
-          name: "name6",
-          page: { name: "page3", path: "/3" },
-          propertyPath: "name6",
-          title: undefined,
-        },
-        {
-          hint: "",
-          name: "feedbackContextInfo_formTitle",
-          options: {},
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "feedbackContextInfo_formTitle",
-          schema: {},
-          title: "Feedback source form name",
-          type: "TextField",
-        },
-        {
-          hint: "",
-          name: "feedbackContextInfo_pageTitle",
-          options: {},
-          type: "TextField",
-          title: "Feedback source page title",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "feedbackContextInfo_pageTitle",
-          schema: {},
-        },
-        {
-          name: "feedbackContextInfo_url",
-          type: "TextField",
-          title: "Feedback source url",
-          hint: "",
-          options: {},
-          schema: {},
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "feedbackContextInfo_url",
-        },
-      ]);
-    });
-
-    test("should ignore inputs from routes that don't lead to the requested page", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            path: "/1",
-            next: [{ path: "/2" }, { path: "/3" }],
-            components: [{ name: "name1" }, { name: "name2" }],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            path: "/2",
-            next: [{ path: "/4" }],
-            components: [{ name: "name3" }, { name: "name4" }],
-          },
-          {
-            name: "page3",
-            path: "/3",
-            components: [{ name: "name5" }, { name: "name6" }],
-          },
-        ],
-      });
-
-      expect(data.inputsAccessibleAt("/3")).toEqual([
-        {
-          name: "name1",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }, { path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }, { path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name5",
-          page: { name: "page3", path: "/3" },
-          propertyPath: "name5",
-          title: undefined,
-        },
-        {
-          name: "name6",
-          page: { name: "page3", path: "/3" },
-          propertyPath: "name6",
-          title: undefined,
-        },
-      ]);
-    });
-
-    test("should ignore unnamed components", () => {
-      const data = new Data({
-        pages: [
-          {
-            name: "page1",
-            section: "section1",
-            path: "/1",
-            next: [{ path: "/2" }, { path: "/3" }],
-            components: [{ name: "name1" }, { name: "name2" }],
-          },
-          {
-            name: "page2",
-            section: "section1",
-            path: "/2",
-            components: [{ badger: "name3" }, { name: "name4" }],
-          },
-        ],
-      });
-
-      expect(data.inputsAccessibleAt("/2")).toEqual([
-        {
-          name: "name1",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }, { path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: {
-            name: "page1",
-            path: "/1",
-            next: [{ path: "/2" }, { path: "/3" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
-          name: "name4",
-          page: { name: "page2", path: "/2", section: "section1" },
-          propertyPath: "section1.name4",
           title: undefined,
         },
       ]);
@@ -549,25 +222,6 @@ describe("data model", () => {
 
     test("should handle no pages", () => {
       const data = new Data({ pages: [] });
-      expect(data.inputsAccessibleAt("/1")).toEqual([]);
-    });
-
-    test("should handle undefined pages", () => {
-      const data = new Data({});
-      expect(data.inputsAccessibleAt("/1")).toEqual([]);
-    });
-
-    test("should handle pages with undefined components", () => {
-      const data = new Data({
-        pages: [{ path: "/1" }],
-      });
-      expect(data.inputsAccessibleAt("/1")).toEqual([]);
-    });
-
-    test("should handle pages with no components", () => {
-      const data = new Data({
-        pages: [{ path: "/1", components: [] }],
-      });
       expect(data.inputsAccessibleAt("/1")).toEqual([]);
     });
   });

@@ -12,7 +12,7 @@ Feature: Components
     Then I am able to return to components list with creating the component
 
   Scenario Outline: Add a component to a page
-    When I add a "<type>" control to the "First page"
+    When I add a` `"<type>" control to the "First page"
     Then the "<type>" control is displayed in the "First page"
     And the "<type>" is displayed when I Preview the page
     Examples:

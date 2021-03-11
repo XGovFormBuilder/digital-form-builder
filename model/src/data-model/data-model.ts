@@ -8,6 +8,24 @@ import { ComponentDef } from "../components/types";
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 import dfs from "depth-first";
 
+function allInputs(pages) {
+  return pages.flatMap((page) => {
+    const inputs = (page.components ?? []).filter(
+      (input) => input.subType === "field"
+    );
+    return inputs.map((input) => {
+      return {
+        name: input.name,
+        page: { name: page.path, section: page.section },
+        propertyPath: page.section
+          ? `${page.section}.${input.name}`
+          : input.name,
+        title: input.title,
+      };
+    });
+  });
+}
+
 export type RawData = Pick<
   Data,
   "startPage" | "pages" | "lists" | "sections"
@@ -308,34 +326,23 @@ export class Data {
   }
 
   get allInputs() {
-    const c = this.pages.flatMap((page) => {
-      const inputs = (page.components ?? []).filter(
-        (input) => input.subType === "field"
-      );
-      return inputs.map((input) => {
-        return {
-          name: input.name,
-          page: { name: page.path, section: page.section },
-          propertyPath: page.section
-            ? `${page.section}.${input.name}`
-            : input.name,
-          title: input.title,
-        };
-      });
-    });
-    console.log(c);
-    return c;
+    return allInputs(this.pages);
   }
 
   allPathsLeadingTo(path) {
     const edges = this.pages.flatMap((page) => {
       return (page.next ?? []).map((next) => [page.path, next.path]);
     });
-    console.log(edges);
-
-    console.log("dfs", edges, path);
     // @ts-ignore
     return dfs(edges, path, { reverse: true }).filter((p) => p !== path);
+  }
+
+  inputsAccessibleAt(path) {
+    const pages = this.allPathsLeadingTo(path).map((path) =>
+      this.pages.find((page) => page.path === path)
+    );
+    console.log(pages);
+    return allInputs(pages);
   }
 
   _exposePrivateFields() {
