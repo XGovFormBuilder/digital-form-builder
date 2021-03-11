@@ -5,7 +5,7 @@ import { Data } from "@xgovformbuilder/model";
 
 import OutputEdit from "../output-edit";
 
-describe("ComponentTypeEdit", () => {
+describe("OutputEdit", () => {
   let mockData: Data;
   let mockSave: any;
 
