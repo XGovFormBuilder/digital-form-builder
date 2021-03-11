@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import NotifyEditItems from "./notify-edit-items";
 import { Output, NotifyOutputConfiguration, ValidationErrors } from "./types";
 import { Input } from "@govuk-jsx/input";
-import { Checkboxes } from "@govuk-jsx/Checkboxes";
+import { Checkboxes } from "@govuk-jsx/checkboxes";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
 
