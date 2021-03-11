@@ -67,13 +67,14 @@ export class InlineConditions extends React.Component<Props, State> {
   }
 
   fieldsForPath(path) {
-    const { data } = this.props;
-    const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs();
+    const { data } = this.context;
+    const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs;
+
     const fieldInputs = inputs.map((input) => ({
       label: input.displayName,
       name: input.propertyPath,
       type: input.type,
-      values: data.valuesFor(input)?.toStaticValues()?.items,
+      values: data.findList(input.list).items.values,
     }));
     const conditionsInputs = data.conditions.map((condition) => ({
       label: condition.displayName,

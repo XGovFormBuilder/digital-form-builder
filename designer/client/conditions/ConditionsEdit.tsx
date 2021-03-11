@@ -84,7 +84,7 @@ export function ConditionsEdit() {
             ))}
             <li>
               <hr />
-              {data.allInputs().length > 0 && (
+              {data.allInputs.length > 0 && (
                 <a
                   href="#"
                   id="add-condition-link"
@@ -95,7 +95,7 @@ export function ConditionsEdit() {
                   {i18n("conditions.add")}
                 </a>
               )}
-              {data.allInputs().length <= 0 && (
+              {data.allInputs.length <= 0 && (
                 <div className="govuk-body">
                   <div className="govuk-hint">
                     {i18n("conditions.noFieldsAvailable")}
