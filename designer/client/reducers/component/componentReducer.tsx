@@ -75,7 +75,6 @@ export const initComponentState = (props) => {
   return {
     selectedComponent: selectedComponent ?? { name: newName, options: {} },
     initialName: selectedComponent?.name ?? newName,
-    selectedListName: selectedComponent?.values?.list,
     pagePath: props?.pagePath,
     isNew: props?.isNew || ((selectedComponent?.name && false) ?? true),
     listItemErrors: {},

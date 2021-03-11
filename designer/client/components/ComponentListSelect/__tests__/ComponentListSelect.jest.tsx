@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import userEvent, { TargetElement } from "@testing-library/user-event";
 import { DataContext } from "../../../context";
 import { Data } from "@xgovformbuilder/model";
-import { ComponentListSelect } from "../component-list-select";
+import { ComponentListSelect } from "../ComponentListSelect";
 import {
   ComponentContext,
   componentReducer,
@@ -27,10 +27,7 @@ describe("ComponentListSelect", () => {
               required: true,
             },
             type: "RadiosField",
-            values: {
-              type: "listRef",
-              list: "myList",
-            },
+            list: "myList",
           },
         ],
       },
@@ -90,7 +87,7 @@ describe("ComponentListSelect", () => {
     const options = container.querySelectorAll("option");
 
     // - then
-    expect(options).toHaveLength(2);
+    expect(options).toHaveLength(3);
 
     const optionProps = [
       { value: "myList", text: "My list" },
@@ -98,8 +95,8 @@ describe("ComponentListSelect", () => {
     ];
 
     optionProps.forEach((optionProp, index) => {
-      expect(options[index]).toHaveValue(optionProp.value);
-      expect(options[index]).toHaveTextContent(optionProp.text);
+      expect(options[index + 1]).toHaveValue(optionProp.value);
+      expect(options[index + 1]).toHaveTextContent(optionProp.text);
     });
   });
 

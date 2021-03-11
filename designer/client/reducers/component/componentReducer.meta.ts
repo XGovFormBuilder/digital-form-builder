@@ -18,9 +18,7 @@ export function metaReducer(
         ...state,
         selectedComponent: {
           ...selectedComponent,
-          values: {
-            list: payload,
-          },
+          list: payload,
         },
       };
     case Meta.NEW_COMPONENT:

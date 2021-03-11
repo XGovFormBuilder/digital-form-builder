@@ -15,7 +15,8 @@ export function ComponentListSelect() {
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
 
   const { state, dispatch } = useContext(ComponentContext);
-  const { selectedListName, selectedComponent } = state;
+  const { selectedComponent } = state;
+  const { list } = selectedComponent;
 
   const { state: listState, dispatch: listDispatch } = useContext(ListContext);
   const { selectedList } = listState;
@@ -25,17 +26,15 @@ export function ComponentListSelect() {
   );
 
   useEffect(() => {
-    const list = data.findList(selectedListName);
     listDispatch({
       type: ListActions.SET_SELECTED_LIST,
-      payload: list,
+      payload: data.findList(list),
     });
-  }, [data, listDispatch, selectedListName]);
+  }, [data, listDispatch, list]);
 
   useEffect(() => {
-    const list = data.findList(selectedListName);
-    setSelectedListTitle(list?.title ?? list?.name ?? selectedComponent.title);
-  }, [data, selectedComponent.title, selectedListName]);
+    setSelectedListTitle(selectedList?.title ?? selectedList?.name);
+  }, [selectedList]);
 
   const editList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
@@ -59,7 +58,7 @@ export function ComponentListSelect() {
         className="govuk-select govuk-input--width-10"
         id="field-options-list"
         name="options.list"
-        value={selectedListName}
+        value={list}
         onChange={editList}
       >
         <option />
