@@ -10,13 +10,14 @@ import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../../reducers/list/listsEditorReducer";
+import classNames from "classnames";
 
 export function ComponentListSelect() {
   const { data } = useContext(DataContext);
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
 
   const { state, dispatch } = useContext(ComponentContext);
-  const { selectedListName, selectedComponent, isNew } = state;
+  const { selectedListName, selectedComponent, isNew, errors = {} } = state;
 
   const { state: listState, dispatch: listDispatch } = useContext(ListContext);
   const { selectedList } = listState;
@@ -68,7 +69,12 @@ export function ComponentListSelect() {
   const hasItems = values?.items?.length > 0 ?? false;
 
   return (
-    <div className="govuk-form-group">
+    <div
+      className={classNames({
+        "govuk-form-group": true,
+        "govuk-form-group--error": errors?.list,
+      })}
+    >
       <Label htmlFor="field-options-list" className="govuk-label--s">
         {i18n("list.select.title")}
       </Label>
@@ -80,7 +86,7 @@ export function ComponentListSelect() {
         value={selectedListName}
         onChange={editList}
       >
-        {!hasItems && <option value="static" />}
+        {isNew && <option value="-1">{i18n("list.select.option")}</option>}
         {hasItems && <option value="static">{selectedComponent.title}</option>}
         {data.lists.map(
           (

@@ -54,11 +54,11 @@ export function componentListReducer(
         return {
           ...state,
           selectedComponent: {
+            ...selectedComponent,
             values: {
               type: payload === "static" ? "static" : "listRef",
               list: payload,
             },
-            ...selectedComponent,
           },
           selectedListName: payload,
           listItemErrors: {},
