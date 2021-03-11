@@ -16,8 +16,8 @@ function allInputs(pages) {
     return inputs.map((input) => {
       return {
         name: input.name,
-        page: { name: page.path, section: page.section },
-        propertyPath: page.section
+        page: { path: page.path, section: page.section },
+        propertyPath: !!page.section
           ? `${page.section}.${input.name}`
           : input.name,
         title: input.title,
@@ -341,7 +341,6 @@ export class Data {
     const pages = this.allPathsLeadingTo(path).map((path) =>
       this.pages.find((page) => page.path === path)
     );
-    console.log(pages);
     return allInputs(pages);
   }
 

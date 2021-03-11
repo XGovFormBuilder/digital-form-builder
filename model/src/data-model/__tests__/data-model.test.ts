@@ -4,10 +4,6 @@ import { Data } from "../..";
 import { RawData } from "../data-model";
 
 describe("data model", () => {
-  function inputsAsObject(inputs) {
-    return inputs.map((i) => ({ ...i }));
-  }
-
   const fullyPopulatedRawData: RawData = {
     pages: [
       {
@@ -78,25 +74,25 @@ describe("data model", () => {
       expect(data.allInputs).toEqual([
         {
           name: "name1",
-          page: { name: "page1", section: "section1" },
+          page: { path: "page1", section: "section1" },
           propertyPath: "section1.name1",
           title: undefined,
         },
         {
           name: "name2",
-          page: { name: "page1", section: "section1" },
+          page: { path: "page1", section: "section1" },
           propertyPath: "section1.name2",
           title: undefined,
         },
         {
           name: "name3",
-          page: { name: "page2", section: "section1" },
+          page: { path: "page2", section: "section1" },
           propertyPath: "section1.name3",
           title: undefined,
         },
         {
           name: "name4",
-          page: { name: "page2", section: "section1" },
+          page: { path: "page2", section: "section1" },
           propertyPath: "section1.name4",
           title: undefined,
         },
@@ -129,7 +125,7 @@ describe("data model", () => {
   });
 
   // FIXME:- no consumers use this method!!
-  describe.only("inputsAccessibleAt", () => {
+  describe("inputsAccessibleAt", () => {
     test("should return all inputs from the page model when a single route leads to this page", () => {
       const data = new Data({
         pages: [
@@ -163,58 +159,29 @@ describe("data model", () => {
           },
         ],
       });
-
       expect(data.inputsAccessibleAt("/3")).toEqual([
         {
-          name: "name1",
-          page: {
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name1",
-          title: undefined,
-        },
-        {
-          name: "name2",
-          page: {
-            path: "/1",
-            next: [{ path: "/2" }],
-            section: "section1",
-          },
-          propertyPath: "section1.name2",
-          title: undefined,
-        },
-        {
           name: "name3",
-          page: {
-            path: "/2",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
+          page: { path: "/2", section: "section1" },
           propertyPath: "section1.name3",
           title: undefined,
         },
         {
           name: "name4",
-          page: {
-            path: "/2",
-            next: [{ path: "/3" }],
-            section: "section1",
-          },
+          page: { path: "/2", section: "section1" },
           propertyPath: "section1.name4",
           title: undefined,
         },
         {
-          name: "name5",
-          page: { path: "/3" },
-          propertyPath: "name5",
+          name: "name1",
+          page: { path: "/1", section: "section1" },
+          propertyPath: "section1.name1",
           title: undefined,
         },
         {
-          name: "name6",
-          page: { path: "/3" },
-          propertyPath: "name6",
+          name: "name2",
+          page: { path: "/1", section: "section1" },
+          propertyPath: "section1.name2",
           title: undefined,
         },
       ]);
@@ -298,7 +265,7 @@ describe("data model", () => {
   });
 
   describe("all paths", () => {
-    test("_allPathsLeadingTo should work with cycle in paths", () => {
+    test("allPathsLeadingTo should work with cycle in paths", () => {
       const data = new Data({
         pages: [
           {
@@ -322,7 +289,7 @@ describe("data model", () => {
       expect(paths).toEqual(["/1"]);
     });
 
-    test("_allPathsLeadingTo should work with single parents", () => {
+    test("allPathsLeadingTo should work with single parents", () => {
       const data = new Data({
         pages: [
           {
@@ -346,7 +313,7 @@ describe("data model", () => {
       expect(paths).toEqual(["/2", "/1"]);
     });
 
-    test("_allPathsLeadingTo should work with multiple parents", () => {
+    test("allPathsLeadingTo should work with multiple parents", () => {
       const data = new Data({
         pages: [
           {
