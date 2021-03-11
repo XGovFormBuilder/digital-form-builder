@@ -110,6 +110,7 @@
     "@types/hapi__yar": "^9.2.1",
     "@types/hoek": "^4.1.3",
     "@types/nodemailer": "^6.4.0",
+    "@types/pino": "^6.3.6",
     "@types/wreck": "^14.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "babel-eslint": "^10.1.0",
