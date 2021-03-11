@@ -6,8 +6,6 @@ Feature: Components
   Background: User views the form
     Given I am at the beginning of the "report a terrorist" form
 
-  # Remove @wip tag when the cookie issue is resolved
-  @wip
   Scenario: Complete the report a Terrorist form
     And I complete the form
     When I view the Summary page
