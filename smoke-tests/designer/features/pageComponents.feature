@@ -24,8 +24,6 @@ Feature: Components
       | Paragraph     |
       | Text          |
 
-  # Remove tag once checkbox issue is resolved
-  @wip
   Scenario: Progress to the Summary after filling in Checkboxes
     And I have created a "Global" list with 2 list items
     When I add a "Checkboxes" control for the "Second page"
