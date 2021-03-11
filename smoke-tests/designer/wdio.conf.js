@@ -23,8 +23,8 @@ exports.config = {
   // If you only want to run your tests until a specific amount of tests have failed use
   // bail (default is 0 - don't bail, run all tests).
   bail: 0,
-  baseUrl: "http://localhost:3000",
-  runnerUrl: "http://localhost:3009",
+  baseUrl: "http://localhost:3000/",
+  runnerUrl: "http://localhost:3009/",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
