@@ -2,9 +2,7 @@ const { Given, When, Then } = require("cucumber");
 const { formRunner } = require("../pageobjects/pages");
 
 Given(/^I am at the beginning of the report a terrorist form$/, function () {
-  browser.url(
-    "https://digital-form-builder-runner.herokuapp.com/report-a-terrorist/"
-  );
+  formRunner.open("report-a-terrorist/");
 });
 
 Given(/^I complete the form$/, function () {
