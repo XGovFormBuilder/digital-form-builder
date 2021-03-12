@@ -62,7 +62,6 @@ export function ConditionsEdit() {
                 onHide={cancelInlineCondition}
               >
                 <InlineConditions
-                  data={data}
                   conditionsChange={cancelInlineCondition}
                   cancelCallback={cancelInlineCondition}
                 />

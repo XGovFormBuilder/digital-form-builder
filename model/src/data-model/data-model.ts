@@ -4,7 +4,7 @@ import {
   ConditionRawData,
 } from "./conditions-wrapper";
 import { clone, filter } from "../utils/helpers";
-import { ComponentDef } from "../components/types";
+import { ComponentDef, ListComponentsDef } from "../components/types";
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 import dfs from "depth-first";
 
@@ -351,4 +351,6 @@ export class Data {
       conditions: this.#conditions.map((condition) => clone(condition)),
     });
   }
+
+  valuesFor();
 }
