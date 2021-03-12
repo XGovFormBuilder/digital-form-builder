@@ -85,6 +85,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(Scooter);
   await server.register(configureBlankiePlugin(config));
   await server.register(configureCrumbPlugin(config, routeConfig));
+  await server.register(pluginLogging);
   await server.register(Schmervice);
 
   server.registerService([
@@ -135,7 +136,6 @@ async function createServer(routeConfig: RouteConfig) {
 
   if (!config.isTest) {
     await server.register(blipp);
-    await server.register(pluginLogging);
   }
 
   return server;
