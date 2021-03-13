@@ -208,7 +208,7 @@ class InlineConditionsEdit extends React.Component {
                       name={`condition-${index}`}
                       value={index}
                       onChange={this.onChangeCheckbox}
-                      checked={selectedConditions?.includes(index) || ""}
+                      checked={selectedConditions?.includes(index) ?? ""}
                     />
                     <label
                       className="govuk-label govuk-checkboxes__label"

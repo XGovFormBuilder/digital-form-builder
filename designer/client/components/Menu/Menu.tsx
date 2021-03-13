@@ -87,7 +87,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
             onHide={conditions.hide}
             width="large"
           >
-            <ConditionsEdit data={data} onCreate={() => conditions.hide} />
+            <ConditionsEdit onCreate={() => conditions.hide} />
           </Flyout>
         )}
 

@@ -294,6 +294,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-plugin-utils@npm:^7.13.0":
+  version: 7.13.0
+  resolution: "@babel/helper-plugin-utils@npm:7.13.0"
+  checksum: 229ac1917b43ad38732d2d4a9a826f87d8945719249efe1d6191f3e25ba6027a289af70380d82d62a03fc9e82558a0ea6f12739cbb55b64bb280d6b511b4ca65
+  languageName: node
+  linkType: hard
+
 "@babel/helper-remap-async-to-generator@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/helper-remap-async-to-generator@npm:7.12.1"
@@ -514,6 +521,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 08af656aaa40c554ba079c5b6cae9fe9dff95cf817debcbfc2ba5e7b7e051d6b2b04aa727d4e77404ea147758e513da7be8b35626e8053f50caceeaeff8f9763
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-proposal-logical-assignment-operators@npm:^7.13.8":
+  version: 7.13.8
+  resolution: "@babel/plugin-proposal-logical-assignment-operators@npm:7.13.8"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.13.0
+    "@babel/plugin-syntax-logical-assignment-operators": ^7.10.4
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: e0bed6050b35e0b89fc4bbc8e934bafc14fec0192105c4ace15a244ba3d2ba2dc1bb682e9529328aa7350712c0fbde2ae8a3c4cd1b3ec04458eeb3916ccbea49
   languageName: node
   linkType: hard
 
@@ -8950,6 +8969,7 @@ __metadata:
     "@babel/eslint-plugin": ^7.11.3
     "@babel/plugin-proposal-class-properties": 7.10.1
     "@babel/plugin-proposal-export-default-from": ^7.10.1
+    "@babel/plugin-proposal-logical-assignment-operators": ^7.13.8
     "@babel/plugin-proposal-private-methods": ^7.10.1
     "@babel/plugin-proposal-private-property-in-object": ^7.10.1
     "@babel/plugin-transform-runtime": ^7.11.0

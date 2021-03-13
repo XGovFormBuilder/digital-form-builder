@@ -49,7 +49,7 @@ describe("data model", () => {
     },
   };
 
-  describe("all inputs", () => {
+  describe.only("allInputs", () => {
     test("should return all inputs from the page model", () => {
       const data = new Data({
         pages: [
@@ -57,16 +57,16 @@ describe("data model", () => {
             path: "page1",
             section: "section1",
             components: [
-              { name: "name1", subType: "field" },
-              { name: "name2", subType: "field" },
+              { name: "name1", type: "Radios" },
+              { name: "name2", type: "Radios" },
             ],
           },
           {
             path: "page2",
             section: "section1",
             components: [
-              { name: "name3", subType: "field" },
-              { name: "name4", subType: "field" },
+              { name: "name3", type: "Radios" },
+              { name: "name4", type: "Radios" },
             ],
           },
         ],
@@ -135,8 +135,8 @@ describe("data model", () => {
             path: "/1",
             next: [{ path: "/2" }],
             components: [
-              { name: "name1", subType: "field" },
-              { name: "name2", subType: "field" },
+              { name: "name1", type: "Radios" },
+              { name: "name2", type: "Radios" },
             ],
           },
           {
@@ -145,16 +145,16 @@ describe("data model", () => {
             path: "/2",
             next: [{ path: "/3" }],
             components: [
-              { name: "name3", subType: "field" },
-              { name: "name4", subType: "field" },
+              { name: "name3", type: "Radios" },
+              { name: "name4", type: "Radios" },
             ],
           },
           {
             name: "page3",
             path: "/3",
             components: [
-              { name: "name5", subType: "field" },
-              { name: "name6", subType: "field" },
+              { name: "name5", type: "Radios" },
+              { name: "name6", type: "Radios" },
             ],
           },
         ],

@@ -4,15 +4,31 @@ import {
   ConditionRawData,
 } from "./conditions-wrapper";
 import { clone, filter } from "../utils/helpers";
-import { ComponentDef, ListComponentsDef } from "../components/types";
+import {
+  ComponentDef,
+  ContentComponentsDef,
+  InputFieldsComponentsDef,
+  ListComponentsDef,
+} from "../components/types";
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 import dfs from "depth-first";
 
+const isNotContentType = (
+  obj: ComponentDef
+): obj is InputFieldsComponentsDef | ListComponentsDef => {
+  const contentTypes: ContentComponentsDef["type"][] = [
+    "Para",
+    "Details",
+    "Html",
+    "InsetText",
+  ];
+  console.log("notnot", !contentTypes.find((type) => type === `${obj.type}`));
+  return !contentTypes.find((type) => type === `${obj.type}`);
+};
 function allInputs(pages) {
   return pages.flatMap((page) => {
-    const inputs = (page.components ?? []).filter(
-      (input) => input.subType === "field"
-    );
+    const inputs = page.components.filter(isNotContentType);
+    console.log("inputs", inputs);
     return inputs.map((input) => {
       return {
         name: input.name,
@@ -21,6 +37,8 @@ function allInputs(pages) {
           ? `${page.section}.${input.name}`
           : input.name,
         title: input.title,
+        list: input.list,
+        type: input.type,
       };
     });
   });
@@ -177,8 +195,6 @@ export class Data {
     displayName: string,
     value: ConditionWrapperValue
   ): Data {
-    this.#conditions = this.#conditions;
-
     if (this.#conditions.find((condition) => condition.name === name)) {
       throw Error(`A condition already exists with name ${name}`);
     }
@@ -351,6 +367,4 @@ export class Data {
       conditions: this.#conditions.map((condition) => clone(condition)),
     });
   }
-
-  valuesFor();
 }
