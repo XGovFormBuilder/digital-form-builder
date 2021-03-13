@@ -22,13 +22,11 @@ const isNotContentType = (
     "Html",
     "InsetText",
   ];
-  console.log("notnot", !contentTypes.find((type) => type === `${obj.type}`));
   return !contentTypes.find((type) => type === `${obj.type}`);
 };
 function allInputs(pages) {
   return pages.flatMap((page) => {
-    const inputs = page.components.filter(isNotContentType);
-    console.log("inputs", inputs);
+    const inputs = page.components ?? [].filter(isNotContentType);
     return inputs.map((input) => {
       return {
         name: input.name,
