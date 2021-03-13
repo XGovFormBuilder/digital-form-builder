@@ -204,7 +204,7 @@ export class Data {
   addComponent(pagePath: string, component: ComponentDef): Data {
     const page = this.findPage(pagePath);
     if (page) {
-      page.components = page.components || [];
+      page.components ||= [];
       page.components.push(component);
     } else {
       throw Error(`No page exists with path ${pagePath}`);
@@ -291,36 +291,25 @@ export class Data {
   }
 
   set name(name: string) {
-    if (typeof name === "string" || name === undefined) {
-      this.#name = name;
-    } else {
-      throw Error("name must be a string");
-    }
+    this.#name ||= name;
   }
 
+  //FIXME:- isFeedbackForm?
   get feedbackForm(): boolean {
     return this.#feedback?.feedbackForm ?? false;
   }
 
   set feedbackForm(feedbackForm: boolean) {
-    if (typeof feedbackForm === "boolean") {
-      this.#feedback = this.#feedback || {};
-      this.#feedback.feedbackForm = feedbackForm;
-    } else {
-      throw Error("feedbackForm must be a boolean");
-    }
+    this.#feedback = { ...(this.#feedback ?? {}), feedbackForm };
   }
 
-  setFeedbackUrl(feedbackUrl: string) {
-    if (feedbackUrl && this.feedbackForm) {
+  //FIXME:- should just be a setter method
+  setFeedbackUrl(url: string) {
+    if (url && this.feedbackForm) {
       throw Error("Cannot set a feedback url on a feedback form");
     }
-    if (typeof feedbackUrl === "string" || feedbackUrl === undefined) {
-      this.#feedback = this.#feedback || {};
-      this.#feedback.url = feedbackUrl;
-    } else {
-      throw Error("feedbackUrl must be a string");
-    }
+
+    this.#feedback = { ...(this.#feedback ?? {}), url };
   }
 
   get feedbackUrl(): string | undefined {
