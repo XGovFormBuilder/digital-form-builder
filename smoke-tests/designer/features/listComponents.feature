@@ -34,29 +34,32 @@ Feature: List components
     When I edit the 1st list item from the "global" list
     Then the 1st list item reflects the changes I made
 
-  # Enable once the fix for 449 is in place
-  @wip
   Scenario: Adding a component without selecting a list
     And I have created a "Global" list with 2 list items
     When I try add "Checkboxes" to the "First page" without selecting a list
     Then the error summary is displayed
 
+  @wip
   Scenario: Create a Local list
     And I add a "List" control to the "First page"
     When I edit the "List" component
     And I create a new component list with 1 item
     Then the list is selected in the list dropdown
 
+  @wip
   Scenario: Adding a list item to a Local list
     And I have created a "Local" list with 1 list item
     When I create a 2nd list item for the Local list
     Then the Local list has 2 list items
 
+  
+  @wip
   Scenario: Deleting a list item from a local list
     And I have created a "Local" list with 2 list items
     When I delete the 1st list item from the "Local" list
     Then the Local list only has one item
 
+  @wip
   Scenario: Editing a list item in a Local list
     And I have created a "Local" list with 2 list items
     When I edit the 1st list item from the "local" list
