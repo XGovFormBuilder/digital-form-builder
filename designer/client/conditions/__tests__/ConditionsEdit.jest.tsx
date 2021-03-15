@@ -105,6 +105,7 @@ describe("without existing conditions", () => {
   const data = {
     conditions: [],
     hasConditions: false,
+    allInputs: [],
   };
 
   test("Renders no edit condition links", () => {

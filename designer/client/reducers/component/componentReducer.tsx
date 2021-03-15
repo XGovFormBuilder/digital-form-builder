@@ -51,7 +51,6 @@ export function componentReducer(
 ) {
   const { type } = action;
   const { selectedComponent } = state;
-  console.log("selected component", selectedComponent);
 
   if (isNotValidate(type)) {
     state.hasValidated = false;
