@@ -45,11 +45,7 @@ const validateContent = ({ content }) => {
 
 const validateList = (component) => {
   const errors: any = {};
-  if (
-    !component.values ||
-    !component.values.list ||
-    component.values.list === "-1"
-  ) {
+  if ((component?.values?.list ?? "-1") === "-1") {
     errors.list = {
       href: `#field-options-list`,
       children: ["list.errors.select"],
