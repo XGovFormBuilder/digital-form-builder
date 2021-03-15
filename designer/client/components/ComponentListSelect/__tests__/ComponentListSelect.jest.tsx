@@ -102,7 +102,7 @@ describe("ComponentListSelect", () => {
 
   test("Selecting a different list changes the edit link", () => {
     // - when
-    const { container } = render(
+    const { container, getByText } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
         componentValue={false}
@@ -115,11 +115,10 @@ describe("ComponentListSelect", () => {
     userEvent.selectOptions(select, "myList");
 
     // - then
-    const editLink = container.querySelector("a");
-    expect(editLink).toHaveTextContent("Edit My list");
+    expect(getByText("Edit My list")).toBeInTheDocument();
   });
 
-  test("should display the correct title", () => {
+  test("should render strings correctly", () => {
     const { getByText } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
@@ -129,22 +128,12 @@ describe("ComponentListSelect", () => {
       </TestComponentContextProvider>
     );
 
-    const text = "Select list";
-    expect(getByText(text)).toBeInTheDocument();
-  });
-
-  test("should display correct help text", () => {
-    const { getByText } = render(
-      <TestComponentContextProvider
-        dataValue={dataValue}
-        componentValue={false}
-      >
-        <ComponentListSelect />
-      </TestComponentContextProvider>
-    );
-
-    const text =
+    const title = "Select list";
+    const help =
       "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
-    expect(getByText(text)).toBeInTheDocument();
+    const addNew = "Add a new list";
+    expect(getByText(title)).toBeInTheDocument();
+    expect(getByText(help)).toBeInTheDocument();
+    expect(getByText(addNew)).toBeInTheDocument();
   });
 });

@@ -52,7 +52,6 @@ export function ConditionsEdit({ path }: Props) {
     cancelInlineCondition,
   } = useConditionsEditor();
   const { data } = useContext(DataContext);
-  console.log(data.allInputs);
   const { conditions } = data;
   return (
     <div className="govuk-body">
