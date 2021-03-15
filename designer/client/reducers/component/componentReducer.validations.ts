@@ -66,7 +66,6 @@ const ComponentsWithListField = [
   Types.List,
   Types.RadiosField,
   Types.SelectField,
-  Types.FlashCard,
   Types.CheckboxesField,
 ];
 

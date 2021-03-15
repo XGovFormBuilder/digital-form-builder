@@ -233,7 +233,7 @@
     "edit": "Edit {{title}}",
     "errors": {
       "empty": "The list must have list items",
-      "select": "Select a valid List"
+      "select": "Select a list"
     },
     "hint": {
       "description": "Use lists to provide information in bullet points or set answers to multiple choice questions. After you create a list you can assign it to components to use on your form.",
@@ -263,7 +263,7 @@
     "select": {
       "helpText": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.",
       "title": "Select list",
-      "option": "please select a list from below"
+      "option": "Select a list"
     },
     "static": {
       "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
