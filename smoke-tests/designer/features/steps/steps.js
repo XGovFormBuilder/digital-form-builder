@@ -181,7 +181,11 @@ When("I add a {string} control for the {string}", function (
 });
 
 Then("the list is available in the list options", function () {
-  expect(createComponent.listOptions).toHaveText(this.listName);
+  expect(
+    createComponent.listOptions.findIndex((el) =>
+      el.getText().includes(this.listName)
+    )
+  ).toBeGreaterThan(-1);
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
