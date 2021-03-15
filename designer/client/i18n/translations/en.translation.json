@@ -223,6 +223,7 @@
   "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost.",
   "list": {
     "add": "Add list",
+    "addNew": "Add a new list",
     "addOrEdit": "Add or edit lists",
     "deleteWarning": {
       "confirm": "Yes, delete this list",

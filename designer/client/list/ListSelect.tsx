@@ -8,7 +8,7 @@ import {
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
 
-export function GlobalListSelect() {
+export function ListSelect() {
   const { data } = useContext(DataContext);
   const { dispatch: listDispatch } = useContext(ListContext);
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
@@ -62,4 +62,4 @@ export function GlobalListSelect() {
     </>
   );
 }
-export default GlobalListSelect;
+export default ListSelect;

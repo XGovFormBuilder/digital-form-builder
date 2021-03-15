@@ -16,7 +16,7 @@ function ListFieldEdit({ page }: Props) {
       <ListContextProvider>
         <ComponentListSelect />
         <RenderInPortal>
-          <ListsEdit isEditingFromComponent={true} page={page} />
+          <ListsEdit showEditLists={true} page={page} />
         </RenderInPortal>
       </ListContextProvider>
     </ListsEditorContextProvider>

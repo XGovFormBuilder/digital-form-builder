@@ -311,10 +311,6 @@ main {
     text-decoration: none;
   }
 
-  > .close:hover {
-    color: #000;
-  }
-
   h1 {
     font-size: 150%;
     margin: 0 0 15px;
@@ -721,3 +717,15 @@ footer {
 .checkbox-hint {
   padding-left: govuk-spacing(3);
 }
+
+button.govuk-link {
+  @extend .govuk-link, :link;
+  text-decoration: underline;
+  &:hover {
+   cursor: pointer;
+  }
+  background-color: transparent;
+  border: none;
+  display: block;
+}
+
