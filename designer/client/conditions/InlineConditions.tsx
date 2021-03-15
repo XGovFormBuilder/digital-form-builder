@@ -80,9 +80,9 @@ export class InlineConditions extends React.Component<Props, State> {
     console.log("fields for path", data);
     const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs;
 
-    const fieldInputs = inputs.map((input) => {
+    const fieldInputs = (inputs ?? []).map((input) => {
       const label = [
-        data.sections[input.page.section]?.title,
+        data.sections?.[input.page.section]?.title,
         input.title ?? input.name,
       ]
         .filter((p) => p)
