@@ -14,6 +14,7 @@ import {
   ConditionsModel,
   ConditionField,
   ConditionValue,
+  Data,
 } from "@xgovformbuilder/model";
 
 import InlineConditionHelpers from "../client/conditions/inline-condition-helpers";
@@ -25,16 +26,30 @@ exports.lab = lab;
 const { after, afterEach, before, beforeEach, describe, suite, test } = lab;
 
 suite.skip("Inline conditions", () => {
-  const data = {
-    inputsAccessibleAt: sinon.stub(),
-    allInputs: sinon.stub(),
-    valuesFor: sinon.stub(),
-    clone: sinon.stub(),
-    save: sinon.stub(),
-    updateCondition: sinon.stub(),
-    conditions: [],
-    findList: sinon.stub(),
-  };
+  const data = new Data({
+    pages: [
+      {
+        path: "page1",
+        section: "section1",
+        components: [
+          { name: "name1", type: "Radios" },
+          { name: "name2", type: "Radios" },
+        ],
+      },
+      {
+        path: "page2",
+        section: "section1",
+        components: [
+          { name: "name3", type: "Radios" },
+          { name: "name4", type: "Radios" },
+        ],
+      },
+    ],
+    conditions: [
+      { name: "condition1", displayName: "Condition 1" },
+      { name: "condition2", displayName: "Another Condition" },
+    ],
+  });
   const save = sinon.spy();
 
   const DataWrapper = ({ dataValue, children }) => {
@@ -53,8 +68,6 @@ suite.skip("Inline conditions", () => {
   });
 
   test("render returns nothing when there is an empty fields list", () => {
-    data.inputsAccessibleAt.withArgs(path).returns([]);
-    data.valuesFor.returns(undefined);
     expect(
       mount(
         <InlineConditions

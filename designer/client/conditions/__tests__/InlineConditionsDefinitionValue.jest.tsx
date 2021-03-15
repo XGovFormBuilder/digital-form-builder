@@ -10,7 +10,7 @@ import {
 } from "@xgovformbuilder/model";
 import userEvent from "@testing-library/user-event";
 
-describe("AbsoluteDateTimeValues", () => {
+describe.skip("AbsoluteDateTimeValues", () => {
   afterEach(() => jest.resetAllMocks());
 
   it("should display a text input for fields without custom mappings or options", async () => {

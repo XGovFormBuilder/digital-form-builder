@@ -711,7 +711,7 @@ function assertEditPanel(wrapper, conditions, editingError) {
       wrapper: checkboxDiv.children().at(0),
       id: `condition-${index}`,
       value: index,
-      checked: condition.selected || "",
+      checked: condition.selected ?? "",
     });
 
     assertLabel(checkboxDiv.children().at(1), condition.condition);
