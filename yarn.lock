@@ -4630,7 +4630,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.15.0
     "@xgovformbuilder/govuk-react-jsx": ^4.0.10
     "@xgovformbuilder/lab-babel": 2.1.2
-    "@xgovformbuilder/model": 2.0.0
+    "@xgovformbuilder/model": 3.0.0
     acorn: 7.2.0
     autoprefixer: ^10.2.1
     aws-sdk: ^2.723.0
@@ -4728,7 +4728,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xgovformbuilder/model@2.0.0, @xgovformbuilder/model@workspace:model":
+"@xgovformbuilder/model@3.0.0, @xgovformbuilder/model@workspace:model":
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/model@workspace:model"
   dependencies:
