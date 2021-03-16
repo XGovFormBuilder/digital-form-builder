@@ -45,7 +45,6 @@ const validateContent = ({ content }) => {
 
 const validateList = (component) => {
   const errors: any = {};
-  console.log("Component-" + JSON.stringify(component));
   if (
     component?.values?.type !== "static" &&
     (component?.values?.list ?? "-1") === "-1"
