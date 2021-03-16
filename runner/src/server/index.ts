@@ -44,7 +44,11 @@ const serverOptions = (): ServerOptions => {
         },
       },
       security: {
-        hsts: true,
+        hsts: {
+          maxAge: 31536000,
+          includeSubDomains: true,
+          preload: false,
+        },
         xss: true,
         noSniff: true,
         xframe: true,
