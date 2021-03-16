@@ -50,7 +50,7 @@
             "classes": "govuk-input--width-10",
             "required": true
           },
-          "type": "CheckboxesField",
+          "type": "SelectField",
           "name": "numberOfApplicants",
           "title": "How many applicants are there?",
           "list": "numberOfApplicants"
