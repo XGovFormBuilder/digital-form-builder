@@ -6,18 +6,16 @@ import { MigrationScript } from "./types";
  * Returns which migrations that should be run against your Object with the given version
  * @param version
  */
-export function whichMigrations(version) {
+export function whichMigrations(version: number) {
   let migrations = new Set<MigrationScript>();
   switch (version) {
     case 0:
-      console.log("migrate v0-2");
       migrations.add(V0_TO_V2);
       /**
        * we are skipping v1 entirely. If we weren't you would do migrations.add([V1_TO_V2, V2_TO_V3]) for example.
        */
       break;
     case 1:
-      console.log("migrate v1-2");
       migrations.add(V1_TO_V2);
       break;
   }

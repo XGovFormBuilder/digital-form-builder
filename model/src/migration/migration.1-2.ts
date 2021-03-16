@@ -96,8 +96,6 @@ export function migrate(data): MigrationScript {
     };
   });
 
-  console.log("map", pages.map(removeValues));
-
   return {
     ...data,
     pages: pages.map(removeValues),
