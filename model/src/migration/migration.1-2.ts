@@ -19,6 +19,7 @@ type StaticItem = {
  * It should only be used for aiding migration scripts.
  */
 type StaticComponentValues = {
+  list: any;
   type: "static" | "listRef";
   valueType: string | number;
   items: StaticItem[];
@@ -46,9 +47,10 @@ function addListId(component: { values: StaticComponentValues }) {
   if (!component.values) {
     return component;
   }
+  const { values } = component;
   return {
     ...component,
-    list: nanoid(),
+    list: values.type === "listRef" ? values.list : nanoid(),
   };
 }
 
@@ -60,12 +62,15 @@ function migratePage(page) {
 }
 
 function removeValues(page) {
-  return page.components.map((component) => {
-    const { values, ...rest } = component;
-    return {
-      ...rest,
-    };
-  });
+  return {
+    ...page,
+    components: page.components.map((component) => {
+      const { values, ...rest } = component;
+      return {
+        ...rest,
+      };
+    }),
+  };
 }
 
 function needsUpgrade(data) {
@@ -90,6 +95,8 @@ export function migrate(data): MigrationScript {
       items: component.values.items.map((item) => recastItem(item)),
     };
   });
+
+  console.log("map", pages.map(removeValues));
 
   return {
     ...data,

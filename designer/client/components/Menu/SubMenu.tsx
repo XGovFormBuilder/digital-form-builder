@@ -1,6 +1,20 @@
 import React, { useContext, useRef } from "react";
 import { DataContext } from "../../context";
-import { useMigration } from "./useMigration";
+import { whichMigrations } from "@xgovformbuilder/model";
+
+export function migrate(form) {
+  const { version = 0 } = form;
+  const migrationList = whichMigrations(version);
+  try {
+    let migratedJson = { ...form };
+    migrationList.forEach((migration) => {
+      migratedJson = migration(migratedJson);
+    });
+    return migratedJson;
+  } catch (e) {
+    console.error("failed to migrate json");
+  }
+}
 
 type Props = {
   id?: string;
@@ -34,22 +48,31 @@ export function SubMenu({ id, updateDownloadedAt }: Props) {
     reader.readAsText(file, "UTF-8");
     reader.onload = function (evt) {
       const content = JSON.parse(evt.target.result);
-      const migrated = useMigration(content);
+      const migrated = migrate(content);
       console.log(migrated);
-      save(content);
+      save(migrated);
     };
   };
 
   return (
     <div className="menu__row">
-      <a href="/app">Create new form</a>
-      <button className="govuk-link" onClick={onClickUpload}>
+      <a href="/app" className="govuk-link submenu__link">
+        Create new form
+      </a>
+      <button
+        className="govuk-body govuk-link submenu__link"
+        onClick={onClickUpload}
+      >
         Import saved form
       </button>
-      <a onClick={onClickDownload} href="#">
+      <button
+        className="govuk-body govuk-link submenu__link"
+        onClick={onClickDownload}
+        href="#"
+      >
         Download form
-      </a>
-      <input ref={fileInput} type="file" onChange={onFileUpload} />
+      </button>
+      <input ref={fileInput} type="file" hidden onChange={onFileUpload} />
     </div>
   );
 }

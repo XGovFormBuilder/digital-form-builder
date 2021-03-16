@@ -9,6 +9,7 @@ test("migrate from version 1 to 2", () => {
   const testData = {
     pages: [
       {
+        path: "/pg1",
         components: [
           {},
           {
@@ -34,6 +35,7 @@ test("migrate from version 1 to 2", () => {
         ],
       },
       {
+        path: "/pg2",
         components: [
           {
             title: "other list",
@@ -51,6 +53,14 @@ test("migrate from version 1 to 2", () => {
                   value: "bb",
                 },
               ],
+            },
+          },
+          {
+            title: "countries question",
+            name: "cq",
+            values: {
+              type: "listRef",
+              list: "countries",
             },
           },
         ],
@@ -93,21 +103,32 @@ test("migrate from version 1 to 2", () => {
       },
     ],
     pages: [
-      [
-        {},
-        {
-          list: "id-1",
-          name: "myName",
-          title: "my title",
-        },
-      ],
-      [
-        {
-          list: "id-2",
-          name: "otherList",
-          title: "other list",
-        },
-      ],
+      {
+        path: "/pg1",
+        components: [
+          {},
+          {
+            list: "id-1",
+            name: "myName",
+            title: "my title",
+          },
+        ],
+      },
+      {
+        path: "/pg2",
+        components: [
+          {
+            list: "id-2",
+            name: "otherList",
+            title: "other list",
+          },
+          {
+            list: "countries",
+            name: "cq",
+            title: "countries question",
+          },
+        ],
+      },
     ],
     version: 2,
   };

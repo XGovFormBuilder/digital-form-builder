@@ -53,42 +53,66 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
 
-  .menu {
-    padding: 8px;
-    background-color: #ffffff;
+button.govuk-link {
+  @extend .govuk-link, :link;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
+  background-color: transparent;
+  border: none;
+  .govuk-form-group & {
+    display: block;
+  }
+}
 
-    &__row {
-      a {
-        @extend .govuk-body-s;
-        @extend .govuk-\!-margin-right-4;
+
+
+.menu {
+  padding: 8px;
+  background-color: #ffffff;
+
+  &__row {
+    a {
+      @extend .govuk-body-s;
+      @extend .govuk-\!-margin-right-4;
+    }
+    &:first-child {
+      button {
+        @extend .govuk-\!-font-size-14;
+        @extend .govuk-button;
+        @extend .govuk-\!-margin-bottom-1, .govuk-\!-margin-right-1;
       }
-    }
-
-    &__row:not(:first-child) {
-      @extend .govuk-\!-margin-top-4;
-    }
-
-    button {
-      @extend .govuk-button;
-      @extend .govuk-\!-font-size-14;
-      @extend .govuk-\!-margin-bottom-1, .govuk-\!-margin-right-1;
     }
   }
 
-  @include govuk-media-query($from: tablet) {
-    .menu {
-      position: sticky;
-      top: 0;
-      padding: 8px;
-      z-index: 999;
-      background-color: #fff;
-      button {
-        margin-bottom: 0;
-      }
+  &__row:not(:first-child) {
+    @extend .govuk-\!-margin-top-4;
+  }
+}
+
+.submenu {
+  @include e(link) {
+    @extend .govuk-body-s;
+    @extend .govuk-\!-margin-right-4;
+  }
+}
+
+@include govuk-media-query($from: tablet) {
+  .menu {
+    position: sticky;
+    top: 0;
+    padding: 8px;
+    z-index: 999;
+    background-color: #fff;
+    button {
+      margin-bottom: 0;
     }
   }
 }
+
 
 .component {
   cursor: pointer;
@@ -716,16 +740,5 @@ footer {
 
 .checkbox-hint {
   padding-left: govuk-spacing(3);
-}
-
-button.govuk-link {
-  @extend .govuk-link, :link;
-  text-decoration: underline;
-  &:hover {
-   cursor: pointer;
-  }
-  background-color: transparent;
-  border: none;
-  display: block;
 }
 
