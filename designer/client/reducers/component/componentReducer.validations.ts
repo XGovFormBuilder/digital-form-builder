@@ -45,7 +45,11 @@ const validateContent = ({ content }) => {
 
 const validateList = (component) => {
   const errors: any = {};
-  if ((component?.values?.list ?? "-1") === "-1") {
+  console.log("Component-" + JSON.stringify(component));
+  if (
+    component?.values?.type !== "static" &&
+    (component?.values?.list ?? "-1") === "-1"
+  ) {
     errors.list = {
       href: `#field-options-list`,
       children: ["list.errors.select"],
