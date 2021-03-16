@@ -76,7 +76,7 @@ function needsUpgrade(data) {
 
 export function migrate(data): MigrationScript {
   if (!needsUpgrade(data)) {
-    return data;
+    return { ...data, version: 2 };
   }
   const pages = data.pages.map(migratePage);
   const componentsWithList = pages.flatMap((page) =>
@@ -95,5 +95,6 @@ export function migrate(data): MigrationScript {
     ...data,
     pages: pages.map(removeValues),
     lists: [...(data.lists ?? []), ...valuesAsLists],
+    version: 2,
   };
 }

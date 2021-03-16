@@ -1,7 +1,7 @@
 import { whichMigrations } from "@xgovformbuilder/model";
 
 export function useMigration(form) {
-  const version = form.version ?? 0;
+  const { version = 0 } = form.version;
   const migrationList = whichMigrations(version);
   console.log(migrationList);
   try {

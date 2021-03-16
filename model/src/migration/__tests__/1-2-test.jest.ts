@@ -109,6 +109,7 @@ test("migrate from version 1 to 2", () => {
         },
       ],
     ],
+    version: 2,
   };
 
   expect(migrate(testData)).toEqual(expected);

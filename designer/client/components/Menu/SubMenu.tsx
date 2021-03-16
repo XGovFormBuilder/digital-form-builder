@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { DataContext } from "../../context";
 import { useMigration } from "./useMigration";
 
@@ -9,9 +9,10 @@ type Props = {
 
 export function SubMenu({ id, updateDownloadedAt }: Props) {
   const { data, save } = useContext(DataContext);
-  const onClickUpload = (e) => {
-    e.preventDefault();
-    document.getElementById("upload").click();
+  const fileInput = useRef<HTMLInputElement>(null);
+
+  const onClickUpload = () => {
+    fileInput.current!.click();
   };
 
   const onClickDownload = (e) => {
@@ -42,13 +43,13 @@ export function SubMenu({ id, updateDownloadedAt }: Props) {
   return (
     <div className="menu__row">
       <a href="/app">Create new form</a>
-      <a href="#" onClick={onClickUpload}>
+      <button className="govuk-link" onClick={onClickUpload}>
         Import saved form
-      </a>
+      </button>
       <a onClick={onClickDownload} href="#">
         Download form
       </a>
-      <input type="file" id="upload" hidden onChange={onFileUpload} />
+      <input ref={fileInput} type="file" onChange={onFileUpload} />
     </div>
   );
 }
