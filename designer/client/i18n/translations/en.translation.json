@@ -301,6 +301,12 @@
     }
   },
   "optional": "{{noun}} (optional)",
+  "outputEdit": {
+    "notifyEdit": {
+      "includeReferenceTitle": "Include webhook and payment references",
+      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string."
+    }
+  },
   "page": {
     "noun": "page",
     "noun_plural": "pages",

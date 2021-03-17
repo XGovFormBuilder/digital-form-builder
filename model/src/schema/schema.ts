@@ -137,8 +137,9 @@ const feeSchema = joi.object().keys({
 const notifySchema = joi.object().keys({
   apiKey: joi.string().allow("").optional(),
   templateId: joi.string(),
-  personalisation: joi.array().items(joi.string()),
   emailField: joi.string(),
+  personalisation: joi.array().items(joi.string()),
+  addReferencesToPersonalisation: joi.boolean().optional(),
 });
 
 const emailSchema = joi.object().keys({
