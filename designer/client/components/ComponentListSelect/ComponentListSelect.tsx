@@ -104,12 +104,14 @@ export function ComponentListSelect() {
           )}
         </select>
         <div className="govuk-form-group">
-          <button
-            className="govuk-link govuk-body govuk-!-margin-bottom-0"
-            onClick={handleEditListClick}
-          >
-            {i18n("list.edit", { title: selectedListTitle })}
-          </button>
+          {selectedListTitle && (
+            <button
+              className="govuk-link govuk-body govuk-!-margin-bottom-0"
+              onClick={handleEditListClick}
+            >
+              {i18n("list.edit", { title: selectedListTitle })}
+            </button>
+          )}
           <button
             className="govuk-link govuk-body govuk-!-margin-bottom-0"
             onClick={handleAddListClick}
