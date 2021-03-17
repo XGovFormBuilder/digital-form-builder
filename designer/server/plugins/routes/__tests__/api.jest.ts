@@ -69,7 +69,7 @@ describe("Server API", () => {
       conditions: [],
       fees: [],
       outputs: [],
-      version: 1,
+      version: 2,
     });
   });
 });
