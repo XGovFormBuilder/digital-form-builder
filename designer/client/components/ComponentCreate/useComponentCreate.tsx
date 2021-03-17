@@ -23,7 +23,7 @@ function useComponentCreate(props) {
 
   useEffect(() => {
     dispatch({ type: Actions.SET_PAGE, payload: page.path });
-  }, [page.path]);
+  }, [dispatch, page.path]);
 
   useLayoutEffect(() => {
     if (hasValidated && !hasErrors) {
