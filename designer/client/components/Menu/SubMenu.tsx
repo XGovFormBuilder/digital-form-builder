@@ -49,7 +49,6 @@ export function SubMenu({ id, updateDownloadedAt }: Props) {
     reader.onload = function (evt) {
       const content = JSON.parse(evt.target.result);
       const migrated = migrate(content);
-      console.log(migrated);
       save(migrated);
     };
   };

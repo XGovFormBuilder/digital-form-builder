@@ -468,7 +468,7 @@
     }
   ],
   "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
-  "version": 1,
+  "version": 2,
   "conditions": [
     {
       "name": "hasUKPassport",
