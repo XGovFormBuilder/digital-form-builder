@@ -40,7 +40,6 @@ function useListEdit() {
     ListsEditorContext
   );
   const { state, dispatch } = useContext(ListContext);
-  console.log("state", state);
   const { showWarning } = listEditorState;
   const { data, save } = useContext(DataContext);
   const handleDelete = (isNewList) => {
