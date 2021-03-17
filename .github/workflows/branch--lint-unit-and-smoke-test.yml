@@ -83,7 +83,7 @@ jobs:
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to master--lint-unit-build-and-publish-images.yml
         # so master branch cache can be shared with branches
-      - run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
+      - run: echo "MONTH=$(date +%m)KILL_CACHE" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
