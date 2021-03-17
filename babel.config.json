@@ -7,6 +7,7 @@
     "@babel/plugin-proposal-private-property-in-object",
     "@babel/plugin-proposal-private-methods",
     "@babel/plugin-transform-runtime",
-    "@babel/plugin-syntax-jsx"
+    "@babel/plugin-syntax-jsx",
+    "@babel/plugin-proposal-logical-assignment-operators"
   ]
 }

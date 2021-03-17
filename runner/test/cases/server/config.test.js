@@ -112,7 +112,7 @@ suite(`Server Config`, () => {
     expect(result).to.include({
       port: 3009,
       env: "development",
-      logLevel: "debug",
+      logLevel: "WARNING",
       serviceUrl: "http://localhost:3009",
       documentUploadApiUrl: "http://localhost:9000",
       sessionTimeout: 1200000,

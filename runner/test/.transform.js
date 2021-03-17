@@ -1,4 +1,13 @@
+const Lab = require("@hapi/lab");
+const Code = require("@hapi/code");
+
 const Babel = require("@babel/core");
+
+const lab = Lab.script();
+exports.lab = lab;
+const { expect } = Code;
+const { suite, test } = lab;
+
 let internals = {};
 internals.transform = function (content, filename) {
   const regexp = new RegExp("node_modules");

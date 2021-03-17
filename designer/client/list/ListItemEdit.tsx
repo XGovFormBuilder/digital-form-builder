@@ -8,14 +8,14 @@ import { DataContext } from "../context";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
-  useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
 import { clone } from "@xgovformbuilder/model";
 import { useListItem } from "../hooks/list/useListItem";
+import { ListContext } from "../reducers/listReducer";
 
 export function ListItemEdit() {
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
-  const { state, dispatch } = useSetListEditorContext();
+  const { state, dispatch } = useContext(ListContext);
   const { data, save } = useContext(DataContext);
 
   const {

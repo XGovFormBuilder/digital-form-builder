@@ -1,88 +1,70 @@
-import joi from "joi";
-import * as helpers from "./helpers";
-
-import { FormModel } from "../models";
-import { ConditionalFormComponent } from "./ConditionalFormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
+import { ListFormComponent } from "./ListFormComponent";
 import { ListComponentsDef } from "@xgovformbuilder/model";
+import { FormModel } from "../models";
+import joi from "joi";
 
-export class CheckboxesField extends ConditionalFormComponent {
+export class CheckboxesField extends ListFormComponent {
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
-    const { options, values, itemValues } = this;
 
-    if (!values?.valueType) {
-      throw new Error("Component valueType is missing");
+    let schema = joi
+      .array()
+      .items(joi[this.listType]().allow(...this.values))
+      .single()
+      .label(def.title);
+
+    if (def.options.required !== false) {
+      schema = schema.required();
     }
 
-    const itemSchema = joi[values.valueType]().valid(...itemValues);
-    const itemsSchema = joi.array().items(itemSchema);
-    const alternatives = joi.alternatives([itemSchema, itemsSchema]);
-    const isRequired =
-      "required" in options && options.required === false ? false : true;
-
-    this.formSchema = helpers.buildFormSchema(alternatives, this, isRequired);
-    this.stateSchema = helpers.buildStateSchema(alternatives, this);
+    this.formSchema = schema;
+    this.stateSchema = schema;
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    const { name, values } = this;
+    const { name } = this;
+    const value = state[name];
+    const checked = Array.isArray(value) ? value : [value];
 
-    if (name in state) {
-      const value = state[name];
-
-      if (value === null) {
-        return "";
-      }
-
-      const checked = Array.isArray(value) ? value : [value];
-      return checked
-        .map((check) => {
-          const item = values?.items.find((item) => item.value === check);
-          return item?.label;
-        })
-        .join(", ");
-    }
-
-    return "";
+    return checked
+      .map((check) => {
+        const item = this.items.find((item) => item.value === check);
+        return item?.value;
+      })
+      .filter((c) => c);
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const { name, values } = this;
-    const viewModel = super.getViewModel(formData, errors);
-    let formDataItems = [];
-
-    if (name in formData) {
-      formDataItems = Array.isArray(formData[name])
-        ? formData[name]
-        : formData[name].split(",");
-    }
+    const { name } = this;
+    let viewModel = super.getViewModel(formData, errors);
+    let answers = formData[name] ?? [];
+    let formDataItems = Array.isArray(formData) ? answers : [answers];
 
     viewModel.fieldset = {
       legend: viewModel.label,
     };
 
-    viewModel.items = values?.items.map((item) => {
-      const itemModel: any = {
-        text: this.localisedString(item.label),
-        value: item.value,
+    viewModel.items = viewModel.items.map((item) => {
+      const itemModel = {
+        ...item,
         checked: !!formDataItems.find((i) => `${item.value}` === i),
-        condition: item.condition,
       };
-
       if ("bold" in this.options && this.options.bold) {
         itemModel.label = {
           classes: "govuk-label--s",
         };
       }
-
       if (item.hint) {
         itemModel.hint = {
           html: this.localisedString(item.hint),
         };
       }
-
-      return super.addConditionalComponents(item, itemModel, formData, errors);
+      /**
+       * TODO:- reintroduce addConditionalComponents when conditional reveals are fixed by GDS.
+       * //return super.addConditionalComponents(item, itemModel, formData, errors);
+       */
+      return itemModel;
     });
 
     return viewModel;

@@ -1,6 +1,6 @@
 {
   "name": "@xgovformbuilder/designer",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Cross government digital form builder (designer)",
   "main": "server/index.js",
   "engines": {
@@ -38,7 +38,7 @@
     "@hapi/scooter": "6.0.0",
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
-    "@xgovformbuilder/model": "2.0.0",
+    "@xgovformbuilder/model": "3.0.0",
     "aws-sdk": "^2.723.0",
     "blankie": "5.0.0",
     "classnames": "^2.2.6",

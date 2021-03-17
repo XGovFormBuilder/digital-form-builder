@@ -10,5 +10,4 @@ export type ListItemHook = {
   condition: any;
   title: string;
   hint: string;
-  isStaticList: boolean;
 };

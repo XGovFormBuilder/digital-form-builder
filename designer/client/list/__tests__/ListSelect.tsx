@@ -2,7 +2,7 @@ import { customRenderForLists } from "./helpers";
 import { Data } from "@xgovformbuilder/model";
 
 import React from "react";
-import { GlobalListSelect } from "../GlobalListSelect";
+import { ListSelect } from "../ListSelect";
 
 const data = new Data({
   lists: [
@@ -25,7 +25,7 @@ test("Lists all available lists and add list", async () => {
   const dataValue = { data, save: jest.fn() };
 
   const { queryAllByTestId, getByTestId } = customRenderForLists(
-    <GlobalListSelect />,
+    <ListSelect />,
     {
       dataValue,
     }
@@ -38,7 +38,7 @@ test("Lists all available lists and add list", async () => {
 test("strings are rendered correctly", async () => {
   const dataValue = { data, save: jest.fn() };
 
-  const { getByText } = customRenderForLists(<GlobalListSelect />, {
+  const { getByText } = customRenderForLists(<ListSelect />, {
     dataValue,
   });
 

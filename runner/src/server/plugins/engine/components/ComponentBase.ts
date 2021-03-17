@@ -1,10 +1,8 @@
 import { Schema as JoiSchema } from "joi";
 import {
-  Data,
   ComponentDef,
   ContentComponentsDef,
   InputFieldsComponentsDef,
-  StaticValues,
 } from "@xgovformbuilder/model";
 
 import { FormModel } from "../models";
@@ -21,7 +19,6 @@ export class ComponentBase {
   content?: ContentComponentsDef["content"];
 
   model: FormModel;
-  values?: StaticValues;
 
   formSchema?: JoiSchema;
   stateSchema?: JoiSchema;
@@ -35,13 +32,7 @@ export class ComponentBase {
     this.options = def.options;
     this.hint = "hint" in def ? def.hint : undefined;
     this.content = "content" in def ? def.content : undefined;
-
-    // model values
     this.model = model;
-
-    // static values
-    const data = new Data(model.def);
-    this.values = data.valuesFor(def)?.toStaticValues();
   }
 
   getViewModel(_formData: FormData, _errors?: FormSubmissionErrors): ViewModel {

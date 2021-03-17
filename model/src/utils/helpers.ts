@@ -1,3 +1,5 @@
+import { customAlphabet } from "nanoid";
+
 export const serialiseAndDeserialise = <T>(obj: T): T => {
   if (typeof obj === "object" && obj !== null) {
     return JSON.parse(JSON.stringify(obj));
@@ -31,3 +33,8 @@ export function filter<T>(
 
   return result;
 }
+
+export const nanoid = customAlphabet(
+  "0123456789_abcdefghijklmnopqrstuvwxyz",
+  6
+);

@@ -3,31 +3,25 @@ import ListEdit from "./ListEdit";
 import { RenderInPortal } from "../components/RenderInPortal";
 import { Flyout } from "../components/Flyout";
 import ListItemEdit from "./ListItemEdit";
-import GlobalListSelect from "./GlobalListSelect";
+import ListSelect from "./ListSelect";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
 import { Warning } from "./Warning";
 import { i18n } from "./../i18n";
+import { ListContext } from "../reducers/listReducer";
 
 type Props = {
-  isEditingFromComponent: boolean;
+  showEditLists: boolean;
 };
 
 const useListsEdit = () => {
   const { state: listEditState, dispatch: listsEditorDispatch } = useContext(
     ListsEditorContext
   );
-
-  const {
-    isEditingList,
-    isEditingListItem,
-    showWarning,
-    listEditContext,
-  } = listEditState;
-
-  const { state } = useContext(listEditContext);
+  const { isEditingList, isEditingListItem, showWarning } = listEditState;
+  const { state } = useContext(ListContext);
   const { selectedList, selectedItem } = state;
 
   const closeFlyout = (action: ListsEditorStateActions) => {
@@ -58,7 +52,7 @@ const useListsEdit = () => {
   };
 };
 
-export function ListsEdit({ isEditingFromComponent = false }: Props) {
+export function ListsEdit({ showEditLists = false }: Props) {
   const {
     isEditingList,
     isEditingListItem,
@@ -70,7 +64,7 @@ export function ListsEdit({ isEditingFromComponent = false }: Props) {
 
   return (
     <div className="govuk-body">
-      {!isEditingFromComponent && <GlobalListSelect />}
+      {!showEditLists && <ListSelect />}
 
       {isEditingList && (
         <RenderInPortal>

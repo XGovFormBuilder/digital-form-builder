@@ -6,30 +6,17 @@ const MenuSection = require("../pageobjects/sections/menu.section");
 const FieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 
+//FIXME:- only global lists can be created now
 Given("I have created a {string} list with {int} list item(s)", function (
   listType,
   numberOfListItems
 ) {
   this.numberOfListItems = numberOfListItems;
-  switch (listType.toLowerCase()) {
-    case "local":
-      formDesigner.createComponentForPageName("First page").click();
-      createComponent.selectComponentByName("List");
-      createComponent.completeCommonFields(FieldData[toCamelCase("List")]);
-      formDesigner.editPageComponent("list");
-      EditListSection.clickLink("Add a new component list");
-      EditListSection.createListWithListItems(listType, this.numberOfListItems);
-      EditListSection.closeLinks[1].click();
-      EditListSection.saveBtn.click();
-      break;
-    case "global":
-      MenuSection.buttonByName("Lists").click();
-      EditListSection.addNewList.click();
-      EditListSection.listTitle.setValue(FieldData.list.title);
-      EditListSection.createListWithListItems(listType, this.numberOfListItems);
-      EditListSection.saveBtn.click();
-      break;
-  }
+  MenuSection.buttonByName("Lists").click();
+  EditListSection.addNewList.click();
+  EditListSection.listTitle.setValue(FieldData.list.title);
+  EditListSection.createListWithListItems(listType, this.numberOfListItems);
+  EditListSection.saveBtn.click();
 });
 
 When("I add another list item to the Global list", function () {

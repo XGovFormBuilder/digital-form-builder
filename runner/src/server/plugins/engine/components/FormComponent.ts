@@ -35,16 +35,12 @@ export class FormComponent extends ComponentBase {
 
         switch (err.type) {
           case "any.empty":
-            err.message = `${err.context.label} is required`;
-            break;
           case "any.required":
+          case "string.base":
             err.message = `${err.context.label} is required`;
             break;
           case "number.base":
             err.message = `${err.context.label} must be a number`;
-            break;
-          case "string.base":
-            err.message = `${err.context.label} is required`;
             break;
           case "string.email":
             err.message = `${err.context.label} must be a valid email address`;
@@ -133,7 +129,7 @@ export class FormComponent extends ComponentBase {
     } else if (typeof description === "string") {
       string = description;
     } else {
-      string = description[this.lang] ? description[this.lang] : description.en;
+      string = description?.[this.lang] ?? description.en;
     }
     return string;
   }

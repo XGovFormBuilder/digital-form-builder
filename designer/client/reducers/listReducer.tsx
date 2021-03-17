@@ -24,9 +24,6 @@ export const ListContext = createContext<{
   dispatch: () => {},
 });
 
-/**
- * @desc this reducer is for "global" list types.
- */
 export function listReducer(
   state: ListState = {},
   action: { type: ListActions; payload: any }

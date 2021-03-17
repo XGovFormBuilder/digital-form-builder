@@ -12,7 +12,7 @@ Feature: Components
     Then I am able to return to components list with creating the component
 
   Scenario Outline: Add a component to a page
-    When I add a "<type>" control to the "First page"
+    When I add a` `"<type>" control to the "First page"
     Then the "<type>" control is displayed in the "First page"
     And the "<type>" is displayed when I Preview the page
     Examples:
@@ -24,8 +24,6 @@ Feature: Components
       | Paragraph     |
       | Text          |
 
-  # Remove tag once checkbox issue is resolved
-  @wip
   Scenario: Progress to the Summary after filling in Checkboxes
     And I have created a "Global" list with 2 list items
     When I add a "Checkboxes" control for the "Second page"

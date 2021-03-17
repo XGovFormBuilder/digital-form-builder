@@ -1,32 +1,51 @@
-import { Schema } from "joi";
-import { Data, InputFieldsComponentsDef } from "@xgovformbuilder/model";
+import joi, { Schema } from "joi";
 
 import * as helpers from "./helpers";
-import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { addClassOptionIfNone } from "./helpers";
-import { FormModel } from "../models";
+import { ListFormComponent } from "./ListFormComponent";
+import { List } from "@xgovformbuilder/model";
 
-export class YesNoField extends FormComponent {
-  constructor(def: InputFieldsComponentsDef, model: FormModel) {
+/**
+ * @desc
+ * YesNoField is a radiosField with predefined values.
+ */
+export class YesNoField extends ListFormComponent {
+  list: List = {
+    name: "__yesNo",
+    title: "Yes/No",
+    type: "boolean",
+    items: [
+      {
+        text: "Yes",
+        value: true,
+      },
+      {
+        text: "No",
+        value: false,
+      },
+    ],
+  };
+  itemsSchema = joi.boolean();
+  get items() {
+    return this.list?.items ?? [];
+  }
+
+  get values() {
+    return [true, false];
+  }
+
+  constructor(def, model) {
     super(def, model);
-    const data = new Data(model.def);
-    const { options, values } = this;
 
-    this.values = data.valuesFor(def)?.toStaticValues();
-    const isRequired =
-      "required" in options && options.required === false ? false : true;
+    const { options } = this;
 
-    const validValues = values?.items.map((item) => item.value) || [];
-    const formSchema = helpers
-      .buildFormSchema(values?.valueType, this, isRequired)
-      .valid(...validValues);
-    const stateSchema = helpers
-      .buildStateSchema(values?.valueType, this)
-      .valid(...validValues);
-
-    this.formSchema = formSchema;
-    this.stateSchema = stateSchema;
+    this.formSchema = helpers
+      .buildFormSchema("boolean", this, options?.required !== false)
+      .valid(true, false);
+    this.stateSchema = helpers
+      .buildStateSchema(this.list.type, this)
+      .valid(true, false);
 
     addClassOptionIfNone(this.options, "govuk-radios--inline");
   }
@@ -40,26 +59,21 @@ export class YesNoField extends FormComponent {
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    const { name, values } = this;
-    const value = state[name];
-    const item = values?.items.find((item) => item.value === value);
-    return item ? item.label : "";
+    const value = state[this.name];
+    const item = this.items.find((item) => item.value === value);
+    return item?.text ?? "";
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const { name, values } = this;
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.fieldset = {
       legend: viewModel.label,
     };
-
-    viewModel.items = values?.items.map((item) => ({
-      text: item.label,
-      value: item.value,
-      // Do a loose string based check as state may or
-      // may not match the item value types.
-      checked: "" + item.value === "" + formData[name],
+    viewModel.items = this.items.map(({ text, value }) => ({
+      text,
+      value,
+      checked: value === formData[this.name],
     }));
 
     return viewModel;

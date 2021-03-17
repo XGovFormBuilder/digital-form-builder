@@ -223,6 +223,7 @@
   "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost.",
   "list": {
     "add": "Add list",
+    "addNew": "Add a new list",
     "addOrEdit": "Add or edit lists",
     "deleteWarning": {
       "confirm": "Yes, delete this list",
@@ -262,12 +263,6 @@
     "select": {
       "helpText": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.",
       "title": "Select list"
-    },
-    "static": {
-      "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
-      "newTitle": "Add a new component list",
-      "noun": "component list",
-      "saveFirst": "You must save before creating a component list, or you can select an existing list."
     },
     "title": "List title",
     "titleHint": "Enter a unique name for your list"

@@ -125,6 +125,7 @@ suite("ComponentCreateList", () => {
       subType: "field",
       options: {},
       schema: {},
+      list: "",
     });
   });
 
@@ -165,6 +166,7 @@ suite("ComponentCreateList", () => {
       subType: "field",
       options: {},
       schema: {},
+      list: "",
     });
   });
 });

@@ -1,10 +1,9 @@
 import React, { useReducer } from "react";
 import { render } from "@testing-library/react";
 import userEvent, { TargetElement } from "@testing-library/user-event";
-
 import { DataContext } from "../../../context";
 import { Data } from "@xgovformbuilder/model";
-import { ComponentListSelect } from "../component-list-select";
+import { ComponentListSelect } from "../ComponentListSelect";
 import {
   ComponentContext,
   componentReducer,
@@ -12,7 +11,6 @@ import {
 } from "../../../reducers/component/componentReducer";
 import { ListsEditorContextProvider } from "../../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../../reducers/listReducer";
-import { i18n } from "../../../i18n/i18n";
 
 describe("ComponentListSelect", () => {
   let data = new Data({
@@ -29,24 +27,7 @@ describe("ComponentListSelect", () => {
               required: true,
             },
             type: "RadiosField",
-            values: {
-              type: "static",
-              items: [
-                { label: "My item", value: "12", children: [] },
-                {
-                  label: "Item 2",
-                  hint: "My hint",
-                  value: "11",
-                  condition: "Abcewdad",
-                  children: [],
-                },
-                {
-                  label: "Item 3",
-                  value: "13",
-                  children: [{ type: "TextField" }],
-                },
-              ],
-            },
+            list: "myList",
           },
         ],
       },
@@ -92,7 +73,7 @@ describe("ComponentListSelect", () => {
     );
   };
 
-  test("Lists all available lists and the static list", () => {
+  test("Lists all available lists", () => {
     // - when
     const { container } = render(
       <TestComponentContextProvider
@@ -109,20 +90,19 @@ describe("ComponentListSelect", () => {
     expect(options).toHaveLength(3);
 
     const optionProps = [
-      { value: "static", text: "abc" },
       { value: "myList", text: "My list" },
       { value: "myOtherList", text: "" },
     ];
 
     optionProps.forEach((optionProp, index) => {
-      expect(options[index]).toHaveValue(optionProp.value);
-      expect(options[index]).toHaveTextContent(optionProp.text);
+      expect(options[index + 1]).toHaveValue(optionProp.value);
+      expect(options[index + 1]).toHaveTextContent(optionProp.text);
     });
   });
 
   test("Selecting a different list changes the edit link", () => {
     // - when
-    const { container } = render(
+    const { container, getByText } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
         componentValue={false}
@@ -135,79 +115,10 @@ describe("ComponentListSelect", () => {
     userEvent.selectOptions(select, "myList");
 
     // - then
-    const editLink = container.querySelector("a");
-    expect(editLink).toHaveTextContent("Edit My list");
+    expect(getByText("Edit My list")).toBeInTheDocument();
   });
 
-  test("Create new static list shows when values is empty", () => {
-    // - when
-    const data = new Data({
-      startPage: "",
-      pages: [
-        {
-          title: "abc",
-          path: "/abc",
-          controller: "test",
-          section: "test",
-          components: [
-            {
-              name: "IDDQl4",
-              title: "abc",
-              schema: {},
-              options: {
-                required: true,
-              },
-              type: "RadiosField",
-            },
-          ],
-        },
-      ],
-      lists: [],
-      sections: [],
-    });
-    const dataValue = { data, save: jest.fn() };
-    const { container } = render(
-      <TestComponentContextProvider
-        dataValue={dataValue}
-        componentValue={false}
-      >
-        <ComponentListSelect />
-      </TestComponentContextProvider>
-    );
-
-    // - then
-    const anchorLink = container.querySelector("a");
-    expect(anchorLink).toHaveTextContent(i18n("list.static.newTitle"));
-  });
-
-  test("Force user to save for new components before allowing to create a static list", () => {
-    // - when
-    const componentProps = {
-      selectedComponent: {
-        name: "IDDQl4",
-        title: "abc",
-        schema: {},
-        options: {
-          required: true,
-        },
-        type: "RadiosField",
-      },
-      isNew: true,
-    };
-    const { container } = render(
-      <TestComponentContextProvider
-        dataValue={dataValue}
-        componentValue={componentProps}
-      >
-        <ComponentListSelect />
-      </TestComponentContextProvider>
-    );
-
-    // - then
-    expect(container).toHaveTextContent(i18n("list.static.saveFirst"));
-  });
-
-  test("should display the correct title", () => {
+  test("should render strings correctly", () => {
     const { getByText } = render(
       <TestComponentContextProvider
         dataValue={dataValue}
@@ -217,22 +128,12 @@ describe("ComponentListSelect", () => {
       </TestComponentContextProvider>
     );
 
-    const text = "Select list";
-    expect(getByText(text)).toBeInTheDocument();
-  });
-
-  test("should display correct help text", () => {
-    const { getByText } = render(
-      <TestComponentContextProvider
-        dataValue={dataValue}
-        componentValue={false}
-      >
-        <ComponentListSelect />
-      </TestComponentContextProvider>
-    );
-
-    const text =
+    const title = "Select list";
+    const help =
       "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
-    expect(getByText(text)).toBeInTheDocument();
+    const addNew = "Add a new list";
+    expect(getByText(title)).toBeInTheDocument();
+    expect(getByText(help)).toBeInTheDocument();
+    expect(getByText(addNew)).toBeInTheDocument();
   });
 });

@@ -38,7 +38,11 @@ function useConditionsEditor() {
   };
 }
 
-export function ConditionsEdit() {
+type Props = {
+  path: string;
+};
+
+export function ConditionsEdit({ path }: Props) {
   const {
     editingCondition,
     showAddCondition,
@@ -62,9 +66,9 @@ export function ConditionsEdit() {
                 onHide={cancelInlineCondition}
               >
                 <InlineConditions
-                  data={data}
                   conditionsChange={cancelInlineCondition}
                   cancelCallback={cancelInlineCondition}
+                  path={path}
                 />
               </Flyout>
             </RenderInPortal>
@@ -84,7 +88,7 @@ export function ConditionsEdit() {
             ))}
             <li>
               <hr />
-              {data.allInputs().length > 0 && (
+              {data.allInputs.length > 0 && (
                 <a
                   href="#"
                   id="add-condition-link"
@@ -95,7 +99,7 @@ export function ConditionsEdit() {
                   {i18n("conditions.add")}
                 </a>
               )}
-              {data.allInputs().length <= 0 && (
+              {data.allInputs.length <= 0 && (
                 <div className="govuk-body">
                   <div className="govuk-hint">
                     {i18n("conditions.noFieldsAvailable")}
@@ -111,7 +115,7 @@ export function ConditionsEdit() {
           <div id="edit-conditions" data-testid="edit-conditions">
             <Flyout title={i18n("conditions.addOrEdit")} onHide={editFinished}>
               <InlineConditions
-                data={data}
+                path={path}
                 condition={editingCondition}
                 conditionsChange={editFinished}
                 cancelCallback={editFinished}

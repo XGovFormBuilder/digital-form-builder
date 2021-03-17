@@ -1,5 +1,5 @@
 import joi from "joi";
-
+export const CURRENT_VERSION = 2;
 const sectionsSchema = joi.object().keys({
   name: joi.string().required(),
   title: joi.string().required(),
@@ -73,63 +73,6 @@ const localisedString = joi
   .alternatives()
   .try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(""));
 
-/**
- * @deprecated
- * This will be removed in a future sprint.
- */
-const staticValueSchema = joi.object().keys({
-  label: joi.string().required(),
-  value: joi
-    .alternatives()
-    .try(joi.number(), joi.string(), joi.boolean())
-    .required(),
-  hint: joi.string().allow("").optional(),
-  condition: joi.string().allow(null, "").optional(),
-  children: joi
-    .array()
-    .items(joi.any() /** Should be a joi.link('#componentSchema') */)
-    .unique("name"),
-});
-
-// represents the 'children' which would appear e.g. under a radio option with the specified value
-const valueChildrenSchema = joi.object().keys({
-  value: joi
-    .alternatives()
-    .try(joi.number(), joi.string(), joi.boolean())
-    .required(),
-  children: joi
-    .array()
-    .items(joi.any() /** Should be a joi.link('#componentSchema') */)
-    .unique("name"),
-});
-
-/**
- * @deprecated
- * this will be removed in a future sprint.
- */
-const componentValuesSchema = joi.object().keys({
-  type: joi.string().allow("static", "listRef").required(), // allow extension support for dynamically looked up types later
-  valueType: joi.when("type", {
-    is: joi.string().valid("static").allow(null, "").optional(),
-    then: joi
-      .string()
-      .allow("string", "number", "boolean", null, "")
-      .optional(),
-  }),
-  items: joi.when("type", {
-    is: joi.string().valid("static"),
-    then: joi.array().items(staticValueSchema).unique("value"),
-  }),
-  list: joi.when("type", {
-    is: joi.string().valid("listRef"),
-    then: joi.string().required(),
-  }),
-  valueChildren: joi.when("type", {
-    is: joi.string().valid("listRef"),
-    then: joi.array().items(valueChildrenSchema).unique("value"),
-  }),
-});
-
 const componentSchema = joi
   .object()
   .keys({
@@ -140,7 +83,7 @@ const componentSchema = joi
     options: joi.object().default({}),
     schema: joi.object().default({}),
     errors: joi.object({ a: joi.any() }).optional(),
-    values: componentValuesSchema.optional(),
+    list: joi.string(),
   })
   .unknown(true);
 
@@ -261,7 +204,7 @@ export const Schema = joi
     outputs: joi.array().items(outputSchema),
     payApiKey: joi.string().allow("").optional(),
     skipSummary: joi.boolean().default(false),
-    version: joi.number().default(0),
+    version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
   });
 
@@ -270,4 +213,5 @@ export const Schema = joi
  *  Undefined / 0 - initial version as at 28/8/20. Conditions may be in object structure or string form.
  *  1 - Relevant components (radio, checkbox, select, autocomplete) now contain
  *      options as 'values' rather than referencing a data list
+ *  2 - Reverse v1. Values populating radio, checkboxes, select, autocomplete are defined in Lists only.
  **/

@@ -5,9 +5,9 @@ import {
   validateTitle,
 } from "../../../validations";
 import { clone } from "@xgovformbuilder/model";
-import { ListItemHook } from "./index";
+import { ListItemHook } from "./types";
 
-export function useGlobalListItem(state, dispatch): ListItemHook {
+export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
   const { value = "", condition } = selectedItem;
 
@@ -88,7 +88,7 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
 
     // If user clicks delete button in list items list, then index is defined and we use it
     // If user clicks delete button inside item edit screen, then selectedItemIndex is defined and index is undefined
-    const itemToDelete = index !== undefined ? index : selectedItemIndex;
+    const itemToDelete = index ?? selectedItemIndex;
     selectedList.items.splice(itemToDelete, 1);
 
     const selectedListIndex = copy.lists.findIndex(
@@ -111,6 +111,5 @@ export function useGlobalListItem(state, dispatch): ListItemHook {
     condition,
     title: selectedItem.text || "",
     hint: selectedItem.description || "",
-    isStaticList: false,
   };
 }

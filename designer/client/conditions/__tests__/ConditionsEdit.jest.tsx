@@ -8,8 +8,17 @@ const flyoutValue = {
   decrement: jest.fn(),
   count: 0,
 };
-let data;
-
+let data = {
+  inputsAccessibleAt: jest.fn().mockReturnValue([
+    {
+      label: "Something",
+      name: "field1",
+      type: "TextField",
+    },
+  ]),
+  conditions: [],
+  allInputs: [1, 2, 3],
+};
 const customRender = (
   ui,
   { providerProps = { data, save: jest.fn() }, ...renderOptions }
@@ -58,7 +67,7 @@ describe("with existing conditions", () => {
   data = {
     conditions: [condition, condition2],
     hasConditions: true,
-    allInputs: () => [],
+    allInputs: [],
   };
 
   beforeEach(() => {});
@@ -96,7 +105,7 @@ describe("without existing conditions", () => {
   const data = {
     conditions: [],
     hasConditions: false,
-    allInputs: () => [],
+    allInputs: [],
   };
 
   test("Renders no edit condition links", () => {
@@ -118,7 +127,7 @@ describe("without existing conditions", () => {
 
   test("Renders add new condition link if inputs are available", () => {
     const providerProps = {
-      data: { ...data, allInputs: () => [{}] },
+      data: { ...data, allInputs: [1, 2, 3] },
       save: jest.fn(),
     };
     const { queryByTestId } = customRender(<ConditionsEdit />, {
@@ -130,7 +139,7 @@ describe("without existing conditions", () => {
 
   test("Renders no new condition message if there are no inputs available", () => {
     const providerProps = {
-      data: { ...data, allInputs: () => [] },
+      data: { ...data, allInputs: [] },
       save: jest.fn(),
     };
 
