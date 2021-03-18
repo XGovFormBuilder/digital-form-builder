@@ -19,7 +19,7 @@
     "test-cov": "yarn lint && yarn test-lab-cov && yarn jest",
     "test:dev": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -r console -o stdout -r html -o unit-test.html -I version -l --coverage-exclude client --coverage-exclude server --coverage-exclude config.js",
     "test-lab": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
-    "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -t 90 -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
+    "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -t 89 -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "jest": "yarn jest:client && yarn jest:server",
     "jest:client": "jest --coverage --selectProjects client",
     "jest:server": "jest --coverage --selectProjects server --runInBand",
