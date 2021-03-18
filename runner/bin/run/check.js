@@ -1,3 +1,4 @@
+#!/usr/bin/nodejs
 const { cli } = require("cli-ux");
 const fs = require("fs").promises;
 const path = require("path");
