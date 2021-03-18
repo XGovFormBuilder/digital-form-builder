@@ -21,7 +21,7 @@ async function check() {
   cli.action.stop();
 
   if (needsMigration.length > 0) {
-    cli.error(
+    cli.warn(
       `Your form(s) ${needsMigration.join(
         ", "
       )} is/are out of date. Use the designer to upload your files, which runs the migration scripts. Download those JSONs to replace the outdated forms. Migration scripts will not cover conditional reveal fields. You will need to fix those manually.`
