@@ -6,21 +6,24 @@ const FORM_PATH = path.join(process.cwd(), "src", "server", "forms");
 
 async function check() {
   cli.action.start("Checking versions of forms in runner/src/forms");
-  const files = await fs.readdir(FORM_PATH);
-  const forms = (await files).filter((file) => path.extname(file) === ".json");
+  const files = (await fs.readdir(FORM_PATH)).filter(
+    (file) => path.extname(file) === ".json"
+  );
+  let needsMigration = [];
 
-  const needsMigration = forms.filter(async (file) => {
+  for (const file of files) {
     const form = await fs.readFile(path.join(FORM_PATH, file));
     const version = JSON.parse(form).version || 0;
-    return version < CURRENT_SCHEMA_VERSION;
-  });
+    version < CURRENT_SCHEMA_VERSION && needsMigration.push(file);
+  }
+
   cli.action.stop();
 
   if (needsMigration.length > 0) {
-    cli.warn(
+    cli.error(
       `Your form(s) ${needsMigration.join(
         ", "
-      )} are out of date. Use the designer to upload your files, which runs the migration scripts. Download those JSONs to replace the outdated forms. Migration scripts will not cover conditional reveal fields. You will need to fix those manually.`
+      )} is/are out of date. Use the designer to upload your files, which runs the migration scripts. Download those JSONs to replace the outdated forms. Migration scripts will not cover conditional reveal fields. You will need to fix those manually.`
     );
   } else {
     cli.info("Your forms are up to date");
