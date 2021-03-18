@@ -35,7 +35,7 @@ jobs:
         run: yarn install
 
       - name: Check existing forms
-        if: ${{matrix.app}} == 'runner'
+        if: ${{ matrix.app == 'runner' }}
         run: yarn runner check-forms
 
       - name: Build dependencies
