@@ -363,7 +363,6 @@ export class PageControllerBase {
         }
         // apply condition to items for radios, checkboxes etc
         const items = evaluatedComponent.model.items;
-        console.log(items);
 
         if (items instanceof Array) {
           evaluatedComponent.model.items = items.filter((item) =>
@@ -375,8 +374,6 @@ export class PageControllerBase {
 
         return evaluatedComponent;
       });
-
-      console.log(viewModel);
 
       const lastVisited = progress[progress.length - 1];
       if (!lastVisited || !lastVisited.startsWith(currentPath)) {
