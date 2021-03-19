@@ -1,5 +1,9 @@
 const { configPage, formDesigner } = require("../pageobjects/pages");
-const createComponent = require("../pageobjects/sections/createComponent.section");
+const {
+  createComponent,
+  editLists,
+  navMenu,
+} = require("../pageobjects/sections");
 const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 const { customAlphabet } = require("nanoid");
@@ -34,6 +38,16 @@ class Actions {
       createComponent.completeCommonFields(
         fieldData[toCamelCase(componentName)]
       );
+    }
+  }
+  createList(numberOfListItems, closeFlyout = true) {
+    navMenu.buttonByName("Lists").click();
+    editLists.addNewList.click();
+    editLists.listTitle.setValue(fieldData.list.title);
+    editLists.createListWithListItems(numberOfListItems);
+    editLists.saveBtn.click();
+    if (closeFlyout) {
+      editLists.clickLink("Close");
     }
   }
 }

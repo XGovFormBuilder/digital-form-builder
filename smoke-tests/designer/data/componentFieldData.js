@@ -26,8 +26,8 @@ module.exports = {
     hint: "Please enter your vehicle using the format: BMW, 3 Series",
   },
   list: {
-    title: "Local list test",
-    name: "LocalList",
+    title: "List test",
+    name: "testList",
     hint: "An automated test for creating local lists",
   },
   paragraph: {

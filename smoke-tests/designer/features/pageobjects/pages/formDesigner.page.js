@@ -46,6 +46,7 @@ class FormDesignerPage extends Page {
   flashCard(pageName) {
     return this.pageContainer(pageName).react$("FlashCard");
   }
+
   paragraph(pageName) {
     return this.pageContainer(pageName).react$("Para");
   }
