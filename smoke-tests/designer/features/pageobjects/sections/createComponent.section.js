@@ -35,7 +35,7 @@ class CreateComponentSection extends Page {
   }
 
   get listOptions() {
-    return this.parent.$("select#field-options-list");
+    return this.parent.$("select#field-options-list").$$("option");
   }
 
   get saveBtn() {
