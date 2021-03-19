@@ -363,6 +363,7 @@ export class PageControllerBase {
         }
         // apply condition to items for radios, checkboxes etc
         const items = evaluatedComponent.model.items;
+
         if (items instanceof Array) {
           evaluatedComponent.model.items = items.filter((item) =>
             item.condition
@@ -370,6 +371,7 @@ export class PageControllerBase {
               : true
           );
         }
+
         return evaluatedComponent;
       });
 

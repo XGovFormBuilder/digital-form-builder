@@ -14,7 +14,7 @@
     "babel-build": "babel --extensions '.ts' src -d dist --copy-files -s inline",
     "lint": "yarn bin/run eslint .",
     "fix-lint": "yarn bin/run eslint . --fix",
-    "test": "yarn lint && yarn type-check &&  NODE_ENV=test yarn bin/run unit-test",
+    "test": "yarn lint && yarn type-check && NODE_ENV=test yarn bin/run unit-test",
     "test-cov": "NODE_ENV=test yarn bin/run lint && yarn run unit-test-cov",
     "test:dev": "lab -T test/.transform.js -P test/**/*.test.* -v test --coverage-exclude src",
     "unit-test": "lab -T test/.transform.js -P test/**/*.test.* -v test -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
