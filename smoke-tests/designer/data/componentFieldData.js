@@ -45,4 +45,9 @@ module.exports = {
     name: "checkBoxes",
     hint: "Please select a checkbox",
   },
+  flashCard: {
+    title: "Flash Card Test",
+    name: "flashCard",
+    hint: "Custom flash card",
+  },
 };

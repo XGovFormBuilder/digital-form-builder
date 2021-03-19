@@ -39,3 +39,12 @@ Feature: List components
     When I try add "Checkboxes" to the "First page" without selecting a list
     Then the error summary is displayed
 
+  Scenario: Adding a Flash card without selecting a list
+    And I have created a "Global" list with 2 list items
+    When I try add "Flash card" to the "First page" without selecting a list
+    Then the "Flash card" is successfully created
+
+  Scenario: Adding a Flash card with a list selected
+    And I have created a "Global" list with 2 list items
+    When I try add "Flash card" to the "First page" without selecting a list
+    Then the "Flash card" is successfully created

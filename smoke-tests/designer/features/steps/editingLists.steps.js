@@ -164,10 +164,16 @@ When("I try add {string} to the {string} without selecting a list", function (
   EditListSection.closeLinks[0].click();
   formDesigner.createComponentForPageName(pageName).click();
   createComponent.selectComponentByName(componentName);
-  createComponent.titleField.setValue("Checkbox Component Test");
+  createComponent.titleField.setValue(`${componentName} Component Test`);
   createComponent.saveBtn.click();
 });
 
 Then("the error summary is displayed", function () {
   expect(createComponent.errorSummary).toBeDisplayed();
+});
+
+Then(/^the "([^"]*)" is successfully created$/, function (componentName) {
+  expect(
+    formDesigner[toCamelCase(componentName)](this.pageName)
+  ).toBeDisplayed();
 });
