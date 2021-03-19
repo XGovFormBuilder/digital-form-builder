@@ -136,3 +136,13 @@ Then(/^the "([^"]*)" is successfully created$/, function (componentName) {
     formDesigner[toCamelCase(componentName)](this.pageName)
   ).toBeDisplayed();
 });
+
+When("I add a {string} with a list to the {string}", function (
+  componentName,
+  pageName
+) {
+  this.pageName = pageName;
+  testActions.createComponentForPage(componentName, this.pageName, false);
+  createComponent.selectList("List test");
+  createComponent.saveBtn.click();
+});

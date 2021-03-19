@@ -69,6 +69,14 @@ class CreateComponentSection extends Page {
       this.saveBtn.click();
     }
   }
+
+  /**
+   * Selects an entry from the select list by name
+   * @param listName
+   */
+  selectList(listName) {
+    return browser.$("#field-options-list").selectByVisibleText(listName);
+  }
 }
 
 module.exports = new CreateComponentSection();

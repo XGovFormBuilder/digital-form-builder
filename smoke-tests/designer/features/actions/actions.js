@@ -26,7 +26,7 @@ class Actions {
    * @param componentName
    * @param pageName
    */
-  createComponentForPage(componentName, pageName) {
+  createComponentForPage(componentName, pageName, save = true) {
     formDesigner.createComponentForPageName(pageName).click();
     createComponent.selectComponentByName(componentName);
     if (componentName.toLowerCase() === "paragraph") {
@@ -36,10 +36,17 @@ class Actions {
       createComponent.saveBtn.click();
     } else {
       createComponent.completeCommonFields(
-        fieldData[toCamelCase(componentName)]
+        fieldData[toCamelCase(componentName)],
+        save
       );
     }
   }
+
+  /**
+   * Creates a list using 'Lists' with a number of specified list items
+   * @param numberOfListItems
+   * @param closeFlyout
+   */
   createList(numberOfListItems, closeFlyout = true) {
     navMenu.buttonByName("Lists").click();
     editLists.addNewList.click();

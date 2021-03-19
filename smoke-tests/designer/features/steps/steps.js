@@ -169,7 +169,6 @@ When("I add a {string} control for the {string}", function (
   pageName
 ) {
   this.pageName = pageName;
-  // EditListSection.closeLinks[0].click();
   formDesigner.createComponentForPageName(pageName).click();
   createComponent.selectComponentByName(componentName);
   createComponent.completeCommonFields(

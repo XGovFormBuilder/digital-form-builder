@@ -46,5 +46,5 @@ Feature: List components
 
   Scenario: Adding a Flash card with a list selected
     And I have created a list with 2 list items
-    When I add a "Flash card" control to the "First page"
+    When I add a "Flash card" with a list to the "First page"
     Then the "Flash card" is successfully created
