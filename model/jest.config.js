@@ -7,4 +7,12 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   coverageDirectory: "test-coverage",
   testPathIgnorePatterns: ["__tests__/helpers"],
+  coverageThreshold: {
+    global: {
+      branches: 85,
+      functions: 83,
+      lines: 92,
+      statements: 92,
+    },
+  },
 };
