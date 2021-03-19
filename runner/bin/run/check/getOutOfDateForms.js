@@ -1,11 +1,10 @@
-import { getJsonFiles } from "./getJsonFiles";
-import { FORM_PATH, CURRENT_SCHEMA_VERSION } from "./util";
-import { promises as fs } from "fs";
-import path from "path";
+const helper = require("./getJsonFiles");
+const { FORM_PATH, CURRENT_SCHEMA_VERSION } = require("./util");
+const fs = require("fs").promises;
+const path = require("path");
 
-export const getOutOfDateForms = async () => {
-  const files = await getJsonFiles();
-
+async function getOutOfDateForms() {
+  const files = await helper.getJsonFiles();
   let needsMigration = [];
 
   for (const file of files) {
@@ -15,4 +14,8 @@ export const getOutOfDateForms = async () => {
   }
 
   return needsMigration;
+}
+
+module.exports = {
+  getOutOfDateForms,
 };

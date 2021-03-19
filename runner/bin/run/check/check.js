@@ -1,11 +1,10 @@
 #!/usr/bin/nodejs
-import { getOutOfDateForms } from "./getOutOfDateForms";
-
-const { cli } = require("cli-ux");
-
-export let check = async () => {
+const helper = require("./getOutOfDateForms");
+const cliux = require("cli-ux");
+const { cli } = cliux;
+async function check() {
   cli.action.start("Checking versions of forms in runner/src/forms");
-  const files = getOutOfDateForms();
+  const files = helper.getOutOfDateForms();
   cli.action.stop();
 
   if (files.length <= 0) {
@@ -18,4 +17,8 @@ export let check = async () => {
   } else {
     cli.info("Your forms are up to date");
   }
+}
+
+module.exports = {
+  check,
 };

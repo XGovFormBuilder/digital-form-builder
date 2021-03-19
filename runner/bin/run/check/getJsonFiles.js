@@ -1,9 +1,13 @@
-import { FORM_PATH } from "./util";
-import path from "path";
-import { promises as fs } from "fs";
+const { FORM_PATH } = require("./util");
+const path = require("path");
+const fs = require("fs").promises;
 
-export const getJsonFiles = async () => {
+async function getJsonFiles() {
   return (await fs.readdir(FORM_PATH)).filter(
     (file) => path.extname(file) === ".json"
   );
+}
+
+module.exports = {
+  getJsonFiles,
 };
