@@ -8,11 +8,8 @@ const { describe, test, afterEach } = lab;
 const fs = require("fs");
 const jsonHelper = require("../../../bin/run/check/getJsonFiles");
 const outOfDateHelper = require("../../../bin/run/check/getOutOfDateForms");
-const cliux = require("cli-ux");
 
-const Check = require("../../../bin/run/check/check");
-
-describe.only("check out of date forms", () => {
+describe("check out of date forms", () => {
   test("getJsonFiles returns files with .json extension only", async () => {
     const files = await jsonHelper.getJsonFiles();
     expect(files).to.contain(["report-a-terrorist.json", "test.json"]);
