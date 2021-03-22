@@ -4703,6 +4703,7 @@ __metadata:
     webpack-dev-server: ^3.11.0
     webpack-node-externals: ^2.5.2
     whatwg-fetch: ^3.5.0
+    yar: ^9.1.0
   languageName: unknown
   linkType: soft
 
@@ -24023,7 +24024,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"yar@npm:9.1.0":
+"yar@npm:9.1.0, yar@npm:^9.1.0":
   version: 9.1.0
   resolution: "yar@npm:9.1.0"
   dependencies:

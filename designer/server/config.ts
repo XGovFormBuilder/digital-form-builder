@@ -20,6 +20,8 @@ export interface Config {
   isTest: boolean;
   lastCommit: string;
   lastTag: string;
+  sessionTimeout: number;
+  sessionCookiePassword: string;
 }
 
 // Define config schema
@@ -43,6 +45,8 @@ const schema = joi.object({
   footerText: joi.string().optional(),
   lastCommit: joi.string().default("undefined"),
   lastTag: joi.string().default("undefined"),
+  sessionTimeout: joi.number().default(20 * 60 * 1000),
+  sessionCookiePassword: joi.string().optional(),
 });
 
 // Build config
@@ -60,6 +64,8 @@ const config = {
   footerText: process.env.FOOTER_TEXT,
   lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
   lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
+  sessionTimeout: process.env.SESSION_TIMEOUT,
+  sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
 };
 
 // Validate config

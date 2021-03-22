@@ -60,7 +60,8 @@
     "react-router-dom": "^5.2.0",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
-    "vision": "5.4.3"
+    "vision": "5.4.3",
+    "yar": "^9.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

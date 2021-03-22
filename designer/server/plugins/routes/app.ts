@@ -39,6 +39,18 @@ export const getAppChildRoutes: ServerRoute = {
   },
 };
 
+export const getErrorPage: ServerRoute = {
+  method: "get",
+  path: "/error",
+  options: {
+    handler: async (_request, h) => {
+      return h.view("error", {
+        phase: config.phase,
+      });
+    },
+  },
+};
+
 export const redirectOldUrlToDesigner: ServerRoute = {
   method: "get",
   path: "/{id}",
