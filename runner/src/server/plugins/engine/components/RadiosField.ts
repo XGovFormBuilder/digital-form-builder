@@ -29,6 +29,9 @@ export class RadiosField extends ListFormComponent {
           html: this.localisedString(item.description),
         };
       }
+
+      return itemModel;
+
       // FIXME:- add this back when GDS fix accessibility issues involving conditional reveal fields
       //return super.addConditionalComponents(item, itemModel, formData, errors);
     });
