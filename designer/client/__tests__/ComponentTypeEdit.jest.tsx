@@ -126,7 +126,7 @@ describe("ComponentTypeEdit", () => {
       );
 
       const text =
-        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
+        "Select an existing list to show in this field or add a new list";
       expect(getByText(text)).toBeInTheDocument();
     });
   });
@@ -213,7 +213,7 @@ describe("ComponentTypeEdit", () => {
       );
 
       const text =
-        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
+        "Select an existing list to show in this field or add a new list";
       expect(getByText(text)).toBeInTheDocument();
     });
   });
@@ -300,7 +300,7 @@ describe("ComponentTypeEdit", () => {
       );
 
       const text =
-        "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
+        "Select an existing list to show in this field or add a new list";
       expect(getByText(text)).toBeInTheDocument();
     });
   });

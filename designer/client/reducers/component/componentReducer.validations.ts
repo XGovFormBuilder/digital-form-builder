@@ -43,7 +43,16 @@ const validateContent = ({ content }) => {
   return errors;
 };
 
-const validateList = (component) => {};
+const validateList = (component) => {
+  const errors: any = {};
+  if ((component?.list ?? "-1") === "-1") {
+    errors.list = {
+      href: `#field-options-list`,
+      children: ["list.errors.select"],
+    };
+  }
+  return errors;
+};
 
 const ComponentsWithoutTitleField = [Types.InsetText, Types.Html, Types.Para];
 const ComponentsWithContentField = [
@@ -57,8 +66,7 @@ const ComponentsWithListField = [
   Types.List,
   Types.RadiosField,
   Types.SelectField,
-  Types.YesNoField,
-  Types.FlashCard,
+  Types.CheckboxesField,
 ];
 
 export function fieldComponentValidations(component) {

@@ -6,7 +6,7 @@ const AddLinkSection = require("../pageobjects/sections/addLink.section");
 const EditListSection = require("../pageobjects/sections/editLists.section");
 const EditPageSection = require("../pageobjects/sections/editPage.section");
 const EditSection = require("../pageobjects/sections/editSection.section");
-const MenuSection = require("../pageobjects/sections/menu.section");
+const { navMenu } = require("../pageobjects/sections");
 const FieldData = require("../../data/componentFieldData");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
 const Actions = require("../actions/actions");
@@ -169,7 +169,6 @@ When("I add a {string} control for the {string}", function (
   pageName
 ) {
   this.pageName = pageName;
-  EditListSection.closeLinks[0].click();
   formDesigner.createComponentForPageName(pageName).click();
   createComponent.selectComponentByName(componentName);
   createComponent.completeCommonFields(
@@ -181,7 +180,11 @@ When("I add a {string} control for the {string}", function (
 });
 
 Then("the list is available in the list options", function () {
-  expect(createComponent.listOptions).toHaveText(this.listName);
+  expect(
+    createComponent.listOptions.findIndex((el) =>
+      el.getText().includes(this.listName)
+    )
+  ).toBeGreaterThan(-1);
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
@@ -222,9 +225,12 @@ Then("the list is selected in the list dropdown", function () {
   expect(EditListSection.selectListValue).toHaveText(FieldData.list.title);
 });
 
-When("I add a {string} control to the {string}", (componentName, pageName) => {
+When("I add a {string} control to the {string}", function (
+  componentName,
+  pageName
+) {
   this.pageName = pageName;
-  Actions.createComponentForPage(componentName, pageName);
+  Actions.createComponentForPage(componentName, this.pageName);
 });
 
 Then("the Date field control is displayed in the page", () => {
@@ -249,7 +255,7 @@ Then("the changes are reflected in the page designer", () => {
 });
 
 When("I choose {string} from the designer menu", (menuOption) => {
-  MenuSection.buttonByName(menuOption).click();
+  navMenu.buttonByName(menuOption).click();
 });
 
 Then("the page is added in the designer", () => {

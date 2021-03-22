@@ -35,7 +35,7 @@ class CreateComponentSection extends Page {
   }
 
   get listOptions() {
-    return this.parent.$("select#field-options-list");
+    return this.parent.$("select#field-options-list").$$("option");
   }
 
   get saveBtn() {
@@ -68,6 +68,14 @@ class CreateComponentSection extends Page {
     if (save) {
       this.saveBtn.click();
     }
+  }
+
+  /**
+   * Selects an entry from the select list by name
+   * @param listName
+   */
+  selectList(listName) {
+    return browser.$("#field-options-list").selectByVisibleText(listName);
   }
 }
 
