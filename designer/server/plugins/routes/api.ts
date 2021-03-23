@@ -71,6 +71,12 @@ export const putFormWithId: ServerRoute = {
         return h.response({ ok: true }).code(204);
       } catch (err) {
         console.error("Designer Server PUT /api/{id}/data error:", err);
+        const errorSummary = {
+          id: id,
+          payload: request.payload,
+          error: err,
+        };
+        request.yar.flash(`error-summary-${id}`, errorSummary);
         return h.response({ ok: false, err }).code(401);
       }
     },

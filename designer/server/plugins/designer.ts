@@ -27,7 +27,7 @@ export const designerPlugin = {
 
       server.route(app.getAppChildRoutes);
 
-      server.route(app.getErrorPage);
+      server.route(app.getErrorCrashReport);
 
       // This is old url , redirecting it to new
       server.route(app.redirectOldUrlToDesigner);

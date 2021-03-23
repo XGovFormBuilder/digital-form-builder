@@ -39,14 +39,36 @@ export const getAppChildRoutes: ServerRoute = {
   },
 };
 
-export const getErrorPage: ServerRoute = {
+/*export const getErrorPage: ServerRoute = {
   method: "get",
   path: "/error",
   options: {
     handler: async (_request, h) => {
+      const error = _request.yar.flash("error") as any;
+      if (!error) return h.redirect("/app").code(301);
       return h.view("error", {
         phase: config.phase,
+        id: error.id,
       });
+    },
+  },
+};*/
+
+export const getErrorCrashReport: ServerRoute = {
+  method: "get",
+  path: "/error/crashreport/{id}",
+  options: {
+    handler: async (_request, h) => {
+      const { id } = _request.params;
+      const error = _request.yar.flash(`error-summary-${id}`) as any;
+      return h
+        .response(Buffer.from(JSON.stringify(error)))
+        .encoding("binary")
+        .type("text/plain")
+        .header(
+          "content-disposition",
+          `attachment; filename=error-${new Date().toISOString()}.txt;`
+        );
     },
   },
 };

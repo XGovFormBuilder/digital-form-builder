@@ -5,6 +5,7 @@ import "./styles/index.scss";
 import { initI18n } from "./i18n";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Designer from "./designer";
+import { ErrorPage } from "./pages/ErrorPage";
 
 initI18n();
 
@@ -27,6 +28,9 @@ export class App extends React.Component {
             </Route>
             <Route path="/choose-existing" exact>
               <ChooseExisting />
+            </Route>
+            <Route path="/error" exact>
+              <ErrorPage />
             </Route>
             <Route path="*">
               <NoMatch />
