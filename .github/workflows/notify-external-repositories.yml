@@ -6,8 +6,13 @@ on:
       - '*'
 
 jobs:
+  check-container-exists:
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker inspect ghcr.io/xgovformbuilder/digital-form-builder-designer:${{needs.parse.outputs.tag}}
   parse:
     runs-on: ubuntu-latest
+    needs: check-container-exists
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       tag:  ${{ steps.set-matrix.outputs.tag }}
