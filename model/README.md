@@ -2,7 +2,7 @@
 
 # Test coverage threshold
 
-Unit test coverage threshold, code coverage below which, build will fail is set by using jest config, see jest.config.js for the thresholds
+Unit test coverage threshold, code coverage below which build will fail is set by using jest config, see [jest.config.js](jest.config.js) for current thresholds
 
 ## License
 

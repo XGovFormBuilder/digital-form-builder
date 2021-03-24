@@ -80,7 +80,7 @@ Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.j
 
 # Test coverage threshold
 
-Unit test coverage threshold, code coverage below which, build will fail is set by using lab's switch -t 83. see unit-test-cov script in package.json
+Unit test coverage threshold, code coverage below which build will fail is set by using lab's switch -t COVERAGE_LEVEL. see unit-test-cov script in [package.json](package.json) to check current value
 
 # Deployment
 

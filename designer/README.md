@@ -65,9 +65,14 @@ yarn designer jest --watch
 
 # Test coverage threshold
 
-Unit test coverage threshold, code coverage below which, build will fail is set by using lab's switch -t 89. see test-lab-cov script in package.json
+Designer has 2 test frameworks, lab from hapi and jest.
+Unit test coverage threshold, code coverage below which build will fail is set separately for different frameworks
 
-for jest tests take a look at jest.client.config.js, jest.server.config.js
+lab - test threshold is configured using lab's switch -t, take a look at test-lab-cov script in [package.json](package.json) to check current value
+
+jest - test thresholds are configured in [jest.client.config.js](jest.client.config.js) ,[jest.server.config.js](jest.server.config.js)
+
+at the moment jest is breaking builds strictly only for line coverage
 
 ## License
 
