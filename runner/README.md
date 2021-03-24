@@ -78,6 +78,10 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`.
 
+# Test coverage threshold
+
+Unit test coverage threshold, code coverage below which, build will fail is set by using lab's switch -t 83. see unit-test-cov script in package.json
+
 # Deployment
 
 Currently CI is done with [circleCI](https://circleci.com). Pushes to master

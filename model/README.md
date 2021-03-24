@@ -1,5 +1,9 @@
 # digital-form-builder-model
 
+# Test coverage threshold
+
+Unit test coverage threshold, code coverage below which, build will fail is set by using jest config, see jest.config.js for the thresholds
+
 ## License
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:

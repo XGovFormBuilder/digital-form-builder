@@ -52,14 +52,23 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 This project currently has a combination of tests written with Hapi helpers and tests written in Testing Library, the aim is to have all component tests written in Testing Library so please aim to do that if you come accorss any Hapi tests.
 
 To watch the tests:
+
 ```sh
 yarn jest --watch
 ```
 
 or run this in the root of the project:
+
 ```sh
 yarn designer jest --watch
 ```
+
+# Test coverage threshold
+
+Unit test coverage threshold, code coverage below which, build will fail is set by using lab's switch -t 89. see test-lab-cov script in package.json
+
+for jest tests take a look at jest.client.config.js, jest.server.config.js
+
 ## License
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:
