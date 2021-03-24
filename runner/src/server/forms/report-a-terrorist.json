@@ -21,17 +21,14 @@
           "schema": {}
         },
         {
-          "values": {
-            "type": "listRef",
-            "list": "HTbt4V"
-          },
           "type": "RadiosField",
           "title": "Do you have a link to the material?",
           "options": {
             "hideTitle": true
           },
           "name": "doyouhavealink",
-          "schema": {}
+          "schema": {},
+          "list": "HTbt4V"
         }
       ],
       "next": [
@@ -65,15 +62,12 @@
           "schema": {}
         },
         {
-          "values": {
-            "type": "listRef",
-            "list": "mdmRq9"
-          },
           "name": "LU6RMD",
           "options": {},
           "type": "RadiosField",
           "title": "Do you have any evidence?",
-          "schema": {}
+          "schema": {},
+          "list": "mdmRq9"
         }
       ],
       "next": [
@@ -215,7 +209,7 @@
       }
     }
   ],
-  "version": 1,
+  "version": 2,
   "conditions": [
     {
       "name": "b-NGgWvGISkJJLuzsJIjv",

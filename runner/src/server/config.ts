@@ -9,7 +9,7 @@ const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
 const DEFAULT_PORT = 3009;
 const DEFAULT_ENVIRONMENT = "development";
-const DEFAULT_LOG_LEVEL = "debug";
+const DEFAULT_LOG_LEVEL = "WARNING";
 const DEFAULT_SERVICE_URL = "http://localhost:3009";
 const DEFAULT_DOCUMENT_UPLOAD_API_URL = "http://localhost:9000";
 

@@ -31,7 +31,7 @@ export const SelectValues = (props) => {
       {fieldDef.values.map((option) => {
         return (
           <option key={option.value} value={option.value}>
-            {option.label}
+            {option.text}
           </option>
         );
       })}

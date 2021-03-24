@@ -4,19 +4,9 @@ import { schemaReducer } from "./componentReducer.schema";
 import { optionsReducer } from "./componentReducer.options";
 import { metaReducer } from "./componentReducer.meta";
 import { fieldsReducer } from "./componentReducer.fields";
-import { componentListItemReducer } from "./componentReducer.listItem";
 
 import type { ComponentActions } from "./types";
-import {
-  Meta,
-  Schema,
-  Fields,
-  Options,
-  ComponentList,
-  StaticListItem,
-  Actions,
-} from "./types";
-import { componentListReducer } from "./componentReducer.list";
+import { Meta, Schema, Fields, Options, Actions } from "./types";
 
 // TODO: type
 type ComponentState = {
@@ -38,8 +28,6 @@ const ActionsReducerCollection = [
   [Options, optionsReducer],
   [Fields, fieldsReducer],
   [Schema, schemaReducer],
-  [ComponentList, componentListReducer],
-  [StaticListItem, componentListItemReducer],
 ];
 
 export function valueIsInEnum<T>(value: keyof ComponentActions, enumType: T) {
@@ -84,21 +72,13 @@ export function componentReducer(
 export const initComponentState = (props) => {
   const selectedComponent = props?.component;
   const newName = nanoid(6);
-  const init = {
+  return {
     selectedComponent: selectedComponent ?? { name: newName, options: {} },
     initialName: selectedComponent?.name ?? newName,
-    selectedListName: selectedComponent?.values?.list ?? "static",
     pagePath: props?.pagePath,
     isNew: props?.isNew || ((selectedComponent?.name && false) ?? true),
     listItemErrors: {},
   };
-  if (!!selectedComponent) {
-    init.selectedListName =
-      selectedComponent.values?.type === "static"
-        ? "static"
-        : selectedComponent.values?.list;
-  }
-  return init;
 };
 
 export const ComponentContextProvider = (props) => {

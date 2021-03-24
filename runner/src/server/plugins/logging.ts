@@ -5,6 +5,11 @@ export default {
   plugin: pino,
   options: {
     prettyPrint: config.isDev,
-    level: config.logLevel,
+    level: "warn",
+    formatters: {
+      level: (label) => {
+        return { level: label };
+      },
+    },
   },
 };

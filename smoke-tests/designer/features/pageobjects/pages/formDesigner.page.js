@@ -43,6 +43,10 @@ class FormDesignerPage extends Page {
     return this.pageContainer(pageName).react$("EmailAddressField");
   }
 
+  flashCard(pageName) {
+    return this.pageContainer(pageName).react$("FlashCard");
+  }
+
   paragraph(pageName) {
     return this.pageContainer(pageName).react$("Para");
   }

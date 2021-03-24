@@ -9,12 +9,12 @@ import { ListActions } from "../reducers/listActions";
 import {
   ListsEditorContext,
   ListsEditorStateActions,
-  useSetListEditorContext,
 } from "../reducers/list/listsEditorReducer";
 
 import { DataContext } from "../context";
 import { clone } from "@xgovformbuilder/model";
 import { useListItem } from "../hooks/list/useListItem";
+import { ListContext } from "../reducers/listReducer";
 
 const DragHandle = SortableHandle(() => (
   <span className="drag-handle-list">&#9776;</span>
@@ -77,10 +77,8 @@ function ListItems() {
   );
   const { isEditingStatic } = listEditorState;
   const { data, save } = useContext(DataContext);
-  const { state, dispatch } = useSetListEditorContext();
-  const selectedList = isEditingStatic
-    ? state.selectedComponent.values
-    : state.selectedList;
+  const { state, dispatch } = useContext(ListContext);
+  const selectedList = state.selectedList;
 
   const selectListItem = (payload) => {
     dispatch({ type: ListActions.EDIT_LIST_ITEM, payload });

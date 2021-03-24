@@ -24,6 +24,7 @@ export function RenderWithContextAndDataContext({
   children,
   stateProps = {},
   mockData = {},
+  mockSave = jest.fn(),
 }) {
   const [state, dispatch] = useReducer(
     componentReducer,
@@ -33,7 +34,7 @@ export function RenderWithContextAndDataContext({
   );
 
   return (
-    <DataContext.Provider value={{ data: mockData, save: jest.fn() }}>
+    <DataContext.Provider value={{ data: mockData, save: mockSave }}>
       <ComponentContext.Provider value={{ state, dispatch }}>
         {children}
       </ComponentContext.Provider>

@@ -8,7 +8,9 @@
           "type": "YesNoField",
           "name": "ukPassport",
           "title": "Do you have a UK passport?",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -31,7 +33,9 @@
         {
           "type": "Para",
           "content": "If you still think you're eligible please contact the Foreign and Commonwealth Office.",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -43,17 +47,13 @@
       "components": [
         {
           "options": {
-            "classes": "govuk-input--width-10"
+            "classes": "govuk-input--width-10",
+            "required": true
           },
           "type": "SelectField",
           "name": "numberOfApplicants",
           "title": "How many applicants are there?",
-          "values": {
-            "type": "listRef",
-            "list": "numberOfApplicants",
-            "valueChildren": []
-          },
-          "schema": {}
+          "list": "numberOfApplicants"
         }
       ],
       "next": [
@@ -71,14 +71,18 @@
         {
           "type": "Para",
           "content": "Provide the details as they appear on your passport.",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "firstName",
           "title": "First name",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
@@ -96,7 +100,9 @@
           "type": "TextField",
           "name": "lastName",
           "title": "Surname",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -114,7 +120,9 @@
           "type": "UkAddressField",
           "name": "address",
           "title": "Address",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -137,14 +145,18 @@
         {
           "type": "Para",
           "content": "Provide the details as they appear on your passport.",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "firstName",
           "title": "First name",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
@@ -162,7 +174,9 @@
           "type": "TextField",
           "name": "lastName",
           "title": "Surname",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -180,7 +194,9 @@
           "type": "UkAddressField",
           "name": "address",
           "title": "Address",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -203,14 +219,18 @@
         {
           "type": "Para",
           "content": "Provide the details as they appear on your passport.",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "firstName",
           "title": "First name",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
@@ -228,7 +248,9 @@
           "type": "TextField",
           "name": "lastName",
           "title": "Surname",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -246,7 +268,9 @@
           "type": "UkAddressField",
           "name": "address",
           "title": "Address",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -269,14 +293,18 @@
         {
           "type": "Para",
           "content": "Provide the details as they appear on your passport.",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
           "type": "TextField",
           "name": "firstName",
           "title": "First name",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
@@ -294,7 +322,9 @@
           "type": "TextField",
           "name": "lastName",
           "title": "Surname",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -312,7 +342,9 @@
           "type": "UkAddressField",
           "name": "address",
           "title": "Address",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -332,14 +364,18 @@
           "name": "phoneNumber",
           "title": "Phone number",
           "hint": "If you haven't got a UK phone number, include country code",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         },
         {
           "type": "EmailAddressField",
           "name": "emailAddress",
           "title": "Your email address",
-          "options": {},
+          "options": {
+            "required": true
+          },
           "schema": {}
         }
       ],
@@ -432,7 +468,7 @@
     }
   ],
   "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
-  "version": 1,
+  "version": 2,
   "conditions": [
     {
       "name": "hasUKPassport",

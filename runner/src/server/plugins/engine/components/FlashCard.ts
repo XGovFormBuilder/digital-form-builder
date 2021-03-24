@@ -3,6 +3,7 @@ import { ComponentBase } from "./ComponentBase";
 
 export class FlashCard extends ComponentBase {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+    // @ts-ignore
     const { values } = this;
     const viewModel = super.getViewModel(formData, errors);
 

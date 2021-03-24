@@ -1,6 +1,6 @@
 {
   "name": "@xgovformbuilder/designer",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Cross government digital form builder (designer)",
   "main": "server/index.js",
   "engines": {
@@ -19,10 +19,10 @@
     "test-cov": "yarn lint && yarn test-lab-cov && yarn jest",
     "test:dev": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -r console -o stdout -r html -o unit-test.html -I version -l --coverage-exclude client --coverage-exclude server --coverage-exclude config.js",
     "test-lab": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
-    "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
+    "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -t 89 -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
     "jest": "yarn jest:client && yarn jest:server",
-    "jest:client": "jest --selectProjects client",
-    "jest:server": "jest --selectProjects server --runInBand",
+    "jest:client": "jest --coverage --config=jest.client.config.js",
+    "jest:server": "jest --coverage --config=jest.server.config.js --runInBand",
     "jest:watch": "jest --watch",
     "audit": "npm audit --audit-level=high",
     "type-check": "tsc --noEmit"
@@ -38,7 +38,7 @@
     "@hapi/scooter": "6.0.0",
     "@hapi/wreck": "17.0.0",
     "@xgovformbuilder/govuk-react-jsx": "^4.0.10",
-    "@xgovformbuilder/model": "2.0.0",
+    "@xgovformbuilder/model": "3.0.0",
     "aws-sdk": "^2.723.0",
     "blankie": "5.0.0",
     "classnames": "^2.2.6",

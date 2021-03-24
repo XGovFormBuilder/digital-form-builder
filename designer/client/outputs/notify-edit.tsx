@@ -3,8 +3,10 @@ import React, { Component } from "react";
 import NotifyEditItems from "./notify-edit-items";
 import { Output, NotifyOutputConfiguration, ValidationErrors } from "./types";
 import { Input } from "@govuk-jsx/input";
+import { Checkboxes } from "@govuk-jsx/checkboxes";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
+import { i18n } from "../i18n";
 
 type State = {};
 
@@ -21,7 +23,7 @@ class NotifyEdit extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const { data } = this.props;
-    this.usableKeys = data.allInputs().map((input) => ({
+    this.usableKeys = data.allInputs.map((input) => ({
       name: input.propertyPath || "",
       display: input.title || "",
     }));
@@ -113,6 +115,24 @@ class NotifyEdit extends Component<Props, State> {
           data={data}
           onEdit={onEdit}
         />
+        <div className="govuk-form-group">
+          <Checkboxes
+            items={[
+              {
+                children: (
+                  <strong>
+                    {i18n("outputEdit.notifyEdit.includeReferenceTitle")}
+                  </strong>
+                ),
+                hint: {
+                  children: i18n("outputEdit.notifyEdit.includeReferenceHint"),
+                },
+                value: true,
+              },
+            ]}
+            name="add-references-to-personalisation"
+          />
+        </div>
       </div>
     );
   }

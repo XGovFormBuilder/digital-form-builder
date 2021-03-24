@@ -223,6 +223,7 @@
   "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost.",
   "list": {
     "add": "Add list",
+    "addNew": "Add a new list",
     "addOrEdit": "Add or edit lists",
     "deleteWarning": {
       "confirm": "Yes, delete this list",
@@ -232,7 +233,8 @@
     },
     "edit": "Edit {{title}}",
     "errors": {
-      "empty": "The list must have list items"
+      "empty": "The list must have list items",
+      "select": "Select a list"
     },
     "hint": {
       "description": "Use lists to provide information in bullet points or set answers to multiple choice questions. After you create a list you can assign it to components to use on your form.",
@@ -260,14 +262,9 @@
     },
     "newTitle": "Add a new list",
     "select": {
-      "helpText": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.",
-      "title": "Select list"
-    },
-    "static": {
-      "hint": "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. ",
-      "newTitle": "Add a new component list",
-      "noun": "component list",
-      "saveFirst": "You must save before creating a component list, or you can select an existing list."
+      "helpText": "Select an existing list to show in this field or add a new list",
+      "title": "Select list",
+      "option": "Select a list"
     },
     "title": "List title",
     "titleHint": "Enter a unique name for your list"
@@ -306,6 +303,12 @@
     }
   },
   "optional": "{{noun}} (optional)",
+  "outputEdit": {
+    "notifyEdit": {
+      "includeReferenceTitle": "Include webhook and payment references",
+      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string."
+    }
+  },
   "page": {
     "noun": "page",
     "noun_plural": "pages",

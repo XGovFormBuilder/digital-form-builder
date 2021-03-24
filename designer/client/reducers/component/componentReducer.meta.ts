@@ -13,16 +13,14 @@ export function metaReducer(
   const { type, payload } = action;
   const { selectedComponent } = state;
   switch (type) {
-    case Meta.ADD_STATIC_LIST: {
+    case Meta.SET_SELECTED_LIST:
       return {
         ...state,
         selectedComponent: {
           ...selectedComponent,
-          values: { type: "static", items: [] },
+          list: payload,
         },
-        selectedListName: "static",
       };
-    }
     case Meta.NEW_COMPONENT:
       return {
         ...state,

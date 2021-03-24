@@ -108,12 +108,12 @@ class EditListsSection extends Section {
    * @param listType
    * @param numberOfListItems
    */
-  createListWithListItems(listType, numberOfListItems) {
+  createListWithListItems(numberOfListItems) {
     for (let i = 0; i < numberOfListItems; i++) {
       this.createListItem.click();
       this.addNewListItem(
         "Add a new list item",
-        `${listType} list item ${i}`,
+        `List item ${i}`,
         `${i}`,
         `${i}`
       );

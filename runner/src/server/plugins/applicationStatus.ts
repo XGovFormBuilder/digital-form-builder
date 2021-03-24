@@ -121,7 +121,17 @@ const applicationStatus = {
                       templateId,
                       emailAddress,
                       personalisation = {},
+                      addReferencesToPersonalisation = false,
                     } = output.outputData;
+
+                    if (addReferencesToPersonalisation) {
+                      Object.assign(personalisation, {
+                        hasWebhookReference: !!newReference,
+                        webhookReference: newReference,
+                        hasPaymentReference: !!payState?.reference,
+                        paymentReference: payState?.reference,
+                      });
+                    }
 
                     return notifyService.sendNotification({
                       apiKey,

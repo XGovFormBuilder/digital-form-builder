@@ -1,5 +1,4 @@
 import Lab from "@hapi/lab";
-import { execSync } from "child_process";
 import { expect } from "@hapi/code";
 import createServer from "src/server";
 import config from "src/server/config";

@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import FocusTrap from "focus-trap-react";
 import { FlyoutContext } from "../../context";
 import { i18n } from "../../i18n";

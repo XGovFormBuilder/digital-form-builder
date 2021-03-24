@@ -89,12 +89,12 @@ jobs:
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
-          echo LAST_TAG_GH=1.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
+          echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
       - name: Docker compose build ${{ matrix.app }}
         run: |
-          LAST_TAG='1.0.${{ github.run_number }}-rc'
+          LAST_TAG='2.0.${{ github.run_number }}-rc'
           LAST_COMMIT='${{ github.sha }}'
           docker-compose build ${{ matrix.app }}
       - name: Check images
@@ -109,11 +109,11 @@ jobs:
       - name: Tag image
         run: |
           docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:1.0.${{ github.run_number }}-rc
+          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:2.0.${{ github.run_number }}-rc
       - name: Push Docker images
         run: |
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:1.0.${{ github.run_number }}-rc
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:2.0.${{ github.run_number }}-rc
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
         with:
@@ -131,5 +131,5 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
       - name: Tag branch with run number
         run: |
-          git tag 1.0.${{ github.run_number }}-rc
+          git tag 2.0.${{ github.run_number }}-rc
           git push --tags origin HEAD
