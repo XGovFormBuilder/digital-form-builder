@@ -78,9 +78,13 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`.
 
+# Test coverage threshold
+
+Unit test coverage threshold, code coverage below which build will fail is set by using lab's switch -t COVERAGE_LEVEL, currently threshold is configured to 83%, see unit-test-cov script in [package.json](package.json).
+
 # Deployment
 
-Currently CI is done with [circleCI](https://circleci.com). Pushes to master
+Currently CI is done with github actions. Pushes to master
 will trigger a build phase which includes running tests and [lighthouse](https://developers.google.com/web/tools/lighthouse)
 accessibility audits. Builds will fail if the accessibility score is less than 90%.
 
