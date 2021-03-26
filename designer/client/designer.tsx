@@ -78,7 +78,7 @@ export default class Designer extends Component<Props, State> {
     } catch (e) {
       this.setState({ error: e.message });
       this.props.history.push({
-        pathname: "/error",
+        pathname: "/save-error",
         state: { id: this.id },
       });
     }
