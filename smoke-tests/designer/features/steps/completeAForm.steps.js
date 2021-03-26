@@ -1,16 +1,16 @@
 const { Given, When, Then } = require("cucumber");
 const { formRunner } = require("../pageobjects/pages");
+const forms = require("../actions/forms");
+const { toCamelCase } = require("../../support/testHelpers");
 
-Given("I am at the beginning of the {string} form", function (formName) {
-  let formPath = formName.replace(/ /g, "-").toLowerCase();
+Given("I am at the start of the {string} form", function (formName) {
+  this.formName = formName;
+  let formPath = this.formName.replace(/ /g, "-").toLowerCase();
   formRunner.open(formPath);
 });
 
 Given("I complete the form", function () {
-  formRunner.selectRadio("Yes, I do have a link");
-  formRunner.multilineText("https://nodejs.org/en/");
-  formRunner.selectRadio("No, I don't have evidence");
-  formRunner.multilineText("File upload is not yet finished!!");
+  forms[toCamelCase(this.formName)]();
 });
 
 When("I view the Summary page", function () {
@@ -35,5 +35,5 @@ Then("I taken directly to the page titled {string}", function (pageTitle) {
 
 Given("I have progressed to the Do you have any evidence? page", function () {
   formRunner.selectRadio("Yes, I do have a link");
-  formRunner.multilineText("https://nodejs.org/en/");
+  formRunner.textBox("https://nodejs.org/en/");
 });

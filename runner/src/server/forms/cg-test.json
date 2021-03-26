@@ -10,7 +10,9 @@
           "options": {},
           "type": "YesNoField",
           "title": "Do you own a vehicle?",
-          "values": { "type": "listRef" },
+          "values": {
+            "type": "listRef"
+          },
           "schema": {}
         },
         {
@@ -21,7 +23,11 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/what-address-is-the-vehicle-registered-to" }]
+      "next": [
+        {
+          "path": "/what-address-is-the-vehicle-registered-to"
+        }
+      ]
     },
     {
       "path": "/what-address-is-the-vehicle-registered-to",
@@ -47,7 +53,8 @@
           "type": "CheckboxesField",
           "title": "Which Clean Air Zones are you claiming an exemption for?",
           "list": "O2uEB1",
-          "hint": "Please check all that apply, however you are restricted to a maximum of two choices."
+          "hint": "Please check all that apply, however you are restricted to a maximum of two choices.",
+          "schema": {}
         },
         {
           "name": "M8gMK7",
@@ -56,10 +63,15 @@
           },
           "type": "FileUploadField",
           "title": "Proof of address",
-          "hint": "This can be a drivers licence or utility bill dated within the last month"
+          "hint": "This can be a drivers licence or utility bill dated with the last month",
+          "schema": {}
         }
       ],
-      "next": [{ "path": "/details-about-your-vehicle" }]
+      "next": [
+        {
+          "path": "/details-about-your-vehicle"
+        }
+      ]
     },
     {
       "path": "/clean-air-zone-caz-exemption",
@@ -73,7 +85,11 @@
           "schema": {}
         }
       ],
-      "next": [{ "path": "/do-you-own-a-vehicle" }],
+      "next": [
+        {
+          "path": "/do-you-own-a-vehicle"
+        }
+      ],
       "controller": "./pages/start.js"
     },
     {
@@ -108,17 +124,24 @@
           "title": "What fuel type does your vehicle use?",
           "list": "sm_ssM",
           "name": "fsfsdfsdf",
-          "nameHasError": false
+          "nameHasError": false,
+          "options": {},
+          "schema": {}
         },
         {
           "name": "chYCuk",
           "options": {},
           "type": "MultilineTextField",
           "title": "Has the vehicle been modified in any way?",
-          "hint": "Failure to declare modifications will result in severe penalties if not disclosed at this point."
+          "hint": "Failure to declare modifications will result in severe penalties if not disclosed at this point.",
+          "schema": {}
         }
       ],
-      "next": [{ "path": "/driver-details" }]
+      "next": [
+        {
+          "path": "/driver-details"
+        }
+      ]
     },
     {
       "path": "/driver-details",
@@ -128,24 +151,31 @@
           "name": "wJzPKE",
           "options": {},
           "type": "NumberField",
-          "title": "How many people in your household drive this vehicle?"
+          "title": "How many people in your household drive this vehicle?",
+          "schema": {}
         },
         {
           "name": "PNIThU",
           "options": {},
           "type": "TextField",
           "title": "Full name of the main driver",
-          "hint": "Please exclude your title"
+          "hint": "Please exclude your title",
+          "schema": {}
         },
         {
           "name": "0zL5bB",
           "options": {},
           "type": "TelephoneNumberField",
           "title": "Contact number",
-          "hint": "Landline or mobile"
+          "hint": "Landline or mobile",
+          "schema": {}
         }
       ],
-      "next": [{ "path": "/final-steps" }]
+      "next": [
+        {
+          "path": "/final-steps"
+        }
+      ]
     },
     {
       "path": "/final-steps",
@@ -156,20 +186,23 @@
           "options": {},
           "type": "List",
           "title": "Declaration",
-          "list": "mJHWaC"
+          "list": "mJHWaC",
+          "schema": {}
         },
         {
           "name": "L_2AYe",
           "options": {},
           "type": "EmailAddressField",
           "title": "Your email address",
-          "hint": "We will send confirmation of your application to the provided email address"
+          "hint": "We will send confirmation of your application to the provided email address",
+          "schema": {}
         },
         {
           "name": "1Ru1w8",
           "options": {},
           "type": "TimeField",
-          "title": "Please enter the current time?"
+          "title": "Please enter the current time?",
+          "schema": {}
         },
         {
           "name": "jyO5Ha",
@@ -177,10 +210,24 @@
           "type": "FlashCard",
           "title": "Are you sure you want to continue?",
           "hint": "This is the final page in the process, should you wish to change any answers you can do so from the next page",
-          "values": { "type": "listRef" }
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
         }
       ],
-      "next": []
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Summary",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
     }
   ],
   "lists": [
@@ -189,10 +236,22 @@
       "name": "ckrDmV",
       "type": "string",
       "items": [
-        { "text": "Car", "value": 1 },
-        { "text": "4 x 4/SUV", "value": 2 },
-        { "text": "Van", "value": 3 },
-        { "text": "Motorbike/Moped", "value": 4 }
+        {
+          "text": "Car",
+          "value": 1
+        },
+        {
+          "text": "4 x 4/SUV",
+          "value": 2
+        },
+        {
+          "text": "Van",
+          "value": 3
+        },
+        {
+          "text": "Motorbike/Moped",
+          "value": 4
+        }
       ]
     },
     {
@@ -200,17 +259,50 @@
       "name": "-HMHHj",
       "type": "string",
       "items": [
-        { "text": "Alfa Romeo", "value": 1 },
-        { "text": "BMW", "value": 2 },
-        { "text": "Ford", "value": 3 },
-        { "text": "Citroen", "value": 4 },
-        { "text": "Nissan", "value": 5 },
-        { "text": "Honda", "value": 6 },
-        { "text": "Mercedes", "value": 8 },
-        { "text": "Audi", "value": 9 },
-        { "text": "Toyota", "value": 10 },
-        { "text": "Hyundai", "value": 11 },
-        { "text": "Kia", "value": 12 }
+        {
+          "text": "Alfa Romeo",
+          "value": 1
+        },
+        {
+          "text": "BMW",
+          "value": 2
+        },
+        {
+          "text": "Ford",
+          "value": 3
+        },
+        {
+          "text": "Citroen",
+          "value": 4
+        },
+        {
+          "text": "Nissan",
+          "value": 5
+        },
+        {
+          "text": "Honda",
+          "value": 6
+        },
+        {
+          "text": "Mercedes",
+          "value": 8
+        },
+        {
+          "text": "Audi",
+          "value": 9
+        },
+        {
+          "text": "Toyota",
+          "value": 10
+        },
+        {
+          "text": "Hyundai",
+          "value": 11
+        },
+        {
+          "text": "Kia",
+          "value": 12
+        }
       ]
     },
     {
@@ -218,11 +310,26 @@
       "name": "sm_ssM",
       "type": "string",
       "items": [
-        { "text": "Diesel", "value": 1 },
-        { "text": "Electric", "value": 2 },
-        { "text": "Hydrogen", "value": 3 },
-        { "text": "Petrol", "value": 4 },
-        { "text": "Hybrid", "value": 5 }
+        {
+          "text": "Diesel",
+          "value": 1
+        },
+        {
+          "text": "Electric",
+          "value": 2
+        },
+        {
+          "text": "Hydrogen",
+          "value": 3
+        },
+        {
+          "text": "Petrol",
+          "value": 4
+        },
+        {
+          "text": "Hybrid",
+          "value": 5
+        }
       ]
     },
     {
@@ -230,13 +337,34 @@
       "name": "O2uEB1",
       "type": "string",
       "items": [
-        { "text": "Bath", "value": "1" },
-        { "text": "Bristol", "value": "2" },
-        { "text": "Birmingham", "value": "3" },
-        { "text": "Cardiff", "value": "4" },
-        { "text": "Liverpool", "value": "6" },
-        { "text": "Leeds", "value": "7" },
-        { "text": "Manchester", "value": "8" }
+        {
+          "text": "Bath",
+          "value": 1
+        },
+        {
+          "text": "Bristol",
+          "value": 2
+        },
+        {
+          "text": "Birmingham",
+          "value": 3
+        },
+        {
+          "text": "Cardiff",
+          "value": 4
+        },
+        {
+          "text": "Liverpool",
+          "value": 6
+        },
+        {
+          "text": "Leeds",
+          "value": 7
+        },
+        {
+          "text": "Manchester",
+          "value": 8
+        }
       ]
     },
     {
@@ -244,14 +372,17 @@
       "name": "mJHWaC",
       "type": "string",
       "items": [
-        { "text": "You are not a Robot", "value": "1" },
+        {
+          "text": "You are not a Robot",
+          "value": 1
+        },
         {
           "text": "You have not previously claimed an exemption",
-          "value": "2"
+          "value": 2
         },
         {
           "text": "You have not omitted or purposely witheld information that might be detrimental to you claim",
-          "value": "3"
+          "value": 3
         }
       ]
     }
