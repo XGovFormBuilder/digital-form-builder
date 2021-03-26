@@ -3,8 +3,6 @@ Feature: Components
   I want to complete a form
   So that I submit my form successfully
 
-  Background: User views the form
-
   # Remove @wip tag when the cookie issue is resolved
   @wip
   Scenario: Complete the report a Terrorist form
