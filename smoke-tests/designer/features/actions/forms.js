@@ -3,26 +3,35 @@ const formData = require("../../data/formData");
 
 class Forms {
   cgTest() {
-    formRunner.selectRadio("Yes");
+    formRunner.selectRadio(formData.yesNo.answer);
     formRunner.ukAddress(formData.address);
-    formRunner.inputField(formData.input1.question, formData.input1.answer);
+    formRunner.inputField(
+      formData.dateField.question,
+      formData.dateField.answer
+    );
     formRunner.selectCheckbox(formData.checkBox1.answer);
     formRunner.selectCheckbox(formData.checkBox2.answer);
     formRunner.continueButton.click();
-    formRunner.selectFromList(formData.selectList.answer);
-    formRunner.inputField(formData.input2.question, formData.input2.answer);
+    formRunner.selectFromList(formData.autoComp.answer);
+    formRunner.inputField(
+      formData.textField.question,
+      formData.textField.answer
+    );
     formRunner.inputDate(
-      formData.date.day,
-      formData.date.month,
-      formData.date.year
+      formData.dateParts.day,
+      formData.dateParts.month,
+      formData.dateParts.year
     );
     formRunner.selectRadio(formData.radio2.answer, false);
-    formRunner.textBox(formData.textBox1.question, formData.textBox1.answer);
+    formRunner.textBox(formData.multiLine.question, formData.multiLine.answer);
     formRunner.inputField(
       formData.numberField.question,
       formData.numberField.answer
     );
-    formRunner.inputField(formData.input3.question, formData.input3.answer);
+    formRunner.inputField(
+      formData.textField2.question,
+      formData.textField2.answer
+    );
     formRunner.inputField(
       formData.phoneNumber.question,
       formData.phoneNumber.answer

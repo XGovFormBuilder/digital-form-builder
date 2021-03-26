@@ -1,5 +1,5 @@
 module.exports = {
-  radio1: {
+  yesNo: {
     answer: "Yes",
   },
   address: {
@@ -8,8 +8,8 @@ module.exports = {
     townOrCity: "Test Town",
     postCode: "TT1 1TT",
   },
-  input1: {
-    question: "What date was the vehicle registered at this address?",
+  dateField: {
+    question: "What dateParts was the vehicle registered at this address?",
     answer: "01012020",
   },
   checkBox1: {
@@ -18,14 +18,14 @@ module.exports = {
   checkBox2: {
     answer: "Bristol",
   },
-  selectList: {
+  autoComp: {
     answer: "BMW",
   },
-  input2: {
+  textField: {
     question: "Vehicle Model",
     answer: "740",
   },
-  date: {
+  dateParts: {
     day: "22",
     month: "03",
     year: "2021",
@@ -33,7 +33,7 @@ module.exports = {
   radio2: {
     answer: "Hydrogen",
   },
-  textBox1: {
+  multiLine: {
     question: "Has the vehicle been modified in any way?",
     answer: "I've turned it into a spaceship capable of interstellar travel",
   },
@@ -41,7 +41,7 @@ module.exports = {
     question: "How many people in your household drive this vehicle?",
     answer: "3",
   },
-  input3: {
+  textField2: {
     question: "Full name of the main driver",
     answer: "Juan Pablo Montoya",
   },
