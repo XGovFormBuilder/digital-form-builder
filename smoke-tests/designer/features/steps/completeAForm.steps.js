@@ -14,7 +14,7 @@ Given("I complete the form", function () {
 });
 
 When("I view the Summary page", function () {
-  expect(formRunner.pageTitle).toHaveText("summary");
+  expect(formRunner.pageTitle).toHaveText("summary", { ignoreCase: true });
 });
 
 When("I submit the completed form", function () {
@@ -36,4 +36,8 @@ Then("I taken directly to the page titled {string}", function (pageTitle) {
 Given("I have progressed to the Do you have any evidence? page", function () {
   formRunner.selectRadio("Yes, I do have a link");
   formRunner.textBox("https://nodejs.org/en/");
+});
+
+Then(/^the Summary page is displayed with my answers$/, function () {
+  expect(formRunner.pageTitle).toHaveText("summary", { ignoreCase: true });
 });

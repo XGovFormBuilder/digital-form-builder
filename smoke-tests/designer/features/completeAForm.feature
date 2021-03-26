@@ -1,4 +1,4 @@
-Feature: Components
+Feature: Complete a form
   As a forms user
   I want to complete a form
   So that I submit my form successfully
@@ -25,7 +25,5 @@ Feature: Components
 
   Scenario: Complete the CG test form
     Given I am at the start of the "cg test" form
-    And I complete the form
-    When I view the Summary page
-    And I submit the completed form
-    Then the "Application complete" page is displayed
+    When I complete the form
+    Then the Summary page is displayed with my answers
