@@ -1,5 +1,3 @@
-// import { decode, redirectUrl, RelativeUrl, FormModel } from "..";
-import { flatten } from "flat";
 import { clone, reach } from "hoek";
 import { Data } from "@xgovformbuilder/model";
 
@@ -9,11 +7,16 @@ import { redirectUrl } from "../helpers";
 import { decodeFeedbackContextInfo, RelativeUrl } from "../feedback";
 import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
-import type { Fees, FeeDetails } from "server/services/payService";
+import type { Fees } from "server/services/payService";
 import { FormSubmissionState } from "../types";
 import { Fields, Questions, WebhookData } from "./types";
+import {
+  FeesModel,
+  EmailModel,
+  NotifyModel,
+} from "server/plugins/engine/models/submission";
 
-const { serviceName, notifyTemplateId, notifyAPIKey } = config;
+const { serviceName } = config;
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -65,6 +68,7 @@ export class SummaryViewModel {
     const details = this.summaryDetails(request, model, state, relevantPages);
     this.declaration = model.def.declaration;
     this.skipSummary = model.def.skipSummary;
+    this._payApiKey = model.def.payApiKey;
     this.endPage = endPage;
     const schema = model.makeFilteredSchema(state, relevantPages);
     const collatedRepeatPagesState = gatherRepeatPages(state);
@@ -74,12 +78,10 @@ export class SummaryViewModel {
       stripUnknown: true,
     });
 
-    console.log("result", result);
-
     if (result.error) {
       this.processErrors(result, details);
     } else {
-      this.fees = this.retrieveFees(model, state);
+      this.fees = FeesModel(model, state);
       this.parseDataForWebhook(model, relevantPages, details);
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
@@ -93,7 +95,7 @@ export class SummaryViewModel {
             case "notify":
               return {
                 type: "notify",
-                outputData: this.notifyModel(
+                outputData: NotifyModel(
                   model,
                   output.outputConfiguration,
                   state
@@ -102,21 +104,16 @@ export class SummaryViewModel {
             case "email":
               return {
                 type: "email",
-                outputData: this.emailModel(model, output.outputConfiguration),
+                outputData: EmailModel(
+                  model,
+                  output.outputConfiguration,
+                  this._webhookData
+                ),
               };
             case "webhook":
               return {
                 type: "webhook",
                 outputData: { url: output.outputConfiguration.url },
-              };
-            case "sheets":
-              return {
-                type: "sheets",
-                outputData: this.sheetsModel(
-                  model,
-                  output.outputConfiguration,
-                  state
-                ),
               };
             default:
               return {};
@@ -129,38 +126,6 @@ export class SummaryViewModel {
     this.details = details;
     this.state = state;
     this.value = result.value;
-  }
-
-  private retrieveFees(
-    model: FormModel,
-    state: FormSubmissionState
-  ): Fees | undefined {
-    let applicableFees: FeeDetails[] = [];
-
-    if (model.def.fees) {
-      applicableFees = model.def.fees.filter((fee) => {
-        return !fee.condition || model.conditions[fee.condition].fn(state);
-      });
-
-      this._payApiKey = model.def.payApiKey;
-      const flatState = flatten(state);
-
-      return {
-        details: applicableFees,
-        total: Object.values(applicableFees)
-          .map((fee) => {
-            if (fee.multiplier) {
-              const multiplyBy = flatState[fee.multiplier];
-              fee.multiplyBy = Number(multiplyBy);
-              return fee.multiplyBy * fee.amount;
-            }
-            return fee.amount;
-          })
-          .reduce((a, b) => a + b, 0),
-      };
-    }
-
-    return undefined;
   }
 
   private processErrors(result, details) {
@@ -291,76 +256,6 @@ export class SummaryViewModel {
     }
 
     return { relevantPages, endPage };
-  }
-
-  private notifyModel(
-    model: FormModel,
-    outputConfiguration,
-    state: FormSubmissionState
-  ) {
-    const flatState = flatten(state);
-    const personalisation = {};
-    outputConfiguration.personalisation.forEach((p) => {
-      const condition = model.conditions[p];
-      personalisation[p] = condition ? condition.fn(state) : flatState[p];
-    });
-    return {
-      templateId: outputConfiguration.templateId,
-      personalisation,
-      emailAddress: flatState[outputConfiguration.emailField],
-      apiKey: outputConfiguration.apiKey,
-      addReferencesToPersonalisation:
-        outputConfiguration.addReferencesToPersonalisation,
-    };
-  }
-
-  private emailModel(model: FormModel, outputConfiguration) {
-    const data: string[] = [];
-
-    this._webhookData?.questions?.forEach((question) => {
-      data.push("---");
-      data.push(`Page: ${question.question}\n`);
-      question.fields.forEach((field) =>
-        data.push(`*${field.title.replace("?", "")}: ${field.answer}\n`)
-      );
-    });
-    data.push("---");
-
-    const formName = model.name || `Form ${model.basePath}`;
-
-    return {
-      personalisation: {
-        formName,
-        formPayload: data.join("\r\n"),
-      },
-      apiKey: notifyAPIKey,
-      templateId: notifyTemplateId,
-      emailAddress: outputConfiguration.emailAddress,
-    };
-  }
-
-  private sheetsModel(
-    _model: FormModel,
-    outputConfiguration,
-    state: FormSubmissionState
-  ) {
-    const flatState = flatten(state);
-    const { credentials, project_id, scopes } = outputConfiguration;
-    const spreadsheetName = flatState[outputConfiguration.spreadsheetIdField];
-    const spreadsheetId = outputConfiguration.sheets.find(
-      (sheet) => sheet.name === spreadsheetName
-    ).id;
-
-    const data =
-      this._webhookData?.questions?.map((question) =>
-        question.fields.map((field) => field.answer)
-      ) ?? [];
-
-    return {
-      data,
-      authOptions: { credentials, projectId: project_id, scopes },
-      spreadsheetId,
-    };
   }
 
   private toEnglish(localisableString) {
@@ -499,7 +394,7 @@ export class SummaryViewModel {
   }
 
   get payApiKey() {
-    return this._payApiKey;
+    return this._payApiKey ?? "";
   }
 
   addDeclarationAsQuestion() {

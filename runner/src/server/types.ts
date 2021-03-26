@@ -7,7 +7,6 @@ import {
   EmailService,
   NotifyService,
   PayService,
-  SheetsService,
   UploadService,
   WebhookService,
 } from "./services";
@@ -19,7 +18,6 @@ type Services = (
   emailService: EmailService;
   notifyService: NotifyService;
   payService: PayService;
-  sheetsService: SheetsService;
   uploadService: UploadService;
   webhookService: WebhookService;
 };

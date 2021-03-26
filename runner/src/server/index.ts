@@ -24,7 +24,6 @@ import {
   EmailService,
   NotifyService,
   PayService,
-  SheetsService,
   UploadService,
   WebhookService,
 } from "./services";
@@ -95,7 +94,6 @@ async function createServer(routeConfig: RouteConfig) {
     UploadService,
     EmailService,
     WebhookService,
-    SheetsService,
   ]);
 
   server.ext(
