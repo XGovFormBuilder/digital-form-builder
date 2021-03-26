@@ -4671,6 +4671,7 @@ __metadata:
     jest: ^26.6.3
     joi: 17.2.1
     jsdom: ^16.2.2
+    lcov-result-merger: ^3.1.0
     lodash: ^4.17.20
     mini-css-extract-plugin: ^0.11.2
     moment-timezone: ^0.5.31
@@ -15241,6 +15242,19 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"lcov-result-merger@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "lcov-result-merger@npm:3.1.0"
+  dependencies:
+    through2: ^2.0.3
+    vinyl: ^2.1.0
+    vinyl-fs: ^3.0.2
+  bin:
+    lcov-result-merger: ./bin/lcov-result-merger.js
+  checksum: 0303ecfe3b5e42351bd1c4a3b119b8763a74decaa5b1251aa9606be55fa7f4fbc0a3bf8140a6997d4023c782594abcf5e7b26023d871aedbef73d4ac3d643ee1
+  languageName: node
+  linkType: hard
+
 "lead@npm:^1.0.0":
   version: 1.0.0
   resolution: "lead@npm:1.0.0"
@@ -23178,7 +23192,7 @@ resolve@1.1.7:
   languageName: node
   linkType: hard
 
-"vinyl@npm:^2.0.0":
+"vinyl@npm:^2.0.0, vinyl@npm:^2.1.0":
   version: 2.2.1
   resolution: "vinyl@npm:2.2.1"
   dependencies:

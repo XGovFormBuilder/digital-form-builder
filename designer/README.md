@@ -52,14 +52,28 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 This project currently has a combination of tests written with Hapi helpers and tests written in Testing Library, the aim is to have all component tests written in Testing Library so please aim to do that if you come accorss any Hapi tests.
 
 To watch the tests:
+
 ```sh
 yarn jest --watch
 ```
 
 or run this in the root of the project:
+
 ```sh
 yarn designer jest --watch
 ```
+
+# Test coverage threshold
+
+Designer has 2 test frameworks, lab from hapi and jest.
+Unit test coverage threshold, code coverage below which build will fail is set separately for different frameworks
+
+lab - test threshold is configured using lab's switch -t COVERAGE_THRESHOLD, at the moment it is set as 89, see test-lab-cov script in [package.json](package.json)
+
+jest - test thresholds are configured in [jest.client.config.js](jest.client.config.js) ,[jest.server.config.js](jest.server.config.js), at the moment line coverage thresholds for client and server are 40 and 56 respectively
+
+Note - jest is breaking builds strictly, only for line coverage, other coverage thresholds may not result in a broken build, if the coverage is not met
+
 ## License
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:

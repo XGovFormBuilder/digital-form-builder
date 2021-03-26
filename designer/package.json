@@ -16,7 +16,7 @@
     "fix-lint": "yarn run eslint . --fix",
     "symlink-env": "./bin/symlink-config",
     "test": "yarn lint && yarn test-lab && yarn jest",
-    "test-cov": "yarn lint && yarn test-lab-cov && yarn jest",
+    "test-cov": "yarn lint && yarn test-lab-cov && yarn jest && yarn merge-coverage",
     "test:dev": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -r console -o stdout -r html -o unit-test.html -I version -l --coverage-exclude client --coverage-exclude server --coverage-exclude config.js",
     "test-lab": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "test-lab-cov": "lab -T test/.transform.js test/.setup.js ./**/*.test.* -S -v -t 89 -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/lab/unit-test.xml -I version -l",
@@ -25,7 +25,8 @@
     "jest:server": "jest --coverage --config=jest.server.config.js --runInBand",
     "jest:watch": "jest --watch",
     "audit": "npm audit --audit-level=high",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "merge-coverage": "lcov-result-merger 'test-coverage/**/lcov.info' 'test-coverage/lcov.info'"
   },
   "repository": {
     "type": "git",
@@ -120,6 +121,7 @@
     "i18next-parser": "^3.3.0",
     "jest": "^26.6.3",
     "jsdom": "^16.2.2",
+    "lcov-result-merger": "^3.1.0",
     "mini-css-extract-plugin": "^0.11.2",
     "msw": "^0.25.0",
     "nodemon": "^2.0.6",
