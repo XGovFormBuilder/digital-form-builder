@@ -76,7 +76,7 @@ export const putFormWithId: ServerRoute = {
           payload: request.payload,
           error: err,
         };
-        request.yar.flash(`error-summary-${id}`, errorSummary);
+        request.yar.set(`error-summary-${id}`, errorSummary);
         return h.response({ ok: false, err }).code(401);
       }
     },

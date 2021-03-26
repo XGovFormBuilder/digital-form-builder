@@ -60,7 +60,7 @@ export const getErrorCrashReport: ServerRoute = {
   options: {
     handler: async (_request, h) => {
       const { id } = _request.params;
-      const error = _request.yar.flash(`error-summary-${id}`) as any;
+      const error = _request.yar.get(`error-summary-${id}`) as any;
       return h
         .response(Buffer.from(JSON.stringify(error)))
         .encoding("binary")

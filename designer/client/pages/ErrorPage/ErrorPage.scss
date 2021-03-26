@@ -5,7 +5,12 @@
   margin: 0 auto;
   width: 100%;
   padding: 20px 30px 200px;
+
+  .back-link {
+  margin-bottom: 40px;
+  }
 }
+
 
 @media only screen and (min-height: 800px) {
   .error-summary {
