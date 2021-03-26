@@ -7,10 +7,10 @@ class FormRunnerPage {
   }
 
   selectCheckbox(labelText) {
-    const checboxIndex = browser
+    const checkboxIndex = browser
       .$$(".govuk-checkboxes__label")
       .findIndex((el) => el.getText() === labelText);
-    return browser.$$(".govuk-checkboxes__input")[checboxIndex].click();
+    return browser.$$(".govuk-checkboxes__input")[checkboxIndex].click();
   }
 
   inputField(labelText, fieldValue) {
@@ -21,8 +21,8 @@ class FormRunnerPage {
   }
 
   ukAddress(dataObject) {
-    this.inputField("Address line 1", dataObject.addressLine1);
-    this.inputField("Address line 2", dataObject.addressLine2);
+    this.inputField("Address line 1", dataObject.line1);
+    this.inputField("Address line 2", dataObject.line2);
     this.inputField("Town or city", dataObject.townOrCity);
     this.inputField("Postcode", dataObject.postCode);
   }

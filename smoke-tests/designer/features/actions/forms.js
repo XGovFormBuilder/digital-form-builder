@@ -1,34 +1,41 @@
 const { formRunner } = require("../pageobjects/pages");
-const addressData = require("../../data/addressData");
+const formData = require("../../data/formData");
 
 class Forms {
   cgTest() {
     formRunner.selectRadio("Yes");
-    formRunner.ukAddress(addressData);
-    formRunner.inputField(
-      "What date was the vehicle registered at this address?",
-      "01012020"
-    );
-    formRunner.selectCheckbox("Bath");
-    formRunner.selectCheckbox("Bristol");
+    formRunner.ukAddress(formData.address);
+    formRunner.inputField(formData.input1.question, formData.input1.answer);
+    formRunner.selectCheckbox(formData.checkBox1.answer);
+    formRunner.selectCheckbox(formData.checkBox2.answer);
     formRunner.continueButton.click();
-    formRunner.selectFromList("BMW");
-    formRunner.inputField("Vehicle Model", "740");
-    formRunner.inputDate("22", "03", "2021");
-    formRunner.selectRadio("Hydrogen", false);
-    formRunner.textBox(
-      "Has the vehicle been modified in any way?",
-      "I've turned it into a spaceship capable of interstellar travel"
+    formRunner.selectFromList(formData.selectList.answer);
+    formRunner.inputField(formData.input2.question, formData.input2.answer);
+    formRunner.inputDate(
+      formData.date.day,
+      formData.date.month,
+      formData.date.year
+    );
+    formRunner.selectRadio(formData.radio2.answer, false);
+    formRunner.textBox(formData.textBox1.question, formData.textBox1.answer);
+    formRunner.inputField(
+      formData.numberField.question,
+      formData.numberField.answer
+    );
+    formRunner.inputField(formData.input3.question, formData.input3.answer);
+    formRunner.inputField(
+      formData.phoneNumber.question,
+      formData.phoneNumber.answer
+    );
+    formRunner.continueButton.click();
+    formRunner.inputField(
+      formData.emailAddress.question,
+      formData.emailAddress.answer
     );
     formRunner.inputField(
-      "How many people in your household drive this vehicle?",
-      "3"
+      formData.timeField.question,
+      formData.timeField.answer
     );
-    formRunner.inputField("Full name of the main driver", "Juan Pablo Montoya");
-    formRunner.inputField("Contact number", "07777888999");
-    formRunner.continueButton.click();
-    formRunner.inputField("Your email address", "testing@testing.com");
-    formRunner.inputField("Please enter the current time?", "1031");
     formRunner.continueButton.click();
   }
 
