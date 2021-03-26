@@ -2,13 +2,13 @@ const { Given, When, Then } = require("cucumber");
 const { formDesigner } = require("../pageobjects/pages");
 const AddLinkSection = require("../pageobjects/sections/addLink.section");
 const AddPageSection = require("../pageobjects/sections/addPage.section");
-const MenuSection = require("../pageobjects/sections/menu.section");
+const { navMenu } = require("../pageobjects/sections");
 const Actions = require("../actions/actions");
 const { acceptAlert, toUrl } = require("../../support/testHelpers");
 
 Given("I have chosen to {string} to my form", (menuOption) => {
   Actions.createNewConfig();
-  MenuSection.buttonByName(menuOption).click();
+  navMenu.buttonByName(menuOption).click();
 });
 
 When("I link ths page to link from the {string}", (linkedPage) => {
@@ -32,7 +32,7 @@ Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
   this.toPage = toPage;
   browser.reloadSession();
   Actions.createNewConfig();
-  MenuSection.buttonByName("Add Link").click();
+  navMenu.buttonByName("Add Link").click();
   AddLinkSection.linkPages(this.fromPage, this.toPage);
 });
 

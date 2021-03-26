@@ -1,6 +1,6 @@
 const Page = require("../pages/basePage");
 
-class MenuSection extends Page {
+class NavMenuSection extends Page {
   get menuContainer() {
     return browser.$("nav.menu");
   }
@@ -10,4 +10,4 @@ class MenuSection extends Page {
   }
 }
 
-module.exports = new MenuSection();
+module.exports = new NavMenuSection();

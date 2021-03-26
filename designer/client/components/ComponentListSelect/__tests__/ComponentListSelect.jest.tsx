@@ -49,11 +49,19 @@ describe("ComponentListSelect", () => {
   });
   const dataValue = { data, save: jest.fn() };
 
+  interface IContextProvider {
+    children?: any;
+    dataValue: any;
+    componentValue: any;
+    errors?: any;
+  }
+
   const TestComponentContextProvider = ({
     children,
     dataValue,
     componentValue,
-  }) => {
+    errors,
+  }: IContextProvider) => {
     const initComponentValue = (initialState: any) => {
       return !!componentValue ? componentValue : initialState;
     };
@@ -62,6 +70,7 @@ describe("ComponentListSelect", () => {
       initComponentState({ component: dataValue.data.pages[0].components[0] }),
       initComponentValue
     );
+    if (errors) state.errors = errors;
     return (
       <DataContext.Provider value={dataValue}>
         <ListsEditorContextProvider>
@@ -130,10 +139,32 @@ describe("ComponentListSelect", () => {
 
     const title = "Select list";
     const help =
-      "Select a list to use for this field. You can either create a component list which is specific to this component, or a list that is available to other components from the Lists screen. You must save before creating a component list, or you can select an existing list.";
+      "Select an existing list to show in this field or add a new list";
     const addNew = "Add a new list";
     expect(getByText(title)).toBeInTheDocument();
     expect(getByText(help)).toBeInTheDocument();
     expect(getByText(addNew)).toBeInTheDocument();
+  });
+
+  test("should display list error when state has errors", () => {
+    // - when
+    const errors = { list: "Select a list" };
+    const { container, getByText } = render(
+      <TestComponentContextProvider
+        dataValue={dataValue}
+        componentValue={false}
+        errors={errors}
+      >
+        <ComponentListSelect />
+      </TestComponentContextProvider>
+    );
+
+    const select = container.querySelector("select") as TargetElement;
+    userEvent.selectOptions(select, "Select a list");
+
+    // - then
+    expect(
+      container.getElementsByClassName("govuk-form-group--error").length
+    ).toBe(1);
   });
 });
