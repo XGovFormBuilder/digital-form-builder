@@ -67,26 +67,14 @@ export class SummaryViewModel {
     this.skipSummary = model.def.skipSummary;
     this.endPage = endPage;
     const schema = model.makeFilteredSchema(state, relevantPages);
-    const collatedRepeatPagesState = clone(state);
-
-    Object.entries(collatedRepeatPagesState).forEach(([key, section]) => {
-      if (key === "progress") {
-        return;
-      }
-      if (Array.isArray(section)) {
-        collatedRepeatPagesState[key] = section.map((pages) =>
-          Object.values(pages).reduce(
-            (acc: {}, p: any) => ({ ...acc, ...p }),
-            {}
-          )
-        );
-      }
-    });
+    const collatedRepeatPagesState = gatherRepeatPages(state);
 
     const result = schema.validate(collatedRepeatPagesState, {
       abortEarly: false,
       stripUnknown: true,
     });
+
+    console.log("result", result);
 
     if (result.error) {
       this.processErrors(result, details);
@@ -244,7 +232,7 @@ export class SummaryViewModel {
 
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
-          const item = this.Item(request, component, sectionState, page, model);
+          const item = Item(request, component, sectionState, page, model);
           items.push(item);
           if (component.items) {
             const selectedValue = sectionState[component.name];
@@ -253,7 +241,7 @@ export class SummaryViewModel {
             )[0];
             if (selectedItem && selectedItem.childrenCollection) {
               for (const cc of selectedItem.childrenCollection.formItems) {
-                const cItem = this.Item(request, cc, sectionState, page, model);
+                const cItem = Item(request, cc, sectionState, page, model);
                 items.push(cItem);
               }
             }
@@ -529,45 +517,6 @@ export class SummaryViewModel {
     });
   }
 
-  Item(
-    request,
-    component,
-    sectionState,
-    page,
-    model: FormModel,
-    params: { num?: number; returnUrl: string } = {
-      returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
-    }
-  ) {
-    const isRepeatable = !!page.repeatField;
-
-    if (isRepeatable && Array.isArray(sectionState)) {
-      return sectionState.map((state, i) => {
-        const collated = Object.values(state).reduce(
-          (acc: {}, p: any) => ({ ...acc, ...p }),
-          {}
-        );
-        return this.Item(request, component, collated, page, model, {
-          ...params,
-          num: i + 1,
-        });
-      });
-    }
-
-    return {
-      name: component.name,
-      path: component.path, // TODO: Why is this always undefined?
-      label: component.localisedString(component.title),
-      value: component.getDisplayStringFromState(sectionState),
-      rawValue: sectionState[component.name],
-      url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
-      pageId: `/${model.basePath}${page.path}`,
-      type: component.type,
-      title: component.title,
-      dataType: component.dataType,
-    };
-  }
-
   private addFeedbackSourceDataToWebhook(
     webhookData,
     model: FormModel,
@@ -598,4 +547,60 @@ export class SummaryViewModel {
     }
     return webhookData;
   }
+}
+
+function gatherRepeatPages(state) {
+  if (!!Object.values(state).find((section) => Array.isArray(section))) {
+    return state;
+  }
+  const clonedState = clone(state);
+  Object.entries(state).forEach(([key, section]) => {
+    if (key === "progress") {
+      return;
+    }
+    if (Array.isArray(section)) {
+      clonedState[key] = section.map((pages) =>
+        Object.values(pages).reduce((acc: {}, p: any) => ({ ...acc, ...p }), {})
+      );
+    }
+  });
+}
+
+function Item(
+  request,
+  component,
+  sectionState,
+  page,
+  model: FormModel,
+  params: { num?: number; returnUrl: string } = {
+    returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
+  }
+) {
+  const isRepeatable = !!page.repeatField;
+
+  if (isRepeatable && Array.isArray(sectionState)) {
+    return sectionState.map((state, i) => {
+      const collated = Object.values(state).reduce(
+        (acc: {}, p: any) => ({ ...acc, ...p }),
+        {}
+      );
+      return Item(request, component, collated, page, model, {
+        ...params,
+        num: i + 1,
+      });
+    });
+  }
+
+  return {
+    name: component.name,
+    path: page.path,
+    label: component.localisedString(component.title),
+    value: component.getDisplayStringFromState(sectionState),
+    rawValue: sectionState[component.name],
+    url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
+    pageId: `/${model.basePath}${page.path}`,
+    type: component.type,
+    title: component.title,
+    dataType: component.dataType,
+  };
 }

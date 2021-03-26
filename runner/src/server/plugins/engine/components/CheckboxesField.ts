@@ -22,17 +22,21 @@ export class CheckboxesField extends ListFormComponent {
     this.stateSchema = schema;
   }
 
-  getDisplayStringFromState(state: FormSubmissionState) {
+  getAnswers(state: FormSubmissionState) {
     const { name } = this;
     const value = state[name];
+    console.log("state here", value);
     const checked = Array.isArray(value) ? value : [value];
-
     return checked
       .map((check) => {
         const item = this.items.find((item) => item.value === check);
         return item?.value;
       })
       .filter((c) => c);
+  }
+
+  getDisplayStringFromState(state: FormSubmissionState) {
+    return state?.[this.name]?.join(", ");
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
