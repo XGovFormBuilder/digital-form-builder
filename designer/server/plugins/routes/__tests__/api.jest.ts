@@ -6,11 +6,6 @@ jest.mock("@hapi/wreck", () => ({
       toString: () => "{}",
     },
   }),
-  /*post: async () => ({
-    payload: {
-      toString: () => "{}",
-    },
-  }),*/
 }));
 
 describe("Server API", () => {

@@ -41,11 +41,11 @@ describe("SaveErrorPage", () => {
     ).toBeInTheDocument();
 
     expect(
-      await screen.findByText("create an issue on Github")
+      await screen.findByText("create an issue on GitHub")
     ).toBeInTheDocument();
 
     expect(
-      screen.getByText("create an issue on Github").closest("a")
+      screen.getByText("create an issue on GitHub").closest("a")
     ).toHaveAttribute(
       "href",
       "https://github.com/XGovFormBuilder/digital-form-builder/issues"

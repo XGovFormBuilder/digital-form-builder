@@ -60,7 +60,7 @@ export const getErrorCrashReport: ServerRoute = {
           .type("application/zip")
           .header(
             "content-disposition",
-            `attachment; filename=${id}-crash-report-${new Date().toISOString()}.zip`
+            `attachment; filename=${id}-crash-report.zip`
           );
       } catch (err) {
         console.error("Error while generating crash report:", err);
