@@ -12,7 +12,7 @@ describe("SaveErrorPage", () => {
   afterEach(() => jest.resetAllMocks());
   afterEach(cleanup);
 
-  test("should render correcty", async () => {
+  test("should render correctly", async () => {
     const push = jest.fn();
     const history = { push: push };
     const location = { state: { id: "testid" } };
@@ -20,8 +20,36 @@ describe("SaveErrorPage", () => {
       <SaveError history={history} location={location} />
     );
     expect(await screen.findByText("Back to Designer")).toBeInTheDocument();
-    //TODO assert other texts
-    //TODO assert anchor tag urls
+    expect(
+      await screen.findByText("Sorry, there is a problem with the service")
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText("An error occurred while saving the component.")
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        "We saved the last valid version of your form. Return to the Designer to continue."
+      )
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        "So we can check what went wrong, complete the following:"
+      )
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText("download your crash report")
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.findByText("create an issue on Github")
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText("create an issue on Github").closest("a")
+    ).toHaveAttribute(
+      "href",
+      "https://github.com/XGovFormBuilder/digital-form-builder/issues"
+    );
   });
 
   test("back link should take back to designer page", async () => {
