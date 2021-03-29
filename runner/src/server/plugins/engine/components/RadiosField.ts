@@ -1,39 +1,9 @@
-import { ListComponentsDef } from "@xgovformbuilder/model";
+import { FormData, FormSubmissionErrors } from "../types";
+import { ListFormComponent } from "./ListFormComponent";
 
-import * as helpers from "./helpers";
-import { ConditionalFormComponent } from "./ConditionalFormComponent";
-import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
-import { FormModel } from "../models";
-
-export class RadiosField extends ConditionalFormComponent {
-  constructor(def: ListComponentsDef, model: FormModel) {
-    super(def, model);
-
-    const { options, values, itemValues } = this;
-    const isRequired =
-      "required" in options && options.required === false ? false : true;
-
-    const valueType = values?.valueType;
-    const formSchema = helpers
-      .buildFormSchema(valueType, this, isRequired)
-      .valid(...itemValues);
-    const stateSchema = helpers
-      .buildStateSchema(valueType, this)
-      .valid(...itemValues);
-
-    this.formSchema = formSchema;
-    this.stateSchema = stateSchema;
-  }
-
-  getDisplayStringFromState(state: FormSubmissionState) {
-    const { name, values } = this;
-    const value = state[name];
-    const item = values?.items.find((item) => item.value === value);
-    return item ? item.label : value;
-  }
-
+export class RadiosField extends ListFormComponent {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const { name, values } = this;
+    const { name, items } = this;
     const options: any = this.options;
     const viewModel = super.getViewModel(formData, errors);
 
@@ -41,12 +11,11 @@ export class RadiosField extends ConditionalFormComponent {
       legend: viewModel.label,
     };
 
-    viewModel.items = values?.items.map((item) => {
+    viewModel.items = items.map((item) => {
       const itemModel: any = {
-        html: this.localisedString(item.label),
-        value: item.value,
+        ...item,
+        html: item.description,
         checked: `${item.value}` === `${formData[name]}`,
-        condition: item.condition,
       };
 
       if (options.bold) {
@@ -55,13 +24,16 @@ export class RadiosField extends ConditionalFormComponent {
         };
       }
 
-      if (item.hint) {
-        itemModel.hint = {
-          html: this.localisedString(item.hint),
+      if (item.description) {
+        itemModel.description = {
+          html: this.localisedString(item.description),
         };
       }
 
-      return super.addConditionalComponents(item, itemModel, formData, errors);
+      return itemModel;
+
+      // FIXME:- add this back when GDS fix accessibility issues involving conditional reveal fields
+      //return super.addConditionalComponents(item, itemModel, formData, errors);
     });
 
     return viewModel;

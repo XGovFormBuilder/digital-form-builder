@@ -1,9 +1,11 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const nodeExternals = require("webpack-node-externals");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const babelOptions = require("./.babelrc.js");
 const CopyPlugin = require("copy-webpack-plugin");
+const nodeExternals = require("webpack-node-externals");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+const autoprefixer = require("autoprefixer");
 
 const devMode = process.env.NODE_ENV !== "production";
 const prodMode = process.env.NODE_ENV === "production";
@@ -17,6 +19,7 @@ const client = {
   output: {
     path: path.resolve(__dirname, "dist", "client"),
     filename: "assets/[name].js",
+    publicPath: "",
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
@@ -25,16 +28,13 @@ const client = {
   node: {
     __dirname: false,
   },
-  devtool: "source-map",
+  devtool: "eval-cheap-module-source-map",
   module: {
     rules: [
       {
         test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        options: {
-          ...babelOptions,
-        },
       },
       {
         test: /\.(sa|sc|c)ss$/,
@@ -47,8 +47,21 @@ const client = {
               publicPath: "../../",
             },
           },
-          "css-loader",
-          "sass-loader",
+          {
+            loader: "css-loader",
+            options: {},
+          },
+          {
+            loader: "postcss-loader",
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sassOptions: {
+                outputStyle: "expanded",
+              },
+            },
+          },
         ],
       },
       {
@@ -71,7 +84,10 @@ const client = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "server", "views", "layout.html"),
       filename: "views/layout.html",
-      minify: false,
+      minify: prodMode,
+      scriptLoading: "defer",
+      inject: "head",
+      hash: prodMode,
     }),
     new MiniCssExtractPlugin({
       filename: devMode
@@ -86,6 +102,11 @@ const client = {
         { from: "client/i18n/translations", to: "assets/translations" },
         { from: "server/views", to: "views" },
       ],
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      defaultSizes: "gzip",
+      openAnalyzer: false,
     }),
   ],
   externals: {
@@ -110,15 +131,15 @@ const server = {
   node: {
     __dirname: false,
   },
+  watchOptions: {
+    poll: 1000, // enable polling since fsevents are not supported in docker
+  },
   module: {
     rules: [
       {
         test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         loader: "babel-loader",
-        options: {
-          ...babelOptions,
-        },
       },
     ],
   },

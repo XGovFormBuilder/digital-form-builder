@@ -66,6 +66,7 @@ suite("Editing inline conditions", () => {
     new ConditionValue("M")
   );
   let conditions;
+  const e = { preventDefault: sinon.spy() };
 
   beforeEach(() => {
     conditions = new ConditionsModel();
@@ -98,7 +99,7 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      wrapper.find("#condition-0-edit").simulate("click");
+      wrapper.find("#condition-0-edit").simulate("click", e);
 
       assertFieldDefinitionSection(wrapper, fields, true, firstCondition, 0);
       expect(saveCallback.called).to.equal(false);
@@ -124,7 +125,7 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      wrapper.find("#condition-1-edit").simulate("click");
+      wrapper.find("#condition-1-edit").simulate("click", e);
 
       assertFieldDefinitionSection(wrapper, fields, true, condition, 1);
       expect(saveCallback.called).to.equal(false);
@@ -155,7 +156,7 @@ suite("Editing inline conditions", () => {
         { condition: "'Something' is 'M'" },
         { condition: "and 'Something else' is 'N'" },
       ]);
-      wrapper.find("#condition-1-edit").simulate("click");
+      wrapper.find("#condition-1-edit").simulate("click", e);
 
       wrapper
         .instance()
@@ -218,7 +219,7 @@ suite("Editing inline conditions", () => {
         { condition: "and 'Something else' is 'N'", selected: true },
       ]);
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [
         {
@@ -279,7 +280,7 @@ suite("Editing inline conditions", () => {
       ];
       assertEditPanel(wrapper, expectedConditions);
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
       assertEditPanel(
         wrapper,
         expectedConditions,
@@ -368,7 +369,7 @@ suite("Editing inline conditions", () => {
         { condition: "and 'Something else' is 'Y'", selected: true },
       ]);
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [
         {
@@ -416,7 +417,7 @@ suite("Editing inline conditions", () => {
         .find("#condition-1")
         .simulate("change", { target: { value: "1", checked: true } });
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [
         {
@@ -425,7 +426,7 @@ suite("Editing inline conditions", () => {
         },
       ]);
 
-      wrapper.find("#condition-0-split").simulate("click");
+      wrapper.find("#condition-0-split").simulate("click", e);
 
       assertEditPanel(wrapper, [
         { condition: "'Something' is 'M'" },
@@ -476,7 +477,7 @@ suite("Editing inline conditions", () => {
         .find("#condition-2")
         .simulate("change", { target: { value: "2", checked: true } });
 
-      wrapper.find("#remove-conditions").simulate("click");
+      wrapper.find("#remove-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [{ condition: "'Something else' is 'N'" }]);
       expect(saveCallback.calledOnce).to.equal(true);
@@ -570,12 +571,12 @@ suite("Editing inline conditions", () => {
         .find("#condition-1")
         .simulate("change", { target: { value: "1", checked: true } });
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       wrapper
         .find("#condition-0")
         .simulate("change", { target: { value: "0", checked: true } });
-      wrapper.find("#remove-conditions").simulate("click");
+      wrapper.find("#remove-conditions").simulate("click", e);
 
       assertEditPanel(wrapper, [{ condition: "'Another thing' is 'Value 1'" }]);
       expect(saveCallback.calledTwice).to.equal(true);
@@ -612,12 +613,12 @@ suite("Editing inline conditions", () => {
         .find("#condition-1")
         .simulate("change", { target: { value: "1", checked: true } });
 
-      wrapper.find("#group-conditions").simulate("click");
+      wrapper.find("#group-conditions").simulate("click", e);
 
       wrapper
         .find("#condition-0")
         .simulate("change", { target: { value: "0", checked: true } });
-      wrapper.find("#remove-conditions").simulate("click");
+      wrapper.find("#remove-conditions").simulate("click", e);
 
       expect(saveCallback.calledTwice).to.equal(true);
       expect(saveCallback.secondCall.args[0]).to.equal(conditions);
@@ -632,8 +633,8 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      wrapper.find("#condition-0-edit").simulate("click");
-      wrapper.find("#cancel-edit-inline-conditions-link").simulate("click");
+      wrapper.find("#condition-0-edit").simulate("click", e);
+      wrapper.find("#cancel-edit-inline-conditions-link").simulate("click", e);
 
       expect(exitCallback.calledOnce).to.equal(true);
     });
@@ -647,7 +648,7 @@ suite("Editing inline conditions", () => {
           exitCallback={exitCallback}
         />
       );
-      wrapper.find("#cancel-edit-inline-conditions-link").simulate("click");
+      wrapper.find("#cancel-edit-inline-conditions-link").simulate("click", e);
 
       expect(exitCallback.calledOnce).to.equal(true);
     });
@@ -710,7 +711,7 @@ function assertEditPanel(wrapper, conditions, editingError) {
       wrapper: checkboxDiv.children().at(0),
       id: `condition-${index}`,
       value: index,
-      checked: condition.selected || "",
+      checked: condition.selected ?? "",
     });
 
     assertLabel(checkboxDiv.children().at(1), condition.condition);
@@ -735,14 +736,14 @@ function assertEditPanel(wrapper, conditions, editingError) {
       assertLink(
         actions.children().at(0).find(`#condition-${index}-edit`),
         `condition-${index}-edit`,
-        "Edit"
+        "<EditIcon />"
       );
     }
     if (index !== 0) {
       assertLink(
         actions.children().at(1).find(`#condition-${index}-move-earlier`),
         `condition-${index}-move-earlier`,
-        "Move up"
+        "<MoveUpIcon />"
       );
     }
     if (index !== conditions.length - 1) {
@@ -753,7 +754,7 @@ function assertEditPanel(wrapper, conditions, editingError) {
           .at(actionIndex)
           .find(`#condition-${index}-move-later`),
         `condition-${index}-move-later`,
-        "Move down"
+        "<MoveDownIcon />"
       );
     }
   });

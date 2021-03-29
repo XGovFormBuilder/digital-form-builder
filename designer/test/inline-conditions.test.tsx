@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import {
@@ -8,30 +8,54 @@ import {
   assertText,
 } from "./helpers/element-assertions";
 import sinon from "sinon";
-import InlineConditions from "../client/conditions/inline-conditions";
+import InlineConditions from "../client/conditions/InlineConditions";
 import {
   Condition,
   ConditionsModel,
   ConditionField,
   ConditionValue,
+  Data,
 } from "@xgovformbuilder/model";
 
 import InlineConditionHelpers from "../client/conditions/inline-condition-helpers";
+import { DataContext } from "../client/context";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
 const { after, afterEach, before, beforeEach, describe, suite, test } = lab;
 
-suite("Inline conditions", () => {
-  const data = {
-    inputsAccessibleAt: sinon.stub(),
-    allInputs: sinon.stub(),
-    valuesFor: sinon.stub(),
-    clone: sinon.stub(),
-    save: sinon.stub(),
-    updateCondition: sinon.stub(),
-    conditions: [],
+suite.skip("Inline conditions", () => {
+  const data = new Data({
+    pages: [
+      {
+        path: "page1",
+        section: "section1",
+        components: [
+          { name: "name1", type: "Radios" },
+          { name: "name2", type: "Radios" },
+        ],
+      },
+      {
+        path: "page2",
+        section: "section1",
+        components: [
+          { name: "name3", type: "Radios" },
+          { name: "name4", type: "Radios" },
+        ],
+      },
+    ],
+    conditions: [
+      { name: "condition1", displayName: "Condition 1" },
+      { name: "condition2", displayName: "Another Condition" },
+    ],
+  });
+  const save = sinon.spy();
+
+  const DataWrapper = ({ dataValue, children }) => {
+    return (
+      <DataContext.Provider value={dataValue}>{children}</DataContext.Provider>
+    );
   };
   const isEqualToOperator = "is";
   const path = "/";
@@ -43,21 +67,18 @@ suite("Inline conditions", () => {
     cancelCallback = sinon.spy();
   });
 
-  afterEach(() => {
-    data.save.resetHistory();
-  });
-
   test("render returns nothing when there is an empty fields list", () => {
-    data.inputsAccessibleAt.withArgs(path).returns([]);
-    data.valuesFor.returns(undefined);
     expect(
-      shallow(
+      mount(
         <InlineConditions
-          data={data}
           path={path}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       ).exists("#inline-conditions")
     ).to.equal(false);
     expect(conditionsChange.called).to.equal(false);
@@ -123,9 +144,7 @@ suite("Inline conditions", () => {
       };
       data.inputsAccessibleAt.withArgs(path).returns(fields);
       data.valuesFor.returns(undefined);
-      data.valuesFor
-        .withArgs(fields[2])
-        .returns({ toStaticValues: () => ({ items: values }) });
+      data.valuesFor.withArgs(fields[2]).returns(values);
     });
 
     after(() => {
@@ -138,6 +157,7 @@ suite("Inline conditions", () => {
         InlineConditionHelpers,
         "storeConditionIfNecessary"
       );
+      save.resetHistory();
     });
 
     afterEach(function () {
@@ -147,12 +167,15 @@ suite("Inline conditions", () => {
     test("fields are retrieved from allInputs if no path is provided", () => {
       data.inputsAccessibleAt.returns([]);
       data.allInputs.returns(fields);
-      const wrapper = shallow(
+      const wrapper = mount(
         <InlineConditions
-          data={data}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       expect(wrapper.exists("#inline-conditions")).to.equal(true);
     });
@@ -162,13 +185,16 @@ suite("Inline conditions", () => {
       data.inputsAccessibleAt.withArgs(path2).returns([]);
       data.valuesFor.returns(undefined);
       data.conditions = [];
-      const wrapper = shallow(
+      const wrapper = mount(
         <InlineConditions
-          data={data}
           path={path}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       expect(wrapper.exists("#inline-conditions")).to.equal(true);
       wrapper.setProps({ path: path2 });
@@ -180,13 +206,16 @@ suite("Inline conditions", () => {
       data.inputsAccessibleAt.withArgs(path2).returns([]);
       data.valuesFor.returns(undefined);
       data.conditions = [];
-      const wrapper = shallow(
+      const wrapper = mount(
         <InlineConditions
-          data={data}
           path={path2}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       expect(wrapper.exists("#inline-conditions")).to.equal(false);
       wrapper.setProps({ path: path });
@@ -194,14 +223,22 @@ suite("Inline conditions", () => {
     });
 
     test("Conditions change is called with the updated conditions when the save button is clicked", async () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <InlineConditions
-          data={data}
           path={path}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
+
+      wrapper
+        .instance()
+        .onChangeDisplayName({ target: { value: "ConditionName" } });
+
       wrapper.instance().saveCondition(
         new Condition(
           ConditionField.from({
@@ -213,6 +250,7 @@ suite("Inline conditions", () => {
           new ConditionValue("N")
         )
       );
+
       expect(conditionsChange.called).to.equal(false);
 
       const clonedData = sinon.spy();
@@ -226,23 +264,23 @@ suite("Inline conditions", () => {
         condition: selectedCondition,
       });
 
-      expect(wrapper.find("#save-inline-conditions").prop("onClick")).to.equal(
-        wrapper.instance().onClickSave
-      );
       await wrapper.instance().onClickSave();
-      expect(data.save.calledOnce).to.equal(true);
-      expect(data.save.firstCall.args[0]).to.equal(updatedData);
-      expect(conditionsChange.calledOnceWith(selectedCondition)).to.equal(true);
+      expect(save.calledOnce).to.equal(true);
+      expect(save.firstCall.args[0]).to.equal(updatedData);
+      expect(conditionsChange.calledOnce).to.equal(true);
     });
 
     test("Clicking the cancel link should cancel any added conditions and partially completed inputs and trigger the cancel callback", () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <InlineConditions
-          data={data}
           path={path}
           conditionsChange={conditionsChange}
           cancelCallback={cancelCallback}
-        />
+        />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       const instance = wrapper.instance();
       instance.saveCondition(
@@ -257,19 +295,19 @@ suite("Inline conditions", () => {
         )
       );
       expect(wrapper.find("#conditions-display").exists()).to.equal(true);
-      const e = {};
+      const e = { preventDefault: sinon.spy() };
       wrapper.find("#cancel-inline-conditions-link").simulate("click", e);
 
       assertAddingFirstCondition(wrapper, expectedFields);
     });
 
     test("Clicking the cancel link should succeed if there is no cancel callback", () => {
-      const wrapper = shallow(
-        <InlineConditions
-          data={data}
-          path={path}
-          conditionsChange={conditionsChange}
-        />
+      const wrapper = mount(
+        <InlineConditions path={path} conditionsChange={conditionsChange} />,
+        {
+          wrappingComponent: DataWrapper,
+          wrappingComponentProps: { dataValue: { data, save } },
+        }
       );
       const instance = wrapper.instance();
       instance.saveCondition(
@@ -284,7 +322,7 @@ suite("Inline conditions", () => {
         )
       );
       expect(wrapper.find("#conditions-display").exists()).to.equal(true);
-      const e = {};
+      const e = { preventDefault: sinon.spy() };
       wrapper.find("#cancel-inline-conditions-link").simulate("click", e);
 
       assertAddingFirstCondition(wrapper, expectedFields);
@@ -292,25 +330,31 @@ suite("Inline conditions", () => {
 
     describe("adding conditions", () => {
       test("Only the header and add item link are present initially", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
         assertAddingFirstCondition(wrapper, expectedFields);
       });
 
       test("Defining the name updates the state", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
         wrapper
           .find("#cond-name")
@@ -321,13 +365,16 @@ suite("Inline conditions", () => {
       });
 
       test("A condition being added causes the view to update", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
         const condition = new Condition(
           new ConditionField("something", "TextField", "Something"),
@@ -365,16 +412,20 @@ suite("Inline conditions", () => {
       });
 
       test("Clicking the edit link causes editing view to be rendered", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
         wrapper.instance().setState({ conditions: conditions });
-        wrapper.find("#edit-conditions-link").simulate("click");
+        const e = { preventDefault: sinon.spy() };
+        wrapper.find("#edit-conditions-link").simulate("click", e);
 
         assertEditingHeaderGroupWithConditionString(
           wrapper,
@@ -384,13 +435,16 @@ suite("Inline conditions", () => {
       });
 
       test("edit callback should replace the conditions and leave in edit mode", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
         wrapper
           .instance()
@@ -405,7 +459,8 @@ suite("Inline conditions", () => {
               new ConditionValue("N")
             )
           );
-        wrapper.find("#edit-conditions-link").simulate("click");
+        const e = { preventDefault: sinon.spy() };
+        wrapper.find("#edit-conditions-link").simulate("click", e);
         assertEditingHeaderGroupWithConditionString(
           wrapper,
           "'Something else' is 'N'"
@@ -420,16 +475,20 @@ suite("Inline conditions", () => {
       });
 
       test("exit edit callback should exit edit mode", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
         wrapper.instance().setState({ conditions: conditions });
-        wrapper.find("#edit-conditions-link").simulate("click");
+        const e = { preventDefault: sinon.spy() };
+        wrapper.find("#edit-conditions-link").simulate("click", e);
         wrapper.instance().toggleEdit();
 
         assertAddingSubsequentCondition(
@@ -466,14 +525,17 @@ suite("Inline conditions", () => {
       });
 
       test("Condition model passed to the editor with a valid value renders as editable", () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
             condition={conditionModel}
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
 
         assertAddingSubsequentCondition(
@@ -490,14 +552,17 @@ suite("Inline conditions", () => {
       test("Condition model passed to the editor with a string value renders as non-editable", () => {
         conditionModel.value = "Something is 'M'";
 
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
             condition={conditionModel}
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
 
         assertAddingFirstCondition(wrapper, expectedFields);
@@ -509,14 +574,17 @@ suite("Inline conditions", () => {
       test("Condition model passed to the editor with a string value pre-populates name", () => {
         conditionModel.value = "Something is 'M'";
 
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
             condition={conditionModel}
-            data={data}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
 
         expect(wrapper.find("#cond-name").prop("value")).to.equal(
@@ -525,15 +593,23 @@ suite("Inline conditions", () => {
       });
 
       test("Edited condition is updated and conditions change callback is called when save button is clicked", async () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <InlineConditions
-            data={data}
             condition={conditionModel}
             path={path}
             conditionsChange={conditionsChange}
             cancelCallback={cancelCallback}
-          />
+          />,
+          {
+            wrappingComponent: DataWrapper,
+            wrappingComponentProps: { dataValue: { data, save } },
+          }
         );
+
+        wrapper
+          .instance()
+          .onChangeDisplayName({ target: { value: "ConditionName" } });
+
         expect(conditionsChange.called).to.equal(false);
 
         const clonedData = sinon.spy();
@@ -592,11 +668,9 @@ suite("Inline conditions", () => {
           ),
         ]);
 
-        expect(data.save.callCount).to.equal(1);
-        expect(data.save.firstCall.args[0]).to.equal(updatedData);
-        expect(conditionsChange.calledOnceWith(conditionModel.name)).to.equal(
-          true
-        );
+        expect(save.callCount).to.equal(1);
+        expect(save.firstCall.args[0]).to.equal(updatedData);
+        expect(conditionsChange.calledOnce).to.equal(true);
       });
     });
   });
@@ -613,7 +687,7 @@ function assertFieldDefinitionSection(
   expect(inlineConditionsDefinition.prop("expectsCoordinator")).to.equal(
     hasConditions && editingIndex !== 0
   );
-  expect(inlineConditionsDefinition.prop("fields")).to.equal(expectedFields);
+  expect(inlineConditionsDefinition.prop("fields")).to.contain(expectedFields);
   expect(inlineConditionsDefinition.prop("saveCallback")).to.equal(
     wrapper.instance().saveCondition
   );

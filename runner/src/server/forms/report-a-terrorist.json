@@ -1,0 +1,281 @@
+{
+  "startPage": "/do-you-have-a-link-to-the-evidence",
+  "pages": [
+    {
+      "title": "Do you have a link to the evidence?",
+      "path": "/do-you-have-a-link-to-the-evidence",
+      "components": [
+        {
+          "name": "UjidZI",
+          "options": {},
+          "type": "Para",
+          "content": "It’s helpful if you can send us links to the relevant pages, or posts if it was posted on social media.",
+          "schema": {}
+        },
+        {
+          "name": "rfUYC",
+          "options": {},
+          "type": "Details",
+          "title": "Help me find the link",
+          "content": "If you’re on a website, the link appears in the bar at the top of the page. An example of a link is, www.gov.uk/page/1234/content#.",
+          "schema": {}
+        },
+        {
+          "type": "RadiosField",
+          "title": "Do you have a link to the material?",
+          "options": {
+            "hideTitle": true
+          },
+          "name": "doyouhavealink",
+          "schema": {},
+          "list": "HTbt4V"
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-have-any-evidence"
+        },
+        {
+          "path": "/yes-i-have-a-link-to-the-material",
+          "condition": "b-NGgWvGISkJJLuzsJIjv"
+        }
+      ],
+      "section": "PMXq1s"
+    },
+    {
+      "path": "/do-you-have-any-evidence",
+      "title": "Do you have any evidence?",
+      "components": [
+        {
+          "name": "OQrrkG",
+          "options": {},
+          "type": "Para",
+          "content": "This could be an image or video, for example. Evidence is helpful should the material be deleted before we can find it.It’s safe to save evidence to your device for the purpose of reporting it to us. We recommend deleting it afterwards.",
+          "schema": {}
+        },
+        {
+          "name": "3jdOpV",
+          "options": {},
+          "type": "Details",
+          "title": "Help me take a screenshot",
+          "content": "Try this:Press the Shift key (⇧), command (or Cmd), and 3The screenshot will be saved to your DesktopYou can now upload it to the formTry this:Press the Ctrl key and the switch window keyThe screenshot will be saved to your DownloadsYou can now upload it to the formIf that doesn’t work, try pressing Ctrl and F5.When viewing the material:Press the Prt Scr key (or similar) to take a copy of your screenPaste the image into Microsoft Paint or a similar applicationSave the file to your computerUpload the file to the formIf that doesn’t work, you may need to search for how to take screenshots on your particular computer model.",
+          "schema": {}
+        },
+        {
+          "name": "LU6RMD",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Do you have any evidence?",
+          "schema": {},
+          "list": "mdmRq9"
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-there-anything-else-you-can-tell-us"
+        },
+        {
+          "path": "/yes-i-have-evidence",
+          "condition": "On5IOaSRDSyLs1G7-Dmdy"
+        }
+      ],
+      "section": "PMXq1s"
+    },
+    {
+      "title": "summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    },
+    {
+      "path": "/is-there-anything-else-you-can-tell-us",
+      "title": "Is there anything else you can tell us?",
+      "components": [
+        {
+          "name": "HETM3o",
+          "options": {},
+          "type": "Para",
+          "content": "Details may include:who shared the materialwhen it was shareda description, if you haven’t provided a link or evidence",
+          "schema": {}
+        },
+        {
+          "name": "evZ-IJ",
+          "options": {
+            "required": false
+          },
+          "type": "MultilineTextField",
+          "title": "Additional Info",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "section": "PMXq1s"
+    },
+    {
+      "path": "/yes-i-have-a-link-to-the-material",
+      "title": "Yes I have a link to the material",
+      "components": [
+        {
+          "type": "MultilineTextField",
+          "title": "Link to the material",
+          "hint": "Please put in the link to the material here",
+          "name": "blarGGH",
+          "options": {},
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-have-any-evidence"
+        }
+      ],
+      "section": "PMXq1s"
+    },
+    {
+      "path": "/yes-i-have-evidence",
+      "title": "Yes I have evidence",
+      "components": [
+        {
+          "name": "koE_ae",
+          "options": {
+            "required": false
+          },
+          "type": "FileUploadField",
+          "title": "Evidence File Upload",
+          "hint": "Please upload your evidence here",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/is-there-anything-else-you-can-tell-us"
+        }
+      ],
+      "section": "PMXq1s"
+    }
+  ],
+  "lists": [
+    {
+      "title": "linktomateriallist",
+      "name": "HTbt4V",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes, I do have a link",
+          "value": "yes"
+        },
+        {
+          "text": "No, I don't have a link",
+          "value": "no"
+        }
+      ]
+    },
+    {
+      "title": "evidencelist",
+      "name": "mdmRq9",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes, I have evidence",
+          "value": "yes"
+        },
+        {
+          "text": "No, I don't have evidence",
+          "value": "no"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "PMXq1s",
+      "title": "Evidence"
+    }
+  ],
+  "phaseBanner": {},
+  "metadata": {},
+  "fees": [],
+  "outputs": [
+    {
+      "name": "q7mMOb6Eu6EauibjcTFT3",
+      "title": "powerapps",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://prod-182.westeurope.logic.azure.com:443/workflows/cfa66b774dad40459bf36e334d860445/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=4nNQTOYk5DnEByQSKMb5jzu_cXJ0NKJuH4KZGBiqvMk"
+      }
+    }
+  ],
+  "version": 2,
+  "conditions": [
+    {
+      "name": "b-NGgWvGISkJJLuzsJIjv",
+      "displayName": "hasLink",
+      "value": {
+        "name": "hasLink",
+        "conditions": [
+          {
+            "field": {
+              "name": "PMXq1s.doyouhavealink",
+              "type": "RadiosField",
+              "display": "Do you have a link to the material? in PMXq1s"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "yes",
+              "display": "Yes, I do have a link"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "xY51EDbc4lPr6kHZl1umG",
+      "displayName": "noEvidence",
+      "value": {
+        "name": "noEvidence",
+        "conditions": [
+          {
+            "field": {
+              "name": "PMXq1s.LU6RMD",
+              "type": "RadiosField",
+              "display": "Do you have any evidence? in PMXq1s"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "no",
+              "display": "No, I don't have evidence"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "On5IOaSRDSyLs1G7-Dmdy",
+      "displayName": "hasEvidence",
+      "value": {
+        "name": "hasEvidence",
+        "conditions": [
+          {
+            "field": {
+              "name": "PMXq1s.LU6RMD",
+              "type": "RadiosField",
+              "display": "Do you have any evidence? in PMXq1s"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "yes",
+              "display": "Yes, I have evidence"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

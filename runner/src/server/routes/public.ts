@@ -1,22 +1,9 @@
+import path from "path";
+
+const runnerFolder = path.join(__dirname, "..", "..", "..");
+const rootNodeModules = path.join(runnerFolder, "..", "node_modules");
+
 export default [
-  {
-    method: "GET",
-    path: "/assets/govuk-template.js",
-    options: {
-      handler: {
-        file: "server/public/static/govuk-template.js",
-      },
-    },
-  },
-  {
-    method: "GET",
-    path: "/assets/all.js",
-    options: {
-      handler: {
-        file: "node_modules/govuk-frontend/govuk/all.js",
-      },
-    },
-  },
   {
     method: "GET",
     path: "/assets/{path*}",
@@ -24,10 +11,11 @@ export default [
       handler: {
         directory: {
           path: [
-            "public/static",
-            "public/build",
-            "node_modules/govuk-frontend/govuk/assets",
-            "node_modules/hmpo-components/assets",
+            path.join(runnerFolder, "public", "static"),
+            path.join(runnerFolder, "public", "build"),
+            path.join(rootNodeModules, "govuk-frontend", "govuk"),
+            path.join(rootNodeModules, "govuk-frontend", "govuk", "assets"),
+            path.join(rootNodeModules, "hmpo-components", "assets"),
           ],
         },
       },

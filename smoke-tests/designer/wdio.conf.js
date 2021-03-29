@@ -1,5 +1,6 @@
+const { hooks } = require("./support/hooks");
 const drivers = {
-  chrome: { version: "86.0.4240.22" }, // https://chromedriver.chromium.org/
+  chrome: { version: "88.0.4324.96" }, // https://chromedriver.chromium.org/
   firefox: { version: "0.27.0" }, // https://github.com/mozilla/geckodriver/releases
 };
 
@@ -7,22 +8,23 @@ exports.config = {
   runner: "local",
   specs: ["./features/**/*.feature"],
   exclude: [],
-  maxInstances: 5,
+  maxInstances: 6,
   capabilities: [
     {
-      maxInstances: 5,
+      maxInstances: 6,
       browserName: "chrome",
       acceptInsecureCerts: true,
     },
   ],
 
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "info",
+  logLevel: "error",
 
   // If you only want to run your tests until a specific amount of tests have failed use
   // bail (default is 0 - don't bail, run all tests).
   bail: 0,
-  baseUrl: "http://localhost:3000",
+  baseUrl: "http://localhost:3000/",
+  runnerUrl: "http://localhost:3009/",
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,
@@ -68,12 +70,5 @@ exports.config = {
     timeout: 60000,
     ignoreUndefinedDefinitions: true,
   },
-
-  // =====
-  // Hooks
-  // =====
-
-  beforeFeature: function () {
-    browser.maximizeWindow();
-  },
+  ...hooks,
 };

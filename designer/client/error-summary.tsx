@@ -1,19 +1,20 @@
 import React, { useEffect, useRef } from "react";
+import { i18n } from "./i18n";
 
-interface ErrorListItem {
+export interface ErrorListItem {
   reactListKey?: string;
   href?: string;
   children: string;
 }
 
 interface ErrorSummaryProps {
-  className: string;
-  descriptionChildren: string;
+  className?: string;
+  descriptionChildren?: string;
   errorList: Array<ErrorListItem>;
-  titleChildren;
+  titleChildren?: string;
 }
 
-function ErrorSummary({
+export function ErrorSummary({
   className,
   descriptionChildren,
   errorList,
@@ -29,6 +30,14 @@ function ErrorSummary({
   if (descriptionChildren) {
     description = <p>{descriptionChildren}</p>;
   }
+
+  const handleClick = (id) => {
+    const element = document.getElementById(id.substring(1));
+    if (element) {
+      element.scrollIntoView();
+      element.focus();
+    }
+  };
 
   return (
     <div
@@ -46,11 +55,25 @@ function ErrorSummary({
         {description}
         <ul className="govuk-list govuk-error-summary__list">
           {errorList.map((error, index) => (
-            <li key={error.reactListKey || index}>
+            <li key={index}>
               {error.href ? (
-                <a href={error.href}>{error.children}</a>
+                <a
+                  href={error.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick(error.href);
+                  }}
+                >
+                  {Array.isArray(error.children)
+                    ? i18n(...error.children)
+                    : error.children}
+                </a>
               ) : (
-                <>{error.children}</>
+                <>
+                  {Array.isArray(error.children)
+                    ? i18n(...error.children)
+                    : error.children}
+                </>
               )}
             </li>
           ))}
@@ -60,4 +83,4 @@ function ErrorSummary({
   );
 }
 
-export { ErrorSummary };
+export default ErrorSummary;

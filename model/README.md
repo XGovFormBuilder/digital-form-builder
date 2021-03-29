@@ -1,8 +1,8 @@
 # digital-form-builder-model
 
-A hapi plugin providing the engine for [digital form builder](https://github.com/XGovFormBuilder/digital-form-builder) based applications.
+# Test coverage threshold
 
-To use this plugin it must be registered using the server in XGovFormBuilder/digital-form-builder.
+Unit test coverage threshold, code coverage below which build will fail is set by using jest config, at the moment line coverage threshold is set as 92%, see [jest.config.js](jest.config.js)
 
 ## License
 
@@ -11,6 +11,7 @@ THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 The following attribution statement MUST be cited in your products and applications when using this information.
+`
 
 > Contains public sector information licensed under the Open Government license v3
 

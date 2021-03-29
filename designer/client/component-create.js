@@ -1,23 +1,19 @@
 import React from "react";
 import ComponentTypeEdit from "./component-type-edit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
-import { hasValidationErrors } from "./validations";
-import { ErrorSummary } from "./error-summary";
+import { DataContext } from "./context";
 
+/**
+ * @deprecated (keeping until tests are refactored)
+ */
 class ComponentCreate extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSaving: false,
-      errors: {},
-    };
-    this.typeEditRef = React.createRef();
-  }
+  static contextType = DataContext;
+  state = {
+    isSaving: false,
+  };
 
   async componentDidMount() {
-    const { data } = this.props;
-    const id = await data.getId();
-    this.setState({ id });
+    this.setState({ name: nanoid(6) });
   }
 
   async onSubmit(e) {
@@ -27,50 +23,27 @@ class ComponentCreate extends React.Component {
       return;
     }
 
-    let validationErrors = this.validate();
-    if (hasValidationErrors(validationErrors)) return false;
-
     this.setState({ isSaving: true });
 
-    const { page, data } = this.props;
+    const { page } = this.props;
+    const { data, save } = this.context;
     const { component } = this.state;
     const copy = clone(data);
-
     const updated = copy.addComponent(page.path, component);
-
-    const saved = await data.save(updated);
-    this.props.onCreate({ data: saved });
+    await save(updated);
+    this.setState({ isSaving: false });
   }
-
-  validate = () => {
-    if (this.typeEditRef.current) {
-      const errors = this.typeEditRef.current.validate();
-      this.setState({ errors });
-      return errors;
-    }
-    return {};
-  };
 
   storeComponent = (component) => {
     this.setState({ component });
   };
 
-  onChangeComponentType = (e) => {
-    this.setState({
-      component: { type: e.target.value, name: this.state.id },
-      errors: {},
-    });
-  };
-
   render() {
-    const { page, data } = this.props;
-    const { id, isSaving, errors } = this.state;
+    const { page, allowedTypes = ComponentTypes } = this.props;
+    const { isSaving } = this.state;
 
     return (
       <div>
-        {hasValidationErrors(errors) && (
-          <ErrorSummary errorList={Object.values(errors)} />
-        )}
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div className="govuk-form-group">
             <label className="govuk-label govuk-label--s" htmlFor="type">
@@ -81,30 +54,26 @@ class ComponentCreate extends React.Component {
               id="type"
               name="type"
               required
-              onChange={this.onChangeComponentType}
+              onChange={(e) =>
+                this.setState({ component: { type: e.target.value } })
+              }
             >
               <option />
-              {ComponentTypes.sort((a, b) =>
-                (a.title ?? "").localeCompare(b.title)
-              ).map((type) => {
-                return (
-                  <option key={type.name} value={type.name}>
-                    {type.title}
-                  </option>
-                );
-              })}
+              {allowedTypes
+                .sort((a, b) => (a.title ?? "").localeCompare(b.title))
+                .map((type) => {
+                  return (
+                    <option key={type.name} value={type.name}>
+                      {type.title}
+                    </option>
+                  );
+                })}
             </select>
           </div>
 
           {this.state?.component?.type && (
             <div>
-              <ComponentTypeEdit
-                page={page}
-                data={data}
-                component={this.state.component}
-                updateModel={this.storeComponent}
-                ref={this.typeEditRef}
-              />
+              <ComponentTypeEdit page={page} />
               <button
                 type="submit"
                 className="govuk-button"

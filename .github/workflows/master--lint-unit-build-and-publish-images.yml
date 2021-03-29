@@ -1,0 +1,135 @@
+name: Master QA
+on:
+  push:
+    branches:
+      - master
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [designer, runner, model]
+    name: lint-and-test-${{matrix.app}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - name: Configure yarn caching
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build dependencies
+        run: yarn build:dependencies
+
+      - name: Lint
+        run: yarn ${{matrix.app}} lint
+
+      - name: Test
+        run: yarn ${{matrix.app}} test-cov
+
+      - name: Upload test results artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-results-${{matrix.app}}
+          path: ${{matrix.app}}/test-results
+          retention-days: 14
+
+      - name: Upload test coverage artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage-${{matrix.app}}
+          path: ${{matrix.app}}/test-coverage
+          retention-days: 14
+
+  build-and-publish-images:
+    runs-on: ubuntu-latest
+    needs: [lint-and-test]
+    strategy:
+      matrix:
+        app: [designer, runner]
+    name: build-and-publish-${{matrix.app}}-image
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Docker compose pull
+        run: docker-compose pull
+      - name: Docker layer caching MONTH key
+        # MONTH key is used to rotate docker-layer-caching monthly to avoid the layers dangle issues
+        # see https://github.com/satackey/action-docker-layer-caching/issues/55
+        # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
+        # so master branch cache can be shared with branches
+        run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: digital-form-builder-${{ env.MONTH }}-{hash}
+          restore-keys: |
+            digital-form-builder-${{ env.MONTH }}
+      - name: Create .env for ${{ matrix.app }} workspace
+        run: |
+          touch ./${{ matrix.app }}/.env
+          echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
+          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
+          cat ./${{ matrix.app }}/.env
+      - name: Docker compose build ${{ matrix.app }}
+        run: |
+          LAST_TAG='2.0.${{ github.run_number }}-rc'
+          LAST_COMMIT='${{ github.sha }}'
+          docker-compose build ${{ matrix.app }}
+      - name: Check images
+        run: |
+          docker image ls
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_PAT }}
+      - name: Tag image
+        run: |
+          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
+          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:2.0.${{ github.run_number }}-rc
+      - name: Push Docker images
+        run: |
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
+          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:2.0.${{ github.run_number }}-rc
+      - name: Trigger deploy development environment
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Deploy Development Environment
+          token: ${{ secrets.GHCR_PAT }}
+          inputs: '{ "app": "${{ matrix.app }}"}'
+
+  tag-branch:
+    runs-on: ubuntu-latest
+    needs: [build-and-publish-images]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GHCR_PAT }}
+      - name: Tag branch with run number
+        run: |
+          git tag 2.0.${{ github.run_number }}-rc
+          git push --tags origin HEAD

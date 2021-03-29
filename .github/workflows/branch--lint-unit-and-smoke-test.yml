@@ -1,0 +1,131 @@
+name: Branch QA
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [designer, runner, model]
+    name: lint-and-test-${{matrix.app}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - name: Configure yarn caching
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check existing forms
+        if: ${{ matrix.app == 'runner' }}
+        run: yarn runner check-forms
+
+      - name: Build dependencies
+        run: yarn build:dependencies
+
+      - name: Lint
+        run: yarn ${{matrix.app}} lint
+
+      - name: Test
+        run: yarn ${{matrix.app}} test-cov
+
+      - name: Upload test results artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-results-${{matrix.app}}
+          path: ${{matrix.app}}/test-results
+          retention-days: 14
+
+      - name: Upload test coverage artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage-${{matrix.app}}
+          path: ${{matrix.app}}/test-coverage
+          retention-days: 14
+
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Docker compose pull
+        run: docker-compose pull
+        # MONTH key is used to rotate docker-layer-caching to avoid the layers dandle issue
+        # see https://github.com/satackey/action-docker-layer-caching/issues/55
+        # if you change this, please remember to apply the same changes to master--lint-unit-build-and-publish-images.yml
+        # so master branch cache can be shared with branches
+      - run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: digital-form-builder-${{ env.MONTH }}-{hash}
+          restore-keys: |
+            digital-form-builder-${{ env.MONTH }}
+      - name: Create .env for ${{ matrix.app }} workspace
+        run: |
+          touch ./${{ matrix.app }}/.env
+          echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
+          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
+          cat ./${{ matrix.app }}/.env
+      - name: Docker compose build
+        run: |
+          docker-compose build
+      - name: Docker compose up
+        run: docker-compose up -d
+      - name: Install smoke tests dependencies
+        run: yarn install --cwd "smoke-tests/designer"
+      - name: Check designer container is running
+        run: |
+          docker ps
+          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+      - name: Check runner container is running
+        run: |
+          docker ps
+          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
+      - name: Smoke Test
+        run: |
+          yarn smoke-tests/designer smoke-test-headless
+          ls -lah smoke-tests/designer/reports/
+      - name: "Tar files"
+        if: ${{ success() || failure() }}
+        run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
+      - uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: smoke-tests
+          path: smoke-tests.tar
+          retention-days: 14

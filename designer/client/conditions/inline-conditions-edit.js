@@ -4,8 +4,8 @@ import {
   toPresentationString,
   clone,
 } from "@xgovformbuilder/model";
-import { icons } from "../icons";
-import InlineConditionsDefinition from "./inline-conditions-definition";
+import InlineConditionsDefinition from "./InlineConditionsDefinition";
+import { EditIcon, MoveDownIcon, MoveUpIcon } from "../components/Icons";
 
 class InlineConditionsEdit extends React.Component {
   constructor(props) {
@@ -16,6 +16,160 @@ class InlineConditionsEdit extends React.Component {
       selectedConditions: [],
     };
   }
+
+  onChangeCheckbox = (e) => {
+    let copy = clone(this.state.selectedConditions ?? []);
+    const index = Number(e.target.value);
+    if (e.target.checked) {
+      copy.push(index);
+    } else {
+      copy = copy.filter((it) => it !== index);
+    }
+    this.setState({
+      selectedConditions: copy,
+    });
+  };
+
+  onClickGroup = (e) => {
+    e?.preventDefault();
+    if (this.state.selectedConditions?.length < 2) {
+      this.setState({
+        editingError: "Please select at least 2 items for grouping",
+      });
+    } else {
+      const groups = this.groupWithConsecutiveConditions(
+        this.state.selectedConditions
+      );
+      if (groups.find((group) => group.length === 1)) {
+        this.setState({
+          editingError: "Please select consecutive items to group",
+        });
+      } else {
+        this.setState({
+          editingError: undefined,
+          selectedConditions: [],
+          conditions: this.state.conditions.addGroups(
+            groups
+              .sort((a, b) => a - b)
+              .reduce((groupDefs, group) => {
+                groupDefs.push(
+                  new ConditionGroupDef(group[0], group[group.length - 1])
+                );
+                return groupDefs;
+              }, [])
+          ),
+        });
+      }
+    }
+  };
+
+  onClickRemove = (e) => {
+    e?.preventDefault();
+    if (this.state.selectedConditions?.length < 1) {
+      this.setState({
+        editingError: "Please select at least 1 item to remove",
+      });
+    } else {
+      this.setState({
+        editingError: undefined,
+        selectedConditions: [],
+        conditions: this.state.conditions.remove(this.state.selectedConditions),
+        condition: undefined,
+      });
+    }
+    if (!this.state.conditions.hasConditions) {
+      this.props.exitCallback();
+    }
+  };
+
+  groupWithConsecutiveConditions(selectedConditions) {
+    const result = [];
+    selectedConditions.sort((a, b) => a - b);
+    selectedConditions.forEach((condition) => {
+      const groupForCondition = result.find(
+        (group) =>
+          group.includes(condition - 1) || group.includes(condition + 1)
+      );
+      if (groupForCondition) {
+        groupForCondition.push(condition);
+      } else {
+        result.push([condition]);
+      }
+    });
+    return result;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.conditions !== this.props.conditions) {
+      this.setState({
+        conditions: this.props.conditions,
+        selectedConditions: [],
+      });
+    }
+  }
+
+  onClickCancelEditView = (e) => {
+    e?.preventDefault();
+    this.setState({
+      selectedConditions: [],
+      editingIndex: undefined,
+    });
+    this.props.exitCallback();
+  };
+
+  onClickSplit(index) {
+    this.setState({
+      conditions: this.state.conditions.splitGroup(index),
+    });
+  }
+
+  onClickEdit(index) {
+    const conditions = this.state.conditions.asPerUserGroupings;
+    if (conditions.length > index) {
+      this.setState({
+        editingIndex: index,
+        condition: Object.assign({}, conditions[index]),
+      });
+    }
+  }
+
+  moveConditionEarlier = (event) => {
+    event.preventDefault();
+    const index = event.currentTarget.dataset.index;
+    const conditions = this.state.conditions.moveEarlier(index);
+    this.setState({
+      conditions,
+      selectedConditions: [],
+    });
+  };
+
+  moveConditionLater = (event) => {
+    event.preventDefault();
+    const index = event.currentTarget.dataset.index;
+    const conditions = this.state.conditions.moveLater(index);
+    this.setState({
+      conditions,
+      selectedConditions: [],
+    });
+  };
+
+  setState(state, callback) {
+    if (state.conditions) {
+      this.props.saveCallback(state.conditions);
+    }
+    super.setState(state, callback);
+  }
+
+  saveCondition = (condition) => {
+    this.setState({
+      conditions: this.state.conditions.replace(
+        this.state.editingIndex,
+        condition
+      ),
+      condition: undefined,
+      editingIndex: undefined,
+    });
+  };
 
   render() {
     const {
@@ -72,7 +226,10 @@ class InlineConditionsEdit extends React.Component {
                             href="#"
                             id={`condition-${index}-split`}
                             className="govuk-link"
-                            onClick={() => this.onClickSplit(index)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              this.onClickSplit(index);
+                            }}
                           >
                             Split
                           </a>
@@ -84,9 +241,12 @@ class InlineConditionsEdit extends React.Component {
                             href="#"
                             id={`condition-${index}-edit`}
                             className="govuk-link"
-                            onClick={() => this.onClickEdit(index)}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              this.onClickEdit(index);
+                            }}
                           >
-                            {icons.edit(true)}
+                            <EditIcon bottom={true} />
                           </a>
                         </span>
                       )}
@@ -95,14 +255,10 @@ class InlineConditionsEdit extends React.Component {
                           <a
                             href="#"
                             id={`condition-${index}-move-earlier`}
-                            onClick={() =>
-                              this.onClickMove(
-                                index,
-                                this.state.conditions.moveEarlier
-                              )
-                            }
+                            data-index={index}
+                            onClick={this.moveConditionEarlier}
                           >
-                            {icons.moveUp}
+                            <MoveUpIcon />
                           </a>
                         </span>
                       )}
@@ -110,16 +266,12 @@ class InlineConditionsEdit extends React.Component {
                         <span>
                           <a
                             href="#"
-                            id={`condition-${index}-move-later`}
                             className="govuk-link"
-                            onClick={() =>
-                              this.onClickMove(
-                                index,
-                                this.state.conditions.moveLater
-                              )
-                            }
+                            id={`condition-${index}-move-later`}
+                            data-index={index}
+                            onClick={this.moveConditionLater}
                           >
-                            {icons.moveDown}
+                            <MoveDownIcon />
                           </a>
                         </span>
                       )}
@@ -176,144 +328,6 @@ class InlineConditionsEdit extends React.Component {
       </div>
     );
   }
-
-  onChangeCheckbox = (e) => {
-    let copy = clone(this.state.selectedConditions ?? []);
-    const index = Number(e.target.value);
-    if (e.target.checked) {
-      copy.push(index);
-    } else {
-      copy = copy.filter((it) => it !== index);
-    }
-    this.setState({
-      selectedConditions: copy,
-    });
-  };
-
-  onClickGroup = () => {
-    if (this.state.selectedConditions?.length < 2) {
-      this.setState({
-        editingError: "Please select at least 2 items for grouping",
-      });
-    } else {
-      const groups = this.groupWithConsecutiveConditions(
-        this.state.selectedConditions
-      );
-      if (groups.find((group) => group.length === 1)) {
-        this.setState({
-          editingError: "Please select consecutive items to group",
-        });
-      } else {
-        this.setState({
-          editingError: undefined,
-          selectedConditions: [],
-          conditions: this.state.conditions.addGroups(
-            groups
-              .sort((a, b) => a - b)
-              .reduce((groupDefs, group) => {
-                groupDefs.push(
-                  new ConditionGroupDef(group[0], group[group.length - 1])
-                );
-                return groupDefs;
-              }, [])
-          ),
-        });
-      }
-    }
-  };
-
-  onClickRemove = () => {
-    if (this.state.selectedConditions?.length < 1) {
-      this.setState({
-        editingError: "Please select at least 1 item to remove",
-      });
-    } else {
-      this.setState({
-        editingError: undefined,
-        selectedConditions: [],
-        conditions: this.state.conditions.remove(this.state.selectedConditions),
-        condition: undefined,
-      });
-    }
-    if (!this.state.conditions.hasConditions) {
-      this.props.exitCallback();
-    }
-  };
-
-  groupWithConsecutiveConditions(selectedConditions) {
-    const result = [];
-    selectedConditions.sort((a, b) => a - b);
-    selectedConditions.forEach((condition) => {
-      const groupForCondition = result.find(
-        (group) =>
-          group.includes(condition - 1) || group.includes(condition + 1)
-      );
-      if (groupForCondition) {
-        groupForCondition.push(condition);
-      } else {
-        result.push([condition]);
-      }
-    });
-    return result;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.conditions !== this.props.conditions) {
-      this.setState({
-        conditions: this.props.conditions,
-        selectedConditions: [],
-      });
-    }
-  }
-
-  onClickCancelEditView = () => {
-    this.setState({
-      selectedConditions: [],
-      editingIndex: undefined,
-    });
-    this.props.exitCallback();
-  };
-
-  onClickSplit(index) {
-    this.setState({
-      conditions: this.state.conditions.splitGroup(index),
-    });
-  }
-
-  onClickEdit(index) {
-    const conditions = this.state.conditions.asPerUserGroupings;
-    if (conditions.length > index) {
-      this.setState({
-        editingIndex: index,
-        condition: Object.assign({}, conditions[index]),
-      });
-    }
-  }
-
-  onClickMove(index, moveFunction) {
-    this.setState({
-      conditions: moveFunction(index),
-      selectedConditions: [],
-    });
-  }
-
-  setState(state, callback) {
-    if (state.conditions) {
-      this.props.saveCallback(state.conditions);
-    }
-    super.setState(state, callback);
-  }
-
-  saveCondition = (condition) => {
-    this.setState({
-      conditions: this.state.conditions.replace(
-        this.state.editingIndex,
-        condition
-      ),
-      condition: undefined,
-      editingIndex: undefined,
-    });
-  };
 }
 
 export default InlineConditionsEdit;

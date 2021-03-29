@@ -1,22 +1,61 @@
-const AddComponent = require("../pageobjects/pages/addComponent.page");
-const ConfigPage = require("../pageobjects/pages/config.page");
-const FormDesigner = require("../pageobjects/pages/formDesigner.page");
-const FieldData = require("../../data/componentFieldData");
+const { configPage, formDesigner } = require("../pageobjects/pages");
+const {
+  createComponent,
+  editLists,
+  navMenu,
+} = require("../pageobjects/sections");
+const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
+const { customAlphabet } = require("nanoid");
+const nanoid = customAlphabet("0123456789_-abcdefghijklmnopqrstuvwxyz", 10);
 
 class Actions {
+  configRef;
   createNewConfig() {
-    ConfigPage.open();
-    this.configRef = `smoke-testing ${Date.parse(Date())}`;
-    ConfigPage.newConfig(this.configRef);
-    expect(browser).toHaveUrlContaining(this.configRef.replace(" ", "-"));
-    return this.configRef;
+    configPage.open();
+    this.configRef = `smoke-testing-${nanoid()}`;
+    configPage.newConfig(this.configRef);
+    configPage.designerMenu.waitForDisplayed();
+    expect(browser).toHaveUrlContaining(
+      this.configRef.replace(" ", "-").toLowerCase()
+    );
   }
 
-  createComponentForPage(componentName, pageName) {
-    FormDesigner.createComponentForPageName(pageName).click();
-    AddComponent.selectComponentByName(componentName);
-    AddComponent.completeCommonFields(FieldData[toCamelCase(componentName)]);
+  /**
+   * Creates a component for a page by name using default data
+   * @param componentName
+   * @param pageName
+   */
+  createComponentForPage(componentName, pageName, save = true) {
+    formDesigner.createComponentForPageName(pageName).click();
+    createComponent.selectComponentByName(componentName);
+    if (componentName.toLowerCase() === "paragraph") {
+      createComponent.paragraphSetText(
+        fieldData[componentName.toLowerCase()].content
+      );
+      createComponent.saveBtn.click();
+    } else {
+      createComponent.completeCommonFields(
+        fieldData[toCamelCase(componentName)],
+        save
+      );
+    }
+  }
+
+  /**
+   * Creates a list using 'Lists' with a number of specified list items
+   * @param numberOfListItems
+   * @param closeFlyout
+   */
+  createList(numberOfListItems, closeFlyout = true) {
+    navMenu.buttonByName("Lists").click();
+    editLists.addNewList.click();
+    editLists.listTitle.setValue(fieldData.list.title);
+    editLists.createListWithListItems(numberOfListItems);
+    editLists.saveBtn.click();
+    if (closeFlyout) {
+      editLists.clickLink("Close");
+    }
   }
 }
 

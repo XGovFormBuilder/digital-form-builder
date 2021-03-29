@@ -1,57 +1,375 @@
 {
-  "Persona": "Persona",
+  "A form with this name already exists": "A form with this name already exists",
+  "Create a new form": "Create a new form",
+  "Create a new form or edit an existing form": "Create a new form or edit an existing form",
   "Edit page": "Edit page",
-  "Create component": "Create component",
-  "Preview page": "Preview page",
+  "Enter form name": "Enter form name",
+  "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
+  "Persona": "Persona",
   "Preview": "Preview",
+  "Preview page": "Preview page",
+  "Select an existing form to edit": "Select an existing form to edit",
+  "Start": "Start",
+  "Test": "For testing purpose, do not delete it",
+  "There is a problem": "There is a problem",
+  "add": "Add",
+  "addLink": {
+    "hint1": "You can add links between different pages and set conditions for links to control the page that loads next. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
+    "hint2": "To add a link in the main screen, click and hold the title of a page and drag a line to the title of the page you want to link it to. To edit a link, select its line.",
+    "noFieldsAvailable": "You cannot add any conditions as there are no components on the page you wish to link from. Add a component, such as an Input or a Selection field, and then add a condition."
+  },
+  "addPage": {
+    "header": {
+      "helpText": "Set the page type and details to apply the correct settings to a page.",
+      "title": "Add page"
+    },
+    "linkFromOption": {
+      "helpText": "Add a link to this page from a different page in the form.",
+      "title": "Link from (optional)"
+    },
+    "pageTitleField": {
+      "title": "Page title"
+    },
+    "pageTypeOption": {
+      "helpText": "Select a Start Page to start a form, a Question Page to request information, and a Summary Page at the end of a section or form. For example, use a Summary to let users check their answers to questions before they submit the form.",
+      "title": "Page type"
+    },
+    "pathField": {
+      "helpText": "Appears in the browser path. The value you enter in the page title field automatically populates the path name. To override it, enter your own path name, relevant to the page, and use lowercase text and hyphens between words. For example, '/personal-details'.",
+      "title": "Path"
+    },
+    "sectionOption": {
+      "helpText": "Use sections to split a form. For example, to add a section per applicant. The section title appears above the page title. However, if these titles are the same, the form will only show the page title.",
+      "title": "Section (optional)"
+    }
+  },
+  "cancel": "Cancel",
+  "close": "Close",
+  "common": {
+    "classes": {
+      "helpText": "Apply CSS classes to this field. For example, govuk-input-width-5",
+      "title": "Classes"
+    },
+    "componentNameField": {
+      "helpText": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces.",
+      "title": "Component name"
+    },
+    "componentOptionalOption": {
+      "helpText": "Tick this box if users do not need to complete this field to progress through the form",
+      "title": "Make {{component}} optional"
+    },
+    "detailsLink": {
+      "title": "Additional settings"
+    },
+    "helpTextField": {
+      "helpText": "Enter the description to show for this field",
+      "title": "Help text (optional)"
+    },
+    "hideOptionalTextOption": {
+      "helpText": "Tick this box if you do not want the title to indicate that this field is optional",
+      "title": "Hide '(optional)' text"
+    },
+    "hideTitleOption": {
+      "helpText": "Tick this box if you do not want the title to show on the page",
+      "title": "Hide title"
+    },
+    "titleField": {
+      "helpText": "Enter the name to show for this field",
+      "title": "Title"
+    }
+  },
+  "component": {
+    "component": "component",
+    "contentfields_info": "Content components allow you to add information to your page",
+    "create": "Create component",
+    "create_info": "Select a component to add to your page. If your page has only one component, the component title does not show on the page. To name or describe the component, use the page title instead.",
+    "edit": "Edit {{name}} component",
+    "inputfields_info": "Input fields allow you to ask users to enter information",
+    "name": "Component name",
+    "selectfields_info": "Selection fields allow you to provide lists of answers for users to choose from"
+  },
+  "conditions": {
+    "add": "Add condition",
+    "addOrEdit": "Add or edit condition",
+    "addOrEditHint": "Set the rules that determine the conditional behaviour in the form flow. For example, a question page might have a component for yes and no options that need two conditions - one to control what happens if a user selects yes and one for when a user selects no.",
+    "displayName": "Display name",
+    "displayNameHint": "Set a condition name that is easy to recognise. It appears as an option in the settings menus for the pages, components and links in a form.",
+    "edit": "Edit condition",
+    "enterName": "Enter Name",
+    "hint": "Set conditions for components and links to control the flow of a form. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.",
+    "noFieldsAvailable": "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.",
+    "notWhatYouMean": "Not what you meant?",
+    "optional": "Conditions (optional)",
+    "when": "When",
+    "whenHint": "Set when a condition might be met in the form. For example, when the form asks a question and the user selects Yes instead of No (yes=true).",
+    "youCannotEditWarning": "You cannot edit this condition '{{conditionString}}'. Please recreate it in the editor below to continue"
+  },
+  "create": "create {{noun}}",
+  "dateFieldEditComponent": {
+    "maxDaysInFutureField": {
+      "helpText": "Determines the latest date users can enter",
+      "title": "Max days in the future"
+    },
+    "maxDaysInPastField": {
+      "helpText": "Determines the earliest date users can enter",
+      "title": "Max days in the past"
+    }
+  },
+  "delete": "Delete",
+  "duplicate": "Duplicate",
+  "edit": "edit {{noun}}",
+  "enterDateTimeAsGmt": "Dates and times should be GMT timezone",
+  "error": "Error:",
+  "errors": {
+    "field": "Enter {{field, capitalise}}",
+    "required": "This field is required"
+  },
+  "field": "field",
+  "fieldEdit": {
+    "conditions": {
+      "hint": "Select a condition that determines whether to show the contents of this component. You can create and edit conditions from the Conditions screen."
+    },
+    "details": {
+      "hint": "Enter the text you want to show when users expand the title. You can apply basic HTML, such as text formatting and hyperlinks."
+    },
+    "hideTitle": "Hide title",
+    "hideTitleHint": "Tick this box if you do not want the title to show on the page",
+    "optional": "Make {{fieldTitle}} optional",
+    "optionalHint": "Tick this box if users do not need to complete this field to progress through the form",
+    "para": {
+      "hint": "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
+    }
+  },
+  "fieldTypeToName": {
+    "AutocompleteField": "Autocomplete",
+    "AutocompleteField_info": "Sets a list of values to suggest to users as they complete this field",
+    "CheckboxesField": "Checkboxes",
+    "CheckboxesField_info": "A list for users to select multiple answers",
+    "DateField": "Date",
+    "DateField_info": "A calendar for users to specify a date",
+    "DatePartsField": "Date parts",
+    "DatePartsField_info": "Allows users to manually enter a Day, Month and Year",
+    "DateTimeField": "Date time",
+    "DateTimeField_info": "A calendar and clock for users to specify a date and time",
+    "DateTimePartsField": "Date time parts",
+    "DateTimePartsField_info": "Allows users to manually enter a Day, Month, Year, Hour and Minute",
+    "Details": "Details",
+    "Details_info": "An expandable title that lets users reveal more detailed information only if they need it",
+    "EmailAddressField": "Email address",
+    "EmailAddressField_info": "A text box that users can enter an email address into",
+    "FileUploadField": "File upload",
+    "FileUploadField_info": "Allows users to upload files from the device they are using",
+    "FlashCard": "Flash card",
+    "FlashCard_info": "A panel of text that can include a list",
+    "Html": "HTML",
+    "Html_info": "A block of text that you can apply basic HTML to, such as text formatting and hyperlinks",
+    "InsetText": "Inset text",
+    "InsetText_info": "A block of text that differentiates it from surrounding content, for example for quotes",
+    "List": "List",
+    "List_info": "A series of bullet points",
+    "MultilineTextField": "Multiline text",
+    "MultilineTextField_info": "A text box for users to enter multiple lines of text into, for example as 'Additional info'",
+    "NumberField": "Number",
+    "NumberField_info": "A text box that users can only enter numbers into",
+    "Para": "Paragraph",
+    "Para_info": "A block of text",
+    "RadiosField": "Radios",
+    "RadiosField_info": "A list for users to select one answer",
+    "SelectField": "Select",
+    "SelectField_info": "A drop-down list for users to select one answer",
+    "TelephoneNumberField": "Telephone number",
+    "TelephoneNumberField_info": "A text box that users can enter numbers and some symbols into, such as '+'",
+    "TextField": "Text",
+    "TextField_info": "A text box that users can enter letters, numbers and symbols into",
+    "TimeField": "Time",
+    "TimeField_info": "A clock for users to specify a time",
+    "UkAddressField": "UK address",
+    "UkAddressField_info": "Allows users to enter their street address, town or city and postcode",
+    "YesNoField": "YesNo",
+    "YesNoField_info": "Allows users to answer either 'Yes' or 'No'"
+  },
+  "fileUploadFieldEditPage": {
+    "multipleFilesOption": {
+      "helpText": "Tick this box to enable users to upload multiple files",
+      "title": "Allow multiple file upload"
+    }
+  },
+  "formDetails": {
+    "alpha": "Alpha",
+    "beta": "Beta",
+    "feedbackForm": {
+      "fieldTitle": "Is this a feedback form?"
+    },
+    "none": "None",
+    "phaseBanner": {
+      "fieldHint": "A feedback form is used to gather feedback from users about another form",
+      "fieldTitle": "Select a phase banner to add or change to your form",
+      "hint": "A phase banner includes a link for users to give feedback on your form."
+    }
+  },
+  "landingPage": {
+    "choice": {
+      "existing": "Open an existing form",
+      "heading": "Design and prototype forms",
+      "hint": "Select an option",
+      "intro": "Use the form designer to easily create,edit forms and test ideas",
+      "newform": "Create a new form"
+    },
+    "existing": {
+      "noforms": "You do not have any existing forms",
+      "select": "Select an existing form"
+    }
+  },
+  "leaveDesigner": "Are you sure you want to leave the Designer? If you have unsaved changes they will be lost.",
+  "list": {
+    "add": "Add list",
+    "addNew": "Add a new list",
+    "addOrEdit": "Add or edit lists",
+    "deleteWarning": {
+      "confirm": "Yes, delete this list",
+      "keep": "No, keep it",
+      "message": "You will no longer be able to edit or assign this list.",
+      "title": "Delete list"
+    },
+    "edit": "Edit {{title}}",
+    "errors": {
+      "empty": "The list must have list items",
+      "select": "Select a list"
+    },
+    "hint": {
+      "description": "Use lists to provide information in bullet points or set answers to multiple choice questions. After you create a list you can assign it to components to use on your form.",
+      "manage": "Lists you have created appear on this screen. From here you can manage the lists available for your form."
+    },
+    "item": {
+      "add": "Add list item",
+      "conditions": "Conditions (optional)",
+      "conditionsHint": "Select a condition that determines whether to show this list item. You can create and edit conditions on the Conditions screen.",
+      "createSubcomponent": "Create sub component",
+      "edit": "Edit list item",
+      "help": "Help text (optional)",
+      "helpHint": "Enter the description to show for this list item",
+      "subComponent": "Sub component (optional)",
+      "subComponentHint": "You need a sub component if the list item answer needs more information, for example an email address. This will only be shown when the user selects this list item.",
+      "title": "Item text",
+      "titleHint": "Enter the text you want to show",
+      "value": "Value",
+      "valueHint": "This determines the data format of the list item and does not show on the form. Unless you are using integrations and want to modify the payload, it should match the list item text."
+    },
+    "items": {
+      "hint": "Use the drag handles to reorder your list",
+      "hintNoItems": "This list does not have any list items",
+      "title": "List items"
+    },
+    "newTitle": "Add a new list",
+    "select": {
+      "helpText": "Select an existing list to show in this field or add a new list",
+      "title": "Select list",
+      "option": "Select a list"
+    },
+    "title": "List title",
+    "titleHint": "Enter a unique name for your list"
+  },
+  "menu": {
+    "addPage": "Add page",
+    "conditions": "Conditions",
+    "fees": "Fees",
+    "formDetails": "Form details",
+    "links": "Add link",
+    "lists": "Lists",
+    "outputs": "Outputs",
+    "sections": "Sections",
+    "summary": "Summary",
+    "summaryBehaviour": "Summary behaviour"
+  },
+  "name": {
+    "errors": {
+      "whitespace": "Name must not contain spaces"
+    },
+    "hint": "This is generated automatically and does not show on the page. Only change it if you are using an integration that requires you to, for example GOV.UK Notify. It must not contain spaces."
+  },
+  "no": "no",
+  "numberFieldEditComponent": {
+    "maxField": {
+      "helpText": "Specifies the highest number users can enter",
+      "title": "Max"
+    },
+    "minField": {
+      "helpText": "Specifies the lowest number users can enter",
+      "title": "Min"
+    },
+    "precisionField": {
+      "helpText": "Specifies the number of decimal places users can enter. For example, to allow users to enter numbers with up to two decimal places, set this to 2",
+      "title": "Precision"
+    }
+  },
+  "optional": "{{noun}} (optional)",
+  "outputEdit": {
+    "notifyEdit": {
+      "includeReferenceTitle": "Include webhook and payment references",
+      "includeReferenceHint": "If webhook or payment references are available, they will be included in Notify's personalisation object. The included fields are: hasWebhookReference (boolean), webhookReference: (string), hasPaymentReference: (boolean), paymentReference: string."
+    }
+  },
   "page": {
     "noun": "page",
     "noun_plural": "pages",
+    "path": "Path",
+    "pathHint": "The path of this page e.g. /personal-details",
+    "section": "Section (optional)",
+    "sectionHint": "The section title is shown above the page title. If the page and the section title are the same, the section title wont show.",
+    "title": "Page title",
     "type": "Page type",
     "types": {
       "question": "Question page",
       "start": "Start page",
       "summary": "Summary page"
-    },
-    "title": "Page title",
-    "path": "Path",
-    "pathHint": "The path of this page e.g. /personal-details",
-    "section": "Section (optional)",
-    "sectionHint": "The section title is shown above the page title. If the page and the section title are the same, the section title wont show."
-  },
-  "section": {
-    "noun": "section",
-    "noun_plural": "sections",
-    "editingTitle": "Editing {{title}}",
-    "newTitle": "Add a new section",
-    "edit": "Edit section",
-    "create": "Create section"
-  },
-  "edit": "edit {{noun}}",
-  "create": "create {{noun}}",
-  "save": "Save",
-  "duplicate": "Duplicate",
-  "delete": "Delete",
-  "optional": "{{noun}} (optional)",
-  "name": {
-    "hint": "This has been generated automatically, it will not show on the page. You usually wont need to change it unless an integration requires it. It must not contain spaces.",
-    "errors": {
-      "whitespace": "Name must not contain spaces"
     }
   },
-  "error": "Error:",
-  "title": "Title",
-  "close": "Close",
-  "errors": {
-    "required": "This field is required",
-    "field": "Enter {{field}}"
+  "save": "Save",
+  "section": {
+    "create": "Create section",
+    "edit": "Edit section",
+    "editingTitle": "Editing {{title}}",
+    "newTitle": "Add a new section",
+    "noun": "section",
+    "noun_plural": "sections"
   },
-  "Start": "Start",
-  "Select an existing form to edit": "Select an existing form to edit",
-  "Enter the name for your form, for example Applying for visitors pass": "Enter the name for your form, for example Applying for visitors pass",
-  "Create a new form": "Create a new form",
-  "Create a new form or edit an existing form": "Create a new form or edit an existing form",
-  "A form with this name already exists": "A form with this name already exists",
-  "There is a problem": "There is a problem",
-  "Enter form name": "Enter form name"
+  "textFieldEditComponent": {
+    "lengthField": {
+      "helpText": "Specifies the exact character length users must enter. Using this setting negates any values you set for Min length or Max length.",
+      "title": "Length"
+    },
+    "maxLengthField": {
+      "helpText": "Specifies the maximum number of characters users can enter",
+      "title": "Max length"
+    },
+    "minLengthField": {
+      "helpText": "Specifies the minimum number of characters users can enter",
+      "title": "Min length"
+    },
+    "regexField": {
+      "helpText": "Specifies a regular expression to validate users' inputs. Use JavaScript syntax.",
+      "title": "Regex"
+    }
+  },
+  "sectionEdit": {
+    "addHeader": {
+      "title": "Add a new section"
+    },
+    "editHeader": {
+      "title": "Edit sections"
+    },
+    "nameField": {
+      "helpText": "Automatically populated. It does not show on the page. You usually do not need to change it unless an integration requires it. It must not contain spaces.",
+      "title": "Section name"
+    },
+    "titleField": {
+      "helpText": "Appears above the page title. However, if these titles are the same, the form will only show the page title.",
+      "title": "Section title"
+    }
+  },
+  "title": "Title",
+  "titleHint": "Enter the name to show for this component",
+  "warning": "Warning",
+  "wontShow": "This will not show on the page.",
+  "yes": "yes"
 }

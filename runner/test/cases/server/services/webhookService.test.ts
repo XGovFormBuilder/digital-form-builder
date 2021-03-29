@@ -8,9 +8,7 @@ import * as httpService from "server/services/httpService";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { afterEach, beforeEach, suite, test } = lab;
-
-const sandbox = sinon.createSandbox();
+const { afterEach, suite, test } = lab;
 
 suite("Server WebhookService Service", () => {
   afterEach(() => {
@@ -24,7 +22,13 @@ suite("Server WebhookService Service", () => {
         payload: JSON.stringify({ reference: "1234" }),
       })
     );
-    const webHookeService = new WebhookService();
+    const loggerSpy = {
+      error: sinon.spy(),
+      info: sinon.spy(),
+      debug: sinon.spy(),
+    };
+    const serverMock = { logger: loggerSpy };
+    const webHookeService = new WebhookService(serverMock);
     const result = await webHookeService.postRequest("/url", {});
     expect(result).to.equal("1234");
   });
@@ -36,7 +40,9 @@ suite("Server WebhookService Service", () => {
         payload: { reference: "ABCD" },
       })
     );
-    const webHookeService = new WebhookService();
+    const loggerSpy = sinon.spy();
+    const serverMock = { logger: loggerSpy };
+    const webHookeService = new WebhookService(serverMock);
     const result = await webHookeService.postRequest("/url", {});
     expect(result).to.equal("ABCD");
   });

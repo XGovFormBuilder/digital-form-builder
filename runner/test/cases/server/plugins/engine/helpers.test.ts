@@ -4,6 +4,7 @@ import {
   proceed,
   redirectTo,
   redirectUrl,
+  nonRelativeRedirectUrl,
 } from "src/server/plugins/engine/helpers";
 import sinon from "sinon";
 const lab = Lab.script();
@@ -320,6 +321,21 @@ suite("Helpers", () => {
       const nextUrl = "badgers/monkeys";
       const returned = redirectUrl(request, nextUrl, { f_t: "newValue" });
       expect(returned).to.equal(`${nextUrl}?f_t=newValue`);
+    });
+  });
+
+  describe("nonRelativeRedirectUrl", () => {
+    test("Should return non-relative url with correct query parameters", () => {
+      const request = {
+        query: {
+          visit: "123",
+          f_t: "true",
+          ignored: true,
+        },
+      };
+      const nextUrl = "https://test.com";
+      const url = nonRelativeRedirectUrl(request, nextUrl);
+      expect(url).to.equal("https://test.com/?f_t=true&visit=123");
     });
   });
 });

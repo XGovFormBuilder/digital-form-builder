@@ -321,6 +321,8 @@ export class SummaryViewModel {
       personalisation,
       emailAddress: flatState[outputConfiguration.emailField],
       apiKey: outputConfiguration.apiKey,
+      addReferencesToPersonalisation:
+        outputConfiguration.addReferencesToPersonalisation,
     };
   }
 

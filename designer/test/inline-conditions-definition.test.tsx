@@ -4,7 +4,7 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { assertLink, assertSelectInput } from "./helpers/element-assertions";
 import sinon from "sinon";
-import InlineConditionsDefinition from "../client/conditions/inline-conditions-definition";
+import InlineConditionsDefinition from "../client/conditions/InlineConditionsDefinition";
 import {
   Condition,
   ConditionField,

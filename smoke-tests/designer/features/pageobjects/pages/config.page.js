@@ -1,31 +1,41 @@
 const Page = require("./basePage");
 
-class configPage extends Page {
-  get pageHeader() {
-    return browser.$("h1");
-  }
-
+class ConfigPage extends Page {
   get newName() {
-    return browser.$(".govuk-input");
+    return $(".govuk-input");
   }
 
-  get formError() {
-    return browser.$(".govuk-form-group--error .govuk-error-message");
+  get newForm() {
+    return $(".govuk-label=Create a new form");
   }
 
-  get startBtn() {
+  get existingForm() {
+    return $(".govuk-label=Open an existing form");
+  }
+
+  get nextBtn() {
     return browser.$(".govuk-button");
   }
 
+  get newFormScreen() {
+    return $("h1=Enter a name for your form");
+  }
+
+  /**
+   * Creates a new form with a unique name
+   * @param configName
+   */
   newConfig(configName) {
+    this.newForm.click();
+    this.nextBtn.click();
+    this.newFormScreen.waitForDisplayed();
     this.newName.setValue(configName);
-    this.startBtn.click();
-    this.designerMenu.waitForDisplayed();
+    this.nextBtn.click();
   }
 
   open() {
-    return super.open("new");
+    return super.open("app");
   }
 }
 
-module.exports = new configPage();
+module.exports = new ConfigPage();

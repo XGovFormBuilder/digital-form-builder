@@ -32,10 +32,8 @@ export function assertLabel(wrapper, text) {
 }
 
 export function assertLink(wrapper, id, expectedText) {
-  expect(getTagName(wrapper)).to.equal("a");
   expect(getProperty(wrapper, "id")).to.equal(id);
   expect(wrapper.text()).to.equal(expectedText);
-  expect(getProperty(wrapper, "href")).to.equal("#");
 }
 
 export function assertRequiredNumberInput(wrapper, id, expectedValue) {

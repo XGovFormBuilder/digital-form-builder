@@ -1,16 +1,23 @@
 import React from "react";
-import { toUrl } from "./helpers";
-import { clone } from "@xgovformbuilder/model";
-import { RenderInPortal } from "./components/render-in-portal";
-import SectionEdit from "./section/section-edit";
-import { nanoid } from "nanoid";
-import Flyout from "./flyout";
-import { withI18n } from "./i18n";
 import { Input } from "@govuk-jsx/input";
-import { ErrorSummary } from "./error-summary";
+import { clone } from "@xgovformbuilder/model";
+import { nanoid } from "nanoid";
+
+import { toUrl } from "./helpers";
+import { RenderInPortal } from "./components/RenderInPortal";
+import SectionEdit from "./section/section-edit";
+import { Flyout } from "./components/Flyout";
+import { withI18n } from "./i18n";
+import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
+import { DataContext } from "./context";
+
+import FeatureToggle from "./FeatureToggle";
+import { FeatureFlags } from "./context/FeatureFlagContext";
 
 export class PageEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     const { page } = this.props;
@@ -18,7 +25,7 @@ export class PageEdit extends React.Component {
       path: page?.path ?? this.generatePath(page.title),
       controller: page?.controller ?? "",
       title: page?.title,
-      section: page?.section ?? {},
+      section: page?.section ?? "",
       isEditingSection: false,
       errors: {},
     };
@@ -27,9 +34,9 @@ export class PageEdit extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    const form = e.target;
+    const { save, data } = this.context;
     const { title, path, section, controller } = this.state;
-    const { data, page } = this.props;
+    const { page } = this.props;
 
     let validationErrors = this.validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
@@ -48,14 +55,14 @@ export class PageEdit extends React.Component {
     }
 
     copyPage.title = title;
-    section ? (copyPage.section = section.name) : delete copyPage.section;
+    section ? (copyPage.section = section) : delete copyPage.section;
     controller
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
     copy.pages[pageIndex] = copyPage;
     try {
-      await data.save(copy);
+      await save(copy);
       this.props.onEdit({ data });
     } catch (err) {
       console.error(err);
@@ -63,7 +70,8 @@ export class PageEdit extends React.Component {
   };
 
   validate = (title, path) => {
-    const { data, page, i18n } = this.props;
+    const { page, i18n } = this.props;
+    const { data } = this.context;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
 
@@ -88,7 +96,8 @@ export class PageEdit extends React.Component {
       return;
     }
 
-    const { data, page } = this.props;
+    const { save, data } = this.context;
+    const { page } = this.props;
     const copy = clone(data);
 
     const copyPageIdx = copy.pages.findIndex((p) => p.path === page.path);
@@ -107,7 +116,7 @@ export class PageEdit extends React.Component {
 
     copy.pages.splice(copyPageIdx, 1);
     try {
-      await data.save(copy);
+      await save(copy);
     } catch (error) {
       console.error(error);
     }
@@ -115,8 +124,8 @@ export class PageEdit extends React.Component {
 
   onClickDuplicate = async (e) => {
     e.preventDefault();
-
-    const { data, page } = this.props;
+    const { page } = this.props;
+    const { data, save } = this.context;
     const copy = clone(data);
     const duplicatedPage = clone(page);
     duplicatedPage.path = `${duplicatedPage.path}-${nanoid(6)}`;
@@ -125,7 +134,7 @@ export class PageEdit extends React.Component {
     });
     copy.pages.push(duplicatedPage);
     try {
-      await data.save(copy);
+      await save(copy);
     } catch (err) {
       console.error(err);
     }
@@ -149,7 +158,8 @@ export class PageEdit extends React.Component {
 
   generatePath(title) {
     let path = toUrl(title);
-    const { data, page } = this.props;
+    const { data } = this.context;
+    const { page } = this.props;
     if (data.findPage(path) && page.title !== title) {
       path = `${path}-${nanoid(6)}`;
     }
@@ -165,29 +175,28 @@ export class PageEdit extends React.Component {
   };
 
   closeFlyout = (sectionName) => {
-    const propSection = this.state.section ?? this.props.page?.section ?? {};
+    const propSection = this.state.section ?? this.props.page?.section ?? "";
     this.setState({
       isEditingSection: false,
-      section: sectionName
-        ? this.findSectionWithName(sectionName)
-        : propSection,
+      section: sectionName,
     });
   };
 
   onChangeSection = (e) => {
     this.setState({
-      section: this.findSectionWithName(e.target.value),
+      section: e.target.value,
     });
   };
 
   findSectionWithName(name) {
-    const { data } = this.props;
+    const { data } = this.context;
     const { sections } = data;
     return sections.find((section) => section.name === name);
   }
 
   render() {
-    const { data, i18n } = this.props;
+    const { i18n } = this.props;
+    const { data } = this.context;
     const { sections } = data;
     const {
       title,
@@ -267,7 +276,7 @@ export class PageEdit extends React.Component {
                 className="govuk-select"
                 id="page-section"
                 name="section"
-                value={section?.name}
+                value={section}
                 onChange={this.onChangeSection}
               >
                 <option />
@@ -278,7 +287,7 @@ export class PageEdit extends React.Component {
                 ))}
               </select>
             )}
-            {section?.name && (
+            {section && (
               <a
                 href="#"
                 className="govuk-link govuk-!-display-block"
@@ -287,24 +296,30 @@ export class PageEdit extends React.Component {
                 {i18n("section.edit")}
               </a>
             )}
-            <a
-              href="#"
-              className="govuk-link govuk-!-display-block"
-              onClick={(e) => this.editSection(e, true)}
-            >
-              {i18n("section.create")}
-            </a>
+            {!section && (
+              <a
+                href="#"
+                className="govuk-link govuk-!-display-block"
+                onClick={(e) => this.editSection(e, true)}
+              >
+                {i18n("section.create")}
+              </a>
+            )}
           </div>
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
-          <button
-            className="govuk-button"
-            type="button"
-            onClick={this.onClickDuplicate}
+          <FeatureToggle
+            feature={FeatureFlags.FEATURE_EDIT_PAGE_DUPLICATE_BUTTON}
           >
-            {i18n("duplicate")}
-          </button>{" "}
+            <button
+              className="govuk-button"
+              type="button"
+              onClick={this.onClickDuplicate}
+            >
+              {i18n("duplicate")}
+            </button>{" "}
+          </FeatureToggle>
           <button
             className="govuk-button"
             type="button"
@@ -325,7 +340,7 @@ export class PageEdit extends React.Component {
               show={isEditingSection}
             >
               <SectionEdit
-                section={isNewSection ? {} : section}
+                section={isNewSection ? {} : this.findSectionWithName(section)}
                 data={data}
                 closeFlyout={this.closeFlyout}
               />

@@ -1,5 +1,7 @@
 import dotEnv from "dotenv";
-import Joi from "joi";
+import Joi, { CustomHelpers } from "joi";
+
+import { isUrlSecure } from "src/server/utils/url";
 
 dotEnv.config({ path: ".env" });
 
@@ -7,11 +9,20 @@ const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
 const DEFAULT_PORT = 3009;
 const DEFAULT_ENVIRONMENT = "development";
-const DEFAULT_LOG_LEVEL = "debug";
+const DEFAULT_LOG_LEVEL = "WARNING";
 const DEFAULT_SERVICE_URL = "http://localhost:3009";
 const DEFAULT_DOCUMENT_UPLOAD_API_URL = "http://localhost:9000";
 
-// Define config schema
+function secureUrl(value: string, helper: CustomHelpers) {
+  if (isUrlSecure(value)) {
+    return value;
+  }
+
+  return helper.message({
+    custom: `Provided ${helper.state.path} is insecure, please use https`,
+  });
+}
+
 const schema = Joi.object({
   port: Joi.number().default(DEFAULT_PORT),
   env: Joi.string()
@@ -22,9 +33,9 @@ const schema = Joi.object({
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string().default("#"),
   matomoId: Joi.string().optional(),
-  matomoUrl: Joi.string().optional(),
-  payApiUrl: Joi.string(),
-  payReturnUrl: Joi.string(),
+  matomoUrl: Joi.string().custom(secureUrl).optional(),
+  payApiUrl: Joi.string().custom(secureUrl),
+  payReturnUrl: Joi.string().custom(secureUrl),
   serviceUrl: Joi.string().optional().default(DEFAULT_SERVICE_URL),
   redisHost: Joi.string().optional(),
   redisPort: Joi.number().optional(),
@@ -55,6 +66,8 @@ const schema = Joi.object({
       otherwise: Joi.optional(),
     })
     .label("NOTIFY_API_KEY"),
+  lastCommit: Joi.string().default("undefined"),
+  lastTag: Joi.string().default("undefined"),
 });
 
 export function buildConfig() {
@@ -88,6 +101,8 @@ export function buildConfig() {
     privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
     notifyTemplateId: process.env.NOTIFY_TEMPLATE_ID,
     notifyAPIKey: process.env.NOTIFY_API_KEY,
+    lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
+    lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
   };
 
   // Validate config
@@ -107,7 +122,7 @@ export function buildConfig() {
   value.isProd = value.env === "production";
   value.isDev = !value.isProd;
   value.isTest = value.env === "test";
-  value.isSandbox = process.env.sandbox || false; // for heroku instances
+  value.isSandbox = process.env.sandbox === "true"; // for heroku instances
 
   return value;
 }

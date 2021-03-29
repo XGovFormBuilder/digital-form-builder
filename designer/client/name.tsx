@@ -1,6 +1,7 @@
 import React from "react";
+import { ErrorMessage } from "./components/ErrorMessage";
 import { isEmpty } from "./helpers";
-import { withI18nRef } from "./i18n";
+import { withI18nRef, I18n } from "./i18n";
 
 type Props = {
   updateModel?: (arg0: any) => {} | null | undefined;
@@ -8,7 +9,7 @@ type Props = {
   name: string;
   id: string;
   labelText: string;
-  i18n: (arg0: string, arg1?: any) => any;
+  i18n: I18n;
 };
 
 type State = {
@@ -87,12 +88,7 @@ export class Name extends React.Component<Props, State> {
           {labelText}
         </label>
         <span className="govuk-hint">{hint || i18n("name.hint")}</span>
-        {errors?.name && (
-          <span className="govuk-error-message">
-            <span className="govuk-visually-hidden">{i18n("error")}</span>{" "}
-            {errors?.name.children}
-          </span>
-        )}
+        {errors?.name && <ErrorMessage>{errors?.name.children}</ErrorMessage>}
         <input
           className={`govuk-input govuk-input--width-20 ${
             errors?.name ? "govuk-input--error" : ""

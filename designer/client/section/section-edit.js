@@ -1,6 +1,5 @@
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
-import Name from "../name";
 import { nanoid } from "nanoid";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
@@ -9,9 +8,12 @@ import {
   validateTitle,
   hasValidationErrors,
 } from "../validations";
-import { ErrorSummary } from "../error-summary";
+import ErrorSummary from "../error-summary";
+import { DataContext } from "../context";
 
 class SectionEdit extends React.Component {
+  static contextType = DataContext;
+
   constructor(props) {
     super(props);
     this.closeFlyout = props.closeFlyout;
@@ -28,10 +30,14 @@ class SectionEdit extends React.Component {
   async onSubmit(e) {
     e.preventDefault();
     let validationErrors = this.validate();
+
     if (hasValidationErrors(validationErrors)) return;
+
+    const { save } = this.context;
     const { name, title } = this.state;
     const { data } = this.props;
     const copy = clone(data);
+
     if (this.isNewSection) {
       copy.addSection(name, title.trim());
     } else {
@@ -56,7 +62,7 @@ class SectionEdit extends React.Component {
     }
 
     try {
-      await data.save(copy);
+      await save(copy);
       this.closeFlyout(name);
     } catch (err) {
       console.error(err);
@@ -75,10 +81,12 @@ class SectionEdit extends React.Component {
 
   onClickDelete = async (e) => {
     e.preventDefault();
+
     if (!window.confirm("Confirm delete")) {
       return;
     }
 
+    const { save } = this.context;
     const { data, section } = this.props;
     const copy = clone(data);
     const previousName = this.props.section?.name;
@@ -93,11 +101,10 @@ class SectionEdit extends React.Component {
     });
 
     try {
-      await data.save(copy);
-      this.closeFlyout({});
+      await save(copy);
+      this.closeFlyout("");
     } catch (error) {
-      // TODO:- we should really think about handling these errors properly.
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -114,9 +121,12 @@ class SectionEdit extends React.Component {
           <Input
             id="section-title"
             name="title"
+            hint={{
+              children: [i18n("sectionEdit.titleField.helpText")],
+            }}
             label={{
               className: "govuk-label--s",
-              children: [i18n("title")],
+              children: [i18n("sectionEdit.titleField.title")],
             }}
             value={title}
             onChange={(e) => this.setState({ title: e.target.value })}
@@ -130,10 +140,10 @@ class SectionEdit extends React.Component {
             className="govuk-input--width-20"
             label={{
               className: "govuk-label--s",
-              children: ["Section name"],
+              children: [i18n("sectionEdit.nameField.title")],
             }}
             hint={{
-              children: [i18n("name.hint")],
+              children: [i18n("sectionEdit.nameField.helpText")],
             }}
             value={name}
             onChange={(e) => this.setState({ name: e.target.value })}

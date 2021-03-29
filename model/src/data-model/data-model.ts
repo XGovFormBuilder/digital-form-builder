@@ -1,22 +1,60 @@
-import { valuesFrom, yesNoValues } from "../values";
-import type { ComponentValues } from "../values";
 import {
   ConditionsWrapper,
   ConditionWrapperValue,
   ConditionRawData,
 } from "./conditions-wrapper";
-import { InputWrapper } from "./input-wrapper";
-import { ValuesWrapper } from "./values-wrapper";
 import { clone, filter } from "../utils/helpers";
-import { ComponentDef } from "../components/types";
-import { Page, Section, List, Feedback } from "./types";
+import {
+  ComponentDef,
+  ContentComponentsDef,
+  InputFieldsComponentsDef,
+  ListComponentsDef,
+} from "../components/types";
+import { Page, Section, List, Feedback, PhaseBanner } from "./types";
+import dfs from "depth-first";
 
-type RawData = Pick<Data, "startPage" | "pages" | "lists" | "sections"> & {
+const isNotContentType = (
+  obj: ComponentDef
+): obj is InputFieldsComponentsDef | ListComponentsDef => {
+  const contentTypes: ContentComponentsDef["type"][] = [
+    "Para",
+    "Details",
+    "Html",
+    "InsetText",
+  ];
+  return !contentTypes.find((type) => type === `${obj.type}`);
+};
+function allInputs(pages) {
+  return pages.flatMap((page) => {
+    const inputs = page.components ?? [].filter(isNotContentType);
+    return inputs.map((input) => {
+      return {
+        name: input.name,
+        page: { path: page.path, section: page.section },
+        propertyPath: !!page.section
+          ? `${page.section}.${input.name}`
+          : input.name,
+        title: input.title,
+        list: input.list,
+        type: input.type,
+      };
+    });
+  });
+}
+
+export type RawData = Pick<
+  Data,
+  "startPage" | "pages" | "lists" | "sections"
+> & {
   name?: string;
   conditions?: ConditionRawData[];
   feedback?: Feedback;
+  phaseBanner?: PhaseBanner;
 };
 
+/**
+ * FIXME:- This class is seriously bloated and most of the methods are not used by the runner at all. I don't even know why it's in /model..!
+ */
 export class Data {
   /**
    * TODO
@@ -46,94 +84,25 @@ export class Data {
   pages: Page[] = [];
   lists: List[] = [];
   sections: Section[] = [];
+  phaseBanner?: PhaseBanner = {};
   #conditions: ConditionsWrapper[] = [];
   #feedback?: Feedback;
 
   constructor(rawData: RawData) {
     const rawDataClone =
-      rawData instanceof Data
-        ? rawData._exposePrivateFields()
-        : Object.assign({}, rawData);
+      rawData instanceof Data ? rawData._exposePrivateFields() : { ...rawData };
 
+    // protected properties
     this.#name = rawDataClone.name || "";
-    this.startPage = rawDataClone.startPage;
     this.#feedback = rawDataClone.feedback;
     this.#conditions = (rawDataClone.conditions || []).map(
       (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
     );
 
-    delete rawDataClone.name;
-    delete rawDataClone.conditions;
-    delete rawDataClone.feedback;
+    // discard already set properties
+    const { name, conditions, feedback, ...otherProps } = rawDataClone;
 
-    Object.assign(this, rawDataClone);
-  }
-
-  _listInputsFor(page: Page, input: ComponentDef): Array<InputWrapper> {
-    const values = this.valuesFor(input)?.toStaticValues();
-    return values
-      ? values.items.flatMap(
-          (listItem) =>
-            listItem.children
-              ?.filter((component) => component.name)
-              ?.map(
-                (component) =>
-                  new InputWrapper(component, page, {
-                    parentItemName: listItem.label,
-                  })
-              ) ?? []
-        )
-      : [];
-  }
-
-  allInputs(): Array<InputWrapper> {
-    const inputs: Array<InputWrapper> = this.pages.flatMap((page) =>
-      (page.components || [])
-        .filter((component) => component.name)
-        .flatMap((component) =>
-          [new InputWrapper(component, page, {})].concat(
-            this._listInputsFor(page, component)
-          )
-        )
-    );
-
-    if (this.feedbackForm) {
-      const startPage = this.findPage(this.startPage);
-      const options = { ignoreSection: true };
-
-      Data.FEEDBACK_CONTEXT_ITEMS.forEach((it) => {
-        inputs.push(
-          new InputWrapper(
-            {
-              type: "TextField",
-              title: it.display,
-              name: it.key,
-              hint: "",
-              options: {},
-              schema: {},
-            },
-            startPage,
-            options
-          )
-        );
-      });
-    }
-
-    const names = new Set();
-
-    return inputs.filter((input: InputWrapper) => {
-      const isPresent = !names.has(input.propertyPath);
-      names.add(input.propertyPath);
-      return isPresent;
-    });
-  }
-
-  inputsAccessibleAt(path: string): Array<InputWrapper> {
-    const precedingPages = this._allPathsLeadingTo(path);
-    return this.allInputs().filter(
-      (input) =>
-        precedingPages.includes(input.page.path) || path === input.page.path
-    );
+    Object.assign(this, otherProps);
   }
 
   findPage(path: string | undefined) {
@@ -142,6 +111,10 @@ export class Data {
 
   findList(listName: string) {
     return this.lists.find((list) => list.name === listName);
+  }
+
+  addList(list: List) {
+    this.lists.push(list);
   }
 
   addLink(from: string, to: string, condition: string): Data {
@@ -215,45 +188,11 @@ export class Data {
     return this.pages;
   }
 
-  valuesFor(component: ComponentDef): ValuesWrapper | undefined {
-    const values = this._valuesFor(component);
-    if (values) {
-      return new ValuesWrapper(values, this);
-    }
-    return undefined;
-  }
-
-  _valuesFor(
-    component: ComponentDef & { values?: ComponentValues }
-  ): ComponentValues | null {
-    if (component.type === "YesNoField") {
-      return yesNoValues;
-    }
-
-    if (component.values) {
-      return valuesFrom(component.values);
-    }
-
-    return null;
-  }
-
-  _allPathsLeadingTo(path: string): Array<string> {
-    return this.pages
-      .filter(
-        (page) => page.next && page.next.find((next) => next.path === path)
-      )
-      .flatMap((page) =>
-        [page.path].concat(this._allPathsLeadingTo(page.path))
-      );
-  }
-
   addCondition(
     name: string,
     displayName: string,
     value: ConditionWrapperValue
   ): Data {
-    this.#conditions = this.#conditions;
-
     if (this.#conditions.find((condition) => condition.name === name)) {
       throw Error(`A condition already exists with name ${name}`);
     }
@@ -265,7 +204,7 @@ export class Data {
   addComponent(pagePath: string, component: ComponentDef): Data {
     const page = this.findPage(pagePath);
     if (page) {
-      page.components = page.components || [];
+      page.components ||= [];
       page.components.push(component);
     } else {
       throw Error(`No page exists with path ${pagePath}`);
@@ -352,36 +291,25 @@ export class Data {
   }
 
   set name(name: string) {
-    if (typeof name === "string" || name === undefined) {
-      this.#name = name;
-    } else {
-      throw Error("name must be a string");
-    }
+    this.#name ||= name;
   }
 
+  //FIXME:- isFeedbackForm?
   get feedbackForm(): boolean {
     return this.#feedback?.feedbackForm ?? false;
   }
 
   set feedbackForm(feedbackForm: boolean) {
-    if (typeof feedbackForm === "boolean") {
-      this.#feedback = this.#feedback || {};
-      this.#feedback.feedbackForm = feedbackForm;
-    } else {
-      throw Error("feedbackForm must be a boolean");
-    }
+    this.#feedback = { ...(this.#feedback ?? {}), feedbackForm };
   }
 
-  setFeedbackUrl(feedbackUrl: string) {
-    if (feedbackUrl && this.feedbackForm) {
+  //FIXME:- should just be a setter method
+  setFeedbackUrl(url: string) {
+    if (url && this.feedbackForm) {
       throw Error("Cannot set a feedback url on a feedback form");
     }
-    if (typeof feedbackUrl === "string" || feedbackUrl === undefined) {
-      this.#feedback = this.#feedback || {};
-      this.#feedback.url = feedbackUrl;
-    } else {
-      throw Error("feedbackUrl must be a string");
-    }
+
+    this.#feedback = { ...(this.#feedback ?? {}), url };
   }
 
   get feedbackUrl(): string | undefined {
@@ -398,6 +326,25 @@ export class Data {
       (field) => typeof field !== "function"
     );
     return Object.assign({}, withoutFunctions);
+  }
+
+  get allInputs() {
+    return allInputs(this.pages);
+  }
+
+  allPathsLeadingTo(path) {
+    const edges = this.pages.flatMap((page) => {
+      return (page.next ?? []).map((next) => [page.path, next.path]);
+    });
+    // @ts-ignore
+    return dfs(edges, path, { reverse: true }).filter((p) => p !== path);
+  }
+
+  inputsAccessibleAt(path) {
+    const pages = this.allPathsLeadingTo(path).map((path) =>
+      this.pages.find((page) => page.path === path)
+    );
+    return allInputs(pages);
   }
 
   _exposePrivateFields() {

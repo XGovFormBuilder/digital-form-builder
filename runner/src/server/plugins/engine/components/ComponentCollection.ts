@@ -12,11 +12,11 @@ import {
 import { ComponentCollectionViewModel } from "./types";
 import { ComponentBase } from "./ComponentBase";
 import { FormComponent } from "./FormComponent";
-import { ConditionalFormComponent } from "./ConditionalFormComponent";
+// import { ConditionalFormComponent } from "./ConditionalFormComponent";
 
 export class ComponentCollection {
   items: (ComponentBase | ComponentCollection | FormComponent)[];
-  formItems: (FormComponent | ConditionalFormComponent)[];
+  formItems: FormComponent /* | ConditionalFormComponent*/[];
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
 

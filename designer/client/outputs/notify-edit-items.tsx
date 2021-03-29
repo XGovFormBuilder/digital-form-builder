@@ -1,5 +1,6 @@
 import React, { MouseEvent, ChangeEvent } from "react";
 import { clone } from "@xgovformbuilder/model";
+import { DataContext } from "../context";
 
 type State = {
   items: string[];
@@ -13,6 +14,8 @@ type Props = {
 };
 
 class NotifyItems extends React.Component<Props, State> {
+  static contextType = DataContext;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -20,7 +23,8 @@ class NotifyItems extends React.Component<Props, State> {
     };
   }
 
-  onClickAddItem = (_event: MouseEvent) => {
+  onClickAddItem = (e: MouseEvent) => {
+    e.preventDefault();
     this.setState((state) => ({
       items: [...state.items, ""],
     }));
@@ -40,12 +44,10 @@ class NotifyItems extends React.Component<Props, State> {
     }
 
     const { data } = this.props;
+    const { save } = this.context;
     const copy = clone(data);
 
-    // Remove the list
-
-    data
-      .save(copy)
+    save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })
@@ -126,7 +128,10 @@ class NotifyItems extends React.Component<Props, State> {
               <td className="govuk-table__cell" width="20px">
                 <a
                   className="list-item-delete"
-                  onClick={() => this.removeItem(index)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    this.removeItem(index);
+                  }}
                 >
                   &#128465;
                 </a>

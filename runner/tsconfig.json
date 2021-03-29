@@ -3,11 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "paths": {
       "src/*": ["src/*"],
-      "server/*": ["src/server/*"]
+      "server/*": ["src/server/*"],
     },
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["dom"]
   },
-  "include": ["src", "package.json"]
+  "include": ["src", "package.json"],
 }

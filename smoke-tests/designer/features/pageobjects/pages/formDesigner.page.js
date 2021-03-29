@@ -1,14 +1,7 @@
 const Page = require("./basePage");
+const ComponentMappings = require("../../../support/componentMapping");
 
 class FormDesignerPage extends Page {
-  get designerMenu() {
-    return $("nav.menu");
-  }
-
-  get createNewForm() {
-    return browser.$("=Create new form");
-  }
-
   get addComponentToPage() {
     return browser.$("button=Create component");
   }
@@ -26,7 +19,7 @@ class FormDesignerPage extends Page {
   }
 
   get linkLine() {
-    return browser.$("polyline");
+    return $("polyline");
   }
 
   get pagesLink() {
@@ -50,6 +43,10 @@ class FormDesignerPage extends Page {
     return this.pageContainer(pageName).react$("EmailAddressField");
   }
 
+  flashCard(pageName) {
+    return this.pageContainer(pageName).react$("FlashCard");
+  }
+
   paragraph(pageName) {
     return this.pageContainer(pageName).react$("Para");
   }
@@ -58,8 +55,26 @@ class FormDesignerPage extends Page {
     return this.pageContainer(pageName).react$("TextField");
   }
 
-  pageContainer(elem) {
-    return $(`#\\/${elem.toLowerCase().replace(" ", "-")}`);
+  getComponentOnPage(pageName, componentName) {
+    const mappedName = ComponentMappings[componentName]
+      ? ComponentMappings[componentName]
+      : componentName;
+    return this.pageContainer(pageName).react$(mappedName);
+  }
+
+  pageContainer(name) {
+    return this.formPages.find((el) => el.getText().includes(name));
+  }
+
+  /**
+   * Clicks on a component within a form page
+   * @param componentType
+   */
+  editPageComponent(componentType) {
+    browser
+      .$(`.component-${componentType.toLowerCase()}`)
+      .waitForDisplayed({ interval: 1000 });
+    browser.$(`.component-${componentType.toLowerCase()}`).click();
   }
 
   getTitleTextForPage(name) {
@@ -74,12 +89,16 @@ class FormDesignerPage extends Page {
     return this.pageContainer(name).$("button=Edit page");
   }
 
+  previewPageForPageName(name) {
+    return this.pageContainer(name).$(".page a");
+  }
+
   dropdownComponentForPage(name) {
     return this.pageContainer(name).$(".dropdown");
   }
 
   addComponentToPageNumber(index) {
-    return browser.$$(".page .button")[index];
+    return $$(".page .button")[index];
   }
 
   getPageIndex(name) {

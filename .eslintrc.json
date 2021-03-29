@@ -1,9 +1,9 @@
 {
   "extends": [
-    "plugin:react/recommended",
-    "prettier"
+    "prettier",
+    "plugin:json/recommended"
   ],
-  "plugins": ["react", "@babel", "prettier"],
+  "plugins": ["@babel", "prettier"],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
@@ -21,10 +21,6 @@
     "ecmaVersion": 2018,
     "allowImportExportEverywhere": true
   },
-  "rules": {
-    "react/prop-types": 0,
-    "prettier/prettier": ["error"]
-  },
   "ignorePatterns": [
     "**/node_modules/**",
     "**/dist/**",
@@ -32,19 +28,27 @@
     "node_modules/**",
     "dist/**",
     "public/**",
-    "smoke-tests/designer/features/*.feature"
+    "smoke-tests/designer/features/*.feature",
+    "*.md",
+    ".eslintrc.json",
+    "yarn.lock",
+    "*.scss"
   ],
-  "settings": {
-    "react": {
-      "version": "detect"
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@babel", "prettier", "@typescript-eslint"],
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true }
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "prettier/prettier": ["error"]
+      }
     }
-  },
-  "overrides": [{
-    "files": ["*.ts", "*.tsx"],
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["react", "@babel", "prettier", "@typescript-eslint"],
-    "parserOptions": {
-      "ecmaFeatures": { "jsx": true }
-    }
-  }]
+  ],
+  "root": true
 }

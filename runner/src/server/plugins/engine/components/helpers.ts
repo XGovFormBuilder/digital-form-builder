@@ -1,14 +1,18 @@
 import joi from "joi";
 
+/**
+ * FIXME:- this code is bonkers. buildFormSchema and buildState schema are duplicates.
+ * The xxField classes should be responsible for generating their own schemas.
+ */
 export function buildSchema(type, keys) {
-  let schema = type.isJoi ? type : joi[type.type ?? type]();
+  let schema = type?.isJoi ? type : joi[type?.type ?? type]();
 
   Object.keys(keys).forEach((key) => {
     let val = keys[key];
     if (key === "regex") {
       val = new RegExp(val);
     }
-    schema = schema[key](typeof val === "boolean" ? undefined : val);
+    schema[key](typeof val === "boolean" ? undefined : val);
   });
 
   return schema;

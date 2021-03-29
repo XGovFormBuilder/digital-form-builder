@@ -4,7 +4,7 @@ import { ServerRegisterPluginObject } from "@hapi/hapi";
 import { RouteConfig } from "../types";
 
 type Config = {
-  sslKey: string | undefined;
+  isDev: string | undefined;
   previewMode: boolean;
 };
 
@@ -21,7 +21,9 @@ export const configureCrumbPlugin = (
         : !config.previewMode,
       cookieOptions: {
         path: "/",
-        isSecure: !!config.sslKey,
+        isSecure: !!config.isDev,
+        isHttpOnly: true,
+        isSameSite: "Strict",
       },
       skip: (request: any) => {
         // skip crumb validation if error parsing payload

@@ -6,6 +6,9 @@
   "author": "Jen <jen+git@cautionyourblast.com>",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": ">=12"
+  },
   "workspaces": [
     "model",
     "runner",
@@ -22,11 +25,13 @@
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
+    "smoke-test": "yarn workspace @xgovformbuilder/test",
     "model": "yarn workspace @xgovformbuilder/model",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
-    "type-check:watch": "yarn workspaces foreach run type-check --watch"
+    "type-check:watch": "yarn workspaces foreach run type-check --watch",
+    "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -35,20 +40,22 @@
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/plugin-proposal-class-properties": "7.10.1",
     "@babel/plugin-proposal-export-default-from": "^7.10.1",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.13.8",
     "@babel/plugin-proposal-private-methods": "^7.10.1",
     "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.10.4",
+    "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "^7.10.5",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.5.0",
-    "@typescript-eslint/parser": "^4.5.0",
+    "@types/hapi__vision": "^5.5.2",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
     "babel-eslint": "^11.0.0-beta.2",
-    "chromedriver": "^86.0.0",
+    "chromedriver": "^88.0.0",
     "concurrently": "^5.3.0",
-    "eslint": "^7.7.0",
+    "eslint": "^7.19.0",
     "eslint-config-prettier": "^6.13.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-import-resolver-alias": "^1.1.2",
@@ -57,29 +64,27 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.20.6",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "2.1.2",
-    "resolve": "^1.17.0",
-    "rollup": "^2.25.0",
-    "typescript": "^4.0.3",
+    "typescript": "^4.1.3",
     "wdio-chromedriver-service": "^6.0.4"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
-    "@rollup/plugin-node-resolve": "^9.0.0",
     "chai": "^4.2.0",
     "chai-webdriverio": "^1.0.0",
     "cucumber-html-reporter": "^5.2.0",
     "designer": "^1.0.2",
-    "govuk-frontend": "^3.8.1",
+    "govuk-frontend": "^3.10.1",
     "wdio-json-reporter": "^2.0.0",
     "webdriverio": "^6.6.0"
   },
   "resolutions": {
-    "resolve": "^1.17"
+    "braces": "2.3.1",
+    "pathval": "1.1.1",
+    "y18n": "4.0.1"
   },
   "husky": {
     "hooks": {

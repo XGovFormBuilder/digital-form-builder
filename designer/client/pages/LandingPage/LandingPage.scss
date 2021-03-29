@@ -1,0 +1,38 @@
+.new-config {
+  display: flex;
+  flex-direction: column;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 30px 200px;
+
+  .choice-wrapper {
+    margin-top: 70px;
+  }
+
+  .govuk-fieldset__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .govuk-heading-xl__lowmargin {
+    margin-bottom: 15px;
+  }
+
+  .back-link {
+    margin-bottom: 40px;
+  }
+
+  .table__cell__noborder {
+    border-bottom: none;
+  }
+  .form-grid {
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (min-height: 800px) {
+  .new-config {
+    padding-bottom: 200px;
+  }
+}

@@ -1,58 +1,93 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { CheckboxesField } from "server/plugins/engine/components/CheckboxesField";
-
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;
-const { suite, test } = lab;
+const { suite, describe, it } = lab;
+import sinon from "sinon";
 
-suite("Checkboxes field", () => {
-  test("Should construct appropriate model for items", () => {
-    const items = [
+const lists = [
+  {
+    name: "numberOfApplicants",
+    title: "Number of people",
+    type: "number",
+    items: [
       {
-        label: "A thing",
-        value: "myThing",
-        condition: "aCondition",
-        hint: "Jobbie",
+        text: "1",
+        value: 1,
+        description: "",
+        condition: "",
       },
       {
-        label: "Another thing",
-        value: "myOtherThing",
-        something: "Something else",
+        text: "2",
+        value: 2,
+        description: "",
+        condition: "",
       },
-    ];
-    const def = {
-      name: "myComponent",
-      title: "My component",
+      {
+        text: "3",
+        value: 3,
+        description: "",
+        condition: "",
+      },
+      {
+        text: "4",
+        value: 4,
+        description: "",
+        condition: "",
+      },
+    ],
+  },
+];
+
+suite("CheckboxesField", () => {
+  describe("Generated schema", () => {
+    const componentDefinition = {
+      subType: "field",
+      type: "CheckboxesField",
+      name: "myCheckbox",
+      title: "Tada",
       options: {},
+      list: "numberOfApplicants",
       schema: {},
-      values: { type: "static", valueType: "string", items: items },
     };
-    const model = {};
-    const underTest = new CheckboxesField(def, model);
-    const returned = underTest.getViewModel({ lang: "en" });
+    const formModel = {
+      getList: (_name) => lists[0],
+      makePage: () => sinon.stub(),
+    };
+    const component = new CheckboxesField(componentDefinition, formModel);
 
-    expect(returned.fieldset).to.equal({
-      legend: {
-        classes: "govuk-label--s",
-        text: def.title,
-      },
+    it("is required by default", () => {
+      expect(component.formSchema.describe().flags.presence).to.equal(
+        "required"
+      );
     });
-    expect(returned.items).to.equal([
-      {
-        checked: false,
-        text: "A thing",
-        value: "myThing",
-        condition: "aCondition",
-        hint: { html: "Jobbie" },
-      },
-      {
-        checked: false,
-        text: "Another thing",
-        value: "myOtherThing",
-        condition: undefined,
-      },
-    ]);
+    it("allows the items defined in the List object with the correct type", () => {
+      expect(component.formSchema.describe().items).to.contain({
+        type: "number",
+        allow: [1, 2, 3, 4],
+      });
+    });
+    it("allows single answers", () => {
+      expect(component.formSchema.describe().flags).to.contain({
+        single: true,
+      });
+    });
+    it("is not required when explicitly configured", () => {
+      const component = new CheckboxesField(
+        {
+          ...componentDefinition,
+          options: { required: false },
+        },
+        formModel
+      );
+      expect(component.formSchema.describe().flags.presence).to.not.equal(
+        "required"
+      );
+    });
+    it("validates correctly", () => {
+      expect(component.formSchema.validate({}).error).to.exist();
+    });
   });
 });

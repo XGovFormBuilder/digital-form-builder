@@ -19,8 +19,8 @@ It will also deal with hoisting the node_modules for any packages that are share
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node >=12. `node --version`.
-2. Make sure you have yarn 2 installed.
+1. Make sure you are using node >=12. upto 14. `node --version`.
+2. Make sure you have yarn 2.4+ installed.
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
 
@@ -37,7 +37,7 @@ To learn more about workspaces, check these links:
 
 `$ yarn [runner|designer|model] name-of-script`
 
-eg.: `yarn desginer start` or `yarn runner add babel-core --dev`
+eg.: `yarn designer start` or `yarn runner add babel-core --dev`
 
 #### run a script for each of the workspaces
 
@@ -99,4 +99,67 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/.github/CONTRIBUTING.md) first!
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+
+### Developer only features ⚠️
+
+There are some features that we do not want to expose (for fear of wide adoption), as they are not complete or have accessibility issues. Please use these with caution. 
+
+- Conditionally revealing of fields based on checkbox/radio selection. 
+  - This is a known accessibility issue. https://github.com/alphagov/govuk-frontend/issues/1991. NVDA, JAWS and VoiceOver (currently most popular screen readers) all have varying levels of support for checkboxes and radios. It is breaking WCAG 2.1A compliance.
+  - If you would like to use these, the runner will still support child components, you must add this to your JSON configuration manually. 
+    - Static lists (inside a Radios/Checkboxes Field component) 
+      ``` json5
+      { // Component object, other keys stripped for brevity
+        ...
+        "type": "RadiosField",
+        "values": {
+          "type": "static",
+          "valueType": "string",
+          "items": [
+            { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
+          ]
+        }
+      }
+      ```
+      where `{ ...subcomponent }` is any valid `Component` object
+    - Global lists
+      ``` json5 
+      { //List object, other keys stripped for brevity
+        ...
+        "items": [
+          { "text": "a", "value": "a", "description": "a",
+            "conditional": {
+              "components":[{ ...component }]
+            }
+          }
+        ]
+      }
+      ```
+      where `{ ...subcomponent }` is any valid `Component` object
+
+
+
+### Smoke tests
+
+There is a suite of smoke tests which are run against all PR's. There is nightly cron based action which executes smoke tests against the Heroku deployments. The nightly job is scheduled to run at midnight.
+
+To run the smoke tests locally, you start the containers up using the command
+
+```
+docker-compose up --build
+```
+Then smoke test can be executed using command
+
+```
+yarn smoke-tests/designer smoke-test-headless
+```
+
+Pre-requite for running smoke test are:
+ 1. Yarn 
+ 2. JVM 
+ 2. a browser like chrome
+ 3. Node version 12+ upto 14
+ 4. yarn install
+ 
+ More details are on [Smoke Tests](./smoke-tests/README.md)

@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChooseExisting no existing configurations 1`] = `
+<DocumentFragment>
+  <div
+    class="new-config"
+  >
+    <div>
+      <a
+        class="back-link govuk-back-link"
+        href="#0"
+      >
+        Back to previous page
+      </a>
+      <h1
+        class="govuk-heading-l"
+      >
+        Select an existing form
+      </h1>
+      <div
+        class="govuk-grid-row form-grid"
+      >
+        <div
+          class="govuk-grid-column-two-thirds"
+        >
+          <table
+            class="govuk-table"
+          >
+            <thead
+              class="govuk-table__head"
+            >
+              <tr
+                class="govuk-table__row"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="col"
+                >
+                  Form name
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="govuk-table__body"
+            >
+              <tr
+                class="govuk-table__row"
+              >
+                <td
+                  class="govuk-table__cell table__cell__noborder"
+                >
+                  You do not have any existing forms
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ChooseExisting with existing configurations 1`] = `
+<DocumentFragment>
+  <div
+    class="new-config"
+  >
+    <div>
+      <a
+        class="back-link govuk-back-link"
+        href="#0"
+      >
+        Back to previous page
+      </a>
+      <h1
+        class="govuk-heading-l"
+      >
+        Select an existing form
+      </h1>
+      <div
+        class="govuk-grid-row form-grid"
+      >
+        <div
+          class="govuk-grid-column-two-thirds"
+        >
+          <table
+            class="govuk-table"
+          >
+            <thead
+              class="govuk-table__head"
+            >
+              <tr
+                class="govuk-table__row"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="col"
+                >
+                  Form name
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="govuk-table__body"
+            >
+              <tr
+                class="govuk-table__row"
+              >
+                <td
+                  class="govuk-table__cell"
+                >
+                  <a
+                    class="govuk-link"
+                    href="#"
+                  >
+                    Not a feedback form
+                  </a>
+                </td>
+              </tr>
+              <tr
+                class="govuk-table__row"
+              >
+                <td
+                  class="govuk-table__cell"
+                >
+                  <a
+                    class="govuk-link"
+                    href="#"
+                  >
+                    My feedback form
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

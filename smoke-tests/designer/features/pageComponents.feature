@@ -6,34 +6,41 @@ Feature: Components
   Background: Create new config
     Given I have created a new form configuration
 
+  Scenario: Return to the component list without creating a component
+    When I choose to create a component for the "First page"
+    And I select "Details" component to add to the page
+    Then I am able to return to components list with creating the component
+
   Scenario Outline: Add a component to a page
     When I add a "<type>" control to the "First page"
     Then the "<type>" control is displayed in the "First page"
+    And the "<type>" is displayed when I Preview the page
     Examples:
-      | type                |
-      | Date field          |
-      | Date parts field    |
-      | Date time field     |
-      | Email address field |
-      | Paragraph           |
-      | Text field          |
+      | type          |
+      | Date          |
+      | Date parts    |
+      | Date time     |
+      | Email address |
+      | Paragraph     |
+      | Text          |
+
+  Scenario: Progress to the Summary after filling in Checkboxes
+    And I have created a list with 2 list items
+    When I add a "Checkboxes" control for the "Second page"
+    And I preview the "Second" page
+    Then I can check a checkbox
+    And progress to the "Summary" page
 
   Scenario: Add multiple components to a page
     When I add multiple components to the "First page"
     Then all the components are displayed in the "First page"
 
   Scenario: Delete a component
-    When I add a "Date field" control to the "First page"
-    And I delete the "Date field" control from the "First page"
-    Then the "Date field" will not be visible in the "First page"
+    When I add a "Date" control to the "First page"
+    And I delete the "Date" control from the "First page"
+    Then the "Date" will not be visible in the "First page"
 
   Scenario: Edit Sections from the form designer menu
-    When I choose "Edit Sections" from the designer menu
+    When I choose "Sections" from the designer menu
     And I add a new section
     Then the section should be available when I edit the Question page
-
-  Scenario: Edit Lists
-    And I choose "Edit Lists" from the designer menu
-    When I add a new list
-    And I create a "List" control for the "First page"
-    Then the list is available in the list options

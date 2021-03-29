@@ -1,6 +1,6 @@
-function fetchConfigurations() {
+export function fetchConfigurations() {
   return window
-    .fetch("/configurations", {
+    .fetch("/api/configurations", {
       method: "get",
       headers: {
         Accept: "application/json",
@@ -16,16 +16,13 @@ function fetchConfigurations() {
     });
 }
 
-async function loadConfigurations() {
+export async function loadConfigurations() {
   return fetchConfigurations()
     .then((data) => {
       return Object.values(data) || [];
     })
-    .catch((_error) => {
+    .catch((error) => {
+      console.error(error);
       return [];
     });
 }
-
-export default {
-  loadConfigurations: loadConfigurations,
-};

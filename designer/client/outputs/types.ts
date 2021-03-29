@@ -13,6 +13,7 @@ export type NotifyOutputConfiguration = {
   templateId: string;
   emailField: string;
   personalisation: string[];
+  addReferencesToPersonalisation?: boolean;
 };
 
 export type WebhookOutputConfiguration = {

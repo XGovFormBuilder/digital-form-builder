@@ -2,7 +2,7 @@ import fs from "fs";
 import hapi, { ServerOptions } from "@hapi/hapi";
 
 import Scooter from "@hapi/scooter";
-import inert from "inert";
+import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
 
@@ -44,7 +44,11 @@ const serverOptions = (): ServerOptions => {
         },
       },
       security: {
-        hsts: true,
+        hsts: {
+          maxAge: 31536000,
+          includeSubDomains: true,
+          preload: false,
+        },
         xss: true,
         noSniff: true,
         xframe: true,
@@ -81,6 +85,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(Scooter);
   await server.register(configureBlankiePlugin(config));
   await server.register(configureCrumbPlugin(config, routeConfig));
+  await server.register(pluginLogging);
   await server.register(Schmervice);
 
   server.registerService([
@@ -131,7 +136,6 @@ async function createServer(routeConfig: RouteConfig) {
 
   if (!config.isTest) {
     await server.register(blipp);
-    await server.register(pluginLogging);
   }
 
   return server;
