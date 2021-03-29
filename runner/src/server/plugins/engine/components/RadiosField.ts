@@ -13,8 +13,8 @@ export class RadiosField extends ListFormComponent {
 
     viewModel.items = items.map((item) => {
       const itemModel: any = {
-        ...item,
-        html: item.description,
+        text: item.text,
+        value: item.value,
         checked: `${item.value}` === `${formData[name]}`,
       };
 
@@ -25,7 +25,7 @@ export class RadiosField extends ListFormComponent {
       }
 
       if (item.description) {
-        itemModel.description = {
+        itemModel.hint = {
           html: this.localisedString(item.description),
         };
       }
