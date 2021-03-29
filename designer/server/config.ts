@@ -45,7 +45,7 @@ const schema = joi.object({
   footerText: joi.string().optional(),
   lastCommit: joi.string().default("undefined"),
   lastTag: joi.string().default("undefined"),
-  sessionTimeout: joi.number().default(20 * 60 * 1000),
+  sessionTimeout: joi.number().default(20 * 60 * 1000), // server-side storage expiration - defaults to 20 minutes
   sessionCookiePassword: joi.string().optional(),
 });
 

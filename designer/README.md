@@ -46,7 +46,7 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 | S3_BUCKET               | Name of the S3 bucket to upload to                         |    no    |                |                             |                                                                                                                                           |
 | LOG_LEVEL               | Log level                                                  |    no    | debug          |   trace,debug,info,error    |                                                                                                                                           |
 | FOOTER_TEXT             | Text displayed on the left side of the footer              |    no    |                |                             |
-| SESSION_TIMEOUT         | Session timeout in milliseconds                            |    no    |                |                             |
+| SESSION_TIMEOUT         | server-side storage expiration time - in milliseconds      |    no    |                |                             |
 | SESSION_COOKIE_PASSWORD | at least 32 char long string for session cookie encryption |    no    |                |                             |
 
 ## Unit tests
