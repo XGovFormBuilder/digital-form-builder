@@ -45,6 +45,7 @@ class Forms {
       formData.timeField.question,
       formData.timeField.answer
     );
+    formRunner.flashCardContinueBtn.scrollIntoView();
     formRunner.flashCardContinueBtn.click();
   }
 
