@@ -114,6 +114,10 @@ class FormRunnerPage {
       .find((el) => el.getText() === question)
       .nextElement();
   }
+
+  get flashCardContinueBtn() {
+    return browser.$(".flash-card .govuk-button");
+  }
 }
 
 module.exports = new FormRunnerPage();

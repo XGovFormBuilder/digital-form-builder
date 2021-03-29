@@ -45,7 +45,7 @@ class Forms {
       formData.timeField.question,
       formData.timeField.answer
     );
-    formRunner.continueButton.click();
+    formRunner.flashCardContinueBtn.click();
   }
 
   reportATerrorist() {
