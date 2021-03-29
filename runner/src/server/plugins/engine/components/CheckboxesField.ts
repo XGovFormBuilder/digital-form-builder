@@ -25,7 +25,6 @@ export class CheckboxesField extends ListFormComponent {
   getAnswers(state: FormSubmissionState) {
     const { name } = this;
     const value = state[name];
-    console.log("state here", value);
     const checked = Array.isArray(value) ? value : [value];
     return checked
       .map((check) => {
