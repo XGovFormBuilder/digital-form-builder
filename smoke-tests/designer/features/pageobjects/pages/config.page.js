@@ -1,6 +1,10 @@
 const Page = require("./basePage");
 
 class ConfigPage extends Page {
+  get pageHeading() {
+    return browser.$("h1");
+  }
+
   get newName() {
     return $(".govuk-input");
   }
