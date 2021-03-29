@@ -77,6 +77,14 @@ class FormRunnerPage {
   get submissionConfirmation() {
     return browser.$(".govuk-panel--confirmation");
   }
+
+  summaryAnswer(question) {
+    browser.$(".govuk-summary-list").waitForDisplayed();
+    return browser
+      .$$(".govuk-summary-list__key")
+      .find((el) => el.getText() === question)
+      .nextElement();
+  }
 }
 
 module.exports = new FormRunnerPage();

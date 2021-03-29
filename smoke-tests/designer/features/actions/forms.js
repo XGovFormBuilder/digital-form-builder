@@ -23,7 +23,7 @@ class Forms {
       formData.dateParts.year
     );
     formRunner.selectRadio(formData.radio2.answer, false);
-    formRunner.textBox(formData.multiLine.question, formData.multiLine.answer);
+    formRunner.textBox(formData.multiLine.answer);
     formRunner.inputField(
       formData.numberField.question,
       formData.numberField.answer
