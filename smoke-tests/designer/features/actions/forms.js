@@ -47,6 +47,9 @@ class Forms {
     );
     formRunner.flashCardContinueBtn.scrollIntoView();
     formRunner.flashCardContinueBtn.click();
+    if (formRunner.pageTitle.getText() === "final steps") {
+      formRunner.flashCardContinueBtn.click();
+    }
   }
 
   reportATerrorist() {
