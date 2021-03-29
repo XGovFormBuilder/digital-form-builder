@@ -44,10 +44,10 @@ export const getErrorCrashReport: ServerRoute = {
   method: "get",
   path: "/error/crashreport/{id}",
   options: {
-    handler: async (_request, h) => {
+    handler: async (request, h) => {
       try {
-        const { id } = _request.params;
-        const error = _request.yar.get(`error-summary-${id}`) as any;
+        const { id } = request.params;
+        const error = request.yar.get(`error-summary-${id}`) as any;
         const zip = new JSZip();
         zip.file(`${id}-crash-report.json`, JSON.stringify(error));
         const buffer = await zip.generateAsync({

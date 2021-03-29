@@ -24,6 +24,9 @@ export interface Config {
   sessionCookiePassword: string;
 }
 
+// server-side storage expiration - defaults to 20 minutes
+const sessionSTimeoutInMilliseconds = 20 * 60 * 1000;
+
 // Define config schema
 const schema = joi.object({
   port: joi.number().default(3000),
@@ -45,7 +48,7 @@ const schema = joi.object({
   footerText: joi.string().optional(),
   lastCommit: joi.string().default("undefined"),
   lastTag: joi.string().default("undefined"),
-  sessionTimeout: joi.number().default(20 * 60 * 1000), // server-side storage expiration - defaults to 20 minutes
+  sessionTimeout: joi.number().default(sessionSTimeoutInMilliseconds),
   sessionCookiePassword: joi.string().optional(),
 });
 
