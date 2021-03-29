@@ -48,7 +48,8 @@ class Forms {
     formRunner.flashCardContinueBtn.scrollIntoView();
     formRunner.flashCardContinueBtn.click();
     if (formRunner.pageTitle.getText() === "final steps") {
-      formRunner.flashCardContinueBtn.click();
+      browser.pause(1000);
+      formRunner.continueButton.click();
     }
   }
 
