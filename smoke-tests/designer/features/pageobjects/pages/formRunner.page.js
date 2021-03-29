@@ -2,10 +2,15 @@ class FormRunnerPage {
   open(path) {
     return browser.url(`${browser.config.runnerUrl}${path}/`);
   }
+
   get pageTitle() {
     return browser.$("h1");
   }
 
+  /**
+   * Selects a checkbox by label name
+   * @param labelText
+   */
   selectCheckbox(labelText) {
     const checkboxIndex = browser
       .$$(".govuk-checkboxes__label")
@@ -13,6 +18,11 @@ class FormRunnerPage {
     return browser.$$(".govuk-checkboxes__input")[checkboxIndex].click();
   }
 
+  /**
+   * Inputs text into a field that has a specific question
+   * @param labelText
+   * @param fieldValue
+   */
   inputField(labelText, fieldValue) {
     let fieldIndex = browser
       .$$(".govuk-input")
@@ -20,6 +30,10 @@ class FormRunnerPage {
     return browser.$$(".govuk-input")[fieldIndex].setValue(fieldValue);
   }
 
+  /**
+   * Inputs the address into the provided fields
+   * @param dataObject
+   */
   ukAddress(dataObject) {
     this.inputField("Address line 1", dataObject.line1);
     this.inputField("Address line 2", dataObject.line2);
@@ -35,6 +49,10 @@ class FormRunnerPage {
     return browser.$(".govuk-textarea");
   }
 
+  /**
+   * Selects a value from a list
+   * @param listValue
+   */
   selectFromList(listValue) {
     return browser.$(".govuk-select").selectByVisibleText(listValue);
   }
@@ -54,6 +72,12 @@ class FormRunnerPage {
     }
   }
 
+  /**
+   * Used to input the date for a date parts field
+   * @param day
+   * @param month
+   * @param year
+   */
   inputDate(day, month, year) {
     this.inputField("Day", day);
     this.inputField("Month", month);
@@ -78,6 +102,11 @@ class FormRunnerPage {
     return browser.$(".govuk-panel--confirmation");
   }
 
+  /**
+   * Retrieves the answer element by using the question asked
+   * @param question
+   * @returns {Element}
+   */
   summaryAnswer(question) {
     browser.$(".govuk-summary-list").waitForDisplayed();
     return browser
