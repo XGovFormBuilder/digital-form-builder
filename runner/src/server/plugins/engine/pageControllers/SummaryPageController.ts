@@ -85,7 +85,6 @@ export class SummaryPageController extends PageController {
         viewModel.declarationError = declarationError[0];
       }
 
-      console.log("vm, ", viewModel);
       return h.view("summary", viewModel);
     };
   }

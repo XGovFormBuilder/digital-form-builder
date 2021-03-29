@@ -394,7 +394,7 @@ export class SummaryViewModel {
   }
 
   get payApiKey() {
-    return this._payApiKey ?? "";
+    return this._payApiKey;
   }
 
   addDeclarationAsQuestion() {
