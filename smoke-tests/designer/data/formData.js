@@ -1,24 +1,28 @@
 module.exports = {
   yesNo: {
+    question: "Do you own a vehicle?",
     answer: "Yes",
   },
   address: {
+    question: "What address is the vehicle registered to?",
     line1: "Testington Manor",
     line2: "Test Road",
     townOrCity: "Test Town",
     postCode: "TT1 1TT",
   },
   dateField: {
-    question: "What dateParts was the vehicle registered at this address?",
-    answer: "01012020",
+    question: "What date was the vehicle registered at this address?",
+    answer: "01/01/2020",
   },
   checkBox1: {
+    question: "Which Clean Air Zones are you claiming an exemption for?",
     answer: "Bath",
   },
   checkBox2: {
     answer: "Bristol",
   },
   autoComp: {
+    question: "What is the make of you vehicle?",
     answer: "BMW",
   },
   textField: {
@@ -26,11 +30,13 @@ module.exports = {
     answer: "740",
   },
   dateParts: {
+    question: "Date you purchased the vehicle?",
     day: "22",
     month: "03",
     year: "2021",
   },
   radio2: {
+    question: "What fuel type does your vehicle use?",
     answer: "Hydrogen",
   },
   multiLine: {
