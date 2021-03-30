@@ -100,7 +100,8 @@ class SelectConditions extends React.Component<Props, State> {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
     const { data } = this.context;
-    const hasConditions = data.conditions.length > 0 || selectedCondition;
+    const hasConditions = data.hasConditions || selectedCondition;
+    const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
 
     return (
       <div className="conditions">
@@ -115,7 +116,7 @@ class SelectConditions extends React.Component<Props, State> {
             <Hint key={`conditions-header-group-hint-${index}`}>{hint}</Hint>
           ))}
         </div>
-        {Object.keys(this.state.fields ?? {}).length > 0 || hasConditions ? (
+        {hasFields || hasConditions ? (
           <div>
             {hasConditions && (
               <Select
