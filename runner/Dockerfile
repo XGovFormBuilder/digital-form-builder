@@ -24,7 +24,7 @@ COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser designer/package.json ./designer/
 COPY --chown=appuser:appuser runner/package.json ./runner/
 USER 1001
-RUN yarn
+RUN yarn; exit 0 && node node_modules/node-sass/scripts/install.js && yarn rebuild node-sass
 
 # ----------------------------
 # Stage 3
@@ -51,7 +51,7 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner ./runner/
-RUN yarn runner build && \
+RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && rebuild only node-sass && yarn runner build  && \
     rm -rf ./designer
 USER 1001
 EXPOSE 3009
