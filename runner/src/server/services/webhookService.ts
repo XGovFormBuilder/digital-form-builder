@@ -3,6 +3,7 @@ import { HapiServer } from "../types";
 
 const DEFAULT_OPTIONS = {
   headers: {
+    accept: "application/json",
     "content-type": "application/json",
   },
   timeout: 60000,
@@ -26,7 +27,7 @@ export class WebhookService {
       payload: JSON.stringify(data),
     });
 
-    if (typeof payload === "object") {
+    if (typeof payload === "object" && !Buffer.isBuffer(payload)) {
       return payload.reference;
     }
 
