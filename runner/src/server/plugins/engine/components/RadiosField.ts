@@ -1,5 +1,6 @@
 import { FormData, FormSubmissionErrors } from "../types";
 import { ListFormComponent } from "./ListFormComponent";
+import { ListItem } from "./types";
 
 export class RadiosField extends ListFormComponent {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
@@ -12,9 +13,9 @@ export class RadiosField extends ListFormComponent {
     };
 
     viewModel.items = items.map((item) => {
-      const itemModel: any = {
-        ...item,
-        html: item.description,
+      const itemModel: ListItem = {
+        text: item.text,
+        value: item.value,
         checked: `${item.value}` === `${formData[name]}`,
       };
 
@@ -25,7 +26,7 @@ export class RadiosField extends ListFormComponent {
       }
 
       if (item.description) {
-        itemModel.description = {
+        itemModel.hint = {
           html: this.localisedString(item.description),
         };
       }

@@ -50,7 +50,6 @@ export class ListFormComponent extends FormComponent {
     const value = state[name];
     return `${items.find((item) => item.value === value)?.value ?? ""}`;
   }
-
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, items } = this;
     const viewModel = super.getViewModel(formData, errors);
@@ -63,7 +62,7 @@ export class ListFormComponent extends FormComponent {
         condition,
       })) ?? [];
 
-    viewModel.items = [...viewModelItems];
+    viewModel.items = viewModelItems;
 
     return viewModel;
   }
