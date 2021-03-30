@@ -10,14 +10,16 @@ Given("I am on the form designer start page", function () {
 
 Given("I have previously created a form", function () {
   this.configRef = actions.createNewConfig();
-  formDesigner.createNewForm.click();
+  formDesigner.clickLink("Create new form");
 });
 
 When("I try to create a new form without entering a form name", function () {
   configPage.clickButton("Next");
+  configPage.clickButton("Next");
 });
 
 When("I enter the name of the form again", function () {
+  configPage.clickButton("Next");
   configPage.newName.setValue(this.configRef);
   configPage.clickButton("Next");
 });
@@ -29,6 +31,6 @@ Then("I am informed there is a problem", function () {
 
 Then("the error message {string} is displayed", function (errorMessage) {
   expect(configPage.errorSummaryErrors(0)).toHaveText(errorMessage);
-  expect(configPage.formError).toHaveText(errorMessage);
+  expect(configPage.formError).toHaveTextContaining(errorMessage);
   expect(formDesigner.designerMenu).not.toBeDisplayed();
 });

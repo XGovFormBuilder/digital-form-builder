@@ -3,7 +3,6 @@ Feature: Start Page
   I want to give my form a unique name
   So that I can edit it at a later date
 
-  @debug
   Scenario: Starting a form without entering a name displays an error
     Given I am on the form designer start page
     When I try to create a new form without entering a form name
