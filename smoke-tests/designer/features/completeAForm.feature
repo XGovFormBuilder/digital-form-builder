@@ -24,6 +24,6 @@ Feature: Complete a form
     Then I taken directly to the page titled "Yes I have evidence"
 
   Scenario: Complete the CG test form
-    Given I am at the start of the "cg test" form
+    Given I am at the start of the "runner components test" form
     When I complete the form
     Then the Summary page is displayed with my answers

@@ -2,7 +2,7 @@ const { formRunner } = require("../pageobjects/pages");
 const formData = require("../../data/formData");
 
 class Forms {
-  cgTest() {
+  runnerComponentsTest() {
     formRunner.selectRadio(formData.yesNo.answer);
     formRunner.ukAddress(formData.address);
     formRunner.inputField(
@@ -45,12 +45,8 @@ class Forms {
       formData.timeField.question,
       formData.timeField.answer
     );
-    formRunner.flashCardContinueBtn.scrollIntoView();
-    formRunner.flashCardContinueBtn.click();
-    if (formRunner.pageTitle.getText() === "final steps") {
-      browser.pause(1000);
-      formRunner.continueButton.click();
-    }
+    formRunner.continueButton.scrollIntoView();
+    formRunner.continueButton.click();
   }
 
   reportATerrorist() {

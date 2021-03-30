@@ -203,17 +203,6 @@
           "type": "TimeField",
           "title": "Please enter the current time?",
           "schema": {}
-        },
-        {
-          "name": "jyO5Ha",
-          "options": {},
-          "type": "FlashCard",
-          "title": "Are you sure you want to continue?",
-          "hint": "This is the final page in the process, should you wish to change any answers you can do so from the next page",
-          "values": {
-            "type": "listRef"
-          },
-          "schema": {}
         }
       ],
       "next": [
