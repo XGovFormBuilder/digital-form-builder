@@ -47,7 +47,6 @@ const applicationStatus = {
             payService,
             webhookService,
             cacheService,
-            sheetsService,
           } = request.services([]);
           const {
             pay,
@@ -148,18 +147,6 @@ const applicationStatus = {
                       delete formData.fees;
                     }
                     return webhookService.postRequest(url, formData);
-                  }
-                  case "sheets": {
-                    const {
-                      spreadsheetId,
-                      data,
-                      authOptions,
-                    } = output.outputData;
-                    return sheetsService.appendTo(
-                      spreadsheetId,
-                      data,
-                      authOptions
-                    );
                   }
                   default:
                     return {};

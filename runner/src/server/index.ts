@@ -24,7 +24,6 @@ import {
   EmailService,
   NotifyService,
   PayService,
-  SheetsService,
   UploadService,
   WebhookService,
 } from "./services";
@@ -79,7 +78,7 @@ async function createServer(routeConfig: RouteConfig) {
   if (config.rateLimit) {
     await server.register(configureRateLimitPlugin(routeConfig));
   }
-
+  await server.register(pluginSession);
   await server.register(pluginPulse);
   await server.register(inert);
   await server.register(Scooter);
@@ -95,7 +94,6 @@ async function createServer(routeConfig: RouteConfig) {
     UploadService,
     EmailService,
     WebhookService,
-    SheetsService,
   ]);
 
   server.ext(
@@ -127,7 +125,6 @@ async function createServer(routeConfig: RouteConfig) {
   );
 
   await server.register(pluginLocale);
-  await server.register(pluginSession);
   await server.register(pluginViews);
   await server.register(configureEnginePlugin(formFileName, formFilePath));
   await server.register(pluginApplicationStatus);
