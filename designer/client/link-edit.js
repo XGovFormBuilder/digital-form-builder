@@ -1,9 +1,9 @@
 import React from "react";
-import SelectConditions from "./conditions/SelectConditions";
+import SelectConditions from "./../../conditions/SelectConditions";
 import { clone } from "@xgovformbuilder/model";
-import { i18n } from "./i18n";
+import { i18n } from "./../../i18n";
 
-import { DataContext } from "./context";
+import { DataContext } from "./../../context";
 
 class LinkEdit extends React.Component {
   static contextType = DataContext;
@@ -25,8 +25,7 @@ class LinkEdit extends React.Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const { link, page, selectedCondition } = this.state;
-    const { data } = this.props;
-    const { save } = this.context;
+    const { data, save } = this.context;
 
     const copy = clone(data);
     const updatedData = copy.updateLink(
@@ -50,9 +49,8 @@ class LinkEdit extends React.Component {
       return;
     }
 
-    const { data } = this.props;
     const { link, page } = this.state;
-    const { save } = this.context;
+    const { data, save } = this.context;
 
     const copy = clone(data);
     const copyPage = copy.findPage(page.path);
@@ -112,7 +110,6 @@ class LinkEdit extends React.Component {
           </select>
         </div>
         <SelectConditions
-          data={data}
           path={edge.source}
           selectedCondition={selectedCondition}
           conditionsChange={this.conditionSelected}

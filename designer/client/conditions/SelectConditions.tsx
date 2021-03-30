@@ -5,6 +5,7 @@ import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
 import { i18n } from "../i18n";
+import { DataContext } from "../context";
 
 interface Props {
   path: string;
@@ -21,8 +22,10 @@ interface State {
 }
 
 class SelectConditions extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
+  static contextType = DataContext;
+
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       fields: this.fieldsForPath(props.path),
@@ -44,14 +47,14 @@ class SelectConditions extends React.Component<Props, State> {
   };
 
   fieldsForPath(path: string) {
-    const { data } = this.props;
-    const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs();
+    const { data } = this.context;
+    const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs ?? [];
     return inputs
       .map((input) => ({
         label: input.title,
         name: input.propertyPath,
         type: input.type,
-        values: data.valuesFor(input)?.toStaticValues()?.items,
+        values: data.valuesFor(input)?.items,
       }))
       .reduce((obj, item) => {
         obj[item.name] = item;
@@ -95,8 +98,9 @@ class SelectConditions extends React.Component<Props, State> {
 
   render() {
     const { selectedCondition, inline } = this.state;
-    const { data, hints = [], noFieldsHintText } = this.props;
-    const hasConditions = data.hasConditions || selectedCondition;
+    const { hints = [], noFieldsHintText } = this.props;
+    const { data } = this.context;
+    const hasConditions = data.conditions.length > 0 || selectedCondition;
 
     return (
       <div className="conditions">
@@ -111,19 +115,20 @@ class SelectConditions extends React.Component<Props, State> {
             <Hint key={`conditions-header-group-hint-${index}`}>{hint}</Hint>
           ))}
         </div>
-        {this.state.fields && Object.keys(this.state.fields).length > 0 ? (
+        {Object.keys(this.state.fields ?? {}).length > 0 || hasConditions ? (
           <div>
             {hasConditions && (
               <Select
                 id="select-condition"
                 name="cond-select"
+                data-testid="select-condition"
                 value={selectedCondition ?? ""}
                 items={[
                   {
                     children: [""],
                     value: "",
                   },
-                  ...this.props.data.conditions.map((it) => ({
+                  ...this.context.data.conditions.map((it) => ({
                     children: [it.displayName],
                     value: it.name,
                   })),
@@ -155,7 +160,7 @@ class SelectConditions extends React.Component<Props, State> {
                 onHide={this.onCancelInlineCondition}
               >
                 <InlineConditions
-                  data={this.props.data}
+                  data={this.context.data}
                   path={this.props.path}
                   conditionsChange={this.onSaveInlineCondition}
                   cancelCallback={this.onCancelInlineCondition}
