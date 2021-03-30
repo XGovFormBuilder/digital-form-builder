@@ -11,6 +11,19 @@ export type Content = {
   condition?: any; // TODO
 };
 
+export type ListItemLabel = Omit<Label, "text" | "isPageHeading">;
+
+export type ListItem = {
+  text?: string;
+  value: string | boolean | number;
+  hint?: {
+    html: string;
+  };
+  checked?: boolean;
+  selected?: boolean;
+  label?: ListItemLabel;
+};
+
 // TODO: Break this down for each component (Same as model/Component).
 export type ViewModel = {
   label?: Label;
@@ -36,7 +49,7 @@ export type ViewModel = {
   };
   content?: Content | Content[] | string;
   rows?: number;
-  items?: any;
+  items?: ListItem[];
   disableLookup?: boolean;
   fieldset?: {
     legend?: Label;
