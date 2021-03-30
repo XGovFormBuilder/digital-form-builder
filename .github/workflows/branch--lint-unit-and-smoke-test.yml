@@ -106,8 +106,10 @@ jobs:
           docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
+      - name: rebuild node-sass
+        run: yarn rebuild only node-sass
       - name: Install smoke tests dependencies
-        run: yarn install --cwd "smoke-tests/designer"
+        run: yarn workspaces focus smoke-tests/designer
       - name: Check designer container is running
         run: |
           docker ps
