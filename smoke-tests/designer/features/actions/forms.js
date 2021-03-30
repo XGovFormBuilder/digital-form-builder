@@ -46,7 +46,12 @@ class Forms {
       formData.timeField.answer
     );
     formRunner.continueButton.scrollIntoView();
+    browser.pause(500);
     formRunner.continueButton.click();
+    if (formRunner.pageTitle.getText() === "final steps") {
+      browser.pause(500);
+      formRunner.continueButton.click();
+    }
   }
 
   reportATerrorist() {
