@@ -120,6 +120,7 @@ export function ComponentListSelect() {
           )}
           <button
             className="govuk-link govuk-body govuk-!-margin-bottom-0"
+            data-testid="add-list"
             onClick={handleAddListClick}
           >
             {i18n("list.addNew")}
