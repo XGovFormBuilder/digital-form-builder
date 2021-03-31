@@ -28,7 +28,7 @@ module.exports = {
   list: {
     title: "List test",
     name: "testList",
-    hint: "An automated test for creating local lists",
+    hint: "An automated test for creating lists",
   },
   paragraph: {
     content: `You need the vehicle’s number plate (registration number).\n
@@ -49,5 +49,10 @@ module.exports = {
     title: "Flash Card Test",
     name: "flashCard",
     hint: "Custom flash card",
+  },
+  radios: {
+    title: "Radios test",
+    name: "testRadios",
+    hint: "An automated test for creating Radios with lists",
   },
 };
