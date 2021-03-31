@@ -104,7 +104,7 @@ class SelectConditions extends React.Component<Props, State> {
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
 
     return (
-      <div className="conditions">
+      <div className="conditions" data-testid="select-conditions">
         <div className="govuk-form-group" id="conditions-header-group">
           <label
             className="govuk-label govuk-label--s"

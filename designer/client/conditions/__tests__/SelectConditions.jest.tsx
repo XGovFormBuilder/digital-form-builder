@@ -81,10 +81,16 @@ test("SelectConditions renders available conditions", () => {
     data,
     save: jest.fn(),
   };
-  const { queryByText, getByTestId } = customRender(
+  const { getByText, queryByText, getByTestId } = customRender(
     <SelectConditions />,
     providerProps
   );
+  const expectedConditions = data.conditions.map(
+    (condition) => condition.displayName
+  );
   expect(queryByText("You cannot add any conditions as")).toBeNull();
   expect(getByTestId("select-condition")).toBeInTheDocument();
+  expectedConditions.forEach((condition) => {
+    expect(getByText(condition)).toBeInTheDocument();
+  });
 });
