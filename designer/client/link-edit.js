@@ -50,9 +50,8 @@ class LinkEdit extends React.Component {
       return;
     }
 
-    const { data } = this.props;
     const { link, page } = this.state;
-    const { save } = this.context;
+    const { data, save } = this.context;
 
     const copy = clone(data);
     const copyPage = copy.findPage(page.path);
@@ -112,7 +111,6 @@ class LinkEdit extends React.Component {
           </select>
         </div>
         <SelectConditions
-          data={data}
           path={edge.source}
           selectedCondition={selectedCondition}
           conditionsChange={this.conditionSelected}
