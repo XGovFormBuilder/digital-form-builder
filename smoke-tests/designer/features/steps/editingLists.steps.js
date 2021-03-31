@@ -146,3 +146,61 @@ When("I add a {string} with a list to the {string}", function (
   createComponent.selectList("List test");
   createComponent.saveBtn.click();
 });
+
+When(/^I "([^"]*)" to my list component$/, function (linkText) {
+  createComponent.clickLink(linkText);
+  createComponent;
+});
+
+Then(
+  /^the help text for Radios is displayed when I Preview the page$/,
+  function () {
+    formDesigner.previewPageForPageName(this.pageName).click();
+    browser.switchWindow(`${this.pageName}`);
+    expect(
+      previewPage.hintText(FieldData[toCamelCase(this.componentName)].name)
+    ).toHaveText(FieldData.radios.hint);
+  }
+);
+
+Then(/^the help text is displayed for each radio item$/, function () {
+  expect(previewPage.radioHelpText[0]).toHaveText("Help text 0");
+  expect(previewPage.radioHelpText[1]).toHaveText("Help text 1");
+});
+
+Then(
+  /^the title for my Radio list is displayed when I Preview the page$/,
+  function () {
+    formDesigner.previewPageForPageName(this.pageName).click();
+    browser.switchWindow(`${this.pageName}`);
+    expect(previewPage.componentTitle).toHaveText(
+      FieldData[toCamelCase(this.componentName)].title
+    );
+  }
+);
+
+When(
+  /^I add a "([^"]*)" control with a hidden title to the "([^"]*)"$/,
+  function (componentName, pageName) {
+    this.componentName = componentName;
+    this.pageName = pageName;
+    formDesigner.createComponentForPageName(pageName).click();
+    createComponent.selectComponentByName(this.componentName);
+    createComponent.completeCommonFields(
+      FieldData[toCamelCase(this.componentName)],
+      false,
+      true
+    );
+    createComponent.selectList(FieldData.list.title);
+    createComponent.saveBtn.click();
+  }
+);
+
+Then(
+  /^the title for my Radio list is not displayed when I Preview the page$/,
+  function () {
+    formDesigner.previewPageForPageName(this.pageName).click();
+    browser.switchWindow(`${this.pageName}`);
+    expect(previewPage.componentTitle.isDisplayed()).toEqual(false);
+  }
+);

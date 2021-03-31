@@ -15,6 +15,15 @@ Given("I have created a new form configuration", () => {
   Actions.createNewConfig();
 });
 
+Given(
+  /^I have created a form with a "([^"]*)" field on the "([^"]*)"$/,
+  function (componentName, pageName) {
+    this.pageName = pageName;
+    Actions.createNewConfig();
+    Actions.createComponentForPage(componentName, this.pageName);
+  }
+);
+
 When("I choose to create a component for the {string}", function (pageName) {
   formDesigner.createComponentForPageName(pageName).click();
 });
@@ -168,11 +177,12 @@ When("I add a {string} control for the {string}", function (
   componentName,
   pageName
 ) {
+  this.componentName = componentName;
   this.pageName = pageName;
   formDesigner.createComponentForPageName(pageName).click();
-  createComponent.selectComponentByName(componentName);
+  createComponent.selectComponentByName(this.componentName);
   createComponent.completeCommonFields(
-    FieldData[toCamelCase(componentName)],
+    FieldData[toCamelCase(this.componentName)],
     false
   );
   createComponent.selectList(FieldData.list.title);

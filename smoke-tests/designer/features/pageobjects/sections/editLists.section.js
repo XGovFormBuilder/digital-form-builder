@@ -114,7 +114,7 @@ class EditListsSection extends Section {
       this.addNewListItem(
         "Add a new list item",
         `List item ${i}`,
-        `${i}`,
+        `Help text ${i}`,
         `${i}`
       );
     }
