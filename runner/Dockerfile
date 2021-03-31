@@ -2,7 +2,7 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:12-alpine3.12 AS base
+FROM node:15-alpine AS base
 RUN mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
@@ -21,10 +21,8 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 COPY --chown=appuser:appuser model/package.json ./model/
-COPY --chown=appuser:appuser designer/package.json ./designer/
 COPY --chown=appuser:appuser runner/package.json ./runner/
 USER 1001
-RUN yarn; exit 0 && node node_modules/node-sass/scripts/install.js && yarn rebuild node-sass
 
 # ----------------------------
 # Stage 3
@@ -36,7 +34,7 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model ./model/
 USER 1001
-RUN yarn model build
+RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
 
 # ----------------------------
 # Stage 4
@@ -51,8 +49,7 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner ./runner/
-RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && rebuild only node-sass && yarn runner build  && \
-    rm -rf ./designer
+RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && yarn rebuild only node-sass && yarn runner build
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]

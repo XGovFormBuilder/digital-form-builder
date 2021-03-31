@@ -103,7 +103,7 @@ jobs:
           cat ./${{ matrix.app }}/.env
       - name: Docker compose build
         run: |
-          docker-compose build
+          docker-compose build --parallel
       - name: Docker compose up
         run: docker-compose up -d
       - name: rebuild node-sass
