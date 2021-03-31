@@ -2,7 +2,7 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:15-alpine AS base
+FROM node:12-alpine3.12 AS base
 RUN mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
@@ -49,7 +49,7 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner ./runner/
-RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && yarn rebuild only node-sass && yarn runner build
+RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && yarn rebuild && yarn runner build
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]
