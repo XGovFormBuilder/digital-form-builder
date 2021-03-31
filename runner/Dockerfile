@@ -49,7 +49,8 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner ./runner/
-RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && yarn rebuild && yarn runner build
+RUN yarn workspaces focus @xgovformbuilder/runner; exit 0 && yarn rebuild
+RUN yarn runner build
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]
