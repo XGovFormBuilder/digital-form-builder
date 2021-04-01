@@ -19,6 +19,7 @@ class Actions {
     expect(browser).toHaveUrlContaining(
       this.configRef.replace(" ", "-").toLowerCase()
     );
+    return this.configRef;
   }
 
   /**

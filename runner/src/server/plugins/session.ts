@@ -1,8 +1,7 @@
 import config from "../config";
-import yar from "yar";
 
 export default {
-  plugin: yar,
+  plugin: require("@hapi/yar"),
   options: {
     cache: {
       expiresIn: config.sessionTimeout,

@@ -150,29 +150,13 @@ const webhookSchema = joi.object().keys({
   url: joi.string(),
 });
 
-const sheetItemSchema = joi.object().keys({
-  name: joi.string(),
-  id: joi.string(),
-});
-
-const sheetsSchema = joi.object().keys({
-  credentials: joi.object().keys({
-    private_key: joi.string(),
-    client_email: joi.string(),
-  }),
-  project_id: joi.string(),
-  scopes: joi.array().items(joi.string()),
-  sheets: joi.array().items(sheetItemSchema),
-  spreadsheetIdField: joi.string(),
-});
-
 const outputSchema = joi.object().keys({
   name: joi.string(),
   title: joi.string().optional(),
   type: joi.string().allow("notify", "email", "webhook", "sheets"),
   outputConfiguration: joi
     .alternatives()
-    .try(notifySchema, emailSchema, webhookSchema, sheetsSchema),
+    .try(notifySchema, emailSchema, webhookSchema),
 });
 
 const feedbackSchema = joi.object().keys({

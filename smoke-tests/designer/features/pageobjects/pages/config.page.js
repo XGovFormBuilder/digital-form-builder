@@ -1,8 +1,13 @@
 const Page = require("./basePage");
 
 class ConfigPage extends Page {
+  get pageHeading() {
+    return browser.$("h1");
+  }
+
   get newName() {
-    return $(".govuk-input");
+    browser.$(".govuk-input").waitForDisplayed();
+    return browser.$(".govuk-input");
   }
 
   get newForm() {
@@ -31,6 +36,15 @@ class ConfigPage extends Page {
     this.newFormScreen.waitForDisplayed();
     this.newName.setValue(configName);
     this.nextBtn.click();
+  }
+
+  errorSummaryErrors() {
+    return browser.$$(".govuk-error-summary__list li a");
+  }
+
+  get formError() {
+    browser.$(".govuk-error-message").waitForDisplayed();
+    return browser.$(".govuk-error-message");
   }
 
   open() {

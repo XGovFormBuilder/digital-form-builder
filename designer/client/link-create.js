@@ -12,14 +12,17 @@ class LinkCreate extends React.Component {
   static contextType = DataContext;
   state = { errors: {} };
 
+  constructor(props, context) {
+    super(props, context);
+  }
+
   onSubmit = async (e) => {
     e.preventDefault();
-    const { save } = this.context;
+    const { data, save } = this.context;
     const { from, to, selectedCondition } = this.state;
     const hasValidationErrors = this.validate();
     if (hasValidationErrors) return;
-    // Apply
-    const { data } = this.props;
+
     const copy = clone(data);
     const updatedData = copy.addLink(from, to, selectedCondition);
     const savedData = await save(updatedData);
@@ -55,7 +58,7 @@ class LinkCreate extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data } = this.context;
     const { pages } = data;
     const { from, errors } = this.state;
     let hasValidationErrors = Object.keys(errors).length > 0;
@@ -86,12 +89,17 @@ class LinkCreate extends React.Component {
                 "govuk-input--error": errors?.from,
               })}
               id="link-source"
+              data-testid="link-source"
               name="path"
               onChange={(e) => this.storeValue(e, "from")}
             >
               <option />
               {pages.map((page) => (
-                <option key={page.path} value={page.path}>
+                <option
+                  key={page.path}
+                  value={page.path}
+                  data-testid="link-source-option"
+                >
                   {page.title}
                 </option>
               ))}
@@ -114,12 +122,17 @@ class LinkCreate extends React.Component {
                 "govuk-input--error": errors?.to,
               })}
               id="link-target"
+              data-testid="link-target"
               name="page"
               onChange={(e) => this.storeValue(e, "to")}
             >
               <option />
               {pages.map((page) => (
-                <option key={page.path} value={page.path}>
+                <option
+                  key={page.path}
+                  value={page.path}
+                  data-testid="link-target-option"
+                >
                   {page.title}
                 </option>
               ))}
@@ -128,7 +141,6 @@ class LinkCreate extends React.Component {
 
           {from && from.trim() !== "" && (
             <SelectConditions
-              data={data}
               path={from}
               conditionsChange={this.conditionSelected}
               noFieldsHintText={i18n("addLink.noFieldsAvailable")}
