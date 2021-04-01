@@ -38,15 +38,20 @@ class Forms {
     );
     formRunner.continueButton.click();
     formRunner.inputField(
-      formData.emailAddress.question,
-      formData.emailAddress.answer
-    );
-    formRunner.inputField(
       formData.timeField.question,
       formData.timeField.answer
     );
-    browser.keys("Tab");
-    browser.keys("Enter");
+    formRunner.inputField(
+      formData.emailAddress.question,
+      formData.emailAddress.answer
+    );
+    formRunner.continueButton.scrollIntoView();
+    browser.pause(500);
+    formRunner.continueButton.click();
+    if (formRunner.pageTitle.getText() === "final steps") {
+      browser.pause(500);
+      formRunner.continueButton.click();
+    }
   }
 
   reportATerrorist() {
