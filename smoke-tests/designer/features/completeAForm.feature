@@ -3,8 +3,6 @@ Feature: Complete a form
   I want to complete a form
   So that I submit my form successfully
 
-  # Remove @wip tag when the cookie issue is resolved
-  @wip
   Scenario: Complete the report a Terrorist form
     Given I am at the start of the "report a terrorist" form
     And I complete the form

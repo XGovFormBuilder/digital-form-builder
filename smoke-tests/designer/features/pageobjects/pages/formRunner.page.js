@@ -85,6 +85,10 @@ class FormRunnerPage {
   }
 
   get continueButton() {
+    return browser.$("#submit");
+  }
+
+  get submitButton() {
     return browser.$(".govuk-button");
   }
 

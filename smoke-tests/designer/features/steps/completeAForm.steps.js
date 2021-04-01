@@ -19,7 +19,7 @@ When("I view the Summary page", function () {
 });
 
 When("I submit the completed form", function () {
-  formRunner.continueButton.click();
+  formRunner.submitButton.click();
 });
 
 Then("the {string} page is displayed", function (successMessage) {
