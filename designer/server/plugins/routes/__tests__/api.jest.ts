@@ -84,7 +84,7 @@ describe("Server API", () => {
     });
   });
 
-  test("PUT should place error on session", async () => {
+  test("Failure to communicate with Runner should place error on session", async () => {
     const options = {
       method: "put",
       url: "/api/test-form-id/data",
