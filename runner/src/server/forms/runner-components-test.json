@@ -190,13 +190,6 @@
           "schema": {}
         },
         {
-          "name": "1Ru1w8",
-          "options": {},
-          "type": "TimeField",
-          "title": "Please enter the current time?",
-          "schema": {}
-        },
-        {
           "name": "L_2AYe",
           "options": {},
           "type": "EmailAddressField",
