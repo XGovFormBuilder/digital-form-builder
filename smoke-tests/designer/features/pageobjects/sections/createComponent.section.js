@@ -34,6 +34,10 @@ class CreateComponentSection extends Page {
     return this.parent.$("#field-hint");
   }
 
+  get hideTitle() {
+    return this.parent.$("#field-options-hideTitle");
+  }
+
   get listOptions() {
     return this.parent.$("select#field-options-list").$$("option");
   }
@@ -61,10 +65,13 @@ class CreateComponentSection extends Page {
    * @param dataObject
    * @param save
    */
-  completeCommonFields(dataObject, save = true) {
+  completeCommonFields(dataObject, save = true, hideTitle = false) {
     this.titleField.setValue(dataObject.title);
     this.hintField.setValue(dataObject.hint);
     this.nameField.setValue(dataObject.name);
+    if (hideTitle) {
+      this.hideTitle.click();
+    }
     if (save) {
       this.saveBtn.click();
     }

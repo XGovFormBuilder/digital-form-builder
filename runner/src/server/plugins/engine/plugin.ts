@@ -193,6 +193,7 @@ export const plugin = {
         function handle() {
           const { path, id } = request.params;
           const model = forms[id];
+
           if (model) {
             const page = model.pages.find(
               (page) => normalisePath(page.path) === normalisePath(path)

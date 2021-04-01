@@ -2464,7 +2464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/statehood@npm:^7.0.3":
+"@hapi/statehood@npm:7.x.x, @hapi/statehood@npm:^7.0.3":
   version: 7.0.3
   resolution: "@hapi/statehood@npm:7.0.3"
   dependencies:
@@ -2557,6 +2557,17 @@ __metadata:
     "@hapi/bourne": 2.x.x
     "@hapi/hoek": 9.x.x
   checksum: ea3fd37926e16e0c2667e19b17a707eca1e2a58422af610a070d95c09c8b403e1069df4c04bf68ab44f8e1784bd3b7eb5ba5e05b4a13f4df43de3549dbcb9c82
+  languageName: node
+  linkType: hard
+
+"@hapi/yar@npm:^10.1.1":
+  version: 10.1.1
+  resolution: "@hapi/yar@npm:10.1.1"
+  dependencies:
+    "@hapi/hoek": 9.x.x
+    "@hapi/statehood": 7.x.x
+    uuid: ^8.3.0
+  checksum: acb40b716590d8e070432c7b0ff379abd87effbfc2a1a6ccd0ecc0aa407f995d06efa7c84f498d1edaa9bdf40916ca133267aa2dbe4af59b757ea7d3238637ad
   languageName: node
   linkType: hard
 
@@ -4799,6 +4810,7 @@ __metadata:
     "@hapi/lab": 24.0.0
     "@hapi/scooter": 6.0.0
     "@hapi/wreck": 17.0.0
+    "@hapi/yar": ^10.1.1
     "@types/hapi": ^18.0.4
     "@types/hapi__catbox-memory": ^4.1.2
     "@types/hapi__catbox-redis": ^5.0.2

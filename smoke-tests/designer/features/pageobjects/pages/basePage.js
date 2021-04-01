@@ -66,4 +66,12 @@ module.exports = class Page {
   selectList(listName) {
     browser.$(".govuk-select").selectByVisibleText(listName);
   }
+
+  get errorSummary() {
+    return browser.$(".govuk-error-summary");
+  }
+
+  get errorSummaryHeading() {
+    return browser.$(".govuk-error-summary__title");
+  }
 };
