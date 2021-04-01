@@ -103,7 +103,7 @@ jobs:
           cat ./${{ matrix.app }}/.env
       - name: Docker compose build
         run: |
-          docker-compose build --parallel
+          docker-compose build --no-cache
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
