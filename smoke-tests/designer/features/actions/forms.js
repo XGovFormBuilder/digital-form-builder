@@ -46,11 +46,11 @@ class Forms {
       formData.emailAddress.answer
     );
     formRunner.continueButton.scrollIntoView();
-    browser.pause(500);
-    formRunner.continueButton.click();
+    browser.keys("Tab");
+    browser.keys("Enter");
     if (formRunner.pageTitle.getText() === "final steps") {
       browser.pause(500);
-      formRunner.continueButton.click();
+      browser.keys("Enter");
     }
   }
 
