@@ -74,9 +74,6 @@ Then(/^the Summary page is displayed with my answers$/, function () {
   expect(formRunner.summaryAnswer(formData.textField2.question)).toHaveText(
     "Juan Pablo Montoya"
   );
-  // expect(formRunner.summaryAnswer(formData.timeField.question)).toHaveText(
-  //   "10:31"
-  // );
   expect(formRunner.summaryAnswer(formData.emailAddress.question)).toHaveText(
     "testing@testing.com"
   );

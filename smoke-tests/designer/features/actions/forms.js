@@ -37,10 +37,6 @@ class Forms {
       formData.phoneNumber.answer
     );
     formRunner.continueButton.click();
-    // formRunner.inputField(
-    //   formData.timeField.question,
-    //   formData.timeField.answer
-    // );
     formRunner.inputField(
       formData.emailAddress.question,
       formData.emailAddress.answer
