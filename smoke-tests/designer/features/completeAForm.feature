@@ -3,6 +3,8 @@ Feature: Complete a form
   I want to complete a form
   So that I submit my form successfully
 
+  # Cookie issue exists in the pipeline
+  @wip
   Scenario: Complete the report a Terrorist form
     Given I am at the start of the "report a terrorist" form
     And I complete the form
