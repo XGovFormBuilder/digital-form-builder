@@ -40,7 +40,12 @@ Given("I have progressed to the Do you have any evidence? page", function () {
 });
 
 Then(/^the Summary page is displayed with my answers$/, function () {
-  expect(formRunner.pageTitle).toHaveText("summary", { ignoreCase: true });
+  browser.waitUntil(
+    () => formRunner.pageTitle.getText().toLowerCase() === "summary",
+    {
+      timeoutMsg: `Failed to reach the Summary page, page url is: ${browser.getUrl()}`,
+    }
+  );
   expect(formRunner.summaryAnswer(formData.yesNo.question)).toHaveText("Yes");
   expect(formRunner.summaryAnswer(formData.address.question)).toHaveText(
     "Testington Manor, Test Road, Test Town, TT1 1TT"

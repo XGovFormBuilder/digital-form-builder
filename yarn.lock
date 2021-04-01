@@ -4877,10 +4877,17 @@ __metadata:
     "@wdio/spec-reporter": ^6.6.0
     "@wdio/sync": ^6.6.0
     arkit: ^1.6.4
+    chai: ^4.2.0
+    chai-webdriverio: ^1.0.0
+    chromedriver: ^88.0.0
+    cucumber-html-reporter: ^5.2.0
     fs-extra: ^9.0.1
     multiple-cucumber-html-reporter: ^1.18.0
+    wdio-chromedriver-service: ^6.0.4
     wdio-config: ^5.0.0-alpha.7
     wdio-cucumberjs-json-reporter: ^2.0.2
+    wdio-json-reporter: ^2.0.0
+    webdriverio: ^6.6.0
   languageName: unknown
   linkType: soft
 
@@ -8837,15 +8844,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"designer@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "designer@npm:1.0.2"
-  dependencies:
-    request: ^2.60.0
-  checksum: 7a1fdcd920bea3976e3a4d696b6b988fbc1d5f80a3265df1780ea9689d13c9182cc7047d006638d8dbd2cc4a66736cebff888f5e9256a9d2b6877098788d5233
-  languageName: node
-  linkType: hard
-
 "destroy@npm:~1.0.4":
   version: 1.0.4
   resolution: "destroy@npm:1.0.4"
@@ -8977,12 +8975,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.10.0
     "@typescript-eslint/parser": ^4.10.0
     babel-eslint: ^11.0.0-beta.2
-    chai: ^4.2.0
-    chai-webdriverio: ^1.0.0
-    chromedriver: ^88.0.0
     concurrently: ^5.3.0
-    cucumber-html-reporter: ^5.2.0
-    designer: ^1.0.2
     eslint: ^7.19.0
     eslint-config-prettier: ^6.13.0
     eslint-config-standard: ^14.1.1
@@ -8998,9 +8991,6 @@ __metadata:
     magic-string: ^0.25.7
     prettier: 2.1.2
     typescript: ^4.1.3
-    wdio-chromedriver-service: ^6.0.4
-    wdio-json-reporter: ^2.0.0
-    webdriverio: ^6.6.0
   languageName: unknown
   linkType: soft
 
@@ -19648,7 +19638,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"request@npm:^2.60.0, request@npm:^2.88.0, request@npm:^2.88.2":
+"request@npm:^2.88.0, request@npm:^2.88.2":
   version: 2.88.2
   resolution: "request@npm:2.88.2"
   dependencies:
