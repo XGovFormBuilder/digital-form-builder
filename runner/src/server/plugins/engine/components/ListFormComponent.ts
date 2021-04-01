@@ -4,6 +4,7 @@ import { FormComponent } from "./FormComponent";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 import { FormModel } from "./../models";
 import { List, Item } from "@xgovformbuilder/model";
+import { ListItem } from "./types";
 
 export class ListFormComponent extends FormComponent {
   list: List;
@@ -13,6 +14,7 @@ export class ListFormComponent extends FormComponent {
   options: ListComponentsDef["options"];
 
   get items(): Item[] {
+    console.log("list", this.list);
     return this.list?.items ?? [];
   }
   get values(): (string | number | boolean)[] {
@@ -54,10 +56,11 @@ export class ListFormComponent extends FormComponent {
     const { name, items } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    const viewModelItems =
-      items.map(({ text, value, condition }) => ({
+    const viewModelItems: ListItem[] =
+      items.map(({ text, value, description = "", condition }) => ({
         text: this.localisedString(text),
         value,
+        description,
         selected: `${value}` === `${formData[name]}`,
         condition,
       })) ?? [];
