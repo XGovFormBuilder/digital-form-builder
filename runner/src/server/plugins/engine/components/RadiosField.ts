@@ -1,42 +1,9 @@
-import { FormData, FormSubmissionErrors } from "../types";
-import { ListFormComponent } from "./ListFormComponent";
-import { ListItem } from "./types";
+import { SelectionControlField } from "./SelectionControlField";
 
-export class RadiosField extends ListFormComponent {
-  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const { name, items } = this;
-    const options: any = this.options;
-    const viewModel = super.getViewModel(formData, errors);
-
-    viewModel.fieldset = {
-      legend: viewModel.label,
-    };
-
-    viewModel.items = items.map((item) => {
-      const itemModel: ListItem = {
-        text: item.text,
-        value: item.value,
-        checked: `${item.value}` === `${formData[name]}`,
-      };
-
-      if (options.bold) {
-        itemModel.label = {
-          classes: "govuk-label--s",
-        };
-      }
-
-      if (item.description) {
-        itemModel.hint = {
-          html: this.localisedString(item.description),
-        };
-      }
-
-      return itemModel;
-
-      // FIXME:- add this back when GDS fix accessibility issues involving conditional reveal fields
-      //return super.addConditionalComponents(item, itemModel, formData, errors);
-    });
-
-    return viewModel;
-  }
-}
+/**
+ * @description sorry about the empty class...
+ * Exported Components must follow the naming convention implemented in @xgovformbuilder/model/components ComponentType.
+ * In the Form JSON, components have a type property which is the name of the components, e.g. DateField.
+ * Components are loaded in the ComponentsCollection constructor.
+ */
+export class RadiosField extends SelectionControlField {}
