@@ -1,7 +1,7 @@
 import { PersistenceService } from "./persistenceService";
 import { FormConfiguration, Logger } from "@xgovformbuilder/model";
-import { getCustomRepository } from "typeorm";
-import { Form, FormRepository } from "../../repositories";
+import { getConnection } from "typeorm";
+import { Form } from "../../repositories";
 import { initDB } from "../../db";
 
 export class PGPersistenceService implements PersistenceService {
@@ -15,12 +15,14 @@ export class PGPersistenceService implements PersistenceService {
 
   async listAllConfigurations() {
     try {
-      const data = await getCustomRepository(
-        FormRepository,
-        "designerCon"
-      ).find();
-
-      return data.map((entry) => {
+      const forms = await getConnection("designerCon").transaction(
+        async (em) => {
+          const repo = em.getRepository(Form);
+          const data = await repo.find();
+          return data;
+        }
+      );
+      return forms.map((entry) => {
         return new FormConfiguration(
           entry.id,
           entry.name,
@@ -36,12 +38,14 @@ export class PGPersistenceService implements PersistenceService {
 
   async getConfiguration(id: string) {
     try {
-      const data = await getCustomRepository(
-        FormRepository,
-        "designerCon"
-      ).findOne(id);
-
-      return data?.formJson;
+      const form = await getConnection("designerCon").transaction(
+        async (em) => {
+          const repo = em.getRepository(Form);
+          const data = await repo.findOne(id);
+          return data;
+        }
+      );
+      return form?.formJson;
     } catch (err) {
       this.logger.error(err);
       return err;
@@ -50,27 +54,29 @@ export class PGPersistenceService implements PersistenceService {
 
   async uploadConfiguration(id: string, configuration: string) {
     try {
-      const parsedConfiguration = JSON.parse(configuration);
-      const repo = getCustomRepository(FormRepository, "designerCon");
-      const existing = await repo.findOne(id);
-
-      if (existing) {
-        existing.name = parsedConfiguration.name || id;
-        existing.feedbackForm =
-          parsedConfiguration.feedback?.feedbackForm || false;
-        existing.formJson = configuration;
-        repo.save(existing);
-      } else {
-        const newForm = new Form();
-        newForm.id = id;
-        newForm.formJson = configuration;
-        newForm.name = parsedConfiguration.name || id;
-        newForm.feedbackForm =
-          parsedConfiguration.feedback?.feedbackForm || false;
-        repo.save(newForm);
-      }
+      await getConnection("designerCon").transaction(async (em) => {
+        const repo = em.getRepository(Form);
+        const parsedConfiguration = JSON.parse(configuration);
+        const existing = await repo.findOne(id);
+        if (existing) {
+          existing.name = parsedConfiguration.name || id;
+          existing.feedbackForm =
+            parsedConfiguration.feedback?.feedbackForm || false;
+          existing.formJson = configuration;
+          await repo.save(existing);
+        } else {
+          const newForm = new Form();
+          newForm.id = id;
+          newForm.formJson = configuration;
+          newForm.name = parsedConfiguration.name || id;
+          newForm.feedbackForm =
+            parsedConfiguration.feedback?.feedbackForm || false;
+          await repo.save(newForm);
+        }
+      });
       return;
     } catch (err) {
+      console.log("Error occurred while uploading configuration", err.message);
       this.logger.error(err);
       return err;
     }
@@ -78,6 +84,6 @@ export class PGPersistenceService implements PersistenceService {
 
   async copyConfiguration(configurationId: string, newName: string) {
     const configuration = await this.getConfiguration(configurationId);
-    return this.uploadConfiguration(newName, JSON.parse(configuration).values);
+    return this.uploadConfiguration(newName, configuration);
   }
 }
