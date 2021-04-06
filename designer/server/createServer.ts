@@ -9,6 +9,7 @@ import Schmervice from "schmervice";
 import config from "./config";
 import { determinePersistenceService } from "./lib/persistence";
 import { configureBlankiePlugin } from "./plugins/blankie";
+import "reflect-metadata";
 
 const serverOptions = () => {
   return {

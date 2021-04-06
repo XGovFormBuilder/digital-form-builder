@@ -8,7 +8,7 @@ export interface Config {
   port: number;
   previewUrl: string;
   publishUrl: string;
-  persistentBackend: "s3" | "blob" | "preview";
+  persistentBackend: "s3" | "blob" | "preview" | "pg";
   s3Bucket?: string;
   persistentKeyId?: string;
   persistentAccessKey?: string;
@@ -20,6 +20,8 @@ export interface Config {
   isTest: boolean;
   lastCommit: string;
   lastTag: string;
+  dbUrl: string;
+  dbSync: boolean;
 }
 
 // Define config schema
@@ -31,7 +33,10 @@ const schema = joi.object({
     .default("development"),
   previewUrl: joi.string(),
   publishUrl: joi.string(),
-  persistentBackend: joi.string().valid("s3", "blob", "preview").optional(),
+  persistentBackend: joi
+    .string()
+    .valid("s3", "blob", "preview", "pg")
+    .optional(),
   s3Bucket: joi.string().optional(),
   persistentKeyId: joi.string().optional(),
   persistentAccessKey: joi.string().optional(),
@@ -43,6 +48,8 @@ const schema = joi.object({
   footerText: joi.string().optional(),
   lastCommit: joi.string().default("undefined"),
   lastTag: joi.string().default("undefined"),
+  dbUrl: joi.string().default("undefined"),
+  dbSync: joi.boolean().default(false),
 });
 
 // Build config
@@ -60,6 +67,8 @@ const config = {
   footerText: process.env.FOOTER_TEXT,
   lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
   lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
+  dbUrl: process.env.DB_URL,
+  dbSync: process.env.DB_SYNC,
 };
 
 // Validate config
@@ -72,7 +81,6 @@ if (result.error) {
 
 // Use the joi validated value
 const value: Config = result.value;
-
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;
 value.isTest = value.env === "test";

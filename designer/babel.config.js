@@ -20,6 +20,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    ["@babel/plugin-proposal-decorators", { legacy: true }],
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-private-methods",
     "@babel/plugin-syntax-dynamic-import",
@@ -28,7 +29,6 @@ module.exports = {
     "@babel/plugin-proposal-nullish-coalescing-operator",
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-logical-assignment-operators",
-
     [
       "module-resolver",
       {
