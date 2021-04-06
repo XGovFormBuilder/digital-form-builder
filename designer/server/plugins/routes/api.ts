@@ -61,7 +61,7 @@ export const putFormWithId: ServerRoute = {
             request.payload
           );
 
-          throw new Error("Schema validation failed", error);
+          throw new Error("Schema validation failed, reason::" + error.message);
         }
         await persistenceService.uploadConfiguration(
           `${id}`,
@@ -74,6 +74,7 @@ export const putFormWithId: ServerRoute = {
         const errorSummary = {
           id: id,
           payload: request.payload,
+          errorMessage: err.message,
           error: err,
         };
         request.yar.set(`error-summary-${id}`, errorSummary);
