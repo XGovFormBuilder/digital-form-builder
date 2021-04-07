@@ -20,12 +20,19 @@
     "@wdio/selenium-standalone-service": "^6.12.1",
     "@wdio/spec-reporter": "^6.6.0",
     "@wdio/sync": "^6.6.0",
+    "chromedriver": "^88.0.0",
     "fs-extra": "^9.0.1",
-    "multiple-cucumber-html-reporter": "^1.18.0"
+    "multiple-cucumber-html-reporter": "^1.18.0",
+    "wdio-chromedriver-service": "^6.0.4"
   },
   "dependencies": {
     "arkit": "^1.6.4",
+    "chai": "^4.2.0",
+    "chai-webdriverio": "^1.0.0",
+    "cucumber-html-reporter": "^5.2.0",
     "wdio-config": "^5.0.0-alpha.7",
-    "wdio-cucumberjs-json-reporter": "^2.0.2"
+    "wdio-cucumberjs-json-reporter": "^2.0.2",
+    "wdio-json-reporter": "^2.0.0",
+    "webdriverio": "^6.6.0"
   }
 }
