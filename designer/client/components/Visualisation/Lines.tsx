@@ -48,6 +48,7 @@ export class Lines extends React.Component<Props, State> {
             return (
               <g key={points}>
                 <polyline
+                  data-testid="pageLinks"
                   onClick={() => this.editLink(edge)}
                   points={points}
                   className={`${highlight ? "highlight" : ""}`}
