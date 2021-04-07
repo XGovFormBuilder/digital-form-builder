@@ -34,7 +34,7 @@ class FormRunnerPage {
    * Inputs the address into the provided fields
    * @param dataObject
    */
-  ukAddress(dataObject) {
+  inputUkAddress(dataObject) {
     this.inputField("Address line 1", dataObject.line1);
     this.inputField("Address line 2", dataObject.line2);
     this.inputField("Town or city", dataObject.townOrCity);
@@ -96,7 +96,7 @@ class FormRunnerPage {
    * Inputs text into a multiline text component and then clicks continue
    * @param text
    */
-  textBox(text) {
+  inputTextBox(text) {
     this.textArea.waitForDisplayed();
     this.textArea.setValue(text);
     this.continueButton.click();

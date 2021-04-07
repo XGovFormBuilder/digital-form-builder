@@ -4,7 +4,7 @@ const formData = require("../../data/formData");
 class Forms {
   runnerComponentsTest() {
     formRunner.selectRadio(formData.yesNo.answer);
-    formRunner.ukAddress(formData.address);
+    formRunner.inputUkAddress(formData.address);
     formRunner.inputField(
       formData.dateField.question,
       formData.dateField.answer
@@ -23,7 +23,7 @@ class Forms {
       formData.dateParts.year
     );
     formRunner.selectRadio(formData.radio2.answer, false);
-    formRunner.textBox(formData.multiLine.answer);
+    formRunner.inputTextBox(formData.multiLine.answer);
     formRunner.inputField(
       formData.numberField.question,
       formData.numberField.answer
@@ -52,9 +52,9 @@ class Forms {
 
   reportATerrorist() {
     formRunner.selectRadio("Yes, I do have a link");
-    formRunner.textBox("https://nodejs.org/en/");
+    formRunner.inputTextBox("https://nodejs.org/en/");
     formRunner.selectRadio("No, I don't have evidence");
-    formRunner.textBox("File upload is not yet finished!!");
+    formRunner.inputTextBox("File upload is not yet finished!!");
   }
 }
 

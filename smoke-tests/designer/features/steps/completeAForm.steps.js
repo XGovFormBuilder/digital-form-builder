@@ -36,7 +36,7 @@ Then("I taken directly to the page titled {string}", function (pageTitle) {
 
 Given("I have progressed to the Do you have any evidence? page", function () {
   formRunner.selectRadio("Yes, I do have a link");
-  formRunner.textBox("https://nodejs.org/en/");
+  formRunner.inputTextBox("https://nodejs.org/en/");
 });
 
 Then(/^the Summary page is displayed with my answers$/, function () {
@@ -75,6 +75,6 @@ Then(/^the Summary page is displayed with my answers$/, function () {
     "Juan Pablo Montoya"
   );
   expect(formRunner.summaryAnswer(formData.emailAddress.question)).toHaveText(
-    "testing@testing.com"
+    "testing@example.com"
   );
 });

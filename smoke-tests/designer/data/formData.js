@@ -57,7 +57,7 @@ module.exports = {
   },
   emailAddress: {
     question: "Your email address",
-    answer: "testing@testing.com",
+    answer: "testing@example.com",
   },
   timeField: {
     question: "Please enter the current time?",
