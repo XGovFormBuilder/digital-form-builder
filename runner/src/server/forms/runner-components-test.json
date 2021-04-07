@@ -1,0 +1,379 @@
+{
+  "startPage": "/do-you-own-a-vehicle",
+  "pages": [
+    {
+      "title": "Do you own a vehicle?",
+      "path": "/do-you-own-a-vehicle",
+      "components": [
+        {
+          "name": "qqbRw1",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you own a vehicle?",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "LdOljB",
+          "options": {},
+          "type": "InsetText",
+          "content": "<strong>It does not matter what you pick as it will redirect you to the same page</strong>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/what-address-is-the-vehicle-registered-to"
+        }
+      ]
+    },
+    {
+      "path": "/what-address-is-the-vehicle-registered-to",
+      "title": "What address is the vehicle registered to?",
+      "components": [
+        {
+          "name": "sFR4aX",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "What address is the vehicle registered to?",
+          "schema": {}
+        },
+        {
+          "name": "tVlnZa",
+          "options": {},
+          "type": "DateField",
+          "title": "What date was the vehicle registered at this address?",
+          "schema": {}
+        },
+        {
+          "name": "Z0Guyn",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Which Clean Air Zones are you claiming an exemption for?",
+          "list": "O2uEB1",
+          "hint": "Please check all that apply, however you are restricted to a maximum of two choices.",
+          "schema": {}
+        },
+        {
+          "name": "M8gMK7",
+          "options": {
+            "required": false
+          },
+          "type": "FileUploadField",
+          "title": "Proof of address",
+          "hint": "This can be a drivers licence or utility bill dated with the last month",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/details-about-your-vehicle"
+        }
+      ]
+    },
+    {
+      "path": "/clean-air-zone-caz-exemption",
+      "title": "Clean Air Zone (CAZ) Exemption",
+      "components": [
+        {
+          "name": "MOB13t",
+          "options": {},
+          "type": "Para",
+          "content": "How to check if you're exempt from paying a charge and how to create a business account, and what support or exemptions are available. ",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/do-you-own-a-vehicle"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/details-about-your-vehicle",
+      "title": "Details about your vehicle",
+      "components": [
+        {
+          "name": "0ZVmN_",
+          "options": {},
+          "type": "AutocompleteField",
+          "title": "What is the make of you vehicle?",
+          "list": "-HMHHj",
+          "schema": {}
+        },
+        {
+          "name": "gHSgo2",
+          "options": {},
+          "type": "TextField",
+          "title": "Vehicle Model",
+          "hint": "For example A1, 740, Elantra",
+          "schema": {}
+        },
+        {
+          "name": "4LZ9to",
+          "options": {},
+          "type": "DatePartsField",
+          "title": "Date you purchased the vehicle?",
+          "schema": {}
+        },
+        {
+          "type": "RadiosField",
+          "title": "What fuel type does your vehicle use?",
+          "list": "sm_ssM",
+          "name": "fsfsdfsdf",
+          "nameHasError": false,
+          "options": {},
+          "schema": {}
+        },
+        {
+          "name": "chYCuk",
+          "options": {},
+          "type": "MultilineTextField",
+          "title": "Has the vehicle been modified in any way?",
+          "hint": "Failure to declare modifications will result in severe penalties if not disclosed at this point.",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/driver-details"
+        }
+      ]
+    },
+    {
+      "path": "/driver-details",
+      "title": "Driver details",
+      "components": [
+        {
+          "name": "wJzPKE",
+          "options": {},
+          "type": "NumberField",
+          "title": "How many people in your household drive this vehicle?",
+          "schema": {}
+        },
+        {
+          "name": "PNIThU",
+          "options": {},
+          "type": "TextField",
+          "title": "Full name of the main driver",
+          "hint": "Please exclude your title",
+          "schema": {}
+        },
+        {
+          "name": "0zL5bB",
+          "options": {},
+          "type": "TelephoneNumberField",
+          "title": "Contact number",
+          "hint": "Landline or mobile",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/final-steps"
+        }
+      ]
+    },
+    {
+      "path": "/final-steps",
+      "title": "final steps",
+      "components": [
+        {
+          "name": "fkd8av",
+          "options": {},
+          "type": "List",
+          "title": "Declaration",
+          "list": "mJHWaC",
+          "schema": {}
+        },
+        {
+          "name": "L_2AYe",
+          "options": {},
+          "type": "EmailAddressField",
+          "title": "Your email address",
+          "hint": "We will send confirmation of your application to the provided email address",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Summary",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "Vehicle Type",
+      "name": "ckrDmV",
+      "type": "string",
+      "items": [
+        {
+          "text": "Car",
+          "value": 1
+        },
+        {
+          "text": "4 x 4/SUV",
+          "value": 2
+        },
+        {
+          "text": "Van",
+          "value": 3
+        },
+        {
+          "text": "Motorbike/Moped",
+          "value": 4
+        }
+      ]
+    },
+    {
+      "title": "Vehicle Make",
+      "name": "-HMHHj",
+      "type": "string",
+      "items": [
+        {
+          "text": "Alfa Romeo",
+          "value": 1
+        },
+        {
+          "text": "BMW",
+          "value": 2
+        },
+        {
+          "text": "Ford",
+          "value": 3
+        },
+        {
+          "text": "Citroen",
+          "value": 4
+        },
+        {
+          "text": "Nissan",
+          "value": 5
+        },
+        {
+          "text": "Honda",
+          "value": 6
+        },
+        {
+          "text": "Mercedes",
+          "value": 8
+        },
+        {
+          "text": "Audi",
+          "value": 9
+        },
+        {
+          "text": "Toyota",
+          "value": 10
+        },
+        {
+          "text": "Hyundai",
+          "value": 11
+        },
+        {
+          "text": "Kia",
+          "value": 12
+        }
+      ]
+    },
+    {
+      "title": "Fuel types",
+      "name": "sm_ssM",
+      "type": "string",
+      "items": [
+        {
+          "text": "Diesel",
+          "value": 1
+        },
+        {
+          "text": "Electric",
+          "value": 2
+        },
+        {
+          "text": "Hydrogen",
+          "value": 3
+        },
+        {
+          "text": "Petrol",
+          "value": 4
+        },
+        {
+          "text": "Hybrid",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "title": "CAZ Location",
+      "name": "O2uEB1",
+      "type": "string",
+      "items": [
+        {
+          "text": "Bath",
+          "value": 1
+        },
+        {
+          "text": "Bristol",
+          "value": 2
+        },
+        {
+          "text": "Birmingham",
+          "value": 3
+        },
+        {
+          "text": "Cardiff",
+          "value": 4
+        },
+        {
+          "text": "Liverpool",
+          "value": 6
+        },
+        {
+          "text": "Leeds",
+          "value": 7
+        },
+        {
+          "text": "Manchester",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "title": "Declaration",
+      "name": "mJHWaC",
+      "type": "string",
+      "items": [
+        {
+          "text": "You are not a Robot",
+          "value": 1
+        },
+        {
+          "text": "You have not previously claimed an exemption",
+          "value": 2
+        },
+        {
+          "text": "You have not omitted or purposely witheld information that might be detrimental to you claim",
+          "value": 3
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "phaseBanner": {},
+  "metadata": {},
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "conditions": []
+}

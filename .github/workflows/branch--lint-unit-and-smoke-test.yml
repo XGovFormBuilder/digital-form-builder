@@ -83,18 +83,18 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Docker compose pull
         run: docker-compose pull
-        # MONTH key is used to rotate docker-layer-caching to avoid the layers dandle issue
+        # WEEK key is used to rotate docker-layer-caching to avoid the layers dandle issue
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to master--lint-unit-build-and-publish-images.yml
         # so master branch cache can be shared with branches
-      - run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
+      - run: echo "WEEK=$(date +%U)" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
         with:
-          key: digital-form-builder-${{ env.MONTH }}-{hash}
+          key: digital-form-builder-${{ env.WEEK }}-{hash}
           restore-keys: |
-            digital-form-builder-${{ env.MONTH }}
+            digital-form-builder-${{ env.WEEK }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
@@ -103,11 +103,11 @@ jobs:
           cat ./${{ matrix.app }}/.env
       - name: Docker compose build
         run: |
-          docker-compose build
+          docker-compose build --parallel
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
-        run: yarn install --cwd "smoke-tests/designer"
+        run: yarn workspaces focus @xgovformbuilder/test
       - name: Check designer container is running
         run: |
           docker ps
