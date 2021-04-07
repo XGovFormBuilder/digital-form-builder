@@ -13,7 +13,7 @@ import {
 import { Page, Section, List, Feedback, PhaseBanner } from "./types";
 import dfs from "depth-first";
 
-const isNotContentType = (
+export const isNotContentType = (
   obj: ComponentDef
 ): obj is InputFieldsComponentsDef | ListComponentsDef => {
   const contentTypes: ContentComponentsDef["type"][] = [
@@ -24,7 +24,8 @@ const isNotContentType = (
   ];
   return !contentTypes.find((type) => `${type}` === `${obj.type}`);
 };
-function allInputs(pages) {
+
+export function allInputs(pages) {
   return pages.flatMap((page) => {
     const inputs = (page.components ?? []).filter(isNotContentType);
     return inputs.map((input) => {
