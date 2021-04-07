@@ -6,6 +6,7 @@ import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
 import { i18n } from "../i18n";
 import { DataContext } from "../context";
+import { RenderInPortal } from "../components/RenderInPortal";
 
 interface Props {
   path: string;
@@ -54,7 +55,7 @@ class SelectConditions extends React.Component<Props, State> {
         label: input.title,
         name: input.propertyPath,
         type: input.type,
-        values: data.valuesFor(input)?.items,
+        values: data.findList(input.list)?.items?.map((item) => item.value),
       }))
       .reduce((obj, item) => {
         obj[item.name] = item;
@@ -155,18 +156,18 @@ class SelectConditions extends React.Component<Props, State> {
               </div>
             )}
             {inline && (
-              <Flyout
-                title="Define condition"
-                show={true}
-                onHide={this.onCancelInlineCondition}
-              >
-                <InlineConditions
-                  data={this.context.data}
-                  path={this.props.path}
-                  conditionsChange={this.onSaveInlineCondition}
-                  cancelCallback={this.onCancelInlineCondition}
-                />
-              </Flyout>
+              <RenderInPortal>
+                <Flyout
+                  title="Define condition"
+                  onHide={this.onCancelInlineCondition}
+                >
+                  <InlineConditions
+                    path={this.props.path}
+                    conditionsChange={this.onSaveInlineCondition}
+                    cancelCallback={this.onCancelInlineCondition}
+                  />
+                </Flyout>
+              </RenderInPortal>
             )}
           </div>
         ) : (
