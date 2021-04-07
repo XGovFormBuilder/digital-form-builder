@@ -35,6 +35,11 @@ class AddConditionSection extends Page {
     return browser.$("#cond-operator").selectByVisibleText(conditionName);
   }
 
+  selectValue(conditionValue) {
+    browser.$("#cond-value").waitForDisplayed();
+    return browser.$("#cond-value").selectByVisibleText(conditionValue);
+  }
+
   /**
    * Inputs the date for the condition
    * @param dd

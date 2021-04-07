@@ -1,4 +1,4 @@
-const { When, Then } = require("cucumber");
+const { Given, When, Then } = require("cucumber");
 const { formDesigner } = require("../pageobjects/pages");
 const editSection = require("../pageobjects/sections/editSection.section");
 const addCondition = require("../pageobjects/sections/addCondition.section");
@@ -51,3 +51,21 @@ When(/^I create a condition for the "([^"]*)" field$/, function (
   addCondition.clickButton("Add");
   addCondition.clickLink("Save");
 });
+
+Given(/^I have created a condition$/, function () {
+  formDesigner.clickButton("Conditions");
+  editSection.clickLink("Add condition");
+  this.operator = fieldData[toCamelCase(this.componentName)].title;
+  addCondition.displayName(`Test ${this.operator}`);
+  addCondition.selectCondition(this.operator);
+  addCondition.selectOperator("is");
+  addCondition.selectValue("Yes");
+  addCondition.clickButton("Add");
+  addCondition.clickButton("Save");
+});
+
+When(/^I add the condition to the "([^"]*)" page link$/, function (linkNumber) {
+  linkNumber;
+});
+
+Then(/^the condition is added successfully$/, function () {});

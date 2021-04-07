@@ -11,3 +11,10 @@ Feature: Edit Conditions
     And I add a condition for the "Date"
     Then the condition is created
     And I can save the condition
+
+  @wip
+  Scenario:
+    Given I have a form with a "YesNo" field on the "First page"
+    And I have created a condition
+    When I add the condition to the "first" page link
+    Then the condition is added successfully
