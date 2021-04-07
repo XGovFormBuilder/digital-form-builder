@@ -38,6 +38,14 @@ class PreviewPage extends Page {
   get summaryList() {
     return browser.$(".govuk-summary-list");
   }
+
+  get radioHelpText() {
+    return browser.$$(".govuk-radios__hint");
+  }
+
+  get componentTitle() {
+    return browser.$(".govuk-fieldset .govuk-fieldset__legend");
+  }
 }
 
 module.exports = new PreviewPage();

@@ -10,7 +10,7 @@
     "start:local": "NODE_ENV=development PREVIEW_MODE=true nodemon dist/index.js",
     "dev": "concurrently 'yarn watch' 'yarn start:local'",
     "build": "yarn build:css && yarn babel-build && yarn run check-forms",
-    "build:css": "bin/build-css",
+    "build:css": "yarn sass src/client/sass:public/build/stylesheets -s compressed -I . --no-source-map",
     "babel-build": "babel --extensions '.ts' src -d dist --copy-files -s inline",
     "lint": "yarn bin/run eslint .",
     "fix-lint": "yarn bin/run eslint . --fix",
@@ -122,7 +122,7 @@
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.22.0",
     "lab": "18.0.2",
-    "node-sass": "^5.0.0",
+    "sass": "^1.26.11",
     "typescript": "^4.0.3"
   },
   "lighthouse": {

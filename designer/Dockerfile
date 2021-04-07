@@ -22,9 +22,7 @@ COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser designer/package.json ./designer/
-COPY --chown=appuser:appuser runner/package.json ./runner/
 USER 1001
-RUN yarn
 
 # ----------------------------
 # Stage 3
@@ -36,7 +34,7 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model ./model/
 USER 1001
-RUN yarn model build
+RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
 
 # ----------------------------
 # Stage 4
@@ -51,8 +49,7 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./designer ./designer/
-RUN yarn designer build && \
-    rm -rf ./runner
+RUN yarn workspaces focus @xgovformbuilder/designer && yarn designer build
 USER 1001
 EXPOSE 3000
 CMD [ "yarn", "designer", "start" ]
