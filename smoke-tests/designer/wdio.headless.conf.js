@@ -1,7 +1,6 @@
 const { config } = require("./wdio.conf.js");
 
-(config.baseUrl = "http://localhost:3000"), // TODO:- Change to the url in the CI environment
-  (config.maxInstances = 6),
+(config.maxInstances = 6),
   (config.capabilities = [
     {
       maxInstances: 6, // number instances in parallel
