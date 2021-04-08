@@ -6,6 +6,8 @@ import { customAlphabet } from "nanoid";
 import { FlyoutContext, DataContext } from "./context";
 import { FeatureFlagProvider } from "./context/FeatureFlagContext";
 import { DesignerApi } from "./api/designerApi";
+import { i18n } from "./i18n";
+import { Prompt } from "react-router-dom";
 
 interface Props {
   match?: any;
@@ -62,12 +64,24 @@ export default class Designer extends Component<Props, State> {
   };
 
   save = async (toUpdate, callback = () => {}) => {
-    await this.designerApi.save(this.id, toUpdate);
-    this.setState(
-      { data: new Data(toUpdate), updatedAt: new Date().toLocaleTimeString() },
-      callback()
-    );
-    return new Data(toUpdate);
+    try {
+      await this.designerApi.save(this.id, toUpdate);
+      this.setState(
+        {
+          data: new Data(toUpdate),
+          updatedAt: new Date().toLocaleTimeString(),
+          error: undefined,
+        },
+        callback()
+      );
+      return new Data(toUpdate);
+    } catch (e) {
+      this.setState({ error: e.message });
+      this.props.history.push({
+        pathname: "/save-error",
+        state: { id: this.id },
+      });
+    }
   };
 
   updatePageContext = (page) => {
@@ -83,7 +97,7 @@ export default class Designer extends Component<Props, State> {
   }
 
   render() {
-    const { flyoutCount, data, loading } = this.state;
+    const { flyoutCount, data, loading, error } = this.state;
     const { previewUrl } = window;
     if (loading) {
       return <p>Loading ...</p>;
@@ -95,12 +109,12 @@ export default class Designer extends Component<Props, State> {
       decrement: this.decrementFlyoutCounter,
     };
     const dataContextProviderValue = { data, save: this.save };
-
     return (
       <FeatureFlagProvider>
         <DataContext.Provider value={dataContextProviderValue}>
           <FlyoutContext.Provider value={flyoutContextProviderValue}>
             <div id="app">
+              <Prompt when={!error} message={`${i18n("leaveDesigner")}`} />
               <Menu
                 data={data}
                 id={this.id}
