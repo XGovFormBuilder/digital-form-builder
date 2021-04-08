@@ -54,6 +54,7 @@
     "i18next": "^19.7.0",
     "i18next-http-backend": "^1.1.0",
     "joi": "17.2.1",
+    "jszip": "^3.6.0",
     "lodash": "^4.17.20",
     "moment-timezone": "^0.5.31",
     "nanoid": "^3.1.12",
@@ -61,7 +62,8 @@
     "react-router-dom": "^5.2.0",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
-    "vision": "5.4.3"
+    "vision": "5.4.3",
+    "yar": "^9.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
