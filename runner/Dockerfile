@@ -9,7 +9,6 @@ RUN mkdir -p /usr/src/app && \
     chown -R appuser:appuser /usr/src/app && \
     chmod -R +x  /usr/src/app && \
     apk update && \
-    apk upgrade && \
     apk add --no-cache bash git
 
 # ----------------------------
