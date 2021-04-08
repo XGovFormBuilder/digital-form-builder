@@ -14,7 +14,6 @@ export class ListFormComponent extends FormComponent {
   options: ListComponentsDef["options"];
 
   get items(): Item[] {
-    console.log("list", this.list);
     return this.list?.items ?? [];
   }
   get values(): (string | number | boolean)[] {
