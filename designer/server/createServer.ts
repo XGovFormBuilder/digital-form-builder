@@ -9,6 +9,7 @@ import Schmervice from "schmervice";
 import config from "./config";
 import { determinePersistenceService } from "./lib/persistence";
 import { configureBlankiePlugin } from "./plugins/blankie";
+import { configureYarPlugin } from "./plugins/session";
 
 const serverOptions = () => {
   return {
@@ -38,6 +39,7 @@ export async function createServer() {
   await server.register(inert);
   await server.register(Scooter);
   await server.register(configureBlankiePlugin());
+  await server.register(configureYarPlugin());
   await server.register(viewPlugin);
   await server.register(Schmervice);
   (server as any).registerService([
