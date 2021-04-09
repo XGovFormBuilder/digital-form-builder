@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from "react";
-import randomId from "../../random-id";
+import randomId from "../../randomId";
 import { schemaReducer } from "./componentReducer.schema";
 import { optionsReducer } from "./componentReducer.options";
 import { metaReducer } from "./componentReducer.meta";

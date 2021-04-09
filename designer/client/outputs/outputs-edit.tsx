@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import randomId from "../random-id";
+import randomId from "../randomId";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 

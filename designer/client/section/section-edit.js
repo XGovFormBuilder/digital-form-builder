@@ -1,6 +1,6 @@
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
-import randomId from "../random-id";
+import randomId from "../randomId";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
 import {

@@ -1,4 +1,4 @@
-import randomId from "../random-id";
+import randomId from "../randomId";
 
 async function storeConditionIfNecessary(data, conditions) {
   let condition;
