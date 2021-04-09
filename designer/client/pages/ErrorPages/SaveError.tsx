@@ -36,7 +36,7 @@ export function SaveError({ history, location }: Props): ReactElement {
               </li>
               <li>
                 <a
-                  href="https://github.com/XGovFormBuilder/digital-form-builder/issues"
+                  href="https://github.com/XGovFormBuilder/digital-form-builder/issues/new?template=bug_report.md"
                   className="govuk-link"
                   target="_blank"
                   rel="noopener noreferrer"

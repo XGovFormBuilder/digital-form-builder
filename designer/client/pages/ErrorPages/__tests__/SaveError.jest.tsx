@@ -48,7 +48,7 @@ describe("SaveErrorPage", () => {
       screen.getByText("create an issue on GitHub").closest("a")
     ).toHaveAttribute(
       "href",
-      "https://github.com/XGovFormBuilder/digital-form-builder/issues"
+      "https://github.com/XGovFormBuilder/digital-form-builder/issues/new?template=bug_report.md"
     );
   });
 
