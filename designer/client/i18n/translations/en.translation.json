@@ -371,5 +371,14 @@
   "titleHint": "Enter the name to show for this component",
   "warning": "Warning",
   "wontShow": "This will not show on the page.",
-  "yes": "yes"
+  "yes": "yes",
+  "saveErrorPage": {
+    "sorry": "Sorry, there is a problem with the service",
+    "error": "An error occurred while saving the component.",
+    "hint": "We saved the last valid version of your form. Return to the Designer to continue.",
+    "report": "So we can check what went wrong, complete the following:",
+    "downloadCrashReport": "download your crash report",
+    "createIssue": "create an issue on GitHub",
+    "createIssueHint": "with details of what you were doing when this error occurred, and your crash report as an attachment"
+  }
 }
