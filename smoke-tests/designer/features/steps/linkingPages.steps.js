@@ -27,26 +27,17 @@ Then("my page is created with a link to the page", () => {
   expect(formDesigner.linkLine).toExist();
 });
 
-Given("I have linked the {string} to the the {string}", (fromPage, toPage) => {
+When("I delete the link between the pages {string}, {string}", function (
+  fromPage,
+  toPage
+) {
   this.fromPage = fromPage;
   this.toPage = toPage;
-  browser.reloadSession();
-  Actions.createNewConfig();
-  navMenu.buttonByName("Add Link").click();
-  AddLinkSection.linkPages(this.fromPage, this.toPage);
-});
-
-When("I delete the link between the pages", () => {
-  formDesigner.pagesLink.waitForClickable();
-  formDesigner.pagesLink.click();
-  // TODO:- Get an attribute for selected added to CSS
-  // expect(AddLinkSection.fromSelectList).toHaveText(this.fromPage);
-  // expect(AddLinkSection.toSelectList).toHaveText(this.toPage);
-  AddLinkSection.deleteBtn.waitForDisplayed();
+  formDesigner.pagesLink(this.fromPage, this.toPage).doubleClick();
   AddLinkSection.deleteBtn.click();
   acceptAlert();
 });
 
-Then("the link is no longer displayed", () => {
-  expect(formDesigner.linkLine).not.toExist();
+Then("the link is no longer displayed", function () {
+  expect(formDesigner.pagesLink(this.fromPage, this.toPage)).not.toExist();
 });
