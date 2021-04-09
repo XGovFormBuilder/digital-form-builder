@@ -55,7 +55,6 @@ class SelectConditions extends React.Component<Props, State> {
         label: input.title,
         name: input.propertyPath,
         type: input.type,
-        values: data.findList(input.list)?.items?.map((item) => item.value),
       }))
       .reduce((obj, item) => {
         obj[item.name] = item;
