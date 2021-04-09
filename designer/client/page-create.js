@@ -39,7 +39,7 @@ class PageCreate extends React.Component {
     const section = this.state.section?.name?.trim();
     const pageType = this.state.pageType?.trim();
     const selectedCondition = this.state.selectedCondition?.trim();
-    const path = this.state.path || this.state.path;
+    const path = this.state.path;
 
     let validationErrors = this.validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
