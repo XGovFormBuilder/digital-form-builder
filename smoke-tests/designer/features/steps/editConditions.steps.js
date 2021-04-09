@@ -1,7 +1,10 @@
 const { Given, When, Then } = require("cucumber");
 const { formDesigner } = require("../pageobjects/pages");
-const editSection = require("../pageobjects/sections/editSection.section");
-const addCondition = require("../pageobjects/sections/addCondition.section");
+const {
+  addCondition,
+  addLink,
+  editSection,
+} = require("../pageobjects/sections");
 const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 
@@ -61,11 +64,23 @@ Given(/^I have created a condition$/, function () {
   addCondition.selectOperator("is");
   addCondition.selectValue("Yes");
   addCondition.clickButton("Add");
-  addCondition.clickButton("Save");
+  addCondition.clickLink("Save");
+  addCondition.clickLink("Close");
 });
 
-When(/^I add the condition to the "([^"]*)" page link$/, function (linkNumber) {
-  linkNumber;
-});
+When(
+  /^I add the condition to the link between the pages "([^"]*)", "([^"]*)"$/,
+  function (fromPage, toPage) {
+    this.fromPage = fromPage;
+    this.toPage = toPage;
+    formDesigner.pagesLink(this.fromPage, this.toPage).doubleClick();
+    addLink.selectACondition(`Test ${this.operator}`);
+    addLink.saveBtn.click();
+  }
+);
 
-Then(/^the condition is added successfully$/, function () {});
+Then(/^the condition is added successfully$/, function () {
+  expect(
+    formDesigner.pagesLink(this.fromPage, this.toPage).nextElement()
+  ).toHaveText(`Test ${this.operator}`);
+});
