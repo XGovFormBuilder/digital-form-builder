@@ -343,7 +343,8 @@ export class Data {
   inputsAccessibleAt(path) {
     const pages = this.allPathsLeadingTo(path)
       .concat([path])
-      .map((path) => this.pages.find((page) => page.path === path));
+      .map((path) => this.pages.find((page) => page.path === path))
+      .filter((page) => !!page);
     return allInputs(pages);
   }
 
