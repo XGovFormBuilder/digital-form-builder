@@ -380,7 +380,7 @@ export class SummaryViewModel {
 
   set webhookDataPaymentReference(paymentReference: string) {
     const fees = this._webhookData?.fees;
-    if (fees && fees.paymentReference) {
+    if (fees) {
       fees.paymentReference = paymentReference;
     }
   }
