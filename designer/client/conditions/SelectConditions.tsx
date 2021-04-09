@@ -2,6 +2,7 @@ import React, { ChangeEvent } from "react";
 import InlineConditions from "./InlineConditions";
 import { ConditionsModel, Data } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
+import { RenderInPortal } from "../components/RenderInPortal";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
 import { i18n } from "../i18n";
@@ -154,18 +155,20 @@ class SelectConditions extends React.Component<Props, State> {
               </div>
             )}
             {inline && (
-              <Flyout
-                title="Define condition"
-                show={true}
-                onHide={this.onCancelInlineCondition}
-              >
-                <InlineConditions
-                  data={this.context.data}
-                  path={this.props.path}
-                  conditionsChange={this.onSaveInlineCondition}
-                  cancelCallback={this.onCancelInlineCondition}
-                />
-              </Flyout>
+              <RenderInPortal>
+                <Flyout
+                  title="Define condition"
+                  show={true}
+                  onHide={this.onCancelInlineCondition}
+                >
+                  <InlineConditions
+                    data={this.context.data}
+                    path={this.props.path}
+                    conditionsChange={this.onSaveInlineCondition}
+                    cancelCallback={this.onCancelInlineCondition}
+                  />
+                </Flyout>
+              </RenderInPortal>
             )}
           </div>
         ) : (
