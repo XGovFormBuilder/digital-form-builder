@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@govuk-jsx/input";
 import { clone } from "@xgovformbuilder/model";
-import randomId from "./random-id";
+import randomId from "./randomId";
 
 import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/RenderInPortal";

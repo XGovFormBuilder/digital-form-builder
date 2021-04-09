@@ -2,7 +2,7 @@ import React from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
-import randomId from "./random-id";
+import randomId from "./randomId";
 
 /**
  * @deprecated (keeping until tests are refactored)
