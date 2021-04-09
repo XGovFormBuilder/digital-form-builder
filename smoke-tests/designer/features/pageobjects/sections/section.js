@@ -8,8 +8,8 @@ module.exports = class Section {
     return browser.$("#page-title");
   }
 
-  get sectionTitle() {
-    return browser.$("#section-title");
+  get sectionTitles() {
+    return browser.$$("[data-testid='flyout-heading']");
   }
 
   get saveBtn() {

@@ -1,21 +1,24 @@
 const { Given, When, Then } = require("cucumber");
 const { formDesigner } = require("../pageobjects/pages");
-const AddLinkSection = require("../pageobjects/sections/addLink.section");
-const AddPageSection = require("../pageobjects/sections/addPage.section");
-const { navMenu } = require("../pageobjects/sections");
-const Actions = require("../actions/actions");
-const { acceptAlert, toUrl } = require("../../support/testHelpers");
+const {
+  addCondition,
+  addLink,
+  addPage,
+  navMenu,
+} = require("../pageobjects/sections");
+const actions = require("../actions/actions");
+const { acceptAlert } = require("../../support/testHelpers");
 
 Given("I have chosen to {string} to my form", (menuOption) => {
-  Actions.createNewConfig();
+  actions.createNewConfig();
   navMenu.buttonByName(menuOption).click();
 });
 
 When("I link ths page to link from the {string}", (linkedPage) => {
   this.newPageName = "Third page";
-  AddPageSection.linkFrom(linkedPage);
-  AddPageSection.pageTitle.setValue(this.newPageName);
-  AddPageSection.saveBtn.click();
+  addPage.linkFrom(linkedPage);
+  addPage.pageTitle.setValue(this.newPageName);
+  addPage.saveBtn.click();
 });
 
 Then("my page is created with a link to the page", () => {
@@ -34,10 +37,30 @@ When("I delete the link between the pages {string}, {string}", function (
   this.fromPage = fromPage;
   this.toPage = toPage;
   formDesigner.pagesLink(this.fromPage, this.toPage).doubleClick();
-  AddLinkSection.deleteBtn.click();
+  addLink.deleteBtn.click();
   acceptAlert();
 });
 
 Then("the link is no longer displayed", function () {
   expect(formDesigner.pagesLink(this.fromPage, this.toPage)).not.toExist();
+});
+
+When(/^I select the link between the pages "([^"]*)", "([^"]*)"$/, function (
+  fromPage,
+  toPage
+) {
+  formDesigner.pagesLink(fromPage, toPage).doubleClick();
+});
+
+Then(/^the "([^"]*)" panel is displayed$/, function (panelName) {
+  expect(addLink.sectionTitles[0]).toHaveText(panelName);
+});
+
+When(/^I choose to "([^"]*)" from the Edit link panel$/, function (linkName) {
+  addLink.clickLink(linkName);
+});
+
+Then(/^the Define condition panel is displayed$/, function () {
+  expect(addCondition.displayName).toBeDisplayed();
+  expect(addCondition.conditionField).toBeDisplayed();
 });

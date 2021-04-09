@@ -22,7 +22,7 @@ When(/^I add a condition for the "([^"]*)"$/, function (componentName) {
   );
   expect(panelWidth).toBeGreaterThanOrEqual(620);
   this.operator = fieldData[toCamelCase(componentName)].title;
-  addCondition.displayName(`Test ${this.operator}`);
+  addCondition.inputDisplayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
   addCondition.selectOperator("is after");
   addCondition.enterDate("01", "01", "2012");
@@ -47,7 +47,7 @@ When(/^I create a condition for the "([^"]*)" field$/, function (
   formDesigner.clickButton("Edit Conditions");
   editSection.clickLink("Add condition");
   this.operator = fieldData[toCamelCase(componentName)].title;
-  addCondition.displayName(`Test ${this.operator}`);
+  addCondition.inputDisplayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
   addCondition.selectOperator("is after");
   addCondition.enterDate("01", "01", "2012");
@@ -59,7 +59,7 @@ Given(/^I have created a condition$/, function () {
   formDesigner.clickButton("Conditions");
   editSection.clickLink("Add condition");
   this.operator = fieldData[toCamelCase(this.componentName)].title;
-  addCondition.displayName(`Test ${this.operator}`);
+  addCondition.inputDisplayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
   addCondition.selectOperator("is");
   addCondition.selectValue("Yes");
