@@ -1,7 +1,8 @@
 import React from "react";
-import ComponentTypeEdit from "./component-type-edit";
+import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
+import randomId from "./random-id";
 
 /**
  * @deprecated (keeping until tests are refactored)
@@ -13,7 +14,7 @@ class ComponentCreate extends React.Component {
   };
 
   async componentDidMount() {
-    this.setState({ name: nanoid(6) });
+    this.setState({ name: randomId() });
   }
 
   async onSubmit(e) {

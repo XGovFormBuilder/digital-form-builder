@@ -1,10 +1,10 @@
-import { nanoid } from "nanoid";
+import randomId from "../random-id";
 
 async function storeConditionIfNecessary(data, conditions) {
   let condition;
 
   if (conditions && conditions.hasConditions) {
-    condition = nanoid();
+    condition = randomId();
     data = data.addCondition(condition, conditions.name, conditions);
   }
 

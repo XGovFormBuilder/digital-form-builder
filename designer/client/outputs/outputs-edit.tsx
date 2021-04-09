@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { nanoid } from "nanoid";
+import randomId from "../random-id";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
@@ -34,7 +34,7 @@ class OutputsEdit extends React.Component<Props, State> {
   onClickAddOutput = async (event: MouseEvent) => {
     event.preventDefault();
 
-    const id = nanoid();
+    const id = randomId();
     this.setState({
       showAddOutput: true,
       id,

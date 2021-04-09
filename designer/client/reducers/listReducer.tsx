@@ -1,4 +1,4 @@
-import { nanoid } from "nanoid";
+import randomId from "../random-id";
 import React, { createContext, useContext, useReducer } from "react";
 import { DataContext } from "../context";
 import { ListActions } from "./listActions";
@@ -53,7 +53,7 @@ export function listReducer(
       return { ...state };
 
     case ListActions.ADD_NEW_LIST: {
-      const listId = nanoid(6);
+      const listId = randomId();
       return {
         selectedList: {
           title: "",
