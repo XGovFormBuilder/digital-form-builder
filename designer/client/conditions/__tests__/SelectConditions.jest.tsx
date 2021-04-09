@@ -94,3 +94,41 @@ test("SelectConditions renders available conditions", () => {
     expect(getByText(condition)).toBeInTheDocument();
   });
 });
+
+test("SelectConditions renders create condition", () => {
+  const data = new Data({
+    lists: [],
+    pages: [
+      {
+        controller: "",
+        section: "yourDetails",
+        title: "First page",
+        path: "/first-page",
+        components: [
+          {
+            options: {},
+            name: "dob",
+            type: "DatePartsField",
+            title: "Enter your date of birth",
+            hint: "",
+            schema: {},
+          },
+        ],
+      },
+    ],
+    sections: [{ name: "yourDetails", title: "Your details" }],
+    startPage: "",
+  });
+  const providerProps = {
+    data,
+    path: "/first-page",
+    save: jest.fn(),
+  };
+  const { queryByText, queryByTestId } = customRender(
+    <SelectConditions />,
+    providerProps
+  );
+  expect(queryByText("You cannot add any conditions as")).toBeNull();
+  expect(queryByTestId("select-condition")).toBeNull();
+  expect(queryByText("Define a new condition")).toBeInTheDocument();
+});

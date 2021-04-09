@@ -341,9 +341,9 @@ export class Data {
   }
 
   inputsAccessibleAt(path) {
-    const pages = this.allPathsLeadingTo(path).map((path) =>
-      this.pages.find((page) => page.path === path)
-    );
+    const pages = this.allPathsLeadingTo(path)
+      .concat([path])
+      .map((path) => this.pages.find((page) => page.path === path));
     return allInputs(pages);
   }
 
