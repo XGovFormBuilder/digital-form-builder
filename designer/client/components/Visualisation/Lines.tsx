@@ -70,7 +70,6 @@ export class Lines extends React.Component<Props, State> {
         {this.state.showEditor && (
           <Flyout
             title="Edit Link"
-            show={this.state.showEditor}
             onHide={() => this.setState({ showEditor: false })}
           >
             <LinkEdit
