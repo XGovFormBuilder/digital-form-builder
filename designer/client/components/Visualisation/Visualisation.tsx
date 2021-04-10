@@ -6,8 +6,6 @@ import { Minimap } from "./Minimap";
 import { Info } from "./Info";
 import { getLayout, Pos } from "./getLayout";
 import { DataContext } from "../../context";
-import { i18n } from "../../i18n";
-import { Prompt } from "react-router-dom";
 import "./visualisation.scss";
 
 type Props = {
@@ -45,7 +43,6 @@ export function Visualisation(props: Props) {
 
   return (
     <>
-      <Prompt message={`${i18n("leaveDesigner")}`} />
       <div className="visualisation">
         <div className="visualisation__pages-wrapper">
           <div ref={ref} style={wrapperStyle}>
