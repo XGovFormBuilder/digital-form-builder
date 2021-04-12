@@ -1,7 +1,7 @@
 import { Meta } from "./types";
 
 import { fieldComponentValidations } from "./componentReducer.validations";
-import { nanoid } from "nanoid";
+import randomId from "../../randomId";
 
 export function metaReducer(
   state,
@@ -25,7 +25,7 @@ export function metaReducer(
       return {
         ...state,
         selectedComponent: {
-          name: nanoid(6),
+          name: randomId(),
           title: "",
           schema: {},
           options: { required: true },
