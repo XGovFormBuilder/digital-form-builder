@@ -1,6 +1,6 @@
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
-import { nanoid } from "nanoid";
+import randomId from "../randomId";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
 import {
@@ -21,7 +21,7 @@ class SectionEdit extends React.Component {
     this.isNewSection = !section?.name;
     this.nameRef = React.createRef();
     this.state = {
-      name: section?.name ?? nanoid(6),
+      name: section?.name ?? randomId(),
       title: section?.title ?? "",
       errors: {},
     };

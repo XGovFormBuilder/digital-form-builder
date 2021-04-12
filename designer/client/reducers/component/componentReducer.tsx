@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from "react";
-import { nanoid } from "nanoid";
+import randomId from "../../randomId";
 import { schemaReducer } from "./componentReducer.schema";
 import { optionsReducer } from "./componentReducer.options";
 import { metaReducer } from "./componentReducer.meta";
@@ -71,7 +71,7 @@ export function componentReducer(
 
 export const initComponentState = (props) => {
   const selectedComponent = props?.component;
-  const newName = nanoid(6);
+  const newName = randomId();
   return {
     selectedComponent: selectedComponent ?? { name: newName, options: {} },
     initialName: selectedComponent?.name ?? newName,

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Menu from "./components/Menu/Menu";
 import { Visualisation } from "./components/Visualisation";
 import { Data } from "@xgovformbuilder/model";
-import { customAlphabet } from "nanoid";
 import { FlyoutContext, DataContext } from "./context";
 import { FeatureFlagProvider } from "./context/FeatureFlagContext";
 import { DesignerApi } from "./api/designerApi";
@@ -14,6 +13,7 @@ interface Props {
   location?: any;
   history?: any;
 }
+
 interface State {
   id?: any;
   flyoutCount?: number;
@@ -26,24 +26,10 @@ interface State {
   downloadedAt?: any;
 }
 
-/**
- * Custom alphabet is required because '-' is used as a symbol in
- * expr-eval (condition logic) so components which include a '-' in the name
- * result in broken conditions.
- */
-const nanoid = customAlphabet(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz",
-  10
-);
-
 export default class Designer extends Component<Props, State> {
   state = { loading: true, flyoutCount: 0 };
 
   designerApi = new DesignerApi();
-
-  getId = () => {
-    return nanoid();
-  };
 
   get id() {
     return this.props.match?.params?.id;
