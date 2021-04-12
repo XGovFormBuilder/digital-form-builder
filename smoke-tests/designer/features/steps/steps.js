@@ -16,8 +16,9 @@ Given("I have created a new form configuration", () => {
 });
 
 Given(
-  /^I have created a form with a "([^"]*)" field on the "([^"]*)"$/,
+  /^I have (?:created a|a) form with a "([^"]*)" field on the "([^"]*)"$/,
   function (componentName, pageName) {
+    this.componentName = componentName;
     this.pageName = pageName;
     Actions.createNewConfig();
     Actions.createComponentForPage(componentName, this.pageName);

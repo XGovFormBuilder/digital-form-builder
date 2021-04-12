@@ -22,9 +22,9 @@ class FormDesignerPage extends Page {
     return $("polyline");
   }
 
-  get pagesLink() {
-    browser.react$("_n").waitForExist();
-    return browser.react$("_n");
+  pagesLink(fromPage, toPage) {
+    let pageLink = fromPage.replace(" ", "-") + "-" + toPage.replace(" ", "-");
+    return browser.$(`[data-testid='${pageLink}']`);
   }
 
   dateField(name) {
