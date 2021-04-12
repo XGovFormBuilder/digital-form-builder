@@ -24,7 +24,7 @@ describe("SaveErrorPage", () => {
       await screen.findByText("Sorry, there is a problem with the service")
     ).toBeInTheDocument();
     expect(
-      await screen.findByText("An error occurred while saving the component.")
+      await screen.findByText("An error occurred while saving.")
     ).toBeInTheDocument();
     expect(
       await screen.findByText(
@@ -48,7 +48,7 @@ describe("SaveErrorPage", () => {
       screen.getByText("create an issue on GitHub").closest("a")
     ).toHaveAttribute(
       "href",
-      "https://github.com/XGovFormBuilder/digital-form-builder/issues"
+      "https://github.com/XGovFormBuilder/digital-form-builder/issues/new?template=bug_report.md"
     );
   });
 
