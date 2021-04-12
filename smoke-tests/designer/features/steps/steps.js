@@ -132,7 +132,7 @@ Then("a link between them will be displayed", () => {
 
 When("I add a new section", () => {
   EditSection.addSection.click();
-  EditSection.sectionTitles[0].setValue("MyTestSection");
+  EditSection.sectionTitle.setValue("MyTestSection");
   EditSection.sectionSaveBtn.click();
   browser.waitUntil(
     () => EditSection.sectionLinks[0].getText() === "MyTestSection",
