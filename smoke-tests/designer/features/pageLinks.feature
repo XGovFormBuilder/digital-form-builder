@@ -28,6 +28,7 @@ Feature: Page links
     When I delete the link between the pages "first page", "second page"
     Then the link is no longer displayed
 
+  @wip
   Scenario: Define a new condition when editing links
     Given I have a form with a "YesNo" field on the "First page"
     When I select the link between the pages "second page", "summary"

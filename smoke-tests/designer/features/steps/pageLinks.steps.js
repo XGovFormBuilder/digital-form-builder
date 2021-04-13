@@ -49,8 +49,6 @@ When(/^I select the link between the pages "([^"]*)", "([^"]*)"$/, function (
   fromPage,
   toPage
 ) {
-  // Only necessary for Heroku and ACP
-  browser.pause(1000);
   formDesigner.pagesLink(fromPage, toPage).doubleClick();
 });
 
