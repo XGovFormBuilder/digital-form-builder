@@ -62,23 +62,6 @@ export class Data {
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
    * That, however uses relative-url.js, which utilises a URL and the shims for that don't work
    */
-  static FEEDBACK_CONTEXT_ITEMS = [
-    {
-      key: "feedbackContextInfo_formTitle",
-      display: "Feedback source form name",
-      get: (contextInfo: { formTitle: string }) => contextInfo.formTitle,
-    },
-    {
-      key: "feedbackContextInfo_pageTitle",
-      display: "Feedback source page title",
-      get: (contextInfo: { pageTitle: string }) => contextInfo.pageTitle,
-    },
-    {
-      key: "feedbackContextInfo_url",
-      display: "Feedback source url",
-      get: (contextInfo: { url: string }) => contextInfo.url,
-    },
-  ];
 
   #name: string = "";
   startPage: string = "";
