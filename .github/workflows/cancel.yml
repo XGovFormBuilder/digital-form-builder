@@ -1,0 +1,12 @@
+name: Cancel
+on:
+  workflow_run:
+    workflows:
+     - '!XGovFormBuilder/digital-form-builder/**'
+jobs:
+  cancel:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: styfle/cancel-workflow-action@0.9.0
+      with:
+        workflow_id: ${{ github.event.workflow.id }}
