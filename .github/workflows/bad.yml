@@ -12,7 +12,3 @@ jobs:
         uses: jakejarvis/wait-action@master
         with:
           time: '60s'
-      - uses: actions/upload-artifact@v2
-          with:
-            name: my-artifact
-            path: . # or path/to/artifact
