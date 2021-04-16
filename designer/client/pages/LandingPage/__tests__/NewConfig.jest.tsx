@@ -57,6 +57,7 @@ describe("Newconfig", () => {
     const history = { push: push };
 
     render(<NewConfig history={history} />);
+
     expect(
       await screen.findByText(/Enter a name for your form/i)
     ).toBeInTheDocument();
@@ -67,5 +68,53 @@ describe("Newconfig", () => {
     fireEvent.click(screen.getByText("Next"));
     expect(apiCalled).toBeFalsy();
     expect(await screen.findByText(/There is a problem/i)).toBeInTheDocument();
+    expect(
+      await screen.findAllByText(/A form with this name already exists/i)
+    ).toHaveLength(2);
+  });
+
+  test("Enter form name error shown correctly", async () => {
+    const push = jest.fn();
+    const history = { push: push };
+
+    render(<NewConfig history={history} />);
+
+    expect(
+      await screen.findByText(/Enter a name for your form/i)
+    ).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText("Next"));
+    expect(await screen.findByText(/There is a problem/i)).toBeInTheDocument();
+    expect(await screen.findAllByText(/Enter form name/i)).toHaveLength(2);
+  });
+
+  test("Form name with special characters results in error", async () => {
+    let apiCalled = false;
+    server.use(
+      rest.post("/api/new", (req, res, ctx) => {
+        apiCalled = true;
+        return res(ctx.json({ id: "somekey", previewUrl: "" }));
+      })
+    );
+    const push = jest.fn();
+    const history = { push: push };
+
+    render(<NewConfig history={history} />);
+
+    expect(
+      await screen.findByText(/Enter a name for your form/i)
+    ).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText("Title"), {
+      target: { value: "Visa & Form" },
+    });
+    fireEvent.click(screen.getByText("Next"));
+    expect(apiCalled).toBeFalsy();
+    expect(await screen.findByText(/There is a problem/i)).toBeInTheDocument();
+    expect(
+      await screen.findAllByText(
+        /Form name should not contain special characters/i
+      )
+    ).toHaveLength(2);
   });
 });
