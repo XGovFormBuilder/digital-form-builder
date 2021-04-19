@@ -42,6 +42,10 @@ class CreateComponentSection extends Page {
     return this.parent.$("select#field-options-list").$$("option");
   }
 
+  get fieldOptional() {
+    return browser.$("#field-options-required");
+  }
+
   get saveBtn() {
     return this.parent.$(".govuk-button");
   }
@@ -65,12 +69,20 @@ class CreateComponentSection extends Page {
    * @param dataObject
    * @param save
    */
-  completeCommonFields(dataObject, save = true, hideTitle = false) {
+  completeCommonFields(
+    dataObject,
+    hideTitle = false,
+    makeOptional = false,
+    save = true
+  ) {
     this.titleField.setValue(dataObject.title);
     this.hintField.setValue(dataObject.hint);
     this.nameField.setValue(dataObject.name);
     if (hideTitle) {
       this.hideTitle.click();
+    }
+    if (makeOptional) {
+      this.fieldOptional.click();
     }
     if (save) {
       this.saveBtn.click();
