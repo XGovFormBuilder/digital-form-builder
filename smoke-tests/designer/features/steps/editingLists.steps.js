@@ -142,7 +142,12 @@ When("I add a {string} with a list to the {string}", function (
   pageName
 ) {
   this.pageName = pageName;
-  testActions.createComponentForPage(componentName, this.pageName, false);
+  testActions.createComponentForPage(
+    componentName,
+    this.pageName,
+    false,
+    false
+  );
   createComponent.selectList("List test");
   createComponent.saveBtn.click();
 });
@@ -188,8 +193,8 @@ When(
     createComponent.selectComponentByName(this.componentName);
     createComponent.completeCommonFields(
       FieldData[toCamelCase(this.componentName)],
-      false,
-      true
+      true,
+      false
     );
     createComponent.selectList(FieldData.list.title);
     createComponent.saveBtn.click();
