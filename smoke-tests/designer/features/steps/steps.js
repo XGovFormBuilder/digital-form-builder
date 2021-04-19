@@ -337,3 +337,15 @@ Then("progress to the {string} page", function (pageName) {
   previewPage.summaryList.waitForDisplayed();
   expect(previewPage.pageTitle).toHaveText(pageName);
 });
+
+Given("I add an optional {string} control to the {string}", function (
+  componentName,
+  pageName
+) {
+  this.pageName = pageName;
+  Actions.createComponentForPage(componentName, this.pageName, true, true);
+});
+
+Then("the {string} is displayed", function (pageName) {
+  expect(previewPage.pageTitle).toHaveText(pageName);
+});

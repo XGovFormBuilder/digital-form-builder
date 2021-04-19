@@ -27,7 +27,12 @@ class Actions {
    * @param componentName
    * @param pageName
    */
-  createComponentForPage(componentName, pageName, save = true) {
+  createComponentForPage(
+    componentName,
+    pageName,
+    makeOptional = false,
+    save = true
+  ) {
     formDesigner.createComponentForPageName(pageName).click();
     createComponent.selectComponentByName(componentName);
     if (componentName.toLowerCase() === "paragraph") {
@@ -38,6 +43,8 @@ class Actions {
     } else {
       createComponent.completeCommonFields(
         fieldData[toCamelCase(componentName)],
+        false,
+        makeOptional,
         save
       );
     }
