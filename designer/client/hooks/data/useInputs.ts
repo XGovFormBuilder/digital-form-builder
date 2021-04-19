@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { DataContext } from "../../context";
-import { isNotContentType } from "./types";
+import { Input, isNotContentType } from "./types";
+import { UseGetAllPathsLeadingTo } from "./usePaths";
 
 function allInputs(pages): Input[] {
   return pages.flatMap((page) => {
@@ -23,4 +24,9 @@ function allInputs(pages): Input[] {
 function UseGetAllInputs(): Input[] {
   const { data } = useContext(DataContext);
   return allInputs(data.pages);
+}
+
+function UseGetInputsAccessibleAt(path) {
+  const pages = UseGetAllPathsLeadingTo(path);
+  return allInputs(pages);
 }

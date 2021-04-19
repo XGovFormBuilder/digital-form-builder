@@ -14,8 +14,3 @@ export function UseGetAllPathsLeadingTo(path: Page["path"]) {
   });
   return dfs(edges, path, { reverse: true }).filter((p) => p !== path);
 }
-
-function UseGetInputsAccessibleAt(path) {
-  const pages = UseGetAllPathsLeadingTo(path);
-  return allInputs(pages);
-}
