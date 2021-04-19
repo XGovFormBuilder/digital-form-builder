@@ -34,3 +34,24 @@ Then("the error message {string} is displayed", function (errorMessage) {
   expect(configPage.formError).toHaveTextContaining(errorMessage);
   expect(formDesigner.designerMenu).not.toBeDisplayed();
 });
+
+Given(/^I chosen to create a new form$/, function () {
+  configPage.newForm.click();
+  configPage.nextBtn.click();
+});
+
+When(/^I go back to previous page$/, function () {
+  configPage.backToPreviousPage.click();
+});
+
+Then(/^the start page is displayed$/, function () {
+  expect(configPage.pageHeading).toHaveText("Design and prototype forms");
+  expect(configPage.newForm).toBeDisplayed();
+  expect(configPage.existingForm).toBeDisplayed();
+  expect(configPage.nextBtn).toBeDisplayed();
+});
+
+Given(/^I chosen to open an existing form$/, function () {
+  configPage.existingForm.click();
+  configPage.nextBtn.click();
+});

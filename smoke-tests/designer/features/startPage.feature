@@ -13,3 +13,15 @@ Feature: Start Page
     Given I have previously created a form
     When I enter the name of the form again
     Then the error message "A form with this name already exists" is displayed
+
+  Scenario: Create new form, go back to previous page
+    Given I am on the form designer start page
+    And I chosen to create a new form
+    When I go back to previous page
+    Then the start page is displayed
+
+  Scenario: Open an existing form, go back to previous page
+    Given I am on the form designer start page
+    And I chosen to open an existing form
+    When I go back to previous page
+    Then the start page is displayed
