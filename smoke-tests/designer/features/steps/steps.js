@@ -132,26 +132,29 @@ Then("a link between them will be displayed", () => {
   expect(formDesigner.linkLine).toExist();
 });
 
-When("I add a new section", () => {
+When("I add a new section titled {string}", function (sectionTitle) {
+  this.sectionTitle = sectionTitle;
   editSection.addSection.click();
-  editSection.sectionTitle.setValue("MyTestSection");
-  editSection.sectionSaveBtn.click();
+  editSection.sectionTitle.setValue(sectionTitle);
+  editSection.saveBtn.click();
   browser.waitUntil(
-    () => editSection.sectionLinks[0].getText() === "MyTestSection",
+    () => editSection.sectionLinks[0].getText() === this.sectionTitle,
     {
       timeout: 1000,
-      timeoutMsg: "Expected new a section to be added",
+      timeoutMsg: `Expected new a section title ${this.sectionTitle} to be added`,
       interval: 500,
     }
   );
-  expect(editSection.sectionLinks[0]).toHaveText("MyTestSection");
+  expect(editSection.sectionLinks[0]).toHaveText(this.sectionTitle);
   editSection.closeLinks[0].click();
 });
 
-Then("the section should be available when I edit the Question page", () => {
-  formDesigner.editPageForPageName("First page").click();
-  expect(editPage.sectionDropdown).toHaveTextContaining("MyTestSection");
-});
+Then(
+  "the section should be available when I edit the Question page",
+  function () {
+    expect(editPage.sectionDropdown).toHaveText(this.sectionTitle);
+  }
+);
 
 When("I add a new Global list named {string}", function (listName) {
   this.listName = listName;
