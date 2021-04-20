@@ -249,18 +249,18 @@ Then("the Date field control is displayed in the page", () => {
   expect(formDesigner.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 
-When(/^I choose Edit page for the "([^"]*)"$/, function (pageName) {
+When("I choose Edit page for the {string}", function (pageName) {
   this.pageName = pageName;
   formDesigner.editPageForPageName(pageName).click();
 });
 
-When(/^I change the page title to "([^"]*)"$/, function (newPageName) {
+When("I change the page title to {string}", function (newPageName) {
   this.newPageName = newPageName;
   editPage.pageTitle.setValue(this.newPageName);
   editPage.saveBtn.click();
 });
 
-When(/^I change the page path to "([^"]*)"$/, function (pathName) {
+When("I change the page path to {string}", function (pathName) {
   this.pathName = pathName;
   editPage.pagePath.clearValue();
   editPage.pagePath.setValue(this.pathName);
@@ -361,11 +361,11 @@ Then("the {string} is displayed", function (pageName) {
   expect(previewPage.pageTitle).toHaveText(pageName);
 });
 
-Then(/^the change is reflected in the preview url$/, function () {
+Then("the change is reflected in the preview url", function () {
   expect(browser).toHaveUrlContaining(this.pathName);
 });
 
-When(/^I create a section titled "([^"]*)"$/, function (sectionTitle) {
+When("I create a section titled {string}", function (sectionTitle) {
   this.sectionTitle = sectionTitle;
   editPage.clickLink("Create section");
   editSection.sectionTitle.setValue(this.sectionTitle);
@@ -374,6 +374,6 @@ When(/^I create a section titled "([^"]*)"$/, function (sectionTitle) {
   expect(formDesigner.pageSectionName(this.pageName)).toHaveText(sectionTitle);
 });
 
-Then(/^the section title is displayed in the preview$/, function () {
+Then("the section title is displayed in the preview", function () {
   expect(previewPage.sectionTitle).toHaveText(this.sectionTitle);
 });
