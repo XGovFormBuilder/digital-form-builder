@@ -2,6 +2,12 @@
 
 [![Gitter](https://badges.gitter.im/XGovFormBuilder/Public.svg)](https://gitter.im/XGovFormBuilder/Public?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+## contributions
+
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+> :warning: **Contributions as of 15/04**: OS Repos have been hit with PRs from forks for... nefarious reasons. These will run on your repo + subsequently quota. For the time being, we will be cancelling any PRs from forks. If you wish to contribute, please ping out on gitter and we'll discuss the best way to contribute. 
+
+
 This repository is a mono repo for
 
 - @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/runner) - Hapi server which can 'run' a form from a JSON file
@@ -97,9 +103,6 @@ Both jobs work as follows:
 
 The latest releases will be running here: [Runner](https://digital-form-builder-runner.herokuapp.com) / [Designer](https://digital-form-builder-designer.herokuapp.com).
 
-## contributions
-
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
 
 ### Developer only features ⚠️
 
