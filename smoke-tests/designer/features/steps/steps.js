@@ -246,16 +246,26 @@ Then("the Date field control is displayed in the page", () => {
   expect(formDesigner.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 
-When("I edit the page title on the {string}", (pageName) => {
-  this.newPageName = "testing";
+When(/^I choose Edit page for the "([^"]*)"$/, function (pageName) {
   formDesigner.editPageForPageName(pageName).click();
+});
+
+When(/^I change the page title to "([^"]*)"$/, function (newPageName) {
+  this.newPageName = newPageName;
   editPage.pageTitle.setValue(this.newPageName);
   editPage.saveBtn.click();
 });
 
-Then("the changes are reflected in the page designer", () => {
+When(/^I change the page path to "([^"]*)"$/, function (pathName) {
+  this.pathName = pathName;
+  editPage.pagePath.clearValue();
+  editPage.pagePath.setValue(this.pathName);
+  editPage.saveBtn.click();
+});
+
+Then("the changes are reflected in the page designer", function () {
   browser.waitUntil(
-    () => formDesigner.formPageTitles[0].getText() === "testing"
+    () => formDesigner.formPageTitles[0].getText() === this.newPageName
   );
   expect(formDesigner.getTitleTextForPage(this.newPageName)).toBe(
     this.newPageName
@@ -345,4 +355,8 @@ Given("I add an optional {string} control to the {string}", function (
 
 Then("the {string} is displayed", function (pageName) {
   expect(previewPage.pageTitle).toHaveText(pageName);
+});
+
+Then(/^the change is reflected in the preview url$/, function () {
+  expect(browser).toHaveUrlContaining(this.pathName);
 });

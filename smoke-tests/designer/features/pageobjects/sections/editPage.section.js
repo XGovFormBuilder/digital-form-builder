@@ -9,6 +9,10 @@ class EditPageSection extends Section {
     return this.parentElement.$("select#page-section");
   }
 
+  get pagePath() {
+    return this.parentElement.$("#page-path");
+  }
+
   get deleteBtn() {
     return this.parentElement.$(".govuk-button=Delete");
   }
