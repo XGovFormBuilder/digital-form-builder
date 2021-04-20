@@ -1,7 +1,7 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
 
-import { proceed, redirectTo } from "../helpers";
+import { feedbackReturnInfoKey, proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
 import {
   RelativeUrl,
@@ -510,8 +510,7 @@ export class PageControllerBase {
   getFeedbackContextInfo(request: HapiRequest) {
     if (this.def.feedback?.feedbackForm) {
       return decodeFeedbackContextInfo(
-        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-          .feedbackReturnInfo
+        request.url.searchParams.get(feedbackReturnInfoKey) || undefined
       );
     }
   }
@@ -524,7 +523,7 @@ export class PageControllerBase {
         this.pageDef.title,
         `${request.url.pathname}${request.url.search}`
       );
-      feedbackLink.feedbackReturnInfo = returnInfo.toString();
+      feedbackLink.setParam(feedbackReturnInfoKey, returnInfo.toString());
       return feedbackLink.toString();
     }
   }

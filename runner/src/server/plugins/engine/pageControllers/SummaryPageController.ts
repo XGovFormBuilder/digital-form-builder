@@ -3,7 +3,12 @@ import { nanoid } from "nanoid";
 import config from "server/config";
 import { SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
-import { redirectTo, redirectUrl, nonRelativeRedirectUrl } from "../helpers";
+import {
+  redirectTo,
+  redirectUrl,
+  nonRelativeRedirectUrl,
+  feedbackReturnInfoKey,
+} from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {
   RelativeUrl,
@@ -207,12 +212,10 @@ export class SummaryPageController extends PageController {
 
   getFeedbackContextInfo(request: HapiRequest) {
     if (this.model.def.feedback?.feedbackForm) {
-      const feedbackReturnInfo = new RelativeUrl(
-        `${request.url.pathname}${request.url.search}`
-      ).feedbackReturnInfo;
-
-      if (feedbackReturnInfo) {
-        return decodeFeedbackContextInfo(feedbackReturnInfo);
+      if (request.url.searchParams.get(feedbackReturnInfoKey)) {
+        return decodeFeedbackContextInfo(
+          request.url.searchParams.get(feedbackReturnInfoKey) || undefined
+        );
       }
     }
   }
@@ -225,7 +228,7 @@ export class SummaryPageController extends PageController {
         "Summary",
         `${request.url.pathname}${request.url.search}`
       );
-      feedbackLink.feedbackReturnInfo = returnInfo.toString();
+      feedbackLink.setParam(feedbackReturnInfoKey, returnInfo.toString());
       return feedbackLink.toString();
     }
 
