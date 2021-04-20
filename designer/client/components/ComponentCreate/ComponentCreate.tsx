@@ -80,6 +80,7 @@ function useComponentCreate(props) {
     setIsSaving(true);
     const { isNew, ...selectedComponent } = state.selectedComponent;
     data.addComponent(page.path, { ...selectedComponent });
+
     await save(data.toJSON());
     toggleAddComponent();
   };

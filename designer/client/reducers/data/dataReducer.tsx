@@ -1,0 +1,20 @@
+import react, { useReducer } from "react";
+
+enum DataActions {
+  UPDATE_COMPONENT = "UPDATE_COMPONENT",
+  ADD_COMPONENT = "ADD_COMPONENT",
+
+  ADD_LIST = "ADD_LIST",
+
+  ADD_CONDITION = "ADD_CONDITION",
+  UPDATE_CONDITION = "UPDATE_CONDITION",
+  REMOVE_CONDITION = "REMOVE_CONDITION",
+
+  ADD_LINK = "ADD_LINK",
+  UPDATE_LINK = "UPDATE_LINK",
+
+  ADD_PAGE = "ADD_PAGE",
+  UPDATE_PAGE = "UPDATE_PAGE",
+}
+
+function reducer(state, action) {}

@@ -6,3 +6,5 @@ function UseFindList(name: List["name"]): List | undefined {
   const { data } = useContext(DataContext);
   return data.lists.find((list) => list.name === name);
 }
+
+function addList(list: List) {}
