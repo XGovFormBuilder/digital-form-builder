@@ -6,7 +6,6 @@ Feature: Form pages
   Background: Create new config
     Given I have created a new form configuration
 
-  @debug
   Scenario: Edit a page title
     When I choose Edit page for the "First page"
     And I change the page title to "Testing"
@@ -17,6 +16,12 @@ Feature: Form pages
     When I change the page path to "/my-first-test-page"
     And I preview the "First page" page
     Then the change is reflected in the preview url
+
+  Scenario: Create a section from Edit page
+    And I choose Edit page for the "First page"
+    When I create a section titled "Personal Details"
+    And I preview the "First page" page
+    Then the section title is displayed in the preview
 
   Scenario: Add a page
     When I choose "Add page" from the designer menu

@@ -247,6 +247,7 @@ Then("the Date field control is displayed in the page", () => {
 });
 
 When(/^I choose Edit page for the "([^"]*)"$/, function (pageName) {
+  this.pageName = pageName;
   formDesigner.editPageForPageName(pageName).click();
 });
 
@@ -359,4 +360,17 @@ Then("the {string} is displayed", function (pageName) {
 
 Then(/^the change is reflected in the preview url$/, function () {
   expect(browser).toHaveUrlContaining(this.pathName);
+});
+
+When(/^I create a section titled "([^"]*)"$/, function (sectionTitle) {
+  this.sectionTitle = sectionTitle;
+  editPage.clickLink("Create section");
+  editSection.sectionTitle.setValue(this.sectionTitle);
+  editSection.sectionSaveBtn.click();
+  editPage.saveBtn.click();
+  expect(formDesigner.pageSectionName(this.pageName)).toHaveText(sectionTitle);
+});
+
+Then(/^the section title is displayed in the preview$/, function () {
+  expect(previewPage.sectionTitle).toHaveText(this.sectionTitle);
 });
