@@ -4,8 +4,6 @@
 
 import { ComponentDef, Page } from "@xgovformbuilder/model";
 import { UseFindPage } from "./usePages";
-import { DataContext } from "../../context";
-import { useContext } from "react";
 
 type PagePath = Page["path"];
 

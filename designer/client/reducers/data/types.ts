@@ -5,7 +5,7 @@ export type Path = Page["path"];
 export type ConditionName = ConditionsWrapper["name"];
 type ConditionDisplayName = Pick<ConditionsWrapper, "displayName">;
 
-export enum DataActions {
+export enum DataActionType {
   UPDATE_COMPONENT = "UPDATE_COMPONENT",
   ADD_COMPONENT = "ADD_COMPONENT",
 
@@ -20,13 +20,10 @@ export enum DataActions {
 
   ADD_PAGE = "ADD_PAGE",
   UPDATE_PAGE = "UPDATE_PAGE",
-
-  ADD_COMPONENT = "ADD_COMPONENT",
-  UPDATE_COMPONENT = "UPDATE_COMPONENT",
 }
 
 type LinkAction = {
-  type: DataActions.ADD_LINK | DataActions.UPDATE_LINK;
+  type: DataActionType.ADD_LINK | DataActionType.UPDATE_LINK;
   payload: {
     from: Path;
     to: Path;
@@ -34,13 +31,13 @@ type LinkAction = {
   };
 };
 
-type RemoveConditionAction = {
-  type: DataActions.REMOVE_CONDITION;
+type RemoveCondition = {
+  type: DataActionType.REMOVE_CONDITION;
   payload: ConditionDisplayName;
 };
 
 type AddConditionAction = {
-  type: DataActions.ADD_CONDITION;
+  type: DataActionType.ADD_CONDITION;
   payload: {
     name: ConditionName;
     condition: ConditionsWrapper;
@@ -48,7 +45,7 @@ type AddConditionAction = {
 };
 
 type UpdateConditionAction = {
-  type: DataActions.UPDATE_CONDITION;
+  type: DataActionType.UPDATE_CONDITION;
   payload: {
     name: ConditionName;
     condition: ConditionsWrapper;
@@ -56,17 +53,17 @@ type UpdateConditionAction = {
 };
 
 type ListAction = {
-  type: DataActions.ADD_LIST;
+  type: DataActionType.ADD_LIST;
   payload: List;
 };
 
 type AddPageAction = {
-  type: DataActions.ADD_PAGE;
+  type: DataActionType.ADD_PAGE;
   payload: Page;
 };
 
 type UpdatePageAction = {
-  type: DataActions.UPDATE_PAGE;
+  type: DataActionType.UPDATE_PAGE;
   payload: {
     path: Page["path"];
     updatedPage: Page;
@@ -74,7 +71,7 @@ type UpdatePageAction = {
 };
 
 type UpdateComponent = {
-  type: DataActions.UPDATE_COMPONENT;
+  type: DataActionType.UPDATE_COMPONENT;
   payload: {
     path: Page["path"];
     component: ComponentDef;
@@ -82,10 +79,21 @@ type UpdateComponent = {
 };
 
 type AddComponent = {
-  type: DataActions.ADD_COMPONENT;
+  type: DataActionType.ADD_COMPONENT;
   payload: {
     path: Page["path"];
     componentName: ComponentDef["name"];
     component: ComponentDef;
   };
 };
+
+export type DataAction =
+  | LinkAction
+  | RemoveCondition
+  | AddConditionAction
+  | UpdateConditionAction
+  | ListAction
+  | AddPageAction
+  | UpdatePageAction
+  | UpdateComponent
+  | AddComponent;
