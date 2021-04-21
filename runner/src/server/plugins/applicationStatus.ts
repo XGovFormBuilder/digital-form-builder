@@ -12,7 +12,7 @@ import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
 function getFeedbackContextInfo(request: HapiRequest) {
   if (request.query[feedbackReturnInfoKey]) {
     return decodeFeedbackContextInfo(
-      request.url.searchParams.get(feedbackReturnInfoKey) || undefined
+      request.url.searchParams.get(feedbackReturnInfoKey)
     );
   }
 }

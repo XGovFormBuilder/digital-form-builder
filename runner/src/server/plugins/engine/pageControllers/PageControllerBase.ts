@@ -510,7 +510,7 @@ export class PageControllerBase {
   getFeedbackContextInfo(request: HapiRequest) {
     if (this.def.feedback?.feedbackForm) {
       return decodeFeedbackContextInfo(
-        request.url.searchParams.get(feedbackReturnInfoKey) || undefined
+        request.url.searchParams.get(feedbackReturnInfoKey)
       );
     }
   }

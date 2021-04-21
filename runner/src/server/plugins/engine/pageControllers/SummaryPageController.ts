@@ -214,7 +214,7 @@ export class SummaryPageController extends PageController {
     if (this.model.def.feedback?.feedbackForm) {
       if (request.url.searchParams.get(feedbackReturnInfoKey)) {
         return decodeFeedbackContextInfo(
-          request.url.searchParams.get(feedbackReturnInfoKey) || undefined
+          request.url.searchParams.get(feedbackReturnInfoKey)
         );
       }
     }
