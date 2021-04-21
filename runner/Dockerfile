@@ -31,6 +31,7 @@ USER 1001
 # rsync is used to merge folders instead of individually copying files
 FROM dependencies AS model
 WORKDIR /usr/src/app
+#TODO:- remove - should already be copied in s2
 COPY --chown=appuser:appuser ./model ./model/
 USER 1001
 RUN yarn workspaces focus @xgovformbuilder/model && yarn model build

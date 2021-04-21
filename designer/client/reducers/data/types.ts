@@ -1,4 +1,7 @@
-import { ConditionsWrapper } from "@xgovformbuilder/model/dist/browser/data-model";
+import {
+  ConditionsWrapper,
+  ConditionRawData,
+} from "@xgovformbuilder/model/dist/browser";
 import { ComponentDef, List, Page } from "@xgovformbuilder/model";
 
 export type Path = Page["path"];
@@ -22,78 +25,58 @@ export enum DataActionType {
   UPDATE_PAGE = "UPDATE_PAGE",
 }
 
-type LinkAction = {
-  type: DataActionType.ADD_LINK | DataActionType.UPDATE_LINK;
-  payload: {
-    from: Path;
-    to: Path;
-    condition?: ConditionName;
-  };
-};
-
-type RemoveCondition = {
-  type: DataActionType.REMOVE_CONDITION;
-  payload: ConditionDisplayName;
-};
-
-type AddConditionAction = {
-  type: DataActionType.ADD_CONDITION;
-  payload: {
-    name: ConditionName;
-    condition: ConditionsWrapper;
-  };
-};
-
-type UpdateConditionAction = {
-  type: DataActionType.UPDATE_CONDITION;
-  payload: {
-    name: ConditionName;
-    condition: ConditionsWrapper;
-  };
-};
-
-type ListAction = {
-  type: DataActionType.ADD_LIST;
-  payload: List;
-};
-
-type AddPageAction = {
-  type: DataActionType.ADD_PAGE;
-  payload: Page;
-};
-
-type UpdatePageAction = {
-  type: DataActionType.UPDATE_PAGE;
-  payload: {
-    path: Page["path"];
-    updatedPage: Page;
-  };
-};
-
-type UpdateComponent = {
-  type: DataActionType.UPDATE_COMPONENT;
-  payload: {
-    path: Page["path"];
-    component: ComponentDef;
-  };
-};
-
-type AddComponent = {
-  type: DataActionType.ADD_COMPONENT;
-  payload: {
-    path: Page["path"];
-    componentName: ComponentDef["name"];
-    component: ComponentDef;
-  };
-};
-
 export type DataAction =
-  | LinkAction
-  | RemoveCondition
-  | AddConditionAction
-  | UpdateConditionAction
-  | ListAction
-  | AddPageAction
-  | UpdatePageAction
-  | UpdateComponent
-  | AddComponent;
+  | {
+      type: DataActionType.ADD_LINK | DataActionType.UPDATE_LINK;
+      from: Path;
+      to: Path;
+      condition?: ConditionName;
+    }
+  | {
+      type: DataActionType.REMOVE_CONDITION;
+      conditionName: ConditionDisplayName;
+    }
+  | {
+      type: DataActionType.ADD_CONDITION;
+      payload: {
+        conditionName: ConditionName;
+        condition: ConditionRawData;
+      };
+    }
+  | {
+      type: DataActionType.UPDATE_CONDITION;
+      payload: {
+        name: ConditionName;
+        condition: ConditionRawData;
+      };
+    }
+  | {
+      type: DataActionType.ADD_LIST;
+      list: List;
+    }
+  | {
+      type: DataActionType.ADD_PAGE;
+      payload: Page;
+    }
+  | {
+      type: DataActionType.UPDATE_PAGE;
+      payload: {
+        path: Page["path"];
+        updatedPage: Page;
+      };
+    }
+  | {
+      type: DataActionType.UPDATE_COMPONENT;
+      payload: {
+        path: Page["path"];
+        component: ComponentDef;
+      };
+    }
+  | {
+      type: DataActionType.ADD_COMPONENT;
+      payload: {
+        path: Page["path"];
+        componentName: ComponentDef["name"];
+        component: ComponentDef;
+      };
+    };
