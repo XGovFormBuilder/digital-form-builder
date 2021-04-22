@@ -122,7 +122,6 @@ When("I enter the details for my page", () => {
 });
 
 When("I link the {string} to the {string}", (fromPage, toPage) => {
-  console.log(fromPage, toPage);
   addLink.selectFromByName(fromPage);
   addLink.selectToByName(toPage);
   addLink.saveBtn.click();

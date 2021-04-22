@@ -35,7 +35,7 @@ Then("the error message {string} is displayed", function (errorMessage) {
   expect(formDesigner.designerMenu).not.toBeDisplayed();
 });
 
-Given(/^I chosen to create a new form$/, function () {
+Given(/^I have chosen to create a new form$/, function () {
   configPage.newForm.click();
   configPage.nextBtn.click();
 });

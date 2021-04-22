@@ -16,7 +16,7 @@ Feature: Start Page
 
   Scenario: Create new form, go back to previous page
     Given I am on the form designer start page
-    And I chosen to create a new form
+    And I have chosen to create a new form
     When I go back to previous page
     Then the start page is displayed
 
