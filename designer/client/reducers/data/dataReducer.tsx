@@ -1,8 +1,8 @@
-import react, { useReducer } from "react";
 import { DataAction, DataActionType } from "./types";
 import { addComponent, updateComponent } from "./component";
 import { addLink, updateLink } from "./page";
 import { RawData } from "@xgovformbuilder/model";
+import { updateCondition } from "../condition";
 
 function reducer(state: RawData, action: DataAction): RawData {
   const data = { ...state };
@@ -20,11 +20,18 @@ function reducer(state: RawData, action: DataAction): RawData {
       return { ...data, lists: [...data.lists, action.payload] };
     }
     case DataActionType.ADD_CONDITION: {
-      const { condition } = action.payload;
+      const { conditionName, condition } = action.payload;
+      if (
+        data.conditions?.find((condition) => condition.name === conditionName)
+      ) {
+        throw Error(`A condition already exists with name ${conditionName}`);
+      }
       return { ...data, conditions: [...(data.conditions ?? []), condition] };
     }
-    case DataActionType.UPDATE_CONDITION:
-      break;
+    case DataActionType.UPDATE_CONDITION: {
+      const { name, condition } = action.payload;
+      return updateCondition(data, name, condition);
+    }
     case DataActionType.REMOVE_CONDITION:
       break;
     case DataActionType.ADD_LINK: {
