@@ -2,6 +2,7 @@ name: Branch QA
 on:
   pull_request:
     branches:
+      - main
       - master
       - main
   workflow_dispatch:
