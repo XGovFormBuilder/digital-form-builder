@@ -10,9 +10,9 @@ Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUT
 
 This repository is a mono repo for
 
-- @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/runner) - Hapi server which can 'run' a form from a JSON file
-- @xgovformbuilder/[designer](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/designer) - A React app to aide in form building
-- @xgovformbuilder/[model](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/model) - Serves the data model and other helpers
+- @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner) - Hapi server which can 'run' a form from a JSON file
+- @xgovformbuilder/[designer](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer) - A React app to aide in form building
+- @xgovformbuilder/[model](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model) - Serves the data model and other helpers
 
 The repos are forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
 
@@ -91,7 +91,7 @@ If you have any problems, submit an issue or send a message via gitter.
 
 #### Development environment
 
-The development workflow is triggered whenever a PR is merged into master and you can monitor it on the repository's [action tab](https://github.com/XGovFormBuilder/digital-form-builder/actions).
+The development workflow is triggered whenever a PR is merged into main, and you can monitor it on the repository's [action tab](https://github.com/XGovFormBuilder/digital-form-builder/actions).
 
 The workflow contains two separate jobs that run in parallel, one for the Runner and another for the Designer application.
 
