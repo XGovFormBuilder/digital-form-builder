@@ -1,5 +1,11 @@
 import { ComponentDef } from "../components/types";
 
+export interface Next {
+  path: string;
+  condition?: string;
+}
+export type Link = Next;
+
 export interface Page {
   title: string;
   path: string;

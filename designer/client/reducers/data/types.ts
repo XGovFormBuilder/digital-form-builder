@@ -1,12 +1,9 @@
-import {
-  ConditionsWrapper,
-  ConditionRawData,
-} from "@xgovformbuilder/model/dist/browser";
+import { ConditionRawData } from "@xgovformbuilder/model";
 import { ComponentDef, List, Page } from "@xgovformbuilder/model";
 
 export type Path = Page["path"];
-export type ConditionName = ConditionsWrapper["name"];
-type ConditionDisplayName = Pick<ConditionsWrapper, "displayName">;
+export type ConditionName = ConditionRawData["name"];
+type ConditionDisplayName = Pick<ConditionRawData, "displayName">;
 
 export enum DataActionType {
   UPDATE_COMPONENT = "UPDATE_COMPONENT",
@@ -22,19 +19,29 @@ export enum DataActionType {
   UPDATE_LINK = "UPDATE_LINK",
 
   ADD_PAGE = "ADD_PAGE",
-  UPDATE_PAGE = "UPDATE_PAGE",
+  // UPDATE_PAGE = "UPDATE_PAGE",
 }
 
 export type DataAction =
   | {
+      type: DataActionType.UPDATE_COMPONENT;
+      payload: {
+        path: Page["path"];
+        componentName: ComponentDef["name"];
+        component: ComponentDef;
+      };
+    }
+  | {
       type: DataActionType.ADD_LINK | DataActionType.UPDATE_LINK;
-      from: Path;
-      to: Path;
-      condition?: ConditionName;
+      payload: {
+        from: Path;
+        to: Path;
+        condition?: ConditionName;
+      };
     }
   | {
       type: DataActionType.REMOVE_CONDITION;
-      conditionName: ConditionDisplayName;
+      payload: ConditionDisplayName;
     }
   | {
       type: DataActionType.ADD_CONDITION;
@@ -52,26 +59,19 @@ export type DataAction =
     }
   | {
       type: DataActionType.ADD_LIST;
-      list: List;
+      payload: List;
     }
   | {
       type: DataActionType.ADD_PAGE;
       payload: Page;
     }
-  | {
+  /*| {
       type: DataActionType.UPDATE_PAGE;
       payload: {
         path: Page["path"];
         updatedPage: Page;
       };
-    }
-  | {
-      type: DataActionType.UPDATE_COMPONENT;
-      payload: {
-        path: Page["path"];
-        component: ComponentDef;
-      };
-    }
+    }*/
   | {
       type: DataActionType.ADD_COMPONENT;
       payload: {
