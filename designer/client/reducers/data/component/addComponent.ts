@@ -1,5 +1,5 @@
 import { ComponentDef, Page } from "@xgovformbuilder/model";
-import { UseFindPage } from "../../../hooks/data/usePages";
+import { findPage } from "../../../hooks/data/usePages";
 
 export function addComponent(
   data,
@@ -7,11 +7,15 @@ export function addComponent(
   component: ComponentDef
 ) {
   const clone = { ...data };
-  const [page, index] = UseFindPage(pagePath);
+  const [page, index] = findPage(data, pagePath);
   if (page) {
-    clone.pages[index].components ||= [];
-    clone.components.push(component);
-    return clone;
+    const components = [...data.pages[index].components, component];
+    return {
+      ...clone,
+      pages: clone.pages.map((page, i) =>
+        i === index ? { ...page, components } : page
+      ),
+    };
   } else {
     throw Error(`No page exists with path ${pagePath}`);
   }

@@ -4,7 +4,7 @@ import { addLink, updateLink } from "./page";
 import { FormDefinition } from "@xgovformbuilder/model";
 import { removeCondition, updateCondition } from "../condition";
 
-export function DataReducer(
+export function dataReducer(
   state: FormDefinition,
   action: DataAction
 ): FormDefinition {

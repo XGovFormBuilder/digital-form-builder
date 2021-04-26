@@ -1,5 +1,5 @@
 import { ConditionName, Path } from "../types";
-import { UseFindPage } from "../../../hooks/data/usePages";
+import { findPage } from "../../../hooks/data/usePages";
 import { ConditionRawData, FormDefinition, Link } from "@xgovformbuilder/model";
 
 export function addLink(
@@ -8,8 +8,8 @@ export function addLink(
   to: Path,
   condition?: ConditionName
 ): FormDefinition {
-  const [fromPage, fromPageIndex] = UseFindPage(from);
-  const [toPage] = UseFindPage(to);
+  const [fromPage, fromPageIndex] = findPage(from);
+  const [toPage] = findPage(to);
   const pages = { ...data.pages };
   if (fromPage && toPage) {
     const existingLink = fromPage.next?.find(
@@ -40,8 +40,8 @@ export function updateLink(
   to: Path,
   condition?: ConditionRawData["name"]
 ): FormDefinition {
-  const [fromPage, fromPageIndex] = UseFindPage(from);
-  const [toPage] = UseFindPage(to);
+  const [fromPage, fromPageIndex] = findPage(from);
+  const [toPage] = findPage(to);
   const existingLinkIndex = fromPage.next?.findIndex(
     (page) => page.path === to
   );

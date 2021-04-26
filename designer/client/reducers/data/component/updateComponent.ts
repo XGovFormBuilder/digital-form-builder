@@ -1,5 +1,5 @@
 import { ComponentDef } from "@xgovformbuilder/model";
-import { UseFindPage } from "../../../hooks/data/usePages";
+import { findPage } from "../../../hooks/data/usePages";
 import { Path } from "../types";
 
 export function updateComponent(
@@ -8,7 +8,7 @@ export function updateComponent(
   componentName: ComponentDef["name"],
   component: ComponentDef
 ) {
-  const [page] = UseFindPage(pagePath);
+  const [page] = findPage(pagePath);
   if (page) {
     const components = [...(page.components ?? [])];
     const componentIndex =

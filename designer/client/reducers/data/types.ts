@@ -69,7 +69,6 @@ export type DataAction =
       type: DataActionType.ADD_COMPONENT;
       payload: {
         path: Page["path"];
-        componentName: ComponentDef["name"];
         component: ComponentDef;
       };
     };

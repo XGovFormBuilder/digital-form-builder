@@ -3,7 +3,7 @@
  */
 
 import { ComponentDef, Page } from "@xgovformbuilder/model";
-import { UseFindPage } from "./usePages";
+import { findPage } from "./usePages";
 
 type PagePath = Page["path"];
 
@@ -12,7 +12,7 @@ function updateComponent(
   componentName: ComponentDef["name"],
   component: ComponentDef
 ) {
-  const page = UseFindPage(pagePath);
+  const page = findPage(pagePath);
 
   if (page) {
     page.components ||= [];
@@ -34,7 +34,7 @@ function updateComponent(
 }
 
 function addComponent(pagePath: PagePath, component: ComponentDef) {
-  const page = UseFindPage(pagePath);
+  const page = findPage(pagePath);
   if (page) {
     page.components ||= [];
     page.components.push(component);

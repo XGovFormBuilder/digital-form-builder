@@ -7,13 +7,17 @@ import { fieldsReducer } from "./componentReducer.fields";
 
 import type { ComponentActions } from "./types";
 import { Meta, Schema, Fields, Options, Actions } from "./types";
+import { ComponentDef } from "@xgovformbuilder/model";
 
-// TODO: type
 type ComponentState = {
+  selectedComponent: ComponentDef;
+  isNew: boolean;
   [prop: string]: any;
 };
 
-const defaultValues = {};
+const defaultValues = {
+  selectedComponent: {},
+};
 
 export const ComponentContext = createContext<{
   state: ComponentState;
