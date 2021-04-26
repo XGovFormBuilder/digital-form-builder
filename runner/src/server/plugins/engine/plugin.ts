@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
+import { visitIdentifierKey } from "./helpers";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -47,11 +48,11 @@ function redirectWithVisitParameter(
   request: HapiRequest,
   h: HapiResponseToolkit
 ) {
-  const visitId = request.query[RelativeUrl.VISIT_IDENTIFIER_PARAMETER];
+  const visitId = request.query[visitIdentifierKey];
 
   if (!visitId) {
     const params = Object.assign({}, request.query);
-    params[RelativeUrl.VISIT_IDENTIFIER_PARAMETER] = nanoid(10);
+    params[visitIdentifierKey] = nanoid(10);
     return redirectTo(request, h, request.url.pathname, params);
   }
 
