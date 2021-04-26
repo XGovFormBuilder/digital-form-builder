@@ -65,13 +65,6 @@ export type DataAction =
       type: DataActionType.ADD_PAGE;
       payload: Page;
     }
-  /*| {
-      type: DataActionType.UPDATE_PAGE;
-      payload: {
-        path: Page["path"];
-        updatedPage: Page;
-      };
-    }*/
   | {
       type: DataActionType.ADD_COMPONENT;
       payload: {

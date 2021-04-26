@@ -1,7 +1,7 @@
 import { ConditionName, Path } from "../types";
 import { UseFindPage } from "../../../hooks/data/usePages";
-import { RawData } from "@xgovformbuilder/model/dist/browser/data-model";
 import { ConditionRawData, FormDefinition, Link } from "@xgovformbuilder/model";
+
 export function addLink(
   data: FormDefinition,
   from: Path,

@@ -44,7 +44,7 @@ export function allInputs(pages) {
 }
 
 export type RawData = Pick<
-  Data,
+  DataClazz,
   "startPage" | "pages" | "lists" | "sections"
 > & {
   name?: string;
@@ -56,7 +56,8 @@ export type RawData = Pick<
 /**
  * FIXME:- This class is seriously bloated and most of the methods are not used by the runner at all. I don't even know why it's in /model..!
  */
-export class Data {
+export class Data {}
+export class DataClazz {
   /**
    * TODO
    * FIXME: Ideally I'd have made this part of feedback-context-info.js and moved that inside model
@@ -74,7 +75,9 @@ export class Data {
 
   constructor(rawData: RawData) {
     const rawDataClone =
-      rawData instanceof Data ? rawData._exposePrivateFields() : { ...rawData };
+      rawData instanceof DataClazz
+        ? rawData._exposePrivateFields()
+        : { ...rawData };
 
     // protected properties
     this.#name = rawDataClone.name || "";
@@ -301,7 +304,7 @@ export class Data {
   }
 
   clone() {
-    return new Data(this._exposePrivateFields());
+    return new DataClazz(this._exposePrivateFields());
   }
 
   toJSON() {
