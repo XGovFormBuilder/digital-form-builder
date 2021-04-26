@@ -10,7 +10,10 @@ class EditSections extends Section {
   }
 
   get sectionSaveBtn() {
-    return browser.$(".govuk-button=Save");
+    let buttonIndex = browser
+      .$$(".panel--flyout h4")
+      .findIndex((el) => el.getText() === "Add a new section");
+    return browser.$$(".govuk-button=Save")[buttonIndex];
   }
 }
 
