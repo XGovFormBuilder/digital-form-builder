@@ -11,19 +11,23 @@ class ConfigPage extends Page {
   }
 
   get newForm() {
-    return $(".govuk-label=Create a new form");
+    return browser.$(".govuk-label=Create a new form");
   }
 
   get existingForm() {
-    return $(".govuk-label=Open an existing form");
+    return browser.$(".govuk-label=Open an existing form");
   }
 
   get nextBtn() {
     return browser.$(".govuk-button");
   }
 
+  get backToPreviousPage() {
+    return browser.$("a.govuk-back-link");
+  }
+
   get newFormScreen() {
-    return $("h1=Enter a name for your form");
+    return browser.$("h1=Enter a name for your form");
   }
 
   /**
@@ -38,6 +42,10 @@ class ConfigPage extends Page {
     this.nextBtn.click();
   }
 
+  /**
+   * Returns an array from the error summary
+   * @returns {WebdriverIO.ElementArray}
+   */
   errorSummaryErrors() {
     return browser.$$(".govuk-error-summary__list li a");
   }

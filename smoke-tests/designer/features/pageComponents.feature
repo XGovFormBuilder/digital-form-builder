@@ -1,4 +1,4 @@
-Feature: Components
+Feature: Page Components
   As a forms designer
   I want to create, update and delete components
   So that I capture the information in my form
@@ -54,6 +54,7 @@ Feature: Components
     Then the "Date" will not be visible in the "First page"
 
   Scenario: Edit Sections from the form designer menu
-    When I choose "Sections" from the designer menu
-    And I add a new section
+    And I choose "Sections" from the designer menu
+    When I add a new section titled "Your property details"
+    And I choose Edit page for the "Second page"
     Then the section should be available when I edit the Question page
