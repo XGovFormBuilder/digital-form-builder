@@ -1,13 +1,15 @@
 const chai = require("chai");
 const { Given, When, Then } = require("cucumber");
 const { formDesigner, previewPage } = require("../pageobjects/pages");
-const createComponent = require("../pageobjects/sections/createComponent.section");
-const AddLinkSection = require("../pageobjects/sections/addLink.section");
-const EditListSection = require("../pageobjects/sections/editLists.section");
-const EditPageSection = require("../pageobjects/sections/editPage.section");
-const EditSection = require("../pageobjects/sections/editSection.section");
-const { navMenu } = require("../pageobjects/sections");
-const FieldData = require("../../data/componentFieldData");
+const {
+  addLink,
+  createComponent,
+  editLists,
+  editPage,
+  editSection,
+  navMenu,
+} = require("../pageobjects/sections");
+const fieldData = require("../../data/componentFieldData");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
 const Actions = require("../actions/actions");
 
@@ -115,55 +117,52 @@ Then(
 
 When("I enter the details for my page", () => {
   this.newPageName = "Personal Details";
-  EditPageSection.pageTitle.setValue(this.newPageName);
-  EditPageSection.saveBtn.click();
+  editPage.pageTitle.setValue(this.newPageName);
+  editPage.saveBtn.click();
 });
 
 When("I link the {string} to the {string}", (fromPage, toPage) => {
-  console.log(fromPage, toPage);
-  AddLinkSection.selectFromByName(fromPage);
-  AddLinkSection.selectToByName(toPage);
-  AddLinkSection.saveBtn.click();
+  addLink.selectFromByName(fromPage);
+  addLink.selectToByName(toPage);
+  addLink.saveBtn.click();
 });
 
 Then("a link between them will be displayed", () => {
   expect(formDesigner.linkLine).toExist();
 });
 
-When("I add a new section", () => {
-  EditSection.addSection.click();
-  EditSection.sectionTitle.setValue("MyTestSection");
-  EditSection.sectionSaveBtn.click();
+When("I add a new section titled {string}", function (sectionTitle) {
+  this.sectionTitle = sectionTitle;
+  editSection.addSection.click();
+  editSection.sectionTitle.setValue(sectionTitle);
+  editSection.saveBtn.click();
   browser.waitUntil(
-    () => EditSection.sectionLinks[0].getText() === "MyTestSection",
+    () => editSection.sectionLinks[0].getText() === this.sectionTitle,
     {
       timeout: 1000,
-      timeoutMsg: "Expected new a section to be added",
+      timeoutMsg: `Expected new a section title ${this.sectionTitle} to be added`,
       interval: 500,
     }
   );
-  expect(EditSection.sectionLinks[0]).toHaveText("MyTestSection");
-  EditSection.closeLinks[0].click();
+  expect(editSection.sectionLinks[0]).toHaveText(this.sectionTitle);
+  editSection.closeLinks[0].click();
 });
 
-Then("the section should be available when I edit the Question page", () => {
-  formDesigner.editPageForPageName("First page").click();
-  expect(EditPageSection.sectionDropdown).toHaveTextContaining("MyTestSection");
-});
+Then(
+  "the section should be available when I edit the Question page",
+  function () {
+    expect(editPage.sectionDropdown).toHaveText(this.sectionTitle);
+  }
+);
 
 When("I add a new Global list named {string}", function (listName) {
   this.listName = listName;
-  EditListSection.addNewList.click();
-  EditListSection.listTitle.setValue(listName);
-  EditListSection.createListItem.click();
-  EditListSection.addNewListItem(
-    "Add list item",
-    "Test Global Lists",
-    "two",
-    "two"
-  );
-  EditListSection.saveBtn.click();
-  EditListSection.closeLinks[0].click();
+  editLists.addNewList.click();
+  editLists.listTitle.setValue(listName);
+  editLists.createListItem.click();
+  editLists.addNewListItem("Add list item", "Test Global Lists", "two", "two");
+  editLists.saveBtn.click();
+  editLists.closeLinks[0].click();
 });
 
 When(
@@ -183,10 +182,10 @@ When("I add a {string} control for the {string}", function (
   formDesigner.createComponentForPageName(pageName).click();
   createComponent.selectComponentByName(this.componentName);
   createComponent.completeCommonFields(
-    FieldData[toCamelCase(this.componentName)],
+    fieldData[toCamelCase(this.componentName)],
     false
   );
-  createComponent.selectList(FieldData.list.title);
+  createComponent.selectList(fieldData.list.title);
   createComponent.saveBtn.click();
 });
 
@@ -200,11 +199,11 @@ Then("the list is available in the list options", function () {
 
 When("I choose to duplicate the {string}", (pageName) => {
   formDesigner.editPageForPageName(pageName).click();
-  if (EditPageSection.parentElement.isDisplayed() === false) {
+  if (editPage.parentElement.isDisplayed() === false) {
     formDesigner.editPageForPageName(pageName).click();
   }
-  EditPageSection.duplicateBtn.click();
-  EditPageSection.closeLinks[0].click();
+  editPage.duplicateBtn.click();
+  editPage.closeLinks[0].click();
 });
 
 Then(
@@ -218,9 +217,9 @@ Then(
 
 When("I choose to delete the {string}", (pageName) => {
   formDesigner.editPageForPageName(pageName).click();
-  EditPageSection.deleteBtn.click();
+  editPage.deleteBtn.click();
   acceptAlert();
-  EditPageSection.closeLinks[0].click();
+  editPage.closeLinks[0].click();
 });
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
@@ -233,7 +232,7 @@ Then("the {string} is no longer visible in the designer", (pageName) => {
 });
 
 Then("the list is selected in the list dropdown", function () {
-  expect(EditListSection.selectListValue).toHaveText(FieldData.list.title);
+  expect(editLists.selectListValue).toHaveText(fieldData.list.title);
 });
 
 When("I add a {string} control to the {string}", function (
@@ -249,16 +248,27 @@ Then("the Date field control is displayed in the page", () => {
   expect(formDesigner.dropdown(this.pageName)).toHaveText("dd/mm/yyyy");
 });
 
-When("I edit the page title on the {string}", (pageName) => {
-  this.newPageName = "testing";
+When("I choose Edit page for the {string}", function (pageName) {
+  this.pageName = pageName;
   formDesigner.editPageForPageName(pageName).click();
-  EditPageSection.pageTitle.setValue(this.newPageName);
-  EditPageSection.saveBtn.click();
 });
 
-Then("the changes are reflected in the page designer", () => {
+When("I change the page title to {string}", function (newPageName) {
+  this.newPageName = newPageName;
+  editPage.pageTitle.setValue(this.newPageName);
+  editPage.saveBtn.click();
+});
+
+When("I change the page path to {string}", function (pathName) {
+  this.pathName = pathName;
+  editPage.pagePath.clearValue();
+  editPage.pagePath.setValue(this.pathName);
+  editPage.saveBtn.click();
+});
+
+Then("the changes are reflected in the page designer", function () {
   browser.waitUntil(
-    () => formDesigner.formPageTitles[0].getText() === "testing"
+    () => formDesigner.formPageTitles[0].getText() === this.newPageName
   );
   expect(formDesigner.getTitleTextForPage(this.newPageName)).toBe(
     this.newPageName
@@ -283,11 +293,11 @@ Then("the {string} is displayed when I Preview the page", function (component) {
   browser.switchWindow(`${this.pageName}`);
   expect(previewPage.pageTitle).toHaveText(this.pageName);
   if (component !== "Paragraph") {
-    expect(previewPage.hintText(FieldData[this.component].name)).toHaveText(
-      FieldData[this.component].hint
+    expect(previewPage.hintText(fieldData[this.component].name)).toHaveText(
+      fieldData[this.component].hint
     );
     expect(
-      previewPage.getComponent(FieldData[this.component].name)
+      previewPage.getComponent(fieldData[this.component].name)
     ).toBeDisplayed();
   } else {
     expect(previewPage.paragraph).toBeDisplayed();
@@ -348,4 +358,21 @@ Given("I add an optional {string} control to the {string}", function (
 
 Then("the {string} is displayed", function (pageName) {
   expect(previewPage.pageTitle).toHaveText(pageName);
+});
+
+Then("the change is reflected in the preview url", function () {
+  expect(browser).toHaveUrlContaining(this.pathName);
+});
+
+When("I create a section titled {string}", function (sectionTitle) {
+  this.sectionTitle = sectionTitle;
+  editPage.clickLink("Create section");
+  editSection.sectionTitle.setValue(this.sectionTitle);
+  editSection.sectionSaveBtn.click();
+  editPage.saveBtn.click();
+  expect(formDesigner.pageSectionName(this.pageName)).toHaveText(sectionTitle);
+});
+
+Then("the section title is displayed in the preview", function () {
+  expect(previewPage.sectionTitle).toHaveText(this.sectionTitle);
 });

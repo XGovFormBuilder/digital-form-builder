@@ -9,8 +9,8 @@ class EditPageSection extends Section {
     return this.parentElement.$("select#page-section");
   }
 
-  get duplicateBtn() {
-    return this.parentElement.$(".govuk-button=Duplicate");
+  get pagePath() {
+    return this.parentElement.$("#page-path");
   }
 
   get deleteBtn() {
