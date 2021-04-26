@@ -1,10 +1,10 @@
-import { ConditionRawData, RawData } from "@xgovformbuilder/model";
+import { ConditionRawData, FormDefinition } from "@xgovformbuilder/model";
 
 export function updateCondition(
-  data: RawData,
+  data: FormDefinition,
   conditionName: ConditionRawData["name"],
   updatedPartial: Partial<ConditionRawData>
-): RawData {
+): FormDefinition {
   const conditions = [...data.conditions!];
   const conditionIndex = conditions.findIndex(
     (condition) => condition.name === conditionName

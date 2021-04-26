@@ -1,13 +1,13 @@
 import { ConditionName, Path } from "../types";
 import { UseFindPage } from "../../../hooks/data/usePages";
 import { RawData } from "@xgovformbuilder/model/dist/browser/data-model";
-import { ConditionRawData, Link } from "@xgovformbuilder/model";
+import { ConditionRawData, FormDefinition, Link } from "@xgovformbuilder/model";
 export function addLink(
-  data,
+  data: FormDefinition,
   from: Path,
   to: Path,
   condition?: ConditionName
-): RawData {
+): FormDefinition {
   const [fromPage, fromPageIndex] = UseFindPage(from);
   const [toPage] = UseFindPage(to);
   const pages = { ...data.pages };
@@ -35,19 +35,20 @@ export function addLink(
 }
 
 export function updateLink(
-  data,
+  data: FormDefinition,
   from: Path,
   to: Path,
   condition?: ConditionRawData["name"]
-): RawData | undefined {
+): FormDefinition {
   const [fromPage, fromPageIndex] = UseFindPage(from);
   const [toPage] = UseFindPage(to);
   const existingLinkIndex = fromPage.next?.findIndex(
     (page) => page.path === to
   );
   if (!fromPage || !toPage || !existingLinkIndex) {
-    return;
+    throw Error("Could not find page or links to update");
   }
+
   const updatedNext = [...fromPage.next!];
   updatedNext[existingLinkIndex] = {
     ...updatedNext[existingLinkIndex],

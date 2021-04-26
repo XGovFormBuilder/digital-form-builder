@@ -1,10 +1,13 @@
 import { DataAction, DataActionType } from "./types";
 import { addComponent, updateComponent } from "./component";
 import { addLink, updateLink } from "./page";
-import { RawData } from "@xgovformbuilder/model";
-import { updateCondition } from "../condition";
+import { FormDefinition } from "@xgovformbuilder/model";
+import { removeCondition, updateCondition } from "../condition";
 
-function reducer(state: RawData, action: DataAction): RawData {
+export function DataReducer(
+  state: FormDefinition,
+  action: DataAction
+): FormDefinition {
   const data = { ...state };
 
   switch (action.type) {
@@ -33,7 +36,7 @@ function reducer(state: RawData, action: DataAction): RawData {
       return updateCondition(data, name, condition);
     }
     case DataActionType.REMOVE_CONDITION:
-      break;
+      return removeCondition(data, action.payload);
     case DataActionType.ADD_LINK: {
       const { from, to, condition } = action.payload;
       return addLink(data, from, to, condition);
