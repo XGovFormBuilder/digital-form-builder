@@ -18,31 +18,6 @@ export class RelativeUrl {
     }
   }
 
-  addParamIfNotPresent(name: string, value: string) {
-    if (!this.url.searchParams.get(name)) {
-      this.url.searchParams.set(name, value);
-    }
-    return this;
-  }
-
-  set feedbackReturnInfo(value: string | undefined) {
-    this.setParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER, value);
-  }
-
-  get feedbackReturnInfo(): string | undefined {
-    return (
-      this.getParam(RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER) || undefined
-    );
-  }
-
-  set visitIdentifier(value: string | undefined) {
-    this.setParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER, value);
-  }
-
-  get visitIdentifier(): string | undefined {
-    return this.getParam(RelativeUrl.VISIT_IDENTIFIER_PARAMETER) || undefined;
-  }
-
   setParam(name: string, value: string | undefined) {
     this.url.searchParams.set(name, value || "");
     return this;
