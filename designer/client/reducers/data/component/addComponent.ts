@@ -1,9 +1,9 @@
-import { ComponentDef } from "@xgovformbuilder/model";
+import { ComponentDef, Page } from "@xgovformbuilder/model";
 import { UseFindPage } from "../../../hooks/data/usePages";
 
 export function addComponent(
   data,
-  pagePath: PagePath,
+  pagePath: Page["path"],
   component: ComponentDef
 ) {
   const clone = { ...data };

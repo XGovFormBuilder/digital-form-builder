@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Menu from "./components/Menu/Menu";
 import { Visualisation } from "./components/Visualisation";
-import { Data, FormDefinition } from "@xgovformbuilder/model";
+import { FormDefinition } from "@xgovformbuilder/model";
 import { FlyoutContext, DataContext } from "./context";
 import { FeatureFlagProvider } from "./context/FeatureFlagContext";
 import { DesignerApi } from "./api/designerApi";
@@ -102,7 +102,6 @@ export default class Designer extends Component<Props, State> {
             <div id="app">
               <Prompt when={!error} message={`${i18n("leaveDesigner")}`} />
               <Menu
-                data={data}
                 id={this.id}
                 updateDownloadedAt={this.updateDownloadedAt}
                 updatePersona={this.updatePersona}

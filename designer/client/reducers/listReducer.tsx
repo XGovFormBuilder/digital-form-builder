@@ -177,7 +177,7 @@ export const ListContextProvider = (props) => {
         (list) => list.name === props.selectedListName
       ),
       initialName: selectedListName,
-      initialTitle: data.findList(selectedListName)?.title,
+      initialTitle: data.lists.find(selectedListName)?.title,
       isEditingFromComponent: true,
     };
   }

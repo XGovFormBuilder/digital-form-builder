@@ -1,5 +1,10 @@
 import React, { Component, ChangeEvent, ContextType, FormEvent } from "react";
-import { Data, clone, FormConfiguration } from "@xgovformbuilder/model";
+import {
+  Data,
+  clone,
+  FormConfiguration,
+  FormDefinition,
+} from "@xgovformbuilder/model";
 import isFunction from "lodash/isFunction";
 
 import { validateTitle, hasValidationErrors } from "../../validations";
@@ -13,7 +18,7 @@ import { FormDetailsFeedback } from "./FormDetailsFeedback";
 import { FormDetailsPhaseBanner } from "./FormDetailsPhaseBanner";
 import "./FormDetails.scss";
 
-type PhaseBanner = Exclude<Data["phaseBanner"], undefined>;
+type PhaseBanner = Exclude<FormDefinition["phaseBanner"], undefined>;
 type Phase = PhaseBanner["phase"];
 
 interface Props {
@@ -23,7 +28,7 @@ interface Props {
 interface State {
   title: string;
   phase: Phase;
-  feedbackForm: Data["feedbackForm"];
+  feedbackForm: FormDefinition["feedbackForm"];
   formConfigurations: FormConfiguration[];
   selectedFeedbackForm?: string;
   errors: any;

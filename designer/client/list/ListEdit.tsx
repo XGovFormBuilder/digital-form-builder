@@ -84,7 +84,7 @@ function useListEdit() {
       );
       copy.lists[selectedListIndex] = selectedList;
     }
-    await save(copy.toJSON());
+    await save(copy);
 
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, false]);
     dispatch({
