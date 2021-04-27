@@ -1,22 +1,20 @@
-import { ComponentDef, Page } from "@xgovformbuilder/model";
+import { ComponentDef, FormDefinition } from "@xgovformbuilder/model";
 import { findPage } from "../page/usePages";
+import { Path } from "../../reducers/data/types";
 
 export function addComponent(
-  data,
-  pagePath: Page["path"],
+  data: FormDefinition,
+  pagePath: Path,
   component: ComponentDef
-) {
-  const clone = { ...data };
+): FormDefinition {
   const [page, index] = findPage(data, pagePath);
-  if (page) {
-    const components = [...data.pages[index].components, component];
-    return {
-      ...clone,
-      pages: clone.pages.map((page, i) =>
-        i === index ? { ...page, components } : page
-      ),
-    };
-  } else {
+  if (!page) {
     throw Error(`No page exists with path ${pagePath}`);
   }
+  const { components = [] } = page;
+  const updatedPage = { ...page, components: [...components, component] };
+  return {
+    ...data,
+    pages: data.pages.map((page, i) => (index === i ? updatedPage : page)),
+  };
 }
