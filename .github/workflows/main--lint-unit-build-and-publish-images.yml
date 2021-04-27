@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - main
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
