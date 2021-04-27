@@ -1,6 +1,6 @@
 import { FormDefinition, Page } from "@xgovformbuilder/model";
 import { useContext } from "react";
-import { DataContext } from "../../context";
+import { DataContext } from "../context";
 
 type Path = Page["path"];
 type FoundPage = [Page, number];

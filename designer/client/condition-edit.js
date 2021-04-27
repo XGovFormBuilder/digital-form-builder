@@ -2,6 +2,7 @@ import React from "react";
 import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
+import { updateCondition } from "./data";
 
 class ConditionEdit extends React.Component {
   static contextType = DataContext;
@@ -21,8 +22,10 @@ class ConditionEdit extends React.Component {
     const newValue = this.state.value;
     const { data, condition } = this.props;
 
-    const copy = clone(data);
-    const updated = copy.updateCondition(condition.name, displayName, newValue);
+    const updated = updateCondition(data, condition.name, {
+      displayName,
+      value: newValue,
+    });
 
     try {
       const saved = await save(updated);
@@ -39,9 +42,8 @@ class ConditionEdit extends React.Component {
       return;
     }
 
-    const { save } = this.context;
-    const { data, condition } = this.props;
-    const copy = clone(data);
+    const { data, save } = this.context;
+    const { condition } = this.props;
 
     // Remove the condition
     copy.removeCondition(condition.name);

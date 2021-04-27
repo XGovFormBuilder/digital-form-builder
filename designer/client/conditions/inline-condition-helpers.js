@@ -1,11 +1,12 @@
 import randomId from "../randomId";
+import { addCondition } from "./../data";
 
-async function storeConditionIfNecessary(data, conditions) {
+function storeConditionIfNecessary(data, conditions) {
   let condition;
 
   if (conditions && conditions.hasConditions) {
     condition = randomId();
-    data = data.addCondition(condition, conditions.name, conditions);
+    data = addCondition(data, conditions);
   }
 
   return { data, condition };

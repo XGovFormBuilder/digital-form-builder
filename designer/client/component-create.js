@@ -3,7 +3,7 @@ import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import randomId from "./randomId";
-import { addComponent } from "./reducers/data/component";
+import { addComponent } from "./data/component";
 
 /**
  * @deprecated (keeping until tests are refactored)

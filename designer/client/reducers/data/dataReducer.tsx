@@ -1,6 +1,6 @@
 import { DataAction, DataActionType } from "./types";
-import { addComponent, updateComponent } from "./component";
-import { addLink, updateLink } from "./page";
+import { addComponent, updateComponent } from "../../data/component";
+import { addLink, updateLink } from "../../data/page";
 import { FormDefinition } from "@xgovformbuilder/model";
 import { removeCondition, updateCondition } from "../condition";
 

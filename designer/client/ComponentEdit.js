@@ -6,6 +6,7 @@ import { Actions } from "./reducers/component/types";
 import ErrorSummary from "./error-summary";
 import { hasValidationErrors } from "./validations";
 import { ComponentTypeEnum as Types } from "@xgovformbuilder/model";
+import { updateComponent } from "./data";
 
 const LIST_TYPES = [
   Types.AutocompleteField,
@@ -60,7 +61,8 @@ export function ComponentEdit(props) {
       }
     }
 
-    const updatedData = data.updateComponent(
+    const updatedData = updateComponent(
+      data,
       page.path,
       initialName,
       componentToSubmit

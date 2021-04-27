@@ -11,7 +11,7 @@ import { ComponentDef } from "@xgovformbuilder/model";
 
 type ComponentState = {
   selectedComponent: ComponentDef;
-  isNew: boolean;
+  isNew?: boolean;
   [prop: string]: any;
 };
 

@@ -20,7 +20,7 @@ import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 
 import "./ComponentCreate.scss";
-import { addComponent } from "../../reducers/data/component";
+import { addComponent } from "../../data/component";
 function useComponentCreate(props) {
   const [renderTypeEdit, setRenderTypeEdit] = useState<boolean>(false);
   const { data, save } = useContext(DataContext);

@@ -7,6 +7,7 @@ import classNames from "classnames";
 import ErrorSummary from "./error-summary";
 import { DataContext } from "./context";
 import { i18n } from "./i18n";
+import { addLink } from "./data/page";
 
 class LinkCreate extends React.Component {
   static contextType = DataContext;
@@ -24,7 +25,7 @@ class LinkCreate extends React.Component {
     if (hasValidationErrors) return;
 
     const copy = clone(data);
-    const updatedData = copy.addLink(from, to, selectedCondition);
+    const updatedData = addLink(data, from, to, selectedCondition);
     const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };

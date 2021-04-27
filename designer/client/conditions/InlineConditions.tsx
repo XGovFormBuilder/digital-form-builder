@@ -9,6 +9,8 @@ import { DataContext } from "../context";
 import ErrorSummary, { ErrorListItem } from "../error-summary";
 import { i18n } from "../i18n";
 import { ErrorMessage } from "../components/ErrorMessage";
+import { findList } from "../data";
+import { updateCondition } from "../reducers/condition";
 
 interface Props {
   path: string;
@@ -72,6 +74,7 @@ export class InlineConditions extends React.Component<Props, State> {
 
   fieldsForPath = (path) => {
     const { data } = this.context;
+
     const inputs = !!path ? data.inputsAccessibleAt(path) : data.allInputs;
 
     const fieldInputs = inputs.map((input) => {
@@ -82,10 +85,10 @@ export class InlineConditions extends React.Component<Props, State> {
         .filter((p) => p)
         .join(" ");
 
+      const [list] = findList(data, input.list);
+
       const values =
-        `${input.type}` == "YesNoField"
-          ? yesNoValues
-          : data.findList(input.list)?.items;
+        `${input.type}` == "YesNoField" ? yesNoValues : list?.items;
 
       return {
         label,
@@ -139,17 +142,13 @@ export class InlineConditions extends React.Component<Props, State> {
     const copy = clone(data);
 
     if (condition) {
-      const updatedData = data.updateCondition(
-        condition.name,
-        conditions.name,
-        conditions
-      );
+      const updatedData = updateCondition(data, condition.name, conditions);
       await save(updatedData);
       if (conditionsChange) {
         conditionsChange(event);
       }
     } else {
-      const conditionResult = await helpers.storeConditionIfNecessary(
+      const conditionResult = helpers.storeConditionIfNecessary(
         copy,
         conditions
       );

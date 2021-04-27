@@ -1,9 +1,11 @@
 import { useContext } from "react";
-import { DataContext } from "../../context";
+import { DataContext } from "../context";
 import { Input, isNotContentType } from "./types";
-import { UseGetAllPathsLeadingTo } from "./usePaths";
+import { allPathsLeadingTo } from "./usePaths";
+import { Path } from "./types";
+import { FormDefinition } from "@xgovformbuilder/model";
 
-function allInputs(pages): Input[] {
+export function allInputs(pages): Input[] {
   return pages.flatMap((page) => {
     const inputs = (page.components ?? []).filter(isNotContentType);
     return inputs.map((input) => {
@@ -21,12 +23,7 @@ function allInputs(pages): Input[] {
   });
 }
 
-function UseGetAllInputs(): Input[] {
-  const { data } = useContext(DataContext);
-  return allInputs(data.pages);
-}
-
-function UseGetInputsAccessibleAt(path) {
-  const pages = UseGetAllPathsLeadingTo(path);
+export function inputsAccessibleAt(data: FormDefinition, path: Path) {
+  const pages = allPathsLeadingTo(data, path);
   return allInputs(pages);
 }

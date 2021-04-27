@@ -1,5 +1,6 @@
 import {
   ComponentDef,
+  ConditionRawData,
   ContentComponentsDef,
   InputFieldsComponentsDef,
   ListComponentsDef,
@@ -25,3 +26,7 @@ export type Input = {
   list: string;
   type: Pick<InputFieldsComponentsDef, "type">;
 };
+
+export type Path = Page["path"];
+export type ConditionName = ConditionRawData["name"];
+type ConditionDisplayName = Pick<ConditionRawData, "displayName">;
