@@ -1,7 +1,10 @@
 import { FormDefinition, List } from "@xgovformbuilder/model";
+import { Found } from "./types";
 
-type FoundList = [List, number];
-export function findList(data: FormDefinition, name: List["name"]): FoundList {
+export function findList(
+  data: FormDefinition,
+  name: List["name"]
+): Found<List> {
   const index = data.lists.findIndex((list) => list.name === name);
   if (index < 0) {
     throw Error(`No list found with the name ${name}`);

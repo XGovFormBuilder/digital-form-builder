@@ -3,7 +3,7 @@ import { clone } from "@xgovformbuilder/model";
 
 import { camelCase } from "./helpers";
 import { DataContext } from "./context";
-import { addSection } from "./data/addSection";
+import { addSection } from "./data/section/addSection";
 
 class SectionCreate extends React.Component {
   static contextType = DataContext;

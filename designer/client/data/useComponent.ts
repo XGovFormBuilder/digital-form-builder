@@ -3,7 +3,7 @@
  */
 
 import { ComponentDef, FormDefinition, Page } from "@xgovformbuilder/model";
-import { findPage } from "./usePages";
+import { findPage } from "./page/usePages";
 import { Path } from "../reducers/data/types";
 
 type PagePath = Page["path"];

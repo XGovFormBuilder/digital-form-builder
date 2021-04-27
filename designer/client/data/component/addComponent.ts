@@ -1,5 +1,5 @@
 import { ComponentDef, Page } from "@xgovformbuilder/model";
-import { findPage } from "../usePages";
+import { findPage } from "../page/usePages";
 
 export function addComponent(
   data,

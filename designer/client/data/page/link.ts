@@ -1,5 +1,5 @@
 import { ConditionName, Path } from "../../reducers/data/types";
-import { findPage } from "../usePages";
+import { findPage } from "./usePages";
 import { ConditionRawData, FormDefinition, Link } from "@xgovformbuilder/model";
 
 export function addLink(

@@ -29,4 +29,4 @@ export type Input = {
 
 export type Path = Page["path"];
 export type ConditionName = ConditionRawData["name"];
-type ConditionDisplayName = Pick<ConditionRawData, "displayName">;
+export type Found<T> = [T, number];

@@ -1,6 +1,6 @@
 import { FormDefinition, Page } from "@xgovformbuilder/model";
 import { useContext } from "react";
-import { DataContext } from "../context";
+import { DataContext } from "../../context";
 import dfs from "depth-first";
 import { allInputs } from "@xgovformbuilder/model/dist/data-model/data-model";
 

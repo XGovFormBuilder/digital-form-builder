@@ -1,7 +1,5 @@
-import { useContext } from "react";
-import { DataContext } from "../context";
 import { Input, isNotContentType } from "./types";
-import { allPathsLeadingTo } from "./usePaths";
+import { allPathsLeadingTo } from "./page/usePaths";
 import { Path } from "./types";
 import { FormDefinition } from "@xgovformbuilder/model";
 

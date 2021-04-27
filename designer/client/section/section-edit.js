@@ -10,7 +10,7 @@ import {
 } from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
-import { addSection } from "../data/addSection";
+import { addSection } from "../data/section/addSection";
 
 class SectionEdit extends React.Component {
   static contextType = DataContext;

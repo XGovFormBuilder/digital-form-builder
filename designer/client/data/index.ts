@@ -1,11 +1,11 @@
 export * from "./types";
 export * from "./useComponent";
-export * from "./useDataConditions";
+export * from "./condition/useDataConditions";
 export * from "./useList";
 // export * from "./useFeedback";
 export * from "./useInputs";
 export * from "./useComponent";
-export * from "./usePages";
-export * from "./usePaths";
-export * from "./updateCondition";
-export * from "./removeCondition";
+export * from "./page/usePages";
+export * from "./page/usePaths";
+export * from "./condition/updateCondition";
+export * from "./condition/removeCondition";
