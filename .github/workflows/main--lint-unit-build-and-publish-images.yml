@@ -1,8 +1,10 @@
-name: Master QA
+name: Main QA
 on:
   push:
     branches:
       - master
+      - main
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -77,7 +79,7 @@ jobs:
         # WEEK key is used to rotate docker-layer-caching weekly to avoid the layers dangle issues
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
-        # so master branch cache can be shared with branches
+        # so main branch cache can be shared with branches
         run: echo "WEEK=$(date +%U)" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
