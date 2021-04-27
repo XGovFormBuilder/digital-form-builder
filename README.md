@@ -26,7 +26,7 @@ It will also deal with hoisting the node_modules for any packages that are share
 **Always run scripts from the root directory.**
 
 1. Make sure you are using node >=12. upto 14. `node --version`.
-2. Make sure you have yarn 2.4+ installed.
+2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
 
