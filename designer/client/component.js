@@ -35,6 +35,7 @@ export const componentTypes = {
   FlashCard: FlashCard,
   List: List,
   WarningText: WarningText,
+  NationalInsuranceField: NationalInsuranceField,
 };
 
 function Base(props) {
@@ -43,6 +44,14 @@ function Base(props) {
 
 function ComponentField(props) {
   return <Base>{props.children}</Base>;
+}
+
+function NationalInsuranceField() {
+  return (
+    <ComponentField>
+      <div className="box" />
+    </ComponentField>
+  );
 }
 
 function TextField() {
