@@ -2,7 +2,7 @@ import React from "react";
 import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
-import { updateCondition } from "./data";
+import { removeCondition, updateCondition } from "./data";
 
 class ConditionEdit extends React.Component {
   static contextType = DataContext;
@@ -35,7 +35,7 @@ class ConditionEdit extends React.Component {
     }
   };
 
-  onClickDelete = (e) => {
+  onClickDelete = async (e) => {
     e.preventDefault();
 
     if (!window.confirm("Confirm delete")) {
@@ -46,15 +46,13 @@ class ConditionEdit extends React.Component {
     const { condition } = this.props;
 
     // Remove the condition
-    copy.removeCondition(condition.name);
-
-    save(copy)
-      .then((data) => {
-        this.props.onEdit({ data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const updatedData = removeCondition(data, condition.name);
+    try {
+      await save(updatedData);
+      this.props.onEdit({ data });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   onBlurName = (e) => {

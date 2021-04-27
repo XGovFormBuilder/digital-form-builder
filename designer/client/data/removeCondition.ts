@@ -1,8 +1,10 @@
-export function removeCondition(data, name) {
+import { FormDefinition } from "@xgovformbuilder/model";
+
+export function removeCondition(data: FormDefinition, name) {
   const pages = [...data.pages].map((page) => {
     return {
       ...page,
-      next: page.next.filter((next) => next.condition !== name),
+      next: page.next?.filter((next) => next.condition !== name) ?? [],
     };
   });
   return {
