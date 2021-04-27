@@ -1,8 +1,9 @@
-name: Master QA
+name: Main QA
 on:
   push:
     branches:
       - master
+      - main
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
