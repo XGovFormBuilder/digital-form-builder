@@ -9,15 +9,14 @@ export function updateCondition(
   const conditionIndex = conditions.findIndex(
     (condition) => condition.name === conditionName
   );
-  const condition = data.conditions![conditionIndex];
+  if (conditionIndex < 0) {
+    throw Error(`No condition found with name ${conditionName}`);
+  }
+  const condition = data.conditions[conditionIndex];
   const {
     displayName = condition.displayName,
     value: conditionValue = condition.value,
   } = updatedPartial;
-
-  if (conditionIndex < 0) {
-    throw Error(`No condition found with the name ${conditionName}`);
-  }
 
   const updatedCondition = {
     ...condition,

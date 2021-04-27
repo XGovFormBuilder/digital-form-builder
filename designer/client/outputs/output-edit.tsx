@@ -5,7 +5,6 @@ import React, {
   FormEvent,
   ReactNode,
 } from "react";
-import { clone } from "@xgovformbuilder/model";
 import NotifyEdit from "./notify-edit";
 import EmailEdit from "./email-edit";
 import { Input } from "@govuk-jsx/input";
@@ -45,12 +44,11 @@ class OutputEdit extends Component<Props, State> {
 
   onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const { save } = this.context;
+    const { data, save } = this.context;
     let output = this.props.output || { name: "", type: "" };
     const form = event.currentTarget;
     const formData = new window.FormData(form);
-    const { data } = this.props;
-    const copy = clone(data);
+    const copy = { ...data };
     const outputType: OutputType =
       (formData.get("output-type") as OutputType) || output.type;
     const outputName = formData.get("output-name") as string;
@@ -190,9 +188,9 @@ class OutputEdit extends Component<Props, State> {
       return;
     }
 
-    const { data, output } = this.props;
-    const { save } = this.context;
-    const copy = clone(data);
+    const { output } = this.props;
+    const { data, save } = this.context;
+    const copy = { ...data };
     const outputIndex = data.outputs.indexOf(output);
     copy.outputs.splice(outputIndex, 1);
 

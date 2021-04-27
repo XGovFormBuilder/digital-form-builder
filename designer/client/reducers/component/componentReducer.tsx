@@ -10,9 +10,11 @@ import { Meta, Schema, Fields, Options, Actions } from "./types";
 import { ComponentDef } from "@xgovformbuilder/model";
 
 type ComponentState = {
-  selectedComponent: ComponentDef;
+  selectedComponent: Partial<ComponentDef>;
   isNew?: boolean;
-  [prop: string]: any;
+  initialName?: ComponentDef["name"];
+  pagePath?: string;
+  listItemErrors?: {};
 };
 
 const defaultValues = {

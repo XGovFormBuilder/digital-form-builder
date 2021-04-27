@@ -9,7 +9,7 @@ import { DataContext } from "../context";
 import ErrorSummary, { ErrorListItem } from "../error-summary";
 import { i18n } from "../i18n";
 import { ErrorMessage } from "../components/ErrorMessage";
-import { findList } from "../data";
+import { allInputs, findList, inputsAccessibleAt } from "../data";
 import { updateCondition } from "../reducers/condition";
 
 interface Props {
@@ -75,7 +75,9 @@ export class InlineConditions extends React.Component<Props, State> {
   fieldsForPath = (path) => {
     const { data } = this.context;
 
-    const inputs = !!path ? data.inputsAccessibleAt(path) : data.allInputs;
+    const inputs = !!path
+      ? inputsAccessibleAt(data, path)
+      : allInputs(data.pages);
 
     const fieldInputs = inputs.map((input) => {
       const label = [

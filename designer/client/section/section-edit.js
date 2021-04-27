@@ -10,6 +10,7 @@ import {
 } from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
+import { addSection } from "../data/addSection";
 
 class SectionEdit extends React.Component {
   static contextType = DataContext;
@@ -33,17 +34,16 @@ class SectionEdit extends React.Component {
 
     if (hasValidationErrors(validationErrors)) return;
 
-    const { save } = this.context;
+    const { data, save } = this.context;
     const { name, title } = this.state;
-    const { data } = this.props;
-    const copy = clone(data);
+    let updated = { ...data };
 
     if (this.isNewSection) {
-      copy.addSection(name, title.trim());
+      updated = addSection(data, { name, title: title.trim() });
     } else {
       const previousName = this.props.section?.name;
       const nameChanged = previousName !== name;
-      const copySection = copy.sections.find(
+      const copySection = updated.sections.find(
         (section) => section.name === previousName
       );
 
@@ -62,7 +62,7 @@ class SectionEdit extends React.Component {
     }
 
     try {
-      await save(copy);
+      await save(updated);
       this.closeFlyout(name);
     } catch (err) {
       console.error(err);
