@@ -370,7 +370,9 @@ When("I create a section titled {string}", function (sectionTitle) {
   editSection.sectionTitle.setValue(this.sectionTitle);
   editSection.sectionSaveBtn.click();
   editPage.saveBtn.click();
-  expect(formDesigner.pageSectionName(this.pageName)).toHaveText(sectionTitle);
+  browser.waitUntil(
+    () => formDesigner.pageSectionName(this.pageName).getText() === sectionTitle
+  );
 });
 
 Then("the section title is displayed in the preview", function () {
