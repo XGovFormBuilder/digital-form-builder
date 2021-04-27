@@ -1,4 +1,4 @@
-import { Path } from "../../reducers/data/types";
+import { Path } from "../types";
 import { ComponentDef } from "@xgovformbuilder/model";
 import { findPage } from "../page/usePages";
 
