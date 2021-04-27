@@ -371,7 +371,10 @@ When("I create a section titled {string}", function (sectionTitle) {
   editSection.sectionSaveBtn.click();
   editPage.saveBtn.click();
   browser.waitUntil(
-    () => formDesigner.pageSectionName(this.pageName).getText() === sectionTitle
+    () =>
+      formDesigner.pageSectionName(this.pageName).getText() ===
+      this.sectionTitle,
+    { timeoutMsg: `The section ${this.sectionTitle} was not displayed` }
   );
 });
 
