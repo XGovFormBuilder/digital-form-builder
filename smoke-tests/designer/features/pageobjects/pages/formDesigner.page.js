@@ -2,6 +2,16 @@ const Page = require("./basePage");
 const ComponentMappings = require("../../../support/componentMapping");
 
 class FormDesignerPage extends Page {
+  /**
+   * Find the section name element for a specific page
+   * @param pageName
+   * @returns {Element}
+   */
+  pageSectionName(pageName) {
+    const pageIndex = this.getPageIndex(pageName);
+    return browser.$$(".page__heading span")[pageIndex];
+  }
+
   get addComponentToPage() {
     return browser.$("button=Create component");
   }
@@ -104,7 +114,7 @@ class FormDesignerPage extends Page {
   getPageIndex(name) {
     this.designerMenu.waitForDisplayed();
     return this.formPages.findIndex((elem) => {
-      return elem.getText() == name;
+      return elem.getText().includes(name);
     });
   }
 

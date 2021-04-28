@@ -3,8 +3,8 @@ import { Data } from "@xgovformbuilder/model";
 
 import config from "server/config";
 import { FormModel } from "./FormModel";
-import { redirectUrl } from "../helpers";
-import { decodeFeedbackContextInfo, RelativeUrl } from "../feedback";
+import { feedbackReturnInfoKey, redirectUrl } from "../helpers";
+import { decodeFeedbackContextInfo } from "../feedback";
 import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
 import type { Fees } from "server/services/payService";
@@ -419,8 +419,7 @@ export class SummaryViewModel {
   ) {
     if (model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decodeFeedbackContextInfo(
-        new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-          .feedbackReturnInfo
+        request.url.searchParams.get(feedbackReturnInfoKey)
       );
 
       if (feedbackContextInfo) {
