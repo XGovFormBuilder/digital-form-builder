@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@govuk-jsx/input";
 import { clone } from "@xgovformbuilder/model";
-import { nanoid } from "nanoid";
+import randomId from "./randomId";
 
 import { toUrl } from "./helpers";
 import { RenderInPortal } from "./components/RenderInPortal";
@@ -128,9 +128,9 @@ export class PageEdit extends React.Component {
     const { data, save } = this.context;
     const copy = clone(data);
     const duplicatedPage = clone(page);
-    duplicatedPage.path = `${duplicatedPage.path}-${nanoid(6)}`;
+    duplicatedPage.path = `${duplicatedPage.path}-${randomId()}`;
     duplicatedPage.components.forEach((component) => {
-      component.name = `${duplicatedPage.path}-${nanoid(6)}`;
+      component.name = `${duplicatedPage.path}-${randomId()}`;
     });
     copy.pages.push(duplicatedPage);
     try {
@@ -161,7 +161,7 @@ export class PageEdit extends React.Component {
     const { data } = this.context;
     const { page } = this.props;
     if (data.findPage(path) && page.title !== title) {
-      path = `${path}-${nanoid(6)}`;
+      path = `${path}-${randomId()}`;
     }
     return path;
   }

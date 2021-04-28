@@ -1,7 +1,10 @@
-const { When, Then } = require("cucumber");
+const { Given, When, Then } = require("cucumber");
 const { formDesigner } = require("../pageobjects/pages");
-const editSection = require("../pageobjects/sections/editSection.section");
-const addCondition = require("../pageobjects/sections/addCondition.section");
+const {
+  addCondition,
+  addLink,
+  editSection,
+} = require("../pageobjects/sections");
 const fieldData = require("../../data/componentFieldData");
 const { toCamelCase } = require("../../support/testHelpers");
 
@@ -19,7 +22,7 @@ When(/^I add a condition for the "([^"]*)"$/, function (componentName) {
   );
   expect(panelWidth).toBeGreaterThanOrEqual(620);
   this.operator = fieldData[toCamelCase(componentName)].title;
-  addCondition.displayName(`Test ${this.operator}`);
+  addCondition.inputDisplayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
   addCondition.selectOperator("is after");
   addCondition.enterDate("01", "01", "2012");
@@ -44,10 +47,40 @@ When(/^I create a condition for the "([^"]*)" field$/, function (
   formDesigner.clickButton("Edit Conditions");
   editSection.clickLink("Add condition");
   this.operator = fieldData[toCamelCase(componentName)].title;
-  addCondition.displayName(`Test ${this.operator}`);
+  addCondition.inputDisplayName(`Test ${this.operator}`);
   addCondition.selectCondition(this.operator);
   addCondition.selectOperator("is after");
   addCondition.enterDate("01", "01", "2012");
   addCondition.clickButton("Add");
   addCondition.clickLink("Save");
+});
+
+Given(/^I have created a condition$/, function () {
+  formDesigner.clickButton("Conditions");
+  editSection.clickLink("Add condition");
+  this.operator = fieldData[toCamelCase(this.componentName)].title;
+  addCondition.inputDisplayName(`Test ${this.operator}`);
+  addCondition.selectCondition(this.operator);
+  addCondition.selectOperator("is");
+  addCondition.selectValue("Yes");
+  addCondition.clickButton("Add");
+  addCondition.clickLink("Save");
+  addCondition.clickLink("Close");
+});
+
+When(
+  /^I add the condition to the link between the pages "([^"]*)", "([^"]*)"$/,
+  function (fromPage, toPage) {
+    this.fromPage = fromPage;
+    this.toPage = toPage;
+    formDesigner.pagesLink(this.fromPage, this.toPage).doubleClick();
+    addLink.selectACondition(`Test ${this.operator}`);
+    addLink.saveBtn.click();
+  }
+);
+
+Then(/^the condition is added successfully$/, function () {
+  expect(
+    formDesigner.pagesLink(this.fromPage, this.toPage).nextElement()
+  ).toHaveText(`Test ${this.operator}`);
 });

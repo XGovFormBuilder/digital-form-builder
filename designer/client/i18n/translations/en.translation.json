@@ -374,7 +374,7 @@
   "yes": "yes",
   "saveErrorPage": {
     "sorry": "Sorry, there is a problem with the service",
-    "error": "An error occurred while saving the component.",
+    "error": "An error occurred while saving.",
     "hint": "We saved the last valid version of your form. Return to the Designer to continue.",
     "report": "So we can check what went wrong, complete the following:",
     "downloadCrashReport": "download your crash report",

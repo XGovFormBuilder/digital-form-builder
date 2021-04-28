@@ -2,6 +2,12 @@
 
 [![Gitter](https://badges.gitter.im/XGovFormBuilder/Public.svg)](https://gitter.im/XGovFormBuilder/Public?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
+## contributions
+
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
+> :warning: **Contributions as of 15/04**: OS Repos have been hit with PRs from forks for... nefarious reasons. These will run on your repo + subsequently quota. For the time being, we will be cancelling any PRs from forks. If you wish to contribute, please ping out on gitter and we'll discuss the best way to contribute. 
+
+
 This repository is a mono repo for
 
 - @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/master/runner) - Hapi server which can 'run' a form from a JSON file
@@ -20,7 +26,7 @@ It will also deal with hoisting the node_modules for any packages that are share
 **Always run scripts from the root directory.**
 
 1. Make sure you are using node >=12. upto 14. `node --version`.
-2. Make sure you have yarn 2.4+ installed.
+2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
 
@@ -97,9 +103,6 @@ Both jobs work as follows:
 
 The latest releases will be running here: [Runner](https://digital-form-builder-runner.herokuapp.com) / [Designer](https://digital-form-builder-designer.herokuapp.com).
 
-## contributions
-
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
 
 ### Developer only features ⚠️
 

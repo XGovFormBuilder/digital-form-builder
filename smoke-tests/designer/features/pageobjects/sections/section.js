@@ -12,6 +12,10 @@ module.exports = class Section {
     return browser.$("#section-title");
   }
 
+  get sectionTitles() {
+    return browser.$$("[data-testid='flyout-heading']");
+  }
+
   get saveBtn() {
     browser.$(".govuk-button=Save").scrollIntoView();
     return browser.$(".govuk-button=Save");

@@ -14,16 +14,27 @@ class AddConditionSection extends Page {
     return this.conditionLinks.find((el) => el.getText().includes(linkText));
   }
 
-  displayName(name) {
-    return browser.$("#cond-name").setValue(name);
+  get displayName() {
+    return browser.$("#cond-name");
   }
 
+  /**
+   * Inputs the Display name of the condition
+   * @param name
+   */
+  inputDisplayName(name) {
+    return this.displayName.setValue(name);
+  }
+
+  get conditionField() {
+    return browser.$("#cond-field");
+  }
   /**
    * Selects condition from select list
    * @param conditionName
    */
   selectCondition(conditionName) {
-    return browser.$("#cond-field").selectByVisibleText(conditionName);
+    return this.conditionField.selectByVisibleText(conditionName);
   }
 
   /**
@@ -33,6 +44,11 @@ class AddConditionSection extends Page {
   selectOperator(conditionName) {
     browser.$("#cond-operator").waitForDisplayed();
     return browser.$("#cond-operator").selectByVisibleText(conditionName);
+  }
+
+  selectValue(conditionValue) {
+    browser.$("#cond-value").waitForDisplayed();
+    return browser.$("#cond-value").selectByVisibleText(conditionValue);
   }
 
   /**

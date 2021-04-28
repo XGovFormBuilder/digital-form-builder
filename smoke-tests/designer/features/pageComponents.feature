@@ -1,4 +1,4 @@
-Feature: Components
+Feature: Page Components
   As a forms designer
   I want to create, update and delete components
   So that I capture the information in my form
@@ -24,6 +24,19 @@ Feature: Components
       | Paragraph     |
       | Text          |
 
+  Scenario Outline: Add an optional component to a page
+    And I add an optional "<type>" control to the "First page"
+    When I preview the "First page" page
+    And I choose to "Continue"
+    Then the "Second page" is displayed
+    Examples:
+      | type          |
+      | Date          |
+      | Date parts    |
+      | Date time     |
+      | Email address |
+      | Text          |
+
   Scenario: Progress to the Summary after filling in Checkboxes
     And I have created a list with 2 list items
     When I add a "Checkboxes" control for the "Second page"
@@ -41,6 +54,7 @@ Feature: Components
     Then the "Date" will not be visible in the "First page"
 
   Scenario: Edit Sections from the form designer menu
-    When I choose "Sections" from the designer menu
-    And I add a new section
+    And I choose "Sections" from the designer menu
+    When I add a new section titled "Your property details"
+    And I choose Edit page for the "Second page"
     Then the section should be available when I edit the Question page

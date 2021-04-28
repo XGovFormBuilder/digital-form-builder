@@ -30,6 +30,16 @@ class AddLinkSection extends Section {
     this.selectToByName(toPage);
     this.saveBtn.click();
   }
+
+  /**
+   * Chooses a condition from the select list
+   * @param conditionName
+   */
+  selectACondition(conditionName) {
+    return this.parent
+      .$("[data-testid='select-condition']")
+      .selectByVisibleText(conditionName);
+  }
 }
 
 module.exports = new AddLinkSection();
