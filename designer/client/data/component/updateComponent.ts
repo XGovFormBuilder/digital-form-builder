@@ -1,6 +1,6 @@
 import { Path } from "../types";
 import { ComponentDef } from "@xgovformbuilder/model";
-import { findPage } from "../page/usePages";
+import { findPage } from "../page";
 
 export function updateComponent(
   data,
@@ -9,9 +9,6 @@ export function updateComponent(
   component: ComponentDef
 ) {
   const [page] = findPage(data, pagePath);
-  if (!page) {
-    throw Error(`No page exists with path ${pagePath}`);
-  }
   const components = [...(page.components ?? [])];
   const componentIndex =
     page.components?.findIndex(

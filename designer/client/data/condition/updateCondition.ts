@@ -1,23 +1,27 @@
 import { ConditionRawData, FormDefinition } from "@xgovformbuilder/model";
 
+/**
+ * @param data
+ * @param conditionName
+ * @param updatedPartial The condition name cannot be changed, hence Omit<ConditionRawData, "name">
+ */
 export function updateCondition(
   data: FormDefinition,
   conditionName: ConditionRawData["name"],
-  updatedPartial: Partial<ConditionRawData>
+  updatedPartial: Partial<Omit<ConditionRawData, "name">>
 ): FormDefinition {
   const conditions = [...data.conditions!];
   const conditionIndex = conditions.findIndex(
     (condition) => condition.name === conditionName
   );
-  const condition = data.conditions![conditionIndex];
+  if (conditionIndex < 0) {
+    throw Error(`No condition found with name ${conditionName}`);
+  }
+  const condition = data.conditions[conditionIndex];
   const {
     displayName = condition.displayName,
     value: conditionValue = condition.value,
   } = updatedPartial;
-
-  if (conditionIndex < 0) {
-    throw Error(`No condition found with the name ${conditionName}`);
-  }
 
   const updatedCondition = {
     ...condition,
