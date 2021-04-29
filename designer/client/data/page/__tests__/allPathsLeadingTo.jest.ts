@@ -1,69 +1,67 @@
 import { FormDefinition } from "@xgovformbuilder/model";
-import { addLink } from "..";
+import { allPathsLeadingTo } from "..";
 
-const data: FormDefinition = {
-  conditions: [],
-  lists: [],
-  name: "",
-  pages: [
-    {
-      title: "scrambled",
-      path: "/scrambled",
-      next: [{ path: "/poached" }],
-    },
-    { title: "poached", path: "/poached" },
-    { title: "sunny", path: "/sunny" },
-  ],
-  sections: [],
-  startPage: "",
-};
-
-test("addLink throws if to, from or both are not found", () => {
-  expect(() => addLink(data, "404", "4004")).toThrow(/no page found/);
-  expect(() => addLink(data, "404", "/scrambled")).toThrow(/no page found/);
-  expect(() => addLink(data, "/scrambled", "404")).toThrow(/no page found/);
-});
-
-test("addLink throws if to and from are equal", () => {
-  expect(() => addLink(data, "404", "404")).toThrow(
-    /cannot link a page to itself/
-  );
-});
-
-test("addLink successfully adds a new link", () => {
-  expect(addLink(data, "/poached", "/sunny")).toEqual({
-    conditions: [],
-    lists: [],
-    name: "",
+test("allPathsLeadingTo should work with cycle in paths", () => {
+  const data: FormDefinition = {
     pages: [
       {
-        title: "scrambled",
-        path: "/scrambled",
-        next: [{ path: "/poached" }],
+        path: "/1",
+        next: [{ path: "/2" }],
       },
-      { title: "poached", path: "/poached", next: [{ path: "/sunny" }] },
-      { title: "sunny", path: "/sunny" },
+      {
+        path: "/2",
+        next: [{ path: "/1" }],
+      },
+      {
+        path: "/3",
+      },
     ],
-    sections: [],
-    startPage: "",
-  });
+  };
+  const paths = allPathsLeadingTo(data, "/2");
+  expect(paths).toEqual(["/1"]);
 });
 
-test("addLink does nothing happens if the link already exists", () => {
-  expect(addLink(data, "/scrambled", "/poached")).toEqual({
-    conditions: [],
-    lists: [],
-    name: "",
+test("allPathsLeadingTo should work with single parents", () => {
+  const data: FormDefinition = {
     pages: [
       {
-        title: "scrambled",
-        path: "/scrambled",
-        next: [{ path: "/poached" }],
+        path: "/1",
+        next: [{ path: "/2" }],
       },
-      { title: "poached", path: "/poached" },
-      { title: "sunny", path: "/sunny" },
+      {
+        path: "/2",
+        next: [{ path: "/3" }],
+      },
+      {
+        path: "/3",
+      },
     ],
-    sections: [],
-    startPage: "",
-  });
+  };
+  expect(allPathsLeadingTo(data, "/3")).toEqual(["/2", "/1"]);
+});
+
+test("allPathsLeadingTo should work with multiple parents", () => {
+  const data: FormDefinition = {
+    pages: [
+      {
+        path: "/1",
+        next: [{ path: "/2" }, { path: "/3" }],
+      },
+      {
+        path: "/2",
+        next: [{ path: "/4" }],
+      },
+      {
+        path: "/3",
+        next: [{ path: "/4" }],
+      },
+      {
+        path: "/4",
+      },
+    ],
+  };
+
+  expect(allPathsLeadingTo(data, "/4")).toEqual(["/2", "/1", "/3"]);
+  expect(allPathsLeadingTo(data, "/3")).toEqual(["/1"]);
+  expect(allPathsLeadingTo(data, "/1")).toEqual([]);
 });
