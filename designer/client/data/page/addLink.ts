@@ -8,29 +8,35 @@ export function addLink(
   to: Path,
   condition?: ConditionName
 ): FormDefinition {
-  const [fromPage, fromPageIndex] = findPage(data, from);
-  const [toPage] = findPage(data, to);
-  const pages = { ...data.pages };
-  if (!fromPage && !toPage) {
-    throw Error(`could not find ${from} or ${to}`);
+  if (from === to) {
+    throw Error("cannot link a page to itself");
   }
+  const [fromPage, index] = findPage(data, from);
+  findPage(data, to);
+  const pages = [...data.pages];
 
   const existingLink = fromPage.next?.find((page) => page.path === to);
 
   if (!existingLink) {
     const link: Link = {
       path: to,
+      condition,
     };
 
     if (condition) {
       link.condition = condition;
     }
 
-    pages[fromPageIndex] = {
+    const updatedPage = {
       ...fromPage,
       next: [...(fromPage.next ?? []), link],
     };
+
+    return {
+      ...data,
+      pages: pages.map((page, i) => (i === index ? updatedPage : page)),
+    };
   }
 
-  return { ...data, pages };
+  return data;
 }
