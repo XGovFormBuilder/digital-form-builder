@@ -47,7 +47,8 @@ export type ComponentType =
   | "InsetText"
   | "Details"
   | "FlashCard"
-  | "List";
+  | "List"
+  | "NationalInsuranceField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -91,7 +92,9 @@ interface NumberFieldBase {
   name: string;
   title: string;
   hint: string;
-  options: {};
+  options: {
+    required?: boolean;
+  };
   schema: {
     min?: number;
     max?: number;
@@ -266,6 +269,10 @@ export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
 }
 
+export interface NationalInsuranceFieldComponent extends TextFieldBase {
+  type: "NationalInsuranceField";
+}
+
 export type ComponentDef =
   | InsetTextComponent
   | AutocompleteFieldComponent
@@ -289,10 +296,12 @@ export type ComponentDef =
   | TextFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent
-  | YesNoFieldComponent;
+  | YesNoFieldComponent
+  | NationalInsuranceFieldComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
+  | NationalInsuranceFieldComponent
   | TextFieldComponent
   | EmailAddressFieldComponent
   | NumberFieldComponent

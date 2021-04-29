@@ -14,7 +14,7 @@ const { beforeEach, suite, test, after } = lab;
 
 initI18n();
 
-suite("ComponentCreateList", () => {
+suite.only("ComponentCreateList", () => {
   let onSelectComponent;
 
   beforeEach(() => {
@@ -93,6 +93,7 @@ suite("ComponentCreateList", () => {
       "Email address",
       "File upload",
       "Multiline text",
+      "National Insurance Number",
       "Number",
       "Telephone number",
       "Text",

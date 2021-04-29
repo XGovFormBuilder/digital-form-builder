@@ -208,4 +208,13 @@ export const ComponentTypes: ComponentDef[] = [
     schema: {},
     list: "",
   },
+  {
+    name: "NationalInsuranceField",
+    type: "NationalInsuranceField",
+    title: "National Insurance field",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
 ];
