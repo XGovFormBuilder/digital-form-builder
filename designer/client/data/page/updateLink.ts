@@ -13,7 +13,7 @@ export function updateLink(
   const existingLinkIndex = fromPage.next?.findIndex(
     (page) => page.path === to
   );
-  if (!fromPage || !toPage || !existingLinkIndex) {
+  if (!existingLinkIndex) {
     throw Error("Could not find page or links to update");
   }
 
