@@ -45,22 +45,22 @@ suite("NationalInsuranceField", () => {
       );
       expect(component.formSchema.validate("").error).to.not.exist();
     });
-    it("validates NI number", () => {
-      let testCases: [any, boolean][] = [
-        ["AA123456C", true],
-        ["AA 12 34 56 C", true],
-        ["aa 12 34 56 c", true],
-        ["aa123456c", true],
-        ["", false],
-        [1234567890, false],
-        ["aa 12 34 56 c1", false],
-        ["aa123456c1", false],
-        ["aa123456", false],
-        ["AA123456C1", false],
-        ["AA123456", false],
-        ["QQ123456C", false],
-      ];
-
+    it("validates and fails", () => {
+      const component = new NationalInsuranceField(
+        {
+          ...componentDefinition,
+          options: { required: true },
+        },
+        formModel
+      );
+      expect(component.formSchema.validate("").error).to.exist();
+      expect(component.formSchema.validate(1234567890).error).to.exist();
+      expect(component.formSchema.validate("aa 12 34 56 c1").error).to.exist();
+      expect(component.formSchema.validate("aa123456c1").error).to.exist();
+      expect(component.formSchema.validate("aa123456").error).to.exist();
+      expect(component.formSchema.validate("QQ123456C").error).to.exist();
+    });
+    it("validates and passes", () => {
       const component = new NationalInsuranceField(
         {
           ...componentDefinition,
@@ -69,14 +69,14 @@ suite("NationalInsuranceField", () => {
         formModel
       );
 
-      testCases.forEach((testCase: any) => {
-        const [nino, shouldPass] = testCase;
-        if (shouldPass) {
-          expect(component.formSchema.validate(nino).error).to.not.exist();
-        } else {
-          expect(component.formSchema.validate(nino).error).to.exist();
-        }
-      });
+      expect(component.formSchema.validate("AA123456C").error).to.not.exist();
+      expect(
+        component.formSchema.validate("AA 12 34 56 C").error
+      ).to.not.exist();
+      expect(
+        component.formSchema.validate("aa 12 34 56 c").error
+      ).to.not.exist();
+      expect(component.formSchema.validate("aa123456c").error).to.not.exist();
     });
   });
 });
