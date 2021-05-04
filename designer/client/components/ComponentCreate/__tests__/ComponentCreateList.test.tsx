@@ -14,7 +14,7 @@ const { beforeEach, suite, test, after } = lab;
 
 initI18n();
 
-suite.only("ComponentCreateList", () => {
+suite("ComponentCreateList", () => {
   let onSelectComponent;
 
   beforeEach(() => {
