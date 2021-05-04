@@ -11,9 +11,9 @@ export function updateLink(
   const [fromPage, fromPageIndex] = findPage(data, from);
   const [toPage] = findPage(data, to);
   const existingLinkIndex = fromPage.next?.findIndex(
-    (page) => page.path === to
+    (next) => next.path === to
   );
-  if (!existingLinkIndex) {
+  if (existingLinkIndex < 0) {
     throw Error("Could not find page or links to update");
   }
 
