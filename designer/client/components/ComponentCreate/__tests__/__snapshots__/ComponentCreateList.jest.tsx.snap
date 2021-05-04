@@ -238,6 +238,19 @@ exports[`ComponentCreateList should match snapshot 1`] = `
               class="govuk-link"
               href="#0"
             >
+              National Insurance Number
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A text box for users to enter their National Insurance Number
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
               Number
             </a>
             <div
