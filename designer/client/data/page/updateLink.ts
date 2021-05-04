@@ -10,9 +10,8 @@ export function updateLink(
 ): FormDefinition {
   const [fromPage, fromPageIndex] = findPage(data, from);
   const [toPage] = findPage(data, to);
-  const existingLinkIndex = fromPage.next?.findIndex(
-    (next) => next.path === to
-  );
+  const existingLinkIndex =
+    fromPage.next?.findIndex((next) => next.path === to) ?? -1;
   if (existingLinkIndex < 0) {
     throw Error("Could not find page or links to update");
   }
