@@ -20,6 +20,7 @@ export { Html } from "./Html";
 export { InsetText } from "./InsetText";
 export { List } from "./List";
 export { MultilineTextField } from "./MultilineTextField";
+export { NationalInsuranceField } from "./NationalInsuranceField";
 export { NumberField } from "./NumberField";
 export { Para } from "./Para";
 export { RadiosField } from "./RadiosField";

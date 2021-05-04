@@ -92,9 +92,7 @@ interface NumberFieldBase {
   name: string;
   title: string;
   hint: string;
-  options: {
-    required?: boolean;
-  };
+  options: {};
   schema: {
     min?: number;
     max?: number;

@@ -1,0 +1,5 @@
+{% from "input/macro.njk" import govukInput %}
+
+{% macro NationalInsuranceField(component) %}
+  {{ govukInput(component.model) }}
+{% endmacro %}
