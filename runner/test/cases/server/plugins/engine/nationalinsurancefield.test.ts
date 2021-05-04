@@ -58,6 +58,7 @@ suite("NationalInsuranceField", () => {
         ["aa123456", false],
         ["AA123456C1", false],
         ["AA123456", false],
+        ["QQ123456C", false],
       ];
 
       const component = new NationalInsuranceField(
