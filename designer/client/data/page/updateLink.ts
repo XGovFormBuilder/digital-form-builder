@@ -9,7 +9,7 @@ export function updateLink(
   condition?: ConditionRawData["name"]
 ): FormDefinition {
   const [fromPage, fromPageIndex] = findPage(data, from);
-  const [toPage] = findPage(data, to);
+  findPage(data, to);
   const existingLinkIndex =
     fromPage.next?.findIndex((next) => next.path === to) ?? -1;
   if (existingLinkIndex < 0) {
