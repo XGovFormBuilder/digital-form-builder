@@ -4,16 +4,15 @@ import {
   decodeFeedbackContextInfo,
   redirectTo,
   nonRelativeRedirectUrl,
-  RelativeUrl,
 } from "./engine";
 
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
 
 function getFeedbackContextInfo(request: HapiRequest) {
-  if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
+  if (request.query[feedbackReturnInfoKey]) {
     return decodeFeedbackContextInfo(
-      new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-        .feedbackReturnInfo
+      request.url.searchParams.get(feedbackReturnInfoKey)
     );
   }
 }
