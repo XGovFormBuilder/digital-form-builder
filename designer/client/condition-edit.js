@@ -3,6 +3,7 @@ import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import { removeCondition, updateCondition } from "./data";
+import { ConditionsModel } from "@xgovformbuilder/model/src";
 
 class ConditionEdit extends React.Component {
   static contextType = DataContext;
@@ -11,7 +12,7 @@ class ConditionEdit extends React.Component {
     super(props);
     this.state = {
       displayName: props.condition.displayName,
-      value: props.condition.expression,
+      value: ConditionsModel.from(props.condition.value).toExpression(),
     };
   }
 
@@ -84,6 +85,9 @@ class ConditionEdit extends React.Component {
 
   render() {
     const { condition } = this.props;
+    const wrappedCondition = ConditionsModel.from(
+      condition.value
+    ).toExpression();
 
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
@@ -124,7 +128,7 @@ class ConditionEdit extends React.Component {
           <Editor
             name="value"
             required
-            value={condition.expression}
+            value={wrappedCondition.expression}
             valueCallback={this.onValueChange}
           />
         </div>

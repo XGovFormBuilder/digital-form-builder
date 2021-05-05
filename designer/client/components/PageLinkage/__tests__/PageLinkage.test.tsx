@@ -221,6 +221,5 @@ suite("Page Linkage", () => {
 
     await dragArea.prop("onDrop")(event);
     expect(addLinkSpy.called).to.be.false();
-    expect(addLinkSpy.addLink.called).to.be.false();
   });
 });
