@@ -4,8 +4,9 @@ import {
   validateNotEmpty,
   validateTitle,
 } from "../../../validations";
-import { clone } from "@xgovformbuilder/model";
+import { clone, FormDefinition } from "@xgovformbuilder/model";
 import { ListItemHook } from "./types";
+import { addList, findList } from "../../../data";
 
 export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
@@ -57,8 +58,8 @@ export function useListItem(state, dispatch): ListItemHook {
     return valErrors;
   }
 
-  function prepareForSubmit(data) {
-    const copy = clone(data);
+  function prepareForSubmit(data: FormDefinition) {
+    let copy: FormDefinition = { ...data };
     const { selectedList, selectedItemIndex, initialName } = state;
     let { items } = selectedList;
     if (!selectedItem.isNew) {
@@ -67,16 +68,12 @@ export function useListItem(state, dispatch): ListItemHook {
       const { isNew, errors, ...selectedItem } = state.selectedItem;
       items.push(selectedItem);
     }
-
-    const indexOfList = copy.lists.findIndex(
-      (list) => list.name === initialName
-    );
+    const [list, indexOfList] = findList(copy, initialName);
 
     if (selectedList.isNew) {
       delete selectedList.isNew;
-      copy.addList(selectedList);
+      copy = addList(data, selectedList);
     } else {
-      const list = copy.lists[indexOfList];
       copy.lists[indexOfList] = { ...list, items };
     }
     return copy;

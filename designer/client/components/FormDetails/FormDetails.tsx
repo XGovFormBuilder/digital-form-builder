@@ -1,10 +1,5 @@
 import React, { Component, ChangeEvent, ContextType, FormEvent } from "react";
-import {
-  Data,
-  clone,
-  FormConfiguration,
-  FormDefinition,
-} from "@xgovformbuilder/model";
+import { FormConfiguration, FormDefinition } from "@xgovformbuilder/model";
 import isFunction from "lodash/isFunction";
 
 import { validateTitle, hasValidationErrors } from "../../validations";
@@ -28,7 +23,7 @@ interface Props {
 interface State {
   title: string;
   phase: Phase;
-  feedbackForm: FormDefinition["feedbackForm"];
+  feedbackForm: boolean;
   formConfigurations: FormConfiguration[];
   selectedFeedbackForm?: string;
   errors: any;
@@ -42,10 +37,10 @@ export class FormDetails extends Component<Props, State> {
   constructor(props, context) {
     super(props, context);
     const { data } = context;
-    const selectedFeedbackForm = data.feedbackUrl?.substr(1) || "";
+    const selectedFeedbackForm = data.feedback?.url?.substr(1) ?? "";
     this.state = {
       title: data.name || "",
-      feedbackForm: data.feedbackForm,
+      feedbackForm: data.feedback,
       formConfigurations: [],
       selectedFeedbackForm,
       phase: data.phaseBanner?.phase,
@@ -57,7 +52,7 @@ export class FormDetails extends Component<Props, State> {
     const result = await formConfigurationApi.loadConfigurations();
     if (!this.isUnmounting) {
       this.setState({
-        formConfigurations: result.filter((it) => it.feedbackForm),
+        formConfigurations: result.filter((it) => it.feedback),
       });
     }
   }
@@ -77,10 +72,13 @@ export class FormDetails extends Component<Props, State> {
     const { phaseBanner = {} } = data;
     const { onCreate } = this.props;
 
-    const copy = clone(data);
+    const copy: FormDefinition = { ...data };
     copy.name = title;
-    copy.feedbackForm = feedbackForm;
-    copy.setFeedbackUrl(selectedFeedbackForm ? `/${selectedFeedbackForm}` : "");
+    copy.feedback = {
+      feedbackForm,
+      url: selectedFeedbackForm ? `/${selectedFeedbackForm}` : "",
+    };
+
     copy.phaseBanner = {
       ...phaseBanner,
       phase,
