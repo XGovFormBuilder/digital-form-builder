@@ -14,7 +14,7 @@ export class NationalInsuranceField extends FormComponent {
       .string()
       .regex(
         new RegExp(
-          /^[a-ceghj-pr-tw-zA-CEGHJ-PR-TW-Z]{1}[a-ceghj-npr-tw-zA-CEGHJ-NPR-TW-Z]{1} ?[0-9]{2} ?[0-9]{2} ?[0-9]{2} ?[a-dA-D]{1}$/
+          /^(?!BG|GB|NK|KN|TN|NT|ZZ)[A-CEGHJ-PR-TW-Z][A-CEGHJ-NPR-TW-Z](?:\s*\d{2}){3}\s*[A-D]$/i
         )
       );
 

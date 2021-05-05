@@ -59,6 +59,7 @@ suite("NationalInsuranceField", () => {
       expect(component.formSchema.validate("aa123456c1").error).to.exist();
       expect(component.formSchema.validate("aa123456").error).to.exist();
       expect(component.formSchema.validate("QQ123456C").error).to.exist();
+      expect(component.formSchema.validate("BG123456C").error).to.exist();
     });
     it("validates and passes", () => {
       const component = new NationalInsuranceField(
