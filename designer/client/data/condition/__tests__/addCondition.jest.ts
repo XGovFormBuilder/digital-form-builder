@@ -1,15 +1,21 @@
 import { ConditionRawData, FormDefinition } from "@xgovformbuilder/model";
 import { addCondition } from "../addCondition";
+const data: FormDefinition = {
+  conditions: [
+    {
+      displayName: "a condition",
+      name: "isCondition",
+      value: { name: "name", conditions: [] },
+    },
+  ],
+  lists: [],
+  name: "",
+  pages: [],
+  sections: [],
+  startPage: "",
+};
 
 test("addCondition adds a condition to the list", () => {
-  const data: FormDefinition = {
-    conditions: [],
-    lists: [],
-    name: "",
-    pages: [],
-    sections: [],
-    startPage: "",
-  };
   const condition: ConditionRawData = {
     displayName: "added condition",
     name: "new",
@@ -23,4 +29,14 @@ test("addCondition adds a condition to the list", () => {
     sections: [],
     startPage: "",
   });
+});
+
+test("addCondition throws if a condition with the same name already exists", () => {
+  expect(() =>
+    addCondition(data, {
+      displayName: "a condition",
+      name: "isCondition",
+      value: { name: "name", conditions: [] },
+    })
+  ).toThrow(/a condition/);
 });

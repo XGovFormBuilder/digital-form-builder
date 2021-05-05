@@ -10,7 +10,6 @@ import ErrorSummary, { ErrorListItem } from "../error-summary";
 import { i18n } from "../i18n";
 import { ErrorMessage } from "../components/ErrorMessage";
 import { allInputs, findList, inputsAccessibleAt } from "../data";
-import { updateCondition } from "../reducers/condition";
 
 interface Props {
   path: string;
