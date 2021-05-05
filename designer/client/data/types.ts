@@ -21,10 +21,11 @@ export const isNotContentType = (
 
 export type Input = {
   name: string;
-  page: Pick<Page, "path" | "section">;
+  page: { path: Page["path"]; section: Page["section"] };
   propertyPath: string;
-  list: string;
-  type: Pick<InputFieldsComponentsDef, "type">;
+  list: string | undefined;
+  title: string;
+  type: InputFieldsComponentsDef["type"] | ListComponentsDef["type"];
 };
 
 export type Path = Page["path"];

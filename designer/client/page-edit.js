@@ -14,6 +14,7 @@ import { DataContext } from "./context";
 
 import FeatureToggle from "./FeatureToggle";
 import { FeatureFlags } from "./context/FeatureFlagContext";
+import { findPage, updateLinksTo } from "./data";
 
 export class PageEdit extends React.Component {
   static contextType = DataContext;
@@ -41,15 +42,14 @@ export class PageEdit extends React.Component {
     let validationErrors = this.validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
 
-    const copy = clone(data);
-    const pageIndex = data.pages.indexOf(page);
-    const copyPage = copy.pages[pageIndex];
+    let copy = { ...data };
+    const [copyPage, copyIndex] = findPage(data, page.path);
     const pathChanged = path !== page.path;
 
     if (pathChanged) {
-      data.updateLinksTo(page.path, path);
+      copy = updateLinksTo(data, page.path, path);
       copyPage.path = path;
-      if (pageIndex === 0) {
+      if (copyIndex === 0) {
         copy.startPage = path;
       }
     }
@@ -60,7 +60,7 @@ export class PageEdit extends React.Component {
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
-    copy.pages[pageIndex] = copyPage;
+    copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
       this.props.onEdit({ data });
@@ -76,7 +76,7 @@ export class PageEdit extends React.Component {
     const errors = { ...titleErrors };
 
     let pathHasErrors = false;
-    if (path !== page.path) pathHasErrors = data.findPage(path);
+    if (path !== page.path) pathHasErrors = findPage(data, path);
     if (pathHasErrors) {
       errors.path = {
         href: "#page-path",
@@ -160,7 +160,7 @@ export class PageEdit extends React.Component {
     let path = toUrl(title);
     const { data } = this.context;
     const { page } = this.props;
-    if (data.findPage(path) && page.title !== title) {
+    if (findPage(data, path) && page.title !== title) {
       path = `${path}-${randomId()}`;
     }
     return path;

@@ -1,5 +1,4 @@
 import React from "react";
-import { clone } from "@xgovformbuilder/model";
 import randomId from "../randomId";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
@@ -10,7 +9,7 @@ import {
 } from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
-import { addSection } from "../data/section/addSection";
+import { addSection } from "../data";
 
 class SectionEdit extends React.Component {
   static contextType = DataContext;
@@ -88,10 +87,10 @@ class SectionEdit extends React.Component {
 
     const { save } = this.context;
     const { data, section } = this.props;
-    const copy = clone(data);
+    const copy = { ...data };
     const previousName = this.props.section?.name;
 
-    copy.sections.splice(data.sections.indexOf(section), 1);
+    copy.sections.splice(copy.sections.indexOf(section), 1);
 
     // Update any references to the section
     copy.pages.forEach((p) => {
