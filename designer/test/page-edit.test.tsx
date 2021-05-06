@@ -38,7 +38,7 @@ suite("Page edit", () => {
   });
 
   test("Renders a form with the appropriate initial inputs", () => {
-    const data = new Data({
+    const data = {
       pages: [
         {
           path: "/1",
@@ -57,7 +57,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -103,7 +103,7 @@ suite("Page edit", () => {
   });
 
   test("Renders a form with the appropriate initial inputs when no section or controller selected", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -115,7 +115,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -156,7 +156,7 @@ suite("Page edit", () => {
   });
 
   test("Updating the title changes the path if the path is the auto-generated one", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/my-first-page", title: "My first page" }],
       sections: [
         {
@@ -168,7 +168,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -188,7 +188,7 @@ suite("Page edit", () => {
   });
 
   test.skip("Updating the title does not change the path if the path is not the auto-generated one", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -200,7 +200,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -215,7 +215,7 @@ suite("Page edit", () => {
   });
 
   test("Changing the section causes the new section to be selected", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -227,7 +227,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -251,7 +251,7 @@ suite("Page edit", () => {
   });
 
   test("Changing the controller causes the new controller to be selected", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -263,7 +263,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -287,7 +287,7 @@ suite("Page edit", () => {
   });
 
   test.skip("Duplicate page path will not submit", () => {
-    const data = new Data({
+    const data = {
       pages: [
         {
           path: "/first-page",
@@ -311,7 +311,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
@@ -336,7 +336,7 @@ suite("Page edit", () => {
   });
 
   test.skip("Page title will have error if the value is removed", () => {
-    const data = new Data({
+    const data = {
       pages: [
         {
           path: "/1",
@@ -355,7 +355,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const page = Object.assign(data.pages[0], { section: data.sections[0] });
 
