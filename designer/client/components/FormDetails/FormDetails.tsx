@@ -40,25 +40,12 @@ export class FormDetails extends Component<Props, State> {
     const selectedFeedbackForm = data.feedback?.url?.substr(1) ?? "";
     this.state = {
       title: data.name || "",
-      feedbackForm: data.feedback,
+      feedbackForm: data.feedback?.feedbackForm ?? false,
       formConfigurations: [],
       selectedFeedbackForm,
       phase: data.phaseBanner?.phase,
       errors: {},
     };
-  }
-
-  async componentDidMount() {
-    const result = await formConfigurationApi.loadConfigurations();
-    if (!this.isUnmounting) {
-      this.setState({
-        formConfigurations: result.filter((it) => it.feedback),
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    this.isUnmounting = true;
   }
 
   onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -68,11 +55,16 @@ export class FormDetails extends Component<Props, State> {
     if (hasValidationErrors(validationErrors)) return;
 
     const { data, save } = this.context;
-    const { title, feedbackForm, selectedFeedbackForm, phase } = this.state;
+    const {
+      title,
+      feedbackForm = false,
+      selectedFeedbackForm,
+      phase,
+    } = this.state;
     const { phaseBanner = {} } = data;
     const { onCreate } = this.props;
 
-    const copy: FormDefinition = { ...data };
+    let copy: FormDefinition = { ...data };
     copy.name = title;
     copy.feedback = {
       feedbackForm,
@@ -108,6 +100,7 @@ export class FormDetails extends Component<Props, State> {
 
   handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLSelectElement>) => {
     const isFeedbackForm = event.target.value === "true";
+    console.log("handle is feedback");
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });
