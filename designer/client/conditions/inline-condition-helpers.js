@@ -1,15 +1,27 @@
 import randomId from "../randomId";
-import { addCondition } from "./../data";
+import { addCondition, hasConditions } from "./../data";
 
+/**
+ * @param data
+ * @param conditions {ConditionsModel}
+ * @returns {FormDefinition, String?}
+ */
 function storeConditionIfNecessary(data, conditions) {
   let condition;
-
-  if (conditions && conditions.hasConditions) {
+  let updated;
+  if (conditions?.hasConditions) {
     condition = randomId();
-    data = addCondition(data, conditions);
+    const { conditions: conditionsArray } = conditions;
+    updated = addCondition(
+      data,
+      conditions.toJSON?.() ?? {
+        name: condition,
+        conditions: [...conditionsArray],
+      }
+    );
   }
 
-  return { data, condition };
+  return { data: updated ?? data, condition };
 }
 
 export default {

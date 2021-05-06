@@ -1,44 +1,46 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import sinon from "sinon";
+
 import InlineConditionHelpers from "../client/conditions/inline-condition-helpers";
+import { FormDefinition } from "@xgovformbuilder/model";
 
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { beforeEach, suite, test } = lab;
+const { suite, test } = lab;
 
 suite("Inline condition helpers", () => {
-  let data;
-
-  beforeEach(() => {
-    data = {
-      getId: sinon.stub(),
-      addCondition: sinon.stub(),
-    };
-  });
+  let data: FormDefinition = {
+    conditions: [],
+    lists: [],
+    pages: [],
+    sections: [],
+  };
 
   test("should save conditions if provided", async () => {
-    const amendedData = sinon.stub();
-    data.addCondition.returns(amendedData);
-    const conditions = {
+    const conditionsModel = {
       name: "My condition",
       hasConditions: true,
+      conditions: [
+        {
+          name: "hasUKPassport",
+          value: "checkBeforeYouStart.ukPassport==true",
+        },
+      ],
     };
-    const returned = await InlineConditionHelpers.storeConditionIfNecessary(
+
+    const returned = InlineConditionHelpers.storeConditionIfNecessary(
       data,
-      conditions
+      conditionsModel
     );
 
-    expect(data.addCondition.calledOnce).to.equal(true);
-
-    expect(data.addCondition.firstCall.args[1]).to.equal("My condition");
-    expect(data.addCondition.firstCall.args[2]).to.equal(conditions);
-    expect(returned).to.contain({ data: amendedData });
+    expect(returned.data.conditions[0].conditions).to.contain(
+      conditionsModel.conditions
+    );
+    expect(returned.condition).to.be.a.string();
   });
 
   test("should not save conditions if provided with no conditions added", async () => {
-    data.getId.resolves("abcdef");
     const conditions = {
       name: "My condition",
       hasConditions: false,
@@ -48,8 +50,6 @@ suite("Inline condition helpers", () => {
       conditions
     );
 
-    expect(data.getId.called).to.equal(false);
-    expect(data.addCondition.called).to.equal(false);
     expect(returned).to.equal({ data: data, condition: undefined });
   });
 
@@ -58,9 +58,6 @@ suite("Inline condition helpers", () => {
       data,
       undefined
     );
-
-    expect(data.getId.called).to.equal(false);
-    expect(data.addCondition.called).to.equal(false);
     expect(returned).to.equal({ data: data, condition: undefined });
   });
 
@@ -69,9 +66,6 @@ suite("Inline condition helpers", () => {
       undefined,
       undefined
     );
-
-    expect(data.getId.called).to.equal(false);
-    expect(data.addCondition.called).to.equal(false);
     expect(returned).to.equal({ data: undefined, condition: undefined });
   });
 });

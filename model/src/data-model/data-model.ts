@@ -73,25 +73,6 @@ export class DataClazz {
   #conditions: ConditionsWrapper[] = [];
   #feedback?: Feedback;
 
-  constructor(rawData: RawData) {
-    const rawDataClone =
-      rawData instanceof DataClazz
-        ? rawData._exposePrivateFields()
-        : { ...rawData };
-
-    // protected properties
-    this.#name = rawDataClone.name || "";
-    this.#feedback = rawDataClone.feedback;
-    this.#conditions = (rawDataClone.conditions || []).map(
-      (conditionObj: ConditionRawData) => new ConditionsWrapper(conditionObj)
-    );
-
-    // discard already set properties
-    const { name, conditions, feedback, ...otherProps } = rawDataClone;
-
-    Object.assign(this, otherProps);
-  }
-
   findPage(path: string | undefined) {
     return this.getPages().find((page) => page?.path === path);
   }

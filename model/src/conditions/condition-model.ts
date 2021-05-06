@@ -19,6 +19,8 @@ export class ConditionsModel {
   #userGroupedConditions: ConditionsArray = [];
   #conditionName: string | undefined = undefined;
 
+  constructor(conditionsObject: ConditionRawObject) {}
+
   clone() {
     const toReturn = new ConditionsModel();
     toReturn.#groupedConditions = this.#groupedConditions.map((it) =>
@@ -265,6 +267,7 @@ export class ConditionsModel {
     };
   }
 
+  //TODO:- why is this not a constructor?
   static from(obj: ConditionRawObject | ConditionsModel) {
     if (obj instanceof ConditionsModel) {
       return obj;
