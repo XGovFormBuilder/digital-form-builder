@@ -1,12 +1,6 @@
 import React from "react";
 import { ChooseExisting } from "../ChooseExisting";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import {
   server,
   rest,
