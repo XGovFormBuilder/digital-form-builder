@@ -19,7 +19,7 @@ suite.skip("Page", () => {
   let props;
 
   beforeEach(() => {
-    data = new Data({
+    data = {
       pages: [
         {
           path: "/1",
@@ -39,7 +39,7 @@ suite.skip("Page", () => {
           title: "Personal Details",
         },
       ],
-    } as any);
+    };
 
     props = {
       data,

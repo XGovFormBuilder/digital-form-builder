@@ -9,6 +9,15 @@ const flyoutValue = {
   count: 0,
 };
 let data = {
+  pages: [
+    {path: "/1", next: ["/2"]}
+    {
+      path: "/2",
+      components: [
+        {type: "TextField", "name"}
+      ]
+    }
+  ]
   inputsAccessibleAt: jest.fn().mockReturnValue([
     {
       label: "Something",

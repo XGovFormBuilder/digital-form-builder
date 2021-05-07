@@ -36,11 +36,15 @@ export function ComponentListSelect() {
     if (selectedList?.isNew) {
       return;
     }
-    const [foundList] = findList(data, list);
-    listDispatch({
-      type: ListActions.SET_SELECTED_LIST,
-      payload: foundList,
-    });
+    try {
+      const [foundList] = findList(data, list);
+      listDispatch({
+        type: ListActions.SET_SELECTED_LIST,
+        payload: foundList,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }, [data.lists, list]);
 
   useEffect(() => {

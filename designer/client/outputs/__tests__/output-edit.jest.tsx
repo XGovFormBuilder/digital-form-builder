@@ -11,7 +11,7 @@ describe("OutputEdit", () => {
 
   beforeEach(() => {
     mockSave = jest.fn().mockResolvedValue(mockData);
-    mockData = new Data({
+    mockData = {
       pages: [
         {
           title: "First page",
@@ -28,7 +28,7 @@ describe("OutputEdit", () => {
         },
       ],
       outputs: [],
-    } as any);
+    };
   });
 
   describe("Notify", () => {

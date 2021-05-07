@@ -19,7 +19,7 @@ const { suite, test, describe, before } = lab;
 
 //FIXME: Tests need to be wrapped in <DataContext.provider/> and references to data and data.save should be changed to { data, save }
 suite.skip("Page create", () => {
-  const data = new Data({
+  const data = {
     pages: [{ path: "/1" }, { path: "/2" }],
     sections: [
       {
@@ -31,7 +31,7 @@ suite.skip("Page create", () => {
         title: "Personal Details",
       },
     ],
-  });
+  };
 
   before(() => {
     initI18n();

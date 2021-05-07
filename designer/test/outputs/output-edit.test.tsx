@@ -16,7 +16,7 @@ exports.lab = lab;
 const { suite, test, describe } = lab;
 
 suite("Output edit", () => {
-  const data = new Data({
+  const data = {
     pages: [
       {
         path: "/1",
@@ -35,7 +35,7 @@ suite("Output edit", () => {
         },
       },
     ],
-  });
+  };
   describe("Renders", () => {
     test("email output", () => {
       const output = {

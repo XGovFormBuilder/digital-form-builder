@@ -38,5 +38,5 @@ test("addCondition throws if a condition with the same name already exists", () 
       name: "isCondition",
       value: { name: "name", conditions: [] },
     })
-  ).toThrow(/a condition/);
+  ).toThrow(/A condition/);
 });
