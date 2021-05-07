@@ -79,9 +79,7 @@ export class InlineConditions extends React.Component<Props, State> {
   fieldsForPath = (path) => {
     const { data } = this.context;
 
-    const inputs = !!path
-      ? inputsAccessibleAt(data, path)
-      : allInputs(data.pages);
+    const inputs = !!path ? inputsAccessibleAt(data, path) : allInputs(data);
 
     const fieldInputs = inputs.map((input) => {
       const label = [
@@ -91,7 +89,10 @@ export class InlineConditions extends React.Component<Props, State> {
         .filter((p) => p)
         .join(" ");
 
-      const [list] = findList(data, input.list);
+      let list;
+      if (input.list) {
+        list = findList(data, input.list);
+      }
 
       const values =
         `${input.type}` == "YesNoField" ? yesNoValues : list?.items;
@@ -214,7 +215,9 @@ export class InlineConditions extends React.Component<Props, State> {
       conditionString,
       validationErrors,
     } = this.state;
+    const { data } = this.context;
     const hasConditions = conditions.hasConditions;
+
     const nameError = validationErrors.filter(
       (error) => error.href === "#cond-name"
     )[0];
