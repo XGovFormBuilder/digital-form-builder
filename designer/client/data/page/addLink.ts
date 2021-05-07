@@ -20,7 +20,6 @@ export function addLink(
   if (!existingLink) {
     const link: Link = {
       path: to,
-      condition,
     };
 
     if (condition) {

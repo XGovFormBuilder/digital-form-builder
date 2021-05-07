@@ -1,7 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import LinkCreate from "../link-create";
-import { Data } from "@xgovformbuilder/model";
 import { DataContext } from "../context";
 import { screen, within } from "@testing-library/dom";
 
