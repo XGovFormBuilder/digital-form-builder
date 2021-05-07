@@ -185,6 +185,8 @@
     "TimeField_info": "A clock for users to specify a time",
     "UkAddressField": "UK address",
     "UkAddressField_info": "Allows users to enter their street address, town or city and postcode",
+    "URL": "URL",
+    "URL_info": "Allows users to enter a URL (a web address)",
     "YesNoField": "YesNo",
     "YesNoField_info": "Allows users to answer either 'Yes' or 'No'"
   },

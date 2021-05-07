@@ -22,6 +22,7 @@ export enum ComponentTypeEnum {
   Details = "Details",
   FlashCard = "FlashCard",
   List = "List",
+  URL = "URL",
 }
 
 export type ComponentType =
@@ -266,6 +267,10 @@ export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
 }
 
+export interface URL extends TextFieldBase {
+  type: "URL";
+}
+
 export type ComponentDef =
   | InsetTextComponent
   | AutocompleteFieldComponent
@@ -289,7 +294,8 @@ export type ComponentDef =
   | TextFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent
-  | YesNoFieldComponent;
+  | YesNoFieldComponent
+  | URL;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -304,7 +310,8 @@ export type InputFieldsComponentsDef =
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
   | TimeFieldComponent
-  | UkAddressFieldComponent;
+  | UkAddressFieldComponent
+  | URL;
 
 // Components that render content.
 export type ContentComponentsDef =

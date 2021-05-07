@@ -98,6 +98,7 @@ suite("ComponentCreateList", () => {
       "Text",
       "Time",
       "UK address",
+      "URL",
     ]);
   });
 

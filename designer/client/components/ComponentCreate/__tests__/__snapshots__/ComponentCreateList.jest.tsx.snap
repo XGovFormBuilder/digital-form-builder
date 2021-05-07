@@ -298,6 +298,19 @@ exports[`ComponentCreateList should match snapshot 1`] = `
               Allows users to enter their street address, town or city and postcode
             </div>
           </li>
+          <li>
+          <a
+            class="govuk-link"
+            href="#0"
+          >
+            URL
+          </a>
+          <div
+            class="govuk-hint"
+          >
+            A text box for users to enter a URL (a web address)
+          </div>
+        </li>
         </ol>
         <hr
           class="govuk-section-break govuk-section-break--m govuk-section-break--visible"
