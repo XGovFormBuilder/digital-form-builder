@@ -16,7 +16,9 @@ function storeConditionIfNecessary(data, conditions) {
       data,
       conditions.toJSON?.() ?? {
         name: condition,
-        conditions: [...conditionsArray],
+        value: {
+          conditions: [...conditionsArray],
+        },
       }
     );
   }
