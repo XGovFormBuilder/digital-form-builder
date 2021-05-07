@@ -11,15 +11,22 @@ test("Strings are rendered correctly", () => {
   };
 
   const data = {
-    inputsAccessibleAt: jest.fn().mockReturnValue([
+    pages: [
+      { path: "/1", next: [{ path: "/2" }] },
       {
-        label: "Something",
-        name: "field1",
-        type: "TextField",
+        path: "/2",
+        components: [{ type: "TextField", name: "field1", title: "Something" }],
+        next: [{ path: "/3" }],
       },
-    ]),
+      {
+        path: "/3",
+        components: [
+          { type: "TextField", name: "field2", title: "Something else" },
+          { type: "TextField", name: "field3", title: "beep" },
+        ],
+      },
+    ],
     conditions: [],
-    findList: () => {},
   };
 
   const { getByText } = render(

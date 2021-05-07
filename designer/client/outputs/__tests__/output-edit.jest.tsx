@@ -28,6 +28,7 @@ describe("OutputEdit", () => {
         },
       ],
       outputs: [],
+      conditions: [],
     };
   });
 

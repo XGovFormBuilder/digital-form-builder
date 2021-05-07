@@ -22,7 +22,7 @@ test("addCondition adds a condition to the list", () => {
     value: { name: "newCondition", conditions: [] },
   };
   expect(addCondition(data, condition)).toEqual({
-    conditions: [{ ...condition }],
+    conditions: [...data.conditions, condition],
     lists: [],
     name: "",
     pages: [],

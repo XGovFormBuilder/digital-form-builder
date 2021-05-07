@@ -14,8 +14,11 @@ import {
 } from "../../../../test/testServer";
 
 describe("ChooseExisting", () => {
-  afterEach(() => jest.resetAllMocks());
-  afterEach(cleanup);
+  beforeAll(() => server.listen());
+
+  afterEach(() => server.resetHandlers());
+
+  afterAll(() => server.close());
 
   test("no existing configurations", async () => {
     server.resetHandlers(
