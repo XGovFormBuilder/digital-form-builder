@@ -19,7 +19,7 @@ export class ConditionsModel {
   #userGroupedConditions: ConditionsArray = [];
   #conditionName: string | undefined = undefined;
 
-  constructor(conditionsObject: ConditionRawObject) {}
+  constructor(_conditionsObject?: ConditionRawObject) {}
 
   clone() {
     const toReturn = new ConditionsModel();
