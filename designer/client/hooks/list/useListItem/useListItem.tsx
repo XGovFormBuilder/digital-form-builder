@@ -68,19 +68,19 @@ export function useListItem(state, dispatch): ListItemHook {
       const { isNew, errors, ...selectedItem } = state.selectedItem;
       items.push(selectedItem);
     }
-    const [list, indexOfList] = findList(copy, selectedList.name);
 
     if (selectedList.isNew) {
       delete selectedList.isNew;
       copy = addList(data, selectedList);
     } else {
+      const [list, indexOfList] = findList(copy, selectedList.name);
       copy.lists[indexOfList] = { ...list, items };
     }
     return copy;
   }
 
   function prepareForDelete(data: any, index: number | undefined) {
-    const copy = clone(data);
+    const copy = { ...data };
     const { initialName, selectedList, selectedItemIndex } = state;
 
     // If user clicks delete button in list items list, then index is defined and we use it

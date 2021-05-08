@@ -9,7 +9,6 @@ import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
-import { clone } from "@xgovformbuilder/model";
 import { useListItem } from "../hooks/list/useListItem";
 import { ListContext } from "../reducers/listReducer";
 
