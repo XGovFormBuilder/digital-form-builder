@@ -34,7 +34,7 @@ suite("Inline condition helpers", () => {
       conditionsModel
     );
 
-    expect(returned.data.conditions[0].conditions).to.contain(
+    expect(returned.data.conditions[0].value.conditions).to.contain(
       conditionsModel.conditions
     );
     expect(returned.condition).to.be.a.string();

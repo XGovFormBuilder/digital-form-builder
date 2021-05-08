@@ -60,7 +60,7 @@ export function useListItem(state, dispatch): ListItemHook {
 
   function prepareForSubmit(data: FormDefinition) {
     let copy: FormDefinition = { ...data };
-    const { selectedList, selectedItemIndex, initialName } = state;
+    const { selectedList, selectedItemIndex } = state;
     let { items } = selectedList;
     if (!selectedItem.isNew) {
       items = items.splice(selectedItemIndex, 1, selectedItem);
@@ -68,7 +68,7 @@ export function useListItem(state, dispatch): ListItemHook {
       const { isNew, errors, ...selectedItem } = state.selectedItem;
       items.push(selectedItem);
     }
-    const [list, indexOfList] = findList(copy, initialName);
+    const [list, indexOfList] = findList(copy, selectedList.name);
 
     if (selectedList.isNew) {
       delete selectedList.isNew;

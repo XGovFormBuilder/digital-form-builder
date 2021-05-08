@@ -36,6 +36,7 @@ export function ListItemEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const copy = clone(data);
+    const copy = { ...data };
     const hasErrors = validate(i18n);
     if (hasErrors) return;
     await save(prepareForSubmit(copy));
