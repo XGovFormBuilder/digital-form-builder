@@ -53,11 +53,13 @@ class LinkEdit extends React.Component {
     const { link, page } = this.state;
     const { data, save } = this.context;
 
-    const copy = clone(data);
+    const copy = { ...data };
     const [copyPage] = findPage(data, page.path);
-
     const copyLinkIdx = copyPage.next.findIndex((n) => n.path === link.path);
     copyPage.next.splice(copyLinkIdx, 1);
+    copy.pages = copy.pages.map((page) =>
+      page.path === copyPage.path ? copyPage : page
+    );
 
     save(copy)
       .then((data) => {
