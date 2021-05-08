@@ -35,7 +35,6 @@ export function ListItemEdit() {
   const { listItemErrors: errors } = state;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const copy = clone(data);
     const copy = { ...data };
     const hasErrors = validate(i18n);
     if (hasErrors) return;
