@@ -24,8 +24,14 @@ class LinkCreate extends React.Component {
     const hasValidationErrors = this.validate();
     if (hasValidationErrors) return;
 
-    const copy = clone(data);
-    const updatedData = addLink(data, from, to, selectedCondition);
+    const copy = { ...data };
+    const { error, ...updatedData } = addLink(
+      copy,
+      from,
+      to,
+      selectedCondition
+    );
+    error && console.error(error);
     const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };
@@ -44,7 +50,7 @@ class LinkCreate extends React.Component {
   };
 
   validate = () => {
-    const { from, to, selectedCondition } = this.state;
+    const { from, to } = this.state;
     let errors = {};
     if (!from) {
       errors.from = { href: "#link-source", children: "Enter from" };

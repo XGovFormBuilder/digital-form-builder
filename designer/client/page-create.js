@@ -12,6 +12,7 @@ import { validateTitle, hasValidationErrors } from "./validations";
 import { DataContext } from "./context";
 import { addLink, findPage } from "./data";
 import { addPage } from "./data/page/addPage";
+import randomId from "./randomId";
 
 class PageCreate extends React.Component {
   static contextType = DataContext;
@@ -57,9 +58,7 @@ class PageCreate extends React.Component {
       value.controller = pageType;
     }
 
-    let copy = data;
-
-    copy = addPage(data, value);
+    let copy = addPage({ ...data }, value);
 
     if (linkFrom) {
       copy = addLink(data, linkFrom, path, selectedCondition);
@@ -76,8 +75,9 @@ class PageCreate extends React.Component {
     const { data, i18n } = this.props;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
-    const pathHasErrors = findPage(data, path);
-    if (pathHasErrors) {
+    try {
+      findPage(data, path);
+    } catch (e) {
       errors.path = {
         href: "#page-path",
         children: `Path '${path}' already exists`,
@@ -91,15 +91,13 @@ class PageCreate extends React.Component {
 
   generatePath(title, data) {
     let path = toUrl(title);
-
-    let count = 1;
-    while (findPage(data, path)) {
-      if (count > 1) {
-        path = path.substr(0, path.length - 2);
-      }
-      path = `${path}-${count}`;
-      count++;
+    if (
+      title.length > 0 &&
+      data.pages.find((page) => page.path.startsWith(path))
+    ) {
+      path = `${path}-${randomId()}`;
     }
+
     return path;
   }
 
@@ -130,7 +128,7 @@ class PageCreate extends React.Component {
   };
 
   onChangeTitle = (e) => {
-    const { data } = this.props;
+    const { data } = this.context;
     const input = e.target;
     const title = input.value;
     this.setState({

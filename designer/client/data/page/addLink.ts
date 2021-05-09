@@ -1,5 +1,11 @@
 import { FormDefinition, Link } from "@xgovformbuilder/model";
-import { ConditionName, Path } from "../types";
+import {
+  ConditionName,
+  DataError,
+  DataErrorTypes,
+  FormDefinitionResult,
+  Path,
+} from "../types";
 import { findPage } from "./findPage";
 
 export function addLink(
@@ -7,9 +13,9 @@ export function addLink(
   from: Path,
   to: Path,
   condition?: ConditionName
-): FormDefinition {
+): FormDefinitionResult {
   if (from === to) {
-    throw Error("cannot link a page to itself");
+    return DataError(DataErrorTypes.LINK, "cannot link a page to itself");
   }
   const [fromPage, index] = findPage(data, from);
   findPage(data, to);
