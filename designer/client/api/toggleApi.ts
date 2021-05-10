@@ -2,7 +2,11 @@ export class FeatureToggleApi {
   async fetch() {
     try {
       const response = await window.fetch("/feature-toggles");
-      return response.json();
+      if (response.status == 200) {
+        return response.json();
+      } else {
+        return [];
+      }
     } catch (e) {
       console.error(e);
       return [];
