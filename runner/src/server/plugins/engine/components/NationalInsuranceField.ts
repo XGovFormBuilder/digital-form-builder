@@ -21,7 +21,7 @@ export class NationalInsuranceField extends FormComponent {
     if (def.options.required !== false) {
       schema = schema.required();
     } else {
-      schema = schema.allow("");
+      schema = schema.allow(null).allow("");
     }
 
     this.formSchema = schema;
