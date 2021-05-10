@@ -25,7 +25,7 @@ export class PageEdit extends React.Component {
     this.state = {
       path: page?.path ?? this.generatePath(page.title),
       controller: page?.controller ?? "",
-      title: page?.title,
+      title: page?.title ?? "",
       section: page?.section ?? "",
       isEditingSection: false,
       errors: {},
@@ -76,7 +76,8 @@ export class PageEdit extends React.Component {
     const errors = { ...titleErrors };
 
     let pathHasErrors = false;
-    if (path !== page.path) pathHasErrors = findPage(data, path);
+    if (path !== page.path)
+      pathHasErrors = data.pages.find((page) => page.path === path);
     if (pathHasErrors) {
       errors.path = {
         href: "#page-path",
@@ -160,7 +161,7 @@ export class PageEdit extends React.Component {
     let path = toUrl(title);
     const { data } = this.context;
     const { page } = this.props;
-    if (findPage(data, path) && page.title !== title) {
+    if (data.pages.find((page) => page.path === path) && page.title !== title) {
       path = `${path}-${randomId()}`;
     }
     return path;
