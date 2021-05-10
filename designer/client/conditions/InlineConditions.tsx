@@ -4,17 +4,18 @@ import { ConditionsModel, clone, Item } from "@xgovformbuilder/model";
 
 import InlineConditionsDefinition from "./InlineConditionsDefinition";
 import InlineConditionsEdit from "./inline-conditions-edit";
-import helpers from "./inline-condition-helpers";
 import { DataContext } from "../context";
 import ErrorSummary, { ErrorListItem } from "../error-summary";
 import { i18n } from "../i18n";
 import { ErrorMessage } from "../components/ErrorMessage";
 import {
+  addCondition,
   allInputs,
   findList,
   inputsAccessibleAt,
   updateCondition,
 } from "../data";
+import randomId from "../randomId";
 
 interface Props {
   path: string;
@@ -146,7 +147,7 @@ export class InlineConditions extends React.Component<Props, State> {
       return;
     }
 
-    const copy = clone(data);
+    const copy = { ...data };
 
     if (condition) {
       const updatedData = updateCondition(data, condition.name, conditions);
@@ -154,12 +155,14 @@ export class InlineConditions extends React.Component<Props, State> {
       if (conditionsChange) {
         conditionsChange(event);
       }
-    } else {
-      const conditionResult = helpers.storeConditionIfNecessary(
-        copy,
-        conditions
-      );
-      await save(conditionResult.data);
+    } else if (conditions.hasConditions) {
+      const updatedData = addCondition(data, {
+        displayName: conditions.name!,
+        name: randomId(),
+        value: conditions.toJSON(),
+      });
+
+      await save(updatedData);
       if (conditionsChange) {
         conditionsChange(event);
       }
