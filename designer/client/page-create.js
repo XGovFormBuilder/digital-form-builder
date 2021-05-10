@@ -61,7 +61,7 @@ class PageCreate extends React.Component {
     let copy = addPage({ ...data }, value);
 
     if (linkFrom) {
-      copy = addLink(data, linkFrom, path, selectedCondition);
+      copy = addLink(copy, linkFrom, path, selectedCondition);
     }
     try {
       await save(copy);
