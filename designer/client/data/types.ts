@@ -33,36 +33,5 @@ export type Path = Page["path"];
 export type ConditionName = ConditionRawData["name"];
 export type Found<T> = [T, number];
 
-export enum DataErrorTypes {
-  LINK = "LINK",
-  CONDITION = "CONDITION",
-  LIST = "LIST",
-  PAGE = "PAGE",
-}
-type DataError = {
-  error: {
-    name: DataErrorTypes;
-    message: string;
-    stack?: Error["stack"];
-  };
-};
-
-export function Stack(): Error["stack"] {
-  try {
-    throw new Error();
-  } catch (e) {
-    console.error(e);
-    return e.stack;
-  }
-}
-
-export function DataError(name: DataErrorTypes, message: string): DataError {
-  return {
-    error: { name, message, stack: Stack() },
-  };
-}
-export type FormDefinitionResult = FormDefinition | DataError;
+export type FormDefinitionResult = FormDefinition;
 export type FoundResult<T> = Found<T>;
-export type DataResult<T> = T extends FormDefinitionResult
-  ? FormDefinitionResult
-  : FoundResult<T>;
