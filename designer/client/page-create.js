@@ -75,9 +75,8 @@ class PageCreate extends React.Component {
     const { data, i18n } = this.props;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
-    try {
-      findPage(data, path);
-    } catch (e) {
+    const alreadyExists = data.pages.find((page) => page.path === path);
+    if (alreadyExists) {
       errors.path = {
         href: "#page-path",
         children: `Path '${path}' already exists`,
