@@ -31,7 +31,8 @@
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",
     "type-check:watch": "yarn workspaces foreach run type-check --watch",
-    "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'"
+    "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'",
+    "gendoc": "typedoc model/src --tsconfig model/tsconfig.json --out docs/ts --exclude **/*+(index|.test|.jest).ts "
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -63,6 +64,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
