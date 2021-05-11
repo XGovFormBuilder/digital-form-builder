@@ -44,6 +44,7 @@ export class PageControllerBase {
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
+  routeState: any;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -301,6 +302,68 @@ export class PageControllerBase {
     return request.yar.get("lang");
   }
 
+  calculateRouteState(page, completeState, state = {}) {
+    //Store our current routeState outside of our recursive method where it will be appended during the recursion
+    this.routeState = state;
+
+    //From the page we passed in, iterate through the possible nextPages
+    page.pageDef.next.forEach((nextPage) => {
+      //Grab the condition required to nav to this nextPage
+      const { condition } = nextPage;
+
+      //Iterate the components on the current page
+      page.components.items.forEach((component) => {
+        if (!Object.keys(completeState).find((key) => key === component.name)) {
+          //We haven't stored a value for this component yet - Probably the first page
+          return;
+        }
+
+        //Get the most recent value the user entered from our state
+        const userInputValue = completeState[component.name];
+
+        if (!condition) {
+          //We don't have a condition so we just add this to our temp state
+          const nextPageDef = this.model.pages.find(
+            (possibleNext) => possibleNext.path === nextPage.path
+          );
+
+          //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
+          this.calculateRouteState(nextPageDef, completeState, {
+            ...this.routeState,
+            [component.name]: userInputValue,
+          });
+        } else {
+          //We need to run our condition to see if this is the path we chose
+
+          //Resolve the actual condition function
+          const currentCondition = this.model.conditions[condition];
+
+          //Build a temporary state to run our condition function against, just containing the current user input
+          let tempState = { [component.name]: userInputValue };
+
+          //Eval our condition against our in-progress state
+          const conditionResult = currentCondition.fn(tempState);
+
+          if (conditionResult) {
+            //This must be the route we took
+            //Pass in just the initial value from the startPage
+            const nextPageDef = this.model.pages.find(
+              (possibleNext) => possibleNext.path === nextPage.path
+            );
+
+            //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
+            this.calculateRouteState(nextPageDef, completeState, {
+              ...this.routeState,
+              [component.name]: userInputValue,
+            });
+          } else {
+            //This was not the route we took - No reason to go further
+          }
+        }
+      });
+    });
+  }
+
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
@@ -337,13 +400,23 @@ export class PageControllerBase {
         ? redirectTo(request, h, startPage)
         : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
       this.setFeedbackDetails(viewModel, request);
+
+      //Grab the start page definition
+      const startPageDef = this.model.pages.find(
+        (page) => page.path === startPage
+      );
+
+      //Starting from the start page, calculate the route we took building up a "routeState" containing just the values for the route we took
+      //This recursive function will append to this.routeState
+      this.calculateRouteState(startPageDef, state);
+
       viewModel.components = viewModel.components.filter((component) => {
         if (
           (component.model.content || component.type === "Details") &&
           component.model.condition
         ) {
           const condition = this.model.conditions[component.model.condition];
-          return condition.fn(state);
+          return condition.fn(this.routeState);
         }
         return true;
       });
