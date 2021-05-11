@@ -1,5 +1,4 @@
 import React from "react";
-import { clone } from "@xgovformbuilder/model";
 import { Input } from "@govuk-jsx/input";
 
 import SelectConditions from "./conditions/SelectConditions";
@@ -11,12 +10,15 @@ import { i18n, withI18n } from "./i18n";
 import ErrorSummary from "./error-summary";
 import { validateTitle, hasValidationErrors } from "./validations";
 import { DataContext } from "./context";
+import { addLink, findPage } from "./data";
+import { addPage } from "./data/page/addPage";
+import randomId from "./randomId";
 
 class PageCreate extends React.Component {
   static contextType = DataContext;
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     const { page } = this.props;
     this.state = {
       path: "/",
@@ -31,8 +33,7 @@ class PageCreate extends React.Component {
   onSubmit = async (e) => {
     e.preventDefault();
 
-    const { data } = this.props;
-    const { save } = this.context;
+    const { data, save } = this.context;
 
     const title = this.state.title?.trim();
     const linkFrom = this.state.linkFrom?.trim();
@@ -57,12 +58,10 @@ class PageCreate extends React.Component {
       value.controller = pageType;
     }
 
-    let copy = clone(data);
-
-    copy = copy.addPage(value);
+    let copy = addPage({ ...data }, value);
 
     if (linkFrom) {
-      copy = copy.addLink(linkFrom, path, selectedCondition);
+      copy = addLink(copy, linkFrom, path, selectedCondition);
     }
     try {
       await save(copy);
@@ -76,8 +75,8 @@ class PageCreate extends React.Component {
     const { data, i18n } = this.props;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
-    const pathHasErrors = data.findPage(path);
-    if (pathHasErrors) {
+    const alreadyExists = data.pages.find((page) => page.path === path);
+    if (alreadyExists) {
       errors.path = {
         href: "#page-path",
         children: `Path '${path}' already exists`,
@@ -91,15 +90,13 @@ class PageCreate extends React.Component {
 
   generatePath(title, data) {
     let path = toUrl(title);
-
-    let count = 1;
-    while (data.findPage(path)) {
-      if (count > 1) {
-        path = path.substr(0, path.length - 2);
-      }
-      path = `${path}-${count}`;
-      count++;
+    if (
+      title.length > 0 &&
+      data.pages.find((page) => page.path.startsWith(path))
+    ) {
+      path = `${path}-${randomId()}`;
     }
+
     return path;
   }
 
@@ -130,7 +127,7 @@ class PageCreate extends React.Component {
   };
 
   onChangeTitle = (e) => {
-    const { data } = this.props;
+    const { data } = this.context;
     const input = e.target;
     const title = input.value;
     this.setState({

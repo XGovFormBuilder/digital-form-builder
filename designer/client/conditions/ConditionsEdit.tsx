@@ -4,6 +4,7 @@ import { Flyout } from "./../components/Flyout";
 import { DataContext } from "../context";
 import { RenderInPortal } from "../components/RenderInPortal";
 import { i18n } from "../i18n";
+import { allInputs } from "../data";
 
 function useConditionsEditor() {
   const [editingCondition, setEditingCondition] = useState(null);
@@ -53,6 +54,7 @@ export function ConditionsEdit({ path }: Props) {
   } = useConditionsEditor();
   const { data } = useContext(DataContext);
   const { conditions } = data;
+  const inputs = allInputs(data);
   return (
     <div className="govuk-body">
       <div className="govuk-hint">{i18n("conditions.hint")}</div>
@@ -88,7 +90,7 @@ export function ConditionsEdit({ path }: Props) {
             ))}
             <li>
               <hr />
-              {data.allInputs.length > 0 && (
+              {inputs.length > 0 && (
                 <a
                   href="#"
                   id="add-condition-link"
@@ -99,7 +101,7 @@ export function ConditionsEdit({ path }: Props) {
                   {i18n("conditions.add")}
                 </a>
               )}
-              {data.allInputs.length <= 0 && (
+              {inputs.length <= 0 && (
                 <div className="govuk-body">
                   <div className="govuk-hint">
                     {i18n("conditions.noFieldsAvailable")}

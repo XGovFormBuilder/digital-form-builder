@@ -2,10 +2,10 @@ import React from "react";
 import { shallow } from "enzyme";
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { Data } from "@xgovformbuilder/model";
 import sinon from "sinon";
 
 import { PageLinkage } from "../";
+import { addLink } from "../../../data/page/addLink";
 
 const { expect } = Code;
 const lab = Lab.script();
@@ -29,13 +29,10 @@ suite("Page Linkage", () => {
       title: "Home",
     };
 
-    data = new Data({
+    data = {
       pages: [{ path: "/1" }, { path: "/2" }],
       sections: [],
-      clone: sinon.stub().returnsThis(),
-      addLink: sinon.stub().returns("updated mock data"),
-      save: sinon.stub(),
-    });
+    };
 
     layout = {
       node: {
@@ -216,34 +213,13 @@ suite("Page Linkage", () => {
     ]);
   });
 
-  test.skip("Pages are correctly linked on drop", async () => {
-    const linkedPage = {
-      path: "/summary",
-      title: "Summary",
-    };
-
-    const draggedPage = JSON.parse(event.dataTransfer.getData());
-
-    const wrapper = shallow(<PageLinkage {...props} page={linkedPage} />);
-    const dragArea = wrapper.find(".page-linkage__drag-area").first();
-
-    await dragArea.prop("onDrop")(event);
-    expect(data.clone.called).to.be.true();
-    expect(data.addLink.getCall(0).args).to.equal([
-      draggedPage.path,
-      linkedPage.path,
-    ]);
-    expect(data.save.getCall(0).args).to.equal(["updated mock data"]);
-  });
-
   test("Pages is not linked to itself", async () => {
+    const addLinkSpy = sinon.spy(addLink);
     const draggedPage = JSON.parse(event.dataTransfer.getData());
     const wrapper = shallow(<PageLinkage {...props} page={draggedPage} />);
     const dragArea = wrapper.find(".page-linkage__drag-area").first();
 
     await dragArea.prop("onDrop")(event);
-    expect(data.clone.called).to.be.false();
-    expect(data.addLink.called).to.be.false();
-    expect(data.addLink.called).to.be.false();
+    expect(addLinkSpy.called).to.be.false();
   });
 });

@@ -1,5 +1,4 @@
 import { clone, reach } from "hoek";
-import { Data } from "@xgovformbuilder/model";
 
 import config from "server/config";
 import { FormModel } from "./FormModel";
@@ -9,7 +8,12 @@ import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
 import type { Fees } from "server/services/payService";
 import { FormSubmissionState } from "../types";
-import { Fields, Questions, WebhookData } from "./types";
+import {
+  FEEDBACK_CONTEXT_ITEMS,
+  Fields,
+  Questions,
+  WebhookData,
+} from "./types";
 import {
   FeesModel,
   EmailModel,
@@ -424,7 +428,7 @@ export class SummaryViewModel {
 
       if (feedbackContextInfo) {
         webhookData.questions.push(
-          ...Data.FEEDBACK_CONTEXT_ITEMS.map((item) => ({
+          ...FEEDBACK_CONTEXT_ITEMS.map((item) => ({
             category: null,
             question: item.display,
             fields: [
