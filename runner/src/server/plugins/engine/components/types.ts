@@ -42,6 +42,7 @@ export type ViewModel = {
   summaryHtml?: string;
   html?: any; // TODO
   attributes: {
+    autocomplete?: string;
     maxlength?: number;
     multiple?: string;
     accept?: string;
