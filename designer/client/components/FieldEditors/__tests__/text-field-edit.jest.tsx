@@ -70,5 +70,16 @@ describe("Text field edit", () => {
         "Specifies a regular expression to validate users' inputs. Use JavaScript syntax.";
       expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
     });
+
+    test("should display autocomplete title", () => {
+      const text = "Autocomplete";
+      expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
+    });
+
+    test("should display autocomplete help text ", () => {
+      const text =
+        "Add the autocomplete attribute to this field. For example, 'on' or 'given-name'.";
+      expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
+    });
   });
 });
