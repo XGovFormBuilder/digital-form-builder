@@ -9,9 +9,7 @@ import {
 
 describe("ChooseExisting", () => {
   beforeAll(() => server.listen());
-
   afterEach(() => server.resetHandlers());
-
   afterAll(() => server.close());
 
   test("no existing configurations", async () => {
