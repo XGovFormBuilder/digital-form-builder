@@ -1,12 +1,16 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
+import sinon from "sinon";
+import { FormModel } from "../../../../../../src/server/plugins/engine/models";
+import { ListComponentsDef } from "@xgovformbuilder/model";
+import { FormSubmissionErrors } from "../../../../../../src/server/plugins/engine/types";
+import { SelectField } from "../../../../../../src/server/plugins/engine/components";
+
 const lab = Lab.script();
 exports.lab = lab;
+
 const { expect } = Code;
 const { suite, describe, it } = lab;
-import sinon from "sinon";
-import { AutocompleteField } from "../../../../../../src/server/plugins/engine/components";
-import { FormSubmissionError } from "../../../../../../src/server/plugins/engine/types";
 
 const lists = [
   {
@@ -48,25 +52,26 @@ const lists = [
   },
 ];
 
-suite("AutocompleteField", () => {
+suite("SelectField", () => {
   describe("Generated schema", () => {
-    const componentDefinition = {
+    const componentDefinition: ListComponentsDef = {
       subType: "field",
-      type: "AutocompleteField",
-      name: "MyAutocomplete",
-      title: "Country?",
+      type: "SelectField",
+      name: "countryOfBirth",
+      title: "Where were you born?",
       options: {},
+      // @ts-ignore
       list: "Countries",
       schema: {},
     };
 
-    const formModel = {
+    // @ts-ignore
+    const formModel: FormModel = {
       getList: (_name) => lists[0],
       makePage: () => sinon.stub(),
     };
 
-    // @ts-ignore
-    const component = new AutocompleteField(componentDefinition, formModel);
+    const component = new SelectField(componentDefinition, formModel);
 
     it("is required by default", () => {
       expect(component.formSchema.describe().flags.presence).to.equal(
