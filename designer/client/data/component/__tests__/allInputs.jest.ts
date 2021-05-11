@@ -1,35 +1,35 @@
-// @ts-nocheck
-import { Data } from "../data-model";
-describe("should return all inputs from the page model", () => {
-  const data = new Data({
+import { allInputs } from "../inputs";
+import { FormDefinition } from "@xgovformbuilder/model";
+test("should return all inputs from the page model", () => {
+  const data: FormDefinition = {
     pages: [
       {
         path: "page1",
         section: "section1",
         components: [
-          { name: "name1", type: "Radios" },
-          { name: "name2", type: "Radios" },
+          { name: "name1", type: "RadiosField" },
+          { name: "name2", type: "RadiosField" },
         ],
       },
       {
         path: "page2",
         section: "section1",
         components: [
-          { name: "name3", type: "Radios" },
-          { name: "name4", type: "Radios" },
+          { name: "name3", type: "RadiosField" },
+          { name: "name4", type: "RadiosField" },
         ],
       },
     ],
-  });
+  };
 
-  expect(data.allInputs).toEqual([
+  expect(allInputs(data)).toEqual([
     {
       name: "name1",
       page: { path: "page1", section: "section1" },
       propertyPath: "section1.name1",
       list: undefined,
       title: undefined,
-      type: "Radios",
+      type: "RadiosField",
     },
     {
       name: "name2",
@@ -37,7 +37,7 @@ describe("should return all inputs from the page model", () => {
       propertyPath: "section1.name2",
       list: undefined,
       title: undefined,
-      type: "Radios",
+      type: "RadiosField",
     },
     {
       name: "name3",
@@ -45,7 +45,7 @@ describe("should return all inputs from the page model", () => {
       propertyPath: "section1.name3",
       list: undefined,
       title: undefined,
-      type: "Radios",
+      type: "RadiosField",
     },
     {
       name: "name4",
@@ -53,31 +53,31 @@ describe("should return all inputs from the page model", () => {
       propertyPath: "section1.name4",
       list: undefined,
       title: undefined,
-      type: "Radios",
+      type: "RadiosField",
     },
   ]);
 });
 
 test("should handle no pages", () => {
-  const data = new Data({ pages: [] });
-  expect(data.allInputs).toEqual([]);
+  const data = { pages: [] };
+  expect(allInputs(data)).toEqual([]);
 });
 
 test("should handle undefined pages", () => {
-  const data = new Data({});
-  expect(data.allInputs).toEqual([]);
+  const data = {};
+  expect(allInputs(data)).toEqual([]);
 });
 
 test("should handle pages with undefined components", () => {
-  const data = new Data({
+  const data = {
     pages: [{}],
-  });
-  expect(data.allInputs).toEqual([]);
+  };
+  expect(allInputs(data)).toEqual([]);
 });
 
 test("should handle pages with no components", () => {
-  const data = new Data({
+  const data = {
     pages: [{ components: [] }],
-  });
-  expect(data.allInputs).toEqual([]);
+  };
+  expect(allInputs(data)).toEqual([]);
 });

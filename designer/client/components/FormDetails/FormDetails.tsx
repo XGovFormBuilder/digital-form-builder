@@ -1,5 +1,5 @@
 import React, { Component, ChangeEvent, ContextType, FormEvent } from "react";
-import { Data, clone, FormConfiguration } from "@xgovformbuilder/model";
+import { FormConfiguration, FormDefinition } from "@xgovformbuilder/model";
 import isFunction from "lodash/isFunction";
 
 import { validateTitle, hasValidationErrors } from "../../validations";
@@ -13,7 +13,7 @@ import { FormDetailsFeedback } from "./FormDetailsFeedback";
 import { FormDetailsPhaseBanner } from "./FormDetailsPhaseBanner";
 import "./FormDetails.scss";
 
-type PhaseBanner = Exclude<Data["phaseBanner"], undefined>;
+type PhaseBanner = Exclude<FormDefinition["phaseBanner"], undefined>;
 type Phase = PhaseBanner["phase"];
 
 interface Props {
@@ -23,7 +23,7 @@ interface Props {
 interface State {
   title: string;
   phase: Phase;
-  feedbackForm: Data["feedbackForm"];
+  feedbackForm: boolean;
   formConfigurations: FormConfiguration[];
   selectedFeedbackForm?: string;
   errors: any;
@@ -37,28 +37,15 @@ export class FormDetails extends Component<Props, State> {
   constructor(props, context) {
     super(props, context);
     const { data } = context;
-    const selectedFeedbackForm = data.feedbackUrl?.substr(1) || "";
+    const selectedFeedbackForm = data.feedback?.url?.substr(1) ?? "";
     this.state = {
       title: data.name || "",
-      feedbackForm: data.feedbackForm,
+      feedbackForm: data.feedback?.feedbackForm ?? false,
       formConfigurations: [],
       selectedFeedbackForm,
       phase: data.phaseBanner?.phase,
       errors: {},
     };
-  }
-
-  async componentDidMount() {
-    const result = await formConfigurationApi.loadConfigurations();
-    if (!this.isUnmounting) {
-      this.setState({
-        formConfigurations: result.filter((it) => it.feedbackForm),
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    this.isUnmounting = true;
   }
 
   onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -68,14 +55,22 @@ export class FormDetails extends Component<Props, State> {
     if (hasValidationErrors(validationErrors)) return;
 
     const { data, save } = this.context;
-    const { title, feedbackForm, selectedFeedbackForm, phase } = this.state;
+    const {
+      title,
+      feedbackForm = false,
+      selectedFeedbackForm,
+      phase,
+    } = this.state;
     const { phaseBanner = {} } = data;
     const { onCreate } = this.props;
 
-    const copy = clone(data);
+    let copy: FormDefinition = { ...data };
     copy.name = title;
-    copy.feedbackForm = feedbackForm;
-    copy.setFeedbackUrl(selectedFeedbackForm ? `/${selectedFeedbackForm}` : "");
+    copy.feedback = {
+      feedbackForm,
+      url: selectedFeedbackForm ? `/${selectedFeedbackForm}` : "",
+    };
+
     copy.phaseBanner = {
       ...phaseBanner,
       phase,
@@ -105,6 +100,7 @@ export class FormDetails extends Component<Props, State> {
 
   handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLSelectElement>) => {
     const isFeedbackForm = event.target.value === "true";
+    console.log("handle is feedback");
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });

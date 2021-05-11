@@ -5,11 +5,7 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import PageEdit from "../client/page-edit";
 import { ErrorSummary } from "../client/error-summary";
-import { Data } from "@xgovformbuilder/model";
-import {
-  assertTextInput,
-  assertSelectInput,
-} from "./helpers/element-assertions";
+import { assertSelectInput } from "./helpers/element-assertions";
 import {
   assertInputControlValue,
   assertInputControlProp,
@@ -38,7 +34,7 @@ suite("Page edit", () => {
   });
 
   test("Renders a form with the appropriate initial inputs", () => {
-    const data = new Data({
+    const data = {
       pages: [
         {
           path: "/1",
@@ -57,7 +53,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -103,7 +99,7 @@ suite("Page edit", () => {
   });
 
   test("Renders a form with the appropriate initial inputs when no section or controller selected", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -115,7 +111,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -156,7 +152,7 @@ suite("Page edit", () => {
   });
 
   test("Updating the title changes the path if the path is the auto-generated one", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/my-first-page", title: "My first page" }],
       sections: [
         {
@@ -168,7 +164,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -187,35 +183,8 @@ suite("Page edit", () => {
     });
   });
 
-  test.skip("Updating the title does not change the path if the path is not the auto-generated one", () => {
-    const data = new Data({
-      pages: [{ path: "/1", title: "My first page" }],
-      sections: [
-        {
-          name: "badger",
-          title: "Badger",
-        },
-        {
-          name: "personalDetails",
-          title: "Personal Details",
-        },
-      ],
-    });
-
-    const wrapper = mount(<PageEdit page={data.pages[0]} />, {
-      wrappingComponent: DataWrapper,
-      wrappingComponentProps: { dataValue: { data, save: sinon.spy() } },
-    });
-
-    assertTextInput({
-      wrapper: wrapper.find("#page-path"),
-      id: "page-path",
-      expectedValue: "/1",
-    });
-  });
-
   test("Changing the section causes the new section to be selected", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -227,7 +196,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -251,7 +220,7 @@ suite("Page edit", () => {
   });
 
   test("Changing the controller causes the new controller to be selected", () => {
-    const data = new Data({
+    const data = {
       pages: [{ path: "/1", title: "My first page" }],
       sections: [
         {
@@ -263,7 +232,7 @@ suite("Page edit", () => {
           title: "Personal Details",
         },
       ],
-    });
+    };
 
     const wrapper = mount(<PageEdit page={data.pages[0]} />, {
       wrappingComponent: DataWrapper,
@@ -284,95 +253,5 @@ suite("Page edit", () => {
       ],
       expectedValue: "./pages/summary.js",
     });
-  });
-
-  test.skip("Duplicate page path will not submit", () => {
-    const data = new Data({
-      pages: [
-        {
-          path: "/first-page",
-          title: "My first page",
-          section: "badger",
-          controller: "./pages/start.js",
-        },
-        {
-          path: "/second-page",
-          title: "My second page",
-          section: "badger",
-        },
-      ],
-      sections: [
-        {
-          name: "badger",
-          title: "Badger",
-        },
-        {
-          name: "personalDetails",
-          title: "Personal Details",
-        },
-      ],
-    });
-
-    const page = Object.assign(data.pages[0], { section: data.sections[0] });
-
-    const wrapper = mount(<PageEdit page={page} />);
-
-    wrapper
-      .find(Input)
-      .filter("#page-path")
-      .simulate("change", { target: { value: "/second-page" } });
-
-    const form = wrapper.find("form").first();
-    form.simulate("submit", { preventDefault: sinon.spy() });
-    wrapper.update();
-
-    assertInputControlProp({
-      wrapper,
-      id: "page-path",
-      expectedValue: { children: "Path '/second-page' already exists" },
-      prop: "errorMessage",
-    });
-    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
-  });
-
-  test.skip("Page title will have error if the value is removed", () => {
-    const data = new Data({
-      pages: [
-        {
-          path: "/1",
-          title: "My first page",
-          section: "badger",
-          controller: "./pages/start.js",
-        },
-      ],
-      sections: [
-        {
-          name: "badger",
-          title: "Badger",
-        },
-        {
-          name: "personalDetails",
-          title: "Personal Details",
-        },
-      ],
-    });
-
-    const page = Object.assign(data.pages[0], { section: data.sections[0] });
-
-    const wrapper = shallow(<PageEdit page={page} />).dive();
-
-    let pageTitleInpt = wrapper.find(Input).filter("#page-title");
-    pageTitleInpt.simulate("change", { target: { value: "" } });
-
-    const form = wrapper.find("form").first();
-    form.simulate("submit", { preventDefault: sinon.spy() });
-    wrapper.update();
-    assertInputControlProp({
-      wrapper,
-      id: "page-title",
-      expectedValue: { children: ["Enter Title"] },
-      prop: "errorMessage",
-    });
-    expect(wrapper.find(ErrorSummary).exists()).to.equal(true);
   });
 });

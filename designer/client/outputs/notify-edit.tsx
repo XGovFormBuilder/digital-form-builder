@@ -7,6 +7,7 @@ import { Checkboxes } from "@govuk-jsx/checkboxes";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
 import { i18n } from "../i18n";
+import { allInputs } from "../data/component/inputs";
 
 type State = {};
 
@@ -23,7 +24,8 @@ class NotifyEdit extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const { data } = this.props;
-    this.usableKeys = data.allInputs.map((input) => ({
+
+    this.usableKeys = allInputs(data).map((input) => ({
       name: input.propertyPath || "",
       display: input.title || "",
     }));

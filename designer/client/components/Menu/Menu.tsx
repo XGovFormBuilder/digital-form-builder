@@ -17,7 +17,6 @@ import ListsEdit from "../../list/ListsEdit";
 import { useMenuItem } from "./useMenuItem";
 import { Tabs, useTabs } from "./useTabs";
 import { SubMenu } from "./SubMenu";
-import { RenderInPortal } from "../RenderInPortal";
 
 type Props = {
   updateDownloadedAt?: (string) => void;
@@ -25,7 +24,7 @@ type Props = {
 };
 
 export default function Menu({ updateDownloadedAt, id }: Props) {
-  const { data, save } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   const formDetails = useMenuItem();
   const page = useMenuItem();

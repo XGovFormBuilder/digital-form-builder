@@ -5,13 +5,13 @@ import { DataContext } from "../../context";
 import { Data } from "@xgovformbuilder/model";
 
 const dataValue = {
-  data: new Data({
+  data: {
     lists: [],
     pages: [],
     sections: [],
     startPage: "",
     conditions: [],
-  }),
+  },
   save: jest.fn(),
 };
 export const customRender = (children, providerProps = dataValue) => {
@@ -44,7 +44,7 @@ describe("SelectConditions", () => {
 });
 
 test("SelectConditions renders available conditions", () => {
-  let data = new Data({
+  let data = {
     lists: [],
     pages: [],
     sections: [],
@@ -76,7 +76,7 @@ test("SelectConditions renders available conditions", () => {
         value: "applicantDetails.numberOfApplicants > 3",
       },
     ],
-  });
+  };
   const providerProps = {
     data,
     save: jest.fn(),
