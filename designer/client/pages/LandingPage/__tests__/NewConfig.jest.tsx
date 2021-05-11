@@ -2,6 +2,7 @@ import React from "react";
 import { NewConfig } from "../NewConfig";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { server, rest } from "../../../../test/testServer";
+import { MemoryRouter } from "react-router-dom";
 
 describe("Newconfig", () => {
   beforeAll(() => server.listen());
@@ -44,10 +45,7 @@ describe("Newconfig", () => {
         return res(ctx.json({ id: "somekey", previewUrl: "" }));
       })
     );
-    const push = jest.fn();
-    const history = { push: push };
-
-    render(<NewConfig history={history} />);
+    render(<NewConfig />, { wrapper: MemoryRouter });
 
     expect(
       await screen.findByText(/Enter a name for your form/i)
@@ -65,10 +63,7 @@ describe("Newconfig", () => {
   });
 
   test("Enter form name error shown correctly", async () => {
-    const push = jest.fn();
-    const history = { push: push };
-
-    render(<NewConfig history={history} />);
+    render(<NewConfig />, { wrapper: MemoryRouter });
 
     expect(
       await screen.findByText(/Enter a name for your form/i)
@@ -87,10 +82,7 @@ describe("Newconfig", () => {
         return res(ctx.json({ id: "somekey", previewUrl: "" }));
       })
     );
-    const push = jest.fn();
-    const history = { push: push };
-
-    render(<NewConfig history={history} />);
+    render(<NewConfig />, { wrapper: MemoryRouter });
 
     expect(
       await screen.findByText(/Enter a name for your form/i)
