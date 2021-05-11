@@ -1,12 +1,6 @@
 import React from "react";
 import { ChooseExisting } from "../ChooseExisting";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import {
   server,
   rest,
@@ -14,10 +8,9 @@ import {
 } from "../../../../test/testServer";
 
 describe("ChooseExisting", () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-    cleanup;
-  });
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
 
   test("no existing configurations", async () => {
     server.resetHandlers(

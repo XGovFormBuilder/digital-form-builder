@@ -5,6 +5,10 @@ import { server } from "../../test/testServer";
 describe("Toggle API", () => {
   const url = "/feature-toggles";
 
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
+
   test("Should fetch feature toggles", () => {
     const toggle = [{ ff_somevalue: "false" }];
     server.resetHandlers(

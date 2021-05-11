@@ -1,5 +1,4 @@
 import React from "react";
-import { clone } from "@xgovformbuilder/model";
 import randomId from "../randomId";
 import { withI18n } from "../i18n";
 import { Input } from "@govuk-jsx/input";
@@ -10,6 +9,7 @@ import {
 } from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
+import { addSection } from "../data";
 
 class SectionEdit extends React.Component {
   static contextType = DataContext;
@@ -33,17 +33,16 @@ class SectionEdit extends React.Component {
 
     if (hasValidationErrors(validationErrors)) return;
 
-    const { save } = this.context;
+    const { data, save } = this.context;
     const { name, title } = this.state;
-    const { data } = this.props;
-    const copy = clone(data);
+    let updated = { ...data };
 
     if (this.isNewSection) {
-      copy.addSection(name, title.trim());
+      updated = addSection(data, { name, title: title.trim() });
     } else {
       const previousName = this.props.section?.name;
       const nameChanged = previousName !== name;
-      const copySection = copy.sections.find(
+      const copySection = updated.sections.find(
         (section) => section.name === previousName
       );
 
@@ -62,7 +61,7 @@ class SectionEdit extends React.Component {
     }
 
     try {
-      await save(copy);
+      await save(updated);
       this.closeFlyout(name);
     } catch (err) {
       console.error(err);
@@ -88,10 +87,10 @@ class SectionEdit extends React.Component {
 
     const { save } = this.context;
     const { data, section } = this.props;
-    const copy = clone(data);
+    const copy = { ...data };
     const previousName = this.props.section?.name;
 
-    copy.sections.splice(data.sections.indexOf(section), 1);
+    copy.sections.splice(copy.sections.indexOf(section), 1);
 
     // Update any references to the section
     copy.pages.forEach((p) => {

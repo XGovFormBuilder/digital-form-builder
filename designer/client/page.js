@@ -14,6 +14,7 @@ import { withI18n } from "./i18n";
 import { DataContext } from "./context";
 import { PageLinkage } from "./components/PageLinkage";
 import { ComponentContextProvider } from "./reducers/component";
+import { findPage } from "./data";
 
 const SortableItem = SortableElement(({ index, page, component, data }) => (
   <div className="component-item">
@@ -41,19 +42,23 @@ const SortableList = SortableContainer(({ page = {}, data }) => {
 export class Page extends React.Component {
   static contextType = DataContext;
 
+  constructor(props, context) {
+    super(props, context);
+  }
+
   state = {
     showEditor: false,
     showAddComponent: false,
   };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { save } = this.context;
+    const { save, data } = this.context;
     const { page } = this.props;
-    const { data } = this.context;
-    const copy = clone(data);
-    const copyPage = data.findPage(page.path);
-    copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex);
 
+    const copy = { ...data };
+    const [copyPage, index] = findPage(page, page.path);
+    copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex);
+    copy.pages[index] = copyPage;
     save(copy);
   };
 

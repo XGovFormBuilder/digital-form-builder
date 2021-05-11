@@ -3,7 +3,7 @@ import { Data } from "@xgovformbuilder/model";
 import React from "react";
 import { Warning } from "../Warning";
 
-const data = new Data({
+const data = {
   pages: [],
   sections: [],
   startPage: "",
@@ -17,7 +17,7 @@ const data = new Data({
       ],
     },
   ],
-});
+};
 
 test("strings are rendered correctly", async () => {
   const dataValue = { data, save: jest.fn() };

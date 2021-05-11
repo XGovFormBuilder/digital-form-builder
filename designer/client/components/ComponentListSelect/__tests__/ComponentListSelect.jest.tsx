@@ -13,7 +13,7 @@ import { ListsEditorContextProvider } from "../../../reducers/list/listsEditorRe
 import { ListContextProvider } from "../../../reducers/listReducer";
 
 describe("ComponentListSelect", () => {
-  let data = new Data({
+  let data = {
     pages: [
       {
         title: "First page",
@@ -46,7 +46,7 @@ describe("ComponentListSelect", () => {
         items: [{ text: "An item", description: "A hint", value: "12" }],
       },
     ],
-  });
+  };
   const dataValue = { data, save: jest.fn() };
 
   interface IContextProvider {

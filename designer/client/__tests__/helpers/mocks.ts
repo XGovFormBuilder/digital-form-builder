@@ -1,7 +1,7 @@
 import { Data } from "@xgovformbuilder/model";
 
 export function simplePageMock() {
-  return new Data({
+  return {
     pages: [
       {
         title: "First page",
@@ -12,5 +12,5 @@ export function simplePageMock() {
       },
     ],
     lists: [],
-  } as any);
+  };
 }

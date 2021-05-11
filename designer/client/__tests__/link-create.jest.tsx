@@ -1,7 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import LinkCreate from "../link-create";
-import { Data } from "@xgovformbuilder/model";
 import { DataContext } from "../context";
 import { screen, within } from "@testing-library/dom";
 
@@ -25,7 +24,7 @@ const rawData = {
   conditions: [],
 };
 
-const data = new Data({ ...rawData });
+const data = { ...rawData };
 const dataValue = {
   data,
   save: jest.fn(),
@@ -83,7 +82,7 @@ test("Selecting a from value causes the SelectConditions component to be display
 });
 
 test("links are correctly generated when the form is submitted", () => {
-  const data = new Data({
+  const data = {
     ...rawData,
     conditions: [
       {
@@ -97,7 +96,7 @@ test("links are correctly generated when the form is submitted", () => {
         value: "checkBeforeYouStart.ukPassport==false",
       },
     ],
-  });
+  };
   const save = jest.fn();
   const { getByTestId, getByRole } = customRender(<LinkCreate />, {
     data,
@@ -137,9 +136,9 @@ test("links are correctly generated when the form is submitted", () => {
 });
 
 test("Submitting without selecting to/from options shows the user an error", () => {
-  const data = new Data({
+  const data = {
     ...rawData,
-  });
+  };
   const save = jest.fn();
   const { getByRole } = customRender(<LinkCreate />, {
     data,

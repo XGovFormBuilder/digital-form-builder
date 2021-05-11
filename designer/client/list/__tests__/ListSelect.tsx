@@ -4,7 +4,7 @@ import { Data } from "@xgovformbuilder/model";
 import React from "react";
 import { ListSelect } from "../ListSelect";
 
-const data = new Data({
+const data = {
   lists: [
     {
       name: "myList",
@@ -19,7 +19,7 @@ const data = new Data({
       items: [{ text: "An item", description: "A hint", value: 12 }],
     },
   ],
-});
+};
 
 test("Lists all available lists and add list", async () => {
   const dataValue = { data, save: jest.fn() };

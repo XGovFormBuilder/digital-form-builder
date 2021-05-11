@@ -3,6 +3,10 @@ import * as formConfigurationsApi from "../load-form-configurations";
 import { server } from "../../test/testServer";
 
 describe("Load form configurations", () => {
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
+
   test("Should load configurations when returned", () => {
     const configurations = [{ myProperty: "myValue" }];
     server.resetHandlers(

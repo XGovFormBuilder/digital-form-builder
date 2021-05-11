@@ -30,7 +30,7 @@ describe("ComponentTypeEdit", () => {
   };
 
   beforeEach(() => {
-    mockData = new Data({
+    mockData = {
       pages: [
         {
           title: "First page",
@@ -41,7 +41,7 @@ describe("ComponentTypeEdit", () => {
         },
       ],
       lists: [],
-    } as any);
+    };
   });
 
   describe("Checkbox", () => {

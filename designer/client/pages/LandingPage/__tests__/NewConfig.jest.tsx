@@ -1,21 +1,12 @@
 import React from "react";
 import { NewConfig } from "../NewConfig";
-import {
-  render,
-  cleanup,
-  fireEvent,
-  screen,
-  waitFor,
-} from "@testing-library/react";
-import {
-  server,
-  rest,
-  mockedFormConfigurations,
-} from "../../../../test/testServer";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { server, rest } from "../../../../test/testServer";
 
 describe("Newconfig", () => {
-  afterEach(() => jest.resetAllMocks());
-  afterEach(cleanup);
+  beforeAll(() => server.listen());
+  afterEach(() => server.resetHandlers());
+  afterAll(() => server.close());
 
   test("new configuration is submitted correctly", async () => {
     let postBodyMatched = false;
