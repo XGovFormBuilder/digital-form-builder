@@ -67,8 +67,6 @@ export const FormDetailsFeedback = (props: Props) => {
           },
         ]}
       />
-      {`XXXfeedbackForm is ${feedbackForm}`}
-      {JSON.stringify(configs)}
       {feedbackForm === false && (
         <div className="govuk-form-group">
           <label
