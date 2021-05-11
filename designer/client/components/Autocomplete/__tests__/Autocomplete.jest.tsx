@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { Autocomplete } from "../Autocomplete";
-import { RenderWithContext } from "../../../../__tests__/helpers/renderers";
+import { RenderWithContext } from "../../../__tests__/helpers/renderers";
 
 describe("Autocomplete", () => {
   describe("AutocompleteField", () => {
