@@ -118,6 +118,7 @@
     "eslint-plugin-json": "^2.1.2",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "file-loader": "^6.1.0",
     "govuk-frontend": "^3.10.1",
     "html-webpack-plugin": "^4.5.0",

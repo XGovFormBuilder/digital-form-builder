@@ -18,6 +18,9 @@ const {
 const partition = "cache";
 
 export class CacheService {
+  /**
+   * This service is responsible for getting, storing or deleting a user's session data in the cache. This service has been registered by {@link createServer}
+   */
   cache: any;
 
   constructor(server: HapiServer) {
@@ -59,6 +62,10 @@ export class CacheService {
 }
 
 export const catboxProvider = () => {
+  /**
+   * If redisHost doesn't exist, CatboxMemory will be used instead.
+   * More information at {@link https://hapi.dev/module/catbox/api}
+   */
   const provider = {
     constructor: redisHost ? CatboxRedis : CatboxMemory,
     options: {},

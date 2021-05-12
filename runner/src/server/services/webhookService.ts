@@ -17,9 +17,9 @@ export class WebhookService {
 
   /**
    * Posts data to a webhook
-   * @params { string } url must be webhook with a POST endpoint which returns a webhookResponse object.
-   * @returns { object } webhookResponse
-   * @returns { string } webhookResponse.reference webhook should return with a reference number. If the call fails, the reference will be 'UNKNOWN'.
+   * @param url - url of the webhook
+   * @param data - object to send to the webhook
+   * @returns object with the property `reference` webhook if the response returns with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
   async postRequest(url: string, data: object) {
     const { payload } = await post(url, {

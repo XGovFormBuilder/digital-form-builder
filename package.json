@@ -32,7 +32,6 @@
     "type-check": "yarn workspaces foreach run tsc --noEmit",
     "type-check:watch": "yarn workspaces foreach run type-check --watch",
     "generate-architecture-diagrams": "concurrently 'npx arkit -c ./docs/designer/arkit.json' 'npx arkit -c ./docs/model/arkit.json' 'npx arkit -c ./docs/runner/arkit.json'",
-    "gendoc": "typedoc model/src --tsconfig model/tsconfig.json --out docs/ts --exclude **/*+(index|.test|.jest).ts "
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -69,6 +68,7 @@
     "lint-staged": "^10.4.2",
     "magic-string": "^0.25.7",
     "prettier": "2.1.2",
+    "typedoc": "^0.20.36",
     "typescript": "^4.1.3"
   },
   "dependencies": {
