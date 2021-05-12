@@ -1,29 +1,40 @@
-import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
+import {
+  InputFieldsComponentsDef,
+  TextFieldComponent,
+} from "@xgovformbuilder/model";
 
-import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormModel } from "../models";
-import { addClassOptionIfNone } from "./helpers";
+import { addClassOptionIfNone, buildFormSchema } from "./helpers";
+import { Schema } from "joi";
 
 export class TextField extends FormComponent {
+  formSchema;
+  stateSchema;
+  options: TextFieldComponent["options"];
+
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
-    const { schema } = this;
+    this.options = def.options;
 
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
+    const { schema } = this;
     if (!schema["regex"]) {
       schema["regex"] = '^[^"\\/\\#;]*$';
     }
+
+    this.formSchema = buildFormSchema("string", this);
+    this.stateSchema = this.formSchema;
   }
 
   getFormSchemaKeys() {
-    return helpers.getFormSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getStateSchemaKeys() {
-    return helpers.getStateSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.stateSchema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
