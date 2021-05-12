@@ -5,7 +5,7 @@ import React, {
   useLayoutEffect,
   FormEvent,
 } from "react";
-import { ComponentDef } from "@xgovformbuilder/model";
+import { ComponentDef, Page } from "@xgovformbuilder/model";
 
 import { i18n } from "../../i18n";
 import { ErrorSummary } from "../../error-summary";
@@ -19,7 +19,7 @@ import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 
 import "./ComponentCreate.scss";
-
+import { addComponent } from "../../data/component";
 function useComponentCreate(props) {
   const [renderTypeEdit, setRenderTypeEdit] = useState<boolean>(false);
   const { data, save } = useContext(DataContext);
@@ -78,9 +78,14 @@ function useComponentCreate(props) {
     }
 
     setIsSaving(true);
-    const { isNew, ...selectedComponent } = state.selectedComponent;
-    data.addComponent(page.path, { ...selectedComponent });
-    await save(data.toJSON());
+    const { selectedComponent } = state;
+    const updatedData = addComponent(
+      data,
+      (page as Page).path,
+      selectedComponent
+    );
+
+    await save(updatedData);
     toggleAddComponent();
   };
 

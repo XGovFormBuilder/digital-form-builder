@@ -10,7 +10,9 @@ import {
   ListsEditorStateActions,
 } from "../../reducers/list/listsEditorReducer";
 import classNames from "classnames";
-
+import { ListComponentsDef } from "@xgovformbuilder/model";
+import { findList } from "../../data";
+import { Actions as ComponentActions } from "./../../reducers/component/types";
 export function ComponentListSelect() {
   const { data } = useContext(DataContext);
   const { state: listsEditorState, dispatch: listsEditorDispatch } = useContext(
@@ -19,7 +21,7 @@ export function ComponentListSelect() {
 
   const { state, dispatch } = useContext(ComponentContext);
   const { selectedComponent, errors = {} } = state;
-  const { list } = selectedComponent;
+  const { list } = selectedComponent as ListComponentsDef;
 
   const { state: listState, dispatch: listDispatch } = useContext(ListContext);
   const { selectedList } = listState;
@@ -34,10 +36,15 @@ export function ComponentListSelect() {
     if (selectedList?.isNew) {
       return;
     }
-    listDispatch({
-      type: ListActions.SET_SELECTED_LIST,
-      payload: data.findList(list),
-    });
+    try {
+      const [foundList] = findList(data, list);
+      listDispatch({
+        type: ListActions.SET_SELECTED_LIST,
+        payload: foundList,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   }, [data.lists, list]);
 
   useEffect(() => {
@@ -47,7 +54,7 @@ export function ComponentListSelect() {
   useEffect(() => {
     if (!listsEditorState.isEditingList && isAddingNew) {
       dispatch({
-        type: ListActions.SET_SELECTED_LIST,
+        type: ComponentActions.SET_SELECTED_LIST,
         payload: selectedList.name,
       });
       setIsAddingNew(false);
@@ -56,7 +63,7 @@ export function ComponentListSelect() {
 
   const editList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
-      type: ListActions.SET_SELECTED_LIST,
+      type: ComponentActions.SET_SELECTED_LIST,
       payload: e.target.value,
     });
   };

@@ -7,6 +7,11 @@ import { Hint } from "@govuk-jsx/hint";
 import { i18n } from "../i18n";
 import { DataContext } from "../context";
 import { RenderInPortal } from "../components/RenderInPortal";
+import {
+  allInputs,
+  inputsAccessibleAt,
+  hasConditions as dataHasConditions,
+} from "../data";
 
 interface Props {
   path: string;
@@ -49,7 +54,9 @@ class SelectConditions extends React.Component<Props, State> {
 
   fieldsForPath(path: string) {
     const { data } = this.context;
-    const inputs = path ? data.inputsAccessibleAt(path) : data.allInputs ?? [];
+    const inputs = path
+      ? inputsAccessibleAt(data, path)
+      : allInputs(data) ?? [];
     return inputs
       .map((input) => ({
         label: input.title,
@@ -100,7 +107,7 @@ class SelectConditions extends React.Component<Props, State> {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
     const { data } = this.context;
-    const hasConditions = data.hasConditions || selectedCondition;
+    const hasConditions = dataHasConditions(data) || selectedCondition;
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
 
     return (

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Menu from "./components/Menu/Menu";
 import { Visualisation } from "./components/Visualisation";
-import { Data } from "@xgovformbuilder/model";
+import { FormDefinition } from "@xgovformbuilder/model";
 import { FlyoutContext, DataContext } from "./context";
 import { FeatureFlagProvider } from "./context/FeatureFlagContext";
 import { DesignerApi } from "./api/designerApi";
@@ -20,7 +20,7 @@ interface State {
   loading?: boolean;
   error?: string; // not using as of now
   newConfig?: boolean; // TODO - is this required?
-  data?: any;
+  data?: FormDefinition;
   page?: any;
   updatedAt?: any;
   downloadedAt?: any;
@@ -54,13 +54,13 @@ export default class Designer extends Component<Props, State> {
       await this.designerApi.save(this.id, toUpdate);
       this.setState(
         {
-          data: new Data(toUpdate),
+          data: toUpdate, //optimistic save
           updatedAt: new Date().toLocaleTimeString(),
           error: undefined,
         },
         callback()
       );
-      return new Data(toUpdate);
+      return toUpdate;
     } catch (e) {
       this.setState({ error: e.message });
       this.props.history.push({
@@ -78,7 +78,7 @@ export default class Designer extends Component<Props, State> {
     const id = this.props.match?.params?.id;
     this.setState({ id });
     this.designerApi.fetchData(id).then((data) => {
-      this.setState({ loading: false, data: new Data(data) });
+      this.setState({ loading: false, data });
     });
   }
 
@@ -102,7 +102,6 @@ export default class Designer extends Component<Props, State> {
             <div id="app">
               <Prompt when={!error} message={`${i18n("leaveDesigner")}`} />
               <Menu
-                data={data}
                 id={this.id}
                 updateDownloadedAt={this.updateDownloadedAt}
                 updatePersona={this.updatePersona}

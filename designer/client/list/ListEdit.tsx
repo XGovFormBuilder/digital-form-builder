@@ -8,10 +8,10 @@ import {
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
 import { DataContext } from "../context";
-import { clone } from "@xgovformbuilder/model";
 import { hasValidationErrors, validateTitle } from "../validations";
 import ErrorSummary from "../error-summary";
 import { ListContext } from "../reducers/listReducer";
+import { addList } from "../data";
 
 const useListItemActions = (state, dispatch) => {
   const { dispatch: listsEditorDispatch } = useContext(ListsEditorContext);
@@ -74,17 +74,17 @@ function useListEdit() {
       });
       return;
     }
-    const copy = clone(data);
+    let copy = { ...data };
     if (selectedList.isNew) {
       delete selectedList.isNew;
-      copy.addList(selectedList);
+      copy = addList(copy, selectedList);
     } else {
       const selectedListIndex = copy.lists.findIndex(
         (list) => list.name === initialName
       );
       copy.lists[selectedListIndex] = selectedList;
     }
-    await save(copy.toJSON());
+    await save(copy);
 
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST, false]);
     dispatch({

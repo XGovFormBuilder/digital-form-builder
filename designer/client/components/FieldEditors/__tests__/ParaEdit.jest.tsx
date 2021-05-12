@@ -7,7 +7,7 @@ import { DataContext } from "../../../context";
 
 describe("para edit", () => {
   function TestComponentWithContext({ children }) {
-    let data = new Data({
+    let data = {
       pages: [
         {
           title: "First page",
@@ -24,7 +24,7 @@ describe("para edit", () => {
         },
       ],
       conditions: [],
-    }); //
+    };
     const dataValue = { data, save: jest.fn() };
     const compContextValue = {
       state: { selectedComponent: {} },

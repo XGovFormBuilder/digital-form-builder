@@ -1,5 +1,5 @@
 import dagre from "dagre";
-import { Data } from "@xgovformbuilder/model";
+import { FormDefinition } from "@xgovformbuilder/model";
 
 export type Point = {
   node: {
@@ -42,7 +42,7 @@ export type Layout = {
   pos: Pos;
 };
 
-type GetLayout = (data: Data, el: HTMLDivElement) => Layout;
+type GetLayout = (data: FormDefinition, el: HTMLDivElement) => Layout;
 
 export const getLayout: GetLayout = (data, el) => {
   // Create a new directed graph
@@ -81,7 +81,9 @@ export const getLayout: GetLayout = (data, el) => {
         const exists = data.pages.find((page) => page.path === next.path);
         if (exists) {
           g.setEdge(page.path, next.path, {
-            condition: data.findCondition(next.condition)?.displayName,
+            condition: data.conditions.find(
+              (condition) => condition.name === next.condition
+            )?.displayName,
           });
         }
       });

@@ -24,7 +24,7 @@ const customRender = (ui, { providerProps, ...renderOptions }) => {
 };
 
 test("Graph is rendered with correct number of pages and updates ", async () => {
-  const data = new Data({
+  const data = {
     pages: [
       {
         title: "my first page",
@@ -32,7 +32,7 @@ test("Graph is rendered with correct number of pages and updates ", async () => 
       },
       { title: "my second page", path: "/2" },
     ],
-  });
+  };
   const providerProps = {
     data,
     save: jest.fn(),
@@ -48,16 +48,20 @@ test("Graph is rendered with correct number of pages and updates ", async () => 
   expect(await findAllByText("my second page")).toBeTruthy();
   const thirdPage = await queryAllByText("my third page");
   expect(thirdPage.length).toBe(0);
-  const cloned = data.clone();
 
-  cloned.addPage({
+  const newPage = {
     title: "my third page",
     path: "/3",
-  });
+  };
 
   await rerender(
     <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
-    { providerProps: { data: cloned, save: jest.fn() } }
+    {
+      providerProps: {
+        data: { ...data, pages: [...data.pages, newPage] },
+        save: jest.fn(),
+      },
+    }
   );
 
   await waitFor(() => expect(queryAllByText("my third page").length).toBe(2));

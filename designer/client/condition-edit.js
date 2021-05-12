@@ -1,7 +1,8 @@
 import React from "react";
 import Editor from "./editor";
-import { clone } from "@xgovformbuilder/model";
+import { clone, ConditionsWrapper } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
+import { removeCondition, updateCondition } from "./data";
 
 class ConditionEdit extends React.Component {
   static contextType = DataContext;
@@ -10,7 +11,7 @@ class ConditionEdit extends React.Component {
     super(props);
     this.state = {
       displayName: props.condition.displayName,
-      value: props.condition.expression,
+      value: props.condition.value,
     };
   }
 
@@ -21,8 +22,10 @@ class ConditionEdit extends React.Component {
     const newValue = this.state.value;
     const { data, condition } = this.props;
 
-    const copy = clone(data);
-    const updated = copy.updateCondition(condition.name, displayName, newValue);
+    const updated = updateCondition(data, condition.name, {
+      displayName,
+      value: newValue,
+    });
 
     try {
       const saved = await save(updated);
@@ -32,27 +35,24 @@ class ConditionEdit extends React.Component {
     }
   };
 
-  onClickDelete = (e) => {
+  onClickDelete = async (e) => {
     e.preventDefault();
 
     if (!window.confirm("Confirm delete")) {
       return;
     }
 
-    const { save } = this.context;
-    const { data, condition } = this.props;
-    const copy = clone(data);
+    const { data, save } = this.context;
+    const { condition } = this.props;
 
     // Remove the condition
-    copy.removeCondition(condition.name);
-
-    save(copy)
-      .then((data) => {
-        this.props.onEdit({ data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    const updatedData = removeCondition(data, condition.name);
+    try {
+      await save(updatedData);
+      this.props.onEdit({ data });
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   onBlurName = (e) => {
@@ -84,6 +84,7 @@ class ConditionEdit extends React.Component {
 
   render() {
     const { condition } = this.props;
+    const wrappedCondition = new ConditionsWrapper(condition);
 
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
@@ -124,7 +125,7 @@ class ConditionEdit extends React.Component {
           <Editor
             name="value"
             required
-            value={condition.expression}
+            value={wrappedCondition.expression}
             valueCallback={this.onValueChange}
           />
         </div>

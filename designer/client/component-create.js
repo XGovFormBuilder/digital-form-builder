@@ -3,6 +3,7 @@ import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import randomId from "./randomId";
+import { addComponent } from "./data/component";
 
 /**
  * @deprecated (keeping until tests are refactored)
@@ -29,8 +30,7 @@ class ComponentCreate extends React.Component {
     const { page } = this.props;
     const { data, save } = this.context;
     const { component } = this.state;
-    const copy = clone(data);
-    const updated = copy.addComponent(page.path, component);
+    const updated = addComponent(data, page.path, component);
     await save(updated);
     this.setState({ isSaving: false });
   }

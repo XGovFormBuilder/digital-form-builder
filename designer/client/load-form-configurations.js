@@ -17,7 +17,7 @@ export function fetchConfigurations() {
 }
 
 export async function loadConfigurations() {
-  return fetchConfigurations()
+  return await fetchConfigurations()
     .then((data) => {
       return Object.values(data) || [];
     })
