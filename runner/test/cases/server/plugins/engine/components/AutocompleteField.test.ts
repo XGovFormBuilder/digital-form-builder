@@ -81,7 +81,7 @@ suite("AutocompleteField", () => {
     it("includes the first empty item in items list", () => {
       const { items } = component.getViewModel(
         { lang: "en" },
-        {} as FormSubmissionErrors
+        {} as FormSubmissionError
       );
       expect(items).to.exist();
       expect(items![0]).to.equal({ value: "" });
