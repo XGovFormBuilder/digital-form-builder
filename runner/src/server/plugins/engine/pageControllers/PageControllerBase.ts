@@ -44,7 +44,8 @@ export class PageControllerBase {
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
-  routeState: any;
+
+  routeState: Record<string, number | boolean | string>;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -58,6 +59,7 @@ export class PageControllerBase {
     this.title = pageDef.title;
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
+    this.routeState = {};
 
     // Resolve section
     this.section =
@@ -302,7 +304,11 @@ export class PageControllerBase {
     return request.yar.get("lang");
   }
 
-  calculateRouteState(page, completeState, state = {}) {
+  calculateRouteState(
+    page,
+    completeState,
+    state: Record<string, number | boolean | string> = {}
+  ) {
     //Store our current routeState outside of our recursive method where it will be appended during the recursion
     this.routeState = state;
 
@@ -310,6 +316,11 @@ export class PageControllerBase {
     page.pageDef.next.forEach((nextPage) => {
       //Grab the condition required to nav to this nextPage
       const { condition } = nextPage;
+
+      //And get the definition for this nextPage - We may not need it but we should get it here anyway
+      const nextPageDef = this.model.pages.find(
+        (possibleNext) => possibleNext.path === nextPage.path
+      );
 
       //Iterate the components on the current page
       page.components.items.forEach((component) => {
@@ -319,7 +330,7 @@ export class PageControllerBase {
         }
 
         //Get the most recent value the user entered from our state
-        const userInputValue = completeState[component.name];
+        //const userInputValue = completeState[component.name];
 
         if (!condition) {
           //We don't have a condition so we just add this to our temp state
@@ -329,8 +340,8 @@ export class PageControllerBase {
 
           //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
           this.calculateRouteState(nextPageDef, completeState, {
-            ...this.routeState,
-            [component.name]: userInputValue,
+            ...state,
+            [component.name]: completeState[component.name],
           });
         } else {
           //We need to run our condition to see if this is the path we chose
@@ -339,26 +350,22 @@ export class PageControllerBase {
           const currentCondition = this.model.conditions[condition];
 
           //Build a temporary state to run our condition function against, just containing the current user input
-          let tempState = { [component.name]: userInputValue };
+          //Then eval it
+          const conditionResult = currentCondition.fn({
+            [component.name]: completeState[component.name],
+          });
 
-          //Eval our condition against our in-progress state
-          const conditionResult = currentCondition.fn(tempState);
+          //We mustn't have taken this route
+          if (!conditionResult) return;
 
-          if (conditionResult) {
-            //This must be the route we took
-            //Pass in just the initial value from the startPage
-            const nextPageDef = this.model.pages.find(
-              (possibleNext) => possibleNext.path === nextPage.path
-            );
+          //If we're here, this must be the route we took
+          //Pass in just the initial value from the startPage
 
-            //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
-            this.calculateRouteState(nextPageDef, completeState, {
-              ...this.routeState,
-              [component.name]: userInputValue,
-            });
-          } else {
-            //This was not the route we took - No reason to go further
-          }
+          //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
+          this.calculateRouteState(nextPageDef, completeState, {
+            ...state,
+            [component.name]: completeState[component.name],
+          });
         }
       });
     });
