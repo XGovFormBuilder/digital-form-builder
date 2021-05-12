@@ -223,11 +223,11 @@ When("I choose to delete the {string}", (pageName) => {
 });
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
+  browser.waitUntil(() => formDesigner.formPages.length === 2);
   const pageNames = [];
   formDesigner.formPageTitles.forEach((elem) => {
     pageNames.push(elem.getText());
   });
-  expect(formDesigner.formPages.length).toEqual(2);
   chai.expect(pageNames).not.include(pageName);
 });
 
