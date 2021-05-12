@@ -265,15 +265,7 @@ export interface RadiosFieldComponent extends ListFieldBase {
 
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
-  options: {
-    type?: string;
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
-    classes?: string;
-    bold?: boolean;
-    autocomplete?: string;
-  };
+  options: ListFieldBase["options"] & { autocomplete?: string };
 }
 
 export type ComponentDef =
