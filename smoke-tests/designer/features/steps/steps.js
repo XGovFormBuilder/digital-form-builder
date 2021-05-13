@@ -198,25 +198,16 @@ Then("the list is available in the list options", function () {
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
-  formDesigner.editPageForPageName(pageName).click();
+  formDesigner.editPage(pageName).click();
   if (editPage.parentElement.isDisplayed() === false) {
-    formDesigner.editPageForPageName(pageName).click();
+    formDesigner.editPage(pageName).click();
   }
   editPage.duplicateBtn.click();
   editPage.closeLinks[0].click();
 });
 
-Then(
-  "{int} {string} pages are shown in the designer",
-  (numberOfPages, pageName) => {
-    expect(formDesigner.retrieveNumberOfPagesMatching(pageName)).toEqual(
-      numberOfPages
-    );
-  }
-);
-
 When("I choose to delete the {string}", (pageName) => {
-  formDesigner.editPageForPageName(pageName).click();
+  formDesigner.editPage(pageName).click();
   editPage.deleteBtn.click();
   acceptAlert();
   editPage.closeLinks[0].click();
@@ -282,7 +273,7 @@ Then("the page is added in the designer", () => {
 
 Then("the {string} is displayed when I Preview the page", function (component) {
   this.component = toCamelCase(component);
-  formDesigner.previewPageForPageName(this.pageName).click();
+  formDesigner.previewFormPage(this.pageName).click();
   browser.switchWindow(`${this.pageName}`);
   expect(previewPage.pageTitle).toHaveText(this.pageName);
   if (component !== "Paragraph") {
@@ -325,7 +316,7 @@ Then("I will be on the same page", () => {
 });
 
 When("I preview the {string} page", function (pageName) {
-  formDesigner.previewPageForPageName(pageName).click();
+  formDesigner.previewFormPage(pageName).click();
   browser.switchWindow(pageName);
   previewPage.pageTitle.waitForDisplayed();
 });
