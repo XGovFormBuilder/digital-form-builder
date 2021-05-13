@@ -1,7 +1,42 @@
+import page from "@xgovformbuilder/designer/client/page";
+
 const Page = require("./basePage");
+const FormPage = require("../../components/formPage.component");
 const ComponentMappings = require("../../../support/componentMapping");
 
 class FormDesignerPage extends Page {
+  get pages() {
+    return browser.$$(".page").map((page) => new FormPage(page));
+  }
+
+  get pageHeadingsText() {
+    return this.pages.map((page) => page.heading.getText());
+  }
+
+  /**
+   * Returns the heading element for a specific page
+   * @param pageName
+   * @returns {*}
+   */
+  pageHeading(pageName) {
+    const chosenPage = this.pages.find(
+      (page) => page.heading.getText() === pageName
+    );
+    return chosenPage.heading;
+  }
+
+  /**
+   * Returns the edit page link for a specific page
+   * @param pageName
+   * @returns {*}
+   */
+  editPage(pageName) {
+    const chosenPage = this.pages.find(
+      (page) => page.heading.getText() === pageName
+    );
+    return chosenPage.editPage;
+  }
+
   /**
    * Find the section name element for a specific page
    * @param pageName
@@ -16,16 +51,8 @@ class FormDesignerPage extends Page {
     return browser.$("button=Create component");
   }
 
-  get editPage() {
-    return browser.$("button=Edit page");
-  }
-
   get formPages() {
     return browser.$$(".page");
-  }
-
-  get formPageTitles() {
-    return browser.$$(".page__heading h3");
   }
 
   get linkLine() {
@@ -87,9 +114,9 @@ class FormDesignerPage extends Page {
     browser.$(`.component-${componentType.toLowerCase()}`).click();
   }
 
-  getTitleTextForPage(name) {
-    return this.pageContainer(name).$(".page__heading h3").getText();
-  }
+  // getTitleTextForPage(name) {
+  //   return this.pageContainer(name).$(".page__heading h3").getText();
+  // }
 
   createComponentForPageName(name) {
     return this.pageContainer(name).$("button=Create component");
@@ -119,7 +146,7 @@ class FormDesignerPage extends Page {
   }
 
   retrieveNumberOfPagesMatching(pageName) {
-    return this.formPageTitles.filter((value) => {
+    return this.pageHeadingsText.filter((value) => {
       return value.getText() === pageName;
     }).length;
   }

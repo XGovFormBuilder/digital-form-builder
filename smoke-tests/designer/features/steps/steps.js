@@ -224,11 +224,7 @@ When("I choose to delete the {string}", (pageName) => {
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
   browser.waitUntil(() => formDesigner.formPages.length === 2);
-  const pageNames = [];
-  formDesigner.formPageTitles.forEach((elem) => {
-    pageNames.push(elem.getText());
-  });
-  chai.expect(pageNames).not.include(pageName);
+  chai.expect(formDesigner.pageHeadingsText).not.include(pageName);
 });
 
 Then("the list is selected in the list dropdown", function () {
@@ -250,7 +246,7 @@ Then("the Date field control is displayed in the page", () => {
 
 When("I choose Edit page for the {string}", function (pageName) {
   this.pageName = pageName;
-  formDesigner.editPageForPageName(pageName).click();
+  formDesigner.editPage(pageName).click();
 });
 
 When("I change the page title to {string}", function (newPageName) {
@@ -268,11 +264,9 @@ When("I change the page path to {string}", function (pathName) {
 
 Then("the changes are reflected in the page designer", function () {
   browser.waitUntil(
-    () => formDesigner.formPageTitles[0].getText() === this.newPageName
+    () => formDesigner.pages[0].heading.getText() === this.newPageName
   );
-  expect(formDesigner.getTitleTextForPage(this.newPageName)).toBe(
-    this.newPageName
-  );
+  expect(formDesigner.pageHeading(this.newPageName)).toBeDisplayed();
 });
 
 When("I choose {string} from the designer menu", (menuOption) => {
@@ -281,10 +275,9 @@ When("I choose {string} from the designer menu", (menuOption) => {
 
 Then("the page is added in the designer", () => {
   browser.waitUntil(() => formDesigner.formPages.length === 4);
-  this.pageNames = formDesigner.formPageTitles.map(function (element) {
-    return element.getText();
-  });
-  expect(this.pageNames.includes(this.newPageName)).toEqual(true);
+  expect(formDesigner.pageHeadingsText.includes(this.newPageName)).toEqual(
+    true
+  );
 });
 
 Then("the {string} is displayed when I Preview the page", function (component) {
