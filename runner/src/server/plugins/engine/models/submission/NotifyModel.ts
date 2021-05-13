@@ -7,6 +7,7 @@ export function NotifyModel(
   outputConfiguration,
   state: FormSubmissionState
 ) {
+  // @ts-ignore - eslint does not report this as an error, only tsc
   const flatState = flatten(state);
   const personalisation = {};
   outputConfiguration.personalisation.forEach((p) => {

@@ -130,6 +130,7 @@ export class DatePartsField extends FormComponent {
     return value ? moment(value).format("D MMMM YYYY") : "";
   }
 
+  // @ts-ignore - eslint does not report this as an error, only tsc
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const viewModel = super.getViewModel(formData, errors);
 
