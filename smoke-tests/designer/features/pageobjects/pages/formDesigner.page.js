@@ -1,5 +1,3 @@
-import page from "@xgovformbuilder/designer/client/page";
-
 const Page = require("./basePage");
 const FormPage = require("../../components/formPage.component");
 const ComponentMappings = require("../../../support/componentMapping");
@@ -40,15 +38,13 @@ class FormDesignerPage extends Page {
   /**
    * Find the section name element for a specific page
    * @param pageName
-   * @returns {Element}
+   * @returns {*}
    */
   pageSectionName(pageName) {
-    const pageIndex = this.getPageIndex(pageName);
-    return browser.$$(".page__heading span")[pageIndex];
-  }
-
-  get addComponentToPage() {
-    return browser.$("button=Create component");
+    const chosenPage = this.pages.find((page) =>
+      page.heading.getText().includes(pageName)
+    );
+    return chosenPage.section;
   }
 
   get formPages() {
@@ -113,10 +109,6 @@ class FormDesignerPage extends Page {
       .waitForDisplayed({ interval: 1000 });
     browser.$(`.component-${componentType.toLowerCase()}`).click();
   }
-
-  // getTitleTextForPage(name) {
-  //   return this.pageContainer(name).$(".page__heading h3").getText();
-  // }
 
   createComponentForPageName(name) {
     return this.pageContainer(name).$("button=Create component");
