@@ -26,6 +26,9 @@ const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
 
 export class PageControllerBase {
+  /**
+   * The base class for all page controllers. Page controllers are responsible for generating the get and post route handlers when a user navigates to `/{id}/{path*}`.
+   */
   def: {
     name: string;
     feedback?: {
@@ -77,6 +80,10 @@ export class PageControllerBase {
     this[STATE_SCHEMA] = this.components.stateSchema;
   }
 
+  /**
+   * Used for mapping FormData and errors to govuk-frontend's template api, so a page can be rendered
+   * @param formData - contains a user's form payload, and any validation errors that may have occurred
+   */
   getViewModel(
     formData: FormData,
     iteration?: any, // TODO
@@ -138,6 +145,9 @@ export class PageControllerBase {
     };
   }
 
+  /**
+   * utility function that checks if this page has any items in the {@link Page.next} object.
+   */
   get hasNext() {
     return Array.isArray(this.pageDef.next) && this.pageDef.next.length > 0;
   }
@@ -162,6 +172,10 @@ export class PageControllerBase {
       .filter((v: {} | null) => !!v);
   }
 
+  /**
+   * @param state - the values currently stored in a users session
+   * @param suppressRepetition - cancels repetition logic
+   */
   getNextPage(state: FormSubmissionState, suppressRepetition = false) {
     if (this.repeatField && !suppressRepetition) {
       const requiredCount = reach(state, this.repeatField);
@@ -202,6 +216,9 @@ export class PageControllerBase {
   }
 
   // TODO: type
+  /**
+   * returns the path to the next page
+   */
   getNext(state: any) {
     const nextPage = this.getNextPage(state);
     const query = { num: 0 };
@@ -233,6 +250,9 @@ export class PageControllerBase {
   }
 
   // TODO: types
+  /**
+   * gets the state for the values that can be entered on just this page
+   */
   getFormDataFromState(state: any, atIndex: number): FormData {
     const pageState = this.section ? state[this.section.name] : state;
 
@@ -257,6 +277,10 @@ export class PageControllerBase {
     return this.components.getStateFromValidForm(formData);
   }
 
+  /**
+   * Parses the errors from joi.validate so they can be rendered by govuk-frontend templates
+   * @param validationResult - provided by joi.validate
+   */
   getErrors(validationResult): FormSubmissionErrors | undefined {
     if (validationResult && validationResult.error) {
       return {
@@ -281,6 +305,11 @@ export class PageControllerBase {
     return undefined;
   }
 
+  /**
+   * Runs {@link joi.validate}
+   * @param value - user's answers
+   * @param schema - which schema to validate against
+   */
   validate(value, schema) {
     const result = schema.validate(value, this.validationOptions);
     const errors = result.error ? this.getErrors(result) : null;
@@ -296,6 +325,9 @@ export class PageControllerBase {
     return this.validate(newState, this.stateSchema);
   }
 
+  /**
+   * returns the language set in a user's browser. Can be used for localisable strings
+   */
   langFromRequest(request: HapiRequest) {
     const lang = request.query.lang || request.yar.get("lang") || "en";
     if (lang !== request.yar.get("lang")) {
@@ -304,7 +336,9 @@ export class PageControllerBase {
     }
     return request.yar.get("lang");
   }
-
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`
+   */
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
@@ -327,6 +361,9 @@ export class PageControllerBase {
       }
 
       formData.lang = lang;
+      /**
+       * We store the original filename for the user in a separate object (`originalFileNames`), however they are not used for any of the outputs. The S3 url is stored in the state.
+       */
       const { originalFilenames } = state;
       if (originalFilenames) {
         Object.entries(formData).forEach(([key, value]) => {
@@ -341,6 +378,10 @@ export class PageControllerBase {
         ? redirectTo(request, h, startPage)
         : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
       this.setFeedbackDetails(viewModel, request);
+
+      /**
+       * Content components can be hidden based on a condition. If the condition evaluates to true, it is safe to be kept, otherwise discard it
+       */
       viewModel.components = viewModel.components.filter((component) => {
         if (
           (component.model.content || component.type === "Details") &&
@@ -351,6 +392,9 @@ export class PageControllerBase {
         }
         return true;
       });
+      /**
+       * For conditional reveal components (which we no longer support until GDS resolves the related accessibility issues {@link https://github.com/alphagov/govuk-frontend/issues/1991}
+       */
       viewModel.components = viewModel.components.map((component) => {
         const evaluatedComponent = component;
         const content = evaluatedComponent.model.content;
@@ -375,6 +419,9 @@ export class PageControllerBase {
         return evaluatedComponent;
       });
 
+      /**
+       * used for when a user clicks the "back" link. Progress is stored in the state. This is a safer alternative to running javascript that pops the history `onclick`.
+       */
       const lastVisited = progress[progress.length - 1];
       if (!lastVisited || !lastVisited.startsWith(currentPath)) {
         if (progress[progress.length - 2] === currentPath) {
@@ -390,6 +437,9 @@ export class PageControllerBase {
     };
   }
 
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a POST request at `/{id}/{path*}`
+   */
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
@@ -423,7 +473,7 @@ export class PageControllerBase {
       }
 
       /**
-       * @code other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
+       * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
        */
       if (preHandlerErrors) {
         const reformattedErrors: any[] = [];
@@ -433,7 +483,7 @@ export class PageControllerBase {
 
           if (typeof reformatted.text === "string") {
             /**
-             * @code if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
+             * if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
              */
             reformatted.text = reformatted.text.replace(
               /%s/,
@@ -455,6 +505,9 @@ export class PageControllerBase {
         }
       });
 
+      /**
+       * If there are any errors, render the page with the parsed errors
+       */
       if (formResult.errors) {
         const viewModel = this.getViewModel(payload, num, formResult.errors);
         viewModel.backLink = progress[progress.length - 2];
@@ -588,10 +641,15 @@ export class PageControllerBase {
     return "Fix the following errors";
   }
 
+  /**
+   * {@link https://hapi.dev/api/?v=20.1.2#route-options}
+   */
   get getRouteOptions() {
     return {};
   }
-
+  /**
+   * {@link https://hapi.dev/api/?v=20.1.2#route-options}
+   */
   get postRouteOptions() {
     return {};
   }

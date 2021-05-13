@@ -2,6 +2,9 @@ import { FormModel } from "server/plugins/engine/models";
 import config from "server/config";
 const { notifyTemplateId, notifyAPIKey } = config;
 
+/**
+ * returns an object used for sending email requests. Used by {@link SummaryViewModel}
+ */
 export function EmailModel(model: FormModel, outputConfiguration, webhookData) {
   const data: string[] = [];
 

@@ -31,8 +31,8 @@ function getStartPageRedirect(
   id: string,
   model: FormModel
 ) {
-  const startPage = normalisePath(model.def.startPage);
-  let startPageRedirect;
+  const startPage = normalisePath(model.def.startPage ?? "");
+  let startPageRedirect: any;
 
   if (startPage.startsWith("http")) {
     startPageRedirect = redirectTo(request, h, startPage);

@@ -2,6 +2,9 @@ import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { flatten } from "hoek";
 
+/**
+ * returns an object used for sending GOV.UK notify requests Used by {@link SummaryViewModel} {@link NotifyService}
+ */
 export function NotifyModel(
   model: FormModel,
   outputConfiguration,

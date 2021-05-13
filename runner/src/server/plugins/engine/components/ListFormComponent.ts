@@ -26,6 +26,9 @@ export class ListFormComponent extends FormComponent {
     this.listType = this.list.type ?? "string";
     this.options = def.options;
 
+    /**
+     * Only allow a user to answer values that have been defined in the list
+     */
     let schema = joi[this.listType]()
       .allow(...this.values)
       .label(def.title);
