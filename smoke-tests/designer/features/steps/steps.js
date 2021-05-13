@@ -223,7 +223,7 @@ When("I choose to delete the {string}", (pageName) => {
 });
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
-  browser.waitUntil(() => formDesigner.formPages.length === 2);
+  browser.waitUntil(() => formDesigner.pages.length === 2);
   chai.expect(formDesigner.pageHeadingsText).not.include(pageName);
 });
 
@@ -274,7 +274,7 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  browser.waitUntil(() => formDesigner.formPages.length === 4);
+  browser.waitUntil(() => formDesigner.pages.length === 4);
   expect(formDesigner.pageHeadingsText.includes(this.newPageName)).toEqual(
     true
   );
