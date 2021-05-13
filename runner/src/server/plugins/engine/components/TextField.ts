@@ -6,7 +6,11 @@ import {
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormModel } from "../models";
-import { addClassOptionIfNone, buildFormSchema } from "./helpers";
+import {
+  addClassOptionIfNone,
+  buildFormSchema,
+  buildStateSchema,
+} from "./helpers";
 import { Schema } from "joi";
 
 export class TextField extends FormComponent {
@@ -26,7 +30,7 @@ export class TextField extends FormComponent {
     }
 
     this.formSchema = buildFormSchema("string", this);
-    this.stateSchema = this.formSchema;
+    this.stateSchema = buildStateSchema("string", this);
   }
 
   getFormSchemaKeys() {
