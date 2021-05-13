@@ -7,14 +7,16 @@ import { RenderInPortal } from "../RenderInPortal";
 import ComponentListSelect from "../ComponentListSelect/ComponentListSelect";
 
 type Props = {
+  children: any; // TODO
   page: any; // TODO
 };
 
-function ListFieldEdit({ page }: Props) {
+function ListFieldEdit({ children, page }: Props) {
   return (
     <ListsEditorContextProvider>
       <ListContextProvider>
         <ComponentListSelect />
+        {children}
         <RenderInPortal>
           <ListsEdit showEditLists={true} page={page} />
         </RenderInPortal>
