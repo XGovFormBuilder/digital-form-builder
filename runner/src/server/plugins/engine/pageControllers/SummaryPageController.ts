@@ -19,6 +19,13 @@ import {
 const { payReturnUrl } = config;
 
 export class SummaryPageController extends PageController {
+  /**
+   * The controller which is used when Page["controller"] is defined as "./pages/summary.js"
+   */
+
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a GET request at `/{id}/{path*}`,
+   */
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       this.langFromRequest(request);
@@ -43,6 +50,10 @@ export class SummaryPageController extends PageController {
         );
       }
 
+      /**
+       * iterates through the errors. If there are errors, a user will be redirected to the page
+       * with the error with returnUrl=`/${model.basePath}/summary` in the URL query parameter.
+       */
       if (viewModel.errors) {
         const errorToFix = viewModel.errors[0];
         const { path } = errorToFix;
@@ -94,6 +105,10 @@ export class SummaryPageController extends PageController {
     };
   }
 
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a POST request at `/{id}/{path*}`.
+   * If a form is incomplete, a user will be redirected to the start page.
+   */
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { payService, cacheService } = request.services([]);
@@ -131,7 +146,10 @@ export class SummaryPageController extends PageController {
         return startPageRedirect;
       }
 
-      // request declaration
+      /**
+       * If a form is configured with a declaration, a checkbox will be rendered with the configured declaration text.
+       * If the user does not agree to the declaration, the page will be rerendered with a warning.
+       */
       if (summaryViewModel.declaration && !summaryViewModel.skipSummary) {
         const { declaration } = request.payload as { declaration?: any };
 
@@ -156,7 +174,9 @@ export class SummaryPageController extends PageController {
         webhookData: summaryViewModel.validatedWebhookData,
       });
 
-      // no need to pay, redirect to status
+      /**
+       * If a user does not need to pay, redirect them to /status
+       */
       if (
         !summaryViewModel.fees ||
         (summaryViewModel.fees.details ?? []).length === 0

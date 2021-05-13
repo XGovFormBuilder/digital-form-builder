@@ -65,7 +65,7 @@ const applicationStatus = {
               params.continue === "true" || pay.meta.attempts === 3;
 
             /**
-             * @code allow the user to try again if they haven't skipped or reached their retry limit
+             * allow the user to try again if they haven't skipped or reached their retry limit
              */
             if (payState.state.status !== "success" && !userCouldntPay) {
               return h.view("pay-error", {
@@ -85,8 +85,7 @@ const applicationStatus = {
           }
 
           /**
-           * @code if there are webhooks, find one and use that to generate a reference number for other output calls.
-           * TODO:- to be honest, it should really be a 'lazy' var but concurrent aysnc is kinda a pain for this and I don't have time. Probably wont have >1 webhook anyway. ¯\_( ツ )_/¯
+           * if there are webhooks, find one and use that to generate a reference number for other output calls.
            */
           const webhookOutputs = (outputs || []).filter(
             (output) => output.type === "webhook"

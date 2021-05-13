@@ -1,5 +1,4 @@
 import { clone, reach } from "hoek";
-
 import config from "server/config";
 import { FormModel } from "./FormModel";
 import { feedbackReturnInfoKey, redirectUrl } from "../helpers";

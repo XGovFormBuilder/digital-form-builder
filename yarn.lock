@@ -1981,7 +1981,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/boom@npm:9.x.x, @hapi/boom@npm:^9.0.0":
+"@hapi/boom@npm:9.x.x":
   version: 9.1.1
   resolution: "@hapi/boom@npm:9.1.1"
   dependencies:
@@ -1996,6 +1996,15 @@ __metadata:
   dependencies:
     "@hapi/hoek": 8.x.x
   checksum: bfa2a10d77e8ca1ebe3a3d56c9fa00e6c885b36f7308ed961df7d9013a22eead2cc0579c855954a4e546a7e15d7745cac79e7337544980c9290a866bdb591afd
+  languageName: node
+  linkType: hard
+
+"@hapi/boom@npm:^9.0.0":
+  version: 9.1.2
+  resolution: "@hapi/boom@npm:9.1.2"
+  dependencies:
+    "@hapi/hoek": 9.x.x
+  checksum: abf911cc05dcef8611166803ed2d9c193e958793fe3281a5b00f3fe47eb741b0cffa17a98741773a7bf5b73e9c5c112f04a6a71bb8bf76f3382fa62261279e32
   languageName: node
   linkType: hard
 
@@ -2431,6 +2440,17 @@ __metadata:
     "@hapi/teamwork": 5.x.x
     "@hapi/validate": 1.x.x
   checksum: 95935633a0dbd982ef3e9802a9c0a239d58ca3d5f124432c97bd44302d3ce4d04087a5b6a34b50941a5d2e3315741a26f9d5112a5848d6c84de90e81d713302a
+  languageName: node
+  linkType: hard
+
+"@hapi/podium@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@hapi/podium@npm:4.1.3"
+  dependencies:
+    "@hapi/hoek": 9.x.x
+    "@hapi/teamwork": 5.x.x
+    "@hapi/validate": 1.x.x
+  checksum: f68cf8d5d937c0203f6304db16674fd6b08ac5727c178a93bd1101d84154ae9c98f5055ea6053537c12b90c63bdd8e66d698576775a3dbc3ae2dc161d61b71fd
   languageName: node
   linkType: hard
 
@@ -3409,25 +3429,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hapi__catbox-memory@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "@types/hapi__catbox-memory@npm:4.1.2"
-  dependencies:
-    "@types/hapi__catbox": "*"
-  checksum: d1b9060aa351479c1a54af78076a97212b85be9034eac6200474589ceb88504c407d06820d45113ce82e56fcc01deed8361372d8284131c8f2cf707e519a0dab
-  languageName: node
-  linkType: hard
-
-"@types/hapi__catbox-redis@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "@types/hapi__catbox-redis@npm:5.0.2"
-  dependencies:
-    "@types/hapi__catbox": "*"
-    "@types/ioredis": "*"
-  checksum: 126fff1e17e71fd9564cb175ae9edbaa8867126a3e9ec957cd1380faaf4bbd9658a5d4bc63adb82987f472ddc5646887fc5929abbd3ba547775367f2f3326df7
-  languageName: node
-  linkType: hard
-
 "@types/hapi__catbox@npm:*":
   version: 10.2.3
   resolution: "@types/hapi__catbox@npm:10.2.3"
@@ -3435,38 +3436,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hapi__crumb@npm:^7.3.1":
-  version: 7.3.2
-  resolution: "@types/hapi__crumb@npm:7.3.2"
-  dependencies:
-    "@types/hapi__hapi": "*"
-    joi: ^17.3.0
-  checksum: 3b7ec843621acd0069d48d0294b6f56068a162f593eb4bda6fe65bfa3e8370b9bcc1a6c09be9a1479213887ff5d4ac03791aa8711dbe60293edb16979cbf7e23
-  languageName: node
-  linkType: hard
-
 "@types/hapi__hapi@npm:*":
-  version: 20.0.3
-  resolution: "@types/hapi__hapi@npm:20.0.3"
+  version: 20.0.8
+  resolution: "@types/hapi__hapi@npm:20.0.8"
   dependencies:
     "@hapi/boom": ^9.0.0
     "@hapi/iron": ^6.0.0
+    "@hapi/podium": ^4.1.3
     "@types/hapi__catbox": "*"
     "@types/hapi__mimos": "*"
-    "@types/hapi__podium": "*"
     "@types/hapi__shot": "*"
-    "@types/joi": "*"
     "@types/node": "*"
-  checksum: 7a2838c1dbe6af0c053d5e70004ba4a7f2ba3ccbcfe138e7fd416c9e025accbdcf05da1c3b5f20cecb0ea754a3cf9c88f3b042a424e75d64a20a33a6de823b74
-  languageName: node
-  linkType: hard
-
-"@types/hapi__inert@npm:^5.2.1":
-  version: 5.2.2
-  resolution: "@types/hapi__inert@npm:5.2.2"
-  dependencies:
-    "@types/hapi__hapi": "*"
-  checksum: 7fbcb7e4f56be4f2dd75be13bd04c363d7fdaa2d9fbd76b1551f7f83339de4919b13cbd1ff3edf5d0bb0be90c336039923cf548f0381df83cb120d51a9c8cacf
+    joi: ^17.3.0
+  checksum: f90aab848abb130d35198e1e05d534152a1d6bf4bd267635ba1a1b1d7b5d489f2f3141bfd85de58a7e4c8d0939d4f732ff082ada26ace13683ec2d2fac2a864a
   languageName: node
   linkType: hard
 
@@ -3479,13 +3461,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hapi__podium@npm:*":
-  version: 3.4.1
-  resolution: "@types/hapi__podium@npm:3.4.1"
-  checksum: 6a2009c1a07ed057bd12cc7a14bb6b2b5916a9dba498ae647427c38b54734eb1b4cd0cb8fb2d93c847a041380af852e8cfb239b61730b4224cd69c90356d63f9
-  languageName: node
-  linkType: hard
-
 "@types/hapi__shot@npm:*":
   version: 4.1.1
   resolution: "@types/hapi__shot@npm:4.1.1"
@@ -3495,23 +3470,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hapi__vision@npm:^5.5.2":
-  version: 5.5.2
-  resolution: "@types/hapi__vision@npm:5.5.2"
-  dependencies:
-    "@types/hapi__hapi": "*"
-    handlebars: ^4.1
-  checksum: 7a328cca6e20836d8e5eb647b5c4476350fdf9f49a078d9957c065c7435d1fe2c1f509c763691a0473a13f370ea74dadfdbeb66d8f25ae0cc4e1c4a8af7f01a5
-  languageName: node
-  linkType: hard
-
-"@types/hapi__yar@npm:^9.2.1":
-  version: 9.2.2
-  resolution: "@types/hapi__yar@npm:9.2.2"
+"@types/hapi__yar@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "@types/hapi__yar@npm:10.1.0"
   dependencies:
     "@types/hapi__catbox": "*"
     "@types/hapi__hapi": "*"
-  checksum: a5341a73ba52462a7df08168160219782068042e252c27e7e2d8fd861049a3c901c67d883e96a455f756476c63fcaac71bf3bd6f544cf8c5ac2e903161ff4e59
+  checksum: 1e52eee65ff94742c4b139263dc34a4aa4dfb7796bed139fdd399dd046dee2e7fca1ed71cc202290777c5b0c254d705f324bc04b75e8d312d98ea00600c71d94
   languageName: node
   linkType: hard
 
@@ -3543,15 +3508,6 @@ __metadata:
     "@types/through": "*"
     rxjs: ^6.4.0
   checksum: 2db996acf8d9073a215c5f87797d08a50a86dd1921f4f7b45040aa225b62c522d7d67a37529329395c6e24f6f5e877ddf463f20686aad819d70c0afea6297a4a
-  languageName: node
-  linkType: hard
-
-"@types/ioredis@npm:*":
-  version: 4.22.0
-  resolution: "@types/ioredis@npm:4.22.0"
-  dependencies:
-    "@types/node": "*"
-  checksum: 367ddb76f1f96bfb3f3978bb0fef07de688452bc370b2af1f5036daf16f0b11a74864f3d7f9ceefc19ce5b5496a0b533428e9034ab91c40642db6d75e5ebdee1
   languageName: node
   linkType: hard
 
@@ -4652,7 +4608,6 @@ __metadata:
     "@testing-library/user-event": ^12.6.0
     "@types/dagre": ^0.7.44
     "@types/hapi": ^18.0.5
-    "@types/hapi__vision": ^5.5.2
     "@types/node": ^14.11.8
     "@types/react": ^16.9.52
     "@types/react-dom": ^16.9.8
@@ -4836,11 +4791,7 @@ __metadata:
     "@hapi/wreck": 17.0.0
     "@hapi/yar": ^10.1.1
     "@types/hapi": ^18.0.4
-    "@types/hapi__catbox-memory": ^4.1.2
-    "@types/hapi__catbox-redis": ^5.0.2
-    "@types/hapi__crumb": ^7.3.1
-    "@types/hapi__inert": ^5.2.1
-    "@types/hapi__yar": ^9.2.1
+    "@types/hapi__yar": ^10.1.0
     "@types/hoek": ^4.1.3
     "@types/nodemailer": ^6.4.0
     "@types/pino": ^6.3.6
@@ -9008,7 +8959,6 @@ __metadata:
     "@babel/runtime": ^7.11.2
     "@hapi/code": ^8.0.1
     "@hapi/lab": ^24.0.0
-    "@types/hapi__vision": ^5.5.2
     "@typescript-eslint/eslint-plugin": ^4.10.0
     "@typescript-eslint/parser": ^4.10.0
     babel-eslint: ^11.0.0-beta.2
@@ -12345,7 +12295,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"handlebars@npm:4.x.x, handlebars@npm:^4.1":
+"handlebars@npm:4.x.x":
   version: 4.7.6
   resolution: "handlebars@npm:4.7.6"
   dependencies:

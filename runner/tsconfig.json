@@ -10,7 +10,8 @@
       "server/*": ["src/server/*"],
     },
     "resolveJsonModule": true,
-    "lib": ["dom"]
+    "lib": ["dom"],
+    "skipLibCheck": true
   },
   "include": ["src", "package.json"],
 }

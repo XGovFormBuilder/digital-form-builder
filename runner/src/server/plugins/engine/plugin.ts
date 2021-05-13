@@ -1,7 +1,6 @@
 import path from "path";
 import { configure } from "nunjucks";
 import { redirectTo } from "./helpers";
-import { RelativeUrl } from "./feedback";
 import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 
@@ -72,11 +71,6 @@ export const plugin = {
   multiple: true,
   register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
-    /*
-     * This plugin cannot be run outside of the context of the https://github.com/XGovFormBuilder/digital-form-builder project.
-     * Ideally the engine encapsulates all the functionality required to run a form so work needs to be done to merge functionality
-     * from the builder project.
-     **/
     const forms = {};
     configs.forEach((config) => {
       forms[config.id] = new FormModel(config.configuration, {
