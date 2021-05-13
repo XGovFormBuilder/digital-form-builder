@@ -75,6 +75,7 @@ interface TextFieldBase {
     optionalText?: boolean;
     classes?: string;
     allow?: string;
+    autocomplete?: string;
   };
   schema: {
     max?: number;
@@ -264,6 +265,7 @@ export interface RadiosFieldComponent extends ListFieldBase {
 
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
+  options: ListFieldBase["options"] & { autocomplete?: string };
 }
 
 export type ComponentDef =

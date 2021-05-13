@@ -46,6 +46,10 @@
   "cancel": "Cancel",
   "close": "Close",
   "common": {
+    "autocomplete": {
+      "helpText": "Add the autocomplete attribute to this field. For example, 'on' or 'given-name'.",
+      "title": "Autocomplete"
+    },
     "classes": {
       "helpText": "Apply CSS classes to this field. For example, govuk-input-width-5",
       "title": "Classes"

@@ -42,6 +42,7 @@ export type ViewModel = {
   summaryHtml?: string;
   html?: any; // TODO
   attributes: {
+    autocomplete?: string;
     maxlength?: number;
     multiple?: string;
     accept?: string;
@@ -55,6 +56,7 @@ export type ViewModel = {
     legend?: Label;
   };
   children?: ComponentCollectionViewModel;
+  autocomplete?: string;
 };
 
 export type ComponentCollectionViewModel = {
