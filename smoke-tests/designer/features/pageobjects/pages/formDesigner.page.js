@@ -47,14 +47,28 @@ class FormDesignerPage extends Page {
     return chosenPage.section;
   }
 
-  get formPages() {
-    return browser.$$(".page");
+  /**
+   * Returns the create component link for a named page
+   * @param pageName
+   * @returns {any}
+   */
+  createComponent(pageName) {
+    const chosenPage = this.pages.find((page) =>
+      page.heading.getText().includes(pageName)
+    );
+    return chosenPage.createComponent;
   }
 
   get linkLine() {
     return $("polyline");
   }
 
+  /**
+   * Creates a link between two pages
+   * @param fromPage
+   * @param toPage
+   * @returns {Element}
+   */
   pagesLink(fromPage, toPage) {
     let pageLink = fromPage.replace(" ", "-") + "-" + toPage.replace(" ", "-");
     return browser.$(`[data-testid='${pageLink}']`);
@@ -96,7 +110,7 @@ class FormDesignerPage extends Page {
   }
 
   pageContainer(name) {
-    return this.formPages.find((el) => el.getText().includes(name));
+    return this.pages.find((el) => el.parent.getText().includes(name)).parent;
   }
 
   /**
@@ -111,7 +125,7 @@ class FormDesignerPage extends Page {
   }
 
   createComponentForPageName(name) {
-    return this.pageContainer(name).$("button=Create component");
+    return this.createComponent(name);
   }
 
   editPageForPageName(name) {
@@ -120,10 +134,6 @@ class FormDesignerPage extends Page {
 
   previewPageForPageName(name) {
     return this.pageContainer(name).$(".page a");
-  }
-
-  dropdownComponentForPage(name) {
-    return this.pageContainer(name).$(".dropdown");
   }
 
   addComponentToPageNumber(index) {

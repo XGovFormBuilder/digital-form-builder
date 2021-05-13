@@ -121,7 +121,7 @@ When("I try add {string} to the {string} without selecting a list", function (
   pageName
 ) {
   this.pageName = pageName;
-  formDesigner.createComponentForPageName(pageName).click();
+  formDesigner.createComponent(pageName).click();
   createComponent.selectComponentByName(componentName);
   createComponent.titleField.setValue(`${componentName} Component Test`);
   createComponent.saveBtn.click();
@@ -189,7 +189,7 @@ When(
   function (componentName, pageName) {
     this.componentName = componentName;
     this.pageName = pageName;
-    formDesigner.createComponentForPageName(pageName).click();
+    formDesigner.createComponent(pageName).click();
     createComponent.selectComponentByName(this.componentName);
     createComponent.completeCommonFields(
       FieldData[toCamelCase(this.componentName)],

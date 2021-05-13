@@ -28,7 +28,7 @@ Given(
 );
 
 When("I choose to create a component for the {string}", function (pageName) {
-  formDesigner.createComponentForPageName(pageName).click();
+  formDesigner.createComponent(pageName).click();
 });
 
 When("I select {string} component to add to the page", function (
@@ -168,7 +168,7 @@ When("I add a new Global list named {string}", function (listName) {
 When(
   "I create a {string} control for the {string}",
   (componentName, pageName) => {
-    formDesigner.createComponentForPageName(pageName).click();
+    formDesigner.createComponent(pageName).click();
     createComponent.selectComponentByName(componentName);
   }
 );
@@ -179,7 +179,7 @@ When("I add a {string} control for the {string}", function (
 ) {
   this.componentName = componentName;
   this.pageName = pageName;
-  formDesigner.createComponentForPageName(pageName).click();
+  formDesigner.createComponent(pageName).click();
   createComponent.selectComponentByName(this.componentName);
   createComponent.completeCommonFields(
     fieldData[toCamelCase(this.componentName)],
