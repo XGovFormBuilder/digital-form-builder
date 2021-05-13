@@ -4,12 +4,12 @@ import { setupServer } from "msw/node";
 
 const mockedFormConfigurations = [
   {
-    Key: "test",
+    Key: "Not-a-feedback-form",
     DisplayName: "Not a feedback form",
     feedbackForm: false,
   },
   {
-    Key: "UKPrecgQUv",
+    Key: "My-feedback-form",
     DisplayName: "My feedback form",
     feedbackForm: true,
   },
