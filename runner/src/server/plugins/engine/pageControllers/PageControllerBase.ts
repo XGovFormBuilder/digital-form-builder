@@ -45,8 +45,6 @@ export class PageControllerBase {
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
 
-  routeState: Record<string, number | boolean | string>;
-
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
@@ -59,7 +57,6 @@ export class PageControllerBase {
     this.title = pageDef.title;
     this.condition = pageDef.condition;
     this.repeatField = pageDef.repeatField;
-    this.routeState = {};
 
     // Resolve section
     this.section =
@@ -307,13 +304,20 @@ export class PageControllerBase {
   calculateRouteState(
     page,
     completeState,
+    finalPage,
+    promiseResolve,
     state: Record<string, number | boolean | string> = {}
   ) {
-    //Store our current routeState outside of our recursive method where it will be appended during the recursion
-    this.routeState = state;
+    //Check if we've found a route to where we've navigated to
+    if (finalPage === page.path) {
+      //We're either on the page we've navigated to or reached the end of a route
+      //Resolve our promise, passing in the calculated state
+      promiseResolve(state);
+      return;
+    }
 
     //From the page we passed in, iterate through the possible nextPages
-    page.pageDef.next.forEach((nextPage) => {
+    for (const nextPage of page.pageDef.next) {
       //Grab the condition required to nav to this nextPage
       const { condition } = nextPage;
 
@@ -323,10 +327,10 @@ export class PageControllerBase {
       );
 
       //Iterate the components on the current page
-      page.components.items.forEach((component) => {
+      for (const component of page.components.items) {
         if (!Object.keys(completeState).find((key) => key === component.name)) {
           //We haven't stored a value for this component yet - Probably the first page
-          return;
+          break;
         }
 
         //Get the most recent value the user entered from our state
@@ -339,10 +343,16 @@ export class PageControllerBase {
           );
 
           //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
-          this.calculateRouteState(nextPageDef, completeState, {
-            ...state,
-            [component.name]: completeState[component.name],
-          });
+          this.calculateRouteState(
+            nextPageDef,
+            completeState,
+            finalPage,
+            promiseResolve,
+            {
+              ...state,
+              [component.name]: completeState[component.name],
+            }
+          );
         } else {
           //We need to run our condition to see if this is the path we chose
 
@@ -356,19 +366,25 @@ export class PageControllerBase {
           });
 
           //We mustn't have taken this route
-          if (!conditionResult) return;
+          if (!conditionResult) break;
 
           //If we're here, this must be the route we took
           //Pass in just the initial value from the startPage
 
           //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
-          this.calculateRouteState(nextPageDef, completeState, {
-            ...state,
-            [component.name]: completeState[component.name],
-          });
+          this.calculateRouteState(
+            nextPageDef,
+            completeState,
+            finalPage,
+            promiseResolve,
+            {
+              ...state,
+              [component.name]: completeState[component.name],
+            }
+          );
         }
-      });
-    });
+      }
+    }
   }
 
   makeGetRouteHandler() {
@@ -408,22 +424,24 @@ export class PageControllerBase {
         : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
       this.setFeedbackDetails(viewModel, request);
 
-      //Grab the start page definition
-      const startPageDef = this.model.pages.find(
-        (page) => page.path === startPage
-      );
+      //Starting from the start page and through to this.page, calculate the route we took building up a "routeState" containing just the values we should have populated
+      //Once we've found the route back to the currently requested page we will resolve our calculated state
+      const routeState = await new Promise((resolve) => {
+        //Grab the start page definition
+        const startPageDef = this.model.pages.find(
+          (page) => page.path === startPage
+        );
+        this.calculateRouteState(startPageDef, state, this.path, resolve);
+      });
 
-      //Starting from the start page, calculate the route we took building up a "routeState" containing just the values for the route we took
-      //This recursive function will append to this.routeState
-      this.calculateRouteState(startPageDef, state);
-
+      //Filter our components based on their conditions using our calculated state
       viewModel.components = viewModel.components.filter((component) => {
         if (
           (component.model.content || component.type === "Details") &&
           component.model.condition
         ) {
           const condition = this.model.conditions[component.model.condition];
-          return condition.fn(this.routeState);
+          return condition.fn(routeState);
         }
         return true;
       });
@@ -433,7 +451,7 @@ export class PageControllerBase {
         if (content instanceof Array) {
           evaluatedComponent.model.content = content.filter((item) =>
             item.condition
-              ? this.model.conditions[item.condition].fn(state)
+              ? this.model.conditions[item.condition].fn(routeState)
               : true
           );
         }
@@ -443,7 +461,7 @@ export class PageControllerBase {
         if (items instanceof Array) {
           evaluatedComponent.model.items = items.filter((item) =>
             item.condition
-              ? this.model.conditions[item.condition].fn(state)
+              ? this.model.conditions[item.condition].fn(routeState)
               : true
           );
         }
