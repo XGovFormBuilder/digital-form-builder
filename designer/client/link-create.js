@@ -7,6 +7,7 @@ import classNames from "classnames";
 import ErrorSummary from "./error-summary";
 import { DataContext } from "./context";
 import { i18n } from "./i18n";
+import { addLink } from "./data/page";
 
 class LinkCreate extends React.Component {
   static contextType = DataContext;
@@ -23,8 +24,14 @@ class LinkCreate extends React.Component {
     const hasValidationErrors = this.validate();
     if (hasValidationErrors) return;
 
-    const copy = clone(data);
-    const updatedData = copy.addLink(from, to, selectedCondition);
+    const copy = { ...data };
+    const { error, ...updatedData } = addLink(
+      copy,
+      from,
+      to,
+      selectedCondition
+    );
+    error && console.error(error);
     const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };
@@ -43,7 +50,7 @@ class LinkCreate extends React.Component {
   };
 
   validate = () => {
-    const { from, to, selectedCondition } = this.state;
+    const { from, to } = this.state;
     let errors = {};
     if (!from) {
       errors.from = { href: "#link-source", children: "Enter from" };

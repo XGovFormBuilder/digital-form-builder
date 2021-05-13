@@ -35,6 +35,6 @@ applicable. To flag the change to QA assign **@XGovFormBuilder/qa** as one of th
 - [ ] My changes generate no new warnings
 - [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
-- [ ] I have rebased onto master and there are no code conflicts
+- [ ] I have rebased onto main and there are no code conflicts
 - [ ] I have checked deployments are working in all environments
 - [ ] I have updated the architecture diagrams as per Contribute.md

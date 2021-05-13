@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - '*'
-
 jobs:
   parse:
     runs-on: ubuntu-latest
@@ -25,6 +24,10 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - uses: octokit/request-action@v2.x
       with:
         route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
@@ -32,6 +35,6 @@ jobs:
         repo: ${{matrix.repo}}
         workflow_id: ${{matrix.workflow_id}}
         ref: ${{matrix.ref}}
-        inputs: '{ "sha": "${{github.sha}}", "tag": "${{needs.parse.outputs.tag}}" }'
+        inputs: '{ "sha": "${{github.sha}}", "tag": "${{needs.parse.outputs.tag}}", "branch": "${{steps.extract_branch.outputs.branch}}" }'
       env:
         GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
