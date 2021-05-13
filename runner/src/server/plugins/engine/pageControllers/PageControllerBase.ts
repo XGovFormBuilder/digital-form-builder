@@ -333,9 +333,6 @@ export class PageControllerBase {
           break;
         }
 
-        //Get the most recent value the user entered from our state
-        //const userInputValue = completeState[component.name];
-
         if (!condition) {
           //We don't have a condition so we just add this to our temp state
           const nextPageDef = this.model.pages.find(
