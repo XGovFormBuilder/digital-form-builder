@@ -26,7 +26,8 @@
     "jest:watch": "jest --watch",
     "audit": "npm audit --audit-level=high",
     "type-check": "tsc --noEmit",
-    "merge-coverage": "lcov-result-merger 'test-coverage/**/lcov.info' 'test-coverage/lcov.info'"
+    "merge-coverage": "lcov-result-merger 'test-coverage/**/lcov.info' 'test-coverage/lcov.info'",
+    "generate-docs": "typedoc src --tsconfig tsconfig.json --out ../docs/designer/typedoc --exclude '**/*+(index|.test|.jest).ts'"
   },
   "repository": {
     "type": "git",
