@@ -301,87 +301,36 @@ export class PageControllerBase {
     return request.yar.get("lang");
   }
 
-  calculateRouteState(
-    page,
-    completeState,
-    finalPage,
-    promiseResolve,
-    state: Record<string, number | boolean | string> = {}
-  ) {
-    //Check if we've found a route to where we've navigated to
-    if (finalPage === page.path) {
-      //We're either on the page we've navigated to or reached the end of a route
-      //Resolve our promise, passing in the calculated state
-      promiseResolve(state);
-      return;
-    }
+  calculateRelevantState(model: FormModel, state: FormSubmissionState) {
+    let relevantState: FormSubmissionState = { progress: [] };
+    //Start at our startPage
+    let nextPage = model.startPage;
 
-    //From the page we passed in, iterate through the possible nextPages
-    for (const nextPage of page.pageDef.next) {
-      //Grab the condition required to nav to this nextPage
-      const { condition } = nextPage;
+    //While the current page isn't null
+    while (nextPage != null) {
+      //Either get the current state or the current state of the section if this page belongs to a section
+      const currentState =
+        (nextPage.section ? state[nextPage.section.name] : state) ?? {};
+      let newValue = {};
 
-      //And get the definition for this nextPage - We may not need it but we should get it here anyway
-      const nextPageDef = this.model.pages.find(
-        (possibleNext) => possibleNext.path === nextPage.path
-      );
-
-      //Iterate the components on the current page
-      for (const component of page.components.items) {
-        if (!Object.keys(completeState).find((key) => key === component.name)) {
-          //We haven't stored a value for this component yet - Probably the first page
-          break;
-        }
-
-        if (!condition) {
-          //We don't have a condition so we just add this to our temp state
-          const nextPageDef = this.model.pages.find(
-            (possibleNext) => possibleNext.path === nextPage.path
-          );
-
-          //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
-          this.calculateRouteState(
-            nextPageDef,
-            completeState,
-            finalPage,
-            promiseResolve,
-            {
-              ...state,
-              [component.name]: completeState[component.name],
-            }
-          );
-        } else {
-          //We need to run our condition to see if this is the path we chose
-
-          //Resolve the actual condition function
-          const currentCondition = this.model.conditions[condition];
-
-          //Build a temporary state to run our condition function against, just containing the current user input
-          //Then eval it
-          const conditionResult = currentCondition.fn({
-            [component.name]: completeState[component.name],
-          });
-
-          //We mustn't have taken this route
-          if (!conditionResult) break;
-
-          //If we're here, this must be the route we took
-          //Pass in just the initial value from the startPage
-
-          //Recursively call this function again for our next page, passing in our current calculated route along with our correctly evaluated component value
-          this.calculateRouteState(
-            nextPageDef,
-            completeState,
-            finalPage,
-            promiseResolve,
-            {
-              ...state,
-              [component.name]: completeState[component.name],
-            }
-          );
-        }
+      //Iterate all components on this page and pull out the saved values from the state
+      for (const component of nextPage.components.items) {
+        newValue[component.name] = currentState[component.name];
       }
+
+      if (nextPage.section) {
+        newValue = { [nextPage.section.name]: newValue };
+      }
+
+      //Combine our stored values with the existing relevantState that we've been building up
+      relevantState = merge(relevantState, newValue);
+
+      //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
+      nextPage = nextPage.getNextPage(relevantState);
+      //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
     }
+
+    return relevantState;
   }
 
   makeGetRouteHandler() {
@@ -421,15 +370,8 @@ export class PageControllerBase {
         : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
       this.setFeedbackDetails(viewModel, request);
 
-      //Starting from the start page and through to this.page, calculate the route we took building up a "routeState" containing just the values we should have populated
-      //Once we've found the route back to the currently requested page we will resolve our calculated state
-      const routeState = await new Promise((resolve) => {
-        //Grab the start page definition
-        const startPageDef = this.model.pages.find(
-          (page) => page.path === startPage
-        );
-        this.calculateRouteState(startPageDef, state, this.path, resolve);
-      });
+      //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
+      let relevantState = this.calculateRelevantState(this.model, state);
 
       //Filter our components based on their conditions using our calculated state
       viewModel.components = viewModel.components.filter((component) => {
@@ -438,7 +380,7 @@ export class PageControllerBase {
           component.model.condition
         ) {
           const condition = this.model.conditions[component.model.condition];
-          return condition.fn(routeState);
+          return condition.fn(relevantState);
         }
         return true;
       });
@@ -448,7 +390,7 @@ export class PageControllerBase {
         if (content instanceof Array) {
           evaluatedComponent.model.content = content.filter((item) =>
             item.condition
-              ? this.model.conditions[item.condition].fn(routeState)
+              ? this.model.conditions[item.condition].fn(relevantState)
               : true
           );
         }
@@ -458,7 +400,7 @@ export class PageControllerBase {
         if (items instanceof Array) {
           evaluatedComponent.model.items = items.filter((item) =>
             item.condition
-              ? this.model.conditions[item.condition].fn(routeState)
+              ? this.model.conditions[item.condition].fn(relevantState)
               : true
           );
         }
