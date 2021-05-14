@@ -89,7 +89,7 @@ suite("Engine Page Controllers getPageController", () => {
       const formModel = new FormModel(formJson, {});
 
       //Selected page appears after convergence and contains a conditional field
-      //This is the page we're theoritically browsing to
+      //This is the page we're theoretically browsing to
       const testConditionsPage = formModel.pages.find(
         (page) => page.path === "/testconditions"
       );
