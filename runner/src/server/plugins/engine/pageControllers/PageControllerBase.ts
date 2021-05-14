@@ -52,9 +52,9 @@ export class PageControllerBase {
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
 
-    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
+    // @ts-ignore
     this.def = def;
-    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
+    // @ts-ignore
     this.name = def.name;
     this.model = model;
     this.pageDef = pageDef;
@@ -357,7 +357,7 @@ export class PageControllerBase {
         progress.length === 0 &&
         this.path !== `${startPage}`
       ) {
-        // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
+        // @ts-ignore
         return startPage!.startsWith("http")
           ? redirectTo(request, h, startPage!)
           : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);

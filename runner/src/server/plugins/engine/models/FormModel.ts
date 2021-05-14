@@ -8,6 +8,7 @@ import {
   FormDefinition,
   Page,
   ConditionRawData,
+  List,
 } from "@xgovformbuilder/model";
 
 import { FormSubmissionState } from "../types";
@@ -118,7 +119,7 @@ export class FormModel {
     // Build the entire model schema
     // from the individual pages/sections
     let schema = joi.object().required();
-    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
+    // @ts-ignore
     [undefined].concat(this.sections).forEach((section) => {
       const sectionPages = relevantPages.filter(
         (page) => page.section === section
@@ -232,7 +233,7 @@ export class FormModel {
     return { allowUnknown: true, presence: "required" };
   }
 
-  getList(name: string) {
-    return this.lists.find((list) => list.name === name);
+  getList(name: string): List | [] {
+    return this.lists.find((list) => list.name === name) ?? [];
   }
 }
