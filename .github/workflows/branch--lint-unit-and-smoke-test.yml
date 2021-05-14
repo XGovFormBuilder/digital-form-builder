@@ -4,6 +4,8 @@ on:
     branches:
       - master
       - main
+    paths-ignore:
+      - 'docs/**'
   workflow_dispatch:
 jobs:
   lint-and-test:
