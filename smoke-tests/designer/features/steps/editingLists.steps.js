@@ -36,7 +36,7 @@ Then("I am able to save the edited Global list", function () {
 });
 
 Then("the List is displayed when I Preview the page", function () {
-  formDesigner.previewPageForPageName(this.pageName).click();
+  formDesigner.previewFormPage(this.pageName).click();
   browser.switchWindow(`${this.pageName}`);
   expect(previewPage.pageTitle).toHaveText(this.pageName);
   expect(previewPage.listItems).toBeElementsArrayOfSize(this.numberOfListItems);
@@ -121,7 +121,7 @@ When("I try add {string} to the {string} without selecting a list", function (
   pageName
 ) {
   this.pageName = pageName;
-  formDesigner.createComponentForPageName(pageName).click();
+  formDesigner.createComponent(pageName).click();
   createComponent.selectComponentByName(componentName);
   createComponent.titleField.setValue(`${componentName} Component Test`);
   createComponent.saveBtn.click();
@@ -133,7 +133,9 @@ Then("the error summary is displayed", function () {
 
 Then(/^the "([^"]*)" is successfully created$/, function (componentName) {
   expect(
-    formDesigner[toCamelCase(componentName)](this.pageName)
+    formDesigner.pages.find((el) =>
+      el.parent.getText().includes(this.pageName)
+    )[toCamelCase(componentName)]
   ).toBeDisplayed();
 });
 
@@ -160,7 +162,7 @@ When(/^I "([^"]*)" to my list component$/, function (linkText) {
 Then(
   /^the help text for Radios is displayed when I Preview the page$/,
   function () {
-    formDesigner.previewPageForPageName(this.pageName).click();
+    formDesigner.previewFormPage(this.pageName).click();
     browser.switchWindow(`${this.pageName}`);
     expect(
       previewPage.hintText(FieldData[toCamelCase(this.componentName)].name)
@@ -176,7 +178,7 @@ Then(/^the help text is displayed for each radio item$/, function () {
 Then(
   /^the title for my Radio list is displayed when I Preview the page$/,
   function () {
-    formDesigner.previewPageForPageName(this.pageName).click();
+    formDesigner.previewFormPage(this.pageName).click();
     browser.switchWindow(`${this.pageName}`);
     expect(previewPage.componentTitle).toHaveText(
       FieldData[toCamelCase(this.componentName)].title
@@ -189,7 +191,7 @@ When(
   function (componentName, pageName) {
     this.componentName = componentName;
     this.pageName = pageName;
-    formDesigner.createComponentForPageName(pageName).click();
+    formDesigner.createComponent(pageName).click();
     createComponent.selectComponentByName(this.componentName);
     createComponent.completeCommonFields(
       FieldData[toCamelCase(this.componentName)],
@@ -204,7 +206,7 @@ When(
 Then(
   /^the title for my Radio list is not displayed when I Preview the page$/,
   function () {
-    formDesigner.previewPageForPageName(this.pageName).click();
+    formDesigner.previewFormPage(this.pageName).click();
     browser.switchWindow(`${this.pageName}`);
     expect(previewPage.componentTitle.isDisplayed()).toEqual(false);
   }
