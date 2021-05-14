@@ -98,7 +98,7 @@ export class FormModel {
       this.conditions[condition.name] = condition;
     });
 
-    // @ts-ignore - tsc reports an error here ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
+    // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
   }
