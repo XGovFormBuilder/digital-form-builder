@@ -3,6 +3,7 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
 import { CssClasses } from "../CssClasses";
 import { i18n } from "../../i18n";
+import { Autocomplete } from "../Autocomplete";
 
 type Props = {
   context: any; // TODO
@@ -127,6 +128,8 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
       </div>
 
       {children}
+
+      <Autocomplete />
 
       <CssClasses />
     </details>
