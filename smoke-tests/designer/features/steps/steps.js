@@ -98,15 +98,18 @@ When(
       .getComponentOnPage(pageName, toCamelCase(componentName))
       .click();
     createComponent.deleteLink.click();
+    browser.waitUntil(
+      () =>
+        formDesigner
+          .getComponentOnPage(pageName, toCamelCase(componentName))
+          .isDisplayed() === false
+    );
   }
 );
 
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
-    formDesigner
-      .getComponentOnPage(pageName, toCamelCase(componentName))
-      .waitForDisplayed({ reverse: true });
     chai.expect(
       formDesigner
         .getComponentOnPage(pageName, toCamelCase(componentName))
