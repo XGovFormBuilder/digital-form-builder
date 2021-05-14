@@ -13,7 +13,7 @@ import { PageController } from "server/plugins/engine/pageControllers";
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;
-const { describe, suite, test, it } = lab;
+const { describe, suite, test } = lab;
 
 suite("Engine Page Controllers getPageController", () => {
   describe("controllerNameFromPath", () => {
