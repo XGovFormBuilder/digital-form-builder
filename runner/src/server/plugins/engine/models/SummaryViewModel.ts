@@ -73,7 +73,10 @@ export class SummaryViewModel {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
+
+    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     this.declaration = model.def.declaration;
+    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     this.skipSummary = model.def.skipSummary;
     this._payApiKey = model.def.payApiKey;
     this.endPage = endPage;

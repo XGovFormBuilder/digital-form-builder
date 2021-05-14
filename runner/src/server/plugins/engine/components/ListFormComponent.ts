@@ -22,6 +22,7 @@ export class ListFormComponent extends FormComponent {
 
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
+    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     this.list = model.getList(def.list);
     this.listType = this.list.type ?? "string";
     this.options = def.options;

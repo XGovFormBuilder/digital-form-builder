@@ -13,6 +13,7 @@ import {
 import { FormSubmissionState } from "../types";
 import { PageControllerBase, getPageController } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
+import { ExecutableCondition } from "server/plugins/engine/models/types";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -44,9 +45,9 @@ export class FormModel {
   DefaultPageController: any = PageController;
   /** the id of the form used for the first url parameter eg localhost:3009/test */
   basePath: string;
-  conditions: FormDefinition["conditions"];
-  pages: PageControllerBase[];
-  startPage: FormDefinition["startPage"];
+  conditions: Record<string, ExecutableCondition> | {};
+  pages: any;
+  startPage: any;
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
@@ -97,6 +98,7 @@ export class FormModel {
       this.conditions[condition.name] = condition;
     });
 
+    // @ts-ignore - tsc reports an error here ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
   }
@@ -116,6 +118,7 @@ export class FormModel {
     // Build the entire model schema
     // from the individual pages/sections
     let schema = joi.object().required();
+    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     [undefined].concat(this.sections).forEach((section) => {
       const sectionPages = relevantPages.filter(
         (page) => page.section === section
@@ -230,6 +233,6 @@ export class FormModel {
   }
 
   getList(name: string) {
-    return this.lists.find((list) => list.name === name) ?? [];
+    return this.lists.find((list) => list.name === name);
   }
 }

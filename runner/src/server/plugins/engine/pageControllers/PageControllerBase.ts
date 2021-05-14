@@ -51,8 +51,10 @@ export class PageControllerBase {
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
     const { def } = model;
-    // Properties
+
+    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     this.def = def;
+    // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
     this.name = def.name;
     this.model = model;
     this.pageDef = pageDef;
@@ -355,9 +357,10 @@ export class PageControllerBase {
         progress.length === 0 &&
         this.path !== `${startPage}`
       ) {
-        return startPage.startsWith("http")
-          ? redirectTo(request, h, startPage)
-          : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
+        // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
+        return startPage!.startsWith("http")
+          ? redirectTo(request, h, startPage!)
+          : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
       }
 
       formData.lang = lang;
@@ -374,9 +377,9 @@ export class PageControllerBase {
       }
 
       const viewModel = this.getViewModel(formData, num);
-      viewModel.startPage = startPage.startsWith("http")
-        ? redirectTo(request, h, startPage)
-        : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
+      viewModel.startPage = startPage!.startsWith("http")
+        ? redirectTo(request, h, startPage!)
+        : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
       this.setFeedbackDetails(viewModel, request);
 
       /**

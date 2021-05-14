@@ -1,5 +1,6 @@
 import type { Fees } from "server/services/payService";
 import { FeedbackContextInfo } from "./../feedback";
+import { ConditionRawData } from "@xgovformbuilder/model";
 
 export type Fields = {
   key: string;
@@ -48,3 +49,7 @@ export const FEEDBACK_CONTEXT_ITEMS: Readonly<FeedbackContextItem[]> = [
     get: (contextInfo) => contextInfo.url,
   },
 ];
+
+export type ExecutableCondition = ConditionRawData & {
+  fn: (state: any) => boolean;
+};

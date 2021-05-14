@@ -1,5 +1,10 @@
 import { FormDefinition, Section } from "@xgovformbuilder/model";
 
+/**
+ * @param data - Data from DataContext
+ * @param section - The section to add
+ * @throws Error - if a section already exists with the same name
+ */
 export function addSection(
   data: FormDefinition,
   section: Section

@@ -54,5 +54,10 @@ export type FormDefinition = {
   name?: string | undefined;
   feedback?: Feedback;
   phaseBanner?: PhaseBanner;
-  fees: any;
+  fees: any[];
+  skipSummary?: boolean | undefined;
+  outputs: any[];
+  declaration?: string | undefined;
+  metadata?: Record<string, any>;
+  payApiKey?: string | undefined;
 };
