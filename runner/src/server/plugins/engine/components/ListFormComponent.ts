@@ -28,7 +28,7 @@ export class ListFormComponent extends FormComponent {
     this.options = def.options;
 
     /**
-     * Only allow a user to answer values that have been defined in the list
+     * Only allow a user to answer with values that have been defined in the list
      */
     let schema = joi[this.listType]()
       .allow(...this.values)
