@@ -1,8 +1,8 @@
+{% if sectionTitle and (sectionTitle !== pageTitle) %}
+  <h2 class="govuk-caption-xl govuk-!-margin-top-0" id="section-title">{{sectionTitle}}</h2>
+{% endif %}
 {% if showTitle %}
   <h1 class="govuk-heading-xl">
-    {% if sectionTitle and (sectionTitle !== pageTitle) %}
-      <span class="govuk-caption-xl">{{sectionTitle}}</span>
-    {% endif %}
     {{pageTitle}}
   </h1>
 {% endif %}
