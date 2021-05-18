@@ -122,6 +122,14 @@ class FormRunnerPage {
   get flashCardContinueBtn() {
     return browser.$(".flash-card .govuk-button");
   }
+
+  get paragraph() {
+    return browser.$(".govuk-body");
+  }
+
+  selectDropdownOption(selectedOption) {
+    return browser.$(".govuk-select").selectByVisibleText(selectedOption);
+  }
 }
 
 module.exports = new FormRunnerPage();
