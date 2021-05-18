@@ -30,7 +30,7 @@ describe("Title and section title", () => {
     const response = await server.inject(options);
     const $ = cheerio.load(response.payload);
 
-    expect($("#section-title")).to.be.null();
+    expect($("#section-title").html()).to.be.null();
     expect($("h1").text().trim()).to.startWith("Applicant 1");
   });
   it("does render the section title if it is not the same as the title", async () => {
