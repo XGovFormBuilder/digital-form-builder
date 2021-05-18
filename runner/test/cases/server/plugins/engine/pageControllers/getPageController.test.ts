@@ -111,7 +111,7 @@ suite("Engine Page Controllers getPageController", () => {
         applicantDetails: {
           numberOfApplicants: 1,
           phoneNumber: "1234567890",
-          emailAddress: "developer@test.com",
+          emailAddress: "developer@example.com",
         },
         applicantOneDetails: {
           firstName: "Martin",
