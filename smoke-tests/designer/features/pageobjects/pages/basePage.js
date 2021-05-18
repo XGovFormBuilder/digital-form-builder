@@ -74,4 +74,8 @@ module.exports = class Page {
   get errorSummaryHeading() {
     return browser.$(".govuk-error-summary__title");
   }
+
+  get backToPreviousPage() {
+    return browser.$("a.govuk-back-link");
+  }
 };

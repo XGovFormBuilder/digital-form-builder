@@ -45,3 +45,11 @@ Then("I see a paragraph containing {string}", function (paragraphText) {
 Then("I do not see a paragraph containing {string}", function (paragraphText) {
   expect(formRunner.paragraph).not.toExist();
 });
+
+Then("I go back to the start page", function () {
+  formRunner.backToPreviousPage.click();
+  formRunner.backToPreviousPage.click();
+  formRunner.backToPreviousPage.click();
+  formRunner.backToPreviousPage.click();
+  formRunner.backToPreviousPage.click();
+});

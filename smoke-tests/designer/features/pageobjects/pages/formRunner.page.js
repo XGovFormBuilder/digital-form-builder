@@ -1,4 +1,6 @@
-class FormRunnerPage {
+const Page = require("./basePage");
+
+class FormRunnerPage extends Page {
   open(path) {
     return browser.url(`${browser.config.runnerUrl}${path}/`);
   }
