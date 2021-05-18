@@ -301,7 +301,9 @@ export class PageControllerBase {
     return request.yar.get("lang");
   }
 
-  calculateRelevantState(model: FormModel, state: FormSubmissionState) {
+  getConditionEvaluationContext(model: FormModel, state: FormSubmissionState) {
+    //Note: This function does not support repeatFields right now
+
     let relevantState: FormSubmissionState = { progress: [] };
     //Start at our startPage
     let nextPage = model.startPage;
@@ -371,7 +373,7 @@ export class PageControllerBase {
       this.setFeedbackDetails(viewModel, request);
 
       //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
-      let relevantState = this.calculateRelevantState(this.model, state);
+      let relevantState = this.getConditionEvaluationContext(this.model, state);
 
       //Filter our components based on their conditions using our calculated state
       viewModel.components = viewModel.components.filter((component) => {
