@@ -1,14 +1,12 @@
 import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import cheerio from "cheerio";
-import FormData from "form-data";
 import createServer from "src/server";
 
-const { before, test, after, describe, it } = (exports.lab = Lab.script());
+const { before, after, describe, it } = (exports.lab = Lab.script());
 
 let server;
 
-// Create server before each test
 before(async () => {
   server = await createServer({
     formFileName: `titles.json`,
