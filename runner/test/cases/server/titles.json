@@ -1,0 +1,134 @@
+{
+  "startPage": "/applicant-one",
+  "pages": [
+    {
+      "path": "/applicant-one",
+      "title": "Applicant 1",
+      "section": "applicantOneDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-one-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-one-address",
+      "section": "applicantOneDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/contact-details",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "type": "TelephoneNumberField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "hint": "If you haven't got a UK phone number, include country code",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "name": "emailAddress",
+          "title": "Your email address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Applicant contact details"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+  ],
+  "sections": [
+    {
+      "name": "applicantDetails",
+      "title": "Applicant details"
+    },
+    {
+      "name": "applicantOneDetails",
+      "title": "Applicant 1"
+    }
+  ],
+  "phaseBanner": {},
+  "fees": [
+  ],
+  "payApiKey": "",
+  "outputs": [
+  ],
+  "version": 2,
+  "conditions": [
+  ]
+}

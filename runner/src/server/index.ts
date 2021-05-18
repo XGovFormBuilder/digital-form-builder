@@ -73,7 +73,7 @@ const serverOptions = (): ServerOptions => {
 
 async function createServer(routeConfig: RouteConfig) {
   const server = hapi.server(serverOptions());
-  const { formFileName, formFilePath } = routeConfig;
+  const { formFileName, formFilePath, options } = routeConfig;
 
   if (config.rateLimit) {
     await server.register(configureRateLimitPlugin(routeConfig));
@@ -126,7 +126,9 @@ async function createServer(routeConfig: RouteConfig) {
 
   await server.register(pluginLocale);
   await server.register(pluginViews);
-  await server.register(configureEnginePlugin(formFileName, formFilePath));
+  await server.register(
+    configureEnginePlugin(formFileName, formFilePath, options)
+  );
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
