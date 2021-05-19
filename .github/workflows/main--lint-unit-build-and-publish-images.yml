@@ -69,15 +69,13 @@ jobs:
     name: build-and-publish-${{matrix.app}}-image
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
 
-      # Generate previous and next version from git tags
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
       - name: Git Version
         id: generate-version
         uses: codacy/git-version@2.4.0
