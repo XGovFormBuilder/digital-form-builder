@@ -8,3 +8,4 @@ minor-version-bump-message: '(feature|minor):'
 patch-version-bump-message: '(fix|patch):'
 commit-message-incrementing: Enabled
 
+
