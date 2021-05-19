@@ -4685,7 +4685,7 @@ __metadata:
     jsdom: ^16.2.2
     jszip: ^3.6.0
     lcov-result-merger: ^3.1.0
-    lodash: ^4.17.20
+    lodash: ^4.17.21
     mini-css-extract-plugin: ^0.11.2
     moment-timezone: ^0.5.31
     msw: ^0.25.0
@@ -4858,7 +4858,7 @@ __metadata:
     joi: 17.2.1
     lab: 18.0.2
     lighthouse: ^7.1.0
-    lodash-es: ^4.17.15
+    lodash-es: ^4.17.21
     nanoid: ^3.1.12
     nodemailer: 6.4.18
     nodemon: ^2.0.6
@@ -15584,10 +15584,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.15":
-  version: 4.17.20
-  resolution: "lodash-es@npm:4.17.20"
-  checksum: b333b502ae1241244005bac3846c0744eed555f10d75a7b2628da67ff8d7a2695fa1213fa9f0ef36c99e719261eeb470e9d0573ead687ce9b14d0cdd47c46f15
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: ff0e7bb9595594d8b9c32fbe15912eaeefd83266f6e6872fbc498533cf8c2f039d12d37034b33965f1c04ef66ec1d6da83377c77e84e14c51a137901bb50865e
   languageName: node
   linkType: hard
 
@@ -15803,6 +15803,13 @@ fsevents@~2.1.2:
   version: 4.17.20
   resolution: "lodash@npm:4.17.20"
   checksum: c62101d2500c383b5f174a7e9e6fe8098149ddd6e9ccfa85f36d4789446195f5c4afd3cfba433026bcaf3da271256566b04a2bf2618e5a39f6e67f8c12030cb6
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: 4983720b9abca930a4a46f18db163d7dad8dd00dbed6db0cc7b499b33b717cce69f80928b27bbb1ff2cbd3b19d251ee90669a8b5ea466072ca81c2ebe91e7468
   languageName: node
   linkType: hard
 
