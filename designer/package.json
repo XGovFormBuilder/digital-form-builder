@@ -107,7 +107,7 @@
     "babel-plugin-transform-import-ignore": "^1.1.0",
     "cheerio": "^1.0.0-rc.5",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^6.1.1",
+    "copy-webpack-plugin": "^8.1.1",
     "cross-env": "^7.0.2",
     "css-loader": "^4.3.0",
     "dagre": "0.8.2",
