@@ -76,6 +76,7 @@ jobs:
         with:
           node-version: "12.x"
 
+      # Generate previous and next version from git tags
       - name: Git Version
         id: generate-version
         uses: codacy/git-version@2.4.0
@@ -83,13 +84,13 @@ jobs:
           release-branch: main
 
       - name: assign generated version to env
-        run: echo "GENERATED_VERSION=${{ steps.generate-version.outputs.version }}" >> $GITHUB_ENV
+        run: echo "GENERATED_VERSION=${{ steps.generate-version.outputs.version }}-rc" >> $GITHUB_ENV
 
       - run: echo "${{ steps.generate-version.outputs.previous-version }}"
 
       - name: Docker compose pull
         run: docker-compose pull
-      - name: Docker layer caching WEEK key
+      #- name: Docker layer caching WEEK key
         # WEEK key is used to rotate docker-layer-caching weekly to avoid the layers dangle issues
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
