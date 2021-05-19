@@ -46,10 +46,9 @@ Then("I do not see a paragraph containing {string}", function (paragraphText) {
   expect(formRunner.paragraph).not.toExist();
 });
 
-Then("I go back to the start page", function () {
-  formRunner.backToPreviousPage.click();
-  formRunner.backToPreviousPage.click();
-  formRunner.backToPreviousPage.click();
-  formRunner.backToPreviousPage.click();
-  formRunner.backToPreviousPage.click();
+Then("I go back to the {string} page", function (startPage) {
+  while (!formRunner.pageTitle.getText().includes(startPage)) {
+    formRunner.backToPreviousPage.click();
+  }
+  expect(formRunner.pageTitle).toHaveTextContaining(startPage);
 });

@@ -11,7 +11,7 @@ Feature: Get Condition Evaluation Context
 
   Scenario: Complete a form then return to the start and take alternate route and validate conditional component is not displayed
     Given I see a paragraph containing "There Is Someone Called Applicant"
-    And I go back to the start page
+    And I go back to the "Do you have a UK passport?" page
     And I complete the form as if I do not have a UK passport until I reach the TestConditions page
     When the TestConditions page is displayed
     Then I do not see a paragraph containing "There Is Someone Called Applicant"
