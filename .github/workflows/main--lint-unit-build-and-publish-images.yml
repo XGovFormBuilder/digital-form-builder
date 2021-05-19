@@ -84,7 +84,7 @@ jobs:
       - name: assign generated version to env
         run: echo "GENERATED_VERSION=${{ steps.generate-version.outputs.version }}-rc" >> $GITHUB_ENV
 
-      - run: echo ${{ steps.previous-version.outputs.previous-version }}
+      - run: echo "${{ steps.generate-version.outputs.previous-version }}"
 
       - name: Docker compose pull
         run: docker-compose pull
