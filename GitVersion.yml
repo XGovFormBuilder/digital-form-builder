@@ -1,11 +1,11 @@
 assembly-informational-format: '{InformationalVersion}'
-mode: Mainline
+mode: MainLine
 increment: Inherit
 continuous-delivery-fallback-tag: ci
 tag-prefix: '[vV]'
-major-version-bump-message: '(breaking|major):'
-minor-version-bump-message: '(feature|minor):'
-patch-version-bump-message: '(fix|patch):'
+major-version-bump-message: '^(breaking|major):'
+minor-version-bump-message: '^(feature|minor):'
+patch-version-bump-message: '^(fix|patch):'
 commit-message-incrementing: Enabled
 
 
