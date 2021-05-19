@@ -75,6 +75,9 @@ jobs:
           node-version: "12.x"
 
       # Generate previous and next version from git tags
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
       - name: Git Version
         id: generate-version
         uses: codacy/git-version@2.4.0
@@ -82,7 +85,7 @@ jobs:
           release-branch: main
 
       - name: assign generated version to env
-        run: echo "GENERATED_VERSION=${{ steps.generate-version.outputs.version }}-rc" >> $GITHUB_ENV
+        run: echo "GENERATED_VERSION=${{ steps.generate-version.outputs.version }}" >> $GITHUB_ENV
 
       - run: echo "${{ steps.generate-version.outputs.previous-version }}"
 
@@ -93,20 +96,20 @@ jobs:
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
         # so main branch cache can be shared with branches
-        run: echo "WEEK=$(date +%U)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: digital-form-builder-${{ env.WEEK }}-{hash}git
-          restore-keys: |
-            digital-form-builder-${{ env.WEEK }}
-      - name: Create .env for ${{ matrix.app }} workspace
-        run: |
-          touch ./${{ matrix.app }}/.env
-          echo LAST_TAG_GH=${{ env.GENERATED_VERSION }} >> ./${{ matrix.app }}/.env
-          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
-          cat ./${{ matrix.app }}/.env
+#        run: echo "WEEK=$(date +%U)" >> $GITHUB_ENV
+#      - name: Docker layer caching
+#        uses: satackey/action-docker-layer-caching@v0.0.11
+#        continue-on-error: true
+#        with:
+#          key: digital-form-builder-${{ env.WEEK }}-{hash}git
+#          restore-keys: |
+#            digital-form-builder-${{ env.WEEK }}
+#      - name: Create .env for ${{ matrix.app }} workspace
+#        run: |
+#          touch ./${{ matrix.app }}/.env
+#          echo LAST_TAG_GH=${{ env.GENERATED_VERSION }} >> ./${{ matrix.app }}/.env
+#          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
+#          cat ./${{ matrix.app }}/.env
 #      - name: Docker compose build ${{ matrix.app }}
 #        run: |
 #          LAST_TAG='${{ env.GENERATED_VERSION }}'
