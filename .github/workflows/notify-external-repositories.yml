@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - '*'
+    branches:
+      - 'chore/readjust-semver'
 jobs:
   parse:
     runs-on: ubuntu-latest
@@ -28,13 +30,14 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
-    - uses: octokit/request-action@v2.x
-      with:
-        route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-        owner: ${{matrix.owner}}
-        repo: ${{matrix.repo}}
-        workflow_id: ${{matrix.workflow_id}}
-        ref: ${{matrix.ref}}
-        inputs: '{ "sha": "${{github.sha}}", "tag": "${{needs.parse.outputs.tag}}", "branch": "${{steps.extract_branch.outputs.branch}}" }'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
+    - run: echo "${{ github.event.inputs.tag }}"
+#    - uses: octokit/request-action@v2.x
+#      with:
+#        route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
+#        owner: ${{matrix.owner}}
+#        repo: ${{matrix.repo}}
+#        workflow_id: ${{matrix.workflow_id}}
+#        ref: ${{matrix.ref}}
+#        inputs: '{ "sha": "${{github.sha}}", "tag": "${{needs.parse.outputs.tag}}", "branch": "${{steps.extract_branch.outputs.branch}}" }'
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
