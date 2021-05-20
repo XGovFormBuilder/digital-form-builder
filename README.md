@@ -80,6 +80,16 @@ If you have any problems, submit an issue or send a message via gitter.
 
 ### CI
 
+#### Versioning
+
+Versions are auto incremented based on commit messages and SemVer (Major.Minor.Patch). When merging, please prepend your merge commit with:
+- `major:` or `breaking:` example `breaking: removing feature X` 
+  - this will increment the MAJOR version. eg 1.1.0 to 2.0.0
+- `minor:` or `feature:` example `feature: new component`
+  - this will increment the MINOR version. eg 1.1.0 to 1.2.0
+- `patch:` or `fix:` example `fix: url bug` 
+  - this will increment the PATCH version eg 1.0.0 to 1.0.1. This will also happen by default.
+
 #### Build process
 
 1. Pushes to any branch will start the build process
