@@ -15,7 +15,7 @@ jobs:
       - id: set-matrix
         run: |
           JSON=$(cat .github/workflows/notifications.json)
-          TAG_REF=${{(contains(github.ref, 'refs/tags/') && github.ref) || ''}}
+          TAG_REF=${{(contains(GITHUB_REF, 'refs/tags/') && GITHUB_REF) || ''}}
           echo ::set-output name=matrix::${JSON//'%'/'%25'}
           echo ::set-output name=tag::${TAG_REF/refs\/tags\/}
       - name: echo parses
