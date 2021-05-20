@@ -304,7 +304,7 @@ export class PageControllerBase {
   getConditionEvaluationContext(model: FormModel, state: FormSubmissionState) {
     //Note: This function does not support repeatFields right now
 
-    let relevantState: FormSubmissionState = { progress: [] };
+    let relevantState: FormSubmissionState = {};
     //Start at our startPage
     let nextPage = model.startPage;
 
