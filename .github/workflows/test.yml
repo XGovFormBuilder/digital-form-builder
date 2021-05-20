@@ -1,0 +1,36 @@
+name: just for testing
+on:
+  push:
+    branches:
+      - "chore/readjust-semver"
+jobs:
+  calculate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      semVer: ${{ steps.gitversion.outputs.semVer }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          branches: main
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deploy development environment
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Deploy Development Environment
+          token: ${{ secrets.GHCR_PAT }}
+          inputs: '{ "app": "${{ matrix.app }}", "tag": "${{ env.SEMVER }}"}'
