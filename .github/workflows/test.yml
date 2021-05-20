@@ -25,12 +25,17 @@ jobs:
         with:
           useConfigFile: true
 
-  dispatch:
+  tag-branch:
     runs-on: ubuntu-latest
+    needs: [ calculate-version ]
+    env:
+      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
     steps:
-      - name: Trigger deploy development environment
-        uses: benc-uk/workflow-dispatch@v1
+      - name: Checkout repo
+        uses: actions/checkout@v2
         with:
-          workflow: Deploy Development Environment
           token: ${{ secrets.GHCR_PAT }}
-          inputs: '{ "app": "${{ matrix.app }}", "tag": "${{ env.SEMVER }}"}'
+      - name: Tag branch with run number
+        run: |
+          git tag ${{ env.SEMVER }}
+          git push --tags origin HEAD
