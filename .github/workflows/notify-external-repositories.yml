@@ -19,8 +19,6 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     needs: parse
-    env:
-      SEMVER: ${GITHUB_REF##*/}
     strategy:
       matrix: ${{fromJson(needs.parse.outputs.matrix)}}
     steps:
@@ -28,13 +26,8 @@ jobs:
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
-    - run: echo "${{ github.event.inputs.tag }}"
-    - run: echo TAG=${GITHUB_REF##*/} >> $GITHUB_ENV
-    - name: tag var
-      run: echo $TAG
-    - name: tag
-      run: echo $SEMVER
-
+    - run: echo SEMVER=${GITHUB_REF##*/} >> $GITHUB_ENV
+    - run: echo "${{ env.SEMVER }}"
 #    - uses: octokit/request-action@v2.x
 #      with:
 #        route: POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
