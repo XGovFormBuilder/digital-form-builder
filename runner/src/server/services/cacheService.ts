@@ -26,7 +26,7 @@ export class CacheService {
 
   async getState(request: HapiRequest): Promise<FormSubmissionState> {
     const cached = await this.cache.get(
-      this.Key(request.yar.id, request.query.visit)
+      this.Key(request.yar.id, request.params.id)
     );
     return cached || {};
   }
