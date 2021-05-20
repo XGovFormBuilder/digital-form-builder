@@ -3,15 +3,14 @@ Feature: Get Condition Evaluation Context
   I want to complete a form and return to a previous point and enter different input
   So that I can confirm the Condition Evaluation Context is correct
 
-  Background:
+  Scenario: Conditional text is displayed when fulfilling the condition
     Given I am at the start of the "get condition evaluation context" form
-    And I complete the form as if I have a UK passport until I reach the TestConditions page
-    Then the TestConditions page is displayed
-    And I see a paragraph containing "There Is Someone Called Applicant"
+    And I choose "Yes" for "Do you have a UK passport?"
+    When I progress to the TestConditions page
+    Then the text "There Is Someone Called Applicant" "is" displayed
 
-  Scenario: Complete a form then return to the start and take alternate route and validate conditional component is not displayed
-    Given I see a paragraph containing "There Is Someone Called Applicant"
+  Scenario: Conditional text is not displayed when changing the route you took through the form
+    Given I see the text "There Is Someone Called Applicant" on the TestConditions page
     And I go back to the "Do you have a UK passport?" page
-    And I complete the form as if I do not have a UK passport until I reach the TestConditions page
-    When the TestConditions page is displayed
-    Then I do not see a paragraph containing "There Is Someone Called Applicant"
+    When I choose "No" for "Do you have a UK passport?"
+    Then the text "There Is Someone Called Applicant" "is not" displayed
