@@ -18,8 +18,10 @@ jobs:
           TAG_REF=${{(contains(github.ref, 'refs/tags/') && github.ref) || ''}}
           echo ::set-output name=matrix::${JSON//'%'/'%25'}
           echo ::set-output name=tag::${TAG_REF/refs\/tags\/}
-      - run: echo '${{needs.parse.outputs.tag}}'
-      - run: echo $TAG_REF
+      - name: echo parses
+        run: |
+        echo '${{needs.parse.outputs.tag}}'
+        echo ${{github.ref}}
   notify:
     runs-on: ubuntu-latest
     needs: parse
