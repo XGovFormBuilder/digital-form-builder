@@ -79,7 +79,18 @@ If you have any problems, submit an issue or send a message via gitter.
 `$ yarn rebuild only node-sass` to rebuild just node-sass
 
 ### CI
+
 We're using GitHub actions to run our CI process. View a visualisation of the workflow [here](https://lucid.app/lucidchart/invitations/accept/inv_74e30928-4106-49da-b75c-7a6291b225f4).
+
+#### Versioning
+
+Versions are auto incremented based on commit messages and SemVer (Major.Minor.Patch). When merging, please prepend your merge commit with:
+- `major:` or `breaking:` example `breaking: removing feature X` 
+  - this will increment the MAJOR version. eg 1.1.0 to 2.0.0
+- `minor:` or `feature:` example `feature: new component`
+  - this will increment the MINOR version. eg 1.1.0 to 1.2.0
+- `patch:` or `fix:` example `fix: url bug` 
+  - this will increment the PATCH version eg 1.0.0 to 1.0.1. This will also happen by default.
 
 #### Development environment
 

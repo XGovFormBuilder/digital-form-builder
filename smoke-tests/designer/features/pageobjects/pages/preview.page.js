@@ -2,7 +2,7 @@ const Page = require("./basePage");
 
 class PreviewPage extends Page {
   get sectionTitle() {
-    return browser.$("h1 span");
+    return browser.$("#section-title");
   }
 
   get pageTitle() {

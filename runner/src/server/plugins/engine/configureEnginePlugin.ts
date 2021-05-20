@@ -28,9 +28,13 @@ type ConfigureEnginePlugin = (
 
 const relativeTo = __dirname;
 
+type EngineOptions = {
+  previewMode?: boolean;
+};
 export const configureEnginePlugin: ConfigureEnginePlugin = (
   formFileName,
-  formFilePath
+  formFilePath,
+  options?: EngineOptions
 ) => {
   let configs: FormConfiguration[];
 
@@ -47,7 +51,7 @@ export const configureEnginePlugin: ConfigureEnginePlugin = (
 
   const modelOptions = {
     relativeTo,
-    previewMode: config.previewMode,
+    previewMode: options?.previewMode ?? config.previewMode,
   };
 
   return {

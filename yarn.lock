@@ -4660,7 +4660,7 @@ __metadata:
     jsdom: ^16.2.2
     jszip: ^3.6.0
     lcov-result-merger: ^3.1.0
-    lodash: ^4.17.20
+    lodash: ^4.17.21
     mini-css-extract-plugin: ^0.11.2
     moment-timezone: ^0.5.31
     msw: ^0.25.0
@@ -4669,7 +4669,7 @@ __metadata:
     nunjucks: 3.2.1
     postcss: ^8.2.4
     postcss-loader: ^4.1.0
-    prismjs: 1.21.0
+    prismjs: 1.23.0
     react: 16.13.1
     react-dom: 16.13.1
     react-helmet: ^6.1.0
@@ -4831,7 +4831,7 @@ __metadata:
     joi: 17.2.1
     lab: 18.0.2
     lighthouse: ^7.1.0
-    lodash-es: ^4.17.15
+    lodash-es: ^4.17.21
     nanoid: ^3.1.12
     nodemailer: 6.4.18
     nodemon: ^2.0.6
@@ -15614,10 +15614,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.15":
-  version: 4.17.20
-  resolution: "lodash-es@npm:4.17.20"
-  checksum: b333b502ae1241244005bac3846c0744eed555f10d75a7b2628da67ff8d7a2695fa1213fa9f0ef36c99e719261eeb470e9d0573ead687ce9b14d0cdd47c46f15
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: ff0e7bb9595594d8b9c32fbe15912eaeefd83266f6e6872fbc498533cf8c2f039d12d37034b33965f1c04ef66ec1d6da83377c77e84e14c51a137901bb50865e
   languageName: node
   linkType: hard
 
@@ -18576,15 +18576,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prismjs@npm:1.21.0":
-  version: 1.21.0
-  resolution: "prismjs@npm:1.21.0"
+"prismjs@npm:1.23.0":
+  version: 1.23.0
+  resolution: "prismjs@npm:1.23.0"
   dependencies:
     clipboard: ^2.0.0
   dependenciesMeta:
     clipboard:
       optional: true
-  checksum: 27f763abe2b8e93ad18b64b0d08ce990cbe5c80244c80d121d9010b0a890f2ae12286d59155b9669a89007a1868e861a0ad62051a8f602a6da79b9cebe68b65a
+  checksum: 9d55785f1ea68e2a2e6b0a5ea1241811ed986182af76053ecf50245521414597d70b17dc5804a7ad961dfd459e6883a89ad3f86bb064ac3484e3ef24b7891f4f
   languageName: node
   linkType: hard
 

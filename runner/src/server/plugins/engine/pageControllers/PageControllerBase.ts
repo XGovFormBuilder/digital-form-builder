@@ -104,7 +104,7 @@ export class PageControllerBase {
   } {
     let showTitle = true;
     let pageTitle = this.title;
-    let sectionTitle = this.section && this.section.title;
+    let sectionTitle = this.section?.title;
     if (sectionTitle && iteration !== undefined) {
       sectionTitle = `${sectionTitle} ${iteration}`;
     }
@@ -123,10 +123,6 @@ export class PageControllerBase {
 
       if (pageTitle) {
         label.text = pageTitle;
-      }
-
-      if (this.section) {
-        label.html = `<span class="govuk-caption-xl">${sectionTitle}</span> ${label.text}`;
       }
 
       label.isPageHeading = true;
