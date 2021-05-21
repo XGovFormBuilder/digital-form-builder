@@ -1,3 +1,4 @@
+next-version: 3.1
 assembly-informational-format: '{InformationalVersion}'
 mode: Mainline
 increment: Inherit
@@ -7,6 +8,7 @@ major-version-bump-message: '(breaking|major):'
 minor-version-bump-message: '(feature|minor):'
 patch-version-bump-message: '(fix|patch):'
 commit-message-incrementing: Enabled
+
 branches:
   main:
     regex: ^main$
