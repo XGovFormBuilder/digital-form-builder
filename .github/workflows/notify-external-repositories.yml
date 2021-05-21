@@ -36,4 +36,4 @@ jobs:
         ref: ${{matrix.ref}}
         inputs: '{ "sha": "${{github.sha}}", "tag": "${{env.SEMVER}}", "branch": "${{steps.extract_branch.outputs.branch}}" }'
       env:
-        GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
+        GITHUB_TOKEN: ${{ secrets.PAT_GS }}
