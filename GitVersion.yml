@@ -11,3 +11,5 @@ branches:
   main:
     regex: ^master$|^main$
     tag: 'rc'
+ignore:
+  sha: [1f302fae75c91c3a848281307696dfaa24529c22]
