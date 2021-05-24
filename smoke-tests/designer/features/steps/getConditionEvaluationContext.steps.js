@@ -36,6 +36,15 @@ Then(/^the text "([^"]*)" "(is|is not)" displayed$/, function (
     : expect(formRunner.paragraph).not.toExist();
 });
 
+Then(/^the header "([^"]*)" "(is|is not)" displayed$/, function (
+  paragraphText,
+  textState
+) {
+  textState === "is"
+    ? expect(formRunner.pageTitle).toHaveText(paragraphText)
+    : expect(formRunner.pageTitle).not.toExist();
+});
+
 Given(/^I see the text "([^"]*)" on the TestConditions page$/, function (
   pageText
 ) {

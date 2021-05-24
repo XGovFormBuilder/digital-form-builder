@@ -529,7 +529,15 @@ export class PageControllerBase {
         update,
         !!this.repeatField
       );
-      return this.proceed(request, h, savedState);
+
+      //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
+      //This is required to ensure we don't navigate to an incorrect page based on stale state values
+      let relevantState = this.getConditionEvaluationContext(
+        this.model,
+        savedState
+      );
+
+      return this.proceed(request, h, relevantState);
     };
   }
 
