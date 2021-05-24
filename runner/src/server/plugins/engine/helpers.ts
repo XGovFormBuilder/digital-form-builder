@@ -2,9 +2,8 @@ import { RelativeUrl } from "./feedback";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 
 export const feedbackReturnInfoKey = "f_t";
-export const visitIdentifierKey = "visit";
 
-const paramsToCopy = [feedbackReturnInfoKey, visitIdentifierKey];
+const paramsToCopy = [feedbackReturnInfoKey];
 
 export function proceed(
   request: HapiRequest,
