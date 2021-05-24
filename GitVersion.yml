@@ -1,4 +1,4 @@
-next-version: 3.0
+next-version: 3.1
 assembly-informational-format: '{InformationalVersion}'
 mode: Mainline
 increment: Inherit
@@ -8,7 +8,12 @@ major-version-bump-message: '(breaking|major):'
 minor-version-bump-message: '(feature|minor):'
 patch-version-bump-message: '(fix|patch):'
 commit-message-incrementing: Enabled
+
 branches:
   main:
-    regex: ^master$|^main$
+    regex: ^main$
     tag: 'rc'
+ignore:
+  sha: [1f302fae75c91c3a848281307696dfaa24529c22]
+  commits-before: 2021-05-20
+

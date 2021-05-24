@@ -5,11 +5,9 @@ import { FormConfiguration } from "@xgovformbuilder/model";
 import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
 
 import { FormModel } from "./models";
-import { nanoid } from "nanoid";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
-import { visitIdentifierKey } from "./helpers";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -41,21 +39,6 @@ function getStartPageRedirect(
   }
 
   return startPageRedirect;
-}
-
-function redirectWithVisitParameter(
-  request: HapiRequest,
-  h: HapiResponseToolkit
-) {
-  const visitId = request.query[visitIdentifierKey];
-
-  if (!visitId) {
-    const params = Object.assign({}, request.query);
-    params[visitIdentifierKey] = nanoid(10);
-    return redirectTo(request, h, request.url.pathname, params);
-  }
-
-  return undefined;
 }
 
 type PluginOptions = {
@@ -147,20 +130,16 @@ export const plugin = {
       method: "get",
       path: "/",
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        function handle() {
-          const keys = Object.keys(forms);
-          let id = "";
-          if (keys.length === 1) {
-            id = keys[0];
-          }
-          const model = forms[id];
-          if (model) {
-            return getStartPageRedirect(request, h, id, model);
-          }
-          throw Boom.notFound("No default form found");
+        const keys = Object.keys(forms);
+        let id = "";
+        if (keys.length === 1) {
+          id = keys[0];
         }
-
-        return redirectWithVisitParameter(request, h) || handle();
+        const model = forms[id];
+        if (model) {
+          return getStartPageRedirect(request, h, id, model);
+        }
+        throw Boom.notFound("No default form found");
       },
     });
 
@@ -168,16 +147,12 @@ export const plugin = {
       method: "get",
       path: "/{id}",
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        function handle() {
-          const { id } = request.params;
-          const model = forms[id];
-          if (model) {
-            return getStartPageRedirect(request, h, id, model);
-          }
-          throw Boom.notFound("No form found for id");
+        const { id } = request.params;
+        const model = forms[id];
+        if (model) {
+          return getStartPageRedirect(request, h, id, model);
         }
-
-        return redirectWithVisitParameter(request, h) || handle();
+        throw Boom.notFound("No form found for id");
       },
     });
 
@@ -185,25 +160,18 @@ export const plugin = {
       method: "get",
       path: "/{id}/{path*}",
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        function handle() {
-          const { path, id } = request.params;
-          const model = forms[id];
-
-          if (model) {
-            const page = model.pages.find(
-              (page) => normalisePath(page.path) === normalisePath(path)
-            );
-            if (page) {
-              return page.makeGetRouteHandler()(request, h);
-            }
-            if (normalisePath(path) === "") {
-              return getStartPageRedirect(request, h, id, model);
-            }
-          }
-          throw Boom.notFound("No form or page found");
+        const { path, id } = request.params;
+        const model = forms[id];
+        const page = model?.pages.find(
+          (page) => normalisePath(page.path) === normalisePath(path)
+        );
+        if (page) {
+          return page.makeGetRouteHandler()(request, h);
         }
-
-        return redirectWithVisitParameter(request, h) || handle();
+        if (normalisePath(path) === "") {
+          return getStartPageRedirect(request, h, id, model);
+        }
+        throw Boom.notFound("No form or page found");
       },
     });
 
