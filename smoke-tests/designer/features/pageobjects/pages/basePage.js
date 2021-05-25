@@ -76,6 +76,6 @@ module.exports = class Page {
   }
 
   get backToPreviousPage() {
-    return browser.$("a.govuk-back-link");
+    return browser.$("=Back");
   }
 };
