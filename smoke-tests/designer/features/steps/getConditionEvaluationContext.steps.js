@@ -72,6 +72,7 @@ Given(/^I see the text "([^"]*)" on the TestConditions page$/, function (
 When("I go back to the {string} page", function (startPage) {
   while (!formRunner.pageTitle.getText().includes(startPage)) {
     console.log("Page Heading is: " + formRunner.pageTitle.getText());
+    browser.pause(2500);
     formRunner.backToPreviousPage.click();
   }
   expect(formRunner.pageTitle).toHaveTextContaining(startPage);
