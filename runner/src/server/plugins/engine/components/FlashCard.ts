@@ -1,25 +1,28 @@
 import { FormData, FormSubmissionErrors } from "../types";
 import { ComponentBase } from "./ComponentBase";
+import { Item, List } from "@xgovformbuilder/model";
 
 export class FlashCard extends ComponentBase {
+  list: List;
+  get items(): Item[] {
+    return this.list?.items ?? [];
+  }
+
+  constructor(def, model) {
+    super(def, model);
+    this.list = model.getList(def.list);
+  }
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    // @ts-ignore
-    const { values } = this;
+    const { items } = this;
     const viewModel = super.getViewModel(formData, errors);
 
-    viewModel.content = values?.items.map((item) => {
-      const contentItem: { title: string; text: string; condition?: any } = {
-        title: item.label,
-        text: item.hint || "",
+    viewModel.content = items.map(({ text, description, condition }) => {
+      return {
+        title: text,
+        text: description || "",
+        condition,
       };
-
-      if (item.condition) {
-        contentItem.condition = item.condition;
-      }
-
-      return contentItem;
     });
-
     return viewModel;
   }
 }

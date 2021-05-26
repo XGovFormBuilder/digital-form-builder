@@ -221,7 +221,7 @@ export class PageControllerBase {
     const nextPage = this.getNextPage(state);
     const query = { num: 0 };
     let queryString = "";
-    if (nextPage.repeatField) {
+    if (nextPage?.repeatField) {
       const requiredCount = reach(state, nextPage.repeatField);
       const otherRepeatPagesInSection = this.model.pages.filter(
         (page) => page.section === this.section && page.repeatField
