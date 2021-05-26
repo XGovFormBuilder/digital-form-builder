@@ -52,13 +52,13 @@
       ],
       "next": [
         {
-          "path": "/applicant-one"
+          "path": "/applicant-one-name"
         }
       ],
       "title": "How many applicants are there?"
     },
     {
-      "path": "/applicant-one",
+      "path": "/applicant-one-name",
       "title": "Applicant 1",
       "section": "applicantOneDetails",
       "components": [
