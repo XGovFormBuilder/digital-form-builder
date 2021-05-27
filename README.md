@@ -80,7 +80,7 @@ If you have any problems, submit an issue or send a message via gitter.
 
 ### CI
 
-We're using GitHub actions to run our CI process. View a visualisation of the workflow [here](https://lucid.app/lucidchart/invitations/accept/inv_74e30928-4106-49da-b75c-7a6291b225f4).
+We're using GitHub actions to run our CI process. View [a visualisation of the workflow here](https://lucid.app/lucidchart/invitations/accept/inv_74e30928-4106-49da-b75c-7a6291b225f4).
 
 #### Versioning
 
