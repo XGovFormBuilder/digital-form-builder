@@ -1,10 +1,5 @@
-import config from "../config";
 import { nanoid } from "nanoid";
-import {
-  decodeFeedbackContextInfo,
-  redirectTo,
-  nonRelativeRedirectUrl,
-} from "./engine";
+import { decodeFeedbackContextInfo, redirectTo } from "./engine";
 
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
@@ -196,7 +191,7 @@ const applicationStatus = {
             reference,
             meta.description,
             meta.payApiKey,
-            nonRelativeRedirectUrl(request, config.payReturnUrl)
+            new URL(`${request.params.id}/status`, request.url.host).toString()
           );
           await cacheService.mergeState(request, {
             pay: {
