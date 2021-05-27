@@ -153,19 +153,21 @@ export class SummaryPageController extends PageController {
         !summaryViewModel.fees ||
         (summaryViewModel.fees.details ?? []).length === 0
       ) {
-        return redirectTo(request, h, `${request.params.id}/status`);
+        return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
       // user must pay for service
       const paymentReference = `FCO-${nanoid(10)}`;
       const description = payService.descriptionFromFees(summaryViewModel.fees);
-
+      const url = new URL(
+        `http:${request.headers.origin}/${request.params.id}/status`
+      ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees.total,
         paymentReference,
         description,
         summaryViewModel.payApiKey || "",
-        new URL(`${request.params.id}/status`, request.url.host).toString()
+        url
       );
 
       request.yar.set("basePath", model.basePath);
