@@ -160,7 +160,7 @@ export class SummaryPageController extends PageController {
       const paymentReference = `FCO-${nanoid(10)}`;
       const description = payService.descriptionFromFees(summaryViewModel.fees);
       const url = new URL(
-        `http:${request.headers.origin}/${request.params.id}/status`
+        `${request.headers.origin}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees.total,
