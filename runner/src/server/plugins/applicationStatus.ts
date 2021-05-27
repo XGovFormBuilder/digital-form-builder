@@ -39,7 +39,7 @@ const applicationStatus = {
     register: (server) => {
       server.route({
         method: "get",
-        path: "/status",
+        path: "/{id}/status",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const {
             notifyService,
@@ -47,13 +47,14 @@ const applicationStatus = {
             webhookService,
             cacheService,
           } = request.services([]);
+          const params = request.query;
+
           const {
             pay,
             reference,
             outputs,
             webhookData,
           } = await cacheService.getState(request);
-          const params = request.query;
           let newReference;
           let payState;
           let userCouldntPay;
@@ -182,7 +183,7 @@ const applicationStatus = {
       });
       server.route({
         method: "post",
-        path: "/status",
+        path: "/{id}/status",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const { payService, cacheService } = request.services([]);
           const { pay } = await cacheService.getState(request);
