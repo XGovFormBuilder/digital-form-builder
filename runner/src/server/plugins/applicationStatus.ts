@@ -187,7 +187,7 @@ const applicationStatus = {
           // TODO:- let payService handle nanoid(10)
           const reference = `${nanoid(10)}`;
           const url = new URL(
-            `http:${request.headers.origin}/${request.params.id}/status`
+            `${request.headers.origin}/${request.params.id}/status`
           ).toString();
           const res = await payService.payRequest(
             meta.amount,
