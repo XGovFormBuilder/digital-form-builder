@@ -1,22 +1,14 @@
 import { nanoid } from "nanoid";
 
-import config from "server/config";
 import { SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
-import {
-  redirectTo,
-  redirectUrl,
-  nonRelativeRedirectUrl,
-  feedbackReturnInfoKey,
-} from "../helpers";
+import { redirectTo, redirectUrl, feedbackReturnInfoKey } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {
   RelativeUrl,
   FeedbackContextInfo,
   decodeFeedbackContextInfo,
 } from "../feedback";
-
-const { payReturnUrl } = config;
 
 export class SummaryPageController extends PageController {
   /**
@@ -186,18 +178,21 @@ export class SummaryPageController extends PageController {
         !summaryViewModel.fees ||
         (summaryViewModel.fees.details ?? []).length === 0
       ) {
-        return redirectTo(request, h, "/status");
+        return redirectTo(request, h, `/${request.params.id}/status`);
       }
 
       // user must pay for service
       const paymentReference = `FCO-${nanoid(10)}`;
       const description = payService.descriptionFromFees(summaryViewModel.fees);
+      const url = new URL(
+        `${request.headers.origin}/${request.params.id}/status`
+      ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees.total,
         paymentReference,
         description,
         summaryViewModel.payApiKey || "",
-        nonRelativeRedirectUrl(request, payReturnUrl)
+        url
       );
 
       request.yar.set("basePath", model.basePath);

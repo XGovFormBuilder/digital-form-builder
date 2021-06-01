@@ -1,10 +1,5 @@
-import config from "../config";
 import { nanoid } from "nanoid";
-import {
-  decodeFeedbackContextInfo,
-  redirectTo,
-  nonRelativeRedirectUrl,
-} from "./engine";
+import { decodeFeedbackContextInfo, redirectTo } from "./engine";
 
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
@@ -39,7 +34,7 @@ const applicationStatus = {
     register: (server) => {
       server.route({
         method: "get",
-        path: "/status",
+        path: "/{id}/status",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const {
             notifyService,
@@ -47,13 +42,14 @@ const applicationStatus = {
             webhookService,
             cacheService,
           } = request.services([]);
+          const params = request.query;
+
           const {
             pay,
             reference,
             outputs,
             webhookData,
           } = await cacheService.getState(request);
-          const params = request.query;
           let newReference;
           let payState;
           let userCouldntPay;
@@ -181,7 +177,7 @@ const applicationStatus = {
       });
       server.route({
         method: "post",
-        path: "/status",
+        path: "/{id}/status",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const { payService, cacheService } = request.services([]);
           const { pay } = await cacheService.getState(request);
@@ -189,12 +185,15 @@ const applicationStatus = {
           meta.attempts++;
           // TODO:- let payService handle nanoid(10)
           const reference = `${nanoid(10)}`;
+          const url = new URL(
+            `${request.headers.origin}/${request.params.id}/status`
+          ).toString();
           const res = await payService.payRequest(
             meta.amount,
             reference,
             meta.description,
             meta.payApiKey,
-            nonRelativeRedirectUrl(request, config.payReturnUrl)
+            url
           );
           await cacheService.mergeState(request, {
             pay: {

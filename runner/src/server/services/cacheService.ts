@@ -28,9 +28,7 @@ export class CacheService {
   }
 
   async getState(request: HapiRequest): Promise<FormSubmissionState> {
-    const cached = await this.cache.get(
-      this.Key(request.yar.id, request.params.id)
-    );
+    const cached = await this.cache.get(this.Key(request));
     return cached || {};
   }
 
@@ -40,7 +38,7 @@ export class CacheService {
     nullOverride = true,
     arrayMerge = false
   ) {
-    const key = this.Key(request.yar.id, request.params.id);
+    const key = this.Key(request);
     const state = await this.getState(request);
     hoek.merge(state, value, nullOverride, arrayMerge);
     await this.cache.set(key, state, sessionTimeout);
@@ -48,8 +46,8 @@ export class CacheService {
   }
 
   async clearState(request: HapiRequest) {
-    if (request.yar && request.yar.id) {
-      this.cache.drop(this.Key(request.yar.id, request.params.id));
+    if (request.yar?.id) {
+      this.cache.drop(this.Key(request));
     }
   }
 
@@ -57,13 +55,12 @@ export class CacheService {
    * The key used to store user session data against.
    * If there are multiple forms on the same runner instance, for example `form-a` and `form-a-feedback` this will prevent CacheService from clearing data from `form-a` if a user gave feedback before they finished `form-a`
    *
-   * @param sessionId - provided by @hapi/yar
-   * @param formId - this is the id of the form the server was initiated with
+   * @param request - hapi request object
    */
-  Key(sessionId: string, formId: string) {
+  Key(request: HapiRequest) {
     return {
       segment: partition,
-      id: `${sessionId}:${formId}`,
+      id: `${request.yar.id}:${request.params.id}`,
     };
   }
 }
