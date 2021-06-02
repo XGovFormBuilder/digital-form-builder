@@ -13,6 +13,7 @@ import { DataContext } from "./context";
 import { addLink, findPage } from "./data";
 import { addPage } from "./data/page/addPage";
 import randomId from "./randomId";
+const pino = require("pino")();
 
 class PageCreate extends React.Component {
   static contextType = DataContext;
@@ -67,7 +68,7 @@ class PageCreate extends React.Component {
       await save(copy);
       this.props.onCreate({ value });
     } catch (err) {
-      console.error(err);
+      pino.error(err);
     }
   };
 

@@ -18,6 +18,7 @@ import {
 import { validateNotEmpty, hasValidationErrors } from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
+const pino = require("pino")();
 
 type State = {
   outputType: OutputType;
@@ -110,7 +111,7 @@ class OutputEdit extends Component<Props, State> {
         this.props.onEdit({ data });
       })
       .catch((err: Error) => {
-        console.error(err);
+        pino.error(err);
       });
   };
 
@@ -199,7 +200,7 @@ class OutputEdit extends Component<Props, State> {
         this.props.onEdit({ data });
       })
       .catch((err: Error) => {
-        console.error(err);
+        pino.error(err);
       });
   };
 

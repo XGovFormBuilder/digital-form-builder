@@ -12,6 +12,7 @@ import { Actions } from "../../reducers/component/types";
 import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
 import { addComponent } from "../../data";
+const pino = require("pino")();
 
 function useComponentCreate(props) {
   const { data, save } = useContext(DataContext);
@@ -31,7 +32,7 @@ function useComponentCreate(props) {
       handleSubmit()
         .then()
         .catch((err) => {
-          console.error(err);
+          pino.error(err);
         });
     }
   }, [hasValidated, hasErrors]);

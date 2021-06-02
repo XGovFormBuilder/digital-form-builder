@@ -1,3 +1,4 @@
+const pino = require("pino")();
 export function fetchConfigurations() {
   return window
     .fetch("/api/configurations", {
@@ -22,7 +23,7 @@ export async function loadConfigurations() {
       return Object.values(data) || [];
     })
     .catch((error) => {
-      console.error(error);
+      pino.error(error);
       return [];
     });
 }

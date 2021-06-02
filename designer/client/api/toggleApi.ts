@@ -1,3 +1,4 @@
+const pino = require("pino")();
 export class FeatureToggleApi {
   async fetch() {
     try {
@@ -8,7 +9,7 @@ export class FeatureToggleApi {
         return [];
       }
     } catch (e) {
-      console.error(e);
+      pino.error(e);
       return [];
     }
   }

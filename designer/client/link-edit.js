@@ -6,6 +6,7 @@ import { i18n } from "./i18n";
 import { DataContext } from "./context";
 import { findPage } from "./data";
 import { updateLink } from "./data/page";
+const pino = require("pino")();
 
 class LinkEdit extends React.Component {
   static contextType = DataContext;
@@ -39,7 +40,7 @@ class LinkEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit();
     } catch (err) {
-      console.error(err);
+      pino.error(err);
     }
   };
 
@@ -66,7 +67,7 @@ class LinkEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        console.error(err);
+        pino.error(err);
       });
   };
 

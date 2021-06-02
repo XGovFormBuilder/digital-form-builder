@@ -12,6 +12,7 @@ declare module "@hapi/hapi" {
   // props from plugins which doesn't export @types
   interface Request {
     services: Services; // plugin schmervice
+    logger: any;
   }
 
   interface Response {}

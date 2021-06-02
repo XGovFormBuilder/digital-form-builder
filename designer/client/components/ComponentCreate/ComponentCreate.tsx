@@ -20,6 +20,7 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 
 import "./ComponentCreate.scss";
 import { addComponent } from "../../data/component";
+const pino = require("pino")();
 function useComponentCreate(props) {
   const [renderTypeEdit, setRenderTypeEdit] = useState<boolean>(false);
   const { data, save } = useContext(DataContext);
@@ -60,7 +61,7 @@ function useComponentCreate(props) {
       handleSubmit()
         .then()
         .catch((err) => {
-          console.error(err);
+          pino.error(err);
         });
     }
   }, [hasValidated, hasErrors]);

@@ -5,6 +5,7 @@ import classNames from "classnames";
 
 import { isEmpty } from "./helpers";
 import { DataContext } from "./context";
+const pino = require("pino")();
 
 function headDuplicate(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -132,7 +133,7 @@ class FeeItems extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        console.error(err);
+        pino.error(err);
       });
   };
 

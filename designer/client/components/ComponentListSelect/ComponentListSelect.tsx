@@ -13,6 +13,7 @@ import classNames from "classnames";
 import { ListComponentsDef } from "@xgovformbuilder/model";
 import { findList } from "../../data";
 import { Actions as ComponentActions } from "./../../reducers/component/types";
+const pino = require("pino")();
 export function ComponentListSelect() {
   const { data } = useContext(DataContext);
   const { state: listsEditorState, dispatch: listsEditorDispatch } = useContext(
@@ -43,7 +44,7 @@ export function ComponentListSelect() {
         payload: foundList,
       });
     } catch (e) {
-      console.error(e);
+      pino.error(e);
     }
   }, [data.lists, list]);
 
