@@ -83,7 +83,7 @@ export class FormDetails extends Component<Props, State> {
         onCreate(saved);
       }
     } catch (err) {
-      pino.log("error", err);
+      pino.error(err);
     }
   };
 

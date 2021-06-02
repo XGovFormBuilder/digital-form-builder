@@ -13,7 +13,7 @@ export function migrate(form) {
     });
     return migratedJson;
   } catch (e) {
-    pino.log("error", "failed to migrate json");
+    pino.error("failed to migrate json");
   }
 }
 

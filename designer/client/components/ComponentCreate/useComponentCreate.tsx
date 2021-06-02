@@ -32,7 +32,7 @@ function useComponentCreate(props) {
       handleSubmit()
         .then()
         .catch((err) => {
-          pino.log("error", err);
+          pino.error(err);
         });
     }
   }, [hasValidated, hasErrors]);

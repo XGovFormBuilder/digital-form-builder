@@ -23,7 +23,7 @@ export async function loadConfigurations() {
       return Object.values(data) || [];
     })
     .catch((error) => {
-      pino.log("error", error);
+      pino.error(error);
       return [];
     });
 }

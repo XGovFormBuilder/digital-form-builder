@@ -54,7 +54,7 @@ export const putFormWithId: ServerRoute = {
         });
 
         if (error) {
-          request.server.log(
+          request.logger.error(
             ["error", `/api/${id}/data`],
             [error, request.payload]
           );
