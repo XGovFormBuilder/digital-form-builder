@@ -41,6 +41,7 @@ declare module "@hapi/hapi" {
       getDefaultLocale(): string;
       getLocales(): string[];
     };
+    logger: any;
   }
 
   interface Response {}

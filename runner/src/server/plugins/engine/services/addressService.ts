@@ -1,4 +1,5 @@
 import { getJson } from "server/services/httpService";
+const pino = require("pino")();
 
 export async function findByPostcode(key, postcode) {
   const findByPostcodeUrl = `https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?lr=EN&fq=logical_status_code:1&dataset=DPA&postcode=${postcode}&key=${key}`;
@@ -6,7 +7,7 @@ export async function findByPostcode(key, postcode) {
   const { payload, error } = await getJson(findByPostcodeUrl);
 
   if (error) {
-    console.error(error);
+    pino.error(error);
     return [];
   }
 
@@ -24,7 +25,7 @@ export async function findByPostcode(key, postcode) {
       };
     });
   } catch (error) {
-    console.error(error);
+    pino.error(error);
     return [];
   }
 }
