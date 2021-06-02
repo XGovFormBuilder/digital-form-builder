@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { FormDetails } from "../FormDetails";
 import { server, mockedFormConfigurations } from "../../../../test/testServer";
-import { DataContext } from "../../../../client/context";
+import { DataContext } from "../../../context";
 
 describe("FormDetails", () => {
   let providerProps;
