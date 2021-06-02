@@ -7,7 +7,7 @@ export async function findByPostcode(key, postcode) {
   const { payload, error } = await getJson(findByPostcodeUrl);
 
   if (error) {
-    pino.error(error);
+    pino.log("error", error);
     return [];
   }
 
@@ -25,7 +25,7 @@ export async function findByPostcode(key, postcode) {
       };
     });
   } catch (error) {
-    pino.error(error);
+    pino.log("error", error);
     return [];
   }
 }

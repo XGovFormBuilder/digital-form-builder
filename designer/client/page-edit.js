@@ -66,7 +66,7 @@ export class PageEdit extends React.Component {
       await save(copy);
       this.props.onEdit({ data });
     } catch (err) {
-      pino.error(err);
+      pino.log("error", err);
     }
   };
 
@@ -120,7 +120,7 @@ export class PageEdit extends React.Component {
     try {
       await save(copy);
     } catch (error) {
-      pino.error(error);
+      pino.log("error", error);
     }
   };
 
@@ -138,7 +138,7 @@ export class PageEdit extends React.Component {
     try {
       await save(copy);
     } catch (err) {
-      pino.error(err);
+      pino.log("error", err);
     }
   };
 

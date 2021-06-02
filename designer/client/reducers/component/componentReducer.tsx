@@ -71,7 +71,7 @@ export function componentReducer(
       ...subReducer(state, action),
     };
   } else {
-    pino.error("Unrecognised action:", action.type);
+    pino.log("Unrecognised action:", action.type);
     return { ...state, selectedComponent };
   }
 }

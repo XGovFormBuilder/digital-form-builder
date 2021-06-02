@@ -61,7 +61,7 @@ function useComponentCreate(props) {
       handleSubmit()
         .then()
         .catch((err) => {
-          pino.error(err);
+          pino.log("error", err);
         });
     }
   }, [hasValidated, hasErrors]);

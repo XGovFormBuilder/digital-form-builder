@@ -9,7 +9,7 @@ export class FeatureToggleApi {
         return [];
       }
     } catch (e) {
-      pino.error(e);
+      pino.log("error", e);
       return [];
     }
   }

@@ -44,7 +44,7 @@ export function ComponentListSelect() {
         payload: foundList,
       });
     } catch (e) {
-      pino.error(e);
+      pino.log("error", e);
     }
   }, [data.lists, list]);
 

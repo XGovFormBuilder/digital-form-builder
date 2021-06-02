@@ -50,7 +50,7 @@ export class ChooseExisting extends Component<Props, State> {
       const responseJson = await response.json();
       this.props.history.push(`/designer/${responseJson.id}`);
     } catch (e) {
-      pino.error(e);
+      pino.log("error", e);
     }
   };
 

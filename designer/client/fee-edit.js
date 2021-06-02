@@ -46,7 +46,7 @@ class FeeEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        pino.error(err);
+        pino.log("error", err);
       });
   };
 
@@ -88,7 +88,7 @@ class FeeEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        pino.error(err);
+        pino.log("error", err);
       });
   };
 

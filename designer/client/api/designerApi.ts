@@ -22,7 +22,7 @@ export class DesignerApi {
       const response = await window.fetch(`/api/${id}/data`);
       return response.json();
     } catch (e) {
-      pino.error(e);
+      pino.log("error", e);
     }
   }
 }

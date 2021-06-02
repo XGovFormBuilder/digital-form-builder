@@ -111,7 +111,7 @@ class OutputEdit extends Component<Props, State> {
         this.props.onEdit({ data });
       })
       .catch((err: Error) => {
-        pino.error(err);
+        pino.log("error", err);
       });
   };
 
@@ -200,7 +200,7 @@ class OutputEdit extends Component<Props, State> {
         this.props.onEdit({ data });
       })
       .catch((err: Error) => {
-        pino.error(err);
+        pino.log("error", err);
       });
   };
 

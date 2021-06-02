@@ -32,7 +32,7 @@ class LinkCreate extends React.Component {
       to,
       selectedCondition
     );
-    error && pino.error(error);
+    error && pino.log("error", error);
     const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };
