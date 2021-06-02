@@ -71,7 +71,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
-    "govuk-frontend": "^3.10.1"
+    "govuk-frontend": "^3.10.1",
+    "pino": "^6.11.3"
   },
   "resolutions": {
     "braces": "2.3.1",
