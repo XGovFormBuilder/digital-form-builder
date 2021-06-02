@@ -84,7 +84,7 @@ We're using GitHub actions to run our CI process. View [a visualisation of the w
 
 #### Versioning
 
-Versions are auto incremented based on commit messages and SemVer (Major.Minor.Patch). When merging, please prepend your merge commit with:
+Version numbers will automatically increment based on commit messages and SemVer (Major.Minor.Patch). When merging, prepend your merge commit with the following:
 - `major:` or `breaking:` - for example, `breaking: removing feature X`. This will increment the MAJOR version - for example: 1.1.0 to 2.0.0
 - `minor:` or `feature:` - for example, `feature: new component`. This will increment the MINOR version - for example: 1.1.0 to 1.2.0
 - `patch:` or `fix:` - for example, `fix: url bug` - this will increment the PATCH version - for example: 1.0.0 to 1.0.1 (this will also happen by default)
@@ -105,7 +105,7 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 ### Smoke tests
 
-There is a suite of smoke tests which are run against all PR's. There is nightly cron based action which executes smoke tests against the Heroku deployments. The nightly job is scheduled to run at midnight.
+A suite of smoke tests are run against all PRs. There is a Cron Job that executes smoke tests against the Heroku deployments and is scheduled to run at midnight every day.
 
 To run the smoke tests locally, you start the containers up using the command
 
