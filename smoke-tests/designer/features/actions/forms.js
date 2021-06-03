@@ -56,6 +56,27 @@ class Forms {
     formRunner.selectRadio("No, I don't have evidence");
     formRunner.inputTextBox("File upload is not yet finished!!");
   }
+
+  getConditionEvaluationContext() {
+    formRunner.selectRadio("Yes");
+    formRunner.selectDropdownOption("1");
+    formRunner.continueButton.click();
+    formRunner.inputField("First name", "Applicant");
+    formRunner.inputField("Surname", "Example");
+    formRunner.continueButton.click();
+    formRunner.inputField(
+      "Address line 1",
+      "4th Floor, Block C, The Soapworks"
+    );
+    formRunner.inputField("Address line 2", "Colgate Lane");
+    formRunner.inputField("Town or city", "Manchester");
+    formRunner.inputField("Postcode", "M5 3LZ");
+    formRunner.continueButton.click();
+    formRunner.inputField("Phone number", "1234567890");
+    formRunner.inputField("Your email address", "developer@example.com");
+    formRunner.continueButton.click();
+    formRunner.continueButton.click();
+  }
 }
 
 module.exports = new Forms();

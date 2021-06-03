@@ -301,6 +301,40 @@ export class PageControllerBase {
     return request.yar.get("lang");
   }
 
+  getConditionEvaluationContext(model: FormModel, state: FormSubmissionState) {
+    //Note: This function does not support repeatFields right now
+
+    let relevantState: FormSubmissionState = {};
+    //Start at our startPage
+    let nextPage = model.startPage;
+
+    //While the current page isn't null
+    while (nextPage != null) {
+      //Either get the current state or the current state of the section if this page belongs to a section
+      const currentState =
+        (nextPage.section ? state[nextPage.section.name] : state) ?? {};
+      let newValue = {};
+
+      //Iterate all components on this page and pull out the saved values from the state
+      for (const component of nextPage.components.items) {
+        newValue[component.name] = currentState[component.name];
+      }
+
+      if (nextPage.section) {
+        newValue = { [nextPage.section.name]: newValue };
+      }
+
+      //Combine our stored values with the existing relevantState that we've been building up
+      relevantState = merge(relevantState, newValue);
+
+      //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
+      nextPage = nextPage.getNextPage(relevantState);
+      //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
+    }
+
+    return relevantState;
+  }
+
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
@@ -337,13 +371,18 @@ export class PageControllerBase {
         ? redirectTo(request, h, startPage)
         : redirectTo(request, h, `/${this.model.basePath}${startPage}`);
       this.setFeedbackDetails(viewModel, request);
+
+      //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
+      let relevantState = this.getConditionEvaluationContext(this.model, state);
+
+      //Filter our components based on their conditions using our calculated state
       viewModel.components = viewModel.components.filter((component) => {
         if (
           (component.model.content || component.type === "Details") &&
           component.model.condition
         ) {
           const condition = this.model.conditions[component.model.condition];
-          return condition.fn(state);
+          return condition.fn(relevantState);
         }
         return true;
       });
@@ -353,7 +392,7 @@ export class PageControllerBase {
         if (content instanceof Array) {
           evaluatedComponent.model.content = content.filter((item) =>
             item.condition
-              ? this.model.conditions[item.condition].fn(state)
+              ? this.model.conditions[item.condition].fn(relevantState)
               : true
           );
         }
@@ -363,7 +402,7 @@ export class PageControllerBase {
         if (items instanceof Array) {
           evaluatedComponent.model.items = items.filter((item) =>
             item.condition
-              ? this.model.conditions[item.condition].fn(state)
+              ? this.model.conditions[item.condition].fn(relevantState)
               : true
           );
         }
@@ -490,7 +529,15 @@ export class PageControllerBase {
         update,
         !!this.repeatField
       );
-      return this.proceed(request, h, savedState);
+
+      //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
+      //This is required to ensure we don't navigate to an incorrect page based on stale state values
+      let relevantState = this.getConditionEvaluationContext(
+        this.model,
+        savedState
+      );
+
+      return this.proceed(request, h, relevantState);
     };
   }
 
