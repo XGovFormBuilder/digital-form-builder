@@ -4,7 +4,7 @@ import { clone } from "@xgovformbuilder/model";
 import { camelCase } from "./helpers";
 import { DataContext } from "./context";
 import { addSection } from "./data/section/addSection";
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 
 class SectionCreate extends React.Component {
   static contextType = DataContext;
@@ -24,7 +24,7 @@ class SectionCreate extends React.Component {
       const savedData = await save(updated);
       this.props.onCreate(savedData);
     } catch (err) {
-      pino.error(err);
+      logger.error(err);
     }
   }
 

@@ -1,4 +1,4 @@
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 export function fetchConfigurations() {
   return window
     .fetch("/api/configurations", {
@@ -23,7 +23,7 @@ export async function loadConfigurations() {
       return Object.values(data) || [];
     })
     .catch((error) => {
-      pino.error(error);
+      logger.error(error);
       return [];
     });
 }

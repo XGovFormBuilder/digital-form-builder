@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { DataContext } from "../../context";
 import { whichMigrations } from "@xgovformbuilder/model";
-const pino = require("pino")();
+import logger from "../../plugins/logger";
 
 export function migrate(form) {
   const { version = 0 } = form;
@@ -13,7 +13,7 @@ export function migrate(form) {
     });
     return migratedJson;
   } catch (e) {
-    pino.error("failed to migrate json");
+    logger.error("failed to migrate json");
   }
 }
 

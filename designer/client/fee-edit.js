@@ -5,7 +5,7 @@ import { Input } from "@govuk-jsx/input";
 
 import ErrorSummary from "./error-summary";
 import { DataContext } from "./context";
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 class FeeEdit extends React.Component {
   static contextType = DataContext;
 
@@ -46,7 +46,7 @@ class FeeEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        pino.error(err);
+        logger.error(err);
       });
   };
 
@@ -88,7 +88,7 @@ class FeeEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        pino.error(err);
+        logger.error(err);
       });
   };
 

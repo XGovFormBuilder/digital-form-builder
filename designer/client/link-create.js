@@ -8,7 +8,7 @@ import ErrorSummary from "./error-summary";
 import { DataContext } from "./context";
 import { i18n } from "./i18n";
 import { addLink } from "./data/page";
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 
 class LinkCreate extends React.Component {
   static contextType = DataContext;
@@ -32,7 +32,7 @@ class LinkCreate extends React.Component {
       to,
       selectedCondition
     );
-    error && pino.error(error);
+    error && logger.error(error);
     const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };

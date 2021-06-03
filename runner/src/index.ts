@@ -1,10 +1,10 @@
 import createServer from "./server";
-const pino = require("pino")();
+import logger from "./server/plugins/logger";
 
 createServer({})
   .then((server) => server.start())
   .then(() => process.send && process.send("online"))
   .catch((err) => {
-    pino.error(err);
+    logger.error(err);
     process.exit(1);
   });

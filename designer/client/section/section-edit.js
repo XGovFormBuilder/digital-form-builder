@@ -10,7 +10,7 @@ import {
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
 import { addSection } from "../data";
-const pino = require("pino")();
+import logger from "../plugins/logger";
 
 class SectionEdit extends React.Component {
   static contextType = DataContext;
@@ -65,7 +65,7 @@ class SectionEdit extends React.Component {
       await save(updated);
       this.closeFlyout(name);
     } catch (err) {
-      pino.error(err);
+      logger.error(err);
     }
   }
 
@@ -104,7 +104,7 @@ class SectionEdit extends React.Component {
       await save(copy);
       this.closeFlyout("");
     } catch (error) {
-      pino.error(error);
+      logger.error(error);
     }
   };
 

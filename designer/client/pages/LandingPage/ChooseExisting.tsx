@@ -4,7 +4,7 @@ import { i18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
 import { BackLink } from "../../components/BackLink";
 import "./LandingPage.scss";
-const pino = require("pino")();
+import logger from "../../plugins/logger";
 
 type Props = {
   history: any;
@@ -50,7 +50,7 @@ export class ChooseExisting extends Component<Props, State> {
       const responseJson = await response.json();
       this.props.history.push(`/designer/${responseJson.id}`);
     } catch (e) {
-      pino.error(e);
+      logger.error(e);
     }
   };
 

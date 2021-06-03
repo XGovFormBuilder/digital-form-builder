@@ -3,7 +3,7 @@ import Editor from "./editor";
 import { clone, ConditionsWrapper } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import { removeCondition, updateCondition } from "./data";
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 
 class ConditionEdit extends React.Component {
   static contextType = DataContext;
@@ -32,7 +32,7 @@ class ConditionEdit extends React.Component {
       const saved = await save(updated);
       this.props.onEdit({ data: saved });
     } catch (err) {
-      pino.error(err);
+      logger.error(err);
     }
   };
 
@@ -52,7 +52,7 @@ class ConditionEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit({ data });
     } catch (e) {
-      pino.error(e);
+      logger.error(e);
     }
   };
 

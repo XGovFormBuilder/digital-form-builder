@@ -3,7 +3,7 @@ import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 
 import { DataContext } from "./context";
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 
 class DeclarationEdit extends React.Component {
   static contextType = DataContext;
@@ -29,7 +29,7 @@ class DeclarationEdit extends React.Component {
         toggleShowState("showEditSummaryBehaviour");
       })
       .catch((err) => {
-        pino.error(err);
+        logger.error(err);
       });
   };
 

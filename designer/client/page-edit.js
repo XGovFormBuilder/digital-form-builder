@@ -15,7 +15,7 @@ import { DataContext } from "./context";
 import FeatureToggle from "./FeatureToggle";
 import { FeatureFlags } from "./context/FeatureFlagContext";
 import { findPage, updateLinksTo } from "./data";
-const pino = require("pino")();
+import logger from "../client/plugins/logger";
 
 export class PageEdit extends React.Component {
   static contextType = DataContext;
@@ -66,7 +66,7 @@ export class PageEdit extends React.Component {
       await save(copy);
       this.props.onEdit({ data });
     } catch (err) {
-      pino.error(err);
+      logger.error(err);
     }
   };
 
@@ -120,7 +120,7 @@ export class PageEdit extends React.Component {
     try {
       await save(copy);
     } catch (error) {
-      pino.error(error);
+      logger.error(error);
     }
   };
 
@@ -138,7 +138,7 @@ export class PageEdit extends React.Component {
     try {
       await save(copy);
     } catch (err) {
-      pino.error(err);
+      logger.error(err);
     }
   };
 

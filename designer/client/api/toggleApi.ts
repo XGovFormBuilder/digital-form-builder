@@ -1,4 +1,4 @@
-const pino = require("pino")();
+import logger from "../plugins/logger";
 export class FeatureToggleApi {
   async fetch() {
     try {
@@ -9,7 +9,7 @@ export class FeatureToggleApi {
         return [];
       }
     } catch (e) {
-      pino.error(e);
+      logger.error(e);
       return [];
     }
   }

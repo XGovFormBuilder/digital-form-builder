@@ -1,5 +1,5 @@
 import { FormDefinition } from "@xgovformbuilder/model";
-const pino = require("pino")();
+import logger from "../plugins/logger";
 
 export class DesignerApi {
   async save(id: string, updatedData: FormDefinition): Promise<Response | any> {
@@ -22,7 +22,7 @@ export class DesignerApi {
       const response = await window.fetch(`/api/${id}/data`);
       return response.json();
     } catch (e) {
-      pino.error(e);
+      logger.error(e);
     }
   }
 }
