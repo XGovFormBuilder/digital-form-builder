@@ -1,11 +1,20 @@
 import joi from "joi";
 import moment from "moment";
 import { Parser } from "expr-eval";
-import { Schema, clone, ConditionsModel } from "@xgovformbuilder/model";
+import {
+  Schema,
+  clone,
+  ConditionsModel,
+  FormDefinition,
+  Page,
+  ConditionRawData,
+  List,
+} from "@xgovformbuilder/model";
 
 import { FormSubmissionState } from "../types";
 import { PageControllerBase, getPageController } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
+import { ExecutableCondition } from "server/plugins/engine/models/types";
 
 class EvaluationContext {
   constructor(conditions, value) {
@@ -22,16 +31,23 @@ class EvaluationContext {
 }
 
 export class FormModel {
-  def: any;
-  lists: any;
-  sections: any;
+  /**
+   * Responsible for instantiating the {@link PageControllerBase} and {@link EvaluationContext} from a form JSON
+   */
+
+  /** the entire form JSON as an object */
+  def: FormDefinition;
+
+  lists: FormDefinition["lists"];
+  sections: FormDefinition["sections"] = [];
   options: any;
   name: any;
   values: any;
   DefaultPageController: any = PageController;
+  /** the id of the form used for the first url parameter eg localhost:3009/test */
   basePath: string;
-  conditions: any;
-  pages: PageControllerBase[];
+  conditions: Record<string, ExecutableCondition> | {};
+  pages: any;
   startPage: any;
 
   constructor(def, options) {
@@ -83,20 +99,27 @@ export class FormModel {
       this.conditions[condition.name] = condition;
     });
 
+    // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
   }
 
+  /**
+   * build the entire model schema from individual pages/sections
+   */
   makeSchema(state: FormSubmissionState) {
-    // Build the entire model schema
-    // from the individual pages/sections
     return this.makeFilteredSchema(state, this.pages);
   }
 
+  /**
+   * build the entire model schema from individual pages/sections and filter out answers
+   * for pages which are no longer accessible due to an answer that has been changed
+   */
   makeFilteredSchema(_state: FormSubmissionState, relevantPages) {
     // Build the entire model schema
     // from the individual pages/sections
     let schema = joi.object().required();
+    // @ts-ignore
     [undefined].concat(this.sections).forEach((section) => {
       const sectionPages = relevantPages.filter(
         (page) => page.section === section
@@ -135,7 +158,10 @@ export class FormModel {
     return schema;
   }
 
-  makePage(pageDef) {
+  /**
+   * instantiates a Page based on {@link Page}
+   */
+  makePage(pageDef: Page) {
     if (pageDef.controller) {
       const PageController = getPageController(pageDef.controller);
 
@@ -154,7 +180,11 @@ export class FormModel {
     return new PageControllerBase(this, pageDef);
   }
 
-  makeCondition(condition) {
+  /**
+   * Instantiates a Condition based on {@link ConditionRawData}
+   * @param condition
+   */
+  makeCondition(condition: ConditionRawData) {
     const parser = new Parser({
       operators: {
         logical: true,
@@ -190,7 +220,6 @@ export class FormModel {
     };
   }
 
-  // TODO - remove the on-the-fly condition migration condition once all forms are converted to the new condition structure
   toConditionExpression(value, parser) {
     if (typeof value === "string") {
       return parser.parse(value);
@@ -204,7 +233,7 @@ export class FormModel {
     return { allowUnknown: true, presence: "required" };
   }
 
-  getList(name: string) {
+  getList(name: string): List | [] {
     return this.lists.find((list) => list.name === name) ?? [];
   }
 }

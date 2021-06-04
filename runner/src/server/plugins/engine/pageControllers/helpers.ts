@@ -7,6 +7,7 @@ import { StartDatePageController } from "./StartDatePageController";
 import { StartPageController } from "./StartPageController";
 import { SummaryPageController } from "./SummaryPageController";
 import { PageControllerBase } from "./PageControllerBase";
+import { Page } from "@xgovformbuilder/model";
 
 const PageControllers = {
   DobPageController,
@@ -23,7 +24,10 @@ export const controllerNameFromPath = (filePath: string) => {
   return `${upperFirst(camelCase(fileName))}PageController`;
 };
 
-export const getPageController = (nameOrPath: string) => {
+/**
+ * Gets the class for the controller defined in a {@link Page}
+ */
+export const getPageController = (nameOrPath: Page["controller"]) => {
   const isPath = !!path.extname(nameOrPath);
   const controllerName = isPath
     ? controllerNameFromPath(nameOrPath)

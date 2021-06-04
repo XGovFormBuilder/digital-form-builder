@@ -61,8 +61,9 @@ export type ContentOptions = {
   condition?: string;
 };
 
-// Types for Components JSON structure which are expected by engine and turned into
-// actual form input/content/lists
+/**
+ * Types for Components JSON structure which are expected by engine and turned into actual form input/content/lists
+ */
 interface TextFieldBase {
   subType?: "field";
   type: string;

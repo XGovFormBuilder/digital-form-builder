@@ -80,24 +80,14 @@ If you have any problems, submit an issue or send a message via gitter.
 
 ### CI
 
+We're using GitHub actions to run our CI process. View [a visualisation of the workflow here](https://lucid.app/lucidchart/invitations/accept/inv_74e30928-4106-49da-b75c-7a6291b225f4).
+
 #### Versioning
 
-Versions are auto incremented based on commit messages and SemVer (Major.Minor.Patch). When merging, please prepend your merge commit with:
-- `major:` or `breaking:` example `breaking: removing feature X` 
-  - this will increment the MAJOR version. eg 1.1.0 to 2.0.0
-- `minor:` or `feature:` example `feature: new component`
-  - this will increment the MINOR version. eg 1.1.0 to 1.2.0
-- `patch:` or `fix:` example `fix: url bug` 
-  - this will increment the PATCH version eg 1.0.0 to 1.0.1. This will also happen by default.
-
-#### Build process
-
-1. Pushes to any branch will start the build process
-2. `.circleci/circle_trigger.sh` will check for any changes in our packages, and if builds have failed previously
-3. `circle_trigger.sh` will trigger a workflow via the API. It will pass the parameters model, runner, designer (bool) to the workflow.
-4. If there are any changes to a workspace, it will be built and tested.
-
-- If an upstream dependency, like model has changed, the downstream dependencies (runner, designer) will also be built and tested.
+Version numbers will automatically increment based on commit messages and SemVer (Major.Minor.Patch). When merging, prepend your merge commit with the following:
+- `major:` or `breaking:` - for example, `breaking: removing feature X`. This will increment the MAJOR version - for example: 1.1.0 to 2.0.0
+- `minor:` or `feature:` - for example, `feature: new component`. This will increment the MINOR version - for example: 1.1.0 to 1.2.0
+- `patch:` or `fix:` - for example, `fix: url bug` - this will increment the PATCH version - for example: 1.0.0 to 1.0.1 (this will also happen by default)
 
 #### Development environment
 
@@ -113,49 +103,9 @@ Both jobs work as follows:
 
 The latest releases will be running here: [Runner](https://digital-form-builder-runner.herokuapp.com) / [Designer](https://digital-form-builder-designer.herokuapp.com).
 
-
-### Developer only features ⚠️
-
-There are some features that we do not want to expose (for fear of wide adoption), as they are not complete or have accessibility issues. Please use these with caution. 
-
-- Conditionally revealing of fields based on checkbox/radio selection. 
-  - This is a known accessibility issue. https://github.com/alphagov/govuk-frontend/issues/1991. NVDA, JAWS and VoiceOver (currently most popular screen readers) all have varying levels of support for checkboxes and radios. It is breaking WCAG 2.1A compliance.
-  - If you would like to use these, the runner will still support child components, you must add this to your JSON configuration manually. 
-    - Static lists (inside a Radios/Checkboxes Field component) 
-      ``` json5
-      { // Component object, other keys stripped for brevity
-        ...
-        "type": "RadiosField",
-        "values": {
-          "type": "static",
-          "valueType": "string",
-          "items": [
-            { "label": "Item 3", "value": "13", "children": [{ ...subcomponent }] }
-          ]
-        }
-      }
-      ```
-      where `{ ...subcomponent }` is any valid `Component` object
-    - Global lists
-      ``` json5 
-      { //List object, other keys stripped for brevity
-        ...
-        "items": [
-          { "text": "a", "value": "a", "description": "a",
-            "conditional": {
-              "components":[{ ...component }]
-            }
-          }
-        ]
-      }
-      ```
-      where `{ ...subcomponent }` is any valid `Component` object
-
-
-
 ### Smoke tests
 
-There is a suite of smoke tests which are run against all PR's. There is nightly cron based action which executes smoke tests against the Heroku deployments. The nightly job is scheduled to run at midnight.
+A suite of smoke tests are run against all PRs. There is a Cron Job that executes smoke tests against the Heroku deployments and is scheduled to run at midnight every day.
 
 To run the smoke tests locally, you start the containers up using the command
 

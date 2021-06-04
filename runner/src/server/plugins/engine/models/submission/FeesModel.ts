@@ -3,6 +3,9 @@ import { FormSubmissionState } from "server/plugins/engine/types";
 import { FeeDetails, Fees } from "server/services/payService";
 import { flatten } from "hoek";
 
+/**
+ * returns an object used for sending GOV.UK Pay requests Used by {@link SummaryViewModel}, {@link PayService}
+ */
 export function FeesModel(
   model: FormModel,
   state: FormSubmissionState

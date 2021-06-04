@@ -2,6 +2,11 @@ import joi from "joi";
 import { FormPayload } from "../types";
 import { PageController } from "./PageController";
 
+/**
+ * DobPageController adds to the state a users ageGroup
+ *
+ * @deprecated FCDO and HO do not use this controller. No guarantee this will work!
+ */
 export class DobPageController extends PageController {
   // TODO: improve type, see Page once types mature
   constructor(model: any = {}, pageDef: any = {}) {

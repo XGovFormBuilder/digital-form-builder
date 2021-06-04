@@ -19,6 +19,9 @@ type SendNotificationArgs = {
 };
 
 export class NotifyService {
+  /**
+   * This service is responsible for sending emails via {@link https://www.notifications.service.gov.uk }. This service has been registered by {@link createServer}
+   */
   parsePersonalisations(options: Personalisation): Personalisation {
     const parsed = {};
 
