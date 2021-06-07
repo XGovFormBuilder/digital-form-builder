@@ -366,5 +366,5 @@ When("I create a section titled {string}", function (sectionTitle) {
 });
 
 Then("the section title is displayed in the preview", function () {
-  expect(previewPage.sectionTitle).toHaveText(this.sectionTitle);
+  expect(previewPage.sectionTitle).toHaveText("Test Section");
 });
