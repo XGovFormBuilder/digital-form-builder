@@ -1,6 +1,11 @@
 import { getJson } from "server/services/httpService";
 import logger from "../../../plugins/logger";
 
+/**
+ * Uses the ordnance survey API to find an address by postcode
+ *
+ * @deprecated This has not been used by FCDO or HO, so there is no verification if this works.
+ */
 export async function findByPostcode(key, postcode) {
   const findByPostcodeUrl = `https://api.ordnancesurvey.co.uk/places/v1/addresses/postcode?lr=EN&fq=logical_status_code:1&dataset=DPA&postcode=${postcode}&key=${key}`;
 

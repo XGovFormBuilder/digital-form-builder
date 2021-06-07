@@ -1,4 +1,6 @@
-class FormRunnerPage {
+const Page = require("./basePage");
+
+class FormRunnerPage extends Page {
   open(path) {
     return browser.url(`${browser.config.runnerUrl}${path}/`);
   }
@@ -121,6 +123,14 @@ class FormRunnerPage {
 
   get flashCardContinueBtn() {
     return browser.$(".flash-card .govuk-button");
+  }
+
+  get paragraph() {
+    return browser.$(".govuk-body");
+  }
+
+  selectDropdownOption(selectedOption) {
+    return browser.$(".govuk-select").selectByVisibleText(selectedOption);
   }
 }
 

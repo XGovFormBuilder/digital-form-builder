@@ -24,6 +24,9 @@ export const ListContext = createContext<{
   dispatch: () => {},
 });
 
+/**
+ * Allows mutation of the {@link List} from any component that is nested within {@link ListContextProvider}
+ */
 export function listReducer(
   state: ListState = {},
   action: { type: ListActions; payload: any }
@@ -166,6 +169,9 @@ export function listReducer(
   }
 }
 
+/**
+ * Allows components to retrieve {@link ListState} and {@link dispatch} from any component nested within `<ListContextProvider>`
+ */
 export const ListContextProvider = (props) => {
   let init: ListState = {};
   const { selectedListName } = props;

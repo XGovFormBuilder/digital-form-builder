@@ -1,5 +1,6 @@
+import yar from "@hapi/yar";
 import { Request, ResponseToolkit, Server, ResponseObject } from "@hapi/hapi";
-import { Logger } from "@types/pino";
+import { Logger } from "pino";
 
 import { RateOptions } from "./plugins/rateLimit";
 import {
@@ -42,6 +43,7 @@ declare module "@hapi/hapi" {
       getLocales(): string[];
     };
     logger: Logger;
+    yar: yar.Yar;
   }
 
   interface Response {}
@@ -50,6 +52,7 @@ declare module "@hapi/hapi" {
     logger: Logger;
     services: Services; // plugin schmervice
     registerService: (services: any[]) => void; // plugin schmervice
+    yar: yar.ServerYar;
   }
 
   interface ResponseToolkit {

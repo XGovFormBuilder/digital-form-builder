@@ -22,6 +22,7 @@ export type ListItem = {
   checked?: boolean;
   selected?: boolean;
   label?: ListItemLabel;
+  condition?: string;
 };
 
 // TODO: Break this down for each component (Same as model/Component).

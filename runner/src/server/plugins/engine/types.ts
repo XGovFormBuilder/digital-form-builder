@@ -1,8 +1,9 @@
 /**
  * FormSubmissionState is an object containing the following props:
  * 1. progress[]: which indicates the urls the user have already submitted.
- * 2. Other props containing user's submitted values as { [inputId]: `value` } or as { [sectionName]: { [inputName]: value } }
+ * 2. Other props containing user's submitted values as `{ [inputId]: value }` or as `{ [sectionName]: { [inputName]: value } }`
  *   a) . e.g:
+ * ```ts
  *     {
  *       progress: [
  *         '/gZovGvanSq/student-visa-application?visit=HxCva29Xhd',
@@ -12,7 +13,11 @@
  *       WfLk9McjzX: 'Music',
  *       IK7jkUFCBL: 'Royal Academy of Music'
  *     }
- *   b) {
+ * ```
+ *
+ *   b)
+ * ```ts
+ *   {
  *         progress: [
  *           '/gZovGvanSq/uk-passport?visit=pQ1LIzb5kE',
  *           '/gZovGvanSq/how-many-people?visit=pQ1LIzb5kE',
@@ -33,6 +38,7 @@
  *           address: { addressLine1: 'a', addressLine2: 'a', town: 'a', postcode: 'a' }
  *         }
  *     }
+ * ```
  */
 export type FormSubmissionState = {
   progress: string[];

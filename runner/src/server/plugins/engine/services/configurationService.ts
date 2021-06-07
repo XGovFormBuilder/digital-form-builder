@@ -10,6 +10,9 @@ export type FormConfiguration = {
   id: string;
 };
 
+/**
+ * Reads the runner/src/server/forms directory for JSON files. The forms that are found will be loaded up at localhost:3009/id
+ */
 export const loadPreConfiguredForms = (): FormConfiguration[] => {
   const configFiles = fs
     .readdirSync(FORMS_FOLDER)
