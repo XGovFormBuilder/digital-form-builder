@@ -65,7 +65,7 @@ class SectionEdit extends React.Component {
       await save(updated);
       this.closeFlyout(name);
     } catch (err) {
-      logger.error(err);
+      logger.error("SectionEdit", err);
     }
   }
 
@@ -104,7 +104,7 @@ class SectionEdit extends React.Component {
       await save(copy);
       this.closeFlyout("");
     } catch (error) {
-      logger.error(error);
+      logger.error("SectionEdit", error);
     }
   };
 

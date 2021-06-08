@@ -29,7 +29,7 @@ class DeclarationEdit extends React.Component {
         toggleShowState("showEditSummaryBehaviour");
       })
       .catch((err) => {
-        logger.error(err);
+        logger.error("DeclarationEdit", err);
       });
   };
 

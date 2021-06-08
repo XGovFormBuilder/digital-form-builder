@@ -98,3 +98,14 @@ export const getAllPersistedConfigurations: ServerRoute = {
     },
   },
 };
+
+export const log: ServerRoute = {
+  method: "POST",
+  path: "/api/log",
+  options: {
+    handler: async (request, h): Promise<ResponseObject | undefined> => {
+      request.server.log(request.payload.toString());
+      return h.response({ ok: true }).code(200);
+    },
+  },
+};

@@ -23,7 +23,7 @@ export async function loadConfigurations() {
       return Object.values(data) || [];
     })
     .catch((error) => {
-      logger.error(error);
+      logger.error("loadConfigurations", error);
       return [];
     });
 }

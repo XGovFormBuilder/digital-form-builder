@@ -66,7 +66,7 @@ export class PageEdit extends React.Component {
       await save(copy);
       this.props.onEdit({ data });
     } catch (err) {
-      logger.error(err);
+      logger.error("PageEdit", err);
     }
   };
 
@@ -120,7 +120,7 @@ export class PageEdit extends React.Component {
     try {
       await save(copy);
     } catch (error) {
-      logger.error(error);
+      logger.error("PageEdit", error);
     }
   };
 
@@ -138,7 +138,7 @@ export class PageEdit extends React.Component {
     try {
       await save(copy);
     } catch (err) {
-      logger.error(err);
+      logger.error("PageEdit", err);
     }
   };
 

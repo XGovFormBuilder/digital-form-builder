@@ -24,7 +24,7 @@ class SectionCreate extends React.Component {
       const savedData = await save(updated);
       this.props.onCreate(savedData);
     } catch (err) {
-      logger.error(err);
+      logger.error("SectionCreate", err);
     }
   }
 

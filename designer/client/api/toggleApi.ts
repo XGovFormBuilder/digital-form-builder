@@ -9,7 +9,7 @@ export class FeatureToggleApi {
         return [];
       }
     } catch (e) {
-      logger.error(e);
+      logger.error("toggleApi", e);
       return [];
     }
   }

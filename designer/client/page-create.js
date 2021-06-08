@@ -68,7 +68,7 @@ class PageCreate extends React.Component {
       await save(copy);
       this.props.onCreate({ value });
     } catch (err) {
-      logger.error(err);
+      logger.error("PageCreate", err);
     }
   };
 

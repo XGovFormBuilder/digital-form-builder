@@ -53,7 +53,7 @@ class NotifyItems extends React.Component<Props, State> {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        logger.error(err);
+        logger.error("NotifyItems", err);
       });
   };
 

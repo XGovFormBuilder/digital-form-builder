@@ -13,7 +13,7 @@ export function migrate(form) {
     });
     return migratedJson;
   } catch (e) {
-    logger.error("failed to migrate json");
+    logger.error("SubMenu", "failed to migrate json");
   }
 }
 

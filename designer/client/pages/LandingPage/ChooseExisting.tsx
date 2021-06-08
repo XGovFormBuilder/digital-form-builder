@@ -50,7 +50,7 @@ export class ChooseExisting extends Component<Props, State> {
       const responseJson = await response.json();
       this.props.history.push(`/designer/${responseJson.id}`);
     } catch (e) {
-      logger.error(e);
+      logger.error("ChooseExisting", e);
     }
   };
 

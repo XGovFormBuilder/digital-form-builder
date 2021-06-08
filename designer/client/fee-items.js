@@ -133,7 +133,7 @@ class FeeItems extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        logger.error(err);
+        logger.error("FeeItems", err);
       });
   };
 

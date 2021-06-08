@@ -1,5 +1,6 @@
 import { Request, ResponseObject, ResponseToolkit, Server } from "@hapi/hapi";
 import { PersistenceService } from "./lib/persistence/persistenceService";
+import { Logger } from "pino";
 
 type Services = (
   services: string[]
@@ -12,7 +13,7 @@ declare module "@hapi/hapi" {
   // props from plugins which doesn't export @types
   interface Request {
     services: Services; // plugin schmervice
-    logger: any;
+    logger: Logger;
   }
 
   interface Response {}

@@ -32,7 +32,7 @@ function useComponentCreate(props) {
       handleSubmit()
         .then()
         .catch((err) => {
-          logger.error(err);
+          logger.error("useComponentCreate", err);
         });
     }
   }, [hasValidated, hasErrors]);

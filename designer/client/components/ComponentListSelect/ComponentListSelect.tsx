@@ -44,7 +44,7 @@ export function ComponentListSelect() {
         payload: foundList,
       });
     } catch (e) {
-      logger.error(e);
+      logger.error("ComponentListSelect", e);
     }
   }, [data.lists, list]);
 

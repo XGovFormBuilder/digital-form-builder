@@ -82,7 +82,7 @@ export class FormDetails extends Component<Props, State> {
         onCreate(saved);
       }
     } catch (err) {
-      logger.error(err);
+      logger.error("FormDetails", err);
     }
   };
 
@@ -100,7 +100,7 @@ export class FormDetails extends Component<Props, State> {
 
   handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLSelectElement>) => {
     const isFeedbackForm = event.target.value === "true";
-    logger.info("handle is feedback");
+    logger.info("FormDetails", "handle is feedback");
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });

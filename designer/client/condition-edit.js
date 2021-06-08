@@ -32,7 +32,7 @@ class ConditionEdit extends React.Component {
       const saved = await save(updated);
       this.props.onEdit({ data: saved });
     } catch (err) {
-      logger.error(err);
+      logger.error("ConditionEdit", err);
     }
   };
 
@@ -52,7 +52,7 @@ class ConditionEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit({ data });
     } catch (e) {
-      logger.error(e);
+      logger.error("ConditionEdit", e);
     }
   };
 

@@ -40,7 +40,7 @@ class LinkEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit();
     } catch (err) {
-      logger.error(err);
+      logger.error("LinkEdit", err);
     }
   };
 
@@ -67,7 +67,7 @@ class LinkEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        logger.error(err);
+        logger.error("LinkEdit", err);
       });
   };
 
