@@ -104,8 +104,12 @@ export const log: ServerRoute = {
   path: "/api/log",
   options: {
     handler: async (request, h): Promise<ResponseObject | undefined> => {
-      request.server.log(request.payload.toString());
-      return h.response({ ok: true }).code(200);
+      try {
+        request.server.log(request.payload.toString());
+        return h.response({ ok: true }).code(204);
+      } catch (error) {
+        return h.response({ ok: false }).code(500);
+      }
     },
   },
 };

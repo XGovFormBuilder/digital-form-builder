@@ -62,6 +62,7 @@
     "nanoid": "^3.1.12",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.3",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
     "vision": "5.4.3",
