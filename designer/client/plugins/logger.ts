@@ -1,5 +1,5 @@
 import pino from "pino";
-const logLevel = process.env.REACT_APP_LOG_LEVEL || "debug";
+const logLevel = process.env.REACT_APP_LOG_LEVEL;
 
 export default pino({
   name: "designer",
@@ -7,7 +7,7 @@ export default pino({
     asObject: true,
     transmit: {
       level: logLevel,
-      send: async function (level, logEvent) {
+      send: async function (_level, logEvent) {
         const newResponse = await window.fetch("/api/log", {
           method: "POST",
           body: JSON.stringify(logEvent),
