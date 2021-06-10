@@ -3,7 +3,6 @@ import { i18n } from "../../i18n";
 import { withRouter } from "react-router-dom";
 import { Radios } from "@govuk-jsx/radios";
 import "./LandingPage.scss";
-declare var REACT_APP_LOG_LEVEL: string;
 interface Props {
   history: any;
 }
@@ -24,7 +23,6 @@ export function LandingChoice({ history }: Props): ReactElement {
     <div className="new-config">
       <div className="choice-wrapper">
         <h1 className="govuk-heading-xl govuk-heading-xl__lowmargin">
-          <p>{REACT_APP_LOG_LEVEL}</p>
           {i18n("landingPage.choice.heading")}
         </h1>
         <p className="govuk-body">{i18n("landingPage.choice.intro")}</p>

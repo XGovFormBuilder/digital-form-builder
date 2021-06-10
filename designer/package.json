@@ -8,7 +8,7 @@
   },
   "scripts": {
     "watch": "NODE_ENV=development webpack",
-    "build": "REACT_APP_LOG_LEVEL=debug NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production nodemon dist/server.js",
     "start:local": "NODE_ENV=development PERSISTENT_BACKEND=preview ts-node-dev --inspect --respawn --transpile-only server/index.ts",
     "dev": "concurrently 'yarn watch' 'yarn start:local'",
@@ -62,7 +62,6 @@
     "nanoid": "^3.1.12",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
     "resolve": "^1.19.0",
     "schmervice": "^1.6.0",
     "vision": "5.4.3",

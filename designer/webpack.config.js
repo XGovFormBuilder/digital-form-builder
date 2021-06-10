@@ -11,12 +11,8 @@ const autoprefixer = require("autoprefixer");
 const devMode = process.env.NODE_ENV !== "production";
 const prodMode = process.env.NODE_ENV === "production";
 const environment = prodMode ? "production" : "development";
-const logLevel = process.env.REACT_APP_LOG_LEVEL || prodMode ? "warn" : "debug";
-
-/**
- * You must wrap both the key, and the value in a string. The easiest way to do this with values is JSON.stringify(`${value}`)
- * reference: {@link https://webpack.js.org/plugins/define-plugin/#usage}
- */
+const logLevel =
+  process.env.REACT_APP_LOG_LEVEL || (prodMode ? "warn" : "debug");
 const reactEnvVariables = new webpack.DefinePlugin({
   ["REACT_APP_LOG_LEVEL"]: JSON.stringify(`${logLevel}`),
 });
