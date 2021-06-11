@@ -103,7 +103,7 @@ jobs:
         with:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
-          registry: gchr.io
+          registry: ghcr.io
           compose_file: docker-compose.yml
       - name: Docker compose pull
         run: docker-compose pull
