@@ -1,0 +1,18 @@
+name: Git Cache Prune - Nightly
+on:
+  push:
+    branches:
+      - 'techdebt/nightly-prune'
+  schedule:
+    - cron: "1 0 * * *"
+  workflow_dispatch:
+jobs:
+  nightly-cache-prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Images Pre Prune
+        run: docker images
+      - name: Prune Cache
+        run: docker system prune -a -f
+      - name: Docker Images Post Prune
+        run: docker images
