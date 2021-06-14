@@ -1,4 +1,4 @@
-name: Smoke Tests Nightly - Heroku
+name: Git Cache Prune - Nightly
 on:
   schedule:
     - cron: "1 0 * * *"
