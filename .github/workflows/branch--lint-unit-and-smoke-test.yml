@@ -108,6 +108,8 @@ jobs:
       - name: Docker compose build
         run: |
           docker-compose build --parallel
+      - name: Debug step
+        run: docker images
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
