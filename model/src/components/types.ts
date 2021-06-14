@@ -161,6 +161,9 @@ export interface MultilineTextFieldComponent {
 
 export interface TelephoneNumberFieldComponent extends TextFieldBase {
   type: "TelephoneNumberField";
+  options: TextFieldBase["options"] & {
+    customValidation?: string;
+  };
 }
 
 export interface YesNoFieldComponent extends TextFieldBase {
