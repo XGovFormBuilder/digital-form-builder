@@ -20,7 +20,6 @@ export const getFormWithId: ServerRoute = {
     handler: async (request, h) => {
       const { id } = request.params;
       let formJson = newFormJson;
-
       try {
         const response = await getPublished(id);
         const { values } = JSON.parse(response);
@@ -29,7 +28,7 @@ export const getFormWithId: ServerRoute = {
           formJson = values;
         }
       } catch (error) {
-        console.error(error);
+        request.logger.error(error);
       }
 
       return h.response(formJson).type("application/json");
@@ -55,10 +54,9 @@ export const putFormWithId: ServerRoute = {
         });
 
         if (error) {
-          request.server.log(
+          request.logger.error(
             ["error", `/api/${id}/data`],
-            error,
-            request.payload
+            [error, request.payload]
           );
 
           throw new Error("Schema validation failed, reason: " + error.message);
@@ -70,7 +68,7 @@ export const putFormWithId: ServerRoute = {
         await publish(id, value);
         return h.response({ ok: true }).code(204);
       } catch (err) {
-        console.error("Designer Server PUT /api/{id}/data error:", err);
+        request.logger.error("Designer Server PUT /api/{id}/data error:", err);
         const errorSummary = {
           id: id,
           payload: request.payload,
@@ -96,6 +94,21 @@ export const getAllPersistedConfigurations: ServerRoute = {
       } catch (error) {
         request.server.log(["error", "/configurations"], error);
         return;
+      }
+    },
+  },
+};
+
+export const log: ServerRoute = {
+  method: "POST",
+  path: "/api/log",
+  options: {
+    handler: async (request, h): Promise<ResponseObject | undefined> => {
+      try {
+        request.server.log(request.payload.toString());
+        return h.response({ ok: true }).code(204);
+      } catch (error) {
+        return h.response({ ok: false }).code(500);
       }
     },
   },

@@ -5,6 +5,7 @@ import classNames from "classnames";
 
 import { isEmpty } from "./helpers";
 import { DataContext } from "./context";
+import logger from "../client/plugins/logger";
 
 function headDuplicate(arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -132,7 +133,7 @@ class FeeItems extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        console.error(err);
+        logger.error("FeeItems", err);
       });
   };
 

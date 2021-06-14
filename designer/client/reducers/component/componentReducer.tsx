@@ -8,6 +8,7 @@ import { fieldsReducer } from "./componentReducer.fields";
 import type { ComponentActions } from "./types";
 import { Meta, Schema, Fields, Options, Actions } from "./types";
 import { ComponentDef } from "@xgovformbuilder/model";
+import logger from "../../plugins/logger";
 
 type ComponentState = {
   selectedComponent: Partial<ComponentDef>;
@@ -78,7 +79,7 @@ export function componentReducer(
       ...subReducer(state, action),
     };
   } else {
-    console.error("Unrecognised action:", action.type);
+    logger.log("Unrecognised action:", action.type);
     return { ...state, selectedComponent };
   }
 }

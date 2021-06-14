@@ -117,7 +117,10 @@ export class SummaryPageController extends PageController {
 
       // redirect user to start page if there are incomplete form errors
       if (summaryViewModel.result.error) {
-        console.error(`SummaryPage Error`, summaryViewModel.result.error);
+        request.logger.error(
+          `SummaryPage Error`,
+          summaryViewModel.result.error
+        );
         /** defaults to the first page */
         // @ts-ignore - tsc reports an error here, ignoring so docs can be generated (does not cause eslint errors otherwise). Remove when properly typed
         let startPageRedirect = redirectTo(
