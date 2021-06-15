@@ -6,17 +6,17 @@ import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
 import joi, { Schema } from "joi";
 
-const PATTERN = /^[0-9\\s+()-]*$/;
+const PATTERN = /^[0-9\\\s+()-]*$/;
 const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
 export class TelephoneNumberField extends FormComponent {
   constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
     super(def, model);
 
-    const { options = {} } = def;
-
+    const { options = {}, schema = {} } = def;
+    const pattern = schema.regex ? new RegExp(schema.regex) : PATTERN;
     let componentSchema = joi
       .string()
-      .pattern(PATTERN)
+      .pattern(pattern)
       .rule({
         message: def.options?.customValidation ?? DEFAULT_MESSAGE,
       })
@@ -28,8 +28,12 @@ export class TelephoneNumberField extends FormComponent {
       componentSchema = componentSchema.allow("");
     }
 
-    if (def.schema?.max) {
-      componentSchema.length(def.schema.max);
+    if (schema.max) {
+      componentSchema = componentSchema.max(schema.max);
+    }
+
+    if (schema.min) {
+      componentSchema = componentSchema.min(schema.min);
     }
 
     this.schema = componentSchema;
