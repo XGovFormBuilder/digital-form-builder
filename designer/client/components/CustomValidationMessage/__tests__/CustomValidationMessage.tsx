@@ -11,8 +11,8 @@ describe("CssClasses", () => {
     beforeEach(() => {
       stateProps = {
         component: {
-          type: "CssClassField",
-          name: "TestCssClass",
+          type: "TelephoneNumberField",
+          name: "testTelephone",
           options: {},
         },
       };
