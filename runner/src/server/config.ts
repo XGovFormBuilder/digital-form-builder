@@ -23,6 +23,9 @@ function secureUrl(value: string, helper: CustomHelpers) {
   });
 }
 
+/**
+ * joi schema validation is used here to ensure that there are not invalid key/values when a server is starting up.
+ */
 const schema = Joi.object({
   port: Joi.number().default(DEFAULT_PORT),
   env: Joi.string()

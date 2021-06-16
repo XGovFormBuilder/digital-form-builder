@@ -92,8 +92,12 @@ const nextSchema = joi.object().keys({
   condition: joi.string().allow("").optional(),
 });
 
+/**
+ * `/status` is a special route for providing a user's application status.
+ *  It should not be configured via the designer.
+ */
 const pageSchema = joi.object().keys({
-  path: joi.string().required(),
+  path: joi.string().required().disallow("/status"),
   title: localisedString,
   section: joi.string(),
   controller: joi.string(),

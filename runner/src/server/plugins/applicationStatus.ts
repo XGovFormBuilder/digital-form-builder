@@ -1,19 +1,13 @@
-import config from "../config";
 import { nanoid } from "nanoid";
-import {
-  decodeFeedbackContextInfo,
-  redirectTo,
-  nonRelativeRedirectUrl,
-  RelativeUrl,
-} from "./engine";
+import { decodeFeedbackContextInfo, redirectTo } from "./engine";
 
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
 
 function getFeedbackContextInfo(request: HapiRequest) {
-  if (request.query[RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER]) {
+  if (request.query[feedbackReturnInfoKey]) {
     return decodeFeedbackContextInfo(
-      new RelativeUrl(`${request.url.pathname}${request.url.search}`)
-        .feedbackReturnInfo
+      request.url.searchParams.get(feedbackReturnInfoKey)
     );
   }
 }
@@ -40,7 +34,7 @@ const applicationStatus = {
     register: (server) => {
       server.route({
         method: "get",
-        path: "/status",
+        path: "/{id}/status",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const {
             notifyService,
@@ -48,13 +42,14 @@ const applicationStatus = {
             webhookService,
             cacheService,
           } = request.services([]);
+          const params = request.query;
+
           const {
             pay,
             reference,
             outputs,
             webhookData,
           } = await cacheService.getState(request);
-          const params = request.query;
           let newReference;
           let payState;
           let userCouldntPay;
@@ -66,7 +61,7 @@ const applicationStatus = {
               params.continue === "true" || pay.meta.attempts === 3;
 
             /**
-             * @code allow the user to try again if they haven't skipped or reached their retry limit
+             * allow the user to try again if they haven't skipped or reached their retry limit
              */
             if (payState.state.status !== "success" && !userCouldntPay) {
               return h.view("pay-error", {
@@ -86,8 +81,7 @@ const applicationStatus = {
           }
 
           /**
-           * @code if there are webhooks, find one and use that to generate a reference number for other output calls.
-           * TODO:- to be honest, it should really be a 'lazy' var but concurrent aysnc is kinda a pain for this and I don't have time. Probably wont have >1 webhook anyway. ¯\_( ツ )_/¯
+           * if there are webhooks, find one and use that to generate a reference number for other output calls.
            */
           const webhookOutputs = (outputs || []).filter(
             (output) => output.type === "webhook"
@@ -183,7 +177,7 @@ const applicationStatus = {
       });
       server.route({
         method: "post",
-        path: "/status",
+        path: "/{id}/status",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
           const { payService, cacheService } = request.services([]);
           const { pay } = await cacheService.getState(request);
@@ -191,12 +185,15 @@ const applicationStatus = {
           meta.attempts++;
           // TODO:- let payService handle nanoid(10)
           const reference = `${nanoid(10)}`;
+          const url = new URL(
+            `${request.headers.origin}/${request.params.id}/status`
+          ).toString();
           const res = await payService.payRequest(
             meta.amount,
             reference,
             meta.description,
             meta.payApiKey,
-            nonRelativeRedirectUrl(request, config.payReturnUrl)
+            url
           );
           await cacheService.mergeState(request, {
             pay: {

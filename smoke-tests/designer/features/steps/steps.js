@@ -28,7 +28,7 @@ Given(
 );
 
 When("I choose to create a component for the {string}", function (pageName) {
-  formDesigner.createComponentForPageName(pageName).click();
+  formDesigner.createComponent(pageName).click();
 });
 
 When("I select {string} component to add to the page", function (
@@ -98,15 +98,18 @@ When(
       .getComponentOnPage(pageName, toCamelCase(componentName))
       .click();
     createComponent.deleteLink.click();
+    browser.waitUntil(
+      () =>
+        formDesigner
+          .getComponentOnPage(pageName, toCamelCase(componentName))
+          .isDisplayed() === false
+    );
   }
 );
 
 Then(
   "the {string} will not be visible in the {string}",
   (componentName, pageName) => {
-    formDesigner
-      .getComponentOnPage(pageName, toCamelCase(componentName))
-      .waitForDisplayed({ reverse: true });
     chai.expect(
       formDesigner
         .getComponentOnPage(pageName, toCamelCase(componentName))
@@ -168,7 +171,7 @@ When("I add a new Global list named {string}", function (listName) {
 When(
   "I create a {string} control for the {string}",
   (componentName, pageName) => {
-    formDesigner.createComponentForPageName(pageName).click();
+    formDesigner.createComponent(pageName).click();
     createComponent.selectComponentByName(componentName);
   }
 );
@@ -179,7 +182,7 @@ When("I add a {string} control for the {string}", function (
 ) {
   this.componentName = componentName;
   this.pageName = pageName;
-  formDesigner.createComponentForPageName(pageName).click();
+  formDesigner.createComponent(pageName).click();
   createComponent.selectComponentByName(this.componentName);
   createComponent.completeCommonFields(
     fieldData[toCamelCase(this.componentName)],
@@ -198,37 +201,24 @@ Then("the list is available in the list options", function () {
 });
 
 When("I choose to duplicate the {string}", (pageName) => {
-  formDesigner.editPageForPageName(pageName).click();
+  formDesigner.editPage(pageName).click();
   if (editPage.parentElement.isDisplayed() === false) {
-    formDesigner.editPageForPageName(pageName).click();
+    formDesigner.editPage(pageName).click();
   }
   editPage.duplicateBtn.click();
   editPage.closeLinks[0].click();
 });
 
-Then(
-  "{int} {string} pages are shown in the designer",
-  (numberOfPages, pageName) => {
-    expect(formDesigner.retrieveNumberOfPagesMatching(pageName)).toEqual(
-      numberOfPages
-    );
-  }
-);
-
 When("I choose to delete the {string}", (pageName) => {
-  formDesigner.editPageForPageName(pageName).click();
+  formDesigner.editPage(pageName).click();
   editPage.deleteBtn.click();
   acceptAlert();
   editPage.closeLinks[0].click();
 });
 
 Then("the {string} is no longer visible in the designer", (pageName) => {
-  const pageNames = [];
-  formDesigner.formPageTitles.forEach((elem) => {
-    pageNames.push(elem.getText());
-  });
-  expect(formDesigner.formPages.length).toEqual(2);
-  chai.expect(pageNames).not.include(pageName);
+  browser.waitUntil(() => formDesigner.pages.length === 2);
+  chai.expect(formDesigner.pageHeadingsText).not.include(pageName);
 });
 
 Then("the list is selected in the list dropdown", function () {
@@ -250,7 +240,7 @@ Then("the Date field control is displayed in the page", () => {
 
 When("I choose Edit page for the {string}", function (pageName) {
   this.pageName = pageName;
-  formDesigner.editPageForPageName(pageName).click();
+  formDesigner.editPage(pageName).click();
 });
 
 When("I change the page title to {string}", function (newPageName) {
@@ -268,11 +258,9 @@ When("I change the page path to {string}", function (pathName) {
 
 Then("the changes are reflected in the page designer", function () {
   browser.waitUntil(
-    () => formDesigner.formPageTitles[0].getText() === this.newPageName
+    () => formDesigner.pages[0].heading.getText() === this.newPageName
   );
-  expect(formDesigner.getTitleTextForPage(this.newPageName)).toBe(
-    this.newPageName
-  );
+  expect(formDesigner.pageHeading(this.newPageName)).toBeDisplayed();
 });
 
 When("I choose {string} from the designer menu", (menuOption) => {
@@ -280,16 +268,15 @@ When("I choose {string} from the designer menu", (menuOption) => {
 });
 
 Then("the page is added in the designer", () => {
-  browser.waitUntil(() => formDesigner.formPages.length === 4);
-  this.pageNames = formDesigner.formPageTitles.map(function (element) {
-    return element.getText();
-  });
-  expect(this.pageNames.includes(this.newPageName)).toEqual(true);
+  browser.waitUntil(() => formDesigner.pages.length === 4);
+  expect(formDesigner.pageHeadingsText.includes(this.newPageName)).toEqual(
+    true
+  );
 });
 
 Then("the {string} is displayed when I Preview the page", function (component) {
   this.component = toCamelCase(component);
-  formDesigner.previewPageForPageName(this.pageName).click();
+  formDesigner.previewFormPage(this.pageName).click();
   browser.switchWindow(`${this.pageName}`);
   expect(previewPage.pageTitle).toHaveText(this.pageName);
   if (component !== "Paragraph") {
@@ -332,7 +319,7 @@ Then("I will be on the same page", () => {
 });
 
 When("I preview the {string} page", function (pageName) {
-  formDesigner.previewPageForPageName(pageName).click();
+  formDesigner.previewFormPage(pageName).click();
   browser.switchWindow(pageName);
   previewPage.pageTitle.waitForDisplayed();
 });
@@ -370,7 +357,12 @@ When("I create a section titled {string}", function (sectionTitle) {
   editSection.sectionTitle.setValue(this.sectionTitle);
   editSection.sectionSaveBtn.click();
   editPage.saveBtn.click();
-  expect(formDesigner.pageSectionName(this.pageName)).toHaveText(sectionTitle);
+  browser.waitUntil(
+    () =>
+      formDesigner.pageSectionName(this.pageName).getText() ===
+      this.sectionTitle,
+    { timeoutMsg: `The section ${this.sectionTitle} was not displayed` }
+  );
 });
 
 Then("the section title is displayed in the preview", function () {

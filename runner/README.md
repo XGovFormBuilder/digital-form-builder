@@ -84,7 +84,7 @@ Unit test coverage threshold, code coverage below which build will fail is set b
 
 # Deployment
 
-Currently CI is done with github actions. Pushes to master
+Currently CI is done with github actions. Pushes to main
 will trigger a build phase which includes running tests and [lighthouse](https://developers.google.com/web/tools/lighthouse)
 accessibility audits. Builds will fail if the accessibility score is less than 90%.
 

@@ -3,6 +3,8 @@ import { clone } from "@xgovformbuilder/model";
 
 import { camelCase } from "./helpers";
 import { DataContext } from "./context";
+import { addSection } from "./data/section/addSection";
+import logger from "../client/plugins/logger";
 
 class SectionCreate extends React.Component {
   static contextType = DataContext;
@@ -10,18 +12,19 @@ class SectionCreate extends React.Component {
 
   async onSubmit(e) {
     e.preventDefault();
-    const { save } = this.context;
+    const { data, save } = this.context;
     const { name, title, generatedName } = this.state;
-    const { data } = this.props;
-    const copy = clone(data);
-
-    const updated = copy.addSection(name || generatedName, title.trim());
+    const copy = { ...data };
+    const updated = addSection(data, {
+      name: name ?? generatedName,
+      title: title.trim(),
+    });
 
     try {
       const savedData = await save(updated);
       this.props.onCreate(savedData);
     } catch (err) {
-      console.error(err);
+      logger.error("SectionCreate", err);
     }
   }
 

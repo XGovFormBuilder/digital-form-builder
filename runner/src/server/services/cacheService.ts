@@ -18,6 +18,9 @@ const {
 const partition = "cache";
 
 export class CacheService {
+  /**
+   * This service is responsible for getting, storing or deleting a user's session data in the cache. This service has been registered by {@link createServer}
+   */
   cache: any;
 
   constructor(server: HapiServer) {
@@ -25,9 +28,7 @@ export class CacheService {
   }
 
   async getState(request: HapiRequest): Promise<FormSubmissionState> {
-    const cached = await this.cache.get(
-      this.Key(request.yar.id, request.query.visit)
-    );
+    const cached = await this.cache.get(this.Key(request));
     return cached || {};
   }
 
@@ -37,7 +38,7 @@ export class CacheService {
     nullOverride = true,
     arrayMerge = false
   ) {
-    const key = this.Key(request.yar.id, request.query.visit);
+    const key = this.Key(request);
     const state = await this.getState(request);
     hoek.merge(state, value, nullOverride, arrayMerge);
     await this.cache.set(key, state, sessionTimeout);
@@ -45,20 +46,30 @@ export class CacheService {
   }
 
   async clearState(request: HapiRequest) {
-    if (request.yar && request.yar.id) {
-      this.cache.drop(this.Key(request.yar.id, request.query.visit));
+    if (request.yar?.id) {
+      this.cache.drop(this.Key(request));
     }
   }
 
-  Key(sessionId: string, visitId: string | string[]) {
+  /**
+   * The key used to store user session data against.
+   * If there are multiple forms on the same runner instance, for example `form-a` and `form-a-feedback` this will prevent CacheService from clearing data from `form-a` if a user gave feedback before they finished `form-a`
+   *
+   * @param request - hapi request object
+   */
+  Key(request: HapiRequest) {
     return {
       segment: partition,
-      id: `${sessionId}:${visitId}`,
+      id: `${request.yar.id}:${request.params.id}`,
     };
   }
 }
 
 export const catboxProvider = () => {
+  /**
+   * If redisHost doesn't exist, CatboxMemory will be used instead.
+   * More information at {@link https://hapi.dev/module/catbox/api}
+   */
   const provider = {
     constructor: redisHost ? CatboxRedis : CatboxMemory,
     options: {},

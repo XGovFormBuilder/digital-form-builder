@@ -1,4 +1,6 @@
-//TODO:- this was designed to be a namespace but requires babel setup.
+/**
+ * Meta actions which do not affect a component's definition
+ */
 export enum Meta {
   NEW_COMPONENT = "NEW_COMPONENT",
   SET_COMPONENT = "SET_COMPONENT",
@@ -8,6 +10,9 @@ export enum Meta {
   SET_SELECTED_LIST = "SET_SELECTED_LIST",
 }
 
+/**
+ * actions which change the schema options
+ */
 export enum Schema {
   EDIT_SCHEMA_MIN = "EDIT_SCHEMA_MIN",
   EDIT_SCHEMA_MAX = "EDIT_SCHEMA_MAX",
@@ -16,6 +21,9 @@ export enum Schema {
   EDIT_SCHEMA_REGEX = "EDIT_SCHEMA_REGEX",
 }
 
+/**
+ * actions which change the field options
+ */
 export enum Fields {
   EDIT_TITLE = "EDIT_TITLE",
   EDIT_NAME = "EDIT_NAME",
@@ -24,6 +32,9 @@ export enum Fields {
   EDIT_TYPE = "EDIT_TYPE",
 }
 
+/**
+ * actions which change the options
+ */
 export enum Options {
   EDIT_OPTIONS_HIDE_TITLE = "EDIT_OPTIONS_HIDE_TITLE",
   EDIT_OPTIONS_REQUIRED = "EDIT_OPTIONS_REQUIRED",
@@ -35,6 +46,8 @@ export enum Options {
   EDIT_OPTIONS_CONDITION = "EDIT_OPTIONS_CONDITION",
   EDIT_OPTIONS_TYPE = "EDIT_OPTIONS_TYPE",
   EDIT_OPTIONS_ROWS = "EDIT_OPTIONS_ROWS",
+  EDIT_OPTIONS_AUTOCOMPLETE = "EDIT_OPTIONS_AUTOCOMPLETE",
+  EDIT_OPTIONS_CUSTOM_MESSAGE = "EDIT_OPTIONS_CUSTOM_MESSAGE",
 }
 
 export const Actions = {

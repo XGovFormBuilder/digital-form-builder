@@ -3,6 +3,7 @@ import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 
 import { DataContext } from "./context";
+import logger from "../client/plugins/logger";
 
 class DeclarationEdit extends React.Component {
   static contextType = DataContext;
@@ -28,7 +29,7 @@ class DeclarationEdit extends React.Component {
         toggleShowState("showEditSummaryBehaviour");
       })
       .catch((err) => {
-        console.error(err);
+        logger.error("DeclarationEdit", err);
       });
   };
 

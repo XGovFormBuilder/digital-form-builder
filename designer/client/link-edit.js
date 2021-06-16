@@ -4,15 +4,18 @@ import { clone } from "@xgovformbuilder/model";
 import { i18n } from "./i18n";
 
 import { DataContext } from "./context";
+import { findPage } from "./data";
+import { updateLink } from "./data/page";
+import logger from "../client/plugins/logger";
 
 class LinkEdit extends React.Component {
   static contextType = DataContext;
 
-  constructor(props) {
-    super(props);
-
-    const { data, edge } = this.props;
-    const page = data.findPage(edge.source);
+  constructor(props, context) {
+    super(props, context);
+    const { data } = this.context;
+    const { edge } = this.props;
+    const [page] = findPage(data, edge.source);
     const link = page.next.find((n) => n.path === edge.target);
 
     this.state = {
@@ -25,11 +28,9 @@ class LinkEdit extends React.Component {
   onSubmit = async (e) => {
     e.preventDefault();
     const { link, page, selectedCondition } = this.state;
-    const { data } = this.props;
-    const { save } = this.context;
-
-    const copy = clone(data);
-    const updatedData = copy.updateLink(
+    const { data, save } = this.context;
+    const updatedData = updateLink(
+      data,
       page.path,
       link.path,
       selectedCondition
@@ -39,7 +40,7 @@ class LinkEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit();
     } catch (err) {
-      console.error(err);
+      logger.error("LinkEdit", err);
     }
   };
 
@@ -53,17 +54,20 @@ class LinkEdit extends React.Component {
     const { link, page } = this.state;
     const { data, save } = this.context;
 
-    const copy = clone(data);
-    const copyPage = copy.findPage(page.path);
+    const copy = { ...data };
+    const [copyPage] = findPage(data, page.path);
     const copyLinkIdx = copyPage.next.findIndex((n) => n.path === link.path);
     copyPage.next.splice(copyLinkIdx, 1);
+    copy.pages = copy.pages.map((page) =>
+      page.path === copyPage.path ? copyPage : page
+    );
 
     save(copy)
       .then((data) => {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        console.error(err);
+        logger.error("LinkEdit", err);
       });
   };
 

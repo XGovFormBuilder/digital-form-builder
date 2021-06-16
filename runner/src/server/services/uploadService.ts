@@ -17,6 +17,10 @@ const parsedError = (key: string, error?: string) => {
 };
 
 export class UploadService {
+  /**
+   * Service responsible for uploading files via the FileUploadField. This service has been registered by {@link #createServer}
+   */
+
   get fileSizeLimit() {
     return 5 * 1024 * 1024; // 5mb
   }
@@ -95,7 +99,7 @@ export class UploadService {
     }
 
     /**
-     * @desc If there are no valid file(buffer)s, reassign any empty buffers with empty string
+     * If there are no valid file(buffer)s, reassign any empty buffers with empty string
      * allows bypassing of file upload for whatever reason it doesn't work.
      */
     if (!files.length && request.payload) {
@@ -112,8 +116,11 @@ export class UploadService {
       return h.continue;
     }
 
-    // files is an array of tuples containing key and value.
-    // value may be an array of file data where multiple files have been uploaded
+    /**
+     * files is an array of tuples containing key and value.
+     * value may be an array of file data where multiple files have been uploaded
+     */
+
     for (const file of files) {
       const key = file[0];
       const previousUpload = originalFilenames[key] || {};

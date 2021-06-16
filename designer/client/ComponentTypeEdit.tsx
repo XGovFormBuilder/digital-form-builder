@@ -3,6 +3,7 @@ import { ComponentTypes } from "@xgovformbuilder/model";
 import { ComponentContext } from "./reducers/component/componentReducer";
 import FieldEdit from "./field-edit";
 import ListFieldEdit from "./components/FieldEditors/list-field-edit";
+import SelectFieldEdit from "./components/FieldEditors/select-field-edit";
 import { TextFieldEdit } from "./components/FieldEditors/text-field-edit";
 import { MultilineTextFieldEdit } from "./multiline-text-field-edit";
 import { FileUploadFieldEdit } from "./file-upload-field-edit";
@@ -18,7 +19,7 @@ const componentTypeEditors = {
   MultilineTextField: MultilineTextFieldEdit,
   NumberField: NumberFieldEdit,
   AutocompleteField: ListFieldEdit,
-  SelectField: ListFieldEdit,
+  SelectField: SelectFieldEdit,
   RadiosField: ListFieldEdit,
   CheckboxesField: ListFieldEdit,
   FlashCard: ListFieldEdit,

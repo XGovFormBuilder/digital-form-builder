@@ -19,11 +19,12 @@
     "build:types": "yarn run build:types:node && yarn run build:types:browser",
     "build:types:node": "tsc --emitDeclarationOnly --declarationDir ./dist/module ",
     "build:types:browser": "tsc --emitDeclarationOnly --declarationDir dist/browser ",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate-docs": "typedoc src --tsconfig tsconfig.json --out ../docs/model/typedoc --exclude '**/*+(index|.test|.jest).ts'"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/master/model"
+    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model"
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
@@ -59,6 +60,7 @@
     "babel-jest": "^26.6.3",
     "cross-env": "^7.0.2",
     "eslint": "^7.6.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
     "typescript": "^4.0.3"

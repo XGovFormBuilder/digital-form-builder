@@ -14,7 +14,7 @@ export default class HomePage extends Page {
       ext: {
         onPostHandler: {
           method: (request, h) => {
-            console.log("onPostHandler Home");
+            request.logger.log("onPostHandler Home");
 
             // Method must return a value, a promise, or throw an error
             return h.continue;
@@ -32,7 +32,7 @@ export default class HomePage extends Page {
       ext: {
         onPostHandler: {
           method: (request, h) => {
-            console.log("onPostHandler Home");
+            request.server.log("onPostHandler Home");
 
             // Method must return a value, a promise, or throw an error
             return h.continue;

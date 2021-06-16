@@ -22,10 +22,14 @@ export class ListFormComponent extends FormComponent {
 
   constructor(def: ListComponentsDef, model: FormModel) {
     super(def, model);
+    // @ts-ignore
     this.list = model.getList(def.list);
     this.listType = this.list.type ?? "string";
     this.options = def.options;
 
+    /**
+     * Only allow a user to answer with values that have been defined in the list
+     */
     let schema = joi[this.listType]()
       .allow(...this.values)
       .label(def.title);

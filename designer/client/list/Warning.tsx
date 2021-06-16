@@ -14,7 +14,7 @@ export function useWarning() {
   async function confirm(e) {
     e.preventDefault();
     const { initialName } = state;
-    const copy = clone(data).toJSON();
+    const copy = clone(data);
     const selectedListIndex = copy.lists.findIndex(
       (list) => list.name === initialName
     );

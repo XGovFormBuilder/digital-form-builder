@@ -20,7 +20,7 @@ Feature: Page links
 
   Scenario: Linking pages when adding a page
     Given I have chosen to "Add page" to my form
-    When I link ths page to link from the "/first-page"
+    When I link this page to link from the "/first-page"
     Then my page is created with a link to the page
 
   Scenario: Deleting a link between two pages

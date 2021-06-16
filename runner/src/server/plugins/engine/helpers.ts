@@ -1,10 +1,9 @@
 import { RelativeUrl } from "./feedback";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 
-const paramsToCopy = [
-  RelativeUrl.FEEDBACK_RETURN_INFO_PARAMETER,
-  RelativeUrl.VISIT_IDENTIFIER_PARAMETER,
-];
+export const feedbackReturnInfoKey = "f_t";
+
+const paramsToCopy = [feedbackReturnInfoKey];
 
 export function proceed(
   request: HapiRequest,
@@ -55,8 +54,8 @@ export function redirectUrl(
 
   paramsToCopy.forEach((key) => {
     const value = request.query[key];
-    if (typeof value === "string") {
-      relativeUrl.addParamIfNotPresent(key, value);
+    if (typeof value === "string" && !relativeUrl.getParam(key)) {
+      relativeUrl.setParam(key, value);
     }
   });
 

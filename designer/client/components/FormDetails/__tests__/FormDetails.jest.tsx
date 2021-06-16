@@ -13,8 +13,6 @@ describe("FormDetails", () => {
     providerProps = {
       data: {
         name: "Default Title",
-        setFeedbackUrl: jest.fn(),
-        clone: () => providerProps.data,
       },
       save: jest.fn(),
     };
@@ -57,8 +55,6 @@ describe("FormDetails", () => {
         name: "Test Form",
         phaseBanner: { phase: undefined },
       });
-
-      expect(providerProps.data.setFeedbackUrl).toHaveBeenCalledWith("");
     });
   });
 
@@ -152,8 +148,11 @@ describe("FormDetails", () => {
       const saveButton = findSaveButton();
       fireEvent.click(saveButton);
       expect(providerProps.save.mock.calls[0][0]).toMatchObject({
+        feedback: {
+          feedbackForm: true,
+          url: "",
+        },
         name: "Default Title",
-        feedbackForm: true,
         phaseBanner: { phase: undefined },
       });
     });
@@ -164,7 +163,9 @@ describe("FormDetails", () => {
           ...providerProps,
           data: {
             ...providerProps.data,
-            feedbackForm: true,
+            feedback: {
+              feedbackForm: true,
+            },
           },
         },
       });
@@ -182,47 +183,11 @@ describe("FormDetails", () => {
       fireEvent.click(saveButton);
       expect(providerProps.save.mock.calls[0][0]).toMatchObject({
         name: "Default Title",
-        feedbackForm: false,
+        feedback: {
+          feedbackForm: false,
+        },
         phaseBanner: { phase: undefined },
       });
-    });
-
-    it("hides feedback forms list when `Yes` feedback form", async () => {
-      renderWithDataContext(<FormDetails />, {
-        providerProps,
-      });
-
-      const targetFeedbackForm = await screen.findByTestId(
-        "target-feedback-form"
-      );
-
-      expect(targetFeedbackForm).toBeTruthy();
-
-      const yesFeedbackRadio = screen.getByLabelText("yes") as HTMLInputElement;
-      fireEvent.click(yesFeedbackRadio);
-      expect(screen.queryByTestId("target-feedback-form")).toBeNull();
-    });
-
-    it("shows feedback forms list when `No` feedback form", async () => {
-      renderWithDataContext(<FormDetails />, {
-        providerProps: {
-          ...providerProps,
-          data: {
-            ...providerProps.data,
-            feedbackForm: true,
-          },
-        },
-      });
-
-      const targetFeedbackForm = screen.queryByTestId("target-feedback-form");
-      expect(targetFeedbackForm).toBeNull();
-
-      const noFeedbackRadio = screen.getByLabelText("no") as HTMLInputElement;
-      fireEvent.click(noFeedbackRadio);
-      const visibleTargetFeedbackForm = await screen.findByTestId(
-        "target-feedback-form"
-      );
-      expect(visibleTargetFeedbackForm).toBeTruthy();
     });
 
     it("displays correct feedback form list", async () => {
@@ -254,9 +219,11 @@ describe("FormDetails", () => {
       });
       const saveButton = findSaveButton();
       fireEvent.click(saveButton);
-      expect(providerProps.data.setFeedbackUrl).toHaveBeenCalledWith(
-        `/${feedbackFromKey}`
-      );
+      expect(providerProps.save.mock.calls[0][0]).toMatchObject({
+        feedback: {
+          url: `/${feedbackFromKey}`,
+        },
+      });
     });
   });
 });

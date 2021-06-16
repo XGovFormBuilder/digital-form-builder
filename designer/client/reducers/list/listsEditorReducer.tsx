@@ -36,7 +36,7 @@ export const ListsEditorContext = createContext<{
 ListsEditorContext.displayName = "ListsEditorContext";
 
 /**
- * @desc Responsible for which screens should be open, and whether ComponentContext or ListContext should be used for changes.
+ * Responsible for which list editing screens should be open in {@link ListsEdit} component.
  */
 export function listsEditorReducer(
   state,

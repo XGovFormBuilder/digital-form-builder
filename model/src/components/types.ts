@@ -61,8 +61,9 @@ export type ContentOptions = {
   condition?: string;
 };
 
-// Types for Components JSON structure which are expected by engine and turned into
-// actual form input/content/lists
+/**
+ * Types for Components JSON structure which are expected by engine and turned into actual form input/content/lists
+ */
 interface TextFieldBase {
   subType?: "field";
   type: string;
@@ -75,6 +76,7 @@ interface TextFieldBase {
     optionalText?: boolean;
     classes?: string;
     allow?: string;
+    autocomplete?: string;
   };
   schema: {
     max?: number;
@@ -159,6 +161,9 @@ export interface MultilineTextFieldComponent {
 
 export interface TelephoneNumberFieldComponent extends TextFieldBase {
   type: "TelephoneNumberField";
+  options: TextFieldBase["options"] & {
+    customValidation?: string;
+  };
 }
 
 export interface YesNoFieldComponent extends TextFieldBase {
@@ -264,6 +269,7 @@ export interface RadiosFieldComponent extends ListFieldBase {
 
 export interface SelectFieldComponent extends ListFieldBase {
   type: "SelectField";
+  options: ListFieldBase["options"] & { autocomplete?: string };
 }
 
 export type ComponentDef =

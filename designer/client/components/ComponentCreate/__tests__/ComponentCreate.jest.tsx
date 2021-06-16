@@ -1,20 +1,21 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Data } from "@xgovformbuilder/model";
 import userEvent, { TargetElement } from "@testing-library/user-event";
 
 import { ComponentCreate } from "../ComponentCreate";
 import { ComponentContextProvider } from "../../../reducers/component";
 import { DataContext } from "../../../context";
 import { DetailsComponent } from "@xgovformbuilder/model";
+import * as Data from "../../../data";
+import { addComponent } from "../../../data";
 
 describe("ComponentCreate:", () => {
-  const data = new Data({
+  const data = {
     pages: [{ path: "/1", title: "", controller: "", section: "" }],
     lists: [],
     sections: [],
     startPage: "",
-  });
+  };
 
   const page = { path: "/1" };
 
@@ -50,8 +51,9 @@ describe("ComponentCreate:", () => {
 
   test("Should store the populated component and call callback on submit", async () => {
     // - when
+    const spy = jest.fn();
     const { container, getByText } = render(
-      <WrappingComponent componentValue={false}>
+      <WrappingComponent dataValue={{ data, save: spy }} componentValue={false}>
         <ComponentCreate page={page} />
       </WrappingComponent>
     );
@@ -69,8 +71,10 @@ describe("ComponentCreate:", () => {
     userEvent.click(saveBtn);
 
     // - then
-    const newDetailsComp = data.pages[0].components?.[0] as DetailsComponent;
+    const updatedData = spy.mock.calls[0][0];
 
+    const newDetailsComp = updatedData.pages[0]
+      .components?.[0] as DetailsComponent;
     expect(newDetailsComp.type).toEqual("Details");
     expect(newDetailsComp.title).toEqual("Details");
     expect(newDetailsComp.content).toEqual("content");

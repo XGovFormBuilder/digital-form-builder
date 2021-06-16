@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
@@ -10,7 +11,10 @@ const autoprefixer = require("autoprefixer");
 const devMode = process.env.NODE_ENV !== "production";
 const prodMode = process.env.NODE_ENV === "production";
 const environment = prodMode ? "production" : "development";
-
+const logLevel = process.env.REACT_LOG_LEVEL || (prodMode ? "warn" : "debug");
+const reactEnvVariables = new webpack.DefinePlugin({
+  ["REACT_LOG_LEVEL"]: JSON.stringify(`${logLevel}`),
+});
 const client = {
   target: "web",
   mode: environment,
@@ -108,6 +112,7 @@ const client = {
       defaultSizes: "gzip",
       openAnalyzer: false,
     }),
+    reactEnvVariables,
   ],
   externals: {
     react: "React",

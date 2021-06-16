@@ -11,6 +11,8 @@ import "./ComponentCreate.scss";
 import { Actions } from "../../reducers/component/types";
 import { DataContext } from "../../context";
 import { ComponentContext } from "../../reducers/component/componentReducer";
+import { addComponent } from "../../data";
+import logger from "../../plugins/logger";
 
 function useComponentCreate(props) {
   const { data, save } = useContext(DataContext);
@@ -30,7 +32,7 @@ function useComponentCreate(props) {
       handleSubmit()
         .then()
         .catch((err) => {
-          console.error(err);
+          logger.error("useComponentCreate", err);
         });
     }
   }, [hasValidated, hasErrors]);
@@ -49,8 +51,8 @@ function useComponentCreate(props) {
 
     setIsSaving(true);
     const { isNew, ...selectedComponent } = state.selectedComponent;
-    data.addComponent(page.path, { ...selectedComponent });
-    await save(data.toJSON());
+    const updatedData = addComponent(data, page.path, selectedComponent);
+    await save(updatedData);
     toggleAddComponent();
   };
 

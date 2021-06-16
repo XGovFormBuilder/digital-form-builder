@@ -2,29 +2,40 @@ import React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import ConditionsEdit from "../ConditionsEdit";
 import { DataContext, FlyoutContext } from "../../context";
+import { FormDefinition } from "@xgovformbuilder/model";
 
 const flyoutValue = {
   increment: jest.fn(),
   decrement: jest.fn(),
   count: 0,
 };
-let data = {
-  inputsAccessibleAt: jest.fn().mockReturnValue([
+const data: FormDefinition = {
+  pages: [
+    { path: "/1", next: [{ path: "/2" }] },
     {
-      label: "Something",
-      name: "field1",
-      type: "TextField",
+      path: "/2",
+      components: [{ type: "TextField", name: "field1", title: "Something" }],
+      next: [{ path: "/3" }],
     },
-  ]),
+    {
+      path: "/3",
+      components: [
+        { type: "TextField", name: "field2", title: "Something else" },
+        { type: "TextField", name: "field3", title: "beep" },
+      ],
+    },
+  ],
   conditions: [],
-  allInputs: [1, 2, 3],
 };
-const customRender = (
-  ui,
-  { providerProps = { data, save: jest.fn() }, ...renderOptions }
-) => {
+
+const dataProviderProps = {
+  data,
+  save: jest.fn(),
+};
+
+const customRender = (ui, { providerProps, ...renderOptions } = {}) => {
   return render(
-    <DataContext.Provider value={providerProps}>
+    <DataContext.Provider value={providerProps ?? dataProviderProps}>
       <FlyoutContext.Provider value={flyoutValue}>{ui}</FlyoutContext.Provider>
       <div id="portal-root" />
     </DataContext.Provider>,
@@ -34,7 +45,7 @@ const customRender = (
 
 describe("hint texts", () => {
   test("main hint text is correct", () => {
-    const { getByText } = customRender(<ConditionsEdit />, {});
+    const { getByText } = customRender(<ConditionsEdit />);
 
     const hint =
       "Set conditions for components and links to control the flow of a form. For example, a question page with a component for yes and no options could have link conditions based on which option a user selects.";
@@ -42,7 +53,9 @@ describe("hint texts", () => {
   });
 
   test("no field hint test is correct", () => {
-    const { getByText } = customRender(<ConditionsEdit />, {});
+    const { getByText } = customRender(<ConditionsEdit />, {
+      providerProps: { data: { pages: [], conditions: [] }, save: jest.fn() },
+    });
     const hint =
       "You cannot add a condition as no components are available. Create a component on a page in the form. You can then add a condition.";
     expect(getByText(hint)).toBeInTheDocument();
@@ -61,25 +74,21 @@ describe("with existing conditions", () => {
     value: "badgers again",
   };
 
-  let mockAllInputs = jest.fn();
-  mockAllInputs.mockReturnValue([]);
-
-  data = {
-    conditions: [condition, condition2],
-    hasConditions: true,
-    allInputs: [],
+  const providerData = {
+    data: {
+      ...data,
+      conditions: [condition, condition2],
+    },
+    save: jest.fn(),
   };
 
-  beforeEach(() => {});
+  const props = {
+    providerProps: providerData,
+  };
 
   test("Renders edit links for each condition and add new condition ", () => {
-    const providerProps = {
-      data,
-      save: jest.fn(),
-    };
-
     const { getByText, queryByTestId } = customRender(<ConditionsEdit />, {
-      providerProps,
+      ...props,
     });
     expect(getByText(condition.displayName)).toBeInTheDocument();
     expect(getByText(condition2.displayName)).toBeInTheDocument();
@@ -87,13 +96,8 @@ describe("with existing conditions", () => {
   });
 
   test("Clicking an edit link causes the edit view to be rendered and all other elements hidden", () => {
-    const providerProps = {
-      data,
-      save: jest.fn(),
-    };
-
     const { getByText, getByTestId } = customRender(<ConditionsEdit />, {
-      providerProps,
+      ...props,
     });
     const link = getByText(condition.displayName);
     fireEvent.click(link);
@@ -102,49 +106,34 @@ describe("with existing conditions", () => {
 });
 
 describe("without existing conditions", () => {
-  const data = {
-    conditions: [],
-    hasConditions: false,
-    allInputs: [],
+  const providerData = {
+    data: {
+      ...data,
+      conditions: [],
+    },
+    save: jest.fn(),
+  };
+
+  const props = {
+    providerProps: providerData,
   };
 
   test("Renders no edit condition links", () => {
-    const providerProps = {
-      data,
-      save: jest.fn(),
-    };
-    const { queryByTestId, queryAllByTestId } = customRender(
-      <ConditionsEdit />,
-      {
-        providerProps,
-      }
-    );
+    const { queryAllByTestId } = customRender(<ConditionsEdit />, props);
 
     const listItems = queryAllByTestId("conditions-list-items");
     expect(listItems.length).toBe(0);
-    expect(queryByTestId("add-condition-link")).toBeNull();
   });
 
   test("Renders add new condition link if inputs are available", () => {
-    const providerProps = {
-      data: { ...data, allInputs: [1, 2, 3] },
-      save: jest.fn(),
-    };
-    const { queryByTestId } = customRender(<ConditionsEdit />, {
-      providerProps,
-    });
+    const { queryByTestId } = customRender(<ConditionsEdit />, props);
 
     expect(queryByTestId("add-condition-link")).toBeInTheDocument();
   });
 
   test("Renders no new condition message if there are no inputs available", () => {
-    const providerProps = {
-      data: { ...data, allInputs: [] },
-      save: jest.fn(),
-    };
-
     const { getByText } = customRender(<ConditionsEdit />, {
-      providerProps,
+      providerProps: { data: { pages: [], conditions: [] }, save: jest.fn() },
     });
 
     const hint =

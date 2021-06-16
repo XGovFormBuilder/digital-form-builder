@@ -33,7 +33,7 @@ class Actions {
     makeOptional = false,
     save = true
   ) {
-    formDesigner.createComponentForPageName(pageName).click();
+    formDesigner.createComponent(pageName).click();
     createComponent.selectComponentByName(componentName);
     if (componentName.toLowerCase() === "paragraph") {
       createComponent.paragraphSetText(

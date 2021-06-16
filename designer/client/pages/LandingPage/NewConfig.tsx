@@ -16,6 +16,7 @@ type State = {
   configs: { Key: string; DisplayName: string }[];
   newName: string;
   errors?: any;
+  loading?: boolean;
 };
 
 const parseNewName = (name: string) => {
@@ -30,6 +31,7 @@ export class NewConfig extends Component<Props, State> {
       configs: [],
       newName: "",
       errors: {},
+      loading: true,
     };
   }
 
@@ -37,6 +39,7 @@ export class NewConfig extends Component<Props, State> {
     formConfigurationApi.loadConfigurations().then((configs) => {
       this.setState({
         configs,
+        loading: false,
       });
     });
   }
@@ -123,6 +126,11 @@ export class NewConfig extends Component<Props, State> {
 
   render() {
     const { newName, errors } = this.state;
+
+    if (this.state.loading) {
+      return <p>Loading ...</p>;
+    }
+
     return (
       <div className="new-config">
         <div>

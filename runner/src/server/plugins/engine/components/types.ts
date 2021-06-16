@@ -22,6 +22,7 @@ export type ListItem = {
   checked?: boolean;
   selected?: boolean;
   label?: ListItemLabel;
+  condition?: string;
 };
 
 // TODO: Break this down for each component (Same as model/Component).
@@ -42,6 +43,7 @@ export type ViewModel = {
   summaryHtml?: string;
   html?: any; // TODO
   attributes: {
+    autocomplete?: string;
     maxlength?: number;
     multiple?: string;
     accept?: string;
@@ -55,6 +57,7 @@ export type ViewModel = {
     legend?: Label;
   };
   children?: ComponentCollectionViewModel;
+  autocomplete?: string;
 };
 
 export type ComponentCollectionViewModel = {
