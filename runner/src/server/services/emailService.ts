@@ -6,6 +6,10 @@ import { HapiServer } from "../types";
 import { UploadService } from "./uploadService";
 
 export class EmailService {
+  /**
+   * This service is responsible for sending emails. It is currently only designed to work with AWS SES, which is not available in EU West 2. You must also have a verified domain for SES.
+   * @experimental
+   */
   uploadService: UploadService;
 
   constructor(server: HapiServer) {
@@ -16,11 +20,10 @@ export class EmailService {
   /**
    * TODO:- This should work but no guarantee. AWS needs a verified domain for sending. Sorry folks!
    * TODO:- Set 'from' email address.
-   * @param emailAddress {string} - Recipient of the email
-   * @param options {object}
-   * @param subject {string}
-   * @param [options.attachments] {string[]} - url(s) of the attachments
-   * @param [options.message] {string} - Message to be sent in email body
+   * @param emailAddress - Recipient of the email
+   * @param subject - subject line
+   * @param options["attachments"] - url(s) of the attachments
+   * @param options["message"] - Message to be sent in email body
    */
   async sendEmail(
     emailAddress: string,

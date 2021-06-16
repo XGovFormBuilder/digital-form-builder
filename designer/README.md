@@ -48,6 +48,7 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 | FOOTER_TEXT             | Text displayed on the left side of the footer              |    no    |                |                             |
 | SESSION_TIMEOUT         | server-side storage expiration time - in milliseconds      |    no    |                |                             |
 | SESSION_COOKIE_PASSWORD | at least 32 char long string for session cookie encryption |    no    |                |                             |
+| REACT_LOG_LEVEL         | Log level for client-side designer logging                 |    no    | debug          | trace,debug,info,warn,error |
 
 ## Unit tests
 

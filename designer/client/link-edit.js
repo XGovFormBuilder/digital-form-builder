@@ -6,6 +6,7 @@ import { i18n } from "./i18n";
 import { DataContext } from "./context";
 import { findPage } from "./data";
 import { updateLink } from "./data/page";
+import logger from "../client/plugins/logger";
 
 class LinkEdit extends React.Component {
   static contextType = DataContext;
@@ -39,7 +40,7 @@ class LinkEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit();
     } catch (err) {
-      console.error(err);
+      logger.error("LinkEdit", err);
     }
   };
 
@@ -66,7 +67,7 @@ class LinkEdit extends React.Component {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        console.error(err);
+        logger.error("LinkEdit", err);
       });
   };
 

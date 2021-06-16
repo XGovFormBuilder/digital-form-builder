@@ -8,6 +8,7 @@ import ErrorSummary from "./error-summary";
 import { DataContext } from "./context";
 import { i18n } from "./i18n";
 import { addLink } from "./data/page";
+import logger from "../client/plugins/logger";
 
 class LinkCreate extends React.Component {
   static contextType = DataContext;
@@ -31,7 +32,7 @@ class LinkCreate extends React.Component {
       to,
       selectedCondition
     );
-    error && console.error(error);
+    error && logger.error("LinkCreate", error);
     const savedData = await save(updatedData);
     this.props.onCreate({ data: savedData });
   };

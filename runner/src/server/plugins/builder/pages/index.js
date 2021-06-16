@@ -6,7 +6,7 @@ export default class Page extends EngineBasePage {
       ext: {
         onPostHandler: {
           method: (request, h) => {
-            console.log(`GET onPostHandler ${this.path}`);
+            request.logger.log(`GET onPostHandler ${this.path}`);
             return h.continue;
           },
         },

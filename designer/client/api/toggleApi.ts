@@ -1,3 +1,4 @@
+import logger from "../plugins/logger";
 export class FeatureToggleApi {
   async fetch() {
     try {
@@ -8,7 +9,7 @@ export class FeatureToggleApi {
         return [];
       }
     } catch (e) {
-      console.error(e);
+      logger.error("toggleApi", e);
       return [];
     }
   }

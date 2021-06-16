@@ -3,6 +3,7 @@ import Editor from "./editor";
 import { clone, ConditionsWrapper } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import { removeCondition, updateCondition } from "./data";
+import logger from "../client/plugins/logger";
 
 class ConditionEdit extends React.Component {
   static contextType = DataContext;
@@ -31,7 +32,7 @@ class ConditionEdit extends React.Component {
       const saved = await save(updated);
       this.props.onEdit({ data: saved });
     } catch (err) {
-      console.error(err);
+      logger.error("ConditionEdit", err);
     }
   };
 
@@ -51,7 +52,7 @@ class ConditionEdit extends React.Component {
       await save(updatedData);
       this.props.onEdit({ data });
     } catch (e) {
-      console.error(e);
+      logger.error("ConditionEdit", e);
     }
   };
 

@@ -63,7 +63,7 @@ export const getErrorCrashReport: ServerRoute = {
             `attachment; filename=${id}-crash-report.zip`
           );
       } catch (err) {
-        console.error("Error while generating crash report:", err);
+        request.logger.error("Error while generating crash report:", err);
         return h
           .response(Buffer.from("Error while generating crash report"))
           .encoding("binary")

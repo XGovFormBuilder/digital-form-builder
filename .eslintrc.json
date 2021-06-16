@@ -38,7 +38,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
-      "plugins": ["@babel", "prettier", "@typescript-eslint"],
+      "plugins": ["@babel", "prettier", "@typescript-eslint", "eslint-plugin-tsdoc"],
       "parserOptions": {
         "ecmaFeatures": { "jsx": true }
       }
@@ -46,7 +46,8 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "prettier/prettier": ["error"]
+        "prettier/prettier": ["error"],
+        "tsdoc/syntax": "warn"
       }
     }
   ],

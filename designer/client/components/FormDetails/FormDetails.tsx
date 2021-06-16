@@ -12,7 +12,7 @@ import { FormDetailsTitle } from "./FormDetailsTitle";
 import { FormDetailsFeedback } from "./FormDetailsFeedback";
 import { FormDetailsPhaseBanner } from "./FormDetailsPhaseBanner";
 import "./FormDetails.scss";
-
+import logger from "../../plugins/logger";
 type PhaseBanner = Exclude<FormDefinition["phaseBanner"], undefined>;
 type Phase = PhaseBanner["phase"];
 
@@ -82,7 +82,7 @@ export class FormDetails extends Component<Props, State> {
         onCreate(saved);
       }
     } catch (err) {
-      console.error(err);
+      logger.error("FormDetails", err);
     }
   };
 
@@ -100,7 +100,7 @@ export class FormDetails extends Component<Props, State> {
 
   handleIsFeedbackFormRadio = (event: ChangeEvent<HTMLSelectElement>) => {
     const isFeedbackForm = event.target.value === "true";
-    console.log("handle is feedback");
+    logger.info("FormDetails", "handle is feedback");
 
     if (isFeedbackForm) {
       this.setState({ feedbackForm: true, selectedFeedbackForm: undefined });

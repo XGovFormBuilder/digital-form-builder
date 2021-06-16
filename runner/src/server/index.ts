@@ -26,6 +26,7 @@ import {
   PayService,
   UploadService,
   WebhookService,
+  AddressService,
 } from "./services";
 import config from "./config";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
@@ -94,6 +95,7 @@ async function createServer(routeConfig: RouteConfig) {
     UploadService,
     EmailService,
     WebhookService,
+    AddressService,
   ]);
 
   server.ext(

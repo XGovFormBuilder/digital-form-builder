@@ -20,6 +20,7 @@ export class ComponentBase {
 
   model: FormModel;
 
+  /** joi schemas based on a component defined in the form JSON. This validates a user's answer and is generated from {@link ComponentDef} */
   formSchema?: JoiSchema;
   stateSchema?: JoiSchema;
 
@@ -35,6 +36,9 @@ export class ComponentBase {
     this.model = model;
   }
 
+  /**
+   * parses FormData and returns an object provided to a govuk-frontend template to render
+   */
   getViewModel(_formData: FormData, _errors?: FormSubmissionErrors): ViewModel {
     return {
       attributes: {},

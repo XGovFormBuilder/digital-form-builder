@@ -8,7 +8,6 @@ export class SelectField extends ListFormComponent {
     const viewModel = super.getViewModel(formData, errors);
 
     viewModel.items = [{ value: "" }, ...(viewModel.items ?? [])];
-
     if (options.autocomplete) {
       viewModel.attributes.autocomplete = options.autocomplete;
     }

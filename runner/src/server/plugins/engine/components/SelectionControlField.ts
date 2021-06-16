@@ -3,12 +3,9 @@ import { FormData, FormSubmissionErrors } from "server/plugins/engine/types";
 import { ListItem } from "server/plugins/engine/components/types";
 
 /**
- * @desc "Selection controls" are checkboxes and radios (and switches), as per Material UI nomenclature.
+ * "Selection controls" are checkboxes and radios (and switches), as per Material UI nomenclature.
  */
 export class SelectionControlField extends ListFormComponent {
-  /**
-   * @desc is responsible for mapping the JSON configuration to the nunjucks template.
-   */
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, items } = this;
     const options: any = this.options;

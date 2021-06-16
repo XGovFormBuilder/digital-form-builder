@@ -50,8 +50,14 @@ export type FormDefinition = {
   conditions: ConditionRawData[];
   lists: List[];
   sections: Section[];
-  startPage?: Page["path"];
-  name?: string;
+  startPage?: Page["path"] | undefined;
+  name?: string | undefined;
   feedback?: Feedback;
   phaseBanner?: PhaseBanner;
+  fees: any[];
+  skipSummary?: boolean | undefined;
+  outputs: any[];
+  declaration?: string | undefined;
+  metadata?: Record<string, any>;
+  payApiKey?: string | undefined;
 };

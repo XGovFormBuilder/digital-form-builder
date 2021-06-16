@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { DataContext } from "../../context";
 import { whichMigrations } from "@xgovformbuilder/model";
+import logger from "../../plugins/logger";
 
 export function migrate(form) {
   const { version = 0 } = form;
@@ -12,7 +13,7 @@ export function migrate(form) {
     });
     return migratedJson;
   } catch (e) {
-    console.error("failed to migrate json");
+    logger.error("SubMenu", "failed to migrate json");
   }
 }
 

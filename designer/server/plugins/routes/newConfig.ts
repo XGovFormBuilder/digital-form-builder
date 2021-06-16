@@ -3,12 +3,13 @@ import newFormJson from "../../../new-form.json";
 import { nanoid } from "nanoid";
 import { publish } from "../../lib/publish";
 import { ServerRoute } from "@hapi/hapi";
+import { HapiRequest } from "../../types";
 
 export const registerNewFormWithRunner: ServerRoute = {
   method: "post",
   path: "/api/new",
   options: {
-    handler: async (request, h) => {
+    handler: async (request: HapiRequest, h) => {
       const { persistenceService } = request.services([]);
       const { selected, name } = request.payload;
 
@@ -39,7 +40,7 @@ export const registerNewFormWithRunner: ServerRoute = {
           await publish(newName, copied);
         }
       } catch (e) {
-        console.error(e);
+        request.logger.error(e);
       }
 
       const response = {

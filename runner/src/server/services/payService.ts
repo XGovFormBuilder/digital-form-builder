@@ -16,6 +16,13 @@ export type Fees = {
 };
 
 export class PayService {
+  /**
+   * Service responsible for handling requests to GOV.UK Pay. This service has been registered by {@link createServer}
+   */
+
+  /**
+   * utility method that returns the headers for a Pay request.
+   */
   options(apiKey: string) {
     return {
       headers: {
@@ -63,6 +70,9 @@ export class PayService {
     return payload;
   }
 
+  /**
+   * Returns a string with a textual description of what a user will pay. Pay requests are in pence, so `/ 100` to get the £ value.
+   */
   descriptionFromFees(fees: Fees): string {
     return fees.details
       .map((detail) => {
