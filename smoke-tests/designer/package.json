@@ -21,8 +21,7 @@
     "@wdio/spec-reporter": "^7.7.3",
     "@wdio/sync": "^7.7.3",
     "fs-extra": "^9.0.1",
-    "multiple-cucumber-html-reporter": "^1.18.0",
-    "wdio-chromedriver-service": "^6.0.4"
+    "multiple-cucumber-html-reporter": "^1.18.0"
   },
   "dependencies": {
     "arkit": "^1.6.4",
