@@ -49,7 +49,7 @@
     "depth-first": "^4.0.0",
     "dotenv": "8.2.0",
     "flagg": "^1.1.2",
-    "flat": "5.0.0",
+    "flat": "5.0.2",
     "focus-trap-react": "^8.3.2",
     "hapi-pino": "^8.0.1",
     "hoek": "^6.1.3",
