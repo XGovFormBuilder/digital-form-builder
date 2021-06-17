@@ -1,5 +1,5 @@
 const chai = require("chai");
-const { Given, When, Then } = require("cucumber");
+const { Given, When, Then } = require("@cucumber/cucumber");
 const { formDesigner, previewPage } = require("../pageobjects/pages");
 const {
   addLink,

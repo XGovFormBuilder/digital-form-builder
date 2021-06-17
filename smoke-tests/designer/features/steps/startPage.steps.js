@@ -1,4 +1,4 @@
-const { Given, When, Then } = require("cucumber");
+const { Given, When, Then } = require("@cucumber/cucumber");
 const actions = require("../actions/actions");
 const configPage = require("../pageobjects/pages/config.page");
 const formDesigner = require("../pageobjects/pages/formDesigner.page");

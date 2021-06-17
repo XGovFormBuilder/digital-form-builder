@@ -1,4 +1,4 @@
-const { Given, When, Then } = require("cucumber");
+const { Given, When, Then } = require("@cucumber/cucumber");
 const { formRunner } = require("../pageobjects/pages");
 
 Given(/^I choose "([^"]*)" for "([^"]*)"$/, function (
