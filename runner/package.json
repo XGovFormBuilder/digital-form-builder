@@ -74,7 +74,7 @@
     "lighthouse": "^7.1.0",
     "lodash-es": "^4.17.21",
     "nanoid": "^3.1.12",
-    "nodemailer": "6.4.18",
+    "nodemailer": "6.6.2",
     "nodemon": "^2.0.6",
     "notifications-node-client": "4.7.3",
     "nunjucks": "^3.2.3",
