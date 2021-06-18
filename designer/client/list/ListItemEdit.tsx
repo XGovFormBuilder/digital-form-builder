@@ -9,7 +9,6 @@ import {
   ListsEditorContext,
   ListsEditorStateActions,
 } from "../reducers/list/listsEditorReducer";
-import { clone } from "@xgovformbuilder/model";
 import { useListItem } from "../hooks/list/useListItem";
 import { ListContext } from "../reducers/listReducer";
 
@@ -35,7 +34,7 @@ export function ListItemEdit() {
   const { listItemErrors: errors } = state;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const copy = clone(data);
+    const copy = { ...data };
     const hasErrors = validate(i18n);
     if (hasErrors) return;
     await save(prepareForSubmit(copy));

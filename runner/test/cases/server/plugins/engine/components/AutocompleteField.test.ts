@@ -1,11 +1,12 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { AutocompleteField } from "server/plugins/engine/components/AutocompleteField";
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;
 const { suite, describe, it } = lab;
 import sinon from "sinon";
+import { AutocompleteField } from "../../../../../../src/server/plugins/engine/components";
+import { FormSubmissionError } from "../../../../../../src/server/plugins/engine/types";
 
 const lists = [
   {
@@ -64,6 +65,7 @@ suite("AutocompleteField", () => {
       makePage: () => sinon.stub(),
     };
 
+    // @ts-ignore
     const component = new AutocompleteField(componentDefinition, formModel);
 
     it("is required by default", () => {
@@ -77,8 +79,12 @@ suite("AutocompleteField", () => {
     });
 
     it("includes the first empty item in items list", () => {
-      const { items } = component.getViewModel({ lang: "en" });
-      expect(items[0]).to.equal({ value: "" });
+      const { items } = component.getViewModel(
+        { lang: "en" },
+        {} as FormSubmissionError
+      );
+      expect(items).to.exist();
+      expect(items![0]).to.equal({ value: "" });
     });
   });
 });

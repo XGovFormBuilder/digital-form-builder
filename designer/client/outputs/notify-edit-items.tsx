@@ -1,6 +1,7 @@
 import React, { MouseEvent, ChangeEvent } from "react";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "../context";
+import logger from "../plugins/logger";
 
 type State = {
   items: string[];
@@ -52,7 +53,7 @@ class NotifyItems extends React.Component<Props, State> {
         this.props.onEdit({ data });
       })
       .catch((err) => {
-        console.error(err);
+        logger.error("NotifyItems", err);
       });
   };
 

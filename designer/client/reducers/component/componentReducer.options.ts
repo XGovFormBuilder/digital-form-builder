@@ -82,12 +82,25 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, condition: payload },
         },
       };
-
     case Options.EDIT_OPTIONS_TYPE:
       return {
         selectedComponent: {
           ...selectedComponent,
           options: { ...options, type: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_AUTOCOMPLETE:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, autocomplete: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_CUSTOM_MESSAGE:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, customValidation: payload },
         },
       };
   }

@@ -1,9 +1,10 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Radios } from "@govuk-jsx/radios";
 import { Label } from "@govuk-jsx/label";
 import { FormConfiguration } from "@xgovformbuilder/model";
 
 import { i18n } from "../../i18n";
+import * as formConfigurationApi from "../../load-form-configurations";
 
 interface Props {
   feedbackForm: any;
@@ -18,9 +19,20 @@ export const FormDetailsFeedback = (props: Props) => {
     feedbackForm = false,
     handleIsFeedbackFormRadio,
     onSelectFeedbackForm,
-    formConfigurations,
     selectedFeedbackForm,
   } = props;
+
+  const [configs, setConfigs] = useState<FormConfiguration[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    formConfigurationApi.loadConfigurations().then((result) => {
+      if (isMounted) setConfigs(result.filter((it) => it.feedbackForm));
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div className="govuk-form-group form-details__feedback">
@@ -55,7 +67,7 @@ export const FormDetailsFeedback = (props: Props) => {
           },
         ]}
       />
-      {!feedbackForm && (
+      {feedbackForm === false && (
         <div className="govuk-form-group">
           <label
             className="govuk-label govuk-label--s"
@@ -63,14 +75,14 @@ export const FormDetailsFeedback = (props: Props) => {
           >
             Feedback form
           </label>
-          {formConfigurations.length === 0 && (
+          {configs.length === 0 && (
             <div className="govuk-hint" id="target-feedback-form-hint">
               <p>No available feedback form configurations found</p>
               <p>Only forms marked as being a feedback form are listed here</p>
             </div>
           )}
 
-          {formConfigurations.length > 0 && (
+          {configs.length > 0 && (
             <div>
               <div id="target-feedback-form-hint" className="govuk-hint">
                 <p>
@@ -90,7 +102,7 @@ export const FormDetailsFeedback = (props: Props) => {
                 onChange={onSelectFeedbackForm}
               >
                 <option />
-                {formConfigurations.map((config, index) => (
+                {configs.map((config, index) => (
                   <option key={config.Key + index} value={config.Key}>
                     {config.DisplayName}
                   </option>

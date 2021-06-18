@@ -4,7 +4,7 @@ import React from "react";
 import { ListEdit } from "../ListEdit";
 import { ListContext } from "../../reducers/listReducer";
 
-const data = new Data({
+const data = {
   pages: [],
   sections: [],
   startPage: "",
@@ -23,12 +23,12 @@ const data = new Data({
       items: [],
     },
   ],
-});
+};
 
 test("strings are rendered correctly", async () => {
   const dataValue = { data, save: jest.fn() };
   const listValue = {
-    state: { selectedList: data.findList("myList") },
+    state: { selectedList: data.lists[0] },
     dispatch: jest.fn(),
   };
   let listsValue = {
@@ -54,7 +54,7 @@ test("strings are rendered correctly", async () => {
   expect(queryByText("This list does not have any list items")).toBeNull();
 
   const emptyList = {
-    state: { selectedList: data.findList("myEmptyList"), isNew: true },
+    state: { selectedList: data.lists[1], isNew: true },
     dispatch: jest.fn(),
   };
 

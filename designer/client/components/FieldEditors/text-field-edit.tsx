@@ -3,6 +3,8 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 import { Actions } from "../../reducers/component/types";
 import { CssClasses } from "../CssClasses";
 import { i18n } from "../../i18n";
+import { Autocomplete } from "../Autocomplete";
+import { CustomValidationMessage } from "../CustomValidationMessage";
 
 type Props = {
   context: any; // TODO
@@ -128,7 +130,14 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
 
       {children}
 
+      <Autocomplete />
+
       <CssClasses />
+
+      {selectedComponent.type === "TelephoneNumberField" && (
+        // Remove type check when fully integrated into all runner components
+        <CustomValidationMessage />
+      )}
     </details>
   );
 }

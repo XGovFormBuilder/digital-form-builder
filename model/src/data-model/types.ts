@@ -1,4 +1,11 @@
+import { ConditionRawData } from ".";
 import { ComponentDef } from "../components/types";
+
+export interface Next {
+  path: string;
+  condition?: string;
+}
+export type Link = Next;
 
 export interface Page {
   title: string;
@@ -36,4 +43,21 @@ export interface Feedback {
 export type PhaseBanner = {
   phase?: "alpha" | "beta";
   feedbackUrl?: string;
+};
+
+export type FormDefinition = {
+  pages: Page[];
+  conditions: ConditionRawData[];
+  lists: List[];
+  sections: Section[];
+  startPage?: Page["path"] | undefined;
+  name?: string | undefined;
+  feedback?: Feedback;
+  phaseBanner?: PhaseBanner;
+  fees: any[];
+  skipSummary?: boolean | undefined;
+  outputs: any[];
+  declaration?: string | undefined;
+  metadata?: Record<string, any>;
+  payApiKey?: string | undefined;
 };

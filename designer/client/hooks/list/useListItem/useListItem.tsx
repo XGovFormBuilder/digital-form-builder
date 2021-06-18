@@ -4,8 +4,9 @@ import {
   validateNotEmpty,
   validateTitle,
 } from "../../../validations";
-import { clone } from "@xgovformbuilder/model";
+import { clone, FormDefinition } from "@xgovformbuilder/model";
 import { ListItemHook } from "./types";
+import { addList, findList } from "../../../data";
 
 export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
@@ -57,9 +58,9 @@ export function useListItem(state, dispatch): ListItemHook {
     return valErrors;
   }
 
-  function prepareForSubmit(data) {
-    const copy = clone(data);
-    const { selectedList, selectedItemIndex, initialName } = state;
+  function prepareForSubmit(data: FormDefinition) {
+    let copy: FormDefinition = { ...data };
+    const { selectedList, selectedItemIndex } = state;
     let { items } = selectedList;
     if (!selectedItem.isNew) {
       items = items.splice(selectedItemIndex, 1, selectedItem);
@@ -68,22 +69,18 @@ export function useListItem(state, dispatch): ListItemHook {
       items.push(selectedItem);
     }
 
-    const indexOfList = copy.lists.findIndex(
-      (list) => list.name === initialName
-    );
-
     if (selectedList.isNew) {
       delete selectedList.isNew;
-      copy.addList(selectedList);
+      copy = addList(data, selectedList);
     } else {
-      const list = copy.lists[indexOfList];
+      const [list, indexOfList] = findList(copy, selectedList.name);
       copy.lists[indexOfList] = { ...list, items };
     }
     return copy;
   }
 
   function prepareForDelete(data: any, index: number | undefined) {
-    const copy = clone(data);
+    const copy = { ...data };
     const { initialName, selectedList, selectedItemIndex } = state;
 
     // If user clicks delete button in list items list, then index is defined and we use it

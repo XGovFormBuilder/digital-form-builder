@@ -47,6 +47,9 @@ export default {
       },
     },
     path: [
+      /**
+       * Array of directories to check for nunjucks templates.
+       */
       `${path.join(__dirname, "..", "views")}`,
       `${path.join(__dirname, "engine", "views")}`,
       `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}`,

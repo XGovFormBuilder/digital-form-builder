@@ -1,7 +1,8 @@
-import { Data } from "@xgovformbuilder/model";
+import { FormDefinition } from "@xgovformbuilder/model";
+import logger from "../plugins/logger";
 
 export class DesignerApi {
-  async save(id: string, updatedData: Data): Promise<Response | any> {
+  async save(id: string, updatedData: FormDefinition): Promise<Response | any> {
     const response = await window.fetch(`/api/${id}/data`, {
       method: "put",
       body: JSON.stringify(updatedData),
@@ -21,7 +22,7 @@ export class DesignerApi {
       const response = await window.fetch(`/api/${id}/data`);
       return response.json();
     } catch (e) {
-      console.error(e);
+      logger.error("fetchData", e);
     }
   }
 }

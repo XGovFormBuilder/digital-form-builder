@@ -21,11 +21,12 @@
     "unit-test-cov": "lab -T test/.transform.js -P test/**/*.test.* -v test -t 83 -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
     "a11y": "node test/audit/components && node lighthouse",
     "symlink-env": "./bin/symlink-config",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "generate-docs": "typedoc src --tsconfig tsconfig.json --out ../docs/runner/typedoc --exclude '**/*+(index|.test|.jest).ts'"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/master/builder"
+    "url": "https://github.com/XGovFormBuilder/digital-form-builder/tree/main/builder"
   },
   "engines": {
     "node": ">=12",
@@ -71,7 +72,7 @@
     "ioredis": "4.16.1",
     "joi": "17.2.1",
     "lighthouse": "^7.1.0",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "nanoid": "^3.1.12",
     "nodemailer": "6.4.18",
     "nodemon": "^2.0.6",
@@ -104,11 +105,7 @@
     "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "7.10.3",
     "@types/hapi": "^18.0.4",
-    "@types/hapi__catbox-memory": "^4.1.2",
-    "@types/hapi__catbox-redis": "^5.0.2",
-    "@types/hapi__crumb": "^7.3.1",
-    "@types/hapi__inert": "^5.2.1",
-    "@types/hapi__yar": "^9.2.1",
+    "@types/hapi__yar": "^10.1.0",
     "@types/hoek": "^4.1.3",
     "@types/nodemailer": "^6.4.0",
     "@types/pino": "^6.3.6",
@@ -121,6 +118,7 @@
     "code": "5.2.4",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
     "lab": "18.0.2",
     "sass": "^1.26.11",
     "typescript": "^4.0.3"

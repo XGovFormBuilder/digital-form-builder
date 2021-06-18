@@ -1,26 +1,52 @@
-import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
+import { TelephoneNumberFieldComponent } from "@xgovformbuilder/model";
 
-import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormModel } from "../models";
 import { addClassOptionIfNone } from "./helpers";
 import { FormData, FormSubmissionErrors } from "../types";
+import joi, { Schema } from "joi";
 
-const PATTERN = "^[0-9\\s\\+\\(\\)]*$";
-
+const PATTERN = /^[0-9\\\s+()-]*$/;
+const DEFAULT_MESSAGE = "Enter a telephone number in the correct format";
 export class TelephoneNumberField extends FormComponent {
-  constructor(def: InputFieldsComponentsDef, model: FormModel) {
+  constructor(def: TelephoneNumberFieldComponent, model: FormModel) {
     super(def, model);
-    this.schema["regex"] = PATTERN;
+
+    const { options = {}, schema = {} } = def;
+    const pattern = schema.regex ? new RegExp(schema.regex) : PATTERN;
+    let componentSchema = joi
+      .string()
+      .pattern(pattern)
+      .rule({
+        message: def.options?.customValidation ?? DEFAULT_MESSAGE,
+      })
+      .label(def.title);
+
+    if (options.required !== false) {
+      componentSchema = componentSchema.required();
+    } else {
+      componentSchema = componentSchema.allow("");
+    }
+
+    if (schema.max) {
+      componentSchema = componentSchema.max(schema.max);
+    }
+
+    if (schema.min) {
+      componentSchema = componentSchema.min(schema.min);
+    }
+
+    this.schema = componentSchema;
+
     addClassOptionIfNone(this.options, "govuk-input--width-10");
   }
 
   getFormSchemaKeys() {
-    return helpers.getFormSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.schema as Schema };
   }
 
   getStateSchemaKeys() {
-    return helpers.getStateSchemaKeys(this.name, "string", this);
+    return { [this.name]: this.schema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {

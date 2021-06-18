@@ -7,14 +7,23 @@ import { fieldsReducer } from "./componentReducer.fields";
 
 import type { ComponentActions } from "./types";
 import { Meta, Schema, Fields, Options, Actions } from "./types";
+import { ComponentDef } from "@xgovformbuilder/model";
+import logger from "../../plugins/logger";
 
-// TODO: type
 type ComponentState = {
-  [prop: string]: any;
+  selectedComponent: Partial<ComponentDef>;
+  isNew?: boolean;
+  initialName?: ComponentDef["name"];
+  pagePath?: string;
+  listItemErrors?: {};
 };
 
-const defaultValues = {};
-
+const defaultValues = {
+  selectedComponent: {},
+};
+/**
+ * Context providing the {@link ComponentState} and {@link dispatch} for changing any values specified by {@link Actions}
+ */
 export const ComponentContext = createContext<{
   state: ComponentState;
   dispatch: React.Dispatch<any>;
@@ -23,6 +32,9 @@ export const ComponentContext = createContext<{
   dispatch: () => {},
 });
 
+/**
+ * A map of the Actions and the associated reducer
+ */
 const ActionsReducerCollection = [
   [Meta, metaReducer],
   [Options, optionsReducer],
@@ -34,6 +46,9 @@ export function valueIsInEnum<T>(value: keyof ComponentActions, enumType: T) {
   return Object.values(enumType).indexOf(value) !== -1;
 }
 
+/**
+ * when an {@link Actions} is passed to getSubReducer, it will return the associated reducer defined in {@link ActionsReducerCollection}
+ */
 export function getSubReducer(type) {
   return ActionsReducerCollection.find((a) => valueIsInEnum(type, a[0]))?.[1];
 }
@@ -64,7 +79,7 @@ export function componentReducer(
       ...subReducer(state, action),
     };
   } else {
-    console.error("Unrecognised action:", action.type);
+    logger.log("Unrecognised action:", action.type);
     return { ...state, selectedComponent };
   }
 }
@@ -81,6 +96,9 @@ export const initComponentState = (props) => {
   };
 };
 
+/**
+ * Allows components to retrieve {@link ComponentState} and {@link dispatch} from any component nested within `<ComponentContextProvider>`
+ */
 export const ComponentContextProvider = (props) => {
   const { children, ...rest } = props;
   const [state, dispatch] = useReducer(

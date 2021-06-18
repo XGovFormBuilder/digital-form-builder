@@ -1,6 +1,4 @@
 import { clone, reach } from "hoek";
-import { Data } from "@xgovformbuilder/model";
-
 import config from "server/config";
 import { FormModel } from "./FormModel";
 import { feedbackReturnInfoKey, redirectUrl } from "../helpers";
@@ -9,7 +7,12 @@ import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
 import type { Fees } from "server/services/payService";
 import { FormSubmissionState } from "../types";
-import { Fields, Questions, WebhookData } from "./types";
+import {
+  FEEDBACK_CONTEXT_ITEMS,
+  Fields,
+  Questions,
+  WebhookData,
+} from "./types";
 import {
   FeesModel,
   EmailModel,
@@ -33,6 +36,10 @@ const { serviceName } = config;
  */
 
 export class SummaryViewModel {
+  /**
+   * Responsible for parsing state values to the govuk-frontend summary list template and parsing data for outputs
+   */
+
   pageTitle: string;
   declaration: any; // TODO
   skipSummary: boolean;
@@ -66,7 +73,10 @@ export class SummaryViewModel {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
+
+    // @ts-ignore
     this.declaration = model.def.declaration;
+    // @ts-ignore
     this.skipSummary = model.def.skipSummary;
     this._payApiKey = model.def.payApiKey;
     this.endPage = endPage;
@@ -89,6 +99,9 @@ export class SummaryViewModel {
         request
       );
 
+      /**
+       * If there outputs defined, parse the state data for the appropriate outputs
+       */
       if (model.def.outputs) {
         this._outputs = model.def.outputs.map((output) => {
           switch (output.type) {
@@ -397,6 +410,9 @@ export class SummaryViewModel {
     return this._payApiKey;
   }
 
+  /**
+   * If a declaration is defined, add this to {@link this._webhookData} as a question has answered `true` to
+   */
   addDeclarationAsQuestion() {
     this._webhookData?.questions?.push({
       category: null,
@@ -424,7 +440,7 @@ export class SummaryViewModel {
 
       if (feedbackContextInfo) {
         webhookData.questions.push(
-          ...Data.FEEDBACK_CONTEXT_ITEMS.map((item) => ({
+          ...FEEDBACK_CONTEXT_ITEMS.map((item) => ({
             category: null,
             question: item.display,
             fields: [
@@ -460,6 +476,9 @@ function gatherRepeatPages(state) {
   });
 }
 
+/**
+ * Creates an Item object for webhook data
+ */
 function Item(
   request,
   component,

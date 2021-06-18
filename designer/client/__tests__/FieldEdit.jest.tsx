@@ -10,7 +10,7 @@ import {
 import { FieldEdit } from "../field-edit";
 
 describe("Field Edit", () => {
-  let data = new Data({
+  let data = {
     pages: [
       {
         title: "First page",
@@ -28,7 +28,7 @@ describe("Field Edit", () => {
         ],
       },
     ],
-  });
+  };
   const dataValue = { data, save: jest.fn() };
 
   const TestComponentContextProvider = ({

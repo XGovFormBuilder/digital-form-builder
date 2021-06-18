@@ -1,4 +1,4 @@
-const { Given, When, Then } = require("cucumber");
+const { Given, When, Then } = require("@cucumber/cucumber");
 const { formDesigner } = require("../pageobjects/pages");
 const {
   addCondition,
@@ -14,7 +14,7 @@ Given("I have chosen to {string} to my form", (menuOption) => {
   navMenu.buttonByName(menuOption).click();
 });
 
-When("I link ths page to link from the {string}", (linkedPage) => {
+When("I link this page to link from the {string}", (linkedPage) => {
   this.newPageName = "Third page";
   addPage.linkFrom(linkedPage);
   addPage.pageTitle.setValue(this.newPageName);
@@ -22,11 +22,8 @@ When("I link ths page to link from the {string}", (linkedPage) => {
 });
 
 Then("my page is created with a link to the page", () => {
-  browser.waitUntil(() => formDesigner.formPageTitles.length === 4);
-  this.pageNames = formDesigner.formPageTitles.map(function (element) {
-    return element.getText();
-  });
-  expect(this.pageNames.includes("Third page")).toEqual(true);
+  browser.waitUntil(() => formDesigner.pageHeadingsText.length === 4);
+  expect(formDesigner.pageHeadingsText.includes("Third page")).toEqual(true);
   expect(formDesigner.linkLine).toExist();
 });
 
