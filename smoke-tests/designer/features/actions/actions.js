@@ -51,6 +51,30 @@ class Actions {
   }
 
   /**
+   * Creates a component with a list
+   * @param componentName
+   * @param pageName
+   * @param makeOptional
+   * @param save
+   */
+  createComponentWithList(
+    componentName,
+    pageName,
+    makeOptional = false,
+    save = true
+  ) {
+    formDesigner.createComponent(pageName).click();
+    createComponent.selectComponentByName(componentName);
+    createComponent.selectList(fieldData.list.title);
+    createComponent.completeCommonFields(
+      fieldData[toCamelCase(componentName)],
+      false,
+      makeOptional,
+      save
+    );
+  }
+
+  /**
    * Creates a list using 'Lists' with a number of specified list items
    * @param numberOfListItems
    * @param closeFlyout
