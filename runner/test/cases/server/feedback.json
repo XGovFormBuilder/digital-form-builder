@@ -40,7 +40,7 @@
   ],
   "phaseBanner": {},
   "feedback": {
-    "email": "test@feedback.cat"
+    "emailAddress": "test@feedback.cat"
   },
   "fees": [
   ],
