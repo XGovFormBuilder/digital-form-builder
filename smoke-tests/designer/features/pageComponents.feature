@@ -44,6 +44,13 @@ Feature: Page Components
     And I navigate back using the link
     Then the checkbox "List item 1" is still checked
 
+  Scenario: Ensure a Yes/No radio is still checked after navigating back
+    Given I have a form with a "YesNo" field on the "First page"
+    And I preview the "First page" page
+    When I continue to the next page after selecting "Yes"
+    And I navigate back using the link
+    Then the radio button "Yes" is still checked
+
   Scenario: Progress to the Summary after filling in Checkboxes
     Given I have created a new form configuration
     And I have created a list with 2 list items
