@@ -169,6 +169,7 @@ const feedbackSchema = joi.object().keys({
     is: joi.boolean().valid(false),
     then: joi.string().optional(),
   }),
+  email: joi.string().email().optional(),
 });
 
 const phaseBannerSchema = joi.object().keys({
