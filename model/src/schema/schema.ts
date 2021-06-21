@@ -169,7 +169,7 @@ const feedbackSchema = joi.object().keys({
     is: joi.boolean().valid(false),
     then: joi.string().optional(),
   }),
-  email: joi
+  emailAddress: joi
     .string()
     .email({
       tlds: {
