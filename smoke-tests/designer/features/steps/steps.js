@@ -1,6 +1,10 @@
 const chai = require("chai");
 const { Given, When, Then } = require("@cucumber/cucumber");
-const { formDesigner, previewPage } = require("../pageobjects/pages");
+const {
+  formDesigner,
+  formRunner,
+  previewPage,
+} = require("../pageobjects/pages");
 const {
   addLink,
   createComponent,
@@ -12,6 +16,7 @@ const {
 const fieldData = require("../../data/componentFieldData");
 const { acceptAlert, toCamelCase } = require("../../support/testHelpers");
 const Actions = require("../actions/actions");
+const testActions = require("../actions/actions");
 
 Given("I have created a new form configuration", () => {
   Actions.createNewConfig();
@@ -367,4 +372,42 @@ When("I create a section titled {string}", function (sectionTitle) {
 
 Then("the section title is displayed in the preview", function () {
   expect(previewPage.sectionTitle).toHaveText(this.sectionTitle);
+});
+
+Given(/^I have created a form with a "([^"]*)" on the "([^"]*)"$/, function (
+  componentName,
+  pageName
+) {
+  this.componentName = componentName;
+  this.pageName = pageName;
+  Actions.createNewConfig();
+  if (componentName === "Checkboxes") testActions.createList(2);
+  Actions.createComponentWithList(componentName, this.pageName);
+});
+
+When(/^I continue to the next page after selecting "([^"]*)"$/, function (
+  selectedChoice
+) {
+  switch (this.componentName) {
+    case "YesNo":
+      formRunner.selectRadio(selectedChoice, false);
+      break;
+    case "Checkboxes":
+      formRunner.selectCheckbox(selectedChoice);
+  }
+  formRunner.continueButton.click();
+});
+
+When(/^I navigate back using the link$/, function () {
+  formRunner.backLink.click();
+});
+
+Then(/^the checkbox "([^"]*)" is still checked$/, function (selectedChoice) {
+  expect(formRunner.findCheckbox(selectedChoice)).toBeChecked();
+});
+
+Then(/^the radio button "([^"]*)" is still checked$/, function (
+  selectedChoice
+) {
+  expect(formRunner.findRadio(selectedChoice)).toBeChecked();
 });
