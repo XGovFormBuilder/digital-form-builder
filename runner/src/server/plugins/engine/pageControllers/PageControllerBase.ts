@@ -34,7 +34,7 @@ export class PageControllerBase {
     feedback?: {
       url?: string;
       feedbackForm?: boolean;
-      email?: string;
+      emailAddress?: string;
     };
   };
   name: string;
