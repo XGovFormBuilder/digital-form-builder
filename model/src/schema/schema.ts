@@ -169,7 +169,14 @@ const feedbackSchema = joi.object().keys({
     is: joi.boolean().valid(false),
     then: joi.string().optional(),
   }),
-  email: joi.string().email().optional(),
+  email: joi
+    .string()
+    .email({
+      tlds: {
+        allow: false,
+      },
+    })
+    .optional(),
 });
 
 const phaseBannerSchema = joi.object().keys({
