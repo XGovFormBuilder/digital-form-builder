@@ -3,7 +3,7 @@ const { Given, When, Then } = require("@cucumber/cucumber");
 const {
   formDesigner,
   formRunner,
-  previewPage
+  previewPage,
 } = require("../pageobjects/pages");
 const {
   addLink,
@@ -386,9 +386,15 @@ Given(/^I have created a form with a "([^"]*)" on the "([^"]*)"$/, function (
 });
 
 When(/^I continue to the next page after selecting "([^"]*)"$/, function (
-  listItemName
+  selectedChoice
 ) {
-  formRunner.selectCheckbox(listItemName);
+  switch (this.componentName) {
+    case "YesNo":
+      formRunner.selectRadio(selectedChoice, false);
+      break;
+    case "Checkboxes":
+      formRunner.selectCheckbox(selectedChoice);
+  }
   formRunner.continueButton.click();
 });
 
@@ -396,6 +402,12 @@ When(/^I navigate back using the link$/, function () {
   formRunner.backLink.click();
 });
 
-Then(/^the checkbox "([^"]*)" is still checked$/, function (listItemName) {
-  expect(formRunner.findCheckbox(listItemName)).toBeChecked();
+Then(/^the checkbox "([^"]*)" is still checked$/, function (selectedChoice) {
+  expect(formRunner.findCheckbox(selectedChoice)).toBeChecked();
+});
+
+Then(/^the radio button "([^"]*)" is still checked$/, function (
+  selectedChoice
+) {
+  expect(formRunner.findRadio(selectedChoice)).toBeChecked();
 });
