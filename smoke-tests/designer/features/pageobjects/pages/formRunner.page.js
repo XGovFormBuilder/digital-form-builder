@@ -25,6 +25,17 @@ class FormRunnerPage extends Page {
   }
 
   /**
+   * Locates the index of a radio by label name
+   * @param labelText
+   */
+  findRadio(labelText) {
+    const RadioIndex = browser
+      .$$(".govuk-radios__label")
+      .findIndex((el) => el.getText() === labelText);
+    return browser.$$(".govuk-radios__input")[RadioIndex];
+  }
+
+  /**
    * Selects a checkbox by label name
    * @param labelText
    */
