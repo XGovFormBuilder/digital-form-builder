@@ -608,7 +608,7 @@ export class PageControllerBase {
       viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
     }
     if (this.def.feedback?.emailAddress) {
-      viewModel.feedbackLink = `mailto:${this.def.feedback.email}`;
+      viewModel.feedbackLink = `mailto:${this.def.feedback.emailAddress}`;
     }
   }
 
