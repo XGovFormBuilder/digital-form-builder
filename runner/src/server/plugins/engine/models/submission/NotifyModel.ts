@@ -16,8 +16,7 @@ export function NotifyModel(
       const condition = model.conditions[curr];
       return {
         ...acc,
-        [curr]:
-          (condition ? condition.fn(state) : reach(state, curr)) ?? "test",
+        [curr]: condition ? condition.fn(state) : reach(state, curr),
       };
     },
     {}
