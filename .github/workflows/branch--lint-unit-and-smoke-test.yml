@@ -87,18 +87,19 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Docker compose pull
         run: docker-compose pull
-        # WEEK key is used to rotate docker-layer-caching to avoid the layers dandle issue
+        # DAYOFYEAR key is used to rotate docker-layer-caching to avoid the layers dandle issue
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to main--lint-unit-build-and-publish-images.yml
         # so main branch cache can be shared with branches
-      - run: echo "WEEK=$(date +%U)" >> $GITHUB_ENV
+      - run: echo "DAYOFYEAR = $(date +%j)"
+      - run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
         with:
-          key: digital-form-builder-${{ env.WEEK }}-{hash}
+          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
           restore-keys: |
-            digital-form-builder-${{ env.WEEK }}
+            digital-form-builder-${{ env.DAYOFYEAR }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
