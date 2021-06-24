@@ -73,7 +73,7 @@ export class YesNoField extends ListFormComponent {
     viewModel.items = this.items.map(({ text, value }) => ({
       text,
       value,
-      checked: value === formData[this.name],
+      checked: `${value}` === `${formData[this.name]}`,
     }));
 
     return viewModel;

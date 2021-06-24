@@ -5,8 +5,34 @@ class FormRunnerPage extends Page {
     return browser.url(`${browser.config.runnerUrl}${path}/`);
   }
 
+  get backLink() {
+    return browser.$("a.govuk-back-link");
+  }
+
   get pageTitle() {
     return browser.$("h1");
+  }
+
+  /**
+   * Locates the index of a checkbox by label name
+   * @param labelText
+   */
+  findCheckbox(labelText) {
+    const checkboxIndex = browser
+      .$$(".govuk-checkboxes__label")
+      .findIndex((el) => el.getText() === labelText);
+    return browser.$$(".govuk-checkboxes__input")[checkboxIndex];
+  }
+
+  /**
+   * Locates the index of a radio by label name
+   * @param labelText
+   */
+  findRadio(labelText) {
+    const RadioIndex = browser
+      .$$(".govuk-radios__label")
+      .findIndex((el) => el.getText() === labelText);
+    return browser.$$(".govuk-radios__input")[RadioIndex];
   }
 
   /**
@@ -14,10 +40,7 @@ class FormRunnerPage extends Page {
    * @param labelText
    */
   selectCheckbox(labelText) {
-    const checkboxIndex = browser
-      .$$(".govuk-checkboxes__label")
-      .findIndex((el) => el.getText() === labelText);
-    return browser.$$(".govuk-checkboxes__input")[checkboxIndex].click();
+    this.findCheckbox(labelText).click();
   }
 
   /**
