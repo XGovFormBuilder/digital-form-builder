@@ -34,6 +34,7 @@ export class PageControllerBase {
     feedback?: {
       url?: string;
       feedbackForm?: boolean;
+      emailAddress?: string;
     };
   };
   name: string;
@@ -603,7 +604,12 @@ export class PageControllerBase {
       viewModel.name = feedbackContextInfo.formTitle;
     }
     // setting the feedbackLink to undefined here for feedback forms prevents the feedback link from being shown
-    viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
+    if (this.def.feedback?.url) {
+      viewModel.feedbackLink = this.feedbackUrlFromRequest(request);
+    }
+    if (this.def.feedback?.emailAddress) {
+      viewModel.feedbackLink = `mailto:${this.def.feedback.emailAddress}`;
+    }
   }
 
   getFeedbackContextInfo(request: HapiRequest) {
