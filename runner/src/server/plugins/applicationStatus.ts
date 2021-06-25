@@ -64,7 +64,6 @@ const applicationStatus = {
             if (payState.state.status !== "success" && !userCouldntPay) {
               return h.view("pay-error", {
                 reference,
-                visit: params.visit,
                 errorList: ["there was a problem with your payment"],
               });
             }
