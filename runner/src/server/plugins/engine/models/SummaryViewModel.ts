@@ -409,7 +409,9 @@ export class SummaryViewModel {
 
   get payApiKey() {
     if (isMultipleApiKey(this._payApiKey)) {
-      return config.isProd ? this._payApiKey.production : this._payApiKey.test;
+      return config.isProd
+        ? this._payApiKey.production ?? this._payApiKey.test
+        : this._payApiKey.test ?? this._payApiKey.production;
     }
     return this._payApiKey;
   }
