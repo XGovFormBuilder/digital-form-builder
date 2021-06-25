@@ -138,8 +138,13 @@ const feeSchema = joi.object().keys({
   condition: joi.string().optional(),
 });
 
+const multiApiKeySchema = joi.object({
+  test: joi.string().optional(),
+  production: joi.string().optional(),
+});
+
 const notifySchema = joi.object().keys({
-  apiKey: joi.string().allow("").optional(),
+  apiKey: [joi.string().allow("").optional(), multiApiKeySchema],
   templateId: joi.string(),
   emailField: joi.string(),
   personalisation: joi.array().items(joi.string()),
@@ -198,7 +203,7 @@ export const Schema = joi
     metadata: joi.object({ a: joi.any() }).unknown().optional(),
     declaration: joi.string().allow("").optional(),
     outputs: joi.array().items(outputSchema),
-    payApiKey: joi.string().allow("").optional(),
+    payApiKey: [joi.string().allow("").optional(), multiApiKeySchema],
     skipSummary: joi.boolean().default(false),
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
