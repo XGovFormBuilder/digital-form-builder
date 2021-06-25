@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import { decodeFeedbackContextInfo, redirectTo } from "./engine";
-
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
 
@@ -42,14 +41,13 @@ const applicationStatus = {
             webhookService,
             cacheService,
           } = request.services([]);
-          const params = request.query;
-
           const {
             pay,
             reference,
             outputs,
             webhookData,
           } = await cacheService.getState(request);
+          const params = request.query;
           let newReference;
           let payState;
           let userCouldntPay;
@@ -66,6 +64,7 @@ const applicationStatus = {
             if (payState.state.status !== "success" && !userCouldntPay) {
               return h.view("pay-error", {
                 reference,
+                visit: params.visit,
                 errorList: ["there was a problem with your payment"],
               });
             }
@@ -87,17 +86,24 @@ const applicationStatus = {
             (output) => output.type === "webhook"
           );
           let firstWebhook;
+          let formData;
 
           try {
             if (webhookOutputs.length) {
               firstWebhook = webhookOutputs[0];
-              const firstWebhookFormData = webhookData;
-              if (userCouldntPay && firstWebhookFormData.fees) {
-                delete firstWebhookFormData.fees;
-              }
+              const { metadata, fees, ...rest } = webhookData;
+              formData = {
+                ...rest,
+                ...(!userCouldntPay && fees),
+                metadata: {
+                  ...metadata,
+                  paymentSkipped: userCouldntPay ?? false,
+                },
+              };
+
               newReference = await webhookService.postRequest(
                 firstWebhook.outputData.url,
-                firstWebhookFormData
+                formData
               );
               await cacheService.mergeState(request, {
                 reference: newReference,
@@ -136,10 +142,6 @@ const applicationStatus = {
                   }
                   case "webhook": {
                     const { url } = output.outputData;
-                    const formData = webhookData;
-                    if (userCouldntPay) {
-                      delete formData.fees;
-                    }
                     return webhookService.postRequest(url, formData);
                   }
                   default:
