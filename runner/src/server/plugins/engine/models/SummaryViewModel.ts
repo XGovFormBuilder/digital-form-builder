@@ -438,7 +438,7 @@ export class SummaryViewModel {
     model: FormModel,
     request
   ) {
-    if (def.feedback?.feedbackForm) {
+    if (model.def.feedback?.feedbackForm) {
       const feedbackContextInfo = decodeFeedbackContextInfo(
         request.url.searchParams.get(feedbackReturnInfoKey)
       );
