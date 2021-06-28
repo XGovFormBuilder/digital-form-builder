@@ -501,7 +501,7 @@ export class PageControllerBase {
             path: field.name,
             href: `#${field.name}`,
             name: field.name,
-            text: "The file you uploaded was too big",
+            text: "The selected file must be smaller than 5MB",
           };
         });
 

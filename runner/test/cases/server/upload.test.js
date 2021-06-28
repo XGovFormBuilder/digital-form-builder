@@ -102,8 +102,8 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
 
-    expect($("[href='#file1']").text().trim()).to.equal(
-      "The file you uploaded was too big"
+    expect($("[href='#file1']").text().trim()).to.contain(
+      "The selected file must be smaller than"
     );
   });
 
