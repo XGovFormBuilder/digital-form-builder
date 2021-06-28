@@ -71,6 +71,7 @@ const schema = Joi.object({
     .label("NOTIFY_API_KEY"),
   lastCommit: Joi.string().default("undefined"),
   lastTag: Joi.string().default("undefined"),
+  apiEnv: Joi.string().allow("test", "production", "").optional(),
 });
 
 export function buildConfig() {
@@ -106,6 +107,7 @@ export function buildConfig() {
     notifyAPIKey: process.env.NOTIFY_API_KEY,
     lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
     lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
+    apiEnv: process.env.API_ENV,
   };
 
   // Validate config
