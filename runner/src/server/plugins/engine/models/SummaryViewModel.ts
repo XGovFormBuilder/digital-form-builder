@@ -25,7 +25,7 @@ const { serviceName } = config;
  * TODO - extract submission behaviour dependencies from the viewmodel
  * Webhookdata
  * outputs
- * skipSummary (replace with reference to this.model.def.skipSummary?)
+ * skipSummary (replace with reference to this.def.skipSummary?)
  * _payApiKey
  * replace result with errors?
  * remove state and value?
@@ -73,13 +73,18 @@ export class SummaryViewModel {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
-
+    const { def } = model;
     // @ts-ignore
-    this.declaration = model.def.declaration;
+    this.declaration = def.declaration;
     // @ts-ignore
-    this.skipSummary = model.def.skipSummary;
-    this._payApiKey = model.def.payApiKey;
+    this.skipSummary = def.skipSummary;
+    this._payApiKey = def.payApiKey;
     this.endPage = endPage;
+    this.feedbackLink =
+      def.feedback?.url ??
+      ((def.feedback?.emailAddress && `mailto:${def.feedback?.emailAddress}`) ||
+        config.feedbackLink);
+
     const schema = model.makeFilteredSchema(state, relevantPages);
     const collatedRepeatPagesState = gatherRepeatPages(state);
 
@@ -102,8 +107,8 @@ export class SummaryViewModel {
       /**
        * If there outputs defined, parse the state data for the appropriate outputs
        */
-      if (model.def.outputs) {
-        this._outputs = model.def.outputs.map((output) => {
+      if (def.outputs) {
+        this._outputs = def.outputs.map((output) => {
           switch (output.type) {
             case "notify":
               return {
@@ -364,7 +369,7 @@ export class SummaryViewModel {
     }
 
     this._webhookData = {
-      metadata: model.def.metadata,
+      metadata: def.metadata,
       name: englishName,
       questions: questions,
     };
@@ -433,7 +438,7 @@ export class SummaryViewModel {
     model: FormModel,
     request
   ) {
-    if (model.def.feedback?.feedbackForm) {
+    if (def.feedback?.feedbackForm) {
       const feedbackContextInfo = decodeFeedbackContextInfo(
         request.url.searchParams.get(feedbackReturnInfoKey)
       );

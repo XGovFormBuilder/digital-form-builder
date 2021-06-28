@@ -29,11 +29,8 @@ export class SummaryPageController extends PageController {
       if (this.model.def.skipSummary) {
         return this.makePostRouteHandler()(request, h);
       }
-
       const state = await cacheService.getState(request);
       const viewModel = new SummaryViewModel(this.title, model, state, request);
-
-      this.setFeedbackDetails(viewModel, request);
 
       if (viewModel.endPage) {
         return redirectTo(
