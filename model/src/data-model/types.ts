@@ -38,6 +38,7 @@ export interface List {
 export interface Feedback {
   feedbackForm?: boolean;
   url?: string;
+  emailAddress?: string;
 }
 
 export type PhaseBanner = {
