@@ -12,7 +12,7 @@ const lab = Lab.script();
 exports.lab = lab;
 const { afterEach, suite, test } = lab;
 
-suite.only("SummaryViewModel", () => {
+suite("SummaryViewModel", () => {
   afterEach(() => {
     sinon.restore();
   });
