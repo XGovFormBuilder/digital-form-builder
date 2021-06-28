@@ -46,6 +46,18 @@ export type PhaseBanner = {
   feedbackUrl?: string;
 };
 
+export type MultipleApiKeys = {
+  test?: string;
+  production?: string;
+};
+
+export function isMultipleApiKey(
+  payApiKey: string | MultipleApiKeys | undefined
+): payApiKey is MultipleApiKeys {
+  let obj = payApiKey as MultipleApiKeys;
+  return obj.test !== undefined || obj.production !== undefined;
+}
+
 export type FormDefinition = {
   pages: Page[];
   conditions: ConditionRawData[];
@@ -60,5 +72,5 @@ export type FormDefinition = {
   outputs: any[];
   declaration?: string | undefined;
   metadata?: Record<string, any>;
-  payApiKey?: string | undefined;
+  payApiKey?: string | MultipleApiKeys | undefined;
 };

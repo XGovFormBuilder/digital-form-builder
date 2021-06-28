@@ -18,6 +18,7 @@ import {
   EmailModel,
   NotifyModel,
 } from "server/plugins/engine/models/submission";
+import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
 
 const { serviceName } = config;
 
@@ -61,7 +62,7 @@ export class SummaryViewModel {
     | undefined;
 
   _outputs: any; // TODO
-  _payApiKey: string | undefined;
+  _payApiKey: FormDefinition["payApiKey"];
   _webhookData: WebhookData | undefined;
 
   constructor(
@@ -412,6 +413,11 @@ export class SummaryViewModel {
   }
 
   get payApiKey() {
+    if (isMultipleApiKey(this._payApiKey)) {
+      return config.apiEnv === "production"
+        ? this._payApiKey.production ?? this._payApiKey.test
+        : this._payApiKey.test ?? this._payApiKey.production;
+    }
     return this._payApiKey;
   }
 
