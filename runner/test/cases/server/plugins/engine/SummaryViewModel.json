@@ -1,0 +1,55 @@
+{
+  "startPage": "/uk-passport",
+  "pages": [
+    {
+      "path": "/uk-passport",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "ukPassport",
+          "title": "Do you have a UK passport?",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Do you have a UK passport?"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+  ],
+  "sections": [
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    }
+  ],
+  "phaseBanner": {},
+  "feedback": {
+    "emailAddress": "test@feedback.cat",
+    "feedbackForm": false
+  },
+  "fees": [
+  ],
+  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "outputs": [
+  ],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
+  "version": 2,
+  "conditions": [
+  ]
+}
