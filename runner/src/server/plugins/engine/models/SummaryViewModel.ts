@@ -369,7 +369,7 @@ export class SummaryViewModel {
     }
 
     this._webhookData = {
-      metadata: def.metadata,
+      metadata: model.def.metadata,
       name: englishName,
       questions: questions,
     };
