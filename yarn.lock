@@ -4893,7 +4893,7 @@ __metadata:
     arkit: ^1.6.4
     chai: ^4.2.0
     chai-webdriverio: ^1.0.0
-    chromedriver: ^88.0.0
+    chromedriver: ~91.0.1
     cucumber-html-reporter: ^5.2.0
     fs-extra: ^9.0.1
     multiple-cucumber-html-reporter: ^1.18.0
@@ -7194,21 +7194,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromedriver@npm:^88.0.0":
-  version: 88.0.0
-  resolution: "chromedriver@npm:88.0.0"
+"chromedriver@npm:~91.0.1":
+  version: 91.0.1
+  resolution: "chromedriver@npm:91.0.1"
   dependencies:
     "@testim/chrome-version": ^1.0.7
     axios: ^0.21.1
     del: ^6.0.0
     extract-zip: ^2.0.1
     https-proxy-agent: ^5.0.0
-    mkdirp: ^1.0.4
     proxy-from-env: ^1.1.0
     tcp-port-used: ^1.0.1
   bin:
     chromedriver: bin/chromedriver
-  checksum: 2036cbabf57ca724cd5dac18e1ea794599b8f525396dec1454947f48d67dc0d24c671e1c42b09f9493c4e190babccc69e78a3391d6d370279dcb86312798c797
+  checksum: c0e343c1a72cb2bd36d5918a36ceb1b3b3061dc40d1425c5d8d7d56ed2e38e636f9271da8139224758afd619cdb596faf07b603cce2a48ec0d59b1f44ff87327
   languageName: node
   linkType: hard
 

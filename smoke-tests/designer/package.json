@@ -21,7 +21,7 @@
     "@wdio/selenium-standalone-service": "^6.12.1",
     "@wdio/spec-reporter": "^6.6.0",
     "@wdio/sync": "^6.6.0",
-    "chromedriver": "^88.0.0",
+    "chromedriver": "~91.0.1",
     "fs-extra": "^9.0.1",
     "multiple-cucumber-html-reporter": "^1.18.0",
     "wdio-chromedriver-service": "^6.0.4"
