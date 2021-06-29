@@ -1,0 +1,36 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  reviewers:
+  - gstevenson
+  ignore:
+  - dependency-name: "@babel/plugin-transform-runtime"
+    versions:
+    - 7.12.15
+    - 7.13.10
+    - 7.13.9
+  - dependency-name: webpack
+    versions:
+    - 5.22.0
+    - 5.23.0
+    - 5.24.2
+  - dependency-name: i18next
+    versions:
+    - 19.8.8
+    - 19.9.0
+  - dependency-name: "@babel/register"
+    versions:
+    - 7.12.13
+  - dependency-name: "@wdio/local-runner"
+    versions:
+    - 7.0.4
+  - dependency-name: copy-webpack-plugin
+    versions:
+    - 7.0.0
+  - dependency-name: "@babel/plugin-proposal-export-default-from"
+    versions:
+    - 7.12.13
