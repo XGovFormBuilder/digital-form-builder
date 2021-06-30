@@ -37,7 +37,7 @@
     "@babel/runtime": "7.10.4",
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",
-    "@hapi/catbox-memory": "5.0.0",
+    "@hapi/catbox-memory": "5.0.1",
     "@hapi/catbox-redis": "5.0.5",
     "@hapi/code": "8.0.1",
     "@hapi/crumb": "8.0.0",
