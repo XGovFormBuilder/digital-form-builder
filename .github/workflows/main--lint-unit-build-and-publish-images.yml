@@ -150,11 +150,16 @@ jobs:
     needs: [calculate-version, build-and-publish-images]
     env:
       SEMVER: ${{ needs.calculate-version.outputs.semVer }}
+      MAJOR: ${{ needs.calculate-version.outputs.Major }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GHCR_PAT }}
+      - run: echo $SEMVER
+      - name: Add 3 to calculated semver
+        run: |
+          echo SEMVER="$((3 + MAJOR))${SEMVER:1}" >> $GITHUB_ENV
       - name: Tag branch with run number
         run: |
           git tag ${{ env.SEMVER }}
