@@ -28,7 +28,7 @@ jobs:
 
   assign-semver:
     runs-on: ubuntu-latest
-    needs: [build-and-publish-images]
+    needs: [calculate-version]
     env:
       MAJOR: ${{ needs.calculate-version.outputs.Major }}
     steps:
