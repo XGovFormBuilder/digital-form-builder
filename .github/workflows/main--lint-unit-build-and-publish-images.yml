@@ -32,10 +32,6 @@ jobs:
     env:
       MAJOR: ${{ needs.calculate-version.outputs.Major }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GHCR_PAT }}
       - run: echo $SEMVER
       - name: Add 3 to calculated semver
         run: |
