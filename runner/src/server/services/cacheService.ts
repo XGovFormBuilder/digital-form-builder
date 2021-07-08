@@ -58,6 +58,9 @@ export class CacheService {
    * @param request - hapi request object
    */
   Key(request: HapiRequest) {
+    if (!request?.yar?.id) {
+      throw Error("No session ID found");
+    }
     return {
       segment: partition,
       id: `${request.yar.id}:${request.params.id}`,
