@@ -58,12 +58,11 @@ export class StatusService {
     this.payService = payService;
   }
 
-  async shouldRetryPay(request): Promise<boolean> {
-    const { pay } = await this.cacheService.getState(request);
-    if (!!pay) {
+  async shouldRetryPay(request, payState): Promise<boolean> {
+    if (!!payState) {
       return false;
     }
-    const { self, meta } = pay;
+    const { self, meta } = payState;
     const { query } = request;
     const { state } = await this.payService.payStatus(self, meta.payApiKey);
     const userSkippedOrLimitReached =
@@ -71,8 +70,8 @@ export class StatusService {
 
     await this.cacheService.mergeState(request, {
       pay: {
-        ...pay,
-        paySkipped: userSkippedOrLimitReached,
+        ...payState,
+        paymentSkipped: userSkippedOrLimitReached,
         state,
       },
     });
@@ -115,15 +114,18 @@ export class StatusService {
       ),
     ];
 
-    return Promise.allSettled(requests);
+    return {
+      newReference,
+      results: Promise.allSettled(requests),
+    };
   }
 
   /**
    * Appends `{paymentSkipped: true}` to the `metadata` property and drops the `fees` property if the user has chosen to skip payment
    */
   webhookArgsFromState(state) {
-    const { paymentSkipped, webhookData } = state;
-
+    const { pay = {}, webhookData } = state;
+    const { paymentSkipped } = pay;
     const { metadata, fees, ...rest } = webhookData;
     return {
       ...rest,

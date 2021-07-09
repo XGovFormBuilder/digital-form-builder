@@ -25,6 +25,18 @@ function successfulOutcome(
   return h.view("confirmation", model);
 }
 
+function retryPay(request, h) {
+  const { cacheService, statusService } = request.services([]);
+  const { pay, reference } = await cacheService.getState(request);
+
+  if (await statusService.shouldRetryPay(request, pay)) {
+    return h.view("pay-error", {
+      reference,
+      errorList: ["there was a problem with your payment"],
+    });
+  }
+}
+
 const applicationStatus = {
   plugin: {
     name: "applicationStatus",
@@ -34,146 +46,30 @@ const applicationStatus = {
       server.route({
         method: "get",
         path: "/{id}/status",
-        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-          const {
-            notifyService,
-            payService,
-            webhookService,
-            cacheService,
-          } = request.services([]);
-          const {
-            pay,
-            reference,
-            outputs,
-            webhookData,
-          } = await cacheService.getState(request);
-          const params = request.query;
-          let newReference;
-          let payState;
-          let userCouldntPay;
+        options: {
+          pre: [{ method: retryPay }],
+          handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const { cacheService, statusService } = request.services([]);
 
-          if (pay) {
-            const { self, meta } = pay;
-            payState = await payService.payStatus(self, meta.payApiKey);
-            userCouldntPay =
-              params.continue === "true" || pay.meta.attempts === 3;
+            const { pay, reference } = await cacheService.getState(request);
+            let model = {
+              reference: reference === "UNKNOWN" ? undefined : reference,
+              ...(pay && { paymentSkipped: pay.paymentSkipped }),
+            };
 
-            /**
-             * allow the user to try again if they haven't skipped or reached their retry limit
-             */
-            if (payState.state.status !== "success" && !userCouldntPay) {
-              return h.view("pay-error", {
-                reference,
-                errorList: ["there was a problem with your payment"],
-              });
+            if (reference) {
+              return successfulOutcome(request, h, model);
             }
-          }
 
-          if (reference) {
-            await cacheService.clearState(request);
-            if (reference !== "UNKNOWN") {
-              return successfulOutcome(request, h, { reference, payState });
-            } else {
-              return successfulOutcome(request, h, { payState });
-            }
-          }
-
-          /**
-           * if there are webhooks, find one and use that to generate a reference number for other output calls.
-           */
-          const webhookOutputs = (outputs || []).filter(
-            (output) => output.type === "webhook"
-          );
-          let firstWebhook;
-          let formData;
-
-          try {
-            if (webhookOutputs.length) {
-              firstWebhook = webhookOutputs[0];
-              const { metadata, fees, ...rest } = webhookData;
-              formData = {
-                ...rest,
-                ...(!userCouldntPay && fees),
-                metadata: {
-                  ...metadata,
-                  paymentSkipped: userCouldntPay ?? false,
-                },
-              };
-
-              newReference = await webhookService.postRequest(
-                firstWebhook.outputData.url,
-                formData
-              );
-              await cacheService.mergeState(request, {
-                reference: newReference,
-              });
-            }
-            const outputPromises = (outputs || [])
-              .filter((output) => output !== firstWebhook)
-              .map((output) => {
-                switch (output.type) {
-                  case "notify":
-                  case "email": {
-                    const {
-                      apiKey,
-                      templateId,
-                      emailAddress,
-                      personalisation = {},
-                      addReferencesToPersonalisation = false,
-                    } = output.outputData;
-
-                    if (addReferencesToPersonalisation) {
-                      Object.assign(personalisation, {
-                        hasWebhookReference: !!newReference,
-                        webhookReference: newReference || "",
-                        hasPaymentReference: !!payState?.reference,
-                        paymentReference: payState?.reference || "",
-                      });
-                    }
-
-                    return notifyService.sendNotification({
-                      apiKey,
-                      templateId,
-                      emailAddress,
-                      personalisation,
-                      reference: newReference,
-                    });
-                  }
-                  case "webhook": {
-                    const { url } = output.outputData;
-                    return webhookService.postRequest(url, formData);
-                  }
-                  default:
-                    return {};
-                }
-              });
-
-            if (outputPromises.length) {
-              await Promise.all(outputPromises);
-            }
-            await cacheService.clearState(request);
-            if (newReference !== "UNKNOWN") {
-              return successfulOutcome(request, h, {
-                reference: newReference,
-                paySkipped: userCouldntPay,
-                payState,
-              });
-            } else {
-              return successfulOutcome(request, h, {
-                paySkipped: userCouldntPay,
-                payState,
-              });
-            }
-          } catch (err) {
-            request.server.log(
-              ["error", "output"],
-              `Error processing output: ${err.message}`
+            const { newReference } = await statusService.outputRequests(
+              request
             );
-            await cacheService.clearState(request);
-            return h.view("application-error");
-          }
 
-          // TODO:- unfinished pay flow?
+            return successfulOutcome(request, h, {
+              reference: newReference === "UNKNOWN" ? undefined : newReference,
+              ...(pay && { paymentSkipped: pay.paymentSkipped }),
+            });
+          },
         },
       });
       server.route({
