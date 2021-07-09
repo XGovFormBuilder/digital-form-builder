@@ -80,6 +80,44 @@ export class StatusService {
     return state.status !== "success" || !userSkippedOrLimitReached;
   }
 
+  async outputRequests(request: HapiRequest) {
+    const state = await this.cacheService.getState(request);
+
+    const { outputs } = state;
+
+    let newReference;
+
+    const firstWebhook = outputs.find((output) => output.type === "webhook");
+    const otherOutputs = outputs.filter((output) => output !== firstWebhook);
+    let formData = this.webhookArgsFromState(state);
+
+    if (firstWebhook) {
+      newReference = await this.webhookService.postRequest(
+        firstWebhook.outputData.url,
+        formData
+      );
+      await this.cacheService.mergeState(request, {
+        reference: newReference,
+      });
+    }
+
+    const { notify, webhook } = this.outputArgs(
+      otherOutputs,
+      formData,
+      newReference,
+      state.pay
+    );
+
+    const requests = [
+      ...notify.map((args) => this.notifyService.sendNotification(args)),
+      ...webhook.map(({ url, formData }) =>
+        this.webhookService.postRequest(url, formData)
+      ),
+    ];
+
+    return Promise.allSettled(requests);
+  }
+
   /**
    * Appends `{paymentSkipped: true}` to the `metadata` property and drops the `fees` property if the user has chosen to skip payment
    */
@@ -154,43 +192,5 @@ export class StatusService {
         webhook: [],
       }
     );
-  }
-
-  async outputRequests(request: HapiRequest) {
-    const state = await this.cacheService.getState(request);
-
-    const { outputs } = state;
-
-    let newReference;
-
-    const firstWebhook = outputs.find((output) => output.type === "webhook");
-    const otherOutputs = outputs.filter((output) => output !== firstWebhook);
-    let formData = this.webhookArgsFromState(state);
-
-    if (firstWebhook) {
-      newReference = await this.webhookService.postRequest(
-        firstWebhook.outputData.url,
-        formData
-      );
-      await this.cacheService.mergeState(request, {
-        reference: newReference,
-      });
-    }
-
-    const { notify, webhook } = this.outputArgs(
-      otherOutputs,
-      formData,
-      newReference,
-      state.pay
-    );
-
-    const requests = [
-      ...notify.map((args) => this.notifyService.sendNotification(args)),
-      ...webhook.map(({ url, formData }) =>
-        this.webhookService.postRequest(url, formData)
-      ),
-    ];
-
-    return Promise.allSettled(requests);
   }
 }

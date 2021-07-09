@@ -8,6 +8,7 @@ import {
   EmailService,
   NotifyService,
   PayService,
+  StatusService,
   UploadService,
   WebhookService,
 } from "./services";
@@ -21,6 +22,7 @@ type Services = (
   payService: PayService;
   uploadService: UploadService;
   webhookService: WebhookService;
+  statusService: StatusService;
 };
 
 export type RouteConfig = {
