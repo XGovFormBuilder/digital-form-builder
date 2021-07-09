@@ -51,6 +51,40 @@ export type MultipleApiKeys = {
   production?: string;
 };
 
+export enum OutputType {
+  Email = "email",
+  Notify = "notify",
+  Webhook = "webhook",
+}
+
+export type EmailOutputConfiguration = {
+  emailAddress: string;
+};
+
+export type NotifyOutputConfiguration = {
+  apiKey: string;
+  templateId: string;
+  emailField: string;
+  personalisation: string[];
+  addReferencesToPersonalisation?: boolean;
+};
+
+export type WebhookOutputConfiguration = {
+  url: string;
+};
+
+export type OutputConfiguration =
+  | EmailOutputConfiguration
+  | NotifyOutputConfiguration
+  | WebhookOutputConfiguration;
+
+export type Output = {
+  name: string;
+  title: string;
+  type: OutputType;
+  outputConfiguration: OutputConfiguration;
+};
+
 export function isMultipleApiKey(
   payApiKey: string | MultipleApiKeys | undefined
 ): payApiKey is MultipleApiKeys {
@@ -69,7 +103,7 @@ export type FormDefinition = {
   phaseBanner?: PhaseBanner;
   fees: any[];
   skipSummary?: boolean | undefined;
-  outputs: any[];
+  outputs: Output[];
   declaration?: string | undefined;
   metadata?: Record<string, any>;
   payApiKey?: string | MultipleApiKeys | undefined;

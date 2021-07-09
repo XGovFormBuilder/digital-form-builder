@@ -71,7 +71,6 @@ export class NotifyService {
         ["NotifyService", "sendNotification"],
         `Error processing output: ${error.message}`
       );
-      throw error;
     }
   }
 }

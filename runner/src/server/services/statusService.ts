@@ -6,21 +6,38 @@ import {
   WebhookService,
 } from "server/services";
 import { SendNotificationArgs } from "server/services/notifyService";
+import { Output, WebhookOutputConfiguration } from "@xgovformbuilder/model";
+import type { NotifyModel } from "../plugins/engine/models/submission";
+
+type WebhookModel = WebhookOutputConfiguration & {
+  formData: object;
+};
 
 type OutputArgs = {
   notify: SendNotificationArgs[];
-  webhook: { url: string; formData: object }[];
+  webhook: WebhookModel[];
 };
 
-enum OUTPUT_TYPES {
-  webhook = "webhook",
-  email = "notify",
-  notify = "notify",
+type OutputModel = Output & {
+  outputData: NotifyModel | WebhookModel;
+};
+
+function isWebhookModel(
+  output: OutputModel["outputData"]
+): output is WebhookModel {
+  return (output as WebhookModel).url !== undefined;
 }
-/**
- * StatusService handles sending data at the end of the form to the configured `Outputs`
- */
+
+function isNotifyModel(
+  output: OutputModel["outputData"]
+): output is NotifyModel {
+  return (output as NotifyModel).emailAddress !== undefined;
+}
+
 export class StatusService {
+  /**
+   * StatusService handles sending data at the end of the form to the configured `Outputs`
+   */
   logger: HapiServer["logger"];
   cacheService: CacheService;
   webhookService: WebhookService;
@@ -108,24 +125,29 @@ export class StatusService {
     };
   }
 
-  outputArgs(outputs, formData = {}, reference, payReference): OutputArgs {
-    return outputs?.reduce(
-      (output, acc) => {
-        const type = OUTPUT_TYPES[output.type];
-        if (type === OUTPUT_TYPES.notify) {
-          acc.notify.push(
-            this.emailOutputsFromState(
-              output.outputData,
-              reference,
-              payReference
-            )
+  outputArgs(
+    outputs: OutputModel[] = [],
+    formData = {},
+    reference,
+    payReference
+  ): OutputArgs {
+    return outputs.reduce<OutputArgs>(
+      (previousValue: OutputArgs, currentValue: OutputModel) => {
+        let { notify, webhook } = previousValue;
+        if (isNotifyModel(currentValue.outputData)) {
+          const args = this.emailOutputsFromState(
+            currentValue.outputData,
+            reference,
+            payReference
           );
+          notify.push(args);
+        }
+        if (isWebhookModel(currentValue.outputData)) {
+          const { url } = currentValue.outputData;
+          webhook.push({ url, formData });
         }
 
-        if (type === OUTPUT_TYPES.webhook) {
-          const { url } = output.outputData;
-          acc.webhook.push({ url, formData });
-        }
+        return { notify, webhook };
       },
       {
         notify: [],
