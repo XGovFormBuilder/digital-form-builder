@@ -115,7 +115,7 @@ export class StatusService {
     ];
 
     return {
-      newReference,
+      reference: newReference,
       results: Promise.allSettled(requests),
     };
   }

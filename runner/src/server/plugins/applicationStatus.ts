@@ -11,21 +11,7 @@ function getFeedbackContextInfo(request: HapiRequest) {
   }
 }
 
-function successfulOutcome(
-  request: HapiRequest,
-  h: HapiResponseToolkit,
-  model?: any
-) {
-  const feedbackContextInfo = getFeedbackContextInfo(request);
-
-  if (feedbackContextInfo) {
-    return h.redirect(feedbackContextInfo.url);
-  }
-
-  return h.view("confirmation", model);
-}
-
-function retryPay(request, h) {
+async function retryPay(request, h) {
   const { cacheService, statusService } = request.services([]);
   const { pay, reference } = await cacheService.getState(request);
 
@@ -52,22 +38,23 @@ const applicationStatus = {
             const { cacheService, statusService } = request.services([]);
 
             const { pay, reference } = await cacheService.getState(request);
-            let model = {
+            const model = {
               reference: reference === "UNKNOWN" ? undefined : reference,
               ...(pay && { paymentSkipped: pay.paymentSkipped }),
             };
 
             if (reference) {
-              return successfulOutcome(request, h, model);
+              return h.view("confirmation", model);
             }
 
-            const { newReference } = await statusService.outputRequests(
-              request
-            );
+            const {
+              reference: newReference,
+            } = await statusService.outputRequests(request);
 
-            return successfulOutcome(request, h, {
-              reference: newReference === "UNKNOWN" ? undefined : newReference,
-              ...(pay && { paymentSkipped: pay.paymentSkipped }),
+            return h.view("confirmation", {
+              ...model,
+              reference:
+                newReference === "UNKNOWN" ? model.reference : newReference,
             });
           },
         },
@@ -80,14 +67,11 @@ const applicationStatus = {
           const { pay } = await cacheService.getState(request);
           const { meta } = pay;
           meta.attempts++;
-          // TODO:- let payService handle nanoid(10)
-          const reference = `${nanoid(10)}`;
           const url = new URL(
             `${request.headers.origin}/${request.params.id}/status`
           ).toString();
           const res = await payService.payRequest(
             meta.amount,
-            reference,
             meta.description,
             meta.payApiKey,
             url
@@ -95,7 +79,7 @@ const applicationStatus = {
           await cacheService.mergeState(request, {
             pay: {
               payId: res.payment_id,
-              reference,
+              reference: res.reference,
               self: res._links.self.href,
               meta,
             },

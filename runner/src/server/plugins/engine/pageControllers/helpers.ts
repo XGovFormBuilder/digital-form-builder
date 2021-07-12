@@ -8,6 +8,7 @@ import { StartPageController } from "./StartPageController";
 import { SummaryPageController } from "./SummaryPageController";
 import { PageControllerBase } from "./PageControllerBase";
 import { Page } from "@xgovformbuilder/model";
+import { ConfirmationPageController } from "./ConfirmationPageController";
 
 const PageControllers = {
   DobPageController,
@@ -17,6 +18,7 @@ const PageControllers = {
   StartPageController,
   SummaryPageController,
   PageControllerBase,
+  ConfirmationPageController,
 };
 
 export const controllerNameFromPath = (filePath: string) => {
