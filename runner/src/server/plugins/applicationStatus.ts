@@ -14,13 +14,13 @@ function getFeedbackContextInfo(request: HapiRequest) {
 async function retryPay(request, h) {
   const { cacheService, statusService } = request.services([]);
   const { pay, reference } = await cacheService.getState(request);
-
-  if (await statusService.shouldRetryPay(request, pay)) {
+  return statusService.shouldRetryPay(request, pay);
+  /*if (await statusService.shouldRetryPay(request, pay)) {
     return h.view("pay-error", {
       reference,
       errorList: ["there was a problem with your payment"],
     });
-  }
+  }*/
 }
 
 const applicationStatus = {
@@ -36,7 +36,6 @@ const applicationStatus = {
           pre: [{ method: retryPay }],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { cacheService, statusService } = request.services([]);
-
             const { pay, reference } = await cacheService.getState(request);
             const model = {
               reference: reference === "UNKNOWN" ? undefined : reference,

@@ -2,14 +2,17 @@ import { PageController } from "./PageController";
 import { redirectTo } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 
-export class ConfirmationPageController extends PageController {
+export class ConfirmationPageController {
   /**
-   * The controller which is used when Page["controller"] is defined as "./pages/ConfirmationPageCoontroller"
+   *
    */
+  constructor(model) {}
 
+  /**
+   * The controller which is used when Page["controller"] is defined as "./pages/ConfirmationPageController"
+   */
   async getRouteHandler(request: HapiRequest, h: HapiResponseToolkit) {
     const { cacheService, statusService } = request.services([]);
-
     const { pay, reference } = await cacheService.getState(request);
     const model = {
       reference: reference === "UNKNOWN" ? undefined : reference,
@@ -67,7 +70,8 @@ export class ConfirmationPageController extends PageController {
     return {
       ext: {
         onPreHandler: {
-          method: this.retryPay,
+          method: retryPay,
+          assign: "shouldRetryPay",
         },
       },
     };
@@ -80,17 +84,10 @@ export class ConfirmationPageController extends PageController {
   makePostRouteHandler() {
     return this.postRouteHandler;
   }
-
-  async retryPay(request, h) {
-    const { cacheService, statusService } = request.services([]);
-    const { pay, reference } = await cacheService.getState(request);
-    if (await statusService.shouldRetryPay(request, pay)) {
-      return h.view("pay-error", {
-        reference,
-        errorList: ["there was a problem with your payment"],
-      });
-    } else {
-      h.continue;
-    }
-  }
+}
+async function retryPay(request, h) {
+  const { cacheService, statusService } = request.services([]);
+  const { pay } = await cacheService.getState(request);
+  const c = statusService.shouldRetryPay(request, pay);
+  return c;
 }

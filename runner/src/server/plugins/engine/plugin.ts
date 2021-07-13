@@ -54,7 +54,8 @@ export const plugin = {
   multiple: true,
   register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
-    const forms = {};
+    server.app.forms = {};
+    const forms = server.app.forms;
     configs.forEach((config) => {
       forms[config.id] = new FormModel(config.configuration, {
         ...modelOptions,

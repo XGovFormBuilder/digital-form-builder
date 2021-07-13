@@ -59,24 +59,25 @@ export class StatusService {
   }
 
   async shouldRetryPay(request, payState): Promise<boolean> {
-    if (!!payState) {
+    if (!payState) {
       return false;
+    } else {
+      const { self, meta } = payState;
+      const { query } = request;
+      const { state } = await this.payService.payStatus(self, meta.payApiKey);
+      const userSkippedOrLimitReached =
+        query.continue === "true" || meta?.attempts === 3;
+
+      await this.cacheService.mergeState(request, {
+        pay: {
+          ...payState,
+          paymentSkipped: userSkippedOrLimitReached,
+          state,
+        },
+      });
+
+      return state.status !== "success" || !userSkippedOrLimitReached;
     }
-    const { self, meta } = payState;
-    const { query } = request;
-    const { state } = await this.payService.payStatus(self, meta.payApiKey);
-    const userSkippedOrLimitReached =
-      query.continue === "true" || meta?.attempts === 3;
-
-    await this.cacheService.mergeState(request, {
-      pay: {
-        ...payState,
-        paymentSkipped: userSkippedOrLimitReached,
-        state,
-      },
-    });
-
-    return state.status !== "success" || !userSkippedOrLimitReached;
   }
 
   async outputRequests(request: HapiRequest) {
