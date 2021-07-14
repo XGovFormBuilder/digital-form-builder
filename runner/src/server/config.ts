@@ -37,7 +37,9 @@ const schema = Joi.object({
   feedbackLink: Joi.string().default("#"),
   matomoId: Joi.string().optional(),
   matomoUrl: Joi.string().custom(secureUrl).optional(),
-  payApiUrl: Joi.string().custom(secureUrl),
+  payApiUrl: Joi.string()
+    .custom(secureUrl)
+    .default("https://publicapi.payments.service.gov.uk/v1"),
   payReturnUrl: Joi.string().custom(secureUrl),
   serviceUrl: Joi.string().optional().default(DEFAULT_SERVICE_URL),
   redisHost: Joi.string().optional(),
