@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { decodeFeedbackContextInfo, redirectTo } from "./engine";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
+import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
 
 function getFeedbackContextInfo(request: HapiRequest) {
   if (request.query[feedbackReturnInfoKey]) {
@@ -33,10 +34,17 @@ const applicationStatus = {
         method: "get",
         path: "/{id}/status",
         options: {
-          pre: [{ method: retryPay }],
+          pre: [{ method: retryPay, assign: "shouldRetryPay" }],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            if (request.pre.shouldRetryPay) {
+              return h.view("pay-error", {
+                errorList: ["there was a problem with your payment"],
+              });
+            }
             const { cacheService, statusService } = request.services([]);
-            const { pay, reference } = await cacheService.getState(request);
+            const state = await cacheService.getState(request);
+            const { pay, reference } = state;
+            const { params } = request;
             const model = {
               reference: reference === "UNKNOWN" ? undefined : reference,
               ...(pay && { paymentSkipped: pay.paymentSkipped }),
@@ -49,9 +57,21 @@ const applicationStatus = {
             const {
               reference: newReference,
             } = await statusService.outputRequests(request);
+            const form = server.app.forms[params.id];
+            const { confirmationPage } = form.def.specialPages;
+            const components = new ComponentCollection(
+              confirmationPage.components,
+              form
+            );
+            const formData = components.getFormDataFromState(state);
 
             return h.view("confirmation", {
               ...model,
+              components: components.getViewModel(
+                formData,
+                undefined,
+                form.conditions
+              ),
               reference:
                 newReference === "UNKNOWN" ? model.reference : newReference,
             });

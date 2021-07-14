@@ -12,7 +12,6 @@ import {
 import { ComponentCollectionViewModel } from "./types";
 import { ComponentBase } from "./ComponentBase";
 import { FormComponent } from "./FormComponent";
-// import { ConditionalFormComponent } from "./ConditionalFormComponent";
 
 export class ComponentCollection {
   items: (ComponentBase | ComponentCollection | FormComponent)[];
@@ -88,7 +87,8 @@ export class ComponentCollection {
 
   getViewModel(
     formData: FormData,
-    errors: FormSubmissionErrors
+    errors?: FormSubmissionErrors,
+    conditions?: FormModel["conditions"]
   ): ComponentCollectionViewModel {
     const result = this.items?.map((item: any) => {
       return {
@@ -97,6 +97,13 @@ export class ComponentCollection {
         model: item.getViewModel(formData, errors),
       };
     });
+
+    if (conditions) {
+      return result.filter((item) => {
+        const { condition } = item.model;
+        return conditions[condition]?.fn(formData) ?? true;
+      });
+    }
 
     return result || [];
   }

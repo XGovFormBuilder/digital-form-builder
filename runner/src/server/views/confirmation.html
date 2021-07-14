@@ -2,6 +2,7 @@
 {% set skipTimeoutWarning = true %}
 {% from "panel/macro.njk" import govukPanel %}
 {% extends 'layout.html' %}
+{% from "partials/components.html" import componentList %}
 
 {% block beforeContent %}
   {{ govukPhaseBanner({
@@ -33,6 +34,7 @@
         You will receive an email with details with the next steps.
       </p>
       {% endif %}
+      {{ componentList(components) }}
     </div>
   </div>
 {% endblock %}

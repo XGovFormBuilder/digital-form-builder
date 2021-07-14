@@ -111,7 +111,7 @@ const confirmationPageSchema = joi.object({
 });
 
 const specialPagesSchema = joi.object().keys({
-  confirmationPageSchema: confirmationPageSchema,
+  confirmationPage: confirmationPageSchema,
 });
 
 const listItemSchema = joi.object().keys({
