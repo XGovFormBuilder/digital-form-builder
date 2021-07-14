@@ -21,6 +21,7 @@ import {
   FormPayload,
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
+import { Page } from "@xgovformbuilder/model";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -345,8 +346,10 @@ export class PageControllerBase {
     let relevantState: FormSubmissionState = {};
     //Start at our startPage
     let nextPage = model.startPage;
+    let previousPages: [Page["path"], Page["path"]?, Page["path"]?] = [
+      model.startPage?.path,
+    ];
 
-    //While the current page isn't null
     while (nextPage != null) {
       //Either get the current state or the current state of the section if this page belongs to a section
       const currentState =
@@ -366,8 +369,19 @@ export class PageControllerBase {
       relevantState = merge(relevantState, newValue);
 
       //By passing our current relevantState to getNextPage, we will check if we can navigate to this next page (including doing any condition checks if applicable)
-      nextPage = nextPage.getNextPage(relevantState);
-      //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
+      const next = nextPage.getNextPage(relevantState);
+      previousPages.length === 3 && previousPages.shift();
+      next?.path && previousPages.push(next.path);
+
+      /**
+       * This prevents an infinite loop
+       */
+      if (previousPages[0] === next?.path) {
+        nextPage = null;
+      } else {
+        //If a nextPage is returned, we must have taken that route through the form so continue our iteration with the new page
+        nextPage = next;
+      }
     }
 
     return relevantState;
