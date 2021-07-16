@@ -17,14 +17,20 @@ const {
 } = config;
 const partition = "cache";
 
+enum ADDITIONAL_IDENTIFIER {
+  Confirmation = ":confirmation",
+}
+
 export class CacheService {
   /**
    * This service is responsible for getting, storing or deleting a user's session data in the cache. This service has been registered by {@link createServer}
    */
   cache: any;
+  logger: HapiServer["logger"];
 
   constructor(server: HapiServer) {
     this.cache = server.cache({ segment: "cache" });
+    this.logger = server.logger;
   }
 
   async getState(request: HapiRequest): Promise<FormSubmissionState> {
@@ -45,6 +51,16 @@ export class CacheService {
     return this.cache.get(key);
   }
 
+  async getConfirmationState(request: HapiRequest) {
+    const key = this.Key(request, ADDITIONAL_IDENTIFIER.Confirmation);
+    return await this.cache.get(key);
+  }
+
+  async setConfirmationState(request: HapiRequest, viewModel) {
+    const key = this.Key(request, ADDITIONAL_IDENTIFIER.Confirmation);
+    return this.cache.set(key, viewModel, sessionTimeout);
+  }
+
   async clearState(request: HapiRequest) {
     if (request.yar?.id) {
       this.cache.drop(this.Key(request));
@@ -56,14 +72,15 @@ export class CacheService {
    * If there are multiple forms on the same runner instance, for example `form-a` and `form-a-feedback` this will prevent CacheService from clearing data from `form-a` if a user gave feedback before they finished `form-a`
    *
    * @param request - hapi request object
+   * @param additionalIdentifier - appended to the id
    */
-  Key(request: HapiRequest) {
+  Key(request: HapiRequest, additionalIdentifier?: ADDITIONAL_IDENTIFIER) {
     if (!request?.yar?.id) {
       throw Error("No session ID found");
     }
     return {
       segment: partition,
-      id: `${request.yar.id}:${request.params.id}`,
+      id: `${request.yar.id}:${request.params.id}${additionalIdentifier}`,
     };
   }
 }

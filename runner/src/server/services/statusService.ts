@@ -8,7 +8,9 @@ import {
 import { SendNotificationArgs } from "server/services/notifyService";
 import { Output, WebhookOutputConfiguration } from "@xgovformbuilder/model";
 import type { NotifyModel } from "../plugins/engine/models/submission";
-import { ComponentCollection } from "server/plugins/engine/components";
+import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
+import { FormSubmissionState } from "server/plugins/engine/types";
+import { FormModel } from "server/plugins/engine/models";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -59,25 +61,26 @@ export class StatusService {
     this.payService = payService;
   }
 
-  async shouldRetryPay(request, payState): Promise<boolean> {
-    if (!payState) {
+  async shouldRetryPay(request): Promise<boolean> {
+    const { pay } = await this.cacheService.getState(request);
+    if (!pay) {
       return false;
     } else {
-      const { self, meta } = payState;
+      const { self, meta } = pay;
       const { query } = request;
       const { state } = await this.payService.payStatus(self, meta.payApiKey);
       const userSkippedOrLimitReached =
-        query.continue === "true" || meta?.attempts === 3;
+        query?.continue === "true" || meta?.attempts === 3;
 
       await this.cacheService.mergeState(request, {
         pay: {
-          ...payState,
+          ...pay,
           paymentSkipped: userSkippedOrLimitReached,
           state,
         },
       });
 
-      return state.status !== "success" || !userSkippedOrLimitReached;
+      return state.status !== "success" && !userSkippedOrLimitReached;
     }
   }
 
@@ -88,8 +91,8 @@ export class StatusService {
 
     let newReference;
 
-    const firstWebhook = outputs.find((output) => output.type === "webhook");
-    const otherOutputs = outputs.filter((output) => output !== firstWebhook);
+    const firstWebhook = outputs?.find((output) => output.type === "webhook");
+    const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
     let formData = this.webhookArgsFromState(state);
 
     if (firstWebhook) {
@@ -196,5 +199,37 @@ export class StatusService {
         webhook: [],
       }
     );
+  }
+
+  getViewModel(
+    state: FormSubmissionState,
+    formModel: FormModel,
+    newReference?: string
+  ) {
+    const { reference, pay } = state;
+    const confirmationPage = formModel.def.specialPages?.confirmationPage;
+
+    const referenceToDisplay =
+      newReference === "UNKNOWN" ? reference : newReference ?? reference;
+    let model = {
+      reference: referenceToDisplay,
+      ...(pay && { paymentSkipped: pay.paymentSkipped }),
+    };
+
+    if (!confirmationPage?.components.length) {
+      return model;
+    }
+
+    const components = new ComponentCollection(
+      confirmationPage?.components ?? [],
+      formModel
+    );
+    model.components = components.getViewModel(
+      components.getFormDataFromState(state),
+      undefined,
+      formModel.conditions
+    );
+
+    return model;
   }
 }

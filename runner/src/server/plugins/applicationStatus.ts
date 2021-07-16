@@ -1,28 +1,5 @@
-import { nanoid } from "nanoid";
-import { decodeFeedbackContextInfo, redirectTo } from "./engine";
+import { redirectTo } from "./engine";
 import { HapiRequest, HapiResponseToolkit } from "../types";
-import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
-import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
-
-function getFeedbackContextInfo(request: HapiRequest) {
-  if (request.query[feedbackReturnInfoKey]) {
-    return decodeFeedbackContextInfo(
-      request.url.searchParams.get(feedbackReturnInfoKey)
-    );
-  }
-}
-
-async function retryPay(request, h) {
-  const { cacheService, statusService } = request.services([]);
-  const { pay, reference } = await cacheService.getState(request);
-  return statusService.shouldRetryPay(request, pay);
-  /*if (await statusService.shouldRetryPay(request, pay)) {
-    return h.view("pay-error", {
-      reference,
-      errorList: ["there was a problem with your payment"],
-    });
-  }*/
-}
 
 const applicationStatus = {
   plugin: {
@@ -34,50 +11,69 @@ const applicationStatus = {
         method: "get",
         path: "/{id}/status",
         options: {
-          pre: [{ method: retryPay, assign: "shouldRetryPay" }],
+          pre: [
+            {
+              method: (request) => {
+                const { statusService } = request.services([]);
+                return statusService.shouldRetryPay(request);
+              },
+              assign: "shouldRetryPay",
+            },
+            {
+              method: (request) => {
+                const { cacheService } = request.services([]);
+                return cacheService.getConfirmationState(request);
+              },
+              assign: "confirmationViewModel",
+            },
+          ],
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const { statusService, cacheService } = request.services([]);
+            const { params } = request;
+            const form = server.app.forms[params.id];
+
+            if (request.pre.confirmationViewModel?.confirmation) {
+              return h.view(
+                "confirmation",
+                request.pre.confirmationViewModel.confirmation
+              );
+            }
+
             if (request.pre.shouldRetryPay) {
               return h.view("pay-error", {
                 errorList: ["there was a problem with your payment"],
               });
             }
-            const { cacheService, statusService } = request.services([]);
-            const state = await cacheService.getState(request);
-            const { pay, reference } = state;
-            const { params } = request;
-            const model = {
-              reference: reference === "UNKNOWN" ? undefined : reference,
-              ...(pay && { paymentSkipped: pay.paymentSkipped }),
-            };
 
-            if (reference) {
-              return h.view("confirmation", model);
+            const state = await cacheService.getState(request);
+            const { error } = form
+              .makeSchema(state)
+              .validate(state, { stripUnknown: true });
+
+            if (error) {
+              return h.redirect(`/${params.id}${form.def.startPage}`);
             }
 
             const {
               reference: newReference,
             } = await statusService.outputRequests(request);
-            const form = server.app.forms[params.id];
-            const { confirmationPage } = form.def.specialPages;
-            const components = new ComponentCollection(
-              confirmationPage.components,
-              form
-            );
-            const formData = components.getFormDataFromState(state);
 
-            return h.view("confirmation", {
-              ...model,
-              components: components.getViewModel(
-                formData,
-                undefined,
-                form.conditions
-              ),
-              reference:
-                newReference === "UNKNOWN" ? model.reference : newReference,
+            const viewModel = statusService.getViewModel(
+              state,
+              form,
+              newReference
+            );
+
+            await cacheService.clearState(request);
+            await cacheService.setConfirmationState(request, {
+              confirmation: viewModel,
             });
+
+            return h.view("confirmation", viewModel);
           },
         },
       });
+
       server.route({
         method: "post",
         path: "/{id}/status",

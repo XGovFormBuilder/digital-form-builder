@@ -85,6 +85,12 @@ export type Output = {
   outputConfiguration: OutputConfiguration;
 };
 
+export type SpecialPages = {
+  confirmationPage?: {
+    components: ComponentDef[];
+  };
+};
+
 export function isMultipleApiKey(
   payApiKey: string | MultipleApiKeys | undefined
 ): payApiKey is MultipleApiKeys {
@@ -92,6 +98,9 @@ export function isMultipleApiKey(
   return obj.test !== undefined || obj.production !== undefined;
 }
 
+/**
+ * `FormDefinition` is a typescript representation of `Schema`
+ */
 export type FormDefinition = {
   pages: Page[];
   conditions: ConditionRawData[];
@@ -107,4 +116,5 @@ export type FormDefinition = {
   declaration?: string | undefined;
   metadata?: Record<string, any>;
   payApiKey?: string | MultipleApiKeys | undefined;
+  specialPages?: SpecialPages;
 };
