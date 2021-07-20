@@ -32,7 +32,7 @@ const applicationStatus = {
             const { params } = request;
             const form = server.app.forms[params.id];
 
-            if (request.pre.confirmationViewModel?.confirmation) {
+            if (!!request.pre.confirmationViewModel?.confirmation) {
               return h.view(
                 "confirmation",
                 request.pre.confirmationViewModel.confirmation
@@ -64,10 +64,10 @@ const applicationStatus = {
               newReference
             );
 
-            await cacheService.clearState(request);
             await cacheService.setConfirmationState(request, {
               confirmation: viewModel,
             });
+            await cacheService.clearState(request);
 
             return h.view("confirmation", viewModel);
           },

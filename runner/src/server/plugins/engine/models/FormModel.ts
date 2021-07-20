@@ -12,11 +12,7 @@ import {
 } from "@xgovformbuilder/model";
 
 import { FormSubmissionState } from "../types";
-import {
-  PageControllerBase,
-  getPageController,
-  ConfirmationPageController,
-} from "../pageControllers";
+import { PageControllerBase, getPageController } from "../pageControllers";
 import { PageController } from "../pageControllers/PageController";
 import { ExecutableCondition } from "server/plugins/engine/models/types";
 
@@ -53,7 +49,6 @@ export class FormModel {
   conditions: Record<string, ExecutableCondition> | {};
   pages: any;
   startPage: any;
-  ConfirmationPageController: ConfirmationPageController;
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });

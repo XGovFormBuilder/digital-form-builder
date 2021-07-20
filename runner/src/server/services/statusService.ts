@@ -28,13 +28,13 @@ type OutputModel = Output & {
 function isWebhookModel(
   output: OutputModel["outputData"]
 ): output is WebhookModel {
-  return (output as WebhookModel).url !== undefined;
+  return (output as WebhookModel)?.url !== undefined;
 }
 
 function isNotifyModel(
   output: OutputModel["outputData"]
 ): output is NotifyModel {
-  return (output as NotifyModel).emailAddress !== undefined;
+  return (output as NotifyModel)?.emailAddress !== undefined;
 }
 
 export class StatusService {
@@ -70,7 +70,7 @@ export class StatusService {
       const { query } = request;
       const { state } = await this.payService.payStatus(self, meta.payApiKey);
       const userSkippedOrLimitReached =
-        query?.continue === "true" || meta?.attempts === 3;
+        query?.continue === "true" || meta?.attempts >= 3;
 
       await this.cacheService.mergeState(request, {
         pay: {
@@ -80,7 +80,7 @@ export class StatusService {
         },
       });
 
-      return state.status !== "success" && !userSkippedOrLimitReached;
+      return state.status === "failed" && !userSkippedOrLimitReached;
     }
   }
 
@@ -225,7 +225,7 @@ export class StatusService {
       formModel
     );
     model.components = components.getViewModel(
-      components.getFormDataFromState(state),
+      state,
       undefined,
       formModel.conditions
     );

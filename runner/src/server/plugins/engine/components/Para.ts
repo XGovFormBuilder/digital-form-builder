@@ -12,7 +12,6 @@ export class Para extends ComponentBase {
     if (options.condition) {
       viewModel.condition = options.condition;
     }
-
     return viewModel;
   }
 }
