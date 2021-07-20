@@ -86,7 +86,7 @@ export class ComponentCollection {
   }
 
   getViewModel(
-    formData: FormData,
+    formData: FormData | FormSubmissionState,
     errors?: FormSubmissionErrors,
     conditions?: FormModel["conditions"]
   ): ComponentCollectionViewModel {
