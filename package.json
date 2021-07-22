@@ -45,7 +45,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
-    "@babel/preset-typescript": "^7.12.7",
+    "@babel/preset-typescript": "^7.14.5",
     "@babel/register": "^7.10.5",
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
