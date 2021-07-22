@@ -57,7 +57,7 @@ Then(/^the Summary page is displayed with my answers$/, function () {
     "1, 2"
   );
   expect(formRunner.summaryAnswer(formData.autoComp.question)).toHaveText(
-    "Not supplied"
+    "2"
   );
   expect(formRunner.summaryAnswer(formData.textField.question)).toHaveText(
     "740"
@@ -66,7 +66,7 @@ Then(/^the Summary page is displayed with my answers$/, function () {
     "22 March 2021"
   );
   expect(formRunner.summaryAnswer(formData.radio2.question)).toHaveText(
-    "Not supplied"
+    "3"
   );
   expect(formRunner.summaryAnswer(formData.multiLine.question)).toHaveText(
     "I've turned it into a spaceship capable of interstellar travel"
