@@ -166,6 +166,5 @@
     }
   ],
   "version": 2,
-  "skipSummary": false,
-  "payApiKey": "api_test_nem8ej1bsqtkc615buga6l5e3o7udjlupfud3tq67978cn3bjk0i593l77"
+  "skipSummary": false
 }
