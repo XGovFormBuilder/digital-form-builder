@@ -11,8 +11,15 @@
       "server/*": ["src/server/*"],
     },
     "resolveJsonModule": true,
-    "lib": ["dom"],
+    "lib": [
+      "dom",
+      "ES2020.Promise",
+      "ES2019.Object"
+    ],
     "skipLibCheck": true
   },
-  "include": ["src", "package.json"],
+  "include": [
+    "src",
+    "package.json"
+  ]
 }

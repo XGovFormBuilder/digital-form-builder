@@ -1,0 +1,170 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "whichConsulate",
+          "options": {},
+          "type": "RadiosField",
+          "title": "which consulate",
+          "list": "IpQxvK",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "second-page",
+      "path": "/page-2",
+      "components": [
+        {
+          "name": "svTCNd",
+          "options": {
+            "condition": "isLisbon"
+          },
+          "type": "Para",
+          "content": "",
+          "schema": {}
+        },
+        {
+          "name": "OaLeTn",
+          "options": {
+            "condition": "isPortimao"
+          },
+          "type": "Para",
+          "content": "book portimao..",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "specialPages": {
+    "confirmationPage": {
+      "components": [
+        {
+          "name": "cd",
+          "options": {
+            "condition": "isLisbon"
+          },
+          "type": "Para",
+          "content": "lisbon",
+          "schema": {}
+        },
+        {
+          "name": "ab",
+          "options": {
+            "condition": "isPortimao"
+          },
+          "type": "Para",
+          "content": "portimao",
+          "schema": {}
+        }
+      ]
+    }
+  },
+  "lists": [
+    {
+      "title": "which consulate",
+      "name": "IpQxvK",
+      "type": "string",
+      "items": [
+        {
+          "text": "lisbon",
+          "value": "lisbon"
+        },
+        {
+          "text": "portimao",
+          "value": "portimao"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "conditions": [
+    {
+      "displayName": "isLisbon",
+      "name": "isLisbon",
+      "value": {
+        "name": "isLisbon",
+        "conditions": [
+          {
+            "field": {
+              "name": "whichConsulate",
+              "type": "RadiosField",
+              "display": "which consulate"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "lisbon",
+              "display": "lisbon"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "isPortimao",
+      "name": "isPortimao",
+      "value": {
+        "name": "isPortimao",
+        "conditions": [
+          {
+            "field": {
+              "name": "whichConsulate",
+              "type": "RadiosField",
+              "display": "which consulate"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "portimao",
+              "display": "portimao"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [
+  ],
+  "outputs": [
+    {
+      "name": "webhook",
+      "title": "webhook",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io"
+      }
+    },
+    {
+      "name": "webhook_2",
+      "title": "other webhook",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false
+}

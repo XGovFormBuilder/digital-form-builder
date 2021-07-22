@@ -1,5 +1,6 @@
 import config from "../config";
 import { get, postJson } from "./httpService";
+import { nanoid } from "nanoid";
 
 export type FeeDetails = {
   description: string;
@@ -32,15 +33,10 @@ export class PayService {
     };
   }
 
-  payRequestData(
-    amount: number,
-    reference: string,
-    description: string,
-    returnUrl: string
-  ) {
+  payRequestData(amount: number, description: string, returnUrl: string) {
     return {
       amount,
-      reference,
+      reference: nanoid(10),
       description,
       return_url: returnUrl,
     };
@@ -48,14 +44,13 @@ export class PayService {
 
   async payRequest(
     amount: number,
-    reference: string,
     description: string,
     apiKey: string,
     returnUrl: string
   ) {
     const data = {
       ...this.options(apiKey),
-      payload: this.payRequestData(amount, reference, description, returnUrl),
+      payload: this.payRequestData(amount, description, returnUrl),
     };
     const { payload } = await postJson(`${config.payApiUrl}/payments`, data);
     return payload;

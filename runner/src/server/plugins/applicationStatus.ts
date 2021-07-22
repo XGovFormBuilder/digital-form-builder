@@ -1,29 +1,5 @@
-import { nanoid } from "nanoid";
-import { decodeFeedbackContextInfo, redirectTo } from "./engine";
+import { redirectTo } from "./engine";
 import { HapiRequest, HapiResponseToolkit } from "../types";
-import { feedbackReturnInfoKey } from "server/plugins/engine/helpers";
-
-function getFeedbackContextInfo(request: HapiRequest) {
-  if (request.query[feedbackReturnInfoKey]) {
-    return decodeFeedbackContextInfo(
-      request.url.searchParams.get(feedbackReturnInfoKey)
-    );
-  }
-}
-
-function successfulOutcome(
-  request: HapiRequest,
-  h: HapiResponseToolkit,
-  model?: any
-) {
-  const feedbackContextInfo = getFeedbackContextInfo(request);
-
-  if (feedbackContextInfo) {
-    return h.redirect(feedbackContextInfo.url);
-  }
-
-  return h.view("confirmation", model);
-}
 
 const applicationStatus = {
   plugin: {
@@ -34,148 +10,70 @@ const applicationStatus = {
       server.route({
         method: "get",
         path: "/{id}/status",
-        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-          const {
-            notifyService,
-            payService,
-            webhookService,
-            cacheService,
-          } = request.services([]);
-          const {
-            pay,
-            reference,
-            outputs,
-            webhookData,
-          } = await cacheService.getState(request);
-          const params = request.query;
-          let newReference;
-          let payState;
-          let userCouldntPay;
+        options: {
+          pre: [
+            {
+              method: (request) => {
+                const { statusService } = request.services([]);
+                return statusService.shouldRetryPay(request);
+              },
+              assign: "shouldRetryPay",
+            },
+            {
+              method: (request) => {
+                const { cacheService } = request.services([]);
+                return cacheService.getConfirmationState(request);
+              },
+              assign: "confirmationViewModel",
+            },
+          ],
+          handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            const { statusService, cacheService } = request.services([]);
+            const { params } = request;
+            const form = server.app.forms[params.id];
 
-          if (pay) {
-            const { self, meta } = pay;
-            payState = await payService.payStatus(self, meta.payApiKey);
-            userCouldntPay =
-              params.continue === "true" || pay.meta.attempts === 3;
+            if (!!request.pre.confirmationViewModel?.confirmation) {
+              return h.view(
+                "confirmation",
+                request.pre.confirmationViewModel.confirmation
+              );
+            }
 
-            /**
-             * allow the user to try again if they haven't skipped or reached their retry limit
-             */
-            if (payState.state.status !== "success" && !userCouldntPay) {
+            if (request.pre.shouldRetryPay) {
               return h.view("pay-error", {
-                reference,
                 errorList: ["there was a problem with your payment"],
               });
             }
-          }
 
-          if (reference) {
-            await cacheService.clearState(request);
-            if (reference !== "UNKNOWN") {
-              return successfulOutcome(request, h, { reference, payState });
-            } else {
-              return successfulOutcome(request, h, { payState });
+            const state = await cacheService.getState(request);
+            const { error } = form
+              .makeSchema(state)
+              .validate(state, { stripUnknown: true });
+
+            if (error) {
+              return h.redirect(`/${params.id}${form.def.startPage}`);
             }
-          }
 
-          /**
-           * if there are webhooks, find one and use that to generate a reference number for other output calls.
-           */
-          const webhookOutputs = (outputs || []).filter(
-            (output) => output.type === "webhook"
-          );
-          let firstWebhook;
-          let formData;
+            const {
+              reference: newReference,
+            } = await statusService.outputRequests(request);
 
-          try {
-            if (webhookOutputs.length) {
-              firstWebhook = webhookOutputs[0];
-              const { metadata, fees, ...rest } = webhookData;
-              formData = {
-                ...rest,
-                ...(!userCouldntPay && fees),
-                metadata: {
-                  ...metadata,
-                  paymentSkipped: userCouldntPay ?? false,
-                },
-              };
-
-              newReference = await webhookService.postRequest(
-                firstWebhook.outputData.url,
-                formData
-              );
-              await cacheService.mergeState(request, {
-                reference: newReference,
-              });
-            }
-            const outputPromises = (outputs || [])
-              .filter((output) => output !== firstWebhook)
-              .map((output) => {
-                switch (output.type) {
-                  case "notify":
-                  case "email": {
-                    const {
-                      apiKey,
-                      templateId,
-                      emailAddress,
-                      personalisation = {},
-                      addReferencesToPersonalisation = false,
-                    } = output.outputData;
-
-                    if (addReferencesToPersonalisation) {
-                      Object.assign(personalisation, {
-                        hasWebhookReference: !!newReference,
-                        webhookReference: newReference || "",
-                        hasPaymentReference: !!payState?.reference,
-                        paymentReference: payState?.reference || "",
-                      });
-                    }
-
-                    return notifyService.sendNotification({
-                      apiKey,
-                      templateId,
-                      emailAddress,
-                      personalisation,
-                      reference: newReference,
-                    });
-                  }
-                  case "webhook": {
-                    const { url } = output.outputData;
-                    return webhookService.postRequest(url, formData);
-                  }
-                  default:
-                    return {};
-                }
-              });
-
-            if (outputPromises.length) {
-              await Promise.all(outputPromises);
-            }
-            await cacheService.clearState(request);
-            if (newReference !== "UNKNOWN") {
-              return successfulOutcome(request, h, {
-                reference: newReference,
-                paySkipped: userCouldntPay,
-                payState,
-              });
-            } else {
-              return successfulOutcome(request, h, {
-                paySkipped: userCouldntPay,
-                payState,
-              });
-            }
-          } catch (err) {
-            request.server.log(
-              ["error", "output"],
-              `Error processing output: ${err.message}`
+            const viewModel = statusService.getViewModel(
+              state,
+              form,
+              newReference
             );
-            await cacheService.clearState(request);
-            return h.view("application-error");
-          }
 
-          // TODO:- unfinished pay flow?
+            await cacheService.setConfirmationState(request, {
+              confirmation: viewModel,
+            });
+            await cacheService.clearState(request);
+
+            return h.view("confirmation", viewModel);
+          },
         },
       });
+
       server.route({
         method: "post",
         path: "/{id}/status",
@@ -184,14 +82,11 @@ const applicationStatus = {
           const { pay } = await cacheService.getState(request);
           const { meta } = pay;
           meta.attempts++;
-          // TODO:- let payService handle nanoid(10)
-          const reference = `${nanoid(10)}`;
           const url = new URL(
             `${request.headers.origin}/${request.params.id}/status`
           ).toString();
           const res = await payService.payRequest(
             meta.amount,
-            reference,
             meta.description,
             meta.payApiKey,
             url
@@ -199,7 +94,7 @@ const applicationStatus = {
           await cacheService.mergeState(request, {
             pay: {
               payId: res.payment_id,
-              reference,
+              reference: res.reference,
               self: res._links.self.href,
               meta,
             },

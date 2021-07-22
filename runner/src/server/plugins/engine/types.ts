@@ -61,7 +61,7 @@ export type FormPayload = {
 };
 
 export type FormData = {
-  lang: string; // form language e.g: "en"
+  lang?: string; // form language e.g: "en"
   value?: FormPayload;
   errors?: FormSubmissionErrors | null;
 };

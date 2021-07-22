@@ -2,6 +2,7 @@
 {% set skipTimeoutWarning = true %}
 {% from "panel/macro.njk" import govukPanel %}
 {% extends 'layout.html' %}
+{% from "partials/components.html" import componentList %}
 
 {% block beforeContent %}
   {{ govukPhaseBanner({
@@ -24,7 +25,7 @@
       }) }}
 
       <h2 class="govuk-heading-m">What happens next</h2>
-      {% if paySkipped %}
+      {% if paymentSkipped %}
       <p class="govuk-body">
         Someone will be in touch to make a payment.
       </p>
@@ -33,6 +34,7 @@
         You will receive an email with details with the next steps.
       </p>
       {% endif %}
+      {{ componentList(components) }}
     </div>
   </div>
 {% endblock %}

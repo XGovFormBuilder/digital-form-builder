@@ -1,5 +1,3 @@
-import { nanoid } from "nanoid";
-
 import { SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
 import { redirectTo, redirectUrl, feedbackReturnInfoKey } from "../helpers";
@@ -182,14 +180,12 @@ export class SummaryPageController extends PageController {
       }
 
       // user must pay for service
-      const paymentReference = `FCO-${nanoid(10)}`;
       const description = payService.descriptionFromFees(summaryViewModel.fees);
       const url = new URL(
         `${request.headers.origin}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees.total,
-        paymentReference,
         description,
         summaryViewModel.payApiKey || "",
         url
@@ -199,7 +195,7 @@ export class SummaryPageController extends PageController {
       await cacheService.mergeState(request, {
         pay: {
           payId: res.payment_id,
-          reference: paymentReference,
+          reference: res.reference,
           self: res._links.self.href,
           meta: {
             amount: summaryViewModel.fees.total,
@@ -209,7 +205,7 @@ export class SummaryPageController extends PageController {
           },
         },
       });
-      summaryViewModel.webhookDataPaymentReference = paymentReference;
+      summaryViewModel.webhookDataPaymentReference = res.reference;
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
       });

@@ -51,6 +51,46 @@ export type MultipleApiKeys = {
   production?: string;
 };
 
+export enum OutputType {
+  Email = "email",
+  Notify = "notify",
+  Webhook = "webhook",
+}
+
+export type EmailOutputConfiguration = {
+  emailAddress: string;
+};
+
+export type NotifyOutputConfiguration = {
+  apiKey: string;
+  templateId: string;
+  emailField: string;
+  personalisation: string[];
+  addReferencesToPersonalisation?: boolean;
+};
+
+export type WebhookOutputConfiguration = {
+  url: string;
+};
+
+export type OutputConfiguration =
+  | EmailOutputConfiguration
+  | NotifyOutputConfiguration
+  | WebhookOutputConfiguration;
+
+export type Output = {
+  name: string;
+  title: string;
+  type: OutputType;
+  outputConfiguration: OutputConfiguration;
+};
+
+export type SpecialPages = {
+  confirmationPage?: {
+    components: ComponentDef[];
+  };
+};
+
 export function isMultipleApiKey(
   payApiKey: string | MultipleApiKeys | undefined
 ): payApiKey is MultipleApiKeys {
@@ -58,6 +98,9 @@ export function isMultipleApiKey(
   return obj.test !== undefined || obj.production !== undefined;
 }
 
+/**
+ * `FormDefinition` is a typescript representation of `Schema`
+ */
 export type FormDefinition = {
   pages: Page[];
   conditions: ConditionRawData[];
@@ -69,8 +112,9 @@ export type FormDefinition = {
   phaseBanner?: PhaseBanner;
   fees: any[];
   skipSummary?: boolean | undefined;
-  outputs: any[];
+  outputs: Output[];
   declaration?: string | undefined;
   metadata?: Record<string, any>;
   payApiKey?: string | MultipleApiKeys | undefined;
+  specialPages?: SpecialPages;
 };

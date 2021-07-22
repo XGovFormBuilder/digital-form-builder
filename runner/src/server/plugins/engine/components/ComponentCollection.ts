@@ -12,7 +12,6 @@ import {
 import { ComponentCollectionViewModel } from "./types";
 import { ComponentBase } from "./ComponentBase";
 import { FormComponent } from "./FormComponent";
-// import { ConditionalFormComponent } from "./ConditionalFormComponent";
 
 export class ComponentCollection {
   items: (ComponentBase | ComponentCollection | FormComponent)[];
@@ -20,7 +19,7 @@ export class ComponentCollection {
   formSchema: JoiSchema;
   stateSchema: JoiSchema;
 
-  constructor(componentDefs: ComponentDef[], model: FormModel) {
+  constructor(componentDefs: ComponentDef[] = [], model: FormModel) {
     const components = componentDefs.map((def) => {
       const Comp: any = Components[def.type];
 
@@ -87,17 +86,25 @@ export class ComponentCollection {
   }
 
   getViewModel(
-    formData: FormData,
-    errors: FormSubmissionErrors
+    formData: FormData | FormSubmissionState,
+    errors?: FormSubmissionErrors,
+    conditions?: FormModel["conditions"]
   ): ComponentCollectionViewModel {
-    const result = this.items?.map((item: any) => {
-      return {
-        type: item.type,
-        isFormComponent: item.isFormComponent,
-        model: item.getViewModel(formData, errors),
-      };
-    });
+    const result =
+      this.items?.map((item: any) => {
+        return {
+          type: item.type,
+          isFormComponent: item.isFormComponent,
+          model: item.getViewModel(formData, errors),
+        };
+      }) ?? [];
 
-    return result || [];
+    if (conditions) {
+      return result.filter(
+        (item) => conditions[item.model?.condition]?.fn(formData) ?? true
+      );
+    }
+
+    return result;
   }
 }

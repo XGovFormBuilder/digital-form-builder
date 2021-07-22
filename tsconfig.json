@@ -9,6 +9,8 @@
     "declarationMap": true,
     "sourceMap": true,
     "jsx": "react",
+    "resolveJsonModule": true,
+
 
     /* Strict Type-Checking Options */
     "strict": true,

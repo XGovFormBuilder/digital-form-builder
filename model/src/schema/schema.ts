@@ -106,6 +106,14 @@ const pageSchema = joi.object().keys({
   repeatField: joi.string().optional(),
 });
 
+const confirmationPageSchema = joi.object({
+  components: joi.array().items(componentSchema),
+});
+
+const specialPagesSchema = joi.object().keys({
+  confirmationPage: confirmationPageSchema,
+});
+
 const listItemSchema = joi.object().keys({
   text: localisedString,
   value: joi.alternatives().try(joi.number(), joi.string()),
@@ -207,6 +215,7 @@ export const Schema = joi
     skipSummary: joi.boolean().default(false),
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
+    specialPages: specialPagesSchema.optional(),
   });
 
 /**
