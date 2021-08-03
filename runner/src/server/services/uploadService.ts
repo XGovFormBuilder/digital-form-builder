@@ -3,7 +3,7 @@ import FormData from "form-data";
 
 import config from "../config";
 import { get, post } from "./httpService";
-import { HapiRequest, HapiResponseToolkit } from "../types";
+import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
 
 type Payload = HapiRequest["payload"];
 
@@ -20,6 +20,11 @@ export class UploadService {
   /**
    * Service responsible for uploading files via the FileUploadField. This service has been registered by {@link #createServer}
    */
+
+  logger: HapiServer["logger"];
+  constructor(server) {
+    this.logger = server.logger;
+  }
 
   get fileSizeLimit() {
     return 5 * 1024 * 1024; // 5mb
