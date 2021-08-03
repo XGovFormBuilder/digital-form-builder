@@ -13,7 +13,7 @@ suite(`Server Config`, () => {
     customVariables = {
       PORT: 1234,
       NODE_ENV: "test",
-      LOG_LEVEL: "TEST_LOG_LEVEL",
+      LOG_LEVEL: "warn",
       ORDNANCE_SURVEY_KEY: "TEST_ORDNANCE_SURVEY_KEY",
       BROWSER_REFRESH_URL: "TEST_BROWSER_REFRESH_URL",
       FEEDBACK_LINK: "TEST_FEEDBACK_LINK",
@@ -56,7 +56,7 @@ suite(`Server Config`, () => {
     const expectedResult = {
       port: 1234,
       env: "test",
-      logLevel: "TEST_LOG_LEVEL",
+      logLevel: "warn",
       ordnanceSurveyKey: "TEST_ORDNANCE_SURVEY_KEY",
       browserRefreshUrl: "TEST_BROWSER_REFRESH_URL",
       feedbackLink: "TEST_FEEDBACK_LINK",
@@ -112,7 +112,7 @@ suite(`Server Config`, () => {
     expect(result).to.include({
       port: 3009,
       env: "development",
-      logLevel: "WARNING",
+      logLevel: "trace",
       serviceUrl: "http://localhost:3009",
       documentUploadApiUrl: "http://localhost:9000",
       sessionTimeout: 1200000,
