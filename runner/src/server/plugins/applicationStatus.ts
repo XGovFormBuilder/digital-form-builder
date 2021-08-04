@@ -50,17 +50,14 @@ const applicationStatus = {
             }
 
             const state = await cacheService.getState(request);
-            const { error } = form
-              .makeSchema(state)
-              .validate(state, { stripUnknown: true });
 
-            if (error) {
+
+            if (state?.userCompletedSummary !== true) {
               request.logger.error(
                 [`/${params.id}/status`],
-                `${request.yar.id} state validation error, redirecting to ${form.def.startPage}`,
-                error
+                `${request.yar.id} user has incomplete state`
               );
-              return h.redirect(`/${params.id}${form.def.startPage}`);
+              return h.redirect(`/${params.id}/summary`);
             }
 
             const {

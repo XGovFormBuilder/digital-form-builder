@@ -164,6 +164,7 @@ export class SummaryPageController extends PageController {
 
       await cacheService.mergeState(request, {
         outputs: summaryViewModel.outputs,
+        userCompletedSummary: true,
       });
       await cacheService.mergeState(request, {
         webhookData: summaryViewModel.validatedWebhookData,
