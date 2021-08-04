@@ -12,21 +12,17 @@ RUN mkdir -p /usr/src/app && \
     apk add --no-cache bash git
 
 # ----------------------------
-# Stage 2
-# Cache layer contains npm packages for all workspaces
-# It will re-run only if one of the copied files change, otherwise this stage is cached
-FROM base AS dependencies
+# Stage 3
+# Base with model stage
+# In this layer we build the model workspace.
+# It will re-run only if anything inside ./model changes, otherwise this stage is cached.
+# rsync is used to merge folders instead of individually copying files
+FROM dependencies AS model
 WORKDIR /usr/src/app
-COPY --chown=appuser:appuser .yarn ./.yarn/
-COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
-
+COPY --chown=appuser:appuser ./model ./model/
 USER 1001
-COPY --chown=appuser:appuser model/package.json ./model/
 RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
-COPY --chown=appuser:appuser model/dist ./model/
-
-COPY --chown=appuser:appuser designer/package.json ./designer/
-RUN yarn workspaces focus @xgovformbuilder/designer
+COPY --chown=appuser:appuser ./model/tsconfig.tsbuildinfo /tmp
 
 
 # ----------------------------
@@ -43,6 +39,7 @@ ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./designer ./designer/
 RUN yarn workspaces focus @xgovformbuilder/designer && yarn designer build
+COPY --chown=appuser:appuser ./designer/tsconfig.tsbuildinfo /tmp
 USER 1001
 EXPOSE 3000
 CMD [ "yarn", "designer", "start" ]
