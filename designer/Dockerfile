@@ -39,7 +39,7 @@ ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./designer ./designer/
 RUN yarn workspaces focus @xgovformbuilder/designer && yarn designer build
-COPY --chown=appuser:appuser ./designer/tsconfig.tsbuildinfo /tmp
+COPY --chown=appuser:appuser ./designer/dist/client/report.html /tmp
 USER 1001
 EXPOSE 3000
 CMD [ "yarn", "designer", "start" ]
