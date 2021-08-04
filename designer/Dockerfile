@@ -19,29 +19,23 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
-COPY --chown=appuser:appuser model/package.json ./model/
-COPY --chown=appuser:appuser designer/package.json ./designer/
+
 USER 1001
+COPY --chown=appuser:appuser model/package.json ./model/
+RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
+COPY --chown=appuser:appuser model/yarn.lock ./model
+
+COPY --chown=appuser:appuser designer/package.json ./designer/
+RUN yarn workspaces focus @xgovformbuilder/designer
+COPY --chown=appuser:appuser designer/yarn.lock ./designer
 
 # ----------------------------
 # Stage 3
-# Base with model stage
-# In this layer we build the model workspace.
-# It will re-run only if anything inside ./model changes, otherwise this stage is cached.
-# rsync is used to merge folders instead of individually copying files
-FROM dependencies AS model
-WORKDIR /usr/src/app
-COPY --chown=appuser:appuser ./model ./model/
-USER 1001
-RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
-
-# ----------------------------
-# Stage 4
 # Build stage
 # In this layer we build the runner workspace
 # It will re-run only if anything inside ./runner changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM model AS build-designer
+FROM dependencies AS build-designer
 WORKDIR /usr/src/app
 ARG LAST_COMMIT
 ARG LAST_TAG
