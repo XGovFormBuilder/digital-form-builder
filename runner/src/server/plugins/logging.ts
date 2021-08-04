@@ -11,5 +11,6 @@ export default {
         return { level: label };
       },
     },
+    logRequestComplete: config.isDev,
   },
 };

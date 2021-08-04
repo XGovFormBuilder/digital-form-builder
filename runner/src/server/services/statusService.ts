@@ -207,6 +207,10 @@ export class StatusService {
     newReference?: string
   ) {
     const { reference, pay } = state;
+    this.logger.info(
+      ["StatusService", "getViewModel"],
+      `generating viewModel for ${newReference ?? reference}`
+    );
     const confirmationPage = formModel.def.specialPages?.confirmationPage;
 
     const referenceToDisplay =
@@ -216,7 +220,7 @@ export class StatusService {
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
     };
 
-    if (!confirmationPage?.components.length) {
+    if (!confirmationPage?.components?.length) {
       return model;
     }
 

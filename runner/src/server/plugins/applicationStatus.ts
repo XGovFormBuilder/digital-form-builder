@@ -33,6 +33,10 @@ const applicationStatus = {
             const form = server.app.forms[params.id];
 
             if (!!request.pre.confirmationViewModel?.confirmation) {
+              request.logger.info(
+                [`/${params.id}/status`],
+                `${request.yar.id} confirmationViewModel found for user`
+              );
               return h.view(
                 "confirmation",
                 request.pre.confirmationViewModel.confirmation
@@ -46,12 +50,13 @@ const applicationStatus = {
             }
 
             const state = await cacheService.getState(request);
-            const { error } = form
-              .makeSchema(state)
-              .validate(state, { stripUnknown: true });
 
-            if (error) {
-              return h.redirect(`/${params.id}${form.def.startPage}`);
+            if (state?.userCompletedSummary !== true) {
+              request.logger.error(
+                [`/${params.id}/status`],
+                `${request.yar.id} user has incomplete state`
+              );
+              return h.redirect(`/${params.id}/summary`);
             }
 
             const {
