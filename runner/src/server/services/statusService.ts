@@ -63,7 +63,7 @@ export class StatusService {
 
   async shouldRetryPay(request): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
-    if (!!pay) {
+    if (!pay) {
       this.logger.info(
         ["StatusService", "shouldRetryPay"],
         "No pay state detected, skipping"

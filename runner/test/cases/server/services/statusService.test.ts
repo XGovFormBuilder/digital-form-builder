@@ -19,14 +19,20 @@ const cacheService = { getState: () => ({}), mergeState: () => {} },
     payStatus: () => {},
   };
 
+const yar = {
+  id: "session_id",
+};
+
 const server = {
   services: () => ({
     cacheService,
     webhookService,
     payService,
     notifyService,
-    logger: {},
   }),
+  logger: {
+    info: () => {},
+  },
 };
 suite("Server StatusService", () => {
   describe("shouldRetryPay", () => {
@@ -35,14 +41,14 @@ suite("Server StatusService", () => {
     });
     test("returns false when no pay information is saved in the session", async () => {
       const statusService = new StatusService(server);
-      expect(await statusService.shouldRetryPay({})).to.equal(false);
+      expect(await statusService.shouldRetryPay({ yar })).to.equal(false);
     });
 
     test("returns false when the continue query parameter is true", async () => {
       sinon.stub(cacheService, "getState").returns({ state: { pay: {} } });
       const statusService = new StatusService(server);
       expect(
-        await statusService.shouldRetryPay({ query: { continue: "true" } })
+        await statusService.shouldRetryPay({ yar, query: { continue: "true" } })
       ).to.equal(false);
     });
 
@@ -51,7 +57,8 @@ suite("Server StatusService", () => {
         .stub(cacheService, "getState")
         .returns({ state: { pay: { meta: 3 } } });
       const statusService = new StatusService(server);
-      expect(await statusService.shouldRetryPay({})).to.equal(false);
+
+      expect(await statusService.shouldRetryPay({ yar })).to.equal(false);
     });
 
     test("returns true when <3 pay attempts have been made", async () => {
@@ -66,7 +73,7 @@ suite("Server StatusService", () => {
       });
 
       const statusService = new StatusService(server);
-      expect(await statusService.shouldRetryPay({})).to.equal(true);
+      expect(await statusService.shouldRetryPay({ yar })).to.equal(true);
     });
 
     test("returns true when <3 and the continue query is true", async () => {
@@ -82,7 +89,7 @@ suite("Server StatusService", () => {
 
       const statusService = new StatusService(server);
       expect(
-        await statusService.shouldRetryPay({ query: { continue: "true" } })
+        await statusService.shouldRetryPay({ yar, query: { continue: "true" } })
       ).to.equal(false);
     });
   });
@@ -129,7 +136,7 @@ suite("Server StatusService", () => {
         .resolves("3");
 
       const statusService = new StatusService(server);
-      const res = await statusService.outputRequests({});
+      const res = await statusService.outputRequests({ yar });
 
       const results = await res.results;
       expect(res.reference).to.equal("abcd-ef-g");
