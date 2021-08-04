@@ -51,6 +51,7 @@ const applicationStatus = {
 
             const state = await cacheService.getState(request);
 
+
             if (state?.userCompletedSummary !== true) {
               request.logger.error(
                 [`/${params.id}/status`],
