@@ -126,8 +126,8 @@ jobs:
           file: ./designer/Dockerfile
           push: false
           tags: digital-form-builder-designer:latest
-          cache-from: type=registry,ref=user/app:latest
-          cache-to: type=inline
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
       - name: docker build runner
         uses: docker/build-push-action@v2
@@ -136,8 +136,16 @@ jobs:
           file: ./runner/Dockerfile
           push: false
           tags: digital-form-builder-runner:latest
-          cache-from: type=registry,ref=user/app:latest
-          cache-to: type=inline
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      -
+        # Temp fix
+        # https://github.com/docker/build-push-action/issues/252
+        # https://github.com/moby/buildkit/issues/1896
+        name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
         
           
       - name: Docker compose up
