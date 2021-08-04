@@ -23,11 +23,11 @@ COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  .
 USER 1001
 COPY --chown=appuser:appuser model/package.json ./model/
 RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
-COPY --chown=appuser:appuser model/yarn.lock ./model
+COPY --chown=appuser:appuser model/dist ./model/
 
 COPY --chown=appuser:appuser designer/package.json ./designer/
 RUN yarn workspaces focus @xgovformbuilder/designer
-COPY --chown=appuser:appuser designer/yarn.lock ./designer
+
 
 # ----------------------------
 # Stage 3
