@@ -115,9 +115,29 @@ jobs:
           echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
-      - name: Docker compose build
-        run: |
-          docker-compose build --parallel
+#       - name: Docker compose build
+#         run: |
+#           docker-compose build --parallel
+
+      - name: docker build designer
+        uses: docker/build-push-action@v2
+        with:
+          context: designer
+          push: false
+          tags: digital-form-builder-designer:latest
+          cache-from: type=registry,ref=user/app:latest
+          cache-to: type=inline
+
+      - name: docker build runner
+        uses: docker/build-push-action@v2
+        with:
+          context: runner
+          push: false
+          tags: digital-form-builder-runner:latest
+          cache-from: type=registry,ref=user/app:latest
+          cache-to: type=inline
+        
+          
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
