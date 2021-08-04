@@ -5,9 +5,7 @@ services:
   designer:
     container_name: designer
     image: digital-form-builder-designer
-    build:
-      context: .
-      dockerfile: ./designer/Dockerfile
+    build: .
     ports:
       - "3000:3000"
     environment:
@@ -26,9 +24,7 @@ services:
   runner:
     container_name: runner
     image: digital-form-builder-runner
-    build:
-      context: .
-      dockerfile: ./runner/Dockerfile
+    build: .
     ports:
       - "3009:3009"
     environment:
