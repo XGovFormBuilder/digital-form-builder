@@ -64,7 +64,7 @@ export class StatusService {
   async shouldRetryPay(request): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
     if (!!pay) {
-      this.logger.trace(
+      this.logger.info(
         ["StatusService", "shouldRetryPay"],
         "No pay state detected, skipping"
       );
@@ -87,7 +87,7 @@ export class StatusService {
       const shouldRetry =
         state.status === "failed" && !userSkippedOrLimitReached;
 
-      this.logger.trace(
+      this.logger.info(
         ["StatusService", "shouldRetryPay"],
         `user ${request.yar.id} - shouldRetryPay: ${shouldRetry}`
       );
