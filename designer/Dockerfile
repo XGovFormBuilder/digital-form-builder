@@ -22,7 +22,6 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model ./model/
 USER 1001
 RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
-COPY --chown=appuser:appuser ./model/tsconfig.tsbuildinfo /tmp
 
 
 # ----------------------------
