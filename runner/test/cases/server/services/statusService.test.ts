@@ -32,6 +32,7 @@ const server = {
   }),
   logger: {
     info: () => {},
+    trace: () => {},
   },
 };
 suite("Server StatusService", () => {
