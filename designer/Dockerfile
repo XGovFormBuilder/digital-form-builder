@@ -17,7 +17,7 @@ RUN mkdir -p /usr/src/app && \
 # In this layer we build the model workspace.
 # It will re-run only if anything inside ./model changes, otherwise this stage is cached.
 # rsync is used to merge folders instead of individually copying files
-FROM dependencies AS model
+FROM base AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model ./model/
 USER 1001
