@@ -92,7 +92,7 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
-          ${{ runner.os }}-buildx-
+            ${{ runner.os }}-buildx-
 
       - name: Docker compose pull
         run: docker-compose pull
