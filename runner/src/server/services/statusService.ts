@@ -63,7 +63,11 @@ export class StatusService {
 
   async shouldRetryPay(request): Promise<boolean> {
     const { pay } = await this.cacheService.getState(request);
-    if (!pay) {
+    if (!!pay) {
+      this.logger.trace(
+        ["StatusService", "shouldRetryPay"],
+        "No pay state detected, skipping"
+      );
       return false;
     } else {
       const { self, meta } = pay;
@@ -80,7 +84,15 @@ export class StatusService {
         },
       });
 
-      return state.status === "failed" && !userSkippedOrLimitReached;
+      const shouldRetry =
+        state.status === "failed" && !userSkippedOrLimitReached;
+
+      this.logger.trace(
+        ["StatusService", "shouldRetryPay"],
+        `user ${request.yar.id} - shouldRetryPay: ${shouldRetry}`
+      );
+
+      return shouldRetry;
     }
   }
 

@@ -33,6 +33,10 @@ const applicationStatus = {
             const form = server.app.forms[params.id];
 
             if (!!request.pre.confirmationViewModel?.confirmation) {
+              request.logger.trace(
+                [`/${params.id}/status`],
+                `${request.yar.id} confirmationViewModel found for user`
+              );
               return h.view(
                 "confirmation",
                 request.pre.confirmationViewModel.confirmation
@@ -51,6 +55,11 @@ const applicationStatus = {
               .validate(state, { stripUnknown: true });
 
             if (error) {
+              request.logger.error(
+                [`/${params.id}/status`],
+                `${request.yar.id} state validation error, redirecting to startPage`,
+                error
+              );
               return h.redirect(`/${params.id}${form.def.startPage}`);
             }
 
