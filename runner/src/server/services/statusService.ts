@@ -117,7 +117,7 @@ export class StatusService {
       });
     }
 
-    const { notify, webhook } = this.outputArgs(
+    const { notify = [], webhook = [] } = this.outputArgs(
       otherOutputs,
       formData,
       newReference,
@@ -188,6 +188,7 @@ export class StatusService {
     reference,
     payReference
   ): OutputArgs {
+    this.logger.trace(["StatusService", "outputArgs"], JSON.stringify(outputs));
     return outputs.reduce<OutputArgs>(
       (previousValue: OutputArgs, currentValue: OutputModel) => {
         let { notify, webhook } = previousValue;
@@ -197,11 +198,19 @@ export class StatusService {
             reference,
             payReference
           );
+          this.logger.trace(
+            ["StatusService", "outputArgs", "notify"],
+            JSON.stringify(args)
+          );
           notify.push(args);
         }
         if (isWebhookModel(currentValue.outputData)) {
           const { url } = currentValue.outputData;
           webhook.push({ url, formData });
+          this.logger.trace(
+            ["StatusService", "outputArgs", "webhookArgs"],
+            JSON.stringify({ url, formData })
+          );
         }
 
         return { notify, webhook };
