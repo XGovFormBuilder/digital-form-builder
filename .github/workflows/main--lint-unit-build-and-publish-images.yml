@@ -113,21 +113,30 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
+
+      - name: Configure docker caching
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+          ${{ runner.os }}-buildx-
+
       - name: Docker compose pull
         run: docker-compose pull
-      - name: Docker layer caching DAYOFYEAR key
-        # DAYOFYEAR key is used to rotate docker-layer-caching daily to avoid the layers dangle issues
-        # see https://github.com/satackey/action-docker-layer-caching/issues/55
-        # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
-        # so main branch cache can be shared with branches
-        run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}git
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
+#      - name: Docker layer caching DAYOFYEAR key
+#        # DAYOFYEAR key is used to rotate docker-layer-caching daily to avoid the layers dangle issues
+#        # see https://github.com/satackey/action-docker-layer-caching/issues/55
+#        # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
+#        # so main branch cache can be shared with branches
+#        run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
+#      - name: Docker layer caching
+#        uses: satackey/action-docker-layer-caching@v0.0.11
+#        continue-on-error: true
+#        with:
+#          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}git
+#          restore-keys: |
+#            digital-form-builder-${{ env.DAYOFYEAR }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
@@ -156,6 +165,7 @@ jobs:
         run: |
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
           docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
         with:
