@@ -1,5 +1,7 @@
 import { NotifyClient } from "notifications-node-client/client/notification";
 import { HapiServer } from "server/types";
+import { isMultipleApiKey, MultipleApiKeys } from "@xgovformbuilder/model";
+import config from "server/config";
 
 type Personalisation = {
   [propName: string]: any;
@@ -12,7 +14,7 @@ type SendEmailOptions = {
 };
 
 export type SendNotificationArgs = {
-  apiKey: string;
+  apiKey: string | MultipleApiKeys;
   templateId: string;
   emailAddress: string;
   personalisation: Personalisation;
@@ -42,13 +44,14 @@ export class NotifyService {
   }
 
   sendNotification(args: SendNotificationArgs) {
-    const {
-      apiKey,
-      templateId,
-      emailAddress,
-      personalisation,
-      reference,
-    } = args;
+    const { templateId, emailAddress, personalisation, reference } = args;
+    let { apiKey } = args;
+
+    if (isMultipleApiKey(apiKey)) {
+      apiKey = (config.apiEnv === "production"
+        ? apiKey.production ?? apiKey.test
+        : apiKey.test ?? apiKey.production) as string;
+    }
 
     const parsedOptions: SendEmailOptions = {
       personalisation: this.parsePersonalisations(personalisation),
