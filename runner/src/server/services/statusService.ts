@@ -168,17 +168,19 @@ export class StatusService {
     } = outputData;
 
     return {
-      ...personalisation,
+      personalisation: {
+        ...personalisation,
+        ...(addReferencesToPersonalisation && {
+          hasWebhookReference: !!reference,
+          webhookReference: reference || "",
+          hasPaymentReference: !!payReference,
+          paymentReference: payReference || "",
+        }),
+      },
       reference,
       apiKey,
       templateId,
       emailAddress,
-      ...(addReferencesToPersonalisation && {
-        hasWebhookReference: !!reference,
-        webhookReference: reference || "",
-        hasPaymentReference: !!payReference,
-        paymentReference: payReference || "",
-      }),
     };
   }
 
