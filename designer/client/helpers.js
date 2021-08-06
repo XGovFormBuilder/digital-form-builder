@@ -69,8 +69,8 @@ export function camelCase(str) {
     .replace(/[^a-zA-Z0-9]/g, "");
 }
 
-export function isEmpty(str) {
-  return !str || str.trim().length < 1;
+export function isEmpty(str = "") {
+  return `${str}`.trim().length < 1;
 }
 
 export function arrayMove(arr, from, to) {
