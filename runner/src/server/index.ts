@@ -141,6 +141,10 @@ async function createServer(routeConfig: RouteConfig) {
     await server.register(blipp);
   }
 
+  server.state("cookies_policy", {
+    encoding: "base64json",
+  });
+
   return server;
 }
 

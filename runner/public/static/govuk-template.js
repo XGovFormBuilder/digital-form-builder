@@ -49,6 +49,7 @@
   GOVUK.getCookie = function (name) {
     var nameEQ = name + '='
     var cookies = document.cookie.split(';')
+    
     for (var i = 0, len = cookies.length; i < len; i++) {
       var cookie = cookies[i]
       while (cookie.charAt(0) === ' ') {
@@ -69,13 +70,18 @@
   }
 
   GOVUK.addCookieMessage = function () {
-    var message = document.getElementById('global-cookie-message')
+    var message = document.getElementById('global-cookie-message');
+    var cookiesPolicy = GOVUK.getCookie('cookies_policy');
 
-    var hasCookieMessage = (message && GOVUK.cookie('seen_cookie_message') === null)
-
-    if (hasCookieMessage) {
-      message.style.display = 'block'
-      GOVUK.cookie('seen_cookie_message', 'yes', { days: 28 })
+    try {
+      cookiesPolicy = JSON.parse(atob(cookiesPolicy));
+    } catch (error) {
+      cookiesPolicy = {};
+    }
+    
+    if (message && !cookiesPolicy.essential) {
+      message.style.display = 'block';
+      GOVUK.setCookie('cookies_policy', btoa(JSON.stringify({ "essential":true })), { days: 28 });
     }
   }
 }).call(this);

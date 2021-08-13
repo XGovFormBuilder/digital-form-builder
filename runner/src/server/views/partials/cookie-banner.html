@@ -5,20 +5,24 @@
   Cookies on {{ name if name else serviceName }}
 {% endset %}
 
-{{ 
-  govukCookieBanner({
-    ariaLabel: cookieBannerHeader,
-    messages: [
-      {
-        headingText: cookieBannerHeader,
-        html: cookieBannerHtml,
-        actions: [
-          {
-          text: "View cookies",
-          href: "/help/cookies"
+<div id="global-cookie-message">
+  {{
+    govukCookieBanner({
+      classes: ["global-cookie-message"],
+      ariaLabel: cookieBannerHeader,
+      messages: [
+        {
+          headingText: cookieBannerHeader,
+          html: cookieBannerHtml,
+          actions: [
+            {
+            text: "View cookies",
+            href: "/help/cookies"
+          }
+          ]
         }
-        ]
-      }
-    ]
-  }) 
-}}
+      ]
+    })
+  }}
+</div>
+
