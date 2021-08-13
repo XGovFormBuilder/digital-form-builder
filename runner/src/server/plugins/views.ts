@@ -54,9 +54,7 @@ export default {
       `${path.join(__dirname, "engine", "views")}`,
       `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}`,
       `${path.dirname(resolve.sync("govuk-frontend", { basedir }))}/components`,
-      `${path.dirname(
-        resolve.sync("hmpo-components", { basedir })
-      )}/components`,
+      `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
     context: {
