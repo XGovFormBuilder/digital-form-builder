@@ -1,0 +1,24 @@
+{% set cookieBannerHtml %}
+  <p>We use some essential cookies to make this service work.</p> 
+{% endset %}
+{% set cookieBannerHeader %}
+  Cookies on {{ name if name else serviceName }}
+{% endset %}
+
+{{ 
+  govukCookieBanner({
+    ariaLabel: cookieBannerHeader,
+    messages: [
+      {
+        headingText: cookieBannerHeader,
+        html: cookieBannerHtml,
+        actions: [
+          {
+          text: "View cookies",
+          href: "/help/cookies"
+        }
+        ]
+      }
+    ]
+  }) 
+}}
