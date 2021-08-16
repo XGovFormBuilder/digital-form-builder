@@ -15,7 +15,12 @@ export default [
             path.join(runnerFolder, "public", "build"),
             path.join(rootNodeModules, "govuk-frontend", "govuk"),
             path.join(rootNodeModules, "govuk-frontend", "govuk", "assets"),
-            path.join(rootNodeModules, "hmpo-components", "assets"),
+            path.join(
+              runnerFolder,
+              "node_modules",
+              "hmpo-components",
+              "assets"
+            ),
           ],
         },
       },

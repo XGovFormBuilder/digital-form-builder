@@ -1,4 +1,4 @@
-@import "../../../../node_modules/govuk-frontend/govuk/all";
+@import "../node_modules/govuk-frontend/govuk/all";
 @import "../node_modules/accessible-autocomplete/src/autocomplete";
 @import "hmpo";
 @import "modal-dialog";
@@ -62,11 +62,5 @@
 
 #global-cookie-message {
   width: 100%;
-  background-color: #d5e8f3;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  .js-enabled & {
-    display: none;
-  }
+  display: none;
 }

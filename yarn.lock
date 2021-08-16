@@ -4904,7 +4904,7 @@ __metadata:
     flagg: ^1.1.2
     flat: 5.0.2
     focus-trap-react: ^8.3.2
-    govuk-frontend: ^3.10.1
+    govuk-frontend: ^3.13.0
     hapi-pino: ^8.0.1
     hoek: ^6.1.3
     html-webpack-plugin: ^4.5.0
@@ -5077,7 +5077,7 @@ __metadata:
     flat: 5.0.2
     form-data: 3.0.0
     googleapis: 64.0.0
-    govuk-frontend: ^3.10.1
+    govuk-frontend: ^3.13.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -9130,7 +9130,7 @@ __metadata:
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
-    govuk-frontend: ^3.10.1
+    govuk-frontend: ^3.13.0
     husky: ^4.3.0
     lint-staged: ^10.4.2
     magic-string: ^0.25.7
@@ -12357,6 +12357,13 @@ fsevents@^1.2.7:
   version: 3.10.2
   resolution: "govuk-frontend@npm:3.10.2"
   checksum: f21d4410a7f7da68199d9ecdad3d27930640d56fdad53631c57c652b8daf4608318af0d6eb0417f55a6d7ec8b022a781f6aeb237d3a004dd8c583fae26206825
+  languageName: node
+  linkType: hard
+
+"govuk-frontend@npm:^3.13.0":
+  version: 3.13.0
+  resolution: "govuk-frontend@npm:3.13.0"
+  checksum: 9b4456a0881b51213fdbfd596f27aa2cc609ea0e5d6977930842be01e187a1afbfe3116850c02860f0cb365877a4a931894748c78980c702b1b46502f7d6673a
   languageName: node
   linkType: hard
 

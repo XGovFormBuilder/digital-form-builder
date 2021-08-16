@@ -121,7 +121,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-tsdoc": "^0.2.14",
     "file-loader": "^6.1.0",
-    "govuk-frontend": "^3.10.1",
+    "govuk-frontend": "^3.13.0",
     "html-webpack-plugin": "^4.5.0",
     "i18next-parser": "^3.3.0",
     "jest": "^26.6.3",
