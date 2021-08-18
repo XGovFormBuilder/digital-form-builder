@@ -16,8 +16,8 @@ suite("Server Blankie Plugin", () => {
     expect(options).to.equal({
       defaultSrc: ["self"],
       fontSrc: ["self", "data:"],
-      connectSrc: ["self"],
-      scriptSrc: ["self", "unsafe-inline"],
+      connectSrc: ["self", "https://www.googletagmanager.com"],
+      scriptSrc: ["self", "unsafe-inline", "https://www.googletagmanager.com"],
       styleSrc: ["self", "unsafe-inline"],
       imgSrc: ["self"],
       generateNonces: false,
@@ -34,8 +34,17 @@ suite("Server Blankie Plugin", () => {
     expect(options).to.equal({
       defaultSrc: ["self"],
       fontSrc: ["self", "data:"],
-      connectSrc: ["self", "https://gov.uk/"],
-      scriptSrc: ["self", "unsafe-inline", "https://gov.uk/piwik/piwik.js"],
+      connectSrc: [
+        "self",
+        "https://www.googletagmanager.com",
+        "https://gov.uk/",
+      ],
+      scriptSrc: [
+        "self",
+        "unsafe-inline",
+        "https://www.googletagmanager.com",
+        "https://gov.uk/piwik/piwik.js",
+      ],
       styleSrc: ["self", "unsafe-inline"],
       imgSrc: ["self", "https://gov.uk/"],
       generateNonces: false,
