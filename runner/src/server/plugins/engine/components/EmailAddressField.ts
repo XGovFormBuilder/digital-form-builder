@@ -35,6 +35,7 @@ export class EmailAddressField extends FormComponent {
     }
 
     viewModel.type = "email";
+    viewModel.autocomplete = "email";
 
     return viewModel;
   }

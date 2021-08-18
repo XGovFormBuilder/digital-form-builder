@@ -73,4 +73,17 @@ suite("Telephone number field", () => {
       "Enter a telephone number in the correct format"
     );
   });
+  test("Should add 'tel' to the autocomplete attribute", () => {
+    const def = {
+      name: "myComponent",
+      title: "My component",
+      hint: "a hint",
+      options: {},
+      schema: {},
+    };
+    const telephoneNumberField = new TelephoneNumberField(def, {});
+    expect(telephoneNumberField.getViewModel({})).to.contain({
+      autocomplete: "tel",
+    });
+  });
 });
