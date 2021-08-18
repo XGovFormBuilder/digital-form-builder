@@ -30,8 +30,13 @@ export const configureBlankiePlugin = (
     options: {
       defaultSrc: ["self"],
       fontSrc: ["self", "data:"],
-      connectSrc: ["self", ...matomoSrc],
-      scriptSrc: ["self", "unsafe-inline", ...matomoScriptSrc],
+      connectSrc: ["self", "https://www.googletagmanager.com", ...matomoSrc],
+      scriptSrc: [
+        "self",
+        "unsafe-inline",
+        "https://www.googletagmanager.com",
+        ...matomoScriptSrc,
+      ],
       styleSrc: ["self", "unsafe-inline"],
       imgSrc: ["self", ...matomoSrc],
       generateNonces: false,

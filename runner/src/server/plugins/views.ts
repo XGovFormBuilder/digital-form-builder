@@ -64,6 +64,8 @@ export default {
       feedbackLink: config.feedbackLink,
       pageTitle: config.serviceName + " - GOV.UK",
       analyticsAccount: config.analyticsAccount,
+      gtmId1: config.gtmId1,
+      gtmId2: config.gtmId2,
       matomoId: config.matomoId,
       matomoUrl: config.matomoUrl,
       BROWSER_REFRESH_URL: config.browserRefreshUrl,
