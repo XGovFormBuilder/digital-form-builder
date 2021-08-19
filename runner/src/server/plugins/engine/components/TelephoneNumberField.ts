@@ -50,17 +50,11 @@ export class TelephoneNumberField extends FormComponent {
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
-    const schema: any = this.schema;
     const viewModel = {
       ...super.getViewModel(formData, errors),
       type: "tel",
+      autocomplete: "tel",
     };
-
-    if (schema.max) {
-      viewModel.attributes = {
-        maxlength: schema.max,
-      };
-    }
 
     return viewModel;
   }
