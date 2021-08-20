@@ -16,6 +16,7 @@ export default {
       "/assets/images/favicon.ico",
       "/assets/images/govuk-apple-touch-icon-180x180.png",
       "/assets/fonts/light-94a07e06a1-v2.woff2",
+      "/assets/images/govuk-crest.png",
       "/assets/images/govuk-crest-2x.png",
       "/assets/all.js",
       "/assets/upload-dialog.js",
