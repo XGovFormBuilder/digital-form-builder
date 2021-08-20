@@ -76,7 +76,6 @@ export class DatePartsField extends FormComponent {
   getStateSchemaKeys() {
     const { options } = this;
     const { maxDaysInPast, maxDaysInFuture } = options as any;
-
     let schema: any = this.stateSchema;
 
     if (maxDaysInPast !== undefined) {

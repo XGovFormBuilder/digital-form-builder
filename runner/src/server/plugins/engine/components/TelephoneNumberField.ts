@@ -14,19 +14,15 @@ export class TelephoneNumberField extends FormComponent {
 
     const { options = {}, schema = {} } = def;
     const pattern = schema.regex ? new RegExp(schema.regex) : PATTERN;
-    let componentSchema = joi
-      .string()
-      .pattern(pattern)
-      .rule({
-        message: def.options?.customValidation ?? DEFAULT_MESSAGE,
-      })
-      .label(def.title);
+    let componentSchema = joi.string();
 
-    if (options.required !== false) {
-      componentSchema = componentSchema.required();
-    } else {
-      componentSchema = componentSchema.allow("");
+    if (options.required === false) {
+      componentSchema = componentSchema.allow("").optional();
     }
+    componentSchema = componentSchema
+      .pattern(pattern)
+      .message(def.options?.customValidation ?? DEFAULT_MESSAGE)
+      .label(def.title);
 
     if (schema.max) {
       componentSchema = componentSchema.max(schema.max);

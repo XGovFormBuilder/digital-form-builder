@@ -19,63 +19,6 @@ export class FormComponent extends ComponentBase {
 
   constructor(def: ComponentDef, model: FormModel) {
     super(def, model);
-
-    const schema: any = this.schema;
-
-    schema.error = (errors) => {
-      errors.forEach((err) => {
-        let limit;
-        const today = new Date().setUTCHours(0, 0, 0);
-
-        if (err.context?.limit) {
-          limit = err.context.limit.setUTCHours(0, 0, 0);
-        }
-
-        const limitIsToday = limit === today;
-
-        switch (err.type) {
-          case "any.empty":
-          case "any.required":
-          case "string.base":
-            err.message = `${err.context.label} is required`;
-            break;
-          case "number.base":
-            err.message = `${err.context.label} must be a number`;
-            break;
-          case "string.email":
-            err.message = `${err.context.label} must be a valid email address`;
-            break;
-          case "string.regex.base":
-            err.message = `Enter a valid ${err.context.label.toLowerCase()}`;
-            break;
-          case "date.min":
-            if (limitIsToday) {
-              err.message = `${err.context.label} must be in the future`;
-            } else {
-              err.message = `${
-                err.context.label
-              } can be no earlier than ${limit.getDate()}/${
-                limit.getMonth() + 1
-              }/${limit.getFullYear()}`;
-            }
-            break;
-          case "date.max":
-            if (limitIsToday) {
-              err.message = `${err.context.label} must be in the past`;
-            } else {
-              err.message = `${
-                err.context.label
-              } can be no later than ${limit.getDate()}/${
-                limit.getMonth() + 1
-              }/${limit.getFullYear()}`;
-            }
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    };
   }
 
   get lang() {
