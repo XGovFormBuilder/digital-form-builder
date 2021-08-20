@@ -1,5 +1,6 @@
 import { redirectTo } from "./engine";
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import config from "server/config";
 
 const applicationStatus = {
   plugin: {
@@ -51,7 +52,6 @@ const applicationStatus = {
 
             const state = await cacheService.getState(request);
 
-
             if (state?.userCompletedSummary !== true) {
               request.logger.error(
                 [`/${params.id}/status`],
@@ -89,7 +89,7 @@ const applicationStatus = {
           const { meta } = pay;
           meta.attempts++;
           const url = new URL(
-            `${request.headers.origin}/${request.params.id}/status`
+            `${config.payReturnUrl}/${request.params.id}/status`
           ).toString();
           const res = await payService.payRequest(
             meta.amount,
