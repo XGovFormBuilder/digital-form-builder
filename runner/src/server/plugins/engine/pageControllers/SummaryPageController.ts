@@ -7,6 +7,7 @@ import {
   FeedbackContextInfo,
   decodeFeedbackContextInfo,
 } from "../feedback";
+import config from "server/config";
 
 export class SummaryPageController extends PageController {
   /**
@@ -183,7 +184,7 @@ export class SummaryPageController extends PageController {
       // user must pay for service
       const description = payService.descriptionFromFees(summaryViewModel.fees);
       const url = new URL(
-        `${request.headers.origin}/${request.params.id}/status`
+        `${config.payReturnUrl}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
         summaryViewModel.fees.total,
