@@ -1,7 +1,7 @@
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FeeDetails, Fees } from "server/services/payService";
-import { flatten } from "hoek";
+import { reach } from "hoek";
 
 /**
  * returns an object used for sending GOV.UK Pay requests Used by {@link SummaryViewModel}, {@link PayService}
@@ -16,15 +16,12 @@ export function FeesModel(
     });
 
     if (applicableFees.length > 0) {
-      // @ts-ignore
-      const flatState = flatten(state);
-
       return {
         details: applicableFees,
         total: Object.values(applicableFees)
           .map((fee) => {
             if (fee.multiplier) {
-              const multiplyBy = flatState[fee.multiplier];
+              const multiplyBy = reach(state, fee.multiplier);
               fee.multiplyBy = Number(multiplyBy);
               return fee.multiplyBy * fee.amount;
             }
