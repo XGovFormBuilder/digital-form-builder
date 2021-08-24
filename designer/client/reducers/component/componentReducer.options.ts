@@ -100,7 +100,7 @@ export function optionsReducer(state, action: OptionsActions) {
       return {
         selectedComponent: {
           ...selectedComponent,
-          options: { ...options, customValidation: payload },
+          options: { ...options, customValidationMessage: payload },
         },
       };
   }

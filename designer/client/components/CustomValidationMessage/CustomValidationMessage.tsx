@@ -15,17 +15,17 @@ export function CustomValidationMessage() {
         className="govuk-label govuk-label--s"
         htmlFor="field-options-custom-validation-message"
       >
-        {i18n("common.customValidation.title")}
+        {i18n("common.customValidationMessage.title")}
       </label>
       <span className="govuk-hint">
-        {i18n("common.customValidation.helpText")}
+        {i18n("common.customValidationMessage.helpText")}
       </span>
       <input
         className="govuk-input"
         id="field-options-custom-validation-message"
-        name="options.customValidation"
+        name="options.customValidationMessage"
         type="text"
-        value={options?.customValidation ?? ""}
+        value={options?.customValidationMessage ?? ""}
         onChange={(e) =>
           dispatch({
             type: Actions.EDIT_OPTIONS_CUSTOM_MESSAGE,

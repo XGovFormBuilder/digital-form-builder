@@ -14,7 +14,7 @@ suite("Telephone number field", () => {
       title: "My component",
       hint: "a hint",
       options: {
-        customValidation: "This is a custom error",
+        customValidationMessage: "This is a custom error",
         required: false,
       },
     };

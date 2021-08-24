@@ -1,5 +1,6 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
+import { messages } from "server/plugins/engine/pageControllers/validationOptions";
 
 import { feedbackReturnInfoKey, proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
@@ -682,7 +683,7 @@ export class PageControllerBase {
   }
 
   get validationOptions() {
-    return { abortEarly: false };
+    return { abortEarly: false, messages };
   }
 
   get conditionOptions() {

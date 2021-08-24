@@ -30,6 +30,7 @@ export class ListFormComponent extends FormComponent {
     /**
      * Only allow a user to answer with values that have been defined in the list
      */
+
     let schema = joi[this.listType]()
       .allow(...this.values)
       .label(def.title);
