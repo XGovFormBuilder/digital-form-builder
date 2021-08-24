@@ -62,7 +62,7 @@
       "helpText": "Tick this box if users do not need to complete this field to progress through the form",
       "title": "Make {{component}} optional"
     },
-    "customValidation": {
+    "customValidationMessage": {
       "helpText": "Enter the validation message to show when a validation error occurs",
       "title": "Validation message"
     },
