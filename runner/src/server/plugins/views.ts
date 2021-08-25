@@ -2,6 +2,7 @@ import path from "path";
 import resolve from "resolve";
 import nunjucks from "nunjucks";
 import vision from "vision";
+import { capitalize } from "lodash";
 
 import config from "../config";
 import pkg from "../../../package.json";
@@ -60,7 +61,7 @@ export default {
     context: {
       appVersion: pkg.version,
       assetPath: "/assets",
-      serviceName: config.serviceName,
+      serviceName: capitalize(config.serviceName),
       feedbackLink: config.feedbackLink,
       pageTitle: config.serviceName + " - GOV.UK",
       analyticsAccount: config.analyticsAccount,
