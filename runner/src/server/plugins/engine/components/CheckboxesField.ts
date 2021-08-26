@@ -23,7 +23,12 @@ export class CheckboxesField extends SelectionControlField {
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    return state?.[this.name]?.join(", ");
+    return state?.[this.name]
+      ?.map(
+        (value) =>
+          this.items.find((item) => `${item.value}` === `${value}`)?.text ?? ""
+      )
+      .join(", ");
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {

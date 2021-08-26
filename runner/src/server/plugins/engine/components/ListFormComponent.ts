@@ -55,7 +55,7 @@ export class ListFormComponent extends FormComponent {
     const { name, items } = this;
     const value = state[name];
     const item = items.find((item) => String(item.value) === String(value));
-    return `${item?.value ?? ""}`;
+    return `${item?.text ?? ""}`;
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
@@ -74,5 +74,9 @@ export class ListFormComponent extends FormComponent {
     viewModel.items = viewModelItems;
 
     return viewModel;
+  }
+
+  get dataType() {
+    return "list";
   }
 }

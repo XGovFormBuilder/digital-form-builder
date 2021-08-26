@@ -54,10 +54,10 @@ Then(/^the Summary page is displayed with my answers$/, function () {
     "1 January 2020"
   );
   expect(formRunner.summaryAnswer(formData.checkBox1.question)).toHaveText(
-    "1, 2"
+    "Bath, Bristol"
   );
   expect(formRunner.summaryAnswer(formData.autoComp.question)).toHaveText(
-    "2"
+    "BMW"
   );
   expect(formRunner.summaryAnswer(formData.textField.question)).toHaveText(
     "740"
@@ -66,7 +66,7 @@ Then(/^the Summary page is displayed with my answers$/, function () {
     "22 March 2021"
   );
   expect(formRunner.summaryAnswer(formData.radio2.question)).toHaveText(
-    "3"
+    "Hydrogen"
   );
   expect(formRunner.summaryAnswer(formData.multiLine.question)).toHaveText(
     "I've turned it into a spaceship capable of interstellar travel"

@@ -321,7 +321,7 @@ export class SummaryViewModel {
 
         for (const detailItem of item) {
           const answer =
-            typeof detailItem.rawValue === "object"
+            detailItem.dataType !== "list"
               ? detailItem.value
               : detailItem.rawValue;
           fields.push({
@@ -345,7 +345,7 @@ export class SummaryViewModel {
                   title: this.toEnglish(cc.title),
                   type: cc.dataType,
                   answer:
-                    typeof itemDetailItem.rawValue === "object"
+                    itemDetailItem.dataType !== "list"
                       ? itemDetailItem.value
                       : itemDetailItem.rawValue,
                 });
