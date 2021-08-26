@@ -50,7 +50,8 @@ suite("ListFormComponent", () => {
         progress: [],
         MyListFormComponent: "2",
       };
-      expect(component.getDisplayStringFromState(state)).to.equal("2");
+      expect(component.getDisplayStringFromState(state)).to.equal("2 hours");
+      expect(component.getViewModel(state).value).to.equal("2");
     });
 
     it("it gets value correctly when state value is number", () => {
@@ -58,7 +59,8 @@ suite("ListFormComponent", () => {
         progress: [],
         MyListFormComponent: 2,
       };
-      expect(component.getDisplayStringFromState(state)).to.equal("2");
+      expect(component.getDisplayStringFromState(state)).to.equal("2 hours");
+      expect(component.getViewModel(state).value).to.equal(2);
     });
   });
 });
