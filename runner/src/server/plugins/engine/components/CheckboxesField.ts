@@ -26,7 +26,7 @@ export class CheckboxesField extends SelectionControlField {
     return state?.[this.name]
       ?.map(
         (value) =>
-          this.items.find((item) => `${item.value}` === value)?.text ?? ""
+          this.items.find((item) => `${item.value}` === `${value}`)?.text ?? ""
       )
       .join(", ");
   }
