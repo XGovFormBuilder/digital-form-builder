@@ -175,6 +175,8 @@
     "InsetText_info": "A block of text that differentiates it from surrounding content, for example for quotes",
     "List": "List",
     "List_info": "A series of bullet points",
+    "MonthYearField": "Month year parts",
+    "MonthYearField_info": "Allows users to manually enter a Month and Year",
     "MultilineTextField": "Multiline text",
     "MultilineTextField_info": "A text box for users to enter multiple lines of text into, for example as 'Additional info'",
     "NumberField": "Number",

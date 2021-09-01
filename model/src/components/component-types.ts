@@ -74,6 +74,15 @@ export const ComponentTypes: ComponentDef[] = [
     schema: {},
   },
   {
+    name: "MonthYearField",
+    type: "MonthYearField",
+    title: "Month year field",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
+  {
     name: "SelectField",
     type: "SelectField",
     title: "Select field",

@@ -6,6 +6,7 @@ export enum ComponentTypeEnum {
   TimeField = "TimeField",
   DateTimeField = "DateTimeField",
   DatePartsField = "DatePartsField",
+  MonthYearField = "MonthYearField",
   DateTimePartsField = "DateTimePartsField",
   SelectField = "SelectField",
   AutocompleteField = "AutocompleteField",
@@ -31,6 +32,7 @@ export type ComponentType =
   | "DateField"
   | "TimeField"
   | "DateTimeField"
+  | "MonthYearField"
   | "DatePartsField"
   | "DateTimePartsField"
   | "SelectField"
@@ -221,6 +223,10 @@ export interface DatePartsFieldFieldComponent extends DateFieldBase {
   type: "DatePartsField";
 }
 
+export interface MonthYearFieldComponent extends DateFieldBase {
+  type: "MonthYearField";
+}
+
 export interface DateTimePartsFieldComponent extends DateFieldBase {
   type: "DateTimePartsField";
 }
@@ -278,6 +284,7 @@ export type ComponentDef =
   | CheckboxesFieldComponent
   | DateFieldComponent
   | DatePartsFieldFieldComponent
+  | MonthYearFieldComponent
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
   | DetailsComponent
@@ -309,6 +316,7 @@ export type InputFieldsComponentsDef =
   | DateFieldComponent
   | DateTimeFieldComponent
   | DateTimePartsFieldComponent
+  | MonthYearFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent;
 
