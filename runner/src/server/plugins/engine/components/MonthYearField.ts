@@ -1,9 +1,7 @@
-import moment from "moment";
-import { Schema } from "joi";
+import joi, { Schema } from "joi";
 
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
-import * as helpers from "./helpers";
 import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
@@ -15,29 +13,29 @@ import {
 } from "../types";
 import { FormModel } from "../models";
 
-export class DateTimePartsField extends FormComponent {
+export class MonthYearField extends FormComponent {
   children: ComponentCollection;
 
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
-    const { name } = this;
     const options: any = this.options;
 
     this.children = new ComponentCollection(
       [
         {
           type: "NumberField",
-          name: `${name}__month`,
+          name: `${this.name}__month`,
           title: "Month",
           schema: { min: 1, max: 12 },
           options: {
             required: options.required,
-            classes: "govuk-input--width-2",
+            classes: "govuk-input--width-2 ",
+            customValidationMessage: "{{label}} must be between 1 and 12",
           },
         },
         {
           type: "NumberField",
-          name: `${name}__year`,
+          name: `${this.name}__year`,
           title: "Year",
           schema: { min: 1000, max: 3000 },
           options: {
@@ -48,8 +46,6 @@ export class DateTimePartsField extends FormComponent {
       ] as any,
       model
     );
-
-    this.stateSchema = helpers.buildStateSchema("date", this);
   }
 
   getFormSchemaKeys() {
@@ -57,28 +53,20 @@ export class DateTimePartsField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema as Schema };
+    return { [this.name]: this.children.getStateSchemaKeys() };
   }
 
   getFormDataFromState(state: FormSubmissionState) {
-    const name = this.name;
-    const value =
-      typeof state[name] === "string" ? new Date(state[name]) : state[name];
-    return {
-      [`${name}__month`]: value && value.getMonth() + 1,
-      [`${name}__year`]: value && value.getFullYear(),
-    };
+    return this.children.getFormDataFromState(state);
   }
 
   getStateValueFromValidForm(payload: FormPayload) {
-    const name = this.name;
-
-    return [payload[`${name}__month`] - 1, payload[`${name}__year`]];
+    return this.children.getStateFromValidForm(payload);
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
-    const name = this.name;
-    return `${state[`${name}__month`] - 1} ${state[`${name}__year`]}`;
+    const values = state[this.name];
+    return `${values[`${this.name}__month`]} / ${values[`${this.name}__year`]}`;
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc

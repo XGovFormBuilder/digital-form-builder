@@ -1,14 +1,36 @@
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormComponent } from "./FormComponent";
-import { getFormSchemaKeys, getStateSchemaKeys } from "./helpers";
+import joi, { Schema } from "joi";
 
 export class NumberField extends FormComponent {
+  constructor(def, model) {
+    super(def, model);
+    const { min, max } = def.schema;
+    let schema = joi.number().label(def.title);
+
+    if (!!min && !!max) {
+      schema = schema.$;
+    }
+    if (!!min) {
+      schema = schema.min(min);
+    }
+    if (!!max) {
+      schema = schema.max(max);
+    }
+
+    if (def.options.customValidationMessage) {
+      schema = schema.rule({ message: def.options.customValidationMessage });
+    }
+
+    this.schema = schema;
+  }
+
   getFormSchemaKeys() {
-    return getFormSchemaKeys(this.name, "number", this);
+    return { [this.name]: this.schema as Schema };
   }
 
   getStateSchemaKeys() {
-    return getStateSchemaKeys(this.name, "number", this);
+    return { [this.name]: this.schema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {

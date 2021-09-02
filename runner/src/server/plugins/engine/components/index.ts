@@ -31,3 +31,4 @@ export { TextField } from "./TextField";
 export { TimeField } from "./TimeField";
 export { UkAddressField } from "./UkAddressField";
 export { YesNoField } from "./YesNoField";
+export { MonthYearField } from "./MonthYearField";
