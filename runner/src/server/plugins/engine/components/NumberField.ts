@@ -1,10 +1,13 @@
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormComponent } from "./FormComponent";
 import joi, { Schema } from "joi";
+import { NumberFieldComponent } from "@xgovformbuilder/model";
 
 export class NumberField extends FormComponent {
+  schemaOptions: NumberFieldComponent["schema"];
   constructor(def, model) {
     super(def, model);
+    this.schemaOptions = def.schema;
     const { min, max } = def.schema;
     const { options } = def;
     let schema = joi.number();
@@ -50,7 +53,7 @@ export class NumberField extends FormComponent {
       type: "number",
     };
 
-    if (schema.precision) {
+    if (this.schemaOptions.precision) {
       viewModel.attributes.step = "0." + "1".padStart(schema.precision, "0");
     }
 
