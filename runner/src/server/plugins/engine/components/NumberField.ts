@@ -6,23 +6,33 @@ export class NumberField extends FormComponent {
   constructor(def, model) {
     super(def, model);
     const { min, max } = def.schema;
-    let schema = joi.number().label(def.title);
+    const { options } = def;
+    let schema = joi.number();
 
-    if (!!min && !!max) {
+    schema = schema.label(def.title);
+
+    if (`${min}` && `${max}`) {
       schema = schema.$;
     }
-    if (!!min) {
+    if (`${min}`) {
       schema = schema.min(min);
     }
-    if (!!max) {
+    if (`${max}`) {
       schema = schema.max(max);
     }
 
-    if (def.options.customValidationMessage) {
-      schema = schema.rule({ message: def.options.customValidationMessage });
+    if (options.customValidationMessage) {
+      schema = schema.rule({ message: options.customValidationMessage });
     }
 
-    this.schema = schema;
+    if (options.required === false) {
+      const optionalSchema = joi
+        .alternatives()
+        .try(joi.string().allow(null).allow("").default("").optional(), schema);
+      this.schema = optionalSchema;
+    } else {
+      this.schema = schema;
+    }
   }
 
   getFormSchemaKeys() {

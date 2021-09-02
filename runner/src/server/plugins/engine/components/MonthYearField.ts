@@ -1,7 +1,4 @@
-import joi, { Schema } from "joi";
-
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
-
 import { optionalText } from "./constants";
 import { FormComponent } from "./FormComponent";
 import { ComponentCollection } from "./ComponentCollection";
@@ -12,6 +9,7 @@ import {
   FormSubmissionState,
 } from "../types";
 import { FormModel } from "../models";
+import { Schema } from "joi";
 
 export class MonthYearField extends FormComponent {
   children: ComponentCollection;
@@ -29,7 +27,7 @@ export class MonthYearField extends FormComponent {
           schema: { min: 1, max: 12 },
           options: {
             required: options.required,
-            classes: "govuk-input--width-2 ",
+            classes: "govuk-input--width-2",
             customValidationMessage: "{{label}} must be between 1 and 12",
           },
         },
@@ -53,7 +51,9 @@ export class MonthYearField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.children.getStateSchemaKeys() };
+    return {
+      [this.name]: this.children.getStateSchemaKeys() as Schema,
+    };
   }
 
   getFormDataFromState(state: FormSubmissionState) {
@@ -66,7 +66,10 @@ export class MonthYearField extends FormComponent {
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const values = state[this.name];
-    return `${values[`${this.name}__month`]} / ${values[`${this.name}__year`]}`;
+    const month = values[`${this.name}__month`] ?? "Not supplied";
+    const year = values[`${this.name}__year`] ?? "Not supplied";
+
+    return [month, year].join(" / ");
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc
