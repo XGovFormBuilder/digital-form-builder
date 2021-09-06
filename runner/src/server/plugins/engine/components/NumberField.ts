@@ -14,13 +14,14 @@ export class NumberField extends FormComponent {
 
     schema = schema.label(def.title);
 
-    if (`${min}` && `${max}`) {
+    if (def.schema?.min && def.schema?.max) {
       schema = schema.$;
     }
-    if (`${min}`) {
+    if (def.schema?.min ?? false) {
       schema = schema.min(min);
     }
-    if (`${max}`) {
+
+    if (def.schema?.max ?? false) {
       schema = schema.max(max);
     }
 
