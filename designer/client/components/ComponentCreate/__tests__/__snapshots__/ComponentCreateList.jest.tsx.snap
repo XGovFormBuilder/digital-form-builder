@@ -225,6 +225,19 @@ exports[`ComponentCreateList should match snapshot 1`] = `
               class="govuk-link"
               href="#0"
             >
+              Month year parts
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              Allows users to manually enter a Month and Year
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
               Multiline text
             </a>
             <div

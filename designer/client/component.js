@@ -11,30 +11,31 @@ const DragHandle = SortableHandle(() => (
 ));
 
 export const componentTypes = {
-  TextField: TextField,
-  TelephoneNumberField: TelephoneNumberField,
-  NumberField: NumberField,
-  EmailAddressField: EmailAddressField,
-  TimeField: TimeField,
-  DateField: DateField,
-  DateTimeField: DateTimeField,
-  DatePartsField: DatePartsField,
-  DateTimePartsField: DateTimePartsField,
-  MultilineTextField: MultilineTextField,
-  RadiosField: RadiosField,
-  CheckboxesField: CheckboxesField,
+  TextField,
+  TelephoneNumberField,
+  NumberField,
+  EmailAddressField,
+  TimeField,
+  DateField,
+  DateTimeField,
+  DatePartsField,
+  DateTimePartsField,
+  MonthYearField,
+  MultilineTextField,
+  RadiosField,
+  CheckboxesField,
   AutocompleteField: SelectField,
   SelectField: SelectField,
   YesNoField: YesNoField,
-  UkAddressField: UkAddressField,
-  FileUploadField: FileUploadField,
-  Para: Para,
-  Details: Details,
-  Html: Html,
-  InsetText: InsetText,
-  FlashCard: FlashCard,
-  List: List,
-  WarningText: WarningText,
+  UkAddressField,
+  FileUploadField,
+  Para,
+  Details,
+  Html,
+  InsetText,
+  FlashCard,
+  List,
+  WarningText,
 };
 
 function Base(props) {
@@ -136,6 +137,15 @@ function DateTimePartsField() {
       <span className="box medium govuk-!-margin-right-1" />
       <span className="box small govuk-!-margin-right-1" />
       <span className="box small" />
+    </ComponentField>
+  );
+}
+
+function MonthYearField() {
+  return (
+    <ComponentField>
+      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
+      <span className="box medium" />
     </ComponentField>
   );
 }
