@@ -16,6 +16,11 @@ export type Fees = {
   paymentReference?: string;
 };
 
+const currencyFormat = new Intl.NumberFormat("en-GB", {
+  style: "currency",
+  currency: "GBP",
+});
+
 export class PayService {
   /**
    * Service responsible for handling requests to GOV.UK Pay. This service has been registered by {@link createServer}
@@ -66,7 +71,7 @@ export class PayService {
   }
 
   /**
-   * Returns a string with a textual description of what a user will pay. Pay requests are in pence, so `/ 100` to get the £ value.
+   * Returns a string with a textual description of what a user will pay.
    */
   descriptionFromFees(fees: Fees): string {
     return fees.details
@@ -74,12 +79,12 @@ export class PayService {
         const { multiplier, multiplyBy, description, amount } = detail;
 
         if (multiplier && multiplyBy) {
-          return `${multiplyBy} x ${description}: £${
-            (multiplyBy * amount) / 100
-          }`;
+          return `${multiplyBy} x ${description}: ${currencyFormat.format(
+            multiplyBy * amount
+          )}`;
         }
 
-        return `${detail.description}: £${detail.amount / 100}`;
+        return `${detail.description}: ${currencyFormat.format(detail.amount)}`;
       })
       .join(", ");
   }
