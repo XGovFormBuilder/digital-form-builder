@@ -52,7 +52,7 @@ suite("Server PayService Service", () => {
         },
         {
           description: "B",
-          amount: "150",
+          amount: 15000,
         },
       ],
     });
