@@ -16,7 +16,7 @@ suite("Server PayService Service", () => {
       details: [
         {
           description: "A",
-          amount: "3.5",
+          amount: 350,
         },
       ],
     });
@@ -30,7 +30,7 @@ suite("Server PayService Service", () => {
       details: [
         {
           description: "A",
-          amount: "3.5",
+          amount: 350,
           multiplier: "numberOf",
           multiplyBy: 3,
         },
@@ -46,7 +46,7 @@ suite("Server PayService Service", () => {
       details: [
         {
           description: "A",
-          amount: "3.5",
+          amount: 350,
           multiplier: "numberOf",
           multiplyBy: 3,
         },
