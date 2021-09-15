@@ -80,11 +80,13 @@ export class PayService {
 
         if (multiplier && multiplyBy) {
           return `${multiplyBy} x ${description}: ${currencyFormat.format(
-            multiplyBy * amount
+            (multiplyBy * amount) / 100
           )}`;
         }
 
-        return `${detail.description}: ${currencyFormat.format(detail.amount)}`;
+        return `${detail.description}: ${currencyFormat.format(
+          detail.amount / 100
+        )}`;
       })
       .join(", ");
   }
