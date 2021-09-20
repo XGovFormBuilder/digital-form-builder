@@ -15,7 +15,7 @@ type OptionsActions = ConditionAction | AnyAction;
 export function optionsReducer(state, action: OptionsActions) {
   const { type, payload } = action;
   const { selectedComponent } = state;
-  const { options } = state;
+  const { options } = selectedComponent;
   switch (type) {
     case Options.EDIT_OPTIONS_HIDE_TITLE:
       return {
@@ -101,6 +101,20 @@ export function optionsReducer(state, action: OptionsActions) {
         selectedComponent: {
           ...selectedComponent,
           options: { ...options, customValidation: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_PARAMETER_NAME:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, parameterName: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_HIDE_FIELD:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, hideField: payload },
         },
       };
   }

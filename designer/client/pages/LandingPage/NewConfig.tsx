@@ -109,6 +109,7 @@ export class NewConfig extends Component<Props, State> {
         body: JSON.stringify({
           selected: { Key: "New" },
           name: parseNewName(newName),
+          formName: newName,
         }),
         headers: {
           Accept: "application/json",

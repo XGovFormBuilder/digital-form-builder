@@ -16,7 +16,13 @@ export function FieldEdit({ isContentField = false }: Props) {
   const { selectedComponent, errors } = state;
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
-  const { hideTitle = false, optionalText = false, required = true } = options;
+  const {
+    hideTitle = false,
+    optionalText = false,
+    required = true,
+    parameterName = "",
+    hideField = false,
+  } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
     ComponentTypes.find((componentType) => componentType.name === type)
@@ -188,6 +194,57 @@ export function FieldEdit({ isContentField = false }: Props) {
             </span>
           </div>
         </div>
+        {!isContentField && (
+          <Input
+            id="field-options-parameterName"
+            name="options.parameterName"
+            label={{
+              className: "govuk-label--s",
+              children: [i18n("common.parameterNameOption.title")],
+            }}
+            hint={{
+              children: [i18n("common.parameterNameOption.helpText")],
+            }}
+            value={parameterName || ""}
+            onChange={(e) => {
+              dispatch({
+                type: Actions.EDIT_OPTIONS_PARAMETER_NAME,
+                payload: e.target.value,
+              });
+            }}
+            errorMessage={
+              errors?.title
+                ? { children: i18n(errors.title[0], errors.title[1]) }
+                : undefined
+            }
+          />
+        )}
+        {!isContentField && (
+          <div className="govuk-checkboxes__item">
+            <input
+              className="govuk-checkboxes__input"
+              id="field-options-hideField"
+              name="options.hideField"
+              type="checkbox"
+              checked={hideField}
+              onChange={(e) =>
+                dispatch({
+                  type: Actions.EDIT_OPTIONS_HIDE_FIELD,
+                  payload: e.target.checked,
+                })
+              }
+            />
+            <label
+              className="govuk-label govuk-checkboxes__label"
+              htmlFor="field-options-hideField"
+            >
+              {i18n("common.hideFieldOption.title")}
+            </label>
+            <span className="govuk-hint govuk-checkboxes__hint">
+              {i18n("common.hideFieldOption.helpText")}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -167,13 +167,17 @@ const webhookSchema = joi.object().keys({
   url: joi.string(),
 });
 
+const freshdeskSchema = joi.object().keys({
+  customFields: joi.string().allow("").optional(),
+});
+
 const outputSchema = joi.object().keys({
   name: joi.string(),
   title: joi.string().optional(),
-  type: joi.string().allow("notify", "email", "webhook", "sheets"),
+  type: joi.string().allow("notify", "email", "webhook", "sheets", "freshdesk"),
   outputConfiguration: joi
     .alternatives()
-    .try(notifySchema, emailSchema, webhookSchema),
+    .try(notifySchema, emailSchema, webhookSchema, freshdeskSchema),
 });
 
 const feedbackSchema = joi.object().keys({
@@ -200,6 +204,7 @@ export const Schema = joi
   .object()
   .required()
   .keys({
+    id: joi.string().allow("").optional(),
     name: localisedString.optional(),
     feedback: feedbackSchema,
     startPage: joi.string().required(),
@@ -216,6 +221,9 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    totalSubs: joi.number().optional(),
+    createdAt: joi.string().allow("").optional(),
+    updatedAt: joi.string().allow("").optional(),
   });
 
 /**

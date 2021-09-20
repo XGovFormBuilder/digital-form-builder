@@ -77,6 +77,8 @@ interface TextFieldBase {
     classes?: string;
     allow?: string;
     autocomplete?: string;
+    parameterName?: string;
+    hideField?: boolean;
   };
   schema: {
     max?: number;
@@ -93,7 +95,10 @@ interface NumberFieldBase {
   name: string;
   title: string;
   hint: string;
-  options: {};
+  options: {
+    parameterName?: string;
+    hideField?: boolean;
+  };
   schema: {
     min?: number;
     max?: number;
@@ -113,6 +118,8 @@ interface ListFieldBase {
     optionalText?: boolean;
     classes?: string;
     bold?: boolean;
+    parameterName?: string;
+    hideField?: boolean;
   };
   list: string;
   schema: {};
@@ -138,6 +145,8 @@ interface DateFieldBase {
     hideTitle?: boolean;
     required?: boolean;
     optionalText?: boolean;
+    parameterName?: string;
+    hideField?: boolean;
   };
   schema: {};
 }

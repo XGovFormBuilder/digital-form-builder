@@ -1,15 +1,20 @@
 import newFormJson from "../../../new-form.json";
-import { FormConfiguration, Schema } from "@xgovformbuilder/model";
+import { FormConfiguration, Schema } from "../../../../model";
 import Wreck from "@hapi/wreck";
 import config from "../../config";
 import { publish } from "../../lib/publish";
 import { ServerRoute, ResponseObject } from "@hapi/hapi";
 
-const getPublished = async function (id) {
-  const { payload } = await Wreck.get<FormConfiguration>(
-    `${config.publishUrl}/published/${id}`
-  );
-  return payload.toString();
+const getPublished = async function (id, persistenceService) {
+  if (config.persistentBackend === "dynamoDB") {
+    const payload = persistenceService.getConfiguration(id);
+    return payload;
+  } else {
+    const { payload } = await Wreck.get<FormConfiguration>(
+      `${config.publishUrl}/published/${id}`
+    );
+    return payload.toString();
+  }
 };
 
 export const getFormWithId: ServerRoute = {
@@ -21,10 +26,13 @@ export const getFormWithId: ServerRoute = {
       const { id } = request.params;
       let formJson = newFormJson;
       try {
-        const response = await getPublished(id);
-        const { values } = JSON.parse(response);
+        let response;
+        const { persistenceService } = request.services([]);
+        response = await getPublished(id, persistenceService);
+        const values = JSON.parse(response);
 
         if (values) {
+          values.pages = JSON.parse(values.pages);
           formJson = values;
         }
       } catch (error) {
@@ -68,7 +76,10 @@ export const putFormWithId: ServerRoute = {
         await publish(id, value);
         return h.response({ ok: true }).code(204);
       } catch (err) {
-        request.logger.error("Designer Server PUT /api/{id}/data error:", err);
+        request.logger.error(
+          "Designer Server PUT /api/{id}/data error:",
+          err.message
+        );
         const errorSummary = {
           id: id,
           payload: request.payload,

@@ -19,6 +19,7 @@ import { validateNotEmpty, hasValidationErrors } from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
 import logger from "../plugins/logger";
+import FreshdeskEdit from "./freshdesk-edit";
 
 type State = {
   outputType: OutputType;
@@ -88,6 +89,11 @@ class OutputEdit extends Component<Props, State> {
       case OutputType.Webhook:
         outputConfiguration = {
           url: formData.get("webhook-url") as string,
+        };
+        break;
+      case OutputType.Freshdesk:
+        outputConfiguration = {
+          customFields: formData.get("freshdesk-customFields") as string,
         };
         break;
     }
@@ -170,6 +176,9 @@ class OutputEdit extends Component<Props, State> {
           };
         }
         break;
+      case OutputType.Freshdesk:
+        let customFields = formData.get("freshdesk-customFields") as string;
+        break;
     }
 
     this.setState({ errors: errors });
@@ -232,6 +241,13 @@ class OutputEdit extends Component<Props, State> {
           errors={errors}
         />
       );
+    } else if (outputType === OutputType.Freshdesk) {
+      outputEdit = (
+        <FreshdeskEdit
+          customFields={output?.outputConfiguration?.["customFields"]}
+          errors={errors}
+        />
+      );
     }
     return (
       <>
@@ -289,6 +305,7 @@ class OutputEdit extends Component<Props, State> {
               <option value="email">Email</option>
               <option value="notify">Email via GOVUK Notify</option>
               <option value="webhook">Webhook</option>
+              <option value="freshdesk">Freshdesk</option>
             </select>
           </div>
 

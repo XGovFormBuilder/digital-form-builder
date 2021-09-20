@@ -55,6 +55,7 @@ export enum OutputType {
   Email = "email",
   Notify = "notify",
   Webhook = "webhook",
+  Freshdesk = "freshdesk",
 }
 
 export type EmailOutputConfiguration = {
@@ -73,10 +74,15 @@ export type WebhookOutputConfiguration = {
   url: string;
 };
 
+export type FreshdeskOutputConfiguration = {
+  customFields: string;
+};
+
 export type OutputConfiguration =
   | EmailOutputConfiguration
   | NotifyOutputConfiguration
-  | WebhookOutputConfiguration;
+  | WebhookOutputConfiguration
+  | FreshdeskOutputConfiguration;
 
 export type Output = {
   name: string;

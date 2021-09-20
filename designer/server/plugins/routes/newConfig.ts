@@ -11,7 +11,7 @@ export const registerNewFormWithRunner: ServerRoute = {
   options: {
     handler: async (request: HapiRequest, h) => {
       const { persistenceService } = request.services([]);
-      const { selected, name } = request.payload;
+      const { selected, name, formName } = request.payload;
 
       if (name && name !== "" && !name.match(/^[a-zA-Z0-9 _-]+$/)) {
         return h
@@ -25,12 +25,19 @@ export const registerNewFormWithRunner: ServerRoute = {
       try {
         if (selected.Key === "New") {
           if (config.persistentBackend !== "preview") {
+            request.logger.error(newFormJson);
             await persistenceService.uploadConfiguration(
               `${newName}.json`,
-              JSON.stringify(newFormJson)
+              JSON.stringify({
+                name: formName,
+                ...newFormJson,
+              })
             );
           }
-          await publish(newName, newFormJson);
+          await publish(newName, {
+            name: formName,
+            ...newFormJson,
+          });
         } else {
           await persistenceService.copyConfiguration(
             `${selected.Key}`,

@@ -8,8 +8,12 @@ export interface Config {
   port: number;
   previewUrl: string;
   publishUrl: string;
-  persistentBackend: "s3" | "blob" | "preview";
+  persistentBackend: "s3" | "blob" | "preview" | "dynamoDB";
   s3Bucket?: string;
+  dynamoDBTable?: string;
+  awsAccessKeyId?: string;
+  awsSecretKey?: string;
+  awsRegion?: string;
   persistentKeyId?: string;
   persistentAccessKey?: string;
   logLevel: "trace" | "info" | "debug" | "error";
@@ -36,8 +40,15 @@ const schema = joi.object({
     .default("development"),
   previewUrl: joi.string(),
   publishUrl: joi.string(),
-  persistentBackend: joi.string().valid("s3", "blob", "preview").optional(),
+  persistentBackend: joi
+    .string()
+    .valid("s3", "blob", "preview", "dynamoDB")
+    .optional(),
   s3Bucket: joi.string().optional(),
+  dynamoDBTable: joi.string().optional(),
+  awsAccessKeyId: joi.string().optional(),
+  awsSecretKey: joi.string().optional(),
+  awsRegion: joi.string().optional(),
   persistentKeyId: joi.string().optional(),
   persistentAccessKey: joi.string().optional(),
   logLevel: joi
@@ -58,10 +69,14 @@ const config = {
   env: process.env.NODE_ENV,
   previewUrl: process.env.PREVIEW_URL || "http://localhost:3009",
   publishUrl: process.env.PUBLISH_URL || "http://localhost:3009",
-  persistentBackend: process.env.PERSISTENT_BACKEND || "preview",
+  persistentBackend: process.env.PERSISTENT_BACKEND,
   persistentKeyId: process.env.PERSISTENT_KEY_ID,
   persistentAccessKey: process.env.PERSISTENT_ACCESS_KEY,
   s3Bucket: process.env.S3_BUCKET,
+  dynamoDBTable: process.env.DYNAMO_DB_TABLE,
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  awsSecretKey: process.env.AWS_SECRET_KEY,
+  awsRegion: process.env.AWS_REGION,
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
   footerText: process.env.FOOTER_TEXT,
