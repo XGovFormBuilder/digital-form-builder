@@ -73,6 +73,10 @@
       "helpText": "Enter the description to show for this field",
       "title": "Help text (optional)"
     },
+    "hideFieldOption": {
+      "helpText": "Tick this box to stop this field appearing to the customer",
+      "title": "Hide field"
+    },
     "hideOptionalTextOption": {
       "helpText": "Tick this box if you do not want the title to indicate that this field is optional",
       "title": "Hide '(optional)' text"
@@ -80,6 +84,10 @@
     "hideTitleOption": {
       "helpText": "Tick this box if you do not want the title to show on the page",
       "title": "Hide title"
+    },
+    "parameterNameOption": {
+      "helpText": "If you would like this field to be populated from a url parameter, enter the name of the parameter here.",
+      "title": "Parameter name"
     },
     "titleField": {
       "helpText": "Enter the name to show for this field",
