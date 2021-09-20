@@ -10,7 +10,7 @@
     "watch": "NODE_ENV=development webpack",
     "build": "NODE_ENV=production webpack",
     "start": "NODE_ENV=production nodemon dist/server.js",
-    "start:local": "NODE_ENV=development PERSISTENT_BACKEND=preview ts-node-dev --inspect --respawn --transpile-only server/index.ts",
+    "start:local": "NODE_ENV=development ts-node-dev --inspect --respawn --transpile-only server/index.ts",
     "dev": "concurrently 'yarn watch' 'yarn start:local'",
     "lint": "yarn run eslint .",
     "fix-lint": "yarn run eslint . --fix",
