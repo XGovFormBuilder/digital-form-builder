@@ -159,7 +159,5 @@ export class DatePartsField extends FormComponent {
     };
   }
 
-  get dataType() {
-    return "date";
-  }
+  dataType = "monthYear";
 }

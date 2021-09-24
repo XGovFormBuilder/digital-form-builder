@@ -65,3 +65,11 @@ export type ComponentCollectionViewModel = {
   isFormComponent: boolean;
   model: ViewModel;
 }[];
+
+export type DataType =
+  | "list"
+  | "text"
+  | "date"
+  | "monthYear"
+  | "number"
+  | "file";

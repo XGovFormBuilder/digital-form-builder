@@ -16,7 +16,6 @@ import { ComponentDef } from "@xgovformbuilder/model";
 export class FormComponent extends ComponentBase {
   isFormComponent: boolean = true;
   __lang: string = "en";
-
   constructor(def: ComponentDef, model: FormModel) {
     super(def, model);
   }
@@ -135,9 +134,5 @@ export class FormComponent extends ComponentBase {
 
   getDisplayStringFromState(state) {
     return state[this.name];
-  }
-
-  get dataType() {
-    return "text";
   }
 }

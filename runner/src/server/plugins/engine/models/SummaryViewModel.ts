@@ -7,39 +7,29 @@ import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
 import type { Fees } from "server/services/payService";
 import { FormSubmissionState } from "../types";
-import {
-  FEEDBACK_CONTEXT_ITEMS,
-  Fields,
-  Question,
-  Questions,
-  WebhookData,
-} from "./types";
+import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
 import {
   FeesModel,
   EmailModel,
   NotifyModel,
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
-
-const { serviceName } = config;
+import { WebhookModel } from "server/plugins/engine/models/submission/WebhookModel";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
- * Webhookdata
- * outputs
  * skipSummary (replace with reference to this.def.skipSummary?)
  * _payApiKey
  * replace result with errors?
  * remove state and value?
  *
  * TODO - Pull out summary behaviours into separate service classes?
- * TODO - Move outputs conversion to an outputs service?
- * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
  */
 
 export class SummaryViewModel {
   /**
    * Responsible for parsing state values to the govuk-frontend summary list template and parsing data for outputs
+   * The plain object is also used to generate data for outputs
    */
 
   pageTitle: string;
@@ -99,7 +89,7 @@ export class SummaryViewModel {
       this.processErrors(result, details);
     } else {
       this.fees = FeesModel(model, state);
-      this.parseDataForWebhook(model, relevantPages, details, state);
+      this._webhookData = WebhookModel(relevantPages, details);
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
@@ -279,18 +269,6 @@ export class SummaryViewModel {
     return { relevantPages, endPage };
   }
 
-  private parseDataForWebhook(model: FormModel, relevantPages, details) {
-    this._webhookData = {
-      metadata: model.def.metadata,
-      name: model.name?.en ?? model.name ?? `${serviceName} ${model.basePath}`,
-      questions: parseDetailsToWebhookQuestion(relevantPages, details),
-    };
-
-    if (this.fees) {
-      this._webhookData.fees = this.fees;
-    }
-  }
-
   get validatedWebhookData() {
     const result = formSchema.validate(this._webhookData, {
       abortEarly: false,
@@ -400,7 +378,7 @@ function gatherRepeatPages(state) {
 }
 
 /**
- * Creates an Item object for webhook data
+ * Creates an Item object for Details
  */
 function Item(
   request,
@@ -439,64 +417,4 @@ function Item(
     title: component.title,
     dataType: component.dataType,
   };
-}
-
-function detailItemToWebhookAnswer(item) {
-  switch (item.dataType) {
-    case "list":
-    case "date":
-      return item.rawValue;
-    default:
-      return item.value;
-  }
-}
-
-function parseDetailsToWebhookQuestion(relevantPages, details) {
-  const questions = relevantPages.map((page) => {
-    const isRepeatable = !!page.repeatField;
-
-    const filteredItems = details.flatMap((detail) =>
-      detail.items.filter((item) => item.path === page.path)
-    );
-
-    const items = isRepeatable ? [filteredItems] : filteredItems;
-    let index;
-    const fields = items.flatMap((item, i) => {
-      index = i;
-      const answer = detailItemToWebhookAnswer(item);
-      const fields = [
-        { key: item.name, title: item.title, type: item.dataType, answer },
-      ];
-      if (item.items) {
-        const selectedItem = items.items.find((i) => i.value === answer);
-        const nestedFields = selectedItem.childrenCollection.formItems.map(
-          (cc) => {
-            const itemDetailItem = items.items.find(
-              (detailItem) => detailItem.name === cc.name
-            );
-            return {
-              key: cc.name,
-              title: cc.title?.en ?? cc.title,
-              type: cc.dataType,
-              answer: detailItemToWebhookAnswer(itemDetailItem),
-            };
-          }
-        );
-        fields.push(nestedFields);
-      }
-      return fields;
-    });
-
-    return {
-      category: page.section,
-      question:
-        page.title?.en ??
-        page.title ??
-        page.components.formItems.map((item) => item.title),
-      fields,
-      index,
-    };
-  });
-
-  return questions;
 }
