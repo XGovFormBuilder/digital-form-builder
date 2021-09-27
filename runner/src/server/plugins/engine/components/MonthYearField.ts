@@ -68,10 +68,10 @@ export class MonthYearField extends FormComponent {
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const values = state[this.name];
-    const year = values[`${this.name}__year`] ?? "Not supplied";
-    let monthString = "Not supplied";
-    const monthValue = values[`${this.name}__month`];
+    const year = values?.[`${this.name}__year`] ?? "Not supplied";
 
+    let monthString = "Not supplied";
+    const monthValue = values?.[`${this.name}__month`];
     if (monthValue) {
       const date = new Date();
       date.setMonth(values[`${this.name}__month`]);

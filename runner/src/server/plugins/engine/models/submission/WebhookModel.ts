@@ -32,10 +32,13 @@ export function WebhookModel(relevantPages, details) {
       detail.items.filter((item) => item.path === page.path)
     );
 
-    const detailItems = isRepeatable ? [itemsForPage] : itemsForPage;
+    const detailItems = isRepeatable
+      ? [itemsForPage].map((item) => ({ ...item, isRepeatable }))
+      : itemsForPage;
+
     let index = 0;
     const fields = detailItems.flatMap((item, i) => {
-      index = i;
+      item.isRepeatable ? (index = i) : 0;
       const fields = [detailItemToField(item)];
 
       /**

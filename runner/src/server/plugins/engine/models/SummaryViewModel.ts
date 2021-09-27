@@ -12,9 +12,9 @@ import {
   FeesModel,
   EmailModel,
   NotifyModel,
+  WebhookModel,
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
-import { WebhookModel } from "server/plugins/engine/models/submission/WebhookModel";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
