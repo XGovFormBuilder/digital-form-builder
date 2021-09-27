@@ -1,5 +1,6 @@
 import { DetailItem } from "../types";
 import { format } from "date-fns";
+import config from "server/config";
 
 function answerFromDetailItem(item) {
   switch (item.dataType) {
@@ -24,8 +25,8 @@ function detailItemToField(item: DetailItem) {
   };
 }
 
-export function WebhookModel(relevantPages, details) {
-  return relevantPages?.map((page) => {
+export function WebhookModel(relevantPages, details, model) {
+  const questions = relevantPages?.map((page) => {
     const isRepeatable = !!page.repeatField;
 
     const itemsForPage = details.flatMap((detail) =>
@@ -61,4 +62,15 @@ export function WebhookModel(relevantPages, details) {
       index,
     };
   });
+
+  // default name if no name is provided
+  let englishName = `${config.serviceName} ${model.basePath}`;
+  if (model.name) {
+    englishName = model.name.en ?? model.name;
+  }
+  return {
+    metadata: model.def.metadata,
+    name: englishName,
+    questions: questions,
+  };
 }

@@ -72,6 +72,7 @@ suite("WebhookModel", () => {
   });
   const formModel = new FormModel(form, {});
   formModel.basePath = "test";
+  formModel.name = "My Service";
   const viewModel = new SummaryViewModel(
     "summary",
     formModel,
@@ -94,44 +95,49 @@ suite("WebhookModel", () => {
 
     const parsed = WebhookModel(
       formModel.pages.filter((page) => page.path !== "/summary"),
-      viewModel.details
+      viewModel.details,
+      formModel
     );
-    expect(parsed).to.equal([
-      {
-        category: undefined,
-        fields: [
-          {
-            answer: "2000-11",
-            key: "approximate",
-            title: "Approximate date of marriage",
-            type: "monthYear",
-          },
-          {
-            answer: "Bath",
-            key: "caz",
-            title: "caz zone",
-            type: "text",
-          },
-        ],
-        index: 0,
-        question: "When will you get married?",
-      },
-      {
-        category: {
-          name: "aSection",
-          title: "Named Section",
+    expect(parsed).to.equal({
+      metadata: {},
+      name: "My Service",
+      questions: [
+        {
+          category: undefined,
+          fields: [
+            {
+              answer: "2000-11",
+              key: "approximate",
+              title: "Approximate date of marriage",
+              type: "monthYear",
+            },
+            {
+              answer: "Bath",
+              key: "caz",
+              title: "caz zone",
+              type: "text",
+            },
+          ],
+          index: 0,
+          question: "When will you get married?",
         },
-        fields: [
-          {
-            answer: "2000-12-11",
-            key: "fullDate",
-            title: "full date",
-            type: "date",
+        {
+          category: {
+            name: "aSection",
+            title: "Named Section",
           },
-        ],
-        index: 0,
-        question: "Second page",
-      },
-    ]);
+          fields: [
+            {
+              answer: "2000-12-11",
+              key: "fullDate",
+              title: "full date",
+              type: "date",
+            },
+          ],
+          index: 0,
+          question: "Second page",
+        },
+      ],
+    });
   });
 });
