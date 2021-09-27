@@ -6,7 +6,7 @@ function answerFromDetailItem(item) {
     case "list":
       return item.rawValue;
     case "date":
-      return format(new Date(item.rawValue), "yyyy-MM-DD");
+      return format(new Date(item.rawValue), "yyyy-MM-dd");
     case "monthYear":
       const [month, year] = Object.values(item.rawValue);
       return `${year}-${month}`;

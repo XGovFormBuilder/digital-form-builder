@@ -60,7 +60,7 @@ const testDetails = [
         pageId: "/test/second-page",
         type: "DatePartsField",
         title: "full date",
-        dataType: "monthYear",
+        dataType: "date",
       },
     ],
   },
@@ -123,10 +123,10 @@ suite("WebhookModel", () => {
         },
         fields: [
           {
-            answer: "0-2",
+            answer: "2000-12-11",
             key: "fullDate",
             title: "full date",
-            type: "monthYear",
+            type: "date",
           },
         ],
         index: 0,

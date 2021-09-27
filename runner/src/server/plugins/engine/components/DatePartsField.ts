@@ -12,9 +12,11 @@ import {
   FormSubmissionState,
 } from "../types";
 import { FormModel } from "../models";
+import { DataType } from "server/plugins/engine/components/types";
 
 export class DatePartsField extends FormComponent {
   children: ComponentCollection;
+  dataType = "date" as DataType;
 
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
@@ -158,6 +160,4 @@ export class DatePartsField extends FormComponent {
       items: componentViewModels,
     };
   }
-
-  dataType = "monthYear";
 }
