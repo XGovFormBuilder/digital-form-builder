@@ -27,6 +27,7 @@ export class ChooseExisting extends Component<Props, State> {
 
   componentDidMount() {
     formConfigurationApi.loadConfigurations().then((configs) => {
+      console.log(configs);
       this.setState({
         loading: false,
         configs,
@@ -35,12 +36,13 @@ export class ChooseExisting extends Component<Props, State> {
   }
 
   selectForm = async (form) => {
+    console.log(form);
     try {
       const response = await window.fetch("/api/new", {
         method: "POST",
         body: JSON.stringify({
           selected: { Key: form },
-          name: "",
+          name: form,
         }),
         headers: {
           Accept: "application/json",

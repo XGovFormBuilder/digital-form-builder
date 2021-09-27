@@ -39,19 +39,21 @@ export const registerNewFormWithRunner: ServerRoute = {
             ...newFormJson,
           });
         } else {
-          await persistenceService.copyConfiguration(
-            `${selected.Key}`,
-            newName
+          // await persistenceService.copyConfiguration(
+          //   `${selected.Key}`,
+          //   newName
+          // );
+          const copied = await persistenceService.getConfiguration(
+            selected.Key
           );
-          const copied = await persistenceService.getConfiguration(newName);
-          await publish(newName, copied);
+          await publish(selected.Key, copied);
         }
       } catch (e) {
         request.logger.error(e);
       }
 
       const response = {
-        id: `${newName}`,
+        id: `${name ? name : newName}`,
         previewUrl: config.previewUrl,
       };
 
