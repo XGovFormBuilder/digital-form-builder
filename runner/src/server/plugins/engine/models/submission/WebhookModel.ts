@@ -54,7 +54,7 @@ export function WebhookModel(relevantPages, details, model) {
     });
 
     return {
-      category: page.section,
+      category: page.section?.name,
       question:
         page.title?.en ??
         page.title ??
