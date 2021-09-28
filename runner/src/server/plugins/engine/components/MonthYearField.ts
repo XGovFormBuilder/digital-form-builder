@@ -74,7 +74,7 @@ export class MonthYearField extends FormComponent {
     const monthValue = values?.[`${this.name}__month`];
     if (monthValue) {
       const date = new Date();
-      date.setMonth(values[`${this.name}__month`]);
+      date.setMonth(monthValue - 1);
       monthString = date.toLocaleString("default", { month: "long" });
     }
 

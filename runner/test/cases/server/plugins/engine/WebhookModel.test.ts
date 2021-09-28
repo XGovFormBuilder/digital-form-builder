@@ -19,9 +19,9 @@ const testDetails = [
         name: "approximate",
         path: "/first-page",
         label: "Approximate date of marriage",
-        value: "December 2000",
+        value: "January 2000",
         rawValue: {
-          approximate__month: 11,
+          approximate__month: 1,
           approximate__year: 2000,
         },
         url: "/test/first-page?returnUrl=%2Ftest%2Fsummary",
@@ -79,7 +79,7 @@ suite("WebhookModel", () => {
     {
       progress: ["/test/first-page", "/test/second-page"],
       approximate: {
-        approximate__month: 11,
+        approximate__month: 1,
         approximate__year: 2000,
       },
       caz: "1",
@@ -106,7 +106,7 @@ suite("WebhookModel", () => {
           category: undefined,
           fields: [
             {
-              answer: "2000-11",
+              answer: "2000-01",
               key: "approximate",
               title: "Approximate date of marriage",
               type: "monthYear",
