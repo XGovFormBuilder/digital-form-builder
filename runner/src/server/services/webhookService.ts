@@ -44,6 +44,7 @@ export class WebhookService {
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
+      this.logger.error(["WebhookService", "request body"], data);
       return "UNKNOWN";
     }
   }
