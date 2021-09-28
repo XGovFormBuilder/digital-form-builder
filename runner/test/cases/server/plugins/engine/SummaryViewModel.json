@@ -1,55 +1,123 @@
 {
-  "startPage": "/uk-passport",
+  "metadata": {},
+  "startPage": "/first-page",
   "pages": [
     {
-      "path": "/uk-passport",
+      "title": "When will you get married?",
+      "path": "/first-page",
       "components": [
         {
-          "type": "YesNoField",
-          "name": "ukPassport",
-          "title": "Do you have a UK passport?",
+          "name": "approximate",
           "options": {
             "required": true
           },
+          "type": "MonthYearField",
+          "title": "Approximate date of marriage",
+          "schema": {}
+        },
+        {
+          "name": "caz",
+          "type": "SelectField",
+          "options": {
+            "required": true
+          },
+          "list": "zone",
+          "title": "caz zone",
           "schema": {}
         }
       ],
-      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "title": "Second page",
+      "path": "/second-page",
+      "section": "aSection",
+      "components": [
+        {
+          "name": "fullDate",
+          "options": {
+            "required": false
+          },
+          "type": "DatePartsField",
+          "title": "full date",
+          "schema": {}
+        }
+      ],
       "next": [
         {
           "path": "/summary"
         }
-      ],
-      "title": "Do you have a UK passport?"
+      ]
     },
     {
+      "title": "Summary",
       "path": "/summary",
       "controller": "./pages/summary.js",
-      "title": "Summary",
-      "components": [],
-      "next": []
+      "components": []
     }
   ],
   "lists": [
+    {
+      "title": "CAZ Location",
+      "name": "zone",
+      "type": "string",
+      "items": [
+        {
+          "text": "Bath",
+          "value": 1
+        },
+        {
+          "text": "Bristol",
+          "value": 2
+        },
+        {
+          "text": "Birmingham",
+          "value": 3
+        },
+        {
+          "text": "Cardiff",
+          "value": 4
+        },
+        {
+          "text": "Liverpool",
+          "value": 6
+        },
+        {
+          "text": "Leeds",
+          "value": 7
+        },
+        {
+          "text": "Manchester",
+          "value": 8
+        }
+      ]
+    }
   ],
   "sections": [
     {
-      "name": "checkBeforeYouStart",
-      "title": "Check before you start"
+      "name": "aSection",
+      "title": "Named Section"
     }
   ],
-  "phaseBanner": {},
-  "feedback": {
-    "emailAddress": "test@feedback.cat",
-    "feedbackForm": false
-  },
+  "conditions": [
+  ],
   "fees": [
   ],
-  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
   "outputs": [
+    {
+      "name": "webhook",
+      "title": "webhook",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io"
+      }
+    }
   ],
-  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
   "version": 2,
-  "conditions": [
-  ]
+  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "skipSummary": false
 }

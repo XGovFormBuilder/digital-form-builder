@@ -10,9 +10,11 @@ import {
 } from "../types";
 import { FormModel } from "../models";
 import { Schema } from "joi";
+import { DataType } from "./types";
 
 export class MonthYearField extends FormComponent {
   children: ComponentCollection;
+  dataType = "monthYear" as DataType;
 
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
@@ -66,10 +68,17 @@ export class MonthYearField extends FormComponent {
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const values = state[this.name];
-    const month = values[`${this.name}__month`] ?? "Not supplied";
-    const year = values[`${this.name}__year`] ?? "Not supplied";
+    const year = values?.[`${this.name}__year`] ?? "Not supplied";
 
-    return [month, year].join(" / ");
+    let monthString = "Not supplied";
+    const monthValue = values?.[`${this.name}__month`];
+    if (monthValue) {
+      const date = new Date();
+      date.setMonth(monthValue - 1);
+      monthString = date.toLocaleString("default", { month: "long" });
+    }
+
+    return `${monthString} ${year}`;
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc

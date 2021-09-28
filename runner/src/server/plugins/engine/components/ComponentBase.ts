@@ -7,7 +7,7 @@ import {
 
 import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors } from "../types";
-import { ViewModel } from "./types";
+import { DataType, ViewModel } from "./types";
 
 export class ComponentBase {
   type: ComponentDef["type"];
@@ -17,7 +17,10 @@ export class ComponentBase {
   options: ComponentDef["options"];
   hint?: InputFieldsComponentsDef["hint"];
   content?: ContentComponentsDef["content"];
-
+  /**
+   * This is passed onto webhooks, see {@link answerFromDetailItem}
+   */
+  dataType?: DataType = "text";
   model: FormModel;
 
   /** joi schemas based on a component defined in the form JSON. This validates a user's answer and is generated from {@link ComponentDef} */

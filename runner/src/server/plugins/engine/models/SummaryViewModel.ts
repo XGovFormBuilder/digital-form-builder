@@ -7,38 +7,29 @@ import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
 import type { Fees } from "server/services/payService";
 import { FormSubmissionState } from "../types";
-import {
-  FEEDBACK_CONTEXT_ITEMS,
-  Fields,
-  Questions,
-  WebhookData,
-} from "./types";
+import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
 import {
   FeesModel,
   EmailModel,
   NotifyModel,
+  WebhookModel,
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
 
-const { serviceName } = config;
-
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
- * Webhookdata
- * outputs
  * skipSummary (replace with reference to this.def.skipSummary?)
  * _payApiKey
  * replace result with errors?
  * remove state and value?
  *
  * TODO - Pull out summary behaviours into separate service classes?
- * TODO - Move outputs conversion to an outputs service?
- * TODO - Move outputs / pay integration etc etc into a submission service rather than applicationStatus.js
  */
 
 export class SummaryViewModel {
   /**
    * Responsible for parsing state values to the govuk-frontend summary list template and parsing data for outputs
+   * The plain object is also used to generate data for outputs
    */
 
   pageTitle: string;
@@ -98,7 +89,7 @@ export class SummaryViewModel {
       this.processErrors(result, details);
     } else {
       this.fees = FeesModel(model, state);
-      this.parseDataForWebhook(model, relevantPages, details);
+      this._webhookData = WebhookModel(relevantPages, details, model);
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
@@ -278,108 +269,6 @@ export class SummaryViewModel {
     return { relevantPages, endPage };
   }
 
-  private toEnglish(localisableString) {
-    let englishString = "";
-    if (localisableString) {
-      if (typeof localisableString === "string") {
-        englishString = localisableString;
-      } else {
-        englishString = localisableString.en;
-      }
-    }
-    return englishString;
-  }
-
-  private parseDataForWebhook(model: FormModel, relevantPages, details) {
-    const questions: Questions = [];
-
-    for (const page of relevantPages) {
-      const category = page.section?.name;
-      const isRepeatable = !!page.repeatField;
-      const detail = details.find((d) => d.name === category);
-
-      let question;
-      if (page.title) {
-        question = this.toEnglish(page.title);
-      } else {
-        question = page.components.formItems
-          .map((item) => this.toEnglish(item.title))
-          .join(", ");
-      }
-
-      let items;
-      if (isRepeatable) {
-        items = detail.items;
-      } else {
-        items = [detail.items];
-      }
-
-      for (let index = 0; index < items.length; index++) {
-        const item = items[index].filter(
-          (detailItem) => detailItem.pageId === `/${model.basePath}${page.path}`
-        );
-        const fields: Fields = [];
-
-        for (const detailItem of item) {
-          const answer =
-            detailItem.dataType !== "list"
-              ? detailItem.value
-              : detailItem.rawValue;
-          fields.push({
-            key: detailItem.name,
-            title: this.toEnglish(detailItem.title),
-            type: detailItem.dataType,
-            answer,
-          });
-
-          if (detailItem.items) {
-            const selectedItem = detailItem.items.filter(
-              (i) => i.value === answer
-            )[0];
-            if (selectedItem && selectedItem.childrenCollection) {
-              selectedItem.childrenCollection.formItems.forEach((cc) => {
-                const itemDetailItem = detail.items.find(
-                  (detailItem) => detailItem.name === cc.name
-                );
-                fields.push({
-                  key: cc.name,
-                  title: this.toEnglish(cc.title),
-                  type: cc.dataType,
-                  answer:
-                    itemDetailItem.dataType !== "list"
-                      ? itemDetailItem.value
-                      : itemDetailItem.rawValue,
-                });
-              });
-            }
-          }
-        }
-
-        questions.push({
-          category,
-          question,
-          fields,
-          index,
-        });
-      }
-    }
-
-    // default name if no name is provided
-    let englishName = `${serviceName} ${model.basePath}`;
-    if (model.name) {
-      englishName = typeof model.name === "string" ? model.name : model.name.en;
-    }
-
-    this._webhookData = {
-      metadata: model.def.metadata,
-      name: englishName,
-      questions: questions,
-    };
-    if (this.fees) {
-      this._webhookData.fees = this.fees;
-    }
-  }
-
   get validatedWebhookData() {
     const result = formSchema.validate(this._webhookData, {
       abortEarly: false,
@@ -489,7 +378,7 @@ function gatherRepeatPages(state) {
 }
 
 /**
- * Creates an Item object for webhook data
+ * Creates an Item object for Details
  */
 function Item(
   request,
