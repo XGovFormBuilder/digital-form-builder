@@ -122,10 +122,7 @@ suite("WebhookModel", () => {
           question: "When will you get married?",
         },
         {
-          category: {
-            name: "aSection",
-            title: "Named Section",
-          },
+          category: "aSection",
           fields: [
             {
               answer: "2000-12-11",
