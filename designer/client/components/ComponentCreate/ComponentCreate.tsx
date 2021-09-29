@@ -131,7 +131,7 @@ export function ComponentCreate(props) {
   const type = component?.type;
 
   return (
-    <div className="component-create">
+    <div className="component-create" data-testid={"component-create"}>
       {!type && <h4 className="govuk-heading-m">{i18n("component.create")}</h4>}
       {type && (
         <>

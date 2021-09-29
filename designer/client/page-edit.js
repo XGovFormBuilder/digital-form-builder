@@ -64,7 +64,7 @@ export class PageEdit extends React.Component {
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
-      this.props.onEdit({ data });
+      this.props.onEdit();
     } catch (err) {
       logger.error("PageEdit", err);
     }
@@ -211,7 +211,7 @@ export class PageEdit extends React.Component {
     } = this.state;
 
     return (
-      <div>
+      <div data-testid="page-edit">
         {Object.keys(errors).length > 0 && (
           <ErrorSummary errorList={Object.values(errors)} />
         )}

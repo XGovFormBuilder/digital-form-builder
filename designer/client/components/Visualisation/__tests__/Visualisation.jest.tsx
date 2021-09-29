@@ -2,7 +2,6 @@ import React from "react";
 import { Visualisation } from "../Visualisation";
 import { render, waitFor } from "@testing-library/react";
 import { DataContext } from "../../../context";
-import { Data } from "@xgovformbuilder/model";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
