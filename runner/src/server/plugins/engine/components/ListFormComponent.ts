@@ -4,7 +4,7 @@ import { FormComponent } from "./FormComponent";
 import { FormSubmissionState, FormSubmissionErrors, FormData } from "../types";
 import { FormModel } from "./../models";
 import { List, Item } from "@xgovformbuilder/model";
-import { ListItem } from "./types";
+import { DataType, ListItem } from "./types";
 
 export class ListFormComponent extends FormComponent {
   list: List;
@@ -12,6 +12,7 @@ export class ListFormComponent extends FormComponent {
   formSchema;
   stateSchema;
   options: ListComponentsDef["options"];
+  dataType = "list" as DataType;
 
   get items(): Item[] {
     return this.list?.items ?? [];
@@ -74,9 +75,5 @@ export class ListFormComponent extends FormComponent {
     viewModel.items = viewModelItems;
 
     return viewModel;
-  }
-
-  get dataType() {
-    return "list";
   }
 }
