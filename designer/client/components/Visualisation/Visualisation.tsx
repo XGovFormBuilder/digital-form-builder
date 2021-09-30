@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 
-import Page from "../../page";
+import { Page } from "../Page";
 import { Lines } from "./Lines";
 import { Minimap } from "./Minimap";
 import { Info } from "./Info";
@@ -50,7 +50,6 @@ export function Visualisation(props: Props) {
               <Page
                 key={index}
                 page={page}
-                persona={persona}
                 previewUrl={previewUrl}
                 layout={layout?.nodes[index]}
                 id={id}
