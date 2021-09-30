@@ -4,8 +4,7 @@
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
-> :warning: **Contributions as of 15/04**: OS Repos have been hit with PRs from forks for... nefarious reasons. These will run on your repo + subsequently quota. For the time being, we will be cancelling any PRs from forks. If you wish to contribute, please ping out on gitter and we'll discuss the best way to contribute. 
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first! 
 
 
 This repository is a mono repo for
