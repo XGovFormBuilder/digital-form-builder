@@ -100,18 +100,19 @@ suite(`Server Config`, () => {
       ...process.env,
       ...customVariables,
       PORT: undefined,
-      NODE_ENV: undefined,
       LOG_LEVEL: undefined,
       SERVICE_URL: undefined,
       DOCUMENT_UPLOAD_API_URL: undefined,
       SESSION_TIMEOUT: undefined,
     };
 
+    expect(process.env.NODE_ENV).to.not.be.undefined();
+
     const result = buildConfig();
 
     expect(result).to.include({
       port: 3009,
-      env: "development",
+      env: "test",
       logLevel: "trace",
       serviceUrl: "http://localhost:3009",
       documentUploadApiUrl: "http://localhost:9000",

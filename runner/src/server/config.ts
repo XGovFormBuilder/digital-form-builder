@@ -1,14 +1,12 @@
 import dotEnv from "dotenv";
+dotEnv.config({ path: ".env" });
 import Joi, { CustomHelpers } from "joi";
 
 import { isUrlSecure } from "src/server/utils/url";
 
-dotEnv.config({ path: ".env" });
-
 const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
 const DEFAULT_PORT = 3009;
-const DEFAULT_ENVIRONMENT = "development";
 const DEFAULT_LOG_LEVEL = "trace";
 const DEFAULT_SERVICE_URL = "http://localhost:3009";
 const DEFAULT_DOCUMENT_UPLOAD_API_URL = "http://localhost:9000";
@@ -28,9 +26,7 @@ function secureUrl(value: string, helper: CustomHelpers) {
  */
 const schema = Joi.object({
   port: Joi.number().default(DEFAULT_PORT),
-  env: Joi.string()
-    .valid("development", "test", "production")
-    .default(DEFAULT_ENVIRONMENT),
+  env: Joi.string().valid("development", "test", "production"),
   logLevel: Joi.string()
     .optional()
     .default(DEFAULT_LOG_LEVEL)
@@ -142,5 +138,5 @@ export function buildConfig() {
 }
 
 const config = buildConfig();
-
+console.log(config, process.env.NODE_ENV);
 export default config;
