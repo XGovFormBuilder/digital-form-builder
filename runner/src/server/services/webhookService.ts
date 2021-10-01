@@ -22,6 +22,10 @@ export class WebhookService {
    * @returns object with the property `reference` webhook if the response returns with a reference number. If the call fails, the reference will be 'UNKNOWN'.
    */
   async postRequest(url: string, data: object) {
+    this.logger.info(
+      ["WebhookService", "postRequest body"],
+      JSON.stringify(data)
+    );
     const { payload } = await post(url, {
       ...DEFAULT_OPTIONS,
       payload: JSON.stringify(data),
@@ -44,7 +48,6 @@ export class WebhookService {
       return reference;
     } catch (error) {
       this.logger.error(["WebhookService", "postRequest"], error);
-      this.logger.error(["WebhookService", "request body"], data);
       return "UNKNOWN";
     }
   }
