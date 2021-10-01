@@ -5,6 +5,7 @@ import Scooter from "@hapi/scooter";
 import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
+import config from "./config";
 
 import { configureEnginePlugin } from "./plugins/engine";
 import { configureRateLimitPlugin } from "./plugins/rateLimit";
@@ -29,7 +30,6 @@ import {
   AddressService,
   StatusService,
 } from "./services";
-import config from "./config";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 
 const serverOptions = (): ServerOptions => {
