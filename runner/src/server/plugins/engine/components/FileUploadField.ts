@@ -2,9 +2,10 @@ import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
 import * as helpers from "./helpers";
 
-import { ViewModel } from "./types";
+import { DataType, ViewModel } from "./types";
 
 export class FileUploadField extends FormComponent {
+  dataType = "file" as DataType;
   getFormSchemaKeys() {
     return helpers.getFormSchemaKeys(this.name, "string", this);
   }
@@ -31,9 +32,5 @@ export class FileUploadField extends FormComponent {
     }
 
     return viewModel;
-  }
-
-  get dataType() {
-    return "file";
   }
 }

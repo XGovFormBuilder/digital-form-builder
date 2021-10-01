@@ -9,8 +9,10 @@ import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors, FormSubmissionState } from "../types";
 import { FormModel } from "../models";
+import { DataType } from "server/plugins/engine/components/types";
 
 export class DateField extends FormComponent {
+  dataType = "date" as DataType;
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     addClassOptionIfNone(this.options, "govuk-input--width-10");
@@ -41,9 +43,5 @@ export class DateField extends FormComponent {
       ...super.getViewModel(formData, errors),
       type: "date",
     };
-  }
-
-  get dataType() {
-    return "date";
   }
 }

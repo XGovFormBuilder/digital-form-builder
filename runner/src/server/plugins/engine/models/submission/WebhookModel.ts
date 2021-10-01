@@ -10,8 +10,7 @@ function answerFromDetailItem(item) {
       return format(new Date(item.rawValue), "yyyy-MM-dd");
     case "monthYear":
       const [month, year] = Object.values(item.rawValue);
-      const date = format(new Date(`${year}-${month}-1`), "yyyy-MM");
-      return date;
+      return format(new Date(`${year}-${month}-1`), "yyyy-MM");
     default:
       return item.value;
   }
