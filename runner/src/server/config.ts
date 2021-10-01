@@ -1,9 +1,8 @@
 import dotEnv from "dotenv";
+dotEnv.config({ path: ".env" });
 import Joi, { CustomHelpers } from "joi";
 
 import { isUrlSecure } from "src/server/utils/url";
-
-dotEnv.config({ path: ".env" });
 
 const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
@@ -139,5 +138,5 @@ export function buildConfig() {
 }
 
 const config = buildConfig();
-
+console.log(config, process.env.NODE_ENV);
 export default config;
