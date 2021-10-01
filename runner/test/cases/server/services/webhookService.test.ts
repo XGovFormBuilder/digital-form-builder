@@ -23,9 +23,9 @@ suite("Server WebhookService Service", () => {
       })
     );
     const loggerSpy = {
-      error: sinon.spy(),
-      info: sinon.spy(),
-      debug: sinon.spy(),
+      error: () => sinon.spy(),
+      info: () => sinon.spy(),
+      debug: () => sinon.spy(),
     };
     const serverMock = { logger: loggerSpy };
     const webHookeService = new WebhookService(serverMock);
@@ -40,7 +40,11 @@ suite("Server WebhookService Service", () => {
         payload: { reference: "ABCD" },
       })
     );
-    const loggerSpy = sinon.spy();
+    const loggerSpy = {
+      error: () => sinon.spy(),
+      info: () => sinon.spy(),
+      debug: () => sinon.spy(),
+    };
     const serverMock = { logger: loggerSpy };
     const webHookeService = new WebhookService(serverMock);
     const result = await webHookeService.postRequest("/url", {});
