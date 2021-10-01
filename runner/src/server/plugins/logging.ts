@@ -4,7 +4,7 @@ import pino from "hapi-pino";
 export default {
   plugin: pino,
   options: {
-    prettyPrint: config.isDev,
+    prettyPrint: config.serviceUrl.includes("localhost"),
     level: config.logLevel,
     formatters: {
       level: (label) => {
