@@ -25,7 +25,7 @@ function detailItemToField(item: DetailItem) {
   };
 }
 
-export function WebhookModel(relevantPages, details, model) {
+export function WebhookModel(relevantPages, details, model, fees) {
   const questions = relevantPages?.map((page) => {
     const isRepeatable = !!page.repeatField;
 
@@ -72,5 +72,6 @@ export function WebhookModel(relevantPages, details, model) {
     metadata: model.def.metadata,
     name: englishName,
     questions: questions,
+    fees,
   };
 }
