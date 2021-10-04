@@ -89,12 +89,7 @@ export class SummaryViewModel {
       this.processErrors(result, details);
     } else {
       this.fees = FeesModel(model, state);
-      this._webhookData = WebhookModel(
-        relevantPages,
-        details,
-        model,
-        this.fees
-      );
+      this._webhookData = WebhookModel(relevantPages, details, model);
       this._webhookData = this.addFeedbackSourceDataToWebhook(
         this._webhookData,
         model,
@@ -280,6 +275,23 @@ export class SummaryViewModel {
       stripUnknown: true,
     });
     return result.value;
+  }
+
+  get webhookDataPaymentReference() {
+    const fees = this._webhookData?.fees;
+
+    if (fees && fees.paymentReference) {
+      return fees.paymentReference;
+    }
+
+    return "";
+  }
+
+  set webhookDataPaymentReference(paymentReference: string) {
+    const fees = this._webhookData?.fees;
+    if (fees) {
+      fees.paymentReference = paymentReference;
+    }
   }
 
   get outputs() {
