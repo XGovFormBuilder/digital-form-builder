@@ -72,6 +72,6 @@ export function WebhookModel(relevantPages, details, model, fees) {
     metadata: model.def.metadata,
     name: englishName,
     questions: questions,
-    fees,
+    ...(!!fees && { fees }),
   };
 }
