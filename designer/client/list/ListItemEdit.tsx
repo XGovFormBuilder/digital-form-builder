@@ -83,18 +83,22 @@ export function ListItemEdit() {
           className="govuk-select"
           id="condition"
           name="options.condition"
+          data-testid="list-condition-select"
           value={condition}
           onChange={handleConditionChange}
         >
-          <option value="" />
+          <option value="" data-testid="list-condition-option" />
           {conditions?.map((condition) => (
-            <option key={condition.name} value={condition}>
-              {condition.name}
+            <option
+              key={condition.name}
+              value={condition.name}
+              data-testid="list-condition-option"
+            >
+              {condition.displayName}
             </option>
           ))}
         </select>
         <hr />
-
         <div className={"govuk-form-group"}>
           <button className="govuk-button" type="submit" onClick={handleSubmit}>
             {i18n("save")}
