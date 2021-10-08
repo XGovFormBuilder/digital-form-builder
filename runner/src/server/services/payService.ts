@@ -1,12 +1,11 @@
 import config from "../config";
 import { get, postJson } from "./httpService";
 import { nanoid } from "nanoid";
-
-export type FeeDetails = {
-  description: string;
-  amount: number;
-  condition: string;
-  multiplier: string; // this points to sectionName.fieldName
+import { Fee } from "@xgovformbuilder/model";
+import { FeesModel } from "server/plugins/engine/models/submission";
+import { HapiServer } from "server/types";
+import { format } from "date-fns";
+export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)
 };
 
@@ -25,6 +24,10 @@ export class PayService {
   /**
    * Service responsible for handling requests to GOV.UK Pay. This service has been registered by {@link createServer}
    */
+
+  constructor(server: HapiServer) {
+    this.logger = server.logger;
+  }
 
   /**
    * utility method that returns the headers for a Pay request.
@@ -47,12 +50,23 @@ export class PayService {
     };
   }
 
-  async payRequest(
-    amount: number,
-    description: string,
-    apiKey: string,
-    returnUrl: string
-  ) {
+  makeReference(prefixes, referenceFormat = "{{PREFIX}}-{{DATE:ddmmyyyy}}") {
+    const dateRegex = /{{DATE:([^]+)}}/;
+    const dateFormatRegex = /DATE:([^]+)/;
+
+    let reference = referenceFormat;
+    reference.replace("{{PREFIX}}", prefixes.join("-"));
+    const dateSubstring = reference.match(dateRegex)?.[0];
+    if (dateSubstring) {
+      const dateFormat = reference.match(dateFormatRegex)?.[0] ?? "ddmmyyyy";
+      reference.replace(dateSubstring, format(new Date(), dateFormat));
+    }
+
+    return reference;
+  }
+
+  async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {
+    const { amount, description, referenceFormat } = feesModel;
     const data = {
       ...this.options(apiKey),
       payload: this.payRequestData(amount, description, returnUrl),
@@ -73,12 +87,12 @@ export class PayService {
   /**
    * Returns a string with a textual description of what a user will pay.
    */
-  descriptionFromFees(fees: Fees): string {
+  descriptionFromFees(fees: FeesModel): string {
     return fees.details
       .map((detail) => {
-        const { multiplier, multiplyBy, description, amount } = detail;
+        const { multiplyBy, description, amount } = detail;
 
-        if (multiplier && multiplyBy) {
+        if (multiplyBy) {
           return `${multiplyBy} x ${description}: ${currencyFormat.format(
             (multiplyBy * amount) / 100
           )}`;
