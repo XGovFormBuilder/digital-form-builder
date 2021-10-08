@@ -75,6 +75,8 @@ export type WebhookOutputConfiguration = {
 };
 
 export type FreshdeskOutputConfiguration = {
+  freshdeskHost: string;
+  apiKey: string;
   customFields: string;
 };
 

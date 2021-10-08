@@ -138,7 +138,8 @@
   "error": "Error:",
   "errors": {
     "field": "Enter {{field, capitalise}}",
-    "required": "This field is required"
+    "required": "This field is required",
+    "regex": "The value of this field is not the required format"
   },
   "field": "field",
   "fieldEdit": {

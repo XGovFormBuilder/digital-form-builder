@@ -22,6 +22,8 @@ export type WebhookOutputConfiguration = {
 };
 
 export type FreshdeskOutputConfiguration = {
+  freshdeskHost: string;
+  apiKey: string;
   customFields: string;
 };
 
@@ -48,6 +50,7 @@ export type ValidationErrors = {
   name?: ValidationError;
   email?: ValidationError;
   templateId?: ValidationError;
+  freshdeskHost?: ValidationError;
   apiKey?: ValidationError;
   url?: ValidationError;
   customFields?: ValidationError;

@@ -70,3 +70,23 @@ export function validateTitle(id: string, value: string, i18nProp?: any) {
   }
   return errors;
 }
+
+export function validateRegex(
+  id: string,
+  fieldName: string,
+  key: string,
+  value: string,
+  regExp: RegExp,
+  existingErrors = {}
+) {
+  const isValid = value.match(regExp);
+  const errors = existingErrors;
+
+  if (!isValid) {
+    errors[key] = {
+      href: `#${id}`,
+      children: [i18n("errors.regex", { field: fieldName })],
+    };
+  }
+  return errors;
+}

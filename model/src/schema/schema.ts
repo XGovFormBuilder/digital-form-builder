@@ -168,6 +168,8 @@ const webhookSchema = joi.object().keys({
 });
 
 const freshdeskSchema = joi.object().keys({
+  freshdeskHost: joi.string(),
+  apiKey: joi.string(),
   customFields: joi.string().allow("").optional(),
 });
 

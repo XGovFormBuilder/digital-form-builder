@@ -15,7 +15,11 @@ import {
   Output,
   ValidationErrors,
 } from "./types";
-import { validateNotEmpty, hasValidationErrors } from "../validations";
+import {
+  validateNotEmpty,
+  hasValidationErrors,
+  validateRegex,
+} from "../validations";
 import ErrorSummary from "../error-summary";
 import { DataContext } from "../context";
 import logger from "../plugins/logger";
@@ -94,6 +98,8 @@ class OutputEdit extends Component<Props, State> {
       case OutputType.Freshdesk:
         outputConfiguration = {
           customFields: formData.get("freshdesk-customFields") as string,
+          freshdeskHost: formData.get("freshdesk-freshdeskHost") as string,
+          apiKey: formData.get("freshdesk-apiKey") as string,
         };
         break;
     }
@@ -178,6 +184,30 @@ class OutputEdit extends Component<Props, State> {
         break;
       case OutputType.Freshdesk:
         let customFields = formData.get("freshdesk-customFields") as string;
+        let freshdeskHost = formData.get("freshdesk-freshdeskHost") as string;
+        apiKey = formData.get("freshdesk-apiKey") as string;
+        validateNotEmpty(
+          "freshdesk-freshdeskHost",
+          "Freshdesk Host",
+          "freshdeskHost",
+          freshdeskHost,
+          errors
+        );
+        validateNotEmpty(
+          "freshdesk-apiKey",
+          "API key",
+          "apiKey",
+          apiKey,
+          errors
+        );
+        validateRegex(
+          "freshdesk-customFields",
+          "Custom fields",
+          "customFields",
+          customFields,
+          new RegExp(/^[^\s]+$/),
+          errors
+        );
         break;
     }
 
@@ -245,6 +275,8 @@ class OutputEdit extends Component<Props, State> {
       outputEdit = (
         <FreshdeskEdit
           customFields={output?.outputConfiguration?.["customFields"]}
+          freshdeskHost={output?.outputConfiguration?.["freshdeskHost"]}
+          apiKey={output?.outputConfiguration?.["apiKey"]}
           errors={errors}
         />
       );

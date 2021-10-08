@@ -4,6 +4,12 @@ import Wreck from "@hapi/wreck";
 import config from "../../config";
 import { publish } from "../../lib/publish";
 import { ServerRoute, ResponseObject } from "@hapi/hapi";
+import { OutputType, Output } from "@xgovformbuilder/model";
+import { freshdesk, webhook } from "../../lib/outputs";
+import {
+  FreshdeskOutputConfiguration,
+  WebhookOutputConfiguration,
+} from "../../../client/outputs/types";
 
 const getPublished = async function (id, persistenceService) {
   if (config.persistentBackend === "dynamoDB") {
@@ -44,6 +50,49 @@ export const getFormWithId: ServerRoute = {
   },
 };
 
+type OutputRequest = {
+  formValues: string;
+  outputs: Output[];
+};
+
+export const runOutputs: ServerRoute = {
+  method: "POST",
+  path: "/api/outputs",
+  options: {
+    payload: {
+      parse: true,
+    },
+    handler: async (request, h) => {
+      const { formValues, outputs } = request.payload as OutputRequest;
+      outputs.forEach((output) => {
+        if (!OutputType[output.type]) {
+          console.log("No output of that type found");
+        } else {
+          switch (output.type) {
+            case "email":
+              break;
+            case "notify":
+              break;
+            case "webhook":
+              webhook(
+                output.outputConfiguration as WebhookOutputConfiguration,
+                formValues
+              );
+              break;
+            case "freshdesk":
+              freshdesk(
+                output.outputConfiguration as FreshdeskOutputConfiguration,
+                formValues
+              );
+              break;
+          }
+        }
+      });
+      return h.response().type("application/json");
+    },
+  },
+};
+
 export const putFormWithId: ServerRoute = {
   // SAVE DATA
   method: "PUT",
@@ -73,7 +122,7 @@ export const putFormWithId: ServerRoute = {
           `${id}`,
           JSON.stringify(value)
         );
-        await publish(id, value);
+        // await publish(id, value);
         return h.response({ ok: true }).code(204);
       } catch (err) {
         request.logger.error(
