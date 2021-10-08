@@ -56,21 +56,24 @@ export class PayService {
 
     let reference = referenceFormat;
     reference.replace("{{PREFIX}}", prefixes.join("-"));
+
     const dateSubstring = reference.match(dateRegex)?.[0];
     if (dateSubstring) {
       const dateFormat = reference.match(dateFormatRegex)?.[0] ?? "ddmmyyyy";
       reference.replace(dateSubstring, format(new Date(), dateFormat));
     }
 
-    return reference;
+    return `${reference}-${nanoid(10)}`;
   }
 
   async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {
     const { amount, description, referenceFormat } = feesModel;
+
     const data = {
       ...this.options(apiKey),
       payload: this.payRequestData(amount, description, returnUrl),
     };
+
     const { payload } = await postJson(`${config.payApiUrl}/payments`, data);
     return payload;
   }
