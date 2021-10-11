@@ -5,6 +5,7 @@ import { Fee } from "@xgovformbuilder/model";
 import { FeesModel } from "server/plugins/engine/models/submission";
 import { HapiServer } from "server/types";
 import { format } from "date-fns";
+
 export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)
 };
@@ -20,11 +21,20 @@ const currencyFormat = new Intl.NumberFormat("en-GB", {
   currency: "GBP",
 });
 
+/**
+ * A REFERENCE_TAG is a regular expression used by {@link PayService#referenceFromFees}
+ */
+const REFERENCE_TAG = {
+  DATE: /{{(DATE(?:))(.*?)}}/,
+  PREFIX: /{{PREFIX}}/,
+} as const;
+
 export class PayService {
   /**
    * Service responsible for handling requests to GOV.UK Pay. This service has been registered by {@link createServer}
    */
 
+  logger: HapiServer["logger"];
   constructor(server: HapiServer) {
     this.logger = server.logger;
   }
@@ -41,37 +51,46 @@ export class PayService {
     };
   }
 
-  payRequestData(amount: number, description: string, returnUrl: string) {
+  payRequestData(feesModel: FeesModel, returnUrl: string) {
+    const { total, prefixes, referenceFormat } = feesModel;
+
     return {
-      amount,
-      reference: nanoid(10),
-      description,
+      amount: total,
+      reference: this.referenceFromFees(prefixes, referenceFormat),
+      description: this.descriptionFromFees(feesModel),
       return_url: returnUrl,
     };
   }
 
-  makeReference(prefixes, referenceFormat = "{{PREFIX}}-{{DATE:ddmmyyyy}}") {
-    const dateRegex = /{{DATE:([^]+)}}/;
-    const dateFormatRegex = /DATE:([^]+)/;
+  referenceFromFees(prefixes, referenceFormat = "") {
+    this.logger.info(
+      ["payService", "referenceFromFees"],
+      `requested pay reference format ${referenceFormat}`
+    );
 
     let reference = referenceFormat;
-    reference.replace("{{PREFIX}}", prefixes.join("-"));
+    reference = reference.replace(REFERENCE_TAG.PREFIX, prefixes.join("-"));
 
-    const dateSubstring = reference.match(dateRegex)?.[0];
-    if (dateSubstring) {
-      const dateFormat = reference.match(dateFormatRegex)?.[0] ?? "ddmmyyyy";
-      reference.replace(dateSubstring, format(new Date(), dateFormat));
+    const dateSearch = reference.match(REFERENCE_TAG.DATE);
+    if (dateSearch) {
+      const dateTag = dateSearch[0];
+      const dateFormat = `${dateSearch[2].replace(":", "")}` || "ddmmyyyy";
+      reference = reference.replace(dateTag, format(new Date(), dateFormat));
     }
 
-    return `${reference}-${nanoid(10)}`;
+    reference = `${reference}-${nanoid(10)}`;
+    this.logger.info(
+      ["payService", "referenceFromFees"],
+      `generated pay request format ${reference}`
+    );
+
+    return reference;
   }
 
   async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {
-    const { amount, description, referenceFormat } = feesModel;
-
     const data = {
       ...this.options(apiKey),
-      payload: this.payRequestData(amount, description, returnUrl),
+      payload: this.payRequestData(feesModel, returnUrl),
     };
 
     const { payload } = await postJson(`${config.payApiUrl}/payments`, data);

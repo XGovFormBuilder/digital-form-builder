@@ -7,7 +7,7 @@ import { FeeDetails } from "server/services/payService";
 export type FeesModel = {
   details: FeeDetails[];
   total: number;
-  prefix: string[];
+  prefixes: string[];
   referenceFormat?: string;
 };
 
@@ -54,13 +54,13 @@ export function FeesModel(
       return {
         ...previous,
         total: previous.total + amount * multiplyBy,
-        prefix: [...previous.prefix, prefix],
+        prefixes: [...previous.prefixes, prefix].filter((p) => p),
       };
     },
     {
       details,
       total: 0,
-      prefix: [],
+      prefixes: [],
       referenceFormat: model.def.paymentReferenceFormat ?? "",
     }
   );

@@ -1,16 +1,29 @@
+const nanoid = require("nanoid");
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-
+import * as sinon from "sinon";
 import { PayService } from "server/services/payService";
-
+import { format } from "date-fns";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, test } = lab;
+const { suite, describe, test, after } = lab;
+
+const server = {
+  logger: {
+    info: sinon.spy(),
+    debug: sinon.spy(),
+    warn: sinon.spy(),
+    error: sinon.spy(),
+  },
+};
 
 suite("Server PayService Service", () => {
+  after(() => {
+    sinon.restore();
+  });
   test("Currency formatted correctly in description", async () => {
-    const service = new PayService();
+    const service = new PayService(server);
     const result = service.descriptionFromFees({
       total: 3.5,
       details: [
@@ -24,8 +37,9 @@ suite("Server PayService Service", () => {
   });
 
   test("Currency formatted correctly in description with multipliers", async () => {
-    const service = new PayService();
+    const service = new PayService(server);
     const result = service.descriptionFromFees({
+      paymentReference: "",
       total: 3.5,
       details: [
         {
@@ -40,7 +54,8 @@ suite("Server PayService Service", () => {
   });
 
   test("Currency formatted correctly in description with multiple fees", async () => {
-    const service = new PayService();
+    const service = new PayService(server);
+
     const result = service.descriptionFromFees({
       total: 3.5,
       details: [
@@ -57,5 +72,63 @@ suite("Server PayService Service", () => {
       ],
     });
     expect(result).to.equal("3 x A: £10.50, B: £150.00");
+  });
+
+  describe.only("reference is generated correctly", () => {
+    const today = format(new Date(), "ddmmyyyy");
+    const stub = sinon.stub(nanoid, "nanoid");
+    stub.callsFake(() => "b33pb00p");
+    const service = new PayService(server);
+
+    test("{{PREFIX}} replacement is correct", () => {
+      expect(
+        service.referenceFromFees(["fee", "fii", "fo"], "{{PREFIX}}")
+      ).to.equal("fee-fii-fo-b33pb00p");
+      expect(service.referenceFromFees(["fee"], "FCDO-{{PREFIX}}")).to.equal(
+        "FCDO-fee-b33pb00p"
+      );
+      expect(service.referenceFromFees([], "FCDO-{{PREFIX}}")).to.equal(
+        "FCDO--b33pb00p"
+      );
+    });
+
+    test("{{DATE*}} replacement is correct", () => {
+      expect(service.referenceFromFees([], "FRIED-{{DATE}}")).to.equal(
+        `FRIED-${today}-b33pb00p`
+      );
+      expect(service.referenceFromFees([], "{{DATE}}")).to.equal(
+        `${today}-b33pb00p`
+      );
+      expect(service.referenceFromFees([], "{{DATE:}}")).to.equal(
+        `${today}-b33pb00p`
+      );
+
+      expect(
+        service.referenceFromFees(["fee", "fii", "fo"], "{{DATE}}")
+      ).to.equal(`${today}-b33pb00p`);
+
+      const yyyymmdd = format(new Date(), "yyyymmdd");
+      expect(service.referenceFromFees([], "{{DATE:yyyymmdd}}")).to.equal(
+        `${yyyymmdd}-b33pb00p`
+      );
+
+      const split = format(new Date(), "dd-mm-yyyy");
+      expect(service.referenceFromFees([], "{{DATE:dd-mm-yyyy}}")).to.equal(
+        `${split}-b33pb00p`
+      );
+    });
+
+    test("combination replacement is correct", () => {
+      expect(service.referenceFromFees([], "{{DATE}}-{{PREFIX}}")).to.equal(
+        `${today}--b33pb00p`
+      );
+      expect(
+        service.referenceFromFees(["scrambled"], "{{PREFIX}}-{{DATE}}")
+      ).to.equal(`scrambled-${today}-b33pb00p`);
+    });
+
+    test("no tags format is corrrect", () => {
+      expect(service.referenceFromFees([], "FCDO")).to.equal("FCDO-b33pb00p");
+    });
   });
 });
