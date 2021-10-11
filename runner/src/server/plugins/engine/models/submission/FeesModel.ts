@@ -42,7 +42,7 @@ export function FeesModel(
       return !fee.condition || model.conditions[fee.condition].fn(state);
     }) ?? [];
 
-  if (applicableFees.length < 0) {
+  if (applicableFees.length < 1) {
     return undefined;
   }
 

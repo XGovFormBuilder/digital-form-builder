@@ -7,7 +7,7 @@ import { format } from "date-fns";
 const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { suite, describe, test, after } = lab;
+const { suite, describe, before, test, after } = lab;
 
 const server = {
   logger: {
@@ -19,9 +19,6 @@ const server = {
 };
 
 suite("Server PayService Service", () => {
-  after(() => {
-    sinon.restore();
-  });
   test("Currency formatted correctly in description", async () => {
     const service = new PayService(server);
     const result = service.descriptionFromFees({
@@ -75,9 +72,14 @@ suite("Server PayService Service", () => {
   });
 
   describe("reference is generated correctly", () => {
+    before(() => {
+      const stub = sinon.stub(nanoid, "nanoid");
+      stub.callsFake(() => "b33pb00p");
+    });
+    after(() => {
+      sinon.restore();
+    });
     const today = format(new Date(), "ddmmyyyy");
-    const stub = sinon.stub(nanoid, "nanoid");
-    stub.callsFake(() => "b33pb00p");
     const service = new PayService(server);
 
     test("{{PREFIX}} replacement is correct", () => {

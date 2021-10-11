@@ -8,7 +8,7 @@ const { suite, test } = lab;
 import json from "./FeesModel.test.json";
 import { FormModel } from "server/plugins/engine/models";
 
-suite.only("FeesModel", () => {
+suite("FeesModel", () => {
   test("returns correct FeesModel", () => {
     const c = {
       caz: "2",
