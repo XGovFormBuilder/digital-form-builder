@@ -125,6 +125,13 @@ suite("Server PayService Service", () => {
       expect(
         service.referenceFromFees(["scrambled"], "{{PREFIX}}-{{DATE}}")
       ).to.equal(`scrambled-${today}-b33pb00p`);
+
+      expect(
+        service.referenceFromFees(
+          ["scrambled", "fried"],
+          "EGGS:{{PREFIX}}-{{DATE}}"
+        )
+      ).to.equal(`EGGS:scrambled-fried-${today}-b33pb00p`);
     });
 
     test("no tags format is corrrect", () => {
