@@ -74,7 +74,7 @@ suite("Server PayService Service", () => {
     expect(result).to.equal("3 x A: £10.50, B: £150.00");
   });
 
-  describe.only("reference is generated correctly", () => {
+  describe("reference is generated correctly", () => {
     const today = format(new Date(), "ddmmyyyy");
     const stub = sinon.stub(nanoid, "nanoid");
     stub.callsFake(() => "b33pb00p");
