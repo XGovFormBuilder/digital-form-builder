@@ -21,8 +21,7 @@ class FeeEdit extends React.Component {
     e.preventDefault();
     const form = e.target;
     const formData = new window.FormData(form);
-    const { data } = this.props;
-    const { save } = this.context;
+    const { data, save } = this.context;
 
     // Items
     const payApiKey = formData.get("pay-api-key").trim();
@@ -93,7 +92,7 @@ class FeeEdit extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data } = this.context;
     const { fees, conditions, payApiKey } = data;
     const { errors, hasValidationErrors } = this.state;
     return (

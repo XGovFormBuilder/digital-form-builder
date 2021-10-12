@@ -7,14 +7,8 @@ import { isEmpty } from "../../helpers";
 import { DataContext } from "../../context";
 import logger from "../../plugins/logger";
 
-function headDuplicate(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] === arr[i]) {
-        return j;
-      }
-    }
-  }
+function isDuplicated(arr) {
+  return [...new Set(arr)].length !== arr.length;
 }
 
 const MISSING_DESC = "missingDescription";
@@ -82,7 +76,7 @@ class FeeItems extends React.Component {
     const conditions = formData.getAll("condition").map((t) => t.trim());
 
     // Only validate dupes if there is more than one item
-    if (descriptions.length >= 2 && headDuplicate(conditions)) {
+    if (descriptions.length >= 2 && isDuplicated(conditions)) {
       errors[DUP_CONDITIONS] = {
         href: "#items-table",
         children: "Duplicate conditions found in the list items",
