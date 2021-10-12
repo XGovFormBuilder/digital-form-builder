@@ -87,16 +87,12 @@ const applicationStatus = {
           const { payService, cacheService } = request.services([]);
           const { pay } = await cacheService.getState(request);
           const { meta } = pay;
+          console.log("meta", meta);
           meta.attempts++;
           const url = new URL(
             `${config.payReturnUrl}/${request.params.id}/status`
           ).toString();
-          const res = await payService.payRequest(
-            meta.amount,
-            meta.description,
-            meta.payApiKey,
-            url
-          );
+          const res = await payService.payRequest(meta, meta.payApiKey, url);
           await cacheService.mergeState(request, {
             pay: {
               payId: res.payment_id,

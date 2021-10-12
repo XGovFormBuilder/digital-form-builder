@@ -187,8 +187,7 @@ export class SummaryPageController extends PageController {
         `${config.payReturnUrl}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
-        summaryViewModel.fees.total,
-        description,
+        summaryViewModel.fees,
         summaryViewModel.payApiKey || "",
         url
       );

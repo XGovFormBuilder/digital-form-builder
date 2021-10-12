@@ -53,7 +53,7 @@ export class PayService {
 
   payRequestData(feesModel: FeesModel, returnUrl: string) {
     const { total, prefixes, referenceFormat } = feesModel;
-
+    console.log("payReqData", feesModel);
     return {
       amount: total,
       reference: this.referenceFromFees(prefixes, referenceFormat),
@@ -62,11 +62,14 @@ export class PayService {
     };
   }
 
-  referenceFromFees(prefixes, referenceFormat = "") {
+  referenceFromFees(prefixes = [], referenceFormat = "") {
     this.logger.info(
       ["payService", "referenceFromFees"],
       `requested pay reference format ${referenceFormat}`
     );
+    if (!referenceFormat) {
+      return nanoid(10);
+    }
 
     let reference = referenceFormat;
     reference = reference.replace(REFERENCE_TAG.PREFIX, prefixes.join("-"));
@@ -74,7 +77,7 @@ export class PayService {
     const dateSearch = reference.match(REFERENCE_TAG.DATE);
     if (dateSearch) {
       const dateTag = dateSearch[0];
-      const dateFormat = `${dateSearch[2].replace(":", "")}` || "ddmmyyyy";
+      const dateFormat = `${dateSearch[2].replace(":", "")}` || "ddMMyyyy";
       reference = reference.replace(dateTag, format(new Date(), dateFormat));
     }
 
@@ -88,6 +91,7 @@ export class PayService {
   }
 
   async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {
+    console.log("payReq feesModel", feesModel);
     const data = {
       ...this.options(apiKey),
       payload: this.payRequestData(feesModel, returnUrl),
@@ -110,6 +114,7 @@ export class PayService {
    * Returns a string with a textual description of what a user will pay.
    */
   descriptionFromFees(fees: FeesModel): string {
+    console.log(fees);
     return fees.details
       .map((detail) => {
         const { multiplyBy, description, amount } = detail;
