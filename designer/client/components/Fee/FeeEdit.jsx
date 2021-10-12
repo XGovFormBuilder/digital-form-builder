@@ -30,7 +30,7 @@ export class FeeEdit extends React.Component {
     const amount = formData.getAll("amount").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
 
-    let hasValidationErrors = this.validate(payApiKey, form);
+    let hasValidationErrors = this.validate(testPayApiKey, form);
     if (hasValidationErrors) return;
 
     const copy = clone(data);
