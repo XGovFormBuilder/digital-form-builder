@@ -3,9 +3,9 @@ import { clone } from "@xgovformbuilder/model";
 import { ErrorMessage } from "@govuk-jsx/error-message";
 import classNames from "classnames";
 
-import { isEmpty } from "./helpers";
-import { DataContext } from "./context";
-import logger from "../client/plugins/logger";
+import { isEmpty } from "../../helpers";
+import { DataContext } from "../../context";
+import logger from "../../plugins/logger";
 
 function headDuplicate(arr) {
   for (let i = 0; i < arr.length; i++) {

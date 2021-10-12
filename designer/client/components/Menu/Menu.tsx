@@ -8,7 +8,7 @@ import ConditionsEdit from "../../conditions/ConditionsEdit";
 import { i18n } from "../../i18n";
 import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../reducers/listReducer";
-import FeeEdit from "../../fee-edit";
+import { FeeEdit } from "../Fee/FeeEdit";
 import DeclarationEdit from "../../declaration-edit";
 import OutputsEdit from "../../outputs/outputs-edit";
 import { DataContext } from "../../context";
