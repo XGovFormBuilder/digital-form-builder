@@ -16,7 +16,7 @@ const INVALID_AMOUNT = "invalidAmount";
 const MISSING_COND = "missingCondition";
 const DUP_CONDITIONS = "dupConditions";
 
-class FeeItems extends React.Component {
+export class FeeItems extends React.Component {
   static contextType = DataContext;
 
   constructor(props) {
@@ -237,5 +237,3 @@ class FeeItems extends React.Component {
     );
   }
 }
-
-export default FeeItems;
