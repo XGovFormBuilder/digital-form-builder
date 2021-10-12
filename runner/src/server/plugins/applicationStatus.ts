@@ -87,7 +87,6 @@ const applicationStatus = {
           const { payService, cacheService } = request.services([]);
           const { pay } = await cacheService.getState(request);
           const { meta } = pay;
-          console.log("meta", meta);
           meta.attempts++;
           const url = new URL(
             `${config.payReturnUrl}/${request.params.id}/status`

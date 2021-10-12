@@ -53,7 +53,6 @@ export class PayService {
 
   payRequestData(feesModel: FeesModel, returnUrl: string) {
     const { total, prefixes, referenceFormat } = feesModel;
-    console.log("payReqData", feesModel);
     return {
       amount: total,
       reference: this.referenceFromFees(prefixes, referenceFormat),
@@ -91,7 +90,6 @@ export class PayService {
   }
 
   async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {
-    console.log("payReq feesModel", feesModel);
     const data = {
       ...this.options(apiKey),
       payload: this.payRequestData(feesModel, returnUrl),
@@ -114,7 +112,6 @@ export class PayService {
    * Returns a string with a textual description of what a user will pay.
    */
   descriptionFromFees(fees: FeesModel): string {
-    console.log(fees);
     return fees.details
       .map((detail) => {
         const { multiplyBy, description, amount } = detail;
