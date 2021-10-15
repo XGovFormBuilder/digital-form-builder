@@ -137,7 +137,7 @@ suite("Server PayService Service", () => {
       ).to.equal(`EGGS:scrambled-fried-${today}-b33pb00p`);
     });
 
-    test("no tags format is corrrect", () => {
+    test("no tags format is correct", () => {
       expect(service.referenceFromFees([], "FCDO")).to.equal("FCDO-b33pb00p");
     });
   });
