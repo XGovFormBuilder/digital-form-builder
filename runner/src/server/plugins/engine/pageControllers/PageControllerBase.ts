@@ -20,6 +20,7 @@ import {
   FormSubmissionErrors,
   FormData,
   FormPayload,
+  CookiesPolicy,
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 
@@ -103,6 +104,8 @@ export class PageControllerBase {
     isStartPage: boolean;
     startPage?: HapiResponseObject;
     backLink?: string;
+    location?: string;
+    cookiesPolicy?: CookiesPolicy;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -384,6 +387,8 @@ export class PageControllerBase {
       const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
       const startPage = this.model.def.startPage;
       const formData = this.getFormDataFromState(state, num - 1);
+      const { location } = request.app;
+      const { cookies_policy: cookiesPolicy } = request.state;
 
       if (
         !this.model.options.previewMode &&
@@ -410,9 +415,13 @@ export class PageControllerBase {
       }
 
       const viewModel = this.getViewModel(formData, num);
+
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
+      viewModel.location = location;
+      viewModel.cookiesPolicy = cookiesPolicy;
+
       this.setFeedbackDetails(viewModel, request);
 
       /**
@@ -494,6 +503,8 @@ export class PageControllerBase {
         .map((component) => component.model);
       const progress = state.progress || [];
       const { num } = request.query;
+      const { location } = request.app;
+      const { cookies_policy: cookiesPolicy } = request.state;
 
       // TODO:- Refactor this into a validation method
       if (hasFilesizeError) {
@@ -550,8 +561,13 @@ export class PageControllerBase {
        */
       if (formResult.errors) {
         const viewModel = this.getViewModel(payload, num, formResult.errors);
+
         viewModel.backLink = progress[progress.length - 2];
+        viewModel.location = location;
+        viewModel.cookiesPolicy = cookiesPolicy;
+
         this.setFeedbackDetails(viewModel, request);
+
         return h.view(this.viewName, viewModel);
       }
 
@@ -560,8 +576,13 @@ export class PageControllerBase {
 
       if (stateResult.errors) {
         const viewModel = this.getViewModel(payload, num, stateResult.errors);
+
         viewModel.backLink = progress[progress.length - 2];
+        viewModel.location = location;
+        viewModel.cookiesPolicy = cookiesPolicy;
+
         this.setFeedbackDetails(viewModel, request);
+
         return h.view(this.viewName, viewModel);
       }
 

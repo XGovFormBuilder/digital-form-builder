@@ -93,7 +93,10 @@
 {% endblock %}
 
 {% block bodyStart %}
-  {% include "partials/cookie-banner.html" %}
+  {% if not cookiesPolicy.isSet %}
+    {% include "partials/cookie-banner.html" %}
+  {% endif %}
+
   {% if gtmId1 %}
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>

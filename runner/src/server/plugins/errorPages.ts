@@ -11,6 +11,12 @@ export default {
         "onPreResponse",
         (request: HapiRequest, h: HapiResponseToolkit) => {
           const response = request.response;
+          const { cookies_policy: cookiesPolicy } = request.state;
+          const { location } = request.app;
+          const viewModel = {
+            cookiesPolicy,
+            location,
+          };
 
           if ("isBoom" in response && response.isBoom) {
             // An error was raised during
@@ -20,7 +26,7 @@ export default {
             // In the event of 404
             // return the `404` view
             if (statusCode === 404) {
-              return h.view("404").code(statusCode);
+              return h.view("404", viewModel).code(statusCode);
             }
 
             request.log("error", {
@@ -30,7 +36,7 @@ export default {
             });
 
             // The return the `500` view
-            return h.view("500").code(statusCode);
+            return h.view("500", viewModel).code(statusCode);
           }
           return h.continue;
         }

@@ -71,17 +71,40 @@
 
   GOVUK.addCookieMessage = function () {
     var message = document.getElementById('global-cookie-message');
-    var cookiesPolicy = GOVUK.getCookie('cookies_policy');
+    var form = document.getElementById('global-cookie-message-form');
 
-    try {
-      cookiesPolicy = JSON.parse(atob(cookiesPolicy));
-    } catch (error) {
-      cookiesPolicy = {};
-    }
-    
-    if (message && !cookiesPolicy.essential) {
-      message.style.display = 'block';
-      GOVUK.setCookie('cookies_policy', btoa(JSON.stringify({ "essential":true })), { days: 28 });
+    if (form) {
+      // A cookie form exists so progressively enhance it if JS is enabled
+      var formData = new FormData(form);
+      var buttons = form.querySelectorAll('button[name="cookies"]');
+
+      // FormData doesn't pick up the value of buttons so you need to set this using a button click event
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          formData.set(button.name, button.value);
+        });
+      });
+
+      // Submit cookie preferences via AJAX if JS is enabled
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var action = e.target.getAttribute('action');
+        var body = Object.fromEntries(formData.entries());
+
+        fetch(action, {
+          method: "POST",
+          credentials: 'same-origin',
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body),
+        }).then(() => {
+          message.style.display = 'none';
+        });
+      });
     }
   }
 }).call(this);

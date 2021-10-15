@@ -6,7 +6,7 @@ import { decodeFeedbackContextInfo } from "../feedback";
 import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
 import type { Fees } from "server/services/payService";
-import { FormSubmissionState } from "../types";
+import { CookiesPolicy, FormSubmissionState } from "../types";
 import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
 import {
   FeesModel,
@@ -15,6 +15,7 @@ import {
   WebhookModel,
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
+import { HapiRequest } from "src/server/types";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -44,6 +45,8 @@ export class SummaryViewModel {
   name: string | undefined;
   feedbackLink: string | undefined;
   declarationError: any; // TODO
+  location: string;
+  cookiesPolicy: CookiesPolicy;
   errors:
     | {
         path: string;
@@ -60,11 +63,13 @@ export class SummaryViewModel {
     pageTitle: string,
     model: FormModel,
     state: FormSubmissionState,
-    request
+    request: HapiRequest
   ) {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);
     const details = this.summaryDetails(request, model, state, relevantPages);
+    const { location } = request.app;
+    const { cookies_policy: cookiesPolicy } = request.state;
     const { def } = model;
     // @ts-ignore
     this.declaration = def.declaration;
@@ -141,6 +146,8 @@ export class SummaryViewModel {
     this.details = details;
     this.state = state;
     this.value = result.value;
+    this.cookiesPolicy = cookiesPolicy;
+    this.location = location;
   }
 
   private processErrors(result, details) {
