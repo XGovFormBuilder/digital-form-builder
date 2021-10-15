@@ -87,7 +87,15 @@ suite("WebhookModel", () => {
         fullDate: "2000-12-11T00:00:00.000Z",
       },
     },
-    { query: {} }
+    {
+      app: {
+        location: "/",
+      },
+      query: {},
+      state: {
+        cookie_policy: {},
+      },
+    }
   );
 
   test("parses Details correctly", () => {
