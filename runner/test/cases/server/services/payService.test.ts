@@ -79,7 +79,8 @@ suite("Server PayService Service", () => {
     after(() => {
       sinon.restore();
     });
-    const today = format(new Date(), "ddmmyyyy");
+
+    const today = format(new Date(), "ddMMyyyy");
     const service = new PayService(server);
 
     test("{{PREFIX}} replacement is correct", () => {
