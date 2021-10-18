@@ -14,6 +14,7 @@ interface GetRequestInfo {
  * Returns key information about a request
  *
  * @param request - HAPI request object
+ * @returns Request information
  */
 const getRequestInfo = (request: Request): GetRequestInfo => {
   const { headers, info, method, url } = request;
