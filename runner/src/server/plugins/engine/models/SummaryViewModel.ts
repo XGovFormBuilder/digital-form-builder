@@ -40,7 +40,7 @@ export class SummaryViewModel {
   details: any;
   state: any;
   value: any;
-  fees: Fees | undefined;
+  fees: FeesModel | undefined;
   name: string | undefined;
   feedbackLink: string | undefined;
   declarationError: any; // TODO
