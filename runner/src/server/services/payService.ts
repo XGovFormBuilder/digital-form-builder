@@ -10,6 +10,26 @@ export type FeeDetails = Fee & {
   multiplyBy?: number; // the value retrieved from multiplier field above (see summary page retrieveFees method)
 };
 
+export type FeeState = {
+  payId: string;
+  reference: string;
+  self: string;
+  returnUrl: string;
+  meta: {
+    amount: Fees["total"];
+    attempts: number;
+    payApiKey: string;
+    description: string;
+  };
+  paymentSkipped: boolean;
+  state?: {
+    status: string;
+    finished: boolean;
+    message: string;
+    code: string;
+  } /** This is the state object from GOV.UK Pay */;
+};
+
 export type Fees = {
   details: FeeDetails[];
   total: number;
@@ -87,6 +107,23 @@ export class PayService {
     );
 
     return reference;
+  }
+
+  async retryPayRequest(feeState: FeeState) {
+    const { reference, meta, returnUrl } = feeState;
+    const { payApiKey, amount, description } = meta;
+    let newReference = `${reference.slice(0, -11)}-${nanoid(10)}`;
+
+    const { payload } = await postJson(`${config.payApiUrl}/payments`, {
+      ...this.options(payApiKey),
+      payload: {
+        reference: newReference,
+        return_url: returnUrl,
+        description,
+        amount,
+      },
+    });
+    return payload;
   }
 
   async payRequest(feesModel: FeesModel, apiKey: string, returnUrl: string) {

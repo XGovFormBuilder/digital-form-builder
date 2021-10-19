@@ -198,6 +198,9 @@ export class SummaryPageController extends PageController {
           payId: res.payment_id,
           reference: res.reference,
           self: res._links.self.href,
+          returnUrl: new URL(
+            `${config.payReturnUrl}/${request.params.id}/status`
+          ).toString(),
           meta: {
             amount: summaryViewModel.fees.total,
             description,
