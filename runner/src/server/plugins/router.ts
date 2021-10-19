@@ -1,4 +1,5 @@
 import Joi from "joi";
+import Url from "url-parse";
 import config from "server/config";
 import { redirectTo } from "./engine";
 import { publicRoutes, healthCheckRoute } from "../routes";
@@ -55,9 +56,11 @@ export default {
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { cookies, referrer } = request.payload as CookiePayload;
+            const { href, origin } = new Url(referrer);
+            const redirect = href.replace(origin, ""); // Ensure you only redirect to a local path
             const accept = cookies === "accept";
 
-            return h.redirect(referrer).state(
+            return h.redirect(redirect).state(
               "cookies_policy",
               {
                 isSet: true,
