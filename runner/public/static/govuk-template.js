@@ -91,7 +91,7 @@
         e.stopPropagation();
 
         var action = e.target.getAttribute('action');
-        var body = Object.fromEntries(formData.entries());
+        var body = Object.fromEntries(Array.from(formData.entries()));
 
         fetch(action, {
           method: "POST",
