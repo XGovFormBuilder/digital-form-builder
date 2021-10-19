@@ -180,7 +180,7 @@ const feedbackSchema = joi.object().keys({
   feedbackForm: joi.boolean().default(false),
   url: joi.when("feedbackForm", {
     is: joi.boolean().valid(false),
-    then: joi.string().optional(),
+    then: joi.string().optional().allow(""),
   }),
   emailAddress: joi
     .string()
