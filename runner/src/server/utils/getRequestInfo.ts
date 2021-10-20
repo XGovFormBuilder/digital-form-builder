@@ -1,4 +1,4 @@
-import { Request } from "@hapi/hapi";
+import { HapiRequest } from "../types";
 
 interface GetRequestInfo {
   host: string;
@@ -16,7 +16,7 @@ interface GetRequestInfo {
  * @param request - HAPI request object
  * @returns Request information
  */
-const getRequestInfo = (request: Request): GetRequestInfo => {
+const getRequestInfo = (request: HapiRequest): GetRequestInfo => {
   const { headers, info, method, url } = request;
   const { host, id, referrer } = info;
   const { href, pathname } = url;
