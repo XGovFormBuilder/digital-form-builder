@@ -30,15 +30,8 @@ export default {
         {
           method: "get",
           path: "/help/cookies",
-          handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-            const { location } = request.app;
-            const { cookies_policy: cookiesPolicy } = request.state;
-            const viewModel = {
-              cookiesPolicy,
-              location,
-            };
-
-            return h.view("help/cookies", viewModel);
+          handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
+            return h.view("help/cookies");
           },
         },
         {
@@ -80,30 +73,16 @@ export default {
       server.route({
         method: "get",
         path: "/help/terms-and-conditions",
-        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-          const { location } = request.app;
-          const { cookies_policy: cookiesPolicy } = request.state;
-          const viewModel = {
-            cookiesPolicy,
-            location,
-          };
-
-          return h.view("help/terms-and-conditions", viewModel);
+        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
+          return h.view("help/terms-and-conditions");
         },
       });
 
       server.route({
         method: "get",
         path: "/help/accessibility-statement",
-        handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-          const { location } = request.app;
-          const { cookies_policy: cookiesPolicy } = request.state;
-          const viewModel = {
-            cookiesPolicy,
-            location,
-          };
-
-          return h.view("help/accessibility-statement", viewModel);
+        handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
+          return h.view("help/accessibility-statement");
         },
       });
 
@@ -127,24 +106,20 @@ export default {
             request.yar.reset();
           }
 
-          const { location } = request.app;
-          const { cookies_policy: cookiesPolicy } = request.state;
-          const viewModel = {
-            cookiesPolicy,
-            location,
-            startPage: "/",
-          };
+          let startPage = "/";
 
           const { referer } = request.headers;
 
           if (referer) {
             const match = referer.match(/https?:\/\/[^/]+\/([^/]+).*/);
             if (match && match.length > 1) {
-              viewModel.startPage = `/${match[1]}`;
+              startPage = `/${match[1]}`;
             }
           }
 
-          return h.view("timeout", viewModel);
+          return h.view("timeout", {
+            startPage,
+          });
         },
       });
     },
