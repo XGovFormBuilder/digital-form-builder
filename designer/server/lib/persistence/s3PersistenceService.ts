@@ -18,6 +18,10 @@ export class S3PersistenceService implements PersistenceService {
     this.bucket = new S3({
       region: "eu-west-2",
       params: { Bucket: config.s3Bucket },
+      credentials: {
+        accessKeyId: config.persistentKeyId ?? "",
+        secretAccessKey: config.persistentAccessKey ?? "",
+      },
     });
   }
 
