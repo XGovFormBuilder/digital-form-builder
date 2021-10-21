@@ -1,6 +1,5 @@
 import Joi from "joi";
 import Url from "url-parse";
-import config from "server/config";
 import { redirectTo } from "./engine";
 import { publicRoutes, healthCheckRoute } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
@@ -62,7 +61,7 @@ export default {
                 usage: accept,
               },
               {
-                isHttpOnly: config.isProd,
+                isHttpOnly: true,
                 path: "/",
               }
             );
