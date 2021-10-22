@@ -1,16 +1,35 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
-import { S3PersistenceService } from "../server/lib/persistence/s3PersistenceService";
-
 import sinon from "sinon";
+import Wreck from "@hapi/wreck";
+import config from "../../../config";
+
+import { S3PersistenceService } from "../s3PersistenceService";
 import { FormConfiguration } from "@xgovformbuilder/model";
+
+const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { afterEach, suite, describe, test } = lab;
-const { expect } = Code;
+const { beforeEach, describe, afterEach, suite, test } = lab;
+const sandbox = sinon.createSandbox();
+const server = {
+  logger: {
+    warn: sandbox.spy(),
+    error: sandbox.spy(),
+  },
+};
+
+const envStubs = {
+  persistentKeyId: sandbox.stub(config, "persistentKeyId").value("key-id"),
+  persistentAccessKey: sandbox
+    .stub(config, "persistentAccessKey")
+    .value("access-key"),
+  persistentBackend: sandbox.stub(config, "persistentBackend").value("s3"),
+  awsCredentials: sandbox.stub(config, "awsCredentials").value({}),
+};
 
 suite("s3PersistenceService", () => {
-  const underTest = new S3PersistenceService({ log: () => "badger" });
+  const underTest = new S3PersistenceService(server);
   underTest.bucket = {
     listObjects: sinon.stub(),
     getObject: sinon.stub(),
@@ -19,11 +38,34 @@ suite("s3PersistenceService", () => {
     config: { params: { Bucket: "myBucket" } },
   };
 
+  beforeEach(() => {
+    Object.values(envStubs).forEach((stub) => stub.reset());
+    sandbox.stub(config, "persistentKeyId").value("key-id");
+    sandbox.stub(config, "persistentAccessKey").value("access-key");
+    sandbox.stub(config, "persistentBackend").value("s3");
+    sandbox.stub(config, "awsCredentials").value({});
+  });
+
   afterEach(() => {
     underTest.bucket.listObjects.resetHistory();
     underTest.bucket.getObject.resetHistory();
     underTest.bucket.upload.resetHistory();
     underTest.bucket.copyObject.resetHistory();
+  });
+
+  test("throws when S3 is required, but keys have not been configured", () => {
+    envStubs.persistentKeyId.value(undefined);
+    envStubs.persistentAccessKey.value("something");
+    envStubs.awsCredentials.value(undefined);
+
+    expect(() => new S3PersistenceService(server)).to.throw();
+    envStubs.awsCredentials.value({});
+    expect(() => new S3PersistenceService(server)).to.throw();
+    envStubs.awsCredentials.value({
+      accessKeyId: "awsKey",
+      secretAccessKey: "awsAccess",
+    });
+    expect(() => new S3PersistenceService(server)).to.not.throw();
   });
 
   describe("listAllConfigurations", () => {

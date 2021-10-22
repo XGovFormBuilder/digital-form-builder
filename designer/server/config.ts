@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
+import { CredentialsOptions } from "aws-sdk/lib/credentials";
+let AWS = require("aws-sdk");
 
 dotenv.config({ path: ".env" });
 
@@ -22,6 +24,7 @@ export interface Config {
   lastTag: string;
   sessionTimeout: number;
   sessionCookiePassword: string;
+  awsCredentials?: CredentialsOptions;
 }
 
 // server-side storage expiration - defaults to 20 minutes
@@ -50,6 +53,7 @@ const schema = joi.object({
   lastTag: joi.string().default("undefined"),
   sessionTimeout: joi.number().default(sessionSTimeoutInMilliseconds),
   sessionCookiePassword: joi.string().optional(),
+  awsCredentials: joi.object().default({}),
 });
 
 // Build config
@@ -85,5 +89,28 @@ const value: Config = result.value;
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;
 value.isTest = value.env === "test";
+
+/**
+ * TODO:- replace this with a top-level await when upgraded to node 16
+ */
+async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
+  return new Promise(function (resolve, reject) {
+    AWS.config.getCredentials(async function (err) {
+      if (err) {
+        console.warn("Error getting AWS credentials", err);
+        return reject(err);
+      } else {
+        resolve({
+          accessKeyId: AWS.config.credentials.accessKeyId,
+          secretAccessKey: AWS.config.credentials.secretAccessKey,
+        });
+      }
+    });
+  });
+}
+
+getAwsConfigCredentials().then((awsConfig) => {
+  value.awsCredentials = awsConfig;
+});
 
 export default value;
