@@ -98,7 +98,7 @@ async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
     AWS.config.getCredentials(async function (err) {
       if (err) {
         console.warn("Error getting AWS credentials", err);
-        return reject(err);
+        reject({});
       } else {
         resolve({
           accessKeyId: AWS.config.credentials.accessKeyId,
