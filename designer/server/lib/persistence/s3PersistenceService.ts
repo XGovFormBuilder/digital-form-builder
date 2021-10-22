@@ -1,7 +1,8 @@
 import S3 from "aws-sdk/clients/s3";
 import config from "../../config";
 import { PersistenceService } from "./persistenceService";
-import { Logger, FormConfiguration } from "@xgovformbuilder/model";
+import { HapiServer } from "../../types";
+import { FormConfiguration } from "@xgovformbuilder/model";
 
 const TYPE_METADATA_KEY = "x-amz-meta-type";
 
@@ -13,14 +14,25 @@ export class S3PersistenceService implements PersistenceService {
   logger: any;
   bucket: any;
 
-  constructor(server: any) {
-    this.logger = new Logger(server, "S3PersistenceService");
+  constructor(server: HapiServer) {
+    this.logger = server.logger;
+    const accessKeyId =
+      config.persistentKeyId ?? config.awsCredentials?.accessKeyId;
+    const secretAccessKey =
+      config.persistentAccessKey ?? config.awsCredentials?.secretAccessKey;
+
+    if (!accessKeyId || !secretAccessKey) {
+      throw Error(
+        `You are attempting to use an AWS S3 bucket but one of PERSISTENT_KEY_ID, PERSISTENT_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY is undefined`
+      );
+    }
+
     this.bucket = new S3({
       region: "eu-west-2",
       params: { Bucket: config.s3Bucket },
       credentials: {
-        accessKeyId: config.persistentKeyId ?? "",
-        secretAccessKey: config.persistentAccessKey ?? "",
+        accessKeyId,
+        secretAccessKey,
       },
     });
   }
