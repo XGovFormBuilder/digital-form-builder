@@ -95,16 +95,18 @@ value.isTest = value.env === "test";
  */
 async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
   return new Promise(function (resolve) {
-    AWS.config.getCredentials(async function (err) {
-      if (err) {
-        console.warn("Error getting AWS credentials", err);
-      } else {
-        resolve({
-          accessKeyId: AWS.config.credentials.accessKeyId,
-          secretAccessKey: AWS.config.credentials.secretAccessKey,
-        });
-      }
-    });
+    if (value.persistentBackend === "s3") {
+      AWS.config.getCredentials(async function (err) {
+        if (err) {
+          console.warn("Error getting AWS credentials", err);
+        } else {
+          resolve({
+            accessKeyId: AWS.config.credentials.accessKeyId,
+            secretAccessKey: AWS.config.credentials.secretAccessKey,
+          });
+        }
+      });
+    }
   });
 }
 
