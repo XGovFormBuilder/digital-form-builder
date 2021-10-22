@@ -94,11 +94,10 @@ value.isTest = value.env === "test";
  * TODO:- replace this with a top-level await when upgraded to node 16
  */
 async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     AWS.config.getCredentials(async function (err) {
       if (err) {
         console.warn("Error getting AWS credentials", err);
-        reject({});
       } else {
         resolve({
           accessKeyId: AWS.config.credentials.accessKeyId,
@@ -109,8 +108,10 @@ async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
   });
 }
 
-getAwsConfigCredentials().then((awsConfig) => {
-  value.awsCredentials = awsConfig;
-});
+getAwsConfigCredentials()
+  .then((awsConfig) => {
+    value.awsCredentials = awsConfig;
+  })
+  .catch((e) => {});
 
 export default value;
