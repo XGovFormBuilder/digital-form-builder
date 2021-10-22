@@ -1,7 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import Wreck from "@hapi/wreck";
 import config from "../../../config";
 
 import { S3PersistenceService } from "../s3PersistenceService";
@@ -16,19 +15,19 @@ const server = {
   logger: {
     warn: sandbox.spy(),
     error: sandbox.spy(),
+    log: sandbox.spy(),
   },
 };
 
-const envStubs = {
-  persistentKeyId: sandbox.stub(config, "persistentKeyId").value("key-id"),
-  persistentAccessKey: sandbox
-    .stub(config, "persistentAccessKey")
-    .value("access-key"),
-  persistentBackend: sandbox.stub(config, "persistentBackend").value("s3"),
-  awsCredentials: sandbox.stub(config, "awsCredentials").value({}),
-};
-
 suite("s3PersistenceService", () => {
+  const envStubs = {
+    persistentKeyId: sandbox.stub(config, "persistentKeyId").value("key-id"),
+    persistentAccessKey: sandbox
+      .stub(config, "persistentAccessKey")
+      .value("access-key"),
+    persistentBackend: sandbox.stub(config, "persistentBackend").value("s3"),
+    awsCredentials: sandbox.stub(config, "awsCredentials").value({}),
+  };
   const underTest = new S3PersistenceService(server);
   underTest.bucket = {
     listObjects: sinon.stub(),
@@ -40,10 +39,6 @@ suite("s3PersistenceService", () => {
 
   beforeEach(() => {
     Object.values(envStubs).forEach((stub) => stub.reset());
-    sandbox.stub(config, "persistentKeyId").value("key-id");
-    sandbox.stub(config, "persistentAccessKey").value("access-key");
-    sandbox.stub(config, "persistentBackend").value("s3");
-    sandbox.stub(config, "awsCredentials").value({});
   });
 
   afterEach(() => {
