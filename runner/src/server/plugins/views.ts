@@ -4,8 +4,9 @@ import nunjucks from "nunjucks";
 import vision from "vision";
 import { capitalize } from "lodash";
 
-import config from "../config";
 import pkg from "../../../package.json";
+import config from "../config";
+import { HapiRequest } from "../types";
 
 const basedir = path.join(process.cwd(), "..");
 
@@ -58,15 +59,17 @@ export default {
       `${path.dirname(resolve.sync("hmpo-components"))}/components`,
     ],
     isCached: !config.isDev,
-    context: {
+    context: (request: HapiRequest) => ({
       appVersion: pkg.version,
       assetPath: "/assets",
+      cookiesPolicy: request.state.cookies_policy,
       serviceName: capitalize(config.serviceName),
       feedbackLink: config.feedbackLink,
       pageTitle: config.serviceName + " - GOV.UK",
       analyticsAccount: config.analyticsAccount,
       gtmId1: config.gtmId1,
       gtmId2: config.gtmId2,
+      location: request.app.location,
       matomoId: config.matomoId,
       matomoUrl: config.matomoUrl,
       BROWSER_REFRESH_URL: config.browserRefreshUrl,
@@ -74,6 +77,6 @@ export default {
       skipTimeoutWarning: false,
       serviceStartPage: config.serviceStartPage || "#",
       privacyPolicyUrl: config.privacyPolicyUrl || "#",
-    },
+    }),
   },
 };

@@ -31,6 +31,7 @@ import {
   StatusService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
+import getRequestInfo from "./utils/getRequestInfo";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -127,6 +128,14 @@ async function createServer(routeConfig: RouteConfig) {
       return h.continue;
     }
   );
+
+  server.ext("onRequest", (request: HapiRequest, h: HapiResponseToolkit) => {
+    const { pathname } = getRequestInfo(request);
+
+    request.app.location = pathname;
+
+    return h.continue;
+  });
 
   await server.register(pluginLocale);
   await server.register(pluginViews);

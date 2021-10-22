@@ -16,8 +16,9 @@ suite("Server Blankie Plugin", () => {
     expect(options).to.equal({
       defaultSrc: ["self"],
       fontSrc: ["self", "data:"],
-      connectSrc: ["self", "https://www.googletagmanager.com"],
-      scriptSrc: ["self", "unsafe-inline", "https://www.googletagmanager.com"],
+      frameSrc: ["self", "data:"],
+      connectSrc: ["self"],
+      scriptSrc: ["self", "unsafe-inline"],
       styleSrc: ["self", "unsafe-inline"],
       imgSrc: ["self"],
       generateNonces: false,
@@ -34,19 +35,89 @@ suite("Server Blankie Plugin", () => {
     expect(options).to.equal({
       defaultSrc: ["self"],
       fontSrc: ["self", "data:"],
-      connectSrc: [
-        "self",
-        "https://www.googletagmanager.com",
-        "https://gov.uk/",
-      ],
+      frameSrc: ["self", "data:"],
+      connectSrc: ["self", "https://gov.uk/"],
+      scriptSrc: ["self", "unsafe-inline", "https://gov.uk/piwik/piwik.js"],
+      styleSrc: ["self", "unsafe-inline"],
+      imgSrc: ["self", "https://gov.uk/"],
+      generateNonces: false,
+    });
+  });
+
+  test("configuration options with GTM (1) is correct", () => {
+    const config = {
+      gtmId2: "ABC",
+    };
+
+    const { options } = configureBlankiePlugin(config);
+
+    expect(options).to.equal({
+      defaultSrc: ["self"],
+      fontSrc: ["self", "data:", "fonts.gstatic.com"],
+      frameSrc: ["self", "data:", "www.googletagmanager.com"],
+      connectSrc: ["self"],
       scriptSrc: [
         "self",
         "unsafe-inline",
-        "https://www.googletagmanager.com",
-        "https://gov.uk/piwik/piwik.js",
+        "www.google-analytics.com",
+        "ssl.google-analytics.com",
+        "stats.g.doubleclick.net",
+        "www.googletagmanager.com",
+        "tagmanager.google.com",
+        "www.gstatic.com",
+        "ssl.gstatic.com",
       ],
-      styleSrc: ["self", "unsafe-inline"],
-      imgSrc: ["self", "https://gov.uk/"],
+      styleSrc: [
+        "self",
+        "unsafe-inline",
+        "fonts.googleapis.com",
+        "tagmanager.google.com",
+      ],
+      imgSrc: [
+        "self",
+        "www.gstatic.com",
+        "ssl.gstatic.com",
+        "www.googletagmanager.com",
+      ],
+      generateNonces: false,
+    });
+  });
+
+  test("configuration options with GTM (2) is correct", () => {
+    const config = {
+      gtmId2: "ABC",
+    };
+
+    const { options } = configureBlankiePlugin(config);
+
+    expect(options).to.equal({
+      defaultSrc: ["self"],
+      fontSrc: ["self", "data:", "fonts.gstatic.com"],
+      frameSrc: ["self", "data:", "www.googletagmanager.com"],
+      connectSrc: ["self"],
+      scriptSrc: [
+        "self",
+        "unsafe-inline",
+        "www.google-analytics.com",
+        "ssl.google-analytics.com",
+        "stats.g.doubleclick.net",
+        "www.googletagmanager.com",
+        "tagmanager.google.com",
+        "www.gstatic.com",
+        "ssl.gstatic.com",
+      ],
+      styleSrc: [
+        "self",
+        "unsafe-inline",
+        "fonts.googleapis.com",
+        "tagmanager.google.com",
+      ],
+      imgSrc: [
+        "self",
+        "www.gstatic.com",
+        "ssl.gstatic.com",
+        "www.googletagmanager.com",
+      ],
       generateNonces: false,
     });
   });

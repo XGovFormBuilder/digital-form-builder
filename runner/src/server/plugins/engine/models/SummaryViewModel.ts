@@ -15,6 +15,7 @@ import {
   WebhookModel,
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
+import { HapiRequest } from "src/server/types";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -60,7 +61,7 @@ export class SummaryViewModel {
     pageTitle: string,
     model: FormModel,
     state: FormSubmissionState,
-    request
+    request: HapiRequest
   ) {
     this.pageTitle = pageTitle;
     const { relevantPages, endPage } = this.getRelevantPages(model, state);

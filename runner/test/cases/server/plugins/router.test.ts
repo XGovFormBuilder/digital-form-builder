@@ -39,6 +39,21 @@ suite("Server Router", () => {
     ).to.equal(true);
   });
 
+  test("cookies preferences are set", async () => {
+    const options = {
+      method: "POST",
+      payload: {
+        cookies: "accept",
+        referrer: "/help/accessibility-statement",
+      },
+      url: "/help/cookies",
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.statusCode).to.equal(302);
+  });
+
   test("accessibility statement page is served", async () => {
     const options = {
       method: "GET",

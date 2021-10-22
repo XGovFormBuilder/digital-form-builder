@@ -27,8 +27,15 @@ suite("SummaryViewModel", () => {
       {
         progress: [],
       },
-
-      { query: {} }
+      {
+        app: {
+          location: "/",
+        },
+        query: {},
+        state: {
+          cookie_policy: {},
+        },
+      }
     );
     expect(viewModel.payApiKey).to.equal("test_api_key");
     sinon.stub(config, "apiEnv").value("production");
