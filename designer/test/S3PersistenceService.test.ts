@@ -1,9 +1,10 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import config from "../../../config";
+import config from "../server/config";
 
-import { S3PersistenceService } from "../s3PersistenceService";
+import { S3PersistenceService } from "../server/lib/persistence/s3PersistenceService";
+
 import { FormConfiguration } from "@xgovformbuilder/model";
 
 const { expect } = Code;
@@ -48,19 +49,21 @@ suite("s3PersistenceService", () => {
     underTest.bucket.copyObject.resetHistory();
   });
 
-  test("throws when S3 is required, but keys have not been configured", () => {
-    envStubs.persistentKeyId.value(undefined);
-    envStubs.persistentAccessKey.value("something");
-    envStubs.awsCredentials.value(undefined);
+  describe("constructor", () => {
+    test("throws when S3 is required, but keys have not been configured", () => {
+      envStubs.persistentKeyId.value(undefined);
+      envStubs.persistentAccessKey.value("something");
+      envStubs.awsCredentials.value(undefined);
 
-    expect(() => new S3PersistenceService(server)).to.throw();
-    envStubs.awsCredentials.value({});
-    expect(() => new S3PersistenceService(server)).to.throw();
-    envStubs.awsCredentials.value({
-      accessKeyId: "awsKey",
-      secretAccessKey: "awsAccess",
+      expect(() => new S3PersistenceService(server)).to.throw();
+      envStubs.awsCredentials.value({});
+      expect(() => new S3PersistenceService(server)).to.throw();
+      envStubs.awsCredentials.value({
+        accessKeyId: "awsKey",
+        secretAccessKey: "awsAccess",
+      });
+      expect(() => new S3PersistenceService(server)).to.not.throw();
     });
-    expect(() => new S3PersistenceService(server)).to.not.throw();
   });
 
   describe("listAllConfigurations", () => {
