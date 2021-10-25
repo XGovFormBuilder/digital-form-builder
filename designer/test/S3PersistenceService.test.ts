@@ -1,7 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import config from "../server/config";
 
 import { S3PersistenceService } from "../server/lib/persistence/s3PersistenceService";
 
@@ -21,14 +20,6 @@ const server = {
 };
 
 suite("s3PersistenceService", () => {
-  const envStubs = {
-    persistentKeyId: sandbox.stub(config, "persistentKeyId").value("key-id"),
-    persistentAccessKey: sandbox
-      .stub(config, "persistentAccessKey")
-      .value("access-key"),
-    persistentBackend: sandbox.stub(config, "persistentBackend").value("s3"),
-    awsCredentials: sandbox.stub(config, "awsCredentials").value({}),
-  };
   const underTest = new S3PersistenceService(server);
   underTest.bucket = {
     listObjects: sinon.stub(),
@@ -38,32 +29,11 @@ suite("s3PersistenceService", () => {
     config: { params: { Bucket: "myBucket" } },
   };
 
-  beforeEach(() => {
-    Object.values(envStubs).forEach((stub) => stub.reset());
-  });
-
   afterEach(() => {
     underTest.bucket.listObjects.resetHistory();
     underTest.bucket.getObject.resetHistory();
     underTest.bucket.upload.resetHistory();
     underTest.bucket.copyObject.resetHistory();
-  });
-
-  describe("constructor", () => {
-    test("throws when S3 is required, but keys have not been configured", () => {
-      envStubs.persistentKeyId.value(undefined);
-      envStubs.persistentAccessKey.value("something");
-      envStubs.awsCredentials.value(undefined);
-
-      expect(() => new S3PersistenceService(server)).to.throw();
-      envStubs.awsCredentials.value({});
-      expect(() => new S3PersistenceService(server)).to.throw();
-      envStubs.awsCredentials.value({
-        accessKeyId: "awsKey",
-        secretAccessKey: "awsAccess",
-      });
-      expect(() => new S3PersistenceService(server)).to.not.throw();
-    });
   });
 
   describe("listAllConfigurations", () => {

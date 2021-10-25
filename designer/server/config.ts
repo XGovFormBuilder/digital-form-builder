@@ -12,8 +12,6 @@ export interface Config {
   publishUrl: string;
   persistentBackend: "s3" | "blob" | "preview";
   s3Bucket?: string;
-  persistentKeyId?: string;
-  persistentAccessKey?: string;
   logLevel: "trace" | "info" | "debug" | "error";
   phase?: "alpha" | "beta";
   footerText?: string;
@@ -24,7 +22,6 @@ export interface Config {
   lastTag: string;
   sessionTimeout: number;
   sessionCookiePassword: string;
-  awsCredentials?: CredentialsOptions;
 }
 
 // server-side storage expiration - defaults to 20 minutes
@@ -41,8 +38,6 @@ const schema = joi.object({
   publishUrl: joi.string(),
   persistentBackend: joi.string().valid("s3", "blob", "preview").optional(),
   s3Bucket: joi.string().optional(),
-  persistentKeyId: joi.string().optional(),
-  persistentAccessKey: joi.string().optional(),
   logLevel: joi
     .string()
     .valid("trace", "info", "debug", "error")
@@ -53,7 +48,6 @@ const schema = joi.object({
   lastTag: joi.string().default("undefined"),
   sessionTimeout: joi.number().default(sessionSTimeoutInMilliseconds),
   sessionCookiePassword: joi.string().optional(),
-  awsCredentials: joi.object().default({}),
 });
 
 // Build config
@@ -63,8 +57,6 @@ const config = {
   previewUrl: process.env.PREVIEW_URL || "http://localhost:3009",
   publishUrl: process.env.PUBLISH_URL || "http://localhost:3009",
   persistentBackend: process.env.PERSISTENT_BACKEND || "preview",
-  persistentKeyId: process.env.PERSISTENT_KEY_ID,
-  persistentAccessKey: process.env.PERSISTENT_ACCESS_KEY,
   s3Bucket: process.env.S3_BUCKET,
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
@@ -93,12 +85,13 @@ value.isTest = value.env === "test";
 /**
  * TODO:- replace this with a top-level await when upgraded to node 16
  */
-async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
-  return new Promise(function (resolve) {
+async function getAwsConfigCredentials(): Promise<CredentialsOptions | {}> {
+  return new Promise(function (resolve, reject) {
     if (value.persistentBackend === "s3") {
       AWS.config.getCredentials(async function (err) {
         if (err) {
           console.warn("Error getting AWS credentials", err);
+          reject(err);
         } else {
           resolve({
             accessKeyId: AWS.config.credentials.accessKeyId,
@@ -106,14 +99,18 @@ async function getAwsConfigCredentials(): Promise<CredentialsOptions> {
           });
         }
       });
+    } else {
+      resolve({});
     }
   });
 }
 
 getAwsConfigCredentials()
-  .then((awsConfig) => {
-    value.awsCredentials = awsConfig;
+  .then(() => {
+    console.log("AWS credentials loaded successfully");
   })
-  .catch((e) => {});
+  .catch((e) => {
+    throw e;
+  });
 
 export default value;
