@@ -48,8 +48,8 @@ describe("Config", () => {
 
   test("Throws if S3 is required and no AWS config is found", async () => {
     process.env = { ...OLD_ENV, PERSISTENT_BACKEND: "s3" };
-
-    await expect(await import("../config")).rejects.toEqual(
+    jest.resetModules();
+    await expect(import("../config")).rejects.toEqual(
       Error(
         `The server config is invalid. "AWS_ACCESS_KEY_ID" is required. "AWS_SECRET_ACCESS_KEY" is required`
       )
@@ -62,6 +62,6 @@ describe("Config", () => {
       AWS_SECRET_ACCESS_KEY: "secret",
     };
     jest.resetModules();
-    await expect(await import("../config")).resolves.toBeTruthy();
+    await expect(import("../config")).resolves.toBeTruthy();
   });
 });
