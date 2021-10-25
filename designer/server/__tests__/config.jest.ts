@@ -1,5 +1,5 @@
-describe.only("Config", () => {
-  const OLD_ENV = process.env;
+describe("Config", () => {
+  const OLD_ENV = { ...process.env };
 
   afterAll(() => {
     process.env = OLD_ENV;
@@ -46,7 +46,7 @@ describe.only("Config", () => {
     expect(config.lastTag).toEqual("LAST TAG");
   });
 
-  test.only("Throws if S3 is required and no AWS config is found", async () => {
+  test("Throws if S3 is required and no AWS config is found", async () => {
     process.env = { ...OLD_ENV, PERSISTENT_BACKEND: "s3" };
 
     await expect(import("../config")).rejects.toEqual(
