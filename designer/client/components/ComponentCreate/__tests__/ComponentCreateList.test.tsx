@@ -99,6 +99,7 @@ suite("ComponentCreateList", () => {
       "Text",
       "Time",
       "UK address",
+      "Website",
     ]);
   });
 
