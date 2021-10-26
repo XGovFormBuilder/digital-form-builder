@@ -1,4 +1,5 @@
 import { CredentialsOptions } from "aws-sdk/lib/credentials";
+let AWS = require("aws-sdk");
 
 describe("Config", () => {
   const OLD_ENV = { ...process.env };
@@ -56,7 +57,11 @@ describe("Config", () => {
       AWS_ACCESS_SECRET_KEY: undefined,
     };
     jest.resetModules();
-    await expect(() => import("../config")).toThrow();
+    try {
+      import("../config");
+    } catch (e) {
+      expect(e).toBeTruthy();
+    }
 
     process.env = {
       ...OLD_ENV,
