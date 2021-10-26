@@ -56,7 +56,7 @@ describe("Config", () => {
       AWS_ACCESS_SECRET_KEY: undefined,
     };
     jest.resetModules();
-    await expect(import("../config")).toThrow();
+    await expect(() => import("../config")).toThrow();
 
     process.env = {
       ...OLD_ENV,
