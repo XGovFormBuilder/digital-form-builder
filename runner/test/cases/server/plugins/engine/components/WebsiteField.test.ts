@@ -48,14 +48,8 @@ suite("Telephone number field", () => {
       formSchema.validate("http://www.gov.uk/test?id=ABC").error
     ).to.be.undefined();
     expect(formSchema.validate("1").error!.message).to.contain(
-      `"value" must be a valid uri`
+      `"My component" must be a valid uri`
     );
-    // expect(result.validate("12-3").error?.message).to.contain(
-    //   "Enter a telephone number in the correct format"
-    // );
-    // expect(result.validate("1  1").error?.message).to.contain(
-    //   "Enter a telephone number in the correct format"
-    // );
   });
 
   test("should validate max length", () => {
@@ -75,7 +69,7 @@ suite("Telephone number field", () => {
     expect(formSchema.validate("http://www.gov.uk").error).to.be.undefined();
 
     expect(formSchema.validate("https://www.gov.uk").error?.message).to.contain(
-      `"value" length must be less than or equal to 17 characters long`
+      `"My component" length must be less than or equal to 17 characters long`
     );
   });
 
@@ -96,7 +90,7 @@ suite("Telephone number field", () => {
     expect(formSchema.validate("https://www.gov.uk").error).to.be.undefined();
 
     expect(formSchema.validate("http://www.gov.uk").error?.message).to.contain(
-      `"value" length must be at least 18 characters long`
+      `"My component" length must be at least 18 characters long`
     );
   });
 });
