@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import joi from "joi";
+import { CredentialsOptions } from "aws-sdk/lib/credentials";
 let AWS = require("aws-sdk");
 
 dotenv.config({ path: ".env" });
@@ -21,6 +22,7 @@ export interface Config {
   lastTag: string;
   sessionTimeout: number;
   sessionCookiePassword: string;
+  awsCredentials?: CredentialsOptions;
 }
 
 // server-side storage expiration - defaults to 20 minutes
@@ -47,16 +49,6 @@ const schema = joi.object({
   lastTag: joi.string().default("undefined"),
   sessionTimeout: joi.number().default(sessionSTimeoutInMilliseconds),
   sessionCookiePassword: joi.string().optional(),
-  AWS_ACCESS_KEY_ID: joi.string().when("persistentBackend", {
-    is: "s3",
-    then: joi.string().required(),
-    otherwise: joi.string().optional(),
-  }),
-  AWS_SECRET_ACCESS_KEY: joi.string().when("persistentBackend", {
-    is: "s3",
-    then: joi.string().required(),
-    otherwise: joi.string().optional(),
-  }),
 });
 
 // Build config
@@ -80,8 +72,6 @@ const config = {
 const result = schema.validate(
   {
     ...config,
-    AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
   },
   { abortEarly: false }
 );
@@ -93,6 +83,37 @@ if (result.error) {
 
 // Use the joi validated value
 const value: Config = result.value;
+
+/**
+ * TODO:- replace this with a top-level await when upgraded to node 16
+ */
+async function getAwsConfigCredentials(): Promise<CredentialsOptions | {}> {
+  return new Promise(function (resolve, reject) {
+    if (value.persistentBackend === "s3") {
+      return AWS.config.getCredentials(async function (err) {
+        if (err) {
+          console.error("Error getting AWS credentials", err);
+          reject(err);
+        } else {
+          resolve({
+            accessKeyId: AWS.config.credentials.accessKeyId,
+            secretAccessKey: AWS.config.credentials.secretAccessKey,
+          });
+        }
+      });
+    } else {
+      resolve({});
+    }
+  });
+}
+
+getAwsConfigCredentials()
+  .then((awsConfig) => {
+    value.awsCredentials = awsConfig;
+  })
+  .catch((e) => {
+    throw e;
+  });
 
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;
