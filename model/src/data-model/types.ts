@@ -98,6 +98,14 @@ export function isMultipleApiKey(
   return obj.test !== undefined || obj.production !== undefined;
 }
 
+export type Fee = {
+  description: string;
+  amount: number;
+  multiplier?: string;
+  condition?: string;
+  prefix?: string;
+};
+
 /**
  * `FormDefinition` is a typescript representation of `Schema`
  */
@@ -110,11 +118,12 @@ export type FormDefinition = {
   name?: string | undefined;
   feedback?: Feedback;
   phaseBanner?: PhaseBanner;
-  fees: any[];
+  fees: Fee[];
   skipSummary?: boolean | undefined;
   outputs: Output[];
   declaration?: string | undefined;
   metadata?: Record<string, any>;
   payApiKey?: string | MultipleApiKeys | undefined;
   specialPages?: SpecialPages;
+  paymentReferenceFormat?: string;
 };

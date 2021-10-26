@@ -1,12 +1,12 @@
-import FeeItems from "./fee-items";
+import { FeeItems } from "./FeeItems";
 import React from "react";
 import { clone } from "@xgovformbuilder/model";
 import { Input } from "@govuk-jsx/input";
 
-import ErrorSummary from "./error-summary";
-import { DataContext } from "./context";
-import logger from "../client/plugins/logger";
-class FeeEdit extends React.Component {
+import ErrorSummary from "./../../error-summary";
+import { DataContext } from "../../context";
+import logger from "../../plugins/logger";
+export class FeeEdit extends React.Component {
   static contextType = DataContext;
 
   constructor(props) {
@@ -21,20 +21,23 @@ class FeeEdit extends React.Component {
     e.preventDefault();
     const form = e.target;
     const formData = new window.FormData(form);
-    const { data } = this.props;
-    const { save } = this.context;
+    const { data, save } = this.context;
 
     // Items
-    const payApiKey = formData.get("pay-api-key").trim();
+    const testPayApiKey = formData.get("test-pay-api-key").trim();
+    const prodPayApiKey = formData.get("prod-pay-api-key").trim();
     const descriptions = formData.getAll("description").map((t) => t.trim());
     const amount = formData.getAll("amount").map((t) => t.trim());
     const conditions = formData.getAll("condition").map((t) => t.trim());
 
-    let hasValidationErrors = this.validate(payApiKey, form);
+    let hasValidationErrors = this.validate(testPayApiKey, form);
     if (hasValidationErrors) return;
 
     const copy = clone(data);
-    copy.payApiKey = payApiKey;
+    copy.payApiKey = {
+      test: testPayApiKey,
+      production: prodPayApiKey,
+    };
     copy.fees = descriptions.map((description, i) => ({
       description,
       amount: amount[i],
@@ -57,7 +60,10 @@ class FeeEdit extends React.Component {
       apiKeyHasErrors || Object.keys(itemValidationErrors).length > 0;
     let errors = {};
     if (apiKeyHasErrors) {
-      errors.payapi = { href: "#pay-api-key", children: "Enter Pay API key" };
+      errors.payapi = {
+        href: "#test-pay-api-key",
+        children: "Enter Pay API key",
+      };
     }
     this.setState({
       errors: {
@@ -93,7 +99,7 @@ class FeeEdit extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data } = this.context;
     const { fees, conditions, payApiKey } = data;
     const { errors, hasValidationErrors } = this.state;
     return (
@@ -106,18 +112,28 @@ class FeeEdit extends React.Component {
             />
           )}
           <Input
-            id="pay-api-key"
-            name="pay-api-key"
+            id="test-pay-api-key"
+            name="test-pay-api-key"
             label={{
               className: "govuk-label--s",
-              children: ["Pay API Key"],
+              children: ["Test Pay API Key"],
             }}
-            defaultValue={payApiKey}
+            defaultValue={payApiKey?.test ?? payApiKey?.production ?? payApiKey}
             errorMessage={
               errors?.payapi
                 ? { children: errors?.payapi?.children }
                 : undefined
             }
+          />
+
+          <Input
+            id="prod-pay-api-key"
+            name="prod-pay-api-key"
+            label={{
+              className: "govuk-label--s",
+              children: ["Production Pay API Key"],
+            }}
+            defaultValue={payApiKey?.production ?? payApiKey?.test ?? payApiKey}
           />
           <FeeItems
             items={fees}
@@ -133,5 +149,3 @@ class FeeEdit extends React.Component {
     );
   }
 }
-
-export default FeeEdit;
