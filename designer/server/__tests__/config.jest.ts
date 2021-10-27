@@ -1,6 +1,3 @@
-import { CredentialsOptions } from "aws-sdk/lib/credentials";
-let AWS = require("aws-sdk");
-
 describe("Config", () => {
   const OLD_ENV = { ...process.env };
 

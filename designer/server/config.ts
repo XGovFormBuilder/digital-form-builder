@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
 import { CredentialsOptions } from "aws-sdk/lib/credentials";
-let AWS = require("aws-sdk");
+import * as AWS from "aws-sdk";
 
 dotenv.config({ path: ".env" });
 
