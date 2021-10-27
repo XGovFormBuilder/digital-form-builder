@@ -49,7 +49,8 @@ export type ComponentType =
   | "InsetText"
   | "Details"
   | "FlashCard"
-  | "List";
+  | "List"
+  | "WebsiteField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -155,6 +156,13 @@ export interface EmailAddressFieldComponent extends TextFieldBase {
 
 export interface NumberFieldComponent extends NumberFieldBase {
   type: "NumberField";
+}
+
+export interface WebsiteFieldComponent extends TextFieldBase {
+  type: "WebsiteField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface MultilineTextFieldComponent {
@@ -302,7 +310,8 @@ export type ComponentDef =
   | TextFieldComponent
   | TimeFieldComponent
   | UkAddressFieldComponent
-  | YesNoFieldComponent;
+  | YesNoFieldComponent
+  | WebsiteFieldComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -318,7 +327,8 @@ export type InputFieldsComponentsDef =
   | DateTimePartsFieldComponent
   | MonthYearFieldComponent
   | TimeFieldComponent
-  | UkAddressFieldComponent;
+  | UkAddressFieldComponent
+  | WebsiteFieldComponent;
 
 // Components that render content.
 export type ContentComponentsDef =

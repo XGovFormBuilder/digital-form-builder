@@ -30,5 +30,6 @@ export { TelephoneNumberField } from "./TelephoneNumberField";
 export { TextField } from "./TextField";
 export { TimeField } from "./TimeField";
 export { UkAddressField } from "./UkAddressField";
+export { WebsiteField } from "./WebsiteField";
 export { YesNoField } from "./YesNoField";
 export { MonthYearField } from "./MonthYearField";

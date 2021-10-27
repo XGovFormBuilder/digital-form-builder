@@ -17,7 +17,7 @@ export class TelephoneNumberField extends FormComponent {
     let componentSchema = joi.string();
 
     if (options.required === false) {
-      componentSchema = componentSchema.allow("").optional();
+      componentSchema = componentSchema.allow("").allow(null);
     }
     componentSchema = componentSchema
       .pattern(pattern)
