@@ -9,7 +9,7 @@ exports.lab = lab;
 const { expect } = Code;
 const { beforeEach, suite, test } = lab;
 
-suite("Telephone number field", () => {
+suite("Website field", () => {
   let model: FormModel;
 
   beforeEach(() => {
@@ -48,7 +48,26 @@ suite("Telephone number field", () => {
       formSchema.validate("http://www.gov.uk/test?id=ABC").error
     ).to.be.undefined();
     expect(formSchema.validate("1").error!.message).to.contain(
-      `"My component" must be a valid uri`
+      `Enter website address in the correct format`
+    );
+  });
+
+  test("should display custom error message", () => {
+    const def: WebsiteFieldComponent = {
+      name: "myComponent",
+      title: "My component",
+      type: "WebsiteField",
+      hint: "a hint",
+      options: {
+        customValidationMessage: "Invalid address entered",
+      },
+      schema: {},
+    };
+
+    const { formSchema } = new WebsiteField(def, model);
+
+    expect(formSchema.validate("www.gov.uk").error?.message).to.contain(
+      "Invalid address entered"
     );
   });
 
@@ -92,5 +111,45 @@ suite("Telephone number field", () => {
     expect(formSchema.validate("http://www.gov.uk").error?.message).to.contain(
       `"My component" length must be at least 18 characters long`
     );
+  });
+
+  test("should be required by default", () => {
+    const def: WebsiteFieldComponent = {
+      name: "myComponent",
+      title: "My component",
+      type: "WebsiteField",
+      hint: "a hint",
+      options: {},
+      schema: {},
+    };
+
+    const { formSchema } = new WebsiteField(def, model);
+
+    expect(formSchema.validate("").error?.message).to.contain(
+      `"My component" is not allowed to be empty`
+    );
+
+    expect(formSchema.validate(null).error?.message).to.contain(
+      `"My component" must be a string`
+    );
+  });
+
+  test("should allow empty strings and null values when not required", () => {
+    const def: WebsiteFieldComponent = {
+      name: "myComponent",
+      title: "My component",
+      type: "WebsiteField",
+      hint: "a hint",
+      options: {
+        required: false,
+      },
+      schema: {},
+    };
+
+    const { formSchema } = new WebsiteField(def, model);
+
+    expect(formSchema.validate("").error).to.be.undefined();
+
+    expect(formSchema.validate(null).error).to.be.undefined();
   });
 });

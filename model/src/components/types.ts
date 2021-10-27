@@ -160,6 +160,9 @@ export interface NumberFieldComponent extends NumberFieldBase {
 
 export interface WebsiteFieldComponent extends TextFieldBase {
   type: "WebsiteField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface MultilineTextFieldComponent {
