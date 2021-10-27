@@ -19,6 +19,7 @@ declare module "@hapi/hapi" {
   interface Response {}
 
   interface Server {
+    logger: Logger;
     services: Services; // plugin schmervice
     registerService: (services: any[]) => void; // plugin schmervice
     // log: (tags: string | string[], data?: any) => void;

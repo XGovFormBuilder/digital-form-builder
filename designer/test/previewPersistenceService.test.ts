@@ -2,9 +2,9 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import Wreck from "@hapi/wreck";
-import config from "../../../config";
+import config from "../server/config";
 
-import { PreviewPersistenceService } from "../previewPersistenceService";
+import { PreviewPersistenceService } from "../server/lib/persistence/previewPersistenceService";
 
 const { expect } = Code;
 const lab = Lab.script();

@@ -1,16 +1,26 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
+import sinon from "sinon";
+
 import { S3PersistenceService } from "../server/lib/persistence/s3PersistenceService";
 
-import sinon from "sinon";
 import { FormConfiguration } from "@xgovformbuilder/model";
+
+const { expect } = Code;
 const lab = Lab.script();
 exports.lab = lab;
-const { afterEach, suite, describe, test } = lab;
-const { expect } = Code;
+const { beforeEach, describe, afterEach, suite, test } = lab;
+const sandbox = sinon.createSandbox();
+const server = {
+  logger: {
+    warn: sandbox.spy(),
+    error: sandbox.spy(),
+    log: sandbox.spy(),
+  },
+};
 
 suite("s3PersistenceService", () => {
-  const underTest = new S3PersistenceService({ log: () => "badger" });
+  const underTest = new S3PersistenceService(server);
   underTest.bucket = {
     listObjects: sinon.stub(),
     getObject: sinon.stub(),
