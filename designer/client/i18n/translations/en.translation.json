@@ -288,6 +288,7 @@
   },
   "menu": {
     "addPage": "Add page",
+    "logicExpression": "logic expression",
     "conditions": "Conditions",
     "fees": "Fees",
     "formDetails": "Form details",

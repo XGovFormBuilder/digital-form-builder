@@ -35,6 +35,12 @@ export interface List {
   items: Item[];
 }
 
+export interface LogicExpression {
+  label: string;
+  variableName: string;
+  expression: [];
+}
+
 export interface Feedback {
   feedbackForm?: boolean;
   url?: string;
@@ -91,6 +97,7 @@ export type Output = {
   title: string;
   type: OutputType;
   outputConfiguration: OutputConfiguration;
+  logicExpression: LogicExpression;
 };
 
 export type SpecialPages = {
@@ -125,4 +132,5 @@ export type FormDefinition = {
   metadata?: Record<string, any>;
   payApiKey?: string | MultipleApiKeys | undefined;
   specialPages?: SpecialPages;
+  logicExpressions: LogicExpression[];
 };

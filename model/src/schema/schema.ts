@@ -139,6 +139,12 @@ const listSchema = joi.object().keys({
   items: joi.array().items(listItemSchema),
 });
 
+const logicExpressionsSchema = joi.object().keys({
+  label: joi.string().required(),
+  variableName: joi.string().required(),
+  expression: joi.array().required(),
+});
+
 const feeSchema = joi.object().keys({
   description: joi.string().required(),
   amount: joi.number().required(),
@@ -214,6 +220,7 @@ export const Schema = joi
     sections: joi.array().items(sectionsSchema).unique("name").required(),
     conditions: joi.array().items(conditionsSchema).unique("name"),
     lists: joi.array().items(listSchema).unique("name"),
+    logicExpressions: joi.array().items(logicExpressionsSchema).unique("name"),
     fees: joi.array().items(feeSchema).optional(),
     metadata: joi.object({ a: joi.any() }).unknown().optional(),
     declaration: joi.string().allow("").optional(),

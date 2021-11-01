@@ -17,6 +17,7 @@ import ListsEdit from "../../list/ListsEdit";
 import { useMenuItem } from "./useMenuItem";
 import { Tabs, useTabs } from "./useTabs";
 import { SubMenu } from "./SubMenu";
+import { LogicExpressionsEdit } from "../LogicExpressions";
 
 type Props = {
   updateDownloadedAt?: (string) => void;
@@ -36,6 +37,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   const fees = useMenuItem();
   const summaryBehaviour = useMenuItem();
   const summary = useMenuItem();
+  const logicExpression = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
 
@@ -50,6 +52,9 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         </button>
         <button data-testid="menu-links" onClick={link.show}>
           {i18n("menu.links")}
+        </button>
+        <button data-testid="logic-expression" onClick={logicExpression.show}>
+          {i18n("menu.logicExpression")}
         </button>
         <button data-testid="menu-sections" onClick={sections.show}>
           {i18n("menu.sections")}
@@ -129,7 +134,17 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
-          <FeeEdit data={data} onEdit={() => fees.hide} />
+          <FeeEdit onEdit={() => fees.hide} />
+        </Flyout>
+      )}
+
+      {logicExpression.isVisible && (
+        <Flyout
+          title="Edit logic expression"
+          onHide={logicExpression.hide}
+          width="xlarge"
+        >
+          <LogicExpressionsEdit onCancel={() => logicExpression.hide} />
         </Flyout>
       )}
 
