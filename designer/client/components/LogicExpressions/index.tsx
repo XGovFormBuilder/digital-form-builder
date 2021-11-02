@@ -1,32 +1,19 @@
-import React, { MouseEvent, useContext, useState } from "react";
-import { Output } from "../../outputs/types";
+import React, { useContext, useState } from "react";
 import { Select, Button, Input } from "@xgovformbuilder/govuk-react-jsx";
 import { DataContext } from "../../context";
 import { hasValidationErrors } from "../../validations";
 
-interface LogicExpressionsProps {
-  onEdit?: ({ data: any }) => void;
-  onCancel: (event: MouseEvent<HTMLAnchorElement>) => void;
-  output?: Output;
-}
-
-export const LogicExpressionsEdit = ({
-  output,
-  onEdit,
-  onCancel,
-}: LogicExpressionsProps) => {
+export const LogicExpressionsEdit = () => {
   const { data, save } = useContext(DataContext);
   const [selectedExpression, setSelectedExpression] = useState();
   const [labelName, setLabelName] = useState<string>("");
   const [variableName, setVariableName] = useState<string>("");
-
   const onSave = () => {
-    const logicExpressionIndex: number = -1;
     const dataCopy = { ...data };
     const logicExpressionObject = {
       label: labelName,
       variableName: variableName,
-      expression: selectedExpression,
+      expression: selectedExpression as any,
     };
     const validate = Boolean(
       labelName?.length === 0 ||
@@ -34,8 +21,7 @@ export const LogicExpressionsEdit = ({
         !selectedExpression
     );
     if (hasValidationErrors(validate)) return;
-
-    dataCopy.outputs[logicExpressionIndex] = logicExpressionObject;
+    dataCopy?.logicExpressions?.push(logicExpressionObject);
     save(dataCopy);
   };
 
@@ -56,7 +42,6 @@ export const LogicExpressionsEdit = ({
 
   return (
     <>
-      <Button onClick={(e) => onCancel(e)}>Back</Button>
       <Input
         label={{
           children: "Label",
@@ -72,7 +57,7 @@ export const LogicExpressionsEdit = ({
         }}
         name="variable-name"
         type="text"
-        value={labelName}
+        value={variableName}
         onChange={(e) => setVariableName(e.target.value)}
       />
       <Select

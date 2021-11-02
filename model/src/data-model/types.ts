@@ -38,7 +38,7 @@ export interface List {
 export interface LogicExpression {
   label: string;
   variableName: string;
-  expression: [];
+  expression: any;
 }
 
 export interface Feedback {

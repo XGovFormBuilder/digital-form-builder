@@ -34,5 +34,6 @@
   "conditions": [],
   "fees": [],
   "outputs": [],
+  "logicExpressions": [],
   "version": 2
 }

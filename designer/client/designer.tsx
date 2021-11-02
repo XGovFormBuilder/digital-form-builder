@@ -1,12 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Menu from "./components/Menu/Menu";
 import { Visualisation } from "./components/Visualisation";
 import { FormDefinition } from "@xgovformbuilder/model";
 import { FlyoutContext, DataContext } from "./context";
 import { FeatureFlagProvider } from "./context/FeatureFlagContext";
+import newFormJson from "../new-form.json";
 import { DesignerApi } from "./api/designerApi";
 import { i18n } from "./i18n";
 import { Prompt } from "react-router-dom";
+import { keysIn } from "lodash";
 
 interface Props {
   match?: any;
@@ -76,10 +78,14 @@ export default class Designer extends Component<Props, State> {
 
   componentDidMount() {
     const id = this.props.match?.params?.id;
-    console.log(id);
     this.setState({ id });
     this.designerApi.fetchData(id).then((data) => {
-      console.log(data);
+      const newFormItemNames = Object.getOwnPropertyNames(newFormJson);
+      newFormItemNames?.map((item) => {
+        if (!data?.hasOwnProperty(item)) {
+          data[item] = newFormJson[item];
+        }
+      });
       this.setState({ loading: false, data });
     });
   }
@@ -96,6 +102,7 @@ export default class Designer extends Component<Props, State> {
       increment: this.incrementFlyoutCounter,
       decrement: this.decrementFlyoutCounter,
     };
+
     const dataContextProviderValue = { data, save: this.save };
     return (
       <FeatureFlagProvider>

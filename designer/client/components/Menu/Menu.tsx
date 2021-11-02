@@ -144,7 +144,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           onHide={logicExpression.hide}
           width="xlarge"
         >
-          <LogicExpressionsEdit onCancel={() => logicExpression.hide} />
+          <LogicExpressionsEdit />
         </Flyout>
       )}
 
