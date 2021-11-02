@@ -7,7 +7,7 @@ module.exports = {
   coverageDirectory: "test-coverage/server/jest",
   coverageThreshold: {
     global: {
-      branches: 54,
+      branches: 50,
       functions: 48,
       lines: 56,
       statements: 55,

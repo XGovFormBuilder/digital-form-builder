@@ -1,4 +1,9 @@
 import joi from "joi";
+
+/**
+ * If an optional key is added, CURRENT_VERSION does not need to be incremented.
+ * Only breaking changes will require an increment, as well as a migration script.
+ */
 export const CURRENT_VERSION = 2;
 const sectionsSchema = joi.object().keys({
   name: joi.string().required(),
@@ -144,6 +149,7 @@ const feeSchema = joi.object().keys({
   amount: joi.number().required(),
   multiplier: joi.string().optional(),
   condition: joi.string().optional(),
+  prefix: joi.string().optional(),
 });
 
 const multiApiKeySchema = joi.object({
@@ -208,6 +214,7 @@ export const Schema = joi
     conditions: joi.array().items(conditionsSchema).unique("name"),
     lists: joi.array().items(listSchema).unique("name"),
     fees: joi.array().items(feeSchema).optional(),
+    paymentReferenceFormat: joi.string().optional(),
     metadata: joi.object({ a: joi.any() }).unknown().optional(),
     declaration: joi.string().allow("").optional(),
     outputs: joi.array().items(outputSchema),
@@ -224,4 +231,5 @@ export const Schema = joi
  *  1 - Relevant components (radio, checkbox, select, autocomplete) now contain
  *      options as 'values' rather than referencing a data list
  *  2 - Reverse v1. Values populating radio, checkboxes, select, autocomplete are defined in Lists only.
+ *  TODO:- merge fees and paymentReferenceFormat
  **/

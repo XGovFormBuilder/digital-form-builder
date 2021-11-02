@@ -1,7 +1,8 @@
 import S3 from "aws-sdk/clients/s3";
 import config from "../../config";
 import { PersistenceService } from "./persistenceService";
-import { Logger, FormConfiguration } from "@xgovformbuilder/model";
+import { HapiServer } from "../../types";
+import { FormConfiguration } from "@xgovformbuilder/model";
 
 const TYPE_METADATA_KEY = "x-amz-meta-type";
 
@@ -10,11 +11,12 @@ const FEEDBACK_TYPE = "feedback";
 const DISPLAY_NAME_METADATA_KEY = "x-amz-meta-name";
 
 export class S3PersistenceService implements PersistenceService {
-  logger: any;
+  logger: HapiServer["logger"];
   bucket: any;
 
-  constructor(server: any) {
-    this.logger = new Logger(server, "S3PersistenceService");
+  constructor(server: HapiServer) {
+    this.logger = server.logger;
+
     this.bucket = new S3({
       region: "eu-west-2",
       params: { Bucket: config.s3Bucket },

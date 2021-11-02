@@ -410,9 +410,11 @@ export class PageControllerBase {
       }
 
       const viewModel = this.getViewModel(formData, num);
+
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
+
       this.setFeedbackDetails(viewModel, request);
 
       /**
@@ -550,8 +552,11 @@ export class PageControllerBase {
        */
       if (formResult.errors) {
         const viewModel = this.getViewModel(payload, num, formResult.errors);
+
         viewModel.backLink = progress[progress.length - 2];
+
         this.setFeedbackDetails(viewModel, request);
+
         return h.view(this.viewName, viewModel);
       }
 
@@ -560,8 +565,11 @@ export class PageControllerBase {
 
       if (stateResult.errors) {
         const viewModel = this.getViewModel(payload, num, stateResult.errors);
+
         viewModel.backLink = progress[progress.length - 2];
+
         this.setFeedbackDetails(viewModel, request);
+
         return h.view(this.viewName, viewModel);
       }
 

@@ -187,8 +187,7 @@ export class SummaryPageController extends PageController {
         `${config.payReturnUrl}/${request.params.id}/status`
       ).toString();
       const res = await payService.payRequest(
-        summaryViewModel.fees.total,
-        description,
+        summaryViewModel.fees,
         summaryViewModel.payApiKey || "",
         url
       );
@@ -199,6 +198,9 @@ export class SummaryPageController extends PageController {
           payId: res.payment_id,
           reference: res.reference,
           self: res._links.self.href,
+          returnUrl: new URL(
+            `${config.payReturnUrl}/${request.params.id}/status`
+          ).toString(),
           meta: {
             amount: summaryViewModel.fees.total,
             description,

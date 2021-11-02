@@ -36,6 +36,7 @@ export const componentTypes = {
   FlashCard,
   List,
   WarningText,
+  WebsiteField: TextField,
 };
 
 function Base(props) {

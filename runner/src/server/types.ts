@@ -60,6 +60,10 @@ declare module "@hapi/hapi" {
   interface ResponseToolkit {
     view: (viewName: string, data?: { [prop: string]: any }) => any; // plugin view
   }
+
+  interface RequestApplicationState {
+    location: string;
+  }
 }
 
 export type HapiRequest = Request;

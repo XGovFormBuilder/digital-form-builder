@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import joi from "joi";
+import { CredentialsOptions } from "aws-sdk/lib/credentials";
+import * as AWS from "aws-sdk";
 
 dotenv.config({ path: ".env" });
 
@@ -10,8 +12,6 @@ export interface Config {
   publishUrl: string;
   persistentBackend: "s3" | "blob" | "preview";
   s3Bucket?: string;
-  persistentKeyId?: string;
-  persistentAccessKey?: string;
   logLevel: "trace" | "info" | "debug" | "error";
   phase?: "alpha" | "beta";
   footerText?: string;
@@ -22,6 +22,7 @@ export interface Config {
   lastTag: string;
   sessionTimeout: number;
   sessionCookiePassword: string;
+  awsCredentials?: CredentialsOptions;
 }
 
 // server-side storage expiration - defaults to 20 minutes
@@ -38,8 +39,6 @@ const schema = joi.object({
   publishUrl: joi.string(),
   persistentBackend: joi.string().valid("s3", "blob", "preview").optional(),
   s3Bucket: joi.string().optional(),
-  persistentKeyId: joi.string().optional(),
-  persistentAccessKey: joi.string().optional(),
   logLevel: joi
     .string()
     .valid("trace", "info", "debug", "error")
@@ -59,8 +58,6 @@ const config = {
   previewUrl: process.env.PREVIEW_URL || "http://localhost:3009",
   publishUrl: process.env.PUBLISH_URL || "http://localhost:3009",
   persistentBackend: process.env.PERSISTENT_BACKEND || "preview",
-  persistentKeyId: process.env.PERSISTENT_KEY_ID,
-  persistentAccessKey: process.env.PERSISTENT_ACCESS_KEY,
   s3Bucket: process.env.S3_BUCKET,
   logLevel: process.env.LOG_LEVEL || "error",
   phase: process.env.PHASE || "alpha",
@@ -72,7 +69,12 @@ const config = {
 };
 
 // Validate config
-const result = schema.validate(config, { abortEarly: false });
+const result = schema.validate(
+  {
+    ...config,
+  },
+  { abortEarly: false }
+);
 
 // Throw if config is invalid
 if (result.error) {
@@ -81,6 +83,37 @@ if (result.error) {
 
 // Use the joi validated value
 const value: Config = result.value;
+
+/**
+ * TODO:- replace this with a top-level await when upgraded to node 16
+ */
+async function getAwsConfigCredentials(): Promise<CredentialsOptions | {}> {
+  return new Promise(function (resolve, reject) {
+    if (value.persistentBackend === "s3") {
+      return AWS.config.getCredentials(async function (err) {
+        if (err) {
+          console.error("Error getting AWS credentials", err);
+          reject(err);
+        } else {
+          resolve({
+            accessKeyId: AWS.config.credentials.accessKeyId,
+            secretAccessKey: AWS.config.credentials.secretAccessKey,
+          });
+        }
+      });
+    } else {
+      resolve({});
+    }
+  });
+}
+
+getAwsConfigCredentials()
+  .then((awsConfig) => {
+    value.awsCredentials = awsConfig;
+  })
+  .catch((e) => {
+    throw e;
+  });
 
 value.isProd = value.env === "production";
 value.isDev = !value.isProd;

@@ -1,7 +1,34 @@
 import { FormModel } from "server/plugins/engine/models";
 import { FormSubmissionState } from "server/plugins/engine/types";
-import { FeeDetails, Fees } from "server/services/payService";
 import { reach } from "hoek";
+import { Fee } from "@xgovformbuilder/model";
+import { FeeDetails } from "server/services/payService";
+
+export type FeesModel = {
+  details: FeeDetails[];
+  total: number;
+  prefixes: string[];
+  referenceFormat?: string;
+};
+
+function feesAsFeeDetails(
+  fees: Fee[],
+  state: FormSubmissionState
+): FeeDetails[] {
+  return fees.map((fee) => {
+    const { multiplier } = fee;
+    let multiplyBy;
+
+    if (multiplier) {
+      multiplyBy = Number(reach(state, multiplier));
+    }
+
+    return {
+      ...fee,
+      ...(multiplyBy && { multiplyBy }),
+    };
+  });
+}
 
 /**
  * returns an object used for sending GOV.UK Pay requests Used by {@link SummaryViewModel}, {@link PayService}
@@ -9,28 +36,32 @@ import { reach } from "hoek";
 export function FeesModel(
   model: FormModel,
   state: FormSubmissionState
-): Fees | undefined {
-  if (model.def.fees) {
-    const applicableFees: FeeDetails[] = model.def.fees.filter((fee) => {
+): FeesModel | undefined {
+  const applicableFees: Fee[] =
+    model.def.fees?.filter((fee) => {
       return !fee.condition || model.conditions[fee.condition].fn(state);
-    });
+    }) ?? [];
 
-    if (applicableFees.length > 0) {
-      return {
-        details: applicableFees,
-        total: Object.values(applicableFees)
-          .map((fee) => {
-            if (fee.multiplier) {
-              const multiplyBy = reach(state, fee.multiplier);
-              fee.multiplyBy = Number(multiplyBy);
-              return fee.multiplyBy * fee.amount;
-            }
-            return fee.amount;
-          })
-          .reduce((a, b) => a + b, 0),
-      };
-    }
+  if (applicableFees.length < 1) {
+    return undefined;
   }
 
-  return undefined;
+  const details = feesAsFeeDetails(applicableFees, state);
+
+  return details.reduce(
+    (previous: FeesModel, fee: FeeDetails) => {
+      const { amount, multiplyBy = 1, prefix = "" } = fee;
+      return {
+        ...previous,
+        total: previous.total + amount * multiplyBy,
+        prefixes: [...previous.prefixes, prefix].filter((p) => p),
+      };
+    },
+    {
+      details,
+      total: 0,
+      prefixes: [],
+      referenceFormat: model.def.paymentReferenceFormat ?? "",
+    }
+  );
 }

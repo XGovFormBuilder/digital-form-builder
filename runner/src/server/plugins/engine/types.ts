@@ -65,3 +65,10 @@ export type FormData = {
   value?: FormPayload;
   errors?: FormSubmissionErrors | null;
 };
+
+export type CookiesPolicy = {
+  isSet: boolean;
+  essential: boolean;
+  analytics: "on" | "off";
+  usage: boolean;
+};

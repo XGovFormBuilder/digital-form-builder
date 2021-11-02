@@ -4,13 +4,30 @@ import { ServerRegisterPluginObject } from "@hapi/hapi";
 import { isUrlSecure } from "src/server/utils/url";
 
 type Config = {
+  gtmId1?: string;
+  gtmId2?: string;
   matomoUrl?: string;
+};
+
+type Google = {
+  fontSrc: string[];
+  frameSrc: string[];
+  imgSrc: string[];
+  scriptSrc: string[];
+  styleSrc: string[];
 };
 
 export const configureBlankiePlugin = (
   config: Config
 ): ServerRegisterPluginObject<Blankie> => {
-  const { matomoUrl } = config;
+  const { gtmId1, gtmId2, matomoUrl } = config;
+  const google: Google = {
+    fontSrc: [],
+    frameSrc: [],
+    imgSrc: [],
+    scriptSrc: [],
+    styleSrc: [],
+  };
   const matomoSrc: string[] = [];
   const matomoScriptSrc: string[] = [];
 
@@ -25,20 +42,41 @@ export const configureBlankiePlugin = (
     );
   }
 
+  if (gtmId1 || gtmId2) {
+    google.fontSrc.push("fonts.gstatic.com");
+    google.frameSrc.push("www.googletagmanager.com");
+    google.imgSrc.push(
+      "www.gstatic.com",
+      "ssl.gstatic.com",
+      "www.googletagmanager.com"
+    );
+    google.scriptSrc.push(
+      "www.google-analytics.com",
+      "ssl.google-analytics.com",
+      "stats.g.doubleclick.net",
+      "www.googletagmanager.com",
+      "tagmanager.google.com",
+      "www.gstatic.com",
+      "ssl.gstatic.com"
+    );
+    google.styleSrc.push("fonts.googleapis.com", "tagmanager.google.com");
+  }
+
   return {
     plugin: Blankie,
     options: {
       defaultSrc: ["self"],
-      fontSrc: ["self", "data:"],
-      connectSrc: ["self", "https://www.googletagmanager.com", ...matomoSrc],
+      fontSrc: ["self", "data:", ...google.fontSrc],
+      connectSrc: ["self", ...matomoSrc],
       scriptSrc: [
         "self",
         "unsafe-inline",
-        "https://www.googletagmanager.com",
+        ...google.scriptSrc,
         ...matomoScriptSrc,
       ],
-      styleSrc: ["self", "unsafe-inline"],
-      imgSrc: ["self", ...matomoSrc],
+      styleSrc: ["self", "unsafe-inline", ...google.styleSrc],
+      imgSrc: ["self", ...google.imgSrc, ...matomoSrc],
+      frameSrc: ["self", "data:", ...google.frameSrc],
       generateNonces: false,
     },
   };
