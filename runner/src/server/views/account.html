@@ -1,0 +1,22 @@
+{% set mainClasses = "govuk-main-wrapper--l" %}
+{% set skipTimeoutWarning = true %}
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="govuk-main-wrapper">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <h1 class="govuk-heading-xl">Account</h1>
+
+                {% if loggedIn %}
+                    <p class="govuk-body">You are logged in as {{ profile.first_name }} {{ profile.last_name }}.</p>
+                    <a class="govuk-button" href="/logout">Log out</a>
+                {% else %}
+                    <p class="govuk-body">You are not logged in.</p>
+                    <a class="govuk-button" href="/login">Log in</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

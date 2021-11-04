@@ -36,10 +36,26 @@ export default {
               if (request.auth.isAuthenticated) {
                 request.cookieAuth.set(request.auth.credentials.profile);
 
-                return redirectTo(request, h, "/");
+                return redirectTo(request, h, "/account");
               }
 
               return h.response(JSON.stringify(request));
+            },
+          },
+        });
+
+        server.route({
+          method: "get",
+          path: "/account",
+          config: {
+            handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+              const profile =
+                request.auth.isAuthenticated && request.auth.credentials;
+
+              return h.view("account", {
+                loggedIn: request.auth.isAuthenticated,
+                profile: profile,
+              });
             },
           },
         });
@@ -50,7 +66,7 @@ export default {
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             request.cookieAuth.clear();
 
-            return redirectTo(request, h, "/");
+            return redirectTo(request, h, "/account");
           },
         });
       }
