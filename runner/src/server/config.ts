@@ -75,6 +75,27 @@ const schema = Joi.object({
   lastCommit: Joi.string().default("undefined"),
   lastTag: Joi.string().default("undefined"),
   apiEnv: Joi.string().allow("test", "production", "").optional(),
+  ssoEnabled: Joi.boolean().optional(),
+  ssoClientId: Joi.string().when("ssoEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  ssoClientSecret: Joi.string().when("ssoEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  ssoClientAuthUrl: Joi.string().when("ssoEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  ssoClientTokenUrl: Joi.string().when("ssoEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  ssoClientProfileUrl: Joi.string().when("ssoEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
 });
 
 export function buildConfig() {
@@ -113,6 +134,12 @@ export function buildConfig() {
     lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
     lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
     apiEnv: process.env.API_ENV,
+    ssoEnabled: process.env.SSO_ENABLED,
+    ssoClientId: process.env.SSO_CLIENT_ID,
+    ssoClientSecret: process.env.SSO_CLIENT_SECRET,
+    ssoClientAuthUrl: process.env.SSO_CLIENT_AUTH_URL,
+    ssoClientTokenUrl: process.env.SSO_CLIENT_TOKEN_URL,
+    ssoClientProfileUrl: process.env.SSO_CLIENT_PROFILE_URL,
   };
 
   // Validate config

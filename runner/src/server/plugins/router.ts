@@ -3,6 +3,7 @@ import Url from "url-parse";
 import { redirectTo } from "./engine";
 import { publicRoutes, healthCheckRoute } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import config from "../config";
 
 const routes = [...publicRoutes, healthCheckRoute];
 
@@ -24,6 +25,35 @@ export default {
     name: "router",
     register: (server) => {
       server.route(routes);
+
+      if (config.ssoEnabled) {
+        server.route({
+          method: ["GET", "POST"],
+          path: "/login",
+          config: {
+            auth: "oauth",
+            handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+              if (request.auth.isAuthenticated) {
+                request.cookieAuth.set(request.auth.credentials.profile);
+
+                return redirectTo(request, h, "/");
+              }
+
+              return h.response(JSON.stringify(request));
+            },
+          },
+        });
+
+        server.route({
+          method: "get",
+          path: "/logout",
+          handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+            request.cookieAuth.clear();
+
+            return redirectTo(request, h, "/");
+          },
+        });
+      }
 
       server.route([
         {

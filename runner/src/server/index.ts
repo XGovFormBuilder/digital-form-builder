@@ -5,6 +5,8 @@ import Scooter from "@hapi/scooter";
 import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
+import Bell from "bell";
+import AuthCookie from "hapi-auth-cookie";
 import config from "./config";
 
 import { configureEnginePlugin } from "./plugins/engine";
@@ -89,6 +91,41 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(pluginLogging);
   await server.register(Schmervice);
+
+  if (config.ssoEnabled) {
+    await server.register(AuthCookie);
+    await server.register(Bell);
+
+    server.auth.strategy("session", "cookie", {
+      cookie: {
+        name: "auth",
+        password:
+          "password-should-be-32-characters-and-will-be-once-Im-done-with-it",
+        isSecure: false,
+      },
+    });
+
+    server.auth.strategy("oauth", "bell", {
+      provider: {
+        name: "oauth",
+        protocol: "oauth2",
+        auth: config.ssoClientAuthUrl,
+        token: config.ssoClientTokenUrl,
+        scope: ["read write"],
+        profile: async (credentials, _params, get) => {
+          const { email, first_name, last_name, user_id } = await get(
+            config.ssoClientProfileUrl
+          );
+          credentials.profile = { email, first_name, last_name, user_id };
+        },
+      },
+      password: "cookie_encryption_password_with_32_chars_minimum",
+      clientId: config.ssoClientId,
+      clientSecret: config.ssoClientSecret,
+    });
+
+    server.auth.default({ strategy: "session", mode: "try" });
+  }
 
   server.registerService([
     CacheService,

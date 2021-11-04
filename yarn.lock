@@ -5068,6 +5068,7 @@ __metadata:
     aws-sdk: 2.655.0
     babel-eslint: ^10.1.0
     babel-plugin-module-name-mapper: ^1.2.0
+    bell: ^10.0.0
     blankie: 5.0.0
     blipp: 4.0.1
     boom: 7.3.0
@@ -5087,6 +5088,7 @@ __metadata:
     form-data: 3.0.0
     googleapis: 64.0.0
     govuk-frontend: ^3.13.0
+    hapi-auth-cookie: ^10.0.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -6364,6 +6366,20 @@ __metadata:
   version: 1.4.0
   resolution: "becke-ch--regex--s0-0-v1--base--pl--lib@npm:1.4.0"
   checksum: 5a66b927813c8bb86bf64dee976c76137c3f1311c4c41c91b7a9cdccdbdb8d9a87d5d15059d3f218a8be2d540bc567ccf00d910d43c44bd08a676631080ffe79
+  languageName: node
+  linkType: hard
+
+"bell@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "bell@npm:10.0.0"
+  dependencies:
+    boom: 7.x.x
+    bounce: 1.x.x
+    cryptiles: 4.x.x
+    hoek: 6.x.x
+    joi: 14.x.x
+    wreck: 14.x.x
+  checksum: 00dc09143544a776882001770c6fbc333cdac3913d62f875feeae7b818d87271593b0b2098b68adf39c1743b4d40d0c63146b8096efd4b40d9375de12f64023f
   languageName: node
   linkType: hard
 
@@ -12498,6 +12514,18 @@ fsevents@^1.2.7:
   bin:
     handlebars: bin/handlebars
   checksum: 2df9a6b422e2ccc0b7ca53f7a1f9915b47d19bf3fd372824a87e2a28b7952fa2cb3348cbe33a87ef49ee04f42d10359aab44819ca8d680ee3a5b53d48bd062a1
+  languageName: node
+  linkType: hard
+
+"hapi-auth-cookie@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "hapi-auth-cookie@npm:10.0.0"
+  dependencies:
+    boom: 7.x.x
+    bounce: 1.x.x
+    hoek: 6.x.x
+    joi: 14.x.x
+  checksum: 2a472cb81d5feacce8e744c427140efd8461f644ca8829e1704a8b2e3bfb25f3794c12abfb441723c06f58a30bdf0c9bbb221cca00eb0e2cd3c2da3f9e34cf71
   languageName: node
   linkType: hard
 
@@ -24164,7 +24192,7 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
-"wreck@npm:14.2.0, wreck@npm:^14.2.0":
+"wreck@npm:14.2.0, wreck@npm:14.x.x, wreck@npm:^14.2.0":
   version: 14.2.0
   resolution: "wreck@npm:14.2.0"
   dependencies:
