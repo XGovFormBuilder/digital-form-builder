@@ -1,5 +1,7 @@
 import dotEnv from "dotenv";
-dotEnv.config({ path: ".env" });
+if (process.env.NODE_ENV !== "test") {
+  dotEnv.config({ path: ".env" });
+}
 import Joi, { CustomHelpers } from "joi";
 
 import { isUrlSecure } from "src/server/utils/url";
