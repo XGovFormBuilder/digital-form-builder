@@ -86,6 +86,12 @@ export default class Designer extends Component<Props, State> {
           data[item] = newFormJson[item];
         }
       });
+      const dataFormItems = Object.getOwnPropertyNames(data);
+      dataFormItems?.map((item) => {
+        if (!newFormJson?.hasOwnProperty(item)) {
+          delete data[item];
+        }
+      });
       this.setState({ loading: false, data });
     });
   }
