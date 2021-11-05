@@ -119,6 +119,7 @@ export class dynamoDBPersistenceService implements PersistenceService {
     form.updatedAt = this.formatAWSDate(new Date());
     form.pages = JSON.stringify(form.pages);
     form.outputs = JSON.stringify(form.outputs);
+    form.logicExpressions = JSON.stringify(form.logicExpressions);
     if (!config.dynamoDBTable) {
       this.logger.error(
         `no name for dynamoDBTable was defined. Make sure this is set in your .env file.`
