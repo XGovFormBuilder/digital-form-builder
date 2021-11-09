@@ -34,32 +34,21 @@ suite("TextField", () => {
       );
     });
 
+    it("is not required when explicitly configured", () => {
+      const component = new TextField(
+        {
+          ...componentDefinition,
+          options: { required: false },
+        },
+        formModel
+      );
+      expect(component.formSchema.describe().flags.presence).to.not.equal(
+        "required"
+      );
+    });
+
     it("validates correctly", () => {
       expect(component.formSchema.validate({}).error).to.exist();
-    });
-  });
-
-  describe("Optional field generated schema", () => {
-    const componentDefinition = {
-      subType: "field",
-      type: "TextField",
-      name: "middleName",
-      title: "What's your middle name?",
-      options: {
-        autocomplete: "middle-name",
-        required: false,
-      },
-      schema: {},
-    };
-
-    const formModel = {
-      makePage: () => sinon.stub(),
-    };
-
-    const component = new TextField(componentDefinition, formModel);
-
-    it("is not required", () => {
-      expect(component.formSchema.describe().flags.presence).to.equal(null);
     });
   });
 });
