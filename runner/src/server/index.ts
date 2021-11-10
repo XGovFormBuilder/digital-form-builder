@@ -5,8 +5,6 @@ import Scooter from "@hapi/scooter";
 import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
-import Bell from "bell";
-import AuthCookie from "hapi-auth-cookie";
 import config from "./config";
 
 import { configureEnginePlugin } from "./plugins/engine";
@@ -15,6 +13,7 @@ import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
+import pluginAuth from "./plugins/auth";
 import pluginViews from "./plugins/views";
 import pluginApplicationStatus from "./plugins/applicationStatus";
 import pluginRouter from "./plugins/router";
@@ -22,15 +21,15 @@ import pluginErrorPages from "./plugins/errorPages";
 import pluginLogging from "./plugins/logging";
 import pluginPulse from "./plugins/pulse";
 import {
+  AddressService,
   CacheService,
   catboxProvider,
   EmailService,
   NotifyService,
   PayService,
+  StatusService,
   UploadService,
   WebhookService,
-  AddressService,
-  StatusService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -91,41 +90,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(pluginLogging);
   await server.register(Schmervice);
-
-  if (config.ssoEnabled) {
-    await server.register(AuthCookie);
-    await server.register(Bell);
-
-    server.auth.strategy("session", "cookie", {
-      cookie: {
-        name: "auth",
-        password:
-          "password-should-be-32-characters-and-will-be-once-Im-done-with-it",
-        isSecure: false,
-      },
-    });
-
-    server.auth.strategy("oauth", "bell", {
-      provider: {
-        name: "oauth",
-        protocol: "oauth2",
-        auth: config.ssoClientAuthUrl,
-        token: config.ssoClientTokenUrl,
-        scope: ["read write"],
-        profile: async (credentials, _params, get) => {
-          const { email, first_name, last_name, user_id } = await get(
-            config.ssoClientProfileUrl
-          );
-          credentials.profile = { email, first_name, last_name, user_id };
-        },
-      },
-      password: "cookie_encryption_password_with_32_chars_minimum",
-      clientId: config.ssoClientId,
-      clientSecret: config.ssoClientSecret,
-    });
-
-    server.auth.default({ strategy: "session", mode: "try" });
-  }
+  await server.register(pluginAuth);
 
   server.registerService([
     CacheService,
