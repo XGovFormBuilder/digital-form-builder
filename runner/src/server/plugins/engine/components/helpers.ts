@@ -32,7 +32,7 @@ export function buildFormSchema(schemaType, component, isRequired = true) {
   }
 
   if (component.options.required === false) {
-    schema = schema.allow("");
+    schema = schema.allow(null, "").optional();
   }
 
   if (schema.trim && component.schema.trim !== false) {
@@ -56,7 +56,7 @@ export function buildStateSchema(schemaType, component) {
   }
 
   if (component.options.required === false) {
-    schema = schema.allow(null);
+    schema = schema.allow(null, "").optional();
   }
 
   if (schema.trim && component.schema.trim !== false) {
