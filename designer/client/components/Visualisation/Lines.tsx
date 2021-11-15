@@ -57,9 +57,17 @@ export class Lines extends React.Component<Props, State> {
               <g key={pointsString}>
                 <polyline
                   onClick={() => this.editLink(edge)}
+                  onKeyPress={(event) =>
+                    event.key === "Enter" ? this.editLink(edge) : null
+                  }
+                  tabIndex={0}
                   points={pointsString}
                   className={`${highlight ? "highlight" : ""}`}
                   data-testid={`${source}-${target}`.replace(/\//g, "")}
+                  aria-label={`Link from ${source} to ${target}`.replace(
+                    /\//g,
+                    ""
+                  )}
                 />
                 {label && (
                   <text
