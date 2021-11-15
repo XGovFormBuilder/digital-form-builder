@@ -9,3 +9,15 @@ main ol,
 main ul {
   @extend .govuk-list;
 }
+
+.flash-card {
+  h2 {
+    margin-bottom: 0;
+  }
+  h2, p {
+    margin-top: 0;
+  }
+  .circle-step-circle {
+    margin-top: 0.5em;
+  }
+}
