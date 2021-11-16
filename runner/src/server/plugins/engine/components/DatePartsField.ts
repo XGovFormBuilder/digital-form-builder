@@ -152,8 +152,12 @@ export class DatePartsField extends FormComponent {
       }
     });
 
+    const firstError = errors?.errorList?.[0];
+    const errorMessage = firstError && { text: firstError?.text };
+
     return {
       ...viewModel,
+      errorMessage,
       fieldset: {
         legend: viewModel.label,
       },

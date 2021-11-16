@@ -53,6 +53,30 @@ suite("Date parts field", () => {
       dateComponent("Year", 4),
     ]);
   });
+  test("Error is displayed correctly", () => {
+    const def = {
+      name: "myComponent",
+      title: "My component",
+      options: { required: false },
+      schema: {},
+      type: "DatePartsField",
+    };
+    const errors = {
+      titleText: "Fix the following errors",
+      errorList: [
+        {
+          path: "approximate__day",
+          href: "#approximate__day",
+          name: "approximate__day",
+          text: '"Day" must be a number',
+        },
+      ],
+    };
+    const underTest = new DatePartsField(def);
+    const returned = underTest.getViewModel({}, errors);
+    expect(returned.errorMessage.text).to.equal('"Day" must be a number');
+    expect(underTest.getViewModel({}).errorMessage).to.be.undefined();
+  });
 });
 
 function dateComponent(name, width) {
