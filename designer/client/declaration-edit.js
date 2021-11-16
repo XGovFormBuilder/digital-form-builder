@@ -13,7 +13,7 @@ class DeclarationEdit extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new window.FormData(form);
@@ -24,13 +24,8 @@ class DeclarationEdit extends React.Component {
     copy.declaration = formData.get("declaration");
     copy.skipSummary = formData.get("skip-summary") === "on";
 
-    save(copy)
-      .then((data) => {
-        toggleShowState("showEditSummaryBehaviour");
-      })
-      .catch((err) => {
-        logger.error("DeclarationEdit", err);
-      });
+    const savedData = await save(copy);
+    this.props.onCreate({ data: savedData });
   };
 
   render() {
