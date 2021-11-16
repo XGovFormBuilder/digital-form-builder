@@ -1,4 +1,0 @@
----
-applications:
-  - docker:
-      image: gcr.io/sre-docker-registry/github.com/uktrade/enhanced-support-runner:latest
