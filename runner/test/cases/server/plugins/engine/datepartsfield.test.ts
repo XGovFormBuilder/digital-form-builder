@@ -75,6 +75,7 @@ suite("Date parts field", () => {
     const underTest = new DatePartsField(def);
     const returned = underTest.getViewModel({}, errors);
     expect(returned.errorMessage.text).to.equal('"Day" must be a number');
+    expect(underTest.getViewModel({}).errorMessage).to.be.undefined();
   });
 });
 
