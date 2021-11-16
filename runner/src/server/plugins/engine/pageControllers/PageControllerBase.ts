@@ -590,11 +590,7 @@ export class PageControllerBase {
           update = { [this.section.name]: sectionState };
         }
       }
-      const savedState = await cacheService.mergeState(
-        request,
-        update,
-        !!this.repeatField
-      );
+      const savedState = await cacheService.mergeState(request, update);
 
       //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
