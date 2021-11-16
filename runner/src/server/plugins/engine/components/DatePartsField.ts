@@ -154,6 +154,9 @@ export class DatePartsField extends FormComponent {
 
     return {
       ...viewModel,
+      errorMessage: {
+        text: errors?.errorList?.[0]?.text,
+      },
       fieldset: {
         legend: viewModel.label,
       },
