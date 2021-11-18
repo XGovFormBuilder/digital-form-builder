@@ -85,10 +85,19 @@ export type Output = {
   outputConfiguration: OutputConfiguration;
 };
 
-export type SpecialPages = {
-  confirmationPage?: {
-    components: ComponentDef[];
+type Toggleable<T> = boolean | T;
+
+type ConfirmationPage = {
+  customText: {
+    title: string;
+    paymentSkipped: Toggleable<string>;
+    nextSteps: Toggleable<string>;
   };
+  components: ComponentDef[];
+};
+
+export type SpecialPages = {
+  confirmationPage?: ConfirmationPage;
 };
 
 export function isMultipleApiKey(
