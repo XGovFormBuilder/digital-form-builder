@@ -44,7 +44,7 @@ export default {
         password: "cookie_encryption_password_with_32_chars_minimum",
         clientId: config.ssoClientId,
         clientSecret: config.ssoClientSecret,
-        forceHttps: !config.isDev,
+        forceHttps: true,
       });
 
       server.auth.default({ strategy: "session", mode: "try" });
