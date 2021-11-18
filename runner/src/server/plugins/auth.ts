@@ -19,6 +19,7 @@ export default {
       server.auth.strategy("session", "cookie", {
         cookie: {
           name: "auth",
+          // TODO: use same cookie as session, or at least generate a new one
           password:
             "password-should-be-32-characters-and-will-be-once-Im-done-with-it",
           isSecure: false,
@@ -39,9 +40,11 @@ export default {
             credentials.profile = { email, first_name, last_name, user_id };
           },
         },
+        // TODO: use same cookie as session, or at least generate a new one
         password: "cookie_encryption_password_with_32_chars_minimum",
         clientId: config.ssoClientId,
         clientSecret: config.ssoClientSecret,
+        forceHttps: !config.isDev,
       });
 
       server.auth.default({ strategy: "session", mode: "try" });
