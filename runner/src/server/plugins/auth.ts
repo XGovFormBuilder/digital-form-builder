@@ -4,6 +4,7 @@ import Bell from "bell";
 import config from "server/config";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { redirectTo } from "server/plugins/engine";
+import generateCookiePassword from "server/utils/generateCookiePassword";
 
 export default {
   plugin: {
@@ -19,9 +20,7 @@ export default {
       server.auth.strategy("session", "cookie", {
         cookie: {
           name: "auth",
-          // TODO: use same cookie as session, or at least generate a new one
-          password:
-            "password-should-be-32-characters-and-will-be-once-Im-done-with-it",
+          password: config.sessionCookiePassword || generateCookiePassword(),
           isSecure: false,
         },
       });
@@ -40,8 +39,7 @@ export default {
             credentials.profile = { email, first_name, last_name, user_id };
           },
         },
-        // TODO: use same cookie as session, or at least generate a new one
-        password: "cookie_encryption_password_with_32_chars_minimum",
+        password: config.sessionCookiePassword || generateCookiePassword(),
         clientId: config.ssoClientId,
         clientSecret: config.ssoClientSecret,
         forceHttps: true,
