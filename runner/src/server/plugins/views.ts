@@ -77,6 +77,9 @@ export default {
       skipTimeoutWarning: false,
       serviceStartPage: config.serviceStartPage || "#",
       privacyPolicyUrl: config.privacyPolicyUrl || "#",
+      navigation: request.auth.isAuthenticated
+        ? [{ text: "Sign out", href: "/logout" }]
+        : null,
     }),
   },
 };

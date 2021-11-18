@@ -78,7 +78,7 @@
   {{ govukSkipLink({
     href: '#main-content',
     text: 'Skip to main content'
-  }) }} 
+  }) }}
 {% endblock %}
 
 
@@ -87,7 +87,8 @@
     homepageUrl: "https://gov.uk",
     containerClasses: "govuk-width-container",
     serviceName: name if name else serviceName,
-    serviceUrl: serviceStartPage
+    serviceUrl: serviceStartPage,
+    navigation: navigation
 }) }}
 
 {% endblock %}
@@ -102,7 +103,7 @@
       <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmId1 }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
   {% endif %}
-  
+
   {% if gtmId2 %}
     <noscript>
       <iframe src="https://www.googletagmanager.com/ns.html?id={{ gtmId2 }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>

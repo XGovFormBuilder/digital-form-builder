@@ -57,4 +57,38 @@ suite("Server Auth", () => {
     expect(res.statusCode).to.equal(302);
     expect(res.headers.location).to.startWith("/account");
   });
+
+  test("shows a 'sign out' link in the header if logged in", async () => {
+    const options = {
+      method: "GET",
+      url: `/account`,
+      auth: {
+        strategy: "session",
+        credentials: {
+          profile: {
+            first_name: "Beep",
+            last_name: "Boop",
+            email: "b33pb00p@example.org",
+          },
+        },
+      },
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.payload).to.contain('href="/logout"');
+    expect(res.payload).to.contain("Sign out");
+  });
+
+  test("does not show a 'sign out' link in the header if logged out", async () => {
+    const options = {
+      method: "GET",
+      url: `/account`,
+    };
+
+    const res = await server.inject(options);
+
+    expect(res.payload).not.to.contain('href="/logout"');
+    expect(res.payload).not.to.contain("Sign out");
+  });
 });
