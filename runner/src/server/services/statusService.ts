@@ -235,17 +235,19 @@ export class StatusService {
       `generating viewModel for ${newReference ?? reference}`
     );
     const confirmationPage = formModel.def.specialPages?.confirmationPage;
-
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
+
     let model = {
       reference: referenceToDisplay,
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
     };
 
-    if (!confirmationPage?.components?.length) {
+    if (!confirmationPage) {
       return model;
     }
+
+    model.customText = confirmationPage.customText;
 
     const components = new ComponentCollection(
       confirmationPage?.components ?? [],

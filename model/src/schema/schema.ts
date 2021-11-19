@@ -111,7 +111,20 @@ const pageSchema = joi.object().keys({
   repeatField: joi.string().optional(),
 });
 
+const toggleableString = joi.alternatives().try(joi.boolean(), joi.string());
+
 const confirmationPageSchema = joi.object({
+  customText: joi
+    .object({
+      title: joi.string().default("Application complete"),
+      paymentSkipped: toggleableString.default(
+        "Someone will be in touch to make a payment."
+      ),
+      nextSteps: toggleableString.default(
+        "You will receive an email with details with the next steps."
+      ),
+    })
+    .default(),
   components: joi.array().items(componentSchema),
 });
 

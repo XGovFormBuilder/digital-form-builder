@@ -1,6 +1,5 @@
 import { redirectTo } from "./engine";
 import { HapiRequest, HapiResponseToolkit } from "../types";
-import config from "server/config";
 
 const applicationStatus = {
   plugin: {
