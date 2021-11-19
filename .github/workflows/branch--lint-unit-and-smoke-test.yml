@@ -106,9 +106,9 @@ jobs:
           echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
-      - name: Docker compose build
-        run: |
-          docker-compose build --parallel
+#      - name: Docker compose build
+#        run: |
+#          docker-compose build --parallel
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
