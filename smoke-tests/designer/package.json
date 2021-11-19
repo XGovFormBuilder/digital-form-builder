@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Digital forms smoke tests",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "smoke-test": "yarn exec wdio",
     "smoke-test-headless": "yarn exec wdio wdio.headless.conf.js",
