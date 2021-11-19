@@ -5,7 +5,7 @@ const drivers = {
   firefox: { version: "0.29.1" }, // https://github.com/mozilla/geckodriver/releases
 };
 
-exports.config = {
+export const config = {
   runner: "local",
   specs: ["./features/**/accessibilityStatement.feature"],
   exclude: [],
