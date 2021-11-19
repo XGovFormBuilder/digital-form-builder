@@ -6,7 +6,7 @@ const drivers = {
 
 exports.config = {
   runner: "local",
-  specs: ["./features/**/*.feature"],
+  specs: ["./features/**/accessibilityStatement.feature"],
   exclude: [],
   maxInstances: 6,
   capabilities: [
