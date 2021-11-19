@@ -1,4 +1,4 @@
-const { config } = require("./wdio.conf.js");
+import { config } from "./wdio.conf.js";
 
 (config.maxInstances = 1),
   (config.capabilities = [
@@ -13,5 +13,3 @@ config.cucumberOpts = {
   tagExpression: "@debug",
   timeout: 600000, // timeout for steps in milliseconds
 };
-
-exports.config = config;
