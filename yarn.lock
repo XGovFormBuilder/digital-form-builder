@@ -787,6 +787,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/node@npm:^7.16.0":
+  version: 7.16.0
+  resolution: "@babel/node@npm:7.16.0"
+  dependencies:
+    "@babel/register": ^7.16.0
+    commander: ^4.0.1
+    core-js: ^3.19.0
+    node-environment-flags: ^1.0.5
+    regenerator-runtime: ^0.13.4
+    v8flags: ^3.1.1
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  bin:
+    babel-node: ./bin/babel-node.js
+  checksum: 1a846b8888edd0574dc19a6c42ec77906ac97fad26363dff1990c24179fcea8163858fec34e1460e56970d9fa388f7c0c65b953a0f8e9166bdb40aebedae15dc
+  languageName: node
+  linkType: hard
+
 "@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.12.10, @babel/parser@npm:^7.12.11, @babel/parser@npm:^7.12.7, @babel/parser@npm:^7.7.0":
   version: 7.12.11
   resolution: "@babel/parser@npm:7.12.11"
@@ -2162,6 +2180,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-runtime@npm:^7.16.4":
+  version: 7.16.4
+  resolution: "@babel/plugin-transform-runtime@npm:7.16.4"
+  dependencies:
+    "@babel/helper-module-imports": ^7.16.0
+    "@babel/helper-plugin-utils": ^7.14.5
+    babel-plugin-polyfill-corejs2: ^0.3.0
+    babel-plugin-polyfill-corejs3: ^0.4.0
+    babel-plugin-polyfill-regenerator: ^0.3.0
+    semver: ^6.3.0
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: ff21d84fdb77a1fc5e8dff01752d57c2b8004791f2e6bfb8b902e750af6d9c76d39d6686959bdacc10d41e970a60de891b6499c0da5f126a08a339f72cddd2d3
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-shorthand-properties@npm:^7.10.1, @babel/plugin-transform-shorthand-properties@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-transform-shorthand-properties@npm:7.12.1"
@@ -2706,6 +2740,15 @@ __metadata:
   dependencies:
     regenerator-runtime: ^0.13.4
   checksum: 423fb0079353db2faa0dad0cbdf0a90fbc5b511d1f77e5645d1aa0b144a144e24502bb023c12a31d7dca63b6e16ae36afa59992f0404e92e21de211051c361e3
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.16.3":
+  version: 7.16.3
+  resolution: "@babel/runtime@npm:7.16.3"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: ee47a2b6edf56ec25437b34407a98439eb0b71149675e7b2781e5d1b2b6d858772120f590349fd9adbb0f2a186d2eb584b2b3a1819ca673b60dd5959bb02839f
   languageName: node
   linkType: hard
 
@@ -6175,8 +6218,11 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.16.0
     "@babel/core": ^7.16.0
+    "@babel/node": ^7.16.0
+    "@babel/plugin-transform-runtime": ^7.16.4
     "@babel/preset-env": ^7.16.4
     "@babel/register": ^7.16.0
+    "@babel/runtime": ^7.16.3
     "@cucumber/cucumber": ^7.2.1
     "@wdio/cli": ^7.16.8
     "@wdio/cucumber-framework": ^7.16.6
@@ -9297,6 +9343,13 @@ __metadata:
   version: 2.6.12
   resolution: "core-js@npm:2.6.12"
   checksum: b865823ce9cb5bc63336856440f6525e4996bb91af30660081e82bf447d177f36104f0986906a34ea0c9c03cb8b3d960380848a478e2621dac30c9b8198d28da
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.19.0":
+  version: 3.19.1
+  resolution: "core-js@npm:3.19.1"
+  checksum: 32b2ecead4b19f134b4c385271a0dd99f089ef90896d73a3b554b27832d1b56fc7ffaa5a8b396b670ef43c332b9a5522ccd9d1172189dcd911bbe5c08077d0d5
   languageName: node
   linkType: hard
 

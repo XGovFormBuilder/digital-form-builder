@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Digital forms smoke tests",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "smoke-test": "yarn exec wdio",
-    "smoke-test-headless": "yarn exec wdio wdio.headless.conf.js",
+    "smoke-test": "yarn exec babel-node wdio.conf.js",
+    "smoke-test-headless": "yarn exec babel-node wdio.headless.conf.js",
     "smoke-test-heroku": "yarn exec wdio wdio.heroku.conf.js",
     "debug": "yarn exec wdio wdio.debug.conf.js",
     "heroku-debug": "yarn exec wdio wdio.heroku.debug.conf.js"
@@ -16,6 +15,8 @@
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@babel/register": "^7.16.0",
     "@cucumber/cucumber": "^7.2.1",
@@ -35,5 +36,8 @@
     "wdio-cucumberjs-json-reporter": "^2.0.2",
     "wdio-json-reporter": "^2.0.0",
     "webdriverio": "^7.16.8"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.16.3"
   }
 }
