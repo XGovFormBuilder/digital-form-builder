@@ -4,8 +4,8 @@
   "description": "Digital forms smoke tests",
   "main": "index.js",
   "scripts": {
-    "smoke-test": "yarn exec babel-node wdio.conf.js",
-    "smoke-test-headless": "yarn exec babel-node wdio.headless.conf.js",
+    "smoke-test": "yarn run node_modules/.bin/babel-node --presets env npx wdio",
+    "smoke-test-headless": "yarn exec babel-node wdio",
     "smoke-test-heroku": "yarn exec wdio wdio.heroku.conf.js",
     "debug": "yarn exec wdio wdio.debug.conf.js",
     "heroku-debug": "yarn exec wdio wdio.heroku.debug.conf.js"

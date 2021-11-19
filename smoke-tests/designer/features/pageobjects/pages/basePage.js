@@ -2,7 +2,8 @@
  * main page object containing all methods, selectors and functionality
  * that is shared across all page objects
  */
-export default class Page {
+export class Page {
+  constructor() {}
   /**
    * Clicks on a button using its name
    * @param buttonName

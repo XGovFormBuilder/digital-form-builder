@@ -1,4 +1,4 @@
-import Page from "./basePage";
+import { Page } from "./basePage";
 
 export class PreviewPage extends Page {
   get sectionTitle() {

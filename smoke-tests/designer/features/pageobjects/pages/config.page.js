@@ -1,4 +1,4 @@
-const Page = require("./basePage");
+const { Page } = require("./basePage");
 
 export class ConfigPage extends Page {
   get pageHeading() {

@@ -1,8 +1,3 @@
-require("@babel/register")({
-  // This will override `node_modules` ignoring - you can alternatively pass
-  // an array of strings to be explicitly matched or a regex / glob
-  ignore: [],
-});
 import { hooks } from "./support/hooks";
 
 const drivers = {
@@ -62,7 +57,7 @@ export const config = {
     ],
   ],
   cucumberOpts: {
-    require: ["@babel/register", "./features/steps/*steps.js"],
+    require: ["./features/steps/*steps.js"],
     backtrace: false,
     requireModule: [],
     dryRun: false,

@@ -1,4 +1,4 @@
-import Page from "./basePage";
+import { Page } from "./basePage";
 import ComponentMappings from "../../../support/componentMapping";
 
 import { FormPage } from "../../components/formPage.component";

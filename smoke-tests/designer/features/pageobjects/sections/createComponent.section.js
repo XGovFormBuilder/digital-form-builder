@@ -1,4 +1,4 @@
-const Page = require("../pages/basePage");
+import { Page } from "../pages/basePage";
 
 class CreateComponentSection extends Page {
   get parent() {
