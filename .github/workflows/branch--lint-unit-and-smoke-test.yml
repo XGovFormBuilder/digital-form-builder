@@ -123,7 +123,7 @@ jobs:
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
       - name: Smoke Test
         run: |
-          yarn smoke-tests/designer smoke-test-headless
+          yarn smoke-tests smoke-test-headless
           ls -lah smoke-tests/designer/reports/
       - name: "Tar files"
         if: ${{ success() || failure() }}
