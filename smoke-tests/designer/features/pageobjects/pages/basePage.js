@@ -2,7 +2,7 @@
  * main page object containing all methods, selectors and functionality
  * that is shared across all page objects
  */
-module.exports = class Page {
+export default class Page {
   /**
    * Clicks on a button using its name
    * @param buttonName
@@ -78,4 +78,4 @@ module.exports = class Page {
   get backToPreviousPage() {
     return browser.$("=Back");
   }
-};
+}

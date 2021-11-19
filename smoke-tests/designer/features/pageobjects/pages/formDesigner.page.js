@@ -1,8 +1,9 @@
-const Page = require("./basePage");
-const FormPage = require("../../components/formPage.component");
-const ComponentMappings = require("../../../support/componentMapping");
+import Page from "./basePage";
+import ComponentMappings from "../../../support/componentMapping";
 
-class FormDesignerPage extends Page {
+import { FormPage } from "../../components/formPage.component";
+
+export class FormDesignerPage extends Page {
   get pages() {
     return browser.$$(".page").map((page) => new FormPage(page));
   }
@@ -106,5 +107,3 @@ class FormDesignerPage extends Page {
     browser.$(`.component-${componentType.toLowerCase()}`).click();
   }
 }
-
-module.exports = new FormDesignerPage();

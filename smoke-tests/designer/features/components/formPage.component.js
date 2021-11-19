@@ -1,4 +1,4 @@
-class FormPage {
+export class FormPage {
   constructor(selector) {
     this.parent = $(selector);
   }
@@ -51,5 +51,3 @@ class FormPage {
     return this.parent.react$("TextField");
   }
 }
-
-module.exports = FormPage;

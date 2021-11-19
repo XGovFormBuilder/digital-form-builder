@@ -1,6 +1,6 @@
-const { Given, When, Then } = require("@cucumber/cucumber");
-const { configPage } = require("../pageobjects/pages");
-const actions = require("../actions/actions");
+import { Given, Then, When } from "@cucumber/cucumber";
+import { configPage } from "../pageobjects/pages";
+import actions from "../actions/actions";
 
 Given("I am on the new configuration page", function () {
   configPage.open();

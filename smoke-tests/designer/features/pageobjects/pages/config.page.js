@@ -1,6 +1,6 @@
 const Page = require("./basePage");
 
-class ConfigPage extends Page {
+export class ConfigPage extends Page {
   get pageHeading() {
     return browser.$("h1");
   }
@@ -59,5 +59,3 @@ class ConfigPage extends Page {
     return super.open("app");
   }
 }
-
-module.exports = new ConfigPage();

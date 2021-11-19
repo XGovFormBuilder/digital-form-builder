@@ -1,4 +1,4 @@
-export { default as configPage } from "./config.page";
-export { default as formDesigner } from "./formDesigner.page";
-export { default as formRunner } from "./formRunner.page";
-export { default as previewPage } from "./preview.page";
+export { ConfigPage } from "./config.page";
+export { FormDesignerPage } from "./formDesigner.page";
+export { FormRunnerPage } from "./formRunner.page";
+export { PreviewPage } from "./preview.page";

@@ -1,6 +1,6 @@
-const Page = require("./basePage");
+import Page from "./BasePage";
 
-class FormRunnerPage extends Page {
+export class FormRunnerPage extends Page {
   open(path) {
     return browser.url(`${browser.config.runnerUrl}${path}/`);
   }
@@ -156,5 +156,3 @@ class FormRunnerPage extends Page {
     return browser.$(".govuk-select").selectByVisibleText(selectedOption);
   }
 }
-
-module.exports = new FormRunnerPage();

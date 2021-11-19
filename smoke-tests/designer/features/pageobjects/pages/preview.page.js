@@ -1,6 +1,6 @@
-const Page = require("./basePage");
+import Page from "./basePage";
 
-class PreviewPage extends Page {
+export class PreviewPage extends Page {
   get sectionTitle() {
     return browser.$("#section-title");
   }
@@ -51,5 +51,3 @@ class PreviewPage extends Page {
     return browser.$(".govuk-fieldset .govuk-fieldset__legend");
   }
 }
-
-module.exports = new PreviewPage();
