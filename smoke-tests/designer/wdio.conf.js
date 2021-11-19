@@ -62,7 +62,7 @@ export const config = {
     ],
   ],
   cucumberOpts: {
-    require: ["./features/steps/*steps.js"],
+    require: ["@babel/register", "./features/steps/*steps.js"],
     backtrace: false,
     requireModule: [],
     dryRun: false,
