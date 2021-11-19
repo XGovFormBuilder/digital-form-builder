@@ -1,4 +1,4 @@
-const { config } = require("./wdio.conf.js");
+import { config } from "./wdio.conf.js";
 
 (config.maxInstances = 6),
   (config.capabilities = [
@@ -30,4 +30,5 @@ config.reporters = [
   ],
 ];
 
-exports.config = config;
+const _config = config;
+export { _config as config };
