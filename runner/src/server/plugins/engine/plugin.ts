@@ -2,7 +2,7 @@ import path from "path";
 import { configure } from "nunjucks";
 import { redirectTo } from "./helpers";
 import { FormConfiguration } from "@xgovformbuilder/model";
-import { HapiServer, HapiRequest, HapiResponseToolkit } from "server/types";
+import { HapiRequest, HapiResponseToolkit, HapiServer } from "server/types";
 
 import { FormModel } from "./models";
 import Boom from "boom";

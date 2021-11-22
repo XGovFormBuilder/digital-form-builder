@@ -1,13 +1,14 @@
 import { SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
-import { redirectTo, redirectUrl, feedbackReturnInfoKey } from "../helpers";
+import { feedbackReturnInfoKey, redirectTo, redirectUrl } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {
-  RelativeUrl,
-  FeedbackContextInfo,
   decodeFeedbackContextInfo,
+  FeedbackContextInfo,
+  RelativeUrl,
 } from "../feedback";
 import config from "server/config";
+import { shouldLogin } from "server/plugins/auth";
 
 export class SummaryPageController extends PageController {
   /**
@@ -19,6 +20,9 @@ export class SummaryPageController extends PageController {
    */
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      if (shouldLogin(request)) {
+        return h.redirect(`/login?returnUrl=${request.path}`);
+      }
       this.langFromRequest(request);
 
       const { cacheService } = request.services([]);

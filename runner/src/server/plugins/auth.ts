@@ -6,6 +6,9 @@ import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { redirectTo } from "server/plugins/engine";
 import generateCookiePassword from "server/utils/generateCookiePassword";
 
+export const shouldLogin = (request: HapiRequest) =>
+  config.ssoEnabled && !request.auth.isAuthenticated;
+
 export default {
   plugin: {
     name: "auth",
@@ -55,7 +58,9 @@ export default {
           handler: (request: HapiRequest, h: HapiResponseToolkit) => {
             if (request.auth.isAuthenticated) {
               request.cookieAuth.set(request.auth.credentials.profile);
-              return redirectTo(request, h, "/account");
+              const returnUrl =
+                request.auth.credentials.query?.returnUrl || "/";
+              return redirectTo(request, h, returnUrl);
             }
 
             return h.response(JSON.stringify(request));
@@ -67,9 +72,10 @@ export default {
         method: "get",
         path: "/logout",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
+          // TODO: Also remove other session data?
           request.cookieAuth.clear();
 
-          return redirectTo(request, h, "/account");
+          return redirectTo(request, h, "/");
         },
       });
 

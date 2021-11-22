@@ -5,23 +5,24 @@ import { messages } from "server/plugins/engine/pageControllers/validationOption
 import { feedbackReturnInfoKey, proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
 import {
-  RelativeUrl,
   decodeFeedbackContextInfo,
   FeedbackContextInfo,
+  RelativeUrl,
 } from "../feedback";
 import {
   HapiRequest,
-  HapiResponseToolkit,
   HapiResponseObject,
+  HapiResponseToolkit,
 } from "server/types";
 import { FormModel } from "../models";
 import {
-  FormSubmissionState,
-  FormSubmissionErrors,
   FormData,
   FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
+import { shouldLogin } from "server/plugins/auth";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -376,6 +377,13 @@ export class PageControllerBase {
 
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
+      if (
+        this.pageDef.controller !== "./pages/start.js" &&
+        shouldLogin(request)
+      ) {
+        return h.redirect(`/login?returnUrl=${request.path}`);
+      }
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);
@@ -704,6 +712,7 @@ export class PageControllerBase {
   get getRouteOptions() {
     return {};
   }
+
   /**
    * {@link https://hapi.dev/api/?v=20.1.2#route-options}
    */
