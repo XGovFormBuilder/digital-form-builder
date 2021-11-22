@@ -1,3 +1,4 @@
+export { Page } from "./basePage";
 export { ConfigPage } from "./config.page";
 export { FormDesignerPage } from "./formDesigner.page";
 export { FormRunnerPage } from "./formRunner.page";

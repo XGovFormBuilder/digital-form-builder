@@ -1,4 +1,4 @@
-import { Page } from "./BasePage";
+import { Page } from "./../pages";
 
 export class FormRunnerPage extends Page {
   open(path) {
