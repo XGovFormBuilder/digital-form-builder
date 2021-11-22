@@ -42,7 +42,7 @@ export default {
         password: config.sessionCookiePassword || generateCookiePassword(),
         clientId: config.ssoClientId,
         clientSecret: config.ssoClientSecret,
-        forceHttps: true,
+        forceHttps: config.serviceUrl.startsWith("https"),
       });
 
       server.auth.default({ strategy: "session", mode: "try" });
