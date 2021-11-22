@@ -63,7 +63,6 @@ export default {
         },
       });
 
-      // TODO: add logout link to header
       server.route({
         method: "get",
         path: "/logout",
