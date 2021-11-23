@@ -14,19 +14,19 @@ suite("Server Auth", () => {
 
   suite("when enabled", () => {
     before(async () => {
-      config.ssoEnabled = true;
-      config.ssoClientAuthUrl = "https://example.org/oauth/authorize";
-      config.ssoClientTokenUrl = "https://example.org/oauth/token";
-      config.ssoClientProfileUrl = "https://example.org/oauth/profile";
-      config.ssoClientId = "oAuthClientID";
-      config.ssoClientSecret = "oAuthClientSecret";
+      config.authEnabled = true;
+      config.authClientAuthUrl = "https://example.org/oauth/authorize";
+      config.authClientTokenUrl = "https://example.org/oauth/token";
+      config.authClientProfileUrl = "https://example.org/oauth/profile";
+      config.authClientId = "oAuthClientID";
+      config.authClientSecret = "oAuthClientSecret";
       server = await createServer({});
       await server.start();
     });
 
     after(async () => {
       await server.stop();
-      config.ssoEnabled = false;
+      config.authEnabled = false;
     });
 
     test("sign in page redirects to oAuth service", async () => {

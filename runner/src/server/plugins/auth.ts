@@ -7,13 +7,13 @@ import { redirectTo } from "server/plugins/engine";
 import generateCookiePassword from "server/utils/generateCookiePassword";
 
 export const shouldLogin = (request: HapiRequest) =>
-  config.ssoEnabled && !request.auth.isAuthenticated;
+  config.authEnabled && !request.auth.isAuthenticated;
 
 export default {
   plugin: {
     name: "auth",
     register: async (server) => {
-      if (!config.ssoEnabled) {
+      if (!config.authEnabled) {
         return;
       }
 
@@ -32,19 +32,19 @@ export default {
         provider: {
           name: "oauth",
           protocol: "oauth2",
-          auth: config.ssoClientAuthUrl,
-          token: config.ssoClientTokenUrl,
+          auth: config.authClientAuthUrl,
+          token: config.authClientTokenUrl,
           scope: ["read write"],
           profile: async (credentials, _params, get) => {
             const { email, first_name, last_name, user_id } = await get(
-              config.ssoClientProfileUrl
+              config.authClientProfileUrl
             );
             credentials.profile = { email, first_name, last_name, user_id };
           },
         },
         password: config.sessionCookiePassword || generateCookiePassword(),
-        clientId: config.ssoClientId,
-        clientSecret: config.ssoClientSecret,
+        clientId: config.authClientId,
+        clientSecret: config.authClientSecret,
         forceHttps: config.serviceUrl.startsWith("https"),
       });
 

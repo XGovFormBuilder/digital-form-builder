@@ -1,10 +1,11 @@
 import dotEnv from "dotenv";
-if (process.env.NODE_ENV !== "test") {
-  dotEnv.config({ path: ".env" });
-}
 import Joi, { CustomHelpers } from "joi";
 
 import { isUrlSecure } from "src/server/utils/url";
+
+if (process.env.NODE_ENV !== "test") {
+  dotEnv.config({ path: ".env" });
+}
 
 const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
@@ -77,24 +78,24 @@ const schema = Joi.object({
   lastCommit: Joi.string().default("undefined"),
   lastTag: Joi.string().default("undefined"),
   apiEnv: Joi.string().allow("test", "production", "").optional(),
-  ssoEnabled: Joi.boolean().optional(),
-  ssoClientId: Joi.string().when("ssoEnabled", {
+  authEnabled: Joi.boolean().optional(),
+  authClientId: Joi.string().when("authEnabled", {
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
-  ssoClientSecret: Joi.string().when("ssoEnabled", {
+  authClientSecret: Joi.string().when("authEnabled", {
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
-  ssoClientAuthUrl: Joi.string().when("ssoEnabled", {
+  authClientAuthUrl: Joi.string().when("authEnabled", {
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
-  ssoClientTokenUrl: Joi.string().when("ssoEnabled", {
+  authClientTokenUrl: Joi.string().when("authEnabled", {
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
-  ssoClientProfileUrl: Joi.string().when("ssoEnabled", {
+  authClientProfileUrl: Joi.string().when("authEnabled", {
     then: Joi.required(),
     otherwise: Joi.optional(),
   }),
@@ -136,12 +137,12 @@ export function buildConfig() {
     lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
     lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
     apiEnv: process.env.API_ENV,
-    ssoEnabled: process.env.SSO_ENABLED,
-    ssoClientId: process.env.SSO_CLIENT_ID,
-    ssoClientSecret: process.env.SSO_CLIENT_SECRET,
-    ssoClientAuthUrl: process.env.SSO_CLIENT_AUTH_URL,
-    ssoClientTokenUrl: process.env.SSO_CLIENT_TOKEN_URL,
-    ssoClientProfileUrl: process.env.SSO_CLIENT_PROFILE_URL,
+    authEnabled: process.env.AUTH_ENABLED,
+    authClientId: process.env.AUTH_CLIENT_ID,
+    authClientSecret: process.env.AUTH_CLIENT_SECRET,
+    authClientAuthUrl: process.env.AUTH_CLIENT_AUTH_URL,
+    authClientTokenUrl: process.env.AUTH_CLIENT_TOKEN_URL,
+    authClientProfileUrl: process.env.AUTH_CLIENT_PROFILE_URL,
   };
 
   // Validate config

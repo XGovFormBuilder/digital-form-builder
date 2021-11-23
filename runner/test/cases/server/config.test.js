@@ -191,12 +191,12 @@ suite(`Server Config`, () => {
     process.env = {
       ...process.env,
       ...customVariables,
-      SSO_ENABLED: true,
+      AUTH_ENABLED: true,
     };
 
     expect(() => buildConfig()).to.throw(
       Error,
-      'The server config is invalid. "ssoClientId" is required. "ssoClientSecret" is required. "ssoClientAuthUrl" is required. "ssoClientTokenUrl" is required. "ssoClientProfileUrl" is required'
+      'The server config is invalid. "authClientId" is required. "authClientSecret" is required. "authClientAuthUrl" is required. "authClientTokenUrl" is required. "authClientProfileUrl" is required'
     );
   });
 
@@ -204,21 +204,21 @@ suite(`Server Config`, () => {
     process.env = {
       ...process.env,
       ...customVariables,
-      SSO_ENABLED: "true",
-      SSO_CLIENT_AUTH_URL: "oAuth auth url",
-      SSO_CLIENT_TOKEN_URL: "oAuth token url",
-      SSO_CLIENT_PROFILE_URL: "oAuth profile url",
-      SSO_CLIENT_ID: "oAuth client ID",
-      SSO_CLIENT_SECRET: "oAuth client secret",
+      AUTH_ENABLED: "true",
+      AUTH_CLIENT_AUTH_URL: "oAuth auth url",
+      AUTH_CLIENT_TOKEN_URL: "oAuth token url",
+      AUTH_CLIENT_PROFILE_URL: "oAuth profile url",
+      AUTH_CLIENT_ID: "oAuth client ID",
+      AUTH_CLIENT_SECRET: "oAuth client secret",
     };
 
     const config = buildConfig();
-    expect(config.ssoEnabled).to.equal(true);
-    expect(config.ssoClientAuthUrl).to.equal("oAuth auth url");
-    expect(config.ssoClientTokenUrl).to.equal("oAuth token url");
-    expect(config.ssoClientProfileUrl).to.equal("oAuth profile url");
-    expect(config.ssoClientId).to.equal("oAuth client ID");
-    expect(config.ssoClientSecret).to.equal("oAuth client secret");
+    expect(config.authEnabled).to.equal(true);
+    expect(config.authClientAuthUrl).to.equal("oAuth auth url");
+    expect(config.authClientTokenUrl).to.equal("oAuth token url");
+    expect(config.authClientProfileUrl).to.equal("oAuth profile url");
+    expect(config.authClientId).to.equal("oAuth client ID");
+    expect(config.authClientSecret).to.equal("oAuth client secret");
   });
 
   // TODO
