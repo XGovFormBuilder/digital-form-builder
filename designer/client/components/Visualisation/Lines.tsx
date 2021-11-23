@@ -64,9 +64,10 @@ export class Lines extends React.Component<Props, State> {
                   points={pointsString}
                   className={`${highlight ? "highlight" : ""}`}
                   data-testid={`${source}-${target}`.replace(/\//g, "")}
+                  role="button"
                 >
                   <title>
-                    {`Link from ${source} to ${target}`.replace(/\//g, "")}
+                    {`Edit link from ${source} to ${target}`.replace(/\//g, "")}
                   </title>
                 </polyline>
                 {label && (
