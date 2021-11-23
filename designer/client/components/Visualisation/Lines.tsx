@@ -64,11 +64,11 @@ export class Lines extends React.Component<Props, State> {
                   points={pointsString}
                   className={`${highlight ? "highlight" : ""}`}
                   data-testid={`${source}-${target}`.replace(/\//g, "")}
-                  aria-label={`Link from ${source} to ${target}`.replace(
-                    /\//g,
-                    ""
-                  )}
-                />
+                >
+                  <title>
+                    {`Link from ${source} to ${target}`.replace(/\//g, "")}
+                  </title>
+                </polyline>
                 {label && (
                   <text
                     textAnchor="middle"
