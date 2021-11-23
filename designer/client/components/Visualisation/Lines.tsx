@@ -58,7 +58,9 @@ export class Lines extends React.Component<Props, State> {
                 <polyline
                   onClick={() => this.editLink(edge)}
                   onKeyPress={(event) =>
-                    event.key === "Enter" ? this.editLink(edge) : null
+                    event.key === "Enter" || event.key === " "
+                      ? this.editLink(edge)
+                      : null
                   }
                   tabIndex={0}
                   points={pointsString}

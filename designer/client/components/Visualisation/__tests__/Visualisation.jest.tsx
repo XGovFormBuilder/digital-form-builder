@@ -1,6 +1,6 @@
 import React from "react";
 import { Visualisation } from "../Visualisation";
-import { render, waitFor, fireEvent, getRoles } from "@testing-library/react";
+import { render, waitFor, fireEvent } from "@testing-library/react";
 import { DataContext } from "../../../context";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -83,7 +83,7 @@ test("Links between pages are navigable via keyboard", async () => {
     save: jest.fn(),
   };
 
-  const { queryByTestId, queryAllByText } = customRender(
+  const { queryByTestId, queryAllByText, getByText } = customRender(
     <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
     {
       providerProps,
@@ -92,17 +92,30 @@ test("Links between pages are navigable via keyboard", async () => {
 
   // Check link exists and has the expected label
   const link = await queryAllByText(
-    "Link from link-source to link-target"
+    "Edit link from link-source to link-target"
   )?.[0];
   expect(link).toBeTruthy();
 
-  // Check that link works when selected with the keyboard
+  // Check that link works when selected with the enter key
   expect(queryByTestId("flyout-0")).toBeNull();
 
   fireEvent.keyPress(link, {
     key: "Enter",
     code: "Enter",
     charCode: 13,
+  });
+
+  expect(queryByTestId("flyout-0")).toBeInTheDocument();
+
+  fireEvent.click(getByText("Close"));
+
+  // Check that link works when selected with the space key
+  expect(queryByTestId("flyout-0")).toBeNull();
+
+  fireEvent.keyPress(link, {
+    key: " ",
+    code: "Space",
+    charCode: 32,
   });
 
   expect(queryByTestId("flyout-0")).toBeInTheDocument();
