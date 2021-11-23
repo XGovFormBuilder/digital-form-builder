@@ -1,0 +1,37 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false,
+  "name": "Alpha form",
+  "feedback": {
+    "feedbackForm": false
+  },
+  "phaseBanner": {
+    "phase": "alpha"
+  }
+}

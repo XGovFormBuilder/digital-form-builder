@@ -5,21 +5,21 @@ import { messages } from "server/plugins/engine/pageControllers/validationOption
 import { feedbackReturnInfoKey, proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
 import {
-  RelativeUrl,
   decodeFeedbackContextInfo,
   FeedbackContextInfo,
+  RelativeUrl,
 } from "../feedback";
 import {
   HapiRequest,
-  HapiResponseToolkit,
   HapiResponseObject,
+  HapiResponseToolkit,
 } from "server/types";
 import { FormModel } from "../models";
 import {
-  FormSubmissionState,
-  FormSubmissionErrors,
   FormData,
   FormPayload,
+  FormSubmissionErrors,
+  FormSubmissionState,
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 
@@ -36,6 +36,9 @@ export class PageControllerBase {
       url?: string;
       feedbackForm?: boolean;
       emailAddress?: string;
+    };
+    phaseBanner?: {
+      phase?: string;
     };
   };
   name: string;
@@ -103,6 +106,7 @@ export class PageControllerBase {
     isStartPage: boolean;
     startPage?: HapiResponseObject;
     backLink?: string;
+    phaseTag?: string | undefined;
   } {
     let showTitle = true;
     let pageTitle = this.title;
@@ -410,11 +414,11 @@ export class PageControllerBase {
       }
 
       const viewModel = this.getViewModel(formData, num);
-
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
 
+      this.setPhaseTag(viewModel);
       this.setFeedbackDetails(viewModel, request);
 
       /**
@@ -551,26 +555,28 @@ export class PageControllerBase {
        * If there are any errors, render the page with the parsed errors
        */
       if (formResult.errors) {
-        const viewModel = this.getViewModel(payload, num, formResult.errors);
-
-        viewModel.backLink = progress[progress.length - 2];
-
-        this.setFeedbackDetails(viewModel, request);
-
-        return h.view(this.viewName, viewModel);
+        return this.renderWithErrors(
+          request,
+          h,
+          payload,
+          num,
+          progress,
+          formResult.errors
+        );
       }
 
       const newState = this.getStateFromValidForm(formResult.value);
       const stateResult = this.validateState(newState);
 
       if (stateResult.errors) {
-        const viewModel = this.getViewModel(payload, num, stateResult.errors);
-
-        viewModel.backLink = progress[progress.length - 2];
-
-        this.setFeedbackDetails(viewModel, request);
-
-        return h.view(this.viewName, viewModel);
+        return this.renderWithErrors(
+          request,
+          h,
+          payload,
+          num,
+          progress,
+          stateResult.errors
+        );
       }
 
       let update = this.getPartialMergeState(stateResult.value);
@@ -704,6 +710,7 @@ export class PageControllerBase {
   get getRouteOptions() {
     return {};
   }
+
   /**
    * {@link https://hapi.dev/api/?v=20.1.2#route-options}
    */
@@ -729,5 +736,23 @@ export class PageControllerBase {
 
   private objLength(object: {}) {
     return Object.keys(object).length;
+  }
+
+  private setPhaseTag(viewModel) {
+    // Set phase tag if it exists in form definition (even if empty for 'None'),
+    // otherwise the template context will simply return server config
+    if (this.def.phaseBanner) {
+      viewModel.phaseTag = this.def.phaseBanner.phase;
+    }
+  }
+
+  private renderWithErrors(request, h, payload, num, progress, errors) {
+    const viewModel = this.getViewModel(payload, num, errors);
+
+    viewModel.backLink = progress[progress.length - 2];
+    this.setPhaseTag(viewModel);
+    this.setFeedbackDetails(viewModel, request);
+
+    return h.view(this.viewName, viewModel);
   }
 }

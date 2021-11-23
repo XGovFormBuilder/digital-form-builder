@@ -5,12 +5,11 @@ import { feedbackReturnInfoKey, redirectUrl } from "../helpers";
 import { decodeFeedbackContextInfo } from "../feedback";
 import { formSchema } from "server/schemas/formSchema";
 import { SummaryPageController } from "../pageControllers";
-import type { Fees } from "server/services/payService";
 import { FormSubmissionState } from "../types";
 import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
 import {
-  FeesModel,
   EmailModel,
+  FeesModel,
   NotifyModel,
   WebhookModel,
 } from "server/plugins/engine/models/submission";
@@ -44,6 +43,7 @@ export class SummaryViewModel {
   fees: FeesModel | undefined;
   name: string | undefined;
   feedbackLink: string | undefined;
+  phaseTag: string | undefined;
   declarationError: any; // TODO
   errors:
     | {
