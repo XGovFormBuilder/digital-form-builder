@@ -78,23 +78,6 @@ export default {
           return redirectTo(request, h, "/");
         },
       });
-
-      // TODO: login and logout should redirect to previous page, this is only useful for testing.
-      server.route({
-        method: "get",
-        path: "/account",
-        config: {
-          handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-            const profile =
-              request.auth.isAuthenticated && request.auth.credentials;
-
-            return h.view("account", {
-              loggedIn: request.auth.isAuthenticated,
-              profile: profile,
-            });
-          },
-        },
-      });
     },
   },
 };
