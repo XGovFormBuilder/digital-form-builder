@@ -8,7 +8,6 @@ import {
   RelativeUrl,
 } from "../feedback";
 import config from "server/config";
-import { shouldLogin } from "server/plugins/auth";
 
 export class SummaryPageController extends PageController {
   /**
@@ -20,9 +19,6 @@ export class SummaryPageController extends PageController {
    */
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      if (shouldLogin(request)) {
-        return h.redirect(`/login?returnUrl=${request.path}`);
-      }
       this.langFromRequest(request);
 
       const { cacheService } = request.services([]);

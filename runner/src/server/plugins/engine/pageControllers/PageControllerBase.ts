@@ -22,7 +22,6 @@ import {
   FormSubmissionState,
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
-import { shouldLogin } from "server/plugins/auth";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -377,13 +376,6 @@ export class PageControllerBase {
 
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
-      if (
-        this.pageDef.controller !== "./pages/start.js" &&
-        shouldLogin(request)
-      ) {
-        return h.redirect(`/login?returnUrl=${request.path}`);
-      }
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);

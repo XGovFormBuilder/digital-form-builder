@@ -8,6 +8,7 @@ import { FormModel } from "./models";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
+import { shouldLogin } from "server/plugins/auth";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -167,6 +168,14 @@ export const plugin = {
           (page) => normalisePath(page.path) === normalisePath(path)
         );
         if (page) {
+          // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
+          if (
+            page.pageDef.controller !== "./pages/start.js" &&
+            shouldLogin(request)
+          ) {
+            return h.redirect(`/login?returnUrl=${request.path}`);
+          }
+          // if (page.def.pages.find(page => page.path === `/${path}`))
           return page.makeGetRouteHandler()(request, h);
         }
         if (normalisePath(path) === "") {
