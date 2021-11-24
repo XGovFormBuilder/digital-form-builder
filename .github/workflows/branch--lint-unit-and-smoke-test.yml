@@ -2,7 +2,6 @@ name: Branch QA
 on:
   pull_request:
     branches:
-      - master
       - main
     paths-ignore:
       - 'docs/**'
@@ -18,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "16.x"
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -71,20 +70,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
       - name: Docker compose pull
         run: docker-compose pull
         # DAYOFYEAR key is used to rotate docker-layer-caching to avoid the layers dandle issue
@@ -93,26 +78,22 @@ jobs:
         # so main branch cache can be shared with branches
       - run: echo "DAYOFYEAR = $(date +%j)"
       - run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
+#      - name: Docker layer caching
+#        uses: satackey/action-docker-layer-caching@v0.0.11
+#        continue-on-error: true
+#        with:
+#          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
+#          restore-keys: |
+#            digital-form-builder-${{ env.DAYOFYEAR }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
           echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
-      - name: Docker compose build
-        run: |
-          docker-compose build --parallel
+      - run: docker-compose build
       - name: Docker compose up
         run: docker-compose up -d
-      - name: Install smoke tests dependencies
-        run: yarn workspaces focus @xgovformbuilder/test
       - name: Check designer container is running
         run: |
           docker ps
@@ -121,23 +102,4 @@ jobs:
         run: |
           docker ps
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
-      - name: Smoke Test
-        run: |
-          yarn smoke-tests/designer smoke-test-headless
-          ls -lah smoke-tests/designer/reports/
-      - name: Run pa11y
-        run: yarn designer dlx pa11y-ci
-      - name: Run Lighthouse on urls and validate with lighthouserc
-        uses: treosh/lighthouse-ci-action@v8
-        with:
-          configPath: "./lighthouserc.js"
-          uploadArtifacts: true
-      - name: "Tar files"
-        if: ${{ success() || failure() }}
-        run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
-      - uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: smoke-tests
-          path: smoke-tests.tar
-          retention-days: 14
+      - uses: xgovformbuilder/digital-form-builder-legacy-smoke-tests@main

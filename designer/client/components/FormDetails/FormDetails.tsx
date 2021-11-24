@@ -17,7 +17,7 @@ type PhaseBanner = Exclude<FormDefinition["phaseBanner"], undefined>;
 type Phase = PhaseBanner["phase"];
 
 interface Props {
-  onCreate?: (saved: boolean) => void;
+  onCreate?: () => void;
 }
 
 interface State {
@@ -62,7 +62,6 @@ export class FormDetails extends Component<Props, State> {
       phase,
     } = this.state;
     const { phaseBanner = {} } = data;
-    const { onCreate } = this.props;
 
     let copy: FormDefinition = { ...data };
     copy.name = title;
@@ -77,10 +76,8 @@ export class FormDetails extends Component<Props, State> {
     };
 
     try {
-      const saved = await save(copy);
-      if (isFunction(onCreate)) {
-        onCreate(saved);
-      }
+      await save(copy);
+      this.props.onCreate?.();
     } catch (err) {
       logger.error("FormDetails", err);
     }

@@ -7,13 +7,12 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "workspaces": [
     "model",
     "runner",
-    "designer",
-    "smoke-tests/designer"
+    "designer"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
@@ -25,7 +24,6 @@
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
-    "smoke-test": "yarn workspace @xgovformbuilder/test",
     "model": "yarn workspace @xgovformbuilder/model",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
@@ -68,7 +66,8 @@
   "resolutions": {
     "braces": "2.3.1",
     "pathval": "1.1.1",
-    "y18n": "4.0.1"
+    "y18n": "4.0.1",
+    "preact": "^10.6.2"
   },
   "husky": {
     "hooks": {
@@ -78,5 +77,6 @@
   "lint-staged": {
     "*": "prettier --write --ignore-unknown",
     "*.{ts,tsx,js,jsx}": "eslint --fix"
-  }
+  },
+  "packageManager": "yarn@2.4.1"
 }

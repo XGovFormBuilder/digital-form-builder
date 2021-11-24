@@ -4,7 +4,7 @@ version: "3.9"
 services:
   designer:
     container_name: designer
-    image: digital-form-builder-designer
+    image:  digital-form-builder-designer
     build:
       context: .
       dockerfile: ./designer/Dockerfile

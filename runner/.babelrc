@@ -6,7 +6,7 @@
       {
         "loose": true,
         "targets": {
-          "node": "12"
+          "node": "16"
         }
       }
     ]

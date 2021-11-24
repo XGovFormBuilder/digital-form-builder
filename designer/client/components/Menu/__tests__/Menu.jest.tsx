@@ -1,5 +1,5 @@
 import { Menu } from "..";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, act } from "@testing-library/react";
 import { DataContext, FlyoutContext } from "../../../context";
 import React from "react";
 
@@ -36,13 +36,15 @@ it("Renders button strings correctly", () => {
   expect(getByText("Summary")).toBeInTheDocument();
 });
 
-it("Can open flyouts and close them", () => {
-  const { getByText, queryByTestId } = customRender(<Menu />);
+it.only("Can open flyouts and close them", async () => {
+  const menu = customRender(<Menu />);
+  console.log(menu.debug());
+  const { getByText, queryByTestId } = menu;
   expect(queryByTestId("flyout-1")).toBeNull();
   fireEvent.click(getByText("Form details"));
-  expect(queryByTestId("flyout-1")).toBeInTheDocument();
-  fireEvent.click(getByText("Close"));
-  expect(queryByTestId("flyout-1")).toBeNull();
+  expect(await queryByTestId("flyout-1")).toBeInTheDocument();
+  fireEvent.click(await getByText("Close"));
+  expect(await queryByTestId("flyout-1")).toBeNull();
 });
 
 it("clicking on a summary tab shows different tab content", () => {

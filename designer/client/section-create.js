@@ -22,7 +22,7 @@ class SectionCreate extends React.Component {
 
     try {
       const savedData = await save(updated);
-      this.props.onCreate(savedData);
+      this.props.onCreate?.(savedData);
     } catch (err) {
       logger.error("SectionCreate", err);
     }
