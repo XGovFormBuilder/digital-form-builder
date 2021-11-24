@@ -1,8 +1,11 @@
 import dotEnv from "dotenv";
-dotEnv.config({ path: ".env" });
 import Joi, { CustomHelpers } from "joi";
 
 import { isUrlSecure } from "src/server/utils/url";
+
+if (process.env.NODE_ENV !== "test") {
+  dotEnv.config({ path: ".env" });
+}
 
 const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
@@ -34,6 +37,7 @@ const schema = Joi.object({
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string().default("#"),
+  phaseTag: Joi.string().optional().valid("", "alpha", "beta").default("beta"),
   gtmId1: Joi.string().optional(),
   gtmId2: Joi.string().optional(),
   matomoId: Joi.string().optional(),
@@ -86,6 +90,7 @@ export function buildConfig() {
     ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
     browserRefreshUrl: process.env.BROWSER_REFRESH_URL,
     feedbackLink: process.env.FEEDBACK_LINK,
+    phaseTag: process.env.PHASE_TAG,
     gtmId1: process.env.GTM_ID_1,
     gtmId2: process.env.GTM_ID_2,
     matomoId: process.env.MATOMO_ID,

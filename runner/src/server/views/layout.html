@@ -111,19 +111,21 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {% if feedbackLink %}
-        {{ govukPhaseBanner({
-            tag: {
-              text: "beta"
-            },
-            html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
-        }) }}
-    {% else %}
-        {{ govukPhaseBanner({
-        tag: {
-        text: "beta"
-        }
-        }) }}
+    {% if phaseTag %}
+        {% if feedbackLink %}
+            {{ govukPhaseBanner({
+                tag: {
+                    text: phaseTag
+                },
+                html: 'This is a new service – your <a class="govuk-link" href=' + feedbackLink + '>feedback</a> will help us to improve it.'
+            }) }}
+        {% else %}
+            {{ govukPhaseBanner({
+                tag: {
+                    text: phaseTag
+                }
+            }) }}
+        {% endif %}
     {% endif %}
     {% if backLink %}
         {{ govukBackLink({

@@ -75,7 +75,8 @@ LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 | PREVIEW_MODE       | Preview mode                          |    no    | false   |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms. |
 | LOG_LEVEL          | Log level                             |    no    | debug   |   trace,debug,info,error    |                                                                                                                                           |
 | PRIVACY_POLICY_URL | The url used in footer's privacy link |    no    | #       |                             |                                                                                                                                           |
-| API_ENV            | Switch for API keys                   |    no    |         | test,production             | If the JSON file supplies test and live API keys, this is used to switch between which key which needs to be used                         |
+| API_ENV            | Switch for API keys                   |    no    |         |       test,production       |             If the JSON file supplies test and live API keys, this is used to switch between which key which needs to be used             |
+| PHASE_TAG          | Tag to use for phase banner           |    no    | beta    |  alpha, beta, empty string  |                                                                                                                                           |
 
 # Testing
 

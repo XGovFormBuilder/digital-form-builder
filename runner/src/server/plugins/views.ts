@@ -77,6 +77,7 @@ export default {
       skipTimeoutWarning: false,
       serviceStartPage: config.serviceStartPage || "#",
       privacyPolicyUrl: config.privacyPolicyUrl || "#",
+      phaseTag: config.phaseTag,
     }),
   },
 };

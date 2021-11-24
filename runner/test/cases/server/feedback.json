@@ -30,25 +30,20 @@
       "next": []
     }
   ],
-  "lists": [
-  ],
+  "lists": [],
   "sections": [
     {
       "name": "checkBeforeYouStart",
       "title": "Check before you start"
     }
   ],
-  "phaseBanner": {},
   "feedback": {
     "emailAddress": "test@feedback.cat"
   },
-  "fees": [
-  ],
+  "fees": [],
   "payApiKey": "",
-  "outputs": [
-  ],
+  "outputs": [],
   "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
   "version": 2,
-  "conditions": [
-  ]
+  "conditions": []
 }

@@ -1,11 +1,11 @@
 import { SummaryViewModel } from "../models";
 import { PageController } from "./PageController";
-import { redirectTo, redirectUrl, feedbackReturnInfoKey } from "../helpers";
+import { feedbackReturnInfoKey, redirectTo, redirectUrl } from "../helpers";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import {
-  RelativeUrl,
-  FeedbackContextInfo,
   decodeFeedbackContextInfo,
+  FeedbackContextInfo,
+  RelativeUrl,
 } from "../feedback";
 import config from "server/config";
 
@@ -89,7 +89,6 @@ export class SummaryPageController extends PageController {
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0];
       }
-
       return h.view("summary", viewModel);
     };
   }
