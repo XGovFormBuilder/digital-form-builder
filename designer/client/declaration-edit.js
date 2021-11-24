@@ -24,8 +24,12 @@ class DeclarationEdit extends React.Component {
     copy.declaration = formData.get("declaration");
     copy.skipSummary = formData.get("skip-summary") === "on";
 
-    const savedData = await save(copy);
-    this.props.onCreate({ data: savedData });
+    try {
+      const savedData = await save(copy);
+      this.props.onCreate({ data: savedData });
+    } catch {
+      logger.error("DeclarationEdit", err);
+    }
   };
 
   render() {
