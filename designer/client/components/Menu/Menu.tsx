@@ -80,25 +80,25 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
       </div>
       {formDetails.isVisible && (
         <Flyout title="Form Details" onHide={formDetails.hide}>
-          <FormDetails onCreate={() => formDetails.hide} />
+          <FormDetails onCreate={() => formDetails.hide()} />
         </Flyout>
       )}
 
       {page.isVisible && (
         <Flyout title="Add Page" onHide={page.hide}>
-          <PageCreate data={data} onCreate={() => page.hide} />
+          <PageCreate data={data} onCreate={() => page.hide()} />
         </Flyout>
       )}
 
       {link.isVisible && (
         <Flyout title={i18n("menu.links")} onHide={link.hide}>
-          <LinkCreate data={data} onCreate={() => link.hide} />
+          <LinkCreate data={data} onCreate={() => link.hide()} />
         </Flyout>
       )}
 
       {sections.isVisible && (
         <Flyout title="Edit Sections" onHide={sections.hide}>
-          <SectionsEdit data={data} onCreate={() => sections.hide} />
+          <SectionsEdit data={data} />
         </Flyout>
       )}
 
@@ -108,7 +108,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           onHide={conditions.hide}
           width="large"
         >
-          <ConditionsEdit onCreate={() => conditions.hide} />
+          <ConditionsEdit />
         </Flyout>
       )}
 
@@ -123,13 +123,13 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
       )}
       {outputs.isVisible && (
         <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
-          <OutputsEdit data={data} onCreate={outputs.hide} />
+          <OutputsEdit data={data} />
         </Flyout>
       )}
 
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
-          <FeeEdit data={data} onEdit={() => fees.hide} />
+          <FeeEdit data={data} onEdit={() => fees.hide()} />
         </Flyout>
       )}
 
@@ -139,7 +139,10 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           onHide={summaryBehaviour.hide}
           width="xlarge"
         >
-          <DeclarationEdit data={data} onCreate={() => summaryBehaviour.hide} />
+          <DeclarationEdit
+            data={data}
+            onCreate={() => summaryBehaviour.hide()}
+          />
         </Flyout>
       )}
 

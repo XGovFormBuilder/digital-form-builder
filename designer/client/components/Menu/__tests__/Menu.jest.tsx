@@ -56,3 +56,14 @@ it("clicking on a summary tab shows different tab content", () => {
   expect(queryByTestId("tab-summary")).toBeNull();
   expect(queryByTestId("tab-model")).toBeNull();
 });
+
+it("flyouts close on Save", async () => {
+  const { getByText, queryByTestId } = customRender(<Menu />);
+
+  fireEvent.click(getByText("Summary behaviour"));
+  expect(queryByTestId("flyout-1")).toBeInTheDocument();
+
+  await fireEvent.click(getByText("Save"));
+  expect(dataValue.save).toHaveBeenCalledTimes(1);
+  expect(queryByTestId("flyout-1")).toBeNull();
+});
