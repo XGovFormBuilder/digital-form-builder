@@ -2152,6 +2152,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/bell@npm:^12.3.0":
+  version: 12.3.0
+  resolution: "@hapi/bell@npm:12.3.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/cryptiles": ^5.1.0
+    "@hapi/hoek": 9.x.x
+    "@hapi/wreck": 17.x.x
+    joi: 17.x.x
+  checksum: 7594ceed73648218ca50b98261322529c26fdefa98aca3c24351040f86a4ef0471051461ff7a563cc4cc3e606c1ffa7e52f4e1d7ede29f1a9099a1341d030969
+  languageName: node
+  linkType: hard
+
 "@hapi/boom@npm:7.x.x":
   version: 7.4.11
   resolution: "@hapi/boom@npm:7.4.11"
@@ -2336,7 +2350,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/cryptiles@npm:5.x.x":
+"@hapi/cryptiles@npm:5.x.x, @hapi/cryptiles@npm:^5.1.0":
   version: 5.1.0
   resolution: "@hapi/cryptiles@npm:5.1.0"
   dependencies:
@@ -5041,6 +5055,7 @@ __metadata:
     "@babel/preset-typescript": ^7.10.4
     "@babel/register": 7.10.3
     "@babel/runtime": 7.10.4
+    "@hapi/bell": ^12.3.0
     "@hapi/boom": 9.1.0
     "@hapi/catbox": 11.1.0
     "@hapi/catbox-memory": 5.0.0
@@ -5068,7 +5083,6 @@ __metadata:
     aws-sdk: 2.655.0
     babel-eslint: ^10.1.0
     babel-plugin-module-name-mapper: ^1.2.0
-    bell: ^10.0.0
     blankie: 5.0.0
     blipp: 4.0.1
     boom: 7.3.0
@@ -6366,20 +6380,6 @@ __metadata:
   version: 1.4.0
   resolution: "becke-ch--regex--s0-0-v1--base--pl--lib@npm:1.4.0"
   checksum: 5a66b927813c8bb86bf64dee976c76137c3f1311c4c41c91b7a9cdccdbdb8d9a87d5d15059d3f218a8be2d540bc567ccf00d910d43c44bd08a676631080ffe79
-  languageName: node
-  linkType: hard
-
-"bell@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "bell@npm:10.0.0"
-  dependencies:
-    boom: 7.x.x
-    bounce: 1.x.x
-    cryptiles: 4.x.x
-    hoek: 6.x.x
-    joi: 14.x.x
-    wreck: 14.x.x
-  checksum: 00dc09143544a776882001770c6fbc333cdac3913d62f875feeae7b818d87271593b0b2098b68adf39c1743b4d40d0c63146b8096efd4b40d9375de12f64023f
   languageName: node
   linkType: hard
 
@@ -14964,6 +14964,19 @@ fsevents@^1.2.7:
     "@hapi/pinpoint": ^2.0.0
     "@hapi/topo": ^5.0.0
   checksum: 197c86238922203a34a894a6240342462815bb538412333b496500520ec4d5ad04db3c7ae6d3ea58e8b1780252c91e53eb22ac7822cb82c14572920f60f031f7
+  languageName: node
+  linkType: hard
+
+"joi@npm:17.x.x":
+  version: 17.4.2
+  resolution: "joi@npm:17.4.2"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.0
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 4aee05091f6d1dcd3dd5e9e286cd2b399b8f371327f81f3382750bbcf5c461387ab0c36a3c0377f2a80db6f1f04745a77a4bf8194674643d14ca7d47a079a2b0
   languageName: node
   linkType: hard
 
@@ -24192,7 +24205,7 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
-"wreck@npm:14.2.0, wreck@npm:14.x.x, wreck@npm:^14.2.0":
+"wreck@npm:14.2.0, wreck@npm:^14.2.0":
   version: 14.2.0
   resolution: "wreck@npm:14.2.0"
   dependencies:

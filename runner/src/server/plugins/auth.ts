@@ -1,5 +1,5 @@
 import AuthCookie from "hapi-auth-cookie";
-import Bell from "bell";
+import Bell from "@hapi/bell";
 
 import config from "server/config";
 import { HapiRequest, HapiResponseToolkit } from "server/types";

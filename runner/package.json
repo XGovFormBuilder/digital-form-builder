@@ -35,6 +35,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "@babel/runtime": "7.10.4",
+    "@hapi/bell": "^12.3.0",
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",
     "@hapi/catbox-memory": "5.0.0",
@@ -52,7 +53,6 @@
     "acorn": "7.1.1",
     "atob": "^2.1.2",
     "aws-sdk": "2.655.0",
-    "bell": "^10.0.0",
     "blankie": "5.0.0",
     "blipp": "4.0.1",
     "boom": "7.3.0",
