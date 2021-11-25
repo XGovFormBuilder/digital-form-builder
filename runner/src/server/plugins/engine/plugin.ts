@@ -175,7 +175,7 @@ export const plugin = {
           ) {
             return h.redirect(`/login?returnUrl=${request.path}`);
           }
-          // if (page.def.pages.find(page => page.path === `/${path}`))
+
           return page.makeGetRouteHandler()(request, h);
         }
         if (normalisePath(path) === "") {
