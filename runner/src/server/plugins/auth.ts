@@ -1,4 +1,4 @@
-import AuthCookie from "hapi-auth-cookie";
+import AuthCookie from "@hapi/cookie";
 import Bell from "@hapi/bell";
 
 import config from "server/config";
@@ -24,7 +24,7 @@ export default {
         cookie: {
           name: "auth",
           password: config.sessionCookiePassword || generateCookiePassword(),
-          isSecure: false,
+          isSecure: true,
         },
       });
 
