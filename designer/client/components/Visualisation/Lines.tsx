@@ -33,6 +33,12 @@ export class Lines extends React.Component<Props, State> {
     });
   };
 
+  handlePolylineKeyPress = (event: React.KeyboardEvent, edge: Edge) => {
+    if (event.key === "Enter" || event.key == " ") {
+      this.editLink(edge);
+    }
+  };
+
   render() {
     const { layout, persona } = this.props;
     const { data } = this.context;
@@ -57,10 +63,19 @@ export class Lines extends React.Component<Props, State> {
               <g key={pointsString}>
                 <polyline
                   onClick={() => this.editLink(edge)}
+                  onKeyPress={(event) =>
+                    this.handlePolylineKeyPress(event, edge)
+                  }
+                  tabIndex={0}
                   points={pointsString}
                   className={`${highlight ? "highlight" : ""}`}
                   data-testid={`${source}-${target}`.replace(/\//g, "")}
-                />
+                  role="button"
+                >
+                  <title>
+                    {`Edit link from ${source} to ${target}`.replace(/\//g, "")}
+                  </title>
+                </polyline>
                 {label && (
                   <text
                     textAnchor="middle"
