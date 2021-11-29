@@ -1,4 +1,5 @@
 import config from "../config";
+import generateCookiePassword from "server/utils/generateCookiePassword";
 
 export default {
   plugin: require("@hapi/yar"),
@@ -7,12 +8,7 @@ export default {
       expiresIn: config.sessionTimeout,
     },
     cookieOptions: {
-      password:
-        config.sessionCookiePassword ||
-        Array(32)
-          .fill(0)
-          .map(() => Math.random().toString(36).charAt(2))
-          .join(""),
+      password: config.sessionCookiePassword || generateCookiePassword(),
       isSecure: !!config.isDev,
       isHttpOnly: true,
       isSameSite: "Lax",

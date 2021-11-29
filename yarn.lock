@@ -2152,6 +2152,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/bell@npm:^12.3.0":
+  version: 12.3.0
+  resolution: "@hapi/bell@npm:12.3.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/cryptiles": ^5.1.0
+    "@hapi/hoek": 9.x.x
+    "@hapi/wreck": 17.x.x
+    joi: 17.x.x
+  checksum: 7594ceed73648218ca50b98261322529c26fdefa98aca3c24351040f86a4ef0471051461ff7a563cc4cc3e606c1ffa7e52f4e1d7ede29f1a9099a1341d030969
+  languageName: node
+  linkType: hard
+
 "@hapi/boom@npm:7.x.x":
   version: 7.4.11
   resolution: "@hapi/boom@npm:7.4.11"
@@ -2324,6 +2338,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/cookie@npm:^11.0.2":
+  version: 11.0.2
+  resolution: "@hapi/cookie@npm:11.0.2"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/hoek": 9.x.x
+    "@hapi/validate": 1.x.x
+  checksum: e8e6a76ccec6338b9c030e8a37a8d90c2ba94675be1ae2398ae8efd97375fd30e6e6f091119cd414fd8d91ebd63ca96c00348dd854a7ddfebde532b93f70f6cd
+  languageName: node
+  linkType: hard
+
 "@hapi/crumb@npm:8.0.0":
   version: 8.0.0
   resolution: "@hapi/crumb@npm:8.0.0"
@@ -2336,7 +2362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/cryptiles@npm:5.x.x":
+"@hapi/cryptiles@npm:5.x.x, @hapi/cryptiles@npm:^5.1.0":
   version: 5.1.0
   resolution: "@hapi/cryptiles@npm:5.1.0"
   dependencies:
@@ -5041,11 +5067,13 @@ __metadata:
     "@babel/preset-typescript": ^7.10.4
     "@babel/register": 7.10.3
     "@babel/runtime": 7.10.4
+    "@hapi/bell": ^12.3.0
     "@hapi/boom": 9.1.0
     "@hapi/catbox": 11.1.0
     "@hapi/catbox-memory": 5.0.0
     "@hapi/catbox-redis": 5.0.5
     "@hapi/code": 8.0.1
+    "@hapi/cookie": ^11.0.2
     "@hapi/crumb": 8.0.0
     "@hapi/hapi": ^20.0.3
     "@hapi/inert": 5.2.2
@@ -14936,6 +14964,19 @@ fsevents@^1.2.7:
     "@hapi/pinpoint": ^2.0.0
     "@hapi/topo": ^5.0.0
   checksum: 197c86238922203a34a894a6240342462815bb538412333b496500520ec4d5ad04db3c7ae6d3ea58e8b1780252c91e53eb22ac7822cb82c14572920f60f031f7
+  languageName: node
+  linkType: hard
+
+"joi@npm:17.x.x":
+  version: 17.4.2
+  resolution: "joi@npm:17.4.2"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.0
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 4aee05091f6d1dcd3dd5e9e286cd2b399b8f371327f81f3382750bbcf5c461387ab0c36a3c0377f2a80db6f1f04745a77a4bf8194674643d14ca7d47a079a2b0
   languageName: node
   linkType: hard
 

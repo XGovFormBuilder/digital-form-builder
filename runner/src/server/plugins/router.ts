@@ -1,7 +1,7 @@
 import Joi from "joi";
 import Url from "url-parse";
 import { redirectTo } from "./engine";
-import { publicRoutes, healthCheckRoute } from "../routes";
+import { healthCheckRoute, publicRoutes } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 
 const routes = [...publicRoutes, healthCheckRoute];

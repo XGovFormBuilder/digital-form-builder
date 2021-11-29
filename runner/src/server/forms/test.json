@@ -1,6 +1,17 @@
 {
-  "startPage": "/uk-passport",
+  "startPage": "/start",
   "pages": [
+    {
+      "title": "Start",
+      "path": "/start",
+      "components": [],
+      "next": [
+        {
+          "path": "/uk-passport"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
     {
       "path": "/uk-passport",
       "components": [
@@ -454,8 +465,7 @@
     }
   ],
   "phaseBanner": {},
-  "fees": [
-  ],
+  "fees": [],
   "payApiKey": "",
   "outputs": [
     {
