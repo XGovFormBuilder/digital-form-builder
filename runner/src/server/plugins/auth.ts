@@ -72,8 +72,8 @@ export default {
         method: "get",
         path: "/logout",
         handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-          // TODO: Also remove other session data?
           request.cookieAuth.clear();
+          request.yar.reset();
 
           return redirectTo(request, h, "/");
         },

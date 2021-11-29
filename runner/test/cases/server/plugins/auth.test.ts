@@ -69,14 +69,46 @@ suite("Server Auth", () => {
       expect(res.headers.location).to.equal("/foo-bar");
     });
 
-    test("sign out clears the auth cookie and redirects to start page", async () => {
-      const options = {
+    test.only("sign out clears the auth cookie and session and redirects to start page", async () => {
+      // Create an initial session
+      const prepResponse = await server.inject({
+        method: "GET",
+        url: "/",
+      });
+      const initialSession = prepResponse.headers["set-cookie"].find((cookie) =>
+        cookie.startsWith("session=")
+      );
+
+      // We can first check the created session works as expected:
+      const checkPrepResponse = await server.inject({
+        method: "GET",
+        url: "/",
+        headers: {
+          Cookie: initialSession.replace("Secure; HttpOnly; ", ""),
+        },
+      });
+      expect(
+        checkPrepResponse.headers["set-cookie"].find((cookie) =>
+          cookie.startsWith("session=")
+        )
+      ).to.be.undefined();
+
+      // Provide created session to prevent `inject` automatically creating a new one
+      const res = await server.inject({
         method: "GET",
         url: "/logout",
-      };
+        headers: {
+          Cookie: initialSession.replace("Secure; HttpOnly; ", ""),
+        },
+      });
 
-      const res = await server.inject(options);
+      // Now we test that we _have_ created a new session
+      const newSession = res.headers["set-cookie"].find((cookie) =>
+        cookie.startsWith("session=")
+      );
 
+      expect(newSession).to.not.be.undefined();
+      expect(newSession).to.not.equal(initialSession);
       expect(
         res.headers["set-cookie"].filter((cookie) =>
           cookie.startsWith("auth=;")
