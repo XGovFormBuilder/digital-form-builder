@@ -69,7 +69,7 @@ suite("Server Auth", () => {
       expect(res.headers.location).to.equal("/foo-bar");
     });
 
-    test.only("sign out clears the auth cookie and session and redirects to start page", async () => {
+    test("sign out clears the auth cookie and session and redirects to start page", async () => {
       // Create an initial session
       const prepResponse = await server.inject({
         method: "GET",
