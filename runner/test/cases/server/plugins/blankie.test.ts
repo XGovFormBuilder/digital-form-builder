@@ -55,7 +55,7 @@ suite("Server Blankie Plugin", () => {
       defaultSrc: ["self"],
       fontSrc: ["self", "data:", "fonts.gstatic.com"],
       frameSrc: ["self", "data:", "www.googletagmanager.com"],
-      connectSrc: ["self"],
+      connectSrc: ["self", "www.google-analytics.com"],
       scriptSrc: [
         "self",
         "unsafe-inline",
@@ -78,6 +78,7 @@ suite("Server Blankie Plugin", () => {
         "www.gstatic.com",
         "ssl.gstatic.com",
         "www.googletagmanager.com",
+        "www.google-analytics.com",
       ],
       generateNonces: false,
     });
@@ -94,7 +95,7 @@ suite("Server Blankie Plugin", () => {
       defaultSrc: ["self"],
       fontSrc: ["self", "data:", "fonts.gstatic.com"],
       frameSrc: ["self", "data:", "www.googletagmanager.com"],
-      connectSrc: ["self"],
+      connectSrc: ["self", "www.google-analytics.com"],
       scriptSrc: [
         "self",
         "unsafe-inline",
@@ -117,6 +118,7 @@ suite("Server Blankie Plugin", () => {
         "www.gstatic.com",
         "ssl.gstatic.com",
         "www.googletagmanager.com",
+        "www.google-analytics.com",
       ],
       generateNonces: false,
     });

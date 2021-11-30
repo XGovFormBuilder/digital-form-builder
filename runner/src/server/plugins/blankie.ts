@@ -10,6 +10,7 @@ type Config = {
 };
 
 type Google = {
+  connectSrc: string[];
   fontSrc: string[];
   frameSrc: string[];
   imgSrc: string[];
@@ -22,6 +23,7 @@ export const configureBlankiePlugin = (
 ): ServerRegisterPluginObject<Blankie> => {
   const { gtmId1, gtmId2, matomoUrl } = config;
   const google: Google = {
+    connectSrc: [],
     fontSrc: [],
     frameSrc: [],
     imgSrc: [],
@@ -43,12 +45,14 @@ export const configureBlankiePlugin = (
   }
 
   if (gtmId1 || gtmId2) {
+    google.connectSrc.push("www.google-analytics.com");
     google.fontSrc.push("fonts.gstatic.com");
     google.frameSrc.push("www.googletagmanager.com");
     google.imgSrc.push(
       "www.gstatic.com",
       "ssl.gstatic.com",
-      "www.googletagmanager.com"
+      "www.googletagmanager.com",
+      "www.google-analytics.com"
     );
     google.scriptSrc.push(
       "www.google-analytics.com",
@@ -67,7 +71,7 @@ export const configureBlankiePlugin = (
     options: {
       defaultSrc: ["self"],
       fontSrc: ["self", "data:", ...google.fontSrc],
-      connectSrc: ["self", ...matomoSrc],
+      connectSrc: ["self", ...google.connectSrc, ...matomoSrc],
       scriptSrc: [
         "self",
         "unsafe-inline",
