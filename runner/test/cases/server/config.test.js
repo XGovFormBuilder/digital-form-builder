@@ -187,6 +187,40 @@ suite(`Server Config`, () => {
     expect(config.lastTag).to.equal("LAST TAG");
   });
 
+  test("it throws when oAuth config is incomplete", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      AUTH_ENABLED: true,
+    };
+
+    expect(() => buildConfig()).to.throw(
+      Error,
+      'The server config is invalid. "authClientId" is required. "authClientSecret" is required. "authClientAuthUrl" is required. "authClientTokenUrl" is required. "authClientProfileUrl" is required'
+    );
+  });
+
+  test("it captures oAuth config", () => {
+    process.env = {
+      ...process.env,
+      ...customVariables,
+      AUTH_ENABLED: "true",
+      AUTH_CLIENT_AUTH_URL: "oAuth auth url",
+      AUTH_CLIENT_TOKEN_URL: "oAuth token url",
+      AUTH_CLIENT_PROFILE_URL: "oAuth profile url",
+      AUTH_CLIENT_ID: "oAuth client ID",
+      AUTH_CLIENT_SECRET: "oAuth client secret",
+    };
+
+    const config = buildConfig();
+    expect(config.authEnabled).to.equal(true);
+    expect(config.authClientAuthUrl).to.equal("oAuth auth url");
+    expect(config.authClientTokenUrl).to.equal("oAuth token url");
+    expect(config.authClientProfileUrl).to.equal("oAuth profile url");
+    expect(config.authClientId).to.equal("oAuth client ID");
+    expect(config.authClientSecret).to.equal("oAuth client secret");
+  });
+
   // TODO
   test("Error is throw when required environment value XXX is missing");
   test("Notify Required environment variables in production");

@@ -79,6 +79,27 @@ const schema = Joi.object({
   lastCommit: Joi.string().default("undefined"),
   lastTag: Joi.string().default("undefined"),
   apiEnv: Joi.string().allow("test", "production", "").optional(),
+  authEnabled: Joi.boolean().optional(),
+  authClientId: Joi.string().when("authEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  authClientSecret: Joi.string().when("authEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  authClientAuthUrl: Joi.string().when("authEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  authClientTokenUrl: Joi.string().when("authEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
+  authClientProfileUrl: Joi.string().when("authEnabled", {
+    then: Joi.required(),
+    otherwise: Joi.optional(),
+  }),
 });
 
 export function buildConfig() {
@@ -118,6 +139,12 @@ export function buildConfig() {
     lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
     lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
     apiEnv: process.env.API_ENV,
+    authEnabled: process.env.AUTH_ENABLED,
+    authClientId: process.env.AUTH_CLIENT_ID,
+    authClientSecret: process.env.AUTH_CLIENT_SECRET,
+    authClientAuthUrl: process.env.AUTH_CLIENT_AUTH_URL,
+    authClientTokenUrl: process.env.AUTH_CLIENT_TOKEN_URL,
+    authClientProfileUrl: process.env.AUTH_CLIENT_PROFILE_URL,
   };
 
   // Validate config

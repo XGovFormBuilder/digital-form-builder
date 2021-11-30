@@ -78,6 +78,9 @@ export default {
       serviceStartPage: config.serviceStartPage || "#",
       privacyPolicyUrl: config.privacyPolicyUrl || "#",
       phaseTag: config.phaseTag,
+      navigation: request?.auth.isAuthenticated
+        ? [{ text: "Sign out", href: "/logout" }]
+        : null,
     }),
   },
 };

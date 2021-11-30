@@ -13,6 +13,7 @@ import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
+import pluginAuth from "./plugins/auth";
 import pluginViews from "./plugins/views";
 import pluginApplicationStatus from "./plugins/applicationStatus";
 import pluginRouter from "./plugins/router";
@@ -20,15 +21,15 @@ import pluginErrorPages from "./plugins/errorPages";
 import pluginLogging from "./plugins/logging";
 import pluginPulse from "./plugins/pulse";
 import {
+  AddressService,
   CacheService,
   catboxProvider,
   EmailService,
   NotifyService,
   PayService,
+  StatusService,
   UploadService,
   WebhookService,
-  AddressService,
-  StatusService,
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
@@ -89,6 +90,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(pluginLogging);
   await server.register(Schmervice);
+  await server.register(pluginAuth);
 
   server.registerService([
     CacheService,
