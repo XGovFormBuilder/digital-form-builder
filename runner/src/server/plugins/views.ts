@@ -62,7 +62,7 @@ export default {
     context: (request: HapiRequest) => ({
       appVersion: pkg.version,
       assetPath: "/assets",
-      cookiesPolicy: request?.state.cookies_policy,
+      cookiesPolicy: request?.state?.cookies_policy,
       serviceName: capitalize(config.serviceName),
       feedbackLink: config.feedbackLink,
       pageTitle: config.serviceName + " - GOV.UK",
