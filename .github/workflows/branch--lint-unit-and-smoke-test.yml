@@ -7,6 +7,7 @@ on:
       - 'docs/**'
       - '**/README.md'
   workflow_dispatch:
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -16,55 +17,11 @@ jobs:
     name: lint-and-test-${{matrix.app}}
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v2
+      - uses: ./.github/actions/lint-test
         with:
-          node-version: "16.x"
+          app: ${{matrix.app}}
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - name: Configure yarn caching
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Check existing forms
-        if: ${{ matrix.app == 'runner' }}
-        run: yarn runner check-forms
-
-      - name: Build dependencies
-        run: yarn build:dependencies
-
-      - name: Lint
-        run: yarn ${{matrix.app}} lint
-
-      - name: Test
-        run: yarn ${{matrix.app}} test-cov
-
-      - name: Upload test results artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-results-${{matrix.app}}
-          path: ${{matrix.app}}/test-results
-          retention-days: 14
-
-      - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-coverage-${{matrix.app}}
-          path: ${{matrix.app}}/test-coverage
-          retention-days: 14
 
   smoke-test:
     runs-on: ubuntu-latest
@@ -78,20 +35,20 @@ jobs:
         # so main branch cache can be shared with branches
       - run: echo "DAYOFYEAR = $(date +%j)"
       - run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-#      - name: Docker layer caching
-#        uses: satackey/action-docker-layer-caching@v0.0.11
-#        continue-on-error: true
-#        with:
-#          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
-#          restore-keys: |
-#            digital-form-builder-${{ env.DAYOFYEAR }}
+      - name: Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
+          restore-keys: |
+            digital-form-builder-${{ env.DAYOFYEAR }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
           echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
-      - run: docker-compose build
+      - run: docker compose build
       - name: Docker compose up
         run: docker-compose up -d
       - name: Check designer container is running

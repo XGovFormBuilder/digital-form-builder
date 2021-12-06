@@ -1,0 +1,65 @@
+name: Lint and test
+description: Lint and test
+inputs:
+  app:
+    description: Workspace to run linting and tests against. Valid workspaces are "designer", "runner" or "model"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: "16.x"
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      shell: bash
+
+    - name: Configure yarn caching
+      uses: actions/cache@v2
+      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Install dependencies
+      run: yarn install
+      shell: bash
+
+    - name: Check existing forms
+      if: ${{ matrix.app == 'runner' }}
+      run: yarn runner check-forms
+      shell: bash
+
+    - name: Build dependencies
+      run: yarn build:dependencies
+      shell: bash
+
+    - name: Lint
+      run: yarn ${{matrix.app}} lint
+      shell: bash
+
+    - name: Test
+      run: yarn ${{matrix.app}} test-cov
+      shell: bash
+
+    - name: Upload test results artifacts
+      uses: actions/upload-artifact@v2
+      if: ${{ success() || failure() }}
+      with:
+        name: test-results-${{matrix.app}}
+        path: ${{matrix.app}}/test-results
+        retention-days: 14
+
+    - name: Upload test coverage artifacts
+      uses: actions/upload-artifact@v2
+      if: ${{ success() || failure() }}
+      with:
+        name: test-coverage-${{matrix.app}}
+        path: ${{matrix.app}}/test-coverage
+        retention-days: 14

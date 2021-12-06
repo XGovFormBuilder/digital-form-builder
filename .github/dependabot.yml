@@ -6,7 +6,7 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
   reviewers:
-  - gstevenson
+  - jenbutongit
   ignore:
   - dependency-name: webpack
     versions:
@@ -54,3 +54,18 @@ updates:
   - dependency-name: node-sass
     versions:
     - 5.0.0
+
+  - package-ecosystem: "npm"
+    directory: "designer"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "runner"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "npm"
+    directory: "model"
+    schedule:
+      interval: "daily"
