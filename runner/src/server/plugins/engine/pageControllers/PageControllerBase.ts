@@ -22,6 +22,7 @@ import {
   FormSubmissionState,
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
+import { format, parseISO } from "date-fns";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -287,6 +288,8 @@ export class PageControllerBase {
    */
   getErrors(validationResult): FormSubmissionErrors | undefined {
     if (validationResult && validationResult.error) {
+      const isoRegex = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+
       return {
         titleText: this.errorSummaryTitle,
         errorList: validationResult.error.details.map((err) => {
@@ -300,7 +303,9 @@ export class PageControllerBase {
             path: err.path.join("."),
             href: `#${name}`,
             name: name,
-            text: err.message,
+            text: err.message.replace(isoRegex, (text) => {
+              return format(parseISO(text), "d MMMM yyyy");
+            }),
           };
         }),
       };
@@ -693,7 +698,7 @@ export class PageControllerBase {
   }
 
   get validationOptions() {
-    return { abortEarly: false, messages };
+    return { abortEarly: false, messages, dateFormat: "iso" };
   }
 
   get conditionOptions() {

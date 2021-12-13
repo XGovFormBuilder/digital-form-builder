@@ -1,4 +1,4 @@
-import moment from "moment";
+import { add, sub, parseISO, format } from "date-fns";
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
@@ -25,7 +25,6 @@ export class DatePartsField extends FormComponent {
     const isRequired =
       "required" in options && options.required === false ? false : true;
     const optionalText = "optionalText" in options && options.optionalText;
-
     this.children = new ComponentCollection(
       [
         {
@@ -80,18 +79,12 @@ export class DatePartsField extends FormComponent {
     const { maxDaysInPast, maxDaysInFuture } = options as any;
     let schema: any = this.stateSchema;
 
-    if (maxDaysInPast !== undefined) {
-      const d = new Date();
-      d.setDate(d.getDate() - maxDaysInPast);
-      const min = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
-      schema = schema.min(min);
+    if (maxDaysInPast ?? false) {
+      schema = schema.min(sub(new Date(), { days: maxDaysInPast }));
     }
 
-    if (maxDaysInFuture !== undefined) {
-      const d = new Date();
-      d.setDate(d.getDate() + maxDaysInFuture);
-      const max = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
-      schema = schema.max(max);
+    if (maxDaysInFuture ?? false) {
+      schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
     }
 
     return { [this.name]: schema };
@@ -110,25 +103,21 @@ export class DatePartsField extends FormComponent {
   }
 
   getStateValueFromValidForm(payload: FormPayload) {
-    // Use `moment` to parse the date as
-    // opposed to the Date constructor.
-    // `moment` will check that the individual date
-    // parts together constitute a valid date.
-    // E.g. 31 November is not a valid date
     const name = this.name;
+
     return payload[`${name}__year`]
-      ? moment([
+      ? new Date(
           payload[`${name}__year`],
           payload[`${name}__month`] - 1,
-          payload[`${name}__day`],
-        ]).toDate()
+          payload[`${name}__day`]
+        )
       : null;
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? moment(value).format("D MMMM YYYY") : "";
+    return value ? format(parseISO(value), "d MMMM yyyy") : "";
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc

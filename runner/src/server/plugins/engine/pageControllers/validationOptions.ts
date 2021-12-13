@@ -1,5 +1,4 @@
 import { ValidationOptions } from "joi";
-
 /**
  * see @link https://joi.dev/api/?v=17.4.2#template-syntax for template syntax
  */
@@ -32,6 +31,6 @@ export const messages: ValidationOptions["messages"] = {
   "any.required": messageTemplate.required,
   "any.empty": messageTemplate.required,
 
-  "date.min": "{{#label}} must be in the future",
-  "date.max": "{{#label}} must be in the past",
+  "date.min": "{{#label}} must be on or after {{#limit}}",
+  "date.max": "{{#label}} must be on or before {{#limit}}",
 };

@@ -141,6 +141,8 @@ interface DateFieldBase {
     hideTitle?: boolean;
     required?: boolean;
     optionalText?: boolean;
+    maxDaysInFuture?: number;
+    maxDaysInPast?: number;
   };
   schema: {};
 }
