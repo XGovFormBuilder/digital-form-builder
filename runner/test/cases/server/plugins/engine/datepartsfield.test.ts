@@ -77,6 +77,28 @@ suite("Date parts field", () => {
     expect(returned.errorMessage.text).to.equal('"Day" must be a number');
     expect(underTest.getViewModel({}).errorMessage).to.be.undefined();
   });
+
+  test("Error is displayed when max days in past set", () => {
+    const def = {
+      name: "myComponent",
+      title: "My component",
+      options: { required: true, maxDaysInPast: 30 },
+      schema: {},
+      type: "DatePartsField",
+    };
+    //{
+    //       [`${name}__day`]: value && dateValue.getDate(),
+    //       [`${name}__month`]: value && dateValue.getMonth() + 1,
+    //       [`${name}__year`]: value && dateValue.getFullYear(),
+    //     }
+    const underTest = new DatePartsField(def);
+    const returned = underTest.getViewModel({
+      myComponent__day: 1,
+      myComponent__month: 3,
+      myComponent__year: 2021,
+    });
+    expect(returned.errorMessage).to.not.be.undefined();
+  });
 });
 
 function dateComponent(name, width) {
