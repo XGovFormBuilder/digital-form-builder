@@ -55,7 +55,7 @@ export class DateField extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? format(parseISO(value), "D MMMM YYYY") : "";
+    return value ? format(parseISO(value), "d MMMM yyyy") : "";
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
