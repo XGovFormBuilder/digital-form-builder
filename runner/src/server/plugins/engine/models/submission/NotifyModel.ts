@@ -3,8 +3,13 @@ import { FormSubmissionState } from "server/plugins/engine/types";
 import { reach } from "hoek";
 import { NotifyOutputConfiguration } from "@xgovformbuilder/model";
 
-export type NotifyModel = Omit<NotifyOutputConfiguration, "emailField"> & {
+export type NotifyModel = Omit<
+  NotifyOutputConfiguration,
+  "emailField",
+  "replyToConfiguration"
+> & {
   emailAddress: string;
+  emailReplyToId?: string;
 };
 
 /**
@@ -27,6 +32,12 @@ export function NotifyModel(
     {}
   );
 
+  const emailReplyToId = outputConfiguration?.replyToConfiguration?.find(
+    ({ condition }) => {
+      return condition?.fn(state);
+    }
+  )?.id;
+
   return {
     templateId: outputConfiguration.templateId,
     personalisation,
@@ -34,5 +45,6 @@ export function NotifyModel(
     apiKey: outputConfiguration.apiKey,
     addReferencesToPersonalisation:
       outputConfiguration.addReferencesToPersonalisation,
+    emailReplyToId,
   };
 }

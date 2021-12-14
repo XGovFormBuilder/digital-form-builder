@@ -67,6 +67,7 @@ export type NotifyOutputConfiguration = {
   emailField: string;
   personalisation: string[];
   addReferencesToPersonalisation?: boolean;
+  replyToConfiguration?: { id: string; condition?: string | undefined }[];
 };
 
 export type WebhookOutputConfiguration = {
