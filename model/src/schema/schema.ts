@@ -86,8 +86,10 @@ const componentSchema = joi
     title: localisedString,
     hint: localisedString.optional(),
     options: joi.object().default({}),
-    schema: joi.object().default({}),
-    errors: joi.object({ a: joi.any() }).optional(),
+    schema: joi
+      .object({ min: joi.number(), max: joi.number() })
+      .unknown(true)
+      .default({}),
     list: joi.string(),
   })
   .unknown(true);
