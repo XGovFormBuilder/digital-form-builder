@@ -42,7 +42,6 @@ export class DateField extends FormComponent {
   getFormValueFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    console.log(value);
     return value ? format(parseISO(value), "yyyy-MM-dd") : value;
   }
 
