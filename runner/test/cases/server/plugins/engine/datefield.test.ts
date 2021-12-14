@@ -41,7 +41,7 @@ suite("Date field", () => {
   test("Error is displayed correctly when maxDaysInFuture configured", () => {
     const def = {
       ...baseDef,
-      options: { required: false, maxDaysInFuture: 5 },
+      options: { maxDaysInFuture: 5 },
     };
     const dateField = new DateField(def);
     const { schema } = dateField;
@@ -60,7 +60,7 @@ suite("Date field", () => {
   test("Error is displayed correctly when maxDaysInPast configured", () => {
     const def = {
       ...baseDef,
-      options: { required: false, maxDaysInPast: 5 },
+      options: { maxDaysInPast: 5 },
     };
     const dateField = new DateField(def);
     const { schema } = dateField;
