@@ -24,7 +24,7 @@ It will also deal with hoisting the node_modules for any packages that are share
 
 **Always run scripts from the root directory.**
 
-1. Make sure you are using node >=12. upto 14. `node --version`.
+1. Make sure you are using node >=16. `node --version`.
 2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
 3. Run `$ yarn` command to install all dependencies in all workspaces.
 4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
@@ -104,24 +104,6 @@ The latest releases will be running here: [Runner](https://digital-form-builder-
 
 ### Smoke tests
 
-A suite of smoke tests are run against all PRs. There is a Cron Job that executes smoke tests against the Heroku deployments and is scheduled to run at midnight every day.
+A suite of smoke tests are run against all PRs. There is a Cron Job that executes smoke tests against the Heroku deployments and is scheduled to run at midnight every day. 
 
-To run the smoke tests locally, you start the containers up using the command
-
-```
-docker-compose up --build
-```
-Then smoke test can be executed using command
-
-```
-yarn smoke-tests/designer smoke-test-headless
-```
-
-Pre-requite for running smoke test are:
- 1. Yarn 
- 2. JVM 
- 2. a browser like chrome
- 3. Node version 12+ upto 14
- 4. yarn install
- 
- More details are on [Smoke Tests](./smoke-tests/README.md)
+The current smoke test suite is in a separate [repository](https://github.com/XGovFormBuilder/digital-form-builder-legacy-smoke-tests). Full details of why they've been moved is in [issue #659](https://github.com/XGovFormBuilder/digital-form-builder/issues/659) 
