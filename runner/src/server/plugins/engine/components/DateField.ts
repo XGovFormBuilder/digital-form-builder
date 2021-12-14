@@ -28,7 +28,14 @@ export class DateField extends FormComponent {
       schema = schema.max(add(new Date(), { days: maxDaysInFuture }));
     }
 
-    this.schema = schema;
+    if (options.required === false) {
+      const optionalSchema = joi
+        .alternatives()
+        .try(joi.string().allow(null).allow("").default("").optional(), schema);
+      this.schema = optionalSchema;
+    } else {
+      this.schema = schema;
+    }
   }
 
   getFormSchemaKeys() {
