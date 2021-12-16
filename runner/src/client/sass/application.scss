@@ -4,6 +4,20 @@
 @import "modal-dialog";
 @import "upload-dialog";
 
+@mixin govuk-global-styles {
+  a {
+    @extend %govuk-link;
+  }
+
+  p {
+    @extend %govuk-body-m;
+  }
+}
+
+@include govuk-global-styles;
+
+$govuk-global-styles: true;
+
 .flash-card {
   .govuk-button {
     background: #fff;
