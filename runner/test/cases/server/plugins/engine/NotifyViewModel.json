@@ -1,0 +1,140 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "Your details",
+      "path": "/first-page",
+      "section": "aSection",
+      "components": [
+        {
+          "name": "name",
+          "type": "TextField",
+          "options": {
+            "required": true
+          },
+          "title": "your name",
+          "schema": {}
+        },
+        {
+          "name": "emailAddress",
+          "type": "TextField",
+          "options": {
+            "required": true
+          },
+          "title": "your email",
+          "schema": {}
+        },
+        {
+          "name": "caz",
+          "type": "SelectField",
+          "options": {
+            "required": true
+          },
+          "list": "zone",
+          "title": "caz zone",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "CAZ Location",
+      "name": "zone",
+      "type": "string",
+      "items": [
+        {
+          "text": "Bath",
+          "value": 1
+        },
+        {
+          "text": "Bristol",
+          "value": 2
+        },
+        {
+          "text": "Birmingham",
+          "value": 3
+        },
+        {
+          "text": "Cardiff",
+          "value": 4
+        },
+        {
+          "text": "Liverpool",
+          "value": 6
+        },
+        {
+          "text": "Leeds",
+          "value": 7
+        },
+        {
+          "text": "Manchester",
+          "value": 8
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "aSection",
+      "title": "Named Section"
+    }
+  ],
+  "conditions": [
+    {
+      "name": "nameIsJen",
+      "displayName": "nameIsJen",
+      "value": "aSection.name=='Jen'"
+    },
+    {
+      "name": "isBristol",
+      "displayName": "isBristol",
+      "value": "aSection.caz==2"
+    }
+  ],
+  "fees": [
+  ],
+  "outputs": [
+    {
+      "name": "notify",
+      "type": "notify",
+      "outputConfiguration": {
+        "apiKey": {
+          "test": "testKey",
+          "production": "productionKey"
+        },
+        "templateId": "some-template-id",
+        "emailField": "aSection.emailAddress",
+        "addReferencesToPersonalisation": true,
+        "personalisation": [
+          "aSection.name",
+          "nameIsJen"
+        ],
+        "emailReplyToIdConfiguration": [
+          {
+            "emailReplyToId": "default-email-id"
+          },
+          {
+            "emailReplyToId": "bristol-email-id",
+            "condition": "isBristol"
+          }
+        ]
+      }
+    }
+  ],
+  "version": 2,
+  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "skipSummary": false
+}
