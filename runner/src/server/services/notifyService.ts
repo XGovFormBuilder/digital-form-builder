@@ -57,6 +57,7 @@ export class NotifyService {
     const parsedOptions: SendEmailOptions = {
       personalisation: this.parsePersonalisations(personalisation),
       reference,
+      emailReplyToId,
     };
 
     const notifyClient: any = new NotifyClient(apiKey);
