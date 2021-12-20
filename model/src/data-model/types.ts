@@ -68,7 +68,7 @@ export type NotifyOutputConfiguration = {
   personalisation: string[];
   addReferencesToPersonalisation?: boolean;
   emailReplyToIdConfiguration?: {
-    replyToId: string;
+    emailReplyToId: string;
     condition?: string | undefined;
   }[];
 };
