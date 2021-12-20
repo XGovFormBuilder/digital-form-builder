@@ -45,7 +45,13 @@ export class NotifyService {
   }
 
   sendNotification(args: SendNotificationArgs) {
-    const { templateId, emailAddress, personalisation, reference } = args;
+    const {
+      templateId,
+      emailAddress,
+      personalisation,
+      reference,
+      emailReplyToId,
+    } = args;
     let { apiKey } = args;
 
     if (isMultipleApiKey(apiKey)) {
