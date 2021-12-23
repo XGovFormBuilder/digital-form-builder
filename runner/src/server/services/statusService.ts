@@ -165,6 +165,7 @@ export class StatusService {
       emailAddress,
       personalisation = {},
       addReferencesToPersonalisation = false,
+      emailReplyToId,
     } = outputData;
 
     return {
@@ -181,6 +182,7 @@ export class StatusService {
       apiKey,
       templateId,
       emailAddress,
+      emailReplyToId,
     };
   }
 

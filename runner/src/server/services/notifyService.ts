@@ -19,6 +19,7 @@ export type SendNotificationArgs = {
   emailAddress: string;
   personalisation: Personalisation;
   reference: string;
+  replyToEmailId?: string;
 };
 
 export class NotifyService {
@@ -44,7 +45,13 @@ export class NotifyService {
   }
 
   sendNotification(args: SendNotificationArgs) {
-    const { templateId, emailAddress, personalisation, reference } = args;
+    const {
+      templateId,
+      emailAddress,
+      personalisation,
+      reference,
+      emailReplyToId,
+    } = args;
     let { apiKey } = args;
 
     if (isMultipleApiKey(apiKey)) {
@@ -56,6 +63,7 @@ export class NotifyService {
     const parsedOptions: SendEmailOptions = {
       personalisation: this.parsePersonalisations(personalisation),
       reference,
+      emailReplyToId,
     };
 
     const notifyClient: any = new NotifyClient(apiKey);

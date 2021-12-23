@@ -3,8 +3,15 @@ import { FormSubmissionState } from "server/plugins/engine/types";
 import { reach } from "hoek";
 import { NotifyOutputConfiguration } from "@xgovformbuilder/model";
 
-export type NotifyModel = Omit<NotifyOutputConfiguration, "emailField"> & {
+export type NotifyModel = Omit<
+  NotifyOutputConfiguration,
+  "emailField" | "replyToConfiguration" | "personalisation"
+> & {
   emailAddress: string;
+  emailReplyToId?: string;
+  personalisation: {
+    [key: string]: string | boolean;
+  };
 };
 
 /**
@@ -12,11 +19,20 @@ export type NotifyModel = Omit<NotifyOutputConfiguration, "emailField"> & {
  */
 export function NotifyModel(
   model: FormModel,
-  outputConfiguration,
+  outputConfiguration: NotifyOutputConfiguration,
   state: FormSubmissionState
 ): NotifyModel {
+  const {
+    addReferencesToPersonalisation,
+    apiKey,
+    emailField,
+    personalisation: personalisationConfiguration,
+    emailReplyToIdConfiguration,
+    templateId,
+  } = outputConfiguration;
+
   // @ts-ignore - eslint does not report this as an error, only tsc
-  const personalisation = outputConfiguration.personalisation.reduce(
+  const personalisation: NotifyModel["personalisation"] = personalisationConfiguration.reduce(
     (acc, curr) => {
       const condition = model.conditions[curr];
       return {
@@ -27,12 +43,25 @@ export function NotifyModel(
     {}
   );
 
+  const defaultReplyToId = emailReplyToIdConfiguration?.find(
+    ({ condition }) => !condition
+  )?.emailReplyToId;
+
+  const conditionalReplyTos = emailReplyToIdConfiguration?.filter(
+    ({ condition }) => !!condition
+  );
+
+  const emailReplyToId =
+    conditionalReplyTos?.find(({ condition }) => {
+      return model.conditions[condition!]?.fn?.(state);
+    })?.emailReplyToId ?? defaultReplyToId;
+
   return {
-    templateId: outputConfiguration.templateId,
+    templateId: templateId,
     personalisation,
-    emailAddress: reach(state, outputConfiguration.emailField),
-    apiKey: outputConfiguration.apiKey,
-    addReferencesToPersonalisation:
-      outputConfiguration.addReferencesToPersonalisation,
+    emailAddress: reach(state, emailField) as string,
+    apiKey: apiKey,
+    addReferencesToPersonalisation,
+    ...(emailReplyToId && { emailReplyToId }),
   };
 }
