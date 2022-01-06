@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\designer\\client",
+    "\\designer\\client\\__tests__",
+    "\\designer\\test",
+    "\\designer\\test\\outputs",
+    "\\smoke-tests",
+    "\\smoke-tests\\designer",
+    "\\smoke-tests\\designer\\data",
+    "\\smoke-tests\\designer\\features",
+    "\\smoke-tests\\designer\\features\\actions"
+  ],
+  "SelectedNode": "\\smoke-tests\\designer\\features\\actions\\actions.js",
+  "PreviewInSolutionExplorer": false
+}
