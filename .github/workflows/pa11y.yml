@@ -1,4 +1,4 @@
-name: Branch QA
+name: pa11y
 on:
   pull_request:
     branches:
