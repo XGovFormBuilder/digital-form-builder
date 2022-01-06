@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Install pa11y-ci
+        run: npm install pa11y-ci
+
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
         run: yarn runner check-forms
