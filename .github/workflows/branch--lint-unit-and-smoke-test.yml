@@ -36,10 +36,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn install
-
-      - name: Install pa11y-ci
-        run: npm install pa11y-ci
+        run: yarn install      
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
@@ -116,6 +113,8 @@ jobs:
         run: docker-compose up -d
       - name: Install smoke tests dependencies
         run: yarn workspaces focus @xgovformbuilder/test
+      - name: Install pa11y-ci
+        run: npm install pa11y-ci
       - name: Check designer container is running
         run: |
           docker ps
