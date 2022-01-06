@@ -114,7 +114,7 @@ jobs:
       - name: Install smoke tests dependencies
         run: yarn workspaces focus @xgovformbuilder/test
       - name: Install pa11y-ci
-        run: npm install pa11y-ci
+        run: yarn install pa11y-ci
       - name: Check designer container is running
         run: |
           docker ps
