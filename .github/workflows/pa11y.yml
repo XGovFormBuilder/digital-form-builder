@@ -68,4 +68,4 @@ jobs:
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
      
       - name: pa11y
-        run: yarn pa11y-ci
+        run: yarn designer pa11y-ci
