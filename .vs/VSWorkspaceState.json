@@ -1,16 +1,18 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\.yarn\\plugins\\@yarnpkg",
+    "\\.yarn\\releases",
+    "\\designer",
     "\\designer\\client",
-    "\\designer\\client\\__tests__",
-    "\\designer\\test",
-    "\\designer\\test\\outputs",
-    "\\smoke-tests",
+    "\\designer\\client\\components",
+    "\\designer\\client\\components\\Autocomplete\\__tests__",
     "\\smoke-tests\\designer",
-    "\\smoke-tests\\designer\\data",
     "\\smoke-tests\\designer\\features",
-    "\\smoke-tests\\designer\\features\\actions"
+    "\\smoke-tests\\designer\\features\\steps"
   ],
-  "SelectedNode": "\\smoke-tests\\designer\\features\\actions\\actions.js",
+  "SelectedNode": "\\.github\\workflows\\branch--lint-unit-and-smoke-test.yml",
   "PreviewInSolutionExplorer": false
 }
