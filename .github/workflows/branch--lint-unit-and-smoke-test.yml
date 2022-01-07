@@ -129,6 +129,12 @@ jobs:
         if: ${{ success() || failure() }}
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
       - uses: actions/upload-artifact@v2
+      - name: Install pa11y-ci
+        run: npm install -g pa11y-ci
+      - name: pa11y
+        run: | 
+          cd designer 
+          npx pa11y-ci
         if: ${{ success() || failure() }}
         with:
           name: smoke-tests
