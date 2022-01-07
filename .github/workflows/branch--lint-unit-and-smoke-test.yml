@@ -113,8 +113,6 @@ jobs:
         run: docker-compose up -d
       - name: Install smoke tests dependencies
         run: yarn workspaces focus @xgovformbuilder/test
-      - name: Install pa11y-ci
-        run: npm install -g pa11y-ci
       - name: Check designer container is running
         run: |
           docker ps
@@ -131,10 +129,6 @@ jobs:
         if: ${{ success() || failure() }}
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
       - uses: actions/upload-artifact@v2
-      - name: pa11y
-        run: | 
-          cd designer 
-          npx pa11y-ci
         if: ${{ success() || failure() }}
         with:
           name: smoke-tests
