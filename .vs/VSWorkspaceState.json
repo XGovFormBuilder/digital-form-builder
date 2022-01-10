@@ -3,16 +3,15 @@
     "",
     "\\.github",
     "\\.github\\workflows",
-    "\\.yarn\\plugins\\@yarnpkg",
-    "\\.yarn\\releases",
+    "\\.yarn",
+    "\\.yarn\\plugins",
     "\\designer",
     "\\designer\\client",
-    "\\designer\\client\\components",
-    "\\designer\\client\\components\\Autocomplete\\__tests__",
-    "\\smoke-tests\\designer",
-    "\\smoke-tests\\designer\\features",
-    "\\smoke-tests\\designer\\features\\steps"
+    "\\designer\\client\\pages",
+    "\\designer\\client\\pages\\LandingPage",
+    "\\designer\\client\\pages\\LandingPage\\__tests__",
+    "\\smoke-tests"
   ],
-  "SelectedNode": "\\.github\\workflows\\branch--lint-unit-and-smoke-test.yml",
+  "SelectedNode": "\\.github\\workflows\\smoke-tests-heroku.yml",
   "PreviewInSolutionExplorer": false
 }
