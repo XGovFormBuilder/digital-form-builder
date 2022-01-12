@@ -18,7 +18,7 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          versionSpec: '5.x'
+          versionSpec: "5.x"
 
       - name: Determine Version
         id: gitversion
@@ -48,7 +48,7 @@ jobs:
       matrix:
         app: [designer, runner, model]
     env:
-      SEMVER:  ${{ needs.assign-semver.outputs.SEMVER }}
+      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     name: lint-and-test-${{matrix.app}}
     steps:
       - uses: actions/checkout@v2
