@@ -1,0 +1,6 @@
+---
+applications:
+  - name: cifu-xgov-runner
+    memory: 256M
+    env:
+      PREVIEW_MODE: true
