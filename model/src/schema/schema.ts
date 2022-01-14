@@ -172,12 +172,18 @@ const multiApiKeySchema = joi.object({
   production: joi.string().optional(),
 });
 
+const replyToConfigurationSchema = joi.object({
+  emailReplyToId: joi.string(),
+  condition: joi.string().allow("").optional(),
+});
+
 const notifySchema = joi.object().keys({
   apiKey: [joi.string().allow("").optional(), multiApiKeySchema],
   templateId: joi.string(),
   emailField: joi.string(),
   personalisation: joi.array().items(joi.string()),
   addReferencesToPersonalisation: joi.boolean().optional(),
+  emailReplyToIdConfiguration: joi.array().items(replyToConfigurationSchema),
 });
 
 const emailSchema = joi.object().keys({
