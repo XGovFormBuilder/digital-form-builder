@@ -1,6 +1,6 @@
-import createServer from "../../src/server";
+import createServer from "../../dist/server";
 import lighthouse from "lighthouse";
-import chromeLauncher from "chrome-launcher";
+import { launch } from "chrome-launcher";
 import fs from "fs";
 
 const opts = {
