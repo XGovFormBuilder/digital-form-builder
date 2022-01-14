@@ -4,6 +4,8 @@
 @import "modal-dialog";
 @import "upload-dialog";
 
+$govuk-global-styles: true;
+
 .flash-card {
   .govuk-button {
     background: #fff;
