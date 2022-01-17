@@ -29,13 +29,11 @@ createServer({ formFileName: "components.json", formFilePath: __dirname })
   });
 
 function launchChromeAndRunLighthouse(url, opts, config = null) {
-  return chromeLauncher
-    .launch({ chromeFlags: opts.chromeFlags })
-    .then((chrome) => {
-      opts.port = chrome.port;
-      return lighthouse(url, opts, config).then((results) => {
-        fs.writeFileSync(`./report.${opts.output}`, results.report);
-        return chrome.kill().then(() => results.lhr);
-      });
+  return launch({ chromeFlags: opts.chromeFlags }).then((chrome) => {
+    opts.port = chrome.port;
+    return lighthouse(url, opts, config).then((results) => {
+      fs.writeFileSync(`./report.${opts.output}`, results.report);
+      return chrome.kill().then(() => results.lhr);
     });
+  });
 }
