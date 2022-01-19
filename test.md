@@ -17,8 +17,15 @@
   - resolve-url-loader
   - react
   - react-dom
+  - sinon 
+  - prismjs 
+  - nunjucks 
+  - nodemon 
+  - i18next-parser
   
   ## Model
+  
+  
   
   
   
