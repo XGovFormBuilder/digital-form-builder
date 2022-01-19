@@ -2,7 +2,7 @@
 
 - Some of the devDepencies were being installed as dependencies, the following dependencies were removed moved back to devDependencies
 
-  ## Runner
+## Runner
 
   - sass
   - @babel/runtime
