@@ -8,19 +8,29 @@
   - @babel/runtime
 
   ## Designer
-
-
-
+  
+  - sass
+  - acorn
+  - dagre
+  - react-sortable-hoc
+  - react-simple-code-editor
+  - resolve-url-loader
+  - react
+  - react-dom
+  
   ## Model
+  
+  
   
 - Some of the devDepencies were being installed as dependencies, the
 
 
 
+- The following dependencies are depracated and are no longer avaliable
+  
+  - @xgovformbuilder/model@3.0.0 
+  - 
 
-
-- Change A
-- Change B
 
 ## Type of change
 
