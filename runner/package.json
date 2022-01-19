@@ -65,7 +65,7 @@
     "expr-eval": "^2.0.2",
     "flat": "5.0.2",
     "form-data": "3.0.0",
-    "googleapis": "64.0.0",
+    "googleapis": "92.0.0",
     "govuk-frontend": "^3.13.0",
     "hapi-pino": "9.1.0",
     "hapi-pulse": "3.0.0",
