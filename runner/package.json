@@ -39,7 +39,7 @@
     "@hapi/boom": "9.1.0",
     "@hapi/catbox": "11.1.0",
     "@hapi/catbox-memory": "5.0.0",
-    "@hapi/catbox-redis": "5.0.5",
+    "@hapi/catbox-redis": "6.0.2",
     "@hapi/code": "8.0.1",
     "@hapi/cookie": "^11.0.2",
     "@hapi/crumb": "8.0.0",
