@@ -1,7 +1,7 @@
 # [short title of solved problem and solution]
 
 * Status: proposed
-* Deciders: [@jenbutongit](https://github.com/superafroman) [@superafroman](https://github.com/superafroman) [@alisalaman-cyb](https://github.com/alisalaman-cyb)
+* Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/superafroman) [@superafroman](https://github.com/superafroman) [@alisalaman-cyb](https://github.com/alisalaman-cyb)
 * Date: 2022-02-02
 
 ## Context and Problem Statement
