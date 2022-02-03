@@ -8,5 +8,5 @@ export function allPathsLeadingTo(data: FormDefinition, path: Page["path"]) {
       next.path,
     ]);
   });
-  return dfs(edges, path, { reverse: true }).filter((p) => p !== path);
+  return dfs(edges, path, { reverse: true });
 }
