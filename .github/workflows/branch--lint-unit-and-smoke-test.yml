@@ -125,6 +125,8 @@ jobs:
         run: |
           yarn smoke-tests/designer smoke-test-headless
           ls -lah smoke-tests/designer/reports/
+      - name: Run pa11y
+        run: yarn designer dlx pa11y-ci
       - name: "Tar files"
         if: ${{ success() || failure() }}
         run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
