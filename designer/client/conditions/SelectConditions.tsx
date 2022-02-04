@@ -73,17 +73,17 @@ class SelectConditions extends React.Component<Props, State> {
     const { data } = this.context;
     const { fields = [] } = data;
     const { conditions = [] } = data;
+    var returnCon: any[] = [];
 
-    // for(var i =0; i < fields.length; i++) {
-    //   var name = fields[i].name;
-    //   for(var j = 0; j < conditions.length; j++) {
-    //     for(var k = 0; conditions[j].value.conditions.length; k++){
-    //       var fieldName = conditions[j].value.conditions[k].field.name;
-    //       if (name == fieldName)
-    //       returnCon.push(conditions[j]);
-    //     }
-    //   }
-    // }
+    for (var i = 0; i < fields.length; i++) {
+      var name = fields[i].name;
+      for (var j = 0; j < conditions.length; j++) {
+        for (var k = 0; conditions[j].value.conditions.length; k++) {
+          var fieldName = conditions[j].value.conditions[k].field.name;
+          if (name == fieldName) returnCon.push(conditions[j]);
+        }
+      }
+    }
   }
 
   onClickDefineCondition = (e) => {
