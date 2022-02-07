@@ -4,7 +4,6 @@ import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
 type Props = {
-  data: any; // TODO: type
 };
 
 type State = {
@@ -42,9 +41,9 @@ class OutputsEdit extends React.Component<Props, State> {
   };
 
   render() {
-    const { data } = this.props;
+    const data = this.context;
     const { outputs } = data;
-    const { output, id, showAddOutput } = this.state;
+    const { output, id, showAddOutput } = this.state; 
 
     return (
       <div className="govuk-body">

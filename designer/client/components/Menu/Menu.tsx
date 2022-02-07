@@ -86,19 +86,19 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       {page.isVisible && (
         <Flyout title="Add Page" onHide={page.hide}>
-          <PageCreate data={data} onCreate={() => page.hide()} />
+          <PageCreate onCreate={() => page.hide()} />
         </Flyout>
       )}
 
       {link.isVisible && (
         <Flyout title={i18n("menu.links")} onHide={link.hide}>
-          <LinkCreate data={data} onCreate={() => link.hide()} />
+          <LinkCreate onCreate={() => link.hide()} />
         </Flyout>
       )}
 
       {sections.isVisible && (
         <Flyout title="Edit Sections" onHide={sections.hide}>
-          <SectionsEdit data={data} />
+          <SectionsEdit />
         </Flyout>
       )}
 
@@ -123,13 +123,13 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
       )}
       {outputs.isVisible && (
         <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
-          <OutputsEdit data={data} />
+          <OutputsEdit/>
         </Flyout>
       )}
 
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
-          <FeeEdit data={data} onEdit={() => fees.hide()} />
+          <FeeEdit onEdit={() => fees.hide()} />
         </Flyout>
       )}
 
@@ -140,7 +140,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           width="xlarge"
         >
           <DeclarationEdit
-            data={data}
             onCreate={() => summaryBehaviour.hide()}
           />
         </Flyout>

@@ -33,7 +33,7 @@ class DeclarationEdit extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data } = this.context;
     const { declaration, skipSummary } = data;
 
     return (

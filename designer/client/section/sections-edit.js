@@ -1,10 +1,12 @@
 import React from "react";
 import SectionEdit from "./section-edit";
 import { RenderInPortal } from "../components/RenderInPortal";
+import { DataContext } from "../context";
 import { Flyout } from "../components/Flyout";
 
 class SectionsEdit extends React.Component {
   state = {};
+  static contextType = DataContext;
 
   onClickSection = (e, section) => {
     e.preventDefault();
@@ -26,13 +28,14 @@ class SectionsEdit extends React.Component {
   };
 
   findSectionWithName(name) {
-    const { data } = this.props;
+    const data = this.context;
     const { sections } = data;
+
     return sections.find((section) => section.name === name);
   }
 
   render() {
-    const { data } = this.props;
+    const data = this.context;
     const { sections } = data;
     const { section, isEditingSection } = this.state;
 
