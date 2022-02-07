@@ -71,19 +71,20 @@ class SelectConditions extends React.Component<Props, State> {
 
   conditionsForPath() {
     const { data } = this.context;
-    const { fields = [] } = data;
+    const fields: any = Object.values(this.fieldsForPath(this.props.path));
     const { conditions = [] } = data;
     var returnCon: any[] = [];
 
-    for (var i = 0; i < fields.length; i++) {
-      var name = fields[i].name;
-      for (var j = 0; j < conditions.length; j++) {
-        for (var k = 0; conditions[j].value.conditions.length; k++) {
-          var fieldName = conditions[j].value.conditions[k].field.name;
-          if (name == fieldName) returnCon.push(conditions[j]);
+    for (const field of fields) {
+      var name = field.name;
+      for (const condition of conditions) {
+        for (const innerCondition of condition.value.conditions) {
+          var fieldName = innerCondition.field.name;
+          if (name == fieldName) returnCon.push(condition);
         }
       }
     }
+    return returnCon;
   }
 
   onClickDefineCondition = (e) => {
@@ -124,8 +125,10 @@ class SelectConditions extends React.Component<Props, State> {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
     const { data } = this.context;
-    const hasConditions = dataHasConditions(data) || selectedCondition;
+    const conditions = this.conditionsForPath();
+    const hasConditions = dataHasConditions(conditions) || selectedCondition;
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
+    const test = this.conditionsForPath();
 
     return (
       <div className="conditions" data-testid="select-conditions">
@@ -153,7 +156,7 @@ class SelectConditions extends React.Component<Props, State> {
                     children: [""],
                     value: "",
                   },
-                  ...this.context.data.conditions.map((it) => ({
+                  ...conditions.map((it) => ({
                     children: [it.displayName],
                     value: it.name,
                   })),
