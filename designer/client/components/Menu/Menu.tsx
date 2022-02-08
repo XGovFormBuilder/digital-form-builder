@@ -123,7 +123,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
       )}
       {outputs.isVisible && (
         <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
-          <OutputsEdit/>
+          <OutputsEdit />
         </Flyout>
       )}
 
@@ -183,7 +183,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
               </ul>
               {selectedTab === Tabs.model && (
                 <section className="govuk-tabs__panel" data-testid="tab-model">
-                  <DataPrettyPrint data={data} />
+                  <DataPrettyPrint />
                 </section>
               )}
               {selectedTab === Tabs.json && (

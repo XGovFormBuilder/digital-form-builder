@@ -4,6 +4,7 @@ import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
 type Props = {
+  
 };
 
 type State = {
