@@ -3,6 +3,7 @@ import Url from "url-parse";
 import { redirectTo } from "./engine";
 import { healthCheckRoute, publicRoutes } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import config from "../config";
 
 const routes = [...publicRoutes, healthCheckRoute];
 
@@ -24,8 +25,17 @@ export default {
     name: "router",
     register: (server) => {
       server.route(routes);
-
       server.route([
+        {
+          method: "get",
+          path: "/help/privacy",
+          handler: async (_request: HapiRequest, h: HapiResponseToolkit) => {
+            if (config.privacyPolicyUrl) {
+              return h.redirect(config.privacyPolicyUrl);
+            }
+            return h.view("help/privacy");
+          },
+        },
         {
           method: "get",
           path: "/help/cookies",
