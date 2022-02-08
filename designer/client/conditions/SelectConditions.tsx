@@ -69,9 +69,9 @@ class SelectConditions extends React.Component<Props, State> {
       }, {});
   }
 
-  conditionsForPath() {
+  conditionsForPath(path: string) {
     const { data } = this.context;
-    const fields: any = Object.values(this.fieldsForPath(this.props.path));
+    const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     var returnCon: any[] = [];
 
@@ -124,11 +124,9 @@ class SelectConditions extends React.Component<Props, State> {
   render() {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
-    const { data } = this.context;
-    const conditions = this.conditionsForPath();
+    const conditions = this.conditionsForPath(this.props.path);
     const hasConditions = dataHasConditions(conditions) || selectedCondition;
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
-    const test = this.conditionsForPath();
 
     return (
       <div className="conditions" data-testid="select-conditions">
