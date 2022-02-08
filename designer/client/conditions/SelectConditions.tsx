@@ -80,11 +80,19 @@ class SelectConditions extends React.Component<Props, State> {
       for (const condition of conditions) {
         for (const innerCondition of condition.value.conditions) {
           var fieldName = innerCondition.field.name;
+          if (this.checkDuplicateCondition(returnCon, condition.name)) continue;
           if (name == fieldName) returnCon.push(condition);
         }
       }
     }
     return returnCon;
+  }
+
+  checkDuplicateCondition(conditions: any[], conditionName: string) {
+    for (const condition of conditions) {
+      if (condition.name == conditionName) return true;
+    }
+    return false;
   }
 
   onClickDefineCondition = (e) => {
