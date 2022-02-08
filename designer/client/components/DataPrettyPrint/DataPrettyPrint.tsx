@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DataContext } from "../../context";
 
 const listTypes = [
   "SelectField",
@@ -15,23 +16,23 @@ export function componentToString(component) {
 }
 
 export function DataPrettyPrint(props) {
-  const { data } = props;
+  const { data } = useContext(DataContext);
   const { sections = [], pages = [] } = data;
 
   const model = {};
 
   pages.forEach((page) => {
-    page.components.forEach((component) => {
+    page.components!.forEach((component) => {
       if (component.name) {
         if (page.section) {
           const section = sections.find(
             (section) => section.name === page.section
           );
-          if (!model[section.name]) {
-            model[section.name] = {};
+          if (!model[section!.name]) {
+            model[section!.name] = {};
           }
 
-          model[section.name][component.name] = `${component.type}`;
+          model[section!.name][component.name] = `${component.type}`;
         } else {
           model[component.name] = `${component.type}`;
         }
