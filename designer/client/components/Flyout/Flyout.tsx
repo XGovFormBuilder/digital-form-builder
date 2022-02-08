@@ -7,7 +7,6 @@ import { i18n } from "../../i18n";
 import "./Flyout.scss";
 import { bool } from "aws-sdk/clients/signer";
 
-
 type Props = {
   NEVER_UNMOUNTS: any;
   onHide: (e?: any) => void;
