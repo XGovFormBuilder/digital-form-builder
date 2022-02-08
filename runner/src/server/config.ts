@@ -61,7 +61,7 @@ const schema = Joi.object({
   rateLimit: Joi.boolean().optional(),
   fromEmailAddress: Joi.string().optional(),
   serviceStartPage: Joi.string().optional(),
-  privacyPolicyUrl: Joi.string().optional(),
+  privacyPolicyUrl: Joi.string().optional().allow(""),
   notifyTemplateId: Joi.string()
     .when("env", {
       is: "production",
