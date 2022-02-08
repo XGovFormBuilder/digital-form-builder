@@ -63,7 +63,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         <button data-testid="menu-outputs" onClick={outputs.show}>
           {i18n("menu.outputs")}
         </button>
-
         <button data-testid="menu-fees" onClick={fees.show}>
           {i18n("menu.fees")}
         </button>
@@ -73,7 +72,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         >
           {i18n("menu.summaryBehaviour")}
         </button>
-
         <button onClick={summary.show} data-testid="menu-summary">
           {i18n("menu.summary")}
         </button>
@@ -86,19 +84,19 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       {page.isVisible && (
         <Flyout title="Add Page" onHide={page.hide}>
-          <PageCreate data={data} onCreate={() => page.hide()} />
+          <PageCreate onCreate={() => page.hide()} />
         </Flyout>
       )}
 
       {link.isVisible && (
         <Flyout title={i18n("menu.links")} onHide={link.hide}>
-          <LinkCreate data={data} onCreate={() => link.hide()} />
+          <LinkCreate onCreate={() => link.hide()} />
         </Flyout>
       )}
 
       {sections.isVisible && (
         <Flyout title="Edit Sections" onHide={sections.hide}>
-          <SectionsEdit data={data} />
+          <SectionsEdit />
         </Flyout>
       )}
 
@@ -121,15 +119,16 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           </ListsEditorContextProvider>
         </Flyout>
       )}
+
       {outputs.isVisible && (
         <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
-          <OutputsEdit data={data} />
+          <OutputsEdit />
         </Flyout>
       )}
 
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
-          <FeeEdit data={data} onEdit={() => fees.hide()} />
+          <FeeEdit onEdit={() => fees.hide()} />
         </Flyout>
       )}
 
@@ -139,10 +138,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           onHide={summaryBehaviour.hide}
           width="xlarge"
         >
-          <DeclarationEdit
-            data={data}
-            onCreate={() => summaryBehaviour.hide()}
-          />
+          <DeclarationEdit onCreate={() => summaryBehaviour.hide()} />
         </Flyout>
       )}
 
@@ -184,7 +180,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
               </ul>
               {selectedTab === Tabs.model && (
                 <section className="govuk-tabs__panel" data-testid="tab-model">
-                  <DataPrettyPrint data={data} />
+                  <DataPrettyPrint />
                 </section>
               )}
               {selectedTab === Tabs.json && (

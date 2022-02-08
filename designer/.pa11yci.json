@@ -1,0 +1,8 @@
+{
+    "urls": [
+      "http://localhost:3000/app",
+      "http://localhost:3000/app/new",
+      "http://localhost:3000/app/choose-existing",
+      "http://localhost:3000/app/designer/test-form-a"
+    ]
+  }
