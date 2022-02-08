@@ -3,9 +3,7 @@ import randomId from "../randomId";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
-type Props = {
-  
-};
+type Props = {};
 
 type State = {
   showAddOutput: boolean;
@@ -44,7 +42,7 @@ class OutputsEdit extends React.Component<Props, State> {
   render() {
     const data = this.context;
     const { outputs } = data;
-    const { output, id, showAddOutput } = this.state; 
+    const { output, id, showAddOutput } = this.state;
 
     return (
       <div className="govuk-body">

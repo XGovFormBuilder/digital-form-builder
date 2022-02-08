@@ -138,9 +138,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           onHide={summaryBehaviour.hide}
           width="xlarge"
         >
-          <DeclarationEdit
-            onCreate={() => summaryBehaviour.hide()}
-          />
+          <DeclarationEdit onCreate={() => summaryBehaviour.hide()} />
         </Flyout>
       )}
 
@@ -211,4 +209,5 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       <SubMenu id={id} updateDownloadedAt={updateDownloadedAt} />
     </nav>
-  )}
+  );
+}

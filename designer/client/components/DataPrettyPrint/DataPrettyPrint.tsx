@@ -17,7 +17,7 @@ export function componentToString(component) {
 
 export function DataPrettyPrint(props) {
   const { data } = useContext(DataContext);
-  const { sections = [], pages = []} = data;
+  const { sections = [], pages = [] } = data;
 
   const model = {};
 
@@ -44,6 +44,5 @@ export function DataPrettyPrint(props) {
     <div>
       <pre>{JSON.stringify(model, null, 2)}</pre>
     </div>
-  ); 
-} 
-
+  );
+}
