@@ -481,29 +481,70 @@
   "version": 2,
   "conditions": [
     {
-      "name": "hasUKPassport",
+      "name": "b-NGgWvGISkJJLuzsJIjv",
       "displayName": "hasUKPassport",
-      "value": "checkBeforeYouStart.ukPassport==true"
+      "value": {
+        "name": "hasUKPassport",
+        "conditions": [
+          {
+            "field": {
+              "name": "ukPassport",
+              "type": "YesNoField",
+              "display": "Do you have a UK passport?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "yes",
+              "display": "Yes, I have a UK passport"
+            }
+          }
+        ]
+      }
     },
     {
-      "name": "doesntHaveUKPassport",
+      "name": "a-NGgWvGISkJJLuzsJIjv",
       "displayName": "doesntHaveUKPassport",
-      "value": "checkBeforeYouStart.ukPassport==false"
+      "value": {
+        "name": "doesntHaveUKPassport",
+        "conditions": [
+          {
+            "field": {
+              "name": "ukPassport",
+              "type": "YesNoField",
+              "display": "Do you have a UK passport?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "no",
+              "display": "No, I dont have a UK passport"
+            }
+          }
+        ]
+      }
     },
     {
-      "name": "moreThanOneApplicant",
+      "name": "a-NGgWvGISkJJLuzsJIjv",
       "displayName": "moreThanOneApplicant",
-      "value": "applicantDetails.numberOfApplicants > 1"
-    },
-    {
-      "name": "moreThanTwoApplicants",
-      "displayName": "moreThanTwoApplicants",
-      "value": "applicantDetails.numberOfApplicants > 2"
-    },
-    {
-      "name": "moreThanThreeApplicants",
-      "displayName": "moreThanThreeApplicants",
-      "value": "applicantDetails.numberOfApplicants > 3"
+      "value": {
+        "name": "moreThanOneApplicant",
+        "conditions": [
+          {
+            "field": {
+              "name": "ukPassport",
+              "type": "SelectField",
+              "display": "Do you have a UK passport?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "2",
+              "display": ""
+            }
+          }
+        ]
+      }
     }
   ]
 }
