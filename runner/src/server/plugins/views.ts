@@ -76,7 +76,7 @@ export default {
       sessionTimeout: config.sessionTimeout,
       skipTimeoutWarning: false,
       serviceStartPage: config.serviceStartPage || "#",
-      privacyPolicyUrl: config.privacyPolicyUrl || "#",
+      privacyPolicyUrl: config.privacyPolicyUrl || "/help/privacy",
       phaseTag: config.phaseTag,
       navigation: request?.auth.isAuthenticated
         ? [{ text: "Sign out", href: "/logout" }]
