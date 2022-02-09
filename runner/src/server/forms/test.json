@@ -501,50 +501,6 @@
           }
         ]
       }
-    },
-    {
-      "name": "a-NGgWvGISkJJLuzsJIjv",
-      "displayName": "doesntHaveUKPassport",
-      "value": {
-        "name": "doesntHaveUKPassport",
-        "conditions": [
-          {
-            "field": {
-              "name": "ukPassport",
-              "type": "YesNoField",
-              "display": "Do you have a UK passport?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "no",
-              "display": "No, I dont have a UK passport"
-            }
-          }
-        ]
-      }
-    },
-    {
-      "name": "a-NGgWvGISkJJLuzsJIjv",
-      "displayName": "moreThanOneApplicant",
-      "value": {
-        "name": "moreThanOneApplicant",
-        "conditions": [
-          {
-            "field": {
-              "name": "ukPassport",
-              "type": "SelectField",
-              "display": "Do you have a UK passport?"
-            },
-            "operator": "is",
-            "value": {
-              "type": "Value",
-              "value": "2",
-              "display": ""
-            }
-          }
-        ]
-      }
     }
   ]
 }
