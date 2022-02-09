@@ -7,16 +7,10 @@ import { i18n } from "../../i18n";
 import "./Flyout.scss";
 import { bool } from "aws-sdk/clients/signer";
 
-type Props = {
-  NEVER_UNMOUNTS: any;
-  onHide: (e?: any) => void;
-  width: string;
-  show: boolean;
-};
+type Props = {};
 
 export function useFlyoutEffect(props: Props) {
   const flyoutContext = useContext(FlyoutContext);
-  const { data } = useContext(DataContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
   const show = props.show ?? true;

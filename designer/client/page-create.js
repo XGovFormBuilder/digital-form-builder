@@ -171,7 +171,8 @@ class PageCreate extends React.Component {
   };
 
   render() {
-    const { data, i18n } = this.props;
+    const { i18n } = this.props;
+    const { data } = this.context;
     const { sections, pages } = data;
     const {
       pageType,
