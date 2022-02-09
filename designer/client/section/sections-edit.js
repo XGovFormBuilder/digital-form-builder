@@ -7,7 +7,6 @@ import { Flyout } from "../components/Flyout";
 class SectionsEdit extends React.Component {
   state = {};
   static contextType = DataContext;
-  
 
   onClickSection = (e, section) => {
     e.preventDefault();
