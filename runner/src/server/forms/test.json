@@ -32,7 +32,7 @@
         },
         {
           "path": "/no-uk-passport",
-          "condition": "doesntHaveUKPassport"
+          "condition": "b-NGgWvGISkJJLuzsJIjv"
         }
       ],
       "title": "Do you have a UK passport?"
@@ -140,7 +140,7 @@
       "next": [
         {
           "path": "/applicant-two",
-          "condition": "moreThanOneApplicant"
+          "condition": "c-NGgWvGISkJJLuzsJIjv"
         },
         {
           "path": "/contact-details"
@@ -214,7 +214,7 @@
       "next": [
         {
           "path": "/applicant-three",
-          "condition": "moreThanTwoApplicants"
+          "condition": "d-NGgWvGISkJJLuzsJIjv"
         },
         {
           "path": "/contact-details"
@@ -288,7 +288,7 @@
       "next": [
         {
           "path": "/applicant-four",
-          "condition": "moreThanThreeApplicants"
+          "condition": "e-NGgWvGISkJJLuzsJIjv"
         },
         {
           "path": "/contact-details"
@@ -481,14 +481,14 @@
   "version": 2,
   "conditions": [
     {
-      "name": "b-NGgWvGISkJJLuzsJIjv",
+      "name": "a-NGgWvGISkJJLuzsJIjv",
       "displayName": "hasUKPassport",
       "value": {
         "name": "hasUKPassport",
         "conditions": [
           {
             "field": {
-              "name": "ukPassport",
+              "name": "checkBeforeYouStart.ukPassport",
               "type": "YesNoField",
               "display": "Do you have a UK passport?"
             },
@@ -497,6 +497,94 @@
               "type": "Value",
               "value": "yes",
               "display": "Yes, I have a UK passport"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "b-NGgWvGISkJJLuzsJIjv",
+      "displayName": "doesntHaveUKPassport",
+      "value": {
+        "name": "doesntHaveUKPassport",
+        "conditions": [
+          {
+            "field": {
+              "name": "checkBeforeYouStart.ukPassport",
+              "type": "YesNoField",
+              "display": "Do you have a UK passport?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "no",
+              "display": "No, I do not have a UK passport"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "c-NGgWvGISkJJLuzsJIjv",
+      "displayName": "moreThanOneApplicant",
+      "value": {
+        "name": "moreThanOneApplicant",
+        "conditions": [
+          {
+            "field": {
+              "name": "applicantDetails.numberOfApplicants",
+              "type": "SelectField",
+              "display": "How many applicants are there?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "2",
+              "display": "2"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "d-NGgWvGISkJJLuzsJIjv",
+      "displayName": "moreThanTwoApplicant",
+      "value": {
+        "name": "moreThanTwoApplicant",
+        "conditions": [
+          {
+            "field": {
+              "name": "applicantDetails.numberOfApplicants",
+              "type": "SelectField",
+              "display": "How many applicants are there?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "3",
+              "display": "3"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "e-NGgWvGISkJJLuzsJIjv",
+      "displayName": "moreThanThreeApplicant",
+      "value": {
+        "name": "moreThanThreeApplicant",
+        "conditions": [
+          {
+            "field": {
+              "name": "applicantDetails.numberOfApplicants",
+              "type": "SelectField",
+              "display": "How many applicants are there?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "4",
+              "display": "4"
             }
           }
         ]
