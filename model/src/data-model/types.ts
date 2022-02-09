@@ -126,7 +126,7 @@ export type FormDefinition = {
   pages: Page[];
   conditions: ConditionRawData[];
   lists: List[];
-  sections: Section[];
+  sections?: Section[];
   startPage?: Page["path"] | undefined;
   name?: string | undefined;
   feedback?: Feedback;
