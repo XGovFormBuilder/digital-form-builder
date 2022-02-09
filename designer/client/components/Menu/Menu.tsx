@@ -84,7 +84,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       {page.isVisible && (
         <Flyout title="Add Page" onHide={page.hide}>
-          <PageCreate onCreate={() => page.hide()} />
+          <PageCreate data={data} onCreate={() => page.hide()} />
         </Flyout>
       )}
 
