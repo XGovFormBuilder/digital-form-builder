@@ -51,29 +51,48 @@ test("SelectConditions renders available conditions", () => {
     startPage: "",
     conditions: [
       {
-        name: "hasUKPassport",
+        name: "a-NGgWvGISkJJLuzsJIjv",
         displayName: "hasUKPassport",
-        value: "checkBeforeYouStart.ukPassport==true",
+        value: {
+          name: "hasUKPassport",
+          conditions: [
+            {
+              field: {
+                name: "ukPassport",
+                type: "YesNoField",
+                display: "Do you have a UK passport?",
+              },
+              operator: "is",
+              value: {
+                type: "Value",
+                value: "yes",
+                display: "Yes, I have a UK passport",
+              },
+            },
+          ],
+        },
       },
       {
-        name: "doesntHaveUKPassport",
+        name: "b-NGgWvGISkJJLuzsJIjv",
         displayName: "doesntHaveUKPassport",
-        value: "checkBeforeYouStart.ukPassport==false",
-      },
-      {
-        name: "moreThanOneApplicant",
-        displayName: "moreThanOneApplicant",
-        value: "applicantDetails.numberOfApplicants > 1",
-      },
-      {
-        name: "moreThanTwoApplicants",
-        displayName: "moreThanTwoApplicants",
-        value: "applicantDetails.numberOfApplicants > 2",
-      },
-      {
-        name: "moreThanThreeApplicants",
-        displayName: "moreThanThreeApplicants",
-        value: "applicantDetails.numberOfApplicants > 3",
+        value: {
+          name: "doesntHaveUKPassport",
+          conditions: [
+            {
+              field: {
+                name: "ukPassport",
+                type: "YesNoField",
+                display: "Do you have a UK passport?",
+              },
+              operator: "is",
+              value: {
+                type: "Value",
+                value: "no",
+                display: "No, I do not have a UK passport",
+              },
+            },
+          ],
+        },
       },
     ],
   };
@@ -89,7 +108,7 @@ test("SelectConditions renders available conditions", () => {
     (condition) => condition.displayName
   );
   expect(queryByText("You cannot add any conditions as")).toBeNull();
-  expect(getByTestId("select-condition")).toBeInTheDocument();
+  expect(getByTestId("select-conditions")).toBeInTheDocument();
   expectedConditions.forEach((condition) => {
     expect(getByText(condition)).toBeInTheDocument();
   });

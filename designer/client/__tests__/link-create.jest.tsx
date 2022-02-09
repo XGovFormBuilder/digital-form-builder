@@ -24,6 +24,36 @@ const rawData = {
   conditions: [],
 };
 
+const rawDatab = {
+  lists: [],
+  pages: [
+    {
+      title: "First page",
+      path: "/first-page",
+      components: [
+        {
+          type: "YesNoField",
+          name: "ukPassport",
+          title: "Do you have a UK passport?",
+          option: {
+            required: true,
+          },
+          schema: {},
+        },
+      ],
+    },
+    {
+      title: "Summary",
+      path: "/summary",
+      controller: "./pages/summary.js",
+      components: [],
+    },
+  ],
+  sections: [],
+  startPage: "",
+  conditions: [],
+};
+
 const data = { ...rawData };
 const dataValue = {
   data,
@@ -83,17 +113,51 @@ test("Selecting a from value causes the SelectConditions component to be display
 
 test("links are correctly generated when the form is submitted", () => {
   const data = {
-    ...rawData,
+    ...rawDatab,
     conditions: [
       {
-        name: "hasUKPassport",
+        name: "a-NGgWvGISkJJLuzsJIjv",
         displayName: "hasUKPassport",
-        value: "checkBeforeYouStart.ukPassport==true",
+        value: {
+          name: "hasUKPassport",
+          conditions: [
+            {
+              field: {
+                name: "ukPassport",
+                type: "YesNoField",
+                display: "Do you have a UK passport?",
+              },
+              operator: "is",
+              value: {
+                type: "Value",
+                value: "yes",
+                display: "Yes, I have a UK passport",
+              },
+            },
+          ],
+        },
       },
       {
-        name: "doesntHaveUKPassport",
+        name: "b-NGgWvGISkJJLuzsJIjv",
         displayName: "doesntHaveUKPassport",
-        value: "checkBeforeYouStart.ukPassport==false",
+        value: {
+          name: "doesntHaveUKPassport",
+          conditions: [
+            {
+              field: {
+                name: "ukPassport",
+                type: "YesNoField",
+                display: "Do you have a UK passport?",
+              },
+              operator: "is",
+              value: {
+                type: "Value",
+                value: "no",
+                display: "No, I do not have a UK passport",
+              },
+            },
+          ],
+        },
       },
     ],
   };
@@ -109,13 +173,13 @@ test("links are correctly generated when the form is submitted", () => {
     target: { value: "/summary" },
   });
   fireEvent.change(getByTestId("select-condition"), {
-    target: { value: "hasUKPassport" },
+    target: { value: "a-NGgWvGISkJJLuzsJIjv" },
   });
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(1);
   expect(save.mock.calls[0][0].pages[0].next).toContainEqual({
     path: "/summary",
-    condition: "hasUKPassport",
+    condition: "a-NGgWvGISkJJLuzsJIjv",
   });
 
   fireEvent.change(getByTestId("link-source"), {
@@ -125,7 +189,7 @@ test("links are correctly generated when the form is submitted", () => {
     target: { value: "/first-page" },
   });
   fireEvent.change(getByTestId("select-condition"), {
-    target: { value: "" },
+    target: { value: "a-NGgWvGISkJJLuzsJIjv" },
   });
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(2);

@@ -18,7 +18,7 @@ test("allPathsLeadingTo should work with cycle in paths", () => {
     ],
   };
   const paths = allPathsLeadingTo(data, "/2");
-  expect(paths).toEqual(["/1"]);
+  expect(paths).toEqual(["/2", "/1"]);
 });
 
 test("allPathsLeadingTo should work with single parents", () => {
@@ -37,7 +37,7 @@ test("allPathsLeadingTo should work with single parents", () => {
       },
     ],
   };
-  expect(allPathsLeadingTo(data, "/3")).toEqual(["/2", "/1"]);
+  expect(allPathsLeadingTo(data, "/3")).toEqual(["/3", "/2", "/1"]);
 });
 
 test("allPathsLeadingTo should work with multiple parents", () => {
@@ -61,7 +61,7 @@ test("allPathsLeadingTo should work with multiple parents", () => {
     ],
   };
 
-  expect(allPathsLeadingTo(data, "/4")).toEqual(["/2", "/1", "/3"]);
-  expect(allPathsLeadingTo(data, "/3")).toEqual(["/1"]);
-  expect(allPathsLeadingTo(data, "/1")).toEqual([]);
+  expect(allPathsLeadingTo(data, "/4")).toEqual(["/4", "/2", "/1", "/3"]);
+  expect(allPathsLeadingTo(data, "/3")).toEqual(["/3", "/1"]);
+  expect(allPathsLeadingTo(data, "/1")).toEqual(["/1"]);
 });
