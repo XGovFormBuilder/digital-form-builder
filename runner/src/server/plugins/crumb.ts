@@ -16,9 +16,7 @@ export const configureCrumbPlugin = (
     plugin: crumb,
     options: {
       logUnauthorized: true,
-      enforce: routeConfig
-        ? routeConfig.enforceCsrf || false
-        : !config.previewMode,
+      enforce: routeConfig?.enforceCsrf ?? !config.previewMode,
       cookieOptions: {
         path: "/",
         isSecure: !!config.isDev,

@@ -14,6 +14,8 @@ Install dependencies
 
 `$ yarn`
 
+NOTE: To use the designer, the runner also needs to be running, and with the environment variable `PREVIEW_MODE` set to `true` (default is `false`). This is because CSRF Protection needs to be disabled on the runner to enable it to receive post requests from the designer. Run `$ export PREVIEW_MODE=true` or set `PREVIEW_MODE=true` in your .env file
+
 To run the server and client apps locally, for development:
 
 `$ yarn dev`
@@ -33,22 +35,22 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
 `symlink-config` accepts two variables, ENV_LOC and LINK_TO. If the file location is not passed in, you will be prompted for a location.
 LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 
-| name                    | description                                                | required | default        |            valid            |                                                                   notes                                                                   |
-| ----------------------- | ---------------------------------------------------------- | :------  | -------------- | :-------------------------  | :---------------------------------------------------------------------------------------------------------------------------------------  |
-| NODE_ENV                | Node environment                                           |    no    | development    | development,test,production |                                                                                                                                           |
-| PORT                    | Port number                                                |    no    | 3000           |                             |                                                                                                                                           |
-| PREVIEW_MODE            | Preview mode                                               |    no    | false          |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms. |
-| PREVIEW_URL             | Base URL for links to preview forms in user's web browser  |    no    | localhost:3009 |                             |
-| PUBLISH_URL             | Base URL used by designer to POST and GET runner's API     |    no    | localhost:3009 |                             |
-| PERSISTENT_BACKEND      | storage backend service.                                   |    no    | preview        | s3,blob, preview            | currently only s3 integration and preview is properly supported. blob (or none) is stubbed.                                               |
-| S3_BUCKET               | Name of the S3 bucket to upload to                         |    no    |                |                             |
-| AWS_ACCESS_KEY_ID       | AWS Access Key if AWS services required                    |    no <hr> **yes** if PERSISTENT_BACKEND is `s3`    | | |                                                                                                                                           
-| AWS_SECRET_ACCESS_KEY   | AWS Access Key if AWS services required                    |    no <hr> **yes** if PERSISTENT_BACKEND is `s3`    | | |                                                                                                                                          
-| LOG_LEVEL               | Log level                                                  |    no    | debug          | trace,debug,info,error      |                                                                                                                                           
-| FOOTER_TEXT             | Text displayed on the left side of the footer              |    no    |                |                             |
-| SESSION_TIMEOUT         | server-side storage expiration time - in milliseconds      |    no    |                |                             |
-| SESSION_COOKIE_PASSWORD | at least 32 char long string for session cookie encryption |    no    |                |                             |
-| REACT_LOG_LEVEL         | Log level for client-side designer logging                 |    no    | debug          | trace,debug,info,warn,error |
+| name                    | description                                                | required                                      | default        | valid                       | notes                                                                                                                                                                                                         |
+| ----------------------- | ---------------------------------------------------------- | :-------------------------------------------- | -------------- | :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| NODE_ENV                | Node environment                                           | no                                            | development    | development,test,production |                                                                                                                                                                                                               |
+| PORT                    | Port number                                                | no                                            | 3000           |                             |                                                                                                                                                                                                               |
+| PREVIEW_MODE            | Preview mode                                               | no                                            | false          |                             | This should only be used in a dev or testing environment. Setting true will allow POST requests from the designer to add or mutate forms.. If unset or false, CSRF Protection will be enforced on the runner. |
+| PREVIEW_URL             | Base URL for links to preview forms in user's web browser  | no                                            | localhost:3009 |                             |
+| PUBLISH_URL             | Base URL used by designer to POST and GET runner's API     | no                                            | localhost:3009 |                             |
+| PERSISTENT_BACKEND      | storage backend service.                                   | no                                            | preview        | s3,blob, preview            | currently only s3 integration and preview is properly supported. blob (or none) is stubbed.                                                                                                                   |
+| S3_BUCKET               | Name of the S3 bucket to upload to                         | no                                            |                |                             |
+| AWS_ACCESS_KEY_ID       | AWS Access Key if AWS services required                    | no <hr> **yes** if PERSISTENT_BACKEND is `s3` |                |                             |
+| AWS_SECRET_ACCESS_KEY   | AWS Access Key if AWS services required                    | no <hr> **yes** if PERSISTENT_BACKEND is `s3` |                |                             |
+| LOG_LEVEL               | Log level                                                  | no                                            | debug          | trace,debug,info,error      |
+| FOOTER_TEXT             | Text displayed on the left side of the footer              | no                                            |                |                             |
+| SESSION_TIMEOUT         | server-side storage expiration time - in milliseconds      | no                                            |                |                             |
+| SESSION_COOKIE_PASSWORD | at least 32 char long string for session cookie encryption | no                                            |                |                             |
+| REACT_LOG_LEVEL         | Log level for client-side designer logging                 | no                                            | debug          | trace,debug,info,warn,error |
 
 ## Unit tests
 
