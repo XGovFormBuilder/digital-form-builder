@@ -107,6 +107,32 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
       <div className="govuk-form-group">
         <label
           className="govuk-label govuk-label--s"
+          htmlFor="field-schema-maxwords"
+        >
+          {i18n("textFieldEditComponent.maxWordField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("textFieldEditComponent.maxWordField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="number"
+          id="field-schema-maxwords"
+          name="schema.maxwords"
+          value={schema.maxwords || ""}
+          type="number"
+          onChange={(e) =>
+            dispatch({
+              type: Actions.EDIT_SCHEMA_MAX_WORDS,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
           htmlFor="field-schema-regex"
         >
           {i18n("textFieldEditComponent.regexField.title")}
