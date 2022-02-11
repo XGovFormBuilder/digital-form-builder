@@ -77,7 +77,7 @@ export function SubMenu({ id, updateDownloadedAt }: Props) {
         type="file"
         hidden
         onChange={onFileUpload}
-        aria-label="country"
+        aria-label="fileUpload"
       />
     </div>
   );
