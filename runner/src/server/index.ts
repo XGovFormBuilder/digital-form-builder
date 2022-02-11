@@ -33,6 +33,7 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
+import { initialiseSession } from "server/plugins/initialiseSession";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -91,6 +92,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginLogging);
   await server.register(Schmervice);
   await server.register(pluginAuth);
+  await server.register(initialiseSession, {});
 
   server.registerService([
     CacheService,
