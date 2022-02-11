@@ -18,7 +18,6 @@ module.exports = {
       assertions: {
         "first-contentful-paint": ["error", { minScore: 0.6 }],
       },
-      preset: "lighthouse:recommended",
     },
     upload: {
       target: "filesystem",
