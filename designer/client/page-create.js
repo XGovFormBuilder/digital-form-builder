@@ -20,12 +20,14 @@ class PageCreate extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    const { page } = this.props;
+    const { data } = this.context;
+    const { pages } = data;
     this.state = {
+      pages: pages,
       path: "/",
-      controller: page?.controller ?? "",
-      title: page?.title,
-      section: page?.section ?? {},
+      controller: pages?.controller ?? "",
+      title: pages?.title,
+      section: pages?.section ?? {},
       isEditingSection: false,
       errors: {},
     };
@@ -73,10 +75,10 @@ class PageCreate extends React.Component {
   };
 
   validate = (title, path) => {
-    const { data, i18n } = this.props;
+    const { data, i18n } = this.context;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
-    const alreadyExists = data.pages.find((page) => page.path === path);
+    const alreadyExists = this.state.pages.find((page) => page.path === path);
     if (alreadyExists) {
       errors.path = {
         href: "#page-path",
@@ -102,7 +104,7 @@ class PageCreate extends React.Component {
   }
 
   findSectionWithName(name) {
-    const { data } = this.props;
+    const { data } = this.context;
     const { sections } = data;
     return sections.find((section) => section.name === name);
   }
@@ -171,7 +173,7 @@ class PageCreate extends React.Component {
   };
 
   render() {
-    const { data, i18n } = this.props;
+    const { data } = this.context;
     const { sections, pages } = data;
     const {
       pageType,
