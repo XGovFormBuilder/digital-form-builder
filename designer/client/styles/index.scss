@@ -72,6 +72,7 @@ button.govuk-link {
 .menu {
   padding: 8px;
   background-color: #ffffff;
+  padding-top: 35px;
 
   &__row {
     a {
@@ -102,7 +103,7 @@ button.govuk-link {
 @include govuk-media-query($from: tablet) {
   .menu {
     position: fixed;
-    top: 45px;
+    top: 46px;
     padding: 8px;
     z-index: 999;
     background-color: #fff;
