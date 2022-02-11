@@ -199,7 +199,6 @@ suite("Server StatusService", () => {
       server = await createServer({
         formFileName: "status.test.json",
         formFilePath: path.join(__dirname, ".."),
-        enforceCsrf: false,
       });
       statusService = server.services().statusService;
     });
