@@ -96,7 +96,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       {sections.isVisible && (
         <Flyout title="Edit Sections" onHide={sections.hide}>
-          <SectionsEdit data={data} />
+          <SectionsEdit />
         </Flyout>
       )}
 
