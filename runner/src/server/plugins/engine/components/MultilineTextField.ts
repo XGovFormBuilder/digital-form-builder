@@ -1,9 +1,9 @@
-import * as helpers from "./helpers";
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors } from "../types";
 import Joi, { Schema, StringSchema } from "joi";
 import { MultilineTextFieldComponent } from "@xgovformbuilder/model";
 import { FormModel } from "server/plugins/engine/models";
+import { MultilineTextFieldViewModel } from "server/plugins/engine/components/types";
 
 function inputIsOverWordCount(input, maxWords) {
   /**
@@ -19,6 +19,7 @@ export class MultilineTextField extends FormComponent {
   options: MultilineTextFieldComponent["options"];
   schema: MultilineTextFieldComponent["schema"];
   customValidationMessage?: string;
+  isCharacterOrWordCount: boolean = false;
 
   constructor(def: MultilineTextFieldComponent, model: FormModel) {
     super(def, model);
@@ -27,7 +28,6 @@ export class MultilineTextField extends FormComponent {
     this.formSchema = Joi.string();
     this.formSchema = this.formSchema.label(def.title);
     const { maxWords, customValidationMessage } = def.options;
-
     const isRequired = def.options.required ?? true;
 
     if (isRequired) {
@@ -39,6 +39,7 @@ export class MultilineTextField extends FormComponent {
 
     if (def.schema.max) {
       this.formSchema = this.formSchema.max(def.schema.max);
+      this.isCharacterOrWordCount = true;
     }
 
     if (def.schema.min) {
@@ -51,7 +52,8 @@ export class MultilineTextField extends FormComponent {
           helpers.error("string.maxWords");
         }
         return value;
-      }, "bloop");
+      }, "max words validation");
+      this.isCharacterOrWordCount = true;
     }
 
     if (customValidationMessage) {
@@ -69,14 +71,20 @@ export class MultilineTextField extends FormComponent {
     return { [this.name]: this.formSchema as Schema };
   }
 
-  getViewModel(formData: FormData, errors: FormSubmissionErrors) {
+  getViewModel(
+    formData: FormData,
+    errors: FormSubmissionErrors
+  ): MultilineTextFieldViewModel {
     const schema = this.schema;
     const options = this.options;
-    const viewModel = super.getViewModel(formData, errors);
-    let attributes: { [key: string]: any } = {};
+    const viewModel = super.getViewModel(
+      formData,
+      errors
+    ) as MultilineTextFieldViewModel;
+    viewModel.isCharacterOrWordCount = this.isCharacterOrWordCount;
 
     if (schema.max ?? false) {
-      attributes.max = schema.max;
+      viewModel.maxlength = schema.max;
     }
 
     if (options.rows ?? false) {
@@ -84,11 +92,8 @@ export class MultilineTextField extends FormComponent {
     }
 
     if (options.maxWords ?? false) {
-      attributes.maxwords = options.maxWords;
+      viewModel.maxwords = options.maxWords;
     }
-
-    viewModel.attributes = attributes;
-
     return viewModel;
   }
 }

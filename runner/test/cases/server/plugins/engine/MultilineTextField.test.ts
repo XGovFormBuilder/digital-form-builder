@@ -78,8 +78,8 @@ suite("Multiline text field", () => {
     expect(formSchema.validate("benedict").error).to.be.undefined();
   });
 
-  test("Should add maxwords to the autocomplete attribute", () => {
-    const def = {
+  test("should return correct view model when maxwords or schema.length configured", () => {
+    const multilineTextFieldMaxWordsDef = {
       name: "myComponent",
       title: "My component",
       hint: "a hint",
@@ -88,15 +88,34 @@ suite("Multiline text field", () => {
       },
       schema: {
         min: 2,
-        max: 200,
       },
     };
-    const multilineTextField = new MultilineTextField(def, {});
-    expect(multilineTextField.getViewModel({})).to.contain({
-      attributes: {
-        maxwords: 100,
-        max: 200 /*govuk-frontend does not have a client side min words validation*/,
+    const multilineTextFieldMaxWords = new MultilineTextField(
+      multilineTextFieldMaxWordsDef,
+      {}
+    );
+    expect(multilineTextFieldMaxWords.getViewModel({})).to.contain({
+      isCharacterOrWordCount: true,
+      maxwords: 100,
+    });
+
+    const multilineTextFieldMaxCharsDef = {
+      name: "myComponent",
+      title: "My component",
+      hint: "a hint",
+      options: {},
+      schema: {
+        max: 5,
+        min: 2,
       },
+    };
+    const multilineTextFieldMaxChars = new MultilineTextField(
+      multilineTextFieldMaxCharsDef,
+      {}
+    );
+    expect(multilineTextFieldMaxChars.getViewModel({})).to.contain({
+      isCharacterOrWordCount: true,
+      maxlength: 5,
     });
   });
 });
