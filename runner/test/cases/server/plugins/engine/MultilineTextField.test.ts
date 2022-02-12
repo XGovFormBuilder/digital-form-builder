@@ -118,4 +118,18 @@ suite("Multiline text field", () => {
       maxlength: 5,
     });
   });
+
+  test("should return correct view model when not configured with maxwords or schema.length", () => {
+    const def = {
+      name: "myComponent",
+      title: "My component",
+      hint: "a hint",
+      options: {},
+      schema: {},
+    };
+    const multilineTextFieldMaxWords = new MultilineTextField(def, {});
+    expect(multilineTextFieldMaxWords.getViewModel({})).to.contain({
+      isCharacterOrWordCount: false,
+    });
+  });
 });
