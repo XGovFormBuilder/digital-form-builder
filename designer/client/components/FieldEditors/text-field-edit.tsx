@@ -16,7 +16,7 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
   // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
-  const { schema = {}, options } = selectedComponent;
+  const { schema = {}, options = {} } = selectedComponent;
 
   return (
     <details className="govuk-details">
