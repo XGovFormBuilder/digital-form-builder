@@ -16,7 +16,7 @@ module.exports = {
     },
     assert: {
       assertions: {
-        "first-contentful-paint": ["error", { minScore: 0.6 }],
+        "first-contentful-paint": ["error", { minScore: 0 }],
       },
     },
     upload: {
