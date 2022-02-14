@@ -14,11 +14,7 @@ module.exports = {
         onlyCategories: ["accessibility"],
       },
     },
-    assert: {
-      assertions: {
-        "first-contentful-paint": ["error", { minScore: 0 }],
-      },
-    },
+    assert: {},
     upload: {
       target: "filesystem",
       //target: "temporary-public-storage",
