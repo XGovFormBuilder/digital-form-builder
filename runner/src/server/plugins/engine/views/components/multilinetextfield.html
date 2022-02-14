@@ -1,12 +1,21 @@
-{% from "textarea/macro.njk" import govukTextarea %}
 {% from "character-count/macro.njk" import govukCharacterCount %}
 
 {% macro MultilineTextField(component) %}
-  {% if component.model.isCharacterOrWordCount == true %}
-    {{ govukCharacterCount(component.model) }}
-  {% else %}
-    {{ govukTextarea(component.model) }}
-  {% endif %}
+
+{{ govukCharacterCount({
+    name: component.model.name,
+    id: component.model.id,
+    maxwords: 73,
+    label: {
+      text: component.model.label.text,
+      classes: "govuk-label--l",
+      isPageHeading: false
+    },
+    hint: {
+      text: component.model.hint.text
+    }
+  }) 
+
+}}
+
 {% endmacro %}
-
-
