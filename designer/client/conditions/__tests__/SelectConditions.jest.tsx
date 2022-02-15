@@ -46,115 +46,34 @@ describe("SelectConditions", () => {
 test("SelectConditions renders available conditions", () => {
   let data = {
     lists: [],
-    pages: [
-      {
-        path: "/uk-passport",
-        components: [
-          {
-            type: "YesNoField",
-            name: "ukPassport",
-            title: "Do you have a UK passport?",
-            options: {
-              required: true,
-            },
-            schema: {},
-          },
-        ],
-        next: [
-          {
-            path: "/how-many-people",
-          },
-          {
-            path: "/no-uk-passport",
-            condition: "b-NGgWvGISkJJLuzsJIjv",
-          },
-        ],
-        title: "Do you have a UK passport?",
-      },
-      {
-        path: "/no-uk-passport",
-        title: "You're not eligible for this service",
-        component: [
-          {
-            type: "Para",
-            content:
-              "If you still think you're eligible please contact the Foreign and Commonwealth Office.",
-            options: {
-              required: true,
-            },
-            schema: {},
-          },
-        ],
-        next: [],
-      },
-      {
-        path: "/how-many-people",
-        components: [
-          {
-            options: {
-              classes: "govuk-input--width-10",
-              required: true,
-            },
-            type: "SelectField",
-            name: "numberOfApplicants",
-            title: "How many applicants are there?",
-            list: "numberOfApplicants",
-          },
-        ],
-        next: [
-          {
-            path: "/applicant-one",
-          },
-        ],
-        title: "How many applicants are there?",
-      },
-    ],
+    pages: [],
     sections: [],
     startPage: "",
     conditions: [
       {
-        name: "a-NGgWvGISkJJLuzsJIjv",
+        name: "hasUKPassport",
         displayName: "hasUKPassport",
-        value: {
-          name: "hasUKPassport",
-          conditions: [
-            {
-              field: {
-                name: "ukPassport",
-                type: "YesNoField",
-                display: "Do you have a UK passport?",
-              },
-              operator: "is",
-              value: {
-                type: "Value",
-                value: "yes",
-                display: "Yes, I have a UK passport",
-              },
-            },
-          ],
-        },
+        value: "checkBeforeYouStart.ukPassport==true",
       },
       {
-        name: "b-NGgWvGISkJJLuzsJIjv",
+        name: "doesntHaveUKPassport",
         displayName: "doesntHaveUKPassport",
-        value: {
-          name: "doesntHaveUKPassport",
-          conditions: [
-            {
-              field: {
-                name: "ukPassport",
-                type: "YesNoField",
-                display: "Do you have a UK passport?",
-              },
-              operator: "is",
-              value: {
-                type: "Value",
-                value: "no",
-                display: "No, I do not have a UK passport",
-              },
-            },
-          ],
-        },
+        value: "checkBeforeYouStart.ukPassport==false",
+      },
+      {
+        name: "moreThanOneApplicant",
+        displayName: "moreThanOneApplicant",
+        value: "applicantDetails.numberOfApplicants > 1",
+      },
+      {
+        name: "moreThanTwoApplicants",
+        displayName: "moreThanTwoApplicants",
+        value: "applicantDetails.numberOfApplicants > 2",
+      },
+      {
+        name: "moreThanThreeApplicants",
+        displayName: "moreThanThreeApplicants",
+        value: "applicantDetails.numberOfApplicants > 3",
       },
     ],
   };
@@ -169,9 +88,8 @@ test("SelectConditions renders available conditions", () => {
   const expectedConditions = data.conditions.map(
     (condition) => condition.displayName
   );
-
   expect(queryByText("You cannot add any conditions as")).toBeNull();
-  expect(getByTestId("select-conditions")).toBeInTheDocument();
+  expect(getByTestId("select-condition")).toBeInTheDocument();
   expectedConditions.forEach((condition) => {
     expect(getByText(condition)).toBeInTheDocument();
   });
