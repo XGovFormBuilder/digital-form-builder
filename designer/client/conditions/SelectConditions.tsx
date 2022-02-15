@@ -75,10 +75,12 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     var returnCon: any[] = [];
-    this.conditionsForPathOld(this.props.path);
     for (const field of fields) {
       var name = field.name;
       for (const condition of conditions) {
+        const conditionValue = condition.value;
+        if (typeof conditionValue === "string") {
+        }
         for (const innerCondition of condition.value.conditions) {
           var fieldName = innerCondition.field.name;
           if (this.checkDuplicateCondition(returnCon, condition.name)) continue;
@@ -89,26 +91,23 @@ class SelectConditions extends React.Component<Props, State> {
     return returnCon;
   }
 
-  conditionsForPathOld(path: string) {
-    const { data } = this.context;
-    const fields: any = Object.values(this.fieldsForPath(path));
-    const { conditions = [] } = data;
+  getFieldFromConditionString(condition: string, fieldName: string) {
     var returnCon: any[] = [];
+    const operators = ["==", "!=", ">", "<"];
+    var field;
 
-    for (const field of fields) {
-      var name = field.name;
-      for (const condition of conditions) {
-        for (const innerCondition of condition) {
-          var fieldName = innerCondition.value;
-          if (this.checkDuplicateCondition(returnCon, condition.name)) continue;
-          if (name == fieldName) returnCon.push(condition);
-        }
+    for (const operator of operators) {
+      if (condition.includes(operator)) {
+        field = condition.substring(
+          condition.indexOf(".") + 1,
+          condition.lastIndexOf(operator)
+        );
       }
     }
-    return returnCon;
-  }
 
-  getFieldName(fieldValue: string) {}
+    if (field == fieldName) {
+    }
+  }
 
   checkDuplicateCondition(conditions: any[], conditionName: string) {
     for (const condition of conditions) {
