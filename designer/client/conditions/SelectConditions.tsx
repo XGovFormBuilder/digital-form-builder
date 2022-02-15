@@ -12,6 +12,7 @@ import {
   inputsAccessibleAt,
   hasConditions as dataHasConditions,
 } from "../data";
+import { data } from "msw/lib/types/context";
 
 interface Props {
   path: string;
@@ -74,7 +75,7 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     var returnCon: any[] = [];
-
+    this.conditionsForPathOld(this.props.path);
     for (const field of fields) {
       var name = field.name;
       for (const condition of conditions) {
@@ -87,6 +88,27 @@ class SelectConditions extends React.Component<Props, State> {
     }
     return returnCon;
   }
+
+  conditionsForPathOld(path: string) {
+    const { data } = this.context;
+    const fields: any = Object.values(this.fieldsForPath(path));
+    const { conditions = [] } = data;
+    var returnCon: any[] = [];
+
+    for (const field of fields) {
+      var name = field.name;
+      for (const condition of conditions) {
+        for (const innerCondition of condition) {
+          var fieldName = innerCondition.value;
+          if (this.checkDuplicateCondition(returnCon, condition.name)) continue;
+          if (name == fieldName) returnCon.push(condition);
+        }
+      }
+    }
+    return returnCon;
+  }
+
+  getFieldName(fieldValue: string) {}
 
   checkDuplicateCondition(conditions: any[], conditionName: string) {
     for (const condition of conditions) {
@@ -132,7 +154,7 @@ class SelectConditions extends React.Component<Props, State> {
   render() {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
-    const conditions = this.conditionsForPath(this.props.path);
+    const conditions = this.context.data.conditions;
     const hasConditions = dataHasConditions(conditions) || selectedCondition;
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
 

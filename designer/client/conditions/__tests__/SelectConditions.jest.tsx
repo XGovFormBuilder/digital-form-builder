@@ -46,7 +46,69 @@ describe("SelectConditions", () => {
 test("SelectConditions renders available conditions", () => {
   let data = {
     lists: [],
-    pages: [],
+    pages: [
+      {
+        path: "/uk-passport",
+        components: [
+          {
+            type: "YesNoField",
+            name: "ukPassport",
+            title: "Do you have a UK passport?",
+            options: {
+              required: true,
+            },
+            schema: {},
+          },
+        ],
+        next: [
+          {
+            path: "/how-many-people",
+          },
+          {
+            path: "/no-uk-passport",
+            condition: "b-NGgWvGISkJJLuzsJIjv",
+          },
+        ],
+        title: "Do you have a UK passport?",
+      },
+      {
+        path: "/no-uk-passport",
+        title: "You're not eligible for this service",
+        component: [
+          {
+            type: "Para",
+            content:
+              "If you still think you're eligible please contact the Foreign and Commonwealth Office.",
+            options: {
+              required: true,
+            },
+            schema: {},
+          },
+        ],
+        next: [],
+      },
+      {
+        path: "/how-many-people",
+        components: [
+          {
+            options: {
+              classes: "govuk-input--width-10",
+              required: true,
+            },
+            type: "SelectField",
+            name: "numberOfApplicants",
+            title: "How many applicants are there?",
+            list: "numberOfApplicants",
+          },
+        ],
+        next: [
+          {
+            path: "/applicant-one",
+          },
+        ],
+        title: "How many applicants are there?",
+      },
+    ],
     sections: [],
     startPage: "",
     conditions: [
@@ -89,7 +151,7 @@ test("SelectConditions renders available conditions", () => {
     (condition) => condition.displayName
   );
   expect(queryByText("You cannot add any conditions as")).toBeNull();
-  expect(getByTestId("select-condition")).toBeInTheDocument();
+  expect(getByTestId("select-conditions")).toBeInTheDocument();
   expectedConditions.forEach((condition) => {
     expect(getByText(condition)).toBeInTheDocument();
   });
