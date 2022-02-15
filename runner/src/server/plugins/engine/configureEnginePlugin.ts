@@ -10,7 +10,8 @@ import config from "../../config";
 
 type ConfigureEnginePlugin = (
   formFileName?: string,
-  formFilePath?: string
+  formFilePath?: string,
+  enforceCSRF?: boolean
 ) => {
   plugin: any;
   options: {
@@ -28,13 +29,10 @@ type ConfigureEnginePlugin = (
 
 const relativeTo = __dirname;
 
-type EngineOptions = {
-  previewMode?: boolean;
-};
 export const configureEnginePlugin: ConfigureEnginePlugin = (
   formFileName,
   formFilePath,
-  options?: EngineOptions
+  enforceCSRF
 ) => {
   let configs: FormConfiguration[];
 
@@ -51,11 +49,16 @@ export const configureEnginePlugin: ConfigureEnginePlugin = (
 
   const modelOptions = {
     relativeTo,
-    previewMode: options?.previewMode ?? config.previewMode,
+    previewMode: config.previewMode,
   };
 
   return {
     plugin,
-    options: { modelOptions, configs, previewMode: config.previewMode },
+    options: {
+      modelOptions,
+      configs,
+      previewMode: config.previewMode,
+      enforceCSRF: enforceCSRF,
+    },
   };
 };
