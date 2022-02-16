@@ -98,15 +98,21 @@ export class StatusService {
 
   async outputRequests(request: HapiRequest) {
     const state = await this.cacheService.getState(request);
+    let formData = this.webhookArgsFromState(state);
 
-    const { outputs } = state;
+    const { outputs, callback } = state;
 
     let newReference;
 
+    if (callback) {
+      this.logger.info(
+        ["StatusService", "outputRequests"],
+        `Callback detected for ${request.yar.id}`
+      );
+    }
+
     const firstWebhook = outputs?.find((output) => output.type === "webhook");
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
-    let formData = this.webhookArgsFromState(state);
-
     if (firstWebhook) {
       newReference = await this.webhookService.postRequest(
         firstWebhook.outputData.url,
@@ -124,11 +130,27 @@ export class StatusService {
       state.pay
     );
 
+    let callbackRequest = async () => {
+      if (!callback) return;
+      this.logger.info(
+        ["StatusService", "outputRequests"],
+        `PUT to ${callback.callbackUrl}`
+      );
+      const putRequest = this.webhookService.postRequest(
+        callback.callbackUrl,
+        formData,
+        "PUT"
+      );
+      newReference = await putRequest;
+      return putRequest;
+    };
+
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
       ...webhook.map(({ url, formData }) =>
         this.webhookService.postRequest(url, formData)
       ),
+      ...(callback && (await callbackRequest())),
     ];
 
     return {
@@ -231,7 +253,7 @@ export class StatusService {
     formModel: FormModel,
     newReference?: string
   ) {
-    const { reference, pay } = state;
+    const { reference, pay, callback } = state;
     this.logger.info(
       ["StatusService", "getViewModel"],
       `generating viewModel for ${newReference ?? reference}`
@@ -249,7 +271,10 @@ export class StatusService {
       return model;
     }
 
-    model.customText = confirmationPage.customText;
+    model.customText = {
+      ...confirmationPage.customText,
+      ...callback?.customText,
+    };
 
     const components = new ComponentCollection(
       confirmationPage?.components ?? [],

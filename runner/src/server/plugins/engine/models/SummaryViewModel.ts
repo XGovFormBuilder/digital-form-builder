@@ -103,9 +103,10 @@ export class SummaryViewModel {
       );
 
       /**
-       * If there outputs defined, parse the state data for the appropriate outputs
+       * If there outputs defined, parse the state data for the appropriate outputs.
+       * Skip outputs if this is a callback
        */
-      if (def.outputs) {
+      if (def.outputs && !state.callback) {
         this._outputs = def.outputs.map((output) => {
           switch (output.type) {
             case "notify":
@@ -142,6 +143,7 @@ export class SummaryViewModel {
     this.details = details;
     this.state = state;
     this.value = result.value;
+    this.callback = state.callback;
   }
 
   private processErrors(result, details) {

@@ -1,6 +1,6 @@
 import dotEnv from "dotenv";
 import Joi, { CustomHelpers } from "joi";
-
+const nodeConfig = require("config");
 import { isUrlSecure } from "src/server/utils/url";
 
 if (process.env.NODE_ENV !== "test") {
@@ -177,5 +177,6 @@ export function buildConfig() {
 }
 
 const config = buildConfig();
-
+// TODO: migrate all environment variables to runner/config/default.json
+config.whitelist = nodeConfig.get("whitelist");
 export default config;

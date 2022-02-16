@@ -1,11 +1,9 @@
-import { FormDefinition } from "@xgovformbuilder/model";
-
 export type InitialiseSession = {
   whitelist: string[];
 };
 
 export type InitialiseSessionOptions = {
-  callback: string;
+  callbackUrl: string;
   redirectPath?: string;
   message?: string;
 };

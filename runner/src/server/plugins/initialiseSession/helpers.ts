@@ -3,14 +3,17 @@ import { merge } from "@hapi/hoek";
 import { nanoid } from "nanoid";
 import config from "server/config";
 import Jwt from "@hapi/jwt";
+import { FormSubmissionState } from "server/plugins/engine/types";
 
 export function fieldToValue(field: Field) {
   const { key, answer } = field;
   return { [key]: answer };
 }
 
-export function webhookToSessionData(webhookData: WebhookSchema) {
-  const { questions } = webhowebhookDataok;
+export function webhookToSessionData(
+  webhookData: WebhookSchema
+): FormSubmissionState {
+  const { questions } = webhookData;
   return questions.reduce((session, currentQuestion) => {
     const { fields, category } = currentQuestion;
 

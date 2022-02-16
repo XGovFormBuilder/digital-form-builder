@@ -7,7 +7,11 @@ import Redis from "ioredis";
 import config from "../config";
 import { HapiRequest, HapiServer } from "../types";
 import { FormSubmissionState } from "../plugins/engine/types";
-import { DecodedSessionToken } from "server/plugins/initialiseSession/types";
+import {
+  DecodedSessionToken,
+  InitialiseSessionOptions,
+} from "server/plugins/initialiseSession/types";
+import { WebhookSchema } from "../schemas/webhookSchema";
 
 const {
   redisHost,
@@ -63,12 +67,14 @@ export class CacheService {
     return this.cache.set(key, viewModel, sessionTimeout);
   }
 
-  async createSession(jwt, data) {
+  async createSession(
+    jwt: string,
+    data: {
+      callback: InitialiseSessionOptions;
+    } & Partial<WebhookSchema>
+  ) {
     return this.cache.set(
-      {
-        segment: partition,
-        id: jwt,
-      },
+      this.JWTKey(jwt),
       data,
       config.initialisedSessionTimeout
     );
@@ -77,21 +83,23 @@ export class CacheService {
   async activateSession(jwt, request) {
     const { decoded } = Jwt.token.decode(jwt);
     const { payload }: { payload: DecodedSessionToken } = decoded;
-    const { cb } = payload;
+
     const userSessionKey = {
       segment: partition,
       id: `${request.yar.id}:${payload.group}`,
     };
+
     const initialisedSession = await this.cache.get(this.JWTKey(jwt));
+
     const currentSession = await this.cache.get(userSessionKey);
-    const newSession = {
+    const mergedSession = {
       ...currentSession,
       ...initialisedSession,
-      outputs: { url: cb },
     };
-    this.cache.set(userSessionKey, newSession, sessionTimeout);
+    this.cache.set(userSessionKey, mergedSession, sessionTimeout);
+    await this.cache.drop(this.JWTKey(jwt));
     return {
-      redirectPath: newSession.redirectPath ?? "",
+      redirectPath: initialisedSession?.callback?.redirectPath ?? "",
     };
   }
 

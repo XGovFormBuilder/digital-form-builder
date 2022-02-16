@@ -11,6 +11,8 @@ import { configureEnginePlugin } from "./plugins/engine";
 import { configureRateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
+import { configureInitialiseSessionPlugin } from "server/plugins/initialiseSession/configurePlugin";
+
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
 import pluginAuth from "./plugins/auth";
@@ -33,7 +35,6 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
-import { initialiseSession } from "server/plugins/initialiseSession";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -92,7 +93,11 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginLogging);
   await server.register(Schmervice);
   await server.register(pluginAuth);
-  await server.register(initialiseSession, {});
+  await server.register(
+    configureInitialiseSessionPlugin({
+      whitelist: config.whitelist,
+    })
+  );
 
   server.registerService([
     CacheService,
