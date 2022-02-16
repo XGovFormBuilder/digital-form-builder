@@ -2276,6 +2276,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/catbox-object@npm:2.x.x":
+  version: 2.0.0
+  resolution: "@hapi/catbox-object@npm:2.0.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/hoek": 9.x.x
+  checksum: c20754ce2a39f626d42b57f7efb469e8577c37121333c3f030da3d81309675636bca099cf298735ef21f510a9a794780e7cd7d798009a5dfc23c2a72ac0632d1
+  languageName: node
+  linkType: hard
+
 "@hapi/catbox-redis@npm:5.0.5":
   version: 5.0.5
   resolution: "@hapi/catbox-redis@npm:5.0.5"
@@ -2539,6 +2549,24 @@ __metadata:
     "@hapi/pinpoint": ^2.0.0
     "@hapi/topo": ^5.0.0
   checksum: 84d9ce971fdfdf0a1598de3568f2e6aede9b1e4ffe7460c44003bb8ecdaf9455b6e92e8e28d8a174a04510cdc3dd53e5908162a22ec3cf3048dc45c01daac429
+  languageName: node
+  linkType: hard
+
+"@hapi/jwt@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@hapi/jwt@npm:2.1.0"
+  dependencies:
+    "@hapi/b64": 5.x.x
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/bourne": 2.x.x
+    "@hapi/catbox-object": 2.x.x
+    "@hapi/cryptiles": 5.x.x
+    "@hapi/hoek": 9.x.x
+    "@hapi/wreck": 17.x.x
+    ecdsa-sig-formatter: 1.x.x
+    joi: ^17.2.1
+  checksum: 9c30b7f1ad7f9da76260b323b2719fe6aff0a2aed08bbcb4f399b20e4c445c640868812cb887673b1ae2ac64a12d81d8d43744e08040bc63ea3e6eb2233a0669
   languageName: node
   linkType: hard
 
@@ -3288,6 +3316,15 @@ __metadata:
   dependencies:
     "@hapi/hoek": ^9.0.0
   checksum: 13f0a6b4178b03d7c0062894312313892d9a728987a5d07d43cb42c04bcdf55cd02092eb6f09ffb8d78a1dfae8cf5ce6c9b4ad66934771ea6a18e2b3fcd752d9
+  languageName: node
+  linkType: hard
+
+"@sideway/address@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@sideway/address@npm:4.1.3"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: 1e0329308caf31b4c147d3d6825fc4830439d03fbcbbd485a373c0a44b07006aa45e74331043d02aad706e0bd1caf20c7989d2a7d141621a953dd889042c27af
   languageName: node
   linkType: hard
 
@@ -5077,6 +5114,7 @@ __metadata:
     "@hapi/crumb": 8.0.0
     "@hapi/hapi": ^20.0.3
     "@hapi/inert": 5.2.2
+    "@hapi/jwt": ^2.1.0
     "@hapi/lab": 24.0.0
     "@hapi/scooter": 6.0.0
     "@hapi/wreck": 17.0.0
@@ -9500,7 +9538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ecdsa-sig-formatter@npm:1.0.11, ecdsa-sig-formatter@npm:^1.0.11":
+"ecdsa-sig-formatter@npm:1.0.11, ecdsa-sig-formatter@npm:1.x.x, ecdsa-sig-formatter@npm:^1.0.11":
   version: 1.0.11
   resolution: "ecdsa-sig-formatter@npm:1.0.11"
   dependencies:
@@ -14977,6 +15015,19 @@ fsevents@^1.2.7:
     "@sideway/formula": ^3.0.0
     "@sideway/pinpoint": ^2.0.0
   checksum: 4aee05091f6d1dcd3dd5e9e286cd2b399b8f371327f81f3382750bbcf5c461387ab0c36a3c0377f2a80db6f1f04745a77a4bf8194674643d14ca7d47a079a2b0
+  languageName: node
+  linkType: hard
+
+"joi@npm:^17.2.1":
+  version: 17.6.0
+  resolution: "joi@npm:17.6.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.3
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 38b055834b81e45d7961054d6b4985dc0d69c31dbb83205377837525c52e9ef983de68da50568b9f2cabcfe081bc179bd6b276717503239b2db7b016438acb57
   languageName: node
   linkType: hard
 

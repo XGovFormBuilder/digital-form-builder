@@ -1,11 +1,13 @@
 import hoek from "hoek";
 import CatboxRedis from "@hapi/catbox-redis";
 import CatboxMemory from "@hapi/catbox-memory";
+import Jwt from "@hapi/jwt";
 import Redis from "ioredis";
 
 import config from "../config";
 import { HapiRequest, HapiServer } from "../types";
 import { FormSubmissionState } from "../plugins/engine/types";
+import { DecodedSessionToken } from "server/plugins/initialiseSession/types";
 
 const {
   redisHost,
@@ -61,6 +63,38 @@ export class CacheService {
     return this.cache.set(key, viewModel, sessionTimeout);
   }
 
+  async createSession(jwt, data) {
+    return this.cache.set(
+      {
+        segment: partition,
+        id: jwt,
+      },
+      data,
+      config.initialisedSessionTimeout
+    );
+  }
+
+  async activateSession(jwt, request) {
+    const { decoded } = Jwt.token.decode(jwt);
+    const { payload }: { payload: DecodedSessionToken } = decoded;
+    const { cb } = payload;
+    const userSessionKey = {
+      segment: partition,
+      id: `${request.yar.id}:${payload.group}`,
+    };
+    const initialisedSession = await this.cache.get(this.JWTKey(jwt));
+    const currentSession = await this.cache.get(userSessionKey);
+    const newSession = {
+      ...currentSession,
+      ...initialisedSession,
+      outputs: { url: cb },
+    };
+    this.cache.set(userSessionKey, newSession, sessionTimeout);
+    return {
+      redirectPath: newSession.redirectPath ?? "",
+    };
+  }
+
   async clearState(request: HapiRequest) {
     if (request.yar?.id) {
       this.cache.drop(this.Key(request));
@@ -80,7 +114,14 @@ export class CacheService {
     }
     return {
       segment: partition,
-      id: `${request.yar.id}:${request.params.id}${additionalIdentifier}`,
+      id: `${request.yar.id}:${request.params.id}${additionalIdentifier ?? ""}`,
+    };
+  }
+
+  JWTKey(jwt) {
+    return {
+      segment: partition,
+      id: jwt,
     };
   }
 }

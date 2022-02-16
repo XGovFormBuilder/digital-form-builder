@@ -9,6 +9,7 @@ if (process.env.NODE_ENV !== "test") {
 
 const minute = 60 * 1000;
 const DEFAULT_SESSION_TTL = 20 * minute;
+const DEFAULT_INITIALISED_SESSION_TTL = 28 * 24 * 60 * minute; // 28 days
 const DEFAULT_PORT = 3009;
 const DEFAULT_LOG_LEVEL = "trace";
 const DEFAULT_SERVICE_URL = "http://localhost:3009";
@@ -57,6 +58,10 @@ const schema = Joi.object({
   sslKey: Joi.string().optional(),
   sslCert: Joi.string().optional(),
   sessionTimeout: Joi.number().default(DEFAULT_SESSION_TTL),
+  initialisedSessionTimeout: Joi.number().default(
+    DEFAULT_INITIALISED_SESSION_TTL
+  ),
+  initialisedSessionKey: Joi.number().default("mySessionKey"),
   sessionCookiePassword: Joi.string().optional(),
   rateLimit: Joi.boolean().optional(),
   fromEmailAddress: Joi.string().optional(),
@@ -130,6 +135,8 @@ export function buildConfig() {
     sslCert: process.env.SSL_CERT,
     sessionTimeout: process.env.SESSION_TIMEOUT,
     sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
+    initialisedSessionTimeout: process.env.INITALISED_SESSION_TIMEOUT,
+    initialisedSessionKey: process.env.INITALISED_SESSION_KEY,
     rateLimit: process.env.RATE_LIMIT !== "false",
     fromEmailAddress: process.env.FROM_EMAIL_ADDRESS,
     serviceStartPage: process.env.SERVICE_START_PAGE,
