@@ -10,26 +10,6 @@ const rawData = {
     {
       title: "First page",
       path: "/first-page",
-      components: [],
-    },
-    {
-      title: "Summary",
-      path: "/summary",
-      controller: "./pages/summary.js",
-      components: [],
-    },
-  ],
-  sections: [],
-  startPage: "",
-  conditions: [],
-};
-
-const rawDatab = {
-  lists: [],
-  pages: [
-    {
-      title: "First page",
-      path: "/first-page",
       components: [
         {
           type: "YesNoField",
@@ -41,6 +21,11 @@ const rawDatab = {
           schema: {},
         },
       ],
+    },
+    {
+      title: "Second page",
+      path: "/second-page",
+      components: [],
     },
     {
       title: "Summary",
@@ -86,7 +71,7 @@ test("cannot add condition hint is rendered correctly", () => {
   const { getByLabelText, getByText } = customRender(<LinkCreate />);
 
   fireEvent.change(getByLabelText("From"), {
-    target: { value: data.pages[0].path },
+    target: { value: data.pages[1].path },
   });
 
   expect(getByText(hint)).toBeInTheDocument();
@@ -113,7 +98,7 @@ test("Selecting a from value causes the SelectConditions component to be display
 
 test("links are correctly generated when the form is submitted", () => {
   const data = {
-    ...rawDatab,
+    ...rawData,
     conditions: [
       {
         name: "a-NGgWvGISkJJLuzsJIjv",
@@ -194,7 +179,7 @@ test("links are correctly generated when the form is submitted", () => {
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(2);
 
-  expect(save.mock.calls[1][0].pages[1].next).toContainEqual({
+  expect(save.mock.calls[1][0].pages[0].path).toContainEqual({
     path: "/first-page",
   });
 });
