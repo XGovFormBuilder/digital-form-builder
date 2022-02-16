@@ -75,38 +75,55 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     var returnCon: any[] = [];
+    const operators = ["==", "!=", ">", "<"];
+
     for (const field of fields) {
-      var name = field.name;
+      var fieldName = this.trimSectionName(field.name);
       for (const condition of conditions) {
         const conditionValue = condition.value;
+
+        // This will handle older conditons
         if (typeof conditionValue === "string") {
-        }
-        for (const innerCondition of condition.value.conditions) {
-          var fieldName = innerCondition.field.name;
-          if (this.checkDuplicateCondition(returnCon, condition.name)) continue;
-          if (name == fieldName) returnCon.push(condition);
+          for (const operator of operators) {
+            if (conditionValue.includes(operator)) {
+              var conditionFieldName = conditionValue
+                .substring(
+                  conditionValue.indexOf(".") + 1,
+                  conditionValue.lastIndexOf(operator)
+                )
+                .trim();
+              this.checkAndAddCondition(
+                condition,
+                fieldName,
+                conditionFieldName,
+                returnCon
+              );
+            }
+          }
+        } else {
+          // This will handle newer conditions
+          for (const innerCondition of condition.value.conditions) {
+            this.checkAndAddCondition(
+              condition,
+              fieldName,
+              innerCondition.field.name,
+              returnCon
+            );
+          }
         }
       }
     }
     return returnCon;
   }
 
-  getFieldFromConditionString(condition: string, fieldName: string) {
-    var returnCon: any[] = [];
-    const operators = ["==", "!=", ">", "<"];
-    var field;
-
-    for (const operator of operators) {
-      if (condition.includes(operator)) {
-        field = condition.substring(
-          condition.indexOf(".") + 1,
-          condition.lastIndexOf(operator)
-        );
-      }
-    }
-
-    if (field == fieldName) {
-    }
+  checkAndAddCondition(
+    condition,
+    fieldName: string,
+    conditionFieldName: string,
+    returnCon: any[]
+  ) {
+    if (this.checkDuplicateCondition(returnCon, condition.name)) return;
+    if (fieldName == conditionFieldName) returnCon.push(condition);
   }
 
   checkDuplicateCondition(conditions: any[], conditionName: string) {
@@ -114,6 +131,13 @@ class SelectConditions extends React.Component<Props, State> {
       if (condition.name == conditionName) return true;
     }
     return false;
+  }
+
+  trimSectionName(fieldName: string) {
+    if (fieldName.includes(".")) {
+      return fieldName.substring(fieldName.indexOf(".") + 1);
+    }
+    return fieldName;
   }
 
   onClickDefineCondition = (e) => {
@@ -153,7 +177,7 @@ class SelectConditions extends React.Component<Props, State> {
   render() {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
-    const conditions = this.context.data.conditions;
+    const conditions = this.conditionsForPath(this.props.path);
     const hasConditions = dataHasConditions(conditions) || selectedCondition;
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
 
