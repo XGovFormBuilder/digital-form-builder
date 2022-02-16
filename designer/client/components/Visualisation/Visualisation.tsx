@@ -39,7 +39,6 @@ export function Visualisation(props: Props) {
   const wrapperStyle = layout && {
     width: layout?.width,
     height: layout?.height,
-    top: "10px",
   };
 
   return (
