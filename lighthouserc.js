@@ -17,7 +17,6 @@ module.exports = {
     assert: {},
     upload: {
       target: "filesystem",
-      //target: "temporary-public-storage",
     },
   },
 };
