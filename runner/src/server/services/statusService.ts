@@ -169,6 +169,7 @@ export class StatusService {
       ...(!paymentSkipped && { fees }),
       metadata: {
         ...metadata,
+        ...state.metadata,
         paymentSkipped: paymentSkipped ?? false,
       },
     };

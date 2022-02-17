@@ -5143,6 +5143,7 @@ __metadata:
     cli-ux: ^5.5.1
     code: 5.2.4
     concurrently: ^5.3.0
+    config: ^3.3.7
     date-fns: ^2.24.0
     dotenv: 8.2.0
     eslint: ^7.6.0
@@ -8091,6 +8092,15 @@ __metadata:
   bin:
     concurrently: bin/concurrently.js
   checksum: c46bb460ea0fdf1a15232d84b6122e1ec56655043c154d2be70375ab6eafe04a9224d0da35af5bf190e09d85343bda7a670a886cc67e678fabc4996e9f41650f
+  languageName: node
+  linkType: hard
+
+"config@npm:^3.3.7":
+  version: 3.3.7
+  resolution: "config@npm:3.3.7"
+  dependencies:
+    json5: ^2.1.1
+  checksum: 595aef295a106d8f70f958e1bc5feed88528e93b3b72b92d411f163b7496c9e971a5cca3bd36b4a35e0fbddcc2dfe0b093a32373ed8209adf3f76ac60aaef3b6
   languageName: node
   linkType: hard
 
@@ -15285,6 +15295,17 @@ fsevents@^1.2.7:
   bin:
     json5: lib/cli.js
   checksum: df41624f9f40bfacc546f779eef6d161a3312fbb6ec1dbd69f8c4388e9807af653b753371ab19b6d2bab22af2ca7dde62fe03c791596acf76915e1fc4ee6fd88
+  languageName: node
+  linkType: hard
+
+"json5@npm:^2.1.1":
+  version: 2.2.0
+  resolution: "json5@npm:2.2.0"
+  dependencies:
+    minimist: ^1.2.5
+  bin:
+    json5: lib/cli.js
+  checksum: 07b1f90c2801dc52df2b0ac8d606cc400a85cda79130e754780fa2ab9805d0fb85a0e61b6a5cdd68e88e5d0c8f9109ec415af08283175556cdccaa8563853908
   languageName: node
   linkType: hard
 
