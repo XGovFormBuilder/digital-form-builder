@@ -101,7 +101,7 @@ test("links are correctly generated when the form is submitted", () => {
     ...rawData,
     conditions: [
       {
-        name: "a-NGgWvGISkJJLuzsJIjv",
+        name: "hasUKPassport",
         displayName: "hasUKPassport",
         value: {
           name: "hasUKPassport",
@@ -123,7 +123,7 @@ test("links are correctly generated when the form is submitted", () => {
         },
       },
       {
-        name: "b-NGgWvGISkJJLuzsJIjv",
+        name: "doesntHaveUKPassport",
         displayName: "doesntHaveUKPassport",
         value: {
           name: "doesntHaveUKPassport",
@@ -158,13 +158,13 @@ test("links are correctly generated when the form is submitted", () => {
     target: { value: "/summary" },
   });
   fireEvent.change(getByTestId("select-condition"), {
-    target: { value: "a-NGgWvGISkJJLuzsJIjv" },
+    target: { value: "hasUKPassport" },
   });
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(1);
   expect(save.mock.calls[0][0].pages[0].next).toContainEqual({
     path: "/summary",
-    condition: "a-NGgWvGISkJJLuzsJIjv",
+    condition: "hasUKPassport",
   });
 
   fireEvent.change(getByTestId("link-source"), {
@@ -174,7 +174,7 @@ test("links are correctly generated when the form is submitted", () => {
     target: { value: "/first-page" },
   });
   fireEvent.change(getByTestId("select-condition"), {
-    target: { value: "a-NGgWvGISkJJLuzsJIjv" },
+    target: { value: "hasUKPassport" },
   });
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(2);
