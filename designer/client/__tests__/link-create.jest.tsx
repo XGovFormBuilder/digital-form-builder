@@ -179,7 +179,7 @@ test("links are correctly generated when the form is submitted", () => {
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(2);
 
-  expect(save.mock.calls[1][0].pages[0].path).toContainEqual({
+  expect(save.mock.calls[1][0].pages[2].next).toContainEqual({
     path: "/first-page",
   });
 });
