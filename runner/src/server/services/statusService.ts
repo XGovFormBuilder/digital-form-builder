@@ -11,6 +11,7 @@ import type { NotifyModel } from "../plugins/engine/models/submission";
 import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
+import Boom from "boom";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -109,6 +110,19 @@ export class StatusService {
         ["StatusService", "outputRequests"],
         `Callback detected for ${request.yar.id}`
       );
+      this.logger.info(
+        ["StatusService", "outputRequests"],
+        `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
+      );
+      try {
+        newReference = await this.webhookService.postRequest(
+          callback.callbackUrl,
+          formData,
+          "PUT"
+        );
+      } catch (e) {
+        throw Boom.badRequest();
+      }
     }
 
     const firstWebhook = outputs?.find((output) => output.type === "webhook");
@@ -130,27 +144,11 @@ export class StatusService {
       state.pay
     );
 
-    let callbackRequest = async () => {
-      if (!callback) return;
-      this.logger.info(
-        ["StatusService", "outputRequests"],
-        `PUT to ${callback.callbackUrl}`
-      );
-      const putRequest = this.webhookService.postRequest(
-        callback.callbackUrl,
-        formData,
-        "PUT"
-      );
-      newReference = await putRequest;
-      return putRequest;
-    };
-
     const requests = [
       ...notify.map((args) => this.notifyService.sendNotification(args)),
       ...webhook.map(({ url, formData }) =>
         this.webhookService.postRequest(url, formData)
       ),
-      ...(callback && (await callbackRequest())),
     ];
 
     return {
@@ -276,8 +274,10 @@ export class StatusService {
       ...callback?.customText,
     };
 
+    const componentDefsToRender =
+      callback?.components ?? confirmationPage?.components ?? [];
     const components = new ComponentCollection(
-      confirmationPage?.components ?? [],
+      componentDefsToRender,
       formModel
     );
     model.components = components.getViewModel(

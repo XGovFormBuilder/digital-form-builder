@@ -1,40 +1,30 @@
 import { Plugin, Request } from "@hapi/hapi";
-import joi from "joi";
-import { generateSessionTokenForForm, webhookToSessionData } from "./helpers";
+import {
+  callbackValidation,
+  generateSessionTokenForForm,
+  webhookToSessionData,
+} from "./helpers";
 import { InitialiseSessionOptions, InitialiseSession } from "./types";
 import path from "path";
 import { WebhookSchema } from "server/schemas/webhookSchema";
 import Jwt from "@hapi/jwt";
+import { SpecialPages } from "@xgovformbuilder/model";
+
+type ConfirmationPage = SpecialPages["confirmationPage"];
 
 type InitialiseSessionRequest = {
   params: {
     formId: string;
   };
   payload: {
-    options: InitialiseSessionOptions;
+    options: InitialiseSessionOptions & ConfirmationPage;
   } & WebhookSchema;
 } & Request;
 
 export const initialiseSession: Plugin<InitialiseSession> = {
   name: "initialiseSession",
   register: async function (server, options) {
-    const {
-      whitelist = ["b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io"],
-    } = options;
-    const callbackValidation = joi.string().custom((value, helpers) => {
-      const hostname = new URL(value).hostname;
-
-      if (!hostname) {
-        return helpers.error("string.empty");
-      }
-
-      if (whitelist.includes(hostname)) {
-        return value;
-      }
-
-      return helpers.error("string.hostname");
-    });
-
+    const { whitelist } = options;
     server.route({
       method: "GET",
       path: "/session/{token}",
@@ -62,20 +52,16 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         const { payload, params } = request as InitialiseSessionRequest;
         const { cacheService } = request.services([]);
         const { formId } = params;
-        const { options, ...webhookData } = payload;
-        console.log("opts", options, payload);
+        const { options, metadata = {}, ...webhookData } = payload;
 
-        const {
-          callbackUrl = "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io/cb",
-        } = options;
+        const { callbackUrl } = options;
 
         const isExistingForm = server.app.forms?.[formId] ?? false;
-        const { error: callbackWhitelistError } = callbackValidation.validate(
-          callbackUrl,
-          {
-            abortEarly: false,
-          }
-        );
+        const { error: callbackWhitelistError } = callbackValidation(
+          whitelist
+        ).validate(callbackUrl, {
+          abortEarly: false,
+        });
 
         if (!isExistingForm) {
           return h
@@ -95,6 +81,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
 
         await cacheService.createSession(token, {
           callback: options,
+          metadata,
           ...webhookToSessionData(webhookData),
         });
 

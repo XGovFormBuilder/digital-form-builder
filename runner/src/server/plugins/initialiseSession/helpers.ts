@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import config from "server/config";
 import Jwt from "@hapi/jwt";
 import { FormSubmissionState } from "server/plugins/engine/types";
+import joi from "joi";
 
 export function fieldToValue(field: Field) {
   const { key, answer } = field;
@@ -49,3 +50,17 @@ export function generateSessionTokenForForm(callback, formId) {
     }
   );
 }
+
+export const callbackValidation = (whitelist = config.whitelist) =>
+  joi.string().custom((value, helpers) => {
+    const hostname = new URL(value).hostname;
+    if (!hostname) {
+      return helpers.error("string.empty");
+    }
+
+    if (whitelist.includes(hostname)) {
+      return value;
+    }
+
+    return helpers.error("string.hostname");
+  });
