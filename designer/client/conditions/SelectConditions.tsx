@@ -74,7 +74,7 @@ class SelectConditions extends React.Component<Props, State> {
     const { data } = this.context;
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
-    var returnCon: any[] = [];
+    var conditionsForPath: any[] = [];
     const operators = ["==", "!=", ">", "<"];
 
     for (const field of fields) {
@@ -82,7 +82,7 @@ class SelectConditions extends React.Component<Props, State> {
       for (const condition of conditions) {
         const conditionValue = condition.value;
 
-        // This will handle older conditons
+        // This will handle older conditions
         if (typeof conditionValue === "string") {
           for (const operator of operators) {
             if (conditionValue.includes(operator)) {
@@ -96,34 +96,34 @@ class SelectConditions extends React.Component<Props, State> {
                 condition,
                 fieldName,
                 conditionFieldName,
-                returnCon
+                conditionsForPath
               );
             }
           }
         } else {
           // This will handle newer conditions
-          for (const innerCondition of condition.value.conditions) {
+          for (const innerCondition of conditionValue.conditions) {
             this.checkAndAddCondition(
               condition,
               fieldName,
               innerCondition.field.name,
-              returnCon
+              conditionsForPath
             );
           }
         }
       }
     }
-    return returnCon;
+    return conditionsForPath;
   }
 
   checkAndAddCondition(
     condition,
     fieldName: string,
     conditionFieldName: string,
-    returnCon: any[]
+    conditions: any[]
   ) {
-    if (this.checkDuplicateCondition(returnCon, condition.name)) return;
-    if (fieldName == conditionFieldName) returnCon.push(condition);
+    if (this.checkDuplicateCondition(conditions, condition.name)) return;
+    if (fieldName == conditionFieldName) conditions.push(condition);
   }
 
   checkDuplicateCondition(conditions: any[], conditionName: string) {
