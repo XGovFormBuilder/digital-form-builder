@@ -79,6 +79,7 @@
     "joi": "17.2.1",
     "lighthouse": "^7.1.0",
     "lodash-es": "^4.17.21",
+    "msw": "^0.36.8",
     "nanoid": "^3.1.12",
     "nodemailer": "6.4.18",
     "nodemon": "^2.0.6",
