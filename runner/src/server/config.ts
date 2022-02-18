@@ -61,7 +61,7 @@ const schema = Joi.object({
   initialisedSessionTimeout: Joi.number().default(
     DEFAULT_INITIALISED_SESSION_TTL
   ),
-  initialisedSessionKey: Joi.number().default("mySessionKey"),
+  initialisedSessionKey: Joi.string().default("mySessionKey"),
   sessionCookiePassword: Joi.string().optional(),
   rateLimit: Joi.boolean().optional(),
   fromEmailAddress: Joi.string().optional(),

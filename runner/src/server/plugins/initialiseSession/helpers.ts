@@ -1,6 +1,6 @@
 import { Field, WebhookSchema } from "server/schemas/webhookSchema";
 import { merge } from "@hapi/hoek";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import config from "server/config";
 import Jwt from "@hapi/jwt";
 import { FormSubmissionState } from "server/plugins/engine/types";
@@ -39,7 +39,10 @@ export function generateSessionTokenForForm(callback, formId) {
   return Jwt.token.generate(
     {
       cb: callback,
-      user: nanoid(16),
+      user: customAlphabet(
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123467890",
+        16
+      ),
       group: formId,
     },
     {
