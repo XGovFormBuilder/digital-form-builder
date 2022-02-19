@@ -51,6 +51,25 @@ export const webhookSchema = joi.object().keys({
   metadata: metadataSchema,
 });
 
+const sessionFieldSchema = joi.object({
+  key: joi.string().required(),
+  answer: joi.any().required(),
+});
+
+const sessionQuestionSchema = joi.object({
+  category: joi.string().optional(),
+  fields: joi.array().items(sessionFieldSchema),
+});
+
+export const initialiseSessionSchema = joi.object().keys({
+  options: joi.object({
+    callbackUrl: joi.string().required(),
+    redirectPath: joi.string().optional().allow(""),
+  }),
+  questions: joi.array().items(sessionQuestionSchema),
+  metadata: metadataSchema.optional(),
+});
+
 export type WebhookSchema = {
   name: string;
   preferredLanguage?: string;
