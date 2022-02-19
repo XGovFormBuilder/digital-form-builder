@@ -95,7 +95,7 @@ describe("StatusService getViewModel returns the correct components based on a c
   });
 });
 
-suite.only("StatusService getViewModel renders custom text correctly", () => {
+suite("StatusService getViewModel renders custom text correctly", () => {
   let server;
   let statusService;
   let response;
