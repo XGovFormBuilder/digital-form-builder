@@ -8,7 +8,6 @@ import { InitialiseSessionOptions, InitialiseSession } from "./types";
 import path from "path";
 import {
   initialiseSessionSchema,
-  webhookSchema,
   WebhookSchema,
 } from "server/schemas/webhookSchema";
 import Jwt from "@hapi/jwt";
@@ -49,7 +48,6 @@ export const initialiseSession: Plugin<InitialiseSession> = {
       },
       options: {
         description: `Activates a session initialised from POST /session/{formId}. Redirects a user to the {formId} stored within the token.`,
-        tags: ["api"],
       },
     });
 
@@ -61,7 +59,6 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         const { cacheService } = request.services([]);
         const { formId } = params;
         const { options, metadata = {}, ...webhookData } = payload;
-
         const { callbackUrl } = options;
 
         const isExistingForm = server.app.forms?.[formId] ?? false;
@@ -96,14 +93,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         return h.response({ token }).code(201);
       },
       options: {
-        description:
-          "Creates a session and returns JSON containing a JWT Token",
-        tags: ["api"],
-        validate: {
-          payload: {
-            initialiseSessionSchema,
-          },
-        },
+        description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback whitelist.`,
       },
     });
   },
