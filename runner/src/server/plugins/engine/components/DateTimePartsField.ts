@@ -1,3 +1,4 @@
+import { format, parse, isValid } from "date-fns";
 import moment from "moment";
 import { Schema } from "joi";
 
@@ -110,15 +111,21 @@ export class DateTimePartsField extends FormComponent {
     // `moment` will check that the individual date
     // parts together constitute a valid date.
     // E.g. 31 November is not a valid date
-    return payload[`${name}__year`]
-      ? moment([
-          payload[`${name}__year`],
-          payload[`${name}__month`] - 1,
-          payload[`${name}__day`],
-          payload[`${name}__hour`],
-          payload[`${name}__minute`],
-        ]).toDate()
-      : null;
+    const date = new Date(
+      payload[`${name}__year`],
+      payload[`${name}__month`],
+      payload[`${name}__day`],
+      payload[`${name}__hour`],
+      payload[`${name}__minute`]
+    );
+
+    return payload[`${name}__year`] ? this.getValidDateTime(date) : null;
+  }
+
+  getValidDateTime(date: Date) {
+    if (isValid(date)) return date;
+
+    return null;
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
