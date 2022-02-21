@@ -1,3 +1,4 @@
 {
-  "whitelist": [""]
+  "whitelist": [""],
+  "initialisedSessionTimeout":2.419e+9
 }
