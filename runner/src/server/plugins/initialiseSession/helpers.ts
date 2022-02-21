@@ -54,14 +54,14 @@ export function generateSessionTokenForForm(callback, formId) {
   );
 }
 
-export const callbackValidation = (whitelist = config.whitelist) =>
+export const callbackValidation = (safelist = config.whitelist) =>
   joi.string().custom((value, helpers) => {
     const hostname = new URL(value).hostname;
     if (!hostname) {
       return helpers.error("string.empty");
     }
 
-    if (whitelist.includes(hostname)) {
+    if (safelist.includes(hostname)) {
       return value;
     }
 

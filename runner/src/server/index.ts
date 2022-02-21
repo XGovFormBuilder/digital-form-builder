@@ -95,7 +95,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginAuth);
   await server.register(
     configureInitialiseSessionPlugin({
-      whitelist: config.whitelist,
+      safelist: config.safelist,
     })
   );
 

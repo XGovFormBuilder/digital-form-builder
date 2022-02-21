@@ -27,7 +27,7 @@ type InitialiseSessionRequest = {
 export const initialiseSession: Plugin<InitialiseSession> = {
   name: "initialiseSession",
   register: async function (server, options) {
-    const { whitelist } = options;
+    const { safelist } = options;
     server.route({
       method: "GET",
       path: "/session/{token}",
@@ -62,8 +62,8 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         const { callbackUrl } = options;
 
         const isExistingForm = server.app.forms?.[formId] ?? false;
-        const { error: callbackWhitelistError } = callbackValidation(
-          whitelist
+        const { error: callbackSafeListError } = callbackValidation(
+          safelist
         ).validate(callbackUrl, {
           abortEarly: false,
         });
@@ -74,7 +74,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
             .code(404);
         }
 
-        if (callbackWhitelistError) {
+        if (callbackSafeListError) {
           return h
             .response({
               message: `the callback URL provided ${callbackUrl} is not allowed`,

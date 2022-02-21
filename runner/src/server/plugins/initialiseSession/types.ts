@@ -1,5 +1,5 @@
 export type InitialiseSession = {
-  whitelist: string[];
+  safelist: string[];
 };
 
 export type InitialiseSessionOptions = {

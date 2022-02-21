@@ -172,7 +172,7 @@ export function buildConfig() {
 
 const config = buildConfig();
 // TODO: migrate all environment variables to runner/config/default.json
-config.whitelist = nodeConfig.get("whitelist");
+config.safelist = nodeConfig.get("safelist");
 config.initialisedSessionTimeout = nodeConfig.get("initialisedSessionTimeout"); //default 28 days
 if (!nodeConfig.has("initialisedSessionKey")) {
   config.initialisedSessionKey = nanoid(16);

@@ -129,6 +129,7 @@ suite("InitialiseSession", () => {
     });
   });
   describe("GET /session/{token}", () => {
+    test("responds with a 404 if the callbackUrl has not been whitelisted", () => {});
     test("redirects the user to the correct form", async () => {
       let serverRequestOptions = {
         method: "POST",
@@ -141,7 +142,7 @@ suite("InitialiseSession", () => {
 
       postResponse = await server.inject(serverRequestOptions);
       token = JSON.parse(postResponse.payload).token;
-      console.log(token);
+      console.log(token, postResponse.payload);
 
       getResponse = await server.inject({
         url: `/session/${token}`,

@@ -1,7 +1,7 @@
 import { initialiseSession } from "server/plugins/initialiseSession/initialiseSession";
 
 export function configureInitialiseSessionPlugin(options: {
-  whitelist: string[];
+  safelist: string[];
 }) {
   return {
     plugin: initialiseSession,
