@@ -6,12 +6,10 @@ import {
 } from "./helpers";
 import { InitialiseSessionOptions, InitialiseSession } from "./types";
 import path from "path";
-import {
-  initialiseSessionSchema,
-  WebhookSchema,
-} from "server/schemas/webhookSchema";
+import { WebhookSchema } from "server/schemas/types";
 import Jwt from "@hapi/jwt";
 import { SpecialPages } from "@xgovformbuilder/model";
+import config from "src/server/config";
 
 type ConfirmationPage = SpecialPages["confirmationPage"];
 
@@ -77,7 +75,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         if (callbackSafeListError) {
           return h
             .response({
-              message: `the callback URL provided ${callbackUrl} is not allowed`,
+              message: `the callback URL provided ${callbackUrl} is not allowed. ${config.safelist}`,
             })
             .code(403);
         }

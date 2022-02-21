@@ -14,8 +14,7 @@ const {
 let server;
 
 const options = {
-  callbackUrl:
-    "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io/doesntexist",
+  callbackUrl: "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io",
   message: "Please fix this thing..",
   customText: {
     paymentSkipped: false,
@@ -95,16 +94,15 @@ const baseRequest = {
   metadata: { woo: "ah" },
 };
 
-before(async () => {
-  server = await createServer({});
-  await server.start();
-});
-
-after(async () => {
-  await server.stop();
-});
-
 suite("InitialiseSession", () => {
+  before(async () => {
+    server = await createServer({});
+    await server.start();
+  });
+
+  after(async () => {
+    await server.stop();
+  });
   describe("POST /session/{id}", () => {
     test(" responds with token if file exists", async () => {
       const serverRequestOptions = {
@@ -127,9 +125,21 @@ suite("InitialiseSession", () => {
       const { statusCode } = await server.inject(serverRequestOptions);
       expect(statusCode).to.equal(404);
     });
+    test("responds with a 403 if the callbackUrl has not been safelisted", async () => {
+      let serverRequestOptions = {
+        method: "POST",
+        url: `/session/test`,
+        payload: {
+          ...baseRequest,
+          options: { ...options, callbackUrl: "gov.uk" },
+        },
+      };
+      const { statusCode } = await server.inject(serverRequestOptions);
+      expect(statusCode).to.equal(403);
+    });
   });
+
   describe("GET /session/{token}", () => {
-    test("responds with a 404 if the callbackUrl has not been whitelisted", () => {});
     test("redirects the user to the correct form", async () => {
       let serverRequestOptions = {
         method: "POST",
