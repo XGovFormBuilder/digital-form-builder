@@ -6,7 +6,11 @@ import {
 } from "./helpers";
 import { InitialiseSessionOptions, InitialiseSession } from "./types";
 import path from "path";
-import { WebhookSchema } from "server/schemas/webhookSchema";
+import {
+  initialiseSessionSchema,
+  webhookSchema,
+  WebhookSchema,
+} from "server/schemas/webhookSchema";
 import Jwt from "@hapi/jwt";
 import { SpecialPages } from "@xgovformbuilder/model";
 
@@ -42,6 +46,10 @@ export const initialiseSession: Plugin<InitialiseSession> = {
           .normalize();
 
         return h.redirect(redirect);
+      },
+      options: {
+        description: `Activates a session initialised from POST /session/{formId}. Redirects a user to the {formId} stored within the token.`,
+        tags: ["api"],
       },
     });
 
@@ -86,6 +94,16 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         });
 
         return h.response({ token }).code(201);
+      },
+      options: {
+        description:
+          "Creates a session and returns JSON containing a JWT Token",
+        tags: ["api"],
+        validate: {
+          payload: {
+            initialiseSessionSchema,
+          },
+        },
       },
     });
   },
