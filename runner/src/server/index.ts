@@ -42,6 +42,9 @@ const serverOptions = (): ServerOptions => {
   const serverOptions: ServerOptions = {
     debug: { request: [`${config.isDev}`] },
     port: config.port,
+    router: {
+      stripTrailingSlash: true,
+    },
     routes: {
       validate: {
         options: {
