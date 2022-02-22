@@ -32,7 +32,6 @@ it("Renders button strings correctly", () => {
   expect(getByText("Lists")).toBeInTheDocument();
   expect(getByText("Outputs")).toBeInTheDocument();
   expect(getByText("Fees")).toBeInTheDocument();
-  expect(getByText("Summary behaviour")).toBeInTheDocument();
   expect(getByText("Summary")).toBeInTheDocument();
 });
 
