@@ -111,6 +111,11 @@ export class DateTimePartsField extends FormComponent {
     // `moment` will check that the individual date
     // parts together constitute a valid date.
     // E.g. 31 November is not a valid date
+    var aaaa = payload[`${name}__year`];
+    var bbbb = payload[`${name}__month`];
+    var cccc = payload[`${name}__day`];
+    let dta = parse("2019/11/07 09:45:00", "yyyy/MM/dd HH:mm:ss", new Date());
+    let dtb = parse("2019/11/31 09:45:00", "yyyy/MM/dd HH:mm:ss", new Date());
     const date = new Date(
       payload[`${name}__year`],
       payload[`${name}__month`],
