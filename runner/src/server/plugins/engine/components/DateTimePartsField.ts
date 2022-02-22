@@ -106,31 +106,32 @@ export class DateTimePartsField extends FormComponent {
 
   getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
-    // Use `moment` to parse the date as
+    // Use `date-fns` to parse the date as
     // opposed to the Date constructor.
-    // `moment` will check that the individual date
-    // parts together constitute a valid date.
+    // `date-fns` will check a string is a valid date.
     // E.g. 31 November is not a valid date
-    var aaaa = payload[`${name}__year`];
-    var bbbb = payload[`${name}__month`];
-    var cccc = payload[`${name}__day`];
-    let dta = parse("2019/11/07 09:45:00", "yyyy/MM/dd HH:mm:ss", new Date());
-    let dtb = parse("2019/11/31 09:45:00", "yyyy/MM/dd HH:mm:ss", new Date());
-    const date = new Date(
+    const date = this.constructDateString(
       payload[`${name}__year`],
       payload[`${name}__month`],
       payload[`${name}__day`],
       payload[`${name}__hour`],
       payload[`${name}__minute`]
     );
-
-    return payload[`${name}__year`] ? this.getValidDateTime(date) : null;
+    return payload[`${name}__year`] ? date : null;
   }
 
-  getValidDateTime(date: Date) {
-    if (isValid(date)) return date;
-
-    return null;
+  constructDateString(
+    year: string,
+    month: string,
+    day: string,
+    hour: string,
+    minute: string
+  ) {
+    return parse(
+      `${year}/${month}/${day} ${hour}:${minute}`,
+      "yyyy/MM/dd HH:mm",
+      new Date()
+    );
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
