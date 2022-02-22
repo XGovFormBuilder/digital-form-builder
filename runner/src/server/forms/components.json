@@ -109,9 +109,8 @@
           "schema": {}
         },
         {
-          "options": {
-            "list": "horseBreed"
-          },
+          "options": {},
+          "list": "horseBreed",
           "type": "CheckboxesField",
           "name": "checkboxesField",
           "title": "Checkboxes field",
