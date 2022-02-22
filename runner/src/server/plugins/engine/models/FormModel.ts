@@ -1,5 +1,5 @@
 import joi from "joi";
-import moment from "moment";
+import { add } from "date-fns";
 import { Parser } from "expr-eval";
 import {
   Schema,
@@ -192,12 +192,12 @@ export class FormModel {
     });
 
     parser.functions.dateForComparison = function (timePeriod, timeUnit) {
-      return moment().add(Number(timePeriod), timeUnit).toISOString();
+      return add(Number(timePeriod), timeUnit).toISOString();
     };
 
     parser.functions.timeForComparison = function (timePeriod, timeUnit) {
-      const offsetTime = moment().add(Number(timePeriod), timeUnit);
-      return `${offsetTime.hour()}:${offsetTime.minutes()}`;
+      const offsetTime = add(Number(timePeriod), timeUnit);
+      return `${offsetTime.getHours()}:${offsetTime.getMinutes()}`;
     };
 
     const { name, value } = condition;

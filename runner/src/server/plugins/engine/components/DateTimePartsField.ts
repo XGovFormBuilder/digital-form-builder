@@ -1,7 +1,5 @@
-import { format, parse, isValid } from "date-fns";
-import moment from "moment";
+import { format, parse, parseISO } from "date-fns";
 import { Schema } from "joi";
-
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
@@ -137,7 +135,7 @@ export class DateTimePartsField extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? moment(value).format("D MMMM YYYY h:mma") : "";
+    return value ? format(parseISO(value), "D MMMM YYYY h:mm") : "";
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc
