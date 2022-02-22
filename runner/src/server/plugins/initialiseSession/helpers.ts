@@ -1,4 +1,4 @@
-import { Field, WebhookSchema } from "server/schemas/webhookSchema";
+import { Field, WebhookSchema } from "server/schemas/types";
 import { merge } from "@hapi/hoek";
 import { customAlphabet } from "nanoid";
 import config from "server/config";
