@@ -60,6 +60,12 @@ export type ViewModel = {
   autocomplete?: string;
 };
 
+export type MultilineTextFieldViewModel = {
+  maxlength?: number;
+  isCharacterOrWordCount: boolean;
+  maxwords?: number;
+} & ViewModel;
+
 export type ComponentCollectionViewModel = {
   type: string;
   isFormComponent: boolean;
