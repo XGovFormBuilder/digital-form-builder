@@ -258,7 +258,7 @@ export class StatusService {
       `generating viewModel for ${newReference ?? reference}`
     );
     const { customText, components } =
-      formModel.def.specialPages?.confirmationPage ?? {};
+      state?.callback ?? formModel.def.specialPages?.confirmationPage ?? {};
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
 
