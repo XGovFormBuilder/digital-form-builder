@@ -258,7 +258,8 @@ export class StatusService {
       `generating viewModel for ${newReference ?? reference}`
     );
     const { customText, components } =
-      state?.callback ?? formModel.def.specialPages?.confirmationPage ?? {};
+      formModel.def.specialPages?.confirmationPage ?? {};
+
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
 
@@ -267,7 +268,7 @@ export class StatusService {
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
     };
 
-    if (!customText) {
+    if (!customText && !callback.customText) {
       return model;
     }
 
