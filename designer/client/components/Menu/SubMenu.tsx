@@ -72,7 +72,13 @@ export function SubMenu({ id, updateDownloadedAt }: Props) {
       >
         Download form
       </button>
-      <input ref={fileInput} type="file" hidden onChange={onFileUpload} />
+      <input
+        ref={fileInput}
+        type="file"
+        hidden
+        onChange={onFileUpload}
+        aria-label="Import saved form"
+      />
     </div>
   );
 }
