@@ -143,10 +143,10 @@ suite("Page Linkage", () => {
     const line = svg.find("line").first();
 
     expect(line.props()).to.include({
-      x1: event.clientX,
-      y1: event.clientY + window.pageYOffset,
-      x2: event.clientX,
-      y2: event.clientY + window.pageYOffset,
+      x1: event.pageX,
+      y1: event.pageY,
+      x2: event.pageX,
+      y2: event.pageY,
     });
   });
 
@@ -159,21 +159,21 @@ suite("Page Linkage", () => {
     let line = svg.find("line").first();
 
     expect(line.props()).to.include({
-      x1: event.clientX,
-      y1: event.clientY + window.pageYOffset,
-      x2: event.clientX,
-      y2: event.clientY + window.pageYOffset,
+      x1: event.pageX,
+      y1: event.pageY,
+      x2: event.pageX,
+      y2: event.pageY,
     });
 
-    dragArea.prop("onDrag")({ clientX: 200, clientY: 200 });
+    dragArea.prop("onDrag")({ pageX: 200, pageY: 200 });
     svg = wrapper.find("RenderInPortal").first().children();
     line = svg.find("line").first();
 
     expect(line.props()).to.include({
-      x1: event.clientX,
-      y1: event.clientY + window.pageYOffset,
+      x1: event.pageX,
+      y1: event.pageY,
       x2: 200,
-      y2: 200 + window.pageYOffset,
+      y2: 200,
     });
   });
 
