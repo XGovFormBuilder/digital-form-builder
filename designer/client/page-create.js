@@ -73,7 +73,7 @@ class PageCreate extends React.Component {
   };
 
   validate = (title, path) => {
-    const { data, i18n } = this.props;
+    const { data } = this.context;
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
     const alreadyExists = data.pages.find((page) => page.path === path);
@@ -102,7 +102,7 @@ class PageCreate extends React.Component {
   }
 
   findSectionWithName(name) {
-    const { data } = this.props;
+    const { data } = this.context;
     const { sections } = data;
     return sections.find((section) => section.name === name);
   }
@@ -171,7 +171,7 @@ class PageCreate extends React.Component {
   };
 
   render() {
-    const { data, i18n } = this.props;
+    const { data } = this.context;
     const { sections, pages } = data;
     const {
       pageType,
@@ -224,7 +224,7 @@ class PageCreate extends React.Component {
               onChange={this.onChangeLinkFrom}
             >
               <option />
-              {pages.map((page) => (
+              {pages?.map((page) => (
                 <option key={page.path} value={page.path}>
                   {page.path}
                 </option>
@@ -282,7 +282,7 @@ class PageCreate extends React.Component {
             <span className="govuk-hint">
               {i18n("addPage.sectionOption.helpText")}
             </span>
-            {sections.length > 0 && (
+            {sections?.length > 0 && (
               <select
                 className="govuk-select"
                 id="page-section"
