@@ -61,7 +61,6 @@ export class PageEdit extends React.Component {
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
-    if (isEditingDeclaration) copy.declaration = formData.get("declaration");
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
