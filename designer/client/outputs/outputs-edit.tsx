@@ -12,8 +12,8 @@ type State = {
 };
 
 class OutputsEdit extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       showAddOutput: false,
       output: undefined,
