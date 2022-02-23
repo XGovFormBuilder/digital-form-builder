@@ -268,7 +268,7 @@ export class StatusService {
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
     };
 
-    if (!customText && !callback.customText) {
+    if (!customText && !callback?.customText) {
       return model;
     }
 
