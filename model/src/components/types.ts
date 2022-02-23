@@ -182,18 +182,12 @@ export interface YesNoFieldComponent extends TextFieldBase {
   type: "YesNoField";
 }
 
-export interface MultilineTextFieldComponent {
-  subType?: "field";
+export interface MultilineTextFieldComponent extends TextFieldBase {
   type: "MultilineTextField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
     rows?: number;
-    classes?: string;
+    maxWords?: number;
   };
   schema: {
     max?: number;
