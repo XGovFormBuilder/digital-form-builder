@@ -7,9 +7,7 @@ import { i18n } from "../../i18n";
 import "./Flyout.scss";
 import { bool } from "aws-sdk/clients/signer";
 
-type Props = {};
-
-export function useFlyoutEffect(props: Props) {
+export function useFlyoutEffect(props = {}) {
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();

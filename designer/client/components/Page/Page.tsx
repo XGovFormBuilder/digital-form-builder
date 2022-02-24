@@ -110,7 +110,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
           title={i18n("Create component")}
           onClick={(_e) => setIsCreatingComponent(true)}
         >
-          1{i18n("Create component")}
+          {i18n("Create component")}
         </button>
         <a
           title={i18n("Preview page")}
