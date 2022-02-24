@@ -37,7 +37,7 @@ module.exports = class Page {
   }
 
   get govPhaseBanner() {
-    return browser.$(".govuk-phase-banner--solid");
+    return browser.$(".govuk-phase-banner");
   }
 
   get govFooter() {
