@@ -1,5 +1,4 @@
 import { Menu } from "..";
-import { screen } from "@testing-library/dom";
 import { render, fireEvent } from "@testing-library/react";
 import { DataContext, FlyoutContext } from "../../../context";
 import React from "react";
@@ -10,17 +9,17 @@ const rawData = {
     {
       title: "First page",
       path: "/first-page",
-      components: []
+      components: [],
     },
     {
       title: "Summary",
       path: "/summary",
-      components: []
+      components: [],
     },
   ],
   sections: [],
   startPage: "",
-  conditions: []
+  conditions: [],
 };
 
 const data = { ...rawData };
