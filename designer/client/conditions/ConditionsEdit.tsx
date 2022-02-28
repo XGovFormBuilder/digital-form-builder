@@ -39,9 +39,7 @@ function useConditionsEditor() {
   };
 }
 
-type Props = {
-  path: string;
-};
+type Props = {};
 
 export function ConditionsEdit({ path }: Props) {
   const {
