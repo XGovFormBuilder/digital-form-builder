@@ -1,7 +1,7 @@
 const nanoid = require("nanoid");
 const minute = 60 * 1000;
 const { deferConfig } = require("config/defer");
-import dotEnv from "dotenv";
+const dotEnv = require("dotenv");
 if (process.env.NODE_ENV !== "test") {
   dotEnv.config({ path: ".env" });
 }
