@@ -3,9 +3,7 @@ import randomId from "../randomId";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
-type Props = {
-  data: any; // TODO: type
-};
+type Props = {};
 
 type State = {
   showAddOutput: boolean;
@@ -14,8 +12,8 @@ type State = {
 };
 
 class OutputsEdit extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       showAddOutput: false,
       output: undefined,
@@ -42,7 +40,7 @@ class OutputsEdit extends React.Component<Props, State> {
   };
 
   render() {
-    const { data } = this.props;
+    const data = this.context;
     const { outputs } = data;
     const { output, id, showAddOutput } = this.state;
 
