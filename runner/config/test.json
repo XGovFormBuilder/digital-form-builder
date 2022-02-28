@@ -1,3 +1,5 @@
 {
-  "safelist": ["b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io"]
+  "isTest": true,
+  "initialisedSessionKey": "predictable-key",
+  "env": "test"
 }
