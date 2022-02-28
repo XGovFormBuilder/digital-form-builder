@@ -14,7 +14,7 @@ const {
 let server;
 
 const options = {
-  callbackUrl: "https://b4bf0fcd-1dd3-4650-92fe-d1f83885a447.mock.pstmn.io",
+  callbackUrl: "https://webho.ok",
   message: "Please fix this thing..",
   customText: {
     paymentSkipped: false,

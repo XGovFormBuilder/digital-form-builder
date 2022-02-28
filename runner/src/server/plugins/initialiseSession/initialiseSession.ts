@@ -75,7 +75,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         if (callbackSafeListError) {
           return h
             .response({
-              message: `the callback URL provided ${callbackUrl} is not allowed. ${config.safelist}`,
+              message: `the callback URL provided ${callbackUrl} is not allowed.`,
             })
             .code(403);
         }
