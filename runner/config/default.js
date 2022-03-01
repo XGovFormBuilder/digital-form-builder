@@ -6,57 +6,6 @@ if (process.env.NODE_ENV !== "test") {
   dotEnv.config({ path: ".env" });
 }
 
-//TODO:- Deprecate in favour of config
-function loadOldEnvVariables() {
-  console.warn(`
-  Environment variables are now loaded in via runner/config/*.js|json instead of using process.env.UPPER_CASED_VAR, 
-  which will be deprecated in a future release.Using the new config files will allow you to have better control over
-  the environment variables for different environments (eg development vs test vs production).`);
-  const config = {
-    port: process.env.PORT,
-    env: process.env.NODE_ENV,
-    logLevel: process.env.LOG_LEVEL,
-    ordnanceSurveyKey: process.env.ORDNANCE_SURVEY_KEY,
-    browserRefreshUrl: process.env.BROWSER_REFRESH_URL,
-    feedbackLink: process.env.FEEDBACK_LINK,
-    phaseTag: process.env.PHASE_TAG,
-    gtmId1: process.env.GTM_ID_1,
-    gtmId2: process.env.GTM_ID_2,
-    matomoId: process.env.MATOMO_ID,
-    matomoUrl: process.env.MATOMO_URL,
-    payApiUrl: process.env.PAY_API_URL,
-    payReturnUrl: process.env.PAY_RETURN_URL,
-    serviceUrl: process.env.SERVICE_URL,
-    redisHost: process.env.REDIS_HOST,
-    redisPort: process.env.REDIS_PORT,
-    redisPassword: process.env.REDIS_PASSWORD,
-    serviceName: process.env.SERVICE_NAME,
-    documentUploadApiUrl: process.env.DOCUMENT_UPLOAD_API_URL,
-    sslKey: process.env.SSL_KEY,
-    sslCert: process.env.SSL_CERT,
-    sessionTimeout: process.env.SESSION_TIMEOUT,
-    sessionCookiePassword: process.env.SESSION_COOKIE_PASSWORD,
-    fromEmailAddress: process.env.FROM_EMAIL_ADDRESS,
-    serviceStartPage: process.env.SERVICE_START_PAGE,
-    privacyPolicyUrl: process.env.PRIVACY_POLICY_URL,
-    notifyTemplateId: process.env.NOTIFY_TEMPLATE_ID,
-    notifyAPIKey: process.env.NOTIFY_API_KEY,
-    lastCommit: process.env.LAST_COMMIT || process.env.LAST_COMMIT_GH,
-    lastTag: process.env.LAST_TAG || process.env.LAST_TAG_GH,
-    apiEnv: process.env.API_ENV,
-    authEnabled: process.env.AUTH_ENABLED,
-    authClientId: process.env.AUTH_CLIENT_ID,
-    authClientSecret: process.env.AUTH_CLIENT_SECRET,
-    authClientAuthUrl: process.env.AUTH_CLIENT_AUTH_URL,
-    authClientTokenUrl: process.env.AUTH_CLIENT_TOKEN_URL,
-    authClientProfileUrl: process.env.AUTH_CLIENT_PROFILE_URL,
-  };
-  const filteredEntries = Object.entries(config).filter(([_key, value]) =>
-    Boolean(value)
-  );
-  return Object.fromEntries(filteredEntries);
-}
-
 module.exports = {
   /**
    * Initialised sessions
@@ -168,5 +117,4 @@ module.exports = {
   // authClientAuthUrl: "", // oAuth client secret
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
-  ...loadOldEnvVariables(),
 };
