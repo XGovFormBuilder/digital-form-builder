@@ -2655,21 +2655,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/register@npm:7.16.7":
-  version: 7.16.7
-  resolution: "@babel/register@npm:7.16.7"
-  dependencies:
-    clone-deep: ^4.0.1
-    find-cache-dir: ^2.0.0
-    make-dir: ^2.1.0
-    pirates: ^4.0.0
-    source-map-support: ^0.5.16
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: a6e5d295765a446de89a946b8b7a291deb237f1ca8e30154adbf73acc4bd7d3a9ab036f9adac774905398bed9fbedfd6017ac7f8f11d763da0a315a748306534
-  languageName: node
-  linkType: hard
-
 "@babel/register@npm:^7.10.5":
   version: 7.12.10
   resolution: "@babel/register@npm:7.12.10"
@@ -2710,6 +2695,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:7.10.3":
+  version: 7.10.3
+  resolution: "@babel/runtime@npm:7.10.3"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 19dc20d10dab2c4fc31c0fb3ba0615d685cc4d7cde38a427c5f0aec8b9efdd4d9c282caf4c67bd264ffe324a48e9a95d0c1f0109c31ae47297b9d87ff912eab6
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:7.10.4":
   version: 7.10.4
   resolution: "@babel/runtime@npm:7.10.4"
@@ -2719,7 +2713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:7.17.2, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.13":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.13":
   version: 7.17.2
   resolution: "@babel/runtime@npm:7.17.2"
   dependencies:
@@ -6277,8 +6271,8 @@ __metadata:
     "@babel/preset-env": 7.16.11
     "@babel/preset-react": 7.16.7
     "@babel/preset-typescript": ^7.12.7
-    "@babel/register": 7.16.7
-    "@babel/runtime": 7.17.2
+    "@babel/register": 7.10.3
+    "@babel/runtime": 7.10.3
     "@hapi/code": ^8.0.7
     "@hapi/hapi": ^20.0.3
     "@hapi/inert": ^6.0.1
