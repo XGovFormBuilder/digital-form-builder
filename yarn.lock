@@ -67,34 +67,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/cli@npm:^7.17.6":
-  version: 7.17.6
-  resolution: "@babel/cli@npm:7.17.6"
-  dependencies:
-    "@jridgewell/trace-mapping": ^0.3.4
-    "@nicolo-ribaudo/chokidar-2": 2.1.8-no-fsevents.3
-    chokidar: ^3.4.0
-    commander: ^4.0.1
-    convert-source-map: ^1.1.0
-    fs-readdir-recursive: ^1.1.0
-    glob: ^7.0.0
-    make-dir: ^2.1.0
-    slash: ^2.0.0
-    source-map: ^0.5.0
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  dependenciesMeta:
-    "@nicolo-ribaudo/chokidar-2":
-      optional: true
-    chokidar:
-      optional: true
-  bin:
-    babel: ./bin/babel.js
-    babel-external-helpers: ./bin/babel-external-helpers.js
-  checksum: ba9a46285a1049dc80685d7f7ab7a9ae4202c8fd376aa5daf93631832784a978132ba4c0732479af90ba0eaa03b68847bd81417b8b81317b340183cc4c35ffe2
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.12.11":
   version: 7.12.11
   resolution: "@babel/code-frame@npm:7.12.11"
@@ -136,7 +108,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.17.5, @babel/core@npm:^7.14.3, @babel/core@npm:^7.17.5":
+"@babel/core@npm:7.17.5, @babel/core@npm:^7.14.3":
   version: 7.17.5
   resolution: "@babel/core@npm:7.17.5"
   dependencies:
@@ -196,7 +168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/eslint-parser@npm:^7.14.3, @babel/eslint-parser@npm:^7.17.0":
+"@babel/eslint-parser@npm:^7.14.3":
   version: 7.17.0
   resolution: "@babel/eslint-parser@npm:7.17.0"
   dependencies:
@@ -3570,7 +3542,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/trace-mapping@npm:^0.3.0, @jridgewell/trace-mapping@npm:^0.3.4":
+"@jridgewell/trace-mapping@npm:^0.3.0":
   version: 0.3.4
   resolution: "@jridgewell/trace-mapping@npm:0.3.4"
   dependencies:
@@ -3639,13 +3611,6 @@ __metadata:
     readdirp: ^2.2.1
     upath: ^1.1.1
   checksum: 0efeea3b7d9e3c07dc3ded371ba65351a7c30314763f6e2d34849bf58809655f0f9bd71fcd505ab72624cd17e80e738a0bd41aac0d7d8606664817f3fe85cfba
-  languageName: node
-  linkType: hard
-
-"@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3":
-  version: 2.1.8-no-fsevents.3
-  resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3"
-  checksum: 067796e706fe619bcf8c21a8a126ab2ac503378feaf209ac62954e4707b2d3cc105c7498ad31e4e10faed99d1aef8b84e36f1a899d9b4b97afb174c3b61f9a9f
   languageName: node
   linkType: hard
 
@@ -5530,9 +5495,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/designer@workspace:designer"
   dependencies:
-    "@babel/cli": ^7.17.6
-    "@babel/core": ^7.17.5
-    "@babel/eslint-parser": ^7.17.0
+    "@babel/cli": ^7.10.5
+    "@babel/core": ^7.11.1
+    "@babel/eslint-parser": ^7.11.3
     "@babel/eslint-plugin": ^7.11.3
     "@babel/node": ^7.10.5
     "@babel/plugin-proposal-class-properties": ^7.10.4
