@@ -45,7 +45,7 @@
     "@hapi/crumb": "8.0.0",
     "@hapi/hapi": "^20.0.3",
     "@hapi/inert": "^6.0.5",
-    "@hapi/lab": "24.0.0",
+    "@hapi/lab": "^24.5.1",
     "@hapi/scooter": "6.0.0",
     "@hapi/wreck": "17.0.0",
     "@hapi/yar": "^10.1.1",
