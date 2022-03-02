@@ -194,6 +194,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/eslint-plugin@npm:^7.16.5":
+  version: 7.16.5
+  resolution: "@babel/eslint-plugin@npm:7.16.5"
+  dependencies:
+    eslint-rule-composer: ^0.3.0
+  peerDependencies:
+    "@babel/eslint-parser": ">=7.11.0"
+    eslint: ">=7.5.0"
+  checksum: 95d332b7d9bfb966800af72521d6f52e2a44216a994d0ff23d826bb5bf5e68be9ef0ee977616438687d3d98b7b13707b51efbafcc1a5d1e88015bbf37ae5b1ad
+  languageName: node
+  linkType: hard
+
 "@babel/generator@npm:^7.12.10, @babel/generator@npm:^7.12.11":
   version: 7.12.11
   resolution: "@babel/generator@npm:7.12.11"
@@ -712,7 +724,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/node@npm:^7.10.5":
+"@babel/node@npm:^7.16.8":
   version: 7.16.8
   resolution: "@babel/node@npm:7.16.8"
   dependencies:
@@ -785,7 +797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-class-properties@npm:^7.10.4":
+"@babel/plugin-proposal-class-properties@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/plugin-proposal-class-properties@npm:7.16.7"
   dependencies:
@@ -830,6 +842,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: ae5317ca008cc9eb2890b1f238156fbb990e5030fd1b7f123a5d11d89f8617a867b11db129aeafe51ef3bb4dddc4059e8172ddf99e8cdc42cbfa2a45dce1a16b
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-proposal-export-namespace-from@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-proposal-export-namespace-from@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+    "@babel/plugin-syntax-export-namespace-from": ^7.8.3
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: aa764df6600f986e59abe7bae32fdb50900bf07c47c5c375461821d36a1afd78746041fc950d6f4be608c71052bcbac7a11281eb06bbf6abd30f139ecca5a232
   languageName: node
   linkType: hard
 
@@ -878,6 +902,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 9c825901a13aa52330b7ec44f2b6355112d9e2dce9f3e0230c66a7536d542424d19a08b797cd72a00c18fe2e11b1d4037b365012eddfe69c169500b02ed83964
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-proposal-nullish-coalescing-operator@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-proposal-nullish-coalescing-operator@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+    "@babel/plugin-syntax-nullish-coalescing-operator": ^7.8.3
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 668b183c62bac8d199bb6c3b5916d7c260c71c9c6c8bd1669d23d0b37ba90555a36a2fafe8d2235162bbdba62cac5c16679746f0e0b09cb47ca64e2997425e2c
   languageName: node
   linkType: hard
 
@@ -943,7 +979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-private-methods@npm:^7.10.4":
+"@babel/plugin-proposal-private-methods@npm:^7.16.11":
   version: 7.16.11
   resolution: "@babel/plugin-proposal-private-methods@npm:7.16.11"
   dependencies:
@@ -1345,6 +1381,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-modules-amd@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-transform-modules-amd@npm:7.16.7"
+  dependencies:
+    "@babel/helper-module-transforms": ^7.16.7
+    "@babel/helper-plugin-utils": ^7.16.7
+    babel-plugin-dynamic-import-node: ^2.3.3
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 999890f4f98229177bd354c4bd8f27d90c2b7176dd1cbd6b69e834761b20f1e52bbcee07c659726a3fcf8b79ed66a8252ae558a6d805fc6fa144190202e5057a
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-modules-commonjs@npm:7.10.1":
   version: 7.10.1
   resolution: "@babel/plugin-transform-modules-commonjs@npm:7.10.1"
@@ -1576,7 +1625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-runtime@npm:^7.10.5":
+"@babel/plugin-transform-runtime@npm:^7.17.0":
   version: 7.17.0
   resolution: "@babel/plugin-transform-runtime@npm:7.17.0"
   dependencies:
@@ -5498,15 +5547,15 @@ __metadata:
     "@babel/cli": ^7.10.5
     "@babel/core": ^7.11.1
     "@babel/eslint-parser": ^7.11.3
-    "@babel/eslint-plugin": ^7.11.3
-    "@babel/node": ^7.10.5
-    "@babel/plugin-proposal-class-properties": ^7.10.4
-    "@babel/plugin-proposal-export-namespace-from": ^7.12.1
-    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.12.1
-    "@babel/plugin-proposal-private-methods": ^7.10.4
+    "@babel/eslint-plugin": ^7.16.5
+    "@babel/node": ^7.16.8
+    "@babel/plugin-proposal-class-properties": ^7.16.7
+    "@babel/plugin-proposal-export-namespace-from": ^7.16.7
+    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.16.7
+    "@babel/plugin-proposal-private-methods": ^7.16.11
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
-    "@babel/plugin-transform-modules-amd": ^7.10.1
-    "@babel/plugin-transform-runtime": ^7.10.5
+    "@babel/plugin-transform-modules-amd": ^7.16.7
+    "@babel/plugin-transform-runtime": ^7.17.0
     "@babel/preset-env": 7.10.3
     "@babel/preset-react": 7.10.1
     "@babel/preset-typescript": ^7.12.7
