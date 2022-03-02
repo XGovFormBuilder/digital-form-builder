@@ -1473,6 +1473,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-syntax-typescript@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-syntax-typescript@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 31faa6e6bb155df2710e3f15a8e7fb2ad2f1be3879d61cde4962cb75d0307f7ffe1eae45a79c26d23b2c48e58c8ea96aa3515483f8726a74752a2ac6918aaacf
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-arrow-functions@npm:^7.10.1, @babel/plugin-transform-arrow-functions@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-transform-arrow-functions@npm:7.12.1"
@@ -2301,6 +2312,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-typescript@npm:^7.16.7":
+  version: 7.16.8
+  resolution: "@babel/plugin-transform-typescript@npm:7.16.8"
+  dependencies:
+    "@babel/helper-create-class-features-plugin": ^7.16.7
+    "@babel/helper-plugin-utils": ^7.16.7
+    "@babel/plugin-syntax-typescript": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 83e98754e81bffdb8d6edc5179cbc9cffca1229ac8de4569e43aa1d8f734f36cf31a3af4107f58b9f29a083e6d8f4a1434fcb21b95412768369ecf4b97aa8336
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-unicode-escapes@npm:^7.10.1, @babel/plugin-transform-unicode-escapes@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-transform-unicode-escapes@npm:7.12.1"
@@ -2640,6 +2664,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/preset-typescript@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/preset-typescript@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+    "@babel/helper-validator-option": ^7.16.7
+    "@babel/plugin-transform-typescript": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 2e55479b659fb2393cdeccb0e1fde5b26f6c1d0d3af1d0ab58f48509f48e97714ea6c19402acc8208b908a7fb243f0190cd26c6ae52a5f6fe7ee30c15293d1c5
+  languageName: node
+  linkType: hard
+
 "@babel/register@npm:7.10.3":
   version: 7.10.3
   resolution: "@babel/register@npm:7.10.3"
@@ -2655,18 +2692,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/register@npm:7.16.7":
-  version: 7.16.7
-  resolution: "@babel/register@npm:7.16.7"
+"@babel/register@npm:7.17.0, @babel/register@npm:^7.16.8":
+  version: 7.17.0
+  resolution: "@babel/register@npm:7.17.0"
   dependencies:
     clone-deep: ^4.0.1
     find-cache-dir: ^2.0.0
     make-dir: ^2.1.0
-    pirates: ^4.0.0
+    pirates: ^4.0.5
     source-map-support: ^0.5.16
   peerDependencies:
     "@babel/core": ^7.0.0-0
-  checksum: a6e5d295765a446de89a946b8b7a291deb237f1ca8e30154adbf73acc4bd7d3a9ab036f9adac774905398bed9fbedfd6017ac7f8f11d763da0a315a748306534
+  checksum: bb47f1ad652a3b2f9c9d1f0360ce0a62793339b3df0c78394ac63c18ca111095831bfaeca06d0e20672141015a1d06735785e3a85adcf8d1c5b0ce314898247f
   languageName: node
   linkType: hard
 
@@ -2682,21 +2719,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 871f5f2155b37dc01bde9f6af80c50c11f8c8ea2cd5bc37e6bc1818062277a37756ad81bf7c7c7b281749a92dad5aaa0f7f12856c5e297e98d76184856d2b049
-  languageName: node
-  linkType: hard
-
-"@babel/register@npm:^7.16.8":
-  version: 7.17.0
-  resolution: "@babel/register@npm:7.17.0"
-  dependencies:
-    clone-deep: ^4.0.1
-    find-cache-dir: ^2.0.0
-    make-dir: ^2.1.0
-    pirates: ^4.0.5
-    source-map-support: ^0.5.16
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: bb47f1ad652a3b2f9c9d1f0360ce0a62793339b3df0c78394ac63c18ca111095831bfaeca06d0e20672141015a1d06735785e3a85adcf8d1c5b0ce314898247f
   languageName: node
   linkType: hard
 
@@ -6276,8 +6298,8 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.17.0
     "@babel/preset-env": 7.16.11
     "@babel/preset-react": 7.16.7
-    "@babel/preset-typescript": ^7.12.7
-    "@babel/register": 7.16.7
+    "@babel/preset-typescript": ^7.16.7
+    "@babel/register": 7.17.0
     "@babel/runtime": 7.17.2
     "@hapi/code": ^8.0.7
     "@hapi/hapi": ^20.0.3
