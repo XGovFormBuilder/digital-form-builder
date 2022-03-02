@@ -53,7 +53,7 @@
     "accessible-autocomplete": "^2.0.2",
     "acorn": "7.1.1",
     "atob": "^2.1.2",
-    "aws-sdk": "2.1084.0",
+    "aws-sdk": "2.655.0",
     "blankie": "5.0.0",
     "blipp": "4.0.1",
     "boom": "7.3.0",
