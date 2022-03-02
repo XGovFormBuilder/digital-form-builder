@@ -108,7 +108,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.17.5, @babel/core@npm:^7.14.3, @babel/core@npm:^7.17.5":
+"@babel/core@npm:7.17.5, @babel/core@npm:^7.14.3":
   version: 7.17.5
   resolution: "@babel/core@npm:7.17.5"
   dependencies:
@@ -6285,7 +6285,7 @@ __metadata:
   resolution: "@xgovformbuilder/designer@workspace:designer"
   dependencies:
     "@babel/cli": ^7.10.5
-    "@babel/core": ^7.17.5
+    "@babel/core": ^7.11.1
     "@babel/eslint-parser": ^7.17.0
     "@babel/eslint-plugin": ^7.16.5
     "@babel/node": ^7.16.8
