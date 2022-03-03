@@ -91,8 +91,8 @@ jobs:
         # see https://github.com/satackey/action-docker-layer-caching/issues/55
         # if you change this, please remember to apply the same changes to main--lint-unit-build-and-publish-images.yml
         # so main branch cache can be shared with branches
-      - run: echo "DAYOFYEAR = $(date +%j)-cachebust"
-      - run: echo "DAYOFYEAR=$(date +%j)-cachebust" >> $GITHUB_ENV
+      - run: echo "DAYOFYEAR = $(date +%j)"
+      - run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
       - name: Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
