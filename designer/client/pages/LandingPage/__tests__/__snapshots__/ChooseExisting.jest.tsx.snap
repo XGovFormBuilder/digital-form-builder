@@ -8,7 +8,6 @@ exports[`ChooseExisting no existing configurations 1`] = `
     <div>
       <a
         class="back-link govuk-back-link"
-        href="#0"
       >
         Back to previous page
       </a>
@@ -69,7 +68,6 @@ exports[`ChooseExisting with existing configurations 1`] = `
     <div>
       <a
         class="back-link govuk-back-link"
-        href="#0"
       >
         Back to previous page
       </a>

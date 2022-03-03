@@ -12,6 +12,7 @@ const messageTemplate = {
   numberMin: "{{#label}} must be {{#limit}} or more",
   numberMax: "{{#label}} must be {{#limit}} or less",
   format: "Enter a valid {{#label}}",
+  maxWords: "{{#label}} must be {{#limit}} words or fewer",
 };
 
 export const messages: ValidationOptions["messages"] = {
@@ -21,6 +22,7 @@ export const messages: ValidationOptions["messages"] = {
   "string.max": messageTemplate.max,
   "string.email": messageTemplate.email,
   "string.regex.base": messageTemplate.format,
+  "string.maxWords": messageTemplate.maxWords,
 
   "number.base": messageTemplate.number,
   "number.empty": messageTemplate.required,
@@ -33,4 +35,15 @@ export const messages: ValidationOptions["messages"] = {
 
   "date.min": "{{#label}} must be on or after {{#limit}}",
   "date.max": "{{#label}} must be on or before {{#limit}}",
+};
+
+export const validationOptions: ValidationOptions = {
+  abortEarly: false,
+  messages,
+  dateFormat: "iso",
+  errors: {
+    wrap: {
+      label: false,
+    },
+  },
 };
