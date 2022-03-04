@@ -31,9 +31,9 @@ USER 1001
 FROM dependencies AS model
 WORKDIR /usr/src/app
 USER 1001
-COPY --chown=appuser:appuser model/package.json ./model/
+COPY --chown=appuser:appuser model/package.json model/tsconfig.json model/babel.config.json ./model/
 RUN yarn workspaces focus @xgovformbuilder/model
-COPY --chown=appuser:appuser ./model ./model/
+COPY --chown=appuser:appuser ./model/src ./model/src/
 RUN yarn model build
 
 
