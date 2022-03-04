@@ -36,7 +36,7 @@ it("Renders button strings correctly", () => {
   expect(getByText("Summary")).toBeInTheDocument();
 });
 
-it.only("Can open flyouts and close them", async () => {
+it("Can open flyouts and close them", async () => {
   const menu = customRender(<Menu />);
   console.log(menu.debug());
   const { getByText, queryByTestId } = menu;
