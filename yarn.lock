@@ -67,6 +67,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/cli@npm:^7.17.6":
+  version: 7.17.6
+  resolution: "@babel/cli@npm:7.17.6"
+  dependencies:
+    "@jridgewell/trace-mapping": ^0.3.4
+    "@nicolo-ribaudo/chokidar-2": 2.1.8-no-fsevents.3
+    chokidar: ^3.4.0
+    commander: ^4.0.1
+    convert-source-map: ^1.1.0
+    fs-readdir-recursive: ^1.1.0
+    glob: ^7.0.0
+    make-dir: ^2.1.0
+    slash: ^2.0.0
+    source-map: ^0.5.0
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  dependenciesMeta:
+    "@nicolo-ribaudo/chokidar-2":
+      optional: true
+    chokidar:
+      optional: true
+  bin:
+    babel: ./bin/babel.js
+    babel-external-helpers: ./bin/babel-external-helpers.js
+  checksum: ba9a46285a1049dc80685d7f7ab7a9ae4202c8fd376aa5daf93631832784a978132ba4c0732479af90ba0eaa03b68847bd81417b8b81317b340183cc4c35ffe2
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.12.11":
   version: 7.12.11
   resolution: "@babel/code-frame@npm:7.12.11"
@@ -108,7 +136,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.17.5, @babel/core@npm:^7.14.3":
+"@babel/core@npm:7.17.5, @babel/core@npm:^7.14.3, @babel/core@npm:^7.17.5":
   version: 7.17.5
   resolution: "@babel/core@npm:7.17.5"
   dependencies:
@@ -885,6 +913,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-proposal-class-properties@npm:7.16.7, @babel/plugin-proposal-class-properties@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-proposal-class-properties@npm:7.16.7"
+  dependencies:
+    "@babel/helper-create-class-features-plugin": ^7.16.7
+    "@babel/helper-plugin-utils": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 9ff933a393df5c17c3ac8d6f6fc1daf2587247dab7c4e2f836e0b11f5e4388ac5b4484ab4e924a7422ffb7b83eb74ad9c66ce1ae14795b68d075e2ad720f9646
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-proposal-class-properties@npm:^7.10.1, @babel/plugin-proposal-class-properties@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-proposal-class-properties@npm:7.12.1"
@@ -894,18 +934,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 690cbec3df2c4a1ec12c8a99b87dd4cc9aee07627dea957031549997267ee6ce59727ba44266dd83d3c6fb4cf759d14017ad9a530bf3d8f4447780947031449a
-  languageName: node
-  linkType: hard
-
-"@babel/plugin-proposal-class-properties@npm:^7.16.7":
-  version: 7.16.7
-  resolution: "@babel/plugin-proposal-class-properties@npm:7.16.7"
-  dependencies:
-    "@babel/helper-create-class-features-plugin": ^7.16.7
-    "@babel/helper-plugin-utils": ^7.16.7
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: 9ff933a393df5c17c3ac8d6f6fc1daf2587247dab7c4e2f836e0b11f5e4388ac5b4484ab4e924a7422ffb7b83eb74ad9c66ce1ae14795b68d075e2ad720f9646
   languageName: node
   linkType: hard
 
@@ -955,6 +983,18 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: ef529bab8c09d613a76ca46caa46b62f3400e0c040cd8bcac4c1d28da61210596bf297f4eb61a296b89708150ca4b2fb95c0911ef2efb69ce5be17265af9e361
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-proposal-export-default-from@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-proposal-export-default-from@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+    "@babel/plugin-syntax-export-default-from": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 33820e113160fe5a0df7e3f5d404cb05d23afa15a56d1a2995f353c00ef68c0fbe6310da8d45d2fb402580041a8a91e15acb2f1f39d660a9f8d199e48bcdd1b5
   languageName: node
   linkType: hard
 
@@ -1316,6 +1356,17 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: 2fb7cd269beb9bb662e68358fa250fdfc110664c03dd47e6b5d884d56f2d2227510b86ff16d0ff0fefb901b5050dfb60501f4314710fe1702f29ca1e87e2eee6
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-syntax-export-default-from@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-syntax-export-default-from@npm:7.16.7"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 7e04f39bb80aefa21eec94002474c49c7904572003146429db0d1b41869ba475731948dfee479e49c0ca3ed118fd53e2a6362b87711915ebc8e159b713b979c0
   languageName: node
   linkType: hard
 
@@ -4324,7 +4375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/trace-mapping@npm:^0.3.0":
+"@jridgewell/trace-mapping@npm:^0.3.0, @jridgewell/trace-mapping@npm:^0.3.4":
   version: 0.3.4
   resolution: "@jridgewell/trace-mapping@npm:0.3.4"
   dependencies:
@@ -4393,6 +4444,13 @@ __metadata:
     readdirp: ^2.2.1
     upath: ^1.1.1
   checksum: 0efeea3b7d9e3c07dc3ded371ba65351a7c30314763f6e2d34849bf58809655f0f9bd71fcd505ab72624cd17e80e738a0bd41aac0d7d8606664817f3fe85cfba
+  languageName: node
+  linkType: hard
+
+"@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3":
+  version: 2.1.8-no-fsevents.3
+  resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3"
+  checksum: 067796e706fe619bcf8c21a8a126ab2ac503378feaf209ac62954e4707b2d3cc105c7498ad31e4e10faed99d1aef8b84e36f1a899d9b4b97afb174c3b61f9a9f
   languageName: node
   linkType: hard
 
@@ -6425,12 +6483,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/model@workspace:model"
   dependencies:
-    "@babel/cli": ^7.10.5
-    "@babel/core": ^7.11.1
-    "@babel/eslint-parser": ^7.11.3
+    "@babel/cli": ^7.17.6
+    "@babel/core": ^7.17.5
+    "@babel/eslint-parser": ^7.17.0
     "@babel/eslint-plugin": ^7.16.5
-    "@babel/plugin-proposal-class-properties": 7.10.1
-    "@babel/plugin-proposal-export-default-from": ^7.10.1
+    "@babel/plugin-proposal-class-properties": 7.16.7
+    "@babel/plugin-proposal-export-default-from": ^7.16.7
     "@babel/plugin-proposal-private-methods": ^7.10.1
     "@babel/plugin-transform-runtime": ^7.10.1
     "@babel/preset-env": ^7.10.2
