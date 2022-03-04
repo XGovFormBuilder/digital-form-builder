@@ -18,7 +18,7 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          versionSpec: '5.x'
+          versionSpec: "5.x"
 
       - name: Determine Version
         id: gitversion
@@ -48,7 +48,7 @@ jobs:
       matrix:
         app: [designer, runner, model]
     env:
-      SEMVER:  ${{ needs.assign-semver.outputs.SEMVER }}
+      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     name: lint-and-test-${{matrix.app}}
     steps:
       - uses: actions/checkout@v2
@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-
+      - run: docker image prune --all --force --filter "until=48h"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
