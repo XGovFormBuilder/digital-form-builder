@@ -1,0 +1,6 @@
+{
+  "safelist": ["webho.ok"],
+  "isTest": true,
+  "initialisedSessionKey": "predictable-key",
+  "env": "test"
+}

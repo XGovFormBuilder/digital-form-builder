@@ -2125,15 +2125,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/ammo@npm:3.x.x":
-  version: 3.1.2
-  resolution: "@hapi/ammo@npm:3.1.2"
-  dependencies:
-    "@hapi/hoek": 8.x.x
-  checksum: aa78fa4a30eb7b05432715151fd38a74d64dbeae3813417cf86cd27a10164d3d7e09247a0b3b3551df7607ef7c9d8dedb6743496b4221862d868126dad8dc69d
-  languageName: node
-  linkType: hard
-
 "@hapi/ammo@npm:5.x.x, @hapi/ammo@npm:^5.0.1":
   version: 5.0.1
   resolution: "@hapi/ammo@npm:5.0.1"
@@ -2163,15 +2154,6 @@ __metadata:
     "@hapi/wreck": 17.x.x
     joi: 17.x.x
   checksum: 7594ceed73648218ca50b98261322529c26fdefa98aca3c24351040f86a4ef0471051461ff7a563cc4cc3e606c1ffa7e52f4e1d7ede29f1a9099a1341d030969
-  languageName: node
-  linkType: hard
-
-"@hapi/boom@npm:7.x.x":
-  version: 7.4.11
-  resolution: "@hapi/boom@npm:7.4.11"
-  dependencies:
-    "@hapi/hoek": 8.x.x
-  checksum: 071313eb7602c0ca4d62fa0195267fadfe37c85e149e8e14f9de420d607f8f0925f1b7024d98e1834b680d7b5c84271f6ab18ad803291838f7ebed94afe10ec9
   languageName: node
   linkType: hard
 
@@ -2222,16 +2204,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/bounce@npm:1.x.x":
-  version: 1.3.2
-  resolution: "@hapi/bounce@npm:1.3.2"
-  dependencies:
-    "@hapi/boom": 7.x.x
-    "@hapi/hoek": ^8.3.1
-  checksum: 828d18a709ea69d2a2f6e462c87e889a3634adba8e6bc9e2e85f2ae03d78f0861291253e2617dc4a4b4bd31ba0b3bf8bb69a9ad4fa3d7494e260c37ece410d35
-  languageName: node
-  linkType: hard
-
 "@hapi/bounce@npm:2.x.x":
   version: 2.0.0
   resolution: "@hapi/bounce@npm:2.0.0"
@@ -2273,6 +2245,16 @@ __metadata:
     "@hapi/boom": 9.x.x
     "@hapi/hoek": 9.x.x
   checksum: c42b6729fae6b8d170184b7a27fb64b8b3aa05294e91b3af866a5383061e28140ec93185af1bdd81e1126adaa82cef3fee720c2bd834ddc8744c9fbcdc93f6e3
+  languageName: node
+  linkType: hard
+
+"@hapi/catbox-object@npm:2.x.x":
+  version: 2.0.0
+  resolution: "@hapi/catbox-object@npm:2.0.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/hoek": 9.x.x
+  checksum: c20754ce2a39f626d42b57f7efb469e8577c37121333c3f030da3d81309675636bca099cf298735ef21f510a9a794780e7cd7d798009a5dfc23c2a72ac0632d1
   languageName: node
   linkType: hard
 
@@ -2436,7 +2418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/hoek@npm:8.x.x, @hapi/hoek@npm:^8.2.4, @hapi/hoek@npm:^8.3.0, @hapi/hoek@npm:^8.3.1, @hapi/hoek@npm:^8.5.0":
+"@hapi/hoek@npm:8.x.x, @hapi/hoek@npm:^8.2.4, @hapi/hoek@npm:^8.3.0, @hapi/hoek@npm:^8.5.0":
   version: 8.5.1
   resolution: "@hapi/hoek@npm:8.5.1"
   checksum: 17bf9a0b6f2f9ecb248824dab838c66c50b16b00b1d3785233fafd5abacb06cc6cdcbd6f4c7be87babb227fc02fff46ad1c23de3f5b6f48ffe36b6aac829d82c
@@ -2447,20 +2429,6 @@ __metadata:
   version: 9.1.1
   resolution: "@hapi/hoek@npm:9.1.1"
   checksum: e5be371c579bcdef755566b88ccd6bbf5c52ad2cc770e134ee909156cdcff2acf7aad3f4b5400d83742a27acc580a00a82d2cde8c812db0b0437e4e80fa0a6a0
-  languageName: node
-  linkType: hard
-
-"@hapi/inert@npm:5.2.2":
-  version: 5.2.2
-  resolution: "@hapi/inert@npm:5.2.2"
-  dependencies:
-    "@hapi/ammo": 3.x.x
-    "@hapi/boom": 7.x.x
-    "@hapi/bounce": 1.x.x
-    "@hapi/hoek": 8.x.x
-    "@hapi/joi": 16.x.x
-    lru-cache: 4.1.x
-  checksum: 61f6f3e821bd7e540878dcf144c32d03542f1f8090953ee3ee0503ae53df40a12ff079b88f21b34bf1b5a9fac72fe0b3ede2dc7986245899c044fb8f0d7a9f0a
   languageName: node
   linkType: hard
 
@@ -2475,6 +2443,20 @@ __metadata:
     "@hapi/validate": 1.x.x
     lru-cache: ^6.0.0
   checksum: 82a4a790c8678f39dd22d259036f06168c1cc0ec40e355e220d12d06b71b0504f433158e24052ea6910eaa1ae12c1593d236ced67078e0409b9bedd572c1a42f
+  languageName: node
+  linkType: hard
+
+"@hapi/inert@npm:^6.0.5":
+  version: 6.0.5
+  resolution: "@hapi/inert@npm:6.0.5"
+  dependencies:
+    "@hapi/ammo": 5.x.x
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/hoek": 9.x.x
+    "@hapi/validate": 1.x.x
+    lru-cache: ^6.0.0
+  checksum: fa91e7f4cb7051e270efbb1bfb5d910e61a0e7652bb7f11bf082b736c6353fd08cef265597a1759136c1548c6b82b088b0bfa8ee17869a0d07b5b174d9c674f8
   languageName: node
   linkType: hard
 
@@ -2539,6 +2521,24 @@ __metadata:
     "@hapi/pinpoint": ^2.0.0
     "@hapi/topo": ^5.0.0
   checksum: 84d9ce971fdfdf0a1598de3568f2e6aede9b1e4ffe7460c44003bb8ecdaf9455b6e92e8e28d8a174a04510cdc3dd53e5908162a22ec3cf3048dc45c01daac429
+  languageName: node
+  linkType: hard
+
+"@hapi/jwt@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@hapi/jwt@npm:2.1.0"
+  dependencies:
+    "@hapi/b64": 5.x.x
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/bourne": 2.x.x
+    "@hapi/catbox-object": 2.x.x
+    "@hapi/cryptiles": 5.x.x
+    "@hapi/hoek": 9.x.x
+    "@hapi/wreck": 17.x.x
+    ecdsa-sig-formatter: 1.x.x
+    joi: ^17.2.1
+  checksum: 9c30b7f1ad7f9da76260b323b2719fe6aff0a2aed08bbcb4f399b20e4c445c640868812cb887673b1ae2ac64a12d81d8d43744e08040bc63ea3e6eb2233a0669
   languageName: node
   linkType: hard
 
@@ -2770,6 +2770,18 @@ __metadata:
   dependencies:
     "@hapi/hoek": 9.x.x
   checksum: 838d9ea1140cc82a0fa133fa091c48f3d19f5c13bf9de8fd52aaaa3508c84574941009bde0993a8adb5c6fe422ef99937da15deba41beabe6a38050e3c930da8
+  languageName: node
+  linkType: hard
+
+"@hapi/vision@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@hapi/vision@npm:6.1.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/bounce": 2.x.x
+    "@hapi/hoek": 9.x.x
+    "@hapi/validate": 1.x.x
+  checksum: 9a249f7b936c9297e6cdb2d928510e7215f700ecc6727d01120e17ab16b723e39c4b51903cb8c10efe889c34f90fe032b75e7474ea7134292cc6b9b9330e35eb
   languageName: node
   linkType: hard
 
@@ -3288,6 +3300,15 @@ __metadata:
   dependencies:
     "@hapi/hoek": ^9.0.0
   checksum: 13f0a6b4178b03d7c0062894312313892d9a728987a5d07d43cb42c04bcdf55cd02092eb6f09ffb8d78a1dfae8cf5ce6c9b4ad66934771ea6a18e2b3fcd752d9
+  languageName: node
+  linkType: hard
+
+"@sideway/address@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@sideway/address@npm:4.1.3"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+  checksum: 1e0329308caf31b4c147d3d6825fc4830439d03fbcbbd485a373c0a44b07006aa45e74331043d02aad706e0bd1caf20c7989d2a7d141621a953dd889042c27af
   languageName: node
   linkType: hard
 
@@ -5076,9 +5097,11 @@ __metadata:
     "@hapi/cookie": ^11.0.2
     "@hapi/crumb": 8.0.0
     "@hapi/hapi": ^20.0.3
-    "@hapi/inert": 5.2.2
+    "@hapi/inert": ^6.0.5
+    "@hapi/jwt": ^2.1.0
     "@hapi/lab": 24.0.0
     "@hapi/scooter": 6.0.0
+    "@hapi/vision": ^6.1.0
     "@hapi/wreck": 17.0.0
     "@hapi/yar": ^10.1.1
     "@types/hapi": ^18.0.4
@@ -5105,6 +5128,7 @@ __metadata:
     cli-ux: ^5.5.1
     code: 5.2.4
     concurrently: ^5.3.0
+    config: ^3.3.7
     date-fns: ^2.24.0
     dotenv: 8.2.0
     eslint: ^7.6.0
@@ -8056,6 +8080,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"config@npm:^3.3.7":
+  version: 3.3.7
+  resolution: "config@npm:3.3.7"
+  dependencies:
+    json5: ^2.1.1
+  checksum: 595aef295a106d8f70f958e1bc5feed88528e93b3b72b92d411f163b7496c9e971a5cca3bd36b4a35e0fbddcc2dfe0b093a32373ed8209adf3f76ac60aaef3b6
+  languageName: node
+  linkType: hard
+
 "configstore@npm:^5.0.1":
   version: 5.0.1
   resolution: "configstore@npm:5.0.1"
@@ -9500,7 +9533,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ecdsa-sig-formatter@npm:1.0.11, ecdsa-sig-formatter@npm:^1.0.11":
+"ecdsa-sig-formatter@npm:1.0.11, ecdsa-sig-formatter@npm:1.x.x, ecdsa-sig-formatter@npm:^1.0.11":
   version: 1.0.11
   resolution: "ecdsa-sig-formatter@npm:1.0.11"
   dependencies:
@@ -14980,6 +15013,19 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"joi@npm:^17.2.1":
+  version: 17.6.0
+  resolution: "joi@npm:17.6.0"
+  dependencies:
+    "@hapi/hoek": ^9.0.0
+    "@hapi/topo": ^5.0.0
+    "@sideway/address": ^4.1.3
+    "@sideway/formula": ^3.0.0
+    "@sideway/pinpoint": ^2.0.0
+  checksum: 38b055834b81e45d7961054d6b4985dc0d69c31dbb83205377837525c52e9ef983de68da50568b9f2cabcfe081bc179bd6b276717503239b2db7b016438acb57
+  languageName: node
+  linkType: hard
+
 "joi@npm:^17.3.0":
   version: 17.3.0
   resolution: "joi@npm:17.3.0"
@@ -15234,6 +15280,17 @@ fsevents@^1.2.7:
   bin:
     json5: lib/cli.js
   checksum: df41624f9f40bfacc546f779eef6d161a3312fbb6ec1dbd69f8c4388e9807af653b753371ab19b6d2bab22af2ca7dde62fe03c791596acf76915e1fc4ee6fd88
+  languageName: node
+  linkType: hard
+
+"json5@npm:^2.1.1":
+  version: 2.2.0
+  resolution: "json5@npm:2.2.0"
+  dependencies:
+    minimist: ^1.2.5
+  bin:
+    json5: lib/cli.js
+  checksum: 07b1f90c2801dc52df2b0ac8d606cc400a85cda79130e754780fa2ab9805d0fb85a0e61b6a5cdd68e88e5d0c8f9109ec415af08283175556cdccaa8563853908
   languageName: node
   linkType: hard
 
