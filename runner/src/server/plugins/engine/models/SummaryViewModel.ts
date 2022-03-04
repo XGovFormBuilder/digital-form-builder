@@ -3,7 +3,7 @@ import config from "server/config";
 import { FormModel } from "./FormModel";
 import { feedbackReturnInfoKey, redirectUrl } from "../helpers";
 import { decodeFeedbackContextInfo } from "../feedback";
-import { formSchema } from "server/schemas/formSchema";
+import { webhookSchema } from "server/schemas/webhookSchema";
 import { SummaryPageController } from "../pageControllers";
 import { FormSubmissionState } from "../types";
 import { FEEDBACK_CONTEXT_ITEMS, WebhookData } from "./types";
@@ -15,6 +15,7 @@ import {
 } from "server/plugins/engine/models/submission";
 import { FormDefinition, isMultipleApiKey } from "@xgovformbuilder/model";
 import { HapiRequest } from "src/server/types";
+import { InitialiseSessionOptions } from "server/plugins/initialiseSession/types";
 
 /**
  * TODO - extract submission behaviour dependencies from the viewmodel
@@ -56,6 +57,7 @@ export class SummaryViewModel {
   _outputs: any; // TODO
   _payApiKey: FormDefinition["payApiKey"];
   _webhookData: WebhookData | undefined;
+  callback?: InitialiseSessionOptions;
 
   constructor(
     pageTitle: string,
@@ -103,9 +105,10 @@ export class SummaryViewModel {
       );
 
       /**
-       * If there outputs defined, parse the state data for the appropriate outputs
+       * If there outputs defined, parse the state data for the appropriate outputs.
+       * Skip outputs if this is a callback
        */
-      if (def.outputs) {
+      if (def.outputs && !state.callback) {
         this._outputs = def.outputs.map((output) => {
           switch (output.type) {
             case "notify":
@@ -142,6 +145,7 @@ export class SummaryViewModel {
     this.details = details;
     this.state = state;
     this.value = result.value;
+    this.callback = state.callback;
   }
 
   private processErrors(result, details) {
@@ -276,7 +280,7 @@ export class SummaryViewModel {
   }
 
   get validatedWebhookData() {
-    const result = formSchema.validate(this._webhookData, {
+    const result = webhookSchema.validate(this._webhookData, {
       abortEarly: false,
       stripUnknown: true,
     });

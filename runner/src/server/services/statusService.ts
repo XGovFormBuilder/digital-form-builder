@@ -11,6 +11,7 @@ import type { NotifyModel } from "../plugins/engine/models/submission";
 import { ComponentCollection } from "server/plugins/engine/components/ComponentCollection";
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
+import Boom from "boom";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -98,15 +99,34 @@ export class StatusService {
 
   async outputRequests(request: HapiRequest) {
     const state = await this.cacheService.getState(request);
+    let formData = this.webhookArgsFromState(state);
 
-    const { outputs } = state;
+    const { outputs, callback } = state;
 
     let newReference;
 
+    if (callback) {
+      this.logger.info(
+        ["StatusService", "outputRequests"],
+        `Callback detected for ${request.yar.id}`
+      );
+      this.logger.info(
+        ["StatusService", "outputRequests"],
+        `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
+      );
+      try {
+        newReference = await this.webhookService.postRequest(
+          callback.callbackUrl,
+          formData,
+          "PUT"
+        );
+      } catch (e) {
+        throw Boom.badRequest();
+      }
+    }
+
     const firstWebhook = outputs?.find((output) => output.type === "webhook");
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
-    let formData = this.webhookArgsFromState(state);
-
     if (firstWebhook) {
       newReference = await this.webhookService.postRequest(
         firstWebhook.outputData.url,
@@ -149,6 +169,7 @@ export class StatusService {
       ...(!paymentSkipped && { fees }),
       metadata: {
         ...metadata,
+        ...state.metadata,
         paymentSkipped: paymentSkipped ?? false,
       },
     };
@@ -231,12 +252,14 @@ export class StatusService {
     formModel: FormModel,
     newReference?: string
   ) {
-    const { reference, pay } = state;
+    const { reference, pay, callback } = state;
     this.logger.info(
       ["StatusService", "getViewModel"],
       `generating viewModel for ${newReference ?? reference}`
     );
-    const confirmationPage = formModel.def.specialPages?.confirmationPage;
+    const { customText, components } =
+      formModel.def.specialPages?.confirmationPage ?? {};
+
     const referenceToDisplay =
       newReference === "UNKNOWN" ? reference : newReference ?? reference;
 
@@ -245,17 +268,21 @@ export class StatusService {
       ...(pay && { paymentSkipped: pay.paymentSkipped }),
     };
 
-    if (!confirmationPage) {
+    if (!customText && !callback?.customText) {
       return model;
     }
 
-    model.customText = confirmationPage.customText;
+    model.customText = {
+      ...customText,
+      ...(callback && callback.customText),
+    };
 
-    const components = new ComponentCollection(
-      confirmationPage?.components ?? [],
+    const componentDefsToRender = callback?.components ?? components ?? [];
+    const componentCollection = new ComponentCollection(
+      componentDefsToRender,
       formModel
     );
-    model.components = components.getViewModel(
+    model.components = componentCollection.getViewModel(
       state,
       undefined,
       formModel.conditions
