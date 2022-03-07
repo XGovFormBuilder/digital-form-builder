@@ -56,7 +56,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "12.x"
-      - run: docker image prune --all --force --filter "until=48h"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
@@ -121,13 +120,6 @@ jobs:
         # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
         # so main branch cache can be shared with branches
         run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}git
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
