@@ -7,7 +7,11 @@ import { i18n } from "../../i18n";
 import "./Flyout.scss";
 import { bool } from "aws-sdk/clients/signer";
 
+<<<<<<< HEAD
 export function useFlyoutEffect(props: {}) {
+=======
+export function useFlyoutEffect(props = {}) {
+>>>>>>> 2bd0acaf75fc51dfc1d961f2bda4aea3e6dacab1
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();

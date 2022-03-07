@@ -43,6 +43,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   const { data, save } = useContext(DataContext);
   const [isEditingPage, setIsEditingPage] = useState(false);
   const [isCreatingComponent, setIsCreatingComponent] = useState(false);
+  const [isEditingDeclaration, setIsEditingDeclaration] = useState(false);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const copy = { ...data };
@@ -52,7 +53,14 @@ export const Page = ({ page, previewUrl, id, layout }) => {
     save(copy);
   };
 
+  const onEditStart = () => {
+    setIsEditingPage(true);
+
+    if (page?.path === "/summary") setIsEditingDeclaration(true);
+  };
+
   const onEditEnd = () => {
+    setIsEditingDeclaration(false);
     setIsEditingPage(false);
   };
 
@@ -95,10 +103,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       />
 
       <div className="page__actions">
-        <button
-          title={i18n("Edit page")}
-          onClick={(_e) => setIsEditingPage(true)}
-        >
+        <button title={i18n("Edit page")} onClick={(_e) => onEditStart()}>
           {i18n("Edit page")}
         </button>
         <button
@@ -119,7 +124,11 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       </div>
       {isEditingPage && (
         <Flyout title="Edit Page" onHide={setIsEditingPage}>
-          <PageEdit page={page} onEdit={onEditEnd} />
+          <PageEdit
+            page={page}
+            onEdit={onEditEnd}
+            isEditingDeclaration={isEditingDeclaration}
+          />
         </Flyout>
       )}
 
