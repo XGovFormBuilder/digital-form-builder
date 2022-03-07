@@ -44,7 +44,12 @@
     "@hapi/cookie": "^11.0.2",
     "@hapi/crumb": "8.0.0",
     "@hapi/hapi": "^20.0.3",
+<<<<<<< Updated upstream
     "@hapi/inert": "^6.0.5",
+=======
+    "@hapi/inert": "5.2.2",
+    "@hapi/jwt": "^2.1.0",
+>>>>>>> Stashed changes
     "@hapi/lab": "24.0.0",
     "@hapi/scooter": "6.0.0",
     "@hapi/wreck": "17.0.0",
