@@ -48,20 +48,8 @@ export const configSchema = Joi.object({
   fromEmailAddress: Joi.string().optional().allow(""),
   serviceStartPage: Joi.string().optional().allow(""),
   privacyPolicyUrl: Joi.string().optional().allow(""),
-  notifyTemplateId: Joi.string()
-    .when("env", {
-      is: "production",
-      then: Joi.required(),
-      otherwise: Joi.optional().allow(""),
-    })
-    .label("NOTIFY_TEMPLATE_ID"),
-  notifyAPIKey: Joi.string()
-    .when("env", {
-      is: "production",
-      then: Joi.required(),
-      otherwise: Joi.optional().allow(""),
-    })
-    .label("NOTIFY_API_KEY"),
+  notifyTemplateId: Joi.string().optional().allow(""),
+  notifyAPIKey: Joi.string().optional().allow(""),
   lastCommit: Joi.string(),
   lastTag: Joi.string(),
   apiEnv: Joi.string().allow("test", "production", "").optional(),
