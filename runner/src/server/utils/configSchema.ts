@@ -20,6 +20,8 @@ export const configSchema = Joi.object({
   logLevel: Joi.string()
     .optional()
     .allow("trace", "debug", "info", "warn", "error"),
+  logPrettyPrint: Joi.boolean().optional(),
+  logRedactPaths: Joi.array().items(Joi.string()),
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string(),
