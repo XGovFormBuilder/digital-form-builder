@@ -20,7 +20,6 @@ module.exports = {
    */
   port: 3009,
   env: "development",
-  logLevel: "trace", //  Accepts "trace" | "debug" | "info" | "warn" |"error"
   previewMode: true,
   sandbox: true,
 
@@ -117,4 +116,11 @@ module.exports = {
   // authClientAuthUrl: "", // oAuth client secret
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
+
+  /**
+   * Logging
+   */
+  logLevel: "info", // Accepts "trace" | "debug" | "info" | "warn" |"error"
+  logPrettyPrint: true,
+  logRedactPaths: ["req.remoteAddress", "req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
 };

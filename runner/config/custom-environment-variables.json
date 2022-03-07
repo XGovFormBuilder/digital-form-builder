@@ -2,6 +2,7 @@
   "port": "PORT",
   "env": "NODE_ENV",
   "logLevel": "LOG_LEVEL",
+  "logPrettyPrint": "LOG_PRETTY_PRINT",
   "ordnanceSurveyKey": "ORDNANCE_SURVEY_KEY",
   "browserRefreshUrl": "BROWSER_REFRESH_URL",
   "feedbackLink": "FEEDBACK_LINK",
