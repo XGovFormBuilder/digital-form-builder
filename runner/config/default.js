@@ -20,7 +20,6 @@ module.exports = {
    */
   port: 3009,
   env: "development",
-  logLevel: "trace", //  Accepts "trace" | "debug" | "info" | "warn" |"error"
   previewMode: true,
   sandbox: true,
 
@@ -81,7 +80,7 @@ module.exports = {
 
   /**
    * Email outputs
-   * Email outputs will use notify to send an email to a single inbox.
+   * Email outputs will use notify to send an email to a single inbox. You must configure this for EMAIL outputs.
    * Not to be confused with notify outputs which is configured per form.
    */
   notifyTemplateId: "",
@@ -112,9 +111,16 @@ module.exports = {
    * Currently only oAuth is supported.
    */
   authEnabled: false,
-  // authClientId: "", // oAuth client ID
+  // authClientId: "", // oAuth client ID;
   // authClientSecret: "", // oAuth client Secret
   // authClientAuthUrl: "", // oAuth client secret
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
+
+  /**
+   * Logging
+   */
+  logLevel: "info", // Accepts "trace" | "debug" | "info" | "warn" |"error"
+  logPrettyPrint: true,
+  logRedactPaths: ["req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
 };
