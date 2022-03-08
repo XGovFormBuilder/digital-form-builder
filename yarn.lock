@@ -9145,8 +9145,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "digital-form-builder-mono@workspace:."
   dependencies:
-    "@babel/cli": ^7.10.5
-    "@babel/core": ^7.11.1
     "@babel/eslint-parser": ^7.11.3
     "@babel/eslint-plugin": ^7.11.3
     "@babel/plugin-proposal-class-properties": 7.10.1
