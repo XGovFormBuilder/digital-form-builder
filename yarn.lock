@@ -1226,7 +1226,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-runtime@npm:^7.10.1, @babel/plugin-transform-runtime@npm:^7.10.5, @babel/plugin-transform-runtime@npm:^7.11.0":
+"@babel/plugin-transform-runtime@npm:^7.10.1, @babel/plugin-transform-runtime@npm:^7.10.5":
   version: 7.12.10
   resolution: "@babel/plugin-transform-runtime@npm:7.12.10"
   dependencies:
@@ -1405,7 +1405,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-env@npm:^7.10.2, @babel/preset-env@npm:^7.11.0":
+"@babel/preset-env@npm:^7.10.2":
   version: 7.12.11
   resolution: "@babel/preset-env@npm:7.12.11"
   dependencies:
@@ -1541,7 +1541,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/register@npm:^7.10.5, @babel/register@npm:^7.12.10":
+"@babel/register@npm:^7.12.10":
   version: 7.12.10
   resolution: "@babel/register@npm:7.12.10"
   dependencies:
@@ -9127,12 +9127,7 @@ __metadata:
   resolution: "digital-form-builder-mono@workspace:."
   dependencies:
     "@babel/eslint-plugin": ^7.11.3
-    "@babel/plugin-transform-runtime": ^7.11.0
-    "@babel/preset-env": ^7.11.0
-    "@babel/preset-typescript": ^7.12.7
-    "@babel/register": ^7.10.5
     "@babel/runtime": ^7.11.2
-    "@hapi/code": ^8.0.1
     "@hapi/lab": ^24.0.0
     "@typescript-eslint/eslint-plugin": ^4.10.0
     "@typescript-eslint/parser": ^4.10.0
