@@ -1541,21 +1541,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/register@npm:^7.10.5":
-  version: 7.17.0
-  resolution: "@babel/register@npm:7.17.0"
-  dependencies:
-    clone-deep: ^4.0.1
-    find-cache-dir: ^2.0.0
-    make-dir: ^2.1.0
-    pirates: ^4.0.5
-    source-map-support: ^0.5.16
-  peerDependencies:
-    "@babel/core": ^7.0.0-0
-  checksum: bb47f1ad652a3b2f9c9d1f0360ce0a62793339b3df0c78394ac63c18ca111095831bfaeca06d0e20672141015a1d06735785e3a85adcf8d1c5b0ce314898247f
-  languageName: node
-  linkType: hard
-
 "@babel/register@npm:^7.12.10":
   version: 7.12.10
   resolution: "@babel/register@npm:7.12.10"
@@ -7726,17 +7711,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clone-deep@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "clone-deep@npm:4.0.1"
-  dependencies:
-    is-plain-object: ^2.0.4
-    kind-of: ^6.0.2
-    shallow-clone: ^3.0.0
-  checksum: b0146d66cabc7e609d23d10155dcc88e2f74b03539b3b65f8a05f889500e2a78b6c6265a744445d009d512a1afa16836f62aa5737d462027142984c2d41130c8
-  languageName: node
-  linkType: hard
-
 "clone-response@npm:^1.0.2":
   version: 1.0.2
   resolution: "clone-response@npm:1.0.2"
@@ -9159,10 +9133,7 @@ __metadata:
   resolution: "digital-form-builder-mono@workspace:."
   dependencies:
     "@babel/eslint-plugin": ^7.11.3
-    "@babel/register": ^7.10.5
     "@babel/runtime": ^7.11.2
-    "@hapi/code": ^8.0.1
-    "@hapi/lab": ^24.0.0
     "@typescript-eslint/eslint-plugin": ^4.10.0
     "@typescript-eslint/parser": ^4.10.0
     babel-eslint: ^11.0.0-beta.2
@@ -18557,13 +18528,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"pirates@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "pirates@npm:4.0.5"
-  checksum: 08614aa953b5d1ee382faf79c31bdd37056ef93ee1b14b13fbcff285a95d8122cdbef7ca69a08ad76f27bbfefd068d60cb7c2413c1f4109453716ee9df5160d2
-  languageName: node
-  linkType: hard
-
 "pkg-conf@npm:^2.0.0":
   version: 2.1.0
   resolution: "pkg-conf@npm:2.1.0"
@@ -21027,15 +20991,6 @@ resolve@^1.1.6:
   bin:
     sha.js: ./bin.js
   checksum: 7554240ab76e683f7115123eb4815aae16b5fc6f2cdff97009831ad5b17b107ffcef022526211f7306957bce7a67fa4d0ccad79a3040c5073414365595e90516
-  languageName: node
-  linkType: hard
-
-"shallow-clone@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "shallow-clone@npm:3.0.1"
-  dependencies:
-    kind-of: ^6.0.2
-  checksum: e329e054c286f0681fd8a9e5c353999519332f12510a99e189ea9cfa0337adb6f1414639d44493418ef6790a693b78c354525269f5db25a9feddd8b4d7891a62
   languageName: node
   linkType: hard
 
