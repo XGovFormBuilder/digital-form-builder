@@ -73,7 +73,7 @@
     "hapi-rate-limit": "4.1.0",
     "hapi-require-https": "5.0.0",
     "hmpo-components": "^5.2.1",
-    "ioredis": "4.16.1",
+    "ioredis": "4.28.5",
     "joi": "17.2.1",
     "lighthouse": "^7.1.0",
     "lodash-es": "^4.17.21",
