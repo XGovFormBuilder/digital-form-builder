@@ -9088,9 +9088,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.10.0
     eslint-config-prettier: ^6.13.0
     eslint-config-standard: ^14.1.1
-    eslint-import-resolver-alias: ^1.1.2
-    eslint-import-resolver-workspaces: ^1.0.10
-    eslint-plugin-import: ^2.22.0
     eslint-plugin-node: ^11.1.0
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-promise: ^4.2.1
@@ -9955,15 +9952,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-alias@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "eslint-import-resolver-alias@npm:1.1.2"
-  peerDependencies:
-    eslint-plugin-import: ">=1.4.0"
-  checksum: 115d2b221e000a3be81bc1cf716714f2fce8f87679984a4f993735c955de4001356e6ca426f1edbb3013a8bc7ea5da590dfe53b0700700b3a3e6a20be30a2482
-  languageName: node
-  linkType: hard
-
 "eslint-import-resolver-node@npm:^0.3.1, eslint-import-resolver-node@npm:^0.3.2, eslint-import-resolver-node@npm:^0.3.4":
   version: 0.3.4
   resolution: "eslint-import-resolver-node@npm:0.3.4"
@@ -9971,18 +9959,6 @@ __metadata:
     debug: ^2.6.9
     resolve: ^1.13.1
   checksum: 825e34e662c988ece8229e6956a95f12d2fa19265b429e3e3db14e58bfe72e270c999cda0cfc690793ed6e6a3e49ffa8df0e0a8842d668a1f0f7de5ae1aa36f9
-  languageName: node
-  linkType: hard
-
-"eslint-import-resolver-workspaces@npm:^1.0.10":
-  version: 1.0.11
-  resolution: "eslint-import-resolver-workspaces@npm:1.0.11"
-  dependencies:
-    eslint-import-resolver-node: ^0.3.4
-    find-yarn-workspace-root: ^2.0.0
-    pkg-up: ^3.1.0
-    tsconfig-paths: ^3.9.0
-  checksum: 93acbc03c69468a7207360b63ee53c9c2611741a28d2aee0bb9f97e3a0851e78383799136b9f09699a9b581b1b5aaa9552a7d61f5474cf2f69dd13bf44761f82
   languageName: node
   linkType: hard
 
@@ -11382,15 +11358,6 @@ __metadata:
   dependencies:
     semver-regex: ^3.1.2
   checksum: 05174128349e522f0746cc343a509f2ce1c8c765e24968ff2ac6f82fda4e4c680f5f71c6a781ce28406d19addc32a205116ac14ee83cb2e336635dd803f56cbd
-  languageName: node
-  linkType: hard
-
-"find-yarn-workspace-root@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "find-yarn-workspace-root@npm:2.0.0"
-  dependencies:
-    micromatch: ^4.0.2
-  checksum: 21c2b76621c58ecb0aadfeb128ece1ece979a9c43aac6f91bb422b20ca5744e63300d175692bc1a9e7b9f2f949f865e0f3ec05efeeabb81447146e6b4ccf003a
   languageName: node
   linkType: hard
 
