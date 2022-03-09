@@ -10315,7 +10315,6 @@ __metadata:
     "@babel/eslint-plugin": ^7.11.3
     "@babel/preset-env": ^7.11.0
     "@babel/preset-typescript": ^7.12.7
-    "@babel/runtime": ^7.11.2
     "@typescript-eslint/eslint-plugin": ^4.10.0
     "@typescript-eslint/parser": ^4.10.0
     babel-eslint: ^11.0.0-beta.2
@@ -10330,7 +10329,6 @@ __metadata:
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
-    govuk-frontend: ^3.13.0
     husky: ^4.3.0
     lint-staged: ^10.4.2
     magic-string: ^0.25.7

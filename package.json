@@ -61,10 +61,6 @@
     "typedoc": "^0.20.36",
     "typescript": "^4.1.3"
   },
-  "dependencies": {
-    "@babel/runtime": "^7.11.2",
-    "govuk-frontend": "^3.13.0"
-  },
   "resolutions": {
     "braces": "2.3.1",
     "pathval": "1.1.1",
