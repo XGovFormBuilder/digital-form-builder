@@ -17,7 +17,6 @@ describe("BackLink Component", () => {
     expect(wrapper.text()).to.equal("Go Back");
     expect(wrapper.props()).to.include({
       className: "back-link govuk-back-link",
-      href: "#0",
     });
   });
 

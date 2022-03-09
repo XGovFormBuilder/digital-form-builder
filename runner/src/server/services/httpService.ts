@@ -43,3 +43,7 @@ export const postJson = <T = any>(url: string, options: object) => {
     json: true,
   });
 };
+
+export const put = <T = any>(url: string, options: object) => {
+  return request<T>("put", url, options);
+};

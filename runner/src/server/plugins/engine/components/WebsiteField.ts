@@ -8,18 +8,14 @@ export class WebsiteField extends TextField {
   private defaultMessage = "Enter website address in the correct format";
 
   formSchema: StringSchema;
-
   options: WebsiteFieldComponent["options"];
-
   schema: WebsiteFieldComponent["schema"];
 
   constructor(def: WebsiteFieldComponent, model: FormModel) {
     super(def, model);
 
     this.options = def.options;
-
     this.schema = def.schema;
-
     this.formSchema = Joi.string();
 
     const isRequired = def.options.required ?? true;
