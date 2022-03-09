@@ -237,5 +237,3 @@ export class FeeItems extends React.Component {
     );
   }
 }
-FeeItems.value = undefined;
-

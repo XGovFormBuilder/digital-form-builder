@@ -9,6 +9,7 @@ import { i18n } from "../../i18n";
 import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../reducers/listReducer";
 import { FeeEdit } from "../Fee/FeeEdit";
+import DeclarationEdit from "../../declaration-edit";
 import OutputsEdit from "../../outputs/outputs-edit";
 import { DataContext } from "../../context";
 import { DataPrettyPrint } from "../DataPrettyPrint/DataPrettyPrint";
@@ -33,6 +34,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   const lists = useMenuItem();
   const outputs = useMenuItem();
   const fees = useMenuItem();
+  const summaryBehaviour = useMenuItem();
   const summary = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
@@ -63,6 +65,12 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         </button>
         <button data-testid="menu-fees" onClick={fees.show}>
           {i18n("menu.fees")}
+        </button>
+        <button
+          data-testid="menu-summary-behaviour"
+          onClick={summaryBehaviour.show}
+        >
+          {i18n("menu.summaryBehaviour")}
         </button>
         <button onClick={summary.show} data-testid="menu-summary">
           {i18n("menu.summary")}
@@ -121,6 +129,16 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
           <FeeEdit onEdit={() => fees.hide()} />
+        </Flyout>
+      )}
+
+      {summaryBehaviour.isVisible && (
+        <Flyout
+          title="Edit Summary behaviour"
+          onHide={summaryBehaviour.hide}
+          width="xlarge"
+        >
+          <DeclarationEdit onCreate={() => summaryBehaviour.hide()} />
         </Flyout>
       )}
 
