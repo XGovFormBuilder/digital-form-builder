@@ -87,7 +87,7 @@ See [https://github.com/node-config/node-config#readme](https://github.com/node-
 | AUTH_CLIENT_SECRET      | oAuth client secret                   | If AUTH_ENABLED is true |              |                             |                                                                                                                                           |
 | AUTH_CLIENT_AUTH_URL    | oAuth client authorise endpoint       | If AUTH_ENABLED is true |              |                             |                                                                                                                                           |
 | AUTH_CLIENT_TOKEN_URL   | oAuth client token endpoint           | If AUTH_ENABLED is true |              |                             |                                                                                                                                           |
-| AUTH_CLIENT_PROFILE_URL | oAuth client user profile endpoint    | If AUTH_ENABLED is true |              |                             |
+| AUTH_CLIENT_PROFILE_URL | oAuth client user profile endpoint    | If AUTH_ENABLED is true |              |        |
 |                     
 
 # Testing
