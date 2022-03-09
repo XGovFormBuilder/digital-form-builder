@@ -1,11 +1,17 @@
 import hoek from "hoek";
 import CatboxRedis from "@hapi/catbox-redis";
 import CatboxMemory from "@hapi/catbox-memory";
+import Jwt from "@hapi/jwt";
 import Redis from "ioredis";
 
 import config from "../config";
 import { HapiRequest, HapiServer } from "../types";
 import { FormSubmissionState } from "../plugins/engine/types";
+import {
+  DecodedSessionToken,
+  InitialiseSessionOptions,
+} from "server/plugins/initialiseSession/types";
+import { WebhookSchema } from "../schemas/webhookSchema";
 
 const {
   redisHost,
@@ -61,6 +67,42 @@ export class CacheService {
     return this.cache.set(key, viewModel, sessionTimeout);
   }
 
+  async createSession(
+    jwt: string,
+    data: {
+      callback: InitialiseSessionOptions;
+    } & Partial<WebhookSchema>
+  ) {
+    return this.cache.set(
+      this.JWTKey(jwt),
+      data,
+      config.initialisedSessionTimeout
+    );
+  }
+
+  async activateSession(jwt, request) {
+    const { decoded } = Jwt.token.decode(jwt);
+    const { payload }: { payload: DecodedSessionToken } = decoded;
+
+    const userSessionKey = {
+      segment: partition,
+      id: `${request.yar.id}:${payload.group}`,
+    };
+
+    const initialisedSession = await this.cache.get(this.JWTKey(jwt));
+
+    const currentSession = await this.cache.get(userSessionKey);
+    const mergedSession = {
+      ...currentSession,
+      ...initialisedSession,
+    };
+    this.cache.set(userSessionKey, mergedSession, sessionTimeout);
+    await this.cache.drop(this.JWTKey(jwt));
+    return {
+      redirectPath: initialisedSession?.callback?.redirectPath ?? "",
+    };
+  }
+
   async clearState(request: HapiRequest) {
     if (request.yar?.id) {
       this.cache.drop(this.Key(request));
@@ -80,7 +122,14 @@ export class CacheService {
     }
     return {
       segment: partition,
-      id: `${request.yar.id}:${request.params.id}${additionalIdentifier}`,
+      id: `${request.yar.id}:${request.params.id}${additionalIdentifier ?? ""}`,
+    };
+  }
+
+  JWTKey(jwt) {
+    return {
+      segment: partition,
+      id: jwt,
     };
   }
 }
