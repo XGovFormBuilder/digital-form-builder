@@ -87,8 +87,8 @@ See [https://github.com/node-config/node-config#readme](https://github.com/node-
 | AUTH_CLIENT_SECRET      | oAuth client secret                   | If AUTH_ENABLED is true |              |                             |                                                                                                                                           |
 | AUTH_CLIENT_AUTH_URL    | oAuth client authorise endpoint       | If AUTH_ENABLED is true |              |                             |                                                                                                                                           |
 | AUTH_CLIENT_TOKEN_URL   | oAuth client token endpoint           | If AUTH_ENABLED is true |              |                             |                                                                                                                                           |
-| AUTH_CLIENT_PROFILE_URL | oAuth client user profile endpoint    | If AUTH_ENABLED is true |              |                             |                       
-|
+| AUTH_CLIENT_PROFILE_URL | oAuth client user profile endpoint    | If AUTH_ENABLED is true |              |                             |
+
 # Testing
 
 Tests are found inside `test/cases`. For test scripts, name them `${NAME}.test.js`.
@@ -126,10 +126,15 @@ Additional steps are required for the different output types.
 ## License
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
 The following attribution statement MUST be cited in your products and applications when using this information.
+
 > Contains public sector information licensed under the Open Government license v3
+
 ### About the license
+
 The Open Government Licence (OGL) was developed by the Controller of Her Majesty's Stationery Office (HMSO) to enable information providers in the public sector to license the use and re-use of their information under a common open licence.
 
 It is designed to encourage use and re-use of information freely and flexibly, with only a few conditions.
