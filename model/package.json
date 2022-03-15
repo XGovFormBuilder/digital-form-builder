@@ -32,11 +32,7 @@
     "btoa": "^1.2.1",
     "govuk-frontend": "^4.0.1",
     "joi": "17.2.1",
-    "moment": "2.29.1",
-    "nanoid": "^3.3.1",
-    "nunjucks": "3.2.1",
-    "path": "0.12.7",
-    "wreck": "14.2.0"
+    "moment": "2.29.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -62,7 +58,11 @@
     "expr-eval": "2.0.2",
     "hmpo-components": "5.2.1",
     "jest": "^26.6.3",
+    "nanoid": "^3.3.1",
+    "nunjucks": "3.2.1",
+    "path": "0.12.7",
     "ts-jest": "^26.4.4",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "wreck": "14.2.0"
   }
 }
