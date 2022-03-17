@@ -4,6 +4,7 @@ const { deferConfig } = require("config/defer");
 const dotEnv = require("dotenv");
 if (process.env.NODE_ENV !== "test") {
   dotEnv.config({ path: ".env" });
+  console.log(process.env);
 }
 
 module.exports = {
@@ -20,7 +21,8 @@ module.exports = {
    */
   port: 3009,
   env: "development",
-  previewMode: true,
+  previewMode: false,
+  enforceCsrf: true,
   sandbox: true,
 
   /**
