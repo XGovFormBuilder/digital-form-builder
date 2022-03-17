@@ -4,8 +4,8 @@ import { ServerRegisterPluginObject } from "@hapi/hapi";
 import { RouteConfig } from "../types";
 
 type Config = {
-  isDev: string | undefined;
-  previewMode: boolean;
+  isDev: boolean;
+  enforceCsrf: boolean;
 };
 
 export const configureCrumbPlugin = (
@@ -16,12 +16,10 @@ export const configureCrumbPlugin = (
     plugin: crumb,
     options: {
       logUnauthorized: true,
-      enforce: routeConfig
-        ? routeConfig.enforceCsrf || false
-        : !config.previewMode,
+      enforce: routeConfig?.enforceCsrf ?? config?.enforceCsrf,
       cookieOptions: {
         path: "/",
-        isSecure: !!config.isDev,
+        isSecure: !config.isDev,
         isHttpOnly: true,
         isSameSite: "Strict",
       },
