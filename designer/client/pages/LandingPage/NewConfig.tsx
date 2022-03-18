@@ -86,6 +86,26 @@ export class NewConfig extends Component<Props, State> {
     return { errors, hasErrors };
   };
 
+  handleErrors = (errors) => {
+    return this.setState({
+      errors,
+    });
+  };
+
+  handleResponse = async (res) => {
+    if (!res.ok) {
+      await res.text().then((text) => {
+        return this.handleErrors({
+          name: {
+            href: "#formName",
+            children: i18n(text),
+          },
+        });
+      });
+    }
+    return res.json();
+  };
+
   onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -94,13 +114,9 @@ export class NewConfig extends Component<Props, State> {
     const { errors, hasErrors } = this.validate();
 
     if (hasErrors) {
-      return this.setState({
-        errors,
-      });
+      return this.handleErrors(errors);
     } else {
-      this.setState({
-        errors,
-      });
+      this.handleErrors(errors);
     }
 
     const newResponse = await window
@@ -115,7 +131,7 @@ export class NewConfig extends Component<Props, State> {
           "Content-Type": "application/json",
         },
       })
-      .then((res) => res.json());
+      .then((res) => this.handleResponse(res));
     this.props.history.push(`designer/${newResponse.id}`);
   };
 

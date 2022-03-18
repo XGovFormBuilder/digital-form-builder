@@ -64,18 +64,19 @@ export const plugin = {
       });
     });
 
-    if (previewMode) {
-      /**
-       * The following endpoints are used from the designer for operating in 'preview' mode.
-       * I.E. Designs saved in the designer can be accessed in the runner for viewing.
-       * The designer also uses these endpoints as a persistence mechanism for storing and retrieving data
-       * for it's own purposes so if you're changing these endpoints you likely need to go and amend
-       * the designer too!
-       */
-      server.route({
-        method: "post",
-        path: "/publish",
-        handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+    /**
+     * The following publish endpoints (/publish, /published/{id}, /published)
+     * are used from the designer for operating in 'preview' mode.
+     * I.E. Designs saved in the designer can be accessed in the runner for viewing.
+     * The designer also uses these endpoints as a persistence mechanism for storing and retrieving data
+     * for its own purposes so if you're changing these endpoints you likely need to go and amend
+     * the designer too!
+     */
+    server.route({
+      method: "post",
+      path: "/publish",
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+        if (previewMode) {
           const payload = request.payload as FormPayload;
           const { id, configuration } = payload;
 
@@ -88,13 +89,29 @@ export const plugin = {
             basePath: id,
           });
           return h.response({}).code(204);
-        },
-      });
+        } else {
+          console.log(
+            "\x1b[36m%s\x1b[0m",
+            "\n**********" +
+              "\nNOT FOUND: The /publish route is not accessible as config.previewMode is disabled. " +
+              "\nTo enable it, please switch to development mode by setting NODE_ENV=development" +
+              "\nin your environment, or create a custom environment config with PREVIEW_MODE=true" +
+              "\nand ENFORCE_CSRF=false. See runner/config/development.json for env defaults" +
+              "\n**********\n"
+          );
+          throw Boom.notFound(
+            "previewMode is disabled. To enable it, please switch to development mode" +
+              " by setting NODE_ENV=development in your environment"
+          );
+        }
+      },
+    });
 
-      server.route({
-        method: "get",
-        path: "/published/{id}",
-        handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+    server.route({
+      method: "get",
+      path: "/published/{id}",
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+        if (previewMode) {
           const { id } = request.params;
           if (forms[id]) {
             const { values } = forms[id];
@@ -102,13 +119,29 @@ export const plugin = {
           } else {
             return h.response({}).code(204);
           }
-        },
-      });
+        } else {
+          console.log(
+            "\x1b[36m%s\x1b[0m",
+            "\n**********" +
+              "\nNOT FOUND: The /published/{id} route is not accessible as config.previewMode is disabled. " +
+              "\nTo enable it, please switch to development mode by setting NODE_ENV=development" +
+              "\nin your environment, or create a custom environment config with PREVIEW_MODE=true" +
+              "\nand ENFORCE_CSRF=false. See runner/config/development.json for env defaults" +
+              "\n**********\n"
+          );
+          throw Boom.notFound(
+            "previewMode is disabled. To enable it, please switch to development mode" +
+              " by setting NODE_ENV=development in your environment"
+          );
+        }
+      },
+    });
 
-      server.route({
-        method: "get",
-        path: "/published",
-        handler: (_request: HapiRequest, h: HapiResponseToolkit) => {
+    server.route({
+      method: "get",
+      path: "/published",
+      handler: (_request: HapiRequest, h: HapiResponseToolkit) => {
+        if (previewMode) {
           return h
             .response(
               JSON.stringify(
@@ -124,9 +157,23 @@ export const plugin = {
               )
             )
             .code(200);
-        },
-      });
-    }
+        } else {
+          console.log(
+            "\x1b[36m%s\x1b[0m",
+            "\n**********" +
+              "\nNOT FOUND: The /published route is not accessible as config.previewMode is disabled. " +
+              "\nTo enable it, please switch to development mode by setting NODE_ENV=development" +
+              "\nin your environment, or create a custom environment config with PREVIEW_MODE=true" +
+              "\nand ENFORCE_CSRF=false. See runner/config/development.json for env defaults" +
+              "\n**********\n"
+          );
+          throw Boom.notFound(
+            "previewMode is disabled. To enable it, please switch to development mode" +
+              " by setting NODE_ENV=development in your environment"
+          );
+        }
+      },
+    });
 
     server.route({
       method: "get",

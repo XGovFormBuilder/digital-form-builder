@@ -5,8 +5,7 @@ import { RouteConfig } from "../types";
 
 type Config = {
   isDev: boolean;
-  isTest: boolean;
-  previewMode: boolean;
+  enforceCsrf: boolean;
 };
 
 export const configureCrumbPlugin = (
@@ -17,11 +16,7 @@ export const configureCrumbPlugin = (
     plugin: crumb,
     options: {
       logUnauthorized: true,
-      enforce: routeConfig?.enforceCsrf
-        ? true
-        : config.isTest
-        ? false
-        : !config.previewMode,
+      enforce: routeConfig?.enforceCsrf ?? config?.enforceCsrf,
       cookieOptions: {
         path: "/",
         isSecure: !config.isDev,

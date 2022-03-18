@@ -23,7 +23,6 @@ type ConfigureEnginePlugin = (
       id: string;
     }[];
     previewMode: boolean;
-    enforceCSRF: boolean;
   };
 };
 
@@ -31,7 +30,6 @@ const relativeTo = __dirname;
 
 type EngineOptions = {
   previewMode?: boolean;
-  enforceCSRF?: boolean;
 };
 export const configureEnginePlugin: ConfigureEnginePlugin = (
   formFileName,
