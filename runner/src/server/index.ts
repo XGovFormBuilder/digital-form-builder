@@ -163,7 +163,7 @@ async function createServer(routeConfig: RouteConfig) {
         "\nServer is running in production mode." +
         "\n-- env=" +
         config.env.toString() +
-        "\n-- enforceCSRF=" +
+        "\n-- enforceCsrf=" +
         config.enforceCsrf.toString() +
         "\n-- previewMode=" +
         config.previewMode.toString() +
@@ -179,7 +179,7 @@ async function createServer(routeConfig: RouteConfig) {
         "\nWARNING: Server is running in insecure development/test mode." +
         "\n-- env=" +
         config.env.toString() +
-        "\n-- enforceCSRF=" +
+        "\n-- enforceCsrf=" +
         config.enforceCsrf.toString() +
         "\n-- previewMode=" +
         config.previewMode.toString() +
