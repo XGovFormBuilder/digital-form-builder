@@ -1,6 +1,11 @@
 import React, { ChangeEvent } from "react";
 import InlineConditions from "./InlineConditions";
-import { ConditionsModel, Data } from "@xgovformbuilder/model";
+import {
+  Condition,
+  ConditionRawData,
+  ConditionsModel,
+  Data,
+} from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
@@ -61,7 +66,7 @@ class SelectConditions extends React.Component<Props, State> {
     return inputs
       .map((input) => ({
         label: input.title,
-        name: input.propertyPath,
+        name: this.trimSectionName(input.propertyPath),
         type: input.type,
       }))
       .reduce((obj, item) => {
@@ -78,7 +83,9 @@ class SelectConditions extends React.Component<Props, State> {
     const operators = ["==", "!=", ">", "<"];
 
     for (const field of fields) {
-      var fieldName = this.trimSectionName(field.name);
+      //const stringConditions = conditions.filter(condition => typeof condition.value === "string")
+      //const objectConditions = conditions.filter(condition => typeof condition.value !== "string")
+      //this.handleStringConditions(stringConditions, field.name, conditionsForPath);
       for (const condition of conditions) {
         const conditionValue = condition.value;
 
@@ -94,7 +101,7 @@ class SelectConditions extends React.Component<Props, State> {
                 .trim();
               this.checkAndAddCondition(
                 condition,
-                fieldName,
+                field.name,
                 conditionFieldName,
                 conditionsForPath
               );
@@ -105,7 +112,7 @@ class SelectConditions extends React.Component<Props, State> {
           for (const innerCondition of conditionValue.conditions) {
             this.checkAndAddCondition(
               condition,
-              fieldName,
+              field.name,
               innerCondition.field.name,
               conditionsForPath
             );
@@ -114,6 +121,42 @@ class SelectConditions extends React.Component<Props, State> {
       }
     }
     return conditionsForPath;
+  }
+  handleConditions(
+    objectConditions: ConditionsModel[],
+    fieldName: string,
+    conditionsForPath: any[]
+  ) {
+    objectConditions.forEach((condition) => {});
+    for (const innerCondition of objectConditions) {
+    }
+  }
+
+  handleStringConditions(
+    stringConditions: any[],
+    fieldName: string,
+    conditionsForPath: any[]
+  ) {
+    const operators = ["==", "!=", ">", "<"];
+
+    stringConditions.forEach((condition) => {
+      for (const operator of operators) {
+        if (condition.value.includes(operator)) {
+          var conditionFieldName = condition.value
+            .substring(
+              condition.value.indexOf(".") + 1,
+              condition.value.lastIndexOf(operator)
+            )
+            .trim();
+          this.checkAndAddCondition(
+            condition,
+            fieldName,
+            conditionFieldName,
+            conditionsForPath
+          );
+        }
+      }
+    });
   }
 
   checkAndAddCondition(
