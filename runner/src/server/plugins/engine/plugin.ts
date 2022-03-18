@@ -91,11 +91,17 @@ export const plugin = {
           return h.response({}).code(204);
         } else {
           console.log(
-            "This route is not accessible as config.previewMode is disabled. " +
-              "Please enable it in your environment config. See runner/config/default.js"
+            "\x1b[36m%s\x1b[0m",
+            "\n**********" +
+              "\nNOT FOUND: The /publish route is not accessible as config.previewMode is disabled. " +
+              "\nTo enable it, please switch to development mode by setting NODE_ENV=development" +
+              "\nin your environment, or create a custom environment config with PREVIEW_MODE=true" +
+              "\nand ENFORCE_CSRF=false. See runner/config/development.json for env defaults" +
+              "\n**********\n"
           );
           throw Boom.notFound(
-            "previewMode is disabled. Please enable it in your environment config."
+            "previewMode is disabled. To enable it, please switch to development mode" +
+              " by setting NODE_ENV=development in your environment"
           );
         }
       },
@@ -115,11 +121,17 @@ export const plugin = {
           }
         } else {
           console.log(
-            "This route is not accessible as config.previewMode is disabled. " +
-              "Please enable it in your environment config. See runner/config/default.js"
+            "\x1b[36m%s\x1b[0m",
+            "\n**********" +
+              "\nNOT FOUND: The /published/{id} route is not accessible as config.previewMode is disabled. " +
+              "\nTo enable it, please switch to development mode by setting NODE_ENV=development" +
+              "\nin your environment, or create a custom environment config with PREVIEW_MODE=true" +
+              "\nand ENFORCE_CSRF=false. See runner/config/development.json for env defaults" +
+              "\n**********\n"
           );
           throw Boom.notFound(
-            "previewMode is disabled. Please enable it in your environment config."
+            "previewMode is disabled. To enable it, please switch to development mode" +
+              " by setting NODE_ENV=development in your environment"
           );
         }
       },
@@ -147,11 +159,17 @@ export const plugin = {
             .code(200);
         } else {
           console.log(
-            "This route is not accessible as config.previewMode is disabled. " +
-              "Please enable it in your environment config. See runner/config/default.js"
+            "\x1b[36m%s\x1b[0m",
+            "\n**********" +
+              "\nNOT FOUND: The /published route is not accessible as config.previewMode is disabled. " +
+              "\nTo enable it, please switch to development mode by setting NODE_ENV=development" +
+              "\nin your environment, or create a custom environment config with PREVIEW_MODE=true" +
+              "\nand ENFORCE_CSRF=false. See runner/config/development.json for env defaults" +
+              "\n**********\n"
           );
           throw Boom.notFound(
-            "previewMode is disabled. Please enable it in your environment config."
+            "previewMode is disabled. To enable it, please switch to development mode" +
+              " by setting NODE_ENV=development in your environment"
           );
         }
       },
