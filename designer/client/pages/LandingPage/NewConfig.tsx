@@ -92,18 +92,18 @@ export class NewConfig extends Component<Props, State> {
     });
   };
 
-  handleResponse = (response) => {
-    response.text().then((text) => {
-      if (!response.ok) {
+  handleResponse = async (res) => {
+    if (!res.ok) {
+      await res.text().then((text) => {
         return this.handleErrors({
           name: {
             href: "#formName",
             children: i18n(text),
           },
         });
-      }
-    });
-    return response.json();
+      });
+    }
+    return res.json();
   };
 
   onSubmit = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -131,9 +131,7 @@ export class NewConfig extends Component<Props, State> {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
-        return this.handleResponse(response);
-      });
+      .then((res) => this.handleResponse(res));
     this.props.history.push(`designer/${newResponse.id}`);
   };
 
