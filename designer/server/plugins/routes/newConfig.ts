@@ -56,7 +56,7 @@ export const registerNewFormWithRunner: ServerRoute = {
             "\nSee runner/config/development.json for example dev defaults." +
             "\n**********\n"
         );
-        // request.logger.error(e);
+        request.logger.error(e);
         return h
           .response(
             "Designer could not connect to runner instance. " +
