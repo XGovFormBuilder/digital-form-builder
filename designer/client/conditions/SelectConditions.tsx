@@ -122,13 +122,21 @@ class SelectConditions extends React.Component<Props, State> {
     }
     return conditionsForPath;
   }
+
   handleConditions(
-    objectConditions: ConditionsModel[],
+    objectConditions: ConditionRawData[],
     fieldName: string,
     conditionsForPath: any[]
   ) {
-    objectConditions.forEach((condition) => {});
+    const a = objectConditions.map(
+      (objectConditions) => objectConditions.value
+    );
+    a[0].valueOf().name;
+    objectConditions.forEach((condition) => {
+      condition.value;
+    });
     for (const innerCondition of objectConditions) {
+      innerCondition.value.conditions;
     }
   }
 
