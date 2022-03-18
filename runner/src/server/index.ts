@@ -11,6 +11,8 @@ import { configureEnginePlugin } from "./plugins/engine";
 import { configureRateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
+import { configureInitialiseSessionPlugin } from "server/plugins/initialiseSession/configurePlugin";
+
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
 import pluginAuth from "./plugins/auth";
@@ -91,6 +93,11 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginLogging);
   await server.register(Schmervice);
   await server.register(pluginAuth);
+  await server.register(
+    configureInitialiseSessionPlugin({
+      safelist: config.safelist,
+    })
+  );
 
   server.registerService([
     CacheService,
