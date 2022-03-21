@@ -18,6 +18,7 @@ import {
   hasConditions as dataHasConditions,
 } from "../data";
 import { data } from "msw/lib/types/context";
+import { array } from "joi";
 
 interface Props {
   path: string;
@@ -132,21 +133,22 @@ class SelectConditions extends React.Component<Props, State> {
     const operators = ["==", "!=", ">", "<"];
 
     stringConditions.forEach((condition) => {
-      for (const operator of operators) {
-        if (condition.value.includes(operator)) {
-          var conditionFieldName = condition.value
-            .substring(
-              condition.value.indexOf(".") + 1,
-              condition.value.lastIndexOf(operator)
+      operators.some((operator) => condition.value.includes(operator));
+      if (operators.some((operator) => condition.value.includes(operator))) {
+        var conditionFieldName = condition.value
+          .substring(
+            condition.value.indexOf(".") + 1,
+            condition.value.lastIndexOf(
+              operators.filter((operator) => condition.value.includes(operator))
             )
-            .trim();
-          this.checkAndAddCondition(
-            condition,
-            fieldName,
-            conditionFieldName,
-            conditionsForPath
-          );
-        }
+          )
+          .trim();
+        this.checkAndAddCondition(
+          condition,
+          fieldName,
+          conditionFieldName,
+          conditionsForPath
+        );
       }
     });
   }
