@@ -91,7 +91,7 @@ class SelectConditions extends React.Component<Props, State> {
     const { conditions = [] } = data;
     var conditionsForPath: any[] = [];
 
-    for (const field of fields) {
+    fields.forEach((field) => {
       const stringConditions = conditions.filter(
         (condition) => typeof condition.value === "string"
       );
@@ -104,7 +104,8 @@ class SelectConditions extends React.Component<Props, State> {
         conditionsForPath
       );
       this.handleConditions(objectConditions, field.name, conditionsForPath);
-    }
+    });
+
     return conditionsForPath;
   }
 
