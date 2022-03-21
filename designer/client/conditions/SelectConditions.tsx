@@ -33,6 +33,15 @@ interface State {
   fields: any;
 }
 
+export type ConditionData = {
+  name: string;
+  displayName: string;
+  value: {
+    name: string;
+    conditions: Condition[];
+  };
+};
+
 class SelectConditions extends React.Component<Props, State> {
   static contextType = DataContext;
 
@@ -80,64 +89,39 @@ class SelectConditions extends React.Component<Props, State> {
     const fields: any = Object.values(this.fieldsForPath(path));
     const { conditions = [] } = data;
     var conditionsForPath: any[] = [];
-    const operators = ["==", "!=", ">", "<"];
 
     for (const field of fields) {
-      //const stringConditions = conditions.filter(condition => typeof condition.value === "string")
-      //const objectConditions = conditions.filter(condition => typeof condition.value !== "string")
-      //this.handleStringConditions(stringConditions, field.name, conditionsForPath);
-      for (const condition of conditions) {
-        const conditionValue = condition.value;
-
-        // This will handle older conditions
-        if (typeof conditionValue === "string") {
-          for (const operator of operators) {
-            if (conditionValue.includes(operator)) {
-              var conditionFieldName = conditionValue
-                .substring(
-                  conditionValue.indexOf(".") + 1,
-                  conditionValue.lastIndexOf(operator)
-                )
-                .trim();
-              this.checkAndAddCondition(
-                condition,
-                field.name,
-                conditionFieldName,
-                conditionsForPath
-              );
-            }
-          }
-        } else {
-          // This will handle newer conditions
-          for (const innerCondition of conditionValue.conditions) {
-            this.checkAndAddCondition(
-              condition,
-              field.name,
-              innerCondition.field.name,
-              conditionsForPath
-            );
-          }
-        }
-      }
+      const stringConditions = conditions.filter(
+        (condition) => typeof condition.value === "string"
+      );
+      const objectConditions = conditions.filter(
+        (condition) => typeof condition.value !== "string"
+      );
+      this.handleStringConditions(
+        stringConditions,
+        field.name,
+        conditionsForPath
+      );
+      this.handleConditions(objectConditions, field.name, conditionsForPath);
     }
     return conditionsForPath;
   }
 
   handleConditions(
-    objectConditions: ConditionRawData[],
+    objectConditions: ConditionData[],
     fieldName: string,
     conditionsForPath: any[]
   ) {
-    const a = objectConditions.map(
-      (objectConditions) => objectConditions.value
-    );
-    a[0].valueOf().name;
     objectConditions.forEach((condition) => {
-      condition.value;
+      condition.value.conditions.forEach((innerCondition) => {
+        this.checkAndAddCondition(
+          condition,
+          fieldName,
+          innerCondition.field.name,
+          conditionsForPath
+        );
+      });
     });
-    for (const innerCondition of objectConditions) {
-      innerCondition.value.conditions;
-    }
   }
 
   handleStringConditions(
