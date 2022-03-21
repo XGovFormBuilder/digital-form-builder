@@ -1,11 +1,6 @@
 import React, { ChangeEvent } from "react";
 import InlineConditions from "./InlineConditions";
-import {
-  Condition,
-  ConditionRawData,
-  ConditionsModel,
-  Data,
-} from "@xgovformbuilder/model";
+import { Condition, ConditionsModel, Data } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
@@ -17,9 +12,6 @@ import {
   inputsAccessibleAt,
   hasConditions as dataHasConditions,
 } from "../data";
-import { data } from "msw/lib/types/context";
-import { array } from "joi";
-
 interface Props {
   path: string;
   data: Data;
