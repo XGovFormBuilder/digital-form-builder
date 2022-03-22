@@ -25,12 +25,12 @@
   },
   "dependencies": {
     "arkit": "^1.6.4",
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "chai-webdriverio": "^1.0.0",
-    "cucumber-html-reporter": "^5.2.0",
-    "nanoid": "^3.1.23",
+    "cucumber-html-reporter": "^5.5.0",
+    "nanoid": "^3.3.1",
     "wdio-config": "^5.0.0-alpha.7",
-    "wdio-cucumberjs-json-reporter": "^2.0.2",
+    "wdio-cucumberjs-json-reporter": "^4.4.1",
     "wdio-json-reporter": "^2.0.0",
     "webdriverio": "^7.7.3"
   }
