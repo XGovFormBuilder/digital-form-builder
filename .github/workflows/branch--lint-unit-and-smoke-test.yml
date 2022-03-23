@@ -5,8 +5,8 @@ on:
       - master
       - main
     paths-ignore:
-      - "docs/**"
-      - "**/README.md"
+      - 'docs/**'
+      - '**/README.md'
   workflow_dispatch:
 jobs:
   lint-and-test:
