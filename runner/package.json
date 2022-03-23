@@ -1,7 +1,7 @@
 {
   "name": "@xgovformbuilder/runner",
   "version": "3.0.0",
-  "description": "Digital forms runner",
+  "description": "Digital forms runner test",
   "main": "src/index.js",
   "scripts": {
     "check-forms": "yarn node bin/run/check",
