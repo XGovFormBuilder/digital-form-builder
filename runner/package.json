@@ -128,7 +128,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-tsdoc": "^0.2.14",
     "lab": "18.0.2",
-    "sass": "^1.26.11",
+    "sass": "^1.49.9",
     "typescript": "^4.0.3"
   },
   "lighthouse": {
