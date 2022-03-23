@@ -36,7 +36,7 @@ COPY --chown=appuser:appuser ./model ./model/
 USER 1001
 RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
 
-# ----------------------------
+# -----------------------------
 # Stage 4
 # Build stage
 # In this layer we build the runner workspace
