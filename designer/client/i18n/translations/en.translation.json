@@ -387,8 +387,8 @@
   "saveErrorPage": {
     "sorry": "Sorry, there is a problem with the service",
     "error": "An error occurred while saving.",
-    "hint": "We saved the last valid version of your form. Return to the Designer to continue.",
-    "report": "So we can check what went wrong, complete the following:",
+    "hint": "Is the runner up and running and in development mode? Check console log and see docs for runner requirements when using the designer. If the runner is up and in development mode, the last valid version of your form will have been saved. Return to the Designer to continue.",
+    "report": "If everything appears configured according to the docs, so we can check what went wrong please complete the following:",
     "downloadCrashReport": "download your crash report",
     "createIssue": "create an issue on GitHub",
     "createIssueHint": "with details of what you were doing when this error occurred, and your crash report as an attachment"
