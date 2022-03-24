@@ -3,6 +3,8 @@ import FocusTrap from "focus-trap-react";
 import { FlyoutContext, DataContext } from "../../context";
 import { i18n } from "../../i18n";
 import "./Flyout.scss";
+import { bool } from "aws-sdk/clients/signer";
+
 
 export function useFlyoutEffect(props: {}) {
   const flyoutContext = useContext(FlyoutContext);
