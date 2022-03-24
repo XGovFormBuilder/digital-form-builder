@@ -158,41 +158,38 @@ async function createServer(routeConfig: RouteConfig) {
   if (!config.isTest) {
     console.log(
       "\x1b[36m%s\x1b[0m",
-      "**********" +
-        "\n**********" +
-        "\nServer is running in production mode." +
-        "\n-- env=" +
-        config.env.toString() +
-        "\n-- enforceCsrf=" +
-        config.enforceCsrf.toString() +
-        "\n-- previewMode=" +
-        config.previewMode.toString() +
-        "\n**********" +
-        "\n**********\n"
+      `**********
+**********
+Server is running in production mode.
+-- env=${config.env.toString()}
+-- enforceCsrf=${config.enforceCsrf.toString()}
+-- previewMode=${config.previewMode.toString()}
+**********
+**********`
     );
     await server.register(blipp);
   } else {
     console.log(
       "\x1b[36m%s\x1b[0m",
-      "**********" +
-        "\n**********" +
-        "\nWARNING: Server is running in insecure development/test mode." +
-        "\n-- env=" +
-        config.env.toString() +
-        "\n-- enforceCsrf=" +
-        config.enforceCsrf.toString() +
-        "\n-- previewMode=" +
-        config.previewMode.toString() +
-        "\n\npreviewMode=true and enforceCsrf=false are both currently required" +
-        "\nto allow the runner to accept posts from the designer for the building" +
-        "\nand publishing of forms." +
-        "\n\nIn production deployments, please ensure that the NODE_ENV=production" +
-        "\nenvironment variable is set." +
-        "\n\nYou can also create custom environment configurations by placing" +
-        "\na myenvironment.json file in runner/config/ with your bespoke config vars" +
-        "\nor by setting individual vars in a .env file at runner/.env ." +
-        "\n**********" +
-        "\n**********\n"
+      `**********
+**********
+WARNING: Server is running in insecure development/test mode.
+-- env=${config.env.toString()}
+-- enforceCsrf=${config.enforceCsrf.toString()}
+-- previewMode=${config.previewMode.toString()}
+
+previewMode=true and enforceCsrf=false are both currently required
+to allow the runner to accept posts from the designer for the building
+and publishing of forms.
+
+In production deployments, please ensure that the NODE_ENV=production
+environment variable is set.
+
+You can also create custom environment configurations by placing
+a myenvironment.json file in runner/config/ with your bespoke config vars
+or by setting individual vars in a .env file at runner/.env .
+**********
+**********`
     );
   }
 
