@@ -135,7 +135,7 @@ export class DateTimePartsField extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? format(parseISO(value), "D MMMM YYYY h:mm") : "";
+    return value ? format(parseISO(value), "d MMMM yyyy h:mm") : "";
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc
