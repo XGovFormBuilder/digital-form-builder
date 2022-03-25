@@ -13,25 +13,25 @@
   "author": "Carlos Gutierrez",
   "license": "MIT",
   "devDependencies": {
-    "@cucumber/cucumber": "^7.2.1",
-    "@wdio/cli": "^7.7.3",
+    "@cucumber/cucumber": "^7.3.2",
+    "@wdio/cli": "^7.19.0",
     "@wdio/cucumber-framework": "^7.7.3",
-    "@wdio/local-runner": "^7.7.3",
-    "@wdio/selenium-standalone-service": "^7.7.3",
-    "@wdio/spec-reporter": "^7.7.3",
-    "@wdio/sync": "^7.7.3",
-    "fs-extra": "^9.0.1",
-    "multiple-cucumber-html-reporter": "^1.18.0"
+    "@wdio/local-runner": "^7.19.0",
+    "@wdio/selenium-standalone-service": "^7.19.0",
+    "@wdio/spec-reporter": "^7.19.0",
+    "@wdio/sync": "^7.19.0",
+    "fs-extra": "^10.0.1",
+    "multiple-cucumber-html-reporter": "^1.19.0"
   },
   "dependencies": {
     "arkit": "^1.6.4",
-    "chai": "^4.2.0",
+    "chai": "^4.3.6",
     "chai-webdriverio": "^1.0.0",
-    "cucumber-html-reporter": "^5.2.0",
-    "nanoid": "^3.1.23",
+    "cucumber-html-reporter": "^5.5.0",
+    "nanoid": "^3.3.1",
     "wdio-config": "^5.0.0-alpha.7",
-    "wdio-cucumberjs-json-reporter": "^2.0.2",
-    "wdio-json-reporter": "^2.0.0",
-    "webdriverio": "^7.7.3"
+    "wdio-cucumberjs-json-reporter": "^4.4.1",
+    "wdio-json-reporter": "^3.0.0",
+    "webdriverio": "^7.19.0"
   }
 }
