@@ -131,7 +131,7 @@
     "nodemon": "^2.0.15",
     "nunjucks": "3.2.1",
     "postcss": "^8.2.4",
-    "postcss-loader": "^4.1.0",
+    "postcss-loader": "^6.2.1",
     "prismjs": "1.23.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
