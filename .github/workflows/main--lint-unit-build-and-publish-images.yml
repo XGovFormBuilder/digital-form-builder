@@ -48,7 +48,7 @@ jobs:
       matrix:
         app: [designer, runner, model]
     env:
-      SEMVER:  ${{ needs.assign-semver.outputs.SEMVER }}
+      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     name: lint-and-test-${{matrix.app}}
     steps:
       - uses: actions/checkout@v2
@@ -121,13 +121,6 @@ jobs:
         # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
         # so main branch cache can be shared with branches
         run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-        with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}git
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
