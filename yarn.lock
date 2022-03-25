@@ -5730,7 +5730,6 @@ __metadata:
     lcov-result-merger: ^3.1.0
     lodash: ^4.17.21
     mini-css-extract-plugin: ^0.11.2
-    moment-timezone: ^0.5.31
     msw: ^0.38.1
     nanoid: ^3.3.1
     nodemon: ^2.0.15
@@ -5817,7 +5816,6 @@ __metadata:
     hmpo-components: 5.2.1
     jest: ^26.6.3
     joi: 17.2.1
-    moment: 2.29.1
     nanoid: ^3.3.1
     nunjucks: 3.2.1
     path: 0.12.7
@@ -18340,16 +18338,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.31":
-  version: 0.5.32
-  resolution: "moment-timezone@npm:0.5.32"
-  dependencies:
-    moment: ">= 2.9.0"
-  checksum: 1e5ff2335e310fabdebdde7c0d4b97062bb242c14926e8f79b06fdf8ad356db05d76f75add80ad1b33a68bcd330e265a1ca8b5bbdf1ea2a9c2b5df76d4e12d52
-  languageName: node
-  linkType: hard
-
-"moment@npm:2.29.1, moment@npm:>= 2.9.0, moment@npm:^2.24.0, moment@npm:^2.29.1":
+"moment@npm:^2.13.0, moment@npm:^2.24.0":
   version: 2.29.1
   resolution: "moment@npm:2.29.1"
   checksum: 86729013febf7160de5b93da69273dd304d674b0224f9544b3abd09a87671ddd2cdd57598261ce57588910d63747ffd5590965e83c790d8bf327083c0e0a06e0
