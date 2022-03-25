@@ -81,7 +81,7 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "7.10.3",
     "@babel/preset-react": "7.10.1",
-    "@babel/preset-typescript": "^7.12.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@babel/register": "7.10.3",
     "@babel/runtime": "7.10.3",
     "@hapi/code": "^8.0.1",
