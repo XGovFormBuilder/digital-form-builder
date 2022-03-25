@@ -58,7 +58,6 @@
     "joi": "17.2.1",
     "jszip": "^3.6.0",
     "lodash": "^4.17.21",
-    "moment-timezone": "^0.5.31",
     "nanoid": "^3.1.12",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
