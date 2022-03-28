@@ -1,7 +1,6 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import { TelephoneNumberField } from "src/server/plugins/engine/components";
-
 const lab = Lab.script();
 exports.lab = lab;
 const { expect } = Code;

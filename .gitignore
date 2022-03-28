@@ -17,6 +17,7 @@ smoke-tests/designer/reports/
 */dist/
 */.dist/
 tsconfig.tsbuildinfo
+.lighthouseci
 
 .yarn/*
 !.yarn/releases
