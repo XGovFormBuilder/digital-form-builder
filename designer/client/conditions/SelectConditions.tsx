@@ -83,13 +83,14 @@ class SelectConditions extends React.Component<Props, State> {
     const { conditions = [] } = data;
     var conditionsForPath: any[] = [];
 
+    const stringConditions = conditions.filter(
+      (condition) => typeof condition.value === "string"
+    );
+    const objectConditions = conditions.filter(
+      (condition) => typeof condition.value !== "string"
+    );
+
     fields.forEach((field) => {
-      const stringConditions = conditions.filter(
-        (condition) => typeof condition.value === "string"
-      );
-      const objectConditions = conditions.filter(
-        (condition) => typeof condition.value !== "string"
-      );
       this.handleStringConditions(
         stringConditions,
         field.name,
@@ -124,26 +125,30 @@ class SelectConditions extends React.Component<Props, State> {
     conditionsForPath: any[]
   ) {
     const operators = ["==", "!=", ">", "<"];
-
-    stringConditions.forEach((condition) => {
-      operators.some((operator) => condition.value.includes(operator));
-      if (operators.some((operator) => condition.value.includes(operator))) {
-        var conditionFieldName = condition.value
-          .substring(
-            condition.value.indexOf(".") + 1,
-            condition.value.lastIndexOf(
-              operators.filter((operator) => condition.value.includes(operator))
-            )
+    const conditionsWithAcceptedOperators = stringConditions.filter(
+      (condition) =>
+        operators.some((operator) => condition.value.includes(operator))
+    );
+    const conditionsWithFieldName = conditionsWithAcceptedOperators.map(
+      (condition) => ({
+        ...condition,
+        conditionFieldName: condition.value.substring(
+          condition.value.indexOf(".") + 1,
+          condition.value.lastIndexOf(
+            operators.filter((operator) => condition.value.includes(operator))
           )
-          .trim();
-        this.checkAndAddCondition(
-          condition,
-          fieldName,
-          conditionFieldName,
-          conditionsForPath
-        );
-      }
-    });
+        ),
+      })
+    );
+    conditionsWithFieldName.forEach((condition) =>
+      this.checkAndAddCondition(
+        condition,
+        fieldName,
+        condition.conditionFieldName,
+        conditionsForPath
+      )
+    );
+    var a = "";
   }
 
   checkAndAddCondition(
