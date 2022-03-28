@@ -132,12 +132,14 @@ class SelectConditions extends React.Component<Props, State> {
     const conditionsWithFieldName = conditionsWithAcceptedOperators.map(
       (condition) => ({
         ...condition,
-        conditionFieldName: condition.value.substring(
-          condition.value.indexOf(".") + 1,
-          condition.value.lastIndexOf(
-            operators.filter((operator) => condition.value.includes(operator))
+        conditionFieldName: condition.value
+          .substring(
+            condition.value.indexOf(".") + 1,
+            condition.value.lastIndexOf(
+              operators.filter((operator) => condition.value.includes(operator))
+            )
           )
-        ),
+          .trim(),
       })
     );
     conditionsWithFieldName.forEach((condition) =>
