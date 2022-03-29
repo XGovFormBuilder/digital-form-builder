@@ -80,6 +80,7 @@ interface TextFieldBase {
     classes?: string;
     allow?: string;
     autocomplete?: string;
+    omitFromSummary?: boolean;
   };
   schema: {
     max?: number;
@@ -180,6 +181,7 @@ export interface TelephoneNumberFieldComponent extends TextFieldBase {
 
 export interface YesNoFieldComponent extends TextFieldBase {
   type: "YesNoField";
+  options: { omitFromSummary?: boolean };
 }
 
 export interface MultilineTextFieldComponent extends TextFieldBase {

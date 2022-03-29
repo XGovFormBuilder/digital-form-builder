@@ -103,5 +103,13 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, customValidationMessage: payload },
         },
       };
+
+    case Options.EDIT_OPTIONS_OMIT:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, omit: payload },
+        },
+      };
   }
 }

@@ -16,7 +16,12 @@ export function FieldEdit({ isContentField = false }: Props) {
   const { selectedComponent, errors } = state;
 
   const { name, title, hint, attrs, type, options = {} } = selectedComponent;
-  const { hideTitle = false, optionalText = false, required = true } = options;
+  const {
+    hideTitle = false,
+    optionalText = false,
+    required = true,
+    omit = true,
+  } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
     ComponentTypes.find((componentType) => componentType.name === type)
@@ -154,6 +159,38 @@ export function FieldEdit({ isContentField = false }: Props) {
               </label>
               <span className="govuk-hint govuk-checkboxes__hint">
                 {i18n("common.componentOptionalOption.helpText")}
+              </span>
+            </div>
+
+            <div className="govuk-checkboxes__item">
+              <input
+                type="checkbox"
+                id="field-options-omit"
+                className={`govuk-checkboxes__input ${
+                  isFileUploadField ? "disabled" : ""
+                }`}
+                name="options.omitFromSummary"
+                checked={!omit}
+                onChange={(e) =>
+                  dispatch({
+                    type: Actions.EDIT_OPTIONS_OMIT,
+                    payload: !e.target.checked,
+                  })
+                }
+              />
+              <label
+                className="govuk-label govuk-checkboxes__label"
+                htmlFor="field-options-omit"
+              >
+                {i18n("common.componentSummaryOptionalOption.title", {
+                  component:
+                    ComponentTypes.find(
+                      (componentType) => componentType.name === type
+                    )?.title ?? "",
+                })}
+              </label>
+              <span className="govuk-hint govuk-checkboxes__hint">
+                {i18n("common.componentSummaryOptionalOption.helpText")}
               </span>
             </div>
           </div>
