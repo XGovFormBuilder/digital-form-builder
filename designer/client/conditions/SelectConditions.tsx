@@ -154,20 +154,16 @@ class SelectConditions extends React.Component<Props, State> {
   }
 
   checkAndAddCondition(
-    condition,
+    conditionToAdd,
     fieldName: string,
     conditionFieldName: string,
     conditions: any[]
   ) {
-    if (this.checkDuplicateCondition(conditions, condition.name)) return;
-    if (fieldName == conditionFieldName) conditions.push(condition);
-  }
-
-  checkDuplicateCondition(conditions: any[], conditionName: string) {
-    for (const condition of conditions) {
-      if (condition.name == conditionName) return true;
-    }
-    return false;
+    const isDuplicateCondition = conditions.includes(
+      (condition) => condition.name === conditionToAdd.name
+    );
+    if (isDuplicateCondition) return;
+    if (fieldName === conditionFieldName) conditions.push(conditionToAdd);
   }
 
   trimSectionName(fieldName: string) {
