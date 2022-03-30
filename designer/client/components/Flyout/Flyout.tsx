@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import FocusTrap from "focus-trap-react";
 import { FlyoutContext } from "../../context";
-import { DataContext } from "../../context";
 import { i18n } from "../../i18n";
 import "./Flyout.scss";
 
-export function useFlyoutEffect(props: {}) {
+export function useFlyoutEffect(props = {}) {
   const flyoutContext = useContext(FlyoutContext);
   const [offset, setOffset] = useState(0);
   const [style, setStyle] = useState();
