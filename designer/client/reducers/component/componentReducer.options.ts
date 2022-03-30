@@ -104,6 +104,14 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, prefix: payload },
         },
       };
+    case Options.EDIT_OPTIONS_SUFFIX:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, suffix: payload },
+        },
+      };
     case Options.EDIT_OPTIONS_CUSTOM_MESSAGE:
       return {
         selectedComponent: {

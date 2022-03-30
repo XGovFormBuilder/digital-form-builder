@@ -98,6 +98,7 @@ interface NumberFieldBase {
   hint: string;
   options: {
     prefix?: string;
+    suffix?: string;
   };
   schema: {
     min?: number;

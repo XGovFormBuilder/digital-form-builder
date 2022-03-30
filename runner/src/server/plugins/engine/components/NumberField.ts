@@ -56,6 +56,7 @@ export class NumberField extends FormComponent {
       ...super.getViewModel(formData, errors),
       type: "number",
       prefix: { text: "" },
+      suffix: { text: "" },
     };
 
     if (this.schemaOptions.precision) {
@@ -64,6 +65,10 @@ export class NumberField extends FormComponent {
 
     if (options.prefix) {
       viewModel.prefix.text = options.prefix;
+    }
+
+    if (options.suffix) {
+      viewModel.suffix.text = options.suffix;
     }
 
     return viewModel;

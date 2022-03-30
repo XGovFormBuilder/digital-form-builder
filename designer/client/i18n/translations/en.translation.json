@@ -314,8 +314,12 @@
       "title": "Precision"
     },
     "prefixField": {
-      "helpText": "Specifies the prefix of the field",
+      "helpText": "Specifies the prefix of the field.",
       "title": "Prefix"
+    },
+    "suffixField": {
+      "helpText": "Specifies the suffix of the field.",
+      "title": "Suffix"
     }
   },
   "optional": "{{noun}} (optional)",
