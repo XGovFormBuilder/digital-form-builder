@@ -130,6 +130,16 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         </Flyout>
       )}
 
+      {summaryBehaviour.isVisible && (
+        <Flyout
+          title="Edit Summary behaviour"
+          onHide={summaryBehaviour.hide}
+          width="xlarge"
+        >
+          <DeclarationEdit onCreate={() => summaryBehaviour.hide()} />
+        </Flyout>
+      )}
+
       {summary.isVisible && (
         <Flyout title="Summary" width="large" onHide={summary.hide}>
           <div className="js-enabled" style={{ paddingTop: "3px" }}>
