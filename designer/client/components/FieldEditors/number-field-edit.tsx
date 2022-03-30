@@ -53,6 +53,32 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
       <div className="govuk-form-group">
         <label
           className="govuk-label govuk-label--s"
+          htmlFor="field-schema-prefix"
+        >
+          {i18n("numberFieldEditComponent.prefixField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("numberFieldEditComponent.prefixField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="strubg"
+          id="field-schema-prefix"
+          name="schema.prefix"
+          value={schema.prefix}
+          type="string"
+          onBlur={(e) =>
+            dispatch({
+              type: Actions.EDIT_OPTIONS_PREFIX,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
           htmlFor="field-schema-max"
         >
           {i18n("numberFieldEditComponent.maxField.title")}

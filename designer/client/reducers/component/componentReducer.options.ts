@@ -96,6 +96,14 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, autocomplete: payload },
         },
       };
+    case Options.EDIT_OPTIONS_PREFIX:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, prefix: payload },
+        },
+      };
     case Options.EDIT_OPTIONS_CUSTOM_MESSAGE:
       return {
         selectedComponent: {
