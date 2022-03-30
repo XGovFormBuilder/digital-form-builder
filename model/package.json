@@ -28,6 +28,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@babel/runtime": "^7.17.2",
     "boom": "7.3.0",
     "btoa": "^1.2.1",
     "govuk-frontend": "^4.0.1",
@@ -44,7 +45,6 @@
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
-    "@babel/runtime": "^7.17.2",
     "@types/jest": "^27.4.1",
     "@xgovformbuilder/lab-babel": "2.1.2",
     "babel-eslint": "^10.1.0",
