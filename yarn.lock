@@ -5951,7 +5951,6 @@ __metadata:
     sass: ^1.49.9
     schmervice: ^1.6.0
     sinon: ^13.0.1
-    standard: ^16.0.4
     tmp: ^0.2.1
     typescript: ^4.0.3
     url-parse: ^1.5.10
@@ -23407,7 +23406,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"standard@npm:16.0.4, standard@npm:^16.0.4":
+"standard@npm:16.0.4":
   version: 16.0.4
   resolution: "standard@npm:16.0.4"
   dependencies:
