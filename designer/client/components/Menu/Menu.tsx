@@ -64,12 +64,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         <button data-testid="menu-fees" onClick={fees.show}>
           {i18n("menu.fees")}
         </button>
-        <button
-          data-testid="menu-summary-behaviour"
-          onClick={summaryBehaviour.show}
-        >
-          {i18n("menu.summaryBehaviour")}
-        </button>
         <button onClick={summary.show} data-testid="menu-summary">
           {i18n("menu.summary")}
         </button>
@@ -127,16 +121,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
           <FeeEdit onEdit={() => fees.hide()} />
-        </Flyout>
-      )}
-
-      {summaryBehaviour.isVisible && (
-        <Flyout
-          title="Edit Summary behaviour"
-          onHide={summaryBehaviour.hide}
-          width="xlarge"
-        >
-          <DeclarationEdit onCreate={() => summaryBehaviour.hide()} />
         </Flyout>
       )}
 
