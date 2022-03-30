@@ -41,7 +41,7 @@ export class PageEdit extends React.Component {
     const formData = new window.FormData(form);
     const { save, data } = this.context;
     const { title, path, section, controller } = this.state;
-    const { page } = this.props;
+    const { page, isEditingDeclaration } = this.props;
 
     let validationErrors = this.validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
@@ -59,12 +59,12 @@ export class PageEdit extends React.Component {
     }
 
     copyPage.title = title;
-    copy.declaration = formData.get("declaration");
     section ? (copyPage.section = section) : delete copyPage.section;
     controller
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
+    if (isEditingDeclaration) copy.declaration = formData.get("declaration");
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
