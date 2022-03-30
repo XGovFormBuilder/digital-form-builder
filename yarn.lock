@@ -5955,8 +5955,6 @@ __metadata:
     typescript: ^4.0.3
     url-parse: ^1.5.10
     uuid: ^8.3.2
-    vision: 5.4.4
-    wreck: ^14.2.0
     yar: 9.1.0
   languageName: unknown
   linkType: soft
@@ -25538,18 +25536,6 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"vision@npm:5.4.4":
-  version: 5.4.4
-  resolution: "vision@npm:5.4.4"
-  dependencies:
-    boom: 7.x.x
-    hoek: 6.x.x
-    items: 2.x.x
-    joi: 14.x.x
-  checksum: 483b008ad7cbab976865c83c2410c4eb74cb1e51f0da09257cd62bb610a04bdaa68a73a02466b588f7b4f8ba83a9a7cc6458762526d04f8511e23a6ac178bf5f
-  languageName: node
-  linkType: hard
-
 "vm-browserify@npm:^1.0.1":
   version: 1.1.2
   resolution: "vm-browserify@npm:1.1.2"
@@ -26275,7 +26261,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"wreck@npm:14.2.0, wreck@npm:^14.2.0":
+"wreck@npm:14.2.0":
   version: 14.2.0
   resolution: "wreck@npm:14.2.0"
   dependencies:
