@@ -29,7 +29,7 @@ export function FieldEdit({ isContentField = false }: Props) {
           id="field-title"
           name="title"
           label={{
-            className: "govuk-label--s",
+            className: "govuk-label--m",
             children: [i18n("common.titleField.title")],
           }}
           hint={{
@@ -69,7 +69,7 @@ export function FieldEdit({ isContentField = false }: Props) {
           }}
           {...attrs}
         />
-        <div className="govuk-checkboxes govuk-form-group">
+        <div className="govuk-checkboxes govuk-checkboxes--small govuk-form-group">
           <div className="govuk-checkboxes__item">
             <input
               className="govuk-checkboxes__input"
@@ -85,7 +85,7 @@ export function FieldEdit({ isContentField = false }: Props) {
               }
             />
             <label
-              className="govuk-label govuk-checkboxes__label"
+              className="govuk-label govuk-label--s govuk-checkboxes__label"
               htmlFor="field-options-hideTitle"
             >
               {i18n("common.hideTitleOption.title")}
