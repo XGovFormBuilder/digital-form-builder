@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "@govuk-jsx/input";
+import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 import randomId from "./randomId";
 
@@ -36,6 +37,8 @@ export class PageEdit extends React.Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const formData = new window.FormData(form);
     const { save, data } = this.context;
     const { title, path, section, controller } = this.state;
     const { page } = this.props;
@@ -56,6 +59,7 @@ export class PageEdit extends React.Component {
     }
 
     copyPage.title = title;
+    copy.declaration = formData.get("declaration");
     section ? (copyPage.section = section) : delete copyPage.section;
     controller
       ? (copyPage.controller = controller)
@@ -197,8 +201,8 @@ export class PageEdit extends React.Component {
   }
 
   render() {
-    const { i18n } = this.props;
-    const { data } = this.context;
+    const { isEditingDeclaration, i18n } = this.props;
+    const { declaration, data } = this.context;
     const { sections } = data;
     const {
       title,
@@ -308,6 +312,19 @@ export class PageEdit extends React.Component {
               </a>
             )}
           </div>
+          {isEditingDeclaration && (
+            <div className="govuk-form-group">
+              <label className="govuk-label" htmlFor="declaration">
+                Declaration
+              </label>
+              <span className="govuk-hint">
+                The declaration can include HTML and the `govuk-prose-scope` css
+                class is available. Use this on a wrapping element to apply
+                default govuk styles.
+              </span>
+              <Editor name="declaration" value={declaration} />
+            </div>
+          )}
           <button className="govuk-button" type="submit">
             {i18n("save")}
           </button>{" "}
