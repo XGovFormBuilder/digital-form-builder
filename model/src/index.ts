@@ -1,4 +1,4 @@
-export { Schema } from "./schema";
+export { Schema, componentSchema } from "./schema";
 export { ConditionRawData, ConditionsWrapper } from "./data-model";
 export { Logger } from "./utils/logger";
 export { FormConfiguration } from "./form";
