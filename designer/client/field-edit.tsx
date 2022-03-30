@@ -20,7 +20,7 @@ export function FieldEdit({ isContentField = false }: Props) {
     hideTitle = false,
     optionalText = false,
     required = true,
-    omit = true,
+    omit = false,
   } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
@@ -170,11 +170,11 @@ export function FieldEdit({ isContentField = false }: Props) {
                   isFileUploadField ? "disabled" : ""
                 }`}
                 name="options.omitFromSummary"
-                checked={!omit}
+                checked={omit}
                 onChange={(e) =>
                   dispatch({
                     type: Actions.EDIT_OPTIONS_OMIT,
-                    payload: !e.target.checked,
+                    payload: e.target.checked,
                   })
                 }
               />

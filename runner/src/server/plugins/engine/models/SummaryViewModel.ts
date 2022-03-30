@@ -218,7 +218,8 @@ export class SummaryViewModel {
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
-          if (items.find((cbItem) => cbItem.name === item.name)) return;
+          if (!item.options.omit)
+            if (items.find((cbItem) => cbItem.name === item.name)) return;
           items.push(item);
           if (component.items) {
             const selectedValue = sectionState[component.name];
@@ -426,5 +427,6 @@ function Item(
     type: component.type,
     title: component.title,
     dataType: component.dataType,
+    options: component.options,
   };
 }
