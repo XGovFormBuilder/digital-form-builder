@@ -103,5 +103,14 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, customValidationMessage: payload },
         },
       };
+
+    case Options.EDIT_OPTIONS_MAX_WORDS:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, maxWords: payload },
+        },
+      };
   }
 }
