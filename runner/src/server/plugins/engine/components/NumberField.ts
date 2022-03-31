@@ -55,20 +55,12 @@ export class NumberField extends FormComponent {
     const viewModel = {
       ...super.getViewModel(formData, errors),
       type: "number",
-      prefix: { text: "" },
-      suffix: { text: "" },
+      ...(options.prefix ? { prefix: { text: options.prefix } } : null),
+      ...(options.suffix ? { suffix: { text: options.suffix } } : null),
     };
 
     if (this.schemaOptions.precision) {
       viewModel.attributes.step = "0." + "1".padStart(schema.precision, "0");
-    }
-
-    if (options.prefix) {
-      viewModel.prefix.text = options.prefix;
-    }
-
-    if (options.suffix) {
-      viewModel.suffix.text = options.suffix;
     }
 
     return viewModel;
