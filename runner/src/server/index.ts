@@ -173,7 +173,7 @@ Server is running in production mode.
       "\x1b[36m%s\x1b[0m",
       `**********
 **********
-WARNING: Server is running in insecure development/test mode.
+WARNING: Server is running in insecure development/test mode. 
 -- env=${config.env.toString()}
 -- enforceCsrf=${config.enforceCsrf.toString()}
 -- previewMode=${config.previewMode.toString()}
