@@ -182,7 +182,7 @@ export function FieldEdit({ isContentField = false }: Props) {
                 className="govuk-label govuk-checkboxes__label"
                 htmlFor="field-options-omit"
               >
-                {i18n("common.componentSummaryOptionalOption.title", {
+                {i18n("common.componentOmitSummaryOption.title", {
                   component:
                     ComponentTypes.find(
                       (componentType) => componentType.name === type
@@ -190,7 +190,7 @@ export function FieldEdit({ isContentField = false }: Props) {
                 })}
               </label>
               <span className="govuk-hint govuk-checkboxes__hint">
-                {i18n("common.componentSummaryOptionalOption.helpText")}
+                {i18n("common.componentOmitSummaryOption.helpText")}
               </span>
             </div>
           </div>

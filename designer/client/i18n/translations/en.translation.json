@@ -62,7 +62,7 @@
       "helpText": "Tick this box if users do not need to complete this field to progress through the form",
       "title": "Make {{component}} optional"
     },
-    "componentSummaryOptionalOption": {
+    "componentOmitSummaryOption": {
       "helpText": "Tick this box to omit this component from the summary page",
       "title": "Omit {{component}} from summary"
     },
