@@ -181,7 +181,6 @@ export interface TelephoneNumberFieldComponent extends TextFieldBase {
 
 export interface YesNoFieldComponent extends TextFieldBase {
   type: "YesNoField";
-  options: {};
 }
 
 export interface MultilineTextFieldComponent extends TextFieldBase {
