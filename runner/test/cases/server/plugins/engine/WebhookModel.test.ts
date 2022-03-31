@@ -69,7 +69,7 @@ const testDetails = [
         dataType: "date",
         options: {
           required: false,
-          omit: true,
+          omit: false,
         },
       },
     ],

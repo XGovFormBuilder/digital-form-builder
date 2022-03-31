@@ -40,10 +40,21 @@
         {
           "name": "fullDate",
           "options": {
-            "required": false
+            "required": false,
+            "omit": false
           },
           "type": "DatePartsField",
           "title": "full date",
+          "schema": {}
+        },
+        {
+          "name": "birthDate",
+          "options": {
+            "required": false,
+            "omit": true
+          },
+          "type": "DateField",
+          "title": "birth date",
           "schema": {}
         }
       ],
@@ -103,10 +114,8 @@
       "title": "Named Section"
     }
   ],
-  "conditions": [
-  ],
-  "fees": [
-  ],
+  "conditions": [],
+  "fees": [],
   "outputs": [
     {
       "name": "webhook",
@@ -118,6 +127,6 @@
     }
   ],
   "version": 2,
-  "payApiKey": {"test": "test_api_key", "production": "production_api_key"},
+  "payApiKey": { "test": "test_api_key", "production": "production_api_key" },
   "skipSummary": false
 }
