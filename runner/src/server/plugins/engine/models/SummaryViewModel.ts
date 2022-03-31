@@ -218,7 +218,7 @@ export class SummaryViewModel {
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
-          if (item.options.omit !== false) continue;
+          if (item.options.omit === true) continue;
           if (items.find((cbItem) => cbItem.name === item.name)) return;
           items.push(item);
           if (component.items) {
