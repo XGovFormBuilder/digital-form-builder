@@ -17,6 +17,7 @@ import FeatureToggle from "./FeatureToggle";
 import { FeatureFlags } from "./context/FeatureFlagContext";
 import { findPage, updateLinksTo } from "./data";
 import logger from "../client/plugins/logger";
+import ComponentListSelect from "./components/ComponentListSelect/ComponentListSelect";
 
 export class PageEdit extends React.Component {
   static contextType = DataContext;
@@ -41,7 +42,7 @@ export class PageEdit extends React.Component {
     const formData = new window.FormData(form);
     const { save, data } = this.context;
     const { title, path, section, controller } = this.state;
-    const { page, isEditingDeclaration } = this.props;
+    const { page } = this.props;
 
     let validationErrors = this.validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
@@ -64,7 +65,8 @@ export class PageEdit extends React.Component {
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
-    if (isEditingDeclaration) copy.declaration = formData.get("declaration");
+    copy.declaration = formData.get("declaration") ?? "";
+
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
@@ -174,6 +176,7 @@ export class PageEdit extends React.Component {
 
   editSection = (e, newSection = false) => {
     e.preventDefault();
+
     this.setState({
       isEditingSection: true,
       isNewSection: newSection,
@@ -201,7 +204,7 @@ export class PageEdit extends React.Component {
   }
 
   render() {
-    const { isEditingDeclaration, i18n } = this.props;
+    const { isSummaryPage, i18n } = this.props;
     const { declaration, data } = this.context;
     const { sections } = data;
     const {
@@ -312,7 +315,7 @@ export class PageEdit extends React.Component {
               </a>
             )}
           </div>
-          {isEditingDeclaration && (
+          {isSummaryPage && (
             <div className="govuk-form-group">
               <label className="govuk-label" htmlFor="declaration">
                 Declaration

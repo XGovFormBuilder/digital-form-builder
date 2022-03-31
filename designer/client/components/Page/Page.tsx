@@ -43,7 +43,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   const { data, save } = useContext(DataContext);
   const [isEditingPage, setIsEditingPage] = useState(false);
   const [isCreatingComponent, setIsCreatingComponent] = useState(false);
-  const [isEditingDeclaration, setIsEditingDeclaration] = useState(false);
+  const [isSummaryPage, setIsSummaryPage] = useState(false);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const copy = { ...data };
@@ -56,11 +56,11 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   const onEditStart = () => {
     setIsEditingPage(true);
 
-    if (page?.path === "/summary") setIsEditingDeclaration(true);
+    if (page?.path === "/summary") setIsSummaryPage(true);
   };
 
   const onEditEnd = () => {
-    setIsEditingDeclaration(false);
+    setIsSummaryPage(false);
     setIsEditingPage(false);
   };
 
@@ -127,7 +127,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
           <PageEdit
             page={page}
             onEdit={onEditEnd}
-            isEditingDeclaration={isEditingDeclaration}
+            isSummaryPage={isSummaryPage}
           />
         </Flyout>
       )}
