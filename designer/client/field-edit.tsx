@@ -169,7 +169,7 @@ export function FieldEdit({ isContentField = false }: Props) {
                 className={`govuk-checkboxes__input ${
                   isFileUploadField ? "disabled" : ""
                 }`}
-                name="options.omitFromSummary"
+                name="options.omit"
                 checked={omit}
                 onChange={(e) =>
                   dispatch({

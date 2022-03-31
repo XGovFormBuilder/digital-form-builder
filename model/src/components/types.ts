@@ -80,7 +80,7 @@ interface TextFieldBase {
     classes?: string;
     allow?: string;
     autocomplete?: string;
-    omitFromSummary?: boolean;
+    omit?: boolean;
   };
   schema: {
     max?: number;
