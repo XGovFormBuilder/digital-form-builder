@@ -90,6 +90,11 @@ const applicationStatus = {
           const res = await payService.retryPayRequest(pay);
 
           await cacheService.mergeState(request, {
+            webhookData: {
+              fees: {
+                paymentReference: res.reference,
+              },
+            },
             pay: {
               payId: res.payment_id,
               reference: res.reference,
