@@ -52,11 +52,16 @@ export class NumberField extends FormComponent {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const schema: any = this.schema;
     const options: any = this.options;
+    const { suffix, prefix } = options;
+    const viewModelPrefix = { prefix: { text: prefix } };
+    const viewModelSuffix = { suffix: { text: suffix } };
     const viewModel = {
       ...super.getViewModel(formData, errors),
       type: "number",
-      ...(options.prefix ? { prefix: { text: options.prefix } } : null),
-      ...(options.suffix ? { suffix: { text: options.suffix } } : null),
+      // ...False returns nothing, so only adds content when
+      // the given options are present.
+      ...(options.prefix && viewModelPrefix),
+      ...(options.suffix && viewModelSuffix),
     };
 
     if (this.schemaOptions.precision) {
