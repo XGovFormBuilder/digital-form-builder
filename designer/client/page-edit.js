@@ -70,7 +70,7 @@ export class PageEdit extends React.Component {
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
-      this.props.onEdit();
+      this.props.closeFlyout();
     } catch (err) {
       logger.error("PageEdit", err);
     }

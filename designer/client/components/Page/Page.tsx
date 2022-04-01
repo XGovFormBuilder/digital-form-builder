@@ -55,8 +55,8 @@ export const Page = ({ page, previewUrl, id, layout }) => {
 
   const onEditStart = () => {
     setIsEditingPage(true);
-
-    if (page?.path === "/summary") setIsSummaryPage(true);
+    const [copyPage] = findPage(data, page.path);
+    if (copyPage.controller === "./pages/summary.js") setIsSummaryPage(true);
   };
 
   const onEditEnd = () => {
@@ -126,8 +126,8 @@ export const Page = ({ page, previewUrl, id, layout }) => {
         <Flyout title="Edit Page" onHide={setIsEditingPage}>
           <PageEdit
             page={page}
-            onEdit={onEditEnd}
             isSummaryPage={isSummaryPage}
+            closeFlyout={onEditEnd}
           />
         </Flyout>
       )}
