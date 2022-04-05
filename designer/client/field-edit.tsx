@@ -4,6 +4,7 @@ import { ComponentTypes } from "@xgovformbuilder/model";
 import { Actions } from "./reducers/component/types";
 import { Textarea } from "@govuk-jsx/textarea";
 import { Input } from "@govuk-jsx/input";
+import { WarningText } from "@govuk-jsx/warning-text";
 import { i18n } from "./i18n";
 import { ErrorMessage } from "./components/ErrorMessage";
 
@@ -53,8 +54,13 @@ export function FieldEdit({ isContentField = false }: Props) {
           name="hint"
           rows={2}
           label={{
-            className: "govuk-label--s",
-            children: [i18n("common.helpTextField.title")],
+            className: "govuk-label--m",
+            children: [
+              i18n("common.helpTextField.title"),
+              <span className="govuk-body" key="optional-text">
+                {i18n("common.optional")}
+              </span>,
+            ],
           }}
           hint={{
             children: [i18n("common.helpTextField.helpText")],
@@ -95,34 +101,37 @@ export function FieldEdit({ isContentField = false }: Props) {
             </span>
           </div>
         </div>
-        <div
-          className={`govuk-form-group ${
-            errors?.name ? "govuk-form-group--error" : ""
+      </div>
+      <WarningText iconFallbackText="Warning">
+        {i18n("component.create_info")}
+      </WarningText>
+      <div
+        className={`govuk-form-group ${
+          errors?.name ? "govuk-form-group--error" : ""
+        }`}
+      >
+        <label className="govuk-label govuk-label--s" htmlFor="field-name">
+          {i18n("common.componentNameField.title")}
+        </label>
+        {errors?.name && (
+          <ErrorMessage>{i18n("name.errors.whitespace")}</ErrorMessage>
+        )}
+        <span className="govuk-hint">{i18n("name.hint")}</span>
+        <input
+          className={`govuk-input govuk-input--width-20 ${
+            errors?.name ? "govuk-input--error" : ""
           }`}
-        >
-          <label className="govuk-label govuk-label--s" htmlFor="field-name">
-            {i18n("common.componentNameField.title")}
-          </label>
-          {errors?.name && (
-            <ErrorMessage>{i18n("name.errors.whitespace")}</ErrorMessage>
-          )}
-          <span className="govuk-hint">{i18n("name.hint")}</span>
-          <input
-            className={`govuk-input govuk-input--width-20 ${
-              errors?.name ? "govuk-input--error" : ""
-            }`}
-            id="field-name"
-            name="name"
-            type="text"
-            value={name || ""}
-            onChange={(e) => {
-              dispatch({
-                type: Actions.EDIT_NAME,
-                payload: e.target.value,
-              });
-            }}
-          />
-        </div>
+          id="field-name"
+          name="name"
+          type="text"
+          value={name || ""}
+          onChange={(e) => {
+            dispatch({
+              type: Actions.EDIT_NAME,
+              payload: e.target.value,
+            });
+          }}
+        />
         {!isContentField && (
           <div className="govuk-checkboxes govuk-form-group">
             <div className="govuk-checkboxes__item">
