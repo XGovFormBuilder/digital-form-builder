@@ -6,10 +6,6 @@ import ComponentEdit from "./ComponentEdit";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { i18n } from "./i18n";
 
-const DragHandle = SortableHandle(() => (
-  <span className="drag-handle">&#9776;</span>
-));
-
 export const componentTypes = {
   TextField,
   TelephoneNumberField,

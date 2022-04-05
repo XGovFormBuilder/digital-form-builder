@@ -86,7 +86,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       <SortableList
         page={page}
         data={data}
-        pressDelay={200}
+        pressDelay={90}
         onSortEnd={onSortEnd}
         lockAxis="y"
         helperClass="dragging"
