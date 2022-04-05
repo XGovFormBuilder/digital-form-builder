@@ -312,7 +312,6 @@ export function Component(props) {
   return (
     <div>
       <div className="component govuk-!-padding-2" onClick={toggleShowEditor}>
-        <DragHandle />
         <TagName />
       </div>
       {showEditor && (

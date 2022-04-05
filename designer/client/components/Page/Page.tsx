@@ -91,7 +91,6 @@ export const Page = ({ page, previewUrl, id, layout }) => {
         lockAxis="y"
         helperClass="dragging"
         lockToContainerEdges
-        useDragHandle
       />
 
       <div className="page__actions">
