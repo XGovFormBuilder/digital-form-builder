@@ -70,8 +70,8 @@
       "title": "Additional settings"
     },
     "helpTextField": {
-      "helpText": "Enter the description to show for this field",
-      "title": "Help text (optional)"
+      "helpText": "Add help text to show beneath the title on your question.",
+      "title": "Help text "
     },
     "hideOptionalTextOption": {
       "helpText": "Tick this box if you do not want the title to indicate that this field is optional",
@@ -84,7 +84,8 @@
     "titleField": {
       "helpText": "Enter the name to show for this field",
       "title": "Title"
-    }
+    },
+    "optional": "(optional)"
   },
   "component": {
     "component": "component",

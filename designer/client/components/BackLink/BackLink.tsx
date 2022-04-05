@@ -9,7 +9,10 @@ type Props = {
 };
 
 export const BackLink = ({ children, ...otherProps }: Props) => (
-  <a className="back-link govuk-back-link" {...otherProps}>
+  <a
+    className="back-link govuk-back-link govuk-!-font-weight-bold"
+    {...otherProps}
+  >
     {children}
   </a>
 );
