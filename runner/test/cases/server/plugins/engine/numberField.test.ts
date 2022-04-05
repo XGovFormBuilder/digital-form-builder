@@ -46,3 +46,17 @@ suite("Number field", () => {
     expect(schema.validate(40, { messages }).error).to.be.undefined();
   });
 });
+
+test("Prefix and suffix are passed to view model", () => {
+  const def = {
+    ...baseDef,
+    options: { prefix: "@£%", suffix: "&^%%" },
+  };
+  const numberFieldPrefixSuffix = new NumberField(def);
+  const { schema } = numberFieldPrefixSuffix;
+
+  expect(numberFieldPrefixSuffix.getViewModel({})).to.contain({
+    prefix: { text: "@£%" },
+    suffix: { text: "&^%%" },
+  });
+});
