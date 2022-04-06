@@ -10,11 +10,15 @@ import { addList, findList } from "../../../data";
 
 export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
-  const { value = "", condition } = selectedItem;
+  let { value = "", condition } = selectedItem;
 
   function handleTitleChange(e) {
     dispatch({
       type: ListActions.EDIT_LIST_ITEM_TEXT,
+      payload: e.target.value,
+    });
+    dispatch({
+      type: ListActions.EDIT_LIST_ITEM_VALUE,
       payload: e.target.value,
     });
   }
