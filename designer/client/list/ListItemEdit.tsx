@@ -41,6 +41,10 @@ export function ListItemEdit() {
     listsEditorDispatch([ListsEditorStateActions.IS_EDITING_LIST_ITEM, false]);
   };
 
+  function onTitleChange(e) {
+    state.selectedItem.value = e.target.value;
+    handleTitleChange(e);
+  }
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -53,7 +57,7 @@ export function ListItemEdit() {
           }}
           hint={{ children: i18n("list.item.titleHint") }}
           value={title}
-          onChange={handleTitleChange}
+          onChange={onTitleChange}
           errorMessage={
             errors?.title ? { children: errors?.title.children } : undefined
           }

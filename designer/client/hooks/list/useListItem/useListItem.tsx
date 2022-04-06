@@ -7,6 +7,7 @@ import {
 import { clone, FormDefinition } from "@xgovformbuilder/model";
 import { ListItemHook } from "./types";
 import { addList, findList } from "../../../data";
+import { val } from "cheerio/lib/api/attributes";
 
 export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
@@ -15,10 +16,6 @@ export function useListItem(state, dispatch): ListItemHook {
   function handleTitleChange(e) {
     dispatch({
       type: ListActions.EDIT_LIST_ITEM_TEXT,
-      payload: e.target.value,
-    });
-    dispatch({
-      type: ListActions.EDIT_LIST_ITEM_VALUE,
       payload: e.target.value,
     });
   }
