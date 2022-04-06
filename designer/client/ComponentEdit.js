@@ -75,9 +75,11 @@ export function ComponentEdit(props) {
     e.preventDefault();
     const copy = { ...data };
     const indexOfPage = copy.pages.findIndex((p) => p.path === page.path);
+
     const indexOfComponent = copy.pages[indexOfPage]?.components.findIndex(
-      (component) => component.name === selectedComponent.initialName
+      (component) => component.name === selectedComponent.name
     );
+
     copy.pages[indexOfPage].components.splice(indexOfComponent, 1);
     await save(copy);
     toggleShowEditor();
