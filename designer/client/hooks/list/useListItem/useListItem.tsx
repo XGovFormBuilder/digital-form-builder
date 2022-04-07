@@ -11,7 +11,6 @@ import { addList, findList } from "../../../data";
 export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
   const { value = "", condition } = selectedItem;
-  const a = value;
 
   function handleTitleChange(e) {
     dispatch({
