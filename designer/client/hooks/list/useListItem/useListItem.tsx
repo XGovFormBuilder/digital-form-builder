@@ -9,7 +9,7 @@ import { ListItemHook } from "./types";
 import { addList, findList } from "../../../data";
 
 export function useListItem(state, dispatch): ListItemHook {
-  let { selectedItem = {} } = state;
+  const { selectedItem = {} } = state;
   const { value = "", condition } = selectedItem;
 
   function handleTitleChange(e) {
