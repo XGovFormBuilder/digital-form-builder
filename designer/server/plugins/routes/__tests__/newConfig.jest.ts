@@ -85,7 +85,7 @@ describe("NewConfig tests", () => {
     publish.mockImplementation(() => Promise.reject());
     const res = await server.inject(options);
 
-    expect(res.statusCode).toEqual(400);
+    expect(res.statusCode).toEqual(401);
     expect(
       res.result.indexOf("Designer could not connect to runner instance.") > -1
     ).toEqual(true);

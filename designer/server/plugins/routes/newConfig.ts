@@ -64,7 +64,7 @@ Please confirm it is up and running,
 and in development mode. See docs for more details.`
           )
           .type("application/json")
-          .code(400);
+          .code(401);
       }
 
       const response = {
