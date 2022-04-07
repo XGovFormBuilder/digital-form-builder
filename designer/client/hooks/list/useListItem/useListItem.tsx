@@ -7,11 +7,10 @@ import {
 import { clone, FormDefinition } from "@xgovformbuilder/model";
 import { ListItemHook } from "./types";
 import { addList, findList } from "../../../data";
-import { val } from "cheerio/lib/api/attributes";
 
 export function useListItem(state, dispatch): ListItemHook {
   const { selectedItem = {} } = state;
-  let { value = "", condition } = selectedItem;
+  const { value = "", condition } = selectedItem;
 
   function handleTitleChange(e) {
     dispatch({
