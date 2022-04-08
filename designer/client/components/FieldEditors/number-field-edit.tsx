@@ -15,6 +15,7 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
   const { schema = {} } = selectedComponent;
+  const { options = {} } = selectedComponent;
 
   return (
     <details className="govuk-details">
@@ -44,6 +45,58 @@ export function NumberFieldEdit({ context = ComponentContext }: Props) {
           onChange={(e) =>
             dispatch({
               type: Actions.EDIT_SCHEMA_MIN,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
+          htmlFor="field-options-prefix"
+        >
+          {i18n("numberFieldEditComponent.prefixField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("numberFieldEditComponent.prefixField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="string"
+          id="field-options-prefix"
+          name="opions.prefix"
+          value={options.prefix}
+          type="string"
+          onBlur={(e) =>
+            dispatch({
+              type: Actions.EDIT_OPTIONS_PREFIX,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
+          htmlFor="field-opitions-suffix"
+        >
+          {i18n("numberFieldEditComponent.suffixField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("numberFieldEditComponent.suffixField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="string"
+          id="field-options-suffix"
+          name="options.suffix"
+          value={options.suffix}
+          type="string"
+          onBlur={(e) =>
+            dispatch({
+              type: Actions.EDIT_OPTIONS_SUFFIX,
               payload: e.target.value,
             })
           }
