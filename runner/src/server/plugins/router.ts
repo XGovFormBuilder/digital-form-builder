@@ -59,7 +59,7 @@ export default {
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { cookies, referrer } = request.payload as CookiePayload;
             const { href, origin } = new Url(referrer);
-            const redirect = href.replace(origin, ""); // Ensure you only redirect to a local path
+            const redirect = href.replace(origin, "").replace("__", "/"); // Ensure you only redirect to a local path
             const accept = cookies === "accept";
 
             return h.redirect(redirect).state(
