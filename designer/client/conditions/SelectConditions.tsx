@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import InlineConditions from "./InlineConditions";
-import { ConditionsModel, Data } from "@xgovformbuilder/model";
+import { Condition, ConditionsModel, Data } from "@xgovformbuilder/model";
 import { Flyout } from "../components/Flyout";
 import { Select } from "@govuk-jsx/select";
 import { Hint } from "@govuk-jsx/hint";
@@ -12,7 +12,6 @@ import {
   inputsAccessibleAt,
   hasConditions as dataHasConditions,
 } from "../data";
-
 interface Props {
   path: string;
   data: Data;
@@ -26,6 +25,15 @@ interface State {
   selectedCondition: string;
   fields: any;
 }
+
+export type ConditionData = {
+  name: string;
+  displayName: string;
+  value: {
+    name: string;
+    conditions: Condition[];
+  };
+};
 
 class SelectConditions extends React.Component<Props, State> {
   static contextType = DataContext;
@@ -60,13 +68,109 @@ class SelectConditions extends React.Component<Props, State> {
     return inputs
       .map((input) => ({
         label: input.title,
-        name: input.propertyPath,
+        name: this.trimSectionName(input.propertyPath),
         type: input.type,
       }))
       .reduce((obj, item) => {
         obj[item.name] = item;
         return obj;
       }, {});
+  }
+
+  conditionsForPath(path: string) {
+    const { data } = this.context;
+    const fields: any = Object.values(this.fieldsForPath(path));
+    const { conditions = [] } = data;
+    var conditionsForPath: any[] = [];
+
+    const stringConditions = conditions.filter(
+      (condition) => typeof condition.value === "string"
+    );
+    const objectConditions = conditions.filter(
+      (condition) => typeof condition.value !== "string"
+    );
+
+    fields.forEach((field) => {
+      this.handleStringConditions(
+        stringConditions,
+        field.name,
+        conditionsForPath
+      );
+      this.handleConditions(objectConditions, field.name, conditionsForPath);
+    });
+
+    return conditionsForPath;
+  }
+
+  handleConditions(
+    objectConditions: ConditionData[],
+    fieldName: string,
+    conditionsForPath: any[]
+  ) {
+    objectConditions.forEach((condition) => {
+      condition.value.conditions.forEach((innerCondition) => {
+        this.checkAndAddCondition(
+          condition,
+          fieldName,
+          innerCondition.field.name,
+          conditionsForPath
+        );
+      });
+    });
+  }
+
+  handleStringConditions(
+    stringConditions: any[],
+    fieldName: string,
+    conditionsForPath: any[]
+  ) {
+    const operators = ["==", "!=", ">", "<"];
+    const conditionsWithAcceptedOperators = stringConditions.filter(
+      (condition) =>
+        operators.some((operator) => condition.value.includes(operator))
+    );
+    const conditionsWithFieldName = conditionsWithAcceptedOperators.map(
+      (condition) => ({
+        ...condition,
+        conditionFieldName: condition.value
+          .substring(
+            condition.value.indexOf(".") + 1,
+            condition.value.lastIndexOf(
+              operators.filter((operator) => condition.value.includes(operator))
+            )
+          )
+          .trim(),
+      })
+    );
+    conditionsWithFieldName.forEach((condition) =>
+      this.checkAndAddCondition(
+        condition,
+        fieldName,
+        condition.conditionFieldName,
+        conditionsForPath
+      )
+    );
+    var a = "";
+  }
+
+  checkAndAddCondition(
+    conditionToAdd,
+    fieldName: string,
+    conditionFieldName: string,
+    conditions: any[]
+  ) {
+    const isDuplicateCondition = conditions.includes(
+      (condition) => condition.name === conditionToAdd.name
+    );
+    if (isDuplicateCondition) return;
+    if (fieldName === conditionFieldName) conditions.push(conditionToAdd);
+  }
+
+  trimSectionName(fieldName: string) {
+    if (fieldName.includes(".")) {
+      return fieldName.substring(fieldName.indexOf(".") + 1);
+    }
+    return fieldName;
   }
 
   onClickDefineCondition = (e) => {
@@ -106,8 +210,8 @@ class SelectConditions extends React.Component<Props, State> {
   render() {
     const { selectedCondition, inline } = this.state;
     const { hints = [], noFieldsHintText } = this.props;
-    const { data } = this.context;
-    const hasConditions = dataHasConditions(data) || selectedCondition;
+    const conditions = this.conditionsForPath(this.props.path);
+    const hasConditions = dataHasConditions(conditions) || selectedCondition;
     const hasFields = Object.keys(this.state.fields ?? {}).length > 0;
 
     return (
@@ -136,7 +240,7 @@ class SelectConditions extends React.Component<Props, State> {
                     children: [""],
                     value: "",
                   },
-                  ...this.context.data.conditions.map((it) => ({
+                  ...conditions.map((it) => ({
                     children: [it.displayName],
                     value: it.name,
                   })),
