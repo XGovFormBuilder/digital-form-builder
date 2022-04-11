@@ -96,24 +96,21 @@
           "type": "RadiosField",
           "name": "radiosField",
           "title": "Radios field",
-          "options": {
-            "list": "companyType"
-          },
+          "list": "companyType",
+          "options": {},
           "schema": {}
         },
         {
           "type": "SelectField",
           "name": "selectField",
           "title": "Select field",
-          "options": {
-            "list": "country"
-          },
+          "list": "country",
+          "options": {},
           "schema": {}
         },
         {
-          "options": {
-            "list": "horseBreed"
-          },
+          "options": {},
+          "list": "horseBreed",
           "type": "CheckboxesField",
           "name": "checkboxesField",
           "title": "Checkboxes field",
@@ -269,16 +266,15 @@
           "type": "SelectField",
           "name": "selectField",
           "title": "Select field",
-          "options": {
-            "list": "country"
-          },
+          "list": "country",
+          "options": {},
           "schema": {}
         },
         {
           "options": {
-            "required": false,
-            "list": "horseBreed"
+            "required": false
           },
+          "list": "horseBreed",
           "type": "CheckboxesField",
           "name": "checkboxesField",
           "title": "Checkboxes field",

@@ -9,7 +9,6 @@ import { i18n } from "../../i18n";
 import { ListsEditorContextProvider } from "../../reducers/list/listsEditorReducer";
 import { ListContextProvider } from "../../reducers/listReducer";
 import { FeeEdit } from "../Fee/FeeEdit";
-import DeclarationEdit from "../../declaration-edit";
 import OutputsEdit from "../../outputs/outputs-edit";
 import { DataContext } from "../../context";
 import { DataPrettyPrint } from "../DataPrettyPrint/DataPrettyPrint";
@@ -34,7 +33,6 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   const lists = useMenuItem();
   const outputs = useMenuItem();
   const fees = useMenuItem();
-  const summaryBehaviour = useMenuItem();
   const summary = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
@@ -63,17 +61,9 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         <button data-testid="menu-outputs" onClick={outputs.show}>
           {i18n("menu.outputs")}
         </button>
-
         <button data-testid="menu-fees" onClick={fees.show}>
           {i18n("menu.fees")}
         </button>
-        <button
-          data-testid="menu-summary-behaviour"
-          onClick={summaryBehaviour.show}
-        >
-          {i18n("menu.summaryBehaviour")}
-        </button>
-
         <button onClick={summary.show} data-testid="menu-summary">
           {i18n("menu.summary")}
         </button>
@@ -86,19 +76,19 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
 
       {page.isVisible && (
         <Flyout title="Add Page" onHide={page.hide}>
-          <PageCreate data={data} onCreate={() => page.hide()} />
+          <PageCreate onCreate={() => page.hide()} />
         </Flyout>
       )}
 
       {link.isVisible && (
         <Flyout title={i18n("menu.links")} onHide={link.hide}>
-          <LinkCreate data={data} onCreate={() => link.hide()} />
+          <LinkCreate onCreate={() => link.hide()} />
         </Flyout>
       )}
 
       {sections.isVisible && (
         <Flyout title="Edit Sections" onHide={sections.hide}>
-          <SectionsEdit data={data} />
+          <SectionsEdit />
         </Flyout>
       )}
 
@@ -121,28 +111,16 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
           </ListsEditorContextProvider>
         </Flyout>
       )}
+
       {outputs.isVisible && (
         <Flyout title="Edit Outputs" onHide={outputs.hide} width="xlarge">
-          <OutputsEdit data={data} />
+          <OutputsEdit />
         </Flyout>
       )}
 
       {fees.isVisible && (
         <Flyout title="Edit Fees" onHide={fees.hide} width="xlarge">
-          <FeeEdit data={data} onEdit={() => fees.hide()} />
-        </Flyout>
-      )}
-
-      {summaryBehaviour.isVisible && (
-        <Flyout
-          title="Edit Summary behaviour"
-          onHide={summaryBehaviour.hide}
-          width="xlarge"
-        >
-          <DeclarationEdit
-            data={data}
-            onCreate={() => summaryBehaviour.hide()}
-          />
+          <FeeEdit onEdit={() => fees.hide()} />
         </Flyout>
       )}
 
@@ -184,7 +162,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
               </ul>
               {selectedTab === Tabs.model && (
                 <section className="govuk-tabs__panel" data-testid="tab-model">
-                  <DataPrettyPrint data={data} />
+                  <DataPrettyPrint />
                 </section>
               )}
               {selectedTab === Tabs.json && (
