@@ -14,6 +14,9 @@ import { configureYarPlugin } from "./plugins/session";
 const serverOptions = () => {
   return {
     port: process.env.PORT || 3000,
+    router: {
+      stripTrailingSlash: true,
+    },
     routes: {
       validate: {
         options: {

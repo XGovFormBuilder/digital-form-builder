@@ -1,1 +1,1 @@
-export { Schema } from "./schema";
+export { Schema, componentSchema } from "./schema";

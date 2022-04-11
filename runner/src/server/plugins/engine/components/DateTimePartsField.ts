@@ -1,6 +1,5 @@
-import moment from "moment";
+import { format, parse, parseISO } from "date-fns";
 import { Schema } from "joi";
-
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
@@ -105,26 +104,38 @@ export class DateTimePartsField extends FormComponent {
 
   getStateValueFromValidForm(payload: FormPayload) {
     const name = this.name;
-    // Use `moment` to parse the date as
+    // Use `date-fns` to parse the date as
     // opposed to the Date constructor.
-    // `moment` will check that the individual date
-    // parts together constitute a valid date.
+    // `date-fns` will check a string is a valid date.
     // E.g. 31 November is not a valid date
-    return payload[`${name}__year`]
-      ? moment([
-          payload[`${name}__year`],
-          payload[`${name}__month`] - 1,
-          payload[`${name}__day`],
-          payload[`${name}__hour`],
-          payload[`${name}__minute`],
-        ]).toDate()
-      : null;
+    const date = this.constructDateString(
+      payload[`${name}__year`],
+      payload[`${name}__month`],
+      payload[`${name}__day`],
+      payload[`${name}__hour`],
+      payload[`${name}__minute`]
+    );
+    return payload[`${name}__year`] ? date : null;
+  }
+
+  constructDateString(
+    year: string,
+    month: string,
+    day: string,
+    hour: string,
+    minute: string
+  ) {
+    return parse(
+      `${year}/${month}/${day} ${hour}:${minute}`,
+      "yyyy/MM/dd HH:mm",
+      new Date()
+    );
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? moment(value).format("D MMMM YYYY h:mma") : "";
+    return value ? format(parseISO(value), "d MMMM yyyy h:mm") : "";
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc
