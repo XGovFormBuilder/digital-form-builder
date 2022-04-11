@@ -1,4 +1,4 @@
-import { format, parseISO } from "date-fns";
+import moment from "moment";
 import { InputFieldsComponentsDef } from "@xgovformbuilder/model";
 
 import * as helpers from "./helpers";
@@ -24,13 +24,13 @@ export class DateTimeField extends FormComponent {
   getFormValueFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? format(parseISO(value), "yyyy-MM-dd'T'HH:mm") : value;
+    return value ? moment(value).format("YYYY-MM-DDTHH:mm") : value;
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-    return value ? format(parseISO(value), "d MMMM yyyy h:mm") : "";
+    return value ? moment(value).format("D MMMM YYYY h:mma") : "";
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {

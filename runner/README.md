@@ -56,11 +56,6 @@ To symlink an external .env file, for example inside a [Keybase](https://keybase
 `symlink-config` accepts two variables, ENV_LOC and LINK_TO. If the file location is not passed in, you will be prompted for a location.
 LINK_TO is optional, it defaults to `./${PROJECT_DIR}`.
 
-### ⚠️ These environment variables will be deprecated in a future release
-Please use a config file instead. This will give you more control over each environment. 
-The defaults can be found in [config](./config/default.js). Place your config files in `runner/config`
-See [https://github.com/node-config/node-config#readme](https://github.com/node-config/node-config#readme) for more info.
-
 | name                    | description                           | required                | default      | valid                       | notes                                                                                                                                     |
 |-------------------------|---------------------------------------|:-----------------------:|--------------|:---------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------:|
 | NODE_ENV                | Node environment                      | no                      |              | development,test,production |                                                                                                                                           |

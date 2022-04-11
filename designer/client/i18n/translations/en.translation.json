@@ -312,14 +312,6 @@
     "precisionField": {
       "helpText": "Specifies the number of decimal places users can enter. For example, to allow users to enter numbers with up to two decimal places, set this to 2",
       "title": "Precision"
-    },
-    "prefixField": {
-      "helpText": "Specifies the prefix of the field.",
-      "title": "Prefix"
-    },
-    "suffixField": {
-      "helpText": "Specifies the suffix of the field.",
-      "title": "Suffix"
     }
   },
   "optional": "{{noun}} (optional)",

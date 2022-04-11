@@ -41,7 +41,7 @@
  * ```
  */
 export type FormSubmissionState = {
-  progress?: string[];
+  progress: string[];
   [propName: string]: any;
 };
 

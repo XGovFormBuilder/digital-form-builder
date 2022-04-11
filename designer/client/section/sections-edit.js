@@ -2,10 +2,8 @@ import React from "react";
 import SectionEdit from "./section-edit";
 import { RenderInPortal } from "../components/RenderInPortal";
 import { Flyout } from "../components/Flyout";
-import { DataContext } from "../context";
 
 class SectionsEdit extends React.Component {
-  static contextType = DataContext;
   state = {};
 
   onClickSection = (e, section) => {
@@ -19,7 +17,6 @@ class SectionsEdit extends React.Component {
   // TODO:- This is borrowed from page-edit.js. Needs refactor. (hooks hooks hooks)
   closeFlyout = (sectionName) => {
     const propSection = this.state.section ?? this.props.page?.section ?? {};
-
     this.setState({
       isEditingSection: false,
       section: sectionName
@@ -29,13 +26,13 @@ class SectionsEdit extends React.Component {
   };
 
   findSectionWithName(name) {
-    const { data } = this.context;
+    const { data } = this.props;
     const { sections } = data;
     return sections.find((section) => section.name === name);
   }
 
   render() {
-    const { data } = this.context;
+    const { data } = this.props;
     const { sections } = data;
     const { section, isEditingSection } = this.state;
 

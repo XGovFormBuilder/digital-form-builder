@@ -78,7 +78,7 @@ const localisedString = joi
   .alternatives()
   .try(joi.object({ a: joi.any() }).unknown(), joi.string().allow(""));
 
-export const componentSchema = joi
+const componentSchema = joi
   .object()
   .keys({
     type: joi.string().required(),
@@ -90,7 +90,7 @@ export const componentSchema = joi
       .object({ min: joi.number(), max: joi.number() })
       .unknown(true)
       .default({}),
-    list: joi.string().optional(),
+    list: joi.string(),
   })
   .unknown(true);
 
