@@ -10,7 +10,7 @@ import {
 import { DataContext } from "../context";
 import { hasValidationErrors, validateTitle } from "../validations";
 import ErrorSummary from "../error-summary";
-import { ListContext, ListState } from "../reducers/listReducer";
+import { ListContext } from "../reducers/listReducer";
 import { addList } from "../data";
 
 const useListItemActions = (state, dispatch) => {
