@@ -28,7 +28,7 @@ describe("SaveErrorPage", () => {
     ).toBeInTheDocument();
     expect(
       await screen.findByText(
-        "Is the runner up and running and in development mode? Check console log and see docs for runner requirements when using the designer. If the runner is up and in development mode, the last valid version of your form will have been saved. Return to the Designer to continue."
+        "If the runner is running in development mode, the previous valid version of your form will have been saved. Please consult your development console and the documentation when using the designer for further advice."
       )
     ).toBeInTheDocument();
     expect(

@@ -395,7 +395,7 @@
   "saveErrorPage": {
     "sorry": "Sorry, there is a problem with the service",
     "error": "An error occurred while saving.",
-    "hint": "Is the runner up and running and in development mode? Check console log and see docs for runner requirements when using the designer. If the runner is up and in development mode, the last valid version of your form will have been saved. Return to the Designer to continue.",
+    "hint": "If the runner is running in development mode, the previous valid version of your form will have been saved. Please consult your development console and the documentation when using the designer for further advice.",
     "report": "If everything appears configured according to the docs, so we can check what went wrong please complete the following:",
     "downloadCrashReport": "download your crash report",
     "createIssue": "create an issue on GitHub",
