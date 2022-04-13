@@ -9,6 +9,7 @@ import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
+import { consoleMessages } from "../../lib/consoleMessages";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -90,15 +91,7 @@ export const plugin = {
           });
           return h.response({}).code(204);
         } else {
-          console.log(
-            "\x1b[36m%s\x1b[0m",
-            `**********
-NOT FOUND: The /publish route is not accessible as config.previewMode is disabled. 
-To enable it, please switch to development mode by setting NODE_ENV=development
-in your environment, or create a custom environment config with PREVIEW_MODE=true
-and ENFORCE_CSRF=false. See runner/config/development.json for env defaults
-**********`
-          );
+          consoleMessages.runnerUnavailableAtRoute(request.path);
           throw Boom.notFound(
             `previewMode is disabled. To enable it, please switch to development mode 
 by setting NODE_ENV=development in your environment`
@@ -120,15 +113,7 @@ by setting NODE_ENV=development in your environment`
             return h.response({}).code(204);
           }
         } else {
-          console.log(
-            "\x1b[36m%s\x1b[0m",
-            `**********
-NOT FOUND: The /published/{id} route is not accessible as config.previewMode is disabled. 
-To enable it, please switch to development mode by setting NODE_ENV=development
-in your environment, or create a custom environment config with PREVIEW_MODE=true
-and ENFORCE_CSRF=false. See runner/config/development.json for env defaults
-**********`
-          );
+          consoleMessages.runnerUnavailableAtRoute(request.path);
           throw Boom.notFound(
             `previewMode is disabled. To enable it, please switch to development mode 
 by setting NODE_ENV=development in your environment`
@@ -158,15 +143,7 @@ by setting NODE_ENV=development in your environment`
             )
             .code(200);
         } else {
-          console.log(
-            "\x1b[36m%s\x1b[0m",
-            `**********
-NOT FOUND: The /published route is not accessible as config.previewMode is disabled.
-To enable it, please switch to development mode by setting NODE_ENV=development
-in your environment, or create a custom environment config with PREVIEW_MODE=true
-and ENFORCE_CSRF=false. See runner/config/development.json for env defaults
-**********`
-          );
+          consoleMessages.runnerUnavailableAtRoute(_request.path);
           throw Boom.notFound(
             `previewMode is disabled. To enable it, please switch to development mode 
 by setting NODE_ENV=development in your environment`
