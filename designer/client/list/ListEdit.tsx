@@ -10,7 +10,7 @@ import {
 import { DataContext } from "../context";
 import { hasValidationErrors, validateTitle } from "../validations";
 import ErrorSummary from "../error-summary";
-import { ListContext } from "../reducers/listReducer";
+import { ListContext, ListState } from "../reducers/listReducer";
 import { addList } from "../data";
 
 const useListItemActions = (state, dispatch) => {
@@ -98,12 +98,20 @@ function useListEdit() {
   };
 }
 
+function recheckValidate(error: any, selectedList: any) {
+  if (selectedList.items.length > 0) {
+    return {};
+  }
+  return error;
+}
+
 export function ListEdit() {
   const { handleSubmit, handleDelete } = useListEdit();
 
   const { state, dispatch } = useContext(ListContext);
   const { selectedList, createItem } = useListItemActions(state, dispatch);
-  const { errors } = state;
+  let { errors } = state;
+  errors = recheckValidate(errors, selectedList);
   const validationErrors = hasValidationErrors(errors);
   return (
     <>
