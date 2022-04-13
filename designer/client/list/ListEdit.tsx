@@ -98,7 +98,7 @@ function useListEdit() {
   };
 }
 
-function recheckValidate(error: any, selectedList: any) {
+function validate(error: any, selectedList: any) {
   if (selectedList.items.length > 0) {
     return {};
   }
@@ -111,7 +111,7 @@ export function ListEdit() {
   const { state, dispatch } = useContext(ListContext);
   const { selectedList, createItem } = useListItemActions(state, dispatch);
   let { errors } = state;
-  errors = recheckValidate(errors, selectedList);
+  errors = validate(errors, selectedList);
   const validationErrors = hasValidationErrors(errors);
   return (
     <>
