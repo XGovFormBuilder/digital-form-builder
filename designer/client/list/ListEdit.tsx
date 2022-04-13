@@ -98,11 +98,11 @@ function useListEdit() {
   };
 }
 
-function validate(error: any, selectedList: any) {
+function validate(errors: any, selectedList: any) {
   if (selectedList.items.length > 0) {
     return {};
   }
-  return error;
+  return errors;
 }
 
 export function ListEdit() {
