@@ -16,6 +16,7 @@
   "serviceUrl": "SERVICE_URL",
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
+  "redisTls": "REDIS_TLS",
   "redisPassword": "REDIS_PASSWORD",
   "serviceName": "SERVICE_NAME",
   "documentUploadApiUrl": "DOCUMENT_UPLOAD_API_URL",
