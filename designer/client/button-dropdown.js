@@ -2,7 +2,7 @@ import React from "react";
 import { withI18n } from "./i18n";
 
 class ButtonDropdown extends React.Component {
-  /* TODO:- generalise this */
+  /* TODO:- generalise thi */
   constructor(props) {
     super(props);
     this.state = {
