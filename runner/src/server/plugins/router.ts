@@ -17,6 +17,7 @@ type Cookies = "accept" | "reject";
 
 interface CookiePayload {
   cookies: Cookies;
+  crumb: string;
   referrer: string;
 }
 
@@ -57,9 +58,13 @@ export default {
           },
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-            const { cookies, referrer } = request.payload as CookiePayload;
+            const {
+              cookies,
+              crumb,
+              referrer,
+            } = request.payload as CookiePayload;
             const { href, origin } = new Url(referrer);
-            const redirect = href.replace(origin, "").replace("__", "/"); // Ensure you only redirect to a local path
+            const redirect = href.replace(origin, "").replace(crumb, ""); // Ensure you only redirect to a local path
             const accept = cookies === "accept";
 
             return h.redirect(redirect).state(
