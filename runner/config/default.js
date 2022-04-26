@@ -21,7 +21,7 @@ module.exports = {
   port: 3009,
   env: "development",
   previewMode: true,
-  sandbox: true,
+  sandbox: false,
 
   /**
    * Helper flags
