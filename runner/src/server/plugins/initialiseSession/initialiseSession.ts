@@ -9,7 +9,6 @@ import path from "path";
 import { WebhookSchema } from "server/schemas/types";
 import Jwt from "@hapi/jwt";
 import { SpecialPages } from "@xgovformbuilder/model";
-import config from "src/server/config";
 
 type ConfirmationPage = SpecialPages["confirmationPage"];
 
@@ -67,12 +66,20 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         });
 
         if (!isExistingForm) {
+          request.logger.warn(
+            [`/session/${formId}`, "POST"],
+            `${formId} does not exist`
+          );
           return h
             .response({ message: `${formId} does not exist on this instance` })
             .code(404);
         }
 
         if (callbackSafeListError) {
+          request.logger.warn(
+            [`/session/${formId}`, "POST"],
+            `${callbackUrl} was was not allowed. only ${safelist?.join(", ")}`
+          );
           return h
             .response({
               message: `the callback URL provided ${callbackUrl} is not allowed.`,
@@ -92,6 +99,9 @@ export const initialiseSession: Plugin<InitialiseSession> = {
       },
       options: {
         description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback whitelist in runner/config/{environment}.json`,
+        plugins: {
+          crumb: false,
+        },
       },
     });
   },

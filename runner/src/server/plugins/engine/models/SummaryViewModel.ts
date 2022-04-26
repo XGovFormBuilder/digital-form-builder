@@ -402,6 +402,7 @@ function Item(
 ) {
   const isRepeatable = !!page.repeatField;
 
+  //TODO:- deprecate in favour of section based and/or repeatingFieldPageController
   if (isRepeatable && Array.isArray(sectionState)) {
     return sectionState.map((state, i) => {
       const collated = Object.values(state).reduce(

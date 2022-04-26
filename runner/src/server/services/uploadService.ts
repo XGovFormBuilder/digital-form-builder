@@ -95,7 +95,7 @@ export class UploadService {
   async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
-    const originalFilenames = (state || {}).originalFilenames || {};
+    const originalFilenames = state?.originalFilenames ?? {};
 
     let files: [string, any][] = [];
 

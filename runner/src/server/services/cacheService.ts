@@ -11,7 +11,7 @@ import {
   DecodedSessionToken,
   InitialiseSessionOptions,
 } from "server/plugins/initialiseSession/types";
-import { WebhookSchema } from "../schemas/webhookSchema";
+import { WebhookSchema } from "../schemas/types";
 
 const {
   redisHost,
