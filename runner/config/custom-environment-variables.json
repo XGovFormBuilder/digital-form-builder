@@ -17,6 +17,7 @@
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
   "redisTls": "REDIS_TLS",
+  "sandbox": "sandbox",
   "redisPassword": "REDIS_PASSWORD",
   "serviceName": "SERVICE_NAME",
   "documentUploadApiUrl": "DOCUMENT_UPLOAD_API_URL",
