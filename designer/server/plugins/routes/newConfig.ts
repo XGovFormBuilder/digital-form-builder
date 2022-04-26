@@ -41,15 +41,14 @@ export const registerNewFormWithRunner: ServerRoute = {
           await publish(newName, copied);
         }
       } catch (e) {
-        consoleMessages.publishError();
+        request.logger.error(
+          ["newConfig", "previewModeError"],
+          consoleMessages.publishError
+        );
         request.logger.error(e);
         return h
-          .response(
-            `Designer could not connect to runner instance. 
-Please confirm it is up and running, 
-and in development mode. See docs for more details.`
-          )
-          .type("application/json")
+          .response("Designer could not connect to runner instance.")
+          .type("text/plain")
           .code(401);
       }
 

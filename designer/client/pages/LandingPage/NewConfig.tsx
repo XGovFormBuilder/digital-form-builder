@@ -94,13 +94,12 @@ export class NewConfig extends Component<Props, State> {
 
   handleResponse = async (res) => {
     if (!res.ok) {
-      await res.text().then((text) => {
-        return this.handleErrors({
-          name: {
-            href: "#formName",
-            children: i18n(text),
-          },
-        });
+      const text = await res.text();
+      return this.handleErrors({
+        name: {
+          href: "#formName",
+          children: i18n(text),
+        },
       });
     }
     return res.json();

@@ -86,8 +86,8 @@ describe("NewConfig tests", () => {
     const res = await server.inject(options);
 
     expect(res.statusCode).toEqual(401);
-    expect(
-      res.result.indexOf("Designer could not connect to runner instance.") > -1
-    ).toEqual(true);
+    expect(res.result).toMatch(
+      "Designer could not connect to runner instance."
+    );
   });
 });

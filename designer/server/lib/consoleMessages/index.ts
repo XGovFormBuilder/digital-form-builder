@@ -1,7 +1,7 @@
 import { publishError } from "./publishError";
 
 const consoleMessages = {
-  publishError: publishError,
+  publishError: publishError(),
 };
 
 export { consoleMessages };

@@ -28,7 +28,7 @@ export class PreviewPersistenceService implements PersistenceService {
       const { payload } = await Wreck.get(`${config.publishUrl}/published`);
       return JSON.parse(payload.toString());
     } catch (e) {
-      consoleMessages.publishError();
+      console.log(consoleMessages.publishError);
     }
   }
 
