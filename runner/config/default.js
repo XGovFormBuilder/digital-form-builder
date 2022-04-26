@@ -36,7 +36,7 @@ module.exports = {
     return this.env === "test";
   }),
   isSandbox: deferConfig(function () {
-    return this.sandbox === true;
+    return this.sandbox === true || this.sandbox === "true";
   }),
 
   /**
