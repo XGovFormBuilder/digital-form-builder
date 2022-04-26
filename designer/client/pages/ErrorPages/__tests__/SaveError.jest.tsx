@@ -28,12 +28,12 @@ describe("SaveErrorPage", () => {
     ).toBeInTheDocument();
     expect(
       await screen.findByText(
-        "If the runner is running in development mode, the previous valid version of your form will have been saved. Please consult your development console and the documentation when using the designer for further advice."
+        "We saved the last valid version of your form. Return to the Designer to continue."
       )
     ).toBeInTheDocument();
     expect(
       await screen.findByText(
-        "If everything appears configured according to the docs, so we can check what went wrong please complete the following:"
+        "So we can check what went wrong, complete the following:"
       )
     ).toBeInTheDocument();
     expect(
