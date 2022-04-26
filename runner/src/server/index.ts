@@ -158,7 +158,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
-  consoleMessages.welcome();
+  server.logger.info(["welcome"], consoleMessages.welcome);
   if (!config.isTest) {
     await server.register(blipp);
   }

@@ -77,26 +77,28 @@ export const plugin = {
       method: "post",
       path: "/publish",
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        if (previewMode) {
-          const payload = request.payload as FormPayload;
-          const { id, configuration } = payload;
-
-          const parsedConfiguration =
-            typeof configuration === "string"
-              ? JSON.parse(configuration)
-              : configuration;
-          forms[id] = new FormModel(parsedConfiguration, {
-            ...modelOptions,
-            basePath: id,
-          });
-          return h.response({}).code(204);
-        } else {
-          consoleMessages.runnerUnavailableAtRoute(request.path);
-          throw Boom.notFound(
-            `previewMode is disabled. To enable it, please switch to development mode 
-by setting NODE_ENV=development in your environment`
+        if (!previewMode) {
+          request.logger.error(
+            [`POST /publish`, "previewModeError"],
+            consoleMessages.runnerUnavailableAtRoute
           );
+          throw Boom.notFound(`previewMode is disabled.`);
         }
+        const payload = request.payload as FormPayload;
+        const { id, configuration } = payload;
+
+        const parsedConfiguration =
+          typeof configuration === "string"
+            ? JSON.parse(configuration)
+            : configuration;
+        forms[id] = new FormModel(parsedConfiguration, {
+          ...modelOptions,
+          basePath: id,
+        });
+        return h.response({}).code(204);
+      },
+      options: {
+        description: `Enables publishing of form. Requires previewMode to be set to true or NODE_ENV=development.`,
       },
     });
 
@@ -104,21 +106,23 @@ by setting NODE_ENV=development in your environment`
       method: "get",
       path: "/published/{id}",
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        if (previewMode) {
-          const { id } = request.params;
-          if (forms[id]) {
-            const { values } = forms[id];
-            return h.response(JSON.stringify({ id, values })).code(200);
-          } else {
-            return h.response({}).code(204);
-          }
-        } else {
-          consoleMessages.runnerUnavailableAtRoute(request.path);
-          throw Boom.notFound(
-            `previewMode is disabled. To enable it, please switch to development mode 
-by setting NODE_ENV=development in your environment`
+        const { id } = request.params;
+        if (!previewMode) {
+          request.logger.error(
+            [`GET /published/${id}`, "previewModeError"],
+            consoleMessages.runnerUnavailableAtRoute
           );
+          throw Boom.notFound(`previewMode is disabled.`);
         }
+        if (forms[id]) {
+          const { values } = forms[id];
+          return h.response(JSON.stringify({ id, values })).code(200);
+        } else {
+          return h.response({}).code(204);
+        }
+      },
+      options: {
+        description: `Gets a published form, by form id. Requires previewMode to be set to true or NODE_ENV=development.`,
       },
     });
 
@@ -126,29 +130,31 @@ by setting NODE_ENV=development in your environment`
       method: "get",
       path: "/published",
       handler: (_request: HapiRequest, h: HapiResponseToolkit) => {
-        if (previewMode) {
-          return h
-            .response(
-              JSON.stringify(
-                Object.keys(forms).map(
-                  (key) =>
-                    new FormConfiguration(
-                      key,
-                      forms[key].name,
-                      undefined,
-                      forms[key].def.feedback?.feedbackForm
-                    )
-                )
+        if (!previewMode) {
+          _request.logger.error(
+            [`GET /published`, "previewModeError"],
+            consoleMessages.runnerUnavailableAtRoute
+          );
+          throw Boom.notFound(`previewMode is disabled.`);
+        }
+        return h
+          .response(
+            JSON.stringify(
+              Object.keys(forms).map(
+                (key) =>
+                  new FormConfiguration(
+                    key,
+                    forms[key].name,
+                    undefined,
+                    forms[key].def.feedback?.feedbackForm
+                  )
               )
             )
-            .code(200);
-        } else {
-          consoleMessages.runnerUnavailableAtRoute(_request.path);
-          throw Boom.notFound(
-            `previewMode is disabled. To enable it, please switch to development mode 
-by setting NODE_ENV=development in your environment`
-          );
-        }
+          )
+          .code(200);
+      },
+      options: {
+        description: `Gets all published forms. Requires previewMode to be set to true or NODE_ENV=development.`,
       },
     });
 

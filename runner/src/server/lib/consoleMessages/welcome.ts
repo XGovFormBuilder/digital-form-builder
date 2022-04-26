@@ -1,17 +1,20 @@
 import config from "server/config";
 
 function welcome() {
+  let message = "";
   if (!config.isTest) {
-    console.log(`**********
+    message += `
+**********
 **********
 Server is running in production mode.
 -- env=${config.env.toString()}
 -- enforceCsrf=${config.enforceCsrf.toString()}
 -- previewMode=${config.previewMode.toString()}
 **********
-**********`);
+**********`;
   } else {
-    console.log(`**********
+    message += `
+**********
 **********
 WARNING: Server is running in insecure development/test mode. 
 -- env=${config.env.toString()}
@@ -29,8 +32,9 @@ You can also create custom environment configurations by placing
 a myenvironment.json file in runner/config/ with your bespoke config vars
 or by setting individual vars in a .env file at runner/.env .
 **********
-**********`);
+**********`;
   }
+  return message;
 }
 
 export { welcome };
