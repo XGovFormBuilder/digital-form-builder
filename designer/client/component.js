@@ -6,10 +6,6 @@ import ComponentEdit from "./ComponentEdit";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { i18n } from "./i18n";
 
-const DragHandle = SortableHandle(() => (
-  <span className="drag-handle">&#9776;</span>
-));
-
 export const componentTypes = {
   TextField,
   TelephoneNumberField,
@@ -312,7 +308,6 @@ export function Component(props) {
   return (
     <div>
       <div className="component govuk-!-padding-2" onClick={toggleShowEditor}>
-        <DragHandle />
         <TagName />
       </div>
       {showEditor && (
