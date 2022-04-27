@@ -64,7 +64,10 @@ export default {
               referrer,
             } = request.payload as CookiePayload;
             const { href, origin } = new Url(referrer);
-            const redirect = href.replace(origin, "").replace(crumb, ""); // Ensure you only redirect to a local path
+            if (!href.startsWith("xgov__")) {
+              throw Error("Url not valid");
+            }
+            const redirect = href.replace(origin, "").replace("xgov__", ""); // Ensure you only redirect to a local path
             const accept = cookies === "accept";
 
             return h.redirect(redirect).state(

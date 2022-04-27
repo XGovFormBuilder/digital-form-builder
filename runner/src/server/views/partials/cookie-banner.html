@@ -17,7 +17,7 @@
 <div id="global-cookie-message">
   <form id="global-cookie-message-form" method="post" action="/help/cookies">
     <input type="hidden" name="crumb" value="{{crumb}}"/>
-    <input name="referrer" type="hidden" value="{{ location }}{{crumb}}" />
+    <input name="referrer" type="hidden" value="xgov__{{ location }}" />
 
     {{ govukCookieBanner({
       ariaLabel: cookieBannerHeader,
