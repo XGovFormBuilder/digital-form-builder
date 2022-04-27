@@ -220,7 +220,7 @@ export class SummaryViewModel {
           const item = Item(request, component, sectionState, page, model);
           const shouldOmit = item.options?.omit ?? false;
 
-          if (shouldOmit === true) continue;
+          if (shouldOmit) continue;
           if (items.find((cbItem) => cbItem.name === item.name)) return;
           items.push(item);
           if (component.items) {
