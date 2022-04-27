@@ -1,5 +1,5 @@
 import http from "http";
-import wreck from "wreck";
+import wreck from "@hapi/wreck";
 
 type Method = "get" | "post" | "path" | "put" | "delete";
 

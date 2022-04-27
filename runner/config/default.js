@@ -22,7 +22,7 @@ module.exports = {
   env: "development",
   previewMode: false,
   enforceCsrf: true,
-  sandbox: true,
+  sandbox: false,
 
   /**
    * Helper flags
@@ -37,7 +37,7 @@ module.exports = {
     return this.env === "test";
   }),
   isSandbox: deferConfig(function () {
-    return this.sandbox === true;
+    return this.sandbox === true || this.sandbox === "true";
   }),
 
   /**
