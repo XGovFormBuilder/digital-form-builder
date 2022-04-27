@@ -40,7 +40,7 @@ suite("Server Router", () => {
       method: "POST",
       payload: {
         cookies: "accept",
-        referrer: "/help/accessibility-statement",
+        referrer: "xgov__/help/accessibility-statement",
       },
       url: "/help/cookies",
     };
