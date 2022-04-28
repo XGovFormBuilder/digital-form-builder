@@ -24,11 +24,26 @@ export class TextField extends FormComponent {
     this.options = def.options;
     this.schema = def.schema;
 
-    const { schema } = this;
+    const { schema, options } = this;
+    const title = def.title;
     let componentSchema = joi.string();
 
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
+    componentSchema = componentSchema.required();
+
+    if (title) {
+      componentSchema = componentSchema.label(
+        typeof title === "string" ? title : "Textfield"
+      );
+    }
+
+    if (options.required === false) {
+      componentSchema = componentSchema.allow(null, "").optional();
+    }
+  
+    componentSchema = componentSchema.trim(); 
+    
     let pattern = !schema["regex"] ? '^[^"\\/\\#;]*$' : schema["regex"];
     if (pattern !== '^[^"\\/\\#;]*$') {
       pattern = pattern.toString();

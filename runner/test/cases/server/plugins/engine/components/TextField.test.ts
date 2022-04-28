@@ -1,4 +1,4 @@
-import * as Code from "@hapi/code";
+ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { TextField } from "server/plugins/engine/components/TextField";
@@ -27,9 +27,9 @@ suite("TextField", () => {
     };
 
     const component = new TextField(componentDefinition, formModel);
-
+ 
     it("is required by default", () => {
-      expect(component.formSchema.describe().flags.presence).to.equal(
+      expect(component.schema.describe().flags.presence).to.equal(
         "required"
       );
     });
@@ -42,13 +42,13 @@ suite("TextField", () => {
         },
         formModel
       );
-      expect(component.formSchema.describe().flags.presence).to.not.equal(
+      expect(component.schema.describe().flags.presence).to.not.equal(
         "required"
       );
     });
 
     it("validates correctly", () => {
-      expect(component.formSchema.validate({}).error).to.exist();
+      expect(component.schema.validate({}).error).to.exist();
     });
   });
 });
