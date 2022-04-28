@@ -11,8 +11,9 @@ import {
   buildFormSchema,
   buildStateSchema,
 } from "./helpers";
-import { Schema } from "joi";
+import joi, { Schema } from "joi";
 
+const ERROR_MESSAGE = "String entered does not match the pattern provided";
 export class TextField extends FormComponent {
   formSchema;
   stateSchema;
@@ -21,24 +22,39 @@ export class TextField extends FormComponent {
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     this.options = def.options;
+    this.schema = def.schema;
+
+    const { schema } = this;
+    let componentSchema = joi.string();
 
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
-    const { schema } = this;
-    if (!schema["regex"]) {
-      schema["regex"] = '^[^"\\/\\#;]*$';
+    let pattern = !schema["regex"] ? '^[^"\\/\\#;]*$' : schema["regex"];
+    if (pattern !== '^[^"\\/\\#;]*$') {
+      pattern = pattern.toString();
+      if (pattern.charAt(0) !== '^') {
+        pattern = pattern.padStart(pattern.length + 1, '^');
+      }
+
+      if (pattern.charAt(pattern.length - 1) !== '$') {
+        pattern = pattern.padEnd(pattern.length + 1, '$');
+      }
+      
+      const regex = new RegExp(pattern);
+      componentSchema = componentSchema
+      .pattern(regex, { name: 'string' })
+      .message(ERROR_MESSAGE);
     }
 
-    this.formSchema = buildFormSchema("string", this);
-    this.stateSchema = buildStateSchema("string", this);
+    this.schema = componentSchema;
   }
 
   getFormSchemaKeys() {
-    return { [this.name]: this.formSchema as Schema };
+    return { [this.name]: this.schema as Schema };
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema as Schema };
+    return { [this.name]: this.schema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
