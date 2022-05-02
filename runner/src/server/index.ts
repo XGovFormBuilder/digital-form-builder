@@ -158,10 +158,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginApplicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
-  server.logger.info(["welcome"], consoleMessages.welcome);
-  if (!config.isTest) {
-    await server.register(blipp);
-  }
+  await server.register(blipp);
 
   server.state("cookies_policy", {
     encoding: "base64json",

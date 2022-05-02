@@ -9,7 +9,7 @@ import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
-import { consoleMessages } from "../../lib/consoleMessages";
+import config from "config";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -65,6 +65,10 @@ export const plugin = {
       });
     });
 
+    const enabledString = config.previewMode ? `[ENABLED]` : `[DISABLED]`;
+    const disabledRouteDetailString =
+      "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
+
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
      * are used from the designer for operating in 'preview' mode.
@@ -80,9 +84,9 @@ export const plugin = {
         if (!previewMode) {
           request.logger.error(
             [`POST /publish`, "previewModeError"],
-            consoleMessages.runnerUnavailableAtRoute
+            disabledRouteDetailString
           );
-          throw Boom.notFound(`previewMode is disabled.`);
+          throw Boom.forbidden("Publishing is disabled");
         }
         const payload = request.payload as FormPayload;
         const { id, configuration } = payload;
@@ -98,7 +102,7 @@ export const plugin = {
         return h.response({}).code(204);
       },
       options: {
-        description: `Enables publishing of form. Requires previewMode to be set to true or NODE_ENV=development.`,
+        description: `${enabledString} Allows a form to be persisted (published) on the runner server. Requires previewMode to be set to true. See runner/README.md for details on environment variables`,
       },
     });
 
@@ -110,32 +114,34 @@ export const plugin = {
         if (!previewMode) {
           request.logger.error(
             [`GET /published/${id}`, "previewModeError"],
-            consoleMessages.runnerUnavailableAtRoute
+            disabledRouteDetailString
           );
-          throw Boom.notFound(`previewMode is disabled.`);
+          throw Boom.unauthorized("publishing is disabled");
         }
-        if (forms[id]) {
-          const { values } = forms[id];
-          return h.response(JSON.stringify({ id, values })).code(200);
-        } else {
+
+        const form = forms[id];
+        if (!form) {
           return h.response({}).code(204);
         }
+
+        const { values } = forms[id];
+        return h.response(JSON.stringify({ id, values })).code(200);
       },
       options: {
-        description: `Gets a published form, by form id. Requires previewMode to be set to true or NODE_ENV=development.`,
+        description: `${enabledString} Gets a published form, by form id. Requires previewMode to be set to true. See runner/README.md for details on environment variables`,
       },
     });
 
     server.route({
       method: "get",
       path: "/published",
-      handler: (_request: HapiRequest, h: HapiResponseToolkit) => {
+      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         if (!previewMode) {
-          _request.logger.error(
+          request.logger.error(
             [`GET /published`, "previewModeError"],
-            consoleMessages.runnerUnavailableAtRoute
+            disabledRouteDetailString
           );
-          throw Boom.notFound(`previewMode is disabled.`);
+          throw Boom.notFound("publishing is disabled.");
         }
         return h
           .response(
@@ -154,7 +160,7 @@ export const plugin = {
           .code(200);
       },
       options: {
-        description: `Gets all published forms. Requires previewMode to be set to true or NODE_ENV=development.`,
+        description: `${enabledString} Gets all published forms. Requires previewMode to be set to true. See runner/README.md for details on environment variables`,
       },
     });
 

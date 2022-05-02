@@ -58,16 +58,9 @@ export default {
           },
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-            const {
-              cookies,
-              crumb,
-              referrer,
-            } = request.payload as CookiePayload;
+            const { cookies, referrer } = request.payload as CookiePayload;
             const { href, origin } = new Url(referrer);
-            if (!href.startsWith("xgov__")) {
-              throw Error("Url not valid");
-            }
-            const redirect = href.replace(origin, "").replace("xgov__", ""); // Ensure you only redirect to a local path
+            const redirect = href.replace(origin, ""); // Ensure you only redirect to a local path
             const accept = cookies === "accept";
 
             return h.redirect(redirect).state(
