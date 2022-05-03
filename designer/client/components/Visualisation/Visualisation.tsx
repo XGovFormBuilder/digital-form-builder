@@ -62,7 +62,7 @@ export function Visualisation(props: Props) {
 
         {layout && <Info downloadedAt={downloadedAt} updatedAt={updatedAt} />}
 
-        {layout && <Minimap layout={layout} />}
+        {layout && <Minimap layout={layout} data={data} />}
       </div>
     </>
   );

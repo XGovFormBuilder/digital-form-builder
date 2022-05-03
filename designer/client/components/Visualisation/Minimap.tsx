@@ -2,10 +2,16 @@ import React from "react";
 
 type Props = {
   layout: any;
+  data: any;
   scale?: number;
 };
 
-export const Minimap = ({ layout, scale = 0.05 }: Props) => (
+function onMapClick() {
+  let test = "";
+  window.scrollTo(500, 0);
+}
+
+export const Minimap = ({ layout, data, scale = 0.05 }: Props) => (
   <div className="minimap">
     <svg
       height={parseFloat(layout.height) * scale}
@@ -25,7 +31,7 @@ export const Minimap = ({ layout, scale = 0.05 }: Props) => (
       {layout.nodes.map((node, index) => {
         return (
           <g key={node + index}>
-            <a id={node + index} xlinkHref={`#${node.node.label}`}>
+            <a id={node + index} onClick={onMapClick}>
               <rect
                 x={parseFloat(node.left) * scale}
                 y={parseFloat(node.top) * scale}
