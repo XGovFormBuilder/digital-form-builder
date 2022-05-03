@@ -60,10 +60,14 @@ export default {
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
             const { cookies } = request.payload as CookiePayload;
-            const { referrer } = getRequestInfo(request);
-            const redirectPath = new URL(referrer).pathname ?? "/help/cookies";
-
             const accept = cookies === "accept";
+
+            const { referrer } = getRequestInfo(request);
+            let redirectPath = "/help/cookies";
+
+            if (referrer) {
+              redirectPath = new URL(referrer).pathname;
+            }
 
             return h.redirect(redirectPath).state(
               "cookies_policy",
