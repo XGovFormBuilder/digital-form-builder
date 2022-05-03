@@ -4,6 +4,7 @@ import { redirectTo } from "./engine";
 import { healthCheckRoute, publicRoutes } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import config from "../config";
+import getRequestInfo from "server/utils/getRequestInfo";
 
 const routes = [...publicRoutes, healthCheckRoute];
 
@@ -52,18 +53,19 @@ export default {
                 cookies: Joi.string()
                   .valid(CookieValue.Accept, CookieValue.Reject)
                   .required(),
-                referrer: Joi.string().required(),
+                crumb: Joi.string(),
               }).required(),
             },
           },
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-            const { cookies, referrer } = request.payload as CookiePayload;
-            const { href, origin } = new Url(referrer);
-            const redirect = href.replace(origin, ""); // Ensure you only redirect to a local path
+            const { cookies } = request.payload as CookiePayload;
+            const { referrer } = getRequestInfo(request);
+            const redirectPath = new URL(referrer).pathname ?? "/help/cookies";
+
             const accept = cookies === "accept";
 
-            return h.redirect(redirect).state(
+            return h.redirect(redirectPath).state(
               "cookies_policy",
               {
                 isHttpOnly: false, // Set this to false so that Google tag manager can read cookie preferences
