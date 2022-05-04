@@ -22,7 +22,7 @@ export class TextField extends FormComponent {
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     this.options = def.options;
-    this.schema = def.schema;
+    this.formSchema = def.schema;
 
     const { schema, options } = this;
     const title = def.title;
@@ -61,15 +61,15 @@ export class TextField extends FormComponent {
       .message(ERROR_MESSAGE);
     }
 
-    this.schema = componentSchema;
+    this.formSchema = componentSchema;
   }
 
   getFormSchemaKeys() {
-    return { [this.name]: this.schema as Schema };
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.schema as Schema };
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
