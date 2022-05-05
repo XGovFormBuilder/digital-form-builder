@@ -4,7 +4,6 @@ import Wreck from "@hapi/wreck";
 import config from "../../config";
 import { publish } from "../../lib/publish";
 import { ServerRoute, ResponseObject } from "@hapi/hapi";
-import { consoleMessages } from "../../lib/consoleMessages";
 
 const getPublished = async function (id) {
   const { payload } = await Wreck.get<FormConfiguration>(
@@ -29,11 +28,7 @@ export const getFormWithId: ServerRoute = {
           formJson = values;
         }
       } catch (error) {
-        request.logger.error(
-          ["newConfig", "previewModeError"],
-          consoleMessages.publishError
-        );
-        request.logger.error(error);
+        request.logger.error(["GET /api/{id}/data", "getFormWithId"], error);
       }
 
       return h.response(formJson).type("application/json");
@@ -73,10 +68,6 @@ export const putFormWithId: ServerRoute = {
         await publish(id, value);
         return h.response({ ok: true }).code(204);
       } catch (err) {
-        request.logger.error(
-          ["newConfig", "previewModeError"],
-          consoleMessages.publishError
-        );
         request.logger.error("Designer Server PUT /api/{id}/data error:", err);
         const errorSummary = {
           id: id,

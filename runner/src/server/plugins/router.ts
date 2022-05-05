@@ -1,9 +1,9 @@
 import Joi from "joi";
-import Url from "url-parse";
 import { redirectTo } from "./engine";
 import { healthCheckRoute, publicRoutes } from "../routes";
 import { HapiRequest, HapiResponseToolkit } from "../types";
 import config from "../config";
+import getRequestInfo from "server/utils/getRequestInfo";
 
 const routes = [...publicRoutes, healthCheckRoute];
 
@@ -52,25 +52,23 @@ export default {
                 cookies: Joi.string()
                   .valid(CookieValue.Accept, CookieValue.Reject)
                   .required(),
-                referrer: Joi.string().required(),
+                crumb: Joi.string(),
               }).required(),
             },
           },
           path: "/help/cookies",
           handler: async (request: HapiRequest, h: HapiResponseToolkit) => {
-            const {
-              cookies,
-              crumb,
-              referrer,
-            } = request.payload as CookiePayload;
-            const { href, origin } = new Url(referrer);
-            if (!href.startsWith("xgov__")) {
-              throw Error("Url not valid");
-            }
-            const redirect = href.replace(origin, "").replace("xgov__", ""); // Ensure you only redirect to a local path
+            const { cookies } = request.payload as CookiePayload;
             const accept = cookies === "accept";
 
-            return h.redirect(redirect).state(
+            const { referrer } = getRequestInfo(request);
+            let redirectPath = "/help/cookies";
+
+            if (referrer) {
+              redirectPath = new URL(referrer).pathname;
+            }
+
+            return h.redirect(redirectPath).state(
               "cookies_policy",
               {
                 isHttpOnly: false, // Set this to false so that Google tag manager can read cookie preferences
