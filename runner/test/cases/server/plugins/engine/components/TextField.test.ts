@@ -1,7 +1,9 @@
- import * as Code from "@hapi/code";
+import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { TextField } from "server/plugins/engine/components/TextField";
+import { componentSchema } from "@xgovformbuilder/model";
+import { messages } from "src/server/plugins/engine/pageControllers/validationOptions";
 
 const lab = Lab.script();
 exports.lab = lab;
@@ -18,8 +20,7 @@ suite("TextField", () => {
       title: "What's your first name?",
       options: {
         autocomplete: "given-name",
-      },
-      schema: {},
+      }
     };
 
     const formModel = {
@@ -27,28 +28,77 @@ suite("TextField", () => {
     };
 
     const component = new TextField(componentDefinition, formModel);
- 
+
     it("is required by default", () => {
-      expect(component.schema.describe().flags.presence).to.equal(
+      expect(component.formSchema.describe().flags.presence).to.equal(
         "required"
       );
     });
 
     it("is not required when explicitly configured", () => {
-      const component = new TextField(
-        {
-          ...componentDefinition,
-          options: { required: false },
-        },
-        formModel
-      );
-      expect(component.schema.describe().flags.presence).to.not.equal(
+
+      const component = TextComponent({ options: { required: false } });
+
+      expect(component.formSchema.describe().flags.presence).to.not.equal(
         "required"
       );
     });
 
     it("validates correctly", () => {
-      expect(component.schema.validate({}).error).to.exist();
+      expect(component.formSchema.validate({}).error).to.exist();
     });
+
+
+    it("regex should be in the correct format", () => {
+      let component = TextComponent({ schema: {regex: "a"} });
+
+      const schema  = component.formSchema.describe();
+      const object = JSON.parse(JSON.stringify(schema.rules))[1] ?? { args: { regex: null } };
+      const regex = object.args.regex ?? '/^[^"\\/\\#;]*$/';
+
+      console.log("regex " + regex);
+
+      expect(regex.length).to.be.at.least(5);
+
+      expect(regex.substring(0, 2)).to.be.equal('/^');
+
+//      expect(regex.substring(regex.length - 2, regex.length)).to.be.equal('/^');
+
+    });
+
+    it("should match pattern for regex", () => {
+      let component = TextComponent({ schema: {regex: "[abc]*"} });
+      
+      expect(component.formSchema.validate("ab", { messages })).
+      to.be.equal({ value: 'ab' });
+
+      component = TextComponent({ schema: {regex: null} });
+
+      expect(component.formSchema.validate("*", { messages })).
+      to.be.equal({ value: '*' });
+
+      component = TextComponent({ schema: {regex: undefined} });
+
+      expect(component.formSchema.validate("/", { messages })).
+      to.be.equal({ value: '/' });
+      expect(component.formSchema.validate("a", { messages })).
+      to.be.equal({ value: 'a' });
+
+      component = TextComponent({ schema: {regex: ""} });
+
+      expect(component.formSchema.validate("empty", { messages })).
+      to.not.be.equal({ value: 'empty' });
+    });
+
+    function TextComponent(properties) {
+      return new TextField(
+        {
+          ...componentDefinition,
+          ...properties
+        },
+        formModel
+      );
+    }
+
   });
 });

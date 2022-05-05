@@ -41,10 +41,10 @@ export class TextField extends FormComponent {
     if (options.required === false) {
       componentSchema = componentSchema.allow(null, "").optional();
     }
-  
-    componentSchema = componentSchema.trim(); 
-    
-    let pattern = !schema["regex"] ? '^[^"\\/\\#;]*$' : schema["regex"];
+
+    componentSchema = componentSchema.trim();
+
+    let pattern = schema["regex"] ?? '^[^"\\/\\#;]*$';
     if (pattern !== '^[^"\\/\\#;]*$') {
       pattern = pattern.toString();
       if (pattern.charAt(0) !== '^') {
@@ -54,11 +54,11 @@ export class TextField extends FormComponent {
       if (pattern.charAt(pattern.length - 1) !== '$') {
         pattern = pattern.padEnd(pattern.length + 1, '$');
       }
-      
+
       const regex = new RegExp(pattern);
       componentSchema = componentSchema
-      .pattern(regex, { name: 'string' })
-      .message(ERROR_MESSAGE);
+        .pattern(regex, { name: 'string' })
+        .message(ERROR_MESSAGE);
     }
 
     this.formSchema = componentSchema;
