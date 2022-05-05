@@ -1,7 +1,6 @@
 import type { PersistenceService } from "./persistenceService";
 import Wreck from "@hapi/wreck";
 import config from "../../config";
-import { consoleMessages } from "../../lib/consoleMessages";
 
 /**
  * Persistence service that relies on the runner for storing
@@ -24,12 +23,8 @@ export class PreviewPersistenceService implements PersistenceService {
   }
 
   async listAllConfigurations() {
-    try {
-      const { payload } = await Wreck.get(`${config.publishUrl}/published`);
-      return JSON.parse(payload.toString());
-    } catch (e) {
-      console.log(consoleMessages.publishError);
-    }
+    const { payload } = await Wreck.get(`${config.publishUrl}/published`);
+    return JSON.parse(payload.toString());
   }
 
   async getConfiguration(id: string) {

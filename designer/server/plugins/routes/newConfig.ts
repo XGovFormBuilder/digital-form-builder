@@ -4,7 +4,6 @@ import { nanoid } from "nanoid";
 import { publish } from "../../lib/publish";
 import { ServerRoute } from "@hapi/hapi";
 import { HapiRequest } from "../../types";
-import { consoleMessages } from "../../lib/consoleMessages";
 
 export const registerNewFormWithRunner: ServerRoute = {
   method: "post",
@@ -41,10 +40,6 @@ export const registerNewFormWithRunner: ServerRoute = {
           await publish(newName, copied);
         }
       } catch (e) {
-        request.logger.error(
-          ["newConfig", "previewModeError"],
-          consoleMessages.publishError
-        );
         request.logger.error(e);
         return h
           .response("Designer could not connect to runner instance.")
