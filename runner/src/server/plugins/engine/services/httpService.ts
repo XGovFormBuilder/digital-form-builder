@@ -1,4 +1,4 @@
-import wreck from "@hapi/wreck";
+import wreck from "wreck";
 
 type Method = "get" | "post" | "path" | "put" | "delete";
 type WreckParameters = Parameters<typeof wreck.get>;

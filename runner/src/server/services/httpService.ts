@@ -1,5 +1,5 @@
 import http from "http";
-import wreck from "@hapi/wreck";
+import wreck from "wreck";
 
 type Method = "get" | "post" | "path" | "put" | "delete";
 
@@ -42,8 +42,4 @@ export const postJson = <T = any>(url: string, options: object) => {
     ...options,
     json: true,
   });
-};
-
-export const put = <T = any>(url: string, options: object) => {
-  return request<T>("put", url, options);
 };

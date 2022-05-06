@@ -4,7 +4,7 @@ import { HapiRequest, HapiResponseToolkit } from "../types";
 const applicationStatus = {
   plugin: {
     name: "applicationStatus",
-    dependencies: "@hapi/vision",
+    dependencies: "vision",
     multiple: true,
     register: (server) => {
       server.route({
@@ -90,11 +90,6 @@ const applicationStatus = {
           const res = await payService.retryPayRequest(pay);
 
           await cacheService.mergeState(request, {
-            webhookData: {
-              fees: {
-                paymentReference: res.reference,
-              },
-            },
             pay: {
               payId: res.payment_id,
               reference: res.reference,

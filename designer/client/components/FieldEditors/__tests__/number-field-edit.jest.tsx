@@ -59,15 +59,5 @@ describe("Number field edit", () => {
         "Specifies the number of decimal places users can enter. For example, to allow users to enter numbers with up to two decimal places, set this to 2";
       expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
     });
-
-    test("should display prefix help text ", () => {
-      const text = "Specifies the prefix of the field.";
-      expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
-    });
-
-    test("should display suffix help text ", () => {
-      const text = "Specifies the suffix of the field.";
-      expect(textFieldEditPage.getByText(text)).toBeInTheDocument();
-    });
   });
 });

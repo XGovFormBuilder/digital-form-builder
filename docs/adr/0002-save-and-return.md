@@ -60,4 +60,3 @@ A long awaited feature. Sorry for anyone who's been waiting for this!
 ### Negative Consequences <!-- optional -->
 
 This will not be as "simple" as query parameters, and will require more involvement by the implementors so that steps 3-4 are handled correctly.
-

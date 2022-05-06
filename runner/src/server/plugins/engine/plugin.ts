@@ -51,7 +51,7 @@ type PluginOptions = {
 
 export const plugin = {
   name: "@xgovformbuilder/runner/engine",
-  dependencies: "@hapi/vision",
+  dependencies: "vision",
   multiple: true,
   register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;

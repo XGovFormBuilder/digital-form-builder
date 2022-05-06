@@ -1,7 +1,7 @@
 import path from "path";
 import resolve from "resolve";
 import nunjucks from "nunjucks";
-import vision from "@hapi/vision";
+import vision from "vision";
 import { capitalize } from "lodash";
 
 import pkg from "../../../package.json";
