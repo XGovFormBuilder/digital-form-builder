@@ -5134,14 +5134,11 @@ __metadata:
     resolve: ^1.19.0
     sass: ^1.26.11
     schmervice: ^1.6.0
-    sinon: 9.0.2
-    standard: ^14.3.4
-    tmp: 0.1.0
+    sinon: ^13.0.1
+    tmp: ^0.2.1
     typescript: ^4.0.3
-    url-parse: ^1.5.3
-    uuid: 7.0.3
-    vision: 5.4.4
-    wreck: ^14.2.0
+    url-parse: ^1.5.10
+    uuid: ^8.3.2
     yar: 9.1.0
   languageName: unknown
   linkType: soft
@@ -21572,50 +21569,18 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
-"standard-engine@npm:~9.0.0":
-  version: 9.0.0
-  resolution: "standard-engine@npm:9.0.0"
+"standard@npm:16.0.4":
+  version: 16.0.4
+  resolution: "standard@npm:16.0.4"
   dependencies:
-    deglob: ^2.1.0
-    get-stdin: ^6.0.0
-    minimist: ^1.1.0
-    pkg-conf: ^2.0.0
-  checksum: b8a84cf4f1202ae1a70013bebfe388c0288b9ff9d1afe66d3adfa8e6f5265412e29517f73fbdf3fadf0cbe0f921293d1fd1b1e0f2f1a607694dc1a58e038d79f
-  languageName: node
-  linkType: hard
-
-"standard@npm:12.0.1":
-  version: 12.0.1
-  resolution: "standard@npm:12.0.1"
-  dependencies:
-    eslint: ~5.4.0
-    eslint-config-standard: 12.0.0
-    eslint-config-standard-jsx: 6.0.2
-    eslint-plugin-import: ~2.14.0
-    eslint-plugin-node: ~7.0.1
-    eslint-plugin-promise: ~4.0.0
-    eslint-plugin-react: ~7.11.1
-    eslint-plugin-standard: ~4.0.0
-    standard-engine: ~9.0.0
-  bin:
-    standard: ./bin/cmd.js
-  checksum: 63410e1476ed24338538d02431211a528e91f9bf6f108c9c6fb2be69d6ce91488f2e2ebc01625477dc433233e29f432c69a7ce988efb0808c02d0757730e2d92
-  languageName: node
-  linkType: hard
-
-"standard@npm:^14.3.4":
-  version: 14.3.4
-  resolution: "standard@npm:14.3.4"
-  dependencies:
-    eslint: ~6.8.0
-    eslint-config-standard: 14.1.1
-    eslint-config-standard-jsx: 8.1.0
-    eslint-plugin-import: ~2.18.0
-    eslint-plugin-node: ~10.0.0
-    eslint-plugin-promise: ~4.2.1
-    eslint-plugin-react: ~7.14.2
-    eslint-plugin-standard: ~4.0.0
-    standard-engine: ^12.0.0
+    eslint: ~7.18.0
+    eslint-config-standard: 16.0.3
+    eslint-config-standard-jsx: 10.0.0
+    eslint-plugin-import: ~2.24.2
+    eslint-plugin-node: ~11.1.0
+    eslint-plugin-promise: ~5.1.0
+    eslint-plugin-react: ~7.25.1
+    standard-engine: ^14.0.1
   bin:
     standard: bin/cmd.js
   checksum: d8181ce0d0a90396256bd249c322e717d1182bc69dc4590a4c563d752a65db32a9895ab14dd655f1a640f06abc393ebc44eba5cd7f2aa86e75e10c786654c071
@@ -23584,18 +23549,6 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
-"vision@npm:5.4.4":
-  version: 5.4.4
-  resolution: "vision@npm:5.4.4"
-  dependencies:
-    boom: 7.x.x
-    hoek: 6.x.x
-    items: 2.x.x
-    joi: 14.x.x
-  checksum: 483b008ad7cbab976865c83c2410c4eb74cb1e51f0da09257cd62bb610a04bdaa68a73a02466b588f7b4f8ba83a9a7cc6458762526d04f8511e23a6ac178bf5f
-  languageName: node
-  linkType: hard
-
 "vm-browserify@npm:^1.0.1":
   version: 1.1.2
   resolution: "vm-browserify@npm:1.1.2"
@@ -24205,7 +24158,7 @@ resolve@^1.1.6:
   languageName: node
   linkType: hard
 
-"wreck@npm:14.2.0, wreck@npm:^14.2.0":
+"wreck@npm:14.2.0":
   version: 14.2.0
   resolution: "wreck@npm:14.2.0"
   dependencies:

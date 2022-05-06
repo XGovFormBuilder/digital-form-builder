@@ -4,7 +4,7 @@ import { HapiRequest, HapiResponseToolkit } from "../types";
 const applicationStatus = {
   plugin: {
     name: "applicationStatus",
-    dependencies: "vision",
+    dependencies: "@hapi/vision",
     multiple: true,
     register: (server) => {
       server.route({
