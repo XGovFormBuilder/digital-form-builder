@@ -1,7 +1,7 @@
 import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
-import wreck from "wreck";
+import wreck from "@hapi/wreck";
 
 import { post } from "server/services/httpService";
 
