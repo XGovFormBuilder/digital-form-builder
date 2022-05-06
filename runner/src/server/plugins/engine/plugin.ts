@@ -141,7 +141,7 @@ export const plugin = {
             [`GET /published`, "previewModeError"],
             disabledRouteDetailString
           );
-          throw Boom.notFound("publishing is disabled.");
+          throw Boom.unauthorized("publishing is disabled.");
         }
         return h
           .response(

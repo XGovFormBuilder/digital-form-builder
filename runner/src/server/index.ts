@@ -12,7 +12,6 @@ import { configureRateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
 import { configureInitialiseSessionPlugin } from "server/plugins/initialiseSession/configurePlugin";
-import { consoleMessages } from "./lib/consoleMessages";
 
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
