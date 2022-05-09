@@ -220,6 +220,7 @@ export class PageEdit extends React.Component {
             <label className="govuk-label govuk-label--s" htmlFor="page-type">
               {i18n("page.type")}
             </label>
+            <span className="govuk-hint">{i18n("page.typeHint")}</span>
             <select
               className="govuk-select"
               id="page-type"
