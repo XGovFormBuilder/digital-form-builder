@@ -31,9 +31,16 @@ export class PageEdit extends React.Component {
       title: page?.title ?? "",
       section: page?.section ?? "",
       isEditingSection: false,
+      isSummaryPage: false,
       errors: {},
     };
     this.formEditSection = React.createRef();
+  }
+
+  componentDidMount()
+  {
+    const { title } = this.state;
+    this.setState({isSummaryPage: (title === 'Summary')});
   }
 
   onSubmit = async (e) => {
@@ -203,8 +210,13 @@ export class PageEdit extends React.Component {
     return sections.find((section) => section.name === name);
   }
 
+  onEditStart = () => {
+    const [copyPage] = findPage(data, page.path);
+    if (copyPage.controller === "./pages/summary.js") setIsSummaryPage(true); // change to title
+  };
+
   render() {
-    const { isSummaryPage, i18n } = this.props;
+    const { i18n } = this.props;
     const { declaration, data } = this.context;
     const { sections } = data;
     const {
@@ -213,10 +225,11 @@ export class PageEdit extends React.Component {
       controller,
       section,
       isEditingSection,
+      isSummaryPage,
       isNewSection,
       errors,
     } = this.state;
-
+  
     return (
       <div data-testid="page-edit">
         {Object.keys(errors).length > 0 && (

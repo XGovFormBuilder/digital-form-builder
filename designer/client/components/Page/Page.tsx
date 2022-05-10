@@ -43,7 +43,14 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   const { data, save } = useContext(DataContext);
   const [isEditingPage, setIsEditingPage] = useState(false);
   const [isCreatingComponent, setIsCreatingComponent] = useState(false);
-  const [isSummaryPage, setIsSummaryPage] = useState(false);
+ 
+  const onEditStart = () => {
+    setIsEditingPage(true);
+  };
+
+  const onEditEnd = () => {
+    setIsEditingPage(false);
+  };
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const copy = { ...data };
@@ -51,17 +58,6 @@ export const Page = ({ page, previewUrl, id, layout }) => {
     copyPage.components = arrayMove(copyPage.components!, oldIndex, newIndex);
     copy.pages[index] = copyPage;
     save(copy);
-  };
-
-  const onEditStart = () => {
-    setIsEditingPage(true);
-    const [copyPage] = findPage(data, page.path);
-    if (copyPage.controller === "./pages/summary.js") setIsSummaryPage(true);
-  };
-
-  const onEditEnd = () => {
-    setIsSummaryPage(false);
-    setIsEditingPage(false);
   };
 
   const section = data.sections?.find(
@@ -126,7 +122,6 @@ export const Page = ({ page, previewUrl, id, layout }) => {
         <Flyout title="Edit Page" onHide={setIsEditingPage}>
           <PageEdit
             page={page}
-            isSummaryPage={isSummaryPage}
             closeFlyout={onEditEnd}
           />
         </Flyout>
