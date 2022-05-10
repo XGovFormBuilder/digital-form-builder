@@ -83,7 +83,12 @@ test("Links between pages are navigable via keyboard", async () => {
     save: jest.fn(),
   };
 
-  const { queryByTestId, queryAllByText, getByText } = customRender(
+  const {
+    queryByTestId,
+    queryAllByText,
+    getByText,
+    getAllByTestId,
+  } = customRender(
     <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
     {
       providerProps,
@@ -117,6 +122,6 @@ test("Links between pages are navigable via keyboard", async () => {
     code: "Space",
     charCode: 32,
   });
-
+  let a = getAllByTestId("minimap");
   expect(queryByTestId("flyout-0")).toBeInTheDocument();
 });

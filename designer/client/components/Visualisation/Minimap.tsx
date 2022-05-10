@@ -13,7 +13,7 @@ function onMapClick(node, nodes) {
     node.node.y - node.node.height / 2
   );
   let page = document.getElementById(node.node.label);
-  page.setAttribute("class", "page-hover");
+  page.setAttribute("class", "page page--selected");
 }
 
 function setCssBack(nodes) {
@@ -24,7 +24,7 @@ function setCssBack(nodes) {
 }
 
 export const Minimap = ({ layout, data, scale = 0.05 }: Props) => (
-  <div className="minimap">
+  <div id="minimap" className="minimap">
     <svg
       height={parseFloat(layout.height) * scale}
       width={parseFloat(layout.width) * scale}
