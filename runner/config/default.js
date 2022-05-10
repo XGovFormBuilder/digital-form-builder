@@ -21,7 +21,7 @@ module.exports = {
   port: 3009,
   env: "development",
   previewMode: true,
-  sandbox: true,
+  sandbox: false,
 
   /**
    * Helper flags
@@ -36,7 +36,7 @@ module.exports = {
     return this.env === "test";
   }),
   isSandbox: deferConfig(function () {
-    return this.sandbox === true;
+    return this.sandbox === true || this.sandbox === "true";
   }),
 
   /**
