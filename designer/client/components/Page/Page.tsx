@@ -76,7 +76,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   return (
     <div
       id={page.path}
-      data-testid={page.path + "as"}
+      data-testid={page.path}
       title={page.path}
       className={"page"}
       style={layout}

@@ -4,8 +4,6 @@ import { render, waitFor, fireEvent } from "@testing-library/react";
 import { DataContext } from "../../../context";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import { screen } from "@testing-library/dom";
-import { debug } from "console";
 
 const history = createMemoryHistory();
 history.push("");
@@ -85,12 +83,7 @@ test("Links between pages are navigable via keyboard", async () => {
     save: jest.fn(),
   };
 
-  const {
-    queryByTestId,
-    queryAllByText,
-    getByText,
-    getByTestId,
-  } = customRender(
+  const { queryByTestId, queryAllByText, getByText } = customRender(
     <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
     {
       providerProps,
@@ -144,15 +137,14 @@ test("Minimap Navigation", async () => {
     save: jest.fn(),
   };
 
-  const { getByTestId, queryByTestId, queryAllByTestId } = customRender(
+  const { getByTestId, queryByTestId } = customRender(
     <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
     {
       providerProps,
     }
   );
-  screen.debug();
-  debug();
+
   fireEvent.click(getByTestId("/link-target1"));
-  screen.debug();
-  debug();
+  // @ts-ignore
+  expect(queryByTestId("/link-target").className).toBe("page page--selected");
 });
