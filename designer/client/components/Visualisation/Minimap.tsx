@@ -24,7 +24,7 @@ function resetClassName(nodes) {
 }
 
 export const Minimap = ({ layout, scale = 0.05 }: Props) => (
-  <div id="minimap" className="minimap">
+  <div className="minimap">
     <svg
       height={parseFloat(layout.height) * scale}
       width={parseFloat(layout.width) * scale}
