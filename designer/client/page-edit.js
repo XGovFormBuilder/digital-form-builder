@@ -37,10 +37,9 @@ export class PageEdit extends React.Component {
     this.formEditSection = React.createRef();
   }
 
-  componentDidMount()
-  {
+  componentDidMount() {
     const { title } = this.state;
-    this.setState({isSummaryPage: (title === 'Summary')});
+    this.setState({ isSummaryPage: title === "Summary" });
   }
 
   onSubmit = async (e) => {
@@ -229,7 +228,7 @@ export class PageEdit extends React.Component {
       isNewSection,
       errors,
     } = this.state;
-  
+
     return (
       <div data-testid="page-edit">
         {Object.keys(errors).length > 0 && (

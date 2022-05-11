@@ -43,7 +43,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   const { data, save } = useContext(DataContext);
   const [isEditingPage, setIsEditingPage] = useState(false);
   const [isCreatingComponent, setIsCreatingComponent] = useState(false);
- 
+
   const onEditStart = () => {
     setIsEditingPage(true);
   };
@@ -120,10 +120,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       </div>
       {isEditingPage && (
         <Flyout title="Edit Page" onHide={setIsEditingPage}>
-          <PageEdit
-            page={page}
-            closeFlyout={onEditEnd}
-          />
+          <PageEdit page={page} closeFlyout={onEditEnd} />
         </Flyout>
       )}
 
