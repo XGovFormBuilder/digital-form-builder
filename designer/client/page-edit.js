@@ -216,8 +216,8 @@ export class PageEdit extends React.Component {
 
   render() {
     const { i18n } = this.props;
-    const { declaration, data } = this.context;
-    const { sections } = data;
+    const { data } = this.context;
+    const { sections, declaration } = data;
     const {
       title,
       path,
