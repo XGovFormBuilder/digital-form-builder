@@ -209,15 +209,10 @@ export class PageEdit extends React.Component {
     return sections.find((section) => section.name === name);
   }
 
-  onEditStart = () => {
-    const [copyPage] = findPage(data, page.path);
-    if (copyPage.controller === "./pages/summary.js") setIsSummaryPage(true); // change to title
-  };
-
   render() {
     const { i18n } = this.props;
     const { data } = this.context;
-    const { sections, declaration } = data;
+    const { sections } = data;
     const {
       title,
       path,
@@ -337,7 +332,7 @@ export class PageEdit extends React.Component {
                 class is available. Use this on a wrapping element to apply
                 default govuk styles.
               </span>
-              <Editor name="declaration" value={declaration} />
+              <Editor name="declaration" />
             </div>
           )}
           <button className="govuk-button" type="submit">
