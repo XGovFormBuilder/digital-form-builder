@@ -15,10 +15,6 @@ export type FeeState = {
   reference: string;
   self: string;
   returnUrl: string;
-
-  /**
-   * FeeState#meta is used to generate a new payment link for GOV.UK Pay.
-   */
   meta: {
     amount: Fees["total"];
     attempts: number;

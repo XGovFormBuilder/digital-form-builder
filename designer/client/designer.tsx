@@ -99,7 +99,7 @@ export default class Designer extends Component<Props, State> {
       <FeatureFlagProvider>
         <DataContext.Provider value={dataContextProviderValue}>
           <FlyoutContext.Provider value={flyoutContextProviderValue}>
-            <div id="designer">
+            <div id="app">
               <Prompt when={!error} message={`${i18n("leaveDesigner")}`} />
               <Menu
                 id={this.id}

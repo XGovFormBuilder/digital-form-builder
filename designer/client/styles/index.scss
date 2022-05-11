@@ -24,7 +24,6 @@ body {
 main {
   flex: 1;
   display: flex;
-  padding-top: 15px;
 }
 
 .pull-right {
@@ -69,10 +68,11 @@ button.govuk-link {
   }
 }
 
+
+
 .menu {
   padding: 8px;
   background-color: #ffffff;
-  padding-top: 35px;
 
   &__row {
     a {
@@ -102,17 +102,17 @@ button.govuk-link {
 
 @include govuk-media-query($from: tablet) {
   .menu {
-    position: fixed;
-    top: 46px;
+    position: sticky;
+    top: 0;
     padding: 8px;
     z-index: 999;
     background-color: #fff;
-    width: 100%;
     button {
       margin-bottom: 0;
     }
   }
 }
+
 
 .component {
   cursor: pointer;
@@ -742,12 +742,3 @@ footer {
   padding-left: govuk-spacing(3);
 }
 
-.govuk-phase-banner--solid {
-  background-color: #fff;
-  z-index: 999;
-  position: fixed;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #b1b4b6;
-  width: 100%;
-}

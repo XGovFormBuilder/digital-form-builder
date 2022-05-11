@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { DataContext } from "../../context";
+import React from "react";
 
 const listTypes = [
   "SelectField",
@@ -16,7 +15,7 @@ export function componentToString(component) {
 }
 
 export function DataPrettyPrint(props) {
-  const { data } = useContext(DataContext);
+  const { data } = props;
   const { sections = [], pages = [] } = data;
 
   const model = {};
