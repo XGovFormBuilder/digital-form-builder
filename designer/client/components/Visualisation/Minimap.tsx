@@ -45,6 +45,7 @@ export const Minimap = ({ layout, data, scale = 0.05 }: Props) => (
           <g key={node.node.label + index}>
             <a
               id={node.node.label + index}
+              data-testid={node.node.label + index}
               onClick={() => onMapClick(node, layout.nodes)}
             >
               <rect

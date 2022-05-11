@@ -4,6 +4,8 @@ import { render, waitFor, fireEvent } from "@testing-library/react";
 import { DataContext } from "../../../context";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import { screen } from "@testing-library/dom";
+import { debug } from "console";
 
 const history = createMemoryHistory();
 history.push("");
@@ -87,14 +89,13 @@ test("Links between pages are navigable via keyboard", async () => {
     queryByTestId,
     queryAllByText,
     getByText,
-    getAllByTestId,
+    getByTestId,
   } = customRender(
     <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
     {
       providerProps,
     }
   );
-
   // Check link exists and has the expected label
   const link = await queryAllByText(
     "Edit link from link-source to link-target"
@@ -122,6 +123,36 @@ test("Links between pages are navigable via keyboard", async () => {
     code: "Space",
     charCode: 32,
   });
-  let a = getAllByTestId("minimap");
+
   expect(queryByTestId("flyout-0")).toBeInTheDocument();
+});
+
+test("Minimap Navigation", async () => {
+  const data = {
+    pages: [
+      {
+        title: "link source",
+        path: "/link-source",
+        next: [{ path: "/link-target" }],
+      },
+      { title: "link target", path: "/link-target" },
+    ],
+    conditions: [],
+  };
+  const providerProps = {
+    data,
+    save: jest.fn(),
+  };
+
+  const { getByTestId, queryByTestId, queryAllByTestId } = customRender(
+    <Visualisation previewUrl={"http://localhost:3000"} id={"aa"} />,
+    {
+      providerProps,
+    }
+  );
+  screen.debug();
+  debug();
+  fireEvent.click(getByTestId("/link-target1"));
+  screen.debug();
+  debug();
 });
