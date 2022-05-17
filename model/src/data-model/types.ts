@@ -139,4 +139,5 @@ export type FormDefinition = {
   payApiKey?: string | MultipleApiKeys | undefined;
   specialPages?: SpecialPages;
   paymentReferenceFormat?: string;
+  confirmationText?: string;
 };

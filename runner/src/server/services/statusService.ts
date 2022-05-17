@@ -269,6 +269,7 @@ export class StatusService {
     };
 
     if (!customText && !callback?.customText) {
+      model.customText.title = "custom text";
       return model;
     }
 

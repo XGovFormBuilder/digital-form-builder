@@ -244,6 +244,7 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    confirmationText: joi.string().allow("").optional(),
   });
 
 /**
