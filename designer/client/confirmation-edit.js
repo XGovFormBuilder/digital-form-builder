@@ -20,7 +20,14 @@ class ConfirmationEdit extends React.Component {
     const { save, data } = this.context;
     const copy = clone(data);
 
-    copy.confirmationText = formData.get("confirmation");
+    copy.specialPages = {
+      confirmationPage: {
+        customText: {
+          title: (copy.confirmationText = formData.get("title")),
+          nextSteps: (copy.confirmationText = formData.get("nextSteps")),
+        },
+      },
+    };
 
     try {
       const savedData = await save(copy);
@@ -32,7 +39,8 @@ class ConfirmationEdit extends React.Component {
 
   render() {
     const { data } = this.context;
-    const { confirmationText } = data;
+    const { specialPages } = data;
+    let a = specialPages?.confirmationPage.customText.title;
 
     return (
       <div className="govuk-body">
@@ -40,10 +48,16 @@ class ConfirmationEdit extends React.Component {
           <div className="govuk-checkboxes govuk-form-group">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
               <p className="govuk-fieldset__heading">ConfirmationEdit</p>
-              <span className="govuk-hint">
-                This can be used to edit the text on the confiramtion page.
-              </span>
-              <Editor name="confirmation" value={confirmationText} />
+              <span className="govuk-hint">Title</span>
+              <Editor
+                name="title"
+                value={specialPages?.confirmationPage.customText.title}
+              />
+              <span className="govuk-hint">Next Steps</span>
+              <Editor
+                name="nextSteps"
+                value={specialPages?.confirmationPage.customText.nextSteps}
+              />
             </legend>
           </div>
 
