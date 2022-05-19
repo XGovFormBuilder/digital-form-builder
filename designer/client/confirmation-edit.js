@@ -1,7 +1,6 @@
 import React from "react";
 import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
-
 import { DataContext } from "./context";
 import logger from "../client/plugins/logger";
 
@@ -40,7 +39,6 @@ class ConfirmationEdit extends React.Component {
   render() {
     const { data } = this.context;
     const { specialPages } = data;
-    let a = specialPages?.confirmationPage.customText.title;
 
     return (
       <div className="govuk-body">
