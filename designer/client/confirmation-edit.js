@@ -23,8 +23,10 @@ class ConfirmationEdit extends React.Component {
     copy.specialPages = {
       confirmationPage: {
         customText: {
-          title: (copy.confirmationText = formData.get("title")),
-          nextSteps: (copy.confirmationText = formData.get("nextSteps")),
+          title: (copy.confirmationText = formData.get("confirmation-title")),
+          nextSteps: (copy.confirmationText = formData.get(
+            "confirmation-next-steps"
+          )),
         },
       },
     };
@@ -53,6 +55,10 @@ class ConfirmationEdit extends React.Component {
               <Input
                 id="confirmation-title"
                 name="confirmation-title"
+                label={{
+                  className: "govuk-label--s",
+                  children: ["Title"],
+                }}
                 defaultValue={
                   specialPages?.confirmationPage.customText.title ?? ""
                 }
@@ -63,6 +69,10 @@ class ConfirmationEdit extends React.Component {
               <Input
                 id="confirmation-next-steps"
                 name="confirmation-next-steps"
+                label={{
+                  className: "govuk-label--s",
+                  children: ["Next Steps"],
+                }}
                 defaultValue={
                   specialPages?.confirmationPage.customText.nextSteps ?? ""
                 }
