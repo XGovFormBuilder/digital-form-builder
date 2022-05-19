@@ -20,7 +20,7 @@
     {% set tmpl = 'Your reference number<br><strong>' + reference + '</strong>' if reference else '' %}
     {% if not customText %}
       {{ govukPanel({
-        titleText: "Wooo Test",
+        titleText: "Application complete",
         html: tmpl
       }) }}
 
@@ -31,7 +31,7 @@
         </p>
         {% else %}
         <p class="govuk-body">
-         {{customText}}
+          You will receive an email with details with the next steps.
         </p>
       {% endif %}
     {% else %}
