@@ -48,18 +48,24 @@ class ConfirmationEdit extends React.Component {
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
               <p className="govuk-fieldset__heading">Edit Confirmation text?</p>
               <span className="govuk-hint">
-                This will edit the Title for the confirmation page
+                This will edit the Title for the confirmation page.
               </span>
               <Input
-                name="title"
-                value={specialPages?.confirmationPage.customText.title}
+                id="confirmation-title"
+                name="confirmation-title"
+                defaultValue={
+                  specialPages?.confirmationPage.customText.title ?? ""
+                }
               />
               <span className="govuk-hint">
-                This will edit the Next Steps text of the confirmation pages
+                This will edit the Next Steps text of the confirmation pages.
               </span>
               <Input
-                name="nextSteps"
-                value={specialPages?.confirmationPage.customText.nextSteps}
+                id="confirmation-next-steps"
+                name="confirmation-next-steps"
+                defaultValue={
+                  specialPages?.confirmationPage.customText.nextSteps ?? ""
+                }
               />
             </legend>
           </div>
