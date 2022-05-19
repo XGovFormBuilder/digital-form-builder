@@ -3,6 +3,7 @@ import Editor from "./editor";
 import { clone } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import logger from "../client/plugins/logger";
+import { Input } from "@govuk-jsx/input";
 
 class ConfirmationEdit extends React.Component {
   static contextType = DataContext;
@@ -45,14 +46,18 @@ class ConfirmationEdit extends React.Component {
         <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
           <div className="govuk-checkboxes govuk-form-group">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
-              <p className="govuk-fieldset__heading">ConfirmationEdit</p>
-              <span className="govuk-hint">Title</span>
-              <Editor
+              <p className="govuk-fieldset__heading">Edit Confirmation text?</p>
+              <span className="govuk-hint">
+                This will edit the Title for the confirmation page
+              </span>
+              <Input
                 name="title"
                 value={specialPages?.confirmationPage.customText.title}
               />
-              <span className="govuk-hint">Next Steps</span>
-              <Editor
+              <span className="govuk-hint">
+                This will edit the Next Steps text of the confirmation pages
+              </span>
+              <Input
                 name="nextSteps"
                 value={specialPages?.confirmationPage.customText.nextSteps}
               />
