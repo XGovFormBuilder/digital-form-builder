@@ -1,0 +1,46 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "UjidZI",
+          "options": {},
+          "type": "Sidebar",
+          "content": "this is a side bar",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2
+}
