@@ -34,6 +34,7 @@ const componentTypeEditors = {
   DateTimeField: DateFieldEdit,
   DateTimePartsField: DateFieldEdit,
   DateField: DateFieldEdit,
+  Sidebar: ParaEdit,
 };
 
 function ComponentTypeEdit(props) {

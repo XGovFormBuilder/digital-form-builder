@@ -37,6 +37,7 @@ export const componentTypes = {
   List,
   WarningText,
   WebsiteField: TextField,
+  Sidebar,
 };
 
 function Base(props) {
@@ -295,6 +296,14 @@ function Html() {
         <span className="line xshort govuk-!-margin-bottom-1 govuk-!-margin-top-1" />
       </div>
     </Base>
+  );
+}
+
+function Sidebar() {
+  return (
+    <ComponentField>
+      <div className="box" />
+    </ComponentField>
   );
 }
 

@@ -226,4 +226,13 @@ export const ComponentTypes: ComponentDef[] = [
     options: {},
     schema: {},
   },
+  {
+    name: "Sidebar",
+    type: "Sidebar",
+    title: "Sidebar",
+    subType: "content",
+    content: "",
+    options: {},
+    schema: {},
+  },
 ];

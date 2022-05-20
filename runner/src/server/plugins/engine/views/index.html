@@ -5,8 +5,8 @@
 {% block content %}
 
 {% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-{{gridSize}}">
+  <div class="govuk-grid-row">    
+    <div class="govuk-grid-column-one-half">
       {% if errors %}
         {{ govukErrorSummary(errors) }}
       {% endif %}
@@ -20,6 +20,6 @@
       {% endif %}
 
       <pre>{{ value | dump(2) | safe }}</pre>
-    </div>
+    </div>    
   </div>
 {% endblock %}
