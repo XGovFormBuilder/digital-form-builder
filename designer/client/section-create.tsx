@@ -1,14 +1,16 @@
-import React from "react";
+import React, { Component } from "react";
 import { clone } from "@xgovformbuilder/model";
-
 import { camelCase } from "./helpers";
 import { DataContext } from "./context";
 import { addSection } from "./data/section/addSection";
-import logger from "../client/plugins/logger";
+import logger from "./plugins/logger";
+import { string } from "joi";
 
-class SectionCreate extends React.Component {
+export default class SectionCreate extends Component<
+  { data; onCreate; onCancel },
+  { title; name; generatedName }
+> {
   static contextType = DataContext;
-  state = {};
 
   async onSubmit(e) {
     e.preventDefault();
@@ -121,5 +123,3 @@ class SectionCreate extends React.Component {
     );
   }
 }
-
-export default SectionCreate;

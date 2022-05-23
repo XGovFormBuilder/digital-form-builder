@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { clone, ComponentTypes } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
@@ -8,7 +8,8 @@ import { addComponent } from "./data/component";
 /**
  * @deprecated (keeping until tests are refactored)
  */
-class ComponentCreate extends React.Component {
+
+export default class ComponentCreate extends Component<> {
   static contextType = DataContext;
   state = {
     isSaving: false,
@@ -89,5 +90,3 @@ class ComponentCreate extends React.Component {
     );
   }
 }
-
-export default ComponentCreate;

@@ -10,15 +10,20 @@ import { i18n } from "./i18n";
 import { addLink } from "./data/page";
 import logger from "../client/plugins/logger";
 
-class LinkCreate extends React.Component {
-  static contextType = DataContext;
+import { DataContext } from "./context";
+
+const LinkCreate = (props) =>  {
+  const { data, save } = useContext(DataContext);
   state = { errors: {} };
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [title, setTitle] = useState(page?.title);
+  const [selectedCondition, setSelectedCondition] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  constructor(props, context) {
-    super(props, context);
-  }
+  const { pages } = data;
 
-  onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const { data, save } = this.context;
     const { from, to, selectedCondition } = this.state;
@@ -34,23 +39,21 @@ class LinkCreate extends React.Component {
     );
     error && logger.error("LinkCreate", error);
     const savedData = await save(updatedData);
-    this.props.onCreate({ data: savedData });
+    props.onCreate({ data: savedData });
   };
 
-  conditionSelected = (selectedCondition) => {
-    this.setState({
-      selectedCondition: selectedCondition,
-    });
+  const conditionSelected = (selectedCondition) => {
+     setSelectedCondition(selectedCondition);
   };
 
-  storeValue = (e, key) => {
+  const storeValue = (e, key) => {
     const input = e.target;
     const stateUpdate = {};
     stateUpdate[key] = input.value;
     this.setState(stateUpdate);
   };
 
-  validate = () => {
+  const validate = () => {
     const { from, to } = this.state;
     let errors = {};
     if (!from) {
@@ -59,16 +62,14 @@ class LinkCreate extends React.Component {
     if (!to) {
       errors.to = { href: "#link-target", children: "Enter to" };
     }
-    this.setState({
-      errors,
-    });
+
+    setErrors(
+      errors);
+      
     return !from || !to;
   };
 
-  render() {
-    const { data } = this.context;
-    const { pages } = data;
-    const { from, errors } = this.state;
+    
     let hasValidationErrors = Object.keys(errors).length > 0;
 
     return (
@@ -78,7 +79,7 @@ class LinkCreate extends React.Component {
         )}
         <div className="govuk-hint">{i18n("addLink.hint1")}</div>
         <div className="govuk-hint">{i18n("addLink.hint2")}</div>
-        <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
+        <form onSubmit={(e) => onSubmit(e)} autoComplete="off">
           <div
             className={classNames({
               "govuk-form-group": true,
@@ -99,7 +100,7 @@ class LinkCreate extends React.Component {
               id="link-source"
               data-testid="link-source"
               name="path"
-              onChange={(e) => this.storeValue(e, "from")}
+              onChange={(e) => storeValue(e, "from")}
             >
               <option />
               {pages.map((page) => (
@@ -132,7 +133,7 @@ class LinkCreate extends React.Component {
               id="link-target"
               data-testid="link-target"
               name="page"
-              onChange={(e) => this.storeValue(e, "to")}
+              onChange={(e) => storeValue(e, "to")}
             >
               <option />
               {pages.map((page) => (
@@ -150,7 +151,7 @@ class LinkCreate extends React.Component {
           {from && from.trim() !== "" && (
             <SelectConditions
               path={from}
-              conditionsChange={this.conditionSelected}
+              conditionsChange={conditionSelected}
               noFieldsHintText={i18n("addLink.noFieldsAvailable")}
             />
           )}
@@ -162,6 +163,5 @@ class LinkCreate extends React.Component {
       </>
     );
   }
-}
 
 export default LinkCreate;
