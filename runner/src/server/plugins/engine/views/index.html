@@ -7,6 +7,9 @@
 {% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
   <div class="govuk-grid-row">    
     <div class="govuk-grid-column-one-half">
+      <script>
+        console.log('I am the Console');
+    </script>
       {% if errors %}
         {{ govukErrorSummary(errors) }}
       {% endif %}
