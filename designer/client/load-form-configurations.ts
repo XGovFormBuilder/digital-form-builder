@@ -1,5 +1,5 @@
-import logger from "../client/plugins/logger";
-export function fetchConfigurations() {
+import logger from "./plugins/logger";
+export const fetchConfigurations = () => {
   return window
     .fetch("/api/configurations", {
       method: "get",
@@ -15,9 +15,9 @@ export function fetchConfigurations() {
         throw res.error;
       }
     });
-}
+};
 
-export async function loadConfigurations() {
+export const loadConfigurations = async () => {
   return await fetchConfigurations()
     .then((data) => {
       return Object.values(data) || [];
@@ -26,4 +26,4 @@ export async function loadConfigurations() {
       logger.error("loadConfigurations", error);
       return [];
     });
-}
+};

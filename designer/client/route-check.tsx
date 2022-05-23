@@ -1,5 +1,6 @@
-import React from "react"; //TODO:- remove this when implemented properly!
-/* eslint-disable */ export default class RouteChecker extends React.Component {
+import React, { Component } from "react"; //TODO:- remove this when implemented properly!
+/* eslint-disable */
+ export default class RouteChecker extends Component<{data}> {
   render() {
     const { data } = this.props;
     const personas = [
@@ -21,7 +22,7 @@ import React from "react"; //TODO:- remove this when implemented properly!
         ],
       },
     ];
-
+  
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
         <div className="govuk-form-group">
@@ -57,6 +58,8 @@ import React from "react"; //TODO:- remove this when implemented properly!
           Save
         </button>
       </form>
+    
+    
     );
   }
 }

@@ -1,17 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import SimpleEditor from "react-simple-code-editor";
 import core from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 
-class Editor extends React.Component {
-  constructor(props) {
-    super(props);
+interface Props {
+  id?: string;
+  value: string;
+  name?: string;
+  required?: boolean;
+  valueCallback: any;
+}
 
-    this.state = {
-      value: this.props.value || "",
-    };
-  }
+export default class Editor extends Component<Props, { value: any }> {
+  state = { value: this.props.value || "" };
 
   setState(state, callback) {
     super.setState(state, callback);
@@ -40,5 +42,3 @@ class Editor extends React.Component {
     );
   }
 }
-
-export default Editor;

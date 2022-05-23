@@ -1,20 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import Editor from "./editor";
 import { clone, ConditionsWrapper } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
 import { removeCondition, updateCondition } from "./data";
-import logger from "../client/plugins/logger";
+import logger from "./plugins/logger";
 
-class ConditionEdit extends React.Component {
+interface Props {
+  condition: any;
+  data: any;
+  onEdit: any;
+  onCancel: any;
+}
+
+interface State {
+  displayName: any;
+  value: any;
+}
+
+export default class ConditionEdit extends Component<Props, State> {
   static contextType = DataContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayName: props.condition.displayName,
-      value: props.condition.value,
-    };
-  }
+  state = {
+    displayName: this.props.condition.displayName,
+    value: this.props.condition.value,
+  };
 
   onSubmit = async (e) => {
     e.preventDefault();
@@ -144,5 +153,3 @@ class ConditionEdit extends React.Component {
     );
   }
 }
-
-export default ConditionEdit;
