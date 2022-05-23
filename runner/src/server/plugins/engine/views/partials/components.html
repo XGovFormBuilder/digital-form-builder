@@ -1,6 +1,9 @@
 {% macro componentList(components) %}
   {% for component in components %}
     {% import "../components/" + component.type.toLowerCase() + ".html" as view %}
+    <script>
+      console.log('I am the Console');
+  </script>
     {{ view[component.type](component) }}
   {% endfor %}
 {% endmacro %}
