@@ -4,8 +4,7 @@
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first! 
-
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
 
 This repository is a mono repo for
 
@@ -38,34 +37,34 @@ To learn more about workspaces, check these links:
 
 ### I want to...
 
-#### run a specific workspaces' script
+- #### run a specific workspaces' script
 
-`$ yarn [runner|designer|model] name-of-script`
+  `$ yarn [runner|designer|model] name-of-script`
 
-eg.: `yarn designer start` or `yarn runner add babel-core --dev`
+  eg.: `yarn designer start` or `yarn runner add babel-core --dev`
 
-#### run a script for each of the workspaces
+- #### run a script for each of the workspaces
 
-`$ yarn workspaces foreach run name-of-script`
+  `$ yarn workspaces foreach run name-of-script`
 
-#### watch and build for changes across all repos
+- #### watch and build for changes across all repos
 
-I wouldn't recommend it unless you have a beefy processor.
+  I wouldn't recommend it unless you have a beefy processor.
 
-`$ yarn watch`
+  `$ yarn watch`
 
-#### add a dependency to all workspaces
+- #### add a dependency to all workspaces
 
-`$ yarn add packagename`
+  `$ yarn add packagename`
 
-#### create a new workspace
+- #### create a new workspace
 
-1. create a new directory for the workspace and yarn init it
-   1. `$ mkdir myNewLib`
-   2. `$ cd myNewlib`
-   3. `$ yarn init`
-2. in the root `package.json`
-   1. add `myNewLib` to the `workspaces` object.
+  1. create a new directory for the workspace and yarn init it
+     1. `$ mkdir myNewLib`
+     2. `$ cd myNewlib`
+     3. `$ yarn init`
+  2. in the root `package.json`
+     1. add `myNewLib` to the `workspaces` object.
 
 ## Troubleshooting
 
@@ -84,6 +83,7 @@ We're using GitHub actions to run our CI process. View [a visualisation of the w
 #### Versioning
 
 Version numbers will automatically increment based on commit messages and SemVer (Major.Minor.Patch). When merging, prepend your merge commit with the following:
+
 - `major:` or `breaking:` - for example, `breaking: removing feature X`. This will increment the MAJOR version - for example: 1.1.0 to 2.0.0
 - `minor:` or `feature:` - for example, `feature: new component`. This will increment the MINOR version - for example: 1.1.0 to 1.2.0
 - `patch:` or `fix:` - for example, `fix: url bug` - this will increment the PATCH version - for example: 1.0.0 to 1.0.1 (this will also happen by default)
@@ -111,6 +111,7 @@ To run the smoke tests locally, you start the containers up using the command
 ```
 docker-compose up --build
 ```
+
 Then smoke test can be executed using command
 
 ```
@@ -118,10 +119,11 @@ yarn smoke-tests/designer smoke-test-headless
 ```
 
 Pre-requite for running smoke test are:
- 1. Yarn 
- 2. JVM 
- 2. a browser like chrome
- 3. Node version 12+ upto 14
- 4. yarn install
- 
- More details are on [Smoke Tests](./smoke-tests/README.md)
+
+1.  Yarn
+2.  JVM
+3.  a browser like chrome
+4.  Node version 12+ upto 14
+5.  yarn install
+
+More details are on [Smoke Tests](./smoke-tests/README.md)
