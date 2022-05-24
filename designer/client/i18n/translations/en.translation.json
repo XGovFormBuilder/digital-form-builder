@@ -198,7 +198,8 @@
     "WebsiteField": "Website",
     "WebsiteField_info": "A text box that users can enter a website into",
     "YesNoField": "YesNo",
-    "YesNoField_info": "Allows users to answer either 'Yes' or 'No'"
+    "YesNoField_info": "Allows users to answer either 'Yes' or 'No'",
+    "Sidebar": "Sidebar"
   },
   "fileUploadFieldEditPage": {
     "multipleFilesOption": {
