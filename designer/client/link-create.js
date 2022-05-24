@@ -10,9 +10,7 @@ import { i18n } from "./i18n";
 import { addLink } from "./data/page";
 import logger from "../client/plugins/logger";
 
-import { DataContext } from "./context";
-
-const LinkCreate = (props) =>  {
+const LinkCreate = (props) => {
   const { data, save } = useContext(DataContext);
   state = { errors: {} };
   const [from, setFrom] = useState("");
@@ -43,7 +41,7 @@ const LinkCreate = (props) =>  {
   };
 
   const conditionSelected = (selectedCondition) => {
-     setSelectedCondition(selectedCondition);
+    setSelectedCondition(selectedCondition);
   };
 
   const storeValue = (e, key) => {
@@ -63,105 +61,101 @@ const LinkCreate = (props) =>  {
       errors.to = { href: "#link-target", children: "Enter to" };
     }
 
-    setErrors(
-      errors);
-      
+    setErrors(errors);
+
     return !from || !to;
   };
 
-    
-    let hasValidationErrors = Object.keys(errors).length > 0;
+  let hasValidationErrors = Object.keys(errors).length > 0;
 
-    return (
-      <>
-        {hasValidationErrors && (
-          <ErrorSummary errorList={Object.values(errors)} />
+  return (
+    <>
+      {hasValidationErrors && (
+        <ErrorSummary errorList={Object.values(errors)} />
+      )}
+      <div className="govuk-hint">{i18n("addLink.hint1")}</div>
+      <div className="govuk-hint">{i18n("addLink.hint2")}</div>
+      <form onSubmit={(e) => onSubmit(e)} autoComplete="off">
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors?.from,
+          })}
+        >
+          <label className="govuk-label govuk-label--s" htmlFor="link-source">
+            From
+          </label>
+          {errors?.from && <ErrorMessage>{errors?.from.children}</ErrorMessage>}
+          <select
+            className={classNames({
+              "govuk-select": true,
+              "govuk-input--error": errors?.from,
+            })}
+            id="link-source"
+            data-testid="link-source"
+            name="path"
+            onChange={(e) => storeValue(e, "from")}
+          >
+            <option />
+            {pages.map((page) => (
+              <option
+                key={page.path}
+                value={page.path}
+                data-testid="link-source-option"
+              >
+                {page.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div
+          className={classNames({
+            "govuk-form-group": true,
+            "govuk-form-group--error": errors?.to,
+          })}
+        >
+          <label className="govuk-label govuk-label--s" htmlFor="link-target">
+            To
+          </label>
+          {errors?.to && <ErrorMessage>{errors?.to.children}</ErrorMessage>}
+          <select
+            className={classNames({
+              "govuk-select": true,
+              "govuk-input--error": errors?.to,
+            })}
+            id="link-target"
+            data-testid="link-target"
+            name="page"
+            onChange={(e) => storeValue(e, "to")}
+          >
+            <option />
+            {pages.map((page) => (
+              <option
+                key={page.path}
+                value={page.path}
+                data-testid="link-target-option"
+              >
+                {page.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {from && from.trim() !== "" && (
+          <SelectConditions
+            path={from}
+            conditionsChange={conditionSelected}
+            noFieldsHintText={i18n("addLink.noFieldsAvailable")}
+          />
         )}
-        <div className="govuk-hint">{i18n("addLink.hint1")}</div>
-        <div className="govuk-hint">{i18n("addLink.hint2")}</div>
-        <form onSubmit={(e) => onSubmit(e)} autoComplete="off">
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors?.from,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="link-source">
-              From
-            </label>
-            {errors?.from && (
-              <ErrorMessage>{errors?.from.children}</ErrorMessage>
-            )}
-            <select
-              className={classNames({
-                "govuk-select": true,
-                "govuk-input--error": errors?.from,
-              })}
-              id="link-source"
-              data-testid="link-source"
-              name="path"
-              onChange={(e) => storeValue(e, "from")}
-            >
-              <option />
-              {pages.map((page) => (
-                <option
-                  key={page.path}
-                  value={page.path}
-                  data-testid="link-source-option"
-                >
-                  {page.title}
-                </option>
-              ))}
-            </select>
-          </div>
 
-          <div
-            className={classNames({
-              "govuk-form-group": true,
-              "govuk-form-group--error": errors?.to,
-            })}
-          >
-            <label className="govuk-label govuk-label--s" htmlFor="link-target">
-              To
-            </label>
-            {errors?.to && <ErrorMessage>{errors?.to.children}</ErrorMessage>}
-            <select
-              className={classNames({
-                "govuk-select": true,
-                "govuk-input--error": errors?.to,
-              })}
-              id="link-target"
-              data-testid="link-target"
-              name="page"
-              onChange={(e) => storeValue(e, "to")}
-            >
-              <option />
-              {pages.map((page) => (
-                <option
-                  key={page.path}
-                  value={page.path}
-                  data-testid="link-target-option"
-                >
-                  {page.title}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {from && from.trim() !== "" && (
-            <SelectConditions
-              path={from}
-              conditionsChange={conditionSelected}
-              noFieldsHintText={i18n("addLink.noFieldsAvailable")}
-            />
-          )}
-
-          <button className="govuk-button" type="submit">
-            Save
-          </button>
-        </form>
-      </>
-    );
-  }
+        <button className="govuk-button" type="submit">
+          Save
+        </button>
+      </form>
+    </>
+  );
+};
 
 export default LinkCreate;
