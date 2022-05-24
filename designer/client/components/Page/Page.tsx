@@ -44,20 +44,16 @@ export const Page = ({ page, previewUrl, id, layout }) => {
   const [isEditingPage, setIsEditingPage] = useState(false);
   const [isCreatingComponent, setIsCreatingComponent] = useState(false);
 
-  const onEditStart = () => {
-    setIsEditingPage(true);
-  };
-
-  const onEditEnd = () => {
-    setIsEditingPage(false);
-  };
-
   const onSortEnd = ({ oldIndex, newIndex }) => {
     const copy = { ...data };
     const [copyPage, index] = findPage(data, page.path);
     copyPage.components = arrayMove(copyPage.components!, oldIndex, newIndex);
     copy.pages[index] = copyPage;
     save(copy);
+  };
+
+  const onEditEnd = () => {
+    setIsEditingPage(false);
   };
 
   const section = data.sections?.find(
@@ -98,7 +94,10 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       />
 
       <div className="page__actions">
-        <button title={i18n("Edit page")} onClick={(_e) => onEditStart()}>
+        <button
+          title={i18n("Edit page")}
+          onClick={(_e) => setIsEditingPage(true)}
+        >
           {i18n("Edit page")}
         </button>
         <button
@@ -119,7 +118,7 @@ export const Page = ({ page, previewUrl, id, layout }) => {
       </div>
       {isEditingPage && (
         <Flyout title="Edit Page" onHide={setIsEditingPage}>
-          <PageEdit page={page} closeFlyout={onEditEnd} />
+          <PageEdit page={page} onEdit={onEditEnd} />
         </Flyout>
       )}
 

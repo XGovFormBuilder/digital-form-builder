@@ -1,30 +1,9 @@
 import { Menu } from "..";
-import { screen } from "@testing-library/dom";
 import { render, fireEvent } from "@testing-library/react";
 import { DataContext, FlyoutContext } from "../../../context";
 import React from "react";
 
-const rawData = {
-  lists: [],
-  pages: [
-    {
-      title: "First page",
-      path: "/first-page",
-      components: [],
-    },
-    {
-      title: "Summary",
-      path: "/summary",
-      components: [],
-    },
-  ],
-  sections: [],
-  startPage: "",
-  conditions: [],
-};
-
-const data = { ...rawData };
-const dataValue = { data, save: jest.fn() };
+const dataValue = { data: {}, save: jest.fn() };
 const flyoutValue = {
   increment: jest.fn(),
   decrement: jest.fn(),
@@ -53,6 +32,7 @@ it("Renders button strings correctly", () => {
   expect(getByText("Lists")).toBeInTheDocument();
   expect(getByText("Outputs")).toBeInTheDocument();
   expect(getByText("Fees")).toBeInTheDocument();
+  expect(getByText("Summary behaviour")).toBeInTheDocument();
   expect(getByText("Summary")).toBeInTheDocument();
 });
 
@@ -78,18 +58,10 @@ it("clicking on a summary tab shows different tab content", () => {
 });
 
 it("flyouts close on Save", async () => {
-  const { getByText, queryByTestId, getByTestId } = customRender(<Menu />);
+  const { getByText, queryByTestId } = customRender(<Menu />);
 
-  fireEvent.click(getByText("Add link"));
+  fireEvent.click(getByText("Summary behaviour"));
   expect(queryByTestId("flyout-1")).toBeInTheDocument();
-
-  fireEvent.change(getByTestId("link-source"), {
-    target: { value: "/summary" },
-  });
-
-  fireEvent.change(getByTestId("link-target"), {
-    target: { value: "/first-page" },
-  });
 
   await fireEvent.click(getByText("Save"));
   expect(dataValue.save).toHaveBeenCalledTimes(1);
