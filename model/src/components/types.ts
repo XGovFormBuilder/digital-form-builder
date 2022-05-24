@@ -96,7 +96,10 @@ interface NumberFieldBase {
   name: string;
   title: string;
   hint: string;
-  options: {};
+  options: {
+    prefix?: string;
+    suffix?: string;
+  };
   schema: {
     min?: number;
     max?: number;
@@ -182,18 +185,12 @@ export interface YesNoFieldComponent extends TextFieldBase {
   type: "YesNoField";
 }
 
-export interface MultilineTextFieldComponent {
-  subType?: "field";
+export interface MultilineTextFieldComponent extends TextFieldBase {
   type: "MultilineTextField";
-  name: string;
-  title: string;
-  hint: string;
-  options: {
-    hideTitle?: boolean;
-    required?: boolean;
-    optionalText?: boolean;
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
     rows?: number;
-    classes?: string;
+    maxWords?: number;
   };
   schema: {
     max?: number;

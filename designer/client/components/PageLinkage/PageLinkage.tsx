@@ -18,8 +18,7 @@ export function PageLinkage({ page, layout }) {
   };
 
   const handleDragStart = useCallback((event) => {
-    const { clientX: x, clientY } = event;
-    const y = clientY + window.pageYOffset;
+    const { pageX: x, pageY: y } = event;
 
     setIsDragging(true);
     setLineEnd({ x, y });
@@ -28,8 +27,7 @@ export function PageLinkage({ page, layout }) {
   }, []);
 
   const handleDrag = useCallback((event) => {
-    const { clientX: x, clientY } = event;
-    const y = clientY + window.pageYOffset;
+    const { pageX: x, pageY: y } = event;
 
     if (!x && !y) {
       // event might return 0 0 moved outside dom or drop occurs outside linkage

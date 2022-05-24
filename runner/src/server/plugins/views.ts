@@ -1,7 +1,7 @@
 import path from "path";
 import resolve from "resolve";
 import nunjucks from "nunjucks";
-import vision from "vision";
+import vision from "@hapi/vision";
 import { capitalize } from "lodash";
 
 import pkg from "../../../package.json";
@@ -76,7 +76,7 @@ export default {
       sessionTimeout: config.sessionTimeout,
       skipTimeoutWarning: false,
       serviceStartPage: config.serviceStartPage || "#",
-      privacyPolicyUrl: config.privacyPolicyUrl || "#",
+      privacyPolicyUrl: config.privacyPolicyUrl || "/help/privacy",
       phaseTag: config.phaseTag,
       navigation: request?.auth.isAuthenticated
         ? [{ text: "Sign out", href: "/logout" }]
