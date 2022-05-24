@@ -54,12 +54,18 @@ const validateList = (component) => {
   return errors;
 };
 
-const ComponentsWithoutTitleField = [Types.InsetText, Types.Html, Types.Para];
+const ComponentsWithoutTitleField = [
+  Types.InsetText,
+  Types.Html,
+  Types.Para,
+  Types.Sidebar,
+];
 const ComponentsWithContentField = [
   Types.InsetText,
   Types.Html,
   Types.Para,
   Types.Details,
+  Types.Sidebar,
 ];
 const ComponentsWithListField = [
   Types.AutocompleteField,

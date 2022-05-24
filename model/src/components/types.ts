@@ -262,6 +262,7 @@ export interface InsetTextComponent extends ContentFieldBase {
 }
 export interface SidebarComponent extends ContentFieldBase {
   type: "Sidebar";
+  allign: "";
 }
 
 // List Fields
