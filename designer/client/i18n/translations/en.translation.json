@@ -51,7 +51,7 @@
       "title": "Autocomplete"
     },
     "classes": {
-      "helpText": "Apply CSS classes to this field. For example, govuk-input-width-5",
+      "helpText": "Apply CSS classes to this field. For example, govuk-input govuk-!-width-full",
       "title": "Classes"
     },
     "componentNameField": {
@@ -368,6 +368,10 @@
       "helpText": "Specifies the minimum number of characters users can enter",
       "title": "Min length"
     },
+    "maxWordField": {
+      "helpText": "Specifies the maximum number of words users can enter",
+      "title": "Max words"
+    },
     "regexField": {
       "helpText": "Specifies a regular expression to validate users' inputs. Use JavaScript syntax.",
       "title": "Regex"
@@ -387,6 +391,11 @@
     "titleField": {
       "helpText": "Appears above the page title. However, if these titles are the same, the form will only show the page title.",
       "title": "Section title"
+    }
+  },
+  "sidebar": {
+    "align": {
+      "hint": "Select which side of the page you wish to have the sidebar on."
     }
   },
   "title": "Title",
