@@ -19,9 +19,10 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
   const { data } = useContext(DataContext);
   const { options = {} }: { options: ContentOptions } = selectedComponent;
   const { conditions } = data;
-  let align = "";
+  const { align } = options;
 
   const editList = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    options.align = e.target.value;
     dispatch({
       type: ComponentActions.EDIT_OPTIONS_ALIGN,
       payload: e.target.value,
@@ -55,7 +56,7 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
           className="govuk-select"
           id="align"
           name="options.align"
-          value={align}
+          value={options.align}
           onChange={(e) => editList(e)}
         >
           <option value="left">Left</option> {" "}
