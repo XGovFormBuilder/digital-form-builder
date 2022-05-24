@@ -7,11 +7,13 @@ export class Sidebar extends ComponentBase {
     const viewModel = {
       ...super.getViewModel(formData, errors),
       content: this.content,
+      align: this.content,
     };
 
     if (options.condition) {
       viewModel.condition = options.condition;
     }
+    viewModel.align = options.align;
     return viewModel;
   }
 }

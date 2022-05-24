@@ -108,6 +108,19 @@ exports[`ComponentCreateList should match snapshot 1`] = `
               A block of text
             </div>
           </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
+              Sidebar
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              A block of text that you can apply basic HTML to, such as text formatting and hyperlinks, that will appear on either side of the Form
+            </div>
+          </li>
         </ol>
         <hr
           class="govuk-section-break govuk-section-break--m govuk-section-break--visible"

@@ -1,15 +1,30 @@
 {% from "error-summary/macro.njk" import govukErrorSummary %}
 {% from "partials/components.html" import componentList %}
+{% from "components/sidebar.html" import Sidebar %}
 
 {% extends 'layout.html' %}
 {% block content %}
 
 {% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
-  <div class="govuk-grid-row">    
-    <div class="govuk-grid-column-one-half">
-      <script>
-        console.log('I am the Console');
-    </script>
+<div class="govuk-grid-row"> 
+  {% set count = 0 %} 
+  {% for component in components %}
+    {%if component.type.toLowerCase() == "sidebar" %}
+     {% set count = count + 1 %}
+    {% endif %}    
+  {% endfor %}
+
+  {% set gridSize = "one-half" if count == "2" else "two-thirds" %}
+  {% set sidebarSize = "one-quarter" if count == "2" else "one-third" %}
+
+  {% for component in components %}
+    {%if component.type.toLowerCase() == "sidebar" %}    
+      {%if component.model.align.toLowerCase() == "left" %}
+        {{Sidebar(component, sidebarSize)}}
+      {% endif %}    
+    {% endif %}    
+  {% endfor %}    
+    <div class="govuk-grid-column-{{gridSize}}">
       {% if errors %}
         {{ govukErrorSummary(errors) }}
       {% endif %}
@@ -23,6 +38,13 @@
       {% endif %}
 
       <pre>{{ value | dump(2) | safe }}</pre>
-    </div>    
-  </div>
+    </div>
+    {% for component in components %}
+    {%if component.type.toLowerCase() == "sidebar" %}
+      {%if component.model.align.toLowerCase() == "right" %}
+        {{Sidebar(component, sidebarSize)}}
+      {% endif %}    
+    {% endif %}    
+  {% endfor %}
+  </div>  
 {% endblock %}

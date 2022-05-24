@@ -1,9 +1,8 @@
 {% macro componentList(components) %}
   {% for component in components %}
+  {% if component.type.toLowerCase() != "sidebar" %}
     {% import "../components/" + component.type.toLowerCase() + ".html" as view %}
-    <script>
-      console.log('I am the Console');
-  </script>
     {{ view[component.type](component) }}
+   {% endif %}
   {% endfor %}
 {% endmacro %}
