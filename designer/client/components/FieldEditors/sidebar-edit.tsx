@@ -3,7 +3,7 @@ import { ComponentContext } from "../../reducers/component/componentReducer";
 import { DataContext } from "../../context";
 import Editor from "../../editor";
 import { Actions } from "../../reducers/component/types";
-import { ContentOptions, SidebarComponent } from "@xgovformbuilder/model";
+import { ContentOptions } from "@xgovformbuilder/model";
 import { i18n } from "../../i18n";
 import { Actions as ComponentActions } from "./../../reducers/component/types";
 
@@ -19,11 +19,11 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
   const { data } = useContext(DataContext);
   const { options = {} }: { options: ContentOptions } = selectedComponent;
   const { conditions } = data;
-  const l = ["yes", "no"];
+  let align = "";
 
   const editList = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
-      type: ComponentActions.SET_SELECTED_LIST,
+      type: ComponentActions.EDIT_OPTIONS_ALIGN,
       payload: e.target.value,
     });
   };
@@ -48,16 +48,19 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
         />
       </div>
       <div className="govuk-form-group">
-        <label className="govuk-label govuk-label--s" htmlFor="condition">
+        <label className="govuk-label govuk-label--s" htmlFor="sidebaralign">
           Select Alignment
         </label>
         <select
           className="govuk-select"
-          id="condition"
-          name="sidebaralign"
-          value={l}
+          id="align"
+          name="options.align"
+          value={align}
           onChange={(e) => editList(e)}
-        ></select>
+        >
+          <option value="left">Left</option> {" "}
+          <option value="right">Right</option>
+        </select>
 
         <label className="govuk-label govuk-label--s" htmlFor="condition">
           Condition (optional)

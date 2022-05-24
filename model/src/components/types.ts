@@ -64,6 +64,7 @@ export type ConditionalComponent = {
 
 export type ContentOptions = {
   condition?: string;
+  align?: string;
 };
 
 /**
@@ -262,7 +263,6 @@ export interface InsetTextComponent extends ContentFieldBase {
 }
 export interface SidebarComponent extends ContentFieldBase {
   type: "Sidebar";
-  allign: "";
 }
 
 // List Fields
