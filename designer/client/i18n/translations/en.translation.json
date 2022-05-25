@@ -390,6 +390,11 @@
       "title": "Section title"
     }
   },
+  "sidebar": {
+    "align": {
+      "hint": "Select which side of the page you wish to have the sidebar on."
+    }
+  },
   "title": "Title",
   "titleHint": "Enter the name to show for this component",
   "warning": "Warning",

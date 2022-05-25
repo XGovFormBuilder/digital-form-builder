@@ -51,6 +51,7 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
         <label className="govuk-label govuk-label--s" htmlFor="sidebaralign">
           Select Alignment
         </label>
+        <span className="govuk-hint">{i18n("sidebar.align.hint")} </span>
         <select
           className="govuk-select"
           id="align"
