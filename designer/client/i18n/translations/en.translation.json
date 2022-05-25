@@ -51,7 +51,7 @@
       "title": "Autocomplete"
     },
     "classes": {
-      "helpText": "Apply CSS classes to this field. For example, govuk-input govuk-!-width-full",
+      "helpText": "Apply CSS classes to this field. For example, govuk-input-width-5",
       "title": "Classes"
     },
     "componentNameField": {
