@@ -4,9 +4,9 @@ import { schemaReducer } from "./componentReducer.schema";
 import { optionsReducer } from "./componentReducer.options";
 import { metaReducer } from "./componentReducer.meta";
 import { fieldsReducer } from "./componentReducer.fields";
-
+import { repeatingFieldsReducer } from "./componentReducer.repeatingFields";
 import type { ComponentActions } from "./types";
-import { Meta, Schema, Fields, Options, Actions } from "./types";
+import { Meta, Schema, Fields, RepeatingFields, Options, Actions } from "./types";
 import { ComponentDef } from "@xgovformbuilder/model";
 import logger from "../../plugins/logger";
 
@@ -39,6 +39,7 @@ const ActionsReducerCollection = [
   [Meta, metaReducer],
   [Options, optionsReducer],
   [Fields, fieldsReducer],
+  [RepeatingFields, repeatingFieldsReducer],
   [Schema, schemaReducer],
 ];
 
@@ -57,7 +58,7 @@ const isNotValidate = (type): type is Meta.VALIDATE => {
   return Object.values(Actions).includes(type);
 };
 
-export function componentReducer(
+export function componentReducer( 
   state,
   action: {
     type: ComponentActions;

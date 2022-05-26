@@ -33,6 +33,15 @@ export enum Fields {
 }
 
 /**
+ * actions for repeating fields
+ */
+ export enum RepeatingFields {
+  ADD_ROW = "ADD_ROW",
+  EDIT_ROW = "EDIT_ROW",
+  DELETE_ROW = "DELETE_ROW"
+}
+
+/**
  * actions which change the options
  */
 export enum Options {
@@ -54,6 +63,7 @@ export const Actions = {
   ...Meta,
   ...Schema,
   ...Fields,
+  ...RepeatingFields,
   ...Options,
 };
 export type ComponentActions = typeof Actions;

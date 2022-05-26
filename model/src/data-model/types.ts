@@ -13,6 +13,7 @@ export interface Page {
   controller: string;
   components?: ComponentDef[];
   section: string; // the section ID
+  repeatingField: [{}];
   next?: { path: string; condition?: string }[];
 }
 
