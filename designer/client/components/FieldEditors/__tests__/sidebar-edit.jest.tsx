@@ -13,11 +13,11 @@ describe("sidebar edit", () => {
           path: "/first-page",
           components: [
             {
-              name: "IDDQl4",
-              title: "abc",
-              schema: {},
+              name: "UjidZI",
               options: {},
-              type: "Para",
+              type: "Sidebar",
+              content: "this is a side bar",
+              schema: {},
             },
           ],
         },
@@ -44,8 +44,16 @@ describe("sidebar edit", () => {
         <SidebarEdit context={ComponentContext}></SidebarEdit>
       </TestComponentWithContext>
     );
-    expect(container).toHaveTextContent("");
+    expect(container).toHaveTextContent(
+      "Enter the text you want to show. You can apply basic HTML, such as text formatting and hyperlinks."
+    );
 
-    expect(container).toHaveTextContent("");
+    expect(container).toHaveTextContent(
+      "Select which side of the page you wish to have the sidebar on."
+    );
+
+    expect(container).toHaveTextContent(
+      "Select a condition that determines whether to show the contents of this component. You can create and edit conditions from the Conditions screen."
+    );
   });
 });
