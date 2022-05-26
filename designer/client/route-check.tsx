@@ -1,8 +1,8 @@
 import React, { Component } from "react"; //TODO:- remove this when implemented properly!
 /* eslint-disable */
- export default class RouteChecker extends Component<{data}> {
-  render() {
-    const { data } = this.props;
+// To be implemented...
+const RouteChecker = ({data}) => {
+  
     const personas = [
       {
         id: "a",
@@ -24,7 +24,7 @@ import React, { Component } from "react"; //TODO:- remove this when implemented 
     ];
   
     return (
-      <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
+      <form onSubmit={(e) => onSubmit(e)} autoComplete="off">
         <div className="govuk-form-group">
           <label className="govuk-label govuk-label--s" htmlFor="link-source">
             From
@@ -33,7 +33,7 @@ import React, { Component } from "react"; //TODO:- remove this when implemented 
             className="govuk-select"
             id="link-source"
             name="path"
-            onChange={(e) => this.storeValue(e, "from")}
+            onChange={(e) => storeValue(e, "from")}
             required
           >
             <option />
@@ -61,5 +61,5 @@ import React, { Component } from "react"; //TODO:- remove this when implemented 
     
     
     );
-  }
+  
 }
