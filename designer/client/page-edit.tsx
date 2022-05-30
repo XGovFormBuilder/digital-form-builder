@@ -81,6 +81,8 @@ const PageEdit = (props) => {
       props.closeFlyout();
     } catch (err) {
       logger.error("PageEdit", err);
+      console.log("Error ");
+      console.log(err);
     }
   };
 

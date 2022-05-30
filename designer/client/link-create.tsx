@@ -11,12 +11,12 @@ import { addLink } from "./data/page";
 import logger from "../client/plugins/logger";
 
 const LinkCreate = (props) => {
+  const [selectedCondition, setSelectedCondition] = useState("");
   const { data, save } = useContext(DataContext);
-  const [path, setPath] = useState("");
+  const [path, setPath] = useState(null);
   const [errors, setErrors] = useState({});
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [selectedCondition, setSelectedCondition] = useState("");
 
   const { pages } = data;
 
@@ -39,13 +39,6 @@ const LinkCreate = (props) => {
 
   const conditionSelected = (selectedCondition) => {
     setSelectedCondition(selectedCondition);
-  };
-
-  const storeValue = (e, key) => {
-    const input = e.target;
-    const stateUpdate = {};
-    stateUpdate[key] = input.value;
-    useState(stateUpdate);
   };
 
   const validate = () => {
@@ -88,7 +81,7 @@ const LinkCreate = (props) => {
             id="link-source"
             data-testid="link-source"
             name="path"
-            onChange={(e) => storeValue(e, "from")}
+            onChange={(e) => setFrom(e.target.value)}
           >
             <option />
             {pages.map((page) => (
@@ -121,7 +114,7 @@ const LinkCreate = (props) => {
             id="link-target"
             data-testid="link-target"
             name="page"
-            onChange={(e) => storeValue(e, "to")}
+            onChange={(e) => setTo(e.target.value)}
           >
             <option />
             {pages.map((page) => (

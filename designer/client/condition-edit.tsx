@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Editor from "./editor";
 import { clone, ConditionsWrapper } from "@xgovformbuilder/model";
 import { DataContext } from "./context";
@@ -12,6 +12,8 @@ const ConditionEdit = (props) => {
   const [value, setValue] = useState(props.condition.value);
 
   const { condition } = props;
+
+  const wrappedCondition = new ConditionsWrapper(condition);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -68,8 +70,6 @@ const ConditionEdit = (props) => {
   const onValueChange = (value) => {
     setValue(value);
   };
-
-  const wrappedCondition = new ConditionsWrapper(condition);
 
   return (
     <form onSubmit={(e) => onSubmit(e)} autoComplete="off">

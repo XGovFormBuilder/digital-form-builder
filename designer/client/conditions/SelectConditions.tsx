@@ -14,9 +14,9 @@ import {
 } from "../data";
 interface Props {
   path: string;
-  data: Data;
+  data?: Data;
   conditionsChange: (selectedCondition: string) => void;
-  hints: any[];
+  hints?: any[];
   noFieldsHintText?: string;
 }
 
