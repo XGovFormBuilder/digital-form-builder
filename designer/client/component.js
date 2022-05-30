@@ -6,269 +6,6 @@ import ComponentEdit from "./ComponentEdit";
 import { ComponentContextProvider } from "./reducers/component/componentReducer";
 import { i18n } from "./i18n";
 
-const DragHandle = SortableHandle(() => (
-  <span className="drag-handle">&#9776;</span>
-));
-
-const Base = (props) => {
-  return <div>{props.children}</div>;
-};
-
-const ComponentField = (props) => {
-  return <Base>{props.children}</Base>;
-};
-
-const TextField = () => {
-  return (
-    <ComponentField>
-      <div className="box" />
-    </ComponentField>
-  );
-};
-
-const TelephoneNumberField = () => {
-  return (
-    <ComponentField>
-      <div className="box tel" />
-    </ComponentField>
-  );
-};
-
-const EmailAddressField = () => {
-  return (
-    <ComponentField>
-      <div className="box email" />
-    </ComponentField>
-  );
-};
-
-const UkAddressField = () => {
-  return (
-    <ComponentField>
-      <span className="box" />
-      <span className="button search">
-        <SearchIcon width={20} height={20} />
-      </span>
-    </ComponentField>
-  );
-};
-
-const MultilineTextField = () => {
-  return (
-    <ComponentField>
-      <span className="box tall" />
-    </ComponentField>
-  );
-};
-
-const NumberField = () => {
-  return (
-    <ComponentField>
-      <div className="box number" />
-    </ComponentField>
-  );
-};
-
-const DateField = () => {
-  return (
-    <ComponentField>
-      <div className="box dropdown">
-        <span className="govuk-body govuk-!-font-size-14">dd/mm/yyyy</span>
-      </div>
-    </ComponentField>
-  );
-};
-
-const DateTimeField = () => {
-  return (
-    <ComponentField>
-      <div className="box large dropdown">
-        <span className="govuk-body govuk-!-font-size-14">
-          dd/mm/yyyy hh:mm
-        </span>
-      </div>
-    </ComponentField>
-  );
-};
-
-const TimeField = () => {
-  return (
-    <ComponentField>
-      <div className="box">
-        <span className="govuk-body govuk-!-font-size-14">hh:mm</span>
-      </div>
-    </ComponentField>
-  );
-};
-
-const DateTimePartsField = () => {
-  return (
-    <ComponentField>
-      <span className="box small" />
-      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
-      <span className="box medium govuk-!-margin-right-1" />
-      <span className="box small govuk-!-margin-right-1" />
-      <span className="box small" />
-    </ComponentField>
-  );
-};
-
-const MonthYearField = () => {
-  return (
-    <ComponentField>
-      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
-      <span className="box medium" />
-    </ComponentField>
-  );
-};
-
-const DatePartsField = () => {
-  return (
-    <ComponentField>
-      <span className="box small" />
-      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
-      <span className="box medium" />
-    </ComponentField>
-  );
-};
-
-const RadiosField = () => {
-  return (
-    <ComponentField>
-      <div className="govuk-!-margin-bottom-1">
-        <span className="circle" />
-        <span className="line short" />
-      </div>
-      <div className="govuk-!-margin-bottom-1">
-        <span className="circle" />
-        <span className="line short" />
-      </div>
-      <span className="circle" />
-      <span className="line short" />
-    </ComponentField>
-  );
-};
-
-const CheckboxesField = () => {
-  return (
-    <ComponentField>
-      <div className="govuk-!-margin-bottom-1">
-        <span className="check" />
-        <span className="line short" />
-      </div>
-      <div className="govuk-!-margin-bottom-1">
-        <span className="check" />
-        <span className="line short" />
-      </div>
-      <span className="check" />
-      <span className="line short" />
-    </ComponentField>
-  );
-};
-
-const SelectField = () => {
-  return (
-    <ComponentField>
-      <div className="box dropdown" />
-    </ComponentField>
-  );
-};
-
-const YesNoField = () => {
-  return (
-    <ComponentField>
-      <div className="govuk-!-margin-bottom-1">
-        <span className="circle" />
-        <span className="line short" />
-      </div>
-      <span className="circle" />
-      <span className="line short" />
-    </ComponentField>
-  );
-};
-
-const FileUploadField = () => {
-  return (
-    <ComponentField>
-      <div className="govuk-!-margin-bottom-1">
-        {"🗂"} <span className="line short" />
-      </div>
-    </ComponentField>
-  );
-};
-
-const Details = () => {
-  return (
-    <Base>
-      {"▶ "}
-      <span className="line short" />
-    </Base>
-  );
-};
-
-const InsetText = () => {
-  return (
-    <Base>
-      <div className="inset govuk-!-padding-left-2">
-        <div className="line" />
-        <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line" />
-      </div>
-    </Base>
-  );
-};
-
-const WarningText = () => {
-  return (
-    <Base>
-      <div className="warning govuk-!-padding-left-2">
-        <div className="line" />
-        <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line" />
-      </div>
-    </Base>
-  );
-};
-
-const Para = () => {
-  return (
-    <Base>
-      <div className="line" />
-      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-      <div className="line" />
-    </Base>
-  );
-};
-
-const FlashCard = () => {
-  return (
-    <Base>
-      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-      <div className="line" />
-    </Base>
-  );
-};
-
-const List = () => {
-  return (
-    <Base>
-      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-    </Base>
-  );
-};
-
-const Html = () => {
-  return (
-    <Base>
-      <div className="html">
-        <span className="line xshort govuk-!-margin-bottom-1 govuk-!-margin-top-1" />
-      </div>
-    </Base>
-  );
-};
-
 export const componentTypes = {
   TextField,
   TelephoneNumberField,
@@ -297,6 +34,265 @@ export const componentTypes = {
   WarningText,
   WebsiteField: TextField,
 };
+
+function Base(props) {
+  return <div>{props.children}</div>;
+}
+
+function ComponentField(props) {
+  return <Base>{props.children}</Base>;
+}
+
+function TextField() {
+  return (
+    <ComponentField>
+      <div className="box" />
+    </ComponentField>
+  );
+}
+
+function TelephoneNumberField() {
+  return (
+    <ComponentField>
+      <div className="box tel" />
+    </ComponentField>
+  );
+}
+
+function EmailAddressField() {
+  return (
+    <ComponentField>
+      <div className="box email" />
+    </ComponentField>
+  );
+}
+
+function UkAddressField() {
+  return (
+    <ComponentField>
+      <span className="box" />
+      <span className="button search">
+        <SearchIcon width={20} height={20} />
+      </span>
+    </ComponentField>
+  );
+}
+
+function MultilineTextField() {
+  return (
+    <ComponentField>
+      <span className="box tall" />
+    </ComponentField>
+  );
+}
+
+function NumberField() {
+  return (
+    <ComponentField>
+      <div className="box number" />
+    </ComponentField>
+  );
+}
+
+function DateField() {
+  return (
+    <ComponentField>
+      <div className="box dropdown">
+        <span className="govuk-body govuk-!-font-size-14">dd/mm/yyyy</span>
+      </div>
+    </ComponentField>
+  );
+}
+
+function DateTimeField() {
+  return (
+    <ComponentField>
+      <div className="box large dropdown">
+        <span className="govuk-body govuk-!-font-size-14">
+          dd/mm/yyyy hh:mm
+        </span>
+      </div>
+    </ComponentField>
+  );
+}
+
+function TimeField() {
+  return (
+    <ComponentField>
+      <div className="box">
+        <span className="govuk-body govuk-!-font-size-14">hh:mm</span>
+      </div>
+    </ComponentField>
+  );
+}
+
+function DateTimePartsField() {
+  return (
+    <ComponentField>
+      <span className="box small" />
+      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
+      <span className="box medium govuk-!-margin-right-1" />
+      <span className="box small govuk-!-margin-right-1" />
+      <span className="box small" />
+    </ComponentField>
+  );
+}
+
+function MonthYearField() {
+  return (
+    <ComponentField>
+      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
+      <span className="box medium" />
+    </ComponentField>
+  );
+}
+
+function DatePartsField() {
+  return (
+    <ComponentField>
+      <span className="box small" />
+      <span className="box small govuk-!-margin-left-1 govuk-!-margin-right-1" />
+      <span className="box medium" />
+    </ComponentField>
+  );
+}
+
+function RadiosField() {
+  return (
+    <ComponentField>
+      <div className="govuk-!-margin-bottom-1">
+        <span className="circle" />
+        <span className="line short" />
+      </div>
+      <div className="govuk-!-margin-bottom-1">
+        <span className="circle" />
+        <span className="line short" />
+      </div>
+      <span className="circle" />
+      <span className="line short" />
+    </ComponentField>
+  );
+}
+
+function CheckboxesField() {
+  return (
+    <ComponentField>
+      <div className="govuk-!-margin-bottom-1">
+        <span className="check" />
+        <span className="line short" />
+      </div>
+      <div className="govuk-!-margin-bottom-1">
+        <span className="check" />
+        <span className="line short" />
+      </div>
+      <span className="check" />
+      <span className="line short" />
+    </ComponentField>
+  );
+}
+
+function SelectField() {
+  return (
+    <ComponentField>
+      <div className="box dropdown" />
+    </ComponentField>
+  );
+}
+
+function YesNoField() {
+  return (
+    <ComponentField>
+      <div className="govuk-!-margin-bottom-1">
+        <span className="circle" />
+        <span className="line short" />
+      </div>
+      <span className="circle" />
+      <span className="line short" />
+    </ComponentField>
+  );
+}
+
+function FileUploadField() {
+  return (
+    <ComponentField>
+      <div className="govuk-!-margin-bottom-1">
+        {"🗂"} <span className="line short" />
+      </div>
+    </ComponentField>
+  );
+}
+
+function Details() {
+  return (
+    <Base>
+      {"▶ "}
+      <span className="line short" />
+    </Base>
+  );
+}
+
+function InsetText() {
+  return (
+    <Base>
+      <div className="inset govuk-!-padding-left-2">
+        <div className="line" />
+        <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line" />
+      </div>
+    </Base>
+  );
+}
+
+function WarningText() {
+  return (
+    <Base>
+      <div className="warning govuk-!-padding-left-2">
+        <div className="line" />
+        <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line" />
+      </div>
+    </Base>
+  );
+}
+
+function Para() {
+  return (
+    <Base>
+      <div className="line" />
+      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+      <div className="line" />
+    </Base>
+  );
+}
+
+function FlashCard() {
+  return (
+    <Base>
+      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+      <div className="line" />
+    </Base>
+  );
+}
+
+function List() {
+  return (
+    <Base>
+      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+    </Base>
+  );
+}
+
+function Html() {
+  return (
+    <Base>
+      <div className="html">
+        <span className="line xshort govuk-!-margin-bottom-1 govuk-!-margin-top-1" />
+      </div>
+    </Base>
+  );
+}
 
 export function Component(props) {
   const [showEditor, setShowEditor] = useState();
