@@ -20,8 +20,7 @@ module.exports = {
    */
   port: 3009,
   env: "development",
-  previewMode: false,
-  enforceCsrf: true,
+  previewMode: true,
   sandbox: false,
 
   /**

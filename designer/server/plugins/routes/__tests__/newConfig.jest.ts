@@ -1,7 +1,4 @@
 const { createServer } = require("../../../createServer");
-const { publish } = require("../../../lib/publish");
-
-jest.mock("../../../lib/publish");
 
 describe("NewConfig tests", () => {
   const startServer = async (): Promise<hapi.Server> => {
@@ -24,9 +21,6 @@ describe("NewConfig tests", () => {
     persistenceService.uploadConfiguration = () => {
       return Promise.resolve([]);
     };
-    persistenceService.getConfiguration = () => {
-      return Promise.resolve([]);
-    };
   });
 
   afterAll(async () => {
@@ -40,7 +34,6 @@ describe("NewConfig tests", () => {
       payload: { name: "A *& B", selected: { Key: "New" } },
     };
 
-    publish.mockImplementation(() => Promise.resolve([]));
     const res = await server.inject(options);
 
     expect(res.statusCode).toEqual(400);
@@ -56,7 +49,6 @@ describe("NewConfig tests", () => {
       payload: { name: "", selected: { Key: "Test" } },
     };
 
-    publish.mockImplementation(() => Promise.resolve([]));
     const res = await server.inject(options);
 
     expect(res.statusCode).toEqual(200);
@@ -69,25 +61,8 @@ describe("NewConfig tests", () => {
       payload: { name: "a-b", selected: { Key: "New" } },
     };
 
-    publish.mockImplementation(() => Promise.resolve([]));
     const res = await server.inject(options);
 
     expect(res.statusCode).toEqual(200);
-  });
-
-  test("POST /api/new without runner running should result in bad request", async () => {
-    const options = {
-      method: "post",
-      url: "/api/new",
-      payload: { name: "a-b", selected: { Key: "New" } },
-    };
-
-    publish.mockImplementation(() => Promise.reject());
-    const res = await server.inject(options);
-
-    expect(res.statusCode).toEqual(401);
-    expect(res.result).toMatch(
-      "Designer could not connect to runner instance."
-    );
   });
 });

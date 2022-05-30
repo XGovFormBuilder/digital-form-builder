@@ -28,7 +28,7 @@ export const getFormWithId: ServerRoute = {
           formJson = values;
         }
       } catch (error) {
-        request.logger.error(["GET /api/{id}/data", "getFormWithId"], error);
+        request.logger.error(error);
       }
 
       return h.response(formJson).type("application/json");

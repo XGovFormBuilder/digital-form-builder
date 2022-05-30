@@ -1,8 +1,6 @@
 {
   "safelist": ["webho.ok"],
   "isTest": true,
-  "previewMode": true,
-  "enforceCsrf": false,
   "initialisedSessionKey": "predictable-key",
   "env": "test"
 }

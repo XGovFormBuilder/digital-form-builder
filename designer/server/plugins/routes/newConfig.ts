@@ -41,10 +41,6 @@ export const registerNewFormWithRunner: ServerRoute = {
         }
       } catch (e) {
         request.logger.error(e);
-        return h
-          .response("Designer could not connect to runner instance.")
-          .type("text/plain")
-          .code(401);
       }
 
       const response = {
