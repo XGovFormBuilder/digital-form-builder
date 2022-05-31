@@ -1,4 +1,4 @@
-import React, { memo, useContext, useLayoutEffect } from "react";
+import React, { memo, useContext, useState, useLayoutEffect } from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { DataContext } from "./context";
 import { ComponentContext } from "./reducers/component/componentReducer";
