@@ -13,6 +13,7 @@ export function useListItem(state, dispatch): ListItemHook {
   const { value = "", condition } = selectedItem;
 
   function handleTitleChange(e) {
+    selectedItem.value = e.target.value;
     dispatch({
       type: ListActions.EDIT_LIST_ITEM_TEXT,
       payload: e.target.value,
