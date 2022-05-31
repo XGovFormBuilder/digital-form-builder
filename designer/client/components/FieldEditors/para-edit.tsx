@@ -19,6 +19,12 @@ export function ParaEdit({ context = ComponentContext }: Props) {
   const { options = {} }: { options: ContentOptions } = selectedComponent;
   const { conditions } = data;
 
+  const setState = (state) => {
+    
+
+
+  }
+
   return (
     <div>
       <div className="govuk-form-group">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SimpleEditor from "react-simple-code-editor";
 import core from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
@@ -7,9 +7,10 @@ import "prismjs/components/prism-javascript";
 const Editor = (props) => {
   const [value, setValue] = useState(props.value || "");
   const [name, setName] = useState("");
+  const [updateState, setUpdateState] = useState(false);
 
-  const setState = (state, callback) => {
-    props.setState(state, callback);
+  const setState = (state) => {
+    setValue(state.value);
     if (state.value && props.valueCallback) {
       props.valueCallback(state.value);
     }
