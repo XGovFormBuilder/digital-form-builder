@@ -61,7 +61,7 @@ class CreateComponentSection extends Page {
   }
 
   paragraphSetText(text) {
-    $("[name='content']").setValue(text);
+    $("[name='content']").props.setValue(text);
   }
 
   /**
