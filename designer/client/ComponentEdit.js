@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState, useLayoutEffect } from "react";
+import React, { memo, useContext, useLayoutEffect } from "react";
 import ComponentTypeEdit from "./ComponentTypeEdit";
 import { DataContext } from "./context";
 import { ComponentContext } from "./reducers/component/componentReducer";
@@ -17,19 +17,17 @@ const LIST_TYPES = [
   Types.FlashCard,
 ];
 
-const ComponentEdit = (props) => {
+export function ComponentEdit(props) {
   const { data, save } = useContext(DataContext);
   const { state, dispatch } = useContext(ComponentContext);
+  const {
+    selectedComponent,
+    initialName,
+    errors = {},
+    hasValidated,
+    selectedListName,
+  } = state;
   const { page, toggleShowEditor } = props;
-
-  const [selectedListName, setSelectedListName] = useState(
-    page?.controller ?? ""
-  );
-  const [initialName, setInititalName] = useState("");
-  const [selectedComponent, setSelectedComponent] = useState(false);
-  const [hasValidated, setHasValidated] = useState("");
-  const [errors, setErrors] = useState({});
-
   const hasErrors = hasValidationErrors(errors);
   const componentToSubmit = { ...selectedComponent };
 
@@ -77,10 +75,10 @@ const ComponentEdit = (props) => {
     e.preventDefault();
     const copy = { ...data };
     const indexOfPage = copy.pages.findIndex((p) => p.path === page.path);
-    const indexOfComponent = copy.pages[indexOfPage]?.components?.findIndex(
+    const indexOfComponent = copy.pages[indexOfPage]?.components.findIndex(
       (component) => component.name === selectedComponent.name
     );
-    copy.pages[indexOfPage].components?.splice(indexOfComponent, 1);
+    copy.pages[indexOfPage].components.splice(indexOfComponent, 1);
     await save(copy);
     toggleShowEditor();
   };
@@ -99,6 +97,6 @@ const ComponentEdit = (props) => {
       </form>
     </>
   );
-};
+}
 
 export default memo(ComponentEdit);
