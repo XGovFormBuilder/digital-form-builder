@@ -11,8 +11,9 @@ import {
   buildFormSchema,
   buildStateSchema,
 } from "./helpers";
-import { Schema } from "joi";
+import joi, { Schema } from "joi";
 
+const ERROR_MESSAGE = "String entered does not match the pattern provided";
 export class TextField extends FormComponent {
   formSchema;
   stateSchema;
@@ -21,16 +22,46 @@ export class TextField extends FormComponent {
   constructor(def: InputFieldsComponentsDef, model: FormModel) {
     super(def, model);
     this.options = def.options;
+    this.formSchema = def.schema;
+
+    const { schema, options } = this;
+    const title = def.title;
+    let componentSchema = joi.string();
 
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
-    const { schema } = this;
-    if (!schema["regex"]) {
-      schema["regex"] = '^[^"\\/\\#;]*$';
+    componentSchema = componentSchema.required();
+
+    if (title) {
+      componentSchema = componentSchema.label(
+        typeof title === "string" ? title : "Textfield"
+      );
     }
 
-    this.formSchema = buildFormSchema("string", this);
-    this.stateSchema = buildStateSchema("string", this);
+    if (options.required === false) {
+      componentSchema = componentSchema.allow(null, "").optional();
+    }
+
+    componentSchema = componentSchema.trim();
+
+    let pattern = schema["regex"] ?? '^[^"\\/\\#;]*$';
+    if (pattern !== '^[^"\\/\\#;]*$') {
+      pattern = pattern.toString();
+      if (pattern.charAt(0) !== '^') {
+        pattern = pattern.padStart(pattern.length + 1, '^');
+      }
+
+      if (pattern.charAt(pattern.length - 1) !== '$') {
+        pattern = pattern.padEnd(pattern.length + 1, '$');
+      }
+
+      const regex = new RegExp(pattern);
+      componentSchema = componentSchema
+        .pattern(regex, { name: 'string' })
+        .message(ERROR_MESSAGE);
+    }
+
+    this.formSchema = componentSchema;
   }
 
   getFormSchemaKeys() {
@@ -38,7 +69,7 @@ export class TextField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return { [this.name]: this.stateSchema as Schema };
+    return { [this.name]: this.formSchema as Schema };
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
