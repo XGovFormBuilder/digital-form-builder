@@ -17,9 +17,11 @@ const LIST_TYPES = [
   Types.FlashCard,
 ];
 
-export function ComponentEdit(props) {
+const ComponentEdit = (props) => {
   const { data, save } = useContext(DataContext);
   const { state, dispatch } = useContext(ComponentContext);
+  const { page, toggleShowEditor } = props;
+
   const {
     selectedComponent,
     initialName,
@@ -27,9 +29,9 @@ export function ComponentEdit(props) {
     hasValidated,
     selectedListName,
   } = state;
-  const { page, toggleShowEditor } = props;
+
   const hasErrors = hasValidationErrors(errors);
-  const componentToSubmit = { ...selectedComponent };
+  const componentToSubmit = { selectedComponent };
 
   useLayoutEffect(() => {
     if (hasValidated && !hasErrors) {
@@ -75,10 +77,10 @@ export function ComponentEdit(props) {
     e.preventDefault();
     const copy = { ...data };
     const indexOfPage = copy.pages.findIndex((p) => p.path === page.path);
-    const indexOfComponent = copy.pages[indexOfPage]?.components.findIndex(
+    const indexOfComponent = copy.pages[indexOfPage]?.components?.findIndex(
       (component) => component.name === selectedComponent.name
     );
-    copy.pages[indexOfPage].components.splice(indexOfComponent, 1);
+    copy.pages[indexOfPage].components?.splice(indexOfComponent, 1);
     await save(copy);
     toggleShowEditor();
   };
@@ -97,6 +99,6 @@ export function ComponentEdit(props) {
       </form>
     </>
   );
-}
+};
 
 export default memo(ComponentEdit);
