@@ -19,6 +19,7 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
   const { data } = useContext(DataContext);
   const { options = {} }: { options: ContentOptions } = selectedComponent;
   const { conditions } = data;
+  options.align = options.align ?? "left";
 
   const alignOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     options.align = e.target.value;
@@ -59,7 +60,7 @@ export function SidebarEdit({ context = ComponentContext }: Props) {
           value={options.align}
           onChange={(e) => alignOnChange(e)}
         >
-          <option value="left">Left</option> {" "}
+          <option value="left">Left</option> 
           <option value="right">Right</option>
         </select>
 
