@@ -1,4 +1,9 @@
-
-{% macro Sidebar(component) %}
-<div> my sidebar here with {{component.model.content}}</div>
+{% macro Sidebar(components) %}
+{% for component in components %}
+{%if component.type.toLowerCase() == 'sidebar' %}
+<div class="govuk-grid-column-one-quarter">
+  <p class="govuk-body">{{ component.model.content | safe }}</p>    
+    </div>
+    {% endif %}
+  {% endfor %}
 {% endmacro %}

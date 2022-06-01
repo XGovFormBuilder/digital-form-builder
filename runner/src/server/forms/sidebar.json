@@ -8,7 +8,9 @@
       "components": [
         {
           "name": "UjidZI",
-          "options": {},
+          "options": {
+            "align": "right"
+          },
           "type": "Sidebar",
           "content": "this is a side bar",
           "schema": {}
