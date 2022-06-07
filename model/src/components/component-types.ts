@@ -12,8 +12,17 @@ export const ComponentTypes: ComponentDef[] = [
   },
   {
     name: "MultilineTextField",
-    type: "MultilineTextField",
+    type: "TextField",
     title: "Multiline text field",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
+  {
+    name: "MultiInputField",
+    type: "MultiInputField",
+    title: "MultiInput field",
     subType: "field",
     hint: "",
     options: {},

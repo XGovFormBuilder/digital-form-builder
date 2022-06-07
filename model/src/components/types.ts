@@ -1,6 +1,7 @@
 export enum ComponentTypeEnum {
   TextField = "TextField",
   MultilineTextField = "MultilineTextField",
+  MultiInputField = "MultiInputField",
   YesNoField = "YesNoField",
   DateField = "DateField",
   TimeField = "TimeField",
@@ -28,6 +29,7 @@ export enum ComponentTypeEnum {
 export type ComponentType =
   | "TextField"
   | "MultilineTextField"
+  | "MultiInputField"
   | "YesNoField"
   | "DateField"
   | "TimeField"
@@ -201,6 +203,10 @@ export interface MultilineTextFieldComponent extends TextFieldBase {
   };
 }
 
+export interface MultiInputFieldComponent extends TextFieldBase {
+  type: "MultiInputField";
+}
+
 export interface FileUploadFieldComponent {
   subType?: "field";
   type: "FileUploadField";
@@ -304,6 +310,7 @@ export type ComponentDef =
   | HtmlComponent
   | ListComponent
   | MultilineTextFieldComponent
+  | MultiInputFieldComponent
   | NumberFieldComponent
   | ParaComponent
   | RadiosFieldComponent
@@ -321,6 +328,7 @@ export type InputFieldsComponentsDef =
   | EmailAddressFieldComponent
   | NumberFieldComponent
   | MultilineTextFieldComponent
+  | MultiInputFieldComponent
   | TelephoneNumberFieldComponent
   | YesNoFieldComponent
   | FileUploadFieldComponent
