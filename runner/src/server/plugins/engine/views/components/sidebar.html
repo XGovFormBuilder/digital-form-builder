@@ -1,5 +1,5 @@
-{% macro Sidebar(component) %}
-<div class="govuk-grid-column-one-quarter">
+{% macro Sidebar(component, sidebarSize) %}
+<div class="govuk-grid-column-{{sidebarSize}}">
   <p class="govuk-body">{{ component.model.content | safe }}</p>    
     </div>    
 {% endmacro %}
