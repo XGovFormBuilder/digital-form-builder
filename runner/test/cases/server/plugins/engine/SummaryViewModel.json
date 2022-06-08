@@ -41,7 +41,7 @@
           "name": "fullDate",
           "options": {
             "required": false,
-            "omit": false
+            "omitFromSummary": false
           },
           "type": "DatePartsField",
           "title": "full date",
@@ -51,7 +51,7 @@
           "name": "birthDate",
           "options": {
             "required": false,
-            "omit": true
+            "omitFromSummary": true
           },
           "type": "DateField",
           "title": "birth date",

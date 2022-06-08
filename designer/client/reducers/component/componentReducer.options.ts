@@ -120,11 +120,11 @@ export function optionsReducer(state, action: OptionsActions) {
         },
       };
 
-    case Options.EDIT_OPTIONS_OMIT:
+    case Options.EDIT_OPTIONS_OMIT_FROM_SUMMARY:
       return {
         selectedComponent: {
           ...selectedComponent,
-          options: { ...options, omit: payload },
+          options: { ...options, omitFromSummary: payload },
         },
       };
   }

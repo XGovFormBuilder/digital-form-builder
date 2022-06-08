@@ -20,7 +20,7 @@ export function FieldEdit({ isContentField = false }: Props) {
     hideTitle = false,
     optionalText = false,
     required = true,
-    omit = false,
+    omitFromSummary = false,
   } = options;
   const isFileUploadField = selectedComponent.type === "FileUploadField";
   const fieldTitle =
@@ -165,22 +165,22 @@ export function FieldEdit({ isContentField = false }: Props) {
             <div className="govuk-checkboxes__item">
               <input
                 type="checkbox"
-                id="field-options-omit"
+                id="field-options-omitFromSummary"
                 className={`govuk-checkboxes__input ${
                   isFileUploadField ? "disabled" : ""
                 }`}
-                name="options.omit"
-                checked={omit}
+                name="options.omitFromSummary"
+                checked={omitFromSummary}
                 onChange={(e) =>
                   dispatch({
-                    type: Actions.EDIT_OPTIONS_OMIT,
+                    type: Actions.EDIT_OPTIONS_OMIT_FROM_SUMMARY,
                     payload: e.target.checked,
                   })
                 }
               />
               <label
                 className="govuk-label govuk-checkboxes__label"
-                htmlFor="field-options-omit"
+                htmlFor="field-options-omitFromSummary"
               >
                 {i18n("common.componentOmitSummaryOption.title", {
                   component:
