@@ -155,7 +155,7 @@ interface DateFieldBase {
 // Text Fields
 export interface TextFieldComponent extends TextFieldBase {
   type: "TextField";
-}
+} 
 
 export interface EmailAddressFieldComponent extends TextFieldBase {
   type: "EmailAddressField";
@@ -172,7 +172,7 @@ export interface WebsiteFieldComponent extends TextFieldBase {
   };
 }
 
-export interface MultilineTextFieldComponent {
+export interface MultilineTextFieldComponent extends TextFieldBase {
   type: "MultilineTextField";
 }
 

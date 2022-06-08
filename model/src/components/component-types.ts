@@ -12,7 +12,7 @@ export const ComponentTypes: ComponentDef[] = [
   },
   {
     name: "MultilineTextField",
-    type: "TextField",
+    type: "MultilineTextField",
     title: "Multiline text field",
     subType: "field",
     hint: "",
