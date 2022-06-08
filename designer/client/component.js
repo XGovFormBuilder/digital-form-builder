@@ -285,6 +285,7 @@ export const componentTypes = {
   DateTimePartsField,
   MonthYearField,
   MultilineTextField,
+  MultiInputField,
   RadiosField,
   CheckboxesField,
   AutocompleteField: SelectField,
