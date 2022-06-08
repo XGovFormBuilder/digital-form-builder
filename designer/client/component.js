@@ -90,7 +90,15 @@ function MultilineTextField() {
   );
 }
 
-function NumberField() {
+const MultiInputField = () => {
+  return (
+    <ComponentField>
+      <div className="box">ok</div>
+    </ComponentField>
+  );
+};
+
+const NumberField = () => {
   return (
     <ComponentField>
       <div className="box number" />
@@ -296,7 +304,37 @@ function Html() {
       </div>
     </Base>
   );
-}
+};
+
+export const componentTypes = {
+  TextField,
+  TelephoneNumberField,
+  NumberField,
+  EmailAddressField,
+  TimeField,
+  DateField,
+  DateTimeField,
+  DatePartsField,
+  DateTimePartsField,
+  MonthYearField,
+  MultilineTextField,
+  MultiInputField,
+  RadiosField,
+  CheckboxesField,
+  AutocompleteField: SelectField,
+  SelectField: SelectField,
+  YesNoField: YesNoField,
+  UkAddressField,
+  FileUploadField,
+  Para,
+  Details,
+  Html,
+  InsetText,
+  FlashCard,
+  List,
+  WarningText,
+  WebsiteField: TextField,
+};
 
 export function Component(props) {
   const [showEditor, setShowEditor] = useState();
