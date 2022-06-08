@@ -291,7 +291,8 @@
     "outputs": "Outputs",
     "sections": "Sections",
     "summary": "Summary",
-    "summaryBehaviour": "Summary behaviour"
+    "summaryBehaviour": "Summary behaviour",
+    "confirmationText": "Edit Confirmation Text"
   },
   "name": {
     "errors": {

@@ -17,6 +17,7 @@ import ListsEdit from "../../list/ListsEdit";
 import { useMenuItem } from "./useMenuItem";
 import { Tabs, useTabs } from "./useTabs";
 import { SubMenu } from "./SubMenu";
+import ConfirmationEdit from "../../confirmation-edit";
 
 type Props = {
   updateDownloadedAt?: (string) => void;
@@ -36,6 +37,7 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
   const fees = useMenuItem();
   const summaryBehaviour = useMenuItem();
   const summary = useMenuItem();
+  const confirmationEdit = useMenuItem();
 
   const { selectedTab, handleTabChange } = useTabs();
 
@@ -74,6 +76,9 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
         </button>
         <button onClick={summary.show} data-testid="menu-summary">
           {i18n("menu.summary")}
+        </button>
+        <button onClick={confirmationEdit.show} data-testid="menu-confirmation">
+          {i18n("menu.confirmationText")}
         </button>
       </div>
       {formDetails.isVisible && (
@@ -204,6 +209,16 @@ export default function Menu({ updateDownloadedAt, id }: Props) {
               )}
             </div>
           </div>
+        </Flyout>
+      )}
+
+      {confirmationEdit.isVisible && (
+        <Flyout
+          title="Edit Confirmation"
+          onHide={confirmationEdit.hide}
+          width="xlarge"
+        >
+          <ConfirmationEdit onCreate={() => confirmationEdit.hide()} />
         </Flyout>
       )}
 
