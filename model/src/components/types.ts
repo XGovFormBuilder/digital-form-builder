@@ -175,7 +175,7 @@ export interface WebsiteFieldComponent extends TextFieldBase {
   };
 }
 
-export interface MultilineTextFieldComponent {
+export interface MultilineTextFieldComponent extends TextFieldBase {
   type: "MultilineTextField";
 }
 
