@@ -298,9 +298,17 @@ function Html() {
 function Sidebar() {
   return (
     <Base>
-      <div className="line" />
-      <div className="line short govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-      <div className="line" />
+      <span className="box long">
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
+      </span>
     </Base>
   );
 }

@@ -131,6 +131,11 @@ button.govuk-link {
     &.short {
       width: 50%;
     }
+
+    &.sidebar {
+      width: 90%;
+      margin-left: 4px;
+    }
   }
 
   .circle {
@@ -203,6 +208,11 @@ button.govuk-link {
         content: "\21F3";
         float: right;
       }
+    }
+
+    &.long {
+      height: 125px;
+      width: 73px;
     }
 
     span {
