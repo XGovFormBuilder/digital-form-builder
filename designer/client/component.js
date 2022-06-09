@@ -306,36 +306,6 @@ function Html() {
   );
 };
 
-export const componentTypes = {
-  TextField,
-  TelephoneNumberField,
-  NumberField,
-  EmailAddressField,
-  TimeField,
-  DateField,
-  DateTimeField,
-  DatePartsField,
-  DateTimePartsField,
-  MonthYearField,
-  MultilineTextField,
-  MultiInputField,
-  RadiosField,
-  CheckboxesField,
-  AutocompleteField: SelectField,
-  SelectField: SelectField,
-  YesNoField: YesNoField,
-  UkAddressField,
-  FileUploadField,
-  Para,
-  Details,
-  Html,
-  InsetText,
-  FlashCard,
-  List,
-  WarningText,
-  WebsiteField: TextField,
-};
-
 export function Component(props) {
   const [showEditor, setShowEditor] = useState();
   const toggleShowEditor = (value) => {
