@@ -57,6 +57,7 @@ export function generateSessionTokenForForm(callback, formId) {
 export const callbackValidation = (safelist = config.safelist) =>
   joi.string().custom((value, helpers) => {
     const hostname = new URL(value).hostname;
+    console.log(`hostname: ${hostname}`);
     if (!hostname) {
       return helpers.error("string.empty");
     }
