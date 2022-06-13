@@ -17,7 +17,7 @@ export class TextField extends FormComponent {
     this.options = options;
     this.schema = schema;
 
-    addClassOptionIfNone(this.options, "govuk-input--width-10");
+    addClassOptionIfNone(this.options, "govuk-input--width-20");
 
     let componentSchema = joi.string().required();
 
@@ -25,7 +25,7 @@ export class TextField extends FormComponent {
       componentSchema = componentSchema.optional().allow("").allow(null);
     }
 
-    componentSchema = componentSchema.label(def.title);
+    componentSchema = componentSchema.label(def.title ?? def.name);
 
     if (options.customValidationMessage) {
       componentSchema = componentSchema.label(options.customValidationMessage);
