@@ -25,7 +25,9 @@ export class TextField extends FormComponent {
       componentSchema = componentSchema.optional().allow("").allow(null);
     }
 
-    componentSchema = componentSchema.label(def.title ?? def.name);
+    componentSchema = componentSchema.label(
+      def.title.en ?? def.title ?? def.name
+    );
 
     if (options.customValidationMessage) {
       componentSchema = componentSchema.label(options.customValidationMessage);
