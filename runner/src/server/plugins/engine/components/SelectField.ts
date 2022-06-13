@@ -17,6 +17,10 @@ export class SelectField extends ListFormComponent {
   }
 
   getDisplayStringFromState(state) {
-    return state[this.name]?.join(", ");
+    const value = state[this.name];
+    if (Array.isArray(value)) {
+      return value.join(", ");
+    }
+    return value;
   }
 }
