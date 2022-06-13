@@ -15,4 +15,8 @@ export class SelectField extends ListFormComponent {
     }
     return viewModel;
   }
+
+  getDisplayStringFromState(state) {
+    return state[this.name]?.join(", ");
+  }
 }

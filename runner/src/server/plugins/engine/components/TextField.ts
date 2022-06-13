@@ -1,64 +1,47 @@
-import {
-  InputFieldsComponentsDef,
-  TextFieldComponent,
-} from "@xgovformbuilder/model";
+import { TextFieldComponent } from "@xgovformbuilder/model";
 
 import { FormComponent } from "./FormComponent";
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormModel } from "../models";
-import {
-  addClassOptionIfNone,
-  buildFormSchema,
-  buildStateSchema,
-} from "./helpers";
+import { addClassOptionIfNone } from "./helpers";
 import joi, { Schema } from "joi";
 
-const ERROR_MESSAGE = "String entered does not match the pattern provided";
 export class TextField extends FormComponent {
   formSchema;
   stateSchema;
-  options: TextFieldComponent["options"];
 
-  constructor(def: InputFieldsComponentsDef, model: FormModel) {
+  constructor(def: TextFieldComponent, model: FormModel) {
     super(def, model);
-    this.options = def.options;
-    this.formSchema = def.schema;
 
-    const { schema, options } = this;
-    const title = def.title;
-    let componentSchema = joi.string();
+    const { options, schema = {} } = def;
+    this.options = options;
+    this.schema = schema;
 
-    addClassOptionIfNone(this.options, "govuk-input--width-20");
+    addClassOptionIfNone(this.options, "govuk-input--width-10");
 
-    componentSchema = componentSchema.required();
-
-    if (title) {
-      componentSchema = componentSchema.label(
-        typeof title === "string" ? title : "Textfield"
-      );
-    }
+    let componentSchema = joi.string().required();
 
     if (options.required === false) {
-      componentSchema = componentSchema.allow(null, "").optional();
+      componentSchema = componentSchema.optional().allow("").allow(null);
     }
 
-    componentSchema = componentSchema.trim();
+    componentSchema = componentSchema.label(def.title);
 
-    let pattern = schema["regex"] ?? '^[^"\\/\\#;]*$';
-    if (pattern !== '^[^"\\/\\#;]*$') {
-      pattern = pattern.toString();
-      if (pattern.charAt(0) !== '^') {
-        pattern = pattern.padStart(pattern.length + 1, '^');
-      }
+    if (options.customValidationMessage) {
+      componentSchema = componentSchema.label(options.customValidationMessage);
+    }
 
-      if (pattern.charAt(pattern.length - 1) !== '$') {
-        pattern = pattern.padEnd(pattern.length + 1, '$');
-      }
+    if (schema.max) {
+      componentSchema = componentSchema.max(schema.max);
+    }
 
-      const regex = new RegExp(pattern);
-      componentSchema = componentSchema
-        .pattern(regex, { name: 'string' })
-        .message(ERROR_MESSAGE);
+    if (schema.min) {
+      componentSchema = componentSchema.min(schema.min);
+    }
+
+    if (schema.regex) {
+      const pattern = new RegExp(schema.regex);
+      componentSchema.pattern(pattern);
     }
 
     this.formSchema = componentSchema;
