@@ -21,7 +21,6 @@ function isInputType(component) {
 
 export class RepeatingFieldPageController extends PageController {
   summary: RepeatingSummaryPageController;
-  pageTitle = "repeating";
   inputComponent: FormComponent;
   isRepeatingFieldPageController = true;
   constructor(model: FormModel, pageDef: any) {
