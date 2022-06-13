@@ -629,8 +629,7 @@ export class PageControllerBase {
         return response;
       }
       const { cacheService } = request.services([]);
-      const savedState = cacheService.getState(request);
-
+      const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
         this.model,
