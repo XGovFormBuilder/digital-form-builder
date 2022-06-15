@@ -20,7 +20,6 @@ export class TextField extends FormComponent {
     addClassOptionIfNone(this.options, "govuk-input--width-20");
 
     let componentSchema = joi.string().required();
-
     if (options.required === false) {
       componentSchema = componentSchema.optional().allow("").allow(null);
     }
@@ -30,7 +29,9 @@ export class TextField extends FormComponent {
     );
 
     if (options.customValidationMessage) {
-      componentSchema = componentSchema.label(options.customValidationMessage);
+      componentSchema = componentSchema.rule({
+        message: options.customValidationMessage,
+      });
     }
 
     if (schema.max) {

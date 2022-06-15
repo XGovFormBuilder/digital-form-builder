@@ -45,7 +45,6 @@ export class RepeatingSummaryPageController extends PageController {
       await cacheService.mergeState(request, { progress });
 
       const viewModel = this.getViewModel(state);
-      console.log("vm ", state, viewModel);
       return h.view("repeating-summary", viewModel);
     };
   }
@@ -55,7 +54,6 @@ export class RepeatingSummaryPageController extends PageController {
       (component) => component.name === key
     );
 
-    console.log("value!!", value);
     const { title } = componentDef;
     const titleWithIteration = `${title} ${iteration + 1}`;
     return {
