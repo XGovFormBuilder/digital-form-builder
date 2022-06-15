@@ -9,7 +9,6 @@ import path from "path";
 import { WebhookSchema } from "server/schemas/types";
 import Jwt from "@hapi/jwt";
 import { SpecialPages } from "@xgovformbuilder/model";
-import config from "src/server/config";
 
 type ConfirmationPage = SpecialPages["confirmationPage"];
 
