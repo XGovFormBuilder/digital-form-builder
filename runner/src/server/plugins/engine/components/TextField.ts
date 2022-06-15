@@ -28,12 +28,6 @@ export class TextField extends FormComponent {
       def.title.en ?? def.title ?? def.name
     );
 
-    if (options.customValidationMessage) {
-      componentSchema = componentSchema.rule({
-        message: options.customValidationMessage,
-      });
-    }
-
     if (schema.max) {
       componentSchema = componentSchema.max(schema.max);
     }
@@ -45,6 +39,12 @@ export class TextField extends FormComponent {
     if (schema.regex) {
       const pattern = new RegExp(schema.regex);
       componentSchema.pattern(pattern);
+    }
+
+    if (options.customValidationMessage) {
+      componentSchema = componentSchema.message(
+        options.customValidationMessage
+      );
     }
 
     this.formSchema = componentSchema;
