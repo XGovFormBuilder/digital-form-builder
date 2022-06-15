@@ -78,13 +78,17 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     const { progress, ...answers } = formData;
-
     const [key, values] = Object.entries(answers)[0];
     const componentDef = this.pageDef.components.find(
       (component) => component.name === key
     );
     const { title = "" } = componentDef;
-
+    let listValueToText = this.model.lists
+      .find((list) => list.name === componentDef.list)
+      ?.items?.reduce((prev, curr) => {
+        return { ...prev, [`${curr.value}`]: curr.text };
+      }, {});
+    console.log("values", values);
     const rows = values?.map((value, i) => {
       const titleWithIteration = `${title} ${i + 1}`;
       return {
@@ -92,7 +96,7 @@ export class RepeatingSummaryPageController extends PageController {
           text: titleWithIteration,
         },
         value: {
-          text: value,
+          text: listValueToText?.[value] ?? value,
         },
         actions: {
           items: [
