@@ -153,6 +153,9 @@ interface DateFieldBase {
 // Text Fields
 export interface TextFieldComponent extends TextFieldBase {
   type: "TextField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface EmailAddressFieldComponent extends TextFieldBase {
