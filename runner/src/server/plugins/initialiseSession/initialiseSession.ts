@@ -91,6 +91,11 @@ export const initialiseSession: Plugin<InitialiseSession> = {
       },
       options: {
         description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback whitelist in runner/config/{environment}.json`,
+        plugins: {
+          crumb: {
+            options: false,
+          },
+        },
       },
     });
   },

@@ -87,13 +87,13 @@ async function createServer(routeConfig: RouteConfig) {
   if (config.rateLimit) {
     await server.register(configureRateLimitPlugin(routeConfig));
   }
+  await server.register(pluginLogging);
   await server.register(pluginSession);
   await server.register(pluginPulse);
   await server.register(inert);
   await server.register(Scooter);
   await server.register(configureBlankiePlugin(config));
   await server.register(configureCrumbPlugin(config, routeConfig));
-  await server.register(pluginLogging);
   await server.register(Schmervice);
   await server.register(pluginAuth);
   await server.register(
