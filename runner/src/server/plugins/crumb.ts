@@ -25,7 +25,22 @@ export const configureCrumbPlugin = (
       },
       skip: (request: any) => {
         // skip crumb validation if error parsing payload
-        return request.method === "post" && request.payload == null;
+        const skippedRoutes = ["/session"];
+        const isSkippedRoute = skippedRoutes.find((route) =>
+          `${request.url}`.startsWith(route)
+        );
+
+        const isSkippedMethod =
+          request.method === "post" && request.payload == null;
+
+        if (isSkippedRoute) {
+          request.logger.info(
+            ["Crumb", "CSRF", "Skipping route"],
+            `${request.url}`
+          );
+        }
+
+        return isSkippedMethod || isSkippedRoute;
       },
     },
   };
