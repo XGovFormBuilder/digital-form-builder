@@ -1,7 +1,7 @@
 # Save and return
 
 * Status: proposed
-* Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/jen) [@superafroman](https://github.com/superafroman) [@alisalaman-cyb](https://github.com/alisalaman-cyb)
+* Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/jenbutongit) [@superafroman](https://github.com/superafroman) [@alisalaman-cyb](https://github.com/alisalaman-cyb)
 * Date: 2022-02-02
 * Amended: 2022-02-21
 

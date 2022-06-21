@@ -4,8 +4,7 @@
 
 ## contributions
 
-Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first! 
-
+Issues and pull requests are welcome. Please check [CONTRIBUTING.md](./CONTRIBUTING.md) first!
 
 This repository is a mono repo for
 
@@ -20,14 +19,22 @@ This is a (getting close to) zero-install yarn 2 workspaces repository. .yarnrc.
 Workspaces will deal with sym-linking the packages, so we do not have to manually run `yarn link`.
 It will also deal with hoisting the node_modules for any packages that are shared between the repos, thus decreasing any install times. Hopefully it all just works™️.
 
+Also see the individual repo README files for additional info:
+
+- [runner README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/README.md)
+- [designer README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer/README.md)
+- [model README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model/README.md)
+
 ## Setup
 
 **Always run scripts from the root directory.**
 
 1. Make sure you are using node >=12. upto 14. `node --version`.
 2. Make sure you have yarn 1.22+ installed. You do not need to install yarn 2.4+, yarn will detect the yarn 2 binary within [.yarn](./.yarn) and that will be used.
-3. Run `$ yarn` command to install all dependencies in all workspaces.
-4. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
+3. If using the designer:
+   - Note that the designer requires the runner to be running with the default `NODE_ENV=development` settings (see [runner/config/development.json](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/config/development.json)) to enable posting and previewing of forms during design.
+4. Run `$ yarn` command to install all dependencies in all workspaces.
+5. Run `$ yarn build` to build all workspaces (this is needed because dependencies can depend on each other).
 
 As already mentioned, **always run scripts from the root directory.** because workspaces don't have scripts or packages you need to run from inside their folders and by running in the root directory yarn 2 can resolve the scripts/packages properly.
 
@@ -84,6 +91,7 @@ We're using GitHub actions to run our CI process. View [a visualisation of the w
 #### Versioning
 
 Version numbers will automatically increment based on commit messages and SemVer (Major.Minor.Patch). When merging, prepend your merge commit with the following:
+
 - `major:` or `breaking:` - for example, `breaking: removing feature X`. This will increment the MAJOR version - for example: 1.1.0 to 2.0.0
 - `minor:` or `feature:` - for example, `feature: new component`. This will increment the MINOR version - for example: 1.1.0 to 1.2.0
 - `patch:` or `fix:` - for example, `fix: url bug` - this will increment the PATCH version - for example: 1.0.0 to 1.0.1 (this will also happen by default)
@@ -111,6 +119,7 @@ To run the smoke tests locally, you start the containers up using the command
 ```
 docker-compose up --build
 ```
+
 Then smoke test can be executed using command
 
 ```
@@ -118,10 +127,11 @@ yarn smoke-tests/designer smoke-test-headless
 ```
 
 Pre-requite for running smoke test are:
- 1. Yarn 
- 2. JVM 
- 2. a browser like chrome
- 3. Node version 12+ upto 14
- 4. yarn install
- 
- More details are on [Smoke Tests](./smoke-tests/README.md)
+
+1.  Yarn
+2.  JVM
+3.  a browser like chrome
+4.  Node version 12+ upto 14
+5.  yarn install
+
+More details are on [Smoke Tests](./smoke-tests/README.md)
