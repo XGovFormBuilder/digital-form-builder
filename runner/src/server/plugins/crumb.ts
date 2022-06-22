@@ -1,6 +1,5 @@
 import crumb from "@hapi/crumb";
 import { ServerRegisterPluginObject } from "@hapi/hapi";
-
 import { RouteConfig } from "../types";
 
 export const configureCrumbPlugin = (
@@ -19,22 +18,21 @@ export const configureCrumbPlugin = (
         isSameSite: "Strict",
       },
       skip: (request: any) => {
-        const { safelist = [] } = config;
-        const hostname = new URL(request.url).hostname;
-
+        const skippedRoutes = ["/session"];
         const isSkippedMethod =
           request.method === "post" && request.payload == null;
 
-        const isSafelisted = safelist.includes(hostname);
-
-        if (isSafelisted) {
+        const isSkippedRoute =
+          skippedRoutes.find((route) => `${request.path}`.startsWith(route)) ??
+          false;
+        if (isSkippedRoute) {
           request.logger.info(
-            ["Crumb", "CSRF", "Skipping safelisted origin"],
+            ["Crumb", "CSRF", "Skipping route"],
             `${request.url}`
           );
         }
 
-        return isSkippedMethod || isSafelisted;
+        return isSkippedMethod || isSkippedRoute;
       },
     },
   };
