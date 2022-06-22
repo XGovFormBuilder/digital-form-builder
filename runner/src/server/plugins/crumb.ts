@@ -3,13 +3,8 @@ import { ServerRegisterPluginObject } from "@hapi/hapi";
 
 import { RouteConfig } from "../types";
 
-type Config = {
-  isDev: boolean;
-  enforceCsrf: boolean;
-};
-
 export const configureCrumbPlugin = (
-  config: Config,
+  config,
   routeConfig?: RouteConfig
 ): ServerRegisterPluginObject<crumb.RegisterOptions> => {
   return {
@@ -24,23 +19,22 @@ export const configureCrumbPlugin = (
         isSameSite: "Strict",
       },
       skip: (request: any) => {
-        // skip crumb validation if error parsing payload
-        const skippedRoutes = ["/session"];
-        const isSkippedRoute = skippedRoutes.find((route) =>
-          `${request.url}`.startsWith(route)
-        );
+        const { safelist = [] } = config;
+        const hostname = new URL(request.url).hostname;
 
         const isSkippedMethod =
           request.method === "post" && request.payload == null;
 
-        if (isSkippedRoute) {
+        const isSafelisted = safelist.includes(hostname);
+
+        if (isSafelisted) {
           request.logger.info(
-            ["Crumb", "CSRF", "Skipping route"],
+            ["Crumb", "CSRF", "Skipping safelisted origin"],
             `${request.url}`
           );
         }
 
-        return isSkippedMethod || isSkippedRoute;
+        return isSkippedMethod || isSafelisted;
       },
     },
   };
