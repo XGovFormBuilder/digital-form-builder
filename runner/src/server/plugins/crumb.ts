@@ -32,7 +32,7 @@ export const configureCrumbPlugin = (
           );
         }
 
-        return isSkippedMethod || isSkippedRoute;
+        return isSkippedMethod || !!isSkippedRoute;
       },
     },
   };
