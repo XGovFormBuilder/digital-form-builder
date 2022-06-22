@@ -78,7 +78,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         if (callbackSafeListError) {
           request.logger.warn(
             [`/session/${formId}`, "POST"],
-            `${callbackUrl} was was not allowed`
+            `${callbackUrl} was was not allowed. only ${safelist?.join(", ")}`
           );
           return h
             .response({
