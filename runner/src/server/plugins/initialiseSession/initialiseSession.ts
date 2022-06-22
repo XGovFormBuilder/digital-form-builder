@@ -66,7 +66,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         });
 
         if (!isExistingForm) {
-          request.logger(
+          request.logger.warn(
             [`/session/${formId}`, "POST"],
             `${formId} does not exist`
           );
@@ -76,7 +76,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
         }
 
         if (callbackSafeListError) {
-          request.logger(
+          request.logger.warn(
             [`/session/${formId}`, "POST"],
             `${callbackUrl} was was not allowed`
           );
