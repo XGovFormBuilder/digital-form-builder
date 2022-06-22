@@ -4,8 +4,8 @@ import { ServerRegisterPluginObject } from "@hapi/hapi";
 import { RouteConfig } from "../types";
 
 type Config = {
-  isDev: string | undefined;
-  previewMode: boolean;
+  isDev: boolean;
+  enforceCsrf: boolean;
 };
 
 export const configureCrumbPlugin = (
@@ -16,18 +16,31 @@ export const configureCrumbPlugin = (
     plugin: crumb,
     options: {
       logUnauthorized: true,
-      enforce: routeConfig
-        ? routeConfig.enforceCsrf || false
-        : !config.previewMode,
+      enforce: routeConfig?.enforceCsrf ?? config?.enforceCsrf,
       cookieOptions: {
         path: "/",
-        isSecure: !!config.isDev,
+        isSecure: !config.isDev,
         isHttpOnly: true,
         isSameSite: "Strict",
       },
       skip: (request: any) => {
         // skip crumb validation if error parsing payload
-        return request.method === "post" && request.payload == null;
+        const skippedRoutes = ["/session"];
+        const isSkippedRoute = skippedRoutes.find((route) =>
+          `${request.url}`.startsWith(route)
+        );
+
+        const isSkippedMethod =
+          request.method === "post" && request.payload == null;
+
+        if (isSkippedRoute) {
+          request.logger.info(
+            ["Crumb", "CSRF", "Skipping route"],
+            `${request.url}`
+          );
+        }
+
+        return isSkippedMethod || isSkippedRoute;
       },
     },
   };

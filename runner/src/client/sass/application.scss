@@ -61,3 +61,16 @@ $govuk-global-styles: true;
     background: transparent;
   }
 }
+
+.govuk-button {
+  &--add-another {
+    @extend .govuk-link;
+    border: none;
+    background-color: transparent;
+    display: block;
+    color: map-get($govuk-colours, "blue");
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

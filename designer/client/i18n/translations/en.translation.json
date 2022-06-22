@@ -51,7 +51,7 @@
       "title": "Autocomplete"
     },
     "classes": {
-      "helpText": "Apply CSS classes to this field. For example, govuk-input-width-5",
+      "helpText": "Apply CSS classes to this field. For example, govuk-input govuk-!-width-full",
       "title": "Classes"
     },
     "componentNameField": {
@@ -333,11 +333,12 @@
     "noun": "page",
     "noun_plural": "pages",
     "path": "Path",
-    "pathHint": "The path of this page e.g. /personal-details",
+    "pathHint": "Appears in the browser path. The value you enter in the page title field automatically populates the path name. To override it, enter your own path name, relevant to the page, and use lowercase text and hyphens between words. For example, '/personal-details'.",
     "section": "Section (optional)",
-    "sectionHint": "The section title is shown above the page title. If the page and the section title are the same, the section title wont show.",
+    "sectionHint": "Use sections to split a form. For example, to add a section per applicant. The section title appears above the page title. However, if these titles are the same, the form will only show the page title.",
     "title": "Page title",
     "type": "Page type",
+    "typeHint": "Select a Start Page to start a form, a Question Page to request information, and a Summary Page at the end of a section or form. For example, use a Summary to let users check their answers to questions before they submit the form.",
     "types": {
       "question": "Question page",
       "start": "Start page",
