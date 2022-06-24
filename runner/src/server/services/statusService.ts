@@ -129,7 +129,6 @@ export class StatusService {
     const otherOutputs = outputs?.filter((output) => output !== firstWebhook);
 
     if (firstWebhook) {
-      let a = JSON.stringify(formData);
       newReference = await this.webhookService.postRequest(
         firstWebhook.outputData.url,
         formData
