@@ -111,7 +111,7 @@ export class SummaryPageController extends PageController {
       this.setFeedbackDetails(summaryViewModel, request);
 
       // redirect user to start page if there are incomplete form errors
-      if (summaryViewModel.result.error) {
+      if (summaryViewModel.result?.error) {
         request.logger.error(
           `SummaryPage Error`,
           summaryViewModel.result.error

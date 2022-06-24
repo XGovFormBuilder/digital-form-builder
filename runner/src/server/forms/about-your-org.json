@@ -1,0 +1,509 @@
+{
+  "metadata": {},
+  "startPage": "/about-your-organisation",
+  "pages": [
+    {
+      "title": "About your organisation",
+      "path": "/about-your-organisation",
+      "components": [
+        {
+          "name": "aDvNzu",
+          "options": {},
+          "type": "Html",
+          "content": "<h2 class=\"govuk-heading-l\">What you'll need</h2>",
+          "schema": {}
+        },
+        {
+          "name": "KrgYCX",
+          "options": {},
+          "type": "Html",
+          "content": "<p class=\"govuk-body\">In this section we will ask you about:</p>\n\n<ul class=\"govuk-list govuk-list--bullet govuk-list--spaced\">\n  <li>\nyour contact information\n  </li>\n  <li>\nyour organisation information\n  </li>\n  <li>\nevidence of previous experience\n  </li>\n  <li>\nthe people who are responsible for your organisation's activities\n  </li>\n  <li>\nsupport for your project\n  </li>\n</ul>",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/application-information"
+        }
+      ]
+    },
+    {
+      "path": "/application-information",
+      "title": "Application information",
+      "components": [
+        {
+          "name": "uGiOPI",
+          "options": {},
+          "type": "Html",
+          "content": "<h1 class=\"govuk-heading-l\">Application information</h1>",
+          "schema": {}
+        },
+        {
+          "name": "application-name",
+          "options": {},
+          "type": "TextField",
+          "title": "Applicant name",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "title": "Email",
+          "name": "applicant-email",
+          "nameHasError": false,
+          "options": {},
+          "schema": {}
+        },
+        {
+          "name": "applicant-telephone-number",
+          "options": {},
+          "type": "TelephoneNumberField",
+          "title": "Telephone number",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "applicant-website",
+          "options": {},
+          "type": "WebsiteField",
+          "title": "Website",
+          "nameHasError": false,
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/organisation-information"
+        }
+      ]
+    },
+    {
+      "path": "/organisation-information",
+      "title": "Organisation information",
+      "components": [
+        {
+          "name": "uhQgvS",
+          "options": {},
+          "type": "Html",
+          "content": "<h1 class=\"govuk-heading-l\">Organisation information</h1>",
+          "schema": {}
+        },
+        {
+          "name": "organisation-name",
+          "options": {},
+          "type": "TextField",
+          "title": "Organisation name",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "organisation-address",
+          "options": {},
+          "type": "UkAddressField",
+          "title": "Organisation address",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "type-of-organisation",
+          "options": {},
+          "type": "RadiosField",
+          "title": "Type of organisation",
+          "nameHasError": false,
+          "list": "EuSWdk",
+          "values": {
+            "type": "listRef"
+          },
+          "schema": {}
+        },
+        {
+          "name": "delivered-projects-like-this-before",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Have you delivered projects like this before?",
+          "nameHasError": false,
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/responsible-people"
+        }
+      ]
+    },
+    {
+      "path": "/responsible-people",
+      "title": "Responsible people",
+      "components": [
+        {
+          "name": "MOvXQO",
+          "options": {},
+          "type": "Html",
+          "content": " <h1 class=\"govuk-heading-l\">Responsible people</h1>",
+          "schema": {}
+        },
+        {
+          "name": "organisation-accountant",
+          "options": {},
+          "type": "TextField",
+          "title": "Your accountant",
+          "hint": "Name of your accountant for your organisation ",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "responsible-person",
+          "options": {},
+          "type": "TextField",
+          "title": "Responsible person",
+          "hint": "hint text",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "SpLmlI",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you have endorsements for this ",
+          "schema": {}
+        },
+        {
+          "name": "organisation-do-you-have-endorsements",
+          "options": {},
+          "type": "YesNoField",
+          "title": "Do you have endorsements to support your application?",
+          "nameHasError": false,
+          "schema": {}
+        },
+        {
+          "name": "who-is-endorsing-your-application",
+          "options": {},
+          "type": "CheckboxesField",
+          "title": "Who is endorsing your application?",
+          "nameHasError": false,
+          "list": "YtqtLo",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "path": "/summary",
+      "title": "Summary",
+      "components": [],
+      "next": [],
+      "controller": "./pages/summary.js"
+    }
+  ],
+  "lists": [
+    {
+      "title": "cost type",
+      "name": "YNyohE",
+      "type": "string",
+      "items": [
+        {
+          "text": "Indirect",
+          "description": "Day to day business expenses that are not related to the project",
+          "value": "Indirect"
+        },
+        {
+          "text": "Direct",
+          "description": "Costs that relate directly to the project",
+          "value": "Direct"
+        },
+        {
+          "text": "Operating",
+          "description": "Costs required to keep the business running",
+          "value": "Operating"
+        },
+        {
+          "text": "Capital",
+          "description": "Land, buildings or equipment used to produce a product or service",
+          "value": "Capital"
+        }
+      ]
+    },
+    {
+      "title": "organisation risk",
+      "name": "fOscog",
+      "type": "string",
+      "items": [
+        {
+          "text": "Risk averse",
+          "value": "Risk averse"
+        },
+        {
+          "text": "Somewhat risk averse",
+          "value": "Somewhat risk averse"
+        },
+        {
+          "text": "Somewhat risk tolerant",
+          "value": "Somewhat risk tolerant"
+        },
+        {
+          "text": "Risk tolerant",
+          "value": "Risk tolerant"
+        }
+      ]
+    },
+    {
+      "title": "risk level",
+      "name": "koOHzL",
+      "type": "string",
+      "items": [
+        {
+          "text": "high",
+          "value": "high"
+        },
+        {
+          "text": "medium",
+          "value": "medium"
+        },
+        {
+          "text": "low",
+          "value": "low"
+        }
+      ]
+    },
+    {
+      "title": "risk category",
+      "name": "zeecjj",
+      "type": "string",
+      "items": [
+        {
+          "text": "reputational risk",
+          "value": "reputational risk"
+        },
+        {
+          "text": "financial risk",
+          "value": "financial risk"
+        },
+        {
+          "text": "delivery risk",
+          "value": "delivery risk"
+        }
+      ]
+    },
+    {
+      "title": "types of organisation",
+      "name": "EuSWdk",
+      "type": "string",
+      "items": [
+        {
+          "text": "Local authority",
+          "value": "Local authority"
+        },
+        {
+          "text": "Mayoral authority",
+          "value": "Mayoral authority"
+        },
+        {
+          "text": "Limited company",
+          "value": "Limited company"
+        },
+        {
+          "text": "Registered charity",
+          "value": "Registered charity"
+        },
+        {
+          "text": "Social enterprise",
+          "value": "Social enterprise"
+        },
+        {
+          "text": "Other",
+          "value": "Other"
+        }
+      ]
+    },
+    {
+      "title": "who-is-endorsing",
+      "name": "YtqtLo",
+      "type": "string",
+      "items": [
+        {
+          "text": "Member of parliament (MP)",
+          "value": "Member of parliament (MP)"
+        }
+      ]
+    },
+    {
+      "title": "Placeholder",
+      "name": "AAfvRE",
+      "type": "string",
+      "items": [
+        {
+          "text": "1",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "title": "policy-aims",
+      "name": "SJMQKM",
+      "type": "string",
+      "items": [
+        {
+          "text": "Net zero",
+          "value": "Net zero"
+        },
+        {
+          "text": "Regeneration",
+          "value": "regeneration"
+        },
+        {
+          "description": "",
+          "text": "Support local community",
+          "value": "Support local community"
+        },
+        {
+          "text": "Level up skills",
+          "value": "Level up skills"
+        },
+        {
+          "text": "Fight climate change",
+          "value": "Fight climate change"
+        },
+        {
+          "text": "Increase trade and prosperity",
+          "value": "Increase trade and prosperity"
+        }
+      ]
+    },
+    {
+      "title": "yesorno",
+      "name": "zuYFmF",
+      "type": "string",
+      "items": [
+        {
+          "text": "Yes",
+          "value": "Yes"
+        },
+        {
+          "text": "No",
+          "value": "No"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "ZtqkbP",
+      "title": "Deliver your project"
+    }
+  ],
+  "conditions": [
+    {
+      "displayName": "plan-your-project-review",
+      "name": "ibmyWB",
+      "value": {
+        "name": "plan-your-project-review",
+        "conditions": [
+          {
+            "field": {
+              "name": "plan-your-project-review",
+              "type": "YesNoField",
+              "display": "Before you continue, would you like to review what you've told us about your project?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "no-review",
+      "name": "Kryhrd",
+      "value": {
+        "name": "no-review",
+        "conditions": [
+          {
+            "field": {
+              "name": "plan-your-project-review",
+              "type": "RadiosField",
+              "display": "Before you continue, would you like to review what you've told us about your project?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "Yes",
+              "display": "Yes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "working-with-partner",
+      "name": "LTqUZZ",
+      "value": {
+        "name": "working-with-partner",
+        "conditions": [
+          {
+            "field": {
+              "name": "plan-your-project-will-work-with-delivery-partner",
+              "type": "YesNoField",
+              "display": "Will you work with a delivery partner on this project?"
+            },
+            "operator": "is",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "displayName": "not-working-with-partner",
+      "name": "UVGPIT",
+      "value": {
+        "name": "not-working-with-partner",
+        "conditions": [
+          {
+            "field": {
+              "name": "plan-your-project-will-work-with-delivery-partner",
+              "type": "YesNoField",
+              "display": "Will you work with a delivery partner on this project?"
+            },
+            "operator": "is not",
+            "value": {
+              "type": "Value",
+              "value": "true",
+              "display": "true"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "fees": [],
+  "outputs": [
+    {
+      "name": "json-to-post",
+      "title": "summary application",
+      "type": "webhook",
+      "outputConfiguration": {
+        "url": "https://webhook.site/e223e28c-07a0-4d3a-908e-5c18df4b7813"
+      }
+    }
+  ],
+  "version": 2,
+  "skipSummary": false,
+  "name": "about-your-org",
+  "feedback": {
+    "feedbackForm": false,
+    "url": ""
+  },
+  "phaseBanner": {
+    "phase": "alpha"
+  }
+}
