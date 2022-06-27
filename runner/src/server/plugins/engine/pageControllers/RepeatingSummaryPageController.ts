@@ -5,7 +5,6 @@ import {
   HapiLifecycleMethod,
 } from "server/types";
 import { RepeatingFieldPageController } from "./RepeatingFieldPageController";
-
 export class RepeatingSummaryPageController extends PageController {
   private getRoute!: HapiLifecycleMethod;
   private postRoute!: HapiLifecycleMethod;
@@ -77,18 +76,14 @@ export class RepeatingSummaryPageController extends PageController {
 
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
-    const { progress, ...answers } = formData;
-    const [key, values] = Object.entries(answers)[0];
-    const componentDef = this.pageDef.components.find(
-      (component) => component.name === key
+    const answers = this.getPartialState(formData);
+    const { title = "" } = this.inputComponent;
+    const listValueToText = this.inputComponent.list?.items?.reduce(
+      (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
+      {}
     );
-    const { title = "" } = componentDef;
-    const listValueToText = this.model.lists
-      .find((list) => list.name === componentDef.list)
-      ?.items?.reduce((prev, curr) => {
-        return { ...prev, [`${curr.value}`]: curr.text };
-      }, {});
-    const rows = values?.map((value, i) => {
+
+    const rows = answers?.map((value, i) => {
       const titleWithIteration = `${title} ${i + 1}`;
       return {
         key: {
