@@ -1,0 +1,15 @@
+.multiInputField
+{
+    //  TODO: reduce the length of section break (improves design)
+    &__section_break 
+    {
+        
+
+    }
+    &__delete 
+    {
+        position: absolute; // fix this
+        right: 20px;
+        top: 100px;
+    }
+}
