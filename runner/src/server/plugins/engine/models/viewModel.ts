@@ -93,6 +93,11 @@ export class ViewModel {
               type: "webhook",
               outputData: { url: output.outputConfiguration.url },
             };
+          case "savePerPage":
+            return {
+              type: "savePerPage",
+              outputData: { url: output.outputConfiguration.url },
+            };
           default:
             return {};
         }

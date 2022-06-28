@@ -494,6 +494,14 @@
       "outputConfiguration": {
         "url": "https://webhook.site/e223e28c-07a0-4d3a-908e-5c18df4b7813"
       }
+    },
+    {
+      "name": "json-to-post",
+      "title": "savePerPage",
+      "type": "savePerPage",
+      "outputConfiguration": {
+        "url": "https://webhook.site/e223e28c-07a0-4d3a-908e-5c18df4b7813"
+      }
     }
   ],
   "version": 2,

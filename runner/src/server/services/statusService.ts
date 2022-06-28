@@ -97,6 +97,32 @@ export class StatusService {
     }
   }
 
+  async savePerPageRequest(request: HapiRequest) {
+    const state = await this.cacheService.getState(request);
+    let formData = this.webhookArgsFromState(state);
+
+    const { outputs } = state;
+    const savePerPageWebhook = outputs?.find(
+      (output) => output.type === "savePerPage"
+    );
+
+    let newReference;
+
+    if (savePerPageWebhook?.outputData.url) {
+      this.logger.info(
+        ["StatusService", "savePerPageRequest"],
+        `savePerPageWebhook Url detected for ${request.yar.id}`
+      );
+      try {
+        newReference = await this.webhookService.postRequest(
+          savePerPageWebhook.outputData.url,
+          formData,
+          "PUT"
+        );
+      } catch (e) {}
+    }
+  }
+
   async outputRequests(request: HapiRequest) {
     const state = await this.cacheService.getState(request);
     let formData = this.webhookArgsFromState(state);

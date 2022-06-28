@@ -633,7 +633,7 @@ export class PageControllerBase {
           webhookData: saveViewModel.validatedWebhookData,
         });
 
-        await statusService.outputRequests(request);
+        await statusService.savePerPageRequest(request);
       }
 
       return this.proceed(request, h, relevantState);

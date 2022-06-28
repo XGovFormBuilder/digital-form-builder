@@ -55,6 +55,7 @@ export enum OutputType {
   Email = "email",
   Notify = "notify",
   Webhook = "webhook",
+  SavePerPage = "savePerPage",
 }
 
 export type EmailOutputConfiguration = {
