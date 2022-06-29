@@ -59,10 +59,9 @@ export class SummaryViewModel extends ViewModel {
         model,
         request
       );
-
-      this.result = result;
-      this.value = result.value;
     }
+    this.result = result;
+    this.value = result.value;
   }
 
   private processErrors(result, details) {
