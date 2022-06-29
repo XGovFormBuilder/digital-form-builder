@@ -7,7 +7,11 @@ function answerFromDetailItem(item) {
     case "list":
       return item.rawValue;
     case "date":
-      return format(new Date(item.rawValue), "yyyy-MM-dd");
+      let date =
+        typeof item.rawValue === "undefined"
+          ? item.rawValue
+          : format(new Date(item.rawValue), "yyyy-MM-dd");
+      return date;
     case "monthYear":
       const [month, year] = Object.values(item.rawValue);
       return format(new Date(`${year}-${month}-1`), "yyyy-MM");

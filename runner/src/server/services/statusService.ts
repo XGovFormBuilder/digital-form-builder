@@ -106,7 +106,7 @@ export class StatusService {
       (output) => output.type === "savePerPage"
     );
 
-    let newReference;
+    let response;
 
     if (savePerPageWebhook?.outputData.url) {
       this.logger.info(
@@ -114,7 +114,7 @@ export class StatusService {
         `savePerPageWebhook Url detected for ${request.yar.id}`
       );
       try {
-        newReference = await this.webhookService.postRequest(
+        response = await this.webhookService.postRequest(
           savePerPageWebhook.outputData.url,
           formData,
           "PUT"
