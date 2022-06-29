@@ -13,6 +13,7 @@ function answerFromDetailItem(item) {
           : format(new Date(item.rawValue), "yyyy-MM-dd");
       return date;
     case "monthYear":
+      if (typeof item.rawValue === "undefined") return "undefined";
       const [month, year] = Object.values(item.rawValue);
       return format(new Date(`${year}-${month}-1`), "yyyy-MM");
     default:
