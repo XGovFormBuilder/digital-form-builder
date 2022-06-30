@@ -12,6 +12,7 @@ import { ComponentCollection } from "server/plugins/engine/components/ComponentC
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
+import config from "server/config";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -108,14 +109,14 @@ export class StatusService {
 
     let response;
 
-    if (savePerPageWebhook?.outputData.url) {
+    if (config.savePerPageUrl) {
       this.logger.info(
         ["StatusService", "savePerPageRequest"],
         `savePerPageWebhook Url detected for ${request.yar.id}`
       );
       try {
         response = await this.webhookService.postRequest(
-          savePerPageWebhook.outputData.url,
+          config.savePerPageUrl,
           formData,
           "PUT"
         );
