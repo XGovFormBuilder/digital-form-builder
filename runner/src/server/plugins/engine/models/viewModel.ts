@@ -96,7 +96,7 @@ export class ViewModel {
           case "savePerPage":
             return {
               type: "savePerPage",
-              outputData: { url: output.outputConfiguration.url },
+              outputData: { url: output.outputConfiguration.savePerPageUrl },
             };
           default:
             return {};
