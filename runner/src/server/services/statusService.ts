@@ -12,7 +12,6 @@ import { ComponentCollection } from "server/plugins/engine/components/ComponentC
 import { FormSubmissionState } from "server/plugins/engine/types";
 import { FormModel } from "server/plugins/engine/models";
 import Boom from "boom";
-import config from "server/config";
 
 type WebhookModel = WebhookOutputConfiguration & {
   formData: object;
@@ -109,18 +108,26 @@ export class StatusService {
 
     let response;
 
-    if (config.savePerPageUrl) {
+    if (savePerPageWebhook?.outputData.url) {
       this.logger.info(
         ["StatusService", "savePerPageRequest"],
         `savePerPageWebhook Url detected for ${request.yar.id}`
       );
       try {
         response = await this.webhookService.postRequest(
-          config.savePerPageUrl,
+          savePerPageWebhook.outputData.url,
           formData,
           "PUT"
         );
-      } catch (e) {}
+        this.logger.info(
+          ["StatusService", "savePerPageRequest"],
+          `savePerPageWebhook response: ${response}`
+        );
+      } catch (e) {
+        this.logger.console.error(
+          `Failed to save per page. savePerPageUrl: ${savePerPageWebhook?.outputData.url}`
+        );
+      }
     }
   }
 

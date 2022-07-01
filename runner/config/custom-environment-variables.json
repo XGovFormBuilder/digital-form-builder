@@ -14,7 +14,6 @@
   "payApiUrl": "PAY_API_URL",
   "payReturnUrl": "PAY_RETURN_URL",
   "serviceUrl": "SERVICE_URL",
-  "savePerPageUrl": "SAVE_PER_PAGE_URL",
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
   "redisTls": "REDIS_TLS",

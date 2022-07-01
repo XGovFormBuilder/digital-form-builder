@@ -33,7 +33,6 @@ export const configSchema = Joi.object({
   payApiUrl: Joi.string().custom(secureUrl),
   payReturnUrl: Joi.string().custom(secureUrl),
   serviceUrl: Joi.string().optional(),
-  savePerPageUrl: Joi.string().optional(),
   redisHost: Joi.string().optional(),
   redisPort: Joi.number().optional(),
   redisPassword: Joi.string().optional(),
