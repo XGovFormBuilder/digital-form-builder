@@ -1,4 +1,4 @@
-# Save and Exit
+# Save Per Page
 
 - Status: **proposed**
 - Deciders: Jen Duong (jenbutongit), Enda McCormack (endamccormack)
