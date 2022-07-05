@@ -1,5 +1,5 @@
 import { buildConfig } from "./utils/configSchema";
-const nodeConfig = require("config");
+import { default as nodeConfig } from "config";
 
 const config = buildConfig(nodeConfig);
 
