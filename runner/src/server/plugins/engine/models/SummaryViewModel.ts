@@ -30,7 +30,6 @@ export class SummaryViewModel extends ViewModel {
     state: FormSubmissionState,
     request: HapiRequest
   ) {
-    console.log(state);
     super(pageTitle, model, state, request);
 
     const { relevantPages } = this.getRelevantPages(model, state);

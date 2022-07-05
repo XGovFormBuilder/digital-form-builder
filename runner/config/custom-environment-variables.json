@@ -38,5 +38,6 @@
   "authClientSecret": "AUTH_CLIENT_SECRET",
   "authClientAuthUrl": "AUTH_CLIENT_AUTH_URL",
   "authClientTokenUrl": "AUTH_CLIENT_TOKEN_URL",
-  "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL"
+  "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
+  "savePerPage": "SAVE_PER_PAGE"
 }

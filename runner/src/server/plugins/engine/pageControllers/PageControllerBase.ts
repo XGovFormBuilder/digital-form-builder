@@ -28,6 +28,7 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -616,7 +617,7 @@ export class PageControllerBase {
         savedState
       );
 
-      if (true) {
+      if (config.savePerPage) {
         // Set flag for continous saves on each question?
         const saveViewModel = new SaveViewModel(
           this.title,
