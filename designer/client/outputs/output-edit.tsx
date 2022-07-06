@@ -9,6 +9,7 @@ import NotifyEdit from "./notify-edit";
 import EmailEdit from "./email-edit";
 import { Input } from "@govuk-jsx/input";
 import WebhookEdit from "./webhook-edit";
+import SavePerPageEdit from "./save-per-page-edit";
 import {
   OutputType,
   OutputConfiguration,
@@ -88,6 +89,11 @@ class OutputEdit extends Component<Props, State> {
       case OutputType.Webhook:
         outputConfiguration = {
           url: formData.get("webhook-url") as string,
+        };
+        break;
+      case OutputType.SavePerPage:
+        outputConfiguration = {
+          savePerPageUrl: formData.get("save-per-page-url") as string,
         };
         break;
     }
@@ -170,6 +176,15 @@ class OutputEdit extends Component<Props, State> {
           };
         }
         break;
+      case OutputType.SavePerPage:
+        let savePerPageUrl = formData.get("save-per-page-url") as string;
+        if (!savePerPageUrl) {
+          errors.savePerPageUrl = {
+            href: "#save-per-page-url",
+            children: "Not a valid url",
+          };
+        }
+        break;
     }
 
     this.setState({ errors: errors });
@@ -232,6 +247,13 @@ class OutputEdit extends Component<Props, State> {
           errors={errors}
         />
       );
+    } else if (outputType === OutputType.SavePerPage) {
+      outputEdit = (
+        <SavePerPageEdit
+          savePerPageUrl={output?.outputConfiguration?.["savePerPageUrl"]}
+          errors={errors}
+        />
+      );
     }
     return (
       <>
@@ -289,6 +311,7 @@ class OutputEdit extends Component<Props, State> {
               <option value="email">Email</option>
               <option value="notify">Email via GOVUK Notify</option>
               <option value="webhook">Webhook</option>
+              <option value="savePerPage">Save Per Page Webhook</option>
             </select>
           </div>
 

@@ -18,6 +18,8 @@ import {
   HapiResponseToolkit,
 } from "server/types";
 import { FormModel } from "../models";
+import { SaveViewModel } from "../models";
+
 import {
   FormData,
   FormPayload,
@@ -26,6 +28,7 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -496,7 +499,7 @@ export class PageControllerBase {
    */
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { cacheService } = request.services([]);
+      const { cacheService, statusService } = request.services([]);
       const hasFilesizeError = request.payload === null;
       const preHandlerErrors = request.pre.errors;
       const payload = (request.payload || {}) as FormData;
@@ -604,6 +607,7 @@ export class PageControllerBase {
           update = { [this.section.name]: sectionState };
         }
       }
+      //Merge new state into old state
       const savedState = await cacheService.mergeState(request, update);
 
       //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
@@ -612,6 +616,26 @@ export class PageControllerBase {
         this.model,
         savedState
       );
+
+      if (config.savePerPage) {
+        // Set flag for continous saves on each question?
+        const saveViewModel = new SaveViewModel(
+          this.title,
+          this.model,
+          relevantState,
+          request
+        );
+
+        await cacheService.mergeState(request, {
+          outputs: saveViewModel.outputs,
+          userCompletedSummary: true,
+        });
+        await cacheService.mergeState(request, {
+          webhookData: saveViewModel.validatedWebhookData,
+        });
+
+        await statusService.savePerPageRequest(request);
+      }
 
       return this.proceed(request, h, relevantState);
     };
