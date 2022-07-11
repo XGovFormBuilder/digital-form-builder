@@ -1,9 +1,6 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
-import {
-  messages,
-  validationOptions,
-} from "server/plugins/engine/pageControllers/validationOptions";
+import { validationOptions } from "server/plugins/engine/pageControllers/validationOptions";
 
 import { feedbackReturnInfoKey, proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
@@ -76,9 +73,9 @@ export class PageControllerBase {
     this.repeatField = pageDef.repeatField;
 
     // Resolve section
-    this.section =
-      pageDef.section &&
-      model.sections.find((section) => section.name === pageDef.section);
+    this.section = model.sections?.find(
+      (section) => section.name === pageDef.section
+    );
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
@@ -489,14 +486,26 @@ export class PageControllerBase {
       }
 
       await cacheService.mergeState(request, { progress });
+
       viewModel.backLink = progress[progress.length - 2];
       return h.view(this.viewName, viewModel);
     };
   }
 
   /**
-   * Returns an async function. This is called in plugin.ts when there is a POST request at `/{id}/{path*}`
+   * deals with parsing errors and saving answers to state
    */
+
+  async handlePostRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    mergeOptions: {
+      nullOverride?: boolean;
+      arrayMerge?: boolean;
+      modifyUpdate?: <T>(value: T) => any;
+      } = {}
+  ) {
+
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService, statusService } = request.services([]);
@@ -529,88 +538,101 @@ export class PageControllerBase {
         formResult.errors.errorList = reformattedErrors;
       }
 
-      /**
-       * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
-       */
-      if (preHandlerErrors) {
-        const reformattedErrors: any[] = [];
-        preHandlerErrors.forEach((error) => {
-          const reformatted = error;
-          const fieldMeta = fileFields.find((field) => field.id === error.name);
+    /**
+     * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
+     */
+    if (preHandlerErrors) {
+      const reformattedErrors: any[] = [];
+      preHandlerErrors.forEach((error) => {
+        const reformatted = error;
+        const fieldMeta = fileFields.find((field) => field.id === error.name);
 
-          if (typeof reformatted.text === "string") {
-            /**
-             * if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
-             */
-            reformatted.text = reformatted.text.replace(
-              /%s/,
-              fieldMeta?.label?.text.trim() ?? "the file"
-            );
-            reformattedErrors.push(reformatted);
-          }
-        });
-
-        formResult.errors = Object.is(formResult.errors, null)
-          ? { titleText: "Fix the following errors" }
-          : formResult.errors;
-        formResult.errors.errorList = reformattedErrors;
-      }
-
-      Object.entries(payload).forEach(([key, value]) => {
-        if (value && value === (originalFilenames[key] || {}).location) {
-          payload[key] = originalFilenames[key].originalFilename;
+        if (typeof reformatted.text === "string") {
+          /**
+           * if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
+           */
+          reformatted.text = reformatted.text.replace(
+            /%s/,
+            fieldMeta?.label?.text.trim() ?? "the file"
+          );
+          reformattedErrors.push(reformatted);
         }
       });
 
-      /**
-       * If there are any errors, render the page with the parsed errors
-       */
-      if (formResult.errors) {
-        return this.renderWithErrors(
-          request,
-          h,
-          payload,
-          num,
-          progress,
-          formResult.errors
-        );
+      formResult.errors = Object.is(formResult.errors, null)
+        ? { titleText: "Fix the following errors" }
+        : formResult.errors;
+      formResult.errors.errorList = reformattedErrors;
+    }
+
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value && value === (originalFilenames[key] || {}).location) {
+        payload[key] = originalFilenames[key].originalFilename;
       }
+    });
 
-      const newState = this.getStateFromValidForm(formResult.value);
-      const stateResult = this.validateState(newState);
+    /**
+     * If there are any errors, render the page with the parsed errors
+     */
+    if (formResult.errors) {
+      //TODO:- refactor to match POST REDIRECT GET pattern.
 
-      if (stateResult.errors) {
-        return this.renderWithErrors(
-          request,
-          h,
-          payload,
-          num,
-          progress,
-          stateResult.errors
-        );
+      return this.renderWithErrors(
+        request,
+        h,
+        payload,
+        num,
+        progress,
+        formResult.errors
+      );
+    }
+
+    const newState = this.getStateFromValidForm(formResult.value);
+    const stateResult = this.validateState(newState);
+    if (stateResult.errors) {
+      return this.renderWithErrors(
+        request,
+        h,
+        payload,
+        num,
+        progress,
+        stateResult.errors
+      );
+    }
+
+    let update = this.getPartialMergeState(stateResult.value);
+    if (this.repeatField) {
+      const updateValue = { [this.path]: update[this.section.name] };
+      const sectionState = state[this.section.name];
+      if (!sectionState) {
+        update = { [this.section.name]: [updateValue] };
+      } else if (!sectionState[num - 1]) {
+        sectionState.push(updateValue);
+        update = { [this.section.name]: sectionState };
+      } else {
+        sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue);
+        update = { [this.section.name]: sectionState };
+      }      
+    }
+
+    const { nullOverride, arrayMerge, modifyUpdate } = mergeOptions;
+    if (modifyUpdate) {
+      update = modifyUpdate(update);
+    }
+    await cacheService.mergeState(request, update, nullOverride, arrayMerge);
+  }
+
+  /**
+   * Returns an async function. This is called in plugin.ts when there is a POST request at `/{id}/{path*}`
+   */
+  makePostRouteHandler() {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      const response = await this.handlePostRequest(request, h);
+      if (response?.source?.context?.errors) {
+        return response;
       }
-
-      let update = this.getPartialMergeState(stateResult.value);
-      if (this.repeatField) {
-        const updateValue = { [this.path]: update[this.section.name] };
-        const sectionState = state[this.section.name];
-        if (!sectionState) {
-          update = { [this.section.name]: [updateValue] };
-        } else if (!sectionState[num - 1]) {
-          sectionState.push(updateValue);
-          update = { [this.section.name]: sectionState };
-        } else {
-          sectionState[num - 1] = merge(
-            sectionState[num - 1] ?? {},
-            updateValue
-          );
-          update = { [this.section.name]: sectionState };
-        }
-      }
-      //Merge new state into old state
-      const savedState = await cacheService.mergeState(request, update);
-
-      //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
+      const { cacheService } = request.services([]);
+      const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
         this.model,
@@ -698,6 +720,9 @@ export class PageControllerBase {
     return this.model.pages.find((page) => page.path === path);
   }
 
+  /**
+   * TODO:- proceed is interfering with subclasses
+   */
   proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
     return proceed(request, h, this.getNext(state));
   }

@@ -112,3 +112,46 @@ function gatherRepeatPages(state) {
     }
   });
 }
+
+/**
+ * Creates an Item object for Details
+ */
+function Item(
+  request,
+  component,
+  sectionState,
+  page,
+  model: FormModel,
+  params: { num?: number; returnUrl: string } = {
+    returnUrl: redirectUrl(request, `/${model.basePath}/summary`),
+  }
+) {
+  const isRepeatable = !!page.repeatField;
+
+  //TODO:- deprecate in favour of section based and/or repeatingFieldPageController
+  if (isRepeatable && Array.isArray(sectionState)) {
+    return sectionState.map((state, i) => {
+      const collated = Object.values(state).reduce(
+        (acc: {}, p: any) => ({ ...acc, ...p }),
+        {}
+      );
+      return Item(request, component, collated, page, model, {
+        ...params,
+        num: i + 1,
+      });
+    });
+  }
+
+  return {
+    name: component.name,
+    path: page.path,
+    label: component.localisedString(component.title),
+    value: component.getDisplayStringFromState(sectionState),
+    rawValue: sectionState[component.name],
+    url: redirectUrl(request, `/${model.basePath}${page.path}`, params),
+    pageId: `/${model.basePath}${page.path}`,
+    type: component.type,
+    title: component.title,
+    dataType: component.dataType,
+  };
+}
