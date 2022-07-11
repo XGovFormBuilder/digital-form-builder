@@ -16,7 +16,6 @@ import {
 } from "server/types";
 import { FormModel } from "../models";
 import { SaveViewModel } from "../models";
-
 import {
   FormData,
   FormPayload,
@@ -495,48 +494,48 @@ export class PageControllerBase {
   /**
    * deals with parsing errors and saving answers to state
    */
-
   async handlePostRequest(
     request: HapiRequest,
     h: HapiResponseToolkit,
     mergeOptions: {
       nullOverride?: boolean;
       arrayMerge?: boolean;
+      /**
+       * if you wish to modify the value just before it is added to the user's session (i.e. after validation and error parsing), use the modifyUpdate method.
+       * pass in a function, that takes in the update value. Make sure that this returns the modified value.
+       */
       modifyUpdate?: <T>(value: T) => any;
-      } = {}
+    } = {}
   ) {
+    const { cacheService } = request.services([]);
+    const hasFilesizeError = request.payload === null;
+    const preHandlerErrors = request.pre.errors;
+    const payload = (request.payload || {}) as FormData;
+    const formResult: any = this.validateForm(payload);
+    const state = await cacheService.getState(request);
+    const originalFilenames = (state || {}).originalFilenames || {};
+    const fileFields = this.getViewModel(formResult)
+      .components.filter((component) => component.type === "FileUploadField")
+      .map((component) => component.model);
+    const progress = state.progress || [];
+    const { num } = request.query;
 
-  makePostRouteHandler() {
-    return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { cacheService, statusService } = request.services([]);
-      const hasFilesizeError = request.payload === null;
-      const preHandlerErrors = request.pre.errors;
-      const payload = (request.payload || {}) as FormData;
-      const formResult: any = this.validateForm(payload);
-      const state = await cacheService.getState(request);
-      const originalFilenames = (state || {}).originalFilenames || {};
-      const fileFields = this.getViewModel(formResult)
-        .components.filter((component) => component.type === "FileUploadField")
-        .map((component) => component.model);
-      const progress = state.progress || [];
-      const { num } = request.query;
+    // TODO:- Refactor this into a validation method
+    if (hasFilesizeError) {
+      const reformattedErrors = fileFields.map((field) => {
+        return {
+          path: field.name,
+          href: `#${field.name}`,
+          name: field.name,
+          text: "The selected file must be smaller than 5MB",
+        };
+      });
 
-      // TODO:- Refactor this into a validation method
-      if (hasFilesizeError) {
-        const reformattedErrors = fileFields.map((field) => {
-          return {
-            path: field.name,
-            href: `#${field.name}`,
-            name: field.name,
-            text: "The selected file must be smaller than 5MB",
-          };
-        });
-
-        formResult.errors = Object.is(formResult.errors, null)
-          ? { titleText: "Fix the following errors" }
-          : formResult.errors;
-        formResult.errors.errorList = reformattedErrors;
-      }
+      formResult.errors = Object.is(formResult.errors, null)
+        ? { titleText: "Fix the following errors" }
+        : formResult.errors;
+      formResult.errors.errorList = reformattedErrors;
+    }
 
     /**
      * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
@@ -612,7 +611,7 @@ export class PageControllerBase {
       } else {
         sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue);
         update = { [this.section.name]: sectionState };
-      }      
+      }
     }
 
     const { nullOverride, arrayMerge, modifyUpdate } = mergeOptions;
@@ -631,7 +630,7 @@ export class PageControllerBase {
       if (response?.source?.context?.errors) {
         return response;
       }
-      const { cacheService } = request.services([]);
+      const { cacheService, statusService } = request.services([]);
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
@@ -658,7 +657,6 @@ export class PageControllerBase {
 
         await statusService.savePerPageRequest(request);
       }
-
       return this.proceed(request, h, relevantState);
     };
   }
