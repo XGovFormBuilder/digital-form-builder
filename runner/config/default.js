@@ -124,4 +124,5 @@ module.exports = {
   logLevel: "info", // Accepts "trace" | "debug" | "info" | "warn" |"error"
   logPrettyPrint: true,
   logRedactPaths: ["req.headers['x-forwarded-for']"], // You should check your privacy policy before disabling this. Check https://getpino.io/#/docs/redaction on how to configure redaction paths
+  savePerPage: true, // For activation of the save per page feature
 };

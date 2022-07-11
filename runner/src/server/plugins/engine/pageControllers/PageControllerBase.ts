@@ -15,6 +15,8 @@ import {
   HapiResponseToolkit,
 } from "server/types";
 import { FormModel } from "../models";
+import { SaveViewModel } from "../models";
+
 import {
   FormData,
   FormPayload,
@@ -23,6 +25,7 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -492,48 +495,48 @@ export class PageControllerBase {
   /**
    * deals with parsing errors and saving answers to state
    */
+
   async handlePostRequest(
     request: HapiRequest,
     h: HapiResponseToolkit,
     mergeOptions: {
       nullOverride?: boolean;
       arrayMerge?: boolean;
-      /**
-       * if you wish to modify the value just before it is added to the user's session (i.e. after validation and error parsing), use the modifyUpdate method.
-       * pass in a function, that takes in the update value. Make sure that this returns the modified value.
-       */
       modifyUpdate?: <T>(value: T) => any;
-    } = {}
+      } = {}
   ) {
-    const { cacheService } = request.services([]);
-    const hasFilesizeError = request.payload === null;
-    const preHandlerErrors = request.pre.errors;
-    const payload = (request.payload || {}) as FormData;
-    const formResult: any = this.validateForm(payload);
-    const state = await cacheService.getState(request);
-    const originalFilenames = (state || {}).originalFilenames || {};
-    const fileFields = this.getViewModel(formResult)
-      .components.filter((component) => component.type === "FileUploadField")
-      .map((component) => component.model);
-    const progress = state.progress || [];
-    const { num } = request.query;
 
-    // TODO:- Refactor this into a validation method
-    if (hasFilesizeError) {
-      const reformattedErrors = fileFields.map((field) => {
-        return {
-          path: field.name,
-          href: `#${field.name}`,
-          name: field.name,
-          text: "The selected file must be smaller than 5MB",
-        };
-      });
+  makePostRouteHandler() {
+    return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      const { cacheService, statusService } = request.services([]);
+      const hasFilesizeError = request.payload === null;
+      const preHandlerErrors = request.pre.errors;
+      const payload = (request.payload || {}) as FormData;
+      const formResult: any = this.validateForm(payload);
+      const state = await cacheService.getState(request);
+      const originalFilenames = (state || {}).originalFilenames || {};
+      const fileFields = this.getViewModel(formResult)
+        .components.filter((component) => component.type === "FileUploadField")
+        .map((component) => component.model);
+      const progress = state.progress || [];
+      const { num } = request.query;
 
-      formResult.errors = Object.is(formResult.errors, null)
-        ? { titleText: "Fix the following errors" }
-        : formResult.errors;
-      formResult.errors.errorList = reformattedErrors;
-    }
+      // TODO:- Refactor this into a validation method
+      if (hasFilesizeError) {
+        const reformattedErrors = fileFields.map((field) => {
+          return {
+            path: field.name,
+            href: `#${field.name}`,
+            name: field.name,
+            text: "The selected file must be smaller than 5MB",
+          };
+        });
+
+        formResult.errors = Object.is(formResult.errors, null)
+          ? { titleText: "Fix the following errors" }
+          : formResult.errors;
+        formResult.errors.errorList = reformattedErrors;
+      }
 
     /**
      * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
@@ -609,7 +612,7 @@ export class PageControllerBase {
       } else {
         sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue);
         update = { [this.section.name]: sectionState };
-      }
+      }      
     }
 
     const { nullOverride, arrayMerge, modifyUpdate } = mergeOptions;
@@ -635,6 +638,26 @@ export class PageControllerBase {
         this.model,
         savedState
       );
+
+      if (config.savePerPage) {
+        // Set flag for continous saves on each question?
+        const saveViewModel = new SaveViewModel(
+          this.title,
+          this.model,
+          relevantState,
+          request
+        );
+
+        await cacheService.mergeState(request, {
+          outputs: saveViewModel.outputs,
+          userCompletedSummary: true,
+        });
+        await cacheService.mergeState(request, {
+          webhookData: saveViewModel.validatedWebhookData,
+        });
+
+        await statusService.savePerPageRequest(request);
+      }
 
       return this.proceed(request, h, relevantState);
     };
