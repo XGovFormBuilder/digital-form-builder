@@ -394,11 +394,15 @@ export class PageControllerBase {
       const startPage = this.model.def.startPage;
       const formData = this.getFormDataFromState(state, num - 1);
 
-      if (
-        !this.model.options.previewMode &&
-        progress.length === 0 &&
-        this.path !== `${startPage}`
-      ) {
+      const isStartPage = this.path === `${startPage}`;
+      const isInitialisedSession = !!state.callback;
+      const shouldRedirectToStartPage =
+        !this.model.options.previewMode ||
+        progress.length === 0 ||
+        !isStartPage ||
+        !isInitialisedSession;
+
+      if (shouldRedirectToStartPage) {
         // @ts-ignore
         return startPage!.startsWith("http")
           ? redirectTo(request, h, startPage!)
