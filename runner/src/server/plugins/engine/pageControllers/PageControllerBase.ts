@@ -397,9 +397,9 @@ export class PageControllerBase {
       const isStartPage = this.path === `${startPage}`;
       const isInitialisedSession = !!state.callback;
       const shouldRedirectToStartPage =
-        !this.model.options.previewMode ||
-        progress.length === 0 ||
-        !isStartPage ||
+        !this.model.options.previewMode &&
+        progress.length === 0 &&
+        !isStartPage &&
         !isInitialisedSession;
 
       if (shouldRedirectToStartPage) {
