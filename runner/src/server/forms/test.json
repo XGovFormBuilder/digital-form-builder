@@ -4,13 +4,34 @@
     {
       "title": "Start",
       "path": "/start",
-      "components": [],
+      "components": [
+        {
+          "name": "languagesProvided",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "Language",
+          "hint": "List any languages you interpret or translate (apart from English)",
+          "schema": {}
+        },
+        {
+          "name": "other",
+          "options": {
+            "hideTitle": true
+          },
+          "type": "TextField",
+          "title": "other",
+          "hint": "List any languages you interpret or translate (apart from English)",
+          "schema": {}
+        }
+      ],
       "next": [
         {
           "path": "/uk-passport"
         }
       ],
-      "controller": "./pages/start.js"
+      "controller": "RepeatingFieldPageController"
     },
     {
       "path": "/uk-passport",
