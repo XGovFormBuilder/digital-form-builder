@@ -2,7 +2,7 @@ import { HapiRequest, HapiResponseToolkit } from "server/types";
 import { PageController } from "./PageController";
 import { FormModel } from "server/plugins/engine/models";
 import { RepeatingSummaryPageController } from "./RepeatingSummaryPageController";
-import { ComponentDef } from "@xgovformbuilder/model";
+import { ComponentDef, RepeatingFieldPage } from "@xgovformbuilder/model";
 import { FormComponent } from "../components";
 
 import joi from "joi";
@@ -19,11 +19,19 @@ function isInputType(component) {
   return !contentTypes.includes(component.type);
 }
 
+const DEFAULT_OPTIONS = {
+  summaryDisplayMode: {
+    samePage: false,
+    separatePage: true,
+  },
+};
+
 export class RepeatingFieldPageController extends PageController {
   summary: RepeatingSummaryPageController;
   inputComponent: FormComponent;
   isRepeatingFieldPageController = true;
-  constructor(model: FormModel, pageDef: any) {
+  options: RepeatingFieldPage["options"];
+  constructor(model: FormModel, pageDef: RepeatingFieldPage) {
     super(model, pageDef);
     const inputComponent = this.components?.items?.find(isInputType);
     if (!inputComponent) {
@@ -31,6 +39,9 @@ export class RepeatingFieldPageController extends PageController {
         "RepeatingFieldPageController initialisation failed, no input component (non-content) was found"
       );
     }
+    this.options = pageDef?.options ?? DEFAULT_OPTIONS;
+    this.options.summaryDisplayMode ??= DEFAULT_OPTIONS.summaryDisplayMode;
+
     this.inputComponent = inputComponent as FormComponent;
 
     this.summary = new RepeatingSummaryPageController(

@@ -16,6 +16,16 @@ export interface Page {
   next?: { path: string; condition?: string }[];
 }
 
+export interface RepeatingFieldPage extends Page {
+  controller: "RepeatingFieldPageController";
+  options?: {
+    summaryDisplayMode?: {
+      samePage?: boolean;
+      separatePage?: boolean;
+    };
+  };
+}
+
 export interface Section {
   name: string;
   title: string;
@@ -123,7 +133,7 @@ export type Fee = {
  * `FormDefinition` is a typescript representation of `Schema`
  */
 export type FormDefinition = {
-  pages: Page[];
+  pages: Array<Page | RepeatingFieldPage>;
   conditions: ConditionRawData[];
   lists: List[];
   sections: Section[];
