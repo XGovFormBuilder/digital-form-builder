@@ -84,14 +84,14 @@ export class RepeatingSummaryPageController extends PageController {
     //   {}
     // );
 
-    const rows = Object.keys(formData).map((key) => {
-      const titleWithIteration = `${key}`;
+    const rows = Object.keys(formData.MultlInputText).map((key) => {
+      const titleWithIteration = `${formData.MultlInputText[key].title}`;
       return {
         key: {
           text: titleWithIteration,
         },
         value: {
-          text: formData[key],
+          text: formData.MultlInputText[key].value,
         },
         actions: {
           items: [

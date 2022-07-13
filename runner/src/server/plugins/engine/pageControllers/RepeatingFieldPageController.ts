@@ -115,11 +115,11 @@ export class RepeatingFieldPageController extends PageController {
       }
 
       const modifyUpdate = (update) => {
-        const endKey = update[this.inputComponent[0].name];
+        const title = update[this.inputComponent[0].name];
         const value = update[this.inputComponent[1]?.name];
         const wrappedValue = !Array.isArray(value) ? [value] : value;
         return {
-          [endKey]: [...new Set(wrappedValue)],
+          ["MultlInputText"]: [{ title, value }],
         };
       };
 
@@ -137,7 +137,7 @@ export class RepeatingFieldPageController extends PageController {
   }
 
   getPartialState(state, atIndex?: number) {
-    const keyName = this.inputComponent[0].name;
+    const keyName = "MultlInputText";
     const sectionName = this.pageDef.sectionName ?? "";
     const path = [sectionName, keyName].filter(Boolean).join(".");
     const partial = reach(state, path);

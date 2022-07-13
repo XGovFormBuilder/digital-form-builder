@@ -6,7 +6,7 @@
       "path": "/start",
       "components": [
         {
-          "name": "title",
+          "name": "MultlInputText",
           "options": {
             "hideTitle": true
           },
