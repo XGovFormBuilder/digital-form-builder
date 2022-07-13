@@ -6,26 +6,27 @@
       "path": "/start",
       "components": [
         {
-          "name": "languagesProvided",
+          "name": "title",
           "options": {
             "hideTitle": true
           },
           "type": "TextField",
-          "title": "Language",
-          "hint": "List any languages you interpret or translate (apart from English)",
+          "title": "Type of Revenue cost",
+          "hint": "Add a Revenue cost",
           "schema": {}
         },
         {
-          "name": "other",
+          "name": "value",
           "options": {
             "hideTitle": true
           },
           "type": "TextField",
-          "title": "other",
-          "hint": "List any languages you interpret or translate (apart from English)",
+          "title": "Amount",
+          "hint": "The Amount needed",
           "schema": {}
         }
       ],
+      "section": "testAddAnother",
       "next": [
         {
           "path": "/uk-passport"

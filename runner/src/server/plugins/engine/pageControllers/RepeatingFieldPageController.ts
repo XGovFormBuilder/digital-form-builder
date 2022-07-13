@@ -21,17 +21,17 @@ function isInputType(component) {
 
 export class RepeatingFieldPageController extends PageController {
   summary: RepeatingSummaryPageController;
-  inputComponent: FormComponent;
+  inputComponent: FormComponent[];
   isRepeatingFieldPageController = true;
   constructor(model: FormModel, pageDef: any) {
     super(model, pageDef);
-    const inputComponent = this.components?.items?.find(isInputType);
+    const inputComponent = this.components?.items?.filter(isInputType);
     if (!inputComponent) {
       throw Error(
         "RepeatingFieldPageController initialisation failed, no input component (non-content) was found"
       );
     }
-    this.inputComponent = inputComponent as FormComponent;
+    this.inputComponent = <FormComponent[]>inputComponent;
 
     this.summary = new RepeatingSummaryPageController(
       model,
@@ -43,13 +43,17 @@ export class RepeatingFieldPageController extends PageController {
   }
 
   get stateSchema() {
-    const name = this.inputComponent.name;
-    const parentSchema = super.stateSchema.fork([name], (schema) => {
-      if (schema.type !== "array") {
-        return joi.array().items(schema).single().empty(null).default([]);
-      }
-      return schema;
-    });
+    let parentSchema = super.stateSchema;
+    for (var input of this.inputComponent) {
+      const name = input.name;
+      parentSchema = parentSchema.fork([name], (schema) => {
+        if (schema.type !== "array") {
+          return joi.array().items(schema).single().empty(null).default([]);
+        }
+        return schema;
+      });
+    }
+
     super.stateSchema = parentSchema;
     return parentSchema;
   }
@@ -88,7 +92,7 @@ export class RepeatingFieldPageController extends PageController {
       if (removeAtIndex ?? false) {
         const { cacheService } = request.services([]);
         let state = await cacheService.getState(request);
-        const key = this.inputComponent.name;
+        const key = this.inputComponent[0].name;
         const answers = state[key];
         answers?.splice(removeAtIndex, 1);
         state = await cacheService.mergeState(request, { [key]: answers });
@@ -111,11 +115,11 @@ export class RepeatingFieldPageController extends PageController {
       }
 
       const modifyUpdate = (update) => {
-        const key = this.inputComponent.name;
-        const value = update[key];
+        const endKey = update[this.inputComponent[0].name];
+        const value = update[this.inputComponent[1]?.name];
         const wrappedValue = !Array.isArray(value) ? [value] : value;
         return {
-          [key]: [...new Set(wrappedValue)],
+          [endKey]: [...new Set(wrappedValue)],
         };
       };
 
@@ -133,7 +137,7 @@ export class RepeatingFieldPageController extends PageController {
   }
 
   getPartialState(state, atIndex?: number) {
-    const keyName = this.inputComponent.name;
+    const keyName = this.inputComponent[0].name;
     const sectionName = this.pageDef.sectionName ?? "";
     const path = [sectionName, keyName].filter(Boolean).join(".");
     const partial = reach(state, path);

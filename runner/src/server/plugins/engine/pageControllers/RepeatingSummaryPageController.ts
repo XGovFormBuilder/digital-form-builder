@@ -76,26 +76,27 @@ export class RepeatingSummaryPageController extends PageController {
 
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
-    const answers = this.getPartialState(formData);
-    const { title = "" } = this.inputComponent;
-    const listValueToText = this.inputComponent.list?.items?.reduce(
-      (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
-      {}
-    );
+    delete formData["progress"];
+    //const answers = this.getPartialState(formData);
+    // const { title = "" } = this.inputComponent;
+    // const listValueToText = this.inputComponent.list?.items?.reduce(
+    //   (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
+    //   {}
+    // );
 
-    const rows = answers?.map((value, i) => {
-      const titleWithIteration = `${title} ${i + 1}`;
+    const rows = Object.keys(formData).map((key) => {
+      const titleWithIteration = `${key}`;
       return {
         key: {
           text: titleWithIteration,
         },
         value: {
-          text: listValueToText?.[value] ?? value,
+          text: formData[key],
         },
         actions: {
           items: [
             {
-              href: `?removeAtIndex=${i}`,
+              href: `?removeAtIndex=${key}`,
               text: "Remove",
               visuallyHiddenText: titleWithIteration,
             },
