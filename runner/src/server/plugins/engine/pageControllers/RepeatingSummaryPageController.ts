@@ -76,14 +76,51 @@ export class RepeatingSummaryPageController extends PageController {
 
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
-    delete formData["progress"];
-    //const answers = this.getPartialState(formData);
-    // const { title = "" } = this.inputComponent;
-    // const listValueToText = this.inputComponent.list?.items?.reduce(
-    //   (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
-    //   {}
-    // );
+    let rows;
+    if (this.inputComponent.length === 1) {
+      rows = this.buildListRows(formData);
+    } else {
+      rows = this.buildTextFieldRows(formData);
+    }
+    return {
+      ...baseViewModel,
+      details: { rows },
+    };
+  }
 
+  buildListRows(formData) {
+    const answers = this.getPartialState(formData);
+    const { title = "" } = this.inputComponent[0];
+    const listValueToText = this.inputComponent[0].list?.items?.reduce(
+      (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
+      {}
+    );
+
+    const rows = answers?.map((value, i) => {
+      const titleWithIteration = `${title} ${i + 1}`;
+      return {
+        key: {
+          text: titleWithIteration,
+        },
+        value: {
+          text: listValueToText?.[value] ?? value,
+        },
+        actions: {
+          items: [
+            {
+              href: `?removeAtIndex=${i}`,
+              text: "Remove",
+              visuallyHiddenText: titleWithIteration,
+            },
+          ],
+        },
+      };
+    });
+    return rows;
+  }
+
+  buildTextFieldRows(formData) {
+    delete formData["progress"];
     const rows = Object.keys(formData.MultlInputText).map((key) => {
       const titleWithIteration = `${formData.MultlInputText[key].title}`;
       return {
@@ -104,11 +141,7 @@ export class RepeatingSummaryPageController extends PageController {
         },
       };
     });
-
-    return {
-      ...baseViewModel,
-      details: { rows },
-    };
+    return rows;
   }
 
   /**

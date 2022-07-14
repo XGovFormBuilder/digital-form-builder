@@ -18,7 +18,8 @@
         {
           "name": "value",
           "options": {
-            "hideTitle": true
+            "hideTitle": true,
+            "required": false
           },
           "type": "TextField",
           "title": "Amount",
