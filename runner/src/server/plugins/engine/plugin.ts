@@ -262,12 +262,7 @@ export const plugin = {
           multipart: { output: "stream" },
           maxBytes: uploadService.fileSizeLimit,
           failAction: async (request: any, h: HapiResponseToolkit) => {
-            if (
-              request.server.plugins.crumb &&
-              request.server.plugins.crumb.generate
-            ) {
-              request.server.plugins.crumb.generate(request, h);
-            }
+            request.server?.plugins?.crumb?.generate?.(request, h);
             return h.continue;
           },
         },

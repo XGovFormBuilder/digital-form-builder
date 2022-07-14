@@ -120,7 +120,7 @@ export class FormModel {
     // from the individual pages/sections
     let schema = joi.object().required();
     // @ts-ignore
-    [undefined].concat(this.sections).forEach((section) => {
+    [undefined, ...this.sections].forEach((section) => {
       const sectionPages = relevantPages.filter(
         (page) => page.section === section
       );
