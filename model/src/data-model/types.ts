@@ -1,6 +1,8 @@
 import { ConditionRawData } from ".";
 import { ComponentDef } from "../components/types";
 
+type Toggleable<T> = boolean | T;
+
 export interface Next {
   path: string;
   condition?: string;
@@ -18,10 +20,13 @@ export interface Page {
 
 export interface RepeatingFieldPage extends Page {
   controller: "RepeatingFieldPageController";
-  options?: {
+  options: {
     summaryDisplayMode?: {
       samePage?: boolean;
       separatePage?: boolean;
+    };
+    customText?: {
+      separatePageTitle?: string;
     };
   };
 }
@@ -98,8 +103,6 @@ export type Output = {
   type: OutputType;
   outputConfiguration: OutputConfiguration;
 };
-
-type Toggleable<T> = boolean | T;
 
 export type ConfirmationPage = {
   customText: {

@@ -10,6 +10,7 @@ export class RepeatingSummaryPageController extends PageController {
   private postRoute!: HapiLifecycleMethod;
   nextIndex!: RepeatingFieldPageController["nextIndex"];
   getPartialState!: RepeatingFieldPageController["getPartialState"];
+  options!: RepeatingFieldPageController["options"];
 
   inputComponent;
 
@@ -44,6 +45,7 @@ export class RepeatingSummaryPageController extends PageController {
       await cacheService.mergeState(request, { progress });
 
       const viewModel = this.getViewModel(state);
+
       return h.view("repeating-summary", viewModel);
     };
   }
@@ -77,13 +79,23 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     const answers = this.getPartialState(formData);
+    const rows = this.getRowsFromAnswers(answers);
+
+    return {
+      ...baseViewModel,
+      customText: this.options.customText,
+      details: { rows },
+    };
+  }
+
+  getRowsFromAnswers(answers) {
     const { title = "" } = this.inputComponent;
     const listValueToText = this.inputComponent.list?.items?.reduce(
       (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
       {}
     );
 
-    const rows = answers?.map((value, i) => {
+    return answers?.map((value, i) => {
       const titleWithIteration = `${title} ${i + 1}`;
       return {
         key: {
@@ -103,11 +115,6 @@ export class RepeatingSummaryPageController extends PageController {
         },
       };
     });
-
-    return {
-      ...baseViewModel,
-      details: { rows },
-    };
   }
 
   /**
