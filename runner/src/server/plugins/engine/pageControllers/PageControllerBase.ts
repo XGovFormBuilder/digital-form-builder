@@ -1,9 +1,6 @@
 import { merge, reach } from "@hapi/hoek";
 import * as querystring from "querystring";
-import {
-  messages,
-  validationOptions,
-} from "server/plugins/engine/pageControllers/validationOptions";
+import { validationOptions } from "server/plugins/engine/pageControllers/validationOptions";
 
 import { feedbackReturnInfoKey, proceed, redirectTo } from "../helpers";
 import { ComponentCollection } from "../components/ComponentCollection";
@@ -18,6 +15,7 @@ import {
   HapiResponseToolkit,
 } from "server/types";
 import { FormModel } from "../models";
+import { SaveViewModel } from "../models";
 import {
   FormData,
   FormPayload,
@@ -26,6 +24,7 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -73,9 +72,9 @@ export class PageControllerBase {
     this.repeatField = pageDef.repeatField;
 
     // Resolve section
-    this.section =
-      pageDef.section &&
-      model.sections.find((section) => section.name === pageDef.section);
+    this.section = model.sections?.find(
+      (section) => section.name === pageDef.section
+    );
 
     // Components collection
     const components = new ComponentCollection(pageDef.components, model);
@@ -486,9 +485,140 @@ export class PageControllerBase {
       }
 
       await cacheService.mergeState(request, { progress });
+
       viewModel.backLink = progress[progress.length - 2];
       return h.view(this.viewName, viewModel);
     };
+  }
+
+  /**
+   * deals with parsing errors and saving answers to state
+   */
+  async handlePostRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    mergeOptions: {
+      nullOverride?: boolean;
+      arrayMerge?: boolean;
+      /**
+       * if you wish to modify the value just before it is added to the user's session (i.e. after validation and error parsing), use the modifyUpdate method.
+       * pass in a function, that takes in the update value. Make sure that this returns the modified value.
+       */
+      modifyUpdate?: <T>(value: T) => any;
+    } = {}
+  ) {
+    const { cacheService } = request.services([]);
+    const hasFilesizeError = request.payload === null;
+    const preHandlerErrors = request.pre.errors;
+    const payload = (request.payload || {}) as FormData;
+    const formResult: any = this.validateForm(payload);
+    const state = await cacheService.getState(request);
+    const originalFilenames = (state || {}).originalFilenames || {};
+    const fileFields = this.getViewModel(formResult)
+      .components.filter((component) => component.type === "FileUploadField")
+      .map((component) => component.model);
+    const progress = state.progress || [];
+    const { num } = request.query;
+
+    // TODO:- Refactor this into a validation method
+    if (hasFilesizeError) {
+      const reformattedErrors = fileFields.map((field) => {
+        return {
+          path: field.name,
+          href: `#${field.name}`,
+          name: field.name,
+          text: "The selected file must be smaller than 5MB",
+        };
+      });
+
+      formResult.errors = Object.is(formResult.errors, null)
+        ? { titleText: "Fix the following errors" }
+        : formResult.errors;
+      formResult.errors.errorList = reformattedErrors;
+    }
+
+    /**
+     * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
+     */
+    if (preHandlerErrors) {
+      const reformattedErrors: any[] = [];
+      preHandlerErrors.forEach((error) => {
+        const reformatted = error;
+        const fieldMeta = fileFields.find((field) => field.id === error.name);
+
+        if (typeof reformatted.text === "string") {
+          /**
+           * if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
+           */
+          reformatted.text = reformatted.text.replace(
+            /%s/,
+            fieldMeta?.label?.text.trim() ?? "the file"
+          );
+          reformattedErrors.push(reformatted);
+        }
+      });
+
+      formResult.errors = Object.is(formResult.errors, null)
+        ? { titleText: "Fix the following errors" }
+        : formResult.errors;
+      formResult.errors.errorList = reformattedErrors;
+    }
+
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value && value === (originalFilenames[key] || {}).location) {
+        payload[key] = originalFilenames[key].originalFilename;
+      }
+    });
+
+    /**
+     * If there are any errors, render the page with the parsed errors
+     */
+    if (formResult.errors) {
+      //TODO:- refactor to match POST REDIRECT GET pattern.
+
+      return this.renderWithErrors(
+        request,
+        h,
+        payload,
+        num,
+        progress,
+        formResult.errors
+      );
+    }
+
+    const newState = this.getStateFromValidForm(formResult.value);
+    const stateResult = this.validateState(newState);
+    if (stateResult.errors) {
+      return this.renderWithErrors(
+        request,
+        h,
+        payload,
+        num,
+        progress,
+        stateResult.errors
+      );
+    }
+
+    let update = this.getPartialMergeState(stateResult.value);
+    if (this.repeatField) {
+      const updateValue = { [this.path]: update[this.section.name] };
+      const sectionState = state[this.section.name];
+      if (!sectionState) {
+        update = { [this.section.name]: [updateValue] };
+      } else if (!sectionState[num - 1]) {
+        sectionState.push(updateValue);
+        update = { [this.section.name]: sectionState };
+      } else {
+        sectionState[num - 1] = merge(sectionState[num - 1] ?? {}, updateValue);
+        update = { [this.section.name]: sectionState };
+      }
+    }
+
+    const { nullOverride, arrayMerge, modifyUpdate } = mergeOptions;
+    if (modifyUpdate) {
+      update = modifyUpdate(update);
+    }
+    await cacheService.mergeState(request, update, nullOverride, arrayMerge);
   }
 
   /**
@@ -496,123 +626,37 @@ export class PageControllerBase {
    */
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { cacheService } = request.services([]);
-      const hasFilesizeError = request.payload === null;
-      const preHandlerErrors = request.pre.errors;
-      const payload = (request.payload || {}) as FormData;
-      const formResult: any = this.validateForm(payload);
-      const state = await cacheService.getState(request);
-      const originalFilenames = (state || {}).originalFilenames || {};
-      const fileFields = this.getViewModel(formResult)
-        .components.filter((component) => component.type === "FileUploadField")
-        .map((component) => component.model);
-      const progress = state.progress || [];
-      const { num } = request.query;
-
-      // TODO:- Refactor this into a validation method
-      if (hasFilesizeError) {
-        const reformattedErrors = fileFields.map((field) => {
-          return {
-            path: field.name,
-            href: `#${field.name}`,
-            name: field.name,
-            text: "The selected file must be smaller than 5MB",
-          };
-        });
-
-        formResult.errors = Object.is(formResult.errors, null)
-          ? { titleText: "Fix the following errors" }
-          : formResult.errors;
-        formResult.errors.errorList = reformattedErrors;
+      const response = await this.handlePostRequest(request, h);
+      if (response?.source?.context?.errors) {
+        return response;
       }
-
-      /**
-       * other file related errors.. assuming file fields will be on their own page. This will replace all other errors from the page if not..
-       */
-      if (preHandlerErrors) {
-        const reformattedErrors: any[] = [];
-        preHandlerErrors.forEach((error) => {
-          const reformatted = error;
-          const fieldMeta = fileFields.find((field) => field.id === error.name);
-
-          if (typeof reformatted.text === "string") {
-            /**
-             * if it's not a string it's probably going to be a stack trace.. don't want to show that to the user. A problem for another day.
-             */
-            reformatted.text = reformatted.text.replace(
-              /%s/,
-              fieldMeta?.label?.text.trim() ?? "the file"
-            );
-            reformattedErrors.push(reformatted);
-          }
-        });
-
-        formResult.errors = Object.is(formResult.errors, null)
-          ? { titleText: "Fix the following errors" }
-          : formResult.errors;
-        formResult.errors.errorList = reformattedErrors;
-      }
-
-      Object.entries(payload).forEach(([key, value]) => {
-        if (value && value === (originalFilenames[key] || {}).location) {
-          payload[key] = originalFilenames[key].originalFilename;
-        }
-      });
-
-      /**
-       * If there are any errors, render the page with the parsed errors
-       */
-      if (formResult.errors) {
-        return this.renderWithErrors(
-          request,
-          h,
-          payload,
-          num,
-          progress,
-          formResult.errors
-        );
-      }
-
-      const newState = this.getStateFromValidForm(formResult.value);
-      const stateResult = this.validateState(newState);
-
-      if (stateResult.errors) {
-        return this.renderWithErrors(
-          request,
-          h,
-          payload,
-          num,
-          progress,
-          stateResult.errors
-        );
-      }
-
-      let update = this.getPartialMergeState(stateResult.value);
-      if (this.repeatField) {
-        const updateValue = { [this.path]: update[this.section.name] };
-        const sectionState = state[this.section.name];
-        if (!sectionState) {
-          update = { [this.section.name]: [updateValue] };
-        } else if (!sectionState[num - 1]) {
-          sectionState.push(updateValue);
-          update = { [this.section.name]: sectionState };
-        } else {
-          sectionState[num - 1] = merge(
-            sectionState[num - 1] ?? {},
-            updateValue
-          );
-          update = { [this.section.name]: sectionState };
-        }
-      }
-      const savedState = await cacheService.mergeState(request, update);
-
-      //Calculate our relevantState, which will filter out previously input answers that are no longer relevant to this user journey
+      const { cacheService, statusService } = request.services([]);
+      const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
         this.model,
         savedState
       );
 
+      if (config.savePerPage) {
+        // Set flag for continous saves on each question?
+        const saveViewModel = new SaveViewModel(
+          this.title,
+          this.model,
+          relevantState,
+          request
+        );
+
+        await cacheService.mergeState(request, {
+          outputs: saveViewModel.outputs,
+          userCompletedSummary: true,
+        });
+        await cacheService.mergeState(request, {
+          webhookData: saveViewModel.validatedWebhookData,
+        });
+
+        await statusService.savePerPageRequest(request);
+      }
       return this.proceed(request, h, relevantState);
     };
   }
@@ -674,6 +718,9 @@ export class PageControllerBase {
     return this.model.pages.find((page) => page.path === path);
   }
 
+  /**
+   * TODO:- proceed is interfering with subclasses
+   */
   proceed(request: HapiRequest, h: HapiResponseToolkit, state) {
     return proceed(request, h, this.getNext(state));
   }

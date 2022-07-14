@@ -40,6 +40,7 @@ export const configSchema = Joi.object({
   serviceName: Joi.string().optional(),
   documentUploadApiUrl: Joi.string(),
   previewMode: Joi.boolean().optional(),
+  enforceCsrf: Joi.boolean().optional(),
   sslKey: Joi.string().optional(),
   sslCert: Joi.string().optional(),
   sessionTimeout: Joi.number(),
@@ -77,6 +78,7 @@ export const configSchema = Joi.object({
   safelist: Joi.array().items(Joi.string()),
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
+  savePerPage: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {

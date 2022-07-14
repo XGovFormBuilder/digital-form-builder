@@ -16,7 +16,7 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
   // but if you editing a component which is a children of a list based component, then the props.context is the ListContext.
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
-  const { schema = {} } = selectedComponent;
+  const { schema = {}, options = {} } = selectedComponent;
 
   return (
     <details className="govuk-details">
@@ -72,6 +72,32 @@ export function TextFieldEdit({ children, context = ComponentContext }: Props) {
           onChange={(e) =>
             dispatch({
               type: Actions.EDIT_SCHEMA_MAX,
+              payload: e.target.value,
+            })
+          }
+        />
+      </div>
+
+      <div className="govuk-form-group">
+        <label
+          className="govuk-label govuk-label--s"
+          htmlFor="field-schema-maxwords"
+        >
+          {i18n("textFieldEditComponent.maxWordField.title")}
+        </label>
+        <span className="govuk-hint">
+          {i18n("textFieldEditComponent.maxWordField.helpText")}
+        </span>
+        <input
+          className="govuk-input govuk-input--width-3"
+          data-cast="number"
+          id="field-schema-maxwords"
+          name="schema.maxwords"
+          value={options.maxWords || ""}
+          type="number"
+          onChange={(e) =>
+            dispatch({
+              type: Actions.EDIT_OPTIONS_MAX_WORDS,
               payload: e.target.value,
             })
           }

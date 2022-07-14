@@ -125,6 +125,15 @@ export function optionsReducer(state, action: OptionsActions) {
         selectedComponent: {
           ...selectedComponent,
           options: { ...options, omitFromSummary: payload },
+           },
+      };
+
+    case Options.EDIT_OPTIONS_MAX_WORDS:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, maxWords: payload },
         },
       };
   }

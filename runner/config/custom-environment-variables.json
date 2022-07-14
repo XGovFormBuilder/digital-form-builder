@@ -17,6 +17,7 @@
   "redisHost": "REDIS_HOST",
   "redisPort": "REDIS_PORT",
   "redisTls": "REDIS_TLS",
+  "sandbox": "sandbox",
   "redisPassword": "REDIS_PASSWORD",
   "serviceName": "SERVICE_NAME",
   "documentUploadApiUrl": "DOCUMENT_UPLOAD_API_URL",
@@ -37,5 +38,8 @@
   "authClientSecret": "AUTH_CLIENT_SECRET",
   "authClientAuthUrl": "AUTH_CLIENT_AUTH_URL",
   "authClientTokenUrl": "AUTH_CLIENT_TOKEN_URL",
-  "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL"
+  "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
+  "previewMode": "PREVIEW_MODE",
+  "enforceCsrf": "ENFORCE_CSRF",
+  "savePerPage": "SAVE_PER_PAGE"
 }
