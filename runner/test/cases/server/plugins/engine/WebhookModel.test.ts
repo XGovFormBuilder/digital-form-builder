@@ -29,6 +29,9 @@ const testDetails = [
         type: "MonthYearField",
         title: "Approximate date of marriage",
         dataType: "monthYear",
+        options: {
+          required: true,
+        },
       },
       {
         name: "caz",
@@ -41,6 +44,9 @@ const testDetails = [
         type: "SelectField",
         title: "caz zone",
         dataType: "list",
+        options: {
+          required: true,
+        },
       },
     ],
     name: undefined,
@@ -61,6 +67,10 @@ const testDetails = [
         type: "DatePartsField",
         title: "full date",
         dataType: "date",
+        options: {
+          required: false,
+          omitFromSummary: false,
+        },
       },
     ],
   },

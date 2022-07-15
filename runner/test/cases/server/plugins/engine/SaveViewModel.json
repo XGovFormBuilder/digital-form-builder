@@ -33,28 +33,17 @@
       ]
     },
     {
-      "title": "Second page",
+      "title": "How long is your honeymoon?",
       "path": "/second-page",
       "section": "aSection",
       "components": [
         {
           "name": "fullDate",
           "options": {
-            "required": false,
-            "omitFromSummary": false
+            "required": false
           },
           "type": "DatePartsField",
           "title": "full date",
-          "schema": {}
-        },
-        {
-          "name": "birthDate",
-          "options": {
-            "required": false,
-            "omitFromSummary": true
-          },
-          "type": "DateField",
-          "title": "birth date",
           "schema": {}
         }
       ],

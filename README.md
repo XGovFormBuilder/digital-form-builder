@@ -45,34 +45,34 @@ To learn more about workspaces, check these links:
 
 ### I want to...
 
-#### run a specific workspaces' script
+- #### run a specific workspaces' script
 
-`$ yarn [runner|designer|model] name-of-script`
+  `$ yarn [runner|designer|model] name-of-script`
 
-eg.: `yarn designer start` or `yarn runner add babel-core --dev`
+  eg.: `yarn designer start` or `yarn runner add babel-core --dev`
 
-#### run a script for each of the workspaces
+- #### run a script for each of the workspaces
 
-`$ yarn workspaces foreach run name-of-script`
+  `$ yarn workspaces foreach run name-of-script`
 
-#### watch and build for changes across all repos
+- #### watch and build for changes across all repos
 
-I wouldn't recommend it unless you have a beefy processor.
+  I wouldn't recommend it unless you have a beefy processor.
 
-`$ yarn watch`
+  `$ yarn watch`
 
-#### add a dependency to all workspaces
+- #### add a dependency to all workspaces
 
-`$ yarn add packagename`
+  `$ yarn add packagename`
 
-#### create a new workspace
+- #### create a new workspace
 
-1. create a new directory for the workspace and yarn init it
-   1. `$ mkdir myNewLib`
-   2. `$ cd myNewlib`
-   3. `$ yarn init`
-2. in the root `package.json`
-   1. add `myNewLib` to the `workspaces` object.
+  1. create a new directory for the workspace and yarn init it
+     1. `$ mkdir myNewLib`
+     2. `$ cd myNewlib`
+     3. `$ yarn init`
+  2. in the root `package.json`
+     1. add `myNewLib` to the `workspaces` object.
 
 ## Troubleshooting
 
