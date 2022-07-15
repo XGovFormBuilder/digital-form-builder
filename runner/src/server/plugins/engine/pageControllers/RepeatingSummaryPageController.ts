@@ -12,6 +12,7 @@ export class RepeatingSummaryPageController extends PageController {
   getPartialState!: RepeatingFieldPageController["getPartialState"];
 
   inputComponent;
+  returnUrl;
 
   constructor(model, pageDef, inputComponent) {
     super(model, pageDef);
@@ -40,6 +41,10 @@ export class RepeatingSummaryPageController extends PageController {
       const { cacheService } = request.services([]);
       const state = await cacheService.getState(request);
       const { progress = [] } = state;
+      const { query } = request;
+      const { returnUrl } = query;
+      this.returnUrl = returnUrl;
+
       progress?.push(`/${this.model.basePath}${this.path}?view=summary`);
       await cacheService.mergeState(request, { progress });
 
@@ -158,6 +163,10 @@ export class RepeatingSummaryPageController extends PageController {
         return h.redirect(
           `/${this.model.basePath}${this.path}?view=${nextIndex}`
         );
+      }
+
+      if (typeof this.returnUrl !== "undefined") {
+        return h.redirect(this.returnUrl);
       }
 
       return h.redirect(this.getNext(request.payload));

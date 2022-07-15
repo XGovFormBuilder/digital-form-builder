@@ -4,36 +4,13 @@
     {
       "title": "Start",
       "path": "/start",
-      "components": [
-        {
-          "name": "MultlInputText",
-          "options": {
-            "hideTitle": true
-          },
-          "type": "TextField",
-          "title": "Type of Revenue cost",
-          "hint": "Add a Revenue cost",
-          "schema": {}
-        },
-        {
-          "name": "value",
-          "options": {
-            "hideTitle": true,
-            "required": false
-          },
-          "type": "TextField",
-          "title": "Amount",
-          "hint": "The Amount needed",
-          "schema": {}
-        }
-      ],
-      "section": "testAddAnother",
+      "components": [],
       "next": [
         {
           "path": "/uk-passport"
         }
       ],
-      "controller": "RepeatingFieldPageController"
+      "controller": "./pages/start.js"
     },
     {
       "path": "/uk-passport",

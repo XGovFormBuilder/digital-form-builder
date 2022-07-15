@@ -103,7 +103,7 @@ export class RepeatingFieldPageController extends PageController {
       }
 
       if (typeof partialState !== "undefined") {
-        return h.redirect(`?view=summary`);
+        return this.summary.getRouteHandler(request, h);
       }
 
       return super.makeGetRouteHandler()(request, h);
@@ -129,7 +129,7 @@ export class RepeatingFieldPageController extends PageController {
           };
         }
         return {
-          ["MultlInputText"]: [{ title, value }],
+          [this.inputComponent[0].name]: [{ title, value }],
         };
       };
 
