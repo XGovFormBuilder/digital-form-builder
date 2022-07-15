@@ -1,0 +1,6 @@
+{% from "input/macro.njk" import govukInput %}
+{% macro MultiInputField(component) %}
+{% for item in component.model.items %}
+    {{ govukInput(item) }}
+{% endfor %}
+{% endmacro %}

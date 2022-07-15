@@ -119,6 +119,12 @@ export class RepeatingFieldPageController extends PageController {
       }
 
       const modifyUpdate = (update) => {
+        for (var input of this.inputComponent) {
+          if (input.type == "MultiInputField") {
+            input.model;
+            const title = update[this.inputComponent[0].name];
+          }
+        }
         const title = update[this.inputComponent[0].name];
         const value =
           update[this.inputComponent[1]?.name ?? this.inputComponent[0].name];

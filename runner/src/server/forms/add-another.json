@@ -7,31 +7,11 @@
       "path": "/first-page",
       "components": [
         {
-          "name": "rhnpiT",
+          "name": "MultiInputField",
           "options": {},
-          "type": "Html",
-          "content": "<p class=\"govuk-body\">Interpreters and translators based outside the UK can apply online to be added to the Foreign, Commonwealth & Development Office (FCDO) 'Find an English-speaking interpreter or translator abroad' service.</p>\n<p class=\"govuk-body\">This service provides lists of English-speaking interpreters and translators which are searchable by country and region to help British nationals find the support that best suits their needs.</p>\n<p class=\"govuk-body\">To be eligible to be added to a list you need to be:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n<li>based in the country you provide services in</li>\n<li>qualified to provide interpretation or translation services</li>\n</ul>\n</p>\n<p class=\"govuk-body\">You also need to be able to provide:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>services and support to customers in English</li>\n  <li>reliable contact details, including an email address</li>\n</ul>\n<div class=\"govuk-warning-text\">\n  <span class=\"govuk-warning-text__icon\" aria-hidden=\"true\">!</span>\n  <strong class=\"govuk-warning-text__text\">\n    <span class=\"govuk-warning-text__assistive\">Warning</span>\n    You must have access to the email address you provide. You will be sent a link that you must use to complete your application.\n  </strong>\n</div>\n",
-          "schema": {}
-        },
-        {
-          "name": "MultlInputText",
-          "options": {
-            "hideTitle": true
-          },
-          "type": "TextField",
-          "title": "Type of Revenue cost",
-          "hint": "Add a Revenue cost",
-          "schema": {}
-        },
-        {
-          "name": "value",
-          "options": {
-            "hideTitle": true,
-            "required": false
-          },
-          "type": "TextField",
-          "title": "Amount",
-          "hint": "The Amount needed",
+          "type": "MultiInputField",
+          "title": "MultiInputField",
+          "hint": "The MultiInputField needed",
           "schema": {}
         }
       ],

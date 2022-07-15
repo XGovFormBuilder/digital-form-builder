@@ -82,11 +82,17 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     let rows;
-    if (this.inputComponent.length === 1) {
-      rows = this.buildListRows(formData);
-    } else {
-      rows = this.buildTextFieldRows(formData);
+    for (var input of this.inputComponent) {
+      if (input.type === "MultiInputField") {
+        rows = this.buildTextFieldRows(formData, input);
+        return {
+          ...baseViewModel,
+          details: { rows },
+        };
+      }
     }
+
+    rows = this.buildListRows(formData);
     return {
       ...baseViewModel,
       details: { rows },
@@ -124,16 +130,18 @@ export class RepeatingSummaryPageController extends PageController {
     return rows;
   }
 
-  buildTextFieldRows(formData) {
+  buildTextFieldRows(formData, input) {
     delete formData["progress"];
-    const rows = Object.keys(formData.MultlInputText).map((key) => {
-      const titleWithIteration = `${formData.MultlInputText[key].title}`;
+    const rows = Object.keys(formData[input.name]).map((key) => {
+      const titleWithIteration = `${
+        formData[input.name][key]["type-of-revenue-cost"]
+      }`;
       return {
         key: {
           text: titleWithIteration,
         },
         value: {
-          text: formData.MultlInputText[key].value,
+          text: formData[input.name][key]["revenue-cost"],
         },
         actions: {
           items: [
