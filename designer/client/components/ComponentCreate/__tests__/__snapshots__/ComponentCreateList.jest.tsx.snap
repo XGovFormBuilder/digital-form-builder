@@ -238,6 +238,19 @@ exports[`ComponentCreateList should match snapshot 1`] = `
               class="govuk-link"
               href="#0"
             >
+              fieldTypeToName.MultiInputField
+            </a>
+            <div
+              class="govuk-hint"
+            >
+              fieldTypeToName.MultiInputField_info
+            </div>
+          </li>
+          <li>
+            <a
+              class="govuk-link"
+              href="#0"
+            >
               Multiline text
             </a>
             <div
