@@ -3,12 +3,8 @@
     <dt class="govuk-summary-list__key">
         {{item.label}}
     </dt>
-    <dd class="govuk-summary-list__value">        
-        {%if item.name == "MultlInputText"%}
-        {% for value in item.value %}
-        {{value.title}} : {{value.value}},  
-        {% endfor %}            
-        {% elif item.value %}
+    <dd class="govuk-summary-list__value">
+        {% if item.value %}
             {% if item.type == 'FileUploadField' %}
                 Uploaded
             {% else %}
