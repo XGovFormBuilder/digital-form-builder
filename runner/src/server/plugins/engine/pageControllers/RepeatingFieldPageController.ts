@@ -92,7 +92,9 @@ export class RepeatingFieldPageController extends PageController {
       if (removeAtIndex ?? false) {
         const { cacheService } = request.services([]);
         let state = await cacheService.getState(request);
-        const key = this.inputComponent[0].name;
+        const key =
+          this.inputComponent.find((i) => i.name === "MultiInputField")?.name ??
+          this.inputComponent[0].name;
         const answers = state[key];
         answers?.splice(removeAtIndex, 1);
         state = await cacheService.mergeState(request, { [key]: answers });
@@ -121,21 +123,18 @@ export class RepeatingFieldPageController extends PageController {
       const modifyUpdate = (update) => {
         for (var input of this.inputComponent) {
           if (input.type == "MultiInputField") {
-            input.model;
-            const title = update[this.inputComponent[0].name];
+            const value = update[input.name];
+            const wrappedValue = !Array.isArray(value) ? [value] : value;
+            return {
+              [input.name]: [...new Set(wrappedValue)],
+            };
           }
         }
-        const title = update[this.inputComponent[0].name];
-        const value =
-          update[this.inputComponent[1]?.name ?? this.inputComponent[0].name];
+
+        const value = update[this.inputComponent[0].name];
         const wrappedValue = !Array.isArray(value) ? [value] : value;
-        if (this.inputComponent.length === 1) {
-          return {
-            [this.inputComponent[0].name]: [...new Set(wrappedValue)],
-          };
-        }
         return {
-          [this.inputComponent[0].name]: [{ title, value }],
+          [this.inputComponent[0].name]: [...new Set(wrappedValue)],
         };
       };
 
