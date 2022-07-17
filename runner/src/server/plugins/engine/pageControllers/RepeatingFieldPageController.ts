@@ -27,11 +27,15 @@ const DEFAULT_OPTIONS = {
   customText: {},
 };
 
+/**
+ * TODO:- this will be refactored as per https://github.com/XGovFormBuilder/digital-form-builder/discussions/855
+ */
 export class RepeatingFieldPageController extends PageController {
   summary: RepeatingSummaryPageController;
   inputComponent: FormComponent;
   isRepeatingFieldPageController = true;
   isSamePageDisplayMode: boolean;
+  isSeparateDisplayMode: boolean;
 
   options: RepeatingFieldPage["options"];
 
@@ -48,6 +52,7 @@ export class RepeatingFieldPageController extends PageController {
     this.options.summaryDisplayMode ??= DEFAULT_OPTIONS.summaryDisplayMode;
     this.options.customText ??= DEFAULT_OPTIONS.customText;
     this.isSamePageDisplayMode = this.options.summaryDisplayMode.samePage!;
+    this.isSeparateDisplayMode = this.options.summaryDisplayMode.separatePage!;
     this.inputComponent = inputComponent as FormComponent;
 
     this.summary = new RepeatingSummaryPageController(
@@ -78,7 +83,6 @@ export class RepeatingFieldPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
       const { removeAtIndex, view, returnUrl } = query;
-      const isSamePageDisplayMode = this.options.summaryDisplayMode!.samePage;
 
       if (removeAtIndex ?? false) {
         return this.removeAtIndex(request, h);
@@ -88,7 +92,7 @@ export class RepeatingFieldPageController extends PageController {
         return this.summary.getRouteHandler(request, h);
       }
 
-      if ((view ?? false) || isSamePageDisplayMode) {
+      if ((view ?? false) || this.isSamePageDisplayMode) {
         const response = await super.makeGetRouteHandler()(request, h);
         const { cacheService } = request.services([]);
         const state = await cacheService.getState(request);
@@ -141,16 +145,16 @@ export class RepeatingFieldPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
 
-      const isSeparateDisplayMode = this.options.summaryDisplayMode!
-        .separatePage;
-
-      if (!isSeparateDisplayMode && request?.payload?.next === "continue") {
-        const { next, ...rest } = request.payload;
-        return h.redirect(this.getNext(rest));
-      }
-
       if (query.view === "summary") {
         return this.summary.postRouteHandler(request, h);
+      }
+
+      if (request?.payload?.next === "continue") {
+        const { next, ...rest } = request.payload;
+        if (this.isSeparateDisplayMode) {
+          return h.redirect(`?view=summary`);
+        }
+        return h.redirect(this.getNext(rest));
       }
 
       const modifyUpdate = (update) => {
