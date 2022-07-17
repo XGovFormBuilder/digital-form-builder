@@ -226,13 +226,4 @@ export const ComponentTypes: ComponentDef[] = [
     options: {},
     schema: {},
   },
-  {
-    name: "MultiInputField",
-    type: "MultiInputField",
-    title: "Multi Text Field",
-    subType: "field",
-    hint: "",
-    options: {},
-    schema: {},
-  },
 ];
