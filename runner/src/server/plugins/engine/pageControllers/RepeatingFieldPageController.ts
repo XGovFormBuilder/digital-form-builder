@@ -21,7 +21,7 @@ function isInputType(component) {
 
 const DEFAULT_OPTIONS = {
   summaryDisplayMode: {
-    samePage: true,
+    samePage: false,
     separatePage: true,
   },
   customText: {},
@@ -31,7 +31,10 @@ export class RepeatingFieldPageController extends PageController {
   summary: RepeatingSummaryPageController;
   inputComponent: FormComponent;
   isRepeatingFieldPageController = true;
+  isSamePageDisplayMode: boolean;
+
   options: RepeatingFieldPage["options"];
+
   constructor(model: FormModel, pageDef: RepeatingFieldPage) {
     super(model, pageDef);
     const inputComponent = this.components?.items?.find(isInputType);
@@ -44,7 +47,7 @@ export class RepeatingFieldPageController extends PageController {
     this.options = pageDef?.options ?? DEFAULT_OPTIONS;
     this.options.summaryDisplayMode ??= DEFAULT_OPTIONS.summaryDisplayMode;
     this.options.customText ??= DEFAULT_OPTIONS.customText;
-
+    this.isSamePageDisplayMode = this.options.summaryDisplayMode.samePage!;
     this.inputComponent = inputComponent as FormComponent;
 
     this.summary = new RepeatingSummaryPageController(
@@ -54,6 +57,8 @@ export class RepeatingFieldPageController extends PageController {
     );
     this.summary.getPartialState = this.getPartialState;
     this.summary.nextIndex = this.nextIndex;
+    this.summary.removeAtIndex = this.removeAtIndex;
+
     this.summary.options = this.options;
   }
 
@@ -75,22 +80,12 @@ export class RepeatingFieldPageController extends PageController {
       const { removeAtIndex, view, returnUrl } = query;
       const isSamePageDisplayMode = this.options.summaryDisplayMode!.samePage;
 
-      if (view === "summary" || returnUrl) {
-        return this.summary.getRouteHandler(request, h);
+      if (removeAtIndex ?? false) {
+        return this.removeAtIndex(request, h);
       }
 
-      if (removeAtIndex ?? false) {
-        const { cacheService } = request.services([]);
-        let state = await cacheService.getState(request);
-        const key = this.inputComponent.name;
-        const answers = state[key];
-        answers?.splice(removeAtIndex, 1);
-        state = await cacheService.mergeState(request, { [key]: answers });
-        if (state[key]?.length < 1 || isSamePageDisplayMode) {
-          return h.redirect("?view=0");
-        }
-
-        return h.redirect(`?view=summary`);
+      if (view === "summary" || returnUrl) {
+        return this.summary.getRouteHandler(request, h);
       }
 
       if ((view ?? false) || isSamePageDisplayMode) {
@@ -115,7 +110,6 @@ export class RepeatingFieldPageController extends PageController {
         this.addRowsToViewContext(response, state);
         return response;
       }
-
       return super.makeGetRouteHandler()(request, h);
     };
   }
@@ -127,9 +121,33 @@ export class RepeatingFieldPageController extends PageController {
     }
   }
 
+  async removeAtIndex(request, h) {
+    const { query } = request;
+    const { removeAtIndex, view } = query;
+    const { cacheService } = request.services([]);
+    let state = await cacheService.getState(request);
+    const key = this.inputComponent.name;
+    const answers = state[key];
+    answers?.splice(removeAtIndex, 1);
+    await cacheService.mergeState(request, { [key]: answers });
+    if (state[key]?.length < 1) {
+      return h.redirect("?view=0");
+    }
+
+    return h.redirect(`?view=${view ?? 0}`);
+  }
+
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
+
+      const isSeparateDisplayMode = this.options.summaryDisplayMode!
+        .separatePage;
+
+      if (!isSeparateDisplayMode && request?.payload?.next === "continue") {
+        const { next, ...rest } = request.payload;
+        return h.redirect(this.getNext(rest));
+      }
 
       if (query.view === "summary") {
         return this.summary.postRouteHandler(request, h);

@@ -11,6 +11,7 @@ export class RepeatingSummaryPageController extends PageController {
   nextIndex!: RepeatingFieldPageController["nextIndex"];
   getPartialState!: RepeatingFieldPageController["getPartialState"];
   options!: RepeatingFieldPageController["options"];
+  removeAtIndex!: RepeatingFieldPageController["removeAtIndex"];
 
   inputComponent;
 
@@ -39,6 +40,12 @@ export class RepeatingSummaryPageController extends PageController {
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
+
+      const { removeAtIndex } = request.query;
+      if (removeAtIndex ?? false) {
+        return this.removeAtIndex(request, h);
+      }
+
       const state = await cacheService.getState(request);
       const { progress = [] } = state;
       progress?.push(`/${this.model.basePath}${this.path}?view=summary`);
@@ -79,7 +86,7 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     const answers = this.getPartialState(formData);
-    const rows = this.getRowsFromAnswers(answers);
+    const rows = this.getRowsFromAnswers(answers, "summary");
 
     return {
       ...baseViewModel,
@@ -88,7 +95,7 @@ export class RepeatingSummaryPageController extends PageController {
     };
   }
 
-  getRowsFromAnswers(answers) {
+  getRowsFromAnswers(answers, view = false) {
     const { title = "" } = this.inputComponent;
     const listValueToText = this.inputComponent.list?.items?.reduce(
       (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
@@ -107,7 +114,7 @@ export class RepeatingSummaryPageController extends PageController {
         actions: {
           items: [
             {
-              href: `?removeAtIndex=${i}`,
+              href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
               text: "Remove",
               visuallyHiddenText: titleWithIteration,
             },
