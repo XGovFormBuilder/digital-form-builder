@@ -24,6 +24,7 @@ export interface RepeatingFieldPage extends Page {
     summaryDisplayMode?: {
       samePage?: boolean;
       separatePage?: boolean;
+      hideRowTitles?: boolean;
     };
     customText?: {
       separatePageTitle?: string;

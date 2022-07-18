@@ -23,6 +23,7 @@ const DEFAULT_OPTIONS = {
   summaryDisplayMode: {
     samePage: false,
     separatePage: true,
+    hideRowTitles: false,
   },
   customText: {},
 };
@@ -36,6 +37,7 @@ export class RepeatingFieldPageController extends PageController {
   isRepeatingFieldPageController = true;
   isSamePageDisplayMode: boolean;
   isSeparateDisplayMode: boolean;
+  hideRowTitles: boolean;
 
   options: RepeatingFieldPage["options"];
 
@@ -50,9 +52,13 @@ export class RepeatingFieldPageController extends PageController {
 
     this.options = pageDef?.options ?? DEFAULT_OPTIONS;
     this.options.summaryDisplayMode ??= DEFAULT_OPTIONS.summaryDisplayMode;
+    this.options.hideRowTitles ??= DEFAULT_OPTIONS.hideRowTitles;
     this.options.customText ??= DEFAULT_OPTIONS.customText;
+
     this.isSamePageDisplayMode = this.options.summaryDisplayMode.samePage!;
     this.isSeparateDisplayMode = this.options.summaryDisplayMode.separatePage!;
+    this.hideRowTitles = this.options.summaryDisplayMode.hideRowTitles!;
+
     this.inputComponent = inputComponent as FormComponent;
 
     this.summary = new RepeatingSummaryPageController(
@@ -63,6 +69,7 @@ export class RepeatingFieldPageController extends PageController {
     this.summary.getPartialState = this.getPartialState;
     this.summary.nextIndex = this.nextIndex;
     this.summary.removeAtIndex = this.removeAtIndex;
+    this.summary.hideRowTitles = this.hideRowTitles;
 
     this.summary.options = this.options;
   }
