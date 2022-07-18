@@ -60,12 +60,14 @@ export class MultiInputField extends FormComponent {
 
   getDisplayStringFromState(state: FormSubmissionState) {
     const values = state[this.name];
-    let stringValue = "";
+    const stringValue = new Array();
     for (var value of values) {
-      stringValue += `${value["type-of-revenue-cost"]} : ${value["revenue-cost"]}, `;
+      stringValue.push(
+        `${value["type-of-revenue-cost"]} : ${value["revenue-cost"]}`
+      );
     }
 
-    return stringValue.substring(0, stringValue.length - 2);
+    return stringValue;
   }
 
   // @ts-ignore - eslint does not report this as an error, only tsc
