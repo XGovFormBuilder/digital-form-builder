@@ -139,7 +139,7 @@ export class RepeatingSummaryPageController extends PageController {
           text: titleWithIteration,
         },
         value: {
-          text: formData[input.name][key]["revenue-cost"],
+          text: formData[input.name][key]["value"],
         },
         actions: {
           items: [

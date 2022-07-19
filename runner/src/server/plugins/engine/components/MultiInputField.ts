@@ -28,8 +28,8 @@ export class MultiInputField extends FormComponent {
         },
         {
           type: "TextField",
-          name: "revenue-cost",
-          title: "Revenue Cost",
+          name: "value",
+          title: "Amount",
           schema: {},
           options: {
             required: false,
@@ -62,9 +62,7 @@ export class MultiInputField extends FormComponent {
     const values = state[this.name];
     const stringValue = new Array();
     for (var value of values) {
-      stringValue.push(
-        `${value["type-of-revenue-cost"]} : ${value["revenue-cost"]}`
-      );
+      stringValue.push(`${value["type-of-revenue-cost"]} : ${value["value"]}`);
     }
 
     return stringValue;
