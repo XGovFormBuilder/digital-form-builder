@@ -50,6 +50,7 @@ export class RepeatingFieldPageController extends PageController {
       }
       return schema;
     });
+
     super.stateSchema = parentSchema;
     return parentSchema;
   }
@@ -58,6 +59,9 @@ export class RepeatingFieldPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
       const { removeAtIndex, view, returnUrl } = query;
+      const { cacheService } = request.services([]);
+      const state = await cacheService.getState(request);
+      const partialState = this.getPartialState(state, view);
 
       if (view === "summary" || returnUrl) {
         return this.summary.getRouteHandler(request, h);
@@ -65,9 +69,6 @@ export class RepeatingFieldPageController extends PageController {
       if (view ?? false) {
         const response = await super.makeGetRouteHandler()(request, h);
 
-        const { cacheService } = request.services([]);
-        const state = await cacheService.getState(request);
-        const partialState = this.getPartialState(state, view);
         response.source.context.components &&= response.source.context.components.map(
           (component) => {
             const { model } = component;
@@ -96,6 +97,10 @@ export class RepeatingFieldPageController extends PageController {
           return h.redirect("?view=0");
         }
         return h.redirect(`?view=summary`);
+      }
+
+      if (typeof partialState !== "undefined") {
+        return this.summary.getRouteHandler(request, h);
       }
 
       return super.makeGetRouteHandler()(request, h);

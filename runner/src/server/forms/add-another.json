@@ -1,0 +1,48 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "MultiInputField",
+          "options": {},
+          "type": "MultiInputField",
+          "title": "MultiInputField",
+          "hint": "The MultiInputField needed",
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ],
+      "controller": "RepeatingFieldPageController"
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2
+}
