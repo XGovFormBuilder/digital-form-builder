@@ -23,7 +23,7 @@ export enum ComponentTypeEnum {
   Details = "Details",
   FlashCard = "FlashCard",
   List = "List",
-  MultiInputField = "MultiTextField",
+  MultiInputField = "MultiInputField",
 }
 
 export type ComponentType =
