@@ -10,6 +10,9 @@ export class RepeatingSummaryPageController extends PageController {
   private postRoute!: HapiLifecycleMethod;
   nextIndex!: RepeatingFieldPageController["nextIndex"];
   getPartialState!: RepeatingFieldPageController["getPartialState"];
+  options!: RepeatingFieldPageController["options"];
+  removeAtIndex!: RepeatingFieldPageController["removeAtIndex"];
+  hideRowTitles!: RepeatingFieldPageController["hideRowTitles"];
 
   inputComponent;
   returnUrl;
@@ -39,6 +42,12 @@ export class RepeatingSummaryPageController extends PageController {
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { cacheService } = request.services([]);
+
+      const { removeAtIndex } = request.query;
+      if (removeAtIndex ?? false) {
+        return this.removeAtIndex(request, h);
+      }
+
       const state = await cacheService.getState(request);
       const { progress = [] } = state;
       const { query } = request;
@@ -49,6 +58,7 @@ export class RepeatingSummaryPageController extends PageController {
       await cacheService.mergeState(request, { progress });
 
       const viewModel = this.getViewModel(state);
+
       return h.view("repeating-summary", viewModel);
     };
   }
@@ -86,38 +96,46 @@ export class RepeatingSummaryPageController extends PageController {
       rows = this.buildTextFieldRows(formData, this.inputComponent);
       return {
         ...baseViewModel,
+        customText: this.options.customText,
         details: { rows },
       };
     }
 
-    rows = this.buildListRows(formData);
+    const answers = this.getPartialState(formData);
+    rows = this.getRowsFromAnswers(answers, "summary");
     return {
       ...baseViewModel,
+      customText: this.options.customText,
       details: { rows },
     };
   }
 
-  buildListRows(formData) {
-    const answers = this.getPartialState(formData);
+  getRowsFromAnswers(answers, view = false) {
     const { title = "" } = this.inputComponent;
     const listValueToText = this.inputComponent.list?.items?.reduce(
       (prev, curr) => ({ ...prev, [curr.value]: curr.text }),
       {}
     );
 
-    const rows = answers?.map((value, i) => {
+    return answers?.map((value, i) => {
       const titleWithIteration = `${title} ${i + 1}`;
       return {
         key: {
           text: titleWithIteration,
+          classes: `${
+            this.hideRowTitles ? "govuk-summary-list__row--hidden-titles" : ""
+          }`,
         },
         value: {
           text: listValueToText?.[value] ?? value,
+          classes: `${
+            this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
+          }`,
         },
         actions: {
           items: [
             {
-              href: `?removeAtIndex=${i}`,
+              href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
               text: "Remove",
               visuallyHiddenText: titleWithIteration,
             },
@@ -125,7 +143,6 @@ export class RepeatingSummaryPageController extends PageController {
         },
       };
     });
-    return rows;
   }
 
   buildTextFieldRows(formData, input) {
