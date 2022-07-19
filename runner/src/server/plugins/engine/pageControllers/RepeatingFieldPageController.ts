@@ -103,7 +103,6 @@ export class RepeatingFieldPageController extends PageController {
         return this.summary.getRouteHandler(request, h);
       }
 
-
       if ((view ?? false) || this.isSamePageDisplayMode) {
         const response = await super.makeGetRouteHandler()(request, h);
         const { cacheService } = request.services([]);
@@ -169,7 +168,7 @@ export class RepeatingFieldPageController extends PageController {
       return h.redirect("?view=0");
     }
 
-    return h.redirect(`?view=${view ?? 0}`);
+    return h.redirect(`?view=${view ?? "summary"}`);
   }
 
   makePostRouteHandler() {

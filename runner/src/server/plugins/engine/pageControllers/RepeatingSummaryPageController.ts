@@ -96,21 +96,13 @@ export class RepeatingSummaryPageController extends PageController {
       rows = this.buildTextFieldRows(formData, this.inputComponent);
       return {
         ...baseViewModel,
+        customText: this.options.customText,
         details: { rows },
       };
     }
 
-    rows = this.buildListRows(formData);
-    return {
-      ...baseViewModel,
-      details: { rows },
-    };
-  }
-
-  buildListRows(formData) {
     const answers = this.getPartialState(formData);
-    const rows = this.getRowsFromAnswers(answers, "summary");
-
+    rows = this.getRowsFromAnswers(answers, "summary");
     return {
       ...baseViewModel,
       customText: this.options.customText,
@@ -151,8 +143,6 @@ export class RepeatingSummaryPageController extends PageController {
         },
       };
     });
-
-    return rows;
   }
 
   buildTextFieldRows(formData, input) {
