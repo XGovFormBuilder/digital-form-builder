@@ -82,6 +82,7 @@ export class RepeatingFieldPageController extends PageController {
       }
       return schema;
     });
+
     super.stateSchema = parentSchema;
     return parentSchema;
   }
@@ -90,6 +91,9 @@ export class RepeatingFieldPageController extends PageController {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
       const { removeAtIndex, view, returnUrl } = query;
+      const { cacheService } = request.services([]);
+      const state = await cacheService.getState(request);
+      const partialState = this.getPartialState(state, view);
 
       if (removeAtIndex ?? false) {
         return this.removeAtIndex(request, h);
@@ -99,11 +103,13 @@ export class RepeatingFieldPageController extends PageController {
         return this.summary.getRouteHandler(request, h);
       }
 
+
       if ((view ?? false) || this.isSamePageDisplayMode) {
         const response = await super.makeGetRouteHandler()(request, h);
         const { cacheService } = request.services([]);
         const state = await cacheService.getState(request);
         const partialState = this.getPartialState(state, view);
+
         response.source.context.components &&= response.source.context.components.map(
           (component) => {
             const { model } = component;
@@ -121,6 +127,24 @@ export class RepeatingFieldPageController extends PageController {
         this.addRowsToViewContext(response, state);
         return response;
       }
+
+      if (removeAtIndex ?? false) {
+        const { cacheService } = request.services([]);
+        let state = await cacheService.getState(request);
+        const key = this.inputComponent.name;
+        const answers = state[key];
+        answers?.splice(removeAtIndex, 1);
+        state = await cacheService.mergeState(request, { [key]: answers });
+        if (state[key]?.length < 1) {
+          return h.redirect("?view=0");
+        }
+        return h.redirect(`?view=summary`);
+      }
+
+      if (typeof partialState !== "undefined") {
+        return this.summary.getRouteHandler(request, h);
+      }
+
       return super.makeGetRouteHandler()(request, h);
     };
   }

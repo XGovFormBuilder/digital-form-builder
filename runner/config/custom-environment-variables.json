@@ -40,5 +40,6 @@
   "authClientTokenUrl": "AUTH_CLIENT_TOKEN_URL",
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
   "previewMode": "PREVIEW_MODE",
-  "enforceCsrf": "ENFORCE_CSRF"
+  "enforceCsrf": "ENFORCE_CSRF",
+  "savePerPage": "SAVE_PER_PAGE"
 }

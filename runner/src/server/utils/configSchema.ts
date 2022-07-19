@@ -78,6 +78,7 @@ export const configSchema = Joi.object({
   safelist: Joi.array().items(Joi.string()),
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
+  savePerPage: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {

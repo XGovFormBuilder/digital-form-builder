@@ -15,6 +15,7 @@ import {
   HapiResponseToolkit,
 } from "server/types";
 import { FormModel } from "../models";
+import { SaveViewModel } from "../models";
 import {
   FormData,
   FormPayload,
@@ -23,6 +24,7 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import config from "server/config";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -632,7 +634,7 @@ export class PageControllerBase {
       if (response?.source?.context?.errors) {
         return response;
       }
-      const { cacheService } = request.services([]);
+      const { cacheService, statusService } = request.services([]);
       const savedState = await cacheService.getState(request);
       //This is required to ensure we don't navigate to an incorrect page based on stale state values
       let relevantState = this.getConditionEvaluationContext(
@@ -640,6 +642,25 @@ export class PageControllerBase {
         savedState
       );
 
+      if (config.savePerPage) {
+        // Set flag for continous saves on each question?
+        const saveViewModel = new SaveViewModel(
+          this.title,
+          this.model,
+          relevantState,
+          request
+        );
+
+        await cacheService.mergeState(request, {
+          outputs: saveViewModel.outputs,
+          userCompletedSummary: true,
+        });
+        await cacheService.mergeState(request, {
+          webhookData: saveViewModel.validatedWebhookData,
+        });
+
+        await statusService.savePerPageRequest(request);
+      }
       return this.proceed(request, h, relevantState);
     };
   }

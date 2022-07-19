@@ -15,6 +15,7 @@ export class RepeatingSummaryPageController extends PageController {
   hideRowTitles!: RepeatingFieldPageController["hideRowTitles"];
 
   inputComponent;
+  returnUrl;
 
   constructor(model, pageDef, inputComponent) {
     super(model, pageDef);
@@ -49,6 +50,10 @@ export class RepeatingSummaryPageController extends PageController {
 
       const state = await cacheService.getState(request);
       const { progress = [] } = state;
+      const { query } = request;
+      const { returnUrl } = query;
+      this.returnUrl = returnUrl;
+
       progress?.push(`/${this.model.basePath}${this.path}?view=summary`);
       await cacheService.mergeState(request, { progress });
 
@@ -86,6 +91,23 @@ export class RepeatingSummaryPageController extends PageController {
 
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
+    let rows;
+    if (this.inputComponent.type === "MultiInputField") {
+      rows = this.buildTextFieldRows(formData, this.inputComponent);
+      return {
+        ...baseViewModel,
+        details: { rows },
+      };
+    }
+
+    rows = this.buildListRows(formData);
+    return {
+      ...baseViewModel,
+      details: { rows },
+    };
+  }
+
+  buildListRows(formData) {
     const answers = this.getPartialState(formData);
     const rows = this.getRowsFromAnswers(answers, "summary");
 
@@ -129,6 +151,35 @@ export class RepeatingSummaryPageController extends PageController {
         },
       };
     });
+
+    return rows;
+  }
+
+  buildTextFieldRows(formData, input) {
+    delete formData["progress"];
+    const rows = Object.keys(formData[input.name]).map((key) => {
+      const titleWithIteration = `${
+        formData[input.name][key]["type-of-revenue-cost"]
+      }`;
+      return {
+        key: {
+          text: titleWithIteration,
+        },
+        value: {
+          text: formData[input.name][key]["value"],
+        },
+        actions: {
+          items: [
+            {
+              href: `?removeAtIndex=${key}`,
+              text: "Remove",
+              visuallyHiddenText: titleWithIteration,
+            },
+          ],
+        },
+      };
+    });
+    return rows;
   }
 
   /**
@@ -145,6 +196,10 @@ export class RepeatingSummaryPageController extends PageController {
         return h.redirect(
           `/${this.model.basePath}${this.path}?view=${nextIndex}`
         );
+      }
+
+      if (typeof this.returnUrl !== "undefined") {
+        return h.redirect(this.returnUrl);
       }
 
       return h.redirect(this.getNext(request.payload));
