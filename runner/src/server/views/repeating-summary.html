@@ -1,18 +1,23 @@
 {% from "partials/summary-detail.html" import summaryDetail %}
 {% from "summary-list/macro.njk" import govukSummaryList -%}
-
+{% from "button/macro.njk" import govukButton %}
 
 {% extends 'layout.html' %}
+
 
 {% block content %}
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+        <h1 class="govuk-heading-l">{{customText.separatePageTitle or pageTitle }}</h1>
         {{ govukSummaryList(details) }}
         <form action="?view=summary"  method="post" enctype="multipart/form-data">
-          <button name="next" value="increment" class="govuk-body govuk-button--add-another">Add another</button>
-          <button name="next" value="continue" class="govuk-button">Continue</button>
+          <div class="govuk-button-group">
+            <button name="next" value="continue" class="govuk-button">Continue</button>
+            <button name="next" value="increment" class="govuk-button govuk-button--secondary">
+              Add another
+            </button>
+          </div>
         </form>
       </div>
     </div>

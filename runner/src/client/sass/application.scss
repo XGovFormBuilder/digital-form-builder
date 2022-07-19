@@ -62,15 +62,16 @@ $govuk-global-styles: true;
   }
 }
 
-.govuk-button {
-  &--add-another {
-    @extend .govuk-link;
-    border: none;
-    background-color: transparent;
-    display: block;
-    color: map-get($govuk-colours, "blue");
-    &:hover {
-      cursor: pointer;
+.govuk-summary-list {
+  &__row {
+    &--hidden-titles {
+      @extend .govuk-visually-hidden;
+    }
+
+  }
+  &__key {
+    &--hidden-titles {
+      width: 100%;
     }
   }
 }

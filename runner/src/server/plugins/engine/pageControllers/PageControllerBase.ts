@@ -133,7 +133,7 @@ export class PageControllerBase {
       }
 
       label.isPageHeading = true;
-      label.classes = "govuk-label--xl";
+      label.classes = "govuk-label--l";
       pageTitle = pageTitle || label.text;
       showTitle = false;
     }
