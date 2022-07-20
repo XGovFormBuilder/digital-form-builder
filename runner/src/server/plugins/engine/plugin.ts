@@ -11,6 +11,47 @@ import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
 
+////
+//// NOTE: "DEMO SECTION"S below included for utility to
+//// to enable testing of jwt's in one script
+////
+
+////
+//// DEMO SECTION - creates an auth JWT
+//// This works when using a Base64 encoded text secret
+//// eg. "NeverShareYourSecret"
+//// Base64 Encoded becomes: TmV2ZXJTaGFyZVlvdXJTZWNyZXQ=
+//// Test by setting:
+//// export RSA256_PUBLIC_KEY_BASE64=TmV2ZXJTaGFyZVlvdXJTZWNyZXQ=
+//// however when using an RSA256 Public Key it doesn't seem to work
+
+//// I get an error that complains that the start of the cert is not found
+//// when using a RSA256 key (as is available in authenticator)
+//// eg. export RSA256_PUBLIC_KEY_BASE64=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlHZU1BMEdDU3FHU0liM0RRRUJBUVVBQTRHTUFEQ0JpQUtCZ0hHYnRGMXlWR1crckNBRk9JZGFrVVZ3Q2Z1dgp4SEUzOGxFL2kwS1dwTXdkU0haRkZMWW5IakJWT09oMTVFaWl6WXphNEZUSlRNdkwyRTRRckxwcVlqNktFNnR2CkhyaHlQL041ZnlwU3p0OHZDajlzcFo4KzBrRnVjVzl6eU1rUHVEaXNZdG1rV0dkeEJta2QzZ3RZcDNtT0k1M1YKVkRnS2J0b0lGVTNzSWs1TkFnTUJBQUU9Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQ==
+////
+const JWT = require("jsonwebtoken");
+const base64Secret = config.rsa256PublicKeyBase64;
+// The following 2 lines need work I think
+let buffSecret = new Buffer(base64Secret, "base64");
+let secret = buffSecret.toString("ascii");
+//
+
+const authCookieKey = "fsd_user_token";
+const people = {
+  1: {
+    id: 1,
+    name: "Anthony Valid User",
+  },
+};
+
+const token = JWT.sign(
+  people[1],
+  secret
+  // { algorithm: "RS256" }
+  // I have not got this working yet
+);
+/////////
+
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
   path.resolve(__dirname, "/views"),
@@ -68,6 +109,30 @@ export const plugin = {
     const enabledString = config.previewMode ? `[ENABLED]` : `[DISABLED]`;
     const disabledRouteDetailString =
       "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
+
+    // bring your own validation function
+    const validate = async function (decoded, request, h) {
+      // do your checks to see if the person is valid
+      if (!decoded.id) {
+        return { isValid: false };
+      } else {
+        return { isValid: true };
+      }
+    };
+
+    server.auth.strategy("my_jwt_strategy", "jwt", {
+      // This following line should work to read a Base 64 key
+      // key: Buffer.from(config.rsa256PublicKeyBase64, 'base64'),
+      key: secret,
+      validate,
+      verifyOptions: {
+        ignoreExpiration: true,
+        // this needs to be uncommented to enable verification of an RSA256 signed token
+        // algorithms: ["RS256"],
+      },
+      urlKey: false,
+      cookieKey: authCookieKey,
+    });
 
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
@@ -175,6 +240,9 @@ export const plugin = {
         }
         const model = forms[id];
         if (model) {
+          //// DEMO SECTION - Sets an auth cookie token on this route
+          h.state(authCookieKey, token);
+          ////
           return getStartPageRedirect(request, h, id, model);
         }
         throw Boom.notFound("No default form found");
@@ -188,6 +256,9 @@ export const plugin = {
         const { id } = request.params;
         const model = forms[id];
         if (model) {
+          //// DEMO SECTION - Sets an auth cookie token on this route
+          h.state(authCookieKey, token);
+          ////
           return getStartPageRedirect(request, h, id, model);
         }
         throw Boom.notFound("No form found for id");
@@ -197,6 +268,11 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
+      // NOTE: The following two lines apply the jwt auth strategy to this route
+      // This can be applied in a similar way to any route
+      options: {
+        auth: "my_jwt_strategy",
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];

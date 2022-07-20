@@ -2942,6 +2942,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/hoek@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "@hapi/hoek@npm:10.0.0"
+  checksum: 76698b3ea79406f3f70cdb5930e0e33ad46103817b7ae97226016130ee1562f85a07b049a17203cbe4591f60ea3c31436cd622ff2a1f0902546bdd4055da0574
+  languageName: node
+  linkType: hard
+
 "@hapi/inert@npm:^6.0.1":
   version: 6.0.3
   resolution: "@hapi/inert@npm:6.0.3"
@@ -5931,6 +5938,8 @@ __metadata:
     form-data: ^4.0.0
     googleapis: 64.0.0
     govuk-frontend: ^3.13.0
+    hapi-auth-jwt2: 10.2.0
+    hapi-error: 3.0.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -9174,7 +9183,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.4.2":
+"cookie@npm:^0.4.0, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: e523edba738f58310840a05330a0ae81dc7b35b4047be8fbd50a751bd9f89b61abfa35217d8c3b885118bdf1e75ec01d0851470e49cc0ace22b726fb33a34bbb
@@ -13777,10 +13786,30 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"hapi-auth-jwt2@npm:10.2.0":
+  version: 10.2.0
+  resolution: "hapi-auth-jwt2@npm:10.2.0"
+  dependencies:
+    "@hapi/boom": ^9.0.0
+    cookie: ^0.4.0
+    jsonwebtoken: ^8.5.1
+  checksum: 3de5fdb4ea5b1babe846b9170b266ff9bc3df1b57e339a394fd1eeb4e112cace2bd6e320743fda6a6757d6068237385a25a36de0f55b672568407ea9a48d0292
+  languageName: node
+  linkType: hard
+
 "hapi-capitalize-modules@npm:1.x.x":
   version: 1.1.6
   resolution: "hapi-capitalize-modules@npm:1.1.6"
   checksum: 9f670c74e95573dbfff631d9c22a7f97d513c4fc1d089acccd674a2b6bee995e657b5d8e2b211283ded6cdaef940dce30cb32b9c4215c181a8622448d8b0b707
+  languageName: node
+  linkType: hard
+
+"hapi-error@npm:3.0.0":
+  version: 3.0.0
+  resolution: "hapi-error@npm:3.0.0"
+  dependencies:
+    "@hapi/hoek": ^10.0.0
+  checksum: 44c60696eca962c40a5e3fd6b0793c3e12c14f75c94275b579d087ed0c3130d3d6e998004a882ee17c9cb28351e7797b783630729efcf3821ab3437a8c114346
   languageName: node
   linkType: hard
 
@@ -16936,7 +16965,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.2.1":
+"jsonwebtoken@npm:^8.2.1, jsonwebtoken@npm:^8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:

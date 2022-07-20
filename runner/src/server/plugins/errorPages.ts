@@ -23,6 +23,14 @@ export default {
               return h.view("404").code(statusCode);
             }
 
+            // In the event of 401
+            // redirect to authentication url
+            if (statusCode === 401) {
+              const authenticationUrl =
+                "https://funding-service-design-authenticator-dev.london.cloudapps.digital/service/magic-links/invalid";
+              return h.redirect(authenticationUrl + "?referrer=" + request.url);
+            }
+
             request.log("error", {
               statusCode: statusCode,
               data: response.data,
