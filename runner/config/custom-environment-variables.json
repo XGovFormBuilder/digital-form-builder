@@ -41,5 +41,6 @@
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
   "previewMode": "PREVIEW_MODE",
   "enforceCsrf": "ENFORCE_CSRF",
-  "savePerPage": "SAVE_PER_PAGE"
+  "savePerPage": "SAVE_PER_PAGE",
+  "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64"
 }
