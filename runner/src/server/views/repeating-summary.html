@@ -13,6 +13,7 @@
         {{ govukSummaryList(details) }}
         <form action="?view=summary"  method="post" enctype="multipart/form-data">
           <div class="govuk-button-group">
+            <input type="hidden" name="crumb" value="{{crumb}}"/>
             <button name="next" value="continue" class="govuk-button">Continue</button>
             <button name="next" value="increment" class="govuk-button govuk-button--secondary">
               Add another
