@@ -4,17 +4,17 @@ import FormData from "form-data";
 import config from "../config";
 import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+import { CredentialProviderChain } from "aws-sdk";
 const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 
 type Payload = HapiRequest["payload"];
 
-const bucketName = "funding-service-test";
+const bucketName =
+  "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a";
 const region = "eu-west-2";
-const accessKeyId = "";
-const secretAccessKey = "";
 
-const s3 = new S3({ region, accessKeyId, secretAccessKey });
+const s3 = new S3({ region });
 
 const parsedError = (key: string, error?: string) => {
   return {
@@ -64,7 +64,9 @@ export class UploadService {
       }
     });
 
-    const upload = this.uploadFile(locations);
+    const upload = this.uploadFile(locations).then((result) => {
+      const a = result;
+    });
 
     const form = new FormData();
     for (const location of locations) {
@@ -244,17 +246,16 @@ export class UploadService {
     return Promise.all(promises);
   }
 
-  uploadFile(files) {
+  async uploadFile(files) {
     const fileStream = fs.createReadStream("./document.txt");
 
-    for (const file of files) {
-      const uploadParams = {
-        Bucket: bucketName,
-        Body: file,
-        Key: file.hapi.filename,
-      };
-      s3.upload(uploadParams).promise();
-    }
+    const uploadParams = {
+      Bucket: bucketName,
+      Body: fileStream,
+      Key: "document.txt",
+    };
+    const a = await s3.upload(uploadParams).promise();
+    return a;
   }
 
   getFileStream(fileKey) {
