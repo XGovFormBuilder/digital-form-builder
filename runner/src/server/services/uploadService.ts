@@ -1,24 +1,24 @@
 import http from "http";
 import FormData from "form-data";
-
 import config from "../config";
 import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+
 const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 
 type Payload = HapiRequest["payload"];
 
-let bucketName =
-  "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a";
+let bucketName = "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a";
 const region = "eu-west-2";
+
 if (process.env.VCAP_SERVICES) {
-  const vcap = process.env.VCAP_SERVICES
-  const vcapJson = JSON.parse(vcap)
-  const s3Credentials = vcapJson['aws-s3-bucket'][0].credentials
-  process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id
-  process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key
-  bucketName = s3Credentials.bucket_name
+  const vcap = process.env.VCAP_SERVICES;
+  const vcapJson = JSON.parse(vcap);
+  const s3Credentials = vcapJson["aws-s3-bucket"][0].credentials;
+  process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id;
+  process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key;
+  bucketName = s3Credentials.bucket_name;
 }
 
 const s3 = new S3({ region });
@@ -63,29 +63,9 @@ export class UploadService {
   }
 
   async uploadDocuments(locations: any[]) {
-    let text = "Hello World!";
-
-    fs.writeFileSync("document.txt", text, function (err) {
-      if (err) {
-        return console.log("error");
-      }
+    await this.uploadFilesS3(locations).then((result) => {
+      return result;
     });
-
-    const upload = this.uploadFile(locations).then((result) => {
-      const a = result;
-    });
-
-    const form = new FormData();
-    for (const location of locations) {
-      form.append("files", location, {
-        filename: location.hapi.filename,
-        contentType: location.hapi.headers["content-type"],
-      });
-    }
-
-    const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
-    return this.parsedDocumentUploadResponse(res);
   }
 
   parsedDocumentUploadResponse(res: http.IncomingMessage) {
@@ -93,7 +73,7 @@ export class UploadService {
     let location: string | undefined;
 
     switch (res.statusCode) {
-      case 201:
+      case 200:
         location = res.headers.location;
         break;
       case 413:
@@ -253,24 +233,30 @@ export class UploadService {
     return Promise.all(promises);
   }
 
-  async uploadFile(files) {
-    const fileStream = fs.createReadStream("./document.txt");
+  async uploadFilesS3(files) {
+    let resposes = new Array();
 
-    const uploadParams = {
-      Bucket: bucketName,
-      Body: fileStream,
-      Key: "document.txt",
-    };
-    const a = await s3.upload(uploadParams).promise();
-    return a;
-  }
+    for (const file of files) {
+      const uploadParams = {
+        Bucket: bucketName,
+        Body: file,
+        Key: file.hapi.filename,
+      };
 
-  getFileStream(fileKey) {
-    const downloadParams = {
-      Key: fileKey,
-      Bucket: bucketName,
-    };
-
-    return s3.getObject(downloadParams).createReadStream();
+      await s3
+        .upload(uploadParams)
+        .promise()
+        .then(function (data) {
+          console.log(data);
+          resposes.push({ location: data.Location, erroor: undefined });
+        })
+        .catch(function (err) {
+          resposes.push({
+            location: undefined,
+            error: `${err.code}: ${err.message}`,
+          });
+        });
+    }
+    return resposes;
   }
 }
