@@ -14,6 +14,7 @@ const bucketName =
 const region = "eu-west-2";
 if (process.env.VCAP_SERVICES) {
   const vcap = process.env.VCAP_SERVICES
+  const vcapJson = JSON.parse(vcap)
   const s3Credentials = vcapJson['aws-s3-bucket'][0].credentials
   process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id
   process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key
