@@ -4,7 +4,6 @@ import FormData from "form-data";
 import config from "../config";
 import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
-import { CredentialProviderChain } from "aws-sdk";
 const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 
@@ -13,6 +12,12 @@ type Payload = HapiRequest["payload"];
 const bucketName =
   "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a";
 const region = "eu-west-2";
+if (process.env.VCAP_SERVICES) {
+  const vcap = process.env.VCAP_SERVICES
+  const s3Credentials = vcapJson['aws-s3-bucket'][0].credentials
+  process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id
+  process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key
+}
 
 const s3 = new S3({ region });
 
