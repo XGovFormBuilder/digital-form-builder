@@ -62,6 +62,7 @@ export type ConditionalComponent = {
 
 export type ContentOptions = {
   condition?: string;
+  align?: string;
 };
 
 /**
