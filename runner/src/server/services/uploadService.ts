@@ -71,7 +71,7 @@ export class UploadService {
         if (typeof doc.error !== "undefined") {
           error = "Failed to upload file to server: " + doc.error;
         } else {
-          location = doc.location;
+          location = bucketName;
         }
       });
     });
