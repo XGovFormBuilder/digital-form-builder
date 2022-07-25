@@ -1,29 +1,16 @@
 {% from "error-summary/macro.njk" import govukErrorSummary %}
 {% from "partials/components.html" import componentList %}
-{% from "components/sidebar.html" import Sidebar %}
+{% from "partials/sidebar.html" import Sidebar %}
 
 {% extends 'layout.html' %}
 {% block content %}
 
 {% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
 <div class="govuk-grid-row"> 
-  {% set count = 0 %} 
-  {% for component in components %}
-    {%if component.type.toLowerCase() == "sidebar" %}
-     {% set count = count + 1 %}
-    {% endif %}    
-  {% endfor %}
+ {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'left' %}
+  {{ Sidebar(sidebarContent) }}
+ {% endif %}
 
-  {% set gridSize = "one-half" if count == "2" else "two-thirds" %}
-  {% set sidebarSize = "one-quarter" if count == "2" else "one-third" %}
-
-  {% for component in components %}
-    {%if component.type.toLowerCase() == "sidebar" %}    
-      {%if component.model.align.toLowerCase() == "left" %}
-        {{Sidebar(component, sidebarSize)}}
-      {% endif %}    
-    {% endif %}    
-  {% endfor %}    
     <div class="govuk-grid-column-{{gridSize}}">
       {% if errors %}
         {{ govukErrorSummary(errors) }}
@@ -39,12 +26,10 @@
 
       <pre>{{ value | dump(2) | safe }}</pre>
     </div>
-    {% for component in components %}
-    {%if component.type.toLowerCase() == "sidebar" %}
-      {%if component.model.align.toLowerCase() == "right" %}
-        {{Sidebar(component, sidebarSize)}}
-      {% endif %}    
-    {% endif %}    
-  {% endfor %}
+    
+    {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'right' %}
+      {{ Sidebar(sidebarContent) }}
+    {% endif %}
+
   </div>  
 {% endblock %}

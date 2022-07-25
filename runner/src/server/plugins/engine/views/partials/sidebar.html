@@ -1,0 +1,9 @@
+{% macro Sidebar(sidebarContent) %}
+{% set position = 'right' %}
+  {% if sidebarContent.settings.alignment == 'left' %}
+    {% set position = 'left' %}
+  {% endif %}
+  <div class="sidebar {{position}}">
+    {{ sidebarContent.content | safe }}
+  </div>
+{% endmacro %}
