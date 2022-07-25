@@ -1,11 +1,16 @@
 {% from "error-summary/macro.njk" import govukErrorSummary %}
 {% from "partials/components.html" import componentList %}
+{% from "partials/sidebar.html" import Sidebar %}
 
 {% extends 'layout.html' %}
 {% block content %}
 
 {% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
-  <div class="govuk-grid-row">
+<div class="govuk-grid-row"> 
+ {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'left' %}
+  {{ Sidebar(sidebarContent) }}
+ {% endif %}
+
     <div class="govuk-grid-column-{{gridSize}}">
       {% if errors %}
         {{ govukErrorSummary(errors) }}
@@ -21,5 +26,10 @@
 
       <pre>{{ value | dump(2) | safe }}</pre>
     </div>
-  </div>
+    
+    {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'right' %}
+      {{ Sidebar(sidebarContent) }}
+    {% endif %}
+
+  </div>  
 {% endblock %}
