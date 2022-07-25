@@ -103,5 +103,16 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, customValidationMessage: payload },
         },
       };
+
+      case Options.EDIT_OPTIONS_ALIGN:
+        return {
+          selectedComponent: {
+            ...selectedComponent,
+            options: { ...options, alignment: payload },
+          },
+        };
   }
+
+
+  
 }
