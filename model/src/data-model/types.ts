@@ -13,6 +13,8 @@ export interface Page {
   controller: string;
   components?: ComponentDef[];
   section: string; // the section ID
+  sidebarContent: {enabled: boolean; 
+    content: string; settings: {alignment: string;}}
   next?: { path: string; condition?: string }[];
 }
 
