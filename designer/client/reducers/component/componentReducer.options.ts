@@ -120,13 +120,22 @@ export function optionsReducer(state, action: OptionsActions) {
         },
       };
 
-      case Options.EDIT_OPTIONS_ALIGN:
+     case Options.EDIT_OPTIONS_ALIGN:
         return {
           selectedComponent: {
             ...selectedComponent,
             options: { ...options, alignment: payload },
           },
         };
+
+    case Options.EDIT_OPTIONS_MAX_WORDS:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, maxWords: payload },
+        },
+      };
   }
 
 

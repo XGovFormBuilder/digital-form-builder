@@ -78,3 +78,17 @@ $govuk-global-styles: true;
     background: transparent;
   }
 }
+
+.govuk-summary-list {
+  &__row {
+    &--hidden-titles {
+      @extend .govuk-visually-hidden;
+    }
+
+  }
+  &__key {
+    &--hidden-titles {
+      width: 100%;
+    }
+  }
+}
