@@ -64,7 +64,15 @@ export class UploadService {
 
   async uploadDocuments(locations: any[]) {
     await this.uploadFilesS3(locations).then((result) => {
-      return result;
+      let error: string | undefined;
+      let location: string | undefined;
+      var errors = result.some((doc) => typeof doc.error !== undefined);
+      if (errors) {
+        error = "Failed to upload file to server";
+      } else {
+        location = result[0].location;
+      }
+      return { location, error };
     });
   }
 
@@ -248,7 +256,7 @@ export class UploadService {
         .promise()
         .then(function (data) {
           console.log(data);
-          resposes.push({ location: data.Location, erroor: undefined });
+          resposes.push({ location: data.Location, error: undefined });
         })
         .catch(function (err) {
           resposes.push({
