@@ -83,7 +83,7 @@ export class UploadService {
     let location: string | undefined;
 
     switch (res.statusCode) {
-      case 200:
+      case 201:
         location = res.headers.location;
         break;
       case 413:
