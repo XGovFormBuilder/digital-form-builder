@@ -63,17 +63,19 @@ export class UploadService {
   }
 
   async uploadDocuments(locations: any[]) {
+    let error: string | undefined;
+    let location: string | undefined;
+
     await this.uploadFilesS3(locations).then((result) => {
-      let error: string | undefined;
-      let location: string | undefined;
-      var errors = result.some((doc) => typeof doc.error !== undefined);
-      if (errors) {
-        error = "Failed to upload file to server";
-      } else {
-        location = result[0].location;
-      }
-      return { location, error };
+      result.forEach((doc) => {
+        if (typeof doc.error !== "undefined") {
+          error = "Failed to upload file to server: " + doc.error;
+        } else {
+          location = doc.location;
+        }
+      });
     });
+    return { location, error };
   }
 
   parsedDocumentUploadResponse(res: http.IncomingMessage) {
