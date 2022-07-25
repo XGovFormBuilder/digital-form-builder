@@ -244,7 +244,7 @@ export class UploadService {
   }
 
   async uploadFilesS3(files) {
-    let resposes = new Array();
+    let response = new Array();
 
     for (const file of files) {
       const uploadParams = {
@@ -258,16 +258,16 @@ export class UploadService {
         .promise()
         .then(function (data) {
           console.log(data);
-          resposes.push({ location: data.Location, error: undefined });
+          response.push({ location: data.Location, error: undefined });
         })
         .catch((err) => {
-          resposes.push({
+          response.push({
             location: undefined,
             error: `${err.code}: ${err.message}`,
           });
           this.logger.error(`File upload Error`, err);
         });
     }
-    return resposes;
+    return response;
   }
 }
