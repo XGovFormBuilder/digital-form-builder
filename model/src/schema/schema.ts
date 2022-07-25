@@ -109,12 +109,11 @@ const pageSchema = joi.object().keys({
   section: joi.string(),
   controller: joi.string(),
   components: joi.array().items(componentSchema),
-  sidebarContent: joi.object().keys({
+  sidebarContent: {
     enabled: joi.boolean().required(),
-    name: joi.string().required().optional(),
-    content: joi.string().required().optional(),
-    settings: joi.object().keys({ alignment: joi.string().required() }),
-  }),
+    settings: joi.object().keys({alignment: joi.string().required()} ),
+    content: joi.string().optional() // string
+  },
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
 });
