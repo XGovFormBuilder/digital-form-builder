@@ -13,7 +13,7 @@ export default {
     },
     logRequestComplete: config.isDev,
     ignoreFunc: (_options, request) =>
-      request.path.includes("assets") || request.url.includes("assets"),
+      request.path.startsWith("/assets") || request.url.contains("assets"),
     redact: {
       paths: config.logRedactPaths,
       censor: "REDACTED",

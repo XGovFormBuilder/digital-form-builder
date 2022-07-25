@@ -116,6 +116,7 @@ const pageSchema = joi.object().keys({
   },
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
+  options: joi.object().optional(),
 });
 
 const toggleableString = joi.alternatives().try(joi.boolean(), joi.string());

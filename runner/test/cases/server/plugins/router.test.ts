@@ -30,7 +30,7 @@ suite("Server Router", () => {
     expect(res.statusCode).to.equal(200);
     expect(
       res.result.indexOf(
-        `<h1 class="govuk-heading-xl">Cookies on Digital form builder - runner</h1>`
+        `<h1 class="govuk-heading-l">Cookies on Digital form builder - runner</h1>`
       ) > -1
     ).to.equal(true);
   });
@@ -40,7 +40,6 @@ suite("Server Router", () => {
       method: "POST",
       payload: {
         cookies: "accept",
-        referrer: "/help/accessibility-statement",
       },
       url: "/help/cookies",
     };
@@ -61,7 +60,7 @@ suite("Server Router", () => {
     expect(res.statusCode).to.equal(200);
     expect(
       res.result.indexOf(
-        '<h1 class="govuk-heading-xl">Accessibility Statement</h1>'
+        '<h1 class="govuk-heading-l">Accessibility Statement</h1>'
       ) > -1
     ).to.equal(true);
   });
@@ -77,7 +76,7 @@ suite("Server Router", () => {
     expect(res.statusCode).to.equal(200);
     expect(
       res.result.indexOf(
-        '<h1 class="govuk-heading-xl">Terms and conditions</h1>'
+        '<h1 class="govuk-heading-l">Terms and conditions</h1>'
       ) > -1
     ).to.equal(true);
   });
