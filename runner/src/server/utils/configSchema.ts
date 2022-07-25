@@ -79,6 +79,8 @@ export const configSchema = Joi.object({
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
   savePerPage: Joi.boolean().optional(),
+  awsBucketName: Joi.string().optional(),
+  awsRegion: Joi.string().optional(),
 });
 
 export function buildConfig(config) {

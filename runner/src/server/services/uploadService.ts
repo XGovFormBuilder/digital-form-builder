@@ -4,13 +4,12 @@ import config from "../config";
 import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
 
-const fs = require("fs");
 const S3 = require("aws-sdk/clients/s3");
 
 type Payload = HapiRequest["payload"];
 
-let bucketName = "paas-s3-broker-prod-lon-443b9fc2-55ff-4c2f-9ac3-d3ebfb18ef5a";
-const region = "eu-west-2";
+let bucketName = config.awsBucketName;
+const region = config.awsRegion;
 
 if (process.env.VCAP_SERVICES) {
   const vcap = process.env.VCAP_SERVICES;

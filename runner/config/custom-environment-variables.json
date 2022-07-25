@@ -41,5 +41,7 @@
   "authClientProfileUrl": "AUTH_CLIENT_PROFILE_URL",
   "previewMode": "PREVIEW_MODE",
   "enforceCsrf": "ENFORCE_CSRF",
-  "savePerPage": "SAVE_PER_PAGE"
+  "savePerPage": "SAVE_PER_PAGE",
+  "awsBucketName": "AWS_BUCKET_NAME",
+  "awsRegion": "AWS_REGION"
 }
