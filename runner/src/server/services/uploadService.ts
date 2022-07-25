@@ -3,6 +3,7 @@ import FormData from "form-data";
 import config from "../config";
 import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+import { isThisHour } from "date-fns";
 
 const S3 = require("aws-sdk/clients/s3");
 
@@ -259,11 +260,12 @@ export class UploadService {
           console.log(data);
           resposes.push({ location: data.Location, error: undefined });
         })
-        .catch(function (err) {
+        .catch((err) => {
           resposes.push({
             location: undefined,
             error: `${err.code}: ${err.message}`,
           });
+          this.logger.error(`File upload Error`, err);
         });
     }
     return resposes;
