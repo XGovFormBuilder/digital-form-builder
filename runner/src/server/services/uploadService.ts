@@ -257,7 +257,6 @@ export class UploadService {
         .upload(uploadParams)
         .promise()
         .then(function (data) {
-          console.log(data);
           response.push({ location: data.Location, error: undefined });
         })
         .catch((err) => {
