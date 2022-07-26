@@ -52,8 +52,7 @@ const PageEdit = (props) => {
   const { sections } = data;
 
   useEffect(() => {
-    options.alignment =
-      page?.sidebarContent?.settings.alignment ?? "left";
+    options.alignment = page?.sidebarContent?.settings.alignment ?? "left";
     selectedComponent.content = page?.sidebarContent?.content;
     setShowSidebarContent(page?.sidebarContent?.enabled);
     setPath(page?.path ?? generatePath(page.title));
@@ -89,8 +88,8 @@ const PageEdit = (props) => {
     copyPage.sidebarContent = {
       enabled: showSidebarContent,
       content: selectedComponent.content,
-      settings: { alignment: options.alignment }
-    }
+      settings: { alignment: options.alignment },
+    };
 
     copy.declaration = formData.get("declaration") ?? "";
 
@@ -206,7 +205,7 @@ const PageEdit = (props) => {
   const onEnableSidebar = (e) => {
     const checked = e.target.checked;
     setShowSidebarContent(checked);
-  }
+  };
 
   const onChangeSection = (e) => {
     setSection(e.target.value);
@@ -322,23 +321,24 @@ const PageEdit = (props) => {
             <Editor name="declaration" />
           </div>
         )}
-
         <Checkboxes
           onChange={onEnableSidebar}
           items={[
             {
               checked: showSidebarContent,
-              children: 'SidebarContent',
-              value: 'sidebarContent'
-            }
+              children: "SidebarContent",
+              value: "sidebarContent",
+            },
           ]}
           name="sidebarContent"
         />
-
         {showSidebarContent && (
           <>
             <div className="govuk-form-group">
-              <label className="govuk-label govuk-label--s" htmlFor="para-content">
+              <label
+                className="govuk-label govuk-label--s"
+                htmlFor="para-content"
+              >
                 Content
               </label>
               <span className="govuk-hint">{i18n("fieldEdit.para.hint")}</span>
@@ -355,7 +355,10 @@ const PageEdit = (props) => {
               />
             </div>
             <div className="govuk-form-group">
-              <label className="govuk-label govuk-label--s" htmlFor="sidebaralign">
+              <label
+                className="govuk-label govuk-label--s"
+                htmlFor="sidebaralign"
+              >
                 Select Alignment
               </label>
               <span className="govuk-hint">{i18n("sidebar.align.hint")} </span>
@@ -378,7 +381,9 @@ const PageEdit = (props) => {
               <label className="govuk-label govuk-label--s" htmlFor="condition">
                 Condition (optional)
               </label>
-              <span className="govuk-hint">{i18n("fieldEdit.conditions.hint")} </span>
+              <span className="govuk-hint">
+                {i18n("fieldEdit.conditions.hint")}{" "}
+              </span>
               <select
                 className="govuk-select"
                 id="condition"
@@ -399,7 +404,8 @@ const PageEdit = (props) => {
                 ))}
               </select>
             </div>
-          </>)}
+          </>
+        )}
         <button className="govuk-button" type="submit">
           {i18n("save")}
         </button>{" "}
@@ -438,12 +444,7 @@ const PageEdit = (props) => {
           </Flyout>
         </RenderInPortal>
       )}
-
-
-
     </div>
   );
-
-}
+};
 export default withI18n(PageEdit);
-
