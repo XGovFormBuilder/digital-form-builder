@@ -62,11 +62,11 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(locations: any[]) {
+  async uploadDocuments(locations: any[], applicationId: string) {
     let error: string | undefined;
     let location: string | undefined;
 
-    await this.uploadFilesS3(locations).then((result) => {
+    await this.uploadFilesS3(locations, applicationId).then((result) => {
       result.forEach((doc) => {
         if (typeof doc.error !== "undefined") {
           error = "Failed to upload file to server: " + doc.error;
@@ -114,6 +114,8 @@ export class UploadService {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
+
+    const applicationId = state.metadata?.application_id ?? "";
 
     let files: [string, any][] = [];
 
@@ -188,7 +190,10 @@ export class UploadService {
 
       if (validFiles.length === values.length) {
         try {
-          const { error, location } = await this.uploadDocuments(validFiles);
+          const { error, location } = await this.uploadDocuments(
+            validFiles,
+            applicationId
+          );
           if (location) {
             originalFilenames[key] = { location };
             request.payload[key] = location;
@@ -243,14 +248,14 @@ export class UploadService {
     return Promise.all(promises);
   }
 
-  async uploadFilesS3(files) {
+  async uploadFilesS3(files, filePrefix) {
     let response = new Array();
 
     for (const file of files) {
       const uploadParams = {
         Bucket: bucketName,
         Body: file,
-        Key: file.hapi.filename,
+        Key: `${filePrefix}/${file.hapi.filename}`,
       };
 
       await s3
