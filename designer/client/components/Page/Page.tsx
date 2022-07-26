@@ -6,7 +6,7 @@ import {
 } from "react-sortable-hoc";
 
 import { Flyout } from "../Flyout";
-import { PageEdit } from "../../page-edit";
+import PageEdit from "../../page-edit";
 import { Component } from "../../component";
 import { ComponentCreate } from "./../ComponentCreate";
 import { ComponentTypes } from "@xgovformbuilder/model";
