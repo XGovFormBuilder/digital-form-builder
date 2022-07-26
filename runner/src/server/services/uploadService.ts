@@ -62,19 +62,21 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(locations: any[], applicationId: string) {
+  async uploadDocuments(locations: any[], applicationId: string, metadata) {
     let error: string | undefined;
     let location: string | undefined;
 
-    await this.uploadFilesS3(locations, applicationId).then((result) => {
-      result.forEach((doc) => {
-        if (typeof doc.error !== "undefined") {
-          error = "Failed to upload file to server: " + doc.error;
-        } else {
-          location = bucketName;
-        }
-      });
-    });
+    await this.uploadFilesS3(locations, applicationId, metadata).then(
+      (result) => {
+        result.forEach((doc) => {
+          if (typeof doc.error !== "undefined") {
+            error = "Failed to upload file to server: " + doc.error;
+          } else {
+            location = bucketName;
+          }
+        });
+      }
+    );
     return { location, error };
   }
 
@@ -110,12 +112,20 @@ export class UploadService {
     return h.continue;
   }
 
-  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
+  async handleUploadRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    form?: any
+  ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
 
     const applicationId = state.metadata?.application_id ?? "";
+    const { path } = request.params;
+    const page = form?.pages.find(
+      (page) => this.normalisePath(page.path) === this.normalisePath(path)
+    );
 
     let files: [string, any][] = [];
 
@@ -188,11 +198,18 @@ export class UploadService {
         )
       ).filter((value) => !!value);
 
+      const metaData = {
+        page: page.title,
+        section: page.section ?? "",
+        componentName: key,
+      };
+
       if (validFiles.length === values.length) {
         try {
           const { error, location } = await this.uploadDocuments(
             validFiles,
-            applicationId
+            applicationId,
+            metaData
           );
           if (location) {
             originalFilenames[key] = { location };
@@ -248,7 +265,7 @@ export class UploadService {
     return Promise.all(promises);
   }
 
-  async uploadFilesS3(files, filePrefix) {
+  async uploadFilesS3(files, filePrefix, metadata) {
     let response = new Array();
 
     for (const file of files) {
@@ -256,6 +273,8 @@ export class UploadService {
         Bucket: bucketName,
         Body: file,
         Key: `${filePrefix}/${file.hapi.filename}`,
+        ContentType: file.hapi.headers["content-type"],
+        Metadata: metadata,
       };
 
       await s3
@@ -273,5 +292,9 @@ export class UploadService {
         });
     }
     return response;
+  }
+
+  normalisePath(path: string) {
+    return path.replace(/^\//, "").replace(/\/$/, "");
   }
 }
