@@ -111,8 +111,8 @@ const pageSchema = joi.object().keys({
   components: joi.array().items(componentSchema),
   sidebarContent: {
     enabled: joi.boolean().required(),
-    settings: joi.object().keys({alignment: joi.string().required()} ),
-    content: joi.string().optional() // string
+    settings: joi.object().keys({ alignment: joi.string().required() }),
+    content: joi.string().optional(), // string
   },
   next: joi.array().items(nextSchema),
   repeatField: joi.string().optional(),
