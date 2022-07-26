@@ -97,7 +97,10 @@ interface NumberFieldBase {
   name: string;
   title: string;
   hint: string;
-  options: {};
+  options: {
+    prefix?: string;
+    suffix?: string;
+  };
   schema: {
     min?: number;
     max?: number;
@@ -151,6 +154,9 @@ interface DateFieldBase {
 // Text Fields
 export interface TextFieldComponent extends TextFieldBase {
   type: "TextField";
+  options: TextFieldBase["options"] & {
+    customValidationMessage?: string;
+  };
 }
 
 export interface EmailAddressFieldComponent extends TextFieldBase {

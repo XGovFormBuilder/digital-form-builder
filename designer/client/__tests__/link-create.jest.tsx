@@ -10,6 +10,21 @@ const rawData = {
     {
       title: "First page",
       path: "/first-page",
+      components: [
+        {
+          type: "YesNoField",
+          name: "ukPassport",
+          title: "Do you have a UK passport?",
+          option: {
+            required: true,
+          },
+          schema: {},
+        },
+      ],
+    },
+    {
+      title: "Second page",
+      path: "/second-page",
       components: [],
     },
     {
@@ -56,7 +71,7 @@ test("cannot add condition hint is rendered correctly", () => {
   const { getByLabelText, getByText } = customRender(<LinkCreate />);
 
   fireEvent.change(getByLabelText("From"), {
-    target: { value: data.pages[0].path },
+    target: { value: data.pages[1].path },
   });
 
   expect(getByText(hint)).toBeInTheDocument();
@@ -81,7 +96,7 @@ test("Selecting a from value causes the SelectConditions component to be display
   expect(getByTestId("select-conditions")).toBeInTheDocument();
 });
 
-test("links are correctly generated when the form is submitted", () => {
+test("links for older conditions are correctly generated when the form is submitted", () => {
   const data = {
     ...rawData,
     conditions: [
@@ -130,7 +145,95 @@ test("links are correctly generated when the form is submitted", () => {
   fireEvent.click(getByRole("button"));
   expect(save).toBeCalledTimes(2);
 
-  expect(save.mock.calls[1][0].pages[1].next).toContainEqual({
+  expect(save.mock.calls[1][0].pages[2].next).toContainEqual({
+    path: "/first-page",
+  });
+});
+
+test("links are correctly generated when the form is submitted", () => {
+  const data = {
+    ...rawData,
+    conditions: [
+      {
+        name: "hasUKPassport",
+        displayName: "hasUKPassport",
+        value: {
+          name: "hasUKPassport",
+          conditions: [
+            {
+              field: {
+                name: "ukPassport",
+                type: "YesNoField",
+                display: "Do you have a UK passport?",
+              },
+              operator: "is",
+              value: {
+                type: "Value",
+                value: "yes",
+                display: "Yes, I have a UK passport",
+              },
+            },
+          ],
+        },
+      },
+      {
+        name: "doesntHaveUKPassport",
+        displayName: "doesntHaveUKPassport",
+        value: {
+          name: "doesntHaveUKPassport",
+          conditions: [
+            {
+              field: {
+                name: "ukPassport",
+                type: "YesNoField",
+                display: "Do you have a UK passport?",
+              },
+              operator: "is",
+              value: {
+                type: "Value",
+                value: "no",
+                display: "No, I do not have a UK passport",
+              },
+            },
+          ],
+        },
+      },
+    ],
+  };
+  const save = jest.fn();
+  const { getByTestId, getByRole } = customRender(<LinkCreate />, {
+    data,
+    save,
+  });
+  fireEvent.change(getByTestId("link-source"), {
+    target: { value: "/first-page" },
+  });
+  fireEvent.change(getByTestId("link-target"), {
+    target: { value: "/summary" },
+  });
+  fireEvent.change(getByTestId("select-condition"), {
+    target: { value: "hasUKPassport" },
+  });
+  fireEvent.click(getByRole("button"));
+  expect(save).toBeCalledTimes(1);
+  expect(save.mock.calls[0][0].pages[0].next).toContainEqual({
+    path: "/summary",
+    condition: "hasUKPassport",
+  });
+
+  fireEvent.change(getByTestId("link-source"), {
+    target: { value: "/summary" },
+  });
+  fireEvent.change(getByTestId("link-target"), {
+    target: { value: "/first-page" },
+  });
+  fireEvent.change(getByTestId("select-condition"), {
+    target: { value: "hasUKPassport" },
+  });
+  fireEvent.click(getByRole("button"));
+  expect(save).toBeCalledTimes(2);
+
+  expect(save.mock.calls[1][0].pages[2].next).toContainEqual({
     path: "/first-page",
   });
 });

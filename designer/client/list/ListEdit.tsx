@@ -98,12 +98,20 @@ function useListEdit() {
   };
 }
 
+function validate(errors: any, selectedList: any) {
+  if (selectedList.items.length > 0) {
+    return {};
+  }
+  return errors;
+}
+
 export function ListEdit() {
   const { handleSubmit, handleDelete } = useListEdit();
 
   const { state, dispatch } = useContext(ListContext);
   const { selectedList, createItem } = useListItemActions(state, dispatch);
-  const { errors } = state;
+  let { errors } = state;
+  errors = validate(errors, selectedList);
   const validationErrors = hasValidationErrors(errors);
   return (
     <>
