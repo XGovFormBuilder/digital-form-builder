@@ -96,6 +96,22 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, autocomplete: payload },
         },
       };
+    case Options.EDIT_OPTIONS_PREFIX:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, prefix: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_SUFFIX:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, suffix: payload },
+        },
+      };
     case Options.EDIT_OPTIONS_CUSTOM_MESSAGE:
       return {
         selectedComponent: {
@@ -110,6 +126,14 @@ export function optionsReducer(state, action: OptionsActions) {
         selectedComponent: {
           ...selectedComponent,
           options: { ...options, maxWords: payload },
+        },
+      };
+
+    case Options.EDIT_OPTIONS_ALIGN:
+      return {
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, alignment: payload },
         },
       };
   }

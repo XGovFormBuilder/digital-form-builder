@@ -92,7 +92,7 @@ export const initComponentState = (props) => {
     initialName: selectedComponent?.name ?? newName,
     pagePath: props?.pagePath,
     isNew: props?.isNew || ((selectedComponent?.name && false) ?? true),
-    listItemErrors: {}
+    listItemErrors: {},
   };
 };
 
