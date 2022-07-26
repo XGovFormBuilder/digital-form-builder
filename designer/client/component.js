@@ -33,7 +33,6 @@ export const componentTypes = {
   List,
   WarningText,
   WebsiteField: TextField,
-  Sidebar,
 };
 
 function Base(props) {
@@ -291,24 +290,6 @@ function Html() {
       <div className="html">
         <span className="line xshort govuk-!-margin-bottom-1 govuk-!-margin-top-1" />
       </div>
-    </Base>
-  );
-}
-
-function Sidebar() {
-  return (
-    <Base>
-      <span className="box long">
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-        <div className="line sidebar govuk-!-margin-bottom-2 govuk-!-margin-top-2" />
-      </span>
     </Base>
   );
 }

@@ -22,8 +22,7 @@ export enum ComponentTypeEnum {
   InsetText = "InsetText",
   Details = "Details",
   FlashCard = "FlashCard",
-  List = "List",
-  Sidebar = "Sidebar",
+  List = "List"
 }
 
 export type ComponentType =
@@ -51,8 +50,7 @@ export type ComponentType =
   | "Details"
   | "FlashCard"
   | "List"
-  | "WebsiteField"
-  | "Sidebar";
+  | "WebsiteField";
 
 export type ComponentSubType = "field" | "content";
 
@@ -264,9 +262,6 @@ export interface HtmlComponent extends ContentFieldBase {
 export interface InsetTextComponent extends ContentFieldBase {
   type: "InsetText";
 }
-export interface SidebarComponent extends ContentFieldBase {
-  type: "Sidebar";
-}
 
 // List Fields
 export interface ListComponent extends ListFieldBase {
@@ -319,8 +314,7 @@ export type ComponentDef =
   | TimeFieldComponent
   | UkAddressFieldComponent
   | YesNoFieldComponent
-  | WebsiteFieldComponent
-  | SidebarComponent;
+  | WebsiteFieldComponent;
 
 // Components that render inputs.
 export type InputFieldsComponentsDef =
@@ -344,8 +338,7 @@ export type ContentComponentsDef =
   | ParaComponent
   | DetailsComponent
   | HtmlComponent
-  | InsetTextComponent
-  | SidebarComponent;
+  | InsetTextComponent;
 
 // Components that render Lists
 export type ListComponentsDef =

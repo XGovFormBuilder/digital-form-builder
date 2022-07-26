@@ -199,8 +199,6 @@
     "WebsiteField_info": "A text box that users can enter a website into",
     "YesNoField": "YesNo",
     "YesNoField_info": "Allows users to answer either 'Yes' or 'No'",
-    "Sidebar": "Sidebar",
-    "Sidebar_info": "A block of text that you can apply basic HTML to, such as text formatting and hyperlinks, that will appear on either side of the Form"
   },
   "fileUploadFieldEditPage": {
     "multipleFilesOption": {
