@@ -42,6 +42,22 @@ $govuk-global-styles: true;
   }
 }
 
+.sidebar {
+  position: relative;
+  max-width: 100px;
+  line-break: anywhere;
+
+  &.left {
+    top: 0;
+    left: calc(200px);
+  }
+
+  &.right {
+    top: -200px;
+    left: calc(270px);
+  }
+}
+
 .icon--check {
   position: relative;
 
@@ -60,5 +76,20 @@ $govuk-global-styles: true;
     border-color: map-get($govuk-colours, "black");
     border-top-color: transparent;
     background: transparent;
+  }
+}
+}
+
+.govuk-summary-list {
+  &__row {
+    &--hidden-titles {
+      @extend .govuk-visually-hidden;
+    }
+
+  }
+  &__key {
+    &--hidden-titles {
+      width: 100%;
+    }
   }
 }

@@ -62,7 +62,6 @@ export class ListFormComponent extends FormComponent {
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { name, items } = this;
     const viewModel = super.getViewModel(formData, errors);
-
     const viewModelItems: ListItem[] =
       items.map(({ text, value, description = "", condition }) => ({
         text: this.localisedString(text),
