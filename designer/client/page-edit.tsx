@@ -54,7 +54,7 @@ const PageEdit = (props) => {
   useEffect(() => {
     options.alignment = page?.sidebarContent?.settings.alignment ?? "left";
     selectedComponent.content = page?.sidebarContent?.content;
-    setShowSidebarContent(page?.sidebarContent?.enabled);
+    setShowSidebarContent(page?.sidebarContent?.enabled ?? false);
     setPath(page?.path ?? generatePath(page.title));
     setIsSummaryPage(title === "Summary");
   }, []);
