@@ -20,7 +20,7 @@ suite("TextField", () => {
       title: "What's your first name?",
       options: {
         autocomplete: "given-name",
-      }
+      },
     };
 
     const formModel = {
@@ -47,55 +47,48 @@ suite("TextField", () => {
       expect(component.formSchema.validate({}).error).to.exist();
     });
 
-
-    it("regex should be in the correct format", () => {
-      const component = TextComponent({ schema: { regex: "[]" } });
-
-      const schema = component.formSchema.describe();
-      const object = JSON.parse(JSON.stringify(schema.rules))[1] ?? { args: { regex: null } };
-      const regex = object.args.regex ?? '/^[^"\\/\\#;]*$/';
-
-      expect(regex.length).to.be.at.least(5);
-      expect(regex.substring(1, 2)).to.be.equal('^');
-      expect(regex.substring(regex.length - 2, regex.length - 1)).to.be.equal('$');
-    });
-
     it("should match pattern for regex", () => {
       let component = TextComponent({ schema: { regex: "[abc]*" } });
 
-      expect(component.formSchema.validate("ab", { messages })).
-        to.be.equal({ value: 'ab' });
+      expect(component.formSchema.validate("ab", { messages })).to.be.equal({
+        value: "ab",
+      });
 
       component = TextComponent({ schema: { regex: null } });
 
-      expect(component.formSchema.validate("*", { messages })).
-        to.be.equal({ value: '*' });
+      expect(component.formSchema.validate("*", { messages })).to.be.equal({
+        value: "*",
+      });
 
       component = TextComponent({ schema: { regex: undefined } });
 
-      expect(component.formSchema.validate("/", { messages })).
-        to.be.equal({ value: '/' });
+      expect(component.formSchema.validate("/", { messages })).to.be.equal({
+        value: "/",
+      });
 
       component = TextComponent({ schema: { regex: "" } });
 
-      expect(component.formSchema.validate("", { messages })).
-        to.not.be.equal({ value: "" });
+      expect(component.formSchema.validate("", { messages })).to.not.be.equal({
+        value: "",
+      });
 
-      component = TextComponent({ schema: { regex: "[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}" } });
+      component = TextComponent({
+        schema: { regex: "[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}" },
+      });
 
-      expect(component.formSchema.validate("AJ98 7AX", { messages })).
-        to.be.equal({ value: "AJ98 7AX" });
+      expect(
+        component.formSchema.validate("AJ98 7AX", { messages })
+      ).to.be.equal({ value: "AJ98 7AX" });
     });
 
     function TextComponent(properties) {
       return new TextField(
         {
           ...componentDefinition,
-          ...properties
+          ...properties,
         },
         formModel
       );
     }
-
   });
 });

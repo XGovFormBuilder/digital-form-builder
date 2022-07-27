@@ -1,6 +1,5 @@
 import crumb from "@hapi/crumb";
 import { ServerRegisterPluginObject } from "@hapi/hapi";
-
 import { RouteConfig } from "../types";
 
 type Config = {
@@ -9,7 +8,7 @@ type Config = {
 };
 
 export const configureCrumbPlugin = (
-  config: Config,
+  config,
   routeConfig?: RouteConfig
 ): ServerRegisterPluginObject<crumb.RegisterOptions> => {
   return {
@@ -26,8 +25,21 @@ export const configureCrumbPlugin = (
         isSameSite: "Strict",
       },
       skip: (request: any) => {
-        // skip crumb validation if error parsing payload
-        return request.method === "post" && request.payload == null;
+        const skippedRoutes = ["/session"];
+        const isSkippedMethod =
+          request.method === "post" && request.payload == null;
+
+        const isSkippedRoute =
+          skippedRoutes.find((route) => `${request.path}`.startsWith(route)) ??
+          false;
+        if (isSkippedRoute) {
+          request.logger.info(
+            ["Crumb", "CSRF", "Skipping route"],
+            `${request.url}`
+          );
+        }
+
+        return isSkippedMethod || !!isSkippedRoute;
       },
     },
   };

@@ -1,5 +1,11 @@
 import yar from "@hapi/yar";
-import { Request, ResponseToolkit, Server, ResponseObject } from "@hapi/hapi";
+import {
+  Request,
+  ResponseToolkit,
+  Server,
+  ResponseObject,
+  Lifecycle,
+} from "@hapi/hapi";
 import { Logger } from "pino";
 
 import { RateOptions } from "./plugins/rateLimit";
@@ -68,5 +74,6 @@ declare module "@hapi/hapi" {
 
 export type HapiRequest = Request;
 export type HapiResponseToolkit = ResponseToolkit;
+export type HapiLifecycleMethod = Lifecycle.Method;
 export type HapiServer = Server;
 export type HapiResponseObject = ResponseObject;
