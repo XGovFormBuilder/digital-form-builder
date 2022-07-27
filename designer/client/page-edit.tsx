@@ -78,7 +78,7 @@ const PageEdit = (props) => {
     copy.pages[copyIndex] = copyPage;
     try {
       await save(copy);
-      props.closeFlyout();
+      props.onEdit();
     } catch (err) {
       logger.error("PageEdit", err);
       console.log("Error ");
