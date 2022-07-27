@@ -2,6 +2,8 @@ import * as Code from "@hapi/code";
 import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { TextField } from "server/plugins/engine/components/TextField";
+import { componentSchema } from "@xgovformbuilder/model";
+import { messages } from "src/server/plugins/engine/pageControllers/validationOptions";
 
 const lab = Lab.script();
 exports.lab = lab;
@@ -19,7 +21,6 @@ suite("TextField", () => {
       options: {
         autocomplete: "given-name",
       },
-      schema: {},
     };
 
     const formModel = {
@@ -35,13 +36,8 @@ suite("TextField", () => {
     });
 
     it("is not required when explicitly configured", () => {
-      const component = new TextField(
-        {
-          ...componentDefinition,
-          options: { required: false },
-        },
-        formModel
-      );
+      const component = TextComponent({ options: { required: false } });
+
       expect(component.formSchema.describe().flags.presence).to.not.equal(
         "required"
       );
@@ -50,5 +46,49 @@ suite("TextField", () => {
     it("validates correctly", () => {
       expect(component.formSchema.validate({}).error).to.exist();
     });
+
+    it("should match pattern for regex", () => {
+      let component = TextComponent({ schema: { regex: "[abc]*" } });
+
+      expect(component.formSchema.validate("ab", { messages })).to.be.equal({
+        value: "ab",
+      });
+
+      component = TextComponent({ schema: { regex: null } });
+
+      expect(component.formSchema.validate("*", { messages })).to.be.equal({
+        value: "*",
+      });
+
+      component = TextComponent({ schema: { regex: undefined } });
+
+      expect(component.formSchema.validate("/", { messages })).to.be.equal({
+        value: "/",
+      });
+
+      component = TextComponent({ schema: { regex: "" } });
+
+      expect(component.formSchema.validate("", { messages })).to.not.be.equal({
+        value: "",
+      });
+
+      component = TextComponent({
+        schema: { regex: "[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}" },
+      });
+
+      expect(
+        component.formSchema.validate("AJ98 7AX", { messages })
+      ).to.be.equal({ value: "AJ98 7AX" });
+    });
+
+    function TextComponent(properties) {
+      return new TextField(
+        {
+          ...componentDefinition,
+          ...properties,
+        },
+        formModel
+      );
+    }
   });
 });

@@ -17,8 +17,8 @@ class DeclarationEdit extends React.Component {
     e.preventDefault();
     const form = e.target;
     const formData = new window.FormData(form);
-    const { data, toggleShowState } = this.props;
-    const { save } = this.context;
+    const { toggleShowState } = this.props;
+    const { save, data } = this.context;
     const copy = clone(data);
 
     copy.declaration = formData.get("declaration");
@@ -33,7 +33,7 @@ class DeclarationEdit extends React.Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data } = this.context;
     const { declaration, skipSummary } = data;
 
     return (
