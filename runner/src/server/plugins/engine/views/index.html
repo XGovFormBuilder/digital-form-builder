@@ -6,11 +6,14 @@
 {% block content %}
 
 {% set gridSize = "full" if components[0].type == 'FlashCard' else "two-thirds" %}
-<div class="govuk-grid-row"> 
- {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'left' %}
-  {{ Sidebar(sidebarContent) }}
- {% endif %}
 
+  
+<div class="govuk-grid-row"> 
+<div class="govuk-grid-column-one-third">
+  {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'left' %}
+    {{ Sidebar(sidebarContent) }}
+  {% endif %}
+</div>
     <div class="govuk-grid-column-{{gridSize}}">
       {% if errors %}
         {{ govukErrorSummary(errors) }}
@@ -26,10 +29,11 @@
 
       <pre>{{ value | dump(2) | safe }}</pre>
     </div>
-    
+    <div class="govuk-grid-column-one-third">
     {% if sidebarContent.enabled and sidebarContent.settings.alignment == 'right' %}
       {{ Sidebar(sidebarContent) }}
     {% endif %}
+  </div>
 
   </div>  
 {% endblock %}

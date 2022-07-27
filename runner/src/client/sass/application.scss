@@ -46,15 +46,14 @@ $govuk-global-styles: true;
   position: relative;
   max-width: 100px;
   line-break: anywhere;
+  top: -15px;
 
   &.left {
-    top: 0;
-    left: calc(200px);
+    left: calc(190px);
   }
 
   &.right {
-    top: -200px;
-    left: calc(270px);
+    right: calc(400px);
   }
 }
 
