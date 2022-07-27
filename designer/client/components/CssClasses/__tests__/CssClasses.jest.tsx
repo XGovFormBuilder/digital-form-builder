@@ -31,7 +31,7 @@ describe("CssClasses", () => {
 
     test("should display display correct helptext", () => {
       const text =
-        "Apply CSS classes to this field. For example, govuk-input-width-5";
+        "Apply CSS classes to this field. For example, govuk-input govuk-!-width-full";
       expect(page.getByText(text)).toBeInTheDocument();
     });
   });

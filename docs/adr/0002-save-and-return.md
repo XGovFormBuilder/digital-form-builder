@@ -1,8 +1,17 @@
 # Save and return
 
 * Status: proposed
-* Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/superafroman) [@superafroman](https://github.com/superafroman) [@alisalaman-cyb](https://github.com/alisalaman-cyb)
+* Deciders: FCDO / OS maintainers: [@jenbutongit](https://github.com/jenbutongit) [@superafroman](https://github.com/superafroman) [@alisalaman-cyb](https://github.com/alisalaman-cyb)
 * Date: 2022-02-02
+* Amended: 2022-02-21
+
+### Amendments 2022-02-21
+[Pull request](https://github.com/XGovFormBuilder/digital-form-builder/issues/760)
+[Discussion/issue](https://github.com/XGovFormBuilder/digital-form-builder/issues/742)
+
+The proposed `/returning-user` has been renamed to `/session`. To prevent issues with proxies, the token will now be
+provided as a path parameter, rather than a search parameter. 
+
 
 ## Context and Problem Statement
 
@@ -41,7 +50,8 @@ Option 2 will fit FCDO's requirements around security and DPIA. It will also hav
 
 
 Implementing 639 does not give us enough control, especially with unauthenticated flows. 
-There is a risk of a user finding a link which has query parameters set and ends up submitting someone elses data. 
+There is a risk of a user finding a link which has query parameters set and ends up submitting someone elses data.
+
 
 ### Positive Consequences <!-- optional -->
 
@@ -50,3 +60,4 @@ A long awaited feature. Sorry for anyone who's been waiting for this!
 ### Negative Consequences <!-- optional -->
 
 This will not be as "simple" as query parameters, and will require more involvement by the implementors so that steps 3-4 are handled correctly.
+

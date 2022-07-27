@@ -96,11 +96,36 @@ export function optionsReducer(state, action: OptionsActions) {
           options: { ...options, autocomplete: payload },
         },
       };
+    case Options.EDIT_OPTIONS_PREFIX:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, prefix: payload },
+        },
+      };
+    case Options.EDIT_OPTIONS_SUFFIX:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, suffix: payload },
+        },
+      };
     case Options.EDIT_OPTIONS_CUSTOM_MESSAGE:
       return {
         selectedComponent: {
           ...selectedComponent,
           options: { ...options, customValidationMessage: payload },
+        },
+      };
+
+    case Options.EDIT_OPTIONS_MAX_WORDS:
+      return {
+        ...state,
+        selectedComponent: {
+          ...selectedComponent,
+          options: { ...options, maxWords: payload },
         },
       };
   }

@@ -1,11 +1,10 @@
 import React, { MouseEvent } from "react";
+import { DataContext } from "../context";
 import randomId from "../randomId";
 import OutputEdit from "./output-edit";
 import { Output } from "./types";
 
-type Props = {
-  data: any; // TODO: type
-};
+type Props = {};
 
 type State = {
   showAddOutput: boolean;
@@ -14,6 +13,7 @@ type State = {
 };
 
 class OutputsEdit extends React.Component<Props, State> {
+  static contextType = DataContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ class OutputsEdit extends React.Component<Props, State> {
   };
 
   render() {
-    const { data } = this.props;
+    const data = this.context.data;
     const { outputs } = data;
     const { output, id, showAddOutput } = this.state;
 
