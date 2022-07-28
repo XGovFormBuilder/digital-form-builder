@@ -26,7 +26,7 @@ const PageCreate = (props) => {
   const [controller, setController] = useState(page?.controller ?? "");
   const [linkFrom, setLinkFrom] = useState("");
   const [isEditingSection, setIsEditingSection] = useState(false);
-  const [selectedCondition, setSelectedCondition] = useState(false);
+  const [selectedCondition, setSelectedCondition] = useState("");
   const [pageType, setPageType] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -35,39 +35,34 @@ const PageCreate = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    let title;
-    let linkFrom;
-    let section;
-    let pageType;
-    let selectedCondition;
-
-    title = title?.trim();
-    linkFrom = linkFrom?.trim();
-    section = section?.name?.trim();
-    pageType = pageType?.trim();
-    selectedCondition = selectedCondition?.trim();
+    const _title = title?.trim();
+    const _linkFrom = linkFrom?.trim();
+    const _section = section?.name?.trim();
+    const _pageType = pageType?.trim();
+    const _selectedCondition = selectedCondition?.trim();
 
     let validationErrors = validate(title, path);
     if (hasValidationErrors(validationErrors)) return;
 
     const value = {
       path,
-      title,
+      _title,
       components: [],
       next: [],
     };
-    if (section) {
-      value.section = section;
+    if (_section) {
+      value.section = _section;
     }
-    if (pageType) {
-      value.controller = pageType;
+    if (_pageType) {
+      value.controller = _pageType;
     }
 
     let copy = addPage({ ...data }, value);
 
-    if (linkFrom) {
-      copy = addLink(copy, linkFrom, path, selectedCondition);
+    if (_linkFrom) {
+      copy = addLink(copy, _linkFrom, path, _selectedCondition);
     }
+
     try {
       await save(copy);
       props.onCreate({ value });
