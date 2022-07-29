@@ -156,7 +156,7 @@ export class RepeatingSummaryPageController extends PageController {
           }`,
         },
         value: {
-          text: value["value"],
+          text: `£${value["value"]}`,
           classes: `${
             this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
           }`,
