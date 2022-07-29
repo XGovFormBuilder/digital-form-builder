@@ -10,7 +10,7 @@ const Editor = (props) => {
   const [updateState, setUpdateState] = useState(false);
 
   const setState = (state) => {
-    setValue(state.value);
+    setState(state.value);
     if (state.value && props.valueCallback) {
       props.valueCallback(state.value);
     }
@@ -23,7 +23,7 @@ const Editor = (props) => {
       value={value}
       required={props.required}
       highlight={(code) => core.highlight(code, core.languages.js)}
-      onValueChange={(value) => setState({ value })}
+      onValueChange={(value) => setValue(value)}
       padding={5}
       style={{
         fontFamily: '"Fira code", "Fira Mono", monospace',
