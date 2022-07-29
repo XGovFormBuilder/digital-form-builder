@@ -5,6 +5,16 @@
     {
       "title": "First page",
       "path": "/first-page",
+      "options": {
+        "summaryDisplayMode": {
+          "samePage": true,
+          "separatePage": false,
+          "hideRowTitles": false
+        },
+        "customText": {
+          "separatePageTitle": "You have selected these languages"
+        }
+      },
       "components": [
         {
           "name": "MultiInputField",

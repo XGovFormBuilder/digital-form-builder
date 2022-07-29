@@ -149,8 +149,13 @@ export class RepeatingFieldPageController extends PageController {
   }
 
   addRowsToViewContext(response, state) {
+    let rows = {};
     if (this.options!.summaryDisplayMode!.samePage) {
-      const rows = this.summary.getRowsFromAnswers(this.getPartialState(state));
+      if (state.MultiInputField) {
+        rows = this.summary.buildTextFieldRows(this.getPartialState(state));
+      } else {
+        rows = this.summary.getRowsFromAnswers(this.getPartialState(state));
+      }
       response.source.context.details = { rows };
     }
   }
