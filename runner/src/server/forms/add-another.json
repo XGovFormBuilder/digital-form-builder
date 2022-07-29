@@ -18,7 +18,11 @@
       "components": [
         {
           "name": "MultiInputField",
-          "options": {},
+          "options": {
+            "prefix": "£",
+            "textFieldTitle": "Type of Revenue Cost",
+            "numberFieldTitle": "Amount"
+          },
           "type": "MultiInputField",
           "title": "MultiInputField",
           "hint": "The MultiInputField needed",
