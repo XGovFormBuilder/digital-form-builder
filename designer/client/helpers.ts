@@ -28,7 +28,7 @@ export function getFormData(form) {
     const optionsPrefix = "options.";
     const schemaPrefix = "schema.";
 
-    value = value.trim();
+    value = value.toString().trim();
 
     if (value) {
       if (key.startsWith(optionsPrefix)) {
@@ -37,10 +37,10 @@ export function getFormData(form) {
         } else if (key === `${optionsPrefix}optionalText` && value === "on") {
           data.options.optionalText = false;
         } else {
-          data.options[key.substr(optionsPrefix.length)] = cast(key, value);
+          data.options[key.slice(optionsPrefix.length)] = cast(key, value);
         }
       } else if (key.startsWith(schemaPrefix)) {
-        data.schema[key.substr(schemaPrefix.length)] = cast(key, value);
+        data.schema[key.slice(schemaPrefix.length)] = cast(key, value);
       } else if (value) {
         data[key] = value;
       }
