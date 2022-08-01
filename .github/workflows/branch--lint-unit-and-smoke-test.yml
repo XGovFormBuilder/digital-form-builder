@@ -67,11 +67,6 @@ jobs:
           path: ${{matrix.app}}/test-coverage
           retention-days: 14
 
-  smoke-external:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: [Builder/digital-form-builder-legacy-smoke-tests@main
-
   smoke-test:
     runs-on: ubuntu-latest
     steps:
