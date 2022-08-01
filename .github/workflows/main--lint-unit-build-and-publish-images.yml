@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - main
+      - fs-1263-publish-fork
 jobs:
   calculate-version:
     runs-on: ubuntu-latest
@@ -41,7 +42,7 @@ jobs:
           echo SEMVER="$((3 + MAJOR))${SEMVER:1}" >> $GITHUB_ENV
       - name: Set semver to output
         id: calc-semver
-        run: echo "::set-output name=semver::$(echo $SEMVER)"
+        run: echo "::set-output name=semver::0.0.1"
   lint-and-test:
     runs-on: ubuntu-latest
     strategy:
@@ -135,20 +136,25 @@ jobs:
       - name: Check images
         run: |
           docker image ls
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_PAT }}
+      # - name: Login to GitHub Container Registry
+      #   uses: docker/login-action@v1
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.GHCR_PAT }}
+
+      - name: Log in to registry
+        # This is where you will update the PAT to GITHUB_TOKEN
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
       - name: Tag image
         run: |
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:latest
+          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ env.SEMVER }}
       - name: Push Docker images
         run: |
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+          docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:latest
+          docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ env.SEMVER }}
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
         with:
