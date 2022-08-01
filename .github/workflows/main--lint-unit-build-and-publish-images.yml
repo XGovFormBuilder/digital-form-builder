@@ -42,7 +42,7 @@ jobs:
           echo SEMVER="$((3 + MAJOR))${SEMVER:1}" >> $GITHUB_ENV
       - name: Set semver to output
         id: calc-semver
-        run: echo "::set-output name=semver::0.0.1"
+        run: echo "::set-output name=semver::0.0.2"
   lint-and-test:
     runs-on: ubuntu-latest
     strategy:
@@ -62,42 +62,42 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      # - name: Configure yarn caching
-      #   uses: actions/cache@v2
-      #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      #   with:
-      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
+      - name: Configure yarn caching
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-      # - name: Install dependencies
-      #   run: yarn install
+      - name: Install dependencies
+        run: yarn install
 
-      # - name: Build dependencies
-      #   run: yarn build:dependencies
+      - name: Build dependencies
+        run: yarn build:dependencies
 
-      # - name: Lint
-      #   run: yarn ${{matrix.app}} lint
+      - name: Lint
+        run: yarn ${{matrix.app}} lint
 
-      # - name: Test
-      #   run: yarn ${{matrix.app}} test-cov
+      - name: Test
+        run: yarn ${{matrix.app}} test-cov
 
-      # - name: Upload test results artifacts
-      #   uses: actions/upload-artifact@v2
-      #   if: ${{ success() || failure() }}
-      #   with:
-      #     name: test-results-${{matrix.app}}
-      #     path: ${{matrix.app}}/test-results
-      #     retention-days: 14
+      - name: Upload test results artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-results-${{matrix.app}}
+          path: ${{matrix.app}}/test-results
+          retention-days: 14
 
-      # - name: Upload test coverage artifacts
-      #   uses: actions/upload-artifact@v2
-      #   if: ${{ success() || failure() }}
-      #   with:
-      #     name: test-coverage-${{matrix.app}}
-      #     path: ${{matrix.app}}/test-coverage
-      #     retention-days: 14
+      - name: Upload test coverage artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage-${{matrix.app}}
+          path: ${{matrix.app}}/test-coverage
+          retention-days: 14
 
   build-and-publish-images:
     runs-on: ubuntu-latest
@@ -155,12 +155,12 @@ jobs:
         run: |
           docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:latest
           docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ env.SEMVER }}
-      - name: Trigger deploy development environment
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: Deploy Development Environment
-          token: ${{ secrets.GHCR_PAT }}
-          inputs: '{ "app": "${{ matrix.app }}", "tag": "${{ env.SEMVER }}"}'
+      # - name: Trigger deploy development environment
+      #   uses: benc-uk/workflow-dispatch@v1
+      #   with:
+      #     workflow: Deploy Development Environment
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     inputs: '{ "app": "${{ matrix.app }}", "tag": "${{ env.SEMVER }}"}'
 
   tag-branch:
     runs-on: ubuntu-latest
@@ -171,7 +171,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GHCR_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Tag branch with run number
         run: |
           git tag ${{ env.SEMVER }}
