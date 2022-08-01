@@ -70,7 +70,7 @@ jobs:
   smoke-external:
     runs-on: ubuntu-latest
     steps:
-      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+      - uses: [Builder/digital-form-builder-legacy-smoke-tests@main
 
   smoke-test:
     runs-on: ubuntu-latest
@@ -126,9 +126,8 @@ jobs:
         run: |
           docker ps
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
-      
-      - name: Smoke Test
-        uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+ 	
+      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
 	
       - name: Run pa11y
         run: yarn designer dlx pa11y-ci
