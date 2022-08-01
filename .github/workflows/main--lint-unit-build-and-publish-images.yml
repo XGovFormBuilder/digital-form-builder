@@ -62,42 +62,42 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - name: Configure yarn caching
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      # - name: Configure yarn caching
+      #   uses: actions/cache@v2
+      #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      #   with:
+      #     path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-yarn-
 
-      - name: Install dependencies
-        run: yarn install
+      # - name: Install dependencies
+      #   run: yarn install
 
-      - name: Build dependencies
-        run: yarn build:dependencies
+      # - name: Build dependencies
+      #   run: yarn build:dependencies
 
-      - name: Lint
-        run: yarn ${{matrix.app}} lint
+      # - name: Lint
+      #   run: yarn ${{matrix.app}} lint
 
-      - name: Test
-        run: yarn ${{matrix.app}} test-cov
+      # - name: Test
+      #   run: yarn ${{matrix.app}} test-cov
 
-      - name: Upload test results artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-results-${{matrix.app}}
-          path: ${{matrix.app}}/test-results
-          retention-days: 14
+      # - name: Upload test results artifacts
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ success() || failure() }}
+      #   with:
+      #     name: test-results-${{matrix.app}}
+      #     path: ${{matrix.app}}/test-results
+      #     retention-days: 14
 
-      - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-coverage-${{matrix.app}}
-          path: ${{matrix.app}}/test-coverage
-          retention-days: 14
+      # - name: Upload test coverage artifacts
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ success() || failure() }}
+      #   with:
+      #     name: test-coverage-${{matrix.app}}
+      #     path: ${{matrix.app}}/test-coverage
+      #     retention-days: 14
 
   build-and-publish-images:
     runs-on: ubuntu-latest
