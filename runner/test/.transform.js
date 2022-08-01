@@ -22,7 +22,7 @@ internals.transform = function (content, filename) {
         "@babel/preset-env",
         {
           targets: {
-            node: "12",
+            node: "16",
           },
         },
       ],
@@ -44,12 +44,10 @@ internals.transform = function (content, filename) {
         },
       ],
     ],
-    ignore: ["../node_modules", "node_modules"],
   });
 
   return transformed.code;
 };
-
 internals.extensions = [".js", ".jsx", ".ts", ".tsx", "es", "es6"];
 internals.methods = [];
 for (let i = 0, il = internals.extensions.length; i < il; ++i) {

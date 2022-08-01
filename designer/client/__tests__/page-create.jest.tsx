@@ -38,3 +38,8 @@ describe("page create fields text", () => {
     ).toBeInTheDocument();
   });
 });
+
+test.todo("Renders a form with the appropriate initial inputs");
+test.todo("Inputs remain populated when amending other fields");
+test.todo("editing the fields and submitting persists changes correctly");
+test.todo("editing the title automatically generates a path");

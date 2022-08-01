@@ -21,7 +21,7 @@ export const configSchema = Joi.object({
     .optional()
     .allow("trace", "debug", "info", "warn", "error"),
   logPrettyPrint: Joi.boolean().optional(),
-  logRedactPaths: Joi.array().items(Joi.string()),
+  logRedactPaths: Joi.array().items(Joi.string()).default([]),
   ordnanceSurveyKey: Joi.string().optional(),
   browserRefreshUrl: Joi.string().optional(),
   feedbackLink: Joi.string(),

@@ -1,5 +1,6 @@
-const { createServer } = require("../../../createServer");
-const { publish } = require("../../../lib/publish");
+import { createServer } from "../../../createServer";
+
+import { publish } from "../../../lib/publish";
 
 jest.mock("../../../lib/publish");
 

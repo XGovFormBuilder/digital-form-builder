@@ -34,7 +34,7 @@ class LinkCreate extends React.Component {
     );
     error && logger.error("LinkCreate", error);
     const savedData = await save(updatedData);
-    this.props.onCreate({ data: savedData });
+    this.props.onCreate?.({ data: savedData });
   };
 
   conditionSelected = (selectedCondition) => {

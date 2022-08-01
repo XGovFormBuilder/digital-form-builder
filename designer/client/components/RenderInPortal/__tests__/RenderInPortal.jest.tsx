@@ -1,15 +1,7 @@
-import React from "react";
-import { mount } from "enzyme";
-import * as Code from "@hapi/code";
-import * as Lab from "@hapi/lab";
-import { RenderInPortal } from "../client/components/RenderInPortal";
-
-const { expect } = Code;
-const lab = Lab.script();
-exports.lab = lab;
-const { suite, test } = lab;
-
-suite("Component RenderInPortal", () => {
+test.todo("RenderInPortal renders a single component in portal");
+test.todo("RenderInPortal renders a multiple components in parallel");
+/**
+ suite("Component RenderInPortal", () => {
   test("renders paragraph inside portal", () => {
     let portalRoot = document.querySelector("#portal-root");
 
@@ -58,3 +50,5 @@ suite("Component RenderInPortal", () => {
     expect(portalRoot.innerHTML).to.equal("");
   });
 });
+
+ */

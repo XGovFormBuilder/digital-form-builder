@@ -34,7 +34,8 @@ exports[`LandingChoice snapshot matches 1`] = `
             </h1>
           </legend>
           <div
-            class="govuk-radios  govuk-radios--inline"
+            class="govuk-radios govuk-radios--inline"
+            data-module="govuk-radios"
             required=""
           >
             <div
