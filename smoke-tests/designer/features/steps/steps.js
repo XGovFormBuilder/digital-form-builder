@@ -335,7 +335,7 @@ When("I can check a checkbox", function () {
 });
 
 Then("progress to the {string} page", function (pageName) {
-  previewPage.clickButton("Continue");
+  previewPage.clickButton("Save and continue");
   previewPage.summaryList.waitForDisplayed();
   expect(previewPage.pageTitle).toHaveText(pageName);
 });
