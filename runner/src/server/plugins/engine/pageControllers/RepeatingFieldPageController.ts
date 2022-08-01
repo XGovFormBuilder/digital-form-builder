@@ -99,7 +99,7 @@ export class RepeatingFieldPageController extends PageController {
         return this.removeAtIndex(request, h);
       }
 
-      if (view === "summary" || returnUrl) {
+      if ((view === "summary" || returnUrl) && !this.isSamePageDisplayMode) {
         return this.summary.getRouteHandler(request, h);
       }
 
@@ -169,7 +169,7 @@ export class RepeatingFieldPageController extends PageController {
     const answers = state[key];
     answers?.splice(removeAtIndex, 1);
     await cacheService.mergeState(request, { [key]: answers });
-    if (state[key]?.length < 1) {
+    if (state[key]?.length < 1 || this.isSamePageDisplayMode) {
       return h.redirect("?view=0");
     }
 
@@ -188,6 +188,10 @@ export class RepeatingFieldPageController extends PageController {
         const { next, ...rest } = request.payload;
         if (this.isSeparateDisplayMode) {
           return h.redirect(`?view=summary`);
+        }
+
+        if (typeof query.returnUrl !== "undefined") {
+          return h.redirect(query.returnUrl);
         }
         return h.redirect(this.getNext(rest));
       }
