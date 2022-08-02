@@ -92,8 +92,9 @@ export class RepeatingSummaryPageController extends PageController {
   getViewModel(formData) {
     const baseViewModel = super.getViewModel(formData);
     let rows;
+    const answers = this.getPartialState(formData);
     if (this.inputComponent.type === "MultiInputField") {
-      rows = this.buildTextFieldRows(formData, this.inputComponent);
+      rows = this.buildTextFieldRows(answers, this.inputComponent);
       return {
         ...baseViewModel,
         customText: this.options.customText,
@@ -101,7 +102,6 @@ export class RepeatingSummaryPageController extends PageController {
       };
     }
 
-    const answers = this.getPartialState(formData);
     rows = this.getRowsFromAnswers(answers, "summary");
     return {
       ...baseViewModel,
@@ -145,31 +145,33 @@ export class RepeatingSummaryPageController extends PageController {
     });
   }
 
-  buildTextFieldRows(formData, input) {
-    delete formData["progress"];
-    const rows = Object.keys(formData[input.name]).map((key) => {
-      const titleWithIteration = `${
-        formData[input.name][key]["type-of-revenue-cost"]
-      }`;
+  buildTextFieldRows(answers, view = false) {
+    const { title = "" } = this.inputComponent;
+    return answers?.map((value, i) => {
       return {
         key: {
-          text: titleWithIteration,
+          text: value["type-of-revenue-cost"],
+          classes: `${
+            this.hideRowTitles ? "govuk-summary-list__row--hidden-titles" : ""
+          }`,
         },
         value: {
-          text: formData[input.name][key]["value"],
+          text: `${this.inputComponent.options.prefix}${value["value"]}`,
+          classes: `${
+            this.hideRowTitles ? "govuk-summary-list__key--hidden-titles" : ""
+          }`,
         },
         actions: {
           items: [
             {
-              href: `?removeAtIndex=${key}`,
+              href: `?removeAtIndex=${i}${view ? `&view=${view}` : ``}`,
               text: "Remove",
-              visuallyHiddenText: titleWithIteration,
+              visuallyHiddenText: title,
             },
           ],
         },
       };
     });
-    return rows;
   }
 
   /**
