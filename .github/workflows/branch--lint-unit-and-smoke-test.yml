@@ -117,8 +117,6 @@ jobs:
 #          docker-compose build --parallel
       - name: Docker compose up
         run: docker-compose up -d
-      - name: Install smoke tests dependencies
-        run: yarn workspaces focus @xgovformbuilder/test
       - name: Check designer container is running
         run: |
           docker ps

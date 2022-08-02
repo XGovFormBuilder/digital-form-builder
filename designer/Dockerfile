@@ -32,7 +32,9 @@ USER 1001
 FROM dependencies AS model
 WORKDIR /usr/src/app
 USER 1001
+COPY --chown=appuser:appuser ./model ./model/
 RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
+
 
 # ----------------------------
 # Stage 4
