@@ -4,13 +4,13 @@ import { Actions } from "./reducers/component/types";
 
 import { TextFieldEdit } from "./components/FieldEditors/text-field-edit";
 
-export function MultilineTextFieldEdit({ context = ComponentContext }) {
+const MultilineTextFieldEdit = ({ context = ComponentContext }) => {
   const { state, dispatch } = useContext(context);
   const { selectedComponent } = state;
   const { options = {} } = selectedComponent;
 
   return (
-    <TextFieldEdit>
+    <TextFieldEdit context={context}>
       <input
         className="govuk-input govuk-input--width-3"
         id="field-options-rows"
@@ -27,4 +27,6 @@ export function MultilineTextFieldEdit({ context = ComponentContext }) {
       />
     </TextFieldEdit>
   );
-}
+};
+
+export default MultilineTextFieldEdit;

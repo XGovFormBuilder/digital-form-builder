@@ -5,7 +5,7 @@ import FieldEdit from "./field-edit";
 import ListFieldEdit from "./components/FieldEditors/list-field-edit";
 import SelectFieldEdit from "./components/FieldEditors/select-field-edit";
 import { TextFieldEdit } from "./components/FieldEditors/text-field-edit";
-import { MultilineTextFieldEdit } from "./multiline-text-field-edit";
+import MultilineTextFieldEdit from "./multiline-text-field-edit";
 import { FileUploadFieldEdit } from "./file-upload-field-edit";
 import { NumberFieldEdit } from "./components/FieldEditors/number-field-edit";
 import { DateFieldEdit } from "./components/FieldEditors/date-field-edit";
