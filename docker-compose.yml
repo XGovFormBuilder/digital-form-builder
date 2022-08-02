@@ -8,8 +8,6 @@ services:
     build:
       context: .
       dockerfile: ./designer/Dockerfile
-      cache_from:
-        - ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
     ports:
       - "3000:3000"
     environment:
@@ -31,8 +29,6 @@ services:
     build:
       context: .
       dockerfile: ./runner/Dockerfile
-      cache_from:
-        - ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
     ports:
       - "3009:3009"
     environment:

@@ -103,6 +103,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
+          tag: digital-form-builder-runner
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -110,13 +111,14 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: runner/Dockerfile
+          tag: digital-form-builder-runner
           cache-from: type=gha
           cache-to: type=gha,mode=max
 #      - name: Docker compose build
 #        run: |
 #          docker-compose build --parallel
       - name: Docker compose up
-        run: docker-compose up -d
+        run: docker compose up -d
       - name: Check designer container is running
         run: |
           docker ps
