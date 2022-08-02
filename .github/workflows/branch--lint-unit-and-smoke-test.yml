@@ -16,7 +16,16 @@ jobs:
         app: [designer, runner, model]
     name: lint-and-test-${{matrix.app}}
     steps:
-      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_PAT }}
+
+
+      - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
@@ -85,30 +94,23 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Docker compose pull
-        run: docker-compose pull
-        # DAYOFYEAR key is used to rotate docker-layer-caching to avoid the layers dandle issue
-        # see https://github.com/satackey/action-docker-layer-caching/issues/55
-        # if you change this, please remember to apply the same changes to main--lint-unit-build-and-publish-images.yml
-        # so main branch cache can be shared with branches
-      - run: echo "DAYOFYEAR = $(date +%j)"
-      - run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
+
+      - name: Build designer
+        uses: docker/build-push-action@v3
         with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
-      - name: Create .env for ${{ matrix.app }} workspace
-        run: |
-          touch ./${{ matrix.app }}/.env
-          echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
-          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
-          cat ./${{ matrix.app }}/.env
-      - name: Docker compose build
-        run: |
-          docker-compose build --parallel
+          context: designer
+          cache-from: type=registry,ref=user/app:buildcache
+          cache-to: type=registry,ref=user/app:buildcache,mode=max
+
+      - name: Build runner
+        uses: docker/build-push-action@v3
+        with:
+          context: runner
+          cache-from: type=registry,ref=user/app:buildcache
+          cache-to: type=registry,ref=user/app:buildcache,mode=max
+#      - name: Docker compose build
+#        run: |
+#          docker-compose build --parallel
       - name: Docker compose up
         run: docker-compose up -d
       - name: Install smoke tests dependencies
@@ -126,17 +128,9 @@ jobs:
 
       - name: Run pa11y
         run: yarn designer dlx pa11y-ci
+
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v8
         with:
           configPath: "./lighthouserc.js"
           uploadArtifacts: true
-#      - name: "Tar files"
-#        if: ${{ success() || failure() }}
-#        run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
-#      - uses: actions/upload-artifact@v2
-#        if: ${{ success() || failure() }}
-#        with:
-#          name: smoke-tests
-#          path: smoke-tests.tar
-#          retention-days: 14
