@@ -99,18 +99,19 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build designer
+
         uses: docker/build-push-action@v3
         with:
-          context: designer
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+          file: designer/Dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Build runner
         uses: docker/build-push-action@v3
         with:
-          context: runner
-          cache-from: type=registry,ref=user/app:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+          file: runner/Dockerfile
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 #      - name: Docker compose build
 #        run: |
 #          docker-compose build --parallel
