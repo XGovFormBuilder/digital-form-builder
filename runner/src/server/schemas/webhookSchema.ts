@@ -81,6 +81,7 @@ const optionsSchema: joi.ObjectSchema<
     })
     .optional(),
   components: joi.array().items(componentSchema),
+  redirectToUrl: joi.string().required().note("The url to return to"),
 });
 
 //TODO:- make this work with initialiseSession POST endpoint, so the endpoint can be auto-documented
