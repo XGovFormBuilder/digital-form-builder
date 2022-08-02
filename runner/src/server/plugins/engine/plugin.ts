@@ -18,38 +18,33 @@ import config from "config";
 
 ////
 //// DEMO SECTION - creates an auth JWT
-//// This works when using a Base64 encoded text secret
-//// eg. "NeverShareYourSecret"
-//// Base64 Encoded becomes: TmV2ZXJTaGFyZVlvdXJTZWNyZXQ=
 //// Test by setting:
-//// export RSA256_PUBLIC_KEY_BASE64=TmV2ZXJTaGFyZVlvdXJTZWNyZXQ=
-//// however when using an RSA256 Public Key it doesn't seem to work
-
-//// I get an error that complains that the start of the cert is not found
-//// when using a RSA256 key (as is available in authenticator)
-//// eg. export RSA256_PUBLIC_KEY_BASE64=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlHZU1BMEdDU3FHU0liM0RRRUJBUVVBQTRHTUFEQ0JpQUtCZ0hHYnRGMXlWR1crckNBRk9JZGFrVVZ3Q2Z1dgp4SEUzOGxFL2kwS1dwTXdkU0haRkZMWW5IakJWT09oMTVFaWl6WXphNEZUSlRNdkwyRTRRckxwcVlqNktFNnR2CkhyaHlQL041ZnlwU3p0OHZDajlzcFo4KzBrRnVjVzl6eU1rUHVEaXNZdG1rV0dkeEJta2QzZ3RZcDNtT0k1M1YKVkRnS2J0b0lGVTNzSWs1TkFnTUJBQUU9Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQ==
+//// export RSA256_PUBLIC_KEY_BASE64=LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlHZU1BMEdDU3FHU0liM0RRRUJBUVVBQTRHTUFEQ0JpQUtCZ0hHYnRGMXlWR1crckNBRk9JZGFrVVZ3Q2Z1dgp4SEUzOGxFL2kwS1dwTXdkU0haRkZMWW5IakJWT09oMTVFaWl6WXphNEZUSlRNdkwyRTRRckxwcVlqNktFNnR2CkhyaHlQL041ZnlwU3p0OHZDajlzcFo4KzBrRnVjVzl6eU1rUHVEaXNZdG1rV0dkeEJta2QzZ3RZcDNtT0k1M1YKVkRnS2J0b0lGVTNzSWs1TkFnTUJBQUU9Ci0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQ==
 ////
 const JWT = require("jsonwebtoken");
-const base64Secret = config.rsa256PublicKeyBase64;
-// The following 2 lines need work I think
-let buffSecret = new Buffer(base64Secret, "base64");
+const publicBase64Secret = config.rsa256PublicKeyBase64;
+let buffSecret = new Buffer(publicBase64Secret, "base64");
 let secret = buffSecret.toString("ascii");
+console.log(secret);
+console.log(publicBase64Secret);
+
+let privateKeyBase64 =
+  "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlDV3dJQkFBS0JnSEdidEYxeVZHVytyQ0FGT0lkYWtVVndDZnV2eEhFMzhsRS9pMEtXcE13ZFNIWkZGTFluCkhqQlZPT2gxNUVpaXpZemE0RlRKVE12TDJFNFFyTHBxWWo2S0U2dHZIcmh5UC9ONWZ5cFN6dDh2Q2o5c3BaOCsKMGtGdWNXOXp5TWtQdURpc1l0bWtXR2R4Qm1rZDNndFlwM21PSTUzVlZEZ0tidG9JRlUzc0lrNU5BZ01CQUFFQwpnWUJYSVhyZ1hHb2NLbk5xajNaK1lOaWZyOEVJVmhMTVhvTXJDeGdzTnNzbmZLSHhpeVBLWEJBTU02QlVzTzRuClF5MXdoUUdlSlZFUDBFUVNBem5tTXVjcldBWW9sK3ZlOTVMZ1h0ckxFV1B0ZXRxL29VL2JvcWNTRklZMmp5NDUKUDBEcUo1NTZEMmtDTXZZT3pZL1NuTHFWVU9NOEtOT2w1L0kyODUxaTFqbUlJUUpCQUxFT2tLVm5Od0c0RkhQagpVVWJRLytNakI2clpCUzlqNXZ0cHN6WnZzdjlrbWdMekkzVU5xdHY3QzBndENZNFBnMjArM1E5M2JUWUxFVXRKCnNJWGR4dGtDUVFDa1F3emFQend4ODRiUnJzT3dxUWU4MlZ0UlNGdGNPbHo2UmhpYytWOVdYTStaakNUQ1JzcVoKVDZydGNCa21zQ0l5bUVJRFJiUWUvK1dKRFQ1ZlV1S1ZBa0EwWTlycEZtRndZTWVzZ3RiSjNZM1o1OE9kQ2hvKwpxNUR0VTVsendobDArSStaejlmdUN0MUR1a1RjVm5jOVVkblJ1WWd2eTJiRlZ3RUhCZ2IxbFdvQkFrQWRkblZZCnRCenM3THhTNGVEeHorKzJYTm8zUXg0MzliUDFwQnNJRk9hWHkvL2tqN0dNTXp4bHNWZDhUUzRGdFhQODFUaUoKODdleUU3NHREZllSRFFIZEFrRUFoU2JQbFJjUVN3RW9tNTdjRlkzdFd6blJVTTNveCtCNTZ0eGxDalgxSnBpWApYUDltNzE4RnBCdFNXcSs0Z3MweUFvTHVqWnlLOUJvV3ZFbXFybTZPOFE9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQ==";
+let buffPrivateKeySecret = new Buffer(privateKeyBase64, "base64");
+let privateKey = buffPrivateKeySecret.toString("ascii");
+console.log(privateKey);
+console.log(privateKeyBase64);
 //
 
 const authCookieKey = "fsd_user_token";
 const people = {
   1: {
-    id: 1,
+    accountId: 1,
     name: "Anthony Valid User",
   },
 };
 
-const token = JWT.sign(
-  people[1],
-  secret
-  // { algorithm: "RS256" }
-  // I have not got this working yet
-);
+const token = JWT.sign(people[1], privateKey, { algorithm: "RS256" });
 /////////
 
 configure([
@@ -113,7 +108,7 @@ export const plugin = {
     // bring your own validation function
     const validate = async function (decoded, request, h) {
       // do your checks to see if the person is valid
-      if (!decoded.id) {
+      if (!decoded.accountId) {
         return { isValid: false };
       } else {
         return { isValid: true };
@@ -240,9 +235,6 @@ export const plugin = {
         }
         const model = forms[id];
         if (model) {
-          //// DEMO SECTION - Sets an auth cookie token on this route
-          h.state(authCookieKey, token);
-          ////
           return getStartPageRedirect(request, h, id, model);
         }
         throw Boom.notFound("No default form found");
@@ -256,9 +248,9 @@ export const plugin = {
         const { id } = request.params;
         const model = forms[id];
         if (model) {
-          //// DEMO SECTION - Sets an auth cookie token on this route
-          h.state(authCookieKey, token);
-          ////
+          // //// DEMO SECTION - Sets an auth cookie token on this route
+          // h.state(authCookieKey, token);
+          // ////
           return getStartPageRedirect(request, h, id, model);
         }
         throw Boom.notFound("No form found for id");
