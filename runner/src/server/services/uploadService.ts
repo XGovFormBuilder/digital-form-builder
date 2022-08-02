@@ -1,11 +1,27 @@
 import http from "http";
 import FormData from "form-data";
-
 import config from "../config";
 import { get, post } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
+import { isThisHour } from "date-fns";
+
+const S3 = require("aws-sdk/clients/s3");
 
 type Payload = HapiRequest["payload"];
+
+let bucketName = config.awsBucketName;
+const region = config.awsRegion;
+
+if (process.env.VCAP_SERVICES) {
+  const vcap = process.env.VCAP_SERVICES;
+  const vcapJson = JSON.parse(vcap);
+  const s3Credentials = vcapJson["aws-s3-bucket"][0].credentials;
+  process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id;
+  process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key;
+  bucketName = s3Credentials.bucket_name;
+}
+
+const s3 = new S3({ region });
 
 const parsedError = (key: string, error?: string) => {
   return {
@@ -46,18 +62,22 @@ export class UploadService {
     });
   }
 
-  async uploadDocuments(locations: any[]) {
-    const form = new FormData();
-    for (const location of locations) {
-      form.append("files", location, {
-        filename: location.hapi.filename,
-        contentType: location.hapi.headers["content-type"],
-      });
-    }
+  async uploadDocuments(locations: any[], applicationId: string, metadata) {
+    let error: string | undefined;
+    let location: string | undefined;
 
-    const data = { headers: form.getHeaders(), payload: form };
-    const { res } = await post(`${config.documentUploadApiUrl}/v1/files`, data);
-    return this.parsedDocumentUploadResponse(res);
+    await this.uploadFilesS3(locations, applicationId, metadata).then(
+      (result) => {
+        result.forEach((doc) => {
+          if (typeof doc.error !== "undefined") {
+            error = "Failed to upload file to server: " + doc.error;
+          } else {
+            location = bucketName;
+          }
+        });
+      }
+    );
+    return { location, error };
   }
 
   parsedDocumentUploadResponse(res: http.IncomingMessage) {
@@ -92,10 +112,20 @@ export class UploadService {
     return h.continue;
   }
 
-  async handleUploadRequest(request: HapiRequest, h: HapiResponseToolkit) {
+  async handleUploadRequest(
+    request: HapiRequest,
+    h: HapiResponseToolkit,
+    form?: any
+  ) {
     const { cacheService } = request.services([]);
     const state = await cacheService.getState(request);
     const originalFilenames = state?.originalFilenames ?? {};
+
+    const applicationId = state.metadata?.application_id ?? "";
+    const { path } = request.params;
+    const page = form?.pages.find(
+      (page) => this.normalisePath(page.path) === this.normalisePath(path)
+    );
 
     let files: [string, any][] = [];
 
@@ -168,9 +198,19 @@ export class UploadService {
         )
       ).filter((value) => !!value);
 
+      const metaData = {
+        page: page.title,
+        section: page.section ?? "",
+        componentName: key,
+      };
+
       if (validFiles.length === values.length) {
         try {
-          const { error, location } = await this.uploadDocuments(validFiles);
+          const { error, location } = await this.uploadDocuments(
+            validFiles,
+            applicationId,
+            metaData
+          );
           if (location) {
             originalFilenames[key] = { location };
             request.payload[key] = location;
@@ -223,5 +263,38 @@ export class UploadService {
   downloadDocuments(paths: string[]) {
     const promises = paths.map((path) => get<string>(path, {}));
     return Promise.all(promises);
+  }
+
+  async uploadFilesS3(files, filePrefix, metadata) {
+    let response = new Array();
+
+    for (const file of files) {
+      const uploadParams = {
+        Bucket: bucketName,
+        Body: file,
+        Key: `${filePrefix}/${file.hapi.filename}`,
+        ContentType: file.hapi.headers["content-type"],
+        Metadata: metadata,
+      };
+
+      await s3
+        .upload(uploadParams)
+        .promise()
+        .then(function (data) {
+          response.push({ location: data.Location, error: undefined });
+        })
+        .catch((err) => {
+          response.push({
+            location: undefined,
+            error: `${err.code}: ${err.message}`,
+          });
+          this.logger.error(`File upload Error`, err);
+        });
+    }
+    return response;
+  }
+
+  normalisePath(path: string) {
+    return path.replace(/^\//, "").replace(/\/$/, "");
   }
 }

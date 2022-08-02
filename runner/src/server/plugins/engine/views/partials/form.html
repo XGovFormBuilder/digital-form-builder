@@ -2,18 +2,44 @@
 {% from "summary-list/macro.njk" import govukSummaryList -%}
 
 <form method="post" enctype="multipart/form-data" autocomplete="on">
-  <input type="hidden" name="crumb" value="{{crumb}}"/>
-  {{ componentList(components) }}
+  <input type="hidden" name="crumb" value="{{crumb}}"/> 
 
-  {% if page.isRepeatingFieldPageController and details %}
-    {{ govukButton({
-      attributes: { id: "add-another"},
-      classes: "govuk-button govuk-button--secondary",
-      text: "Add to list"
-      })
-    }}
+  {% if page.isRepeatingFieldPageController and details %}  
+    {{ componentList(components) }}
+  {{ govukButton({
+    attributes: { id: "add-another"},
+    classes: "govuk-button govuk-button--secondary",
+    text: "Add cost"
+    })
+  }}
+  <dl class="govuk-summary-list" style="margin-bottom: 0;">      
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+       Description
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <strong>Amount</strong>
+      </dd>        
+        <dd class="govuk-summary-list__actions">           
+            <strong>Action</strong>            
+        </dd>        
+    </div>  
+  </dl>
+  {{details.length}}
+    {%if not details.rows.length %}    
+    <p class="govuk-body" style="margin-top: 30px;">
+      <strong>You have not added any costs yet</strong>      
+    </p>
+    <p class="govuk-body">
+      Each cost you add will be shown here
+    </p>
+    <hr />
+    {% else %}
     {{ govukSummaryList(details) }}
-  {% endif %}
+    {% endif %}
+  {% else %}
+  {{ componentList(components) }}
+  {% endif %}  
 
   {% if not (components[0].type == "FlashCard") %}
     {% if isStartPage %}
@@ -21,10 +47,10 @@
     {% else %}
       {% if page.isRepeatingFieldPageController and page.isSamePageDisplayMode %}
         {% if details.rows.length %}
-          {{ govukButton({ attributes: { id: "submit" }, text: "Continue", name: "next", value: "continue"}) }}
+          {{ govukButton({ attributes: { id: "submit" }, text: "Save and continue", name: "next", value: "continue"}) }}
         {% endif %}
       {% else %}
-        {{ govukButton({ attributes: { id: "submit" }, text: "Continue" }) }}
+        {{ govukButton({ attributes: { id: "submit" }, text: "Save and continue" }) }}
       {% endif %}
     {% endif %}
   {% endif %}

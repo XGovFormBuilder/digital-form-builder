@@ -27,7 +27,7 @@ Feature: Page Components
     Given I have created a new form configuration
     And I add an optional "<type>" control to the "First page"
     When I preview the "First page" page
-    And I choose to "Continue"
+    And I choose to "Save and continue"
     Then the "Second page" is displayed
     Examples:
       | type          |

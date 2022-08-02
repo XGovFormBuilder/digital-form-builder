@@ -22,17 +22,19 @@ export class MultiInputField extends FormComponent {
         {
           type: "TextField",
           name: "type-of-revenue-cost",
-          title: "Type of Revenue Cost",
+          title: this.options.textFieldTitle,
           schema: {},
           options: {},
         },
         {
-          type: "TextField",
+          type: "NumberField",
           name: "value",
-          title: "Amount",
+          title: this.options.numberFieldTitle,
           schema: {},
           options: {
-            required: false,
+            prefix: "£",
+            required: true,
+            classes: "govuk-!-width-one-half",
           },
         },
       ] as any,
@@ -62,7 +64,9 @@ export class MultiInputField extends FormComponent {
     const values = state[this.name];
     const stringValue = new Array();
     for (var value of values) {
-      stringValue.push(`${value["type-of-revenue-cost"]} : ${value["value"]}`);
+      stringValue.push(
+        `${value["type-of-revenue-cost"]} : ${this.options.prefix}${value["value"]}`
+      );
     }
 
     return stringValue;

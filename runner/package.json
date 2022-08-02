@@ -34,6 +34,7 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.131.0",
     "@babel/runtime": "^7.17.2",
     "@hapi/bell": "^12.3.0",
     "@hapi/boom": "^9.1.4",
@@ -52,7 +53,7 @@
     "accept-language-parser": "1.5.0",
     "accessible-autocomplete": "^2.0.2",
     "atob": "^2.1.2",
-    "aws-sdk": "2.655.0",
+    "aws-sdk": "^2.655.0",
     "blankie": "5.0.0",
     "blipp": "4.0.1",
     "boom": "7.3.0",

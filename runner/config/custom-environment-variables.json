@@ -42,6 +42,8 @@
   "previewMode": "PREVIEW_MODE",
   "enforceCsrf": "ENFORCE_CSRF",
   "savePerPage": "SAVE_PER_PAGE",
+  "awsBucketName": "AWS_BUCKET_NAME",
+  "awsRegion": "AWS_REGION",
   "jwtAuthCookieName": "JWT_AUTH_COOKIE_NAME",
   "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64"
 }
