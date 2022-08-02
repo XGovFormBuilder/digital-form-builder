@@ -79,6 +79,7 @@ export const configSchema = Joi.object({
   initialisedSessionTimeout: Joi.number(),
   initialisedSessionKey: Joi.string(),
   savePerPage: Joi.boolean().optional(),
+  jwtAuthCookieName: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
 });
 

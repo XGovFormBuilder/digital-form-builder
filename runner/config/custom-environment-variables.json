@@ -42,5 +42,6 @@
   "previewMode": "PREVIEW_MODE",
   "enforceCsrf": "ENFORCE_CSRF",
   "savePerPage": "SAVE_PER_PAGE",
+  "jwtAuthCookieName": "JWT_AUTH_COOKIE_NAME",
   "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64"
 }
