@@ -116,13 +116,13 @@ jobs:
       - name: Tag image (Branch)
         if: github.ref != 'refs/heads/main'
         run: |
-          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.ref_name }}
-          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.sha }}
+          docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ github.ref_name }}
+          docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ github.sha }}
       - name: Push Docker images (Branch)
         if: github.ref != 'refs/heads/main'
         run: |
-          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.ref_name }}
-          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.sha }}
+          docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ github.ref_name }}
+          docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ github.sha }}
 
       - name: Docker compose up
         run: docker-compose up -d
