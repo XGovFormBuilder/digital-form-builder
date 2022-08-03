@@ -1,4 +1,7 @@
 name: Testing versioning
+env:
+  DOCKER_TAG_BASE_VERSION: "0.0.3"
+  TAG_APPEND: ""
 on:
   push:
     branches:
@@ -7,46 +10,32 @@ jobs:
   calculate-version:
     runs-on: ubuntu-latest
     outputs:
-      semVer: ${{ steps.gitversion.outputs.semVer }}
+      tag_version: ${{ steps.set_version.outputs.tag_version }}
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: main
-
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
-        with:
-          versionSpec: "5.x"
-
-      - name: Determine Version
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
-        with:
-          useConfigFile: true
-
-  assign-semver:
-    runs-on: ubuntu-latest
-    needs: [calculate-version]
-    env:
-      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
-      MAJOR: ${{ needs.calculate-version.outputs.Major }}
-    outputs:
-      SEMVER: ${{ steps.calc-semver.outputs.semver }}
-    steps:
-      - run: echo $SEMVER
-      - name: Add 3 to calculated semver
-        run: |
-          echo SEMVER="$((3 + MAJOR))${SEMVER:1}" >> $GITHUB_ENV
-      - name: Set semver to output
-        id: calc-semver
-        run: echo "::set-output name=semver::$(echo $SEMVER)"
+      - name: Read Lower case branch name
+        if: github.ref != 'refs/heads/main'
+        id: lower
+        run: >-
+          echo "::set-output name=TAG_APPEND::_$(
+            echo ${{ github.ref_name }} |
+            tr "[:upper:]" "[:lower:]"
+          )"
+      - name: Set Branch version
+        id: set_version
+        if: github.ref != 'refs/heads/main'
+        #  env:
+        #    TAG_APPEND: ${{ lower.outputs.TAG_APPEND }}
+        run: echo "::set-output name=tag_version::$(echo $DOCKER_TAG_BASE_VERSION)$(echo $TAG_APPEND)"
 
   check-semver:
     runs-on: ubuntu-latest
-    needs: [assign-semver]
+    needs: [calculate-version]
     env:
-      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
+      SEMVER: ${{ needs.calculate-version.outputs.tag_version }}
     steps:
       - run: |
           echo SEMVER: $SEMVER
