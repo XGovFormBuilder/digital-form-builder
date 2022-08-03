@@ -124,13 +124,13 @@ jobs:
 
       - name: Tag image (Branch)
         if: github.ref != 'refs/heads/main'
+        # docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ steps.lower.outputs.LOWER_CASE_BRANCH }}
         run: |
-          docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ steps.lower.outputs.LOWER_CASE_BRANCH }}
           docker tag digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ github.sha }}
       - name: Push Docker images (Branch)
         if: github.ref != 'refs/heads/main'
+        # docker push digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ steps.lower.outputs.LOWER_CASE_BRANCH }}
         run: |
-          docker push digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ steps.lower.outputs.LOWER_CASE_BRANCH }}
           docker push digital-form-builder-dluhc-runner ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-runner:${{ github.sha }}
 
   smoke-test:
