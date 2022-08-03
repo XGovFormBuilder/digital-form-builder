@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          branches: main
+          ref: main
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
