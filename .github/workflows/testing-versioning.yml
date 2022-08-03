@@ -1,0 +1,52 @@
+name: Testing versioning
+on:
+  push:
+    branches:
+      - fs-1263-publish-fork
+jobs:
+  calculate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      semVer: ${{ steps.gitversion.outputs.semVer }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          branches: main
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: "5.x"
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+
+  assign-semver:
+    runs-on: ubuntu-latest
+    needs: [calculate-version]
+    env:
+      SEMVER: ${{ needs.calculate-version.outputs.semVer }}
+      MAJOR: ${{ needs.calculate-version.outputs.Major }}
+    outputs:
+      SEMVER: ${{ steps.calc-semver.outputs.semver }}
+    steps:
+      - run: echo $SEMVER
+      - name: Add 3 to calculated semver
+        run: |
+          echo SEMVER="$((3 + MAJOR))${SEMVER:1}" >> $GITHUB_ENV
+      - name: Set semver to output
+        id: calc-semver
+        run: echo "::set-output name=semver::$(echo $SEMVER)"
+
+  check-semver:
+    runs-on: ubuntu-latest
+    needs: [assign-semver]
+    env:
+      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
+    steps:
+      - run: |
+          echo SEMVER: $SEMVER
