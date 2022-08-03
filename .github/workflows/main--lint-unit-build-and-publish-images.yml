@@ -122,7 +122,7 @@ jobs:
         run: |
           docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:latest
           docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ env.SEMVER }}
-          docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.sha }}
+          docker push digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.sha }}
       # - name: Trigger deploy development environment
       #   uses: benc-uk/workflow-dispatch@v1
       #   with:
