@@ -132,7 +132,7 @@ jobs:
 
   tag-branch:
     runs-on: ubuntu-latest
-    needs: [calculate-version, assign-semver, build-and-publish-images]
+    needs: [build-and-publish-images]
     env:
       SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     steps:
