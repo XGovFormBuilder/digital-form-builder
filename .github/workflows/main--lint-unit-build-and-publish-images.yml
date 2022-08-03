@@ -112,13 +112,13 @@ jobs:
         # This is where you will update the PAT to GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       - name: Tag image (Main)
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/fs-1263-publish-fork'
         run: |
           docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:latest
           docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ env.SEMVER }}
           docker tag digital-form-builder-dluhc-${{matrix.app}} ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ github.sha }}
       - name: Push Docker images (Main)
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/fs-1263-publish-fork'
         run: |
           docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:latest
           docker push ghcr.io/${{github.repository_owner}}/digital-form-builder-dluhc-${{matrix.app}}:${{ env.SEMVER }}
