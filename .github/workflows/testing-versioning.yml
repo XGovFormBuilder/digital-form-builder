@@ -27,8 +27,8 @@ jobs:
       - name: Set Branch version
         id: set_version
         if: github.ref != 'refs/heads/main'
-        #  env:
-        #    TAG_APPEND: ${{ lower.outputs.TAG_APPEND }}
+        env:
+          TAG_APPEND: ${{ lower.outputs.TAG_APPEND }}
         run: echo "::set-output name=tag_version::$(echo $DOCKER_TAG_BASE_VERSION)$(echo $TAG_APPEND)"
 
   check-semver:
