@@ -19,7 +19,6 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
-COPY --chown=appuser:appuser model/package.json ./model/
 COPY --chown=appuser:appuser runner/package.json ./runner/
 USER 1001
 
@@ -31,10 +30,11 @@ USER 1001
 # rsync is used to merge folders instead of individually copying files
 FROM dependencies AS model
 WORKDIR /usr/src/app
-#TODO:- remove - should already be copied in s2
-COPY --chown=appuser:appuser ./model ./model/
 USER 1001
-RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
+COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
+RUN yarn workspaces focus @xgovformbuilder/model
+COPY --chown=appuser:appuser ./model/src ./model/src/
+RUN yarn model build
 
 # ----------------------------
 # Stage 4
