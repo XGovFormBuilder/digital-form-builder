@@ -63,10 +63,12 @@ export class MultiInputField extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const values = state[this.name];
     const stringValue = new Array();
-    for (var value of values) {
-      stringValue.push(
-        `${value["type-of-revenue-cost"]} : ${this.options.prefix}${value["value"]}`
-      );
+    if (values) {
+      for (var value of values) {
+        stringValue.push(
+          `${value["type-of-revenue-cost"]} : ${this.options.prefix}${value["value"]}`
+        );
+      }
     }
 
     return stringValue;
