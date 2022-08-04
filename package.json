@@ -7,13 +7,12 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "workspaces": [
     "model",
     "runner",
-    "designer",
-    "smoke-tests/designer"
+    "designer"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
@@ -63,7 +62,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
-    "govuk-frontend": "^3.13.0"
+    "govuk-frontend": "^3.13.0",
+    "hmpo-components": "^5.2.1"
   },
   "resolutions": {
     "braces": "2.3.1",
