@@ -11,8 +11,9 @@ import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
 import {
-  jwtStrategyOptions,
+  jwtAuthIsActivated,
   jwtAuthStrategyName,
+  jwtStrategyOptions,
 } from "server/plugins/jwtAuth";
 
 configure([
@@ -73,11 +74,12 @@ export const plugin = {
     const disabledRouteDetailString =
       "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
 
-    const jwtAuthStrategyIsActive = !(
-      !config.rsa256PublicKeyBase64 ||
-      !config.jwtAuthCookieName ||
-      !config.jwtAuthenticationUrl
+    const jwtAuthStrategyIsActive = jwtAuthIsActivated(
+      config.jwtAuthCookieName,
+      config.jwtAuthenticationUrl,
+      config.rsa256PublicKeyBase64
     );
+
     if (jwtAuthStrategyIsActive) {
       server.auth.strategy(
         jwtAuthStrategyName,

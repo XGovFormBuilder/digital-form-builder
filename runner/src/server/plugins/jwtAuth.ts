@@ -1,10 +1,21 @@
 import config from "config";
 
-const isActivated = !(
-  !config.rsa256PublicKeyBase64 || !config.jwtAuthCookieName
-);
+// jwtAuthIsActivated()
+// Checks if all required config variables are set
+export function jwtAuthIsActivated(
+  jwtAuthCookieName,
+  jwtAuthenticationUrl,
+  rsa256PublicKeyBase64
+) {
+  return !(
+    !jwtAuthCookieName ||
+    !jwtAuthenticationUrl ||
+    !rsa256PublicKeyBase64
+  );
+}
 
-// Authorisation Function
+// validate()
+// Checks validity of user credentials
 const validate = async function (decoded, request, h) {
   // This runs if the jwt signature is verified
   // It must return an object with an 'isValid' boolean property,
@@ -16,7 +27,8 @@ const validate = async function (decoded, request, h) {
   }
 };
 
-// Auth strategy configuration options
+// rsa256Options()
+// Returns configuration options for rsa256 auth strategy
 export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
   return {
     key: Buffer.from(rsa256PublicKeyBase64 ?? "", "base64"),
@@ -30,6 +42,13 @@ export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
   };
 }
 
+// Check if global config vars are set
+const isActivated = jwtAuthIsActivated(
+  config.jwtAuthCookieName,
+  config.jwtAuthenticationUrl,
+  config.rsa256PublicKeyBase64
+);
+// Log JWT Authentication activation status
 console.log("JWT Authentication Enabled: " + isActivated.toString());
 
 export const jwtAuthStrategyName = "fsd_jwt_auth";
