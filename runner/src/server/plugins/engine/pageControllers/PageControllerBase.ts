@@ -490,7 +490,8 @@ export class PageControllerBase {
 
       await cacheService.mergeState(request, { progress });
 
-      viewModel.backLink = progress[progress.length - 2];
+      viewModel.backLink =
+        state.callback?.returnUrl ?? progress[progress.length - 2];
       return h.view(this.viewName, viewModel);
     };
   }
