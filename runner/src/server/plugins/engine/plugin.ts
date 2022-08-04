@@ -74,31 +74,6 @@ export const plugin = {
     const disabledRouteDetailString =
       "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
 
-    // Authorisation Function:
-    // This currently simply checks to see if an accountId is present
-    // on the already-verified, RSA256 signed, jwt
-    // const validate = async function (decoded, request, h) {
-    //   // Authorisation checks can be supplemented here
-    //   // This function returns an object with an 'isValid' boolean
-    //   // which allows the user to continue if true or raises a 401 if false
-    //   if (!decoded.accountId) {
-    //     return { isValid: false };
-    //   } else {
-    //     return { isValid: true };
-    //   }
-    // };
-
-    // server.auth.strategy("fsd_jwt_auth", "jwt", {
-    //   key: Buffer.from(config.rsa256PublicKeyBase64, "base64"),
-    //   validate,
-    //   verifyOptions: {
-    //     ignoreExpiration: true,
-    //     algorithms: ["RS256"],
-    //   },
-    //   urlKey: false,
-    //   cookieKey: config.jwtAuthCookieName,
-    // });
-
     if (jwtAuthStrategyIsActive) {
       server.auth.strategy(jwtAuthStrategyName, "jwt", jwtStrategyOptions);
     }
