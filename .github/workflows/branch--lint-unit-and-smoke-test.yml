@@ -99,11 +99,10 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build designer
-
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
-          tag: digital-form-builder-runner
+          tag: digital-form-builder-designer
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -114,25 +113,20 @@ jobs:
           tag: digital-form-builder-runner
           cache-from: type=gha
           cache-to: type=gha,mode=max
-#      - name: Docker compose build
-#        run: |
-#          docker-compose build --parallel
+
       - name: Docker compose up
         run: docker compose up -d
       - name: Check designer container is running
         run: |
           docker ps
           docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+
       - name: Check runner container is running
         run: |
           docker ps
           docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
 
       - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
-
-      - name: Run pa11y
-        run: yarn designer dlx pa11y-ci
-
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v8
         with:
