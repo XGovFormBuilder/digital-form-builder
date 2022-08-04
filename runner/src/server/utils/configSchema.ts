@@ -80,6 +80,7 @@ export const configSchema = Joi.object({
   initialisedSessionKey: Joi.string(),
   savePerPage: Joi.boolean().optional(),
   jwtAuthCookieName: Joi.string().optional(),
+  jwtAuthenticationUrl: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
 });
 

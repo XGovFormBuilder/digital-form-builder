@@ -1,4 +1,5 @@
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import config from "server/config";
 
 /*
  * Add an `onPreResponse` listener to return error pages
@@ -26,9 +27,9 @@ export default {
             // In the event of 401
             // redirect to authentication url
             if (statusCode === 401) {
-              const authenticationUrl =
-                "https://funding-service-design-authenticator-dev.london.cloudapps.digital/service/magic-links/invalid";
-              return h.redirect(authenticationUrl + "?referrer=" + request.url);
+              return h.redirect(
+                config.jwtAuthenticationUrl + "?referrer=" + request.url
+              );
             }
 
             request.log("error", {

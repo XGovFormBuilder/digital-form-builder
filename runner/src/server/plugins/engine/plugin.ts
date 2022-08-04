@@ -10,6 +10,11 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
+import {
+  jwtStrategyOptions,
+  jwtAuthStrategyName,
+  jwtAuthStrategyIsActive,
+} from "server/plugins/jwtAuth";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -72,27 +77,31 @@ export const plugin = {
     // Authorisation Function:
     // This currently simply checks to see if an accountId is present
     // on the already-verified, RSA256 signed, jwt
-    const validate = async function (decoded, request, h) {
-      // Authorisation checks can be supplemented here
-      // This function returns an object with an 'isValid' boolean
-      // which allows the user to continue if true or raises a 401 if false
-      if (!decoded.accountId) {
-        return { isValid: false };
-      } else {
-        return { isValid: true };
-      }
-    };
+    // const validate = async function (decoded, request, h) {
+    //   // Authorisation checks can be supplemented here
+    //   // This function returns an object with an 'isValid' boolean
+    //   // which allows the user to continue if true or raises a 401 if false
+    //   if (!decoded.accountId) {
+    //     return { isValid: false };
+    //   } else {
+    //     return { isValid: true };
+    //   }
+    // };
 
-    server.auth.strategy("fsd_jwt_auth", "jwt", {
-      key: Buffer.from(config.rsa256PublicKeyBase64, "base64"),
-      validate,
-      verifyOptions: {
-        ignoreExpiration: true,
-        algorithms: ["RS256"],
-      },
-      urlKey: false,
-      cookieKey: config.jwtAuthCookieName,
-    });
+    // server.auth.strategy("fsd_jwt_auth", "jwt", {
+    //   key: Buffer.from(config.rsa256PublicKeyBase64, "base64"),
+    //   validate,
+    //   verifyOptions: {
+    //     ignoreExpiration: true,
+    //     algorithms: ["RS256"],
+    //   },
+    //   urlKey: false,
+    //   cookieKey: config.jwtAuthCookieName,
+    // });
+
+    if (jwtAuthStrategyIsActive) {
+      server.auth.strategy(jwtAuthStrategyName, "jwt", jwtStrategyOptions);
+    }
 
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
@@ -222,10 +231,8 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
-      // NOTE: The following two lines apply the jwt auth strategy to this route
-      // This can be applied in a similar way to any route
       options: {
-        auth: "fsd_jwt_auth",
+        auth: jwtAuthStrategyIsActive ? jwtAuthStrategyName : options.auth,
       },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
