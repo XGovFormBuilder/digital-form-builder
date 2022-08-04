@@ -5,7 +5,7 @@
 {% block content %}
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-full">
         <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
         {% if callback and callback.message %}
         <div class="govuk-inset-text">
@@ -54,7 +54,7 @@
                     {% if fees and fees.details|length %}
                         Submit and pay
                     {% else %}
-                        Submit
+                        Save and continue
                     {% endif %}
                 </button>
             </form>
