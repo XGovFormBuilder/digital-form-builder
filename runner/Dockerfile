@@ -19,7 +19,6 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
-COPY --chown=appuser:appuser runner/package.json ./runner/
 USER 1001
 
 # ----------------------------
@@ -48,8 +47,9 @@ ARG LAST_COMMIT
 ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
-COPY --chown=appuser:appuser ./runner ./runner/
-RUN yarn workspaces focus @xgovformbuilder/runner && yarn runner rebuild
+COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/bin ./runner/
+RUN yarn workspaces focus @xgovformbuilder/runner
+COPY --chown=appuser:appuser ./runner/src ./runner/
 RUN yarn runner build
 USER 1001
 EXPOSE 3009
