@@ -20,7 +20,6 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 
-USER 1001
 
 # ----------------------------
 # Stage 3
@@ -49,8 +48,11 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser designer/package.json ./designer/
-COPY --chown=appuser:appuser ./designer ./designer/
 RUN yarn workspaces focus @xgovformbuilder/designer
+COPY --chown=appuser:appuser yarn.lock ./
+COPY --chown=appuser:appuser ./designer/jest* ./designer/nodemon.json ./designer/babel.config.js ./designer/webpack.config.js ./designer/new-form.json ./designer/
+COPY --chown=appuser:appuser ./designer/client ./designer/client
+COPY --chown=appuser:appuser ./designer/server ./designer/server
 RUN yarn designer build
 USER 1001
 EXPOSE 3000
