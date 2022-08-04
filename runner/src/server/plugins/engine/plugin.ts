@@ -13,7 +13,6 @@ import config from "config";
 import {
   jwtStrategyOptions,
   jwtAuthStrategyName,
-  jwtAuthStrategyIsActive,
 } from "server/plugins/jwtAuth";
 
 configure([
@@ -74,8 +73,20 @@ export const plugin = {
     const disabledRouteDetailString =
       "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
 
+    const jwtAuthStrategyIsActive = !(
+      !config.rsa256PublicKeyBase64 ||
+      !config.jwtAuthCookieName ||
+      !config.jwtAuthenticationUrl
+    );
     if (jwtAuthStrategyIsActive) {
-      server.auth.strategy(jwtAuthStrategyName, "jwt", jwtStrategyOptions);
+      server.auth.strategy(
+        jwtAuthStrategyName,
+        "jwt",
+        jwtStrategyOptions(
+          config.jwtAuthCookieName,
+          config.rsa256PublicKeyBase64
+        )
+      );
     }
 
     /**

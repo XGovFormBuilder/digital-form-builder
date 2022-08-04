@@ -17,19 +17,20 @@ const validate = async function (decoded, request, h) {
 };
 
 // Auth strategy configuration options
-const rsa256Options = {
-  key: Buffer.from(config.rsa256PublicKeyBase64 ?? "", "base64"),
-  validate,
-  verifyOptions: {
-    ignoreExpiration: true,
-    algorithms: ["RS256"],
-  },
-  urlKey: false,
-  cookieKey: config.jwtAuthCookieName,
-};
+export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
+  return {
+    key: Buffer.from(rsa256PublicKeyBase64 ?? "", "base64"),
+    validate,
+    verifyOptions: {
+      ignoreExpiration: true,
+      algorithms: ["RS256"],
+    },
+    urlKey: false,
+    cookieKey: jwtAuthCookieName,
+  };
+}
 
 console.log("JWT Authentication Enabled: " + isActivated.toString());
 
-export const jwtAuthStrategyIsActive = isActivated;
 export const jwtAuthStrategyName = "fsd_jwt_auth";
 export const jwtStrategyOptions = rsa256Options;

@@ -49,7 +49,7 @@ suite("JWT Auth", () => {
 
       const res = await server.inject(options);
 
-      expect(res.statusCode).to.equal(401);
+      expect(res.statusCode).to.equal(302);
       expect(res.headers.location).to.startWith(config.jwtAuthenticationUrl);
     });
 
@@ -63,6 +63,7 @@ suite("JWT Auth", () => {
       };
 
       const res = await server.inject(options);
+
       expect(res.statusCode).to.equal(200);
       expect(res.payload).to.contain("About your organisation");
     });
