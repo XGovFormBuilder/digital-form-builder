@@ -73,7 +73,7 @@ jobs:
         run: yarn
 
       - name: Install dependencies
-        run: yarn workspaces focus @xgovformbuilder/${{matrix.app}}
+        run: yarn {{matrix.app}} install
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
