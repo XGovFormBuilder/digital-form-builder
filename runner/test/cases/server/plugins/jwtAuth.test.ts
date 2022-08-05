@@ -9,8 +9,8 @@ const lab = Lab.script();
 exports.lab = lab;
 const { after, before, suite, test } = lab;
 
-const jwtAuthCookieName = "fsd_user_token";
-const jwtAuthenticationUrl =
+const jwtAuthCookieName = "auth_token";
+const jwtRedirectToAuthenticationUrl =
   "https://funding-service-design-authenticator-dev.london.cloudapps.digital/service/magic-links/invalid";
 const rsa256PublicKeyBase64 =
   "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlHZU1BMEdDU3FHU0liM0RRRUJBUVVBQTRHTUFEQ0JpQUtCZ0hHYnRGMXlWR1c" +
@@ -28,7 +28,7 @@ suite("JWT Auth", () => {
   suite("when enabled", () => {
     before(async () => {
       config.jwtAuthCookieName = jwtAuthCookieName;
-      config.jwtAuthenticationUrl = jwtAuthenticationUrl;
+      config.jwtRedirectToAuthenticationUrl = jwtRedirectToAuthenticationUrl;
       config.rsa256PublicKeyBase64 = rsa256PublicKeyBase64;
       server = await createServer({});
       await server.start();
@@ -37,7 +37,7 @@ suite("JWT Auth", () => {
     after(async () => {
       await server.stop();
       config.jwtAuthCookieName = null;
-      config.jwtAuthenticationUrl = null;
+      config.jwtRedirectToAuthenticationUrl = null;
       config.rsa256PublicKeyBase64 = null;
     });
 
@@ -50,7 +50,9 @@ suite("JWT Auth", () => {
       const res = await server.inject(options);
 
       expect(res.statusCode).to.equal(302);
-      expect(res.headers.location).to.startWith(config.jwtAuthenticationUrl);
+      expect(res.headers.location).to.startWith(
+        config.jwtRedirectToAuthenticationUrl
+      );
     });
 
     test("returns requested form if a valid jwt auth cookie found", async () => {

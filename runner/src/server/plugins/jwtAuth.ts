@@ -4,12 +4,12 @@ import config from "config";
 // Checks if all required config variables are set
 export function jwtAuthIsActivated(
   jwtAuthCookieName,
-  jwtAuthenticationUrl,
+  jwtRedirectToAuthenticationUrl,
   rsa256PublicKeyBase64
 ) {
   return !(
     !jwtAuthCookieName ||
-    !jwtAuthenticationUrl ||
+    !jwtRedirectToAuthenticationUrl ||
     !rsa256PublicKeyBase64
   );
 }
@@ -45,11 +45,11 @@ export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
 // Check if global config vars are set
 const isActivated = jwtAuthIsActivated(
   config.jwtAuthCookieName,
-  config.jwtAuthenticationUrl,
+  config.jwtRedirectToAuthenticationUrl,
   config.rsa256PublicKeyBase64
 );
 // Log JWT Authentication activation status
 console.log("JWT Authentication Enabled: " + isActivated.toString());
 
-export const jwtAuthStrategyName = "fsd_jwt_auth";
+export const jwtAuthStrategyName = "jwt_auth";
 export const jwtStrategyOptions = rsa256Options;

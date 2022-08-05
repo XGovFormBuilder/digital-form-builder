@@ -28,7 +28,9 @@ export default {
             // redirect to authentication url
             if (statusCode === 401) {
               return h.redirect(
-                config.jwtAuthenticationUrl + "?referrer=" + request.url
+                config.jwtRedirectToAuthenticationUrl +
+                  "?referrer=" +
+                  request.url
               );
             }
 

@@ -82,7 +82,7 @@ export const configSchema = Joi.object({
   awsBucketName: Joi.string().optional(),
   awsRegion: Joi.string().optional(),
   jwtAuthCookieName: Joi.string().optional(),
-  jwtAuthenticationUrl: Joi.string().optional(),
+  jwtRedirectToAuthenticationUrl: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
 });
 

@@ -76,7 +76,7 @@ export const plugin = {
 
     const jwtAuthStrategyIsActive = jwtAuthIsActivated(
       config.jwtAuthCookieName,
-      config.jwtAuthenticationUrl,
+      config.jwtRedirectToAuthenticationUrl,
       config.rsa256PublicKeyBase64
     );
 
