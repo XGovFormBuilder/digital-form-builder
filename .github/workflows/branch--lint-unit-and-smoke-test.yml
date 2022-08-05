@@ -22,7 +22,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - name: yarn workspaces foreach -t install
+      - run: yarn workspaces foreach -t install
 
   lint-and-test:
     runs-on: ubuntu-latest
