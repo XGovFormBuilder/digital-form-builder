@@ -1,7 +1,7 @@
 {
   "extends": [
-    "prettier",
-    "plugin:json/recommended"
+    "plugin:json/recommended",
+    "plugin:prettier/recommended"
   ],
   "plugins": ["@babel", "prettier"],
   "parser": "babel-eslint",
