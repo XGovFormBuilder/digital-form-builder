@@ -69,7 +69,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn workspaces install ${{matrix.app}}
+        run: yarn workspaces ${{matrix.app}} install
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
