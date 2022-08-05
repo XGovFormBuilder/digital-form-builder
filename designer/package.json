@@ -81,6 +81,7 @@
     "@babel/register": "7.17.0",
     "@babel/runtime": "7.17.2",
     "@hapi/code": "^8.0.7",
+    "@hapi/eslint-plugin": "^6.0.0",
     "@hapi/lab": "^24.5.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",

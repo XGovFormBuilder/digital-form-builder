@@ -2444,6 +2444,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/eslint-plugin@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@hapi/eslint-plugin@npm:6.0.0"
+  peerDependencies:
+    "@babel/core": ^7.14.3
+    "@babel/eslint-parser": ^7.14.3
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@babel/eslint-parser":
+      optional: true
+  checksum: baa3874b5effa2be3807cc3f5592c794c3e5fc4a10d3b7fed2df1e84cdb39a5646241e13d0187af67e2419e58c4664282fd58c1a341d82ca915e075e5692ccf9
+  languageName: node
+  linkType: hard
+
 "@hapi/file@npm:2.x.x":
   version: 2.0.0
   resolution: "@hapi/file@npm:2.0.0"
@@ -4552,6 +4567,7 @@ __metadata:
     "@babel/register": 7.17.0
     "@babel/runtime": 7.17.2
     "@hapi/code": ^8.0.7
+    "@hapi/eslint-plugin": ^6.0.0
     "@hapi/hapi": ^20.0.3
     "@hapi/inert": ^6.0.1
     "@hapi/lab": ^24.5.1
