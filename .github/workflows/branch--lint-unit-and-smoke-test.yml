@@ -64,12 +64,13 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-{{matrix.app}}
           restore-keys: |
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-{{matrix.app}}
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn workspaces ${{matrix.app}} install
+        run: yarn workspaces focus ${{matrix.app}}
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
