@@ -109,6 +109,7 @@ export class PageControllerBase {
     isStartPage: boolean;
     startPage?: HapiResponseObject;
     backLink?: string;
+    backLinkText?: string;
     phaseTag?: string | undefined;
   } {
     let showTitle = true;
@@ -492,6 +493,7 @@ export class PageControllerBase {
 
       viewModel.backLink =
         state.callback?.returnUrl ?? progress[progress.length - 2];
+      viewModel.backLinkText = config.backLinkText ?? "Back";
       return h.view(this.viewName, viewModel);
     };
   }

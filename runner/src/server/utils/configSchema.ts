@@ -81,6 +81,7 @@ export const configSchema = Joi.object({
   savePerPage: Joi.boolean().optional(),
   awsBucketName: Joi.string().optional(),
   awsRegion: Joi.string().optional(),
+  backLinkText: Joi.string().optional(),
 });
 
 export function buildConfig(config) {
