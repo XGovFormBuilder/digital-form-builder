@@ -17,7 +17,7 @@ RUN mkdir -p /usr/src/app && \
 # It will re-run only if one of the copied files change, otherwise this stage is cached
 FROM base AS dependencies
 WORKDIR /usr/src/app
-COPY --chown=appuser:appuser .yarn ./.yarn/
+COPY --chown=appuser:appuser .yarn/ ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 
 
