@@ -69,6 +69,9 @@ jobs:
             ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-{{matrix.app}}
             ${{ runner.os }}-yarn-
 
+      - name: Install project deps
+        run: yarn
+
       - name: Install dependencies
         run: yarn workspaces focus @xgovformbuilder/${{matrix.app}}
 
