@@ -48,7 +48,7 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
-RUN yarn && yarn runner install
+RUN yarn runner install
 COPY --chown=appuser:appuser ./runner/src ./runner/src
 COPY --chown=appuser:appuser ./runner/bin ./runner/bin
 RUN yarn runner build
