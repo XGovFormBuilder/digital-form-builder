@@ -19,7 +19,8 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn/ ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
-#RUN yarn
+USER 1001
+RUN yarn
 
 # ----------------------------
 # Stage 3
