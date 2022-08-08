@@ -20,6 +20,15 @@ export const ComponentTypes: ComponentDef[] = [
     schema: {},
   },
   {
+    name: "MultiInputField",
+    type: "MultiInputField",
+    title: "MultiInput field",
+    subType: "field",
+    hint: "",
+    options: {},
+    schema: {},
+  },
+  {
     name: "YesNoField",
     type: "YesNoField",
     title: "Yes/No field",
