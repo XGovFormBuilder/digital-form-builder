@@ -112,7 +112,7 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v4
         with:
-          images: $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}
+          images: ${{env.IMAGE_REPO_PATH}}/${{env.IMAGE_NAME_STUB}}${{ matrix.app }}
           tags: |
             type=sha,format=long
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
