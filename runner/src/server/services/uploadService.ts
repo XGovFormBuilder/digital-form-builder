@@ -46,8 +46,36 @@ export class UploadService {
     return 5 * 1024 * 1024; // 5mb
   }
 
-  get validFiletypes(): ["jpg", "jpeg", "png", "pdf"] {
-    return ["jpg", "jpeg", "png", "pdf"];
+  get validFiletypes(): [
+    "jpg",
+    "jpeg",
+    "png",
+    "pdf",
+    "txt",
+    "doc",
+    "docx",
+    "odt",
+    "rtf",
+    "csv",
+    "xls",
+    "xlsx",
+    "ods"
+  ] {
+    return [
+      "jpg",
+      "jpeg",
+      "png",
+      "pdf",
+      "txt",
+      "doc",
+      "docx",
+      "odt",
+      "rtf",
+      "csv",
+      "xls",
+      "xlsx",
+      "ods",
+    ];
   }
 
   fileStreamsFromPayload(payload: Payload) {
