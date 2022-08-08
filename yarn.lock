@@ -1974,6 +1974,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.7.6":
+  version: 7.18.9
+  resolution: "@babel/runtime@npm:7.18.9"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 36dd736baba7164e82b3cc9d43e081f0cb2d05ff867ad39cac515d99546cee75b7f782018b02a3dcf5f2ef3d27f319faa68965fdfec49d4912c60c6002353a2e
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.10.4, @babel/template@npm:^7.12.7, @babel/template@npm:^7.3.3":
   version: 7.12.7
   resolution: "@babel/template@npm:7.12.7"
@@ -4584,7 +4593,7 @@ __metadata:
     "@types/react-dom": ^17.0.11
     "@typescript-eslint/eslint-plugin": ^5.13.0
     "@typescript-eslint/parser": ^5.13.0
-    "@xgovformbuilder/govuk-react-jsx": ^4.0.10
+    "@xgovformbuilder/govuk-react-jsx": 7.1.0
     "@xgovformbuilder/lab-babel": 2.1.2
     "@xgovformbuilder/model": 3.0.0
     acorn: 8.7.0
@@ -4666,16 +4675,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xgovformbuilder/govuk-react-jsx@npm:^4.0.10":
-  version: 4.0.10
-  resolution: "@xgovformbuilder/govuk-react-jsx@npm:4.0.10"
-  peerDependencies:
-    govuk-frontend: 3.8.1
-    react: ^16.13.1
+"@xgovformbuilder/govuk-react-jsx@npm:7.1.0":
+  version: 7.1.0
+  resolution: "@xgovformbuilder/govuk-react-jsx@npm:7.1.0"
+  dependencies:
+    govuk-frontend: 4.0.1
+    react: ^18.1.0
+    react-dom: ^18.1.0
     react-helmet: ^6.1.0
-    react-router: ^5.2.0
-    react-router-dom: ^5.2.0
-  checksum: bd97a1e55692191bf0b032af216de38bc8b8880572bce56a0a3c60ec2fb0a6d907a7ec9b5171bae8899b283d02023ae8e33c4981793f9ec9c57c020123637763
+    react-router: ^6.3.0
+    react-router-dom: ^6.3.0
+    yargs: ^16.2.0
+  checksum: 1c7a920d8a228f3f27a1dfd28749fb31db87f65d0b585fa19cbb8b03d99396435c4934abc84273aea6bedff53f9040fe650d752b306601e015875482fe4838c0
   languageName: node
   linkType: hard
 
@@ -11546,17 +11557,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"govuk-frontend@npm:4.0.1, govuk-frontend@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "govuk-frontend@npm:4.0.1"
+  checksum: dfa5a124c019432b402c4e0ac727e0b3e0555164513f118fd04d16d8e426faf3fc4f6735e0767c159f5709476dc6f6f9053893f7d0399e98c95ac2e36e565f5a
+  languageName: node
+  linkType: hard
+
 "govuk-frontend@npm:^3.13.0":
   version: 3.13.0
   resolution: "govuk-frontend@npm:3.13.0"
   checksum: eab36b1b46fb5d02597258c284091f33fe383d8439e873c0a9aeaf1921669fbfa5a95b3fd98bac28d5f45c98111ed751dfc7591d649cecc6a7aea4afc39db6e1
-  languageName: node
-  linkType: hard
-
-"govuk-frontend@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "govuk-frontend@npm:4.0.1"
-  checksum: dfa5a124c019432b402c4e0ac727e0b3e0555164513f118fd04d16d8e426faf3fc4f6735e0767c159f5709476dc6f6f9053893f7d0399e98c95ac2e36e565f5a
   languageName: node
   linkType: hard
 
@@ -11931,6 +11942,15 @@ fsevents@^1.2.7:
     tiny-warning: ^1.0.0
     value-equal: ^1.0.1
   checksum: addd84bc4683929bae4400419b5af132ff4e4e9b311a0d4e224579ea8e184a6b80d7f72c55927e4fa117f69076a9e47ce082d8d0b422f1a9ddac7991490ca1d0
+  languageName: node
+  linkType: hard
+
+"history@npm:^5.2.0":
+  version: 5.3.0
+  resolution: "history@npm:5.3.0"
+  dependencies:
+    "@babel/runtime": ^7.7.6
+  checksum: d73c35df49d19ac172f9547d30a21a26793e83f16a78386d99583b5bf1429cc980799fcf1827eb215d31816a6600684fba9686ce78104e23bd89ec239e7c726f
   languageName: node
   linkType: hard
 
@@ -18109,6 +18129,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^18.1.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    scheduler: ^0.23.0
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
 "react-fast-compare@npm:^3.1.1":
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
@@ -18161,6 +18193,19 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-router-dom@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "react-router-dom@npm:6.3.0"
+  dependencies:
+    history: ^5.2.0
+    react-router: 6.3.0
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 77603a654f8a8dc7f65535a2e5917a65f8d9ffcb06546d28dd297e52adcc4b8a84377e0115f48dca330b080af2da3e78f29d590c89307094d36927d2b1751ec3
+  languageName: node
+  linkType: hard
+
 "react-router@npm:5.2.0":
   version: 5.2.0
   resolution: "react-router@npm:5.2.0"
@@ -18178,6 +18223,17 @@ fsevents@^1.2.7:
   peerDependencies:
     react: ">=15"
   checksum: 6fc908729110a65a5676a9e41333e0f511a3c0ff84c93c0dc704330cf3e02124c93aaeab8031b0e2c71712390d9278fff848eeebfbdda36dca3201142f309973
+  languageName: node
+  linkType: hard
+
+"react-router@npm:6.3.0, react-router@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "react-router@npm:6.3.0"
+  dependencies:
+    history: ^5.2.0
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 7be673f5e72104be01e6ab274516bdb932efd93305243170690f6560e3bd1035dd1df3d3c9ce1e0f452638a2529f43a1e77dcf0934fc8031c4783da657be13ca
   languageName: node
   linkType: hard
 
@@ -18237,6 +18293,15 @@ fsevents@^1.2.7:
     object-assign: ^4.1.1
     prop-types: ^15.6.2
   checksum: 4508f4207caca6bef55736284cbf2ce18d2edfee4c1457fc0bb2086b34ed5bcf9b44acdb71e27574e73a5b5d4d093720b5b4ec0bf92bb89394ee3a0a7c42c2d4
+  languageName: node
+  linkType: hard
+
+"react@npm:^18.1.0":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
   languageName: node
   linkType: hard
 
@@ -19281,6 +19346,15 @@ resolve@^2.0.0-next.3:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: 73e185a59e2ff5aa3609f5b9cb97ddd376f89e1610579d29939d952411ca6eb7a24907a4ea4556569dacb931467a1a4a56d94fe809ef713aa76748642cd96a6c
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
   languageName: node
   linkType: hard
 
