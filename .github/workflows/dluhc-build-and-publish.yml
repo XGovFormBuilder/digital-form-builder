@@ -41,27 +41,27 @@ jobs:
       - name: Build dependencies
         run: yarn build:dependencies
 
-      - name: Lint
-        run: yarn ${{matrix.app}} lint
+      # - name: Lint
+      #   run: yarn ${{matrix.app}} lint
 
-      - name: Test
-        run: yarn ${{matrix.app}} test-cov
+      # - name: Test
+      #   run: yarn ${{matrix.app}} test-cov
 
-      - name: Upload test results artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-results-${{matrix.app}}
-          path: ${{matrix.app}}/test-results
-          retention-days: 14
+      # - name: Upload test results artifacts
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ success() || failure() }}
+      #   with:
+      #     name: test-results-${{matrix.app}}
+      #     path: ${{matrix.app}}/test-results
+      #     retention-days: 14
 
-      - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-coverage-${{matrix.app}}
-          path: ${{matrix.app}}/test-coverage
-          retention-days: 14
+      # - name: Upload test coverage artifacts
+      #   uses: actions/upload-artifact@v2
+      #   if: ${{ success() || failure() }}
+      #   with:
+      #     name: test-coverage-${{matrix.app}}
+      #     path: ${{matrix.app}}/test-coverage
+      #     retention-days: 14
 
   setup-env-vars:
     needs: lint-and-test
@@ -82,7 +82,7 @@ jobs:
           echo $VERSION
 
   build-and-push-images:
-    needs: [lint-and-test, setup-env-vars]
+    # needs: [lint-and-test, setup-env-vars]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -102,11 +102,11 @@ jobs:
           echo LAST_TAG_GH=$VERSION >> ./${{ matrix.app }}/.env
           echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
           cat ./${{ matrix.app }}/.env
-      - name: Docker compose build ${{ matrix.app }}
-        run: |
-          LAST_TAG='$VERSION'
-          LAST_COMMIT='${{ github.sha }}'
-          docker-compose build ${{ matrix.app }}
+      # - name: Docker compose build ${{ matrix.app }}
+      #   run: |
+      #     LAST_TAG='$VERSION'
+      #     LAST_COMMIT='${{ github.sha }}'
+      #     docker-compose build ${{ matrix.app }}
 
       - name: Docker metadata
         id: metadata
