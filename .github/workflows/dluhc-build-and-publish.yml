@@ -121,20 +121,20 @@ jobs:
       - id: tag-and-push
         name: Tag and push (all branches)
         run: |
-          echo docker tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{ github.sha }}
-          echo docker tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:$VERSION
-          echo docker tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{ github.sha }}
+          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:$VERSION
+          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
 
-          echo docker push $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{ github.sha }}
-          echo docker push $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:$VERSION
-          echo docker push $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
-      - id: tag-and-push-latest
-        name: Tag and Push Latest (if main)
+      - id: tag-latest
+        name: Tag Latest (if main)
         if: needs.setup-env-vars.outputs.BRANCH_NAME == 'main'
         run: |
-          echo docker tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:latest
-          echo docker push $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:latest
-
+          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:latest
+      - id: push-all-tags
+        name: Push All Tags
+        run: |
+          docker image ls
+          docker image push --all-tags $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}
       - name: Prune Cache
         run: docker image prune --all --force --filter "until=48h"
 
