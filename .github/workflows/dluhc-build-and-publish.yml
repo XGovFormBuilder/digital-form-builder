@@ -92,6 +92,44 @@ jobs:
           echo Image repo path: $IMAGE_REPO_PATH
           echo Full image repo path stub: $IMAGE_REPO_PATH/$IMAGE_NAME_STUB
 
+  build-and-push-images:
+    needs: [lint-and-test, setup-env-vars]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [designer, runner]
+    name: build-and-push-${{matrix.app}}-image
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Docker compose pull
+        run: docker-compose pull
+      - name: Docker layer caching DAYOFYEAR key
+        # DAYOFYEAR key is used to rotate docker-layer-caching daily to avoid the layers dangle issues
+        # see https://github.com/satackey/action-docker-layer-caching/issues/55
+        # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
+        # so main branch cache can be shared with branches
+        run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
+      - name: Create .env for ${{ matrix.app }} workspace
+        run: |
+          touch ./${{ matrix.app }}/.env
+          echo LAST_TAG_GH=$VERSION >> ./${{ matrix.app }}/.env
+          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
+          cat ./${{ matrix.app }}/.env
+      - name: Docker compose build ${{ matrix.app }}
+        run: |
+          LAST_TAG='$VERSION'
+          LAST_COMMIT='${{ github.sha }}'
+          docker-compose build ${{ matrix.app }}
+      - name: Check images
+        run: |
+          docker image ls
+      - name: Prune Cache
+        run: docker image prune --all --force --filter "until=48h"
+
   mock-tag-and-push-image:
     needs: setup-env-vars
     runs-on: ubuntu-latest
