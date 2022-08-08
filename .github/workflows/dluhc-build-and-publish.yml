@@ -4,21 +4,29 @@ on:
       - "fs-1263-publish-fork"
 env:
   VERSION: "0.0.1"
-  BRANCH: "${GITHUB_REF}"
 
 jobs:
-  print-env-vars:
+  setup-env-vars:
     runs-on: ubuntu-latest
+    outputs:
+      BRANCH_NAME: ${{steps.set-vars.outputs.LOWER_CASE_BRANCH}}
     steps:
-      - name: do-vars
-        id: do-vars
+      - id: set-vars
         run: |
-          echo $VERSION
-          echo $BRANCH
           echo "::set-output name=LOWER_CASE_BRANCH::$(
             echo ${GITHUB_REF#refs/heads/} |
             tr "[:upper:]" "[:lower:]"
           )"
+      - name: echo-vars
+        id: echo-vars
+        run: |
+          echo ${{steps.set-vars.outputs.LOWER_CASE_BRANCH}}
+          echo $VERSION
+
+  read-env-vars:
+    needs: setup-env-vars
+    runs-on: ubuntu-latest
+    steps:
       - id: read-vars
         run: |
-          echo ${{steps.do-vars.outputs.LOWER_CASE_BRANCH}}
+          echo ${{needs.setup-env-vars.outputs.BRANCH_NAME}}
