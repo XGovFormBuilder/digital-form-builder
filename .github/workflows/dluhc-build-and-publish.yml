@@ -8,7 +8,62 @@ env:
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [designer, runner, model]
+    name: lint-and-test-${{matrix.app}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - name: Configure yarn caching
+        uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build dependencies
+        run: yarn build:dependencies
+
+      - name: Lint
+        run: yarn ${{matrix.app}} lint
+
+      - name: Test
+        run: yarn ${{matrix.app}} test-cov
+
+      - name: Upload test results artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-results-${{matrix.app}}
+          path: ${{matrix.app}}/test-results
+          retention-days: 14
+
+      - name: Upload test coverage artifacts
+        uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: test-coverage-${{matrix.app}}
+          path: ${{matrix.app}}/test-coverage
+          retention-days: 14
+
   setup-env-vars:
+    needs: lint-and-test
     runs-on: ubuntu-latest
     outputs:
       BRANCH_NAME: ${{steps.set-vars.outputs.LOWER_CASE_BRANCH}}
