@@ -1,4 +1,5 @@
 import { HapiRequest, HapiResponseToolkit } from "../types";
+import config from "server/config";
 
 /*
  * Add an `onPreResponse` listener to return error pages
@@ -21,6 +22,16 @@ export default {
             // return the `404` view
             if (statusCode === 404) {
               return h.view("404").code(statusCode);
+            }
+
+            // In the event of 401
+            // redirect to authentication url
+            if (statusCode === 401) {
+              return h.redirect(
+                config.jwtRedirectToAuthenticationUrl +
+                  "?referrer=" +
+                  request.url
+              );
             }
 
             request.log("error", {

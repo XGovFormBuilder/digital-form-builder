@@ -10,6 +10,11 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
+import {
+  jwtAuthIsActivated,
+  jwtAuthStrategyName,
+  jwtStrategyOptions,
+} from "server/plugins/jwtAuth";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -68,6 +73,23 @@ export const plugin = {
     const enabledString = config.previewMode ? `[ENABLED]` : `[DISABLED]`;
     const disabledRouteDetailString =
       "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
+
+    const jwtAuthStrategyIsActive = jwtAuthIsActivated(
+      config.jwtAuthCookieName,
+      config.jwtRedirectToAuthenticationUrl,
+      config.rsa256PublicKeyBase64
+    );
+
+    if (jwtAuthStrategyIsActive) {
+      server.auth.strategy(
+        jwtAuthStrategyName,
+        "jwt",
+        jwtStrategyOptions(
+          config.jwtAuthCookieName,
+          config.rsa256PublicKeyBase64
+        )
+      );
+    }
 
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
@@ -197,6 +219,9 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}/{path*}",
+      options: {
+        auth: jwtAuthStrategyIsActive ? jwtAuthStrategyName : options.auth,
+      },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
         const { path, id } = request.params;
         const model = forms[id];

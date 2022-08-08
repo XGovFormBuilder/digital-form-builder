@@ -6995,6 +6995,7 @@ __metadata:
     form-data: ^4.0.0
     googleapis: 64.0.0
     govuk-frontend: ^3.13.0
+    hapi-auth-jwt2: 10.2.0
     hapi-pino: 8.0.0
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
@@ -10242,7 +10243,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.4.2":
+"cookie@npm:^0.4.0, cookie@npm:^0.4.2":
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: e523edba738f58310840a05330a0ae81dc7b35b4047be8fbd50a751bd9f89b61abfa35217d8c3b885118bdf1e75ec01d0851470e49cc0ace22b726fb33a34bbb
@@ -14930,6 +14931,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"hapi-auth-jwt2@npm:10.2.0":
+  version: 10.2.0
+  resolution: "hapi-auth-jwt2@npm:10.2.0"
+  dependencies:
+    "@hapi/boom": ^9.0.0
+    cookie: ^0.4.0
+    jsonwebtoken: ^8.5.1
+  checksum: 3de5fdb4ea5b1babe846b9170b266ff9bc3df1b57e339a394fd1eeb4e112cace2bd6e320743fda6a6757d6068237385a25a36de0f55b672568407ea9a48d0292
+  languageName: node
+  linkType: hard
+
 "hapi-capitalize-modules@npm:1.x.x":
   version: 1.1.6
   resolution: "hapi-capitalize-modules@npm:1.1.6"
@@ -18143,7 +18155,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.2.1":
+"jsonwebtoken@npm:^8.2.1, jsonwebtoken@npm:^8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:
