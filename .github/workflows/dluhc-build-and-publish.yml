@@ -116,7 +116,7 @@ jobs:
           tags: |
             type=sha,format=long
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
-            type=raw,value=${{VERSION}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,value=${{env.VERSION}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
             type=ref,event=branch
 
       # - name: Log in to registry
