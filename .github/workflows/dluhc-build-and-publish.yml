@@ -4,7 +4,7 @@ on:
       - "fs-1263-publish-fork"
 env:
   VERSION: "0.0.1"
-  BRANCH: ${{GITHUB_REF}}
+  BRANCH: ${GITHUB_REF}
 
 jobs:
   print-env-vars:
