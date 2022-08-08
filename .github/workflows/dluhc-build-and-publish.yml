@@ -36,3 +36,22 @@ jobs:
           echo Image name stub: $IMAGE_NAME_STUB
           echo Image repo path: $IMAGE_REPO_PATH
           echo Full image repo path stub: $IMAGE_REPO_PATH/$IMAGE_NAME_STUB
+
+  mock-tag-and-push-image:
+    needs: setup-env-vars
+    runs-on: ubuntu-latest
+    env:
+      matrix_app_mock: runner
+    steps:
+      - id: tag-and-push
+        run: |
+          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{ github.sha }}
+          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+
+          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{ github.sha }}
+          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+      - id: tag-and-push-latest
+        if: ${{needs.setup-env-vars.outputs.BRANCH_NAME}} == "main"
+        run: |
+          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:latest
+          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:latest
