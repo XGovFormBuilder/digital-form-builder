@@ -95,12 +95,6 @@ jobs:
           node-version: "12.x"
       - name: Docker compose pull
         run: docker-compose pull
-      - name: Docker layer caching DAYOFYEAR key
-        # DAYOFYEAR key is used to rotate docker-layer-caching daily to avoid the layers dangle issues
-        # see https://github.com/satackey/action-docker-layer-caching/issues/55
-        # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
-        # so main branch cache can be shared with branches
-        run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
       - name: Create .env for ${{ matrix.app }} workspace
         run: |
           touch ./${{ matrix.app }}/.env
