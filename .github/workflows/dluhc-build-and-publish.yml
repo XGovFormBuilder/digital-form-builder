@@ -1,9 +1,9 @@
+name: DLUHC Build and Publish
 on:
   push:
-    branches:
-      - "fs-1263-publish-fork"
+
 env:
-  VERSION: "0.0.0.1"
+  VERSION: "0.1.0" # Manually increment this version when pushing to main
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
@@ -80,18 +80,6 @@ jobs:
           echo ${{steps.set-vars.outputs.LOWER_CASE_BRANCH}}
           echo $VERSION
 
-  read-env-vars:
-    needs: setup-env-vars
-    runs-on: ubuntu-latest
-    steps:
-      - id: read-vars
-        run: |
-          echo Lower case branch name: ${{needs.setup-env-vars.outputs.BRANCH_NAME}}
-          echo Version: $VERSION
-          echo Image name stub: $IMAGE_NAME_STUB
-          echo Image repo path: $IMAGE_REPO_PATH
-          echo Full image repo path stub: $IMAGE_REPO_PATH/$IMAGE_NAME_STUB
-
   build-and-push-images:
     needs: [lint-and-test, setup-env-vars]
     runs-on: ubuntu-latest
@@ -150,40 +138,53 @@ jobs:
       - name: Prune Cache
         run: docker image prune --all --force --filter "until=48h"
 
-  tag-branch:
+  tag-repo:
+    name: Tag repo (if main)
     runs-on: ubuntu-latest
     needs: [build-and-push-images, setup-env-vars]
-    if: needs.setup-env-vars.outputs.BRANCH_NAME == 'fs-1263-publish-fork'
+    if: needs.setup-env-vars.outputs.BRANCH_NAME == 'main'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Tag branch with run number
+      - name: Tag repo with version
         run: |
           git tag $VERSION
           git push --tags origin HEAD
 
-  mock-tag-and-push-image:
-    needs: setup-env-vars
-    runs-on: ubuntu-latest
-    if: 1==2 #Whole job just used for testing workflow
-    env:
-      matrix_app_mock: runner
-    steps:
-      - id: tag-and-push
-        name: Tag and push (all branches)
-        run: |
-          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{ github.sha }}
-          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:$VERSION
-          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+#Jobs below are useful for testing variable setting but not needed for workflow to function
 
-          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{ github.sha }}
-          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:$VERSION
-          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
-      - id: tag-and-push-latest
-        name: Tag and Push Latest (if main)
-        if: needs.setup-env-vars.outputs.BRANCH_NAME == 'main'
-        run: |
-          echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:latest
-          echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:latest
+# read-env-vars:
+#   needs: setup-env-vars
+#   runs-on: ubuntu-latest
+#   steps:
+#     - id: read-vars
+#       run: |
+#         echo Lower case branch name: ${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+#         echo Version: $VERSION
+#         echo Image name stub: $IMAGE_NAME_STUB
+#         echo Image repo path: $IMAGE_REPO_PATH
+#         echo Full image repo path stub: $IMAGE_REPO_PATH/$IMAGE_NAME_STUB
+# mock-tag-and-push-image:
+#   needs: setup-env-vars
+#   runs-on: ubuntu-latest
+#   env:
+#     matrix_app_mock: runner
+#   steps:
+#     - id: tag-and-push
+#       name: Tag and push (all branches)
+#       run: |
+#         echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{ github.sha }}
+#         echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:$VERSION
+#         echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+
+#         echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{ github.sha }}
+#         echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:$VERSION
+#         echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+#     - id: tag-and-push-latest
+#       name: Tag and Push Latest (if main)
+#       if: needs.setup-env-vars.outputs.BRANCH_NAME == 'main'
+#       run: |
+#         echo docker tag $IMAGE_NAME_STUB$matrix_app_mock $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:latest
+#         echo docker push $IMAGE_REPO_PATH/$IMAGE_NAME_STUB$matrix_app_mock:latest
