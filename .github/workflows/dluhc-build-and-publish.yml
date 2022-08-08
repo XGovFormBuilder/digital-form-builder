@@ -4,6 +4,8 @@ on:
       - "fs-1263-publish-fork"
 env:
   VERSION: "0.0.1"
+  IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
+  IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
   setup-env-vars:
@@ -29,4 +31,8 @@ jobs:
     steps:
       - id: read-vars
         run: |
-          echo ${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+          echo Lower case branch name: ${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+          echo Version: $VERSION
+          echo Image name stub: $IMAGE_NAME_STUB
+          echo Image repo path: $IMAGE_REPO_PATH
+          echo Full image repo path stub: $IMAGE_REPO_PATH/$IMAGE_NAME_STUB
