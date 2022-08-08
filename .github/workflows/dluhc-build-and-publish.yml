@@ -5,6 +5,7 @@ on:
 env:
   VERSION: "0.1.0" # Manually increment this version when pushing to main
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
+  DOCKER_REGISTRY: ghcr.io
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
 
 jobs:
@@ -106,28 +107,59 @@ jobs:
           LAST_TAG='$VERSION'
           LAST_COMMIT='${{ github.sha }}'
           docker-compose build ${{ matrix.app }}
-      - name: Log in to registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
-      - id: tag-and-push
-        name: Tag and push (all branches)
-        run: |
-          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{ github.sha }}
-          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+      - name: Docker metadata
+        id: metadata
+        uses: docker/metadata-action@v4
+        with:
+          images: $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}
+          tags: |
+            type=sha,format=long
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,value=${{VERSION}},enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=ref,event=branch
 
-      - id: tag-latest
-        name: Tag Latest (if main)
-        if: needs.setup-env-vars.outputs.BRANCH_NAME == 'main'
-        run: |
-          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:latest
-          docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:$VERSION
-      - id: push-all-tags
-        name: Push All Tags
-        run: |
-          docker image ls
-          docker image push --all-tags $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}
-      - name: Prune Cache
-        run: docker image prune --all --force --filter "until=48h"
+      # - name: Log in to registry
+      #   run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{matrix.app}}
+          tags: ${{ steps.metadata.outputs.tags}}
+          labels: ${{ steps.metadata.outputs.labels }}
+          push: true
+          file: Dockerfile
+          build-args: |
+            LAST_TAG='$VERSION'
+            LAST_COMMIT='${{ github.sha }}'
+
+      # - id: tag-and-push
+      #   name: Tag and push (all branches)
+      #   run: |
+      #     docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{ github.sha }}
+      #     docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:${{needs.setup-env-vars.outputs.BRANCH_NAME}}
+
+      # - id: tag-latest
+      #   name: Tag Latest (if main)
+      #   if: needs.setup-env-vars.outputs.BRANCH_NAME == 'main'
+      #   run: |
+      #     docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:latest
+      #     docker image tag ${IMAGE_NAME_STUB}${{ matrix.app }} $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}:$VERSION
+      # - id: push-all-tags
+      #   name: Push All Tags
+      #   run: |
+      #     docker image ls
+      #     docker image push --all-tags $IMAGE_REPO_PATH/${IMAGE_NAME_STUB}${{ matrix.app }}
+      # - name: Prune Cache
+      #   run: docker image prune --all --force --filter "until=48h"
 
   tag-repo:
     name: Tag repo (if main)
