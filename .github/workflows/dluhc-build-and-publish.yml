@@ -1,0 +1,13 @@
+on:
+  push:
+    branches:
+      - "fs-1263-publish-fork"
+env:
+  VERSION: "0.0.1"
+
+jobs:
+  print-env-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo $VERSION

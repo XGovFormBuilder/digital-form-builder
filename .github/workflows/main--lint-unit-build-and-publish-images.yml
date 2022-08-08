@@ -6,7 +6,7 @@ on:
     branches:
       - master
       - main
-      - fs-1263-publish-fork
+      #- fs-1263-publish-fork
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
