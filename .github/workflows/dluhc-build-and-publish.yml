@@ -112,9 +112,6 @@ jobs:
           LAST_TAG='$VERSION'
           LAST_COMMIT='${{ github.sha }}'
           docker-compose build ${{ matrix.app }}
-      - name: Check images
-        run: |
-          docker image ls
       - name: Log in to registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
 
