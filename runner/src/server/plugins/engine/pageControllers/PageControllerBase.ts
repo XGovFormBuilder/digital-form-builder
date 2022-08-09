@@ -213,7 +213,8 @@ export class PageControllerBase {
       if (condition) {
         return (
           this.model.conditions[condition] &&
-          this.model.conditions[condition].fn(state)
+          (this.model.conditions[condition].fn(state) ||
+            this.model.conditions[condition].fn(state[this.section?.name]))
         );
       }
       defaultLink = link;
