@@ -106,6 +106,7 @@
     "@types/url-parse": "^1.4.8",
     "@types/wreck": "^14.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
+    "@xgovformbuilder/model":  "workspace:*",
     "acorn": "^8.7.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-module-name-mapper": "^1.2.0",
@@ -134,6 +135,6 @@
     }
   },
   "installConfig": {
-    "hoistingLimits": "workspace"
+    "hoistingLimits": "workspaces"
   }
 }
