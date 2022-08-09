@@ -132,5 +132,8 @@
     "requiredScores": {
       "accessibility": 90
     }
+  },
+  "installConfig": {
+    "hoistingLimits": "workspace"
   }
 }
