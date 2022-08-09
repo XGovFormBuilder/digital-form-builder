@@ -45,6 +45,7 @@ export class ViewModel {
   _payApiKey: FormDefinition["payApiKey"];
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
+  backLinkText?: string | undefined;
 
   constructor(
     pageTitle: string,
