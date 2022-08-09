@@ -4688,7 +4688,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xgovformbuilder/model@3.0.0, @xgovformbuilder/model@workspace:model":
+"@xgovformbuilder/model@3.0.0, @xgovformbuilder/model@workspace:*, @xgovformbuilder/model@workspace:model":
   version: 0.0.0-use.local
   resolution: "@xgovformbuilder/model@workspace:model"
   dependencies:
@@ -4771,6 +4771,7 @@ __metadata:
     "@types/url-parse": ^1.4.8
     "@types/wreck": ^14.0.0
     "@xgovformbuilder/lab-babel": 2.1.2
+    "@xgovformbuilder/model": "workspace:*"
     accept-language-parser: 1.5.0
     accessible-autocomplete: ^2.0.2
     acorn: ^8.7.0
