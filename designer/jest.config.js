@@ -9,6 +9,9 @@ module.exports = {
       moduleNameMapper: {
         "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
       },
+      transformIgnorePatterns: [
+        "<rootDir>/node_modules/(?!@xgovformbuilder/govuk-react-jsx/.*)",
+      ],
       coverageThreshold: {
         global: {
           branches: 85,
