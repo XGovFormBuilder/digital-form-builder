@@ -493,7 +493,7 @@ export class PageControllerBase {
 
       viewModel.backLink =
         state.callback?.returnUrl ?? progress[progress.length - 2];
-      viewModel.backLinkText = this.model.def.backLinkText ?? "Back";
+      viewModel.backLinkText = this.model.def?.backLinkText ?? "Back";
       return h.view(this.viewName, viewModel);
     };
   }
