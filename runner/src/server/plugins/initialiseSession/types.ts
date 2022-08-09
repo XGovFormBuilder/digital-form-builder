@@ -7,7 +7,6 @@ export type InitialiseSessionOptions = {
   redirectPath?: string;
   message?: string;
   returnUrl?: string;
-  backLinkText?: string;
 };
 
 export type DecodedSessionToken = {

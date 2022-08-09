@@ -34,7 +34,6 @@ export type InitialiseSessionSchema = {
     customText: ConfirmationPage["customText"];
     components: ConfirmationPage["components"];
     returnUrl?: string;
-    backLinkText?: string;
   };
   questions: InitialiseSessionQuestion[];
 } & Pick<WebhookSchema, "questions" | "metadata">;

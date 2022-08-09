@@ -81,7 +81,6 @@ export const configSchema = Joi.object({
   savePerPage: Joi.boolean().optional(),
   awsBucketName: Joi.string().optional(),
   awsRegion: Joi.string().optional(),
-  backLinkText: Joi.string().optional(),
   jwtAuthCookieName: Joi.string().optional(),
   jwtRedirectToAuthenticationUrl: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
