@@ -4,7 +4,6 @@
 {% from "footer/macro.njk" import govukFooter -%}
 {% from "phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "skip-link/macro.njk" import govukSkipLink -%}
-{% from "cookie-banner/macro.njk" import govukCookieBanner %}
 
 
 {% block head %}
@@ -93,10 +92,7 @@
 
 {% endblock %}
 
-{% block bodyStart %}
-  {% if not cookiesPolicy.isSet %}
-    {% include "partials/cookie-banner.html" %}
-  {% endif %}
+{% block bodyStart %}  
 
   {% if gtmId1 %}
     <noscript>
