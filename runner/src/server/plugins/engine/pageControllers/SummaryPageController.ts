@@ -173,9 +173,9 @@ export class SummaryPageController extends PageController {
       /**
        * If a user does not need to pay, redirect them to /status
        */
-      if (summaryViewModel.callback?.returnUrl) {
-        return h.redirect(summaryViewModel.callback?.returnUrl);
-      }
+      // if (summaryViewModel.callback?.returnUrl) {
+      //   return h.redirect(summaryViewModel.callback?.returnUrl);
+      // }
       if (
         !summaryViewModel.fees ||
         (summaryViewModel.fees.details ?? []).length === 0

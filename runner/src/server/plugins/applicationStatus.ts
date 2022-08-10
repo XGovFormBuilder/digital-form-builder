@@ -73,7 +73,9 @@ const applicationStatus = {
               confirmation: viewModel,
             });
             await cacheService.clearState(request);
-
+            if (state.callback?.returnUrl) {
+              return h.redirect(state.callback?.returnUrl);
+            }
             return h.view("confirmation", viewModel);
           },
         },
