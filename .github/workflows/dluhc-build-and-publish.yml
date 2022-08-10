@@ -132,7 +132,7 @@ jobs:
       - name: Build and push docker image
         uses: docker/build-push-action@v2
         with:
-          context: ${{matrix.app}}
+          context: "{{defaultContext}}:${{matrix.app}}"
           tags: ${{ steps.metadata.outputs.tags}}
           labels: ${{ steps.metadata.outputs.labels }}
           push: true
