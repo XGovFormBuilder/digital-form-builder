@@ -134,11 +134,11 @@ jobs:
       - name: Build and push docker image
         uses: docker/build-push-action@v3
         with:
-          context: "{{defaultContext}}:${{matrix.app}}"
+          context: "{{defaultContext}}"
           tags: ${{ steps.metadata.outputs.tags}}
           labels: ${{ steps.metadata.outputs.labels }}
           push: true
-          file: Dockerfile
+          file: ${{matrix.app}}/Dockerfile
           build-args: |
             LAST_TAG='$VERSION'
             LAST_COMMIT='${{ github.sha }}'
