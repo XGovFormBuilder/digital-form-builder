@@ -32,6 +32,8 @@ suite(`BackLink`, () => {
 
     const $ = cheerio.load(response.payload);
 
-    expect($(".govuk-back-link").text().trim()).to.equal("Back a page");
+    expect($(".govuk-width-container .govuk-back-link").text().trim()).to.equal(
+      "Back a page"
+    );
   });
 });
