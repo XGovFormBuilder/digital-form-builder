@@ -108,8 +108,8 @@ jobs:
       #     LAST_COMMIT='${{ github.sha }}'
       #     docker-compose build ${{ matrix.app }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
       - name: Docker metadata
         id: metadata
         uses: docker/metadata-action@v4
