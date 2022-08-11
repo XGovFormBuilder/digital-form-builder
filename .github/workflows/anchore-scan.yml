@@ -6,6 +6,9 @@ on:
       - main
       - master
 
+env:
+  IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
+
 jobs:
   designer-scan:
     runs-on: ubuntu-latest
@@ -36,7 +39,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "digital-form-builder-designer:latest"
+          image: "${{ env.IMAGE_NAME_STUB }}designer:latest"
           fail-build: false
           severity-cutoff: critical
       - name: Upload artifact
@@ -75,7 +78,7 @@ jobs:
       - name: Scan image
         uses: anchore/scan-action@v2
         with:
-          image: "digital-form-builder-runner:latest"
+          image: "${{ env.IMAGE_NAME_STUB }}runner:latest"
           acs-report-enable: true
           fail-build: false
           severity-cutoff: critical
