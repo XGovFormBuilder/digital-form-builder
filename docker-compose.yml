@@ -4,12 +4,12 @@ version: "3.9"
 services:
   designer:
     container_name: designer
-    image: digital-form-builder-designer
+    image: digital-form-builder-dluhc-designer
     build:
       context: .
       dockerfile: ./designer/Dockerfile
       cache_from:
-        - ghcr.io/xgovformbuilder/digital-form-builder-designer:latest
+        - ghcr.io/communitiesuk/digital-form-builder-dluhc-designer:latest
     ports:
       - "3000:3000"
     environment:
@@ -27,12 +27,12 @@ services:
       - runner
   runner:
     container_name: runner
-    image: digital-form-builder-runner
+    image: digital-form-builder-dluhc-runner
     build:
       context: .
       dockerfile: ./runner/Dockerfile
       cache_from:
-        - ghcr.io/xgovformbuilder/digital-form-builder-runner:latest
+        - ghcr.io/communitiesuk/digital-form-builder-dluhc-runner:latest
     ports:
       - "3009:3009"
     environment:

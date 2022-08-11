@@ -1,9 +1,10 @@
 name: Main QA
 on:
-  push:
-    branches:
-      - master
-      - main
+  # push:
+  #   branches:
+  #     - master
+  #     - main
+  workflow_dispatch: # Only run manually - not applicable to dluhc workflow
 jobs:
   calculate-version:
     runs-on: ubuntu-latest

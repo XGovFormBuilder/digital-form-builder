@@ -1,17 +1,16 @@
-assembly-informational-format: '{InformationalVersion}'
+assembly-informational-format: "{InformationalVersion}"
 mode: Mainline
 increment: Inherit
-continuous-delivery-fallback-tag: 'rc'
-major-version-bump-message: '(breaking|major):'
-minor-version-bump-message: '(feature|minor):'
-patch-version-bump-message: '(fix|patch):'
+continuous-delivery-fallback-tag: "rc"
+major-version-bump-message: "(breaking|major):"
+minor-version-bump-message: "(feature|minor):"
+patch-version-bump-message: "(fix|patch):"
 commit-message-incrementing: Enabled
 
 branches:
   main:
     regex: ^main$
-    tag: 'rc'
+    tag: "rc"
     is-mainline: true
 ignore:
-  sha: [1f302fae75c91c3a848281307696dfaa24529c22]
-  commits-before: 2021-05-20
+  commits-before: 2022-08-01
