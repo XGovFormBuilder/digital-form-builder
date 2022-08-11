@@ -100,7 +100,7 @@ export class InlineConditions extends React.Component<Props, State> {
 
       return {
         label,
-        name: input.propertyPath,
+        name: input.name,
         type: input.type,
         values,
       };
