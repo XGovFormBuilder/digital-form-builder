@@ -3,6 +3,7 @@
   "version": "3.0.0",
   "description": "Digital forms runner",
   "main": "src/index.js",
+  "private": true,
   "scripts": {
     "check-forms": "yarn node bin/run/check",
     "watch": "babel --watch --extensions '.ts' src -d dist --copy-files -s inline",
@@ -16,7 +17,7 @@
     "fix-lint": "yarn bin/run eslint . --fix",
     "test": "yarn lint && yarn type-check && NODE_ENV=test yarn bin/run unit-test",
     "test-cov": "NODE_ENV=test yarn bin/run lint && yarn run unit-test-cov",
-    "test:dev": "lab -T test/.transform.js -P **/**/*.test.* -v test --coverage-exclude src",
+    "test:dev": "lab -P **/**/*.test.* -v test --coverage-exclude src",
     "unit-test": "lab -T test/.transform.js -P **/**/*.test.* -v test -S -v -r console -o stdout -r html -o unit-test.html -I version -l",
     "unit-test-cov": "lab -T test/.transform.js -P **/**/*.test.* -v test -t 83 -S -v -r console -o stdout -r lcov -o test-coverage/lab/lcov.info -r html -o test-coverage/lab/unit-test.html -r junit -o test-results/junit/unit-test.xml -I version -l",
     "a11y": "node test/audit/components && node lighthouse",
@@ -106,7 +107,7 @@
     "@types/url-parse": "^1.4.8",
     "@types/wreck": "^14.0.0",
     "@xgovformbuilder/lab-babel": "2.1.2",
-    "@xgovformbuilder/model": "workspace:*",
+    "@xgovformbuilder/model": "workspace:model",
     "acorn": "^8.7.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-module-name-mapper": "^1.2.0",
@@ -135,6 +136,7 @@
     }
   },
   "installConfig": {
-    "hoistingLimits": "workspaces"
+    "hoistingLimits": "dependencies",
+    "selfReference": false
   }
 }
