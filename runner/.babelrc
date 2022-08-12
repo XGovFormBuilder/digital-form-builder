@@ -6,8 +6,7 @@
       {
         "targets": {
           "node": "16"
-        },
-        "useBuiltIns": true
+        }
       }
     ]
   ],
