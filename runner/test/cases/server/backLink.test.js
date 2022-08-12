@@ -1,7 +1,9 @@
-import Lab from "@hapi/lab";
+//import Lab from "@hapi/lab";
 import { expect } from "@hapi/code";
 import cheerio from "cheerio";
 import createServer from "src/server";
+
+const Lab = "@hapi/lab";
 
 const { before, test, suite, after } = (exports.lab = Lab.script());
 
@@ -30,8 +32,8 @@ suite(`BackLink`, () => {
     expect(response.statusCode).to.equal(200);
     expect(response.headers["content-type"]).to.include("text/html");
 
-    const $ = cheerio.load(response.payload);
+    const $ = cheerio.load(response.payload).html;
 
-    expect($(".govuk-back-link").attr("href")).to.equal("Back a page");
+    expect($).to.equal("Back a page");
   });
 });
