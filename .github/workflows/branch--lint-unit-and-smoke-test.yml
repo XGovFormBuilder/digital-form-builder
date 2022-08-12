@@ -141,21 +141,24 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Docker compose up
-        run: docker compose up -d
-      - name: Check designer container is running
+      - name: check images
         run: |
-          docker ps
-          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+          docker images
 
-      - name: Check runner container is running
-        run: |
-          docker ps
-          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
-
-      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
-      - name: Run Lighthouse on urls and validate with lighthouserc
-        uses: treosh/lighthouse-ci-action@v8
-        with:
-          configPath: "./lighthouserc.js"
-          uploadArtifacts: true
+#      - name: Check designer container is running
+#        run: |
+#          docker compose up -d
+#          docker ps
+#          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+#
+#      - name: Check runner container is running
+#        run: |
+#          docker ps
+#          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
+#
+#      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+#      - name: Run Lighthouse on urls and validate with lighthouserc
+#        uses: treosh/lighthouse-ci-action@v8
+#        with:
+#          configPath: "./lighthouserc.js"
+#          uploadArtifacts: true
