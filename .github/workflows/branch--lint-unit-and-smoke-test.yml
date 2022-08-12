@@ -70,10 +70,10 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install project deps
-        run: yarn && yarn workspace @xgovformbuilder/${{matrix.app}} install
+        run: yarn
 
-#      - name: Install dependencies
-#        run: yarn ${{matrix.app}} install
+      - name: Install dependencies
+        run: yarn workspaces focus @xgovformbuilder/${{matrix.app}} install
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
@@ -127,7 +127,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
-          tag: digital-form-builder-designer
+          tags: digital-form-builder-designer
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -136,7 +136,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: runner/Dockerfile
-          tag: digital-form-builder-runner
+          tags: digital-form-builder-runner
           load: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
