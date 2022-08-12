@@ -73,7 +73,7 @@ jobs:
         run: yarn
 
       - name: Install dependencies
-        run: yarn workspaces focus @xgovformbuilder/${{matrix.app}} install
+        run: yarn workspaces focus @xgovformbuilder/${{matrix.app}}
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
@@ -145,20 +145,15 @@ jobs:
         run: |
           docker images
 
-#      - name: Check designer container is running
-#        run: |
-#          docker compose up -d
-#          docker ps
-#          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
-#
-#      - name: Check runner container is running
-#        run: |
-#          docker ps
-#          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
-#
-#      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
-#      - name: Run Lighthouse on urls and validate with lighthouserc
-#        uses: treosh/lighthouse-ci-action@v8
-#        with:
-#          configPath: "./lighthouserc.js"
-#          uploadArtifacts: true
+      - name: Check designer container is running
+        run: |
+          docker compose up -d
+          docker ps
+
+
+      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+      - name: Run Lighthouse on urls and validate with lighthouserc
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          configPath: "./lighthouserc.js"
+          uploadArtifacts: true
