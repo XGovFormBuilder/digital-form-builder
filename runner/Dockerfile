@@ -49,7 +49,8 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
-RUN yarn && yarn workspaces focus @xgovformbuilder/runner
+RUN --mount=type=cache,target=./.yarn YARN_CACHE_FOLDER=./.yarn yarn workspaces focus @xgovformbuilder/runner
+RUN yarn
 COPY --chown=appuser:appuser ./runner/src ./runner/src/
 COPY --chown=appuser:appuser ./runner/config ./runner/config
 COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
