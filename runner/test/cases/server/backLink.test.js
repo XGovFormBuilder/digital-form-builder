@@ -30,8 +30,8 @@ suite(`BackLink`, () => {
     expect(response.statusCode).to.equal(200);
     expect(response.headers["content-type"]).to.include("text/html");
 
-    const $ = cheerio.load(response.payload).html;
+    const $ = cheerio.load(response.payload);
 
-    expect($).to.equal("Back a page");
+    expect($(".govuk-back-link").text()).to.equal("Back a page");
   });
 });
