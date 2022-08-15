@@ -76,7 +76,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
-          path: app
+          cache-dependency-path: 'app/package-lock.json'
           cache: yarn
 
       - name: Set up Docker Buildx
