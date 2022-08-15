@@ -69,12 +69,6 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -90,7 +84,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: ls ./.yarn/cache
+    
 
       - name: Build designer
         uses: docker/build-push-action@v3
@@ -141,6 +135,7 @@ jobs:
 
 
       - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v8
         with:
