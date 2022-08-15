@@ -20,7 +20,8 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 USER 1001
-RUN --mount=type=cache,target=./.yarn/cache yarn
+RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
+
 
 # ----------------------------
 # Stage 3
@@ -32,7 +33,8 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755 yarn workspaces focus @xgovformbuilder/model
+RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=model \
+    --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 
 # ----------------------------
@@ -48,7 +50,8 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
-RUN --mount=type=cache,target=/.yarn/cache yarn workspaces focus @xgovformbuilder/runner
+RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=runner \
+    yarn workspaces focus @xgovformbuilder/runner
 COPY --chown=appuser:appuser ./runner/src ./runner/src/
 COPY --chown=appuser:appuser ./runner/config ./runner/config
 COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
