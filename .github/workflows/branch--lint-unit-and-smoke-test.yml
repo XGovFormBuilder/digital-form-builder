@@ -70,13 +70,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: app
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
-          cache-dependency-path: 'app/yarn.lock'
           cache: yarn
 
       - name: Set up Docker Buildx
@@ -93,34 +90,33 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - run: ls ./.yarn/cache
 
       - name: Build designer
         uses: docker/build-push-action@v3
         with:
-          file: app/designer/Dockerfile
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer
-          context: ./app
+          file: designer/Dockerfile
+          tags: digital-form-builder-designer
+          context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: true
 
       - name: load designer
         uses: docker/build-push-action@v3
         with:
-          file: app/designer/Dockerfile
+          file: designer/Dockerfile
           tags: digital-form-builder-designer
-          context: ./app
+          context: .
           cache-from: type=gha
           load: true
 
       - name: Build runner
         uses: docker/build-push-action@v3
         with:
-          file: app/runner/Dockerfile
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner
-          context: ./app
+          file: runner/Dockerfile
+          tags: digital-form-builder-runner
+          context: .
           cache-from: type=gha
-          push: true
           cache-to: type=gha,mode=max
 
       - name: load runner
@@ -138,11 +134,11 @@ jobs:
 
       - name: Check designer container is running
         run: |
-          docker compose up -d ./app
+          docker compose up -d
           docker ps
 
-      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
 
+      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v8
         with:
