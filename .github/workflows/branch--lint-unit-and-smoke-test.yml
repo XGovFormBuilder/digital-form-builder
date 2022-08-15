@@ -69,6 +69,13 @@ jobs:
   smoke-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          path: app
+          node-version: "16.x"
+          cache: yarn
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -84,15 +91,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-
+      - run: ls ./app/.yarn/cache
 
       - name: Build designer
         uses: docker/build-push-action@v3
-
         with:
           file: designer/Dockerfile
           tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer
-          context: "{{defaultContext}}"
+          context: ./app
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
@@ -102,7 +108,7 @@ jobs:
         with:
           file: designer/Dockerfile
           tags: digital-form-builder-designer
-          context: "{{defaultContext}}"
+          context: ./app
           cache-from: type=gha
           load: true
 
@@ -111,7 +117,7 @@ jobs:
         with:
           file: runner/Dockerfile
           tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner
-          context: .
+          context: ./app
           cache-from: type=gha
           push: true
           cache-to: type=gha,mode=max
@@ -121,7 +127,7 @@ jobs:
         with:
           file: runner/Dockerfile
           tags: digital-form-builder-runner
-          context: .
+          context: ./app
           load: true
           cache-from: type=gha
 
@@ -131,9 +137,8 @@ jobs:
 
       - name: Check designer container is running
         run: |
-          docker compose up -d
+          docker compose up -d ./app
           docker ps
-
 
       - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
 
