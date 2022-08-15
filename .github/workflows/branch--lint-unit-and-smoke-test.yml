@@ -18,15 +18,6 @@ jobs:
           node-version: "16.x"
           cache: yarn
 
-      - name: Configure yarn caching
-        uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ./yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - run: yarn workspaces foreach -t install
       - run: ls .yarn/cache
 
@@ -51,21 +42,6 @@ jobs:
         with:
           node-version: "16.x"
           cache: yarn
-
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Configure yarn caching
-        uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-{{matrix.app}}
-          restore-keys: |
-            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-{{matrix.app}}
-            ${{ runner.os }}-yarn-
 
       - name: Install project deps
         run: yarn
