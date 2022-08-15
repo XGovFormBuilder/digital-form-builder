@@ -96,7 +96,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
-          tags: digital-form-builder-designer
+          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -115,7 +115,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: runner/Dockerfile
-          tags: digital-form-builder-runner
+          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner
           context: .
           cache-from: type=gha
           push: true
