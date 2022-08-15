@@ -8,22 +8,9 @@ on:
       - "**/README.md"
   workflow_dispatch:
 jobs:
-  init-yarn-cache:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
-
-      - run: yarn workspaces foreach -t install
-      - run: ls .yarn/cache
 
   lint-and-test:
     runs-on: ubuntu-latest
-    needs: [init-yarn-cache]
     strategy:
       matrix:
         app: [designer, runner, model]
