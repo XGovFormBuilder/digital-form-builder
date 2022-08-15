@@ -87,7 +87,6 @@ jobs:
           file: designer/Dockerfile
           tags: digital-form-builder-designer
           context: .
-          load: true
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -97,7 +96,6 @@ jobs:
         with:
           file: runner/Dockerfile
           tags: digital-form-builder-runner
-          load: true
           push: true
           context: .
           cache-from: type=gha
