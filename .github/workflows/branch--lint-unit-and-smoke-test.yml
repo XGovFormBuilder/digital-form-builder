@@ -93,7 +93,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: cp ./yarn ./app/yarn
 
       - name: Build designer
         uses: docker/build-push-action@v3
