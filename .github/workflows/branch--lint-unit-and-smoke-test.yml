@@ -97,7 +97,7 @@ jobs:
       - name: Build designer
         uses: docker/build-push-action@v3
         with:
-          file: designer/Dockerfile
+          file: app/designer/Dockerfile
           tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer
           context: ./app
           cache-from: type=gha
@@ -107,7 +107,7 @@ jobs:
       - name: load designer
         uses: docker/build-push-action@v3
         with:
-          file: designer/Dockerfile
+          file: app/designer/Dockerfile
           tags: digital-form-builder-designer
           context: ./app
           cache-from: type=gha
@@ -116,7 +116,7 @@ jobs:
       - name: Build runner
         uses: docker/build-push-action@v3
         with:
-          file: runner/Dockerfile
+          file: app/runner/Dockerfile
           tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner
           context: ./app
           cache-from: type=gha
@@ -126,7 +126,7 @@ jobs:
       - name: load runner
         uses: docker/build-push-action@v3
         with:
-          file: runner/Dockerfile
+          file: app/runner/Dockerfile
           tags: digital-form-builder-runner
           context: ./app
           load: true
