@@ -70,10 +70,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: app
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          path: app
           node-version: "16.x"
           cache: yarn
 
@@ -91,7 +92,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: ls ./app/.yarn/cache
+      - run: cp ./yarn ./app/yarn
 
       - name: Build designer
         uses: docker/build-push-action@v3
