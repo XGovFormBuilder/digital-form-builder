@@ -34,7 +34,7 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755 yarn workspaces focus @xgovformbuilder/model
+RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=model yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 
 # ----------------------------
@@ -50,7 +50,7 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser designer/package.json ./designer/
-RUN --mount=type=cache,target=/.yarn/cache yarn workspaces focus @xgovformbuilder/designer
+RUN --mount=type=cache,target=/.yarn/cache,id=designer yarn workspaces focus @xgovformbuilder/designer
 COPY --chown=appuser:appuser yarn.lock ./
 COPY --chown=appuser:appuser ./designer/jest* ./designer/nodemon.json ./designer/babel.config.js ./designer/webpack.config.js ./designer/new-form.json ./designer/
 COPY --chown=appuser:appuser ./designer/client ./designer/client
