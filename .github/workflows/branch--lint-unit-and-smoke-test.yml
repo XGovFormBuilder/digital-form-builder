@@ -100,6 +100,7 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          push: true
 
       - name: load designer
         uses: docker/build-push-action@v3
@@ -117,6 +118,7 @@ jobs:
           tags: digital-form-builder-runner
           context: .
           cache-from: type=gha
+          push: true
           cache-to: type=gha,mode=max
 
       - name: load runner
