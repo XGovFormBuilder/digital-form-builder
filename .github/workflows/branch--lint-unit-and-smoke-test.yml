@@ -84,14 +84,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-    
+
 
       - name: Build designer
         uses: docker/build-push-action@v3
+
         with:
           file: designer/Dockerfile
           tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer
-          context: .
+          context: "{{defaultContext}}"
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
@@ -101,7 +102,7 @@ jobs:
         with:
           file: designer/Dockerfile
           tags: digital-form-builder-designer
-          context: .
+          context: "{{defaultContext}}"
           cache-from: type=gha
           load: true
 
