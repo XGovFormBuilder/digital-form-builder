@@ -100,6 +100,14 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: load designer
+        uses: docker/build-push-action@v3
+        with:
+          file: designer/Dockerfile
+          tags: digital-form-builder-designer
+          context: .
+          cache-from: type=gha
           load: true
 
       - name: Build runner
@@ -110,7 +118,15 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: load runner
+        uses: docker/build-push-action@v3
+        with:
+          file: runner/Dockerfile
+          tags: digital-form-builder-runner
+          context: .
           load: true
+          cache-from: type=gha
 
       - name: check images
         run: |
