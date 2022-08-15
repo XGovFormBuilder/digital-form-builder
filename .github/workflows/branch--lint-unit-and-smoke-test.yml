@@ -124,9 +124,10 @@ jobs:
         with:
           file: app/runner/Dockerfile
           tags: digital-form-builder-runner
-          context: ./app
+          context: .
           load: true
           cache-from: type=gha
+
 
       - name: check images
         run: |
