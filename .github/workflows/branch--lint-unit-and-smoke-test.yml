@@ -104,7 +104,7 @@ jobs:
           tags: ${{ steps.hashFile.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
-        
+
 
   #          cache-from: type=gha
   #          cache-to: type=gha,mode=max
@@ -171,6 +171,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
+          install: true
           config-inline: |
             [registry."ghcr.io"]
 
