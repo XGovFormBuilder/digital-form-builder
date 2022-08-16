@@ -154,8 +154,11 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
-          path: app/.yarn/cache
           key: node-cache-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - run: ls .yarn
+
+      - run: cp .yarn/cache app/.yarn/cache
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
