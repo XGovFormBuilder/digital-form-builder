@@ -66,6 +66,8 @@ jobs:
 
   build-designer:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -80,19 +82,15 @@ jobs:
           config-inline: |
             [registry."ghcr.io"]
 
-      - name: Set up Docker Buildx (designer)
-        id: runner
-        uses: docker/setup-buildx-action@v2
-        with:
-          config-inline: |
-            [registry."ghcr.io"]
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: hashFile
+        run: echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}"
 
       - name: Build designer
         uses: docker/build-push-action@v3
@@ -100,15 +98,17 @@ jobs:
           file: designer/Dockerfile
           push: true
           context: .
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}
-          cache-from: type=registry,ref=ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}
-          cache-to: type=registry,ref=ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}},mode=max
+          tags: ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
 
   #          cache-from: type=gha
   #          cache-to: type=gha,mode=max
 
   build-runner:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -130,16 +130,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - id: hashFile
+        run: echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}"
+
       - name: Build runner
         uses: docker/build-push-action@v3
         with:
           file: runner/Dockerfile
           context: .
           push: true
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}
-          cache-from: type=registry,ref=ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}
-          cache-to: type=registry,ref=ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}},mode=max
-  #          outputs: type=docker,dest=/tmp/runner.tar
+          tags:  ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
+
 
   smoke-test:
     runs-on: ubuntu-latest
@@ -156,21 +159,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: load designer
-        uses: docker/build-push-action@v3
-        with:
-          file: app/designer/Dockerfile
-          tags: digital-form-builder-designer
-          context: app
-          cache-from: type=gha
-
-      - name: load runner
-        uses: docker/build-push-action@v3
-        with:
-          file: app/runner/Dockerfile
-          tags: digital-form-builder-runner
-          context: app
-          cache-from: type=gha
+      - name: check images
+        run: |
+          docker pull ${{needs.build-runner.outputs.tag}}
+          docker pull ${{needs.build-designer.outputs.tag}}
+          docker tag ${{needs.build-runner.outputs.tag}} digital-form-builder-runner
+          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-designer
 
       - name: check images
         run: |
