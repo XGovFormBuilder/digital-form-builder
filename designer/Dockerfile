@@ -49,7 +49,6 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser designer/package.json ./designer/
-RUN ls ./yarn/cache
 RUN --mount=type=cache,target=.yarn/cache,id=designer yarn workspaces focus @xgovformbuilder/designer
 COPY --chown=appuser:appuser yarn.lock ./
 COPY --chown=appuser:appuser ./designer/jest* ./designer/nodemon.json ./designer/babel.config.js ./designer/webpack.config.js ./designer/new-form.json ./designer/
