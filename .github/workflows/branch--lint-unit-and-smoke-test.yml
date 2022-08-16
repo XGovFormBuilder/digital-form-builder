@@ -201,10 +201,15 @@ jobs:
         run: |
           docker images
 
-      - name: Check designer container is running
+      - name: start containers
         run: |
           docker compose up -d
           docker ps
+
+      - name: start containers
+        run: |
+          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
+          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
 
       - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
       - name: Run Lighthouse on urls and validate with lighthouserc
