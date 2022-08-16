@@ -168,7 +168,7 @@ jobs:
       - name: load runner
         uses: docker/build-push-action@v3
         with:
-          file: runner/Dockerfile
+          file: app/runner/Dockerfile
           context: ./app
           load: true
           tags: ${{ steps.hashFile.outputs.tag }}
