@@ -226,21 +226,20 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
-          push: true
+#          push: true
+          load: true
           context: .
           tags: ${{ steps.designer-hash.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.designer-hash.outputs.tag }},mode=max
-
-
-
 
       - name: Build runner
         uses: docker/build-push-action@v3
         with:
           file: runner/Dockerfile
           context: .
-          push: true
+#          push: true
+          load: true
           tags: ${{ steps.runner-hash.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.runner-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.runner-hash.outputs.tag }},mode=max
@@ -271,7 +270,7 @@ jobs:
 
       - name: Check designer container is running
         run: |
-          docker compose --project-directory=app up
+          docker compose up
           docker ps
 
       - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
