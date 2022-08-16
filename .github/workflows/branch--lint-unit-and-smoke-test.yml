@@ -68,6 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -90,7 +91,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - id: hashFile
-        run: echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}"
+        run: |
+          echo "::set-output name=hash::${{hashFiles('designer/Dockerfile')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}"
 
       - name: Build designer
         uses: docker/build-push-action@v3
@@ -106,7 +109,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.hashFile.outputs.tag }}
+          name: ${{hashFiles('designer/Dockerfile')}}
           path: /tmp/designer.tar
 
   #          cache-from: type=gha
@@ -116,6 +119,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -138,7 +142,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - id: hashFile
-        run: echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}"
+        run: |
+          echo "::set-output name=hash::${{hashFiles('runner/Dockerfile')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('runner/Dockerfile')}}"
 
       - name: Build runner
         uses: docker/build-push-action@v3
@@ -154,7 +160,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.hashFile.outputs.tag }}
+          name: ${{ steps.hashFile.outputs.hash }}
           path: /tmp/runner.tar
 
   smoke-test:
@@ -184,13 +190,13 @@ jobs:
       - name: load runner artefact
         uses: actions/download-artifact@v3
         with:
-          name: ${{needs.build-runner.outputs.tag}}
+          name: ${{needs.build-runner.outputs.hash}}
           path: /tmp/runner.tar
 
       - name: load designer artefact
         uses: actions/download-artifact@v3
         with:
-          name: ${{needs.build-designer.outputs.tag}}
+          name: ${{needs.build-designer.outputs.hash}}
           path: /tmp/runner.tar
 
       - name: Load image
