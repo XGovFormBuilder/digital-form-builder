@@ -153,7 +153,6 @@ jobs:
           tags: digital-form-builder-designer
           context: app
           cache-from: type=gha
-          load: true
 
       - name: load runner
         uses: docker/build-push-action@v3
@@ -161,7 +160,6 @@ jobs:
           file: app/runner/Dockerfile
           tags: digital-form-builder-runner
           context: app
-          load: true
           cache-from: type=gha
 
 
