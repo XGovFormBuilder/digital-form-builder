@@ -98,6 +98,8 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          load: true
+#          outputs: type=docker,dest=/tmp/designer.tar
 
 
   build-runner:
@@ -125,6 +127,8 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          load: true
+#          outputs: type=docker,dest=/tmp/runner.tar
 
 
   smoke-test:
@@ -147,7 +151,7 @@ jobs:
         with:
           file: app/designer/Dockerfile
           tags: digital-form-builder-designer
-          context: .
+          context: app
           cache-from: type=gha
           load: true
 
@@ -156,7 +160,7 @@ jobs:
         with:
           file: app/runner/Dockerfile
           tags: digital-form-builder-runner
-          context: .
+          context: app
           load: true
           cache-from: type=gha
 
