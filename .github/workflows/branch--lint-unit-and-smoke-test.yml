@@ -166,6 +166,15 @@ jobs:
             [registry."ghcr.io"]
 
       - name: load runner
+        uses: docker/build-push-action@v3
+        with:
+          file: runner/Dockerfile
+          context: ./app
+          push: load
+          tags: ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+
+      - name: load runner
         run: |
           docker pull ${{needs.build-runner.outputs.tag}}
           docker tag ${{needs.build-runner.outputs.tag}} digital-form-builder-runner
