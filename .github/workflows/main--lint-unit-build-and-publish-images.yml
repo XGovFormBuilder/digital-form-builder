@@ -140,6 +140,8 @@ jobs:
             ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
             ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
           cache-from: type=registry,ref=ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+          build-args:
+            LAST_TAG_GH=${{env.SEMVER}}
 
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
