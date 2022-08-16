@@ -169,8 +169,9 @@ jobs:
         with:
           node-version: "16.x"
           cache: yarn
-          cache-dependency-path: 'app/package-lock.json'
+          cache-dependency-path: 'app/yarn.lock'
 
+      - run: ls app/.yarn
 #      - run: cp .yarn/cache app/.yarn/cache
 
       - name: Login to GitHub Container Registry
