@@ -228,7 +228,7 @@ jobs:
           file: designer/Dockerfile
           push: true
           context: .
-          tags: ${{ steps.hashFile.outputs.tag }}
+          tags: ${{ steps.designer-hash.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.designer-hash.outputs.tag }},mode=max
 
@@ -241,7 +241,7 @@ jobs:
           file: runner/Dockerfile
           context: .
           push: true
-          tags: ${{ steps.hashFile.outputs.tag }}
+          tags: ${{ steps.runner-hash.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.runner-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.runner-hash.outputs.tag }},mode=max
 
