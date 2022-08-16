@@ -31,8 +31,12 @@ const applicationStatus = {
             const { statusService, cacheService } = request.services([]);
             const { params } = request;
             const form = server.app.forms[params.id];
+            const state = await cacheService.getState(request);
 
-            if (!!request.pre.confirmationViewModel?.confirmation) {
+            if (
+              !!request.pre.confirmationViewModel?.confirmation &&
+              !state.callback?.returnUrl
+            ) {
               request.logger.info(
                 [`/${params.id}/status`],
                 `${request.yar.id} confirmationViewModel found for user`
@@ -48,8 +52,6 @@ const applicationStatus = {
                 errorList: ["there was a problem with your payment"],
               });
             }
-
-            const state = await cacheService.getState(request);
 
             if (state?.userCompletedSummary !== true) {
               request.logger.error(
