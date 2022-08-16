@@ -229,7 +229,7 @@ jobs:
 #          push: true
           load: true
           context: .
-          tags: ${{ steps.designer-hash.outputs.tag }}
+          tags: ${{ steps.designer-hash.outputs.tag }},digital-form-builder-designer
           cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.designer-hash.outputs.tag }},mode=max
 
@@ -240,7 +240,7 @@ jobs:
           context: .
 #          push: true
           load: true
-          tags: ${{ steps.runner-hash.outputs.tag }}
+          tags: ${{ steps.runner-hash.outputs.tag }},digital-form-builder-runner
           cache-from: type=registry,ref=${{ steps.runner-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.runner-hash.outputs.tag }},mode=max
 
