@@ -154,7 +154,7 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
-          path: app
+          path: app/.yarn
           key: node-cache-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Login to GitHub Container Registry
@@ -170,13 +170,15 @@ jobs:
           config-inline: |
             [registry."ghcr.io"]
 
+      - run: ls app/.yarn
+
       - name: load runner
         uses: docker/build-push-action@v3
         with:
           file: app/runner/Dockerfile
           context: ./app
           load: true
-          tags: ${{ steps.hashFile.outputs.tag }}
+          tags: ${{needs.build-runner.outputs.tag}}
           cache-from: type=registry,ref=${{needs.build-runner.outputs.tag}}
 
       - name: load runner
