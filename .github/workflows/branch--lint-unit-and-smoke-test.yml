@@ -140,7 +140,7 @@ jobs:
           echo "::set-output name=hash::${{hashFiles('runner/Dockerfile')}}"
           echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}"
 
-      - name: Build designer
+      - name: Build runner
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
@@ -150,22 +150,6 @@ jobs:
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
 
-
-
-      - id: hashFile
-        run: |
-          echo "::set-output name=hash::${{hashFiles('runner/Dockerfile')}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('runner/Dockerfile')}}"
-
-      - name: Build runner
-        uses: docker/build-push-action@v3
-        with:
-          file: runner/Dockerfile
-          context: .
-          push: true
-          tags: ${{ steps.hashFile.outputs.tag }}
-          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
-          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
 
 
   smoke-test:
