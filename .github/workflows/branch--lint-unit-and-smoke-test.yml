@@ -97,15 +97,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+
       - name: Build designer
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
           push: true
           context: .
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/dockerfile')}}
-          cache-from: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles('designer/dockerfile')}}
-          cache-to: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles('designer/dockerfile')}},mode=max
+          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}
+          cache-from: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}
+          cache-to: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}},mode=max
 
 #          cache-from: type=gha
 #          cache-to: type=gha,mode=max
@@ -134,9 +135,9 @@ jobs:
           file: runner/Dockerfile
           context: .
           push: true
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/dockerfile')}}
-          cache-from: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles('runner/dockerfile')}}
-          cache-to: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles('runner/dockerfile')}},mode=max
+          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}
+          cache-from: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}
+          cache-to: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}},mode=max
 #          outputs: type=docker,dest=/tmp/runner.tar
 
 
