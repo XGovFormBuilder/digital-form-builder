@@ -53,9 +53,9 @@ RUN --mount=type=cache,target=.yarn/cache,id=designer,uid=1001,mode=0755 yarn wo
 COPY --chown=appuser:appuser ./designer/jest* ./designer/nodemon.json ./designer/babel.config.js ./designer/webpack.config.js ./designer/new-form.json ./designer/
 COPY --chown=appuser:appuser ./designer/client ./designer/client
 COPY --chown=appuser:appuser ./designer/server ./designer/server
-RUN touch ./runner/.env \
-    echo LAST_TAG_GH=$LAST_TAG >> ./runner/.env \
-    echo LAST_COMMIT=$LAST_COMMIT >> ./runner/.env
+RUN touch ./designer/.env \
+    echo LAST_TAG_GH=$LAST_TAG >> ./designer/.env \
+    echo LAST_COMMIT=$LAST_COMMIT >> ./designer/.env
 RUN yarn designer build
 
 USER 1001
