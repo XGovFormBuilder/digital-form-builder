@@ -202,7 +202,7 @@ jobs:
           load: true
           context: .
           tags: digital-form-builder-designer
-          cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
+          cache-from: type=registry,ref=${{ needs.build-designer.outputs.tag }}
 
       - name: load runner
         uses: docker/build-push-action@v3
@@ -211,7 +211,7 @@ jobs:
           context: .
           load: true
           tags: digital-form-builder-runner
-          cache-from: type=registry,ref=${{ steps.runner-hash.outputs.tag }}
+          cache-from: type=registry,ref=${{ needs.build-runner.outputs.tag }}
 
       - name: check images
         run: |
