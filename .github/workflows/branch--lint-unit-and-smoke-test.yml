@@ -8,61 +8,61 @@ on:
       - "**/README.md"
   workflow_dispatch:
 jobs:
-#  lint-and-test:
-#    runs-on: ubuntu-latest
-#    strategy:
-#      matrix:
-#        app: [designer, runner, model]
-#    name: lint-and-test-${{matrix.app}}
-#    steps:
-#      - name: Login to GitHub Container Registry
-#        uses: docker/login-action@v2
-#        with:
-#          registry: ghcr.io
-#          username: ${{ github.repository_owner }}
-#          password: ${{ secrets.GHCR_PAT }}
-#
-#      - uses: actions/checkout@v3
-#      - name: Use Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: "16.x"
-#          cache: yarn
-#
-#      - name: Install project deps
-#        run: yarn
-#
-#      - name: Install dependencies
-#        run: yarn ${{matrix.app}} install
-#
-#      - name: Check existing forms
-#        if: ${{ matrix.app == 'runner' }}
-#        run: yarn runner check-forms
-#
-#      - name: Build dependencies
-#        run: yarn build:dependencies
-#
-#      - name: Lint
-#        run: yarn ${{matrix.app}} lint
-#
-#      - name: Test
-#        run: yarn ${{matrix.app}} test-cov
-#
-#      - name: Upload test results artifacts
-#        uses: actions/upload-artifact@v2
-#        if: ${{ success() || failure() }}
-#        with:
-#          name: test-results-${{matrix.app}}
-#          path: ${{matrix.app}}/test-results
-#          retention-days: 14
-#
-#      - name: Upload test coverage artifacts
-#        uses: actions/upload-artifact@v2
-#        if: ${{ success() || failure() }}
-#        with:
-#          name: test-coverage-${{matrix.app}}
-#          path: ${{matrix.app}}/test-coverage
-#          retention-days: 14
+  #  lint-and-test:
+  #    runs-on: ubuntu-latest
+  #    strategy:
+  #      matrix:
+  #        app: [designer, runner, model]
+  #    name: lint-and-test-${{matrix.app}}
+  #    steps:
+  #      - name: Login to GitHub Container Registry
+  #        uses: docker/login-action@v2
+  #        with:
+  #          registry: ghcr.io
+  #          username: ${{ github.repository_owner }}
+  #          password: ${{ secrets.GHCR_PAT }}
+  #
+  #      - uses: actions/checkout@v3
+  #      - name: Use Node.js
+  #        uses: actions/setup-node@v3
+  #        with:
+  #          node-version: "16.x"
+  #          cache: yarn
+  #
+  #      - name: Install project deps
+  #        run: yarn
+  #
+  #      - name: Install dependencies
+  #        run: yarn ${{matrix.app}} install
+  #
+  #      - name: Check existing forms
+  #        if: ${{ matrix.app == 'runner' }}
+  #        run: yarn runner check-forms
+  #
+  #      - name: Build dependencies
+  #        run: yarn build:dependencies
+  #
+  #      - name: Lint
+  #        run: yarn ${{matrix.app}} lint
+  #
+  #      - name: Test
+  #        run: yarn ${{matrix.app}} test-cov
+  #
+  #      - name: Upload test results artifacts
+  #        uses: actions/upload-artifact@v2
+  #        if: ${{ success() || failure() }}
+  #        with:
+  #          name: test-results-${{matrix.app}}
+  #          path: ${{matrix.app}}/test-results
+  #          retention-days: 14
+  #
+  #      - name: Upload test coverage artifacts
+  #        uses: actions/upload-artifact@v2
+  #        if: ${{ success() || failure() }}
+  #        with:
+  #          name: test-coverage-${{matrix.app}}
+  #          path: ${{matrix.app}}/test-coverage
+  #          retention-days: 14
 
   build-designer:
     runs-on: ubuntu-latest
@@ -99,18 +99,12 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
-#          push: true
+          push: true
           context: .
           tags: ${{ steps.hashFile.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
           outputs: type=docker,dest=/tmp/designer.tar
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{hashFiles('designer/Dockerfile')}}
-          path: /tmp/designer.tar
 
   #          cache-from: type=gha
   #          cache-to: type=gha,mode=max
@@ -151,17 +145,11 @@ jobs:
         with:
           file: runner/Dockerfile
           context: .
-#          push: true
-          tags:  ${{ steps.hashFile.outputs.tag }}
+          push: true
+          tags: ${{ steps.hashFile.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
           outputs: type=docker,dest=/tmp/runner.tar
-#
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ steps.hashFile.outputs.hash }}
-          path: /tmp/runner.tar
 
   smoke-test:
     runs-on: ubuntu-latest
@@ -171,7 +159,7 @@ jobs:
         with:
           path: app
 
-#      - run: cp .yarn/cache app/.yarn/cache
+      #      - run: cp .yarn/cache app/.yarn/cache
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -186,44 +174,29 @@ jobs:
           config-inline: |
             [registry."ghcr.io"]
 
-
-      - name: load runner artefact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{needs.build-runner.outputs.hash}}
-          path: /tmp/runner.tar
-
-      - name: load designer artefact
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{needs.build-designer.outputs.hash}}
-          path: /tmp/runner.tar
-
       - name: Load image
         run: |
-          docker load --input /tmp/runner.tar
-          docker load --input /tmp/designer.tar
-          docker image ls -a
+          docker pull ${{needs.build-runner.outputs.tag}}
+          docker images
 
-#      - name: load runner
-#        uses: docker/build-push-action@v3
-#        with:
-#          file: app/runner/Dockerfile
-#          context: ./app
-#          load: true
-#          tags: ${{needs.build-runner.outputs.tag}}
-#          cache-from: type=registry,ref=${{needs.build-runner.outputs.tag}}
-#
-#      - name: load runner
-#        run: |
-#          docker pull ${{needs.build-runner.outputs.tag}}
-#          docker tag ${{needs.build-runner.outputs.tag}} digital-form-builder-runner
-#
-#      - name: load designer
-#        run: |
-#          docker pull ${{needs.build-designer.outputs.tag}}
-#          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-designer
-
+      #      - name: load runner
+      #        uses: docker/build-push-action@v3
+      #        with:
+      #          file: app/runner/Dockerfile
+      #          context: ./app
+      #          load: true
+      #          tags: ${{needs.build-runner.outputs.tag}}
+      #          cache-from: type=registry,ref=${{needs.build-runner.outputs.tag}}
+      #
+      #      - name: load runner
+      #        run: |
+      #          docker pull ${{needs.build-runner.outputs.tag}}
+      #          docker tag ${{needs.build-runner.outputs.tag}} digital-form-builder-runner
+      #
+      #      - name: load designer
+      #        run: |
+      #          docker pull ${{needs.build-designer.outputs.tag}}
+      #          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-designer
 
       - name: check images
         run: |
