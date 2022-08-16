@@ -103,9 +103,9 @@ jobs:
           file: designer/Dockerfile
           push: true
           context: .
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles(designer/dockerfile)}}
-          cache-from: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles(designer/dockerfile)}}
-          cache-to: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles(designer/dockerfile)}},mode=max
+          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/dockerfile')}}
+          cache-from: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles('designer/dockerfile')}}
+          cache-to: type=registry,ref=cache-digital-form-builder-designer:${{hashFiles('designer/dockerfile')}},mode=max
 
 #          cache-from: type=gha
 #          cache-to: type=gha,mode=max
@@ -134,9 +134,9 @@ jobs:
           file: runner/Dockerfile
           context: .
           push: true
-          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles(runner/dockerfile)}}
-          cache-from: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles(runner/dockerfile)}}
-          cache-to: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles(runner/dockerfile)}},mode=max
+          tags: ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/dockerfile')}}
+          cache-from: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles('runner/dockerfile')}}
+          cache-to: type=registry,ref=cache-digital-form-builder-runner:${{hashFiles('runner/dockerfile')}},mode=max
 #          outputs: type=docker,dest=/tmp/runner.tar
 
 
