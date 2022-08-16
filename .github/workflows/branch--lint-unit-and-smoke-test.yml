@@ -131,6 +131,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-runner, build-designer]
     steps:
+      - uses: actions/checkout@v3
+        with:
+          path: app
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -142,7 +145,7 @@ jobs:
       - name: load designer
         uses: docker/build-push-action@v3
         with:
-          file: designer/Dockerfile
+          file: app/designer/Dockerfile
           tags: digital-form-builder-designer
           context: .
           cache-from: type=gha
@@ -151,7 +154,7 @@ jobs:
       - name: load runner
         uses: docker/build-push-action@v3
         with:
-          file: runner/Dockerfile
+          file: app/runner/Dockerfile
           tags: digital-form-builder-runner
           context: .
           load: true
@@ -162,9 +165,7 @@ jobs:
         run: |
           docker images
 
-      - uses: actions/checkout@v3
-        with:
-          path: app
+
 
       - name: Check designer container is running
         run: |
