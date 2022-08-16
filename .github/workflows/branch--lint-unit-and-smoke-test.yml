@@ -135,10 +135,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - id: designer-hash
+      - id: hashFile
         run: |
-          echo "::set-output name=hash::${{hashFiles('designer/Dockerfile')}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}"
+          echo "::set-output name=hash::${{hashFiles('runner/Dockerfile')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}"
 
       - name: Build designer
         uses: docker/build-push-action@v3
