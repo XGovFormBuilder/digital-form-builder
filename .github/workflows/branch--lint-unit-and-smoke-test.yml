@@ -167,7 +167,7 @@ jobs:
       - name: load designer
         run: |
           docker pull ${{needs.build-designer.outputs.tag}}
-          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-runner
+          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-designer
 
 
       - name: check images
