@@ -101,13 +101,13 @@ jobs:
           tags: ${{ steps.hashFile.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
-          outputs: type=docker,dest=/tmp/designer.tar
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ steps.hashFile.outputs.tag }}
-          path: /tmp/designer.tar
+#          outputs: type=docker,dest=/tmp/designer.tar
+#
+#      - name: Upload artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ${{ steps.hashFile.outputs.tag }}
+#          path: /tmp/designer.tar
 
   #          cache-from: type=gha
   #          cache-to: type=gha,mode=max
@@ -149,13 +149,13 @@ jobs:
           tags:  ${{ steps.hashFile.outputs.tag }}
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
-          outputs: type=docker,dest=/tmp/runner.tar
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ steps.hashFile.outputs.tag }}
-          path: /tmp/runner.tar
+#          outputs: type=docker,dest=/tmp/runner.tar
+#
+#      - name: Upload artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ${{ steps.hashFile.outputs.tag }}
+#          path: /tmp/runner.tar
 
   smoke-test:
     runs-on: ubuntu-latest
