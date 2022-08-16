@@ -154,6 +154,7 @@ jobs:
       - uses: actions/cache@v3
         id: cache
         with:
+          path: ./yarn/cache
           key: node-cache-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - run: ls .yarn
