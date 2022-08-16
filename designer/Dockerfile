@@ -18,10 +18,11 @@ RUN mkdir -p /usr/src/app && \
 # It will re-run only if one of the copied files change, otherwise this stage is cached
 FROM base AS dependencies
 WORKDIR /usr/src/app
-COPY --chown=appuser:appuser .yarn ./.yarn/
-COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
+COPY --chown=appuser:appuser .yarn/ ./.yarn/
 USER 1001
-RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
+RUN ls ./.yarn/cache
+COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
+#RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
 
 
 # ----------------------------
@@ -34,8 +35,8 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=model \
-    --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model,ro=true \
+    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base,ro=true yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 
 # ----------------------------
@@ -51,7 +52,8 @@ ARG LAST_TAG
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser designer/package.json ./designer/
-RUN --mount=type=cache,target=/.yarn/cache,id=designer yarn workspaces focus @xgovformbuilder/designer
+RUN ls ./yarn/cache
+RUN --mount=type=cache,target=.yarn/cache,id=designer yarn workspaces focus @xgovformbuilder/designer
 COPY --chown=appuser:appuser yarn.lock ./
 COPY --chown=appuser:appuser ./designer/jest* ./designer/nodemon.json ./designer/babel.config.js ./designer/webpack.config.js ./designer/new-form.json ./designer/
 COPY --chown=appuser:appuser ./designer/client ./designer/client
