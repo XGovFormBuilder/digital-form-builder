@@ -159,12 +159,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: check images
+      - name: load runner
         run: |
           docker pull ${{needs.build-runner.outputs.tag}}
-          docker pull ${{needs.build-designer.outputs.tag}}
           docker tag ${{needs.build-runner.outputs.tag}} digital-form-builder-runner
-          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-designer
+
+      - name: load designer
+        run: |
+          docker pull ${{needs.build-designer.outputs.tag}}
+          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-runner
+
 
       - name: check images
         run: |
