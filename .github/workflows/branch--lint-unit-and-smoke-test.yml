@@ -206,6 +206,8 @@ jobs:
           docker compose up -d
           docker ps
 
+      - run: sleep 30
+
       - name: start containers
         run: |
           docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
