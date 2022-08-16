@@ -226,8 +226,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: designer/Dockerfile
-#          push: true
-          load: true
+          push: true
           context: .
           tags: ${{ steps.designer-hash.outputs.tag }},digital-form-builder-designer
           cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
@@ -238,31 +237,28 @@ jobs:
         with:
           file: runner/Dockerfile
           context: .
-#          push: true
-          load: true
+          push: true
           tags: ${{ steps.runner-hash.outputs.tag }},digital-form-builder-runner
           cache-from: type=registry,ref=${{ steps.runner-hash.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.runner-hash.outputs.tag }},mode=max
 
+      - name: load designer
+        uses: docker/build-push-action@v3
+        with:
+          file: designer/Dockerfile
+          load: true
+          context: .
+          tags: digital-form-builder-designer
+          cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
 
-      #      - name: load runner
-      #        uses: docker/build-push-action@v3
-      #        with:
-      #          file: app/runner/Dockerfile
-      #          context: ./app
-      #          load: true
-      #          tags: ${{needs.build-runner.outputs.tag}}
-      #          cache-from: type=registry,ref=${{needs.build-runner.outputs.tag}}
-      #
-      #      - name: load runner
-      #        run: |
-      #          docker pull ${{needs.build-runner.outputs.tag}}
-      #          docker tag ${{needs.build-runner.outputs.tag}} digital-form-builder-runner
-      #
-      #      - name: load designer
-      #        run: |
-      #          docker pull ${{needs.build-designer.outputs.tag}}
-      #          docker tag ${{needs.build-designer.outputs.tag}} digital-form-builder-designer
+      - name: load runner
+        uses: docker/build-push-action@v3
+        with:
+          file: runner/Dockerfile
+          context: .
+          load: true
+          tags: digital-form-builder-runner
+          cache-from: type=registry,ref=${{ steps.designer-hash.outputs.tag }}
 
       - name: check images
         run: |
@@ -270,8 +266,7 @@ jobs:
 
       - name: Check designer container is running
         run: |
-          docker compose up
-          docker ps
+          docker compose up -d
 
       - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
       - name: Run Lighthouse on urls and validate with lighthouserc
