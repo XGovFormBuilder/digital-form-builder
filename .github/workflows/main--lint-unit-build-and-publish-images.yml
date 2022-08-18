@@ -138,8 +138,8 @@ jobs:
           tags:
             ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
             ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          cache-from: type=registry,ref=ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
-          cache-to: type=registry,ref=ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }},mode=max
+          cache-from: type=registry,ref=ghcr.io/xgovformbuilder/cache-digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+          cache-to: type=registry,ref=ghcr.io/xgovformbuilder/cache-digital-form-builder-${{matrix.app}}:${{ env.SEMVER }},mode=max
           build-args: LAST_TAG_GH=${{env.SEMVER}}
 
       - name: Trigger deploy development environment
