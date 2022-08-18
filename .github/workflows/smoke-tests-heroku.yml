@@ -52,8 +52,8 @@ jobs:
         if: ${{failure()}}
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
-          SLACK_COLOR: '#990000'
-          SLACK_MESSAGE: 'Nightly - Smoke Test, job for heroku failed'
+          SLACK_COLOR: "#990000"
+          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
@@ -63,10 +63,25 @@ jobs:
         if: ${{failure()}}
         env:
           SLACK_CHANNEL: ${{ secrets.CYB_SLACK_CHANNEL }}
-          SLACK_COLOR: '#990000'
-          SLACK_MESSAGE: 'Nightly - Smoke Test, job for heroku failed'
+          SLACK_COLOR: "#990000"
+          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
           SLACK_WEBHOOK: ${{ secrets.CYB_SLACK_WEBHOOK }}
 
+      - name: Scan image
+        uses: anchore/scan-action@v2
+        with:
+          image: "ghcr.io/digital-form-builder-runner:latest"
+          acs-report-enable: true
+          fail-build: false
+          severity-cutoff: critical
+
+      - name: Scan image
+        uses: anchore/scan-action@v2
+        with:
+          image: "ghcr.io/digital-form-builder-designer:latest"
+          acs-report-enable: true
+          fail-build: false
+          severity-cutoff: critical
