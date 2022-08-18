@@ -2,7 +2,6 @@ name: Branch QA
 on:
   pull_request:
     branches:
-      - master
       - main
     paths-ignore:
       - "docs/**"
@@ -16,27 +15,25 @@ jobs:
         app: [designer, runner, model]
     name: lint-and-test-${{matrix.app}}
     steps:
-      - uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
+          node-version: "16.x"
+          cache: yarn
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Configure yarn caching
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: Install project deps
+        run: yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn ${{matrix.app}} install
 
       - name: Check existing forms
         if: ${{ matrix.app == 'runner' }}
@@ -67,77 +64,148 @@ jobs:
           path: ${{matrix.app}}/test-coverage
           retention-days: 14
 
+  build-designer:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: yarn
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          config-inline: |
+            [registry."ghcr.io"]
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: hashFile
+        run: |
+          echo "::set-output name=hash::${{hashFiles('designer/Dockerfile')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}"
+
+      - name: Build designer
+        uses: docker/build-push-action@v3
+        with:
+          file: designer/Dockerfile
+          push: true
+          context: .
+          tags: ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
+
+  build-runner:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: yarn
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          config-inline: |
+            [registry."ghcr.io"]
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: hashFile
+        run: |
+          echo "::set-output name=hash::${{hashFiles('runner/Dockerfile')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}"
+
+      - name: Build runner
+        uses: docker/build-push-action@v3
+        with:
+          file: designer/Dockerfile
+          push: true
+          context: .
+          tags: ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
+
+
+
   smoke-test:
     runs-on: ubuntu-latest
+    needs: [build-runner,build-designer]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-      - uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+          node-version: "16.x"
+          cache: yarn
+
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Docker compose pull
-        run: docker-compose pull
-        # DAYOFYEAR key is used to rotate docker-layer-caching to avoid the layers dandle issue
-        # see https://github.com/satackey/action-docker-layer-caching/issues/55
-        # if you change this, please remember to apply the same changes to main--lint-unit-build-and-publish-images.yml
-        # so main branch cache can be shared with branches
-      - run: echo "DAYOFYEAR = $(date +%j)"
-      - run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
+          install: true
+          config-inline: |
+            [registry."ghcr.io"]
+
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
         with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
-      - name: Create .env for ${{ matrix.app }} workspace
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: load designer
+        uses: docker/build-push-action@v3
+        with:
+          file: designer/Dockerfile
+          load: true
+          context: .
+          tags: digital-form-builder-designer
+          cache-from: type=registry,ref=${{ needs.build-designer.outputs.tag }}
+
+      - name: load runner
+        uses: docker/build-push-action@v3
+        with:
+          file: runner/Dockerfile
+          context: .
+          load: true
+          tags: digital-form-builder-runner
+          cache-from: type=registry,ref=${{ needs.build-runner.outputs.tag }}
+
+      - name: check images
         run: |
-          touch ./${{ matrix.app }}/.env
-          echo LAST_TAG_GH=2.0.${{ github.run_number }}-rc >> ./${{ matrix.app }}/.env
-          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
-          cat ./${{ matrix.app }}/.env
-      - name: Docker compose build
+          docker images
+
+      - name: start containers
         run: |
-          docker-compose build --parallel
-      - name: Docker compose up
-        run: docker-compose up -d
-      - name: Install smoke tests dependencies
-        run: yarn workspaces focus @xgovformbuilder/test
-      - name: Check designer container is running
-        run: |
+          docker compose up -d
           docker ps
-          docker run --network container:designer appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3000/
-      - name: Check runner container is running
-        run: |
-          docker ps
-          docker run --network container:runner appropriate/curl -4 --retry 10 --retry-connrefused --retry-delay 10 http://localhost:3009/
-      - name: Smoke Test
-        run: |
-          yarn smoke-tests/designer smoke-test-headless
-          ls -lah smoke-tests/designer/reports/
-      - name: Run pa11y
-        run: yarn designer dlx pa11y-ci
+
+      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v8
         with:
           configPath: "./lighthouserc.js"
           uploadArtifacts: true
-      - name: "Tar files"
-        if: ${{ success() || failure() }}
-        run: tar -cvf smoke-tests.tar smoke-tests/designer/reports
-      - uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: smoke-tests
-          path: smoke-tests.tar
-          retention-days: 14
