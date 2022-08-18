@@ -33,8 +33,8 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=model \
-    --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
+    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 
 # ----------------------------

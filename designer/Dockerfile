@@ -20,7 +20,7 @@ WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
 USER 1001
-RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
+RUN --mount=type=cache,target=.yarn/cache,id=base,uid=1001,mode=0755 yarn
 
 
 # ----------------------------
@@ -33,8 +33,8 @@ FROM dependencies AS model
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
-RUN --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=model \
-    --mount=type=cache,target=/.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
+    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
 RUN yarn model build
 # ----------------------------
 # Stage 4
