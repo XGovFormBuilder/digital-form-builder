@@ -34,7 +34,6 @@ export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
     key: Buffer.from(rsa256PublicKeyBase64 ?? "", "base64"),
     validate,
     verifyOptions: {
-      ignoreExpiration: true,
       algorithms: ["RS256"],
     },
     urlKey: false,
