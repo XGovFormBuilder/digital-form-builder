@@ -13,7 +13,7 @@ RUN mkdir -p /usr/src/app && \
 
 # ----------------------------
 # Stage 2
-# Cache layer contains npm packages for all workspaces
+# Cache layer contains npm packages for all workspacesrunne
 # It will re-run only if one of the copied files change, otherwise this stage is cached
 FROM base AS dependencies
 WORKDIR /usr/src/app
@@ -44,8 +44,8 @@ RUN yarn model build
 # rsync is used to merge folders instead of individually copying files
 FROM model AS build-designer
 WORKDIR /usr/src/app
-ARG LAST_COMMIT=""
-ARG LAST_TAG=""
+ARG LAST_COMMIT="NOT_DEFINED"
+ARG LAST_TAG="NOT_DEFINED"
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser designer/package.json ./designer/
