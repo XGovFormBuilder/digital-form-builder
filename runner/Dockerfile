@@ -55,9 +55,10 @@ RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
 COPY --chown=appuser:appuser ./runner/src ./runner/src/
 COPY --chown=appuser:appuser ./runner/config ./runner/config
 COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
-RUN touch ./runner/.env \
-    echo LAST_TAG_GH=$LAST_TAG >> ./runner/.env \
-    echo LAST_COMMIT=$LAST_COMMIT >> ./runner/.env
+COPY --chown=appuser:appuser ./runner/public ./runner/public/
+RUN touch runner/.env && \
+    echo "LAST_TAG_GH=$LAST_TAG" >> runner/.env && \
+    echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
 
 RUN yarn runner build
 USER 1001
