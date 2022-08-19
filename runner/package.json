@@ -61,7 +61,7 @@
     "config": "^3.3.7",
     "dotenv": "8.2.0",
     "expr-eval": "^2.0.2",
-    "govuk-frontend": "^3.13.0",
+    "govuk-frontend": "^4.3.1",
     "hapi-pino": "8.0.0",
     "hapi-pulse": "3.0.0",
     "hapi-rate-limit": "4.1.0",
