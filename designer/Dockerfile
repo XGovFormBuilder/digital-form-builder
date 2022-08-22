@@ -50,9 +50,7 @@ ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
 COPY --chown=appuser:appuser designer/package.json ./designer/
 RUN --mount=type=cache,target=.yarn/cache,id=designer,uid=1001,mode=0755 yarn workspaces focus @xgovformbuilder/designer
-COPY --chown=appuser:appuser ./designer/jest* ./designer/nodemon.json ./designer/babel.config.js ./designer/webpack.config.js ./designer/new-form.json ./designer/
-COPY --chown=appuser:appuser ./designer/client ./designer/client
-COPY --chown=appuser:appuser ./designer/server ./designer/server
+COPY --chown=appuser:appuser ./designer ./designer/
 RUN touch ./designer/.env && \
     echo "LAST_TAG_GH=$LAST_TAG" >> ./designer/.env  && \
     echo "LAST_COMMIT=$LAST_COMMIT" >> ./designer/.env

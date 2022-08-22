@@ -108,6 +108,7 @@ export const log: ServerRoute = {
         request.server.log(request.payload.toString());
         return h.response({ ok: true }).code(204);
       } catch (error) {
+        request.server.error(request.payload.toString());
         return h.response({ ok: false }).code(500);
       }
     },
