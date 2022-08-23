@@ -34,14 +34,23 @@ const JWT = require("jsonwebtoken");
 const secret = Buffer.from(rsa256PrivateKeyBase64 ?? "", "base64");
 
 const timeUnixNow = Math.floor(new Date().getTime() / 1000);
-const timeUnixExpiry = timeUnixNow + 300;
-const jwt_payload = {
+const valid_jwt_payload = {
   accountId: "6b230fc7-b8f2-4393-8eed-1b03896de77f",
   iat: timeUnixNow,
-  exp: timeUnixExpiry,
+  exp: timeUnixNow + 300,
+};
+const expired_jwt_payload = {
+  accountId: "6b230fc7-b8f2-4393-8eed-1b03896de77f",
+  iat: timeUnixNow - 2,
+  exp: timeUnixNow - 1,
 };
 
-const validTestJwt = JWT.sign(jwt_payload, secret, { algorithm: "RS256" });
+const validTestJwt = JWT.sign(valid_jwt_payload, secret, {
+  algorithm: "RS256",
+});
+const expiredTestJwt = JWT.sign(expired_jwt_payload, secret, {
+  algorithm: "RS256",
+});
 
 suite("JWT Auth", () => {
   let server;
@@ -89,6 +98,23 @@ suite("JWT Auth", () => {
 
       expect(res.statusCode).to.equal(200);
       expect(res.payload).to.contain("About your organisation");
+    });
+
+    test("forms page redirects to re-authenticate url if expired jwt auth cookie found", async () => {
+      const options = {
+        method: "GET",
+        url: "/about-your-org/about-your-organisation",
+        headers: {
+          Cookie: jwtAuthCookieName + "=" + expiredTestJwt,
+        },
+      };
+
+      const res = await server.inject(options);
+
+      expect(res.statusCode).to.equal(302);
+      expect(res.headers.location).to.startWith(
+        config.jwtRedirectToAuthenticationUrl
+      );
     });
   });
 });
