@@ -101,7 +101,8 @@ export class StatusService {
     const state = await this.cacheService.getState(request);
     let formData = this.webhookArgsFromState(state);
 
-    const { outputs } = state;
+    const { outputs, callback } = state;
+
     const savePerPageWebhook = outputs?.find(
       (output) => output.type === "savePerPage"
     );
@@ -111,18 +112,30 @@ export class StatusService {
     if (savePerPageWebhook?.outputData.url) {
       this.logger.info(
         ["StatusService", "savePerPageRequest"],
-        `savePerPageWebhook Url detected for ${request.yar.id}`
+        `savePerPageWebhook request detected for ${request.yar.id}`
       );
       try {
-        response = await this.webhookService.postRequest(
-          savePerPageWebhook.outputData.url,
-          formData,
-          "PUT"
-        );
-        this.logger.info(
-          ["StatusService", "savePerPageRequest"],
-          `savePerPageWebhook response: ${response}`
-        );
+        if (callback && savePerPageWebhook?.outputData.url == "True") {
+          this.logger.info(
+            ["StatusService", "outputRequests"],
+            `Callback detected for ${request.yar.id} - PUT to ${callback.callbackUrl}`
+          );
+          response = await this.webhookService.postRequest(
+            callback.callbackUrl,
+            formData,
+            "PUT"
+          );
+        } else {
+          response = await this.webhookService.postRequest(
+            savePerPageWebhook.outputData.url,
+            formData,
+            "PUT"
+          );
+          this.logger.info(
+            ["StatusService", "savePerPageRequest"],
+            `savePerPageWebhook response: ${response}`
+          );
+        }
       } catch (e) {
         this.logger.console.error(
           `Failed to save per page. savePerPageUrl: ${savePerPageWebhook?.outputData.url}`
