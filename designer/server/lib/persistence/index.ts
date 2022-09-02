@@ -12,7 +12,7 @@ export function determinePersistenceService(name: Name, server: any) {
     case "blob":
       return () => new BlobPersistenceService();
     case "preview":
-      return () => new PreviewPersistenceService();
+      return () => new PreviewPersistenceService(server);
     default:
       return () => new StubPersistenceService();
   }

@@ -48,7 +48,8 @@ export class ChooseExisting extends Component<Props, State> {
         },
       });
       const responseJson = await response.json();
-      this.props.history.push(`/designer/${responseJson.id}`);
+      // useNavigate(`/designer/${responseJson.id}`);
+      // this.props.history.push(`/designer/${responseJson.id}`);
     } catch (e) {
       logger.error("ChooseExisting", e);
     }
@@ -71,7 +72,7 @@ export class ChooseExisting extends Component<Props, State> {
         <td className="govuk-table__cell">
           <a
             className="govuk-link"
-            href="#"
+            href=""
             onClick={(e) => {
               e.preventDefault();
               this.selectForm(form.Key);

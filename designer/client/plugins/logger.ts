@@ -7,8 +7,8 @@ export default pino({
     asObject: true,
     transmit: {
       level: logLevel,
-      send: async function (_level, logEvent) {
-        const newResponse = await window.fetch("/api/log", {
+      send: function (_level, logEvent) {
+        window.fetch("/api/log", {
           method: "POST",
           body: JSON.stringify(logEvent),
           headers: {
@@ -16,7 +16,6 @@ export default pino({
             "Content-Type": "application/json",
           },
         });
-        return newResponse.json();
       },
     },
   },

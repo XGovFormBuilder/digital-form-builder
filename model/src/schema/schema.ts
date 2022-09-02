@@ -224,6 +224,15 @@ const phaseBannerSchema = joi.object().keys({
   phase: joi.string().valid("alpha", "beta"),
 });
 
+/**
+ * Allows the session to be populated by query parameter. You must define the allowed set of keys.
+ * Other query parameters will not be added to session.
+ */
+const allowedInitialisationQueryKeys = joi.object({
+  name: joi.string(),
+  type: joi.string().optional().allow("").allow(null),
+});
+
 export const Schema = joi
   .object()
   .required()
@@ -245,6 +254,10 @@ export const Schema = joi
     version: joi.number().default(CURRENT_VERSION),
     phaseBanner: phaseBannerSchema,
     specialPages: specialPagesSchema.optional(),
+    allowedInitialisationQueryKeys: joi
+      .array()
+      .items(allowedInitialisationQueryKeys)
+      .optional(),
   });
 
 /**

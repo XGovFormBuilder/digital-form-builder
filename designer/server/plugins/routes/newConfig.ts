@@ -38,6 +38,7 @@ export const registerNewFormWithRunner: ServerRoute = {
           );
           const copied = await persistenceService.getConfiguration(newName);
           await publish(newName, copied);
+          return h.response({ id: newName });
         }
       } catch (e) {
         request.logger.error(e);

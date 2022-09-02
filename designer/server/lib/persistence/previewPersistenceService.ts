@@ -12,14 +12,15 @@ export class PreviewPersistenceService implements PersistenceService {
   logger: any;
 
   async uploadConfiguration(id: string, configuration: string) {
-    return Wreck.post(`${config.publishUrl}/publish`, {
+    await Wreck.post(`${config.publishUrl}/publish`, {
       payload: JSON.stringify({ id, configuration }),
     });
   }
 
   async copyConfiguration(configurationId: string, newName: string) {
     const configuration = await this.getConfiguration(configurationId);
-    return this.uploadConfiguration(newName, JSON.parse(configuration).values);
+    const form = JSON.parse(configuration).values;
+    return this.uploadConfiguration(newName, JSON.stringify(form));
   }
 
   async listAllConfigurations() {
