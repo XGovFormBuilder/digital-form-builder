@@ -55,7 +55,7 @@ export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
   console.log(
     "Validating jwt in cookie name '" +
       jwtAuthCookieName +
-      "' with base64 key '" +
+      "' with RSA256 base64 key '" +
       rsa256PublicKeyBase64 +
       "' decoded to key '" +
       Buffer.from(rsa256PublicKeyBase64 ?? "", "base64").toString() +
