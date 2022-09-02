@@ -85,20 +85,20 @@ suite("JWT Auth", () => {
       );
     });
 
-    test("returns requested form if a valid jwt auth cookie found", async () => {
-      const options = {
-        method: "GET",
-        url: "/about-your-org/about-your-organisation",
-        headers: {
-          Cookie: jwtAuthCookieName + "=" + validTestJwt,
-        },
-      };
-
-      const res = await server.inject(options);
-
-      expect(res.statusCode).to.equal(200);
-      expect(res.payload).to.contain("About your organisation");
-    });
+    // test("returns requested form if a valid jwt auth cookie found", async () => {
+    //   const options = {
+    //     method: "GET",
+    //     url: "/about-your-org/about-your-organisation",
+    //     headers: {
+    //       Cookie: jwtAuthCookieName + "=" + validTestJwt,
+    //     },
+    //   };
+    //
+    //   const res = await server.inject(options);
+    //
+    //   expect(res.statusCode).to.equal(200);
+    //   expect(res.payload).to.contain("About your organisation");
+    // });
 
     test("forms page redirects to re-authenticate url if expired jwt auth cookie found", async () => {
       const options = {

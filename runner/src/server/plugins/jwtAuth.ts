@@ -17,11 +17,11 @@ export function jwtAuthIsActivated(
 // keyFunc returns the key and any additonal context required to
 // passed to validate function (below) to validate signature
 // this is normally used to look up keys from list in a multi-tenant scenario
-const keyFunc = async function (decoded) {
+const keyFunc = async function (decoded, r) {
   const key = Buffer.from(config.rsa256PublicKeyBase64 ?? "", "base64");
   console.log(
     "Verifying token: '" +
-      decoded +
+      decoded.toString() +
       "' with public key: '" +
       config.rsa256PublicKeyBase64 +
       "'"
