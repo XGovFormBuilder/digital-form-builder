@@ -49,6 +49,7 @@ export class FormModel {
   conditions: Record<string, ExecutableCondition> | {};
   pages: any;
   startPage: any;
+  allowedInitialisationQueryKeys?: FormDefinition["allowedInitialisationQueryKeys"][];
 
   constructor(def, options) {
     const result = Schema.validate(def, { abortEarly: false });
@@ -102,6 +103,8 @@ export class FormModel {
     // @ts-ignore
     this.pages = def.pages.map((pageDef) => this.makePage(pageDef));
     this.startPage = this.pages.find((page) => page.path === def.startPage);
+
+    this.allowedInitialisationQueryKeys = def.allowedInitialisationQueryKeys;
   }
 
   /**

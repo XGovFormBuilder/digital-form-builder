@@ -10,6 +10,7 @@ import { PluginSpecificConfiguration } from "@hapi/hapi";
 import { FormPayload } from "./types";
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
+import joi from "joi";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -90,7 +91,6 @@ export const plugin = {
         }
         const payload = request.payload as FormPayload;
         const { id, configuration } = payload;
-
         const parsedConfiguration =
           typeof configuration === "string"
             ? JSON.parse(configuration)
@@ -194,17 +194,83 @@ export const plugin = {
       },
     });
 
+    function getRequestedFormModel(
+      requestParams: HapiRequest["params"]
+    ): FormModel | undefined {
+      const { id } = requestParams;
+      return forms[id];
+    }
+
+    function validateQuery(value, options) {
+      const model = getRequestedFormModel(options.context?.params);
+      if (!model?.allowedInitialisationQueryKeys?.length) {
+        return true;
+      }
+      const allowedKeys = model!.allowedInitialisationQueryKeys;
+      const schemaDef = allowedKeys.reduce((prev, { name, type }) => {
+        return {
+          ...prev,
+          [name]: joi[type]?.() ?? joi.string(),
+        };
+      }, {});
+      const schema = joi.object(schemaDef);
+
+      const { value: sanitisedValue } = schema.validate(value, {
+        stripUnknown: true,
+        abortEarly: false,
+      });
+
+      return new URLSearchParams(sanitisedValue);
+    }
+
+    function handleInitialisationQueryParams(request, h) {
+      const { cacheService } = request.services([]);
+      const model = getRequestedFormModel(request.params);
+      if (!model?.allowedInitialisationQueryKeys?.length) {
+        return;
+      }
+
+      const allowedKeys = model!.allowedInitialisationQueryKeys;
+      const schemaDef = allowedKeys.reduce((prev, { name, type }) => {
+        return {
+          ...prev,
+          [name]: joi[type]?.() ?? joi.string(),
+        };
+      }, {});
+
+      const schema = joi.object(schemaDef);
+
+      const { value: sanitisedValue } = schema.validate(request.params, {
+        stripUnknown: true,
+        abortEarly: false,
+      });
+
+      cacheService.mergeState(request, sanitisedValue);
+
+      const otherSearchParams = new URLSearchParams(request.params);
+      console.log(sanitisedValue, allowedKeys);
+      allowedKeys.forEach(({ name }) => {
+        otherSearchParams.delete(name);
+      });
+      console.log(request.path);
+      console.log(allowedKeys);
+      return h.redirect(`${request.path}?${otherSearchParams.toString()}`);
+    }
+
     server.route({
       method: "get",
       path: "/{id}/{path*}",
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+        const model = getRequestedFormModel(request.params);
         const { path, id } = request.params;
-        const model = forms[id];
+
         const page = model?.pages.find(
           (page) => normalisePath(page.path) === normalisePath(path)
         );
+
         if (page) {
           // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
+
           if (
             page.pageDef.controller !== "./pages/start.js" &&
             shouldLogin(request)
@@ -218,6 +284,9 @@ export const plugin = {
           return getStartPageRedirect(request, h, id, model);
         }
         throw Boom.notFound("No form or page found");
+      },
+      options: {
+        pre: [{ method: handleInitialisationQueryParams }],
       },
     });
 
