@@ -17,11 +17,11 @@ export function jwtAuthIsActivated(
 // keyFunc returns the key and any additonal context required to
 // passed to validate function (below) to validate signature
 // this is normally used to look up keys from list in a multi-tenant scenario
-const keyFunc = async function (decoded, r) {
+const keyFunc = async function (decoded) {
   const key = Buffer.from(config.rsa256PublicKeyBase64 ?? "", "base64");
   console.log(
     "Verifying token: '" +
-      decoded.toString() +
+      JSON.stringify(decoded) +
       "' with public key: '" +
       config.rsa256PublicKeyBase64 +
       "'"
@@ -55,11 +55,14 @@ export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
   console.log(
     "Validating jwt in cookie name '" +
       jwtAuthCookieName +
-      "' with key '" +
-      rsa256PublicKeyBase64
+      "' with base64 key '" +
+      rsa256PublicKeyBase64 +
+      "' decoded to key '" +
+      Buffer.from(rsa256PublicKeyBase64 ?? "", "base64").toString() +
+      "'"
   );
   return {
-    keyFunc,
+    key: keyFunc,
     validate,
     verifyOptions: {
       algorithms: ["RS256"],
