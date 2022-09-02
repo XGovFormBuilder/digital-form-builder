@@ -17,6 +17,7 @@ export default {
             // An error was raised during
             // processing the request
             const statusCode = response.output.statusCode;
+            const errorMessage = response.message;
 
             // In the event of 404
             // return the `404` view
@@ -27,6 +28,7 @@ export default {
             // In the event of 401
             // redirect to authentication url
             if (statusCode === 401) {
+              request.logger.error(errorMessage);
               return h.redirect(
                 config.jwtRedirectToAuthenticationUrl +
                   "?referrer=" +
