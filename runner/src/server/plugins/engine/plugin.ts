@@ -93,7 +93,7 @@ export const plugin = {
 
     /** START OF Basic Auth for Dev */
     const users = {
-      jsd: {
+      fsd: {
         name: "fsd",
       },
     };
