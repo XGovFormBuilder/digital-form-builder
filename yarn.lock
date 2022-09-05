@@ -3691,13 +3691,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/basic@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "@hapi/basic@npm:7.0.0"
+"@hapi/basic@npm:6.0.0":
+  version: 6.0.0
+  resolution: "@hapi/basic@npm:6.0.0"
   dependencies:
-    "@hapi/boom": ^10.0.0
-    "@hapi/hoek": ^10.0.0
-  checksum: dd07f1a9fb00dc76bc80bbf080dcbb36837e6659833a55fef60259822c5e3ffbf35d70c19a2ef57968ba87c98b7bd52a732ff91719464f0aed5d88b19180c17b
+    "@hapi/boom": 9.x.x
+    "@hapi/hoek": 9.x.x
+  checksum: e8d2cfe19e46fc02dca9fa3700b119ae0ca601ec18a7d15110656ed8a2b9247f8307797a1b47f2c9b60e2dd138a92e67c30e467334f44b633bf606e991008b63
   languageName: node
   linkType: hard
 
@@ -3721,15 +3721,6 @@ __metadata:
   dependencies:
     "@hapi/hoek": 9.x.x
   checksum: 8c5fd50f41e72df55f576cc41df4738e507893a6f8c573034e5c90d183a1475485742338615170802fb5e8c4d44ccbba1f59b150450250be032ff9b689365f35
-  languageName: node
-  linkType: hard
-
-"@hapi/boom@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "@hapi/boom@npm:10.0.0"
-  dependencies:
-    "@hapi/hoek": 10.x.x
-  checksum: e6dc5893346518b3fb78e151e1aa5478ee8fa34b5d4b45efca1e88d5e1dc84daa1b7c18cfd98b781ec9c7dab778b791a851261a51f157ca5a77e33f3d3dd1357
   languageName: node
   linkType: hard
 
@@ -4007,13 +3998,6 @@ __metadata:
     "@hapi/hoek": 9.x.x
     "@hapi/validate": 1.x.x
   checksum: 2ec09d822625bb2ae96220b88e2a47f4cd6bf1154ee3018e18e55d644c349016f08c42b343497b8e3712ab0c82e25b267cf776e2f528f475c7a28b448a330019
-  languageName: node
-  linkType: hard
-
-"@hapi/hoek@npm:10.x.x, @hapi/hoek@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "@hapi/hoek@npm:10.0.1"
-  checksum: b416e9105874d6f615a6e34ebaa2823675d76ef38cbd2a8d8757720d19675ee76276d2e79a1eb348ea3111ae18142f33a882dfd59399d72412bb92b0ef0285a7
   languageName: node
   linkType: hard
 
@@ -6970,7 +6954,7 @@ __metadata:
     "@babel/preset-typescript": ^7.16.7
     "@babel/register": ^7.17.7
     "@babel/runtime": ^7.17.2
-    "@hapi/basic": ^7.0.0
+    "@hapi/basic": 6.0.0
     "@hapi/bell": ^12.3.0
     "@hapi/boom": ^9.1.4
     "@hapi/catbox": 11.1.0
