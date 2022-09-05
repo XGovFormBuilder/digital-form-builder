@@ -3691,6 +3691,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hapi/basic@npm:6.0.0":
+  version: 6.0.0
+  resolution: "@hapi/basic@npm:6.0.0"
+  dependencies:
+    "@hapi/boom": 9.x.x
+    "@hapi/hoek": 9.x.x
+  checksum: e8d2cfe19e46fc02dca9fa3700b119ae0ca601ec18a7d15110656ed8a2b9247f8307797a1b47f2c9b60e2dd138a92e67c30e467334f44b633bf606e991008b63
+  languageName: node
+  linkType: hard
+
 "@hapi/bell@npm:^12.3.0":
   version: 12.3.0
   resolution: "@hapi/bell@npm:12.3.0"
@@ -6944,6 +6954,7 @@ __metadata:
     "@babel/preset-typescript": ^7.16.7
     "@babel/register": ^7.17.7
     "@babel/runtime": ^7.17.2
+    "@hapi/basic": 6.0.0
     "@hapi/bell": ^12.3.0
     "@hapi/boom": ^9.1.4
     "@hapi/catbox": 11.1.0
