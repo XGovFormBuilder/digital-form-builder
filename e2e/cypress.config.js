@@ -11,4 +11,13 @@ module.exports = defineConfig({
     },
     specPattern: "**/*.feature",
   },
+  env: {
+    /**
+     * To override these via CLI, prefix with cypress_
+     * e.g: to override `designer_url`, set the env var as `cypress_designer_url`.
+     */
+    DESIGNER_URL: "http://localhost:3000",
+    RUNNER_URL: "http://localhost:3009",
+    TAGS: "not @wip",
+  },
 });
