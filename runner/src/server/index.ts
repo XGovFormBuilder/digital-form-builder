@@ -6,6 +6,7 @@ import inert from "@hapi/inert";
 import Schmervice from "schmervice";
 import blipp from "blipp";
 import HapiJwtAuth2 from "hapi-auth-jwt2";
+import HapiBasicAuth from "@hapi/basic";
 import config from "./config";
 
 import { configureEnginePlugin } from "./plugins/engine";
@@ -152,6 +153,7 @@ async function createServer(routeConfig: RouteConfig) {
 
   await server.register(pluginLocale);
   await server.register(pluginViews);
+  await server.register(HapiBasicAuth);
   await server.register(HapiJwtAuth2);
   await server.register(
     configureEnginePlugin(formFileName, formFilePath, options)
