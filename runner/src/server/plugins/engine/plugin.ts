@@ -103,8 +103,9 @@ export const plugin = {
       if (!user) {
         return { credentials: null, isValid: false };
       }
+      const credentials = { name: user.name };
 
-      return { isValid: true };
+      return { isValid: true, credentials };
     };
 
     server.auth.strategy("simple", "basic", { validate });
