@@ -92,8 +92,12 @@ export class RepeatingFieldPageController extends PageController {
       const { query } = request;
       const { removeAtIndex, view, returnUrl } = query;
       const { cacheService } = request.services([]);
-      const state = await cacheService.getState(request);
+      let state = await cacheService.getState(request);
       const partialState = this.getPartialState(state, view);
+      state[this.inputComponent.name] = this.covertStringAnswers(
+        state[this.inputComponent.name]
+      );
+      state = await cacheService.mergeState(request, state);
 
       if (removeAtIndex ?? false) {
         return this.removeAtIndex(request, h);
@@ -235,5 +239,19 @@ export class RepeatingFieldPageController extends PageController {
   nextIndex(state) {
     const partial = this.getPartialState(state) ?? [];
     return partial.length;
+  }
+
+  covertStringAnswers(answers) {
+    for (let i = 0; i < answers.length; i++) {
+      if (typeof answers[i] === "string") {
+        const values = answers[i].split(":");
+        let multiInput = {
+          "type-of-revenue-cost": values[0].trim(),
+          value: values[1].substring(2),
+        };
+        answers[i] = multiInput;
+      }
+    }
+    return answers;
   }
 }
