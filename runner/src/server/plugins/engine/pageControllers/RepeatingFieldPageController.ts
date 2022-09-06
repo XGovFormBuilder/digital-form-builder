@@ -94,7 +94,7 @@ export class RepeatingFieldPageController extends PageController {
       const { cacheService } = request.services([]);
       let state = await cacheService.getState(request);
       const partialState = this.getPartialState(state, view);
-      state[this.inputComponent.name] = this.covertMultiInputStringAnswers(
+      state[this.inputComponent.name] = this.convertMultiInputStringAnswers(
         state[this.inputComponent.name]
       );
       state = await cacheService.mergeState(request, state);
@@ -241,7 +241,7 @@ export class RepeatingFieldPageController extends PageController {
     return partial.length;
   }
 
-  covertMultiInputStringAnswers(answers) {
+  convertMultiInputStringAnswers(answers) {
     for (let i = 0; i < answers.length; i++) {
       if (typeof answers[i] === "string") {
         const values = answers[i].split(":");
