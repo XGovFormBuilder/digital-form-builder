@@ -110,6 +110,13 @@ export class RepeatingSummaryPageController extends PageController {
     };
   }
 
+  buildRows(state) {
+    if (this.inputComponent.type === "MultiInputField") {
+      return this.buildTextFieldRows(state);
+    }
+    return this.getRowsFromAnswers(state);
+  }
+
   getRowsFromAnswers(answers, view = false) {
     const { title = "" } = this.inputComponent;
     const listValueToText = this.inputComponent.list?.items?.reduce(
@@ -147,6 +154,10 @@ export class RepeatingSummaryPageController extends PageController {
 
   buildTextFieldRows(answers, view = false) {
     const { title = "" } = this.inputComponent;
+    if (typeof answers !== "undefined") {
+      this.covertStringAnswers(answers);
+    }
+
     return answers?.map((value, i) => {
       return {
         key: {
@@ -172,6 +183,19 @@ export class RepeatingSummaryPageController extends PageController {
         },
       };
     });
+  }
+
+  covertStringAnswers(answers) {
+    for (let i = 0; i < answers.length; i++) {
+      if (typeof answers[i] === "string") {
+        const myArray = answers[i].split(":");
+        let b = {
+          "type-of-revenue-cost": myArray[0],
+          value: myArray[1].substring(2),
+        };
+        answers[i] = b;
+      }
+    }
   }
 
   /**

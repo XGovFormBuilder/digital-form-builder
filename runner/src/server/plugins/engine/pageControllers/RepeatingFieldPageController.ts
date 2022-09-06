@@ -151,11 +151,7 @@ export class RepeatingFieldPageController extends PageController {
   addRowsToViewContext(response, state) {
     let rows = {};
     if (this.options!.summaryDisplayMode!.samePage) {
-      if (state.MultiInputField) {
-        rows = this.summary.buildTextFieldRows(this.getPartialState(state));
-      } else {
-        rows = this.summary.getRowsFromAnswers(this.getPartialState(state));
-      }
+      rows = this.summary.buildRows(this.getPartialState(state));
       response.source.context.details = { rows };
     }
   }
