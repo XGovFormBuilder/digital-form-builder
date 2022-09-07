@@ -34,6 +34,10 @@ Then("I taken directly to the page titled {string}", function (pageTitle) {
   expect(formRunner.pageTitle).toHaveTextContaining(pageTitle);
 });
 
+Then("I can see the back link titled {string}", function (backLinkTitle) {
+  expect(formRunner.backLink).toHaveTextContaining(backLinkTitle);
+});
+
 Given("I have progressed to the Do you have any evidence? page", function () {
   formRunner.selectRadio("Yes, I do have a link");
   formRunner.inputTextBox("https://nodejs.org/en/");

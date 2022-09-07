@@ -27,3 +27,8 @@ Feature: Complete a form
     Given I am at the start of the "runner components test" form
     When I complete the form
     Then the Summary page is displayed with my answers
+
+ Scenario: Back link is displayed
+    Given I am at the start of the "report a terrorist" form
+    When I choose "No, I don't have a link"
+    Then I can see the back link titled ""Go back to application overview""

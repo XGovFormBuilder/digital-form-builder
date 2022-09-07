@@ -1,5 +1,6 @@
 {
   "startPage": "/do-you-have-a-link-to-the-evidence",
+  "backLinkText": "Go back to application overview",
   "pages": [
     {
       "title": "Do you have a link to the evidence?",
