@@ -6,7 +6,7 @@ Feature: Complete a form
   Scenario: Complete the report a Terrorist form
     Given I navigate to the "report-a-terrorist" form
     When I choose "Yes, I do have a link"
-    * I continue
+    And I continue
     * I enter "link-to-the-material.co"
     * I continue
     * I choose "No, I don't have evidence"
