@@ -73,12 +73,31 @@ suite("TextField", () => {
       });
 
       component = TextComponent({
-        schema: { regex: "[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}" },
+        schema: {
+          regex: "[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}",
+          min: 5,
+          max: 10,
+        },
       });
 
       expect(
         component.formSchema.validate("AJ98 7AX", { messages })
       ).to.be.equal({ value: "AJ98 7AX" });
+
+      const invalidRegexResult = component.formSchema.validate("###six");
+      expect(invalidRegexResult.error.details[0].type).to.be.equal(
+        "string.pattern.base"
+      );
+
+      const tooFewCharsResult = component.formSchema.validate("AJ98");
+      expect(tooFewCharsResult.error.details[0].type).to.be.equal("string.min");
+
+      const tooManyCharsResult = component.formSchema.validate(
+        "AJ98 7AXAJ98 7AX"
+      );
+      expect(tooManyCharsResult.error.details[0].type).to.be.equal(
+        "string.max"
+      );
     });
 
     function TextComponent(properties) {
