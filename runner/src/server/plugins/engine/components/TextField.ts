@@ -38,7 +38,7 @@ export class TextField extends FormComponent {
 
     if (schema.regex) {
       const pattern = new RegExp(schema.regex);
-      componentSchema.pattern(pattern);
+      componentSchema = componentSchema.pattern(pattern);
     }
 
     if (options.customValidationMessage) {
