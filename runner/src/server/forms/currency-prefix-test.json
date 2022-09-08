@@ -1,0 +1,43 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "path": "/first-page",
+      "title": "First page",
+      "components": [
+        {
+          "name": "fnIdkJ",
+          "options": { "prefix": "£", "classes": "govuk-!-width-one-third" },
+          "type": "NumberField",
+          "title": "Asset value",
+          "hint": "<div class=\"govuk-body\">\n\n<span class=\"govuk-caption-m\">You need to have the asset valued by someone independent before you take control of it.</span>\n<p class=\"govuk-caption-m\">This includes the building and its contents, including fixtures and fittings, and any stock.</p>\n<p class=\"govuk-caption-m\">If you have already bought or leased the asset, use its current valuation.</p>\n\n</div>"
+        },
+        {
+          "name": "sdfsdf",
+          "options": { "classes": "govuk-!-width-one-third" },
+          "type": "NumberField",
+          "title": "Number of assets",
+          "hint": "How many"
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2
+}

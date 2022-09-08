@@ -72,8 +72,9 @@ export class NumberField extends FormComponent {
   }
 
   getDisplayStringFromState(state: FormSubmissionState) {
+    let displayPrefix = this.options.prefix ? this.options.prefix : "";
     return state[this.name] || state[this.name] === 0
-      ? state[this.name].toString()
+      ? displayPrefix + state[this.name].toString()
       : undefined;
   }
 }
