@@ -2,8 +2,8 @@
 {% macro MultiInputField(component) %}
     {% for item in component.model.items %}
     <label class="govuk-label" for="event-name">
-        {{item.label}}
-    </label>
+        {{item.label}}    
         {{ govukInput(item) }}
+    </label>
     {% endfor %}
 {% endmacro %}

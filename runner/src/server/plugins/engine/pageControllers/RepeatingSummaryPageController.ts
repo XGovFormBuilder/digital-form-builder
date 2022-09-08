@@ -110,6 +110,13 @@ export class RepeatingSummaryPageController extends PageController {
     };
   }
 
+  buildRows(state) {
+    if (this.inputComponent.type === "MultiInputField") {
+      return this.buildTextFieldRows(state);
+    }
+    return this.getRowsFromAnswers(state);
+  }
+
   getRowsFromAnswers(answers, view = false) {
     const { title = "" } = this.inputComponent;
     const listValueToText = this.inputComponent.list?.items?.reduce(
