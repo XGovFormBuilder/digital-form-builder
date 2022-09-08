@@ -50,7 +50,10 @@ export class UkAddressField extends FormComponent {
         type: "TextField",
         name: "postcode",
         title: "Postcode",
-        schema: { max: 10 },
+        schema: {
+          max: 10,
+          regex: "^([A-Z][A-HJ-Y]?[0-9][A-Z0-9]? ?[0-9][A-Z]{2}|GIR ?0A{2})$",
+        },
         options: { required: isRequired },
       },
     ];
