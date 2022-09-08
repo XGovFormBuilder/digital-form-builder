@@ -242,6 +242,10 @@ export class RepeatingFieldPageController extends PageController {
   }
 
   convertMultiInputStringAnswers(answers) {
+    if (typeof answers === "undefined") {
+      return answers;
+    }
+
     for (let i = 0; i < answers.length; i++) {
       if (typeof answers[i] === "string") {
         const values = answers[i].split(":");
