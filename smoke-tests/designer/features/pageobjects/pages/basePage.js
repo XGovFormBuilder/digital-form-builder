@@ -76,6 +76,6 @@ module.exports = class Page {
   }
 
   get backToPreviousPage() {
-    return browser.$("=Back");
+    return browser.back();
   }
 };
