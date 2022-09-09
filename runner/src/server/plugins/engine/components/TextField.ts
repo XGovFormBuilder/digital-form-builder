@@ -38,13 +38,19 @@ export class TextField extends FormComponent {
 
     if (schema.regex) {
       const pattern = new RegExp(schema.regex);
-      componentSchema.pattern(pattern);
+      componentSchema = componentSchema.pattern(pattern);
     }
 
     if (options.customValidationMessage) {
-      componentSchema = componentSchema.messages({
-        any: options.customValidationMessage,
-      });
+      if (schema.regex) {
+        componentSchema = componentSchema.message(
+          options.customValidationMessage
+        );
+      } else {
+        componentSchema = componentSchema.messages({
+          any: options.customValidationMessage,
+        });
+      }
     }
 
     this.formSchema = componentSchema;
