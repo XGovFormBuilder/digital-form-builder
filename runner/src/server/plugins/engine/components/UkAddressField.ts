@@ -152,7 +152,7 @@ export class UkAddressField extends FormComponent {
     return viewModel;
   }
 
-  // This method is used to solve this issue of the address fields appearing blank when
+  // This method is used to solve the issue of the address fields appearing blank when
   // returning to a completed section of a form.
   convertStringAnswers(name: string, value: any) {
     const address = value.split(",");
