@@ -14,6 +14,8 @@ const { afterEach, suite, test } = lab;
 
 const testDetails = [
   {
+    name: undefined,
+    title: undefined,
     items: [
       {
         name: "approximate",
@@ -43,8 +45,6 @@ const testDetails = [
         dataType: "list",
       },
     ],
-    name: undefined,
-    title: undefined,
   },
   {
     name: "aSection",
