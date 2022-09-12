@@ -63,6 +63,7 @@ const testDetails = [
         type: "DatePartsField",
         title: "full date",
         dataType: "date",
+        prefix: undefined,
       },
     ],
   },
