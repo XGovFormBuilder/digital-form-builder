@@ -46,5 +46,7 @@
   "awsRegion": "AWS_REGION",
   "jwtAuthCookieName": "JWT_AUTH_COOKIE_NAME",
   "jwtRedirectToAuthenticationUrl": "JWT_REDIRECT_TO_AUTHENTICATION_URL",
-  "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64"
+  "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64",
+  "logoutUrl": "LOGOUT_URL",
+  "basicAuthOn": "BASIC_AUTH_ON"
 }

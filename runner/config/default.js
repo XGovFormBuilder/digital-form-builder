@@ -117,6 +117,8 @@ module.exports = {
   // authClientAuthUrl: "", // oAuth client secret
   // authClientTokenUrl: "", // oAuth client token endpoint
   // authClientProfileUrl: "" // oAuth client user profile endpoint
+  logoutUrl: "/logout",
+  basicAuthOn: false,
 
   /**
    * Logging
