@@ -100,7 +100,7 @@ export class UploadService {
           if (typeof doc.error !== "undefined") {
             error = "Failed to upload file to server: " + doc.error;
           } else {
-            location = bucketName;
+            location = `${applicationId}/${locations[0].hapi.filename}`;
           }
         });
       }
