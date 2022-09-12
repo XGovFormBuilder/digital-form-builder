@@ -339,5 +339,6 @@ function Item(
     type: component.type,
     title: component.title,
     dataType: component.dataType,
+    prefix: component.options.prefix,
   };
 }
