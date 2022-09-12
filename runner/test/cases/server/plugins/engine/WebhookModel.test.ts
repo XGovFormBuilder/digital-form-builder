@@ -14,8 +14,6 @@ const { afterEach, suite, test } = lab;
 
 const testDetails = [
   {
-    name: undefined,
-    title: undefined,
     items: [
       {
         name: "approximate",
@@ -31,6 +29,7 @@ const testDetails = [
         type: "MonthYearField",
         title: "Approximate date of marriage",
         dataType: "monthYear",
+        prefix: undefined,
       },
       {
         name: "caz",
@@ -43,8 +42,11 @@ const testDetails = [
         type: "SelectField",
         title: "caz zone",
         dataType: "list",
+        prefix: undefined,
       },
     ],
+    name: undefined,
+    title: undefined,
   },
   {
     name: "aSection",
