@@ -11,6 +11,8 @@
                 {% for itemValue in item.value%}
                     {{itemValue}}<br>
                 {% endfor %}
+                {% elif item.type == 'NumberField' %}
+                {{item.prefix}}{{item.value}}
             {% else %}
                 {{item.value}}
             {% endif %}
