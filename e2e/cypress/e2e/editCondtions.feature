@@ -29,7 +29,7 @@ Feature: Edit Conditions
     When I enter the form name "smoke-tests-edit-conditions"
     And I submit the form with the button title "Next"
     * I create a component
-      | page | component | title                  | name | hideTitle | optional | additional |
+      | page       | component | title                  | name | hideTitle | optional | additional |
       | First page | YesNo     | Do you have a receipt? |      |           |          |            |
     * I open "Conditions"
     * I open the link "Add condition"

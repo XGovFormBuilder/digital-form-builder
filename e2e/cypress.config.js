@@ -10,6 +10,7 @@ module.exports = defineConfig({
       return require("./cypress/plugins/index.js")(on, config);
     },
     specPattern: "**/*.feature",
+    experimentalSessionAndOrigin: true,
   },
   env: {
     /**

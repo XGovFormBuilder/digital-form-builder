@@ -1,11 +1,12 @@
-@wip
 Feature: Form pages
   As a forms designer
   I want to create, update and delete pages
   So that I can design a form for my users
 
   Background: Create new config
-    Given I have created a new form configuration
+    Given I am on the new configuration page
+    And I enter the form name "form-pages"
+    When I submit the form with the button title "Next"
 
   Scenario: Edit a page title
     When I choose Edit page for the "First page"
