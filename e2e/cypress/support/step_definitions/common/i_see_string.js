@@ -1,3 +1,3 @@
 Then("I see {string}", (string) => {
-  cy.findByText(string, { exact: false });
+  cy.findByText(string, { exact: false, ignore: ".govuk-visually-hidden" });
 });
