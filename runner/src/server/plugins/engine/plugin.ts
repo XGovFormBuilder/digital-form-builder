@@ -15,6 +15,10 @@ import {
   jwtAuthStrategyName,
   jwtStrategyOptions,
 } from "server/plugins/jwtAuth";
+import {
+  basicAuthStrategyName,
+  basicAuthStrategyOptions,
+} from "server/plugins/basicAuth";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -80,7 +84,13 @@ export const plugin = {
       config.rsa256PublicKeyBase64
     );
 
-    if (jwtAuthStrategyIsActive) {
+    if (config.basicAuthOn) {
+      server.auth.strategy(
+        basicAuthStrategyName,
+        "basic",
+        basicAuthStrategyOptions
+      );
+    } else if (jwtAuthStrategyIsActive) {
       server.auth.strategy(
         jwtAuthStrategyName,
         "jwt",
@@ -90,26 +100,6 @@ export const plugin = {
         )
       );
     }
-
-    /** START OF Basic Auth for Dev */
-    const users = {
-      fsd: {
-        name: "fsd",
-      },
-    };
-
-    const validate = async (request, username, password) => {
-      const user = users[username];
-      if (!user) {
-        return { credentials: null, isValid: false };
-      }
-      const credentials = { name: user.name };
-
-      return { isValid: true, credentials };
-    };
-
-    server.auth.strategy("simple", "basic", { validate });
-    /** END OF Basic Auth for Dev */
 
     /**
      * The following publish endpoints (/publish, /published/{id}, /published)
@@ -240,11 +230,10 @@ export const plugin = {
       method: "get",
       path: "/{id}/{path*}",
       options: {
-        auth: jwtAuthStrategyIsActive
-          ? {
-              mode: "required",
-              strategies: ["simple", jwtAuthStrategyName],
-            }
+        auth: config.basicAuthOn
+          ? basicAuthStrategyName
+          : jwtAuthStrategyIsActive
+          ? jwtAuthStrategyName
           : options.auth,
       },
       handler: (request: HapiRequest, h: HapiResponseToolkit) => {

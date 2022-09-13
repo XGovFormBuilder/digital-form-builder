@@ -84,6 +84,8 @@ export const configSchema = Joi.object({
   jwtAuthCookieName: Joi.string().optional(),
   jwtRedirectToAuthenticationUrl: Joi.string().optional(),
   rsa256PublicKeyBase64: Joi.string().optional(),
+  logoutUrl: Joi.string().optional(),
+  basicAuthOn: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {
