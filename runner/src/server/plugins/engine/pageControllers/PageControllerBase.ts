@@ -396,7 +396,7 @@ export class PageControllerBase {
       const { num } = request.query;
       const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
       const startPage = this.model.def.startPage;
-      const formData = this.getFormDataFromState(state, num - 1);
+      let formData = this.getFormDataFromState(state, num - 1);
 
       const isStartPage = this.path === `${startPage}`;
       const isInitialisedSession = !!state.callback;
@@ -421,7 +421,7 @@ export class PageControllerBase {
       if (originalFilenames) {
         Object.entries(formData).forEach(([key, value]) => {
           if (value && value === (originalFilenames[key] || {}).location) {
-            formData[key] = originalFilenames[key].originalFilename;
+            formData[key] = originalFilenames[key].location;
           }
         });
       }

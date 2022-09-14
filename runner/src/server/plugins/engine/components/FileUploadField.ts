@@ -17,7 +17,7 @@ export class FileUploadField extends FormComponent {
   get attributes() {
     return {
       accept:
-        "image/jpeg,image/gif,image/png,application/pdf,text/csv,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.spreadsheet,application/vnd.oasis.opendocument.text,application/rtf,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "image/jpeg,image/gif,image/png,application/pdf,text/csv,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.oasis.opendocument.spreadsheet,application/vnd.oasis.opendocument.text,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     };
   }
 
@@ -27,6 +27,11 @@ export class FileUploadField extends FormComponent {
       ...super.getViewModel(formData, errors),
       attributes: this.attributes,
     };
+
+    if (typeof viewModel.value !== "undefined") {
+      let value = viewModel.value.split("/");
+      viewModel.value = value[value.length - 1];
+    }
 
     if ("multiple" in options && options.multiple) {
       viewModel.attributes.multiple = "multiple";
