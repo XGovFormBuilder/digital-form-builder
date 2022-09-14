@@ -101,6 +101,9 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
+    if (typeof value === "string") {
+      return this.convertStringAnswers(name, value);
+    }
     return {
       [`${name}__addressLine1`]: value && value.addressLine1,
       [`${name}__addressLine2`]: value && value.addressLine2,
@@ -154,5 +157,26 @@ export class UkAddressField extends FormComponent {
     }
 
     return viewModel;
+  }
+
+  // This method is used to solve the issue of the address fields appearing blank when
+  // returning to a completed section of a form.
+  convertStringAnswers(name: string, value: any) {
+    const address = value.split(",");
+
+    if (address.length === 3) {
+      return {
+        [`${name}__addressLine1`]: value && address[0],
+        [`${name}__town`]: value && address[1],
+        [`${name}__postcode`]: value && address[2],
+      };
+    }
+
+    return {
+      [`${name}__addressLine1`]: value && address[0],
+      [`${name}__addressLine2`]: value && address[1],
+      [`${name}__town`]: value && address[2],
+      [`${name}__postcode`]: value && address[3],
+    };
   }
 }
