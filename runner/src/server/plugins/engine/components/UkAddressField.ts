@@ -162,7 +162,7 @@ export class UkAddressField extends FormComponent {
   // This method is used to solve the issue of the address fields appearing blank when
   // returning to a completed section of a form.
   convertStringAnswers(name: string, value: any) {
-    const address = value.split(",");
+    const address = value.split(", ");
 
     if (address.length === 3) {
       return {
