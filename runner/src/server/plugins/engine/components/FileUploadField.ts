@@ -3,11 +3,19 @@ import { FormComponent } from "./FormComponent";
 import * as helpers from "./helpers";
 
 import { DataType, ViewModel } from "./types";
+import joi from "joi";
 
 export class FileUploadField extends FormComponent {
   dataType = "file" as DataType;
   getFormSchemaKeys() {
-    return helpers.getFormSchemaKeys(this.name, "string", this);
+    return {
+      [this.name]: joi.alternatives().conditional(`${this.name}__filename`, {
+        is: joi.exist(),
+        then: joi.string().optional().allow("").allow(null),
+        otherwise: joi.string(),
+      }),
+      [`${this.name}__filename`]: joi.string().optional(),
+    };
   }
 
   getStateSchemaKeys() {
@@ -21,17 +29,22 @@ export class FileUploadField extends FormComponent {
     };
   }
 
+  getFileNameFromState(state: FormData) {
+    let fileName = state[this.name];
+    if (typeof fileName !== "undefined") {
+      let value = fileName.split("/");
+      fileName = value[value.length - 1];
+    }
+    return fileName;
+  }
+
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { options } = this;
     const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),
       attributes: this.attributes,
+      filename: this.getFileNameFromState(formData) ?? "",
     };
-
-    if (typeof viewModel.value !== "undefined") {
-      let value = viewModel.value.split("/");
-      viewModel.value = value[value.length - 1];
-    }
 
     if ("multiple" in options && options.multiple) {
       viewModel.attributes.multiple = "multiple";
