@@ -9,10 +9,9 @@ export class FileUploadField extends FormComponent {
   dataType = "file" as DataType;
   getFormSchemaKeys() {
     return {
-      [this.name]: joi.alternatives().conditional(`${this.name}__filename`, {
-        is: joi.exist(),
-        then: joi.string().optional().allow("").allow(null),
-        otherwise: joi.string(),
+      [this.name]: joi.string().required().when(`${this.name}__filename`, {
+        is: joi.string().required(),
+        then: joi.optional(),
       }),
       [`${this.name}__filename`]: joi.string().optional(),
     };

@@ -427,6 +427,17 @@ export class PageControllerBase {
       }
 
       const viewModel = this.getViewModel(formData, num);
+
+      const fileUploadFields = viewModel.components
+        .filter((component) => component.type === "FileUploadField")
+        .map((component) => component.model);
+
+      for (let fileUploadField of fileUploadFields) {
+        state[fileUploadField.name + "__filename"] =
+          state[fileUploadField.name];
+      }
+      await cacheService.mergeState(request, { ...state });
+
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
