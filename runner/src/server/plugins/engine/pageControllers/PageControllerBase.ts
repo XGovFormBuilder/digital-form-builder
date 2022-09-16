@@ -521,8 +521,7 @@ export class PageControllerBase {
     const payload = (request.payload || {}) as FormData;
     const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);
-    state.metadata.isSummaryPageSubmit = false;
-    await cacheService.mergeState(request, { ...state });
+
     const originalFilenames = (state || {}).originalFilenames || {};
     const fileFields = this.getViewModel(formResult)
       .components.filter((component) => component.type === "FileUploadField")
