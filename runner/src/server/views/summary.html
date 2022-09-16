@@ -9,7 +9,7 @@
         <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
         {% if callback and callback.message %}
         <div class="govuk-inset-text">
-          {{callback.message}}
+          {{ callback.message | striptags(true) | escape | nl2br }}
         </div>
         {% endif %}
         {% for detail in details %}
