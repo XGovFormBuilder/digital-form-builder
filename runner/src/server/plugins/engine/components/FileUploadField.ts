@@ -9,20 +9,26 @@ export class FileUploadField extends FormComponent {
   dataType = "file" as DataType;
   getFormSchemaKeys() {
     return {
-      [this.name]: joi.string().required().when(`${this.name}__filename`, {
-        is: joi.string().required(),
-        then: joi.optional(),
-      }),
+      [this.name]: joi
+        .string()
+        .required()
+        .when(`${this.name}__filename`, {
+          is: joi.string().required(),
+          then: joi.optional().allow(""),
+        }),
       [`${this.name}__filename`]: joi.string().optional(),
     };
   }
 
   getStateSchemaKeys() {
     return {
-      [this.name]: joi.string().required().when(`${this.name}__filename`, {
-        is: joi.string().required(),
-        then: joi.optional(),
-      }),
+      [this.name]: joi
+        .string()
+        .required()
+        .when(`${this.name}__filename`, {
+          is: joi.string().required(),
+          then: joi.optional().allow(""),
+        }),
       [`${this.name}__filename`]: joi.string().optional(),
     };
   }

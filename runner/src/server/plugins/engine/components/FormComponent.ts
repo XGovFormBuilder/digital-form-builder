@@ -61,6 +61,12 @@ export class FormComponent extends ComponentBase {
   getStateValueFromValidForm(payload: FormPayload): any {
     const name = this.name;
 
+    if (this.type === "FileUploadField" && payload[name] === "") {
+      return name in payload && payload[name + "__filename"] !== ""
+        ? payload[name + "__filename"]
+        : null;
+    }
+
     return name in payload && payload[name] !== "" ? payload[name] : null;
   }
 
