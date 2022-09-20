@@ -18,7 +18,13 @@ export class FileUploadField extends FormComponent {
   }
 
   getStateSchemaKeys() {
-    return helpers.getStateSchemaKeys(this.name, "string", this);
+    return {
+      [this.name]: joi.string().required().when(`${this.name}__filename`, {
+        is: joi.string().required(),
+        then: joi.optional(),
+      }),
+      [`${this.name}__filename`]: joi.string().optional(),
+    };
   }
 
   get attributes() {
