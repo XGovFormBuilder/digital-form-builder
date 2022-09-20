@@ -25,7 +25,6 @@ import {
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
-import { fileSync } from "tmp";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -542,9 +541,6 @@ export class PageControllerBase {
 
     for (let file of fileFields) {
       let fileName = file.name + "__filename";
-      let fileFromState = state[file.name];
-      if (typeof fileFromState !== undefined) {
-      }
       if (!payload.hasOwnProperty(fileName)) {
         payload[fileName] = state[fileName];
       }
