@@ -29,8 +29,6 @@ export class SummaryPageController extends PageController {
         return this.makePostRouteHandler()(request, h);
       }
       const state = await cacheService.getState(request);
-      // state.metadata.isSummaryPageSubmit = true;
-      // await cacheService.mergeState(request, { ...state });
       const viewModel = new SummaryViewModel(this.title, model, state, request);
 
       if (viewModel.endPage) {
