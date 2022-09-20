@@ -134,7 +134,7 @@ suite("uploads", () => {
 
     const $ = cheerio.load(response.payload);
     expect($("[href='#file1']").text().trim()).to.contain(
-      'The selected file for "Passport photo" must be a jpg, jpeg, png, pdf, txt, doc, docx, odt, rtf, csv, xls, xlsx or ods'
+      'The selected file for "Passport photo" must be a jpg, jpeg, png, pdf, txt, doc, docx, odt, csv, xls, xlsx or ods'
     );
   });
 });
