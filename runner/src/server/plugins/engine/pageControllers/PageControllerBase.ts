@@ -25,6 +25,7 @@ import {
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
 import config from "server/config";
+import { fileSync } from "tmp";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -529,15 +530,27 @@ export class PageControllerBase {
     const { cacheService } = request.services([]);
     const hasFilesizeError = request.payload === null;
     const preHandlerErrors = request.pre.errors;
-    const payload = (request.payload || {}) as FormData;
-    const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);
+    const payload = (request.payload || {}) as FormData;
+    let formResult: any = this.validateForm(payload);
     const originalFilenames = (state || {}).originalFilenames || {};
     const fileFields = this.getViewModel(formResult)
       .components.filter((component) => component.type === "FileUploadField")
       .map((component) => component.model);
     const progress = state.progress || [];
     const { num } = request.query;
+
+    for (let file of fileFields) {
+      let fileName = file.name + "__filename";
+      let fileFromState = state[file.name];
+      if (typeof fileFromState !== undefined) {
+      }
+      if (!payload.hasOwnProperty(fileName)) {
+        payload[fileName] = state[fileName];
+      }
+    }
+
+    formResult = this.validateForm(payload);
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {
