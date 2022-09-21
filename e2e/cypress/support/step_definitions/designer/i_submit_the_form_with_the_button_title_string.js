@@ -13,6 +13,7 @@ When("I create a component", (table) => {
     hideTitle,
     optional,
     additional,
+    list,
     ...rest
   } = table.hashes()[0];
 
@@ -37,6 +38,11 @@ When("I create a component", (table) => {
     cy.get(".govuk-details__summary").click();
     //TODO:- add aditional options
   }
+
+  if (list) {
+    cy.findByLabelText("Select list").select(list);
+  }
+
   cy.findByRole("button", { name: "Save" }).click();
 });
 
