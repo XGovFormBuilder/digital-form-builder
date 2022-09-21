@@ -15,6 +15,7 @@ export function webhookToSessionData(
   webhookData: WebhookSchema
 ): FormSubmissionState {
   const { questions } = webhookData;
+  console.log(questions);
   return questions.reduce((session, currentQuestion) => {
     const { fields, category } = currentQuestion;
 

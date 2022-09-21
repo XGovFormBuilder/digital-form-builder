@@ -89,6 +89,8 @@ export const initialiseSession: Plugin<InitialiseSession> = {
 
         const token = generateSessionTokenForForm(callbackUrl, formId);
 
+        request.logger.error("Creating session");
+        request.logger.error(webhookData);
         await cacheService.createSession(token, {
           callback: options,
           metadata,
