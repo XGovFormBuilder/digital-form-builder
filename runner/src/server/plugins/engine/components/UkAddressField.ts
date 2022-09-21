@@ -58,6 +58,7 @@ export class UkAddressField extends FormComponent {
         options: {
           required: isRequired,
           customValidationMessage: "Enter a valid postcode",
+          classes: "govuk-!-width-one-third",
         },
       },
     ];
