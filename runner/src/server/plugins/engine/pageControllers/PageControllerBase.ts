@@ -494,7 +494,8 @@ export class PageControllerBase {
 
       viewModel.backLink =
         state.callback?.returnUrl ?? progress[progress.length - 2];
-      viewModel.backLinkText = this.model.def?.backLinkText ?? "Back";
+      viewModel.backLinkText =
+        this.model.def?.backLinkText ?? "Go back to application overview";
       return h.view(this.viewName, viewModel);
     };
   }
@@ -596,7 +597,8 @@ export class PageControllerBase {
         payload,
         num,
         progress,
-        formResult.errors
+        formResult.errors,
+        state.callback?.returnUrl
       );
     }
 
@@ -609,7 +611,8 @@ export class PageControllerBase {
         payload,
         num,
         progress,
-        stateResult.errors
+        stateResult.errors,
+        state.callback?.returnUrl
       );
     }
 
@@ -815,10 +818,19 @@ export class PageControllerBase {
     }
   }
 
-  private renderWithErrors(request, h, payload, num, progress, errors) {
+  private renderWithErrors(
+    request,
+    h,
+    payload,
+    num,
+    progress,
+    errors,
+    returnUrl
+  ) {
     const viewModel = this.getViewModel(payload, num, errors);
-
-    viewModel.backLink = progress[progress.length - 2];
+    viewModel.backLink = returnUrl ?? progress[progress.length - 2];
+    viewModel.backLinkText =
+      this.model.def?.backLinkText ?? "Go back to application overview";
     this.setPhaseTag(viewModel);
     this.setFeedbackDetails(viewModel, request);
 
