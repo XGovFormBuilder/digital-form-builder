@@ -116,3 +116,11 @@ When("I enter the details for my page", (table) => {
 Then("I don't see the page {string}", (pageTitle) => {
   cy.findByText(pageTitle).should("not.exist");
 });
+
+When("I go back", () => {
+  cy.findByRole("link", { name: "Back" }).click();
+});
+
+Then("I don't see {string}", (string) => {
+  cy.findByText(string).should("not.exist");
+});
