@@ -127,7 +127,7 @@ export class UkAddressField extends FormComponent {
   getDisplayStringFromState(state: FormSubmissionState) {
     const name = this.name;
     const value = state[name];
-
+    console.log("value is" + value);
     if (typeof value === "string") {
       return value;
     }
