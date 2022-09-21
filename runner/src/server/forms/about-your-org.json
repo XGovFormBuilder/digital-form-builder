@@ -1,6 +1,7 @@
 {
   "metadata": {},
   "startPage": "/about-your-organisation",
+  "backLinkText": "Go back to application overview",
   "pages": [
     {
       "title": "About your organisation",
