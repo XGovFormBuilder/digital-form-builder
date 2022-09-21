@@ -128,6 +128,10 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
+    if (typeof value === "string") {
+      return value;
+    }
+
     return value
       ? [value.addressLine1, value.addressLine2, value.town, value.postcode]
           .filter((p) => {
