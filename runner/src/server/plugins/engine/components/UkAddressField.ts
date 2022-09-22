@@ -150,7 +150,7 @@ export class UkAddressField extends FormComponent {
             return !!p;
           })
           .join(", ")
-      : "";
+      : null;
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
@@ -180,26 +180,23 @@ export class UkAddressField extends FormComponent {
   convertStringAnswers(name: string, value: any) {
     const address = value.split(", ");
 
-    if (address.length === 3) {
+    if (address.length === 5) {
+      let address_line_2 = address[1];
+      let county = address[4];
+
+      if (address_line_2 === null) {
+        address_line_2 = "";
+      }
+      if (county === null) {
+        county = "";
+      }
       return {
         [`${name}__addressLine1`]: value && address[0],
-        [`${name}__town`]: value && address[1],
-        [`${name}__postcode`]: value && address[2],
-      };
-    } else if (address.length === 4) {
-      return {
-        [`${name}__addressLine1`]: value && address[0],
-        [`${name}__addressLine2`]: value && address[1],
+        [`${name}__addressLine2`]: value && address_line_2,
         [`${name}__town`]: value && address[2],
         [`${name}__postcode`]: value && address[3],
+        [`${name}__county`]: value && county,
       };
     }
-    return {
-      [`${name}__addressLine1`]: value && address[0],
-      [`${name}__addressLine2`]: value && address[1],
-      [`${name}__town`]: value && address[2],
-      [`${name}__postcode`]: value && address[3],
-      [`${name}__county`]: value && address[4],
-    };
   }
 }
