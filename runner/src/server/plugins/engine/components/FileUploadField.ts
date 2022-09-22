@@ -1,34 +1,42 @@
+import { FileUploadFieldComponent } from "@xgovformbuilder/model";
+import { FormModel } from "../models";
 import { FormData, FormSubmissionErrors } from "../types";
 import { FormComponent } from "./FormComponent";
 import * as helpers from "./helpers";
 
 import { DataType, ViewModel } from "./types";
-import joi from "joi";
+import joi, { Schema } from "joi";
 
 export class FileUploadField extends FormComponent {
   dataType = "file" as DataType;
   getFormSchemaKeys() {
+    const { options } = this;
+    let componentSchema = joi.string().required();
+    if (options.required === false) {
+      componentSchema = componentSchema.allow("").allow(null).optional();
+    }
+    componentSchema = componentSchema.label(this.title);
     return {
-      [this.name]: joi
-        .string()
-        .required()
-        .when(`${this.name}__filename`, {
-          is: joi.string().required(),
-          then: joi.optional().allow(""),
-        }),
+      [this.name]: componentSchema.when(`${this.name}__filename`, {
+        is: joi.string().required(),
+        then: joi.optional().allow(""),
+      }),
       [`${this.name}__filename`]: joi.string().optional(),
     };
   }
 
   getStateSchemaKeys() {
+    const { options } = this;
+    let componentSchema = joi.string().required();
+    if (options.required === false) {
+      componentSchema = componentSchema.allow("").allow(null).optional();
+    }
+    componentSchema = componentSchema.label(this.title);
     return {
-      [this.name]: joi
-        .string()
-        .required()
-        .when(`${this.name}__filename`, {
-          is: joi.string().required(),
-          then: joi.optional().allow(""),
-        }),
+      [this.name]: componentSchema.when(`${this.name}__filename`, {
+        is: joi.string().required(),
+        then: joi.optional().allow(""),
+      }),
       [`${this.name}__filename`]: joi.string().optional(),
     };
   }
