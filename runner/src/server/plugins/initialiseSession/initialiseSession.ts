@@ -89,10 +89,6 @@ export const initialiseSession: Plugin<InitialiseSession> = {
 
         const token = generateSessionTokenForForm(callbackUrl, formId);
 
-        request.logger.error("Creating session");
-        request.logger.error(webhookData);
-        await cacheService.cache.drop(cacheService.JWTKey(token));
-        request.logger.error("Dropping cache");
         await cacheService.createSession(token, {
           callback: options,
           metadata,
