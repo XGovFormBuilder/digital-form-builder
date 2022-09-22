@@ -92,7 +92,7 @@ export class CacheService {
     const initialisedSession = await this.cache.get(this.JWTKey(jwt));
 
     if (config.overwriteInitialisedSession) {
-      request.logger.error("Replacing user session with initialisedSession");
+      request.logger.info("Replacing user session with initialisedSession");
       this.cache.set(userSessionKey, initialisedSession, sessionTimeout);
     } else {
       const currentSession = await this.cache.get(userSessionKey);
@@ -100,7 +100,7 @@ export class CacheService {
         ...currentSession,
         ...initialisedSession,
       };
-      request.logger.error("Merging user session with initialisedSession");
+      request.logger.info("Merging user session with initialisedSession");
       this.cache.set(userSessionKey, mergedSession, sessionTimeout);
     }
 
