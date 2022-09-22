@@ -94,7 +94,10 @@ export const plugin = {
       server.auth.strategy(
         jwtAuthStrategyName,
         "jwt",
-        jwtStrategyOptions(config.jwtAuthCookieName)
+        jwtStrategyOptions(
+          config.jwtAuthCookieName,
+          config.rsa256PublicKeyBase64
+        )
       );
     }
 
@@ -293,11 +296,6 @@ export const plugin = {
             userPathLimit: 10,
           },
         },
-        auth: config.basicAuthOn
-          ? basicAuthStrategyName
-          : jwtAuthStrategyIsActive
-          ? jwtAuthStrategyName
-          : options.auth,
         payload: {
           output: "stream",
           parse: true,
