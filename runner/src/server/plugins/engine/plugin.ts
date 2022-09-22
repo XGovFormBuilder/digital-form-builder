@@ -293,6 +293,11 @@ export const plugin = {
             userPathLimit: 10,
           },
         },
+        auth: config.basicAuthOn
+          ? basicAuthStrategyName
+          : jwtAuthStrategyIsActive
+          ? jwtAuthStrategyName
+          : options.auth,
         payload: {
           output: "stream",
           parse: true,
