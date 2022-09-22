@@ -15,23 +15,19 @@ export function webhookToSessionData(
   webhookData: WebhookSchema
 ): FormSubmissionState {
   const { questions } = webhookData;
-  console.log(questions);
   return questions.reduce((session, currentQuestion) => {
     const { fields, category } = currentQuestion;
 
-    console.log(fields);
-    console.log(category);
     const values = fields
       .map(fieldToValue)
       .reduce((prev, curr) => merge(prev, curr), {});
-    console.log(values);
 
     if (!category) {
       return { ...session, ...values };
     }
 
     const existingCategoryInSession = session[category] ?? {};
-    console.log(session);
+
     return {
       ...session,
       [category]: { ...existingCategoryInSession, ...values },
