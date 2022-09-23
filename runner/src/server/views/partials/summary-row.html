@@ -6,7 +6,7 @@
     <dd class="govuk-summary-list__value">
         {% if item.value %}
             {% if item.type == 'FileUploadField' %}
-                Uploaded
+                {{item.name}}
             {% elif item.type == 'MultiInputField' %}
                 {% for itemValue in item.value%}
                     {{itemValue}}<br>
