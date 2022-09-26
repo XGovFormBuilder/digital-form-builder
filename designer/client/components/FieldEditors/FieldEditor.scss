@@ -8,8 +8,8 @@
     }
     &__delete 
     {
-        position: absolute; // fix this
-        right: 20px;
-        top: 100px;
+        position: relative; // fix this
+        left: -190px;
+        top: 0px;
     }
 }

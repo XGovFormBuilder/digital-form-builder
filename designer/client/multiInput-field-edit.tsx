@@ -10,9 +10,11 @@ const MultiInputField = ({ context = ComponentContext }) => {
   const { options = {} } = selectedComponent;
 
   return (
-      <p>ok</p>
+      <p>who</p>
+
+      
+
+
   
   );
 };
-
-export default MultiInputField;

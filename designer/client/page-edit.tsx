@@ -4,6 +4,7 @@ import React, {
   useState,
   useContext,
   useEffect,
+  useLayoutEffect
 } from "react";
 import { Input } from "@govuk-jsx/input";
 import Editor from "./editor";
@@ -16,20 +17,27 @@ import SectionEdit from "./section/section-edit";
 import { Flyout } from "./components/Flyout";
 import { withI18n } from "./i18n";
 import ErrorSummary from "./error-summary";
-import { validateTitle, hasValidationErrors } from "./validations";
+import { validateTitle, hasValidationErrors, hasRepeatingFieldErrors, validateRows } from "./validations";
 import { DataContext } from "./context";
-
+import { ComponentContext } from "./reducers/component/componentReducer";
+import { RepeatingFields } from "./reducers/component/types";
 import FeatureToggle from "./FeatureToggle";
 import { FeatureFlags } from "./context/FeatureFlagContext";
 import { findPage, updateLinksTo } from "./data";
 import logger from "./plugins/logger";
+
 import ComponentListSelect from "./components/ComponentListSelect/ComponentListSelect";
 import { boolean } from "joi";
+import "./components/FieldEditors/FieldEditor.scss";
+import { errorMonitor } from "events";
 
 const PageEdit = (props) => {
-  const { page, i18n } = props;
-
+  const { page, i18n, value } = props;
   const { data, save } = useContext(DataContext);
+  const { state, dispatch } = useContext(ComponentContext)
+  const { selectedComponent } = state;
+  const { items } = selectedComponent;
+
   const [path, setPath] = useState("");
   const [title, setTitle] = useState(page?.title ?? "");
   const [section, setSection] = useState(page?.section ?? "");
@@ -38,8 +46,19 @@ const PageEdit = (props) => {
   const [isNewSection, setIsNewSection] = useState(false);
   const [isSummaryPage, setIsSummaryPage] = useState(false);
   const [errors, setErrors] = useState({});
+  const [repeatingFieldErrors, setRepeatingFieldErrors] = useState([]);
   const formEditSection = useRef(0);
 
+  const [showSectionBreak, setShowSectionBreak] = useState(true);
+  const [editRow, setEditRow] = useState(false);
+  const [deleteRow, setDeleteRow] = useState(false);
+  const [rows, setRows] = useState<JSX.Element[]>([]);
+  const [key, setKey] = useState(0);
+  const [temp, setTemp] = useState({});
+
+  //const [errors, setTemp] = useState({});
+
+  const [isValidate, setValidate] = useState(false);
   const { sections } = data;
 
   useEffect(() => {
@@ -47,13 +66,47 @@ const PageEdit = (props) => {
     setIsSummaryPage(title === "Summary");
   }, []);
 
+  useEffect(() => {
+    if (editRow) {
+      const items = selectedComponent.items ?? [];
+
+      const id = temp.id;
+      const name = temp.name;
+
+      const title = items[id].title ?? "";
+      const value = items[id].value ?? "";
+
+      const rowData = {};
+
+      if (name === "title") {
+        rowData.title = temp.value;
+        rowData.value = value;
+      }
+      else {
+        rowData.title = title;
+        rowData.value = temp.value;
+      }
+
+      items[id] = rowData;
+
+      dispatch({
+        type: RepeatingFields.EDIT_ROW,
+        payload: items
+      })
+
+      setEditRow(false);
+    }
+  }, [editRow]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new window.FormData(form);
 
     let validationErrors = validate(title, path);
-    if (hasValidationErrors(validationErrors)) return;
+
+    if (hasValidationErrors(validationErrors[0]) ||
+      hasRepeatingFieldErrors(validationErrors[1])) return;
 
     let copy = { ...data };
     const [copyPage, copyIndex] = findPage(data, page.path);
@@ -73,9 +126,15 @@ const PageEdit = (props) => {
       ? (copyPage.controller = controller)
       : delete copyPage.controller;
 
+    console.log('saved?');
+
     copy.declaration = formData.get("declaration") ?? "";
 
+    const { items } = selectedComponent;
+    copyPage.repeatingField = items;
+
     copy.pages[copyIndex] = copyPage;
+
     try {
       await save(copy);
       props.onEdit();
@@ -87,6 +146,7 @@ const PageEdit = (props) => {
   };
 
   const validate = (title, path) => {
+    const repeatingFieldErrors = validateRows(items, i18n);
     const titleErrors = validateTitle("page-title", title, i18n);
     const errors = { ...titleErrors };
 
@@ -100,9 +160,9 @@ const PageEdit = (props) => {
       };
     }
 
-    setErrors(errors);
-
-    return errors;
+    setRepeatingFieldErrors(repeatingFieldErrors);
+    setErrors(errors); // append to here (fix for red outliners)
+    return [errors, repeatingFieldErrors];
   };
 
   const onClickDelete = async (e) => {
@@ -192,11 +252,129 @@ const PageEdit = (props) => {
     return sections.find((section) => section.name === name);
   };
 
+  const onCreate = () => {
+    const _rows = rows;
+
+    const items = selectedComponent.items ?? [];
+
+    _rows.push(row());
+    setRows(_rows);
+
+    const temp = {};
+    temp.title = "";
+    temp.value = "";
+
+    items[key] = temp;
+
+    dispatch({
+      type: RepeatingFields.ADD_ROW,
+      payload: items
+    });
+    setKey(key + 1);
+
+  }
+
+  const onDelete = (e) => {
+    e?.preventDefault();
+    const _rows = rows;
+
+    if (_rows.length === 0) {
+      setKey(0);
+      return;
+    }
+
+    const items = selectedComponent.items;
+    _rows.pop();
+    setRows(_rows);
+
+    items.pop();
+
+    dispatch({
+      type: RepeatingFields.DELETE_ROW,
+      payload: items
+    })
+
+    setKey(key - 1);
+  }
+
+  const editData = (e) => {
+    const temp = {};
+
+    let id = e.target.id;
+    const key = id.charAt(id.length - 1);
+
+    temp.id = key;
+    temp.title = e.target.title;
+    temp.name = e.target.name;
+    temp.value = e.target.value;
+
+    setTemp(temp);
+    setEditRow(true);
+  }
+
+  const row = () => {
+    return (<div className="multiInputField__field" key={key}
+    >
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-one-half">
+          <Input
+            name="title"
+            id={"page-title-".concat(key.toString())}
+            className="govuk-input--width-10"
+            onChange={(e) =>
+              editData(e)
+            }
+            /* hint={{
+               children: [i18n("common.titleField.helpText")],
+             }} */
+            label={{
+              children: [i18n("common.titleField.title")],
+            }}
+            errorMessage={
+              repeatingFieldErrors[key]?.title ?
+                { children: repeatingFieldErrors[key]?.title.children } : undefined
+            }
+
+            type="text"
+          />
+        </div>
+        <div className="govuk-grid-column-one-half">
+          <Input
+            name="value"
+            id={"page-value-".concat(key.toString())}
+            className="govuk-input--width-10"
+            onChange={(e) =>
+              editData(e)
+            }
+            /* hint={{
+               children: [i18n("common.titleField.helpText")],
+             }}*/
+            label={{
+              children: [i18n("list.item.value")],
+            }}
+            type="text"
+            errorMessage={
+              repeatingFieldErrors.indexOf(key).value ?
+                { children: repeatingFieldErrors.indexOf(key)?.value.children } : undefined
+            }
+          />
+        </div>
+        {showSectionBreak &&
+          (<hr className="multiInputField__section_break govuk-section- break govuk-section-break--m govuk-section-break--visible " />)
+        }
+      </div>
+    </div>)
+  }
+
+  const fieldRows = () => { return Object.values(rows) };
+
   return (
     <div data-testid="page-edit">
-      {Object.keys(errors).length > 0 && (
-        <ErrorSummary errorList={Object.values(errors)} />
-      )}
+      {(Object.keys(errors).length > 0 ||
+        Object.keys(repeatingFieldErrors).length > 0) && (
+          <ErrorSummary errorList={Object.values(errors)}
+            repeatingErrorList={Object.values(repeatingFieldErrors)} />
+        )}
       <form onSubmit={onSubmit} autoComplete="off">
         <div className="govuk-form-group">
           <label className="govuk-label govuk-label--s" htmlFor="page-type">
@@ -298,6 +476,27 @@ const PageEdit = (props) => {
             <Editor name="declaration" />
           </div>
         )}
+        <div className="multiInputField">
+          {fieldRows()}
+
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-one-half">
+              <div className="govuk-button govuk-button--secondary"
+                onClick={onCreate}
+              >
+                Add Row
+              </div>
+            </div>
+            <div className="govuk-grid-column-one-half">
+              <a href="#" className="multiInputField__delete govuk-link"
+                onClick={onDelete}>
+                Delete
+              </a>
+            </div>
+          </div>
+          <div className="govuk-!-padding-bottom-4" />
+        </div>
+
         <button className="govuk-button" type="submit">
           {i18n("save")}
         </button>{" "}

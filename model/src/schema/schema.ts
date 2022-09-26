@@ -99,6 +99,14 @@ const nextSchema = joi.object().keys({
   condition: joi.string().allow("").optional(),
 });
 
+export const repeatFieldSchema = joi
+  .object()
+  .keys({
+    title: joi.string().required(),
+    value: joi.string().allow("").optional(),
+  });
+  
+
 /**
  * `/status` is a special route for providing a user's application status.
  *  It should not be configured via the designer.
@@ -110,7 +118,7 @@ const pageSchema = joi.object().keys({
   controller: joi.string(),
   components: joi.array().items(componentSchema),
   next: joi.array().items(nextSchema),
-  repeatField: joi.string().optional(),
+  repeatingField: joi.array().items(repeatFieldSchema),
   options: joi.object().optional(),
 });
 

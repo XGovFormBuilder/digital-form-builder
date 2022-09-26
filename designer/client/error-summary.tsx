@@ -1,3 +1,4 @@
+import { min } from "lodash";
 import React, { useEffect, useRef } from "react";
 import { i18n } from "./i18n";
 
@@ -10,6 +11,7 @@ export interface ErrorListItem {
 interface ErrorSummaryProps {
   className?: string;
   descriptionChildren?: string;
+  repeatingErrorList: Array<{}>;
   errorList: Array<ErrorListItem>;
   titleChildren?: string;
 }
@@ -18,6 +20,7 @@ export function ErrorSummary({
   className,
   descriptionChildren,
   errorList,
+  repeatingErrorList,
   titleChildren = "There is a problem",
 }: ErrorSummaryProps) {
   const errorSummaryRef = useRef();
@@ -31,6 +34,11 @@ export function ErrorSummary({
     description = <p>{descriptionChildren}</p>;
   }
 
+  repeatingErrorList?.map((errors, id) => {
+    errorList.push(errors.title);
+    errorList.push(errors.value);
+  });
+
   const handleClick = (id) => {
     const element = document.getElementById(id.substring(1));
     if (element) {
@@ -38,12 +46,12 @@ export function ErrorSummary({
       element.focus();
     }
   };
-
+  
   return (
-    <div
-      className={`govuk-error-summary ${className || ""}`}
+   <div
+      className={`govuk-error-summary ${className || ""}}`}
       aria-labelledby="error-summary-title"
-      role="alert"
+      role=""
       tabIndex="-1"
       data-module="govuk-error-summary"
       ref={errorSummaryRef}
@@ -56,7 +64,7 @@ export function ErrorSummary({
         <ul className="govuk-list govuk-error-summary__list">
           {errorList.map((error, index) => (
             <li key={index}>
-              {error.href ? (
+              {error?.href ? (
                 <a
                   href={error.href}
                   onClick={(e) => {
@@ -70,9 +78,9 @@ export function ErrorSummary({
                 </a>
               ) : (
                 <>
-                  {Array.isArray(error.children)
-                    ? i18n(...error.children)
-                    : error.children}
+                  {Array.isArray(error?.children)
+                    ? i18n(...error?.children)
+                    : error?.children}
                 </>
               )}
             </li>
@@ -80,6 +88,7 @@ export function ErrorSummary({
         </ul>
       </div>
     </div>
+   
   );
 }
 
