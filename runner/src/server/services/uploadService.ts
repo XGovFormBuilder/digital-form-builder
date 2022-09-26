@@ -238,8 +238,8 @@ export class UploadService {
             metaData
           );
           if (location) {
-            originalFilenames[key] = { location };
             request.payload[key] = location;
+            request.payload[`${key}__filename`] = location;
           }
           if (error) {
             request.pre.errors = [

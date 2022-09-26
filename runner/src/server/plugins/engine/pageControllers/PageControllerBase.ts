@@ -396,7 +396,7 @@ export class PageControllerBase {
       const { num } = request.query;
       const currentPath = `/${this.model.basePath}${this.path}${request.url.search}`;
       const startPage = this.model.def.startPage;
-      const formData = this.getFormDataFromState(state, num - 1);
+      let formData = this.getFormDataFromState(state, num - 1);
 
       const isStartPage = this.path === `${startPage}`;
       const isInitialisedSession = !!state.callback;
@@ -421,12 +421,23 @@ export class PageControllerBase {
       if (originalFilenames) {
         Object.entries(formData).forEach(([key, value]) => {
           if (value && value === (originalFilenames[key] || {}).location) {
-            formData[key] = originalFilenames[key].originalFilename;
+            formData[key] = originalFilenames[key].location;
           }
         });
       }
 
       const viewModel = this.getViewModel(formData, num);
+
+      const fileUploadFields = viewModel.components
+        .filter((component) => component.type === "FileUploadField")
+        .map((component) => component.model);
+
+      for (let fileUploadField of fileUploadFields) {
+        state[fileUploadField.name + "__filename"] =
+          state[fileUploadField.name];
+      }
+      await cacheService.mergeState(request, { ...state });
+
       viewModel.startPage = startPage!.startsWith("http")
         ? redirectTo(request, h, startPage!)
         : redirectTo(request, h, `/${this.model.basePath}${startPage!}`);
@@ -519,9 +530,9 @@ export class PageControllerBase {
     const { cacheService } = request.services([]);
     const hasFilesizeError = request.payload === null;
     const preHandlerErrors = request.pre.errors;
-    const payload = (request.payload || {}) as FormData;
-    const formResult: any = this.validateForm(payload);
     const state = await cacheService.getState(request);
+    const payload = (request.payload || {}) as FormData;
+    let formResult: any = this.validateForm(payload);
     const originalFilenames = (state || {}).originalFilenames || {};
     const fileFields = this.getViewModel(formResult)
       .components.filter((component) => component.type === "FileUploadField")
@@ -529,11 +540,22 @@ export class PageControllerBase {
     const progress = state.progress || [];
     const { num } = request.query;
 
+
+    for (let file of fileFields) {
+      let fileName = file.name + "__filename";
+      if (!payload.hasOwnProperty(fileName)) {
+        payload[fileName] = state[fileName];
+      }
+    }
+
+    formResult = this.validateForm(payload);
+
     if (state.metadata === undefined) {
       state["metadata"] = {};
     }
     state.metadata["isSummaryPageSubmit"] = false;
     await cacheService.mergeState(request, { ...state });
+
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {

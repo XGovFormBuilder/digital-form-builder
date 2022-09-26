@@ -142,6 +142,7 @@ export class UkAddressField extends FormComponent {
       value.addressLine2 =
         value.addressLine2 === "" ? "null" : value.addressLine2;
       value.county = value.county === "" ? "null" : value.county;
+
     }
 
     return value
