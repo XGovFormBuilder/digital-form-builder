@@ -1,28 +1,31 @@
-@wip
 Feature: Start Page
   As a form designer
   I want to give my form a unique name
   So that I can edit it at a later date
 
-  Scenario: Starting a form without entering a name displays an error
-    Given I am on the form designer start page
-    When I try to create a new form without entering a form name
-    Then I am informed there is a problem
-    And the error message "Enter form name" is displayed
+#  Scenario: Starting a form without entering a name displays an error
+#    Given I am on the new configuration page
+#    When I try to create a new form without entering a form name
+#    Then I am alerted to the error "Enter form name"
+#
+#  Scenario: Creating a form with a name that already exists displays an error
+#    Given I am on the new configuration page
+#    When I enter "test" for "Title"
+#    Then I am alerted to the error "A form with this name already exists"
+#
+#  Scenario: Create new form, go back to previous page
+#    When I open the link "Back to previous page"
+#    Then I see "Design and prototype forms"
+#
+#  Scenario: Open an existing form
+#    Given I am on the form designer start page
+#    When I select "Open an existing form" for "Select an option"
+#    And I open "test"
+#    Then I see "First page"
 
-  Scenario: Creating a form with a name that already exists displays an error
-    Given I have previously created a form
-    When I enter the name of the form again
-    Then the error message "A form with this name already exists" is displayed
-
-  Scenario: Create new form, go back to previous page
+  Scenario: Open an existing form duplicates the form with a different ID
     Given I am on the form designer start page
-    And I have chosen to create a new form
-    When I go back to previous page
-    Then the start page is displayed
-
-  Scenario: Open an existing form, go back to previous page
-    Given I am on the form designer start page
-    And I chosen to open an existing form
-    When I go back to previous page
-    Then the start page is displayed
+    When I choose "Open an existing form"
+    And I submit the form with the button title "Next"
+    And I open the link "test"
+    Then the form id is not "test"
