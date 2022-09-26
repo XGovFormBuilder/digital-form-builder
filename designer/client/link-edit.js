@@ -75,7 +75,6 @@ class LinkEdit extends React.Component {
     const { data, edge } = this.props;
     const { pages } = data;
     const { selectedCondition } = this.state;
-
     return (
       <form onSubmit={(e) => this.onSubmit(e)} autoComplete="off">
         <div className="govuk-form-group">
@@ -86,6 +85,7 @@ class LinkEdit extends React.Component {
             value={edge.source}
             className="govuk-select"
             id="link-source"
+            name="link-source"
             disabled
           >
             <option />
@@ -104,6 +104,7 @@ class LinkEdit extends React.Component {
             value={edge.target}
             className="govuk-select"
             id="link-target"
+            name="link-target"
             disabled
           >
             <option />

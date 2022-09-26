@@ -1,37 +1,32 @@
-@wip
 Feature: Page links
   As a user
   I want to add, delete and edit links
   So that I can decide the path users take in my form
 
-  Scenario Outline: Editing links
-    Given I have created a new form configuration
-    When I select the link between the pages "<fromPage>", "<toPage>"
-    Then the "Edit Link" panel is displayed
-    Examples:
-      | fromPage    | toPage      |
-      | first page  | second page |
-      | second page | summary     |
+  Background:
+    Given I am on the new configuration page
+    And I enter the form name "editing-links"
+    When I submit the form with the button title "Next"
+
+  Scenario: Editing links
+    Then the link panels are correct
+      | linkId                 | fromPage    | toPage      |
+      | first-page-second-page | First page  | Second page |
+      | second-page-summary    | Second page | Summary     |
 
   Scenario: Add a link between pages
-    Given I have created a new form configuration
-    When I choose "Add link" from the designer menu
-    And I link the "First page" to the "Summary"
-    Then a link between them will be displayed
+    When I open "Add link"
+    And I link the "First page" to "Summary"
+    Then the page link "first-page-summary" exists
 
   Scenario: Linking pages when adding a page
-    Given I have chosen to "Add page" to my form
-    When I link this page to link from the "/first-page"
-    Then my page is created with a link to the page
+    When I open "Add page"
+    And I enter the details for my page
+      | type | linkFrom   | title                 | path | newSection | section |
+      |      | /first-page | What is your address? |      |            |         |
+    Then the page link "first-page-what-is-your-address" exists
 
   Scenario: Deleting a link between two pages
-    Given I have created a new form configuration
-    When I delete the link between the pages "first page", "second page"
-    Then the link is no longer displayed
+    When I delete the link "first-page-second-page"
+    Then the link "first-page-second-page" doesn't exist
 
-  @wip
-  Scenario: Define a new condition when editing links
-    Given I have a form with a "YesNo" field on the "First page"
-    When I select the link between the pages "second page", "summary"
-    And I choose to "Define a new condition" from the Edit link panel
-    Then the Define condition panel is displayed
