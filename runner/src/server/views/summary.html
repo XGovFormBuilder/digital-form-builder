@@ -1,14 +1,17 @@
 {% from "partials/summary-detail.html" import summaryDetail %}
 {% from "components/checkboxes/macro.njk" import govukCheckboxes %}
-
-
 {% extends 'layout.html' %}
 
 {% block content %}
   <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+        <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+        {% if callback and callback.message %}
+        <div class="govuk-inset-text">
+          {{callback.message}}
+        </div>
+        {% endif %}
         {% for detail in details %}
           {{ summaryDetail(detail) }}
         {% endfor %}

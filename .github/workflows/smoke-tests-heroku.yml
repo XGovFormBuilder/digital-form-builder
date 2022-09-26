@@ -7,53 +7,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
         with:
-          fetch-depth: 0
-
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Configure yarn caching
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install smoke tests dependencies
-        run: yarn install --cwd "smoke-tests/designer"
-
-      - name: Smoke Test
-        run: |
-          yarn smoke-tests/designer smoke-test-heroku
-          ls -lah smoke-tests/designer/reports/
-
-      - name: "Tar files"
-        if: ${{ success() || failure() }}
-        run: tar -cvf smoke-tests-nightly-heroku.tar smoke-tests/designer/reports
-
-      - uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: smoke-tests-nightly-heroku
-          path: smoke-tests-nightly-heroku.tar
-          retention-days: 14
+          script: "heroku"
 
       - uses: rtCamp/action-slack-notify@v2
         if: ${{failure()}}
         env:
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
-          SLACK_COLOR: '#990000'
-          SLACK_MESSAGE: 'Nightly - Smoke Test, job for heroku failed'
+          SLACK_COLOR: "#990000"
+          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
@@ -63,10 +26,25 @@ jobs:
         if: ${{failure()}}
         env:
           SLACK_CHANNEL: ${{ secrets.CYB_SLACK_CHANNEL }}
-          SLACK_COLOR: '#990000'
-          SLACK_MESSAGE: 'Nightly - Smoke Test, job for heroku failed'
+          SLACK_COLOR: "#990000"
+          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
           SLACK_TITLE: Smoke Test failure
           SLACK_USERNAME: forms-nightly-bot
           SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
           SLACK_WEBHOOK: ${{ secrets.CYB_SLACK_WEBHOOK }}
 
+      - name: Scan image
+        uses: anchore/scan-action@v2
+        with:
+          image: "ghcr.io/digital-form-builder-runner:latest"
+          acs-report-enable: true
+          fail-build: false
+          severity-cutoff: critical
+
+      - name: Scan image
+        uses: anchore/scan-action@v2
+        with:
+          image: "ghcr.io/digital-form-builder-designer:latest"
+          acs-report-enable: true
+          fail-build: false
+          severity-cutoff: critical

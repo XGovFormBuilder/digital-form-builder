@@ -1,6 +1,8 @@
 import { ConditionRawData } from ".";
 import { ComponentDef } from "../components/types";
 
+type Toggleable<T> = boolean | T;
+
 export interface Next {
   path: string;
   condition?: string;
@@ -15,6 +17,20 @@ export interface Page {
   section: string; // the section ID
   repeatingField: [{}];
   next?: { path: string; condition?: string }[];
+}
+
+export interface RepeatingFieldPage extends Page {
+  controller: "RepeatingFieldPageController";
+  options: {
+    summaryDisplayMode?: {
+      samePage?: boolean;
+      separatePage?: boolean;
+      hideRowTitles?: boolean;
+    };
+    customText?: {
+      separatePageTitle?: string;
+    };
+  };
 }
 
 export interface Section {
@@ -90,9 +106,7 @@ export type Output = {
   outputConfiguration: OutputConfiguration;
 };
 
-type Toggleable<T> = boolean | T;
-
-type ConfirmationPage = {
+export type ConfirmationPage = {
   customText: {
     title: string;
     paymentSkipped: Toggleable<string>;
@@ -124,7 +138,7 @@ export type Fee = {
  * `FormDefinition` is a typescript representation of `Schema`
  */
 export type FormDefinition = {
-  pages: Page[];
+  pages: Array<Page | RepeatingFieldPage>;
   conditions: ConditionRawData[];
   lists: List[];
   sections: Section[];

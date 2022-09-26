@@ -28,7 +28,7 @@ export const getFormWithId: ServerRoute = {
           formJson = values;
         }
       } catch (error) {
-        request.logger.error(error);
+        request.logger.error(["GET /api/{id}/data", "getFormWithId"], error);
       }
 
       return h.response(formJson).type("application/json");
@@ -108,6 +108,7 @@ export const log: ServerRoute = {
         request.server.log(request.payload.toString());
         return h.response({ ok: true }).code(204);
       } catch (error) {
+        request.server.error(request.payload.toString());
         return h.response({ ok: false }).code(500);
       }
     },

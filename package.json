@@ -7,13 +7,12 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "workspaces": [
     "model",
     "runner",
-    "designer",
-    "smoke-tests/designer"
+    "designer"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
@@ -25,7 +24,6 @@
     "watch": "yarn workspaces foreach -piva run watch",
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
-    "smoke-test": "yarn workspace @xgovformbuilder/test",
     "model": "yarn workspace @xgovformbuilder/model",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
@@ -38,29 +36,19 @@
     "@babel/core": "^7.11.1",
     "@babel/eslint-parser": "^7.11.3",
     "@babel/eslint-plugin": "^7.11.3",
-    "@babel/plugin-proposal-class-properties": "7.10.1",
-    "@babel/plugin-proposal-export-default-from": "^7.10.1",
-    "@babel/plugin-proposal-logical-assignment-operators": "^7.13.8",
-    "@babel/plugin-proposal-private-methods": "^7.10.1",
-    "@babel/plugin-proposal-private-property-in-object": "^7.10.1",
-    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.12.7",
-    "@babel/register": "^7.10.5",
-    "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "babel-eslint": "^11.0.0-beta.2",
     "concurrently": "^5.3.0",
     "eslint": "^7.19.0",
-    "eslint-config-prettier": "^6.13.0",
-    "eslint-config-standard": "^14.1.1",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-workspaces": "^1.0.10",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-tsdoc": "^0.2.14",
     "husky": "^4.3.0",
@@ -72,7 +60,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
-    "govuk-frontend": "^3.13.0"
+    "govuk-frontend": "^4.3.1",
+    "hmpo-components": "^5.2.1"
   },
   "resolutions": {
     "braces": "2.3.1",

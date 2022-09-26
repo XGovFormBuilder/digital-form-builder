@@ -1,10 +1,9 @@
-@import "../node_modules/govuk-frontend/govuk/all";
-@import "../node_modules/accessible-autocomplete/src/autocomplete";
+@import "govuk";
+@import "node_modules/accessible-autocomplete/src/autocomplete";
 @import "hmpo";
 @import "modal-dialog";
 @import "upload-dialog";
 
-$govuk-global-styles: true;
 
 .flash-card {
   .govuk-button {
@@ -59,5 +58,19 @@ $govuk-global-styles: true;
     border-color: map-get($govuk-colours, "black");
     border-top-color: transparent;
     background: transparent;
+  }
+}
+
+.govuk-summary-list {
+  &__row {
+    &--hidden-titles {
+      @extend .govuk-visually-hidden;
+    }
+
+  }
+  &__key {
+    &--hidden-titles {
+      width: 100%;
+    }
   }
 }

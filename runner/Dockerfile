@@ -2,7 +2,7 @@
 # Stage 1
 # Base image contains the updated OS and
 # It also configures the non-root user that will be given permission to copied files/folders in every subsequent stages
-FROM node:12-alpine3.12 AS base
+FROM node:16-alpine AS base
 RUN mkdir -p /usr/src/app && \
     addgroup -g 1001 appuser && \
     adduser -S -u 1001 -G appuser appuser && \
@@ -19,9 +19,9 @@ FROM base AS dependencies
 WORKDIR /usr/src/app
 COPY --chown=appuser:appuser .yarn ./.yarn/
 COPY --chown=appuser:appuser package.json yarn.lock .yarnrc.yml tsconfig.json  ./
-COPY --chown=appuser:appuser model/package.json ./model/
-COPY --chown=appuser:appuser runner/package.json ./runner/
 USER 1001
+RUN --mount=type=cache,target=./.yarn/cache,id=base,uid=1001,mode=0755 yarn
+
 
 # ----------------------------
 # Stage 3
@@ -31,10 +31,11 @@ USER 1001
 # rsync is used to merge folders instead of individually copying files
 FROM dependencies AS model
 WORKDIR /usr/src/app
-#TODO:- remove - should already be copied in s2
-COPY --chown=appuser:appuser ./model ./model/
-USER 1001
-RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
+COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/babel.config.json ./model/
+COPY --chown=appuser:appuser ./model/src ./model/src/
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
+    --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
+RUN yarn model build
 
 # ----------------------------
 # Stage 4
@@ -44,12 +45,21 @@ RUN yarn workspaces focus @xgovformbuilder/model && yarn model build
 # rsync is used to merge folders instead of individually copying files
 FROM model AS build-runner
 WORKDIR /usr/src/app
-ARG LAST_COMMIT
-ARG LAST_TAG
+ARG LAST_COMMIT=""
+ARG LAST_TAG=""
 ENV LAST_COMMIT=$LAST_COMMIT
 ENV LAST_TAG=$LAST_TAG
-COPY --chown=appuser:appuser ./runner ./runner/
-RUN yarn workspaces focus @xgovformbuilder/runner && yarn runner rebuild
+COPY --chown=appuser:appuser ./runner/package.json ./runner/tsconfig.json ./runner/.babelrc ./runner/nodemon.json ./runner/
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner \
+    yarn workspaces focus @xgovformbuilder/runner
+COPY --chown=appuser:appuser ./runner/src ./runner/src/
+COPY --chown=appuser:appuser ./runner/config ./runner/config
+COPY --chown=appuser:appuser ./runner/bin ./runner/bin/
+COPY --chown=appuser:appuser ./runner/public ./runner/public/
+RUN touch runner/.env && \
+    echo "LAST_TAG_GH=$LAST_TAG" >> runner/.env && \
+    echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
+
 RUN yarn runner build
 USER 1001
 EXPOSE 3009

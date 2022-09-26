@@ -2,7 +2,6 @@ name: Main QA
 on:
   push:
     branches:
-      - master
       - main
 jobs:
   calculate-version:
@@ -18,7 +17,7 @@ jobs:
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          versionSpec: '5.x'
+          versionSpec: "5.x"
 
       - name: Determine Version
         id: gitversion
@@ -42,36 +41,30 @@ jobs:
       - name: Set semver to output
         id: calc-semver
         run: echo "::set-output name=semver::$(echo $SEMVER)"
+
   lint-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         app: [designer, runner, model]
-    env:
-      SEMVER:  ${{ needs.assign-semver.outputs.SEMVER }}
     name: lint-and-test-${{matrix.app}}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
+          node-version: "16.x"
+          cache: yarn
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Configure yarn caching
-        uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: Install project deps
+        run: yarn
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn ${{matrix.app}} install
+
+      - name: Check existing forms
+        if: ${{ matrix.app == 'runner' }}
+        run: yarn runner check-forms
 
       - name: Build dependencies
         run: yarn build:dependencies
@@ -107,55 +100,39 @@ jobs:
       matrix:
         app: [designer, runner]
     name: build-and-publish-${{matrix.app}}-image
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "12.x"
-      - name: Docker compose pull
-        run: docker-compose pull
-      - name: Docker layer caching DAYOFYEAR key
-        # DAYOFYEAR key is used to rotate docker-layer-caching daily to avoid the layers dangle issues
-        # see https://github.com/satackey/action-docker-layer-caching/issues/55
-        # if you change this, please remember to apply the same changes to branch--lint-unit-and-smoke-test.yml
-        # so main branch cache can be shared with branches
-        run: echo "DAYOFYEAR=$(date +%j)" >> $GITHUB_ENV
-      - name: Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
+          node-version: "16.x"
+          cache: yarn
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
         with:
-          key: digital-form-builder-${{ env.DAYOFYEAR }}-{hash}git
-          restore-keys: |
-            digital-form-builder-${{ env.DAYOFYEAR }}
-      - name: Create .env for ${{ matrix.app }} workspace
-        run: |
-          touch ./${{ matrix.app }}/.env
-          echo LAST_TAG_GH=${{ env.SEMVER }} >> ./${{ matrix.app }}/.env
-          echo LAST_COMMIT_GH=${{ github.sha }} >> ./${{ matrix.app }}/.env
-          cat ./${{ matrix.app }}/.env
-      - name: Docker compose build ${{ matrix.app }}
-        run: |
-          LAST_TAG='${{ env.SEMVER }}'
-          LAST_COMMIT='${{ github.sha }}'
-          docker-compose build ${{ matrix.app }}
-      - name: Check images
-        run: |
-          docker image ls
+          config-inline: |
+            [registry."ghcr.io"]
+
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PAT }}
-      - name: Tag image
-        run: |
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker tag digital-form-builder-${{matrix.app}} ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
-      - name: Push Docker images
-        run: |
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          docker push ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+
+      - name: Build ${{matrix.app}} and push
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{matrix.app}}/Dockerfile
+          push: true
+          context: .
+          tags: |
+            ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
+            ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
+          build-args: LAST_TAG_GH=${{env.SEMVER}}
+
       - name: Trigger deploy development environment
         uses: benc-uk/workflow-dispatch@v1
         with:
