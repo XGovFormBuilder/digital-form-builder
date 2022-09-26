@@ -118,12 +118,8 @@ const pageSchema = joi.object().keys({
   controller: joi.string(),
   components: joi.array().items(componentSchema),
   next: joi.array().items(nextSchema),
-<<<<<<< HEAD
-  repeatField: joi.string().optional(),
-=======
   repeatingField: joi.array().items(repeatFieldSchema),
   options: joi.object().optional(),
->>>>>>> a2c2fbd6 (Sidebar feat)
 });
 
 const toggleableString = joi.alternatives().try(joi.boolean(), joi.string());
