@@ -46,6 +46,7 @@ export class ViewModel {
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
   backLinkText?: string | undefined;
+  containsFileType?: boolean;
 
   constructor(
     pageTitle: string,
@@ -149,6 +150,7 @@ export class ViewModel {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
           if (item.type === "FileUploadField") {
+            item.value = this.splitFileName(item.value);
           }
           if (items.find((cbItem) => cbItem.name === item.name)) return;
           items.push(item);
@@ -299,6 +301,11 @@ export class ViewModel {
       }
     }
     return webhookData;
+  }
+
+  splitFileName(fileName: string) {
+    let value = fileName.split("/");
+    return value[value.length - 1];
   }
 }
 

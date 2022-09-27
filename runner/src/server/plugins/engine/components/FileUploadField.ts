@@ -57,11 +57,6 @@ export class FileUploadField extends FormComponent {
     return fileName;
   }
 
-  splitFileName(fileName: string) {
-    let value = fileName.split("/");
-    return value[value.length - 1];
-  }
-
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { options } = this;
     const viewModel: ViewModel = {
