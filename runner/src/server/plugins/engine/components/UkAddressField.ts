@@ -138,11 +138,10 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
-    if (typeof value !== "string") {
+    if (typeof value !== "string" && typeof value !== "undefined") {
       value.addressLine2 =
         value.addressLine2 === "" ? "null" : value.addressLine2;
       value.county = value.county === "" ? "null" : value.county;
-
     }
 
     return value
