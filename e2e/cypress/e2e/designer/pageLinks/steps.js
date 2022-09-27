@@ -8,6 +8,7 @@ Then("the link panels are correct", (table) => {
     cy.findByText("Close").click();
   });
 });
+
 When("I link the {string} to {string}", (fromPage, toPage) => {
   cy.findByLabelText("From").select(fromPage);
   cy.findByLabelText("To").select(toPage);
