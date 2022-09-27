@@ -89,6 +89,7 @@ export const configSchema = Joi.object({
   rsa256PublicKeyBase64: Joi.string().optional(),
   logoutUrl: Joi.string().optional(),
   basicAuthOn: Joi.boolean().optional(),
+  overwriteInitialisedSession: Joi.boolean().optional(),
 });
 
 export function buildConfig(config) {

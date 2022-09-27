@@ -91,12 +91,19 @@ export class CacheService {
 
     const initialisedSession = await this.cache.get(this.JWTKey(jwt));
 
-    const currentSession = await this.cache.get(userSessionKey);
-    const mergedSession = {
-      ...currentSession,
-      ...initialisedSession,
-    };
-    this.cache.set(userSessionKey, mergedSession, sessionTimeout);
+    if (config.overwriteInitialisedSession) {
+      request.logger.info("Replacing user session with initialisedSession");
+      this.cache.set(userSessionKey, initialisedSession, sessionTimeout);
+    } else {
+      const currentSession = await this.cache.get(userSessionKey);
+      const mergedSession = {
+        ...currentSession,
+        ...initialisedSession,
+      };
+      request.logger.info("Merging user session with initialisedSession");
+      this.cache.set(userSessionKey, mergedSession, sessionTimeout);
+    }
+
     await this.cache.drop(this.JWTKey(jwt));
     return {
       redirectPath: initialisedSession?.callback?.redirectPath ?? "",
