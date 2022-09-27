@@ -40,6 +40,7 @@ suite("uploads", () => {
     };
     const response = await server.inject(options);
     const $ = cheerio.load(response.payload);
+    console.log($);
     expect($("govuk-inset-text").text().trim()).to.equal(
       "Check your uploaded file is visible. If not, upload it again."
     );
