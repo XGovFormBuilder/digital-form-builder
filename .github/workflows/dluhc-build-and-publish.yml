@@ -3,7 +3,7 @@ on:
   push:
 
 env:
-  VERSION: "0.1.15" # Manually increment this version when pushing to main
+  VERSION: "0.1.16" # Manually increment this version when pushing to main
   IMAGE_NAME_STUB: "digital-form-builder-dluhc-"
   DOCKER_REGISTRY: ghcr.io
   IMAGE_REPO_PATH: "ghcr.io/${{github.repository_owner}}"
