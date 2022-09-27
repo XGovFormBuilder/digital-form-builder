@@ -149,8 +149,12 @@ export class ViewModel {
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
+
           if (item.type === "FileUploadField") {
             item.value = this.splitFileName(item.value);
+          }
+          if (item.type === "UkAddressField") {
+            item.value = item.value.replace(/, null/g, "");
           }
           if (items.find((cbItem) => cbItem.name === item.name)) return;
           items.push(item);

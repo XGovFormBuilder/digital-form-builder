@@ -58,8 +58,15 @@ export class UkAddressField extends FormComponent {
         options: {
           required: isRequired,
           customValidationMessage: "Enter a valid postcode",
-          classes: "govuk-!-width-one-third",
+          classes: "govuk-!-width-one-half",
         },
+      },
+      {
+        type: "TextField",
+        name: "county",
+        title: "County",
+        schema: { max: 100 },
+        options: { required: false, classes: "govuk-!-width-one-half" },
       },
     ];
 
@@ -110,6 +117,7 @@ export class UkAddressField extends FormComponent {
       [`${name}__addressLine2`]: value && value.addressLine2,
       [`${name}__town`]: value && value.town,
       [`${name}__postcode`]: value && value.postcode,
+      [`${name}__county`]: value && value.county,
     };
   }
 
@@ -121,6 +129,7 @@ export class UkAddressField extends FormComponent {
           addressLine2: payload[`${name}__addressLine2`],
           town: payload[`${name}__town`],
           postcode: payload[`${name}__postcode`],
+          county: payload[`${name}__county`],
         }
       : null;
   }
@@ -129,12 +138,20 @@ export class UkAddressField extends FormComponent {
     const name = this.name;
     const value = state[name];
 
-    if (typeof value === "string") {
-      return value;
+    if (typeof value !== "string" && typeof value !== "undefined") {
+      value.addressLine2 =
+        value.addressLine2 === "" ? "null" : value.addressLine2;
+      value.county = value.county === "" ? "null" : value.county;
     }
 
     return value
-      ? [value.addressLine1, value.addressLine2, value.town, value.postcode]
+      ? [
+          value.addressLine1,
+          value.addressLine2,
+          value.town,
+          value.postcode,
+          value.county,
+        ]
           .filter((p) => {
             return !!p;
           })
@@ -169,19 +186,13 @@ export class UkAddressField extends FormComponent {
   convertStringAnswers(name: string, value: any) {
     const address = value.split(", ");
 
-    if (address.length === 3) {
-      return {
-        [`${name}__addressLine1`]: value && address[0],
-        [`${name}__town`]: value && address[1],
-        [`${name}__postcode`]: value && address[2],
-      };
-    }
-
     return {
       [`${name}__addressLine1`]: value && address[0],
-      [`${name}__addressLine2`]: value && address[1],
+      [`${name}__addressLine2`]:
+        value && address[1] === "null" ? "" : address[1],
       [`${name}__town`]: value && address[2],
       [`${name}__postcode`]: value && address[3],
+      [`${name}__county`]: value && address[4] === "null" ? "" : address[4],
     };
   }
 }
