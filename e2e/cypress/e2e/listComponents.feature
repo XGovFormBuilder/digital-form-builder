@@ -34,9 +34,9 @@ Feature: List components
       | raw           |                        |
     And I see the heading "First page"
     Examples:
-      | component |
-      | Radios    |
-      | Checkboxes  |
+      | component  |
+      | Radios     |
+      | Checkboxes |
 
   Scenario: Select field renders all options
     When I create a component
@@ -44,17 +44,17 @@ Feature: List components
       | First page | Select    | Which eggs do you like? | Types of egg |
     And I preview the page "First page"
     Then I see the dropdown options
-      | labelText  | options                                            |
-      | First page | sunny-side up,over-easy,scrambled,raw  |
+      | labelText  | options                               |
+      | First page | sunny-side up,over-easy,scrambled,raw |
 
   Scenario: Autocomplete field renders all options
     When I create a component
-      | page       | component | title                   | list         |
-      | First page | Autocomplete    | Which eggs do you like? | Types of egg |
+      | page       | component    | title                   | list         |
+      | First page | Autocomplete | Which eggs do you like? | Types of egg |
     And I preview the page "First page"
     Then I see the typeahead options
-      | labelText | options                                      |
-      | First page   | sunny-side up,over-easy,scrambled,raw |
+      | labelText  | options                               |
+      | First page | sunny-side up,over-easy,scrambled,raw |
 
   Scenario: The page title is displayed when there are two components
     When I create a component

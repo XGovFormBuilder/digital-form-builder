@@ -22,7 +22,7 @@ Feature: Page links
   Scenario: Linking pages when adding a page
     When I open "Add page"
     And I enter the details for my page
-      | type | linkFrom   | title                 | path | newSection | section |
+      | type | linkFrom    | title                 | path | newSection | section |
       |      | /first-page | What is your address? |      |            |         |
     Then the page link "first-page-what-is-your-address" exists
 

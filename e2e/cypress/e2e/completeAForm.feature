@@ -14,11 +14,11 @@ Feature: Complete a form
     * I enter "the additional info" into "Additional Info (Optional)"
     * I continue
     Then I see a summary list with the values
-      | title | value |
-      | Do you have a link to the material?     | Yes, I do have a link     |
-      | Link to the material                    | link-to-the-material.co   |
-      | Do you have any evidence?               | No, I don't have evidence |
-      | Additional Info                         | the additional info       |
+      | title                               | value                     |
+      | Do you have a link to the material? | Yes, I do have a link     |
+      | Link to the material                | link-to-the-material.co   |
+      | Do you have any evidence?           | No, I don't have evidence |
+      | Additional Info                     | the additional info       |
     When I submit the form
     Then I see "Application complete"
 
@@ -72,7 +72,7 @@ Feature: Complete a form
     * I enter "ec2a4ps" for "Postcode"
     * I enter "2025-12-25" for "What date was the vehicle registered at this address?"
     * I select
-        | Bath | Bristol |
+      | Bath | Bristol |
     * I continue
     * I select "Alfa Romeo" for "What is the make of you vehicle?"
     * I enter "fast car" for "Vehicle Model"
