@@ -304,8 +304,10 @@ export class ViewModel {
   }
 
   splitFileName(fileName: string) {
-    let value = fileName.split("/");
-    return value[value.length - 1];
+    if (typeof fileName !== "undefined") {
+      let value = fileName.split("/");
+      return value[value.length - 1];
+    }
   }
 }
 
