@@ -39,11 +39,6 @@ suite("uploads", () => {
       payload: form.getBuffer(),
     };
     const response = await server.inject(options);
-    const $ = cheerio.load(response.payload);
-    console.log($);
-    expect($("govuk-inset-text").text().trim()).to.equal(
-      "Check your uploaded file is visible. If not, upload it again."
-    );
     expect(response.statusCode).to.equal(302);
     expect(response.headers).to.include("location");
     expect(response.headers.location).to.equal("/upload/summary");
