@@ -49,22 +49,18 @@ Then(
     const hour = date.getHours();
     const minute = date.getMinutes();
 
-    cy.findByLabelText("Day", { selector: `#${fieldName}__day` }).type(day);
-    cy.findByLabelText("Month", { selector: `#${fieldName}__month` }).type(
-      month
-    );
-    cy.findByLabelText("Year", { selector: `#${fieldName}__year` }).type(year);
-    if (hour) {
-      cy.findByLabelText("Hour", { selector: `#${fieldName}__hour` }).type(
-        hour
-      );
-    }
+    cy.get(`#${fieldName}`).within(() => {
+      cy.findByLabelText("Day").type(day);
+      cy.findByLabelText("Month").type(month);
+      cy.findByLabelText("Year").type(year);
+      if (hour) {
+        cy.findByLabelText("Hour").type(hour);
+      }
 
-    if (minute) {
-      cy.findByLabelText("Minute", { selector: `#${fieldName}__minute` }).type(
-        minute
-      );
-    }
+      if (minute) {
+        cy.findByLabelText("Minute").type(minute);
+      }
+    });
   }
 );
 
@@ -78,7 +74,7 @@ When("I expand {string} to see {string}", (title, content) => {
 });
 
 When("I select", (table) => {
-  const values = table.raw();
+  const values = table.raw()[0];
 
   values.forEach((value) => {
     cy.findByLabelText(value).check();

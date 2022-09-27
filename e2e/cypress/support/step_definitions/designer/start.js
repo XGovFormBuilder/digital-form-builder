@@ -15,3 +15,7 @@ Given("I am on the form designer start page", () => {
 Then("the form id is not {string}", (string) => {
   cy.url().should("not.include", string);
 });
+
+When("I open Back to previous page", () => {
+  cy.findByText("Back to previous page").click({ force: true });
+});

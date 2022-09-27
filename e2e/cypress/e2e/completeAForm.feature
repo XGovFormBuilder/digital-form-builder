@@ -28,7 +28,7 @@ Feature: Complete a form
     When I choose "No, I don't have a link"
     * I continue
     Then I see the heading "Do you have any evidence?"
-#
+
   Scenario: Testing condition - User does have evidence
     Given I navigate to the "report-a-terrorist" form
     When I choose "Yes, I do have a link"
@@ -74,18 +74,20 @@ Feature: Complete a form
     * I select
         | Bath | Bristol |
     * I continue
-    * I select "Alfa Romeo" for "What is the make of your vehicle?"
+    * I select "Alfa Romeo" for "What is the make of you vehicle?"
     * I enter "fast car" for "Vehicle Model"
-    * I enter the date "2022-12-25" in parts for "Date you purchased the vehicle?"
-    * I select "Electric" for "What fuel type does your vehicle use?"
-    * I enter "no"
+    * I enter the date "2022-12-25" in parts for "4LZ9to"
+    * I choose "Electric" for "What fuel type does your vehicle use?"
+    * I enter "no" for "Has the vehicle been modified in any way?"
     * I continue
     * I enter "1" for "How many people in your household drive this vehicle?"
     * I enter "Doc Brown" for "Full name of the main driver"
     * I enter "001" for "Contact number"
     * I continue
-    * I enter "jen+forms@cautionyourblast.com" for "Email address field"
+    * I enter "jen+forms@cautionyourblast.com" for "Your email address"
+    * I continue
     * I submit the form
+    Then I see "Application complete"
 
 
   Scenario: Error messages are displayed and can be resolved

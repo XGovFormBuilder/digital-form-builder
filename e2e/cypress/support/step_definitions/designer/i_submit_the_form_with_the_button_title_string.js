@@ -58,6 +58,10 @@ When("I open the link {string}", (link) => {
   cy.findByRole("link", { name: link }).click();
 });
 
+When("I force open the link {string}", (link) => {
+  cy.findByRole("link", { name: link }).click({ force: true });
+});
+
 When(
   "I select {string} for the field with the name {string}",
   (option, fieldName) => {
