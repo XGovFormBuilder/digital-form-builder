@@ -1,0 +1,53 @@
+{
+  "metadata": {},
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [
+        {
+          "name": "iLnODi",
+          "options": {},
+          "type": "MultilineTextField",
+          "title": "test",
+          "hint": "test"
+        },
+        {
+          "name": "yQFIYO",
+          "options": {},
+          "type": "FileUploadField",
+          "title": "test file"
+        }
+      ],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [],
+  "sections": [],
+  "conditions": [],
+  "fees": [],
+  "outputs": [],
+  "version": 2,
+  "skipSummary": false
+}
