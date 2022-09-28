@@ -60,8 +60,8 @@ jobs:
           HASH_TARGET: "${{inputs.app}}/Dockerfile"
         run: |
           echo "${HASH_TARGET}"
-          echo "::set-output name=hash::${{hashFiles(env.HASH_TARGET)}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(env.HASH_TARGET)}}"
+          echo "::set-output name=hash::${{hashFiles(${HASH_TARGET})}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(${HASH_TARGET})}}"
 
       - name: Build ${{inputs.app}}
         uses: docker/build-push-action@v3
