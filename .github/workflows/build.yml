@@ -8,13 +8,16 @@ on:
         required: true
         type: string
     outputs:
-      tag: ${{ steps.hashFile.outputs.tag }}
-      hash: ${{ steps.hashFile.outputs.hash }}
+      tag:  ${{ jobs.build-app.outputs.tag }}
+      hash: ${{ jobs.build-app.outputs.hash }}
 
 jobs:
   build-app:
     runs-on: ubuntu-latest
     name: build app ${{inputs.app}}
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
