@@ -33,6 +33,6 @@ jobs:
     needs: [build-runner,build-designer]
     uses: ./.github/workflows/smoke-test.yml
     with:
-      runner-cache-ref: needs.build-runner.outputs.tag
-      designer-cache-ref: needs.build-designer.outputs.tag
+      runner-cache-ref: ${{needs.build-runner.outputs.tag}}
+      designer-cache-ref: ${{needs.build-designer.outputs.tag}}
     secrets: inherit
