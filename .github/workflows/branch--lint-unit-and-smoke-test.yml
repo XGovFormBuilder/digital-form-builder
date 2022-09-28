@@ -202,7 +202,8 @@ jobs:
           docker compose up -d
           docker ps
 
-      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+      - name: run tests
+        run: yarn e2e cypress run
 
       - name: Run Lighthouse on urls and validate with lighthouserc
         uses: treosh/lighthouse-ci-action@v8
