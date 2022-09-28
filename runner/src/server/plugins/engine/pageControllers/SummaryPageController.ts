@@ -89,6 +89,13 @@ export class SummaryPageController extends PageController {
       if (declarationError.length) {
         viewModel.declarationError = declarationError[0];
       }
+
+      viewModel.details.find((value, index) => {
+        viewModel.containsFileType = value.items.some(
+          (item) => item.type === "FileUploadField"
+        );
+      });
+
       return h.view("summary", viewModel);
     };
   }

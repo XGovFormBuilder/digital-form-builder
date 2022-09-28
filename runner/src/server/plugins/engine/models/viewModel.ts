@@ -46,6 +46,7 @@ export class ViewModel {
   _webhookData: WebhookData | undefined;
   callback?: InitialiseSessionOptions;
   backLinkText?: string | undefined;
+  containsFileType?: boolean;
 
   constructor(
     pageTitle: string,
@@ -148,6 +149,10 @@ export class ViewModel {
       sectionPages.forEach((page) => {
         for (const component of page.components.formItems) {
           const item = Item(request, component, sectionState, page, model);
+
+          if (item.type === "FileUploadField") {
+            item.value = this.splitFileName(item.value);
+          }
           if (item.type === "UkAddressField") {
             item.value = item.value.replace(/, null/g, "");
           }
@@ -300,6 +305,13 @@ export class ViewModel {
       }
     }
     return webhookData;
+  }
+
+  splitFileName(fileName: string) {
+    if (typeof fileName !== "undefined") {
+      let value = fileName.split("/");
+      return value[value.length - 1];
+    }
   }
 }
 
