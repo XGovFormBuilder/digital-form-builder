@@ -8,8 +8,12 @@ on:
         required: true
         type: string
     outputs:
-      tag:  ${{ jobs.build-app.outputs.tag }}
-      hash: ${{ jobs.build-app.outputs.hash }}
+      tag:
+        description: tag used for docker caching
+        value: ${{ jobs.build-app.outputs.tag }}
+      hash:
+        description: hash used for docker caching
+        value: ${{ jobs.build-app.outputs.hash }}
 
 jobs:
   build-app:
