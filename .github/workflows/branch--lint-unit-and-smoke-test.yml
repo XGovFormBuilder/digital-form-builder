@@ -210,6 +210,9 @@ jobs:
             ${{ runner.os }}-yarn
 
       - name: run tests
+        run: yarn
+
+      - name: run tests
         run: yarn e2e install
 
       - name: Set up Docker Buildx
