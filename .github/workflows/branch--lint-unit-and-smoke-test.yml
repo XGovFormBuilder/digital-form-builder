@@ -165,7 +165,7 @@ jobs:
       - name: Build runner
         uses: docker/build-push-action@v3
         with:
-          file: designer/Dockerfile
+          file: runner/Dockerfile
           push: true
           context: .
           tags: ${{ steps.hashFile.outputs.tag }}
