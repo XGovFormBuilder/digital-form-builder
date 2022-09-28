@@ -1,0 +1,68 @@
+name: build app
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        description: the app to build "designer" or "runner"
+        required: true
+        type: string
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+
+jobs:
+  build-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          cache: yarn
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{inputs.app}}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{inputs.app}}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          config-inline: |
+            [registry."ghcr.io"]
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: hashFile
+        run: |
+          echo "::set-output name=hash::${{hashFiles('${{inputs.app}}/Dockerfile')}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles('${{inputs.app}}/Dockerfile')}}"
+
+      - name: Build ${{inputs.app}}
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{inputs.app}}/Dockerfile
+          push: true
+          context: .
+          tags: ${{ steps.hashFile.outputs.tag }}
+          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
+          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
+

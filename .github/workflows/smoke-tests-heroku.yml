@@ -14,17 +14,6 @@ jobs:
       - uses: rtCamp/action-slack-notify@v2
         if: ${{failure()}}
         env:
-          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
-          SLACK_COLOR: "#990000"
-          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
-          SLACK_TITLE: Smoke Test failure
-          SLACK_USERNAME: forms-nightly-bot
-          SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-      - uses: rtCamp/action-slack-notify@v2
-        if: ${{failure()}}
-        env:
           SLACK_CHANNEL: ${{ secrets.CYB_SLACK_CHANNEL }}
           SLACK_COLOR: "#990000"
           SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"

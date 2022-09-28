@@ -7,183 +7,27 @@ on:
       - "docs/**"
       - "**/README.md"
   workflow_dispatch:
+
 jobs:
   lint-and-test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [designer, runner, model]
-    name: lint-and-test-${{matrix.app}}
-    steps:
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_PAT }}
-
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{matrix.app}}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-${{matrix.app}}
-
-      - name: Install project deps
-        run: yarn
-
-      - name: Install dependencies
-        run: yarn ${{matrix.app}} install
-
-      - name: Check existing forms
-        if: ${{ matrix.app == 'runner' }}
-        run: yarn runner check-forms
-
-      - name: Build dependencies
-        run: yarn build:dependencies
-
-      - name: Lint
-        run: yarn ${{matrix.app}} lint
-
-      - name: Test
-        run: yarn ${{matrix.app}} test-cov
-
-      - name: Upload test results artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-results-${{matrix.app}}
-          path: ${{matrix.app}}/test-results
-          retention-days: 14
-
-      - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-coverage-${{matrix.app}}
-          path: ${{matrix.app}}/test-coverage
-          retention-days: 14
+        workspace: [model, designer, runner]
+    uses: .github/workflows/lint-and-test.yml
+    with:
+      target: ${{ matrix.workspace }}
 
   build-designer:
-    runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.hashFile.outputs.tag }}
-      hash: ${{ steps.hashFile.outputs.hash }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-designer-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-designer
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
-          config-inline: |
-            [registry."ghcr.io"]
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - id: hashFile
-        run: |
-          echo "::set-output name=hash::${{hashFiles('designer/Dockerfile')}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-designer:${{hashFiles('designer/Dockerfile')}}"
-
-      - name: Build designer
-        uses: docker/build-push-action@v3
-        with:
-          file: designer/Dockerfile
-          push: true
-          context: .
-          tags: ${{ steps.hashFile.outputs.tag }}
-          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
-          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
+    uses: .github/workflows/build.yml
+    with:
+      app: designer
+    secrets: inherit
 
   build-runner:
-    runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.hashFile.outputs.tag }}
-      hash: ${{ steps.hashFile.outputs.hash }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
-
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-
-      - uses: actions/cache@v3
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-runner-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-runner
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
-          config-inline: |
-            [registry."ghcr.io"]
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - id: hashFile
-        run: |
-          echo "::set-output name=hash::${{hashFiles('runner/Dockerfile')}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-runner:${{hashFiles('runner/Dockerfile')}}"
-
-      - name: Build runner
-        uses: docker/build-push-action@v3
-        with:
-          file: runner/Dockerfile
-          push: true
-          context: .
-          tags: ${{ steps.hashFile.outputs.tag }}
-          cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
-          cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
-
-
+    uses: .github/workflows/build.yml
+    with:
+      app: runner
+    secrets: inherit
 
   smoke-test:
     runs-on: ubuntu-latest

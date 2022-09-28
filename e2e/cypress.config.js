@@ -36,7 +36,7 @@ export default defineConfig({
     specPattern: "**/*.feature",
     setupNodeEvents,
     chromeWebSecurity: false,
-    video: false,
+    screenshot: true,
     experimentalSessionAndOrigin: true,
   },
   env: {
