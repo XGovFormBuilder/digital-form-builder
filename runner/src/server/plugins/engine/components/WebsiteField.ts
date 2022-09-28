@@ -5,7 +5,8 @@ import { TextField } from "./TextField";
 import { addClassOptionIfNone } from "./helpers";
 
 export class WebsiteField extends TextField {
-  private defaultMessage = "Enter website address in the correct format";
+  private defaultMessage =
+    "Enter website address in the correct format, starting with 'https://'";
 
   formSchema: StringSchema;
   options: WebsiteFieldComponent["options"];

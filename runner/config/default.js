@@ -119,6 +119,7 @@ module.exports = {
   // authClientProfileUrl: "" // oAuth client user profile endpoint
   logoutUrl: "/logout",
   basicAuthOn: false,
+  overwriteInitialisedSession: true,
 
   /**
    * Logging

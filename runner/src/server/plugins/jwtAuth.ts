@@ -19,13 +19,6 @@ export function jwtAuthIsActivated(
 // this is normally used to look up keys from list in a multi-tenant scenario
 const keyFunc = async function (decoded) {
   const key = Buffer.from(config.rsa256PublicKeyBase64 ?? "", "base64");
-  console.log(
-    "Verifying token: '" +
-      JSON.stringify(decoded) +
-      "' with public key: '" +
-      config.rsa256PublicKeyBase64 +
-      "'"
-  );
   return { key, additional: decoded };
 };
 
@@ -51,16 +44,7 @@ const validate = async function (decoded, request, h) {
 
 // rsa256Options()
 // Returns configuration options for rsa256 auth strategy
-export function rsa256Options(jwtAuthCookieName, rsa256PublicKeyBase64) {
-  console.log(
-    "Validating jwt in cookie name '" +
-      jwtAuthCookieName +
-      "' with RSA256 base64 key '" +
-      rsa256PublicKeyBase64 +
-      "' decoded to key '" +
-      Buffer.from(rsa256PublicKeyBase64 ?? "", "base64").toString() +
-      "'"
-  );
+export function rsa256Options(jwtAuthCookieName) {
   return {
     key: keyFunc,
     validate,
