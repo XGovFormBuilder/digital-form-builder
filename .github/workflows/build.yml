@@ -14,7 +14,7 @@ on:
 jobs:
   build-app:
     runs-on: ubuntu-latest
-
+    name: build app ${{inputs.app}}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
