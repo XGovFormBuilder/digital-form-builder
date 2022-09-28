@@ -3,7 +3,3 @@ When("I choose {string} for {string}", (option, label) => {
     cy.findByLabelText(option).click();
   });
 });
-
-When("I click the back link", () => {
-  cy.findByRole("link", { name: "Back" }).click();
-});

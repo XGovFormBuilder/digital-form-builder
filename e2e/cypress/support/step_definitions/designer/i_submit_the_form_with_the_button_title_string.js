@@ -12,6 +12,7 @@ When("I create a component", (table) => {
     hint,
     hideTitle,
     optional,
+
     additional,
     list,
     ...rest

@@ -11,7 +11,7 @@ Feature: Complete a form
     * I continue
     * I choose "No, I don't have evidence"
     * I continue
-    * I enter "the additional info" into "Additional Info (Optional)"
+    * I enter "the additional info" for "Additional Info (Optional)"
     * I continue
     Then I see a summary list with the values
       | title                               | value                     |
