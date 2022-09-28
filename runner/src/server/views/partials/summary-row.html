@@ -4,8 +4,10 @@
         {{item.label}}
     </dt>
     <dd class="govuk-summary-list__value">
-        {% if item.value %}            
-            {% if item.type == 'MultiInputField' %}
+        {% if item.value %}
+            {% if item.type == 'FileUploadField' %}
+                {{item.name}}
+            {% elif item.type == 'MultiInputField' %}
                 {% for itemValue in item.value%}
                     {{itemValue}}<br>
                 {% endfor %}
