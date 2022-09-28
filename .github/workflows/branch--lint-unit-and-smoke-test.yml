@@ -207,6 +207,7 @@ jobs:
           key: ${{ runner.os }}-yarn-e2e-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-e2e
+            ${{ runner.os }}-yarn
 
       - name: run tests
         run: yarn e2e install
