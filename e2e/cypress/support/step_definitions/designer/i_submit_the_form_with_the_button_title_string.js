@@ -1,4 +1,6 @@
 import { nanoid } from "nanoid";
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 When("I submit the form with the button title {string}", (title) => {
   cy.findByRole("button", { name: title }).click();
 });

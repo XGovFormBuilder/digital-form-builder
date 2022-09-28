@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+
 Then(
   "I enter the date {string} in parts for {string}",
   (dateString, fieldName) => {

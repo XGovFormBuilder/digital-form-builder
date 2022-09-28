@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 When("I add the list items", (table) => {
   //    | text | help | value | conditions |
 

@@ -1,3 +1,5 @@
+import { Then } from "@badeball/cypress-cucumber-preprocessor";
+import { findByText } from "@testing-library/dom";
 Then("I see a summary list with the values", (table) => {
   const expectedRows = table.hashes();
 

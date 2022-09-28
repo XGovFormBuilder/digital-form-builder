@@ -1,3 +1,5 @@
+import { When } from "@badeball/cypress-cucumber-preprocessor";
+
 When("I preview the page {string}", (pageName) => {
   cy.findByText(pageName, { ignore: ".govuk-visually-hidden" })
     .closest(".page")

@@ -1,3 +1,5 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 When("I try to create a new form without entering a form name", () => {
   cy.findByRole("button", { name: "Next" }).click();
 });

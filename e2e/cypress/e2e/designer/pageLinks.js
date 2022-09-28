@@ -1,3 +1,5 @@
+import { When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 Then("the link panels are correct", (table) => {
   const links = table.hashes();
 
