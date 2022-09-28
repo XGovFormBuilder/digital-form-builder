@@ -56,9 +56,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - id: hashFile
+        env:
+          APP_DOCKERFILE: ${{inputs.app}}/Dockerfile
         run: |
-          echo "::set-output name=hash::${{hashFiles('${{inputs.app}}/Dockerfile')}}"
-          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles('${{inputs.app}}/Dockerfile')}}"
+          echo "::set-output name=hash::${{hashFiles($APP_DOCKERFILE)}}"
+          echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles($APP_DOCKERFILE)}}"
 
       - name: Build ${{inputs.app}}
         uses: docker/build-push-action@v3
