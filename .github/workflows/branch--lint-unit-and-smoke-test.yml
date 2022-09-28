@@ -15,7 +15,7 @@ jobs:
         workspace: [model, designer, runner]
     uses: ./.github/workflows/lint-and-test.yml
     with:
-      target: ${{ matrix.workspace }}
+      workspace: ${{ matrix.workspace }}
 
   build-designer:
     uses: ./.github/workflows/build.yml
