@@ -37,6 +37,7 @@ export default defineConfig({
     setupNodeEvents,
     chromeWebSecurity: false,
     screenshot: true,
+    video: false,
     experimentalSessionAndOrigin: true,
   },
   env: {
