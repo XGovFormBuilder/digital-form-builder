@@ -10,9 +10,6 @@ on:
     outputs:
       tag: ${{ steps.hashFile.outputs.tag }}
       hash: ${{ steps.hashFile.outputs.hash }}
-    secrets:
-      GITHUB_TOKEN:
-        required: true
 
 jobs:
   build-app:
