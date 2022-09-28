@@ -13,18 +13,18 @@ jobs:
     strategy:
       matrix:
         workspace: [model, designer, runner]
-    uses: .github/workflows/lint-and-test.yml
+    uses: .github/workflows/lint-and-test.yml@{ref}
     with:
       target: ${{ matrix.workspace }}
 
   build-designer:
-    uses: .github/workflows/build.yml
+    uses: .github/workflows/build.yml@{ref}
     with:
       app: designer
     secrets: inherit
 
   build-runner:
-    uses: .github/workflows/build.yml
+    uses: .github/workflows/build.yml@{ref}
     with:
       app: runner
     secrets: inherit
