@@ -48,6 +48,13 @@ export class UkAddressField extends FormComponent {
       },
       {
         type: "TextField",
+        name: "county",
+        title: "County",
+        schema: { max: 100 },
+        options: { required: false, classes: "govuk-!-width-one-half" },
+      },
+      {
+        type: "TextField",
         name: "postcode",
         title: "Postcode",
         schema: {
@@ -60,13 +67,6 @@ export class UkAddressField extends FormComponent {
           customValidationMessage: "Enter a valid postcode",
           classes: "govuk-!-width-one-half",
         },
-      },
-      {
-        type: "TextField",
-        name: "county",
-        title: "County",
-        schema: { max: 100 },
-        options: { required: false, classes: "govuk-!-width-one-half" },
       },
     ];
 
@@ -191,8 +191,8 @@ export class UkAddressField extends FormComponent {
       [`${name}__addressLine2`]:
         value && address[1] === "null" ? "" : address[1],
       [`${name}__town`]: value && address[2],
-      [`${name}__postcode`]: value && address[3],
-      [`${name}__county`]: value && address[4] === "null" ? "" : address[4],
+      [`${name}__county`]: value && address[3] === "null" ? "" : address[3],
+      [`${name}__postcode`]: value && address[4],
     };
   }
 }
