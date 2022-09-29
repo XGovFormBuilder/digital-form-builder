@@ -11,11 +11,10 @@ on:
         description: Set to true to publish to GHCR. Defaults to false
         type: boolean
         required: false
-        default: false
       semver:
         description: The semantic version you wish to publish with
-        type: string
         required: false
+        type: string
     outputs:
       tag:
         description: tag used for docker caching
