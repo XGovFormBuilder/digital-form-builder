@@ -64,12 +64,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+
+        # The hash is a function of the Dockerfile and the yarn.lock Packages take up the bulk of the time during a docker build. The hash is used to cache the docker builds.
+        # As long as the yarn.lock and dockerfiles are the same, you will be able to share this cache with another commit/branch.
       - id: hashFile
         env:
           HASH_TARGET: "${{inputs.app}}/Dockerfile"
         run: |
-        # The hash is a function of the Dockerfile and the yarn.lock Packages take up the bulk of the time during a docker build. The hash is used to cache the docker builds.
-        # As long as the yarn.lock and dockerfiles are the same, you will be able to share this cache with another commit/branch.
           echo "::set-output name=hash::${{hashFiles(env.HASH_TARGET, 'yarn.lock')}}"
           echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(env.HASH_TARGET)}}"
 
