@@ -12,7 +12,7 @@ function inputIsOverWordCount(input, maxWords) {
    */
   var maxWordCount = parseInt(maxWords);
   const wordCount = input.match(/\S+/g).length || 0;
-  return maxWordCount > wordCount;
+  return wordCount > maxWordCount;
 }
 
 export class MultilineTextField extends FormComponent {
@@ -50,7 +50,7 @@ export class MultilineTextField extends FormComponent {
     if (maxWords ?? false) {
       this.formSchema = this.formSchema.custom((value, helpers) => {
         if (inputIsOverWordCount(value, maxWords)) {
-          helpers.error("string.maxWords");
+          return helpers.error("string.maxWords");
         }
         return value;
       }, "max words validation");
