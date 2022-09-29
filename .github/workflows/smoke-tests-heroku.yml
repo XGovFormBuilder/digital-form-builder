@@ -7,9 +7,30 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: XGovFormBuilder/digital-form-builder-legacy-smoke-tests@main
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          script: "heroku"
+          node-version: "16.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-e2e-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-e2e
+            
+
+      - name: Run smoke tests against heroku
+        run: yarn e2e cypress run
+        env:
+          cypress_DESIGNER_URL: https://digital-form-builder-designer.herokuapp.com
+          cypress_RUNNER_URL: https://digital-form-builder-runner.herokuapp.com
 
       - uses: rtCamp/action-slack-notify@v2
         if: ${{failure()}}
