@@ -43,102 +43,34 @@ jobs:
         run: echo "::set-output name=semver::$(echo $SEMVER)"
 
   lint-and-test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        app: [designer, runner, model]
-    name: lint-and-test-${{matrix.app}}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
-
-      - name: Install project deps
-        run: yarn
-
-      - name: Install dependencies
-        run: yarn ${{matrix.app}} install
-
-      - name: Check existing forms
-        if: ${{ matrix.app == 'runner' }}
-        run: yarn runner check-forms
-
-      - name: Build dependencies
-        run: yarn build:dependencies
-
-      - name: Lint
-        run: yarn ${{matrix.app}} lint
-
-      - name: Test
-        run: yarn ${{matrix.app}} test-cov
-
-      - name: Upload test results artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-results-${{matrix.app}}
-          path: ${{matrix.app}}/test-results
-          retention-days: 14
-
-      - name: Upload test coverage artifacts
-        uses: actions/upload-artifact@v2
-        if: ${{ success() || failure() }}
-        with:
-          name: test-coverage-${{matrix.app}}
-          path: ${{matrix.app}}/test-coverage
-          retention-days: 14
+        workspace: [ model, designer, runner ]
+    uses: ./.github/workflows/lint-and-test.yml
+    with:
+      workspace: ${{ matrix.workspace }}
 
   build-and-publish-images:
-    runs-on: ubuntu-latest
     needs: [calculate-version, assign-semver, lint-and-test]
-    env:
-      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     strategy:
       matrix:
         app: [designer, runner]
-    name: build-and-publish-${{matrix.app}}-image
+    uses: ./.github/workflows/lint-and-test.yml
+    with:
+      semver: ${{ needs.assign-semver.outputs.SEMVER }}
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: yarn
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        with:
-          config-inline: |
-            [registry."ghcr.io"]
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GHCR_PAT }}
-
-      - name: Build ${{matrix.app}} and push
-        uses: docker/build-push-action@v3
-        with:
-          file: ${{matrix.app}}/Dockerfile
-          push: true
-          context: .
-          tags: |
-            ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:${{ env.SEMVER }}
-            ghcr.io/xgovformbuilder/digital-form-builder-${{matrix.app}}:latest
-          build-args: LAST_TAG_GH=${{env.SEMVER}}
-
-      - name: Trigger deploy development environment
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: Deploy Development Environment
-          token: ${{ secrets.GHCR_PAT }}
-          inputs: '{ "app": "${{ matrix.app }}", "tag": "${{ env.SEMVER }}"}'
+  deploy:
+    needs: build-and-publish-images
+    uses: ./.github/workflows/deploy-development.yml
+    strategy:
+      matrix:
+        app: [ designer, runner ]
+    with:
+      secrets: inherit
+      token: ${{ secrets.GHCR_PAT }}
+      app: ${{ matrix.app }}
+      tag: ${{env.SEMVER }}
 
   tag-branch:
     runs-on: ubuntu-latest
