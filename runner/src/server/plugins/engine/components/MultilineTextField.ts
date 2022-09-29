@@ -10,8 +10,9 @@ function inputIsOverWordCount(input, maxWords) {
    * This validation is copied from the govuk-frontend library to match their client side behaviour
    * the {@link https://github.com/alphagov/govuk-frontend/blob/e1612b13771fb7ca9a58ee85393aec94a1849335/src/govuk/components/character-count/character-count.js#L91 | govuk-frontend} library
    */
+  var maxWordCount = parseInt(maxWords);
   const wordCount = input.match(/\S+/g).length || 0;
-  return maxWords > wordCount;
+  return maxWordCount > wordCount;
 }
 
 export class MultilineTextField extends FormComponent {
