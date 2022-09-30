@@ -28,12 +28,14 @@ This package recently has changed hands, so documentation is also moving around.
 Older documentation can be found here [https://www.npmjs.com/package/@badeball/cypress-cucumber-preprocessor](https://www.npmjs.com/package/@badeball/cypress-cucumber-preprocessor)
 
 ## Running the tests
+As usual, always run commands in the root directory, not in the workspace directory.
+
 1. Install the dependencies `yarn e2e install`
 2. Ensure the runner and designer are running. It can be running locally or pointed at a URL.
   - The defaults are set in cypress.config.js. `DESIGNER_URL: http://localhost:3000` and `RUNNER_URL: http://localhost:3009`. You may change this via environment variables by prepending the variable name with cypress_, e.g. `cypress_designer_url=https://..`
 3. Run, from the root directory
-  - in headless mode `yarn e2e run`
-  - in interactive mode `yarn e2e open` (this will open your browser)
+  - in headless mode `yarn e2e cypress run`
+  - in interactive mode `yarn e2e cypress open` (this will open your browser)
 
 ### Writing tests
 Feature files are written with [gherkin syntax](https://cucumber.io/docs/gherkin/reference/). You may find the cypress-cucumber-preprocessor documentation more useful when trying to find "how to do X in cypress with gherkin/cucumber".

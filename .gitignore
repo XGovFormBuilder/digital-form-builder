@@ -29,3 +29,4 @@ tsconfig.tsbuildinfo
 .yarn/install-state.gz
 docs/**/typedoc
 
+/e2e/cypress/screenshots/
