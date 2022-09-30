@@ -40,10 +40,10 @@ jobs:
             ${{ runner.os }}-yarn-e2e
             ${{ runner.os }}-yarn
 
-      - name: run tests
+      - name: Install dependencies
         run: yarn
 
-      - name: run tests
+      - name: Install e2e dependencies
         run: yarn e2e install
 
       - name: Set up Docker Buildx
@@ -88,5 +88,5 @@ jobs:
           docker compose up -d
           docker ps
 
-      - name: run tests
+      - name: run smoke tests
         run: yarn e2e cypress run
