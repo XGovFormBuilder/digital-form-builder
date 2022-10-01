@@ -72,7 +72,7 @@ jobs:
         app: [ designer, runner ]
     with:
       app: ${{ matrix.app }}
-      tag: ${{ env.SEMVER }}
+      tag: ${{ needs.assign-semver.outputs.SEMVER }}
 
   tag-branch:
     runs-on: ubuntu-latest
