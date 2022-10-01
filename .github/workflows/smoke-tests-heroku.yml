@@ -24,7 +24,6 @@ jobs:
           key: ${{ runner.os }}-yarn-e2e-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-e2e
-            
 
       - name: Run smoke tests against heroku
         run: yarn e2e cypress run
@@ -32,16 +31,35 @@ jobs:
           cypress_DESIGNER_URL: https://digital-form-builder-designer.herokuapp.com
           cypress_RUNNER_URL: https://digital-form-builder-runner.herokuapp.com
 
-      - uses: rtCamp/action-slack-notify@v2
-        if: ${{failure()}}
+
+      - name: Send slack CI alert
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # For posting a rich message using Block Kit
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": ":rotating_light: Nightly smoke tests failed",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "GitHub Action CI result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                }
+              ]
+            }
         env:
-          SLACK_CHANNEL: ${{ secrets.CYB_SLACK_CHANNEL }}
-          SLACK_COLOR: "#990000"
-          SLACK_MESSAGE: "Nightly - Smoke Test, job for heroku failed"
-          SLACK_TITLE: Smoke Test failure
-          SLACK_USERNAME: forms-nightly-bot
-          SLACK_ICON: https://a.slack-edge.com/80588/img/services/outgoing-webhook_128.png
-          SLACK_WEBHOOK: ${{ secrets.CYB_SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       - name: Scan image
         uses: anchore/scan-action@v2
@@ -58,3 +76,16 @@ jobs:
           acs-report-enable: true
           fail-build: false
           severity-cutoff: critical
+
+
+  deploy:
+    needs: test
+    uses: ./.github/workflows/deploy-development.yml
+    strategy:
+      matrix:
+        app: [ designer, runner ]
+    with:
+      secrets: inherit
+      token: ${{ secrets.GHCR_PAT }}
+      app: ${{ matrix.app }}
+      tag: ${{env.SEMVER }}
