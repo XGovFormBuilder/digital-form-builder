@@ -43,6 +43,7 @@ jobs:
         run: echo "::set-output name=semver::$(echo $SEMVER)"
 
   lint-and-test:
+    name: Workspace
     strategy:
       matrix:
         workspace: [ model, designer, runner ]
@@ -51,11 +52,14 @@ jobs:
       workspace: ${{ matrix.workspace }}
 
   build-and-publish-images:
+    name: Build and publish
     needs: [calculate-version, assign-semver, lint-and-test]
     strategy:
       matrix:
         app: [designer, runner]
-    uses: ./.github/workflows/lint-and-test.yml
+        semver: ${{env.SEMVER}}
+        publish: true
+    uses: ./.github/workflows/build.yml
     with:
       semver: ${{ needs.assign-semver.outputs.SEMVER }}
 
@@ -70,7 +74,7 @@ jobs:
       secrets: inherit
       token: ${{ secrets.GHCR_PAT }}
       app: ${{ matrix.app }}
-      tag: ${{env.SEMVER }}
+      tag: ${{ env.SEMVER }}
 
   tag-branch:
     runs-on: ubuntu-latest
