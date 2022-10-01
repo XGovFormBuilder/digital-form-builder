@@ -57,12 +57,11 @@ jobs:
     strategy:
       matrix:
         app: [designer, runner]
-        semver: ${{env.SEMVER}}
-        publish: true
     uses: ./.github/workflows/build.yml
     with:
       semver: ${{ needs.assign-semver.outputs.SEMVER }}
-
+      publish: true
+      app: ${{matrix.app}}
 
   deploy:
     needs: build-and-publish-images
