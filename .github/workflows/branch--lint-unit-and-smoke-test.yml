@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint-and-test:
-    name: Lint and test
+    name: Workspace
     strategy:
       matrix:
         workspace: [model, designer, runner]
@@ -19,14 +19,14 @@ jobs:
       workspace: ${{ matrix.workspace }}
 
   build-designer:
-    name: Build
+    name: Designer
     uses: ./.github/workflows/build.yml
     with:
       app: designer
     secrets: inherit
 
   build-runner:
-    name: Build
+    name: Runner
     uses: ./.github/workflows/build.yml
     with:
       app: runner
