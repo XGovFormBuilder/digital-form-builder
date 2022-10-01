@@ -88,4 +88,4 @@ jobs:
       secrets: inherit
       token: ${{ secrets.GHCR_PAT }}
       app: ${{ matrix.app }}
-      tag: ${{env.SEMVER }}
+      tag: latest
