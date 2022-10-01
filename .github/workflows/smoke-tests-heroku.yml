@@ -81,11 +81,11 @@ jobs:
   deploy:
     needs: test
     uses: ./.github/workflows/deploy-development.yml
+    secrets: inherit
     strategy:
       matrix:
         app: [ designer, runner ]
     with:
-      secrets: inherit
       token: ${{ secrets.GHCR_PAT }}
-      app: ${{ matrix.app }}
+
       tag: latest
