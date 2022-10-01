@@ -12,7 +12,8 @@
   "workspaces": [
     "model",
     "runner",
-    "designer"
+    "designer",
+    "e2e"
   ],
   "scripts": {
     "setup": "yarn && yarn build",
@@ -25,6 +26,7 @@
     "runner": "yarn workspace @xgovformbuilder/runner",
     "designer": "yarn workspace @xgovformbuilder/designer",
     "model": "yarn workspace @xgovformbuilder/model",
+    "e2e": "yarn workspace e2e",
     "test-cov": "yarn workspaces foreach run test-cov",
     "runner:start": "yarn workspace @xgovformbuilder/runner start",
     "type-check": "yarn workspaces foreach run tsc --noEmit",

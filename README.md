@@ -11,6 +11,7 @@ This repository is a mono repo for
 - @xgovformbuilder/[runner](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner) - Hapi server which can 'run' a form from a JSON file
 - @xgovformbuilder/[designer](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer) - A React app to aide in form building
 - @xgovformbuilder/[model](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model) - Serves the data model and other helpers
+- @xgovformbuilder/[e2e](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model) - end to end tests
 
 The repos are forked from [DEFRA's digital form builder](https://github.com/DEFRA/digital-form-builder).
 
@@ -24,6 +25,7 @@ Also see the individual repo README files for additional info:
 - [runner README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/runner/README.md)
 - [designer README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/designer/README.md)
 - [model README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/model/README.md)
+- [e2e (smoke tests) README](https://github.com/XGovFormBuilder/digital-form-builder/tree/main/e2e/README.md)
 
 ## Setup
 

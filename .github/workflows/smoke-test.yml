@@ -1,0 +1,92 @@
+name: smoke tests
+
+on:
+  workflow_call:
+    inputs:
+      runner-cache-ref:
+        description: cache ref for the runner app
+        required: true
+        type: string
+      designer-cache-ref:
+        description: cache ref for the designer app
+        required: true
+        type: string
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    name: build app ${{inputs.app}}
+    outputs:
+      tag: ${{ steps.hashFile.outputs.tag }}
+      hash: ${{ steps.hashFile.outputs.hash }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-e2e-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-e2e
+            ${{ runner.os }}-yarn
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Install e2e dependencies
+        run: yarn e2e install
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          install: true
+          config-inline: |
+            [registry."ghcr.io"]
+
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: load designer
+        uses: docker/build-push-action@v3
+        with:
+          file: designer/Dockerfile
+          load: true
+          context: .
+          tags: digital-form-builder-designer
+          cache-from: type=registry,ref=${{ inputs.designer-cache-ref }}
+
+      - name: load runner
+        uses: docker/build-push-action@v3
+        with:
+          file: runner/Dockerfile
+          context: .
+          load: true
+          tags: digital-form-builder-runner
+          cache-from: type=registry,ref=${{ inputs.runner-cache-ref }}
+
+      - name: check images
+        run: |
+          docker images
+
+      - name: start containers
+        run: |
+          docker compose up -d
+          docker ps
+
+      - name: run smoke tests
+        run: yarn e2e cypress run
