@@ -27,7 +27,7 @@ on:
 jobs:
   build-app:
     runs-on: ubuntu-latest
-    name: build app ${{inputs.app}}
+    name: build app
     outputs:
       tag: ${{ steps.hashFile.outputs.tag }}
       hash: ${{ steps.hashFile.outputs.hash }}
