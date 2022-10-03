@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - fix/main-pipeline-03-10
 jobs:
   calculate-version:
     runs-on: ubuntu-latest
