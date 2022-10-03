@@ -75,6 +75,7 @@ jobs:
           echo "::set-output name=tag::ghcr.io/xgovformbuilder/cache-digital-form-builder-${{inputs.app}}:${{hashFiles(env.HASH_TARGET)}}"
 
       - name: Build ${{inputs.app}}
+        if: ${{inputs.publish != true }}
         uses: docker/build-push-action@v3
         with:
           file: ${{inputs.app}}/Dockerfile

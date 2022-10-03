@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   calculate-version:
     runs-on: ubuntu-latest
@@ -58,6 +59,7 @@ jobs:
       matrix:
         app: [designer, runner]
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       semver: ${{ needs.assign-semver.outputs.SEMVER }}
       publish: true
