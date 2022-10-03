@@ -54,11 +54,13 @@ jobs:
 
   build-and-publish-images:
     name: Build and publish
-    needs: [calculate-version, assign-semver, lint-and-test]
+#    needs: [calculate-version, assign-semver, lint-and-test]
+    needs: [calculate-version, assign-semver]
     strategy:
       matrix:
         app: [designer, runner]
     uses: ./.github/workflows/build.yml
+    secrets: inherit
     with:
       semver: ${{ needs.assign-semver.outputs.SEMVER }}
       publish: true
@@ -75,17 +77,24 @@ jobs:
       app: ${{ matrix.app }}
       tag: ${{ needs.assign-semver.outputs.SEMVER }}
 
+
   tag-branch:
     runs-on: ubuntu-latest
     needs: [calculate-version, assign-semver, build-and-publish-images]
-    env:
-      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GHCR_PAT }}
-      - name: Tag branch with run number
-        run: |
-          git tag ${{ env.SEMVER }}
-          git push --tags origin HEAD
+      - run: echo "${{ needs.assign-semver.outputs.SEMVER }}"
+
+#  tag-branch:
+#    runs-on: ubuntu-latest
+#    needs: [calculate-version, assign-semver, build-and-publish-images]
+#    env:
+#      SEMVER: ${{ needs.assign-semver.outputs.SEMVER }}
+#    steps:
+#      - name: Checkout repo
+#        uses: actions/checkout@v2
+#        with:
+#          token: ${{ secrets.GHCR_PAT }}
+#      - name: Tag branch with run number
+#        run: |
+#          git tag ${{ env.SEMVER }}
+#          git push --tags origin HEAD
