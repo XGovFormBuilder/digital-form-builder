@@ -85,14 +85,6 @@ jobs:
           cache-from: type=registry,ref=${{ steps.hashFile.outputs.tag }}
           cache-to: type=registry,ref=${{ steps.hashFile.outputs.tag }},mode=max
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
-
-
       - name: Build ${{inputs.app}} and push
         if: ${{inputs.semver && inputs.publish == true }}
         uses: docker/build-push-action@v3

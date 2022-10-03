@@ -24,7 +24,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy development ${{ github.event.inputs.app }}
+    name: Deploy development ${{ inputs.app }}
     steps:
       - uses: actions/checkout@v2
       - name: Login to Heroku Container registry
@@ -32,18 +32,18 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
         run: heroku container:login
 
-      - name: Pull latest ${{ github.event.inputs.app }} image
-        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:${{ github.event.inputs.tag }}
+      - name: Pull latest ${{ inputs.app }} image
+        run: docker pull ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:${{ inputs.tag }}
 
       - name: Tag Image
-        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ github.event.inputs.app }}:${{ github.event.inputs.tag }} registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
+        run: docker tag ghcr.io/xgovformbuilder/digital-form-builder-${{ inputs.app }}:${{ inputs.tag }} registry.heroku.com/digital-form-builder-${{ inputs.app }}/web
 
       - name: Push to Heroku Registry
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: docker push registry.heroku.com/digital-form-builder-${{ github.event.inputs.app }}/web
+        run: docker push registry.heroku.com/digital-form-builder-${{ inputs.app }}/web
 
       - name: Release
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_DEV_API_KEY }}
-        run: heroku container:release -a digital-form-builder-${{ github.event.inputs.app }} web
+        run: heroku container:release -a digital-form-builder-${{ inputs.app }} web
