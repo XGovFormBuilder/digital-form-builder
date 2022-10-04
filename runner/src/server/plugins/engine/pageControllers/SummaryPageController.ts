@@ -96,6 +96,14 @@ export class SummaryPageController extends PageController {
         );
       });
 
+      viewModel.details.find((value, index) => {
+        for (let item of value.items) {
+          if (item.type === "UkAddressField") {
+            item.value = item.value.replace(/, null/g, "");
+          }
+        }
+      });
+
       return h.view("summary", viewModel);
     };
   }
