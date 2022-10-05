@@ -16,7 +16,6 @@ suite("Date parts field", () => {
       schema: {},
     };
     const underTest = new DatePartsField(def, {});
-    underTest.catch(() => {});
     const returned = underTest.getViewModel({ lang: "en" });
 
     expect(returned.fieldset).to.equal({
