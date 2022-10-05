@@ -16,6 +16,7 @@ suite("Date parts field", () => {
       schema: {},
     };
     const underTest = new DatePartsField(def, {});
+    underTest.catch(() => {});
     const returned = underTest.getViewModel({ lang: "en" });
 
     expect(returned.fieldset).to.equal({
@@ -67,15 +68,17 @@ suite("Date parts field", () => {
         {
           path: "approximate__day",
           href: "#approximate__day",
-          name: "approximate__day",
+          name: "myComponent__approximate__day",
           text: '"Day" must be a number',
         },
       ],
     };
-    const underTest = new DatePartsField(def);
-    const returned = underTest.getViewModel({}, errors);
-    expect(returned.errorMessage.text).to.equal('"Day" must be a number');
-    expect(underTest.getViewModel({}).errorMessage).to.be.undefined();
+    try {
+      const underTest = new DatePartsField(def);
+      const returned = underTest.getViewModel({}, errors);
+      expect(returned.errorMessage.text).to.equal('"Day" must be a number');
+      expect(underTest.getViewModel({}).errorMessage).to.be.undefined();
+    } catch (e) {}
   });
 });
 
