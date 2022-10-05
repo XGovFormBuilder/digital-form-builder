@@ -141,8 +141,13 @@ export class DatePartsField extends FormComponent {
       }
     });
 
-    const firstError = errors?.errorList?.[0];
-    const errorMessage = firstError && { text: firstError?.text };
+    let errorMessage;
+    errors?.errorList?.find((value) => {
+      if (value.name.includes(this.name)) {
+        const firstError = errors?.errorList?.[0];
+        errorMessage = firstError && { text: firstError?.text };
+      }
+    });
 
     return {
       ...viewModel,
