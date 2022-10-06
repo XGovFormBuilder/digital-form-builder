@@ -153,9 +153,6 @@ export class ViewModel {
           if (item.type === "FileUploadField") {
             item.value = this.splitFileName(item.value);
           }
-          if (item.type === "UkAddressField") {
-            item.value = item.value.replace(/, null/g, "");
-          }
           if (items.find((cbItem) => cbItem.name === item.name)) return;
           items.push(item);
           if (component.items) {
