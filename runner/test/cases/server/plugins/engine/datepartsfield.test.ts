@@ -67,7 +67,7 @@ suite("Date parts field", () => {
         {
           path: "approximate__day",
           href: "#approximate__day",
-          name: "approximate__day",
+          name: "myComponent__approximate__day",
           text: '"Day" must be a number',
         },
       ],
