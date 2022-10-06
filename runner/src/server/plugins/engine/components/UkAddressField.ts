@@ -144,19 +144,21 @@ export class UkAddressField extends FormComponent {
       value.county = value.county === "" ? "null" : value.county;
     }
 
-    return value
-      ? [
-          value.addressLine1,
-          value.addressLine2,
-          value.town,
-          value.county,
-          value.postcode,
-        ]
-          .filter((p) => {
-            return !!p;
-          })
-          .join(", ")
-      : "";
+    if (typeof value === "string") {
+      return value;
+    }
+
+    return [
+      value.addressLine1,
+      value.addressLine2,
+      value.town,
+      value.county,
+      value.postcode,
+    ]
+      .filter((p) => {
+        return !!p;
+      })
+      .join(", ");
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
