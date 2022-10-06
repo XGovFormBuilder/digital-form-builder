@@ -12,16 +12,22 @@
     text: "Add cost"
     })
   }}
+  {% if page.options.customText.samePageTitle %}
+  <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--m" for="event-name">
+    {{page.options.customText.samePageTitle}}
+  </label>
+  </h1>
+  {% endif %}
   <dl class="govuk-summary-list" style="margin-bottom: 0;">      
     <div class="govuk-summary-list__row">
       <dt class="govuk-summary-list__key">
-       Description
+       {{page.options.customText.columnOneTitle}}
       </dt>
       <dd class="govuk-summary-list__value">
-        <strong>Amount</strong>
+        <strong>{{page.options.customText.columnTwoTitle}}</strong>
       </dd>        
         <dd class="govuk-summary-list__actions">           
-            <strong>Action</strong>            
+            <strong>{{page.options.customText.columnThreeTitle}}</strong>            
         </dd>        
     </div>  
   </dl>

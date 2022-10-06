@@ -12,7 +12,11 @@
           "hideRowTitles": false
         },
         "customText": {
-          "separatePageTitle": "You have selected these languages"
+          "separatePageTitle": "You have selected these languages",
+          "samePageTitle": "Revenue Costs",
+          "columnOneTitle": "Title",
+          "columnTwoTitle": "Cost",
+          "columnThreeTitle": "Link"
         }
       },
       "components": [
