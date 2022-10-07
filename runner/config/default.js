@@ -22,7 +22,7 @@ module.exports = {
   env: "development",
   previewMode: false,
   enforceCsrf: true,
-  sandbox: false,
+  singleRedis: false,
 
   /**
    * Helper flags
@@ -36,8 +36,8 @@ module.exports = {
   isTest: deferConfig(function () {
     return this.env === "test";
   }),
-  isSandbox: deferConfig(function () {
-    return this.sandbox === true || this.sandbox === "true";
+  isSingleRedis: deferConfig(function () {
+    return this.singleRedis === true || this.singleRedis === "true";
   }),
 
   /**

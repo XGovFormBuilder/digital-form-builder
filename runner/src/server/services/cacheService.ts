@@ -13,18 +13,29 @@ import {
 } from "server/plugins/initialiseSession/types";
 import { WebhookSchema } from "../schemas/types";
 
-const {
+let {
   redisHost,
   redisPort,
   redisPassword,
   redisTls,
-  isSandbox,
+  vcapServices,
+  isSingleRedis,
   sessionTimeout,
 } = config;
 const partition = "cache";
 
 enum ADDITIONAL_IDENTIFIER {
   Confirmation = ":confirmation",
+}
+
+if (vcapServices) {
+  const vcapJson = JSON.parse(vcapServices);
+  if ("redis" in vcapJson) {
+    redisHost = vcapJson.redis[0].credentials.host;
+    redisPort = vcapJson.redis[0].credentials.port;
+    redisPassword = vcapJson.redis[0].credentials.password;
+    redisTls = vcapJson.redis[0].credentials.tls_enabled;
+  }
 }
 
 export class CacheService {
@@ -148,7 +159,9 @@ export const catboxProvider = () => {
    */
   const provider = {
     constructor: redisHost ? CatboxRedis : CatboxMemory,
-    options: {},
+    options: {
+      maxByteSize: 1,
+    },
   };
 
   if (redisHost) {
@@ -165,7 +178,7 @@ export const catboxProvider = () => {
       redisOptions.tls = {};
     }
 
-    const client = isSandbox
+    const client = isSingleRedis
       ? new Redis({ host: redisHost, port: redisPort, password: redisPassword })
       : new Redis.Cluster(
           [
