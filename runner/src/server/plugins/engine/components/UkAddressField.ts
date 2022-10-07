@@ -148,17 +148,19 @@ export class UkAddressField extends FormComponent {
       return value;
     }
 
-    return [
-      value.addressLine1,
-      value.addressLine2,
-      value.town,
-      value.county,
-      value.postcode,
-    ]
-      .filter((p) => {
-        return !!p;
-      })
-      .join(", ");
+    return value
+      ? [
+          value.addressLine1,
+          value.addressLine2,
+          value.town,
+          value.county,
+          value.postcode,
+        ]
+          .filter((p) => {
+            return !!p;
+          })
+          .join(", ")
+      : "";
   }
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
