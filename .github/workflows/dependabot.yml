@@ -11,10 +11,6 @@ on:
       tag:
         description: "Tag to use for heroku deployments"
         required: true
-  branches: [ dependabot/npm_and_yarn/** ]
-
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
