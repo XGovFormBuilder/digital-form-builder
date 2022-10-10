@@ -9,7 +9,10 @@ on:
   workflow_dispatch:
 
 jobs:
+  dependencies:
+    uses: ./.github/workflows/dependabot.yml
   lint-and-test:
+    needs: [dependencies]
     name: Workspace
     strategy:
       matrix:
