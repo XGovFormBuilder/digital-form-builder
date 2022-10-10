@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 jobs:
-  build:
+  update-branch:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
 
@@ -61,7 +61,7 @@ jobs:
           git push
 
 
-  bypass:
+  skip-update-branch:
     runs-on: ubuntu-latest
     if: github.actor != 'dependabot[bot]'
     steps:
