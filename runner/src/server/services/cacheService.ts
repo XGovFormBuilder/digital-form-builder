@@ -159,9 +159,7 @@ export const catboxProvider = () => {
    */
   const provider = {
     constructor: redisHost ? CatboxRedis : CatboxMemory,
-    options: {
-      maxByteSize: 1,
-    },
+    options: {},
   };
 
   if (redisHost) {
