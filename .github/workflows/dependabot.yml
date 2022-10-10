@@ -3,7 +3,7 @@ name: Dependabot
 
 on:
   workflow_call:
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -59,3 +59,11 @@ jobs:
           git add yarn.lock .yarn/cache .pnp.* # only add yarn.lock if not using zero-installs
           git commit -m "Dependabot autofix"
           git push
+
+
+  bypass:
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      run: |
+        echo "skipped"
