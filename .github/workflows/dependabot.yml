@@ -11,7 +11,7 @@ on:
       tag:
         description: "Tag to use for heroku deployments"
         required: true
-    branches: [ dependabot/npm_and_yarn/** ]
+  branches: [ dependabot/npm_and_yarn/** ]
 
 
 
