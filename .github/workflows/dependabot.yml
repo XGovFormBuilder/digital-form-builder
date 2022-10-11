@@ -1,12 +1,11 @@
 name: Dependabot
 
-
 on:
   workflow_call:
     secrets:
       DEPENDABOT_PAT:
-        description: 'PAT to commit changes'
-        required: false
+        description: "PAT to commit changes"
+        required: true
 
 jobs:
   update-branch:
@@ -26,12 +25,12 @@ jobs:
       - run: git lfs pull --include .yarn/
 
       - name: Setup node
-        uses: actions/setup-node@v2.4.1
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
 
       - name: Restore cache
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v3
         with:
           path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
@@ -50,7 +49,6 @@ jobs:
           git add yarn.lock
           git commit -m '[dependabot skip] Fix yarn.lock'
           git push
-
 
   skip-update-branch:
     runs-on: ubuntu-latest
