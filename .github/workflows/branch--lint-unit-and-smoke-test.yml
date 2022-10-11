@@ -11,6 +11,7 @@ on:
 jobs:
   dependencies:
     uses: ./.github/workflows/dependabot.yml
+    secrets: inherit
   lint-and-test:
     needs: [dependencies]
     name: Workspace
