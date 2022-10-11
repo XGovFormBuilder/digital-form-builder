@@ -10,6 +10,7 @@ on:
 
 jobs:
   lint-and-test:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
     runs-on: ubuntu-latest
     name: lint and test ${{inputs.workspace}}
     steps:
