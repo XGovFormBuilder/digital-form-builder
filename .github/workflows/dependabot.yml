@@ -3,6 +3,10 @@ name: Dependabot
 
 on:
   workflow_call:
+    secrets:
+      DEPENDABOT_PAT:
+        description: 'PAT to commit changes'
+        required: false
 
 jobs:
   update-branch:
@@ -10,7 +14,7 @@ jobs:
     if: github.actor == 'dependabot[bot]'
 
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v3
         with:
           # Using a Personal Access Token here is required to trigger workflows on our new commit.
           # The default GitHub token doesn't trigger any workflows.
