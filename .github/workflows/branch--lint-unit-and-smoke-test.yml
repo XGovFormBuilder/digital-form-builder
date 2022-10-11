@@ -15,6 +15,7 @@ jobs:
       DEPENDABOT_PAT: ${{secrets.DEPENDABOT_PAT}}
   lint-and-test:
     needs: [dependencies]
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
     name: Workspace
     strategy:
       matrix:
