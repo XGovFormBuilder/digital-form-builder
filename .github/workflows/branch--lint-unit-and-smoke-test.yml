@@ -11,8 +11,7 @@ on:
 jobs:
   dependencies:
     uses: ./.github/workflows/dependabot.yml
-    secrets:
-      DEPENDABOT_PAT: ${{secrets.DEPENDABOT_PAT}}
+    secrets: inherit
   lint-and-test:
     needs: [dependencies]
     if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
@@ -25,6 +24,7 @@ jobs:
       workspace: ${{ matrix.workspace }}
 
   build-designer:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
     name: Designer
     uses: ./.github/workflows/build.yml
     with:
@@ -32,6 +32,7 @@ jobs:
     secrets: inherit
 
   build-runner:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
     name: Runner
     uses: ./.github/workflows/build.yml
     with:
@@ -39,6 +40,7 @@ jobs:
     secrets: inherit
 
   smoke-test:
+    if: ${{!contains(github.event.head_commit.message, 'chore(deps-dev)')}}
     needs: [build-runner,build-designer]
     uses: ./.github/workflows/smoke-test.yml
     with:
