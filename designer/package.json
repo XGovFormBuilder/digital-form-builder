@@ -52,7 +52,7 @@
     "hapi-pino": "^8.0.1",
     "hoek": "^6.1.3",
     "i18next": "^21.6.12",
-    "i18next-http-backend": "^1.3.2",
+    "i18next-http-backend": "^1.4.4",
     "joi": "17.2.1",
     "jszip": "^3.7.1",
     "lodash": "^4.17.21",
