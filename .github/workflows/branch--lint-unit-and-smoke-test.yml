@@ -23,24 +23,24 @@ jobs:
     with:
       workspace: ${{ matrix.workspace }}
 
-  build-designer:
-    name: Designer
-    uses: ./.github/workflows/build.yml
-    with:
-      app: designer
-    secrets: inherit
-
-  build-runner:
-    name: Runner
-    uses: ./.github/workflows/build.yml
-    with:
-      app: runner
-    secrets: inherit
-
-  smoke-test:
-    needs: [build-runner,build-designer]
-    uses: ./.github/workflows/smoke-test.yml
-    with:
-      runner-cache-ref: ${{needs.build-runner.outputs.tag}}
-      designer-cache-ref: ${{needs.build-designer.outputs.tag}}
-    secrets: inherit
+#  build-designer:
+#    name: Designer
+#    uses: ./.github/workflows/build.yml
+#    with:
+#      app: designer
+#    secrets: inherit
+#
+#  build-runner:
+#    name: Runner
+#    uses: ./.github/workflows/build.yml
+#    with:
+#      app: runner
+#    secrets: inherit
+#
+#  smoke-test:
+#    needs: [build-runner,build-designer]
+#    uses: ./.github/workflows/smoke-test.yml
+#    with:
+#      runner-cache-ref: ${{needs.build-runner.outputs.tag}}
+#      designer-cache-ref: ${{needs.build-designer.outputs.tag}}
+#    secrets: inherit
