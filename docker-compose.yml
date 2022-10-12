@@ -18,7 +18,6 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=123abc
       - SINGLE_REDIS=true
-      - sandbox=true
       - PREVIEW_URL=http://localhost:3009
       - PUBLISH_URL=http://runner:3009
       - LAST_COMMIT
@@ -42,7 +41,6 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=123abc
       - SINGLE_REDIS=true
-      - sandbox=true
       - PREVIEW_MODE=true
       - LAST_COMMIT
       - LAST_TAG
