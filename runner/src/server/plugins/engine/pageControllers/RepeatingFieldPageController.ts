@@ -25,7 +25,11 @@ const DEFAULT_OPTIONS = {
     separatePage: true,
     hideRowTitles: false,
   },
-  customText: {},
+  customText: {
+    columnOneTitle: "Description",
+    columnTwoTitle: "Amount",
+    columnThreeTitle: "Action",
+  },
 };
 
 /**
@@ -54,6 +58,12 @@ export class RepeatingFieldPageController extends PageController {
     this.options.summaryDisplayMode ??= DEFAULT_OPTIONS.summaryDisplayMode;
     this.options.hideRowTitles ??= DEFAULT_OPTIONS.hideRowTitles;
     this.options.customText ??= DEFAULT_OPTIONS.customText;
+    this.options.customText.columnOneTitle ??=
+      DEFAULT_OPTIONS.customText.columnOneTitle;
+    this.options.customText.columnTwoTitle ??=
+      DEFAULT_OPTIONS.customText.columnTwoTitle;
+    this.options.customText.columnThreeTitle ??=
+      DEFAULT_OPTIONS.customText.columnThreeTitle;
 
     this.isSamePageDisplayMode = this.options.summaryDisplayMode.samePage!;
     this.isSeparateDisplayMode = this.options.summaryDisplayMode.separatePage!;
