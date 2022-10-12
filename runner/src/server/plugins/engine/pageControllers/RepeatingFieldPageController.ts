@@ -4,6 +4,8 @@ import { FormModel } from "server/plugins/engine/models";
 import { RepeatingSummaryPageController } from "./RepeatingSummaryPageController";
 import { ComponentDef, RepeatingFieldPage } from "@xgovformbuilder/model";
 import { FormComponent } from "../components";
+import config from "server/config";
+import { SaveViewModel } from "../models";
 
 import joi from "joi";
 import { reach } from "hoek";
@@ -189,6 +191,7 @@ export class RepeatingFieldPageController extends PageController {
   makePostRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
       const { query } = request;
+      const { cacheService, statusService } = request.services([]);
 
       if (query.view === "summary") {
         return this.summary.postRouteHandler(request, h);
@@ -198,6 +201,32 @@ export class RepeatingFieldPageController extends PageController {
         const { next, ...rest } = request.payload;
         if (this.isSeparateDisplayMode) {
           return h.redirect(`?view=summary`);
+        }
+
+        if (config.savePerPage) {
+          const savedState = await cacheService.getState(request);
+          //This is required to ensure we don't navigate to an incorrect page based on stale state values
+          let relevantState = this.getConditionEvaluationContext(
+            this.model,
+            savedState
+          );
+          // Set flag for continous saves on each question?
+          const saveViewModel = new SaveViewModel(
+            this.title,
+            this.model,
+            relevantState,
+            request
+          );
+
+          await cacheService.mergeState(request, {
+            outputs: saveViewModel.outputs,
+            userCompletedSummary: true,
+          });
+          await cacheService.mergeState(request, {
+            webhookData: saveViewModel.validatedWebhookData,
+          });
+
+          await statusService.savePerPageRequest(request);
         }
 
         if (typeof query.returnUrl !== "undefined") {
