@@ -221,8 +221,6 @@ export class RepeatingFieldPageController extends PageController {
           await cacheService.mergeState(request, {
             outputs: saveViewModel.outputs,
             userCompletedSummary: true,
-          });
-          await cacheService.mergeState(request, {
             webhookData: saveViewModel.validatedWebhookData,
           });
 
