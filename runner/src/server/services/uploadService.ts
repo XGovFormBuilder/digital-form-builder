@@ -15,10 +15,12 @@ const region = config.awsRegion;
 if (process.env.VCAP_SERVICES) {
   const vcap = process.env.VCAP_SERVICES;
   const vcapJson = JSON.parse(vcap);
-  const s3Credentials = vcapJson["aws-s3-bucket"][0].credentials;
-  process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id;
-  process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key;
-  bucketName = s3Credentials.bucket_name;
+  if ("aws-s3-bucket" in vcapJson) {
+    const s3Credentials = vcapJson["aws-s3-bucket"][0].credentials;
+    process.env.AWS_ACCESS_KEY_ID = s3Credentials.aws_access_key_id;
+    process.env.AWS_SECRET_ACCESS_KEY = s3Credentials.aws_secret_access_key;
+    bucketName = s3Credentials.bucket_name;
+  }
 }
 
 const s3 = new S3({ region });

@@ -65,9 +65,13 @@ export class MultiInputField extends FormComponent {
     const stringValue = new Array();
     if (values) {
       for (var value of values) {
-        stringValue.push(
-          `${value["type-of-revenue-cost"]} : ${this.options.prefix}${value["value"]}`
-        );
+        if (typeof value === "string") {
+          stringValue.push(value);
+        } else {
+          stringValue.push(
+            `${value["type-of-revenue-cost"]} : ${this.options.prefix}${value["value"]}`
+          );
+        }
       }
     }
 
