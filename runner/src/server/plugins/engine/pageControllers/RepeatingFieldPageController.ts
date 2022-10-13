@@ -205,12 +205,12 @@ export class RepeatingFieldPageController extends PageController {
 
         if (config.savePerPage) {
           const savedState = await cacheService.getState(request);
-          //This is required to ensure we don't navigate to an incorrect page based on stale state values
+
           let relevantState = this.getConditionEvaluationContext(
             this.model,
             savedState
           );
-          // Set flag for continous saves on each question?
+
           const saveViewModel = new SaveViewModel(
             this.title,
             this.model,
