@@ -13,7 +13,7 @@ import {
 } from "server/plugins/initialiseSession/types";
 import { WebhookSchema } from "../schemas/types";
 
-let {
+const {
   redisHost,
   redisPort,
   redisPassword,
@@ -22,6 +22,7 @@ let {
   isSingleRedis,
   sessionTimeout,
 } = config;
+let redisUri;
 const partition = "cache";
 
 enum ADDITIONAL_IDENTIFIER {
@@ -31,10 +32,7 @@ enum ADDITIONAL_IDENTIFIER {
 if (vcapServices) {
   const vcapJson = JSON.parse(vcapServices);
   if ("redis" in vcapJson) {
-    redisHost = vcapJson.redis[0].credentials.host;
-    redisPort = vcapJson.redis[0].credentials.port;
-    redisPassword = vcapJson.redis[0].credentials.password;
-    redisTls = vcapJson.redis[0].credentials.tls_enabled;
+    redisUri = vcapJson.redis[0].credentials.uri;
   }
 }
 
@@ -162,7 +160,7 @@ export const catboxProvider = () => {
     options: {},
   };
 
-  if (redisHost) {
+  if (redisHost || redisUri) {
     const redisOptions: {
       password?: string;
       tls?: {};
@@ -177,7 +175,13 @@ export const catboxProvider = () => {
     }
 
     const client = isSingleRedis
-      ? new Redis({ host: redisHost, port: redisPort, password: redisPassword })
+      ? new Redis(
+          redisUri ?? {
+            host: redisHost,
+            port: redisPort,
+            password: redisPassword,
+          }
+        )
       : new Redis.Cluster(
           [
             {
