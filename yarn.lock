@@ -3706,9 +3706,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/core@npm:^1.1.1":
-  version: 1.6.3
-  resolution: "@oclif/core@npm:1.6.3"
+"@oclif/core@npm:^1.16.7":
+  version: 1.16.7
+  resolution: "@oclif/core@npm:1.16.7"
   dependencies:
     "@oclif/linewrap": ^1.0.0
     "@oclif/screen": ^3.0.2
@@ -3718,7 +3718,7 @@ __metadata:
     chalk: ^4.1.2
     clean-stack: ^3.0.1
     cli-progress: ^3.10.0
-    debug: ^4.3.3
+    debug: ^4.3.4
     ejs: ^3.1.6
     fs-extra: ^9.1.0
     get-package-type: ^0.1.0
@@ -3727,11 +3727,10 @@ __metadata:
     indent-string: ^4.0.0
     is-wsl: ^2.2.0
     js-yaml: ^3.14.1
-    lodash: ^4.17.21
     natural-orderby: ^2.0.3
     object-treeify: ^1.1.33
     password-prompt: ^1.1.2
-    semver: ^7.3.5
+    semver: ^7.3.7
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
     supports-color: ^8.1.1
@@ -3739,7 +3738,7 @@ __metadata:
     tslib: ^2.3.1
     widest-line: ^3.1.0
     wrap-ansi: ^7.0.0
-  checksum: e7fe11adab977f78a5362946c7fc843ba394d4c3b008e603b5528fcd835a63d9f4e8aa58aebf9ca1b6c5c1710563bb7bb5c17609e8225abafd827faa029d43a4
+  checksum: 9a0e46e4c1b2e6504a053a50f3d708830febe994b3d6b13443727cdcf922867e4862cfa2a70ab2bdce218b5299430030df0d963c6ec22860e1c0c14d2e5b9a32
   languageName: node
   linkType: hard
 
@@ -3747,13 +3746,6 @@ __metadata:
   version: 1.0.0
   resolution: "@oclif/linewrap@npm:1.0.0"
   checksum: a072016a58b5e1331bbc21303ad5100fcda846ac4b181e344aec88bb24c5da09c416651e51313ffcc846a83514b74b8b987dd965982900f3edbb42b4e87cc246
-  languageName: node
-  linkType: hard
-
-"@oclif/screen@npm:^1.0.4 ":
-  version: 1.0.4
-  resolution: "@oclif/screen@npm:1.0.4"
-  checksum: 13e64efb1a6b4cf89989dd3e96cc78751193257694f9f104d3d41f7f8d12e217297d3c2983ed972d84d43ff3b50ceff50529996ee6bc6764f01ed90aa39a83cb
   languageName: node
   linkType: hard
 
@@ -5178,6 +5170,7 @@ __metadata:
     "@hapi/code": 9.0.1
     "@hapi/cookie": ^11.0.2
     "@hapi/crumb": ^8.0.1
+    "@hapi/eslint-plugin": ^6.0.0
     "@hapi/hapi": ^20.2.2
     "@hapi/inert": ^7.0.0
     "@hapi/jwt": ^3.0.0
@@ -5186,6 +5179,7 @@ __metadata:
     "@hapi/vision": ^7.0.0
     "@hapi/wreck": ^18.0.0
     "@hapi/yar": ^11.0.0
+    "@oclif/core": ^1.16.7
     "@types/hapi": ^18.0.7
     "@types/hapi__yar": ^10.1.1
     "@types/hoek": ^4.1.4
@@ -5208,7 +5202,6 @@ __metadata:
     btoa: ^1.2.1
     cheerio: ^1.0.0-rc.10
     chrome-launcher: ^0.13.4
-    cli-ux: ^6.0.9
     code: 5.2.4
     concurrently: ^5.3.0
     config: ^3.3.7
@@ -5648,7 +5641,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-styles@npm:^4.0.0, ansi-styles@npm:^4.1.0, ansi-styles@npm:^4.2.0, ansi-styles@npm:^4.3.0":
+"ansi-styles@npm:^4.0.0, ansi-styles@npm:^4.1.0, ansi-styles@npm:^4.3.0":
   version: 4.3.0
   resolution: "ansi-styles@npm:4.3.0"
   dependencies:
@@ -7548,7 +7541,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clean-stack@npm:^3.0.0, clean-stack@npm:^3.0.1":
+"clean-stack@npm:^3.0.1":
   version: 3.0.1
   resolution: "clean-stack@npm:3.0.1"
   dependencies:
@@ -7633,39 +7626,6 @@ __metadata:
     slice-ansi: ^3.0.0
     string-width: ^4.2.0
   checksum: bf1e4e6195392dc718bf9cd71f317b6300dc4a9191d052f31046b8773230ece4fa09458813bf0e3455a5e68c0690d2ea2c197d14a8b85a7b5e01c97f4b5feb5d
-  languageName: node
-  linkType: hard
-
-"cli-ux@npm:^6.0.9":
-  version: 6.0.9
-  resolution: "cli-ux@npm:6.0.9"
-  dependencies:
-    "@oclif/core": ^1.1.1
-    "@oclif/linewrap": ^1.0.0
-    "@oclif/screen": "^1.0.4 "
-    ansi-escapes: ^4.3.0
-    ansi-styles: ^4.2.0
-    cardinal: ^2.1.1
-    chalk: ^4.1.0
-    clean-stack: ^3.0.0
-    cli-progress: ^3.10.0
-    extract-stack: ^2.0.0
-    fs-extra: ^8.1
-    hyperlinker: ^1.0.0
-    indent-string: ^4.0.0
-    is-wsl: ^2.2.0
-    js-yaml: ^3.13.1
-    lodash: ^4.17.21
-    natural-orderby: ^2.0.1
-    object-treeify: ^1.1.4
-    password-prompt: ^1.1.2
-    semver: ^7.3.2
-    string-width: ^4.2.0
-    strip-ansi: ^6.0.0
-    supports-color: ^8.1.0
-    supports-hyperlinks: ^2.1.0
-    tslib: ^2.0.0
-  checksum: 4844b98c32424d7601143825765ae0b0efce34b619c72d165f4c91485ac7b75f14aa92c970caa426d14957b3f368886ee148db75dd9e51eb9c40a83c634ec0b7
   languageName: node
   linkType: hard
 
@@ -8769,6 +8729,18 @@ __metadata:
     supports-color:
       optional: true
   checksum: 14472d56fe4a94dbcfaa6dbed2dd3849f1d72ba78104a1a328047bb564643ca49df0224c3a17fa63533fd11dd3d4c8636cd861191232a2c6735af00cc2d4de16
+  languageName: node
+  linkType: hard
+
+"debug@npm:^4.3.4":
+  version: 4.3.4
+  resolution: "debug@npm:4.3.4"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 3dbad3f94ea64f34431a9cbf0bafb61853eda57bff2880036153438f50fb5a84f27683ba0d8e5426bf41a8c6ff03879488120cf5b3a761e77953169c0600a708
   languageName: node
   linkType: hard
 
@@ -11215,13 +11187,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"extract-stack@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "extract-stack@npm:2.0.0"
-  checksum: 16a45ae6cfe7fe105061f192124cb7d98653728d81827426c4f900763f9fda56c13dd9048de6838107898536b969d1c6f98028fcf4092e542fa2616d4dacb34d
-  languageName: node
-  linkType: hard
-
 "extract-zip@npm:2.0.1":
   version: 2.0.1
   resolution: "extract-zip@npm:2.0.1"
@@ -11756,17 +11721,6 @@ __metadata:
     jsonfile: ^4.0.0
     universalify: ^0.1.0
   checksum: 133dbd765e05c1cdaaf723308e00ffbe746da5ad516ad890ae2da2a538982c1175371055c778fbe68d1fca1da9ed4003ba55c4a14e070372eabf6a7c48062759
-  languageName: node
-  linkType: hard
-
-"fs-extra@npm:^8.1":
-  version: 8.1.0
-  resolution: "fs-extra@npm:8.1.0"
-  dependencies:
-    graceful-fs: ^4.2.0
-    jsonfile: ^4.0.0
-    universalify: ^0.1.0
-  checksum: bf44f0e6cea59d5ce071bba4c43ca76d216f89e402dc6285c128abc0902e9b8525135aa808adad72c9d5d218e9f4bcc63962815529ff2f684ad532172a284880
   languageName: node
   linkType: hard
 
@@ -16798,7 +16752,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"natural-orderby@npm:^2.0.1, natural-orderby@npm:^2.0.3":
+"natural-orderby@npm:^2.0.3":
   version: 2.0.3
   resolution: "natural-orderby@npm:2.0.3"
   checksum: 039be7f0b6cf81e63d2ae5299553f8e6c8f6ae4f571c7c002eab9c6d36a2e33101704e0ec64c3cecef956fa3b1a68bb0ddfc03208e89f31c0b0bb806f3198646
@@ -17320,13 +17274,6 @@ fsevents@^1.2.7:
   version: 1.1.33
   resolution: "object-treeify@npm:1.1.33"
   checksum: 3af7f889349571ee73f5bdfb5ac478270c85eda8bcba950b454eb598ce41759a1ed6b0b43fbd624cb449080a4eb2df906b602e5138b6186b9563b692231f1694
-  languageName: node
-  linkType: hard
-
-"object-treeify@npm:^1.1.4":
-  version: 1.1.31
-  resolution: "object-treeify@npm:1.1.31"
-  checksum: ffced6f9b1ed06e5b332795f4f69e91065af28e6e9be7f18066dc2365a1edbb1a717db543e0983fd31dd56b5a3b0a4e04c5f26bcfd4a360271fcb0ff34b1c7e8
   languageName: node
   linkType: hard
 
@@ -20378,6 +20325,17 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.3.7":
+  version: 7.3.8
+  resolution: "semver@npm:7.3.8"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: ba9c7cbbf2b7884696523450a61fee1a09930d888b7a8d7579025ad93d459b2d1949ee5bbfeb188b2be5f4ac163544c5e98491ad6152df34154feebc2cc337c1
+  languageName: node
+  linkType: hard
+
 "send@npm:0.17.1":
   version: 0.17.1
   resolution: "send@npm:0.17.1"
@@ -21534,7 +21492,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"supports-hyperlinks@npm:^2.0.0, supports-hyperlinks@npm:^2.1.0":
+"supports-hyperlinks@npm:^2.0.0":
   version: 2.1.0
   resolution: "supports-hyperlinks@npm:2.1.0"
   dependencies:
@@ -22130,7 +22088,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.3":
+"tslib@npm:^2.0.3":
   version: 2.1.0
   resolution: "tslib@npm:2.1.0"
   checksum: aa189c8179de0427b0906da30926fd53c59d96ec239dff87d6e6bc831f608df0cbd6f77c61dabc074408bd0aa0b9ae4ec35cb2c15f729e32f37274db5730cb78
