@@ -33,6 +33,7 @@ if (vcapServices) {
   const vcapJson = JSON.parse(vcapServices);
   if ("redis" in vcapJson) {
     redisUri = vcapJson.redis[0].credentials.uri;
+    console.log("Vcap Redis cache bound at: " + redisUri);
   }
 }
 
@@ -156,11 +157,17 @@ export const catboxProvider = () => {
    * More information at {@link https://hapi.dev/module/catbox/api}
    */
   const provider = {
-    constructor: redisHost ? CatboxRedis : CatboxMemory,
+    constructor: redisHost || redisUri ? CatboxRedis : CatboxMemory,
     options: {},
   };
 
   if (redisHost || redisUri) {
+    if (redisUri) {
+      console.log("Using Vcap Redis cache at: " + redisUri.toString());
+    } else {
+      console.log("Using Redis cache at host: " + redisHost.toString());
+    }
+    console.log("Redis is cluster: " + !isSingleRedis.toString());
     const redisOptions: {
       password?: string;
       tls?: {};
