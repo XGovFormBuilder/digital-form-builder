@@ -69,7 +69,7 @@
     "hmpo-components": "^5.2.1",
     "ioredis": "4.16.1",
     "joi": "17.2.1",
-    "nanoid": "^3.1.12",
+    "nanoid": "^3.1.31",
     "nodemailer": "~6.6.0",
     "notifications-node-client": "^5.1.1",
     "nunjucks": "^3.2.3",
