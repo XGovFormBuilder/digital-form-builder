@@ -56,7 +56,7 @@
     "joi": "17.2.1",
     "jszip": "^3.7.1",
     "lodash": "^4.17.21",
-    "nanoid": "^3.3.1",
+    "nanoid": "^3.3.4",
     "react-router-dom": "^5.2.0",
     "schmervice": "^1.6.0",
     "vision": "5.4.3",
@@ -121,18 +121,18 @@
     "flat": "5.0.2",
     "govuk-frontend": "^4.0.1",
     "hoek": "^6.1.3",
-    "html-webpack-plugin": "^4.5.0",
+    "html-webpack-plugin": "^4.5.2",
     "i18next-parser": "^3.3.0",
     "jest": "^26.6.3",
     "jsdom": "^19.0.0",
     "lcov-result-merger": "^3.1.0",
     "mini-css-extract-plugin": "^0.11.2",
-    "msw": "^0.38.1",
-    "nodemon": "^2.0.15",
+    "msw": "^0.47.4",
+    "nodemon": "^2.0.20",
     "nunjucks": "3.2.1",
     "postcss": "^8.2.4",
     "postcss-loader": "^4.1.0",
-    "prismjs": "1.23.0",
+    "prismjs": "1.27.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "^6.1.0",
@@ -152,8 +152,5 @@
     "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^2.5.2",
     "whatwg-fetch": "^3.5.0"
-  },
-  "resolutions": {
-    "dot-prop": "^5.1.1"
   }
 }
