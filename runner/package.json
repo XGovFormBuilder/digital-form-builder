@@ -70,7 +70,7 @@
     "ioredis": "4.16.1",
     "joi": "17.2.1",
     "nanoid": "^3.1.12",
-    "nodemailer": "6.4.18",
+    "nodemailer": "~6.6.0",
     "notifications-node-client": "^5.1.1",
     "nunjucks": "^3.2.3",
     "pdfmake": "0.1.65",
@@ -112,7 +112,6 @@
     "babel-plugin-module-name-mapper": "^1.2.0",
     "cheerio": "^1.0.0-rc.10",
     "chrome-launcher": "^0.13.4",
-    "cli-ux": "^6.0.9",
     "code": "5.2.4",
     "date-fns": "^2.24.0",
     "eslint": "^8.11.0",
@@ -121,17 +120,11 @@
     "flat": "5.0.2",
     "form-data": "^4.0.0",
     "googleapis": "64.0.0",
-    "lighthouse": "^7.1.0",
     "lodash-es": "^4.17.21",
-    "nodemon": "^2.0.6",
+    "nodemon": "^2.0.20",
     "sass": "^1.49.9",
     "sinon": "^13.0.1",
     "typescript": "^4.0.3"
-  },
-  "lighthouse": {
-    "requiredScores": {
-      "accessibility": 90
-    }
   },
   "installConfig": {
     "hoistingLimits": "dependencies",
