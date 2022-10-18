@@ -56,7 +56,7 @@
     "joi": "17.2.1",
     "jszip": "^3.7.1",
     "lodash": "~4.17.21",
-    "nanoid": "4.0.0",
+    "nanoid": "3.3.4",
     "react-router-dom": "^5.2.0",
     "schmervice": "^1.6.0",
     "vision": "5.4.3",
