@@ -35,8 +35,8 @@ COPY --chown=appuser:appuser ./model/package.json ./model/tsconfig.json ./model/
 COPY --chown=appuser:appuser ./model/src ./model/src/
 RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model \
     --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=base yarn workspaces focus @xgovformbuilder/model
-RUN yarn model build
 
+RUN yarn model build
 # ----------------------------
 # Stage 4
 # Build stage
@@ -61,6 +61,44 @@ RUN touch runner/.env && \
     echo "LAST_COMMIT=$LAST_COMMIT" >> runner/.env
 
 RUN yarn runner build
+
+# ----------------------------
+# Stage 5
+# Production build stage
+# In this layer we copy only the required files, do a production install (i.e. remove all devDependencies)
+# and delete any caching to save space.
+FROM base as production
+
+WORKDIR /usr/src/app
+
+# needed to speed up production install later
+COPY --from=build-runner usr/src/app/.yarn ./.yarn/
+COPY --from=build-runner usr/src/app/package.json usr/src/app/.yarnrc.yml usr/src/app/yarn.lock ./
+
+# copying built/essential model files only (i.e. not test or src)
+COPY --from=build-runner /usr/src/app/model/dist/ ./model/dist
+COPY --from=build-runner /usr/src/app/model/node_modules/ ./model/node_modules/
+COPY --from=build-runner /usr/src/app/model/package.json ./model/
+
+# copying built/essential runner files only (i.e. not test or src)
+COPY --from=build-runner --chown=appuser:appuser /usr/src/app/runner/dist ./runner/dist/
+COPY --from=build-runner --chown=appuser:appuser /usr/src/app/runner/config ./runner/config/
+COPY --from=build-runner --chown=appuser:appuser /usr/src/app/runner/bin ./runner/bin/
+COPY --from=build-runner --chown=appuser:appuser /usr/src/app/runner/public ./runner/public/
+COPY --from=build-runner --chown=appuser:appuser /usr/src/app/runner/node_modules ./runner/node_modules
+COPY --from=build-runner --chown=appuser:appuser /usr/src/app/runner/.env /usr/src/app/runner/package.json ./runner/
+
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=model-prod \
+    yarn workspaces focus @xgovformbuilder/model --production
+
+RUN --mount=type=cache,target=.yarn/cache,uid=1001,mode=0755,id=runner-prod \
+     yarn workspaces focus @xgovformbuilder/runner --production
+
+RUN yarn runner add @xgovformbuilder/model@workspace:model
+
+# removing cache (can be upto 280MB+)
+RUN rm -r .yarn/cache
+
 USER 1001
 EXPOSE 3009
 CMD [ "yarn", "runner", "start" ]

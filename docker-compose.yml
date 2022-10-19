@@ -4,7 +4,7 @@ version: "3.9"
 services:
   designer:
     container_name: designer
-    image: digital-form-builder-designer
+    image: digital-form-builder-designer:build-designer
     build:
       context: .
       dockerfile: ./designer/Dockerfile
@@ -25,7 +25,7 @@ services:
       - runner
   runner:
     container_name: runner
-    image: digital-form-builder-runner
+    image: digital-form-builder-runner:production
     build:
       context: .
       dockerfile: ./runner/Dockerfile
