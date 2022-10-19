@@ -4796,12 +4796,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/nodemailer@npm:^6.4.4":
-  version: 6.4.4
-  resolution: "@types/nodemailer@npm:6.4.4"
+"@types/nodemailer@npm:^6.4.6":
+  version: 6.4.6
+  resolution: "@types/nodemailer@npm:6.4.6"
   dependencies:
     "@types/node": "*"
-  checksum: 16ed1bad2cd8471fd3b026471e234da33ba3b65935dc44b31be3145eff7bdb067eb4d08ec4b41d23339b988075299abc1a0c0fe77b99f04ca235827bca95af81
+  checksum: c5ba1b83a28eb13778c54333ebe5fdd40555ce6df9dea672acb5682f872e83cae2e538ceeb64c7b064a2c7e7dc836d5a250ec7174795c5a61cb3a3fb90f3dceb
   languageName: node
   linkType: hard
 
@@ -5674,7 +5674,7 @@ __metadata:
     "@types/hapi": ^18.0.7
     "@types/hapi__yar": ^10.1.1
     "@types/hoek": ^4.1.4
-    "@types/nodemailer": ^6.4.4
+    "@types/nodemailer": ^6.4.6
     "@types/pino": ^7.0.5
     "@types/url-parse": ^1.4.8
     "@types/wreck": ^14.0.0
@@ -5714,7 +5714,7 @@ __metadata:
     joi: 17.2.1
     lodash-es: ^4.17.21
     nanoid: ^3.3.4
-    nodemailer: ~6.6.0
+    nodemailer: ~6.8.0
     nodemon: ^2.0.20
     notifications-node-client: ^5.2.0
     nunjucks: ^3.2.3
@@ -17251,10 +17251,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:~6.6.0":
-  version: 6.6.5
-  resolution: "nodemailer@npm:6.6.5"
-  checksum: 17daaeced44e6cdf53527018986ed090e950448fbef89608220a236e1d3e081e76eb8264edbdf8b7bd5d26f096fb86044576015b5000c59dc83f3712282c46da
+"nodemailer@npm:~6.8.0":
+  version: 6.8.0
+  resolution: "nodemailer@npm:6.8.0"
+  checksum: e1827df714d207a00f1bf8012e767826862467b72440fc9c37cf238a14d01a4c591b7657f4d1805bfb2764883c07aa9f2e31ee96a5fec51ccf1e6ad6dd01bd1d
   languageName: node
   linkType: hard
 
