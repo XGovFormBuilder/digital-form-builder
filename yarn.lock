@@ -9354,7 +9354,7 @@ __metadata:
     eslint: ^7.19.0
     eslint-config-prettier: ^8.5.0
     eslint-import-resolver-alias: ^1.1.2
-    eslint-import-resolver-workspaces: ^1.0.10
+    eslint-import-resolver-workspaces: ^1.2.0
     eslint-plugin-import: ^2.22.0
     eslint-plugin-node: ^11.1.0
     eslint-plugin-prettier: ^4.2.1
@@ -10479,15 +10479,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-workspaces@npm:^1.0.10":
-  version: 1.1.0
-  resolution: "eslint-import-resolver-workspaces@npm:1.1.0"
+"eslint-import-resolver-workspaces@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "eslint-import-resolver-workspaces@npm:1.2.0"
   dependencies:
     eslint-import-resolver-node: ^0.3.6
     find-yarn-workspace-root: ^2.0.0
     pkg-up: ^3.1.0
-    tsconfig-paths: ^3.12.0
-  checksum: c5f224b7719dcf826e4f900ff3ad3bdb23a3a5a2008ee0c80458b72c7f9a0970cd0069e2168584fa19afc0e9d54171e9bf53f6c3d590789552c0f9162c5a5ac8
+    tsconfig-paths: ^4.1.0
+  checksum: eb48d655bd6f84b71f45d2844f5083ce7baad39a28d7f08c63f6320a60880b3e9bed96a1836a161f2f3f437833362f59df5530c0f2a9d9794ed2a38144ad4485
   languageName: node
   linkType: hard
 
@@ -22143,6 +22143,17 @@ resolve@^2.0.0-next.3:
     minimist: ^1.2.0
     strip-bom: ^3.0.0
   checksum: 243b3b098c76a4ca90ea0431683f3755a4ff175c6123bcba5f7b4bd80fe2ef8fa9bdc8f4d525148a1e71ade7f3e037e7c0313ae177fd12398ab68f05c2c7f25d
+  languageName: node
+  linkType: hard
+
+"tsconfig-paths@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "tsconfig-paths@npm:4.1.0"
+  dependencies:
+    json5: ^2.2.1
+    minimist: ^1.2.6
+    strip-bom: ^3.0.0
+  checksum: e4b101f81b2abd95499d8145e0aa73144e857c2c359191058486cef101b7accae22a69114e5d5814a13d5ab3b0bae70dd0c85bcdb7e829bbe1bfda5c9067c9b1
   languageName: node
   linkType: hard
 
