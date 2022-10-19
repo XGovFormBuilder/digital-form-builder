@@ -5623,7 +5623,7 @@ __metadata:
     eslint-plugin-tsdoc: ^0.2.14
     expr-eval: 2.0.2
     govuk-frontend: ^4.0.1
-    hmpo-components: 5.2.1
+    hmpo-components: 5.5.2
     jest: ^29.2.0
     joi: 17.2.1
     nanoid: ^3.3.4
@@ -5709,7 +5709,7 @@ __metadata:
     hapi-pulse: 3.0.0
     hapi-rate-limit: 4.1.0
     hapi-require-https: 5.0.0
-    hmpo-components: ^5.2.1
+    hmpo-components: ^5.5.2
     ioredis: 4.16.1
     joi: 17.2.1
     lodash-es: ^4.17.21
@@ -9361,7 +9361,7 @@ __metadata:
     eslint-plugin-promise: ^4.2.1
     eslint-plugin-tsdoc: ^0.2.14
     govuk-frontend: ^4.3.1
-    hmpo-components: ^5.2.1
+    hmpo-components: ^5.5.2
     husky: ^4.3.0
     lint-staged: ^10.4.2
     magic-string: ^0.25.7
@@ -12883,17 +12883,17 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"hmpo-components@npm:5.2.1, hmpo-components@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "hmpo-components@npm:5.2.1"
+"hmpo-components@npm:5.5.2, hmpo-components@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "hmpo-components@npm:5.5.2"
   dependencies:
     deep-clone-merge: ^1.5.4
-    moment: ^2.29.1
-    underscore: ^1.13.2
+    moment: ^2.29.3
+    underscore: ^1.13.4
   peerDependencies:
     govuk-frontend: ^4
     nunjucks: ">=3"
-  checksum: 6d352cee3db4cd3a529e530d3bee86468cdf2e1336dc957f277cf8571f11107880f4cfa6457126e886dfef22832ee4b9874074477c32913d212e902abfe74503
+  checksum: 4c63b58d983ab5acbbdfcec9c955d8fa04aa87174bd73c27ae22fb99edf808de104779706291275fa2be593cd7122910fd65b17ccc5bf1b0c1c8c2c6cd4352b2
   languageName: node
   linkType: hard
 
