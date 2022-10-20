@@ -66,6 +66,7 @@ module.exports = {
    * Redis integration is optional, but recommended for production environments.
    */
   sessionTimeout: 20 * minute,
+  confirmationSessionTimeout: 20 * minute,
   // sessionCookiePassword: "",
   // redisHost: "http://localhost",
   // redisPort: 6379,

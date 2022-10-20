@@ -24,6 +24,7 @@
   "sslKey": "SSL_KEY",
   "sslCert": "SSL_CERT",
   "sessionTimeout": "SESSION_TIMEOUT",
+  "confirmationSessionTimeout": "CONFIRMATION_SESSION_TIMEOUT",
   "sessionCookiePassword": "SESSION_COOKIE_PASSWORD",
   "fromEmailAddress": "FROM_EMAIL_ADDRESS",
   "serviceStartPage": "SERVICE_START_PAGE",
