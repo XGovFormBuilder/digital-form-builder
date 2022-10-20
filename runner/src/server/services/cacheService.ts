@@ -20,6 +20,7 @@ const {
   redisTls,
   isSandbox,
   sessionTimeout,
+  confirmationSessionTimeout,
 } = config;
 const partition = "cache";
 
@@ -64,7 +65,7 @@ export class CacheService {
 
   async setConfirmationState(request: HapiRequest, viewModel) {
     const key = this.Key(request, ADDITIONAL_IDENTIFIER.Confirmation);
-    return this.cache.set(key, viewModel, sessionTimeout);
+    return this.cache.set(key, viewModel, confirmationSessionTimeout);
   }
 
   async createSession(
