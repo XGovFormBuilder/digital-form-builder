@@ -52,5 +52,8 @@
   "jwtRedirectToAuthenticationUrl": "JWT_REDIRECT_TO_AUTHENTICATION_URL",
   "rsa256PublicKeyBase64": "RSA256_PUBLIC_KEY_BASE64",
   "logoutUrl": "LOGOUT_URL",
-  "basicAuthOn": "BASIC_AUTH_ON"
+  "basicAuthOn": {
+    "__name": "BASIC_AUTH_ON",
+    "__format": "boolean"
+  }
 }
