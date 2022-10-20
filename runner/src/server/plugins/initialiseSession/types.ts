@@ -6,6 +6,8 @@ export type InitialiseSessionOptions = {
   callbackUrl: string;
   redirectPath?: string;
   message?: string;
+  htmlMessage?: string;
+  title?: string;
 };
 
 export type DecodedSessionToken = {

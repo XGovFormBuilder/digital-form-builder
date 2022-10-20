@@ -85,7 +85,7 @@ jobs:
 
       - name: start containers
         run: |
-          docker compose up -d
+          docker compose -f docker-compose.smoke.yml up -d 
           docker ps
 
       - name: run smoke tests
