@@ -35,6 +35,5 @@ Feature: Initialise session - prepopulate a session
       | initialiseSession | http://webho.ok | /summary     |         |             | Update your details |
     And I go to the initialised session URL
     Then I see "Update your details"
-    And I don't see "Summary"
 
 
