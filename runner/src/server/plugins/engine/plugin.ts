@@ -56,8 +56,8 @@ export const plugin = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "@hapi/vision",
   multiple: true,
-  register: (server: HapiServer, options: PluginOptions) => {
-    const { modelOptions, configs, previewMode } = options;
+  register: async (server: HapiServer, options: PluginOptions) => {
+    const { modelOptions, configs } = options;
     server.app.forms = {} as { [formId: string]: FormModel };
     const forms = server.app.forms as { [formId: string]: FormModel };
 
