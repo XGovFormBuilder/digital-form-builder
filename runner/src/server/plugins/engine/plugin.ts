@@ -1,15 +1,17 @@
 import path from "path";
 import { configure } from "nunjucks";
 import { redirectTo } from "./helpers";
-import { FormConfiguration } from "@xgovformbuilder/model";
+
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "server/types";
 
 import { FormModel } from "./models";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
-import { FormPayload } from "./types";
+
 import { shouldLogin } from "server/plugins/auth";
 import config from "config";
+import { published, publish } from "./routes";
+import { disabled } from "server/plugins/engine/plugins/routes/disabled";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -56,8 +58,9 @@ export const plugin = {
   multiple: true,
   register: (server: HapiServer, options: PluginOptions) => {
     const { modelOptions, configs, previewMode } = options;
-    server.app.forms = {};
-    const forms = server.app.forms;
+    server.app.forms = {} as { [formId: string]: FormModel };
+    const forms = server.app.forms as { [formId: string]: FormModel };
+
     configs.forEach((config) => {
       forms[config.id] = new FormModel(config.configuration, {
         ...modelOptions,
@@ -65,103 +68,8 @@ export const plugin = {
       });
     });
 
-    const enabledString = config.previewMode ? `[ENABLED]` : `[DISABLED]`;
-    const disabledRouteDetailString =
-      "A request was made however previewing is disabled. See environment variable details in runner/README.md if this error is not expected.";
-
-    /**
-     * The following publish endpoints (/publish, /published/{id}, /published)
-     * are used from the designer for operating in 'preview' mode.
-     * I.E. Designs saved in the designer can be accessed in the runner for viewing.
-     * The designer also uses these endpoints as a persistence mechanism for storing and retrieving data
-     * for its own purposes so if you're changing these endpoints you likely need to go and amend
-     * the designer too!
-     */
-    server.route({
-      method: "post",
-      path: "/publish",
-      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        if (!previewMode) {
-          request.logger.error(
-            [`POST /publish`, "previewModeError"],
-            disabledRouteDetailString
-          );
-          throw Boom.forbidden("Publishing is disabled");
-        }
-        const payload = request.payload as FormPayload;
-        const { id, configuration } = payload;
-
-        const parsedConfiguration =
-          typeof configuration === "string"
-            ? JSON.parse(configuration)
-            : configuration;
-        forms[id] = new FormModel(parsedConfiguration, {
-          ...modelOptions,
-          basePath: id,
-        });
-        return h.response({}).code(204);
-      },
-      options: {
-        description: `${enabledString} Allows a form to be persisted (published) on the runner server. Requires previewMode to be set to true. See runner/README.md for details on environment variables`,
-      },
-    });
-
-    server.route({
-      method: "get",
-      path: "/published/{id}",
-      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        const { id } = request.params;
-        if (!previewMode) {
-          request.logger.error(
-            [`GET /published/${id}`, "previewModeError"],
-            disabledRouteDetailString
-          );
-          throw Boom.unauthorized("publishing is disabled");
-        }
-
-        const form = forms[id];
-        if (!form) {
-          return h.response({}).code(204);
-        }
-
-        const { values } = forms[id];
-        return h.response(JSON.stringify({ id, values })).code(200);
-      },
-      options: {
-        description: `${enabledString} Gets a published form, by form id. Requires previewMode to be set to true. See runner/README.md for details on environment variables`,
-      },
-    });
-
-    server.route({
-      method: "get",
-      path: "/published",
-      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
-        if (!previewMode) {
-          request.logger.error(
-            [`GET /published`, "previewModeError"],
-            disabledRouteDetailString
-          );
-          throw Boom.unauthorized("publishing is disabled.");
-        }
-        return h
-          .response(
-            JSON.stringify(
-              Object.keys(forms).map(
-                (key) =>
-                  new FormConfiguration(
-                    key,
-                    forms[key].name,
-                    undefined,
-                    forms[key].def.feedback?.feedbackForm
-                  )
-              )
-            )
-          )
-          .code(200);
-      },
-      options: {
-        description: `${enabledString} Gets all published forms. Requires previewMode to be set to true. See runner/README.md for details on environment variables`,
-      },
+    await server.register({
+      plugin: require("./plugins/publish"),
     });
 
     server.route({
@@ -203,21 +111,22 @@ export const plugin = {
         const page = model?.pages.find(
           (page) => normalisePath(page.path) === normalisePath(path)
         );
-        if (page) {
-          // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
-          if (
-            page.pageDef.controller !== "./pages/start.js" &&
-            shouldLogin(request)
-          ) {
-            return h.redirect(`/login?returnUrl=${request.path}`);
-          }
 
-          return page.makeGetRouteHandler()(request, h);
+        if (!page) {
+          if (normalisePath(path) === "") {
+            return getStartPageRedirect(request, h, id, model);
+          }
+          throw Boom.notFound("No form or page found");
         }
-        if (normalisePath(path) === "") {
-          return getStartPageRedirect(request, h, id, model);
+        // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
+        if (
+          page.pageDef.controller !== "./pages/start.js" &&
+          shouldLogin(request)
+        ) {
+          return h.redirect(`/login?returnUrl=${request.path}`);
         }
-        throw Boom.notFound("No form or page found");
+
+        return page.makeGetRouteHandler()(request, h);
       },
     });
 

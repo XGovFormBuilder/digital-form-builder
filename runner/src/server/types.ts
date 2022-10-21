@@ -5,7 +5,7 @@ import {
   Server,
   ResponseObject,
   Lifecycle,
-} from "@hapi/hapi";
+} from "hapi";
 import { Logger } from "pino";
 
 import { RateOptions } from "./plugins/rateLimit";
@@ -18,6 +18,7 @@ import {
   UploadService,
   WebhookService,
 } from "./services";
+import { FormModel } from "server/plugins/engine/models";
 
 type Services = (
   services: string[]
@@ -38,7 +39,7 @@ export type RouteConfig = {
   enforceCsrf?: boolean;
 };
 
-declare module "@hapi/hapi" {
+declare module "hapi" {
   // Here we are decorating Hapi interface types with
   // props from plugins which doesn't export @types
   interface Request {
@@ -52,6 +53,7 @@ declare module "@hapi/hapi" {
     };
     logger: Logger;
     yar: yar.Yar;
+    server: Server;
   }
 
   interface Response {}
@@ -61,6 +63,12 @@ declare module "@hapi/hapi" {
     services: Services; // plugin schmervice
     registerService: (services: any[]) => void; // plugin schmervice
     yar: yar.ServerYar;
+    app: ApplicationState;
+  }
+  interface ApplicationState {
+    forms: {
+      [key: string]: FormModel;
+    };
   }
 
   interface ResponseToolkit {
@@ -69,6 +77,9 @@ declare module "@hapi/hapi" {
 
   interface RequestApplicationState {
     location: string;
+    forms: {
+      [key: string]: FormModel;
+    };
   }
 }
 
