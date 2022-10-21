@@ -1,7 +1,7 @@
 import { Plugin } from "hapi";
 
-import { published, publish } from "./routes";
-import { disabled } from "./routes/disabled";
+import { published, publish } from "./handlers";
+import { disabled } from "./handlers/disabled";
 import config from "server/config";
 
 export const plugin: Plugin<{}> = {

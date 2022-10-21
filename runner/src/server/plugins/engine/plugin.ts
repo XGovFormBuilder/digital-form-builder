@@ -2,16 +2,14 @@ import path from "path";
 import { configure } from "nunjucks";
 import { redirectTo } from "./helpers";
 
-import { HapiRequest, HapiResponseToolkit, HapiServer } from "server/types";
+import { HapiRequest, HapiResponseToolkit } from "server/types";
 
 import { FormModel } from "./models";
 import Boom from "boom";
 import { PluginSpecificConfiguration } from "@hapi/hapi";
 
 import { shouldLogin } from "server/plugins/auth";
-import config from "config";
-import { published, publish } from "./routes";
-import { disabled } from "server/plugins/engine/plugins/routes/disabled";
+import { Plugin } from "hapi";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -47,19 +45,25 @@ function getStartPageRedirect(
 
 type PluginOptions = {
   relativeTo?: string;
-  modelOptions: any;
-  configs: any[];
   previewMode: boolean;
+  modelOptions: {
+    relativeTo: string;
+    previewMode: any;
+  };
+  configs: {
+    configuration: any;
+    id: string;
+  }[];
 };
 
-export const plugin = {
+export const plugin: Plugin<PluginOptions> = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "@hapi/vision",
   multiple: true,
-  register: async (server: HapiServer, options: PluginOptions) => {
+  register: async (server, options) => {
     const { modelOptions, configs } = options;
-    server.app.forms = {} as { [formId: string]: FormModel };
-    const forms = server.app.forms as { [formId: string]: FormModel };
+    server.app.forms = {};
+    const forms = server.app.forms;
 
     configs.forEach((config) => {
       forms[config.id] = new FormModel(config.configuration, {
@@ -68,8 +72,11 @@ export const plugin = {
       });
     });
 
+    /**
+     * /publish and /published routes
+     */
     await server.register({
-      plugin: require("./plugins/publish"),
+      plugin: require("./routes/publish"),
     });
 
     server.route({
@@ -92,7 +99,7 @@ export const plugin = {
     server.route({
       method: "get",
       path: "/{id}",
-      handler: (request: HapiRequest, h: HapiResponseToolkit) => {
+      handler: (request, h) => {
         const { id } = request.params;
         const model = forms[id];
         if (model) {
