@@ -73,6 +73,7 @@ declare module "hapi" {
 
   interface ResponseToolkit {
     view: (viewName: string, data?: { [prop: string]: any }) => any; // plugin view
+    localPluginRedirect: ResponseToolkit["redirect"]; // prepends the plugin's prefix to h.direct.
   }
 
   interface RequestApplicationState {

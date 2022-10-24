@@ -11,13 +11,11 @@ import { configureEnginePlugin } from "./plugins/engine";
 import { configureRateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
-import { configureInitialiseSessionPlugin } from "server/plugins/initialiseSession/configurePlugin";
 
 import pluginLocale from "./plugins/locale";
 import pluginSession from "./plugins/session";
 import pluginAuth from "./plugins/auth";
 import pluginViews from "./plugins/views";
-import pluginApplicationStatus from "./plugins/applicationStatus";
 import pluginRouter from "./plugins/router";
 import pluginErrorPages from "./plugins/errorPages";
 import pluginLogging from "./plugins/logging";
@@ -35,7 +33,8 @@ import {
 } from "./services";
 import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
 import getRequestInfo from "./utils/getRequestInfo";
-import { initialiseSession } from "server/plugins/initialiseSession";
+import { initialiseSession } from "./plugins/engine/router/initialiseSession";
+import { applicationStatus } from "./plugins/engine/router/applicationStatus";
 
 const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
@@ -93,11 +92,10 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(pluginPulse);
   await server.register(inert);
   await server.register(Scooter);
-  await server.register(
-    configureInitialiseSessionPlugin({
-      safelist: config.safelist,
-    })
-  );
+  await server.register({
+    plugin: initialiseSession,
+    options: {},
+  });
   await server.register(configureBlankiePlugin(config));
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(Schmervice);
@@ -155,7 +153,7 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(
     configureEnginePlugin(formFileName, formFilePath, options)
   );
-  await server.register(pluginApplicationStatus);
+  await server.register(applicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
   await server.register(blipp);
