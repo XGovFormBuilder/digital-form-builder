@@ -1,3 +1,6 @@
+import { WebhookSchema } from "server/schemas/types";
+import { Request } from "hapi";
+import { SpecialPages } from "@xgovformbuilder/model";
 export type InitialiseSession = {
   safelist: string[];
 };
@@ -26,3 +29,12 @@ export type DecodedSessionToken = {
    */
   group: string;
 };
+
+export type InitialiseSessionRequest = {
+  params: {
+    formId: string;
+  };
+  payload: {
+    options: InitialiseSessionOptions & SpecialPages["confirmationPage"];
+  } & WebhookSchema;
+} & Request;
