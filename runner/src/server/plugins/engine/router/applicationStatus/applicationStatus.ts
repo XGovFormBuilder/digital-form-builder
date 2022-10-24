@@ -1,6 +1,3 @@
-import { redirectTo } from "./engine";
-import { HapiRequest, HapiResponseToolkit } from "../types";
-
 const applicationStatus = {
   plugin: {
     name: "applicationStatus",
