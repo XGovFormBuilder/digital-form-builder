@@ -26,6 +26,7 @@ function normalisePath(path: string) {
   return path.replace(/^\//, "").replace(/\/$/, "");
 }
 
+//TODO:- refactor using h.redirectLocal
 function getStartPageRedirect(
   request: HapiRequest,
   h: HapiResponseToolkit,
@@ -77,7 +78,6 @@ type PluginOptions = {
     id: string;
   }[];
 };
-//TODO:- unnest this
 export const plugin: Plugin<PluginOptions> = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "@hapi/vision",

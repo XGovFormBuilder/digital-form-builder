@@ -4,8 +4,7 @@ import * as token from "./handlers/token";
 
 export const initialiseSession: Plugin<InitialiseSession> = {
   name: "initialiseSession",
-  register: async function (server, options) {
-    const { safelist } = options;
+  register: async function (server, _options) {
     server.route({
       method: "GET",
       path: "/session/{token}",
@@ -19,7 +18,7 @@ export const initialiseSession: Plugin<InitialiseSession> = {
       method: "POST",
       path: "/session/{formId}",
       options: {
-        description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback safelist in runner/config/{environment}.json. ${safelist}`,
+        description: `Accepts JSON object conforming to type InitialiseSessionSchema. Creates a session and returns JSON containing a JWT Token {"token": "example.jwt.token"}. You must configure the callback safelist in runner/config/{environment}.json`,
         plugins: {
           crumb: false,
         },
