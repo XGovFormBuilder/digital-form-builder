@@ -11,21 +11,7 @@ import { List } from "@xgovformbuilder/model";
  * YesNoField is a radiosField with predefined values.
  */
 export class YesNoField extends ListFormComponent {
-  list: List = {
-    name: "__yesNo",
-    title: "Yes/No",
-    type: "boolean",
-    items: [
-      {
-        text: "Yes",
-        value: true,
-      },
-      {
-        text: "No",
-        value: false,
-      },
-    ],
-  };
+  list;
   itemsSchema = joi.boolean();
   get items() {
     return this.list?.items ?? [];
@@ -39,6 +25,29 @@ export class YesNoField extends ListFormComponent {
     super(def, model);
 
     const { options } = this;
+    let yesText = "Yes";
+    let noText = "No";
+
+    if (model.def.metadata?.isWelsh) {
+      yesText = "welshYes";
+      noText = "welshNo";
+    }
+
+    this.list = {
+      name: "__yesNo",
+      title: "Yes/No",
+      type: "boolean",
+      items: [
+        {
+          text: yesText,
+          value: true,
+        },
+        {
+          text: noText,
+          value: false,
+        },
+      ],
+    };
 
     this.formSchema = helpers
       .buildFormSchema("boolean", this, options?.required !== false)
