@@ -1,6 +1,6 @@
 import path from "path";
 import { configure } from "nunjucks";
-import { redirectTo } from "./helpers";
+import { idFromFilename, redirectTo } from "./helpers";
 
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 
@@ -9,6 +9,8 @@ import Boom from "boom";
 
 import { Plugin } from "hapi";
 import { form } from "./router/form";
+import { plugin as publishPlugin } from "./router/publish";
+import { FormDefinition } from "@xgovformbuilder/model";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -42,34 +44,70 @@ function getStartPageRedirect(
   return startPageRedirect;
 }
 
+/**
+ * @deprecated
+ * Loads a form json from the provided fileName and path.
+ * This will be deprecated in a future release, to resolve first load your file(s)
+ * Load your JSON file and use the configs option instead.
+ * ```
+ * configs: [
+ *   configuration: require(yourFile),
+ *   id: "the-form-name"
+ * ]
+ * ```
+ */
+function loadFormPathAsConfigOption(
+  formFileName: string,
+  formFilePath: string
+): PluginOptions["configs"] {
+  return [
+    {
+      configuration: require(path.join(formFilePath, formFileName)),
+      id: idFromFilename(formFileName),
+    },
+  ];
+}
+
 type PluginOptions = {
   relativeTo?: string;
-  previewMode: boolean;
-  modelOptions: {
-    relativeTo: string;
-    previewMode: any;
-  };
-  configs: {
-    configuration: any;
+  formFileName?: string;
+  formFilePath?: string;
+  configs?: {
+    configuration: FormDefinition;
     id: string;
   }[];
 };
-
+//TODO:- unnest this
 export const plugin: Plugin<PluginOptions> = {
   name: "@xgovformbuilder/runner/engine",
   dependencies: "@hapi/vision",
   multiple: true,
   register: async (server, options) => {
-    const { modelOptions, configs } = options;
-    server.app.forms = {};
+    const { configs, formFileName, formFilePath } = options;
+
+    let formsToUse: Required<PluginOptions["configs"]> = configs ?? [];
+
+    if (formFileName && formFilePath) {
+      server.logger.warn(
+        `
+          formFileName and formFilePath will become deprecated options in later releases.
+          Load your JSON file and use the configs option instead.
+          configs: [
+            configuration: require(yourFile),
+            id: "the-form-name"
+          ]
+        `
+      );
+      formsToUse = loadFormPathAsConfigOption(formFileName, formFilePath);
+    }
+
+    server.app.forms ??= {};
     const forms = server.app.forms;
 
     /**
      * /publish and /published routes
      */
-    await server.register({
-      plugin: require("./routes/publish"),
-    });
+    await server.register(publishPlugin);
 
     server.route({
       method: "get",
@@ -88,13 +126,12 @@ export const plugin: Plugin<PluginOptions> = {
       },
     });
 
-    configs.forEach((config) => {
+    formsToUse.forEach((config) => {
       server.register(
         {
           plugin: form,
           options: {
             config: config,
-            modelOptions,
           },
         },
         {

@@ -156,7 +156,7 @@ const listItemSchema = joi.object().keys({
 const listSchema = joi.object().keys({
   name: joi.string().required(),
   title: localisedString,
-  type: joi.string().required().valid("string", "number"),
+  type: joi.string().required().valid("string", "number", "boolean"),
   items: joi.array().items(listItemSchema),
 });
 

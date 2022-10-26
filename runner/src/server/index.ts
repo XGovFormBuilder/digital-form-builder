@@ -40,7 +40,7 @@ const serverOptions = (): ServerOptions => {
   const hasCertificate = config.sslKey && config.sslCert;
 
   const serverOptions: ServerOptions = {
-    debug: { request: [`${config.isDev}`] },
+    debug: { request: "*" },
     port: config.port,
     router: {
       stripTrailingSlash: true,
@@ -82,7 +82,7 @@ const serverOptions = (): ServerOptions => {
 
 async function createServer(routeConfig: RouteConfig) {
   const server = hapi.server(serverOptions());
-  const { formFileName, formFilePath, options } = routeConfig;
+  const { options = {} } = routeConfig;
 
   if (config.rateLimit) {
     await server.register(configureRateLimitPlugin(routeConfig));
@@ -150,9 +150,7 @@ async function createServer(routeConfig: RouteConfig) {
 
   await server.register(pluginLocale);
   await server.register(pluginViews);
-  await server.register(
-    configureEnginePlugin(formFileName, formFilePath, options)
-  );
+  await server.register(configureEnginePlugin(options));
   await server.register(applicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);

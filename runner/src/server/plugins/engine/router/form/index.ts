@@ -2,43 +2,29 @@ import { Plugin } from "hapi";
 import { FormModel } from "server/plugins/engine/models";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import Boom from "boom";
-import { shouldLogin } from "server/plugins/auth";
-import { normalisePath } from "./helpers";
-
-type ModelOptions = {
-  relativeTo: string;
-  previewMode: any;
-};
 
 type Config = {
   configuration: any;
   id: string;
 };
 
-const ROUTE_ID = {
-  FORM_ROOT: "FORM_ROOT",
-} as const;
-
 export const form: Plugin<{
   config: Config;
-
-  modelOptions?: ModelOptions;
 }> = {
   name: "@xgovformbuilder/runner/form",
   dependencies: "@hapi/vision",
   multiple: true,
   register: async (server, options) => {
-    const { modelOptions, config } = options;
+    const { config } = options;
     server.app.forms ??= {};
     const forms = server.app.forms;
-
     try {
       forms[config.id] = new FormModel(config.configuration, {
-        ...modelOptions,
         basePath: config.id,
       });
     } catch (error) {
-      throw Error(`${config.id} failed to initialise`);
+      server.logger.error("failed to init");
+      throw new Error(`${config.id} failed to initialise`);
     }
 
     /**
@@ -68,35 +54,41 @@ export const form: Plugin<{
       },
     });
 
-    server.route({
-      method: "get",
-      path: "/{path*}",
-      handler: (request, h) => {
-        const { path } = request.params;
-        const model: FormModel = h.context.form;
+    const pages: FormModel["pages"] = context.form.pages;
 
-        const page = model?.pages.find(
-          (page) => normalisePath(page.path) === normalisePath(path)
-        );
-
-        if (!page) {
-          if (normalisePath(path) === "") {
-            return h.redirect(h.context.prefix);
-          }
-          throw Boom.notFound("No form or page found");
-        }
-
-        // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
-        if (
-          page.pageDef.controller !== "./pages/start.js" &&
-          shouldLogin(request)
-        ) {
-          return h.redirect(`/login?returnUrl=${request.path}`);
-        }
-
-        return page.makeGetRouteHandler()(request, h);
-      },
+    pages.forEach((page) => {
+      server.route(page.makeGetRoute());
     });
+
+    // server.route({
+    //   method: "get",
+    //   path: "/{path*}",
+    //   handler: (request, h) => {
+    //     const { path } = request.params;
+    //     const model: FormModel = h.context.form;
+    //
+    //     const page = model?.pages.find(
+    //       (page) => normalisePath(page.path) === normalisePath(path)
+    //     );
+    //
+    //     if (!page) {
+    //       if (normalisePath(path) === "") {
+    //         return h.redirect(h.context.prefix);
+    //       }
+    //       throw Boom.notFound("No form or page found");
+    //     }
+    //
+    //     // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
+    //     if (
+    //       page.pageDef.controller !== "./pages/start.js" &&
+    //       shouldLogin(request)
+    //     ) {
+    //       return h.redirect(`/login?returnUrl=${request.path}`);
+    //     }
+    //
+    //     return page.makeGetRouteHandler()(request, h);
+    //   },
+    // });
 
     const { uploadService } = server.services([]);
 
@@ -124,28 +116,28 @@ export const form: Plugin<{
       throw Boom.notFound("No form of path found");
     };
 
-    // server.route({
-    //   method: "post",
-    //   path: "/{path*}",
-    //   options: {
-    //     plugins: {
-    //       "hapi-rate-limit": {
-    //         userPathLimit: 10,
-    //       },
-    //     },
-    //     payload: {
-    //       output: "stream",
-    //       parse: true,
-    //       multipart: { output: "stream" },
-    //       maxBytes: uploadService.fileSizeLimit,
-    //       failAction: async (request: any, h: HapiResponseToolkit) => {
-    //         request.server?.plugins?.crumb?.generate?.(request, h);
-    //         return h.continue;
-    //       },
-    //     },
-    //     pre: [{ method: handleFiles }],
-    //     handler: postHandler,
-    //   },
-    // });
+    server.route({
+      method: "post",
+      path: "/{path*}",
+      options: {
+        plugins: {
+          "hapi-rate-limit": {
+            userPathLimit: 10,
+          },
+        },
+        payload: {
+          output: "stream",
+          parse: true,
+          multipart: { output: "stream" },
+          maxBytes: uploadService.fileSizeLimit,
+          failAction: async (request: any, h: HapiResponseToolkit) => {
+            request.server?.plugins?.crumb?.generate?.(request, h);
+            return h.continue;
+          },
+        },
+        pre: [{ method: handleFiles }],
+        handler: postHandler,
+      },
+    });
   },
 };

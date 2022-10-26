@@ -23,6 +23,7 @@ import {
 } from "../types";
 import { ComponentCollectionViewModel } from "../components/types";
 import { format, parseISO } from "date-fns";
+import { shouldLogin } from "server/plugins/auth";
 
 const FORM_SCHEMA = Symbol("FORM_SCHEMA");
 const STATE_SCHEMA = Symbol("STATE_SCHEMA");
@@ -385,6 +386,12 @@ export class PageControllerBase {
 
   makeGetRouteHandler() {
     return async (request: HapiRequest, h: HapiResponseToolkit) => {
+      // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
+      const redirectResponse = this.redirectUnauthenticatedUsers(request, h);
+      if (!!redirectResponse) {
+        return redirectResponse;
+      }
+
       const { cacheService } = request.services([]);
       const lang = this.langFromRequest(request);
       const state = await cacheService.getState(request);
@@ -695,6 +702,15 @@ export class PageControllerBase {
       options: this.postRouteOptions,
       handler: this.makePostRouteHandler(),
     };
+  }
+
+  redirectUnauthenticatedUsers(request, h) {
+    if (
+      this.pageDef.controller !== "./pages/start.js" &&
+      shouldLogin(request)
+    ) {
+      return h.redirect(`/login?returnUrl=${request.path}`);
+    }
   }
 
   findPageByPath(path: string) {

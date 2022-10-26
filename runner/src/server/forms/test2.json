@@ -1,0 +1,509 @@
+{
+  "startPage": "/start",
+  "pages": [
+    {
+      "title": "Start",
+      "path": "/start",
+      "components": [],
+      "next": [
+        {
+          "path": "/uk-passport"
+        }
+      ],
+      "controller": "./pages/start.js"
+    },
+    {
+      "path": "/uk-passport",
+      "components": [
+        {
+          "type": "YesNoField",
+          "name": "ukPassport",
+          "title": "Do you have a UK passport?",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "section": "checkBeforeYouStart",
+      "next": [
+        {
+          "path": "/how-many-people"
+        },
+        {
+          "path": "/no-uk-passport",
+          "condition": "doesntHaveUKPassport"
+        }
+      ],
+      "title": "Do you have a UK passport?"
+    },
+    {
+      "path": "/no-uk-passport",
+      "title": "You're not eligible for this service",
+      "components": [
+        {
+          "type": "Para",
+          "content": "If you still think you're eligible please contact the Foreign and Commonwealth Office.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": []
+    },
+    {
+      "path": "/how-many-people",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "options": {
+            "classes": "govuk-input--width-10",
+            "required": true
+          },
+          "type": "SelectField",
+          "name": "numberOfApplicants",
+          "title": "How many applicants are there?",
+          "list": "numberOfApplicants"
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-one"
+        }
+      ],
+      "title": "How many applicants are there?"
+    },
+    {
+      "path": "/applicant-one",
+      "title": "Applicant 1",
+      "section": "applicantOneDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-one-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-one-address",
+      "section": "applicantOneDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-two",
+          "condition": "moreThanOneApplicant"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/applicant-two",
+      "title": "Applicant 2",
+      "section": "applicantTwoDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-two-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-two-address",
+      "section": "applicantTwoDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-three",
+          "condition": "moreThanTwoApplicants"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/applicant-three",
+      "title": "Applicant 3",
+      "section": "applicantThreeDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-three-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-three-address",
+      "section": "applicantThreeDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-four",
+          "condition": "moreThanThreeApplicants"
+        },
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/applicant-four",
+      "title": "Applicant 4",
+      "section": "applicantFourDetails",
+      "components": [
+        {
+          "type": "Para",
+          "content": "Provide the details as they appear on your passport.",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "firstName",
+          "title": "First name",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "options": {
+            "required": false,
+            "optionalText": false
+          },
+          "type": "TextField",
+          "name": "middleName",
+          "title": "Middle name",
+          "hint": "If you have a middle name on your passport you must include it here",
+          "schema": {}
+        },
+        {
+          "type": "TextField",
+          "name": "lastName",
+          "title": "Surname",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/applicant-four-address"
+        }
+      ]
+    },
+    {
+      "path": "/applicant-four-address",
+      "section": "applicantFourDetails",
+      "components": [
+        {
+          "type": "UkAddressField",
+          "name": "address",
+          "title": "Address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/contact-details"
+        }
+      ],
+      "title": "Address"
+    },
+    {
+      "path": "/contact-details",
+      "section": "applicantDetails",
+      "components": [
+        {
+          "type": "TelephoneNumberField",
+          "name": "phoneNumber",
+          "title": "Phone number",
+          "hint": "If you haven't got a UK phone number, include country code",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        },
+        {
+          "type": "EmailAddressField",
+          "name": "emailAddress",
+          "title": "Your email address",
+          "options": {
+            "required": true
+          },
+          "schema": {}
+        }
+      ],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ],
+      "title": "Applicant contact details"
+    },
+    {
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "title": "Summary",
+      "components": [],
+      "next": []
+    }
+  ],
+  "lists": [
+    {
+      "name": "numberOfApplicants",
+      "title": "Number of people",
+      "type": "number",
+      "items": [
+        {
+          "text": "1",
+          "value": 1,
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "2",
+          "value": 2,
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "3",
+          "value": 3,
+          "description": "",
+          "condition": ""
+        },
+        {
+          "text": "4",
+          "value": 4,
+          "description": "",
+          "condition": ""
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "name": "checkBeforeYouStart",
+      "title": "Check before you start"
+    },
+    {
+      "name": "applicantDetails",
+      "title": "Applicant details"
+    },
+    {
+      "name": "applicantOneDetails",
+      "title": "Applicant 1"
+    },
+    {
+      "name": "applicantTwoDetails",
+      "title": "Applicant 2"
+    },
+    {
+      "name": "applicantThreeDetails",
+      "title": "Applicant 3"
+    },
+    {
+      "name": "applicantFourDetails",
+      "title": "Applicant 4"
+    }
+  ],
+  "phaseBanner": {},
+  "fees": [],
+  "payApiKey": "",
+  "outputs": [
+    {
+      "name": "Ric43H5Ctwl4NBDC9x1_4",
+      "title": "email",
+      "type": "email",
+      "outputConfiguration": {
+        "emailAddress": "jennifermyanh.duong@digital.homeoffice.gov.uk"
+      }
+    }
+  ],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
+  "version": 2,
+  "conditions": [
+    {
+      "name": "hasUKPassport",
+      "displayName": "hasUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==true"
+    },
+    {
+      "name": "doesntHaveUKPassport",
+      "displayName": "doesntHaveUKPassport",
+      "value": "checkBeforeYouStart.ukPassport==false"
+    },
+    {
+      "name": "moreThanOneApplicant",
+      "displayName": "moreThanOneApplicant",
+      "value": "applicantDetails.numberOfApplicants > 1"
+    },
+    {
+      "name": "moreThanTwoApplicants",
+      "displayName": "moreThanTwoApplicants",
+      "value": "applicantDetails.numberOfApplicants > 2"
+    },
+    {
+      "name": "moreThanThreeApplicants",
+      "displayName": "moreThanThreeApplicants",
+      "value": "applicantDetails.numberOfApplicants > 3"
+    }
+  ]
+}

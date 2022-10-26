@@ -25,7 +25,6 @@ export const id = {
       return h.response({}).code(204);
     }
 
-    const { values } = forms[id];
-    return h.response(JSON.stringify({ id, values })).code(200);
+    return h.response(JSON.stringify({ id, values: form.def })).code(200);
   },
 };

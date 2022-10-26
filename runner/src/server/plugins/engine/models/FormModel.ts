@@ -44,8 +44,12 @@ export class FormModel {
   name: any;
   values: any;
   DefaultPageController: any = PageController;
-  /** the id of the form used for the first url parameter eg localhost:3009/test */
+
+  /**
+   * @deprecated - this will be handled by `h.localPluginRedirect`
+   * the id of the form used for the first url parameter eg localhost:3009/test */
   basePath: string;
+
   conditions: Record<string, ExecutableCondition> | {};
   pages: any;
   startPage: any;
@@ -92,7 +96,6 @@ export class FormModel {
     }
 
     this.basePath = options.basePath;
-
     this.conditions = {};
     def.conditions.forEach((conditionDef) => {
       const condition = this.makeCondition(conditionDef);
