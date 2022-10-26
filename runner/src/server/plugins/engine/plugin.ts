@@ -83,7 +83,7 @@ export const plugin: Plugin<PluginOptions> = {
   dependencies: "@hapi/vision",
   multiple: true,
   register: async (server, options) => {
-    const { configs, formFileName, formFilePath } = options;
+    const { configs = [], formFileName, formFilePath } = options;
 
     let formsToUse: Required<PluginOptions["configs"]> = configs ?? [];
 
@@ -98,7 +98,8 @@ export const plugin: Plugin<PluginOptions> = {
           ]
         `
       );
-      formsToUse = loadFormPathAsConfigOption(formFileName, formFilePath);
+      formsToUse =
+        loadFormPathAsConfigOption(formFileName, formFilePath) ?? configs;
     }
 
     server.app.forms ??= {};
