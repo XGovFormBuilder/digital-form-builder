@@ -25,12 +25,23 @@ export class DatePartsField extends FormComponent {
     const isRequired =
       "required" in options && options.required === false ? false : true;
     const optionalText = "optionalText" in options && options.optionalText;
+
+    let dayTitle = "Day";
+    let monthTitle = "Month";
+    let yearTitle = "Year";
+
+    if (model.def.metadata?.isWelsh) {
+      dayTitle = "WelshDay";
+      monthTitle = "WelshMonth";
+      yearTitle = "WelshYear";
+    }
+
     this.children = new ComponentCollection(
       [
         {
           type: "NumberField",
           name: `${name}__day`,
-          title: "Day",
+          title: dayTitle,
           schema: { min: 1, max: 31 },
           options: {
             required: isRequired,
@@ -42,7 +53,7 @@ export class DatePartsField extends FormComponent {
         {
           type: "NumberField",
           name: `${name}__month`,
-          title: "Month",
+          title: monthTitle,
           schema: { min: 1, max: 12 },
           options: {
             required: isRequired,
@@ -54,7 +65,7 @@ export class DatePartsField extends FormComponent {
         {
           type: "NumberField",
           name: `${name}__year`,
-          title: "Year",
+          title: yearTitle,
           schema: { min: 1000, max: 3000 },
           options: {
             required: isRequired,
