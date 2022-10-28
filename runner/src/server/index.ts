@@ -7,8 +7,7 @@ import Schmervice from "schmervice";
 import blipp from "blipp";
 import config from "./config";
 
-import { configureEnginePlugin } from "./plugins/engine";
-import { configureRateLimitPlugin } from "./plugins/rateLimit";
+import { configureRateLimitPlugin, rateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
 
@@ -31,71 +30,57 @@ import {
   UploadService,
   WebhookService,
 } from "./services";
-import { HapiRequest, HapiResponseToolkit, RouteConfig } from "./types";
-import getRequestInfo from "./utils/getRequestInfo";
+import { RouteConfig } from "./types";
+
 import { initialiseSession } from "./plugins/engine/router/initialiseSession";
 import { applicationStatus } from "./plugins/engine/router/applicationStatus";
-
-const serverOptions = (): ServerOptions => {
-  const hasCertificate = config.sslKey && config.sslCert;
-
-  const serverOptions: ServerOptions = {
-    debug: { request: "*" },
-    port: config.port,
-    router: {
-      stripTrailingSlash: true,
-    },
-    routes: {
-      validate: {
-        options: {
-          abortEarly: false,
-        },
-      },
-      security: {
-        hsts: {
-          maxAge: 31536000,
-          includeSubDomains: true,
-          preload: false,
-        },
-        xss: true,
-        noSniff: true,
-        xframe: true,
+import { handleFontCache } from "./ext/handleFontCache";
+const hasCertificate = config.sslKey && config.sslCert;
+const serverOptions = {
+  debug: { request: "*" },
+  port: config.port,
+  router: {
+    stripTrailingSlash: true,
+  },
+  routes: {
+    validate: {
+      options: {
+        abortEarly: false,
       },
     },
-    cache: [{ provider: catboxProvider() }],
-  };
-
-  const httpsOptions = hasCertificate
+    security: {
+      hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: false,
+      },
+      xss: true,
+      noSniff: true,
+      xframe: true,
+    },
+  },
+  cache: [{ provider: catboxProvider() }],
+  tls: hasCertificate
     ? {
-        tls: {
-          key: fs.readFileSync(config.sslKey),
-          cert: fs.readFileSync(config.sslCert),
-        },
+        key: fs.readFileSync(config.sslKey),
+        cert: fs.readFileSync(config.sslCert),
       }
-    : {};
-
-  return {
-    ...serverOptions,
-    ...httpsOptions,
-  };
+    : {},
 };
 
 async function createServer(routeConfig: RouteConfig) {
-  const server = hapi.server(serverOptions());
-  const { options = {} } = routeConfig;
+  const server = hapi.server(serverOptions);
 
   if (config.rateLimit) {
-    await server.register(configureRateLimitPlugin(routeConfig));
+    await server.register(rateLimitPlugin);
   }
+
   await server.register(pluginLogging);
   await server.register(pluginSession);
   await server.register(pluginPulse);
   await server.register(inert);
   await server.register(Scooter);
-  await server.register({
-    plugin: initialiseSession,
-    options: {},
-  });
+  await server.register(initialiseSession);
   await server.register(configureBlankiePlugin(config));
   await server.register(configureCrumbPlugin(config, routeConfig));
   await server.register(Schmervice);
@@ -112,45 +97,10 @@ async function createServer(routeConfig: RouteConfig) {
     AddressService,
   ]);
 
-  server.ext(
-    "onPreResponse",
-    (request: HapiRequest, h: HapiResponseToolkit) => {
-      const { response } = request;
-
-      if ("isBoom" in response && response.isBoom) {
-        return h.continue;
-      }
-
-      if ("header" in response && response.header) {
-        response.header("X-Robots-Tag", "noindex, nofollow");
-
-        const WEBFONT_EXTENSIONS = /\.(?:eot|ttf|woff|svg|woff2)$/i;
-        if (!WEBFONT_EXTENSIONS.test(request.url.toString())) {
-          response.header(
-            "cache-control",
-            "private, no-cache, no-store, must-revalidate, max-age=0"
-          );
-          response.header("pragma", "no-cache");
-          response.header("expires", "0");
-        } else {
-          response.header("cache-control", "public, max-age=604800, immutable");
-        }
-      }
-      return h.continue;
-    }
-  );
-
-  server.ext("onRequest", (request: HapiRequest, h: HapiResponseToolkit) => {
-    const { pathname } = getRequestInfo(request);
-
-    request.app.location = pathname;
-
-    return h.continue;
-  });
+  server.ext("onPreResponse", handleFontCache);
 
   await server.register(pluginLocale);
   await server.register(pluginViews);
-  await server.register(configureEnginePlugin(options));
   await server.register(applicationStatus);
   await server.register(pluginRouter);
   await server.register(pluginErrorPages);
