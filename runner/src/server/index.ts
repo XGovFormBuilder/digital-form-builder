@@ -79,9 +79,25 @@ async function createServer(routeConfig: RouteConfig) {
   await server.register(session);
 
   await server.register(inert);
+
+  /**
+   * user agent information, required for blankie
+   */
   await server.register(Scooter);
+
+  /**
+   * content security policy
+   */
   await server.register(configureBlankiePlugin(config));
+
+  /**
+   * CSRF
+   */
   await server.register(configureCrumbPlugin(config, routeConfig));
+
+  /**
+   * Authentication strategy
+   */
   await server.register(auth);
 
   /**
@@ -110,9 +126,25 @@ async function createServer(routeConfig: RouteConfig) {
 
   await server.register(views);
 
+  /**
+   * serves /{id}/status
+   */
   await server.register(applicationStatus);
+
+  /**
+   * misc routes
+   * TODO: maybe needs renaming?
+   */
   await server.register(router);
+
+  /**
+   * catches and renders errors
+   */
   await server.register(errorPages);
+
+  /**
+   * On startup prints out the registered routes
+   */
   await server.register(blipp);
 
   server.state("cookies_policy", {
