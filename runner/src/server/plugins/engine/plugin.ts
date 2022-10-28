@@ -11,6 +11,10 @@ import { Plugin } from "hapi";
 import { form } from "./router/form";
 import { plugin as publishPlugin } from "./router/publish";
 import { FormDefinition } from "@xgovformbuilder/model";
+import {
+  dynamicPageLookupGetHandler,
+  dynamicPageLookupPostHandler,
+} from "server/plugins/engine/router/form/helpers";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -141,6 +145,25 @@ export const plugin: Plugin<PluginOptions> = {
           },
         }
       );
+    });
+
+    server.route({
+      method: "get",
+      path: "/{id}/{path*}",
+      handler: dynamicPageLookupGetHandler,
+    });
+
+    server.route({
+      method: "post",
+      path: "/{id}/{path*}",
+      handler: dynamicPageLookupPostHandler,
+      options: {
+        payload: {
+          multipart: {
+            output: "data",
+          },
+        },
+      },
     });
 
     /**

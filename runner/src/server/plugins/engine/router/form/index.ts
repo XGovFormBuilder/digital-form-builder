@@ -2,7 +2,7 @@ import { Plugin } from "hapi";
 import { FormModel } from "server/plugins/engine/models";
 import { HapiRequest, HapiResponseToolkit } from "server/types";
 import Boom from "boom";
-
+import config from "config";
 type Config = {
   configuration: any;
   id: string;
@@ -33,6 +33,7 @@ export const form: Plugin<{
     const context = {
       form: forms[config.id],
       prefix: server.realm.modifiers.route.prefix,
+      id: config.id,
       get basePath() {
         return this.prefix;
       },
@@ -56,39 +57,11 @@ export const form: Plugin<{
 
     const pages: FormModel["pages"] = context.form.pages;
 
-    pages.forEach((page) => {
-      server.route(page.makeGetRoute());
-    });
-
-    // server.route({
-    //   method: "get",
-    //   path: "/{path*}",
-    //   handler: (request, h) => {
-    //     const { path } = request.params;
-    //     const model: FormModel = h.context.form;
-    //
-    //     const page = model?.pages.find(
-    //       (page) => normalisePath(page.path) === normalisePath(path)
-    //     );
-    //
-    //     if (!page) {
-    //       if (normalisePath(path) === "") {
-    //         return h.redirect(h.context.prefix);
-    //       }
-    //       throw Boom.notFound("No form or page found");
-    //     }
-    //
-    //     // NOTE: Start pages should live on gov.uk, but this allows prototypes to include signposting about having to log in.
-    //     if (
-    //       page.pageDef.controller !== "./pages/start.js" &&
-    //       shouldLogin(request)
-    //     ) {
-    //       return h.redirect(`/login?returnUrl=${request.path}`);
-    //     }
-    //
-    //     return page.makeGetRouteHandler()(request, h);
-    //   },
-    // });
+    if (config.isProd) {
+      pages.forEach((page) => {
+        server.route(page.makeGetRoute());
+      });
+    }
 
     const { uploadService } = server.services([]);
 
@@ -115,29 +88,30 @@ export const form: Plugin<{
 
       throw Boom.notFound("No form of path found");
     };
-
-    server.route({
-      method: "post",
-      path: "/{path*}",
-      options: {
-        plugins: {
-          "hapi-rate-limit": {
-            userPathLimit: 10,
+    if (config.isProd) {
+      server.route({
+        method: "post",
+        path: "/{path*}",
+        options: {
+          plugins: {
+            "hapi-rate-limit": {
+              userPathLimit: 10,
+            },
           },
-        },
-        payload: {
-          output: "stream",
-          parse: true,
-          multipart: { output: "stream" },
-          maxBytes: uploadService.fileSizeLimit,
-          failAction: async (request: any, h: HapiResponseToolkit) => {
-            request.server?.plugins?.crumb?.generate?.(request, h);
-            return h.continue;
+          payload: {
+            output: "stream",
+            parse: true,
+            multipart: { output: "stream" },
+            maxBytes: uploadService.fileSizeLimit,
+            failAction: async (request: any, h: HapiResponseToolkit) => {
+              request.server?.plugins?.crumb?.generate?.(request, h);
+              return h.continue;
+            },
           },
+          pre: [{ method: handleFiles }],
+          handler: postHandler,
         },
-        pre: [{ method: handleFiles }],
-        handler: postHandler,
-      },
-    });
+      });
+    }
   },
 };
