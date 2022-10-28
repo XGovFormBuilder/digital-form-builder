@@ -35,9 +35,11 @@ import { RouteConfig } from "./types";
 import { initialiseSession } from "./plugins/engine/router/initialiseSession";
 import { applicationStatus } from "./plugins/engine/router/applicationStatus";
 import { handleFontCache } from "./ext/handleFontCache";
+import { plugin } from "./plugins/engine/plugin";
 const hasCertificate = config.sslKey && config.sslCert;
+
 const serverOptions = {
-  debug: { request: "*" },
+  debug: { request: [`${config.isDev}`] },
   port: config.port,
   router: {
     stripTrailingSlash: true,
@@ -60,12 +62,14 @@ const serverOptions = {
     },
   },
   cache: [{ provider: catboxProvider() }],
-  tls: hasCertificate
+  ...(hasCertificate
     ? {
-        key: fs.readFileSync(config.sslKey),
-        cert: fs.readFileSync(config.sslCert),
+        tls: {
+          key: fs.readFileSync(config.sslKey),
+          cert: fs.readFileSync(config.sslCert),
+        },
       }
-    : {},
+    : {}),
 };
 
 async function createServer(routeConfig: RouteConfig) {
@@ -99,6 +103,8 @@ async function createServer(routeConfig: RouteConfig) {
    * Authentication strategy
    */
   await server.register(auth);
+
+  await server.register(plugin);
 
   /**
    * allows you to register services that will be accessible via `request.services`

@@ -8,7 +8,7 @@ import { FormModel } from "./models";
 import Boom from "boom";
 
 import { Plugin } from "hapi";
-import { form } from "./router/form";
+
 import { plugin as publishPlugin } from "./router/publish";
 import { FormDefinition } from "@xgovformbuilder/model";
 import {
