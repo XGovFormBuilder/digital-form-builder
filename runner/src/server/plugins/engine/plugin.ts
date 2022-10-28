@@ -15,6 +15,8 @@ import {
   dynamicPageLookupGetHandler,
   dynamicPageLookupPostHandler,
 } from "server/plugins/engine/router/form/helpers";
+import { findFormFromRequest } from "server/plugins/engine/decorators/form";
+import { findPageFromRequest } from "server/plugins/engine/decorators/page";
 
 configure([
   // Configure Nunjucks to allow rendering of content that is revealed conditionally.
@@ -180,6 +182,13 @@ export const plugin: Plugin<PluginOptions> = {
       );
 
       return this.redirect(path.join(prefix, uri));
+    });
+
+    server.decorate("request", "form", findFormFromRequest, {
+      apply: true,
+    });
+    server.decorate("request", "page", findPageFromRequest, {
+      apply: true,
     });
   },
 };

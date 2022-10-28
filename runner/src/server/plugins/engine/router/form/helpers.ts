@@ -14,17 +14,19 @@ export const dynamicPageLookupGetHandler: HapiLifecycleMethod = (
   request,
   h
 ) => {
-  const { id, path } = request.params;
-  const model: FormModel = request.server.app.forms[id];
-  console.table({ id, path });
+  const { form, page } = request;
+  const { id } = request.params;
 
-  const page = model?.pages.find((page) => normalisePath(page.path) === path);
+  if (!form) {
+    throw Boom.notFound("No form found");
+  }
 
   if (!page) {
-    if (!!path) {
-      return h.redirect(id);
-    }
-    throw Boom.notFound("No form or page found");
+    request.logger.debug(
+      [request.yar.id],
+      `page not found, redirecting to ${id}`
+    );
+    return h.redirect(id);
   }
 
   return page.makeGetRouteHandler()(request, h);
@@ -34,16 +36,20 @@ export const dynamicPageLookupPostHandler = async (
   request: HapiRequest,
   h: HapiResponseToolkit
 ) => {
-  const { id, path } = request.params;
-  const model: FormModel = request.server.app.forms[id];
+  const { form, page } = request;
+  const { id } = request.params;
 
-  if (model) {
-    const page = model.pages.find((page) => normalisePath(page.path) === path);
-
-    if (page) {
-      return page.makePostRouteHandler()(request, h);
-    }
+  if (!form) {
+    throw Boom.notFound("No form found");
   }
 
-  throw Boom.notFound("No form of path found");
+  if (!page) {
+    request.logger.debug(
+      [request.yar.id],
+      `page not found, redirecting to ${id}`
+    );
+    return h.redirect(id);
+  }
+
+  return page.makePostRouteHandler()(request, h);
 };

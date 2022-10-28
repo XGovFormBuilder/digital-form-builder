@@ -19,6 +19,8 @@ import {
   WebhookService,
 } from "./services";
 import { FormModel } from "server/plugins/engine/models";
+import { Page } from "@xgovformbuilder/model/dist/module/data-model/types";
+import { PageController } from "./plugins/engine/pageControllers";
 
 type Services = (
   services: string[]
@@ -54,6 +56,8 @@ declare module "hapi" {
     logger: Logger;
     yar: yar.Yar;
     server: Server;
+    form?: FormModel;
+    page?: PageController;
   }
 
   interface Response {}
