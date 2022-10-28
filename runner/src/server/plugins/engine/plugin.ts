@@ -187,8 +187,8 @@ export const plugin: Plugin<PluginOptions> = {
     server.decorate("request", "form", findFormFromRequest, {
       apply: true,
     });
-    server.decorate("request", "page", findPageFromRequest, {
-      apply: true,
-    });
+    // server.decorate("request", "page", findPageFromRequest, {
+    //   apply: true,
+    // });
   },
 };
