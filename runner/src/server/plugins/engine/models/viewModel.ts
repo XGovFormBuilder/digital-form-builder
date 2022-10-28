@@ -171,6 +171,12 @@ export class ViewModel {
       });
 
       if (items.length > 0) {
+        let notSuppliedText = "Not supplied";
+        let changeText = "Change";
+        if (model?.def?.metadata?.isWelsh) {
+          notSuppliedText = "welsh Not supplied";
+          changeText = "Welsh Change";
+        }
         if (Array.isArray(sectionState)) {
           details.push({
             name: section?.name,
@@ -180,12 +186,16 @@ export class ViewModel {
                 return items.map((item) => item[i]);
               }
             ),
+            notSuppliedText: notSuppliedText,
+            changeText,
           });
         } else {
           details.push({
             name: section?.name,
             title: section?.title,
             items,
+            notSuppliedText: notSuppliedText,
+            changeText,
           });
         }
       }
