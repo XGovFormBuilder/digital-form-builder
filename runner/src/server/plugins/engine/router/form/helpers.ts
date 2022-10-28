@@ -14,19 +14,18 @@ export const dynamicPageLookupGetHandler: HapiLifecycleMethod = (
   request,
   h
 ) => {
-  const { form, page } = request;
+  const { form, page } = request.pre;
   const { id } = request.params;
 
-  if (!form) {
-    throw Boom.notFound("No form found");
+  const { startPage } = form;
+
+  if (!page && !startPage) {
+    request.logger.warn([request.yar.id], `page not found`);
+    throw Boom.notFound(`${page} or ${startPage} not found`);
   }
 
-  if (!page) {
-    request.logger.debug(
-      [request.yar.id],
-      `page not found, redirecting to ${id}`
-    );
-    return h.redirect(id);
+  if (!page && startPage) {
+    return h.redirect(`/${id}${startPage.path}`);
   }
 
   return page.makeGetRouteHandler()(request, h);
@@ -36,7 +35,7 @@ export const dynamicPageLookupPostHandler = async (
   request: HapiRequest,
   h: HapiResponseToolkit
 ) => {
-  const { form, page } = request;
+  const { form, page } = request.pre;
   const { id } = request.params;
 
   if (!form) {
@@ -48,7 +47,6 @@ export const dynamicPageLookupPostHandler = async (
       [request.yar.id],
       `page not found, redirecting to ${id}`
     );
-    return h.redirect(id);
   }
 
   return page.makePostRouteHandler()(request, h);
