@@ -1,5 +1,5 @@
 import fs from "fs";
-import hapi, { ServerOptions } from "@hapi/hapi";
+import hapi from "@hapi/hapi";
 
 import Scooter from "@hapi/scooter";
 import inert from "@hapi/inert";
@@ -7,18 +7,18 @@ import Schmervice from "schmervice";
 import blipp from "blipp";
 import config from "./config";
 
-import { configureRateLimitPlugin, rateLimitPlugin } from "./plugins/rateLimit";
+import { rateLimitPlugin } from "./plugins/rateLimit";
 import { configureBlankiePlugin } from "./plugins/blankie";
 import { configureCrumbPlugin } from "./plugins/crumb";
 
 import pluginLocale from "./plugins/locale";
-import pluginSession from "./plugins/session";
-import pluginAuth from "./plugins/auth";
-import pluginViews from "./plugins/views";
-import pluginRouter from "./plugins/router";
-import pluginErrorPages from "./plugins/errorPages";
-import pluginLogging from "./plugins/logging";
-import pluginPulse from "./plugins/pulse";
+import session from "./plugins/session";
+import auth from "./plugins/auth";
+import views from "./plugins/views";
+import router from "./plugins/router";
+import errorPages from "./plugins/errorPages";
+import logging from "./plugins/logging";
+
 import {
   AddressService,
   CacheService,
@@ -75,17 +75,19 @@ async function createServer(routeConfig: RouteConfig) {
     await server.register(rateLimitPlugin);
   }
 
-  await server.register(pluginLogging);
-  await server.register(pluginSession);
-  await server.register(pluginPulse);
+  await server.register(logging);
+  await server.register(session);
+
   await server.register(inert);
   await server.register(Scooter);
-  await server.register(initialiseSession);
   await server.register(configureBlankiePlugin(config));
   await server.register(configureCrumbPlugin(config, routeConfig));
-  await server.register(Schmervice);
-  await server.register(pluginAuth);
+  await server.register(auth);
 
+  /**
+   * allows you to register services that will be accessible via `request.services`
+   */
+  await server.register(Schmervice);
   server.registerService([
     CacheService,
     NotifyService,
@@ -99,11 +101,18 @@ async function createServer(routeConfig: RouteConfig) {
 
   server.ext("onPreResponse", handleFontCache);
 
+  /**
+   * Allows a user's session to be rehydrated
+   */
+  await server.register(initialiseSession);
+
   await server.register(pluginLocale);
-  await server.register(pluginViews);
+
+  await server.register(views);
+
   await server.register(applicationStatus);
-  await server.register(pluginRouter);
-  await server.register(pluginErrorPages);
+  await server.register(router);
+  await server.register(errorPages);
   await server.register(blipp);
 
   server.state("cookies_policy", {
