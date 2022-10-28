@@ -134,25 +134,27 @@ export const plugin: Plugin<PluginOptions> = {
     });
 
     formsToUse.forEach((config) => {
-      server.register(
-        {
-          plugin: form,
-          options: {
-            config: config,
-          },
-        },
-        {
-          routes: {
-            prefix: `/${config.id}`,
-          },
-        }
-      );
+      try {
+        forms[config.id] = new FormModel(config.configuration, {
+          basePath: config.id,
+        });
+      } catch (error) {
+        server.logger.error("failed to init");
+        throw new Error(`${config.id} failed to initialise`);
+      }
     });
 
     server.route({
       method: "get",
       path: "/{id}/{path*}",
       handler: dynamicPageLookupGetHandler,
+      options: {
+        pre: [
+          { method: findFormFromRequest, assign: "form" },
+          { method: findPageFromRequest, assign: "page" },
+        ],
+        id: "FORM_PAGE_PATH_GET",
+      },
     });
 
     server.route({
@@ -160,6 +162,12 @@ export const plugin: Plugin<PluginOptions> = {
       path: "/{id}/{path*}",
       handler: dynamicPageLookupPostHandler,
       options: {
+        id: "FORM_PAGE_PATH_POST",
+        pre: [
+          { method: findFormFromRequest, assign: "form" },
+          { method: findPageFromRequest, assign: "page" },
+        ],
+
         payload: {
           multipart: {
             output: "data",
@@ -183,12 +191,5 @@ export const plugin: Plugin<PluginOptions> = {
 
       return this.redirect(path.join(prefix, uri));
     });
-
-    server.decorate("request", "form", findFormFromRequest, {
-      apply: true,
-    });
-    // server.decorate("request", "page", findPageFromRequest, {
-    //   apply: true,
-    // });
   },
 };
