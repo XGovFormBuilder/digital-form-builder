@@ -127,6 +127,9 @@ export const plugin: Plugin<PluginOptions> = {
         }
         const model = forms[id];
         if (model) {
+          /**
+           * TODO: refactor so getStartPageRedirect is a decorator or preHandler.
+           */
           return getStartPageRedirect(request, h, id, model);
         }
         throw Boom.notFound("No default form found");

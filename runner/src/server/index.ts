@@ -72,6 +72,10 @@ const serverOptions = {
     : {}),
 };
 
+/**
+ * Creates the runner hapi server.
+ * Plugins are similar to express "middleware". They extend functionality of the server.
+ */
 async function createServer(routeConfig: RouteConfig) {
   const server = hapi.server(serverOptions);
 
@@ -80,6 +84,10 @@ async function createServer(routeConfig: RouteConfig) {
   }
 
   await server.register(logging);
+
+  /**
+   * adds `yar` to request. use `yar.id` to identify a user (we use `yar.id` as their session token).
+   */
   await server.register(session);
 
   await server.register(inert);
@@ -104,10 +112,9 @@ async function createServer(routeConfig: RouteConfig) {
    */
   await server.register(auth);
 
-  await server.register(plugin);
-
   /**
    * allows you to register services that will be accessible via `request.services`
+   * see {@link https://github.com/hapipal/schmervice} for more documentation
    */
   await server.register(Schmervice);
   server.registerService([
@@ -124,12 +131,16 @@ async function createServer(routeConfig: RouteConfig) {
   server.ext("onPreResponse", handleFontCache);
 
   /**
+   * how forms and pages are rendered
+   */
+  await server.register(plugin);
+
+  /**
    * Allows a user's session to be rehydrated
    */
   await server.register(initialiseSession);
 
   await server.register(pluginLocale);
-
   await server.register(views);
 
   /**
