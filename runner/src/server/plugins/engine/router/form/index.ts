@@ -27,9 +27,6 @@ export const form: Plugin<{
       throw new Error(`${config.id} failed to initialise`);
     }
 
-    /**
-     * You can access the form FormModel
-     */
     const context = {
       form: forms[config.id],
       prefix: server.realm.modifiers.route.prefix,
