@@ -23,7 +23,6 @@ export function proceed(
   if (!nextUrl.includes(id)) {
     const segments = nextUrl.split("/");
     const fixedPath = `/${id}/${segments[segments.length - 1]}`;
-    console.log(fixedPath);
     return redirectTo(request, h, fixedPath);
   }
 
