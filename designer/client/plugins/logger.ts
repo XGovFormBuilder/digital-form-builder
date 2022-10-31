@@ -1,6 +1,6 @@
 import pino from "pino";
 const logLevel = process.env.REACT_LOG_LEVEL;
-
+console.log(".   112." + "");
 export default pino({
   name: "designer",
   browser: {
@@ -8,7 +8,7 @@ export default pino({
     transmit: {
       level: logLevel,
       send: async function (_level, logEvent) {
-        const newResponse = await window.fetch("/api/log", {
+        return await window.fetch("/api/log", {
           method: "POST",
           body: JSON.stringify(logEvent),
           headers: {
@@ -16,7 +16,6 @@ export default pino({
             "Content-Type": "application/json",
           },
         });
-        return newResponse.json();
       },
     },
   },

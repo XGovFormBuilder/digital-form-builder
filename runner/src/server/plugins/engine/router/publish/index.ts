@@ -22,7 +22,7 @@ export const plugin: Plugin<{}> = {
      * the designer too!
      */
     server.route({
-      method: "post",
+      method: ["post", "put"],
       path: "/publish",
       handler: isPreviewMode ? publish.post : disabled,
       options: {

@@ -65,22 +65,24 @@ export class FormModel {
     // by joi so as not to change the source data.
     def = clone(result.value);
 
-    // Add default lists
-    def.lists.push({
-      name: "__yesNo",
-      title: "Yes/No",
-      type: "boolean",
-      items: [
-        {
-          text: "Yes",
-          value: true,
-        },
-        {
-          text: "No",
-          value: false,
-        },
-      ],
-    });
+    if (!def.lists.find((list) => list.name === "__yesNo")) {
+      // Add default lists
+      def.lists.push({
+        name: "__yesNo",
+        title: "Yes/No",
+        type: "boolean",
+        items: [
+          {
+            text: "Yes",
+            value: true,
+          },
+          {
+            text: "No",
+            value: false,
+          },
+        ],
+      });
+    }
 
     this.def = def;
     this.lists = def.lists;

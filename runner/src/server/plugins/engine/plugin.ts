@@ -138,9 +138,7 @@ export const plugin: Plugin<PluginOptions> = {
 
     formsToUse.forEach((config) => {
       try {
-        forms[config.id] = new FormModel(config.configuration, {
-          basePath: config.id,
-        });
+        forms[config.id] = new FormModel(config.configuration, {});
       } catch (error) {
         server.logger.error("failed to init");
         throw new Error(`${config.id} failed to initialise`);

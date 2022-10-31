@@ -1,0 +1,63 @@
+{
+  "startPage": "/first-page",
+  "pages": [
+    {
+      "title": "First page",
+      "path": "/first-page",
+      "components": [],
+      "next": [
+        {
+          "path": "/second-page"
+        }
+      ]
+    },
+    {
+      "path": "/second-page",
+      "title": "Second page",
+      "components": [],
+      "next": [
+        {
+          "path": "/summary"
+        }
+      ]
+    },
+    {
+      "title": "Summary",
+      "path": "/summary",
+      "controller": "./pages/summary.js",
+      "components": []
+    }
+  ],
+  "lists": [
+    {
+      "title": "Types of egg",
+      "name": "typesOfEgg",
+      "items": [
+        {
+          "text": "sunny-side up",
+          "description": "fried but not flipped",
+          "value": "sunny"
+        },{
+          "text": "over-easy",
+          "description": "fried and flipped over",
+          "value": "over-easy"
+        },{
+          "text": "scrambled",
+          "value": "scrambled"
+        },{
+          "text": "raw",
+          "value": "raw"
+        }
+      ]
+    }
+  ],
+  "sections": [],
+  "phaseBanner": {},
+  "fees": [],
+  "payApiKey": "",
+  "outputs": [
+  ],
+  "declaration": "<p class=\"govuk-body\">All the answers you have provided are true to the best of your knowledge.</p>",
+  "version": 2,
+  "conditions": []
+}
