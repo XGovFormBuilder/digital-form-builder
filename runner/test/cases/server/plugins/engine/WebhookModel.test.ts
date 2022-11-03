@@ -47,10 +47,14 @@ const testDetails = [
     ],
     name: undefined,
     title: undefined,
+    notSuppliedText: "Not supplied",
+    changeText: "Change",
   },
   {
     name: "aSection",
     title: "Named Section",
+    notSuppliedText: "Not supplied",
+    changeText: "Change",
     items: [
       {
         name: "fullDate",
