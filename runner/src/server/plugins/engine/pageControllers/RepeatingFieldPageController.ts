@@ -44,6 +44,8 @@ export class RepeatingFieldPageController extends PageController {
   isSamePageDisplayMode: boolean;
   isSeparateDisplayMode: boolean;
   hideRowTitles: boolean;
+  noCostsTitle: string;
+  noCostsText: string;
 
   options: RepeatingFieldPage["options"];
 
@@ -84,6 +86,13 @@ export class RepeatingFieldPageController extends PageController {
     this.summary.hideRowTitles = this.hideRowTitles;
 
     this.summary.options = this.options;
+
+    this.noCostsTitle = "You have not added any costs yet";
+    this.noCostsText = "Each cost you add will be shown here";
+    if (model?.def?.metadata?.isWelsh) {
+      this.noCostsTitle = "Welsh You have not added any costs yet";
+      this.noCostsText = "Welsh Each cost you add will be shown here";
+    }
   }
 
   get stateSchema() {

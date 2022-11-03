@@ -34,10 +34,10 @@
   {{details.length}}
     {%if not details.rows.length %}    
     <p class="govuk-body" style="margin-top: 30px;">
-      <strong>You have not added any costs yet</strong>      
+      <strong>{{page.noCostsTitle}}</strong>      
     </p>
     <p class="govuk-body">
-      Each cost you add will be shown here
+      {{page.noCostsText}}
     </p>
     <hr />
     {% else %}

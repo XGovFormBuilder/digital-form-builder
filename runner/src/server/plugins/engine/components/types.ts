@@ -59,6 +59,7 @@ export type ViewModel = {
   children?: ComponentCollectionViewModel;
   autocomplete?: string;
   filename: string;
+  existingFileText: string;
 };
 
 export type MultilineTextFieldViewModel = {

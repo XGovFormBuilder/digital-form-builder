@@ -59,11 +59,24 @@ export class FileUploadField extends FormComponent {
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { options } = this;
+    let existingFileText =
+      "You have already provided this file, " +
+        this.getFileNameFromState(formData) ?? "";
+    let content =
+      "Your file will upload when you select <strong>Save and continue</strong>.\n It may take some time so please wait a few seconds.";
+
+    if (this.model?.def?.metadata?.isWelsh) {
+      existingFileText = "welsh text";
+      content = "welsh content";
+    }
     const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),
       attributes: this.attributes,
       filename: this.getFileNameFromState(formData) ?? "",
+      existingFileText: existingFileText,
     };
+
+    viewModel.content = content;
 
     if ("multiple" in options && options.multiple) {
       viewModel.attributes.multiple = "multiple";
