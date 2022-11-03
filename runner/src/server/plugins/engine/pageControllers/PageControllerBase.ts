@@ -55,6 +55,8 @@ export class PageControllerBase {
   components: ComponentCollection;
   hasFormComponents: boolean;
   hasConditionalFormComponents: boolean;
+  saveAndContinueText: string;
+  continueText: string;
 
   // TODO: pageDef type
   constructor(model: FormModel, pageDef: { [prop: string]: any } = {}) {
@@ -88,6 +90,14 @@ export class PageControllerBase {
 
     this[FORM_SCHEMA] = this.components.formSchema;
     this[STATE_SCHEMA] = this.components.stateSchema;
+
+    this.saveAndContinueText = "Save and continue";
+    this.continueText = "Continue";
+
+    if (model?.def?.metadata?.isWelsh) {
+      this.saveAndContinueText = "wlesh save";
+      this.continueText = "welsh continue";
+    }
   }
 
   /**
@@ -540,7 +550,6 @@ export class PageControllerBase {
     const progress = state.progress || [];
     const { num } = request.query;
 
-
     for (let file of fileFields) {
       let fileName = file.name + "__filename";
       if (!payload.hasOwnProperty(fileName)) {
@@ -555,7 +564,6 @@ export class PageControllerBase {
     }
     state.metadata["isSummaryPageSubmit"] = false;
     await cacheService.mergeState(request, { ...state });
-
 
     // TODO:- Refactor this into a validation method
     if (hasFilesizeError) {

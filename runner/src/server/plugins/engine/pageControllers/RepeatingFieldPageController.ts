@@ -46,6 +46,7 @@ export class RepeatingFieldPageController extends PageController {
   hideRowTitles: boolean;
   noCostsTitle: string;
   noCostsText: string;
+  saveText: string;
 
   options: RepeatingFieldPage["options"];
 
@@ -89,9 +90,11 @@ export class RepeatingFieldPageController extends PageController {
 
     this.noCostsTitle = "You have not added any costs yet";
     this.noCostsText = "Each cost you add will be shown here";
+    this.saveText = "Save and add another";
     if (model?.def?.metadata?.isWelsh) {
       this.noCostsTitle = "Welsh You have not added any costs yet";
       this.noCostsText = "Welsh Each cost you add will be shown here";
+      this.saveText = "Welsh Save and add another";
     }
   }
 
