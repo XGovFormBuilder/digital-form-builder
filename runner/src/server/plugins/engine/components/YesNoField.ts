@@ -29,8 +29,8 @@ export class YesNoField extends ListFormComponent {
     let noText = "No";
 
     if (model.def?.metadata?.isWelsh) {
-      yesText = "welshYes";
-      noText = "welshNo";
+      yesText = "Oes";
+      noText = "Nac Oes";
     }
 
     this.list = {

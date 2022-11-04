@@ -92,9 +92,9 @@ export class RepeatingFieldPageController extends PageController {
     this.noCostsText = "Each cost you add will be shown here";
     this.saveText = "Save and add another";
     if (model?.def?.metadata?.isWelsh) {
-      this.noCostsTitle = "Welsh You have not added any costs yet";
-      this.noCostsText = "Welsh Each cost you add will be shown here";
-      this.saveText = "Welsh Save and add another";
+      this.noCostsTitle = "Nid ydych chi wedi ychwanegu unrhyw gostau eto";
+      this.noCostsText = "Bydd pob cost yr ychwanegwch yn cael ei dangos yma";
+      this.saveText = "Cadw ac ychwanegu un arall";
     }
   }
 

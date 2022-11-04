@@ -95,8 +95,8 @@ export class PageControllerBase {
     this.continueText = "Continue";
 
     if (model?.def?.metadata?.isWelsh) {
-      this.saveAndContinueText = "wlesh save";
-      this.continueText = "welsh continue";
+      this.saveAndContinueText = "Cadw a pharhau";
+      this.continueText = "Parhau";
     }
   }
 
