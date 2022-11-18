@@ -174,8 +174,8 @@ export class ViewModel {
         let notSuppliedText = "Not supplied";
         let changeText = "Change";
         if (model?.def?.metadata?.isWelsh) {
-          notSuppliedText = "welsh Not supplied";
-          changeText = "Welsh Change";
+          notSuppliedText = "Heb ei ddarparu";
+          changeText = "Newid";
         }
         if (Array.isArray(sectionState)) {
           details.push({

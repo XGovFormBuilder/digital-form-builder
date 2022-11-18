@@ -31,9 +31,9 @@ export class DatePartsField extends FormComponent {
     let yearTitle = "Year";
 
     if (model?.def?.metadata?.isWelsh) {
-      dayTitle = "WelshDay";
-      monthTitle = "WelshMonth";
-      yearTitle = "WelshYear";
+      dayTitle = "Diwrnod";
+      monthTitle = "mis";
+      yearTitle = "blwyddyn";
     }
 
     this.children = new ComponentCollection(

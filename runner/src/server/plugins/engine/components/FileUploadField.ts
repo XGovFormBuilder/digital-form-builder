@@ -59,15 +59,15 @@ export class FileUploadField extends FormComponent {
 
   getViewModel(formData: FormData, errors: FormSubmissionErrors) {
     const { options } = this;
-    let existingFileText =
-      "You have already provided this file, " +
-        this.getFileNameFromState(formData) ?? "";
+    const fileName = this.getFileNameFromState(formData) ?? "";
+    let existingFileText = "You have already provided this file, " + fileName;
     let content =
       "Your file will upload when you select <strong>Save and continue</strong>.\n It may take some time so please wait a few seconds.";
 
     if (this.model?.def?.metadata?.isWelsh) {
-      existingFileText = "welsh text";
-      content = "welsh content";
+      existingFileText = "Rydych eisoes wedi darparu'r ffeil hwn" + fileName;
+      content =
+        "Bydd eich ffeil yn uwchlwytho pan fyddwch yn dewis <strong>Cadw a pharhau</strong>.\n Gall gymryd peth amser felly arhoswch ychydig eiliadau";
     }
     const viewModel: ViewModel = {
       ...super.getViewModel(formData, errors),

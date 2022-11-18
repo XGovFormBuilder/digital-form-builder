@@ -183,7 +183,7 @@ suite("WebhookModel", () => {
   });
   test("parses welsh Details correctly", () => {
     expect(welshViewModel.details[0].notSuppliedText).to.equal(
-      "welsh Not supplied"
+      "Heb ei ddarparu"
     );
   });
 });

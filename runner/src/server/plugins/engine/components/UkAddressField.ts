@@ -32,11 +32,11 @@ export class UkAddressField extends FormComponent {
     let postcode = "Postcode";
 
     if (model.def.metadata?.isWelsh) {
-      addressLine1Title = "Welsh Address line 1";
-      addressLine2Title = "Welsh Address line 2";
-      townCityText = "Welsh Town or city";
-      county = "Welsh County";
-      postcode = "Wlesh Postcode";
+      addressLine1Title = "Llinell cyfeiriad 1";
+      addressLine2Title = "Llinell cyfeiriad 2";
+      townCityText = "Tref neu ddinas";
+      county = "Sir";
+      postcode = "Cod post";
     }
 
     const childrenList: any = [
