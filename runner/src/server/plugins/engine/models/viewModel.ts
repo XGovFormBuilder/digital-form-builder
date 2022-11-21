@@ -47,6 +47,8 @@ export class ViewModel {
   callback?: InitialiseSessionOptions;
   backLinkText?: string | undefined;
   containsFileType?: boolean;
+  saveAndContinueText: string;
+  continueText: string;
 
   constructor(
     pageTitle: string,
@@ -68,6 +70,12 @@ export class ViewModel {
       def.feedback?.url ??
       ((def.feedback?.emailAddress && `mailto:${def.feedback?.emailAddress}`) ||
         config.feedbackLink);
+
+    this.saveAndContinueText = "Save and continue";
+
+    if (model?.def?.metadata?.isWelsh) {
+      this.saveAndContinueText = "Cadw a pharhau";
+    }
 
     /**
      * If there outputs defined, parse the state data for the appropriate outputs.
