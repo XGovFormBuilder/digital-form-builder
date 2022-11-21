@@ -12,6 +12,7 @@ import {
   FormSubmissionState,
 } from "../types";
 import { FormModel } from "../models";
+import { i18n } from "../../i18n";
 
 export class UkAddressField extends FormComponent {
   formChildren: ComponentCollection;
@@ -24,39 +25,53 @@ export class UkAddressField extends FormComponent {
     const isRequired =
       "required" in options && options.required === false ? false : true;
 
+    let addressLine1Title = "Address line 1";
+    let addressLine2Title = "Address line 2";
+    let townCityText = "Town or city";
+    let county = "County";
+    let postcode = "Postcode";
+
+    if (model.def.metadata?.isWelsh) {
+      addressLine1Title = "Llinell cyfeiriad 1";
+      addressLine2Title = "Llinell cyfeiriad 2";
+      townCityText = "Tref neu ddinas";
+      county = "Sir";
+      postcode = "Cod post";
+    }
+
     const childrenList: any = [
       {
         type: "TextField",
         name: "addressLine1",
-        title: "Address line 1",
+        title: addressLine1Title,
         schema: { max: 100 },
         options: { required: isRequired, classes: "govuk-!-width-full" },
       },
       {
         type: "TextField",
         name: "addressLine2",
-        title: "Address line 2",
+        title: addressLine2Title,
         schema: { max: 100, allow: "" },
         options: { required: false, classes: "govuk-!-width-full" },
       },
       {
         type: "TextField",
         name: "town",
-        title: "Town or city",
+        title: townCityText,
         schema: { max: 100 },
         options: { required: isRequired, classes: "govuk-!-width-two-thirds" },
       },
       {
         type: "TextField",
         name: "county",
-        title: "County",
+        title: county,
         schema: { max: 100 },
         options: { required: false, classes: "govuk-!-width-one-half" },
       },
       {
         type: "TextField",
         name: "postcode",
-        title: "Postcode",
+        title: postcode,
         schema: {
           max: 10,
           regex:

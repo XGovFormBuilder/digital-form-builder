@@ -44,6 +44,9 @@ export class RepeatingFieldPageController extends PageController {
   isSamePageDisplayMode: boolean;
   isSeparateDisplayMode: boolean;
   hideRowTitles: boolean;
+  noCostsTitle: string;
+  noCostsText: string;
+  saveText: string;
 
   options: RepeatingFieldPage["options"];
 
@@ -84,6 +87,15 @@ export class RepeatingFieldPageController extends PageController {
     this.summary.hideRowTitles = this.hideRowTitles;
 
     this.summary.options = this.options;
+
+    this.noCostsTitle = "You have not added any costs yet";
+    this.noCostsText = "Each cost you add will be shown here";
+    this.saveText = "Save and add another";
+    if (model?.def?.metadata?.isWelsh) {
+      this.noCostsTitle = "Nid ydych chi wedi ychwanegu unrhyw gostau eto";
+      this.noCostsText = "Bydd pob cost yr ychwanegwch yn cael ei dangos yma";
+      this.saveText = "Cadw ac ychwanegu un arall";
+    }
   }
 
   get stateSchema() {

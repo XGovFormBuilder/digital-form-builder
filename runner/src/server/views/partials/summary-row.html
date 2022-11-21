@@ -1,4 +1,4 @@
-{% macro summaryRow(item) %}
+{% macro summaryRow(item, notSuppliedText, changeText) %}
 <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
         {{item.label}}
@@ -15,12 +15,12 @@
                 {{item.value}}
             {% endif %}
         {% else %}
-            Not supplied
+           {{notSuppliedText}}
         {% endif %}
     </dd>
     <dd class="govuk-summary-list__actions">
         <a class="govuk-link" href="{{item.url}}">
-            Change<span class="govuk-visually-hidden"> {{item.label}}</span>
+            {{changeText}}<span class="govuk-visually-hidden"> {{item.label}}</span>
         </a>
     </dd>
 </div>

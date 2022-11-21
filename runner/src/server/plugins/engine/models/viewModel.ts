@@ -47,6 +47,8 @@ export class ViewModel {
   callback?: InitialiseSessionOptions;
   backLinkText?: string | undefined;
   containsFileType?: boolean;
+  saveAndContinueText: string;
+  continueText: string;
 
   constructor(
     pageTitle: string,
@@ -68,6 +70,12 @@ export class ViewModel {
       def.feedback?.url ??
       ((def.feedback?.emailAddress && `mailto:${def.feedback?.emailAddress}`) ||
         config.feedbackLink);
+
+    this.saveAndContinueText = "Save and continue";
+
+    if (model?.def?.metadata?.isWelsh) {
+      this.saveAndContinueText = "Cadw a pharhau";
+    }
 
     /**
      * If there outputs defined, parse the state data for the appropriate outputs.
@@ -171,6 +179,12 @@ export class ViewModel {
       });
 
       if (items.length > 0) {
+        let notSuppliedText = "Not supplied";
+        let changeText = "Change";
+        if (model?.def?.metadata?.isWelsh) {
+          notSuppliedText = "Heb ei ddarparu";
+          changeText = "Newid";
+        }
         if (Array.isArray(sectionState)) {
           details.push({
             name: section?.name,
@@ -180,12 +194,16 @@ export class ViewModel {
                 return items.map((item) => item[i]);
               }
             ),
+            notSuppliedText: notSuppliedText,
+            changeText,
           });
         } else {
           details.push({
             name: section?.name,
             title: section?.title,
             items,
+            notSuppliedText: notSuppliedText,
+            changeText,
           });
         }
       }

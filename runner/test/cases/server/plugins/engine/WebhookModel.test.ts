@@ -3,6 +3,7 @@ import * as Lab from "@hapi/lab";
 import sinon from "sinon";
 import { WebhookModel } from "../../../../../src/server/plugins/engine/models/submission/WebhookModel";
 import form from "./SummaryViewModel.json";
+import welshForm from "./WelshSummaryViewModel.json";
 import {
   FormModel,
   SummaryViewModel,
@@ -47,10 +48,14 @@ const testDetails = [
     ],
     name: undefined,
     title: undefined,
+    notSuppliedText: "Not supplied",
+    changeText: "Change",
   },
   {
     name: "aSection",
     title: "Named Section",
+    notSuppliedText: "Not supplied",
+    changeText: "Change",
     items: [
       {
         name: "fullDate",
@@ -79,6 +84,34 @@ suite("WebhookModel", () => {
   const viewModel = new SummaryViewModel(
     "summary",
     formModel,
+    {
+      progress: ["/test/first-page", "/test/second-page"],
+      approximate: {
+        approximate__month: 1,
+        approximate__year: 2000,
+      },
+      caz: "1",
+      aSection: {
+        fullDate: "2000-12-11T00:00:00.000Z",
+      },
+    },
+    {
+      app: {
+        location: "/",
+      },
+      query: {},
+      state: {
+        cookie_policy: {},
+      },
+    }
+  );
+
+  const welshFormModel = new FormModel(welshForm, {});
+  welshFormModel.basePath = "test";
+  welshFormModel.name = "My Service";
+  const welshViewModel = new SummaryViewModel(
+    "summary",
+    welshFormModel,
     {
       progress: ["/test/first-page", "/test/second-page"],
       approximate: {
@@ -147,5 +180,10 @@ suite("WebhookModel", () => {
         },
       ],
     });
+  });
+  test("parses welsh Details correctly", () => {
+    expect(welshViewModel.details[0].notSuppliedText).to.equal(
+      "Heb ei ddarparu"
+    );
   });
 });
