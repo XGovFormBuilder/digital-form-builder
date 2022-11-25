@@ -153,11 +153,8 @@ export class SummaryPageController extends PageController {
             "declarationError",
             "You must declare to be able to submit this application"
           );
-          return redirectTo(
-            request,
-            h,
-            `${request.headers.referer}#declaration`
-          );
+          const url = request.headers.referer ?? request.path;
+          return redirectTo(request, h, `${url}#declaration`);
         }
         summaryViewModel.addDeclarationAsQuestion();
       }
