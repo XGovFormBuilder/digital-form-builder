@@ -5544,7 +5544,7 @@ __metadata:
     nanoid: ^3.3.4
     nodemon: ^2.0.20
     nunjucks: 3.2.1
-    postcss: ^8.2.4
+    postcss: ^8.4.19
     postcss-loader: ^4.1.0
     prismjs: 1.27.0
     react: 16.13.1
@@ -8206,13 +8206,6 @@ __metadata:
   version: 1.1.4
   resolution: "color-name@npm:1.1.4"
   checksum: b0445859521eb4021cd0fb0cc1a75cecf67fceecae89b63f62b201cca8d345baf8b952c966862a9d9a2632987d4f6581f0ec8d957dfacece86f0a7919316f610
-  languageName: node
-  linkType: hard
-
-"colorette@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "colorette@npm:1.2.1"
-  checksum: 06e2fcdb9e2a2c527ac84509a56eadf481cde1768933eb612808f3bb3a9d9872c06b4a9f95e4d0f7befeef8b38307f79b88242d9ea52470d1125520b8116de08
   languageName: node
   linkType: hard
 
@@ -16992,15 +16985,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.1.20":
-  version: 3.1.20
-  resolution: "nanoid@npm:3.1.20"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: f6246023d5d8313c2c16be05c18cdb189a6de50ab6418b513b34086eda4aabd12866b2cbe435548c760dc43cf11830b26b14b113afde47305398e3345795e433
-  languageName: node
-  linkType: hard
-
 "nanoid@npm:^3.1.23, nanoid@npm:^3.3.4":
   version: 3.3.4
   resolution: "nanoid@npm:3.3.4"
@@ -18630,14 +18614,14 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.4":
-  version: 8.2.4
-  resolution: "postcss@npm:8.2.4"
+"postcss@npm:^8.4.19":
+  version: 8.4.19
+  resolution: "postcss@npm:8.4.19"
   dependencies:
-    colorette: ^1.2.1
-    nanoid: ^3.1.20
-    source-map: ^0.6.1
-  checksum: 59e6b3533610c2248c66535702b941b52b658a071033d8cfd82857e0edbaf93a62e3464d4e01adedc5d830146441323b6dab3bf15822d20288d8f6f6af6f7be3
+    nanoid: ^3.3.4
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 62782723a385f92b7525f66d29614624de7c5643855423db3a5efd9287e677650300192749adddbbb6734cea9b1d5f5fd4f6ea00ca3f9a95dbbb88f835f5ca64
   languageName: node
   linkType: hard
 
