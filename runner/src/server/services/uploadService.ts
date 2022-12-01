@@ -226,8 +226,16 @@ export class UploadService {
         )
       ).filter((value) => !!value);
 
+      const buffer = require("buffer");
+      const latin1Buffer = buffer.transcode(
+        Buffer.from(page.title),
+        "utf8",
+        "latin1"
+      );
+      const latin1String = latin1Buffer.toString("latin1");
+
       const metaData = {
-        page: page.title,
+        page: latin1String,
         section: page.section ?? "",
         componentName: key,
       };
