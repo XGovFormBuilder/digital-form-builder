@@ -234,6 +234,7 @@ export class UploadService {
         pageTitle = encodeURI(pageTitle);
         sectionTitle = encodeURI(sectionTitle);
       }
+
       const metaData = {
         page: pageTitle,
         section: sectionTitle,
