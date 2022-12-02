@@ -1,9 +1,7 @@
 import http from "http";
-import FormData from "form-data";
 import config from "../config";
-import { get, post } from "./httpService";
+import { get } from "./httpService";
 import { HapiRequest, HapiResponseToolkit, HapiServer } from "../types";
-import { isThisHour } from "date-fns";
 
 const S3 = require("aws-sdk/clients/s3");
 
@@ -226,9 +224,17 @@ export class UploadService {
         )
       ).filter((value) => !!value);
 
+      let pageTitle = page.title;
+      let sectionTitle = page.section.title ?? "";
+
+      if (page.def.metadata.isWelsh) {
+        pageTitle = encodeURI(pageTitle);
+        sectionTitle = encodeURI(sectionTitle);
+      }
+
       const metaData = {
-        page: page.title,
-        section: page.section ?? "",
+        page: pageTitle,
+        section: sectionTitle,
         componentName: key,
       };
 
