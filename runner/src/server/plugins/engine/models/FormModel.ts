@@ -192,9 +192,12 @@ export class FormModel {
     });
 
     parser.functions.dateForComparison = function (timePeriod, timeUnit) {
-      return add(Number(timePeriod), timeUnit).toISOString();
+      return add(new Date(), { [timeUnit]: timePeriod }).toISOString();
     };
 
+    /**
+     * TODO:- this is most definitely broken.
+     */
     parser.functions.timeForComparison = function (timePeriod, timeUnit) {
       const offsetTime = add(Number(timePeriod), timeUnit);
       return `${offsetTime.getHours()}:${offsetTime.getMinutes()}`;
